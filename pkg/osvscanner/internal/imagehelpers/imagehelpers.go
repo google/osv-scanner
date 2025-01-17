@@ -16,7 +16,7 @@ import (
 	"github.com/google/osv-scanner/pkg/reporter"
 )
 
-func BuildImageMetadata(r reporter.Reporter, img *image.Image, baseImageMatcher clientinterfaces.BaseImageMatcher) (*models.ImageMetadata, error) {
+func BuildImageMetadata(img *image.Image, baseImageMatcher clientinterfaces.BaseImageMatcher) (*models.ImageMetadata, error) {
 	chainLayers, err := img.ChainLayers()
 	if err != nil {
 		// This is very unlikely, as if this would error we would have failed the initial scan

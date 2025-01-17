@@ -20,8 +20,8 @@ const (
 // OSVMatcher implements the VulnerabilityMatcher interface with a osv.dev client.
 // It sends out requests for every package version and does not perform caching.
 type DepsDevBaseImageMatcher struct {
-	Client http.Client
-	r      reporter.Reporter
+	Client   http.Client
+	Reporter reporter.Reporter
 }
 
 func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, layerMetadata []models.LayerMetadata) ([][]models.BaseImageDetails, error) {
@@ -44,21 +44,28 @@ func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, lay
 		chainID := runningDigest
 		g.Go(func() error {
 			if ctx.Err() != nil {
-				return nil // this value doesn't matter to errgroup.Wait(), it will be ctx.Err()
+				return ctx.Err() // this value doesn't matter to errgroup.Wait(), it will be ctx.Err()
 			}
 
-			resp, err := matcher.Client.Get("https://api.deps.dev/v3alpha/querycontainerimages/" + chainID.String())
+			req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://api.deps.dev/v3alpha/querycontainerimages/"+chainID.String(), nil)
 			if err != nil {
-				matcher.r.Errorf("deps.dev API error: %s\n", err)
+				matcher.Reporter.Errorf("failed to build request: %s\n", err)
 				return nil
 			}
+
+			resp, err := matcher.Client.Do(req)
+			if err != nil {
+				matcher.Reporter.Errorf("deps.dev API error: %s\n", err)
+				return nil
+			}
+			defer resp.Body.Close()
 
 			if resp.StatusCode == http.StatusNotFound {
 				return nil
 			}
 
 			if resp.StatusCode != http.StatusOK {
-				matcher.r.Errorf("deps.dev API error: %s\n", resp.Status)
+				matcher.Reporter.Errorf("deps.dev API error: %s\n", resp.Status)
 				return nil
 			}
 
@@ -71,7 +78,7 @@ func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, lay
 			d := json.NewDecoder(resp.Body)
 			err = d.Decode(&results)
 			if err != nil {
-				matcher.r.Errorf("Unexpected return type from deps.dev base image endpoint: %s", err)
+				matcher.Reporter.Errorf("Unexpected return type from deps.dev base image endpoint: %s", err)
 				return nil
 			}
 

@@ -134,7 +134,8 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 	// --- Base Image Matcher ---
 	if actions.Image != "" || actions.ScanOCIImage != "" {
 		externalAccessors.BaseImageMatcher = &baseimagematcher.DepsDevBaseImageMatcher{
-			Client: *http.DefaultClient,
+			Client:   *http.DefaultClient,
+			Reporter: r,
 		}
 	}
 
@@ -272,7 +273,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	// --- Setup Accessors/Clients ---
 	accessors, err := initializeExternalAccessors(r, actions)
 	if err != nil {
-		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %v", err)
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
 	// --- Initialize Image To Scan ---
@@ -296,7 +297,12 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
-	defer img.CleanUp()
+	defer func() {
+		err := img.CleanUp()
+		if err != nil {
+			r.Errorf("Failed to clean up image: %s\n", err)
+		}
+	}()
 
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
@@ -319,7 +325,7 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	}
 
 	// --- Fill Image Metadata ---
-	scanResult.ImageMetadata, err = imagehelpers.BuildImageMetadata(r, img, accessors.BaseImageMatcher)
+	scanResult.ImageMetadata, err = imagehelpers.BuildImageMetadata(img, accessors.BaseImageMatcher)
 	if err != nil { // Not getting image metadata is not fatal
 		r.Errorf("Failed to fully get image metadata: %v", err)
 	}
