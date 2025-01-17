@@ -11,7 +11,6 @@ import (
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
@@ -91,6 +90,7 @@ var ErrNoPackagesFound = errors.New("no packages found in scan")
 var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 
 // ErrAPIFailed describes errors related to querying API endpoints.
+// TODO(v2): Actually use this error
 var ErrAPIFailed = errors.New("API query failed")
 
 func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (ExternalAccessors, error) {
@@ -298,11 +298,11 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	}
 	defer img.CleanUp()
 
+	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
 		FilesystemExtractors: scanners.BuildArtifactExtractors(),
 	})
-
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
 	}
@@ -311,51 +311,17 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		return models.VulnerabilityResults{}, ErrNoPackagesFound
 	}
 
+	// --- Save Scalibr Scan Results ---
+	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventories))
+	for i, inv := range scalibrSR.Inventories {
+		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
+		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
+	}
+
 	// --- Fill Image Metadata ---
-	{
-		chainLayers, err := img.ChainLayers()
-		if err != nil {
-			// This is very unlikely, as if this would error we would have failed the initial scan
-			return models.VulnerabilityResults{}, err
-		}
-		m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
-		OS := "Unknown"
-		if err == nil {
-			OS = m["PRETTY_NAME"]
-		}
-
-		scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventories))
-		for i, inv := range scalibrSR.Inventories {
-			scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
-			scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
-		}
-
-		layerMetadata := []models.LayerMetadata{}
-		for _, cl := range chainLayers {
-			layerMetadata = append(layerMetadata, models.LayerMetadata{
-				DiffID:  cl.Layer().DiffID(),
-				Command: cl.Layer().Command(),
-				IsEmpty: cl.Layer().IsEmpty(),
-			})
-		}
-
-		scanResult.ImageMetadata = &models.ImageMetadata{
-			OS:            OS,
-			LayerMetadata: layerMetadata,
-		}
-
-		if accessors.BaseImageMatcher != nil {
-			scanResult.ImageMetadata.BaseImages, err = accessors.BaseImageMatcher.MatchBaseImages(context.Background(), layerMetadata)
-			if err != nil {
-				return models.VulnerabilityResults{}, fmt.Errorf("failed to query for container base images: %w", err)
-			}
-		} else {
-			scanResult.ImageMetadata.BaseImages = [][]models.BaseImageDetails{
-				// The base image at index 0 is a placeholder representing your image, so always empty
-				// This is the case even if your image is a base image, in that case no layers point to index 0
-				{},
-			}
-		}
+	scanResult.ImageMetadata, err = imagehelpers.BuildImageMetadata(r, img, accessors.BaseImageMatcher)
+	if err != nil { // Not getting image metadata is not fatal
+		r.Errorf("Failed to fully get image metadata: %v", err)
 	}
 
 	// ----- Filtering -----

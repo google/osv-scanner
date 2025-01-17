@@ -2,14 +2,64 @@ package imagehelpers
 
 import (
 	"bufio"
+	"context"
 	"errors"
 	"fmt"
 	"os"
 	"os/exec"
 	"strings"
 
+	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
+	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
+	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
 )
+
+func BuildImageMetadata(r reporter.Reporter, img *image.Image, baseImageMatcher clientinterfaces.BaseImageMatcher) (*models.ImageMetadata, error) {
+	chainLayers, err := img.ChainLayers()
+	if err != nil {
+		// This is very unlikely, as if this would error we would have failed the initial scan
+		return nil, err
+	}
+	m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
+	OS := "Unknown"
+	if err == nil {
+		OS = m["PRETTY_NAME"]
+	}
+
+	layerMetadata := []models.LayerMetadata{}
+	for _, cl := range chainLayers {
+		layerMetadata = append(layerMetadata, models.LayerMetadata{
+			DiffID:  cl.Layer().DiffID(),
+			Command: cl.Layer().Command(),
+			IsEmpty: cl.Layer().IsEmpty(),
+		})
+	}
+
+	var baseImages [][]models.BaseImageDetails
+
+	if baseImageMatcher != nil {
+		baseImages, err = baseImageMatcher.MatchBaseImages(context.Background(), layerMetadata)
+		if err != nil {
+			return nil, fmt.Errorf("failed to query for container base images: %w", err)
+		}
+	} else {
+		baseImages = [][]models.BaseImageDetails{
+			// The base image at index 0 is a placeholder representing your image, so always empty
+			// This is the case even if your image is a base image, in that case no layers point to index 0
+			{},
+		}
+	}
+
+	imgMetadata := models.ImageMetadata{
+		OS:            OS,
+		LayerMetadata: layerMetadata,
+		BaseImages:    baseImages,
+	}
+
+	return &imgMetadata, nil
+}
 
 func ExportDockerImage(r reporter.Reporter, dockerImageName string) (string, error) {
 	// Skip saving if the file is already a tar archive.
