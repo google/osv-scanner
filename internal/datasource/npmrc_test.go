@@ -61,7 +61,7 @@ func makeBlankNpmrcFiles(t *testing.T) testNpmrcFiles {
 	return files
 }
 
-func checkNpmRegistryRequest(t *testing.T, config datasource.NpmRegistryConfig, urlComponents ...string) {
+func checkNpmRegistryRequest(t *testing.T, config datasource.NpmRegistryConfig, urlComponents []string, wantURL string, wantAuth string) {
 	t.Helper()
 	mt := &mockTransport{}
 	httpClient := &http.Client{Transport: mt}
@@ -74,9 +74,14 @@ func checkNpmRegistryRequest(t *testing.T, config datasource.NpmRegistryConfig, 
 		t.Fatalf("unexpected number of requests made: %v", len(mt.Requests))
 	}
 	req := mt.Requests[0]
-	snapshot := testutility.NewSnapshot()
-	snapshot.MatchText(t, req.URL.String())
-	snapshot.MatchJSON(t, req.Header["Authorization"])
+	gotURL := req.URL.String()
+	if gotURL != wantURL {
+		t.Errorf("MakeRequest() URL was %s, want %s", gotURL, wantURL)
+	}
+	gotAuth := req.Header.Get("Authorization")
+	if gotAuth != wantAuth {
+		t.Errorf("MakeRequest() Authorization was \"%s\", want \"%s\"", gotAuth, wantAuth)
+	}
 }
 
 func TestNpmrcNoRegistries(t *testing.T) {
@@ -92,7 +97,8 @@ func TestNpmrcNoRegistries(t *testing.T) {
 		t.Errorf("expected 1 npm registry, got %v", nRegs)
 	}
 
-	checkNpmRegistryRequest(t, config, "@test/package", "1.2.3")
+	checkNpmRegistryRequest(t, config, []string{"@test/package", "1.2.3"},
+		"https://registry.npmjs.org/@test%2fpackage/1.2.3", "")
 }
 
 func TestNpmrcRegistryAuth(t *testing.T) {
@@ -113,25 +119,25 @@ func TestNpmrcRegistryAuth(t *testing.T) {
 		t.Fatalf("could not parse npmrc: %v", err)
 	}
 
-	checkNpmRegistryRequest(t, config, "foo")
-	checkNpmRegistryRequest(t, config, "@test0/bar")
-	checkNpmRegistryRequest(t, config, "@test1/baz")
-	checkNpmRegistryRequest(t, config, "@test2/test")
+	checkNpmRegistryRequest(t, config, []string{"foo"}, "https://registry1.test.com/foo", "Basic bXVjaDphdXRoCg==")
+	checkNpmRegistryRequest(t, config, []string{"@test0/bar"}, "https://registry1.test.com/@test0%2fbar", "Basic bXVjaDphdXRoCg==")
+	checkNpmRegistryRequest(t, config, []string{"@test1/baz"}, "https://registry2.test.com/@test1%2fbaz", "Bearer c3VjaCB0b2tlbgo=")
+	checkNpmRegistryRequest(t, config, []string{"@test2/test"}, "https://sub.registry2.test.com/@test2%2ftest", "Basic dXNlcjp3b3cK")
 }
 
 // Do not make this test parallel because it calls t.Setenv()
 func TestNpmrcRegistryOverriding(t *testing.T) {
-	check := func(t *testing.T, npmrcFiles testNpmrcFiles) {
+	check := func(t *testing.T, npmrcFiles testNpmrcFiles, wantURLs [5]string) {
 		t.Helper()
 		config, err := datasource.LoadNpmRegistryConfig(filepath.Dir(npmrcFiles.project))
 		if err != nil {
 			t.Fatalf("could not parse npmrc: %v", err)
 		}
-		checkNpmRegistryRequest(t, config, "pkg")
-		checkNpmRegistryRequest(t, config, "@general/pkg")
-		checkNpmRegistryRequest(t, config, "@global/pkg")
-		checkNpmRegistryRequest(t, config, "@user/pkg")
-		checkNpmRegistryRequest(t, config, "@project/pkg")
+		checkNpmRegistryRequest(t, config, []string{"pkg"}, wantURLs[0], "")
+		checkNpmRegistryRequest(t, config, []string{"@general/pkg"}, wantURLs[1], "")
+		checkNpmRegistryRequest(t, config, []string{"@global/pkg"}, wantURLs[2], "")
+		checkNpmRegistryRequest(t, config, []string{"@user/pkg"}, wantURLs[3], "")
+		checkNpmRegistryRequest(t, config, []string{"@project/pkg"}, wantURLs[4], "")
 	}
 
 	npmrcFiles := makeBlankNpmrcFiles(t)
@@ -142,25 +148,37 @@ func TestNpmrcRegistryOverriding(t *testing.T) {
 		"@general:registry=https://general.global.registry.com",
 		"registry=https://global.registry.com",
 	)
-	check(t, npmrcFiles)
+	wantURLs := [5]string{
+		"https://global.registry.com/pkg",
+		"https://general.global.registry.com/@general%2fpkg",
+		"https://global.registry.com/@global%2fpkg",
+		"https://user.registry.com/@user%2fpkg",
+		"https://project.registry.com/@project%2fpkg",
+	}
+	check(t, npmrcFiles, wantURLs)
 
 	// override global in user
 	writeToNpmrc(t, npmrcFiles.user,
 		"@general:registry=https://general.user.registry.com",
 		"registry=https://user.registry.com",
 	)
-	check(t, npmrcFiles)
+	wantURLs[0] = "https://user.registry.com/pkg"
+	wantURLs[1] = "https://general.user.registry.com/@general%2fpkg"
+	check(t, npmrcFiles, wantURLs)
 
 	// override global/user in project
 	writeToNpmrc(t, npmrcFiles.project,
 		"@general:registry=https://general.project.registry.com",
 		"registry=https://project.registry.com",
 	)
-	check(t, npmrcFiles)
+	wantURLs[0] = "https://project.registry.com/pkg"
+	wantURLs[1] = "https://general.project.registry.com/@general%2fpkg"
+	check(t, npmrcFiles, wantURLs)
 
 	// override global/user/project in environment variable
 	t.Setenv("NPM_CONFIG_REGISTRY", "https://environ.registry.com")
-	check(t, npmrcFiles)
+	wantURLs[0] = "https://environ.registry.com/pkg"
+	check(t, npmrcFiles, wantURLs)
 }
 
 func TestNpmRegistryAuths(t *testing.T) {
