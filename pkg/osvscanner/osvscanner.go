@@ -135,8 +135,9 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 	// --- Base Image Matcher ---
 	if actions.Image != "" || actions.ScanOCIImage != "" {
 		externalAccessors.BaseImageMatcher = &baseimagematcher.DepsDevBaseImageMatcher{
-			Client:   *http.DefaultClient,
-			Reporter: r,
+			HTTPClient: *http.DefaultClient,
+			Config:     baseimagematcher.DefaultConfig(),
+			Reporter:   r,
 		}
 	}
 
