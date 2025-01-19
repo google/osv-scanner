@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	scalibr "github.com/google/osv-scalibr"
@@ -276,27 +277,40 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
-	// --- Initialize Image To Scan ---
+	// --- Initialize Image To Scan ---'
+
+	getLocalPathOrEmpty := func() string {
+		if actions.ScanOCIImage != "" {
+			return actions.ScanOCIImage
+		}
+
+		if strings.Contains(actions.Image, ".tar") {
+			if _, err := os.Stat(actions.Image); err == nil {
+				return actions.Image
+			}
+		}
+
+		return ""
+	}
+
 	var img *image.Image
-	if actions.ScanOCIImage != "" {
-		img, err = image.FromTarball(actions.ScanOCIImage, image.DefaultConfig())
-		r.Infof("Scanning image %q\n", actions.ScanOCIImage)
+	if localPath := getLocalPathOrEmpty(); localPath != "" {
+		r.Infof("Scanning local image tarball %q\n", localPath)
+		img, err = image.FromTarball(localPath, image.DefaultConfig())
 	} else if actions.Image != "" {
 		path, exportErr := imagehelpers.ExportDockerImage(r, actions.Image)
 		if exportErr != nil {
 			return models.VulnerabilityResults{}, exportErr
 		}
+		defer os.Remove(path)
 
-		// If Image is a local tar file, then path == Image, and we shouldn't remove it
-		if path != actions.Image {
-			defer os.Remove(path)
-		}
 		img, err = image.FromTarball(path, image.DefaultConfig())
 		r.Infof("Scanning image %q\n", actions.Image)
 	}
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
+
 	defer func() {
 		err := img.CleanUp()
 		if err != nil {

@@ -15,6 +15,7 @@ import (
 
 const (
 	maxConcurrentRequests = 1000
+	APIEndpoint           = "https://api.deps.dev/v3alpha/querycontainerimages/"
 )
 
 // OSVMatcher implements the VulnerabilityMatcher interface with a osv.dev client.
@@ -47,7 +48,7 @@ func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, lay
 				return ctx.Err() // this value doesn't matter to errgroup.Wait(), it will be ctx.Err()
 			}
 
-			req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://api.deps.dev/v3alpha/querycontainerimages/"+chainID.String(), nil)
+			req, err := http.NewRequestWithContext(ctx, http.MethodGet, APIEndpoint+chainID.String(), nil)
 			if err != nil {
 				matcher.Reporter.Errorf("failed to build request: %s\n", err)
 				return nil

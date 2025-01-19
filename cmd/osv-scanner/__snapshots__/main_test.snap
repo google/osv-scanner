@@ -2708,7 +2708,7 @@ Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
 ---
 
 [TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
-Scanning image "../../internal/image/fixtures/test-alpine.tar"
+Scanning local image tarball "../../internal/image/fixtures/test-alpine.tar"
 Total 2 packages affected by 40 vulnerabilities (2 Critical, 17 High, 14 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
 40 vulnerabilities have fixes available.
 
@@ -2732,7 +2732,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/Invalid_path - 1]
-Scanning image "./fixtures/oci-image/no-file-here.tar"
+Scanning local image tarball "./fixtures/oci-image/no-file-here.tar"
 
 ---
 
@@ -2742,7 +2742,7 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 ---
 
 [TestRun_OCIImage/scanning_image_with_go_binary - 1]
-Scanning image "../../internal/image/fixtures/test-package-tracing.tar"
+Scanning local image tarball "../../internal/image/fixtures/test-package-tracing.tar"
 Total 7 packages affected by 27 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 27 Unknown) from 2 ecosystems.
 27 vulnerabilities have fixes available.
 
@@ -2808,7 +2808,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
-Scanning image "../../internal/image/fixtures/test-node_modules-npm-empty.tar"
+Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-empty.tar"
 Total 2 packages affected by 10 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystems.
 10 vulnerabilities have fixes available.
 
@@ -2832,7 +2832,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
-Scanning image "../../internal/image/fixtures/test-node_modules-npm-full.tar"
+Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-full.tar"
 Total 4 packages affected by 13 vulnerabilities (2 Critical, 0 High, 5 Medium, 0 Low, 6 Unknown) from 2 ecosystems.
 12 vulnerabilities have fixes available.
 
@@ -2865,7 +2865,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
-Scanning image "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"
+Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"
 Total 2 packages affected by 10 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystems.
 10 vulnerabilities have fixes available.
 
@@ -2889,7 +2889,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
-Scanning image "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"
+Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"
 Total 2 packages affected by 10 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystems.
 10 vulnerabilities have fixes available.
 
@@ -2913,7 +2913,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
-Scanning image "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"
+Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"
 Total 2 packages affected by 10 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystems.
 10 vulnerabilities have fixes available.
 
@@ -2937,7 +2937,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestRun_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
-Scanning image "../../internal/image/fixtures/test-node_modules-yarn-full.tar"
+Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-full.tar"
 Total 2 packages affected by 10 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystems.
 10 vulnerabilities have fixes available.
 
