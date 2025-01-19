@@ -41,7 +41,7 @@ type HTTPAuthentication struct {
 	// Bearer
 	BearerToken string
 	// Digest
-	CnonceFunc func() string `json:"-"` // Function used to generate cnonce string for Digest. OK to leave unassigned. Mostly for use in tests.
+	CnonceFunc func() string // Function used to generate cnonce string for Digest. OK to leave unassigned. Mostly for use in tests.
 
 	lastUsed atomic.Value // The last-used authentication method - used when AlwaysAuth is false to automatically send Basic auth.
 }
