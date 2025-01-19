@@ -6,6 +6,7 @@ import (
 	"github.com/google/osv-scanner/pkg/models"
 )
 
+// TODO: use osvschema.Ecosystem or imodel's ecosystem.Parsed
 var OSVEcosystem = map[resolve.System]models.Ecosystem{
 	resolve.NPM:   models.EcosystemNPM,
 	resolve.Maven: models.EcosystemMaven,

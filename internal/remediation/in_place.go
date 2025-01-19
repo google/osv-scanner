@@ -9,12 +9,14 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
+	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	lf "github.com/google/osv-scanner/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/internal/resolution/util"
 	"github.com/google/osv-scanner/internal/utility/vulns"
+	"github.com/google/osv-scanner/pkg/models"
 	"golang.org/x/exp/maps"
 )
 
@@ -105,7 +107,7 @@ func (r InPlaceResult) VulnCount() VulnCount {
 // ComputeInPlacePatches finds all possible targeting version changes that would fix vulnerabilities in a resolved graph.
 // TODO: Check for introduced vulnerabilities
 func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, graph *resolve.Graph, opts Options) (InPlaceResult, error) {
-	res, err := inPlaceVulnsNodes(cl, graph)
+	res, err := inPlaceVulnsNodes(ctx, cl, graph)
 	if err != nil {
 		return InPlaceResult{}, err
 	}
@@ -235,11 +237,15 @@ type inPlaceVulnsNodesResult struct {
 	vkNodes          map[resolve.VersionKey][]resolve.NodeID
 }
 
-func inPlaceVulnsNodes(cl client.VulnerabilityClient, graph *resolve.Graph) (inPlaceVulnsNodesResult, error) {
-	nodeVulns, err := cl.FindVulns(graph)
+func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatcher, graph *resolve.Graph) (inPlaceVulnsNodesResult, error) {
+	nodeVulns, err := m.MatchVulnerabilities(ctx, client.GraphToInventory(graph))
 	if err != nil {
 		return inPlaceVulnsNodesResult{}, err
 	}
+
+	// GraphToInventory/MatchVulnerabilities excludes the root node of the graph.
+	// Prepend an element to nodeVulns so that the indices line up with graph.Nodes[i] <=> nodeVulns[i]
+	nodeVulns = append([][]*models.Vulnerability{nil}, nodeVulns...)
 
 	result := inPlaceVulnsNodesResult{
 		nodeDependencies: make(map[resolve.NodeID][]resolve.VersionKey),
@@ -272,7 +278,7 @@ func inPlaceVulnsNodes(cl client.VulnerabilityClient, graph *resolve.Graph) (inP
 		result.vkNodes[vk] = append(result.vkNodes[vk], nID)
 		for _, vuln := range nodeVulns[nID] {
 			resVuln := resolution.Vulnerability{
-				OSV:           vuln,
+				OSV:           *vuln,
 				ProblemChains: slices.Clone(chains),
 				DevOnly:       !slices.ContainsFunc(chains, func(dc resolution.DependencyChain) bool { return !resolution.ChainIsDev(dc, nil) }),
 			}
