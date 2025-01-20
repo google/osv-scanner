@@ -77,7 +77,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 			continue
 		}
 
-		results = append(results, db.VulnerabilitiesAffectingPackage(pkg))
+		results = append(results, VulnerabilitiesAffectingPackage(db.Vulnerabilities(false), pkg))
 	}
 
 	return results, nil

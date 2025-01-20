@@ -235,7 +235,8 @@ func (db *ZipDB) Vulnerabilities(includeWithdrawn bool) []models.Vulnerability {
 	return vulnerabilities
 }
 
-func (db *ZipDB) VulnerabilitiesAffectingPackage(pkg imodels.PackageInfo) []*models.Vulnerability {
+// TODO: Move this to another file.
+func VulnerabilitiesAffectingPackage(allVulns []models.Vulnerability, pkg imodels.PackageInfo) []*models.Vulnerability {
 	var vulnerabilities []*models.Vulnerability
 
 	// TODO (V2 Models): remove this once PackageDetails has been migrated
@@ -248,7 +249,7 @@ func (db *ZipDB) VulnerabilitiesAffectingPackage(pkg imodels.PackageInfo) []*mod
 		DepGroups: pkg.DepGroups(),
 	}
 
-	for _, vulnerability := range db.Vulnerabilities(false) {
+	for _, vulnerability := range allVulns {
 		if vulns.IsAffected(vulnerability, mappedPackageDetails) && !vulns.Include(vulnerabilities, vulnerability) {
 			vulnerabilities = append(vulnerabilities, &vulnerability)
 		}
@@ -258,10 +259,11 @@ func (db *ZipDB) VulnerabilitiesAffectingPackage(pkg imodels.PackageInfo) []*mod
 }
 
 func (db *ZipDB) Check(pkgs []imodels.PackageInfo) ([]*models.Vulnerability, error) {
+	allVulns := db.Vulnerabilities(false)
 	vulnerabilities := make([]*models.Vulnerability, 0, len(pkgs))
 
 	for _, pkg := range pkgs {
-		vulnerabilities = append(vulnerabilities, db.VulnerabilitiesAffectingPackage(pkg)...)
+		vulnerabilities = append(vulnerabilities, VulnerabilitiesAffectingPackage(allVulns, pkg)...)
 	}
 
 	return vulnerabilities, nil
