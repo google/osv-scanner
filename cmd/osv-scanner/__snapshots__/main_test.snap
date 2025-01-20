@@ -934,7 +934,6 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 
 [TestRun_Docker/Fake_alpine_image - 1]
 Checking if docker image ("alpine:non-existent-tag") exists locally...
-Image not found locally, pulling docker image ("alpine:non-existent-tag")...
 
 ---
 
@@ -948,7 +947,6 @@ failed to pull container image: failed to run docker command
 
 [TestRun_Docker/Fake_image_entirely - 1]
 Checking if docker image ("this-image-definitely-does-not-exist-abcde") exists locally...
-Image not found locally, pulling docker image ("this-image-definitely-does-not-exist-abcde")...
 
 ---
 
