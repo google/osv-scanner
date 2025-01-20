@@ -68,7 +68,6 @@ For Maven `pom.xml` files, you can update direct dependencies and [add version o
 osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
 ```
 
-
 {: .warning }
 The subcommand will modify your manifest and lockfile. Make sure you commit or backup your files before running.
 
