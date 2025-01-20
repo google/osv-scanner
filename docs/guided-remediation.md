@@ -46,7 +46,7 @@ We currently support the remediation vulnerabilities in the following files:
 | Maven     | `pom.xml` (manifest)<sup>[note](#pom-note)</sup> | [`override`](#override-dependency-versions-remediation)     |
 
 {: .note #pom-note}
-The tool only checks dependencies that are actually present in a POM's dependency graph - it will not detect vulnerabilities in `<dependencyManagement>` dependencies if they are not actually used when resolving the POM.
+By default, the tool only checks dependencies that are actually present in a POM's dependency graph - it will not detect vulnerabilities in `<dependencyManagement>` dependencies if they are not actually used when resolving the POM. The [`--maven-fix-management`](#Maven-flags) flag can be used to also fix them.
 
 ## Basic usage
 
@@ -442,16 +442,21 @@ The following flag may be used to limit the patches allowed for your dependencie
 
 By default, we use the [deps.dev API](https://docs.deps.dev/api/) to find version and dependency information of packages during remediation.
 
-If instead you'd like to use your ecosystem's native registry API (e.g. `https://registry.npmjs.org`), you can use the `--data-source=native` flag. `osv-scanner fix` will attempt to use the authentication specified by the native tooling (e.g. `npm config`)
+If instead you'd like to use your ecosystem's native registry API (e.g. `https://registry.npmjs.org`), you can use the `--data-source=native` flag. `osv-scanner fix` will attempt to use the authentication specified by the native tooling (e.g. `npm config` or Maven's `settings.xml`)
 
 {: .highlight }
 If your project uses mirrored or private registries, you will need to use `--data-source=native`
 
 {: .note }
 
-> The subcommand caches the requests it makes in `package.json.resolve.deps` (deps.dev) and `package.json.resolve.npm` (native npm).
+> The subcommand caches the requests it makes in `package.json.resolve.deps` (deps.dev), `package.json.resolve.npm` (native npm), or `package.json.resolve.maven` (native Maven).
 >
-> The native npm cache will store the addresses of private registries used, though not any authentication information.
+> The native caches will store the addresses of private registries used, though not any authentication information.
+
+### Maven flags
+
+- `--maven-fix-management`: If set, patches for vulnerabilities in packages declared in `<dependencyManagement>` will be made, even if those packages are not found in the resolved dependency tree (useful for patching parent POM files).
+- `--maven-registry=<URL>`: Override for the default registry used to fetch dependencies (typically the `central` repository at `https://repo.maven.apache.org/maven2`)
 
 ### Offline Vulnerability Database
 
@@ -485,6 +490,6 @@ Remediation in npm `workspaces` is only partially supported:
 
 ### Maven
 
-- [#1045](https://github.com/google/osv-scanner/issues/1045) `--data-source=native` only uses the Maven Central Repository (`https://repo1.maven.org/maven2/`). Other repositories are not currently supported.
 - Dependencies that use properties in their `groupId`/`artifactId` may not be updated correctly.
 - Support for profiles is limited.
+- Encrypted values in `settings.xml` files are not supported.
