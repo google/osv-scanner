@@ -45,20 +45,22 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 
 		var proj maven.Project
 		parentFound := false
-		if parentPath := ParentPOMPath(currentPath, string(current.RelativePath)); allowLocal && parentPath != "" {
-			currentPath = parentPath
-			f, err := os.Open(parentPath)
-			if err != nil {
-				return fmt.Errorf("failed to open parent file %s: %w", parentPath, err)
-			}
-			err = datasource.NewMavenDecoder(f).Decode(&proj)
-			f.Close()
-			if err != nil {
-				return fmt.Errorf("failed to unmarshal project: %w", err)
-			}
-			if ProjectKey(proj) == current.ProjectKey && proj.Packaging == "pom" {
-				// Only mark parent is found when the identifiers and packaging are exptected.
-				parentFound = true
+		if allowLocal {
+			if parentPath := ParentPOMPath(currentPath, string(current.RelativePath)); parentPath != "" {
+				currentPath = parentPath
+				f, err := os.Open(parentPath)
+				if err != nil {
+					return fmt.Errorf("failed to open parent file %s: %w", parentPath, err)
+				}
+				err = datasource.NewMavenDecoder(f).Decode(&proj)
+				f.Close()
+				if err != nil {
+					return fmt.Errorf("failed to unmarshal project: %w", err)
+				}
+				if ProjectKey(proj) == current.ProjectKey && proj.Packaging == "pom" {
+					// Only mark parent is found when the identifiers and packaging are exptected.
+					parentFound = true
+				}
 			}
 		}
 		if !parentFound {
