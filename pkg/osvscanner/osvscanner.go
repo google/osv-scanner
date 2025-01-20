@@ -272,6 +272,14 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		},
 	}
 
+	if actions.ConfigOverridePath != "" {
+		err := scanResult.ConfigManager.UseOverride(r, actions.ConfigOverridePath)
+		if err != nil {
+			r.Errorf("Failed to read config file: %s\n", err)
+			return models.VulnerabilityResults{}, err
+		}
+	}
+
 	// --- Setup Accessors/Clients ---
 	accessors, err := initializeExternalAccessors(r, actions)
 	if err != nil {

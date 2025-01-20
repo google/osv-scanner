@@ -150,3 +150,5 @@ require (
 	sigs.k8s.io/yaml v1.4.0 // indirect
 	www.velocidex.com/golang/regparser v0.0.0-20240404115756-2169ac0e3c09 // indirect
 )
+
+replace github.com/google/osv-scalibr => github.com/another-rex/osv-scalibr v0.0.0-20250120060839-0a81ef2a4789
