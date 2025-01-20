@@ -127,7 +127,7 @@ func fillNotImportedAnalysisInfo(vulnsByID map[string]models.Vulnerability, vuln
 }
 
 func runGovulncheck(moddir string, vulns []models.Vulnerability, goVersion string) (map[string][]*govulncheck.Finding, error) {
-	// Create a temporary directory containing all of the vulnerabilities that
+	// Create a temporary directory containing all the vulnerabilities that
 	// are passed in to check against govulncheck.
 	//
 	// This enables OSV scanner to supply the OSV vulnerabilities to run

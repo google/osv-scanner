@@ -67,6 +67,7 @@ func init() {
 	registerExtractor("poetry.lock", PoetryLockExtractor{})
 }
 
+// Deprecated: use PoetryLockExtractor.Extract instead
 func ParsePoetryLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, PoetryLockExtractor{})
 }

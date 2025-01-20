@@ -212,6 +212,7 @@ func init() {
 	registerExtractor("yarn.lock", YarnLockExtractor{})
 }
 
+// Deprecated: use YarnLockExtractor.Extract instead
 func ParseYarnLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, YarnLockExtractor{})
 }

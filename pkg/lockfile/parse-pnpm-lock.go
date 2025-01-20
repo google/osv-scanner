@@ -65,12 +65,12 @@ func startsWithNumber(str string) bool {
 
 // extractPnpmPackageNameAndVersion parses a dependency path, attempting to
 // extract the name and version of the package it represents
-func extractPnpmPackageNameAndVersion(dependencyPath string, lockfileVersion float64) (string, string) {
+func extractPnpmPackageNameAndVersion(dependencyPath string, lockfileVersion float64) (string, string, error) {
 	// file dependencies must always have a name property to be installed,
 	// and their dependency path never has the version encoded, so we can
 	// skip trying to extract either from their dependency path
 	if strings.HasPrefix(dependencyPath, "file:") {
-		return "", ""
+		return "", "", nil
 	}
 
 	// v9.0 specifies the dependencies as <package>@<version> rather than as a path
@@ -84,10 +84,15 @@ func extractPnpmPackageNameAndVersion(dependencyPath string, lockfileVersion flo
 			name = "@" + name
 		}
 
-		return name, version
+		return name, version, nil
 	}
 
 	parts := strings.Split(dependencyPath, "/")
+
+	if len(parts) == 1 {
+		return "", "", errors.New("invalid package path")
+	}
+
 	var name string
 
 	parts = parts[1:]
@@ -111,7 +116,7 @@ func extractPnpmPackageNameAndVersion(dependencyPath string, lockfileVersion flo
 	}
 
 	if version == "" || !startsWithNumber(version) {
-		return "", ""
+		return "", "", nil
 	}
 
 	underscoreIndex := strings.Index(version, "_")
@@ -120,7 +125,7 @@ func extractPnpmPackageNameAndVersion(dependencyPath string, lockfileVersion flo
 		version = strings.Split(version, "_")[0]
 	}
 
-	return name, version
+	return name, version, nil
 }
 
 func parseNameAtVersion(value string) (name string, version string) {
@@ -134,11 +139,15 @@ func parseNameAtVersion(value string) (name string, version string) {
 	return matches[1], matches[2]
 }
 
-func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
+func parsePnpmLock(lockfile PnpmLockfile) ([]PackageDetails, error) {
 	packages := make([]PackageDetails, 0, len(lockfile.Packages))
 
 	for s, pkg := range lockfile.Packages {
-		name, version := extractPnpmPackageNameAndVersion(s, lockfile.Version)
+		name, version, err := extractPnpmPackageNameAndVersion(s, lockfile.Version)
+
+		if err != nil {
+			return nil, err
+		}
 
 		// "name" is only present if it's not in the dependency path and takes
 		// priority over whatever name we think we've extracted (if any)
@@ -182,7 +191,7 @@ func parsePnpmLock(lockfile PnpmLockfile) []PackageDetails {
 		})
 	}
 
-	return packages
+	return packages, nil
 }
 
 type PnpmLockExtractor struct{}
@@ -205,7 +214,12 @@ func (e PnpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		parsedLockfile = &PnpmLockfile{}
 	}
 
-	return parsePnpmLock(*parsedLockfile), nil
+	packageDetails, err := parsePnpmLock(*parsedLockfile)
+	if err != nil {
+		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
+	}
+
+	return packageDetails, nil
 }
 
 var _ Extractor = PnpmLockExtractor{}
@@ -215,6 +229,7 @@ func init() {
 	registerExtractor("pnpm-lock.yaml", PnpmLockExtractor{})
 }
 
+// Deprecated: use PnpmLockExtractor.Extract instead
 func ParsePnpmLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, PnpmLockExtractor{})
 }

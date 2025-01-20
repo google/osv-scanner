@@ -1,57 +1,80 @@
 package image
 
 import (
+	"context"
 	"errors"
 	"fmt"
-	"os"
-	"path"
-	"sort"
+	"io/fs"
+	"strings"
 
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
+	"github.com/google/osv-scanner/internal/scalibrextract"
+	"github.com/google/osv-scanner/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
 // artifactExtractors contains only extractors for artifacts that are important in
 // the final layer of a container image
-var artifactExtractors map[string]lockfile.Extractor = map[string]lockfile.Extractor{
-	"node_modules":  lockfile.NodeModulesExtractor{},
-	"apk-installed": lockfile.ApkInstalledExtractor{},
-	"dpkg":          lockfile.DpkgStatusExtractor{},
-	"go-binary":     lockfile.GoBinaryExtractor{},
+var artifactExtractors []filesystem.Extractor = []filesystem.Extractor{
+	// TODO: Using nodemodules extractor to minimize changes of snapshots
+	// After annotations are added, we should switch to using packagejson.
+	// packagejson.New(packagejson.DefaultConfig()),
+	nodemodules.Extractor{},
+
+	apk.New(apk.DefaultConfig()),
+	gobinary.New(gobinary.DefaultConfig()),
+	// TODO: Add tests for debian containers
+	dpkg.New(dpkg.DefaultConfig()),
 }
 
-type extractorPair struct {
-	extractor lockfile.Extractor
-	name      string
-}
-
-func findArtifactExtractor(path string) []extractorPair {
+func findArtifactExtractor(path string, fileInfo fs.FileInfo) []filesystem.Extractor {
 	// Use ShouldExtract to collect and return a slice of artifactExtractors
-	var extractors []extractorPair
-	for name, extractor := range artifactExtractors {
-		if extractor.ShouldExtract(path) {
-			extractors = append(extractors, extractorPair{extractor, name})
+	var extractors []filesystem.Extractor
+	for _, extractor := range artifactExtractors {
+		if extractor.FileRequired(simplefileapi.New(path, fileInfo)) {
+			extractors = append(extractors, extractor)
 		}
 	}
 
 	return extractors
 }
 
-func extractArtifactDeps(path string, layer *imgLayer) (lockfile.Lockfile, error) {
-	foundExtractors := findArtifactExtractor(path)
-	if len(foundExtractors) == 0 {
-		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
+// Note: Output is non deterministic
+func extractArtifactDeps(extractPath string, layer *Layer) ([]*extractor.Inventory, error) {
+	pathFileInfo, err := layer.Stat(extractPath)
+	if err != nil {
+		return nil, fmt.Errorf("attempted to get FileInfo but failed: %w", err)
 	}
 
-	packages := []lockfile.PackageDetails{}
+	scalibrPath := strings.TrimPrefix(extractPath, "/")
+	foundExtractors := findArtifactExtractor(scalibrPath, pathFileInfo)
+	if len(foundExtractors) == 0 {
+		return nil, fmt.Errorf("%w for %s", scalibrextract.ErrExtractorNotFound, extractPath)
+	}
+
+	inventories := []*extractor.Inventory{}
 	var extractedAs string
-	for _, extPair := range foundExtractors {
+	for _, extractor := range foundExtractors {
 		// File has to be reopened per extractor as each extractor moves the read cursor
-		f, err := OpenLayerFile(path, layer)
+		f, err := layer.Open(extractPath)
 		if err != nil {
-			return lockfile.Lockfile{}, fmt.Errorf("attempted to open file but failed: %w", err)
+			return nil, fmt.Errorf("attempted to open file but failed: %w", err)
 		}
 
-		newPackages, err := extPair.extractor.Extract(f)
+		scanInput := &filesystem.ScanInput{
+			FS:     layer,
+			Path:   scalibrPath,
+			Root:   "/",
+			Reader: f,
+			Info:   pathFileInfo,
+		}
+
+		newPackages, err := extractor.Extract(context.Background(), scanInput)
 		f.Close()
 
 		if err != nil {
@@ -59,76 +82,33 @@ func extractArtifactDeps(path string, layer *imgLayer) (lockfile.Lockfile, error
 				continue
 			}
 
-			return lockfile.Lockfile{}, fmt.Errorf("(extracting as %s) %w", extPair.name, err)
+			return nil, fmt.Errorf("(extracting as %s) %w", extractor.Name(), err)
 		}
 
-		extractedAs = extPair.name
-		packages = newPackages
-		// TODO(rexpan): Determine if it's acceptable to have multiple extractors
+		for i := range newPackages {
+			newPackages[i].Extractor = extractor
+		}
+
+		extractedAs = extractor.Name()
+		inventories = newPackages
+		// TODO(rexpan): Determine if this it's acceptable to have multiple extractors
 		// extract from the same file successfully
 		break
 	}
 
 	if extractedAs == "" {
-		return lockfile.Lockfile{}, fmt.Errorf("%w for %s", lockfile.ErrExtractorNotFound, path)
+		return nil, fmt.Errorf("%w for %s", scalibrextract.ErrExtractorNotFound, extractPath)
 	}
 
-	// Sort to have deterministic output, and to match behavior of lockfile.extractDeps
-	sort.Slice(packages, func(i, j int) bool {
-		if packages[i].Name == packages[j].Name {
-			return packages[i].Version < packages[j].Version
+	// Perform any one-off translations here
+	for _, inv := range inventories {
+		// Scalibr uses go to indicate go compiler version
+		// We specifically cares about the stdlib version inside the package
+		// so convert the package name from go to stdlib
+		if inv.Ecosystem() == "Go" && inv.Name == "go" {
+			inv.Name = "stdlib"
 		}
-
-		return packages[i].Name < packages[j].Name
-	})
-
-	return lockfile.Lockfile{
-		FilePath: path,
-		ParsedAs: extractedAs,
-		Packages: packages,
-	}, nil
-}
-
-// A ImageFile represents a file that exists in an image
-type ImageFile struct {
-	*os.File
-
-	layer *imgLayer
-	path  string
-}
-
-func (f ImageFile) Open(openPath string) (lockfile.NestedDepFile, error) {
-	// use path instead of filepath, because container is always in Unix paths (for now)
-	if path.IsAbs(openPath) {
-		return OpenLayerFile(openPath, f.layer)
 	}
 
-	absPath := path.Join(f.path, openPath)
-
-	return OpenLayerFile(absPath, f.layer)
+	return inventories, nil
 }
-
-func (f ImageFile) Path() string {
-	return f.path
-}
-
-func OpenLayerFile(path string, layer *imgLayer) (ImageFile, error) {
-	fileNode, err := layer.getFileNode(path)
-	if err != nil {
-		return ImageFile{}, err
-	}
-
-	file, err := fileNode.Open()
-	if err != nil {
-		return ImageFile{}, err
-	}
-
-	return ImageFile{
-		File:  file,
-		path:  path,
-		layer: layer,
-	}, nil
-}
-
-var _ lockfile.DepFile = ImageFile{}
-var _ lockfile.NestedDepFile = ImageFile{}

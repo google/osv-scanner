@@ -59,6 +59,7 @@ func init() {
 	registerExtractor("renv.lock", RenvLockExtractor{})
 }
 
+// Deprecated: use RenvLockExtractor.Extract instead
 func ParseRenvLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, RenvLockExtractor{})
 }

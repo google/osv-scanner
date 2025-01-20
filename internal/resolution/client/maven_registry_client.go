@@ -2,24 +2,17 @@ package client
 
 import (
 	"context"
-	"crypto/x509"
 	"encoding/gob"
+	"errors"
 	"fmt"
 	"os"
-	"slices"
 	"strings"
 
-	pb "deps.dev/api/v3"
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/version"
-	"deps.dev/util/semver"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 	mavenutil "github.com/google/osv-scanner/internal/utility/maven"
-	"github.com/google/osv-scanner/pkg/depsdev"
-	"github.com/google/osv-scanner/pkg/osv"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials"
 )
 
 const mavenRegistryCacheExt = ".resolve.maven"
@@ -29,9 +22,12 @@ type MavenRegistryClient struct {
 }
 
 func NewMavenRegistryClient(registry string) (*MavenRegistryClient, error) {
-	return &MavenRegistryClient{
-		api: datasource.NewMavenRegistryAPIClient(registry),
-	}, nil
+	client, err := datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{URL: registry, ReleasesEnabled: true})
+	if err != nil {
+		return nil, err
+	}
+
+	return &MavenRegistryClient{api: client}, nil
 }
 
 func (c *MavenRegistryClient) Version(ctx context.Context, vk resolve.VersionKey) (resolve.Version, error) {
@@ -75,13 +71,13 @@ func (c *MavenRegistryClient) Versions(ctx context.Context, pk resolve.PackageKe
 	if !found {
 		return nil, fmt.Errorf("invalid Maven package name %s", pk.Name)
 	}
-	metadata, err := c.api.GetArtifactMetadata(ctx, g, a)
+	versions, err := c.api.GetVersions(ctx, g, a)
 	if err != nil {
 		return nil, err
 	}
 
-	vks := make([]resolve.Version, len(metadata.Versioning.Versions))
-	for i, v := range metadata.Versioning.Versions {
+	vks := make([]resolve.Version, len(versions))
+	for i, v := range versions {
 		vks[i] = resolve.Version{
 			VersionKey: resolve.VersionKey{
 				PackageKey:  pk,
@@ -89,7 +85,6 @@ func (c *MavenRegistryClient) Versions(ctx context.Context, pk resolve.PackageKe
 				VersionType: resolve.Concrete,
 			}}
 	}
-	slices.SortFunc(vks, func(a, b resolve.Version) int { return semver.Maven.Compare(a.Version, b.Version) })
 
 	return vks, nil
 }
@@ -112,18 +107,15 @@ func (c *MavenRegistryClient) Requirements(ctx context.Context, vk resolve.Versi
 	if err := proj.MergeProfiles("", maven.ActivationOS{}); err != nil {
 		return nil, err
 	}
+
+	// We should not add registries defined in dependencies pom.xml files.
+	apiWithoutRegistries := c.api.WithoutRegistries()
 	// We need to merge parents for potential dependencies in parents.
-	if err := mavenutil.MergeParents(ctx, c.api, &proj, proj.Parent, 1, "", false); err != nil {
+	if err := mavenutil.MergeParents(ctx, apiWithoutRegistries, &proj, proj.Parent, 1, "", false); err != nil {
 		return nil, err
 	}
 	proj.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
-		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
-		var result maven.Project
-		if err := mavenutil.MergeParents(ctx, c.api, &result, root, 0, "", false); err != nil {
-			return maven.DependencyManagement{}, err
-		}
-
-		return result.DependencyManagement, nil
+		return mavenutil.GetDependencyManagement(ctx, apiWithoutRegistries, groupID, artifactID, version)
 	})
 
 	reqs := make([]resolve.RequirementVersion, 0, len(proj.Dependencies))
@@ -157,6 +149,20 @@ func (c *MavenRegistryClient) MatchingVersions(ctx context.Context, vk resolve.V
 	return resolve.MatchRequirement(vk, versions), nil
 }
 
+func (c *MavenRegistryClient) AddRegistries(registries []Registry) error {
+	for _, reg := range registries {
+		specific, ok := reg.(datasource.MavenRegistry)
+		if !ok {
+			return errors.New("invalid Maven registry information")
+		}
+		if err := c.api.AddRegistry(specific); err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
 func (c *MavenRegistryClient) WriteCache(path string) error {
 	f, err := os.Create(path + mavenRegistryCacheExt)
 	if err != nil {
@@ -175,73 +181,4 @@ func (c *MavenRegistryClient) LoadCache(path string) error {
 	defer f.Close()
 
 	return gob.NewDecoder(f).Decode(&c.api)
-}
-
-func (c *MavenRegistryClient) PreFetch(ctx context.Context, imports []resolve.RequirementVersion, manifestPath string) {
-	certPool, err := x509.SystemCertPool()
-	if err != nil {
-		return
-	}
-	creds := credentials.NewClientTLSFromCert(certPool, "")
-	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
-	if osv.RequestUserAgent != "" {
-		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
-	}
-
-	conn, err := grpc.NewClient(depsdev.DepsdevAPI, dialOpts...)
-	if err != nil {
-		return
-	}
-	insights := pb.NewInsightsClient(conn)
-
-	// It doesn't matter if loading the cache fails
-	_ = c.LoadCache(manifestPath)
-
-	// User the deps.dev client to fetch complete dependency graphs of our direct imports
-	for _, im := range imports {
-		// Get the preferred version of the import requirement
-		vks, err := c.MatchingVersions(ctx, im.VersionKey)
-		if err != nil || len(vks) == 0 {
-			continue
-		}
-
-		vk := vks[len(vks)-1]
-		for _, v := range vks {
-			// We prefer the exact version for soft requirements.
-			if im.Version == v.Version {
-				vk = v
-				break
-			}
-		}
-
-		// Make a request for the pre-computed dependency tree
-		resp, err := insights.GetDependencies(ctx, &pb.GetDependenciesRequest{
-			VersionKey: &pb.VersionKey{
-				System:  pb.System(vk.System),
-				Name:    vk.Name,
-				Version: vk.Version,
-			},
-		})
-		if err != nil {
-			continue
-		}
-
-		// Send off queries to cache the packages in the dependency tree
-		for _, node := range resp.GetNodes() {
-			pbvk := node.GetVersionKey()
-			vk := resolve.VersionKey{
-				PackageKey: resolve.PackageKey{
-					System: resolve.System(pbvk.GetSystem()),
-					Name:   pbvk.GetName(),
-				},
-				Version:     pbvk.GetVersion(),
-				VersionType: resolve.Concrete,
-			}
-			// To cache Metadata.
-			go c.Versions(ctx, vk.PackageKey) //nolint:errcheck
-			// To cache Projects.
-			go c.Requirements(ctx, vk) //nolint:errcheck
-		}
-	}
-	// Don't bother waiting for goroutines to finish
 }

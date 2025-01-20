@@ -27,7 +27,7 @@ type overridePatch struct {
 // ComputeOverridePatches attempts to resolve each vulnerability found in result independently, returning the list of unique possible patches.
 // Vulnerabilities are resolved by directly overriding versions of vulnerable packages to non-vulnerable versions.
 // If a patch introduces new vulnerabilities, additional overrides are attempted for the new vulnerabilities.
-func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, opts RemediationOptions) ([]resolution.ResolutionDiff, error) {
+func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, result *resolution.Result, opts Options) ([]resolution.Difference, error) {
 	// TODO: this is very similar to ComputeRelaxPatches - can the common parts be factored out?
 	// Filter the original result just in case it hasn't been already
 	result.FilterVulns(opts.MatchVuln)
@@ -35,7 +35,7 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 	// Do the resolutions concurrently
 	type overrideResult struct {
 		vulnIDs []string
-		result  *resolution.ResolutionResult
+		result  *resolution.Result
 		patches []overridePatch
 		err     error
 	}
@@ -56,11 +56,11 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 	toProcess := 0
 	for _, v := range result.Vulns {
 		// TODO: limit the number of goroutines
-		go doOverride([]string{v.Vulnerability.ID})
+		go doOverride([]string{v.OSV.ID})
 		toProcess++
 	}
 
-	var allResults []resolution.ResolutionDiff
+	var allResults []resolution.Difference
 	for toProcess > 0 {
 		res := <-ch
 		toProcess--
@@ -97,8 +97,8 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 		// If there are any new vulns, try override them as well
 		var newlyAdded []string
 		for _, v := range diff.AddedVulns {
-			if !slices.Contains(res.vulnIDs, v.Vulnerability.ID) {
-				newlyAdded = append(newlyAdded, v.Vulnerability.ID)
+			if !slices.Contains(res.vulnIDs, v.OSV.ID) {
+				newlyAdded = append(newlyAdded, v.OSV.ID)
 			}
 		}
 
@@ -109,8 +109,8 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 	}
 
 	// Sort and remove duplicate patches
-	slices.SortFunc(allResults, func(a, b resolution.ResolutionDiff) int { return a.Compare(b) })
-	allResults = slices.CompactFunc(allResults, func(a, b resolution.ResolutionDiff) bool { return a.Compare(b) == 0 })
+	slices.SortFunc(allResults, func(a, b resolution.Difference) int { return a.Compare(b) })
+	allResults = slices.CompactFunc(allResults, func(a, b resolution.Difference) bool { return a.Compare(b) == 0 })
 
 	return allResults, nil
 }
@@ -119,13 +119,13 @@ var errOverrideImpossible = errors.New("cannot fix vulns by overrides")
 
 // overridePatchVulns tries to fix as many vulns in vulnIDs as possible by overriding dependency versions.
 // returns errOverrideImpossible if 0 vulns are patchable, otherwise returns the most possible patches.
-func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, vulnIDs []string, opts RemediationOptions) (*resolution.ResolutionResult, []overridePatch, error) {
+func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result *resolution.Result, vulnIDs []string, opts Options) (*resolution.Result, []overridePatch, error) {
 	var effectivePatches []overridePatch
 	for {
 		// Find the relevant vulns affecting each version key.
-		vkVulns := make(map[resolve.VersionKey][]*resolution.ResolutionVuln)
+		vkVulns := make(map[resolve.VersionKey][]*resolution.Vulnerability)
 		for i, v := range result.Vulns {
-			if !slices.Contains(vulnIDs, v.Vulnerability.ID) {
+			if !slices.Contains(vulnIDs, v.OSV.ID) {
 				continue
 			}
 			// Keep track of VersionKeys we've seen for this vuln to avoid duplicates.
@@ -191,7 +191,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 				// Count the remaining known vulns that affect this version.
 				count := 0 // remaining vulns
 				for _, rv := range vulnerabilities {
-					if vulns.IsAffected(rv.Vulnerability, util.VKToPackageDetails(ver.VersionKey)) {
+					if vulns.IsAffected(rv.OSV, util.VKToPackageDetails(ver.VersionKey)) {
 						count++
 					}
 				}
@@ -225,7 +225,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 			return nil, nil, err
 		}
 
-		result, err = resolution.Resolve(ctx, cl, newManif)
+		result, err = resolution.Resolve(ctx, cl, newManif, opts.ResolveOpts)
 		if err != nil {
 			return nil, nil, err
 		}

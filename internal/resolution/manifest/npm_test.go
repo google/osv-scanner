@@ -60,8 +60,8 @@ func TestNpmRead(t *testing.T) {
 	}
 	defer df.Close()
 
-	npmIO := manifest.NpmManifestIO{}
-	got, err := npmIO.Read(df)
+	npmRW := manifest.NpmReadWriter{}
+	got, err := npmRW.Read(df)
 	if err != nil {
 		t.Fatalf("failed to read file: %v", err)
 	}
@@ -122,8 +122,8 @@ func TestNpmWorkspaceRead(t *testing.T) {
 	}
 	defer df.Close()
 
-	npmIO := manifest.NpmManifestIO{}
-	got, err := npmIO.Read(df)
+	npmRW := manifest.NpmReadWriter{}
+	got, err := npmRW.Read(df)
 	if err != nil {
 		t.Fatalf("failed to read file: %v", err)
 	}
@@ -222,7 +222,7 @@ func TestNpmWrite(t *testing.T) {
 	}
 	defer df.Close()
 
-	changes := manifest.ManifestPatch{
+	changes := manifest.Patch{
 		Deps: []manifest.DependencyPatch{
 			{
 				Pkg: resolve.PackageKey{
@@ -286,8 +286,8 @@ func TestNpmWrite(t *testing.T) {
 	}
 
 	buf := new(bytes.Buffer)
-	npmIO := manifest.NpmManifestIO{}
-	if err := npmIO.Write(df, buf, changes); err != nil {
+	npmRW := manifest.NpmReadWriter{}
+	if err := npmRW.Write(df, buf, changes); err != nil {
 		t.Fatalf("unable to update npm package.json: %v", err)
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, buf.String())

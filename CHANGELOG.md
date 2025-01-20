@@ -1,3 +1,83 @@
+OSV-Scanner v2 is coming soon! The next release will start with version `v2.0.0-alpha1`.
+
+Here's a peek at some of the exciting upcoming features:
+
+- Standalone container image scanning support.
+  - Including support for Alpine and Debian images.
+- Refactored internals to use [`osv-scalibr`](https://github.com/google/osv-scalibr) library for better extraction capabilities.
+- HTML output format for clearer vulnerability results.
+- More control over output format and logging.
+- ...and more!
+
+Importantly, the CLI interface of osv-scanner will be maintained with minimal breaking changes.
+Most breaking changes will only be in the API. More details in the upcoming alpha release.
+
+---
+
+This is the final feature v1 release of osv-scanner, future releases for v1 will only contain bug fixes.
+
+# v1.9.1
+
+### Features:
+
+- [Feature #1295](https://github.com/google/osv-scanner/pull/1295) Support offline database in fix subcommand.
+- [Feature #1342](https://github.com/google/osv-scanner/pull/1342) Add `--experimental-offline-vulnerabilities` and `--experimental-no-resolve` flags.
+- [Feature #1045](https://github.com/google/osv-scanner/pull/1045) Support private registries for Maven.
+- [Feature #1226](https://github.com/google/osv-scanner/pull/1226) Support support `vulnerabilities.ignore` in package overrides.
+
+### Fixes:
+
+- [Bug #604](https://github.com/google/osv-scanner/pull/604) Use correct path separator in SARIF output when on Windows.
+- [Bug #330](https://github.com/google/osv-scanner/pull/330) Warn about and ignore duplicate entries in SBOMs.
+- [Bug #1325](https://github.com/google/osv-scanner/pull/1325) Set CharsetReader and Entity when reading pom.xml.
+- [Bug #1310](https://github.com/google/osv-scanner/pull/1310) Update spdx license ids.
+- [Bug #1288](https://github.com/google/osv-scanner/pull/1288) Sort sbom packages by PURL.
+- [Bug #1285](https://github.com/google/osv-scanner/pull/1285) Improve handling if `docker` exits with a non-zero code when trying to scan images
+
+### API Changes:
+
+- Deprecate auxillary public packages: As part of the V2 update described above, we have started deprecating some of the auxillary packages
+  which are not commonly used to give us more room to make better API designs. These include:
+  - `config`
+  - `depsdev`
+  - `grouper`
+  - `spdx`
+
+# v1.9.0
+
+### Features:
+
+- [Feature #1243](https://github.com/google/osv-scanner/pull/1243) Allow explicitly ignoring the license of a package in config with `license.ignore = true`.
+- [Feature #1249](https://github.com/google/osv-scanner/pull/1249) Error if configuration file has unknown properties.
+- [Feature #1271](https://github.com/google/osv-scanner/pull/1271) Assume `.txt` files with "requirements" in their name are `requirements.txt` files
+
+### Fixes:
+
+- [Bug #1242](https://github.com/google/osv-scanner/pull/1242) Announce when a config file is invalid and exit with a non-zero code.
+- [Bug #1241](https://github.com/google/osv-scanner/pull/1241) Display `(no reason given)` when there is no reason in the override config.
+- [Bug #1252](https://github.com/google/osv-scanner/pull/1252) Don't allow `LoadPath` to be set via config file.
+- [Bug #1279](https://github.com/google/osv-scanner/pull/1279) Report all ecosystems without local databases in one single line.
+- [Bug #1283](https://github.com/google/osv-scanner/pull/1283) Output invalid PURLs when scanning SBOMs.
+- [Bug #1278](https://github.com/google/osv-scanner/pull/1278) Apply go version override to _all_ instances of the `stdlib`.
+
+### Misc:
+
+- [#1253](https://github.com/google/osv-scanner/pull/1253) Deprecate `ParseX()` functions in `pkg/lockfile` in favor of their `Extract` equivalents.
+- [#1290](https://github.com/google/osv-scanner/pull/1290) Bump maximum number of concurrent requests to the OSV.dev API.
+
+# v1.8.5:
+
+### Features:
+
+- [Feature #1160](https://github.com/google/osv-scanner/pull/1160) Support fetching snapshot versions from a Maven registry.
+- [Feature #1177](https://github.com/google/osv-scanner/pull/1177) Support composite-based package overrides. This allows for ignoring entire manifests when scanning.
+- [Feature #1210](https://github.com/google/osv-scanner/pull/1210) Add FIXED-VULN-IDS to guided remediation non-interactive output.
+
+### Fixes:
+
+- [Bug #1220](https://github.com/google/osv-scanner/issues/1220) Fix govulncheck calls on C code.
+- [Bug #1236](https://github.com/google/osv-scanner/pull/1236) Alpine package scanning now falls back to latest release version if no release version can be found.
+
 # v1.8.4:
 
 ### Features:

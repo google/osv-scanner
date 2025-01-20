@@ -13,8 +13,8 @@ func TestFlatten(t *testing.T) {
 	vulns := models.VulnerabilityResults{Results: []models.PackageSource{}}
 	expectedFlattened := []models.VulnerabilityFlattened{}
 	flattened := vulns.Flatten()
-	if diff := cmp.Diff(flattened, expectedFlattened); diff != "" {
-		t.Errorf("Flatten() returned unexpected result (-got +want):\n%s", diff)
+	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
 	// Test case 2: When there are vulnerabilities
@@ -48,8 +48,8 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(flattened, expectedFlattened); diff != "" {
-		t.Errorf("Flatten() returned unexpected result (-got +want):\n%s", diff)
+	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
 	// Test case 3: When there are no vulnerabilities and license violations
@@ -73,8 +73,8 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(flattened, expectedFlattened); diff != "" {
-		t.Errorf("Flatten() returned unexpected result (-got +want):\n%s", diff)
+	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
 	// Test case 4: When there are vulnerabilities and license violations
@@ -116,7 +116,7 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(flattened, expectedFlattened); diff != "" {
-		t.Errorf("Flatten() returned unexpected result (-got +want):\n%s", diff)
+	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 }

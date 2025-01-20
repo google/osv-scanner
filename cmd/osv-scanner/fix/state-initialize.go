@@ -106,6 +106,6 @@ func (st *stateInitialize) View(m model) string {
 }
 
 func (st *stateInitialize) InfoView() string    { return "" }
-func (st *stateInitialize) Resize(w, h int)     {}
-func (st *stateInitialize) ResizeInfo(w, h int) {}
+func (st *stateInitialize) Resize(_, _ int)     {}
+func (st *stateInitialize) ResizeInfo(_, _ int) {}
 func (st *stateInitialize) IsInfoFocused() bool { return false }

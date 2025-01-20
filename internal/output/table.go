@@ -28,11 +28,17 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		text.DisableColors()
 	}
 
+	outputResult := BuildResults(vulnResult)
+
 	// Render the vulnerabilities.
-	outputTable := newTable(outputWriter, terminalWidth)
-	outputTable = tableBuilder(outputTable, vulnResult)
-	if outputTable.Length() != 0 {
-		outputTable.Render()
+	if outputResult.IsContainerScanning {
+		printContainerScanningResult(outputResult, outputWriter, terminalWidth)
+	} else {
+		outputTable := newTable(outputWriter, terminalWidth)
+		outputTable = tableBuilder(outputTable, vulnResult)
+		if outputTable.Length() != 0 {
+			outputTable.Render()
+		}
 	}
 
 	// Render the licenses if any.
@@ -63,25 +69,115 @@ func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
 
 func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
 	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
-	rows := tableBuilderInner(vulnResult, true)
+	rows := tableBuilderInner(vulnResult, true, false)
 	for _, elem := range rows {
 		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
 	}
 
-	uncalledRows := tableBuilderInner(vulnResult, false)
-	if len(uncalledRows) == 0 {
-		return outputTable
+	uncalledRows := tableBuilderInner(vulnResult, false, false)
+	if len(uncalledRows) != 0 {
+		outputTable.AppendSeparator()
+		outputTable.AppendRow(table.Row{"Uncalled vulnerabilities"})
+		outputTable.AppendSeparator()
+
+		for _, elem := range uncalledRows {
+			outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
+		}
 	}
 
-	outputTable.AppendSeparator()
-	outputTable.AppendRow(table.Row{"Uncalled vulnerabilities"})
-	outputTable.AppendSeparator()
+	unimportantRows := tableBuilderInner(vulnResult, true, true)
+	if len(unimportantRows) != 0 {
+		outputTable.AppendSeparator()
+		outputTable.AppendRow(table.Row{"Unimportant vulnerabilities"})
+		outputTable.AppendSeparator()
 
-	for _, elem := range uncalledRows {
-		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
+		for _, elem := range unimportantRows {
+			outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
+		}
 	}
 
 	return outputTable
+}
+
+func printContainerScanningResult(result Result, outputWriter io.Writer, terminalWidth int) {
+	summary := fmt.Sprintf(
+		"Total %[1]d packages affected by %[2]d vulnerabilities (%[3]d Critical, %[4]d High, %[5]d Medium, %[6]d Low, %[7]d Unknown) from %[8]d ecosystems.\n"+
+			"%[9]d vulnerabilities have fixes available.",
+		result.PackageTypeCount.Regular,
+		result.VulnTypeSummary.All,
+		result.VulnCount.SeverityCount.Critical,
+		result.VulnCount.SeverityCount.High,
+		result.VulnCount.SeverityCount.Medium,
+		result.VulnCount.SeverityCount.Low,
+		result.VulnCount.SeverityCount.Unknown,
+		len(result.Ecosystems),
+		result.VulnCount.FixableCount.Fixed,
+	)
+	fmt.Fprintln(outputWriter, summary)
+	// Add a newline
+	fmt.Fprintln(outputWriter)
+
+	for _, ecosystem := range result.Ecosystems {
+		fmt.Fprintln(outputWriter, ecosystem.Name)
+
+		for _, source := range ecosystem.Sources {
+			outputTable := newTable(outputWriter, terminalWidth)
+			outputTable.SetTitle("Source:" + source.Name)
+			outputTable.AppendHeader(table.Row{"Package", "Installed Version", "Fix available", "Vuln count"})
+			for _, pkg := range source.Packages {
+				if pkg.VulnCount.AnalysisCount.Regular == 0 {
+					continue
+				}
+				outputRow := table.Row{}
+				totalCount := pkg.VulnCount.AnalysisCount.Regular
+				var fixAvailable string
+				if pkg.FixedVersion == UnfixedDescription {
+					fixAvailable = UnfixedDescription
+				} else {
+					if pkg.VulnCount.FixableCount.UnFixed > 0 {
+						fixAvailable = "Partial fixes Available"
+					} else {
+						fixAvailable = "Fix Available"
+					}
+				}
+				outputRow = append(outputRow, pkg.Name, pkg.InstalledVersion, fixAvailable, totalCount)
+				outputTable.AppendRow(outputRow)
+			}
+			outputTable.Render()
+		}
+	}
+
+	if result.VulnTypeSummary.Hidden != 0 {
+		// Add a newline
+		fmt.Fprintln(outputWriter)
+		fmt.Fprintln(outputWriter, "Filtered Vulnerabilities:")
+		outputTable := newTable(outputWriter, terminalWidth)
+		outputTable.AppendHeader(table.Row{"Package", "Ecosystem", "Installed Version", "Filtered Vuln Count", "Filter Reasons"})
+		for _, ecosystem := range result.Ecosystems {
+			for _, source := range ecosystem.Sources {
+				for _, pkg := range source.Packages {
+					if pkg.VulnCount.AnalysisCount.Hidden == 0 {
+						continue
+					}
+					outputRow := table.Row{}
+					totalCount := pkg.VulnCount.AnalysisCount.Hidden
+					filteredReasons := getFilteredVulnReasons(pkg.HiddenVulns)
+					outputRow = append(outputRow, pkg.Name, ecosystem.Name, pkg.InstalledVersion, totalCount, filteredReasons)
+					outputTable.AppendRow(outputRow)
+				}
+			}
+		}
+		outputTable.Render()
+	}
+
+	// Add a newline
+	fmt.Fprintln(outputWriter)
+
+	const promptMessage = "For the most comprehensive scan results, we recommend using the HTML output: " +
+		"`osv-scanner --format html --output results.html`.\n" +
+		"You can also view the full vulnerability list in your terminal with: " +
+		"`osv-scanner --format vertical`."
+	fmt.Fprintln(outputWriter, promptMessage)
 }
 
 type tbInnerResponse struct {
@@ -89,7 +185,7 @@ type tbInnerResponse struct {
 	shouldMerge bool
 }
 
-func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool) []tbInnerResponse {
+func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool, unimportantVulns bool) []tbInnerResponse {
 	allOutputRows := []tbInnerResponse{}
 	workingDir := mustGetWorkingDirectory()
 
@@ -103,7 +199,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 
 			// Merge groups into the same row
 			for _, group := range pkg.Groups {
-				if group.IsCalled() != calledVulns {
+				if !(group.IsCalled() == calledVulns && group.IsGroupUnimportant() == unimportantVulns) {
 					continue
 				}
 
@@ -114,6 +210,11 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 
 				for _, vuln := range group.IDs {
 					links = append(links, OSVBaseVulnerabilityURL+text.Bold.Sprintf("%s", vuln))
+
+					// For container scanning results, if there is a DSA, then skip printing its sub-CVEs.
+					if strings.Split(vuln, "-")[0] == "DSA" {
+						break
+					}
 				}
 
 				outputRow = append(outputRow, strings.Join(links, "\n"))

@@ -29,17 +29,18 @@ type vulnList struct {
 	blurred  bool              // whether the cursor should be hidden and input disabled
 }
 
-func NewVulnList(vulns []*resolution.ResolutionVuln, preamble string) *vulnList {
+//revive:disable-next-line:unexported-return
+func NewVulnList(vulns []*resolution.Vulnerability, preamble string) *vulnList {
 	vl := vulnList{preamble: preamble}
 	// Sort the vulns by descending severity, then ID
 	vulns = slices.Clone(vulns)
-	slices.SortFunc(vulns, func(a, b *resolution.ResolutionVuln) int {
-		aScoreFloat, aRating, _ := severity.CalculateOverallScore(a.Vulnerability.Severity)
+	slices.SortFunc(vulns, func(a, b *resolution.Vulnerability) int {
+		aScoreFloat, aRating, _ := severity.CalculateOverallScore(a.OSV.Severity)
 		aScore := int(aScoreFloat * 10) // CVSS scores are only to 1dp
 		if aRating == "UNKNOWN" {
 			aScore = 999 // Sort unknown before critical
 		}
-		bScoreFloat, bRating, _ := severity.CalculateOverallScore(b.Vulnerability.Severity)
+		bScoreFloat, bRating, _ := severity.CalculateOverallScore(b.OSV.Severity)
 		bScore := int(bScoreFloat * 10) // CVSS scores are only to 1dp
 		if bRating == "UNKNOWN" {
 			bScore = 999 // Sort unknown before critical
@@ -49,13 +50,13 @@ func NewVulnList(vulns []*resolution.ResolutionVuln, preamble string) *vulnList 
 			return -c
 		}
 
-		return cmp.Compare(a.Vulnerability.ID, b.Vulnerability.ID)
+		return cmp.Compare(a.OSV.ID, b.OSV.ID)
 	})
 	items := make([]list.Item, 0, len(vulns))
 	delegate := vulnListItemDelegate{idWidth: 0}
 	for _, v := range vulns {
 		items = append(items, vulnListItem{v})
-		if w := lipgloss.Width(v.Vulnerability.ID); w > delegate.idWidth {
+		if w := lipgloss.Width(v.OSV.ID); w > delegate.idWidth {
 			delegate.idWidth = w
 		}
 	}
@@ -115,7 +116,7 @@ func (v *vulnList) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 			return v, CloseViewModel
 		case key.Matches(msg, Keys.Select):
 			vuln := v.Model.SelectedItem().(vulnListItem)
-			v.currVulnInfo = NewVulnInfo(vuln.ResolutionVuln)
+			v.currVulnInfo = NewVulnInfo(vuln.Vulnerability)
 			v.currVulnInfo.Resize(v.Width(), v.Height())
 
 			return v, nil
@@ -152,11 +153,11 @@ func (v *vulnList) Focus() {
 
 // Helpers for the list.Model
 type vulnListItem struct {
-	*resolution.ResolutionVuln
+	*resolution.Vulnerability
 }
 
 func (v vulnListItem) FilterValue() string {
-	return v.Vulnerability.ID
+	return v.OSV.ID
 }
 
 type vulnListItemDelegate struct {
@@ -178,11 +179,11 @@ func (d vulnListItemDelegate) Render(w io.Writer, m list.Model, index int, listI
 		cursor = SelectedTextStyle.Render(">")
 		idStyle = idStyle.Inherit(SelectedTextStyle)
 	}
-	id := idStyle.Render(vuln.Vulnerability.ID)
-	severity := RenderSeverityShort(vuln.Vulnerability.Severity)
+	id := idStyle.Render(vuln.OSV.ID)
+	severity := RenderSeverityShort(vuln.OSV.Severity)
 	str := fmt.Sprintf("%s %s  %s  ", cursor, id, severity)
 	fmt.Fprint(w, str)
-	fmt.Fprint(w, truncate.StringWithTail(vuln.Vulnerability.Summary, uint(m.Width()-lipgloss.Width(str)), "…"))
+	fmt.Fprint(w, truncate.StringWithTail(vuln.OSV.Summary, uint(m.Width()-lipgloss.Width(str)), "…")) //nolint:gosec
 }
 
 // workaround item delegate wrapper to stop the selected item from being shown as selected
@@ -190,6 +191,6 @@ type blurredDelegate struct {
 	list.ItemDelegate
 }
 
-func (d blurredDelegate) Render(w io.Writer, m list.Model, index int, listItem list.Item) {
+func (d blurredDelegate) Render(w io.Writer, m list.Model, _ int, listItem list.Item) {
 	d.ItemDelegate.Render(w, m, -1, listItem)
 }

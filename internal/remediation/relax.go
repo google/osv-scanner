@@ -13,14 +13,14 @@ import (
 )
 
 // ComputeRelaxPatches attempts to resolve each vulnerability found in result independently, returning the list of unique possible patches
-func ComputeRelaxPatches(ctx context.Context, cl client.ResolutionClient, result *resolution.ResolutionResult, opts RemediationOptions) ([]resolution.ResolutionDiff, error) {
+func ComputeRelaxPatches(ctx context.Context, cl client.ResolutionClient, result *resolution.Result, opts Options) ([]resolution.Difference, error) {
 	// Filter the original result just in case it hasn't been already
 	result.FilterVulns(opts.MatchVuln)
 
 	// Do the resolutions concurrently
 	type relaxResult struct {
 		vulnIDs []string
-		result  *resolution.ResolutionResult
+		result  *resolution.Result
 		err     error
 	}
 	ch := make(chan relaxResult)
@@ -39,11 +39,11 @@ func ComputeRelaxPatches(ctx context.Context, cl client.ResolutionClient, result
 	toProcess := 0
 	for _, vuln := range result.Vulns {
 		// TODO: limit the number of goroutines
-		go doRelax([]string{vuln.Vulnerability.ID})
+		go doRelax([]string{vuln.OSV.ID})
 		toProcess++
 	}
 
-	var allResults []resolution.ResolutionDiff
+	var allResults []resolution.Difference
 	for toProcess > 0 {
 		res := <-ch
 		toProcess--
@@ -60,14 +60,14 @@ func ComputeRelaxPatches(ctx context.Context, cl client.ResolutionClient, result
 		// If this patch adds a new vuln, see if we can fix it also
 		// TODO: If there's more than 1 added vuln, this can possibly cause every permutation of those vulns to be computed
 		for _, added := range diff.AddedVulns {
-			go doRelax(append(slices.Clone(res.vulnIDs), added.Vulnerability.ID))
+			go doRelax(append(slices.Clone(res.vulnIDs), added.OSV.ID))
 			toProcess++
 		}
 	}
 
 	// Sort and remove duplicate patches
-	slices.SortFunc(allResults, func(a, b resolution.ResolutionDiff) int { return a.Compare(b) })
-	allResults = slices.CompactFunc(allResults, func(a, b resolution.ResolutionDiff) bool { return a.Compare(b) == 0 })
+	slices.SortFunc(allResults, func(a, b resolution.Difference) int { return a.Compare(b) })
+	allResults = slices.CompactFunc(allResults, func(a, b resolution.Difference) bool { return a.Compare(b) == 0 })
 
 	return allResults, nil
 }
@@ -77,10 +77,10 @@ var errRelaxRemediateImpossible = errors.New("cannot fix vulns by relaxing")
 func tryRelaxRemediate(
 	ctx context.Context,
 	cl client.ResolutionClient,
-	orig *resolution.ResolutionResult,
+	orig *resolution.Result,
 	vulnIDs []string,
-	opts RemediationOptions,
-) (*resolution.ResolutionResult, error) {
+	opts Options,
+) (*resolution.Result, error) {
 	relaxer, err := relax.GetRelaxer(orig.Manifest.System())
 	if err != nil {
 		return nil, err
@@ -105,7 +105,7 @@ func tryRelaxRemediate(
 		}
 
 		// re-resolve relaxed manifest
-		newRes, err = resolution.Resolve(ctx, cl, manif)
+		newRes, err = resolution.Resolve(ctx, cl, manif, opts.ResolveOpts)
 		if err != nil {
 			return nil, err
 		}
@@ -115,11 +115,11 @@ func tryRelaxRemediate(
 	return newRes, nil
 }
 
-func reqsToRelax(res *resolution.ResolutionResult, vulnIDs []string, opts RemediationOptions) []int {
+func reqsToRelax(res *resolution.Result, vulnIDs []string, opts Options) []int {
 	toRelax := make(map[resolve.VersionKey]string)
 	for _, v := range res.Vulns {
 		// Don't do a full opts.MatchVuln() since we know we don't need to check every condition
-		if !slices.Contains(vulnIDs, v.Vulnerability.ID) || (!opts.DevDeps && v.DevOnly) {
+		if !slices.Contains(vulnIDs, v.OSV.ID) || (!opts.DevDeps && v.DevOnly) {
 			continue
 		}
 		// Only relax dependencies if their chain length is less than MaxDepth

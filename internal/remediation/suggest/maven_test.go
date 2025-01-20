@@ -265,7 +265,7 @@ func TestSuggest(t *testing.T) {
 		t.Fatalf("failed to suggest ManifestPatch: %v", err)
 	}
 
-	want := manifest.ManifestPatch{
+	want := manifest.Patch{
 		Deps: []manifest.DependencyPatch{
 			{
 				Pkg: resolve.PackageKey{
@@ -399,25 +399,25 @@ func TestSuggestVersion(t *testing.T) {
 		{"[1.0.0,2.0.0)", false, "2.3.4"},
 		{"[1.0.0,2.0.0)", true, "[1.0.0,2.0.0)"},
 	}
-	for _, test := range tests {
+	for _, tt := range tests {
 		vk := resolve.VersionKey{
 			PackageKey:  pk,
 			VersionType: resolve.Requirement,
-			Version:     test.requirement,
+			Version:     tt.requirement,
 		}
 		want := resolve.RequirementVersion{
 			VersionKey: resolve.VersionKey{
 				PackageKey:  pk,
 				VersionType: resolve.Requirement,
-				Version:     test.want,
+				Version:     tt.want,
 			},
 		}
-		got, err := suggestMavenVersion(ctx, lc, resolve.RequirementVersion{VersionKey: vk}, test.noMajorUpdates)
+		got, err := suggestMavenVersion(ctx, lc, resolve.RequirementVersion{VersionKey: vk}, tt.noMajorUpdates)
 		if err != nil {
 			t.Fatalf("fail to suggest a new version for %v: %v", vk, err)
 		}
 		if !reflect.DeepEqual(got, want) {
-			t.Errorf("suggestMavenVersion(%v, %t): got %s want %s", vk, test.noMajorUpdates, got, want)
+			t.Errorf("suggestMavenVersion(%v, %t): got %s want %s", vk, tt.noMajorUpdates, got, want)
 		}
 	}
 }

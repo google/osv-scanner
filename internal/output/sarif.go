@@ -9,6 +9,7 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/google/osv-scanner/internal/identifiers"
 	"github.com/google/osv-scanner/internal/url"
 	"github.com/google/osv-scanner/internal/utility/results"
 	"github.com/google/osv-scanner/internal/version"
@@ -24,6 +25,7 @@ type HelpTemplateData struct {
 	AliasedVulns          []VulnDescription
 	HasFixedVersion       bool
 	FixedVersionTable     string
+	PathSeparator         string
 }
 
 type FixedPkgTableData struct {
@@ -80,7 +82,7 @@ See the format and more options in our documentation here: https://google.github
 Add or append these values to the following config files to ignore this vulnerability:
 
 {{range .AffectedPackagePaths -}}
-""{{.}}/osv-scanner.toml""
+""{{.}}{{$.PathSeparator}}osv-scanner.toml""
 
 """"""
 [[IgnoredVulns]]
@@ -191,7 +193,7 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 			Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
 		})
 	}
-	slices.SortFunc(vulnDescriptions, func(a, b VulnDescription) int { return idSortFunc(a.ID, b.ID) })
+	slices.SortFunc(vulnDescriptions, func(a, b VulnDescription) int { return identifiers.IDSortFunc(a.ID, b.ID) })
 
 	helpText := strings.Builder{}
 
@@ -212,6 +214,7 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 		HasFixedVersion:       hasFixedVersion,
 		FixedVersionTable:     createSARIFFixedPkgTable(fixedPkgTableData).RenderMarkdown(),
 		AffectedPackagePaths:  affectedPackagePaths,
+		PathSeparator:         string(filepath.Separator),
 	})
 
 	if err != nil {
@@ -250,7 +253,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		// or use a random long description.
 		var shortDescription, longDescription string
 		ids := slices.Clone(gv.AliasedIDList)
-		slices.SortFunc(ids, idSortFuncForDescription)
+		slices.SortFunc(ids, identifiers.IDSortFuncForDescription)
 
 		for _, id := range ids {
 			v := gv.AliasedVulns[id]

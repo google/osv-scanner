@@ -16,11 +16,11 @@ name: OSV-Scanner Scheduled Scan
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: ["main", "v1"]
   schedule:
     - cron: "12 12 * * 1"
   push:
-    branches: ["main"]
+    branches: ["main", "v1"]
 
 # Restrict jobs in this workflow to have no permissions by default; permissions
 # should be granted per job as needed using a dedicated `permissions` block

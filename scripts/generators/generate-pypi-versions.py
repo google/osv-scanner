@@ -25,15 +25,15 @@ def is_unsupported_comparison(line):
 
 
 def uncomment(line):
-  if line.startswith("#"):
+  if line.startswith('#'):
     return line[1:]
-  if line.startswith("//"):
+  if line.startswith('//'):
     return line[2:]
   return line
 
 
 def download_pypi_db():
-  urllib.request.urlretrieve("https://osv-vulnerabilities.storage.googleapis.com/PyPI/all.zip", "pypi-db.zip")
+  urllib.request.urlretrieve('https://osv-vulnerabilities.storage.googleapis.com/PyPI/all.zip', 'pypi-db.zip')
 
 
 def extract_packages_with_versions(osvs):
@@ -53,7 +53,7 @@ def extract_packages_with_versions(osvs):
         try:
           dict[package].append(packaging.version.parse(version))
         except packaging.version.InvalidVersion:
-          print(f"skipping invalid version {version} for {package}")
+          print(f'skipping invalid version {version} for {package}')
 
   # deduplicate and sort the versions for each package
   for package in dict:
@@ -67,39 +67,39 @@ def compare(v1, relate, v2):
   return ops[relate](v1, v2)
 
 
-def compare_versions(lines, select="all"):
+def compare_versions(lines, select='all'):
   has_any_failed = False
 
   for line in lines:
     line = line.strip()
 
-    if line == "" or line.startswith('#') or line.startswith('//'):
+    if line == '' or line.startswith('#') or line.startswith('//'):
       maybe_unsupported = uncomment(line).strip()
 
       if is_unsupported_comparison(maybe_unsupported):
-        print(f"\033[96mS\033[0m: \033[93m{maybe_unsupported}\033[0m")
+        print(f'\033[96mS\033[0m: \033[93m{maybe_unsupported}\033[0m')
       continue
 
-    v1, op, v2 = line.strip().split(" ")
+    v1, op, v2 = line.strip().split(' ')
 
     r = compare(packaging.version.parse(v1), op, packaging.version.parse(v2))
 
     if not r:
       has_any_failed = True
 
-    if select == "failures" and r:
+    if select == 'failures' and r:
       continue
 
-    if select == "successes" and not r:
+    if select == 'successes' and not r:
       continue
 
     color = '\033[92m' if r else '\033[91m'
-    rs = "T" if r else "F"
-    print(f"{color}{rs}\033[0m: \033[93m{line}\033[0m")
+    rs = 'T' if r else 'F'
+    print(f'{color}{rs}\033[0m: \033[93m{line}\033[0m')
   return has_any_failed
 
 
-def compare_versions_in_file(filepath, select="all"):
+def compare_versions_in_file(filepath, select='all'):
   with open(filepath) as f:
     lines = f.readlines()
     return compare_versions(lines, select)
@@ -111,10 +111,10 @@ def generate_version_compares(versions):
     if i == 0:
       continue
 
-    comparison = f"{versions[i - 1]} < {version}\n"
+    comparison = f'{versions[i - 1]} < {version}\n'
 
     if is_unsupported_comparison(comparison.strip()):
-      comparison = "# " + comparison
+      comparison = '# ' + comparison
     comparisons.append(comparison)
   return comparisons
 
@@ -141,16 +141,16 @@ def fetch_packages_versions():
   return extract_packages_with_versions(osvs)
 
 
-outfile = "internal/semantic/fixtures/pypi-versions-generated.txt"
+outfile = 'internal/semantic/fixtures/pypi-versions-generated.txt'
 
 packs = fetch_packages_versions()
-with open(outfile, "w") as f:
+with open(outfile, 'w') as f:
   f.writelines(generate_package_compares(packs))
-  f.write("\n")
+  f.write('\n')
 
 # set this to either "failures" or "successes" to only have those comparison results
 # printed; setting it to anything else will have all comparison results printed
-show = os.environ.get("VERSION_GENERATOR_PRINT", "failures")
+show = os.environ.get('VERSION_GENERATOR_PRINT', 'failures')
 
 did_any_fail = compare_versions_in_file(outfile, show)
 

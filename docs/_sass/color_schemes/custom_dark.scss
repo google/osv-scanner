@@ -1,0 +1,26 @@
+@import "./variables";
+@import "../highlight/native.scss";
+@import url("https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap");
+
+$new-body-background-color: #292929;
+
+// Overriding dark default for just-the-docs styles
+$color-scheme: dark;
+$body-background-color: $new-body-background-color; // Replacing default $grey-dk-300
+$body-heading-color: $white; // Replacing default $grey-lt-000
+$body-text-color: $white; //Replacing default $grey-lt-300
+$link-color: #c9f5f7;
+$nav-child-link-color: $white; // Replacing default $grey-dk-000
+$sidebar-color: $new-body-background-color; //Replacing default $grey-dk-300
+$base-button-color: $grey-dk-250;
+$btn-primary-color: $blue-200;
+$code-background-color: #202020; // Important to match with .highlight background and .highlight.err background-color
+$code-linenumber-color: #447fcf; // Important to match with .highlight.nf color
+$feedback-color: darken($sidebar-color, 3%);
+$table-background-color: lighten(
+  $new-body-background-color,
+  5%
+); // Replacing default $grey-dk-250
+$search-background-color: $new-body-background-color; // Replacing default $grey-dk-250
+$search-result-preview-color: $grey-dk-000;
+$border-color: #6a6a6a; // Replacing default $grey-dk-200

@@ -105,7 +105,7 @@ osv-scanner --format json -L path/to/lockfile > /path/to/file.json
 {
   "results": [
     {
-      "packageSource": {
+      "source": {
         "path": "/absolute/path/to/go.mod",
         // One of: lockfile, sbom, git, docker
         "type": "lockfile"
@@ -148,7 +148,7 @@ osv-scanner --format json -L path/to/lockfile > /path/to/file.json
       ]
     },
     {
-      "packageSource": {
+      "source": {
         "path": "/absolute/path/to/Cargo.lock",
         "type": "lockfile"
       },

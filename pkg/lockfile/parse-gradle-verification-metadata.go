@@ -50,6 +50,7 @@ func init() {
 	registerExtractor("gradle/verification-metadata.xml", GradleVerificationMetadataExtractor{})
 }
 
+// Deprecated: use GradleVerificationMetadataExtractor.Extract instead
 func ParseGradleVerificationMetadata(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, GradleVerificationMetadataExtractor{})
 }

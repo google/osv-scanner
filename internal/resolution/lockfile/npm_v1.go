@@ -8,12 +8,12 @@ import (
 	"strings"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
-	"golang.org/x/exp/maps"
 )
 
 // Old-style (npm < 7 / lockfileVersion 1) dependencies structure
@@ -21,7 +21,7 @@ import (
 // Installed packages stored in recursive "dependencies" object
 // with "requires" field listing direct dependencies, and each possibly having their own "dependencies"
 // No dependency information package-lock.json for the root node, so we must also have the package.json
-func (rw NpmLockfileIO) nodesFromDependencies(lockJSON lockfile.NpmLockfile, manifestFile io.Reader) (*resolve.Graph, *npmNodeModule, error) {
+func (rw NpmReadWriter) nodesFromDependencies(lockJSON lockfile.NpmLockfile, manifestFile io.Reader) (*resolve.Graph, *npmNodeModule, error) {
 	// Need to grab the root requirements from the package.json, since it's not in the lockfile
 	var manifestJSON manifest.PackageJSON
 	if err := json.NewDecoder(manifestFile).Decode(&manifestJSON); err != nil {
@@ -29,22 +29,27 @@ func (rw NpmLockfileIO) nodesFromDependencies(lockJSON lockfile.NpmLockfile, man
 	}
 
 	nodeModuleTree := &npmNodeModule{
-		Children:     make(map[string]*npmNodeModule),
-		Deps:         make(map[string]string),
-		OptionalDeps: make(map[string]string),
+		Children: make(map[string]*npmNodeModule),
+		Deps:     make(map[string]npmDependencyVersionSpec),
 	}
 
-	maps.Copy(nodeModuleTree.Deps, manifestJSON.Dependencies)
-	maps.Copy(nodeModuleTree.Deps, manifestJSON.DevDependencies)
+	// The order we process dependency types here is to match npm's behavior.
+	for name, version := range manifestJSON.PeerDependencies {
+		var typ dep.Type
+		typ.AddAttr(dep.Scope, "peer")
+		// TODO: check peerDependenciesMeta for optional peer dependencies
+		nodeModuleTree.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: typ}
+	}
+	for name, version := range manifestJSON.Dependencies {
+		nodeModuleTree.Deps[name] = npmDependencyVersionSpec{Version: version}
+	}
+	for name, version := range manifestJSON.OptionalDependencies {
+		nodeModuleTree.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: dep.NewType(dep.Opt)}
+	}
+	for name, version := range manifestJSON.DevDependencies {
+		nodeModuleTree.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: dep.NewType(dep.Dev)}
+	}
 	rw.reVersionAliasedDeps(nodeModuleTree.Deps)
-
-	nodeModuleTree.DevDeps = maps.Clone(manifestJSON.DevDependencies)
-	rw.reVersionAliasedDeps(nodeModuleTree.DevDeps)
-
-	maps.Copy(nodeModuleTree.OptionalDeps, manifestJSON.OptionalDependencies)
-	// old npm versions / using the --legacy-peer-deps flag doesn't automatically install peer deps, so treat them as optional
-	maps.Copy(nodeModuleTree.OptionalDeps, manifestJSON.PeerDependencies)
-	rw.reVersionAliasedDeps(nodeModuleTree.OptionalDeps)
 
 	var g resolve.Graph
 	nodeModuleTree.NodeID = g.AddNode(resolve.VersionKey{
@@ -61,7 +66,7 @@ func (rw NpmLockfileIO) nodesFromDependencies(lockJSON lockfile.NpmLockfile, man
 	return &g, nodeModuleTree, err
 }
 
-func (rw NpmLockfileIO) computeDependenciesRecursive(g *resolve.Graph, parent *npmNodeModule, deps map[string]lockfile.NpmLockDependency) error {
+func (rw NpmReadWriter) computeDependenciesRecursive(g *resolve.Graph, parent *npmNodeModule, deps map[string]lockfile.NpmLockDependency) error {
 	for name, d := range deps {
 		actualName, version := manifest.SplitNPMAlias(d.Version)
 		nID := g.AddNode(resolve.VersionKey{
@@ -72,18 +77,22 @@ func (rw NpmLockfileIO) computeDependenciesRecursive(g *resolve.Graph, parent *n
 			VersionType: resolve.Concrete,
 			Version:     version,
 		})
+		nm := &npmNodeModule{
+			Parent:     parent,
+			NodeID:     nID,
+			Children:   make(map[string]*npmNodeModule),
+			Deps:       make(map[string]npmDependencyVersionSpec),
+			ActualName: actualName,
+		}
+
 		// The requires map includes regular dependencies AND optionalDependencies
 		// but it does not include peerDependencies or devDependencies.
 		// The generated graphs will lack the edges between peers
-		optDeps := maps.Clone(d.Requires)
-		rw.reVersionAliasedDeps(optDeps)
-		nm := &npmNodeModule{
-			Parent:       parent,
-			NodeID:       nID,
-			Children:     make(map[string]*npmNodeModule),
-			OptionalDeps: optDeps,
-			ActualName:   actualName,
+		for name, version := range d.Requires {
+			nm.Deps[name] = npmDependencyVersionSpec{Version: version}
 		}
+		rw.reVersionAliasedDeps(nm.Deps)
+
 		parent.Children[name] = nm
 		if d.Dependencies != nil {
 			if err := rw.computeDependenciesRecursive(g, nm, d.Dependencies); err != nil {
@@ -95,7 +104,7 @@ func (rw NpmLockfileIO) computeDependenciesRecursive(g *resolve.Graph, parent *n
 	return nil
 }
 
-func (rw NpmLockfileIO) modifyPackageLockDependencies(lockJSON string, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
+func (rw NpmReadWriter) modifyPackageLockDependencies(lockJSON string, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
 	if !gjson.Get(lockJSON, "dependencies").Exists() {
 		return lockJSON, nil
 	}
@@ -103,7 +112,7 @@ func (rw NpmLockfileIO) modifyPackageLockDependencies(lockJSON string, patches m
 	return rw.modifyPackageLockDependenciesRecurse(lockJSON, "dependencies", 1, patches, api)
 }
 
-func (rw NpmLockfileIO) modifyPackageLockDependenciesRecurse(lockJSON, path string, depth int, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
+func (rw NpmReadWriter) modifyPackageLockDependenciesRecurse(lockJSON, path string, depth int, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
 	for pkg, data := range gjson.Get(lockJSON, path).Map() {
 		pkgPath := fmt.Sprintf("%s.%s", path, gjson.Escape(pkg))
 		if data.Get("dependencies").Exists() {

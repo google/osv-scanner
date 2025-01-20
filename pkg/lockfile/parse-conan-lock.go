@@ -47,7 +47,7 @@ type ConanLockFile struct {
 // TODO this is tentative and subject to change depending on the OSV schema
 const ConanEcosystem Ecosystem = "ConanCenter"
 
-func parseConanRenference(ref string) ConanReference {
+func parseConanReference(ref string) ConanReference {
 	// very flexible format name/version[@username[/channel]][#rrev][:pkgid[#prev]][%timestamp]
 	var reference ConanReference
 
@@ -110,9 +110,9 @@ func parseConanV1Lock(lockfile ConanLockFile) []PackageDetails {
 
 		if node.Pref != "" {
 			// old format 0.3 (conan 1.27-) lockfiles use "pref" instead of "ref"
-			reference = parseConanRenference(node.Pref)
+			reference = parseConanReference(node.Pref)
 		} else if node.Ref != "" {
-			reference = parseConanRenference(node.Ref)
+			reference = parseConanReference(node.Ref)
 		} else {
 			continue
 		}
@@ -134,7 +134,7 @@ func parseConanV1Lock(lockfile ConanLockFile) []PackageDetails {
 
 func parseConanRequires(packages *[]PackageDetails, requires []string, group string) {
 	for _, ref := range requires {
-		reference := parseConanRenference(ref)
+		reference := parseConanReference(ref)
 		// skip entries with no name, they are most likely consumer's conanfiles
 		// and not dependencies to be searched in a database anyway
 		if reference.Name == "" {
@@ -197,6 +197,7 @@ func init() {
 	registerExtractor("conan.lock", ConanLockExtractor{})
 }
 
+// Deprecated: use ConanLockExtractor.Extract instead
 func ParseConanLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, ConanLockExtractor{})
 }

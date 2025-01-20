@@ -1,0 +1,524 @@
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #292929;
+    color: #fff;
+    overflow-y: scroll;
+    font-family: "Overpass Mono", monospace;
+    font-size: 12pt;
+    font-weight: 100;
+    min-width: fit-content;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.15);
+    min-height: 90vh;
+  }
+
+  h2 {
+    margin-top: 50px;
+    font-size: 15pt;
+  }
+
+  h3 {
+    font-size: 12pt;
+    margin-top: 30px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: "Overpass Mono", monospace;
+    font-weight: normal;
+  }
+
+  .ecosystem {
+    margin-top: 20px;
+  }
+
+  details summary {
+    cursor: pointer;
+  }
+
+  details p {
+    margin-left: 10px;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .logo {
+    height: 20px;
+  }
+
+  header .vl {
+    border-left: 2px solid #fff;
+    height: 25px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  header h1 {
+    font-size: 23px;
+  }
+
+  .material-icons {
+    vertical-align: middle;
+    user-select: none;
+  }
+
+  .vuln-table {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 40px;
+    margin-top: 10px;
+    color: rgba(255, 255, 255, 0.87);
+    border-spacing: 0;
+  }
+
+  .vuln-table th {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 16px;
+  }
+
+  .table-tr {
+    line-height: 30px;
+  }
+
+  .table-tr td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    word-break: break-word;
+    width: 200px;
+    padding: 16px;
+  }
+
+  .table-tr:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+
+  .vuln-id {
+    color: #d9534f;
+  }
+
+  .package-details {
+    text-align: left;
+    padding: 0 50px;
+    display: none;
+    padding-top: 20px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    max-height: 800px;
+    overflow: auto;
+  }
+
+  .table-tr:hover .open-in-tab-tag {
+    display: inline;
+  }
+
+  .open-in-tab-tag {
+    display: none;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 5px 5px;
+    border-radius: 4px;
+    width: fit-content;
+  }
+
+  .open-in-tab-cell {
+    width: 90px !important;
+    cursor: pointer;
+  }
+
+  .severity-cell {
+    width: 60px !important;
+    user-select: none;
+  }
+
+  .fixable-tag {
+    border-radius: 4px;
+    max-width: 250px;
+    width: fit-content;
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    user-select: none;
+  }
+
+  .has-fix {
+    white-space: break-spaces;
+    background-color: #6a6a6a;
+  }
+
+  .no-fix {
+    background-color: #252525;
+    border: 1px solid #3c4043;
+  }
+
+  .uncalled-tr {
+    display: none;
+  }
+
+  .uncalled-text {
+    color: #808080;
+  }
+
+  #vuln-tab {
+    display: none;
+    margin-top: 40px;
+  }
+
+  #tab-switch {
+    text-align: left;
+    border-bottom: 1px solid #6c6c6c;
+    padding-left: 20px;
+    display: flex;
+    margin-bottom: 50px;
+  }
+
+  .tab-switch-button {
+    width: 180px;
+    outline: 0;
+    cursor: pointer;
+    background-color: transparent;
+    text-align: center;
+    display: flex;
+  }
+
+  .tab-button-text-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tab-button-text-container p {
+    width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-bottom: 2px solid transparent;
+    color: #5f6368;
+  }
+
+  .tab-switch-button span {
+    cursor: pointer;
+    font-size: 16px;
+    display: none;
+  }
+
+  .tab-switch-button-border {
+    width: 85%;
+    height: 3px;
+    background-color: transparent;
+    margin: auto;
+  }
+
+  .tab-button-text-container:hover p {
+    color: #fff;
+  }
+
+  .tab-switch-button-selected:hover span {
+    display: block;
+  }
+
+  .tab-switch-button-selected .tab-switch-button-border {
+    background-color: #eee;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  .tab-switch-button-selected p {
+    color: #fff;
+  }
+
+  .osv-tab iframe {
+    width: 100%;
+    min-height: 1000px;
+    border: none;
+    background-color: #fff;
+  }
+
+  #vuln-tab {
+    display: block;
+  }
+
+  .package-tr {
+    cursor: pointer;
+  }
+
+  .icon-td {
+    width: 10px !important;
+  }
+
+  #filter-section {
+    display: flex;
+    width: 60%;
+  }
+
+  .filter-container {
+    margin-right: 20px;
+    max-width: 600px;
+  }
+
+  .filter {
+    margin-top: 10px;
+    max-width: 600px;
+    min-width: 250px;
+    background-color: transparent;
+    border-radius: 8px;
+    overflow: hidden;
+    color: #fff;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+
+  #layer-filter {
+    width: 400px !important;
+  }
+
+  .filter-selected {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .filter-option-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    position: absolute;
+    background-color: #292929;
+    min-width: 200px;
+    max-width: 1400px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    display: none;
+  }
+
+  .filter-option {
+    border-bottom: 1px dotted #ddd;
+    padding: 15px 20px;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .filter-option input,
+  .filter-option label {
+    cursor: pointer;
+  }
+
+  #layer-filter-option-container {
+    width: 1400px;
+  }
+
+  .layer-filter-option {
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+
+  .filter-option:hover {
+    background-color: black;
+  }
+
+  .filter-icon i {
+    position: relative;
+    top: 25%;
+  }
+
+  #summary-section {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  #severity-section {
+    overflow: hidden;
+  }
+
+  .severity-long {
+    text-align: center;
+    min-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .severity-long p {
+    font-size: 10pt;
+    padding: 5px 5px;
+    border-radius: 4px;
+    margin-right: 3px;
+  }
+
+  .critical {
+    background-color: #ad0300;
+  }
+
+  .high {
+    background-color: #ffa500;
+  }
+
+  .medium {
+    background-color: #ffd700;
+    color: #292929;
+  }
+
+  .low {
+    background-color: #53aa33;
+    color: #292929;
+  }
+
+  .unknown {
+    background-color: #80868b;
+  }
+
+  .severity-count-summary {
+    display: flex;
+  }
+
+  .severity-short {
+    width: 40px;
+    user-select: none;
+  }
+
+  .severity-short p {
+    text-align: center;
+  }
+
+  .severity-short-first p {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+
+  .severity-short-last p {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+  }
+
+  .severity-cell .severity-short p {
+    border-radius: 4px;
+  }
+
+  /* CSS for the search box */
+  .search-box {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    border: 1px solid #fff;
+    background-color: transparent;
+    border-radius: 4px;
+    margin-top: 30px;
+  }
+
+  .search-box input[type="text"] {
+    padding: 10px 10px 10px 35px;
+    border: none;
+    background-color: transparent;
+    width: 90%;
+    margin-left: 10px;
+    color: #fff;
+    line-height: 2;
+    font-size: 12pt;
+  }
+
+  .search-box input[type="text"]:focus {
+    outline: none;
+  }
+
+  .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+  }
+
+  .package-detail-title {
+    color: #9aa0a6;
+  }
+
+  .layer-command-container {
+    display: flex;
+  }
+
+  .inner-table {
+    width: 100%;
+    border: 0.5px solid rgba(255, 255, 255, 0.12);
+    border-spacing: 0px;
+    border-radius: 4px;
+  }
+
+  .inner-table th {
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .inner-table td {
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .expand-icon i.rotated {
+    transform: rotate(90deg);
+  }
+
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 3px;
+  }
+
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    padding: 5px 5px;
+    white-space: nowrap;
+    width: fit-content;
+    text-align: left;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 999;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+  }
+
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .inner-table .tooltip .tooltiptext {
+    min-width: 300px;
+    white-space: normal;
+  }
+
+  th .tooltip .tooltiptext {
+    white-space: normal;
+    width: 240px;
+    padding: 10px;
+  }
+
+  .severity-count-summary .tooltip {
+    text-decoration: none;
+  }
+
+  .flex-box {
+    display: flex;
+  }
+</style>

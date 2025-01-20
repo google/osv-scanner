@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"cmp"
 	"context"
-	"encoding/xml"
 	"errors"
 	"fmt"
 	"io"
@@ -15,7 +14,7 @@ import (
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 	internalxml "github.com/google/osv-scanner/internal/thirdparty/xml"
 	mavenutil "github.com/google/osv-scanner/internal/utility/maven"
 	"github.com/google/osv-scanner/pkg/lockfile"
@@ -35,16 +34,19 @@ func mavenRequirementKey(requirement resolve.RequirementVersion) RequirementKey 
 	}
 }
 
-type MavenManifestIO struct {
+type MavenReadWriter struct {
 	*datasource.MavenRegistryAPIClient
 }
 
-func (MavenManifestIO) System() resolve.System { return resolve.Maven }
+func (MavenReadWriter) System() resolve.System { return resolve.Maven }
 
-func NewMavenManifestIO() MavenManifestIO {
-	return MavenManifestIO{
-		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(datasource.MavenCentral),
+func NewMavenReadWriter(registry string) (MavenReadWriter, error) {
+	client, err := datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{URL: registry, ReleasesEnabled: true})
+	if err != nil {
+		return MavenReadWriter{}, err
 	}
+
+	return MavenReadWriter{MavenRegistryAPIClient: client}, nil
 }
 
 type MavenManifestSpecific struct {
@@ -52,6 +54,7 @@ type MavenManifestSpecific struct {
 	Properties             []PropertyWithOrigin         // Properties from the base project
 	OriginalRequirements   []DependencyWithOrigin       // Dependencies from the base project
 	RequirementsForUpdates []resolve.RequirementVersion // Requirements that we only need for updates
+	Repositories           []maven.Repository
 }
 
 type PropertyWithOrigin struct {
@@ -64,11 +67,11 @@ type DependencyWithOrigin struct {
 	Origin string // Origin indicates where the dependency comes from
 }
 
-func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
+func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
 	ctx := context.Background()
 
 	var project maven.Project
-	if err := xml.NewDecoder(df).Decode(&project); err != nil {
+	if err := datasource.NewMavenDecoder(df).Decode(&project); err != nil {
 		return Manifest{}, fmt.Errorf("failed to unmarshal project: %w", err)
 	}
 	properties := buildPropertiesWithOrigins(project, "")
@@ -95,6 +98,18 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 		return Manifest{}, fmt.Errorf("failed to merge profiles: %w", err)
 	}
 
+	// TODO: there may be properties in repo.Releases.Enabled and repo.Snapshots.Enabled
+	for _, repo := range project.Repositories {
+		if err := m.MavenRegistryAPIClient.AddRegistry(datasource.MavenRegistry{
+			URL:              string(repo.URL),
+			ID:               string(repo.ID),
+			ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
+			SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
+		}); err != nil {
+			return Manifest{}, fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
+		}
+	}
+
 	// Merging parents data by parsing local parent pom.xml or fetching from upstream.
 	if err := mavenutil.MergeParents(ctx, m.MavenRegistryAPIClient, &project, project.Parent, 1, df.Path(), true); err != nil {
 		return Manifest{}, fmt.Errorf("failed to merge parents: %w", err)
@@ -114,16 +129,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 	//  - import dependency management
 	//  - fill in missing dependency version requirement
 	project.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
-		root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
-		var result maven.Project
-		// To get dependency management from another project, we need the
-		// project with parents merged, so we call mergeParents by passing
-		// an empty project.
-		if err := mavenutil.MergeParents(ctx, m.MavenRegistryAPIClient, &result, root, 0, "", false); err != nil {
-			return maven.DependencyManagement{}, err
-		}
-
-		return result.DependencyManagement, nil
+		return mavenutil.GetDependencyManagement(ctx, m.MavenRegistryAPIClient, groupID, artifactID, version)
 	})
 
 	groups := make(map[RequirementKey][]string)
@@ -158,6 +164,7 @@ func (m MavenManifestIO) Read(df lockfile.DepFile) (Manifest, error) {
 			Properties:             properties,
 			OriginalRequirements:   origRequirements,
 			RequirementsForUpdates: reqsForUpdates,
+			Repositories:           project.Repositories,
 		},
 	}, nil
 }
@@ -283,7 +290,7 @@ func mavenOrigin(list ...string) string {
 	return result
 }
 
-func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPatch) error {
+func (MavenReadWriter) Write(df lockfile.DepFile, w io.Writer, patch Patch) error {
 	specific, ok := patch.Manifest.EcosystemSpecific.(MavenManifestSpecific)
 	if !ok {
 		return errors.New("invalid MavenManifestSpecific data")
@@ -316,7 +323,7 @@ func (MavenManifestIO) Write(df lockfile.DepFile, w io.Writer, patch ManifestPat
 		}
 
 		var proj maven.Project
-		err = xml.NewDecoder(f).Decode(&proj)
+		err = datasource.NewMavenDecoder(f).Decode(&proj)
 		f.Close()
 		if err != nil {
 			return fmt.Errorf("failed to unmarshal project: %w", err)

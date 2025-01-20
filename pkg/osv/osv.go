@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/pkg/models"
 
 	"golang.org/x/sync/errgroup"
@@ -19,7 +19,7 @@ import (
 const (
 	// QueryEndpoint is the URL for posting queries to OSV.
 	QueryEndpoint = "https://api.osv.dev/v1/querybatch"
-	// GetEndpoint is the URL for getting vulenrabilities from OSV.
+	// GetEndpoint is the URL for getting vulnerabilities from OSV.
 	GetEndpoint = "https://api.osv.dev/v1/vulns"
 	// DetermineVersionEndpoint is the URL for posting determineversion queries to OSV.
 	DetermineVersionEndpoint = "https://api.osv.dev/v1experimental/determineversion"
@@ -27,9 +27,10 @@ const (
 	BaseVulnerabilityURL = "https://osv.dev/"
 	// maxQueriesPerRequest splits up querybatch into multiple requests if
 	// number of queries exceed this number
-	maxQueriesPerRequest  = 1000
-	maxConcurrentRequests = 25
-	maxRetryAttempts      = 4
+	maxQueriesPerRequest       = 1000
+	maxConcurrentRequests      = 1000
+	maxConcurrentBatchRequests = 10
+	maxRetryAttempts           = 4
 	// jitterMultiplier is multiplied to the retry delay multiplied by rand(0, 1.0)
 	jitterMultiplier = 2
 )
@@ -122,26 +123,15 @@ func MakePURLRequest(purl string) *Query {
 	}
 }
 
-func MakePkgRequest(pkgDetails lockfile.PackageDetails) *Query {
-	// API has trouble parsing requests with both commit and Package details filled in
-	if pkgDetails.Ecosystem == "" && pkgDetails.Commit != "" {
-		return &Query{
-			Metadata: models.Metadata{
-				RepoURL:   pkgDetails.Name,
-				DepGroups: pkgDetails.DepGroups,
-			},
-			Commit: pkgDetails.Commit,
-		}
-	}
-
+func MakePkgRequest(pkgInfo imodels.PackageInfo) *Query {
 	return &Query{
-		Version: pkgDetails.Version,
+		Version: pkgInfo.Version(),
 		Package: Package{
-			Name:      pkgDetails.Name,
-			Ecosystem: string(pkgDetails.Ecosystem),
+			Name:      pkgInfo.Name(),
+			Ecosystem: pkgInfo.Ecosystem().String(),
 		},
 		Metadata: models.Metadata{
-			DepGroups: pkgDetails.DepGroups,
+			DepGroups: pkgInfo.DepGroups(),
 		},
 	}
 }
@@ -156,21 +146,6 @@ func chunkBy[T any](items []T, chunkSize int) [][]T {
 	return append(chunks, items)
 }
 
-// checkResponseError checks if the response has an error.
-func checkResponseError(resp *http.Response) error {
-	if resp.StatusCode == http.StatusOK {
-		return nil
-	}
-
-	respBuf, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return fmt.Errorf("failed to read error response from server: %w", err)
-	}
-	defer resp.Body.Close()
-
-	return fmt.Errorf("server response error: %s", string(respBuf))
-}
-
 // MakeRequest sends a batched query to osv.dev
 func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 	return MakeRequestWithClient(request, http.DefaultClient)
@@ -181,42 +156,65 @@ func MakeRequest(request BatchedQuery) (*BatchedResponse, error) {
 func MakeRequestWithClient(request BatchedQuery, client *http.Client) (*BatchedResponse, error) {
 	// API has a limit of 1000 bulk query per request
 	queryChunks := chunkBy(request.Queries, maxQueriesPerRequest)
-	var totalOsvResp BatchedResponse
-	for _, queries := range queryChunks {
+	totalOsvRespResults := make([][]MinimalResponse, len(queryChunks))
+
+	g, ctx := errgroup.WithContext(context.TODO())
+	g.SetLimit(maxConcurrentBatchRequests)
+	for batchIndex, queries := range queryChunks {
 		requestBytes, err := json.Marshal(BatchedQuery{Queries: queries})
 		if err != nil {
 			return nil, err
 		}
 
-		resp, err := makeRetryRequest(func() (*http.Response, error) {
-			// Make sure request buffer is inside retry, if outside
-			// http request would finish the buffer, and retried requests would be empty
-			requestBuf := bytes.NewBuffer(requestBytes)
-			// We do not need a specific context
-			req, err := http.NewRequest(http.MethodPost, QueryEndpoint, requestBuf)
+		g.Go(func() error {
+			// exit early if another hydration request has already failed
+			// results are thrown away later, so avoid needless work
+			if ctx.Err() != nil {
+				return nil
+			}
+
+			resp, err := makeRetryRequest(func() (*http.Response, error) {
+				// Make sure request buffer is inside retry, if outside
+				// http request would finish the buffer, and retried requests would be empty
+				requestBuf := bytes.NewBuffer(requestBytes)
+				// We do not need a specific context
+				req, err := http.NewRequest(http.MethodPost, QueryEndpoint, requestBuf)
+				if err != nil {
+					return nil, err
+				}
+				req.Header.Set("Content-Type", "application/json")
+				if RequestUserAgent != "" {
+					req.Header.Set("User-Agent", RequestUserAgent)
+				}
+
+				return client.Do(req)
+			})
 			if err != nil {
-				return nil, err
+				return err
 			}
-			req.Header.Set("Content-Type", "application/json")
-			if RequestUserAgent != "" {
-				req.Header.Set("User-Agent", RequestUserAgent)
+			defer resp.Body.Close()
+
+			var osvResp BatchedResponse
+			decoder := json.NewDecoder(resp.Body)
+			err = decoder.Decode(&osvResp)
+			if err != nil {
+				return err
 			}
 
-			return client.Do(req)
+			// Store batch results in the corresponding index to maintain original query order.
+			totalOsvRespResults[batchIndex] = osvResp.Results
+
+			return nil
 		})
-		if err != nil {
-			return nil, err
-		}
-		defer resp.Body.Close()
+	}
 
-		var osvResp BatchedResponse
-		decoder := json.NewDecoder(resp.Body)
-		err = decoder.Decode(&osvResp)
-		if err != nil {
-			return nil, err
-		}
+	if err := g.Wait(); err != nil {
+		return nil, err
+	}
 
-		totalOsvResp.Results = append(totalOsvResp.Results, osvResp.Results...)
+	var totalOsvResp BatchedResponse
+	for _, results := range totalOsvRespResults {
+		totalOsvResp.Results = append(totalOsvResp.Results, results...)
 	}
 
 	return &totalOsvResp, nil
@@ -306,10 +304,9 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 	return &hydrated, nil
 }
 
-// makeRetryRequest will return an error on both network errors, and if the response is not 200
+// makeRetryRequest executes HTTP requests with exponential backoff retry logic
 func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, error) {
-	var resp *http.Response
-	var err error
+	var lastErr error
 
 	for i := range maxRetryAttempts {
 		// rand is initialized with a random number (since go1.20), and is also safe to use concurrently
@@ -318,17 +315,36 @@ func makeRetryRequest(action func() (*http.Response, error)) (*http.Response, er
 		jitterAmount := (rand.Float64() * float64(jitterMultiplier) * float64(i))
 		time.Sleep(time.Duration(i*i)*time.Second + time.Duration(jitterAmount*1000)*time.Millisecond)
 
-		resp, err = action()
-		if err == nil {
-			// Check the response for HTTP errors
-			err = checkResponseError(resp)
-			if err == nil {
-				break
-			}
+		resp, err := action()
+		if err != nil {
+			lastErr = fmt.Errorf("attempt %d: request failed: %w", i+1, err)
+			continue
 		}
+
+		if resp.StatusCode >= 200 && resp.StatusCode < 300 {
+			return resp, nil
+		}
+
+		body, err := io.ReadAll(resp.Body)
+		resp.Body.Close()
+		if err != nil {
+			lastErr = fmt.Errorf("attempt %d: failed to read response: %w", i+1, err)
+			continue
+		}
+
+		if resp.StatusCode == http.StatusTooManyRequests {
+			lastErr = fmt.Errorf("attempt %d: too many requests: status=%d body=%s", i+1, resp.StatusCode, body)
+			continue
+		}
+
+		if resp.StatusCode >= 400 && resp.StatusCode < 500 {
+			return nil, fmt.Errorf("client error: status=%d body=%s", resp.StatusCode, body)
+		}
+
+		lastErr = fmt.Errorf("server error: status=%d body=%s", resp.StatusCode, body)
 	}
 
-	return resp, err
+	return nil, fmt.Errorf("max retries exceeded: %w", lastErr)
 }
 
 func MakeDetermineVersionRequest(name string, hashes []DetermineVersionHash) (*DetermineVersionResponse, error) {

@@ -136,13 +136,31 @@ func (groupInfo *GroupInfo) IsCalled() bool {
 	return false
 }
 
+func (groupInfo *GroupInfo) IsGroupUnimportant() bool {
+	if len(groupInfo.IDs) == 0 {
+		return false
+	}
+
+	if len(groupInfo.ExperimentalAnalysis) == 0 {
+		return false
+	}
+
+	for _, analysis := range groupInfo.ExperimentalAnalysis {
+		if analysis.Unimportant {
+			return true
+		}
+	}
+
+	return false
+}
+
 func (groupInfo *GroupInfo) IndexString() string {
 	// Assumes IDs is sorted
 	return strings.Join(groupInfo.IDs, ",")
 }
 
 // FixedVersions returns a map of fixed versions for each package, or a map of empty slices if no fixed versions are available
-func (v *Vulnerability) FixedVersions() map[Package][]string {
+func (v Vulnerability) FixedVersions() map[Package][]string {
 	output := map[Package][]string{}
 	for _, a := range v.Affected {
 		packageKey := a.Package
@@ -164,7 +182,8 @@ func (v *Vulnerability) FixedVersions() map[Package][]string {
 }
 
 type AnalysisInfo struct {
-	Called bool `json:"called"`
+	Called      bool `json:"called"`
+	Unimportant bool `json:"unimportant"`
 }
 
 // Specific package information

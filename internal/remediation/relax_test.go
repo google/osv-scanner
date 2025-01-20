@@ -11,7 +11,7 @@ import (
 func TestComputeRelaxPatches(t *testing.T) {
 	t.Parallel()
 
-	basicOpts := remediation.RemediationOptions{
+	basicOpts := remediation.Options{
 		DevDeps:       true,
 		MaxDepth:      -1,
 		UpgradeConfig: upgrade.NewConfig(),
@@ -21,7 +21,7 @@ func TestComputeRelaxPatches(t *testing.T) {
 		name         string
 		universePath string
 		manifestPath string
-		opts         remediation.RemediationOptions
+		opts         remediation.Options
 	}{
 		{
 			name:         "npm-santatracker",
@@ -34,7 +34,7 @@ func TestComputeRelaxPatches(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath)
+			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath, tt.opts.ResolveOpts)
 			res.FilterVulns(tt.opts.MatchVuln)
 			p, err := remediation.ComputeRelaxPatches(context.Background(), cl, res, tt.opts)
 			if err != nil {

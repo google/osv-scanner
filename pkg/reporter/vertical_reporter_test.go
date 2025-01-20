@@ -37,14 +37,14 @@ func TestVerticalReporter_Warnf(t *testing.T) {
 		{lvl: reporter.ErrorLevel, expectedPrintout: ""},
 	}
 
-	for _, test := range tests {
+	for _, tt := range tests {
 		writer := &bytes.Buffer{}
-		r := reporter.NewVerticalReporter(writer, io.Discard, test.lvl, false, 0)
+		r := reporter.NewVerticalReporter(writer, io.Discard, tt.lvl, false, 0)
 
 		r.Warnf("%s", text)
 
-		if writer.String() != test.expectedPrintout {
-			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())
+		if writer.String() != tt.expectedPrintout {
+			t.Errorf("expected \"%s\", got \"%s\"", tt.expectedPrintout, writer.String())
 		}
 	}
 }

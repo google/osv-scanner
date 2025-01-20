@@ -3,6 +3,158 @@
 []
 ---
 
+[TestComputeOverridePatches/maven-management-only - 1]
+[
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.commons:commons-configuration2"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "2.10.1",
+          "OrigResolved": "2.8.0",
+          "NewResolved": "2.10.1"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-9w38-p64v-xpmv",
+        "AffectedNodes": [
+          16
+        ]
+      },
+      {
+        "ID": "GHSA-xjp4-hw94-mvp5",
+        "AffectedNodes": [
+          16
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.shiro:shiro-web"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.13.0",
+          "OrigResolved": "1.10.0",
+          "NewResolved": "1.13.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-hhw5-c326-822h",
+        "AffectedNodes": [
+          23
+        ]
+      },
+      {
+        "ID": "GHSA-pmhc-2g4f-85cg",
+        "AffectedNodes": [
+          23
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.shiro:shiro-core"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.13.0",
+          "OrigResolved": "1.10.0",
+          "NewResolved": "1.13.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-jc7h-c423-mpjc",
+        "AffectedNodes": [
+          22
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.shiro:shiro-web"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.12.0",
+          "OrigResolved": "1.10.0",
+          "NewResolved": "1.12.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-pmhc-2g4f-85cg",
+        "AffectedNodes": [
+          23
+        ]
+      }
+    ],
+    "AddedVulns": []
+  },
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "org.apache.thrift:libthrift"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "0.14.0",
+          "OrigResolved": "0.13.0",
+          "NewResolved": "0.14.0"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-g2fg-mr77-6vrm",
+        "AffectedNodes": [
+          6
+        ]
+      }
+    ],
+    "AddedVulns": []
+  }
+]
+---
+
 [TestComputeOverridePatches/maven-zeppelin-server - 1]
 [
   {

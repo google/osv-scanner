@@ -102,6 +102,7 @@ func init() {
 	registerExtractor("go.mod", GoLockExtractor{})
 }
 
+// Deprecated: use GoLockExtractor.Extract instead
 func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, GoLockExtractor{})
 }

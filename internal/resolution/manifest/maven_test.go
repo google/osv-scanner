@@ -12,7 +12,7 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/internal/testutility"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
@@ -109,11 +109,10 @@ func TestMavenReadWrite(t *testing.T) {
 	}
 	defer df.Close()
 
-	mavenIO := MavenManifestIO{
-		MavenRegistryAPIClient: datasource.NewMavenRegistryAPIClient(srv.URL),
-	}
+	client, _ := datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{URL: srv.URL, ReleasesEnabled: true})
+	mavenRW := MavenReadWriter{MavenRegistryAPIClient: client}
 
-	got, err := mavenIO.Read(df)
+	got, err := mavenRW.Read(df)
 	if err != nil {
 		t.Fatalf("failed to read file: %v", err)
 	}
@@ -408,8 +407,8 @@ func TestMavenReadWrite(t *testing.T) {
 			},
 		},
 	}
-	if diff := cmp.Diff(got, want); diff != "" {
-		t.Errorf("Maven manifest mismatch: %s", diff)
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("Maven manifest mismatch (-want +got):\n%s", diff)
 	}
 
 	// Re-open the file for writing.
@@ -421,7 +420,7 @@ func TestMavenReadWrite(t *testing.T) {
 
 	out := new(bytes.Buffer)
 	// There are no patches since we are only testing tabs are not escaped.
-	if err := mavenIO.Write(df, out, ManifestPatch{Manifest: &want}); err != nil {
+	if err := mavenRW.Write(df, out, Patch{Manifest: &want}); err != nil {
 		t.Fatalf("failed to write Maven pom.xml: %v", err)
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, out.String())
@@ -953,8 +952,8 @@ func TestBuildPatches(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to build patches: %v", err)
 	}
-	if diff := cmp.Diff(allPatches, want); diff != "" {
-		t.Errorf("result patches mismatch: %s", diff)
+	if diff := cmp.Diff(want, allPatches); diff != "" {
+		t.Errorf("result patches mismatch (-want +got):\n%s", diff)
 	}
 }
 
@@ -974,10 +973,10 @@ func TestGeneratePropertyPatches(t *testing.T) {
 		{"${major}.2.3", "2.0.0", false, map[string]string{}},
 		{"1.${minor}.3", "2.0.0", false, map[string]string{}},
 	}
-	for _, test := range tests {
-		patches, ok := generatePropertyPatches(test.s1, test.s2)
-		if ok != test.possible || !reflect.DeepEqual(patches, test.patches) {
-			t.Errorf("generatePropertyPatches(%s, %s): got %v %v, want %v %v", test.s1, test.s2, patches, ok, test.patches, test.possible)
+	for _, tt := range tests {
+		patches, ok := generatePropertyPatches(tt.s1, tt.s2)
+		if ok != tt.possible || !reflect.DeepEqual(patches, tt.patches) {
+			t.Errorf("generatePropertyPatches(%s, %s): got %v %v, want %v %v", tt.s1, tt.s2, patches, ok, tt.patches, tt.possible)
 		}
 	}
 }

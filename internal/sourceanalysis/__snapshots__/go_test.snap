@@ -160,7 +160,8 @@
         "aliases": null,
         "experimentalAnalysis": {
           "GO-2021-0053": {
-            "called": false
+            "called": false,
+            "unimportant": false
           }
         },
         "max_severity": ""
@@ -313,7 +314,8 @@
         "aliases": null,
         "experimentalAnalysis": {
           "GO-2023-1558": {
-            "called": true
+            "called": true,
+            "unimportant": false
           }
         },
         "max_severity": ""
@@ -467,7 +469,8 @@
         "aliases": null,
         "experimentalAnalysis": {
           "GO-2023-1572": {
-            "called": false
+            "called": false,
+            "unimportant": false
           }
         },
         "max_severity": ""

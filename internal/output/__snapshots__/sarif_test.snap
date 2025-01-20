@@ -62,7 +62,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -149,7 +149,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -170,7 +170,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -191,7 +191,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -212,7 +212,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -233,7 +233,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -254,7 +254,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -275,7 +275,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -296,7 +296,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -317,7 +317,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -338,7 +338,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -359,7 +359,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -380,7 +380,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -401,7 +401,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -422,7 +422,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -443,7 +443,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -501,7 +501,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -631,7 +631,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -743,7 +743,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -809,7 +809,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -875,7 +875,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -941,7 +941,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -1061,7 +1061,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -1272,7 +1272,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -1410,7 +1410,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -1468,7 +1468,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -1634,7 +1634,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -1845,7 +1845,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -1983,7 +1983,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -2004,7 +2004,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -2025,7 +2025,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -2046,7 +2046,7 @@
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "results": []
@@ -2104,7 +2104,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -2187,7 +2187,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -2253,7 +2253,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -2319,7 +2319,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -2385,7 +2385,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -2452,7 +2452,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -2536,7 +2536,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -2637,7 +2637,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -2720,7 +2720,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [
@@ -2786,7 +2786,7 @@
               }
             }
           ],
-          "version": "1.8.4"
+          "version": "1.9.1"
         }
       },
       "artifacts": [

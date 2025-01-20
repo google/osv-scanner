@@ -16,13 +16,14 @@ import (
 type inPlaceInfo struct {
 	table.Model
 
-	vulns        []*resolution.ResolutionVuln
+	vulns        []*resolution.Vulnerability
 	currVulnInfo ViewModel
 
 	width  int
 	height int
 }
 
+//revive:disable-next-line:unexported-return
 func NewInPlaceInfo(res remediation.InPlaceResult) *inPlaceInfo {
 	info := inPlaceInfo{width: ViewMinWidth, height: ViewMinHeight} // placeholder dimensions
 	cols := []table.Column{
@@ -44,7 +45,7 @@ func NewInPlaceInfo(res remediation.InPlaceResult) *inPlaceInfo {
 		row := table.Row{
 			patch.Pkg.Name,
 			fmt.Sprintf("%s → %s", patch.OrigVersion, patch.NewVersion),
-			patch.ResolvedVulns[0].Vulnerability.ID,
+			patch.ResolvedVulns[0].OSV.ID,
 		}
 		// Set each column to their widest element
 		for i, s := range row {
@@ -60,7 +61,7 @@ func NewInPlaceInfo(res remediation.InPlaceResult) *inPlaceInfo {
 			row := table.Row{
 				"",
 				"",
-				v.Vulnerability.ID,
+				v.OSV.ID,
 			}
 			rows = append(rows, row)
 			info.vulns = append(info.vulns, &patch.ResolvedVulns[i+1])

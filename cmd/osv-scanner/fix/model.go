@@ -2,6 +2,7 @@ package fix
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"strings"
 
@@ -19,6 +20,7 @@ import (
 	"golang.org/x/term"
 )
 
+//nolint:recvcheck
 type model struct {
 	//nolint:containedctx
 	ctx           context.Context         // Context, mostly used in deps.dev functions
@@ -43,9 +45,9 @@ type model struct {
 	err     error      // set if a fatal error occurs within the program
 	writing bool       // whether the model is currently shelling out writing lockfile/manifest file
 
-	inPlaceResult     *remediation.InPlaceResult   // results & patches from minimal / in-place resolution
-	relockBaseRes     *resolution.ResolutionResult // Base relock result, matching the current manifest on disk
-	relockBaseResErrs []resolution.ResolutionError // Errors in base relock result
+	inPlaceResult     *remediation.InPlaceResult // results & patches from minimal / in-place resolution
+	relockBaseRes     *resolution.Result         // Base relock result, matching the current manifest on disk
+	relockBaseResErrs []resolution.NodeError     // Errors in base relock result
 }
 
 func newModel(ctx context.Context, opts osvFixOptions, cl client.ResolutionClient) model {
@@ -191,18 +193,18 @@ func doInPlaceResolution(ctx context.Context, cl client.ResolutionClient, opts o
 	if err != nil {
 		return inPlaceResolutionMsg{err: err}
 	}
-	res, err := remediation.ComputeInPlacePatches(ctx, cl, g, opts.RemediationOptions)
+	res, err := remediation.ComputeInPlacePatches(ctx, cl, g, opts.Options)
 
 	return inPlaceResolutionMsg{res, g, err}
 }
 
 type doRelockMsg struct {
-	res *resolution.ResolutionResult
+	res *resolution.Result
 	err error
 }
 
-func doRelock(ctx context.Context, cl client.ResolutionClient, m manif.Manifest, matchFn func(resolution.ResolutionVuln) bool) tea.Msg {
-	res, err := resolution.Resolve(ctx, cl, m)
+func doRelock(ctx context.Context, cl client.ResolutionClient, m manif.Manifest, opts resolution.ResolveOpts, matchFn func(resolution.Vulnerability) bool) tea.Msg {
+	res, err := resolution.Resolve(ctx, cl, m, opts)
 	if err != nil {
 		return doRelockMsg{nil, err}
 	}
@@ -226,9 +228,9 @@ func doInitialRelock(ctx context.Context, opts osvFixOptions) tea.Msg {
 	if err != nil {
 		return doRelockMsg{err: err}
 	}
-	opts.Client.PreFetch(ctx, m.Requirements, m.FilePath)
+	client.PreFetch(ctx, opts.Client, m.Requirements, m.FilePath)
 
-	return doRelock(ctx, opts.Client, m, opts.MatchVuln)
+	return doRelock(ctx, opts.Client, m, opts.ResolveOpts, opts.MatchVuln)
 }
 
 // tui.ViewModel for showing non-interactive strings
@@ -240,13 +242,25 @@ func (s infoStringView) Resize(int, int)                         {}
 
 var emptyInfoView = infoStringView("")
 
-func resolutionErrorView(res *resolution.ResolutionResult, errs []resolution.ResolutionError) tui.ViewModel {
+func resolutionErrorView(res *resolution.Result, errs []resolution.NodeError) tui.ViewModel {
 	if len(errs) == 0 {
 		return emptyInfoView
 	}
 	s := strings.Builder{}
 	s.WriteString("The following errors were encountered during resolution which may impact results:\n")
-	s.WriteString(resolutionErrorString(res, errs))
+	for _, e := range errs {
+		node := res.Graph.Nodes[e.NodeID]
+		fmt.Fprintf(&s, "Error when resolving %s@%s:\n", node.Version.Name, node.Version.Version)
+		req := e.Error.Req
+		if strings.Contains(req.Version, ":") {
+			// this will be the case with unsupported npm requirements e.g. `file:...`, `git+https://...`
+			// TODO: don't rely on resolution to propagate these errors
+			// No easy access to the `knownAs` field to find which package this corresponds to
+			fmt.Fprintf(&s, "\tSkipped resolving unsupported version specification: %s\n", req.Version)
+		} else {
+			fmt.Fprintf(&s, "\t%v: %s@%s\n", e.Error.Error, req.Name, req.Version)
+		}
+	}
 
 	return infoStringView(s.String())
 }

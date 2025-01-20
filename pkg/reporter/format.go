@@ -17,6 +17,8 @@ func Format() []string {
 // set terminalWidth as 0 to indicate the output is not a terminal
 func New(format string, stdout, stderr io.Writer, level VerbosityLevel, terminalWidth int) (Reporter, error) {
 	switch format {
+	case "html":
+		return NewHTMLReporter(stdout, stderr, level), nil
 	case "json":
 		return NewJSONReporter(stdout, stderr, level), nil
 	case "vertical":

@@ -10,6 +10,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/internal/customgitignore"
+	"github.com/google/osv-scanner/internal/testutility"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
@@ -643,8 +644,7 @@ func setupPlainDirWithGitignores(t *testing.T) string {
 	t.Helper()
 
 	// A unique tempdir for local funcs to create a git repo inside
-	// TODO: convert `t.TempDir()` to `testutility.CreateTestDir(t)` once PR #832 lands
-	dir := filepath.Join(t.TempDir(), "base_dir")
+	dir := testutility.CreateTestDir(t)
 
 	var allPaths string
 
@@ -721,7 +721,7 @@ func hasPatternContaining(gips []gitignore.Pattern, test string) bool {
 //
 // ... because the changes in customgitignore adjust the
 // implementation details of the upstream package so that
-// it doesn't read .gitingore files from ignored dirs.
+// it doesn't read .gitignore files from ignored dirs.
 // This means that before _and_ after the change p.Match()
 // will return false.
 func patternContains(gip gitignore.Pattern, test string) bool {

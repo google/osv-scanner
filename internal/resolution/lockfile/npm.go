@@ -10,30 +10,33 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/pkg/lockfile"
 )
 
-type NpmLockfileIO struct{}
+type NpmReadWriter struct{}
 
-func (NpmLockfileIO) System() resolve.System { return resolve.NPM }
+func (NpmReadWriter) System() resolve.System { return resolve.NPM }
+
+type npmDependencyVersionSpec struct {
+	Version string
+	DepType dep.Type
+}
 
 type npmNodeModule struct {
-	NodeID       resolve.NodeID
-	Parent       *npmNodeModule
-	Children     map[string]*npmNodeModule // keyed on package name
-	Deps         map[string]string
-	OptionalDeps map[string]string
-	DevDeps      map[string]string // dev dependencies are also included in Deps
-	ActualName   string            // set if the node is an alias, the real package name this refers to
+	NodeID     resolve.NodeID
+	Parent     *npmNodeModule
+	Children   map[string]*npmNodeModule // keyed on package name
+	Deps       map[string]npmDependencyVersionSpec
+	ActualName string // set if the node is an alias, the real package name this refers to
 }
 
 func (n npmNodeModule) IsAliased() bool {
 	return len(n.ActualName) > 0
 }
 
-func (rw NpmLockfileIO) Read(file lockfile.DepFile) (*resolve.Graph, error) {
+func (rw NpmReadWriter) Read(file lockfile.DepFile) (*resolve.Graph, error) {
 	dec := json.NewDecoder(file)
 	var lockJSON lockfile.NpmLockfile
 	if err := dec.Decode(&lockJSON); err != nil {
@@ -58,7 +61,7 @@ func (rw NpmLockfileIO) Read(file lockfile.DepFile) (*resolve.Graph, error) {
 		return nil, errors.New("no dependencies in package-lock.json")
 	}
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("error when parsing package-lock.json: %w", err)
 	}
 
 	// Traverse the graph (somewhat inefficiently) to add edges between nodes
@@ -85,24 +88,17 @@ func (rw NpmLockfileIO) Read(file lockfile.DepFile) (*resolve.Graph, error) {
 		}
 
 		// Add edges to the correct dependency nodes
-		for depName, depVer := range node.Deps {
+		for depName, depSpec := range node.Deps {
 			depNode := rw.findDependencyNode(node, depName)
-			var typ dep.Type
-			if node.DevDeps[depName] == depVer {
-				typ = dep.NewType(dep.Dev)
-			}
-			if err := g.AddEdge(node.NodeID, depNode, depVer, typ); err != nil {
-				return nil, err
-			}
-		}
-		for depName, depVer := range node.OptionalDeps {
-			depNode := rw.findDependencyNode(node, depName)
-			// don't error if an optional dependency is not installed
 			if depNode == -1 {
+				// The dependency is apparently not in the package-lock.json.
+				// This probably means the lockfile is malformed, and npm would usually error installing this.
+				// But there are some cases (with workspaces) that npm doesn't error.
+				// We just always ignore the error to make it work.
+				// TODO: g.AddError(...)
 				continue
 			}
-			typ := dep.NewType(dep.Opt)
-			if err := g.AddEdge(node.NodeID, depNode, depVer, typ); err != nil {
+			if err := g.AddEdge(node.NodeID, depNode, depSpec.Version, depSpec.DepType); err != nil {
 				return nil, err
 			}
 		}
@@ -124,7 +120,7 @@ func (rw NpmLockfileIO) Read(file lockfile.DepFile) (*resolve.Graph, error) {
 	return g, nil
 }
 
-func (rw NpmLockfileIO) findDependencyNode(node *npmNodeModule, depName string) resolve.NodeID {
+func (rw NpmReadWriter) findDependencyNode(node *npmNodeModule, depName string) resolve.NodeID {
 	// Walk up the node_modules to find which node would be used as the requirement
 	for node != nil {
 		if child, ok := node.Children[depName]; ok {
@@ -136,14 +132,15 @@ func (rw NpmLockfileIO) findDependencyNode(node *npmNodeModule, depName string) 
 	return resolve.NodeID(-1)
 }
 
-func (rw NpmLockfileIO) reVersionAliasedDeps(deps map[string]string) {
+func (rw NpmReadWriter) reVersionAliasedDeps(deps map[string]npmDependencyVersionSpec) {
 	// for the dependency maps, change versions from "npm:pkg@version" to "version"
 	for k, v := range deps {
-		_, deps[k] = manifest.SplitNPMAlias(v)
+		_, v.Version = manifest.SplitNPMAlias(v.Version)
+		deps[k] = v
 	}
 }
 
-func (rw NpmLockfileIO) Write(original lockfile.DepFile, output io.Writer, patches []DependencyPatch) error {
+func (rw NpmReadWriter) Write(original lockfile.DepFile, output io.Writer, patches []DependencyPatch) error {
 	var buf strings.Builder
 	_, err := io.Copy(&buf, original)
 	if err != nil {

@@ -1,6 +1,7 @@
 package severity
 
 import (
+	"strconv"
 	"strings"
 
 	"github.com/google/osv-scanner/pkg/models"
@@ -10,11 +11,20 @@ import (
 	gocvss40 "github.com/pandatix/go-cvss/40"
 )
 
-const unknownRating = "UNKNOWN"
+// Rating represents the severity level of a vulnerability.
+type Rating string
+
+const (
+	CriticalRating Rating = "CRITICAL"
+	HighRating     Rating = "HIGH"
+	MediumRating   Rating = "MEDIUM"
+	LowRating      Rating = "LOW"
+	UnknownRating  Rating = "UNKNOWN"
+)
 
 func CalculateScore(severity models.Severity) (float64, string, error) {
 	score := -1.0
-	rating := unknownRating
+	rating := string(UnknownRating)
 	var err error
 	switch severity.Type {
 	case models.SeverityCVSSV2:
@@ -56,12 +66,12 @@ func CalculateScore(severity models.Severity) (float64, string, error) {
 
 func CalculateOverallScore(severities []models.Severity) (float64, string, error) {
 	maxScore := -1.0
-	maxRating := unknownRating
+	maxRating := string(UnknownRating)
 
 	for _, severity := range severities {
 		score, rating, err := CalculateScore(severity)
 		if err != nil {
-			return -1, unknownRating, err
+			return -1, string(UnknownRating), err
 		}
 		if score > maxScore {
 			maxScore = score
@@ -70,4 +80,19 @@ func CalculateOverallScore(severities []models.Severity) (float64, string, error
 	}
 
 	return maxScore, maxRating, nil
+}
+
+func CalculateRating(score string) (Rating, error) {
+	// All CSVs' rating methods are identical.
+	parsedScore, err := strconv.ParseFloat(score, 64)
+	if err != nil {
+		return UnknownRating, err
+	}
+
+	rating, err := gocvss30.Rating(parsedScore)
+	if err != nil || rating == "NONE" {
+		rating = string(UnknownRating)
+	}
+
+	return Rating(rating), err
 }

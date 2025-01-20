@@ -1,0 +1,10 @@
+[[IgnoredVulns]]
+id = "GO-2022-0274"
+ignoreuntil = 2020-01-01
+
+[[IgnoredVulns]]
+id = "GO-2022-0274"
+ignoreuntil = 2022-01-01
+
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"

@@ -223,6 +223,10 @@ func (v AlpineVersion) CompareStr(str string) int {
 func parseAlpineNumberComponents(v *AlpineVersion, str string) string {
 	sub := cachedregexp.MustCompile(`^((\d+)\.?)*`).FindString(str)
 
+	if sub == "" {
+		return str
+	}
+
 	for i, d := range strings.Split(sub, ".") {
 		v.components = append(v.components, alpineNumberComponent{
 			value:    convertToBigIntOrPanic(d),

@@ -72,6 +72,7 @@ func init() {
 	registerExtractor("Pipfile.lock", PipenvLockExtractor{})
 }
 
+// Deprecated: use PipenvLockExtractor.Extract instead
 func ParsePipenvLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, PipenvLockExtractor{})
 }

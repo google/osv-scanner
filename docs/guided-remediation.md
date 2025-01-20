@@ -56,11 +56,44 @@ To fix as many vulnerabilities as possible in your `package-lock.json` file [in-
 osv-scanner fix --non-interactive --strategy=in-place -L path/to/package-lock.json
 ```
 
-<details markdown="1">
-<summary><b>Sample in-place output</b></summary>
+Alternatively, to potentially resolve even more vulnerabilities with larger (potentially breaking) changes, you can [regenerate your lockfile and update your direct dependencies](#relock-and-relax-direct-dependency-remediation) with the following command:
+
+```bash
+osv-scanner fix --non-interactive --strategy=relax -M path/to/package.json -L path/to/package-lock.json
+```
+
+For Maven `pom.xml` files, you can update direct dependencies and [add version overrides](#override-dependency-versions-remediation) to your POM's `<dependencyManagement>` section with the following command:
+
+```bash
+osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
+```
+
+
+{: .warning }
+The subcommand will modify your manifest and lockfile. Make sure you commit or backup your files before running.
+
+{: .note }
+The subcommand will not reinstall your `node_modules/` - you will need to manually run `npm ci` to install dependencies.
+
+If you wish to remediation only specific vulnerabilities, you may specify OSV IDs using the `--vulns` flag. [See all remediation flags](#remediation-flags).
+
+### Output formats
+
+`--non-interactive` mode outputs to the terminal the actions taken and vulnerabilities remediated. The output format can be controlled with the `--format` flag.
 
 {: .highlight }
-The output format might change with minor version updates.
+The output formats may change with minor version updates.
+
+#### Text (default)
+
+The default format.
+
+```bash
+osv-scanner fix --non-interactive --format text --strategy=in-place -L path/to/package-lock.json
+```
+
+<details markdown="1">
+<summary><b>Sample in-place text output</b></summary>
 
 ```
 Scanning path/to/package-lock.json...
@@ -95,17 +128,12 @@ Rewriting path/to/package-lock.json...
 
 </details>
 
-Alternatively, to potentially resolve even more vulnerabilities with larger (potentially breaking) changes, you can [regenerate your lockfile and update your direct dependencies](#relock-and-relax-direct-dependency-remediation) with the following command:
-
 ```bash
-osv-scanner fix --non-interactive --strategy=relock -M path/to/package.json -L path/to/package-lock.json
+osv-scanner fix --non-interactive --format text --strategy=relax -M path/to/package.json -L path/to/package-lock.json
 ```
 
 <details markdown="1">
-<summary><b>Sample relock output</b></summary>
-
-{: .highlight }
-The output format might change with minor version updates.
+<summary><b>Sample relax text output</b></summary>
 
 ```
 Resolving path/to/package.json...
@@ -127,17 +155,12 @@ Executing `/usr/bin/npm install --package-lock-only`...
 
 </details>
 
-For Maven `pom.xml` files, you can update direct dependencies and [add version overrides](#override-dependency-versions-remediation) to your POM's `<dependencyManagement>` section with the following command:
-
 ```bash
-osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
+osv-scanner fix --non-interactive --format text --strategy=override -M path/to/pom.xml
 ```
 
 <details markdown="1">
 <summary><b>Sample override output</b></summary>
-
-{: .highlight }
-The output format might change with minor version updates.
 
 ```
 Resolving path/to/pom.xml...
@@ -171,13 +194,110 @@ Rewriting path/to/pom.xml...
 
 </details>
 
-{: .warning }
-The subcommand will modify your manifest and lockfile. Make sure you commit or backup your files before running.
+#### JSON
 
-{: .note }
-The subcommand will not reinstall your `node_modules/` - you will need to manually run `npm ci` to install dependencies.
+Outputs the results as a JSON object to stdout, with all other output being directed to stderr - this makes it safe to redirect the output to a file.
 
-If you wish to remediation only specific vulnerabilities, you may specify OSV IDs using the `--vulns` flag. [See all remediation flags](#remediation-flags).
+```bash
+osv-scanner fix --non-interactive --format json --strategy=relax -M path/to/package.json
+```
+
+<details markdown="1">
+<summary><b>Sample relax JSON output</b></summary>
+
+```json
+{
+  "path": "path/to/package.json",
+  "ecosystem": "npm",
+  "strategy": "relax",
+  "vulnerabilities": [
+    {
+      "id": "GHSA-gcx4-mw62-g8wm",
+      "packages": [
+        {
+          "name": "rollup",
+          "version": "1.32.1"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-h755-8qp9-cq85",
+      "packages": [
+        {
+          "name": "protobufjs",
+          "version": "6.11.3"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-pfq8-rq6v-vf5m",
+      "packages": [
+        {
+          "name": "html-minifier",
+          "version": "4.0.0"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-xvch-5gv4-984h",
+      "packages": [
+        {
+          "name": "minimist",
+          "version": "0.0.8"
+        }
+      ]
+    }
+  ],
+  "patches": [
+    {
+      "packageUpdates": [
+        {
+          "name": "@google-cloud/cloudbuild",
+          "versionFrom": "^2.6.0",
+          "versionTo": "^4.7.0",
+          "transitive": false
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-h755-8qp9-cq85",
+          "packages": [
+            {
+              "name": "protobufjs",
+              "version": "6.11.3"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
+          "name": "mocha",
+          "versionFrom": "^5.2.0",
+          "versionTo": "^8.4.0",
+          "transitive": false
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-xvch-5gv4-984h",
+          "packages": [
+            {
+              "name": "minimist",
+              "version": "0.0.8"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+</details>
 
 ## Scripted usage
 
@@ -218,7 +338,7 @@ There are currently three remediation strategies:
 
 ### In-place lockfile remediation
 
-'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but will often fix less vulnerabilities than the [relock strategy](#relock-and-relax-direct-dependency-remediation).
+'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but will often fix less vulnerabilities than the [relax strategy](#relock-and-relax-direct-dependency-remediation).
 
 Selecting the "Modify lockfile in place" option will bring you to the in-place information page. From here, you can see which vulnerabilities can and cannot be resolved by this strategy. By default, every possible in-place patch will be chosen to be applied. You may instead choose which subset of patches you wish to apply.
 
@@ -270,10 +390,13 @@ The `fix` subcommand has a number of flags to allow you to control which vulnera
 
 The following flags may be used when running in non-interactive mode only:
 
-- `--strategy=` [`in-place`](#in-place-lockfile-remediation) OR [`relock`](#relock-and-relax-direct-dependency-remediation) OR [`override`](#override-dependency-versions-remediation): Which remediation strategy to use.
+- `--strategy=` [`in-place`](#in-place-lockfile-remediation) OR [`relax`](#relock-and-relax-direct-dependency-remediation) OR [`override`](#override-dependency-versions-remediation): Which remediation strategy to use.
 - `--apply-top=<value>`: Specifies the maximum number of patches to apply. Patches are chosen in the same order as they would appear in the interactive mode.
 
   For example, `--apply-top=1` will only apply one patch, and `--apply-top=2` would apply the two best compatible patches. This flag is particularly useful when scripting to test the outcome of specific patches. Setting `--apply-top=-1` will apply every possible patch (default behavior).
+
+- `--no-introduce`: Set to exclude patches that would introduce new vulnerabilities if applied.
+- `--format=` `text` OR `json`. The [output format](#output-formats) to use for results.
 
 ### Vulnerability selection
 
@@ -318,7 +441,7 @@ The following flag may be used to limit the patches allowed for your dependencie
 
 ### Data source
 
-By default, we use the [deps.dev API](https://docs.deps.dev/api/v3alpha/) to find version and dependency information of packages during remediation.
+By default, we use the [deps.dev API](https://docs.deps.dev/api/) to find version and dependency information of packages during remediation.
 
 If instead you'd like to use your ecosystem's native registry API (e.g. `https://registry.npmjs.org`), you can use the `--data-source=native` flag. `osv-scanner fix` will attempt to use the authentication specified by the native tooling (e.g. `npm config`)
 
@@ -331,13 +454,19 @@ If your project uses mirrored or private registries, you will need to use `--dat
 >
 > The native npm cache will store the addresses of private registries used, though not any authentication information.
 
+### Offline Vulnerability Database
+
+The `fix` subcommand supports the `--experimental-offline-vulnerabilities` and `--experimental-download-offline-databases` flags.
+
+For more information, see [Offline Mode](./offline-mode.md).
+
 ## Known issues
 
 - The subcommand does not use the `osv-scanner.toml` configuration. Use the `--ignore-vulns` flag instead.
 - The subcommand does not group aliases of the same vulnerabilities together.
-- Unique vulnerabilities are counted differently with `fix --strategy=relock` versus with `fix --strategy=in-place` and with `scan`. `scan` will count the same OSV ID affecting two different package versions separately, whereas `fix --strategy=relock` will count this as one vulnerability.
+- Unique vulnerabilities are counted differently with `fix --strategy=relax` versus with `fix --strategy=in-place` and with `scan`. `scan` will count the same OSV ID affecting two different package versions separately, whereas `fix --strategy=relax` will count this as one vulnerability.
 
-  e.g. if `OSV-123-456` affects both `foo@1.0.0` and `foo@2.0.0` in your project, `scan` and `fix --strategy=in-place` will treat this as two distinct vulnerabilities, while `fix --strategy=relock` will treat this as only one.
+  e.g. if `OSV-123-456` affects both `foo@1.0.0` and `foo@2.0.0` in your project, `scan` and `fix --strategy=in-place` will treat this as two distinct vulnerabilities, while `fix --strategy=relax` will treat this as only one.
 
 ### npm
 

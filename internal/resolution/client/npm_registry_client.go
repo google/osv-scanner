@@ -13,8 +13,8 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
-	"github.com/google/osv-scanner/pkg/depsdev"
+	"github.com/google/osv-scanner/internal/datasource"
+	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/pkg/osv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -229,48 +229,7 @@ func isNpmBundle(pk resolve.PackageKey) bool {
 	return strings.Contains(pk.Name, ">")
 }
 
-func (c *NpmRegistryClient) PreFetch(ctx context.Context, imports []resolve.RequirementVersion, manifestPath string) {
-	// It doesn't matter if loading the cache fails
-	_ = c.LoadCache(manifestPath)
-
-	// Use the deps.dev client to fetch complete dependency graphs of our direct imports
-	for _, im := range imports {
-		// Get the preferred version of the import requirement
-		vks, err := c.MatchingVersions(ctx, im.VersionKey)
-		if err != nil || len(vks) == 0 {
-			continue
-		}
-
-		vk := vks[len(vks)-1]
-
-		// Make a request for the precomputed dependency tree
-		resp, err := c.ic.GetDependencies(ctx, &pb.GetDependenciesRequest{
-			VersionKey: &pb.VersionKey{
-				System:  pb.System(vk.System),
-				Name:    vk.Name,
-				Version: vk.Version,
-			},
-		})
-		if err != nil {
-			continue
-		}
-
-		// Send off queries to cache the packages in the dependency tree
-		for _, node := range resp.GetNodes() {
-			pbvk := node.GetVersionKey()
-			vk := resolve.VersionKey{
-				PackageKey: resolve.PackageKey{
-					System: resolve.System(pbvk.GetSystem()),
-					Name:   pbvk.GetName(),
-				},
-				Version:     pbvk.GetVersion(),
-				VersionType: resolve.Concrete,
-			}
-			go c.Requirements(ctx, vk) //nolint:errcheck
-		}
-	}
-	// don't bother waiting for goroutines to finish.
-}
+func (c *NpmRegistryClient) AddRegistries(_ []Registry) error { return nil }
 
 func (c *NpmRegistryClient) WriteCache(path string) error {
 	f, err := os.Create(path + npmRegistryCacheExt)

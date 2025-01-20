@@ -43,7 +43,82 @@ func TestRequirementsTxtExtractor_ShouldExtract(t *testing.T) {
 		{
 			name: "",
 			path: "path.to.my.requirements.txt",
+			want: true,
+		},
+		{
+			name: "",
+			path: "requirements-dev.txt",
+			want: true,
+		},
+		{
+			name: "",
+			path: "requirements.dev.txt",
+			want: true,
+		},
+		{
+			name: "",
+			path: "dev-requirements.txt",
+			want: true,
+		},
+		{
+			name: "",
+			path: "requirements-ci.txt",
+			want: true,
+		},
+		{
+			name: "",
+			path: "requirements.ci.txt",
+			want: true,
+		},
+		{
+			name: "",
+			path: "ci-requirements.txt",
+			want: true,
+		},
+		{
+			name: "",
+			path: "dev.txt",
 			want: false,
+		},
+		{
+			name: "",
+			path: "ci.txt",
+			want: false,
+		},
+		{
+			name: "",
+			path: "requirements",
+			want: false,
+		},
+		{
+			name: "",
+			path: "requirements.json",
+			want: false,
+		},
+		{
+			name: "",
+			path: "requirements/txt",
+			want: false,
+		},
+		{
+			name: "",
+			path: "requirements/txt.txt",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path/requirements/txt.txt",
+			want: false,
+		},
+		{
+			name: "",
+			path: "path/requirements/requirements.txt",
+			want: true,
+		},
+		{
+			name: "",
+			path: "path/requirements/requirements-dev.txt",
+			want: true,
 		},
 	}
 	for _, tt := range tests {

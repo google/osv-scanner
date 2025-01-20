@@ -10,7 +10,6 @@ import (
 	"github.com/google/osv-scanner/cmd/osv-scanner/scan"
 	"github.com/google/osv-scanner/cmd/osv-scanner/update"
 	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/osv"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
 
@@ -30,8 +29,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 		r.Infof("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
 	}
 
-	osv.RequestUserAgent = "osv-scanner/" + version.OSVVersion
-
 	app := &cli.App{
 		Name:           "osv-scanner",
 		Version:        version.OSVVersion,
@@ -47,6 +44,18 @@ func run(args []string, stdout, stderr io.Writer) int {
 		},
 	}
 
+	// If ExitErrHandler is not set, cli will use the default cli.HandleExitCoder.
+	// This is not ideal as cli.HandleExitCoder checks if the error implements cli.ExitCode interface.
+	//
+	// 99% of the time, this is fine, as we do not implement cli.ExitCode in our errors, so errors pass through
+	// that handler untouched.
+	// However, because of Go's duck typing, any error that happens to have a ExitCode() function
+	// (e.g. *exec.ExitError) will be assumed to implement cli.ExitCode interface and cause the program to exit
+	// early without proper error handling.
+	//
+	// This removes the handler entirely so that behavior will not unexpectedly happen.
+	app.ExitErrHandler = func(_ *cli.Context, _ error) {}
+
 	args = insertDefaultCommand(args, app.Commands, app.DefaultCommand, stdout, stderr)
 
 	if err := app.Run(args); err != nil {
@@ -54,9 +63,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 			r = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 		}
 		switch {
-		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
+		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
-		case errors.Is(err, osvscanner.NoPackagesFoundErr):
+		case errors.Is(err, osvscanner.ErrNoPackagesFound):
 			r.Errorf("No package sources found, --help for usage information.\n")
 			return 128
 		case errors.Is(err, osvscanner.ErrAPIFailed):

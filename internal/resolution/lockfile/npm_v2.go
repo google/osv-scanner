@@ -9,7 +9,8 @@ import (
 	"strings"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/pretty"
@@ -22,7 +23,7 @@ import (
 // Installed packages are in the flat "packages" object, keyed by the install path
 // e.g. "node_modules/foo/node_modules/bar"
 // packages contain most information from their own manifests.
-func (rw NpmLockfileIO) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resolve.Graph, *npmNodeModule, error) {
+func (rw NpmReadWriter) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resolve.Graph, *npmNodeModule, error) {
 	var g resolve.Graph
 	// Create graph nodes and reconstruct the node_modules folder structure in memory
 	root, ok := lockJSON.Packages[""]
@@ -97,7 +98,7 @@ func (rw NpmLockfileIO) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resol
 			g.Nodes[m.NodeID].Version.Name = pkgName
 			// add it as a dependency of the root node, so it's not orphaned
 			if _, ok := nodeModuleTree.Deps[pkgName]; !ok {
-				nodeModuleTree.Deps[pkgName] = "*"
+				nodeModuleTree.Deps[pkgName] = npmDependencyVersionSpec{Version: "*"}
 			}
 
 			continue
@@ -107,11 +108,25 @@ func (rw NpmLockfileIO) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resol
 		parent := nodeModuleTree
 		if path[0] != "" {
 			// jump to the corresponding workspace if package is in one
-			parent = workspaceModules[strings.TrimSuffix(path[0], "/")]
+			if parent, ok = workspaceModules[strings.TrimSuffix(path[0], "/")]; !ok {
+				// The package exists in a node_modules of a folder that doesn't belong to this project.
+				// npm seems to silently ignore these, so we will too.
+				continue
+			}
 		}
+
+		parentFound := true
 		for _, p := range path[1 : len(path)-1] { // skip root directory
 			p = strings.TrimSuffix(p, "/")
-			parent = parent.Children[p]
+			if parent, parentFound = parent.Children[p]; !parentFound {
+				break
+			}
+		}
+
+		if !parentFound {
+			// The package this supposed to be installed under is not installed.
+			// npm seems to silently ignore these, so we will too.
+			continue
 		}
 
 		name := path[len(path)-1]
@@ -132,30 +147,36 @@ func (rw NpmLockfileIO) nodesFromPackages(lockJSON lockfile.NpmLockfile) (*resol
 	return &g, nodeModuleTree, nil
 }
 
-func (rw NpmLockfileIO) makeNodeModuleDeps(pkg lockfile.NpmLockPackage, includeDev bool) *npmNodeModule {
+func (rw NpmReadWriter) makeNodeModuleDeps(pkg lockfile.NpmLockPackage, includeDev bool) *npmNodeModule {
 	nm := npmNodeModule{
-		Children:     make(map[string]*npmNodeModule),
-		Deps:         make(map[string]string),
-		OptionalDeps: make(map[string]string),
+		Children: make(map[string]*npmNodeModule),
+		Deps:     make(map[string]npmDependencyVersionSpec),
 	}
 
-	maps.Copy(nm.Deps, pkg.Dependencies)
+	// The order we process dependency types here is to match npm's behavior.
+	for name, version := range pkg.PeerDependencies {
+		var typ dep.Type
+		typ.AddAttr(dep.Scope, "peer")
+		// TODO: check peerDependenciesMeta for optional peer dependencies
+		nm.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: typ}
+	}
+	for name, version := range pkg.Dependencies {
+		nm.Deps[name] = npmDependencyVersionSpec{Version: version}
+	}
+	for name, version := range pkg.OptionalDependencies {
+		nm.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: dep.NewType(dep.Opt)}
+	}
 	if includeDev {
-		maps.Copy(nm.Deps, pkg.DevDependencies)
-		nm.DevDeps = maps.Clone(pkg.DevDependencies)
-		rw.reVersionAliasedDeps(nm.DevDeps)
+		for name, version := range pkg.DevDependencies {
+			nm.Deps[name] = npmDependencyVersionSpec{Version: version, DepType: dep.NewType(dep.Dev)}
+		}
 	}
 	rw.reVersionAliasedDeps(nm.Deps)
-
-	maps.Copy(nm.OptionalDeps, pkg.OptionalDependencies)
-	// old npm versions / using the --legacy-peer-deps flag doesn't automatically install peer deps, so treat them as optional
-	maps.Copy(nm.OptionalDeps, pkg.PeerDependencies)
-	rw.reVersionAliasedDeps(nm.OptionalDeps)
 
 	return &nm
 }
 
-func (rw NpmLockfileIO) packageNamesByNodeModuleDepth(packages map[string]lockfile.NpmLockPackage) []string {
+func (rw NpmReadWriter) packageNamesByNodeModuleDepth(packages map[string]lockfile.NpmLockPackage) []string {
 	keys := maps.Keys(packages)
 	slices.SortFunc(keys, func(a, b string) int {
 		aSplit := strings.Split(a, "node_modules/")
@@ -170,7 +191,7 @@ func (rw NpmLockfileIO) packageNamesByNodeModuleDepth(packages map[string]lockfi
 	return keys
 }
 
-func (rw NpmLockfileIO) modifyPackageLockPackages(lockJSON string, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
+func (rw NpmReadWriter) modifyPackageLockPackages(lockJSON string, patches map[string]map[string]string, api *datasource.NpmRegistryAPIClient) (string, error) {
 	packages := gjson.Get(lockJSON, "packages")
 	if !packages.Exists() {
 		return lockJSON, nil
@@ -199,7 +220,7 @@ func (rw NpmLockfileIO) modifyPackageLockPackages(lockJSON string, patches map[s
 	return lockJSON, nil
 }
 
-func (rw NpmLockfileIO) updatePackage(jsonText, jsonPath, packageName, newVersion string, api *datasource.NpmRegistryAPIClient) (string, error) {
+func (rw NpmReadWriter) updatePackage(jsonText, jsonPath, packageName, newVersion string, api *datasource.NpmRegistryAPIClient) (string, error) {
 	npmData, err := api.FullJSON(context.Background(), packageName, newVersion)
 	if err != nil {
 		return "", err

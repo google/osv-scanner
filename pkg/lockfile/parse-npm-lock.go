@@ -242,6 +242,7 @@ func init() {
 	registerExtractor("package-lock.json", NpmLockExtractor{})
 }
 
+// Deprecated: use NpmLockExtractor.Extract instead
 func ParseNpmLock(pathToLockfile string) ([]PackageDetails, error) {
 	return extractFromFile(pathToLockfile, NpmLockExtractor{})
 }

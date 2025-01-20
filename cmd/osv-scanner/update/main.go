@@ -6,10 +6,11 @@ import (
 	"io"
 	"os"
 
+	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/remediation/suggest"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/pkg/depsdev"
+	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"github.com/urfave/cli/v2"
@@ -57,7 +58,7 @@ type updateOptions struct {
 	IgnoreDev  bool
 
 	Client     client.ResolutionClient
-	ManifestRW manifest.ManifestIO
+	ManifestRW manifest.ReadWriter
 }
 
 func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
@@ -74,11 +75,11 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	}
 
 	var err error
-	options.Client.DependencyClient, err = client.NewDepsDevClient(depsdev.DepsdevAPI)
+	options.Client.DependencyClient, err = client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_update/"+version.OSVVersion)
 	if err != nil {
 		return nil, err
 	}
-	options.ManifestRW, err = manifest.GetManifestIO(options.Manifest)
+	options.ManifestRW, err = manifest.GetReadWriter(options.Manifest, "")
 	if err != nil {
 		return nil, err
 	}

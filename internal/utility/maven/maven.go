@@ -2,14 +2,13 @@ package maven
 
 import (
 	"context"
-	"encoding/xml"
 	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
 
 	"deps.dev/util/maven"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
+	"github.com/google/osv-scanner/internal/datasource"
 )
 
 const (
@@ -52,7 +51,7 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 			if err != nil {
 				return fmt.Errorf("failed to open parent file %s: %w", parentPath, err)
 			}
-			err = xml.NewDecoder(f).Decode(&proj)
+			err = datasource.NewMavenDecoder(f).Decode(&proj)
 			f.Close()
 			if err != nil {
 				return fmt.Errorf("failed to unmarshal project: %w", err)
@@ -68,8 +67,7 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 			allowLocal = false
 
 			var err error
-			proj, err = mavenClient.GetProject(ctx, string(current.GroupID), string(current.ArtifactID), string(current.Version))
-			if err != nil {
+			if proj, err = mavenClient.GetProject(ctx, string(current.GroupID), string(current.ArtifactID), string(current.Version)); err != nil {
 				return fmt.Errorf("failed to get Maven project %s:%s:%s: %w", current.GroupID, current.ArtifactID, current.Version, err)
 			}
 			if n > 0 && proj.Packaging != "pom" {
@@ -83,7 +81,17 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 		}
 		// Empty JDK and ActivationOS indicates merging the default profiles.
 		if err := result.MergeProfiles("", maven.ActivationOS{}); err != nil {
-			return err
+			return fmt.Errorf("failed to merge profiles: %w", err)
+		}
+		for _, repo := range proj.Repositories {
+			if err := mavenClient.AddRegistry(datasource.MavenRegistry{
+				URL:              string(repo.URL),
+				ID:               string(repo.ID),
+				ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
+				SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
+			}); err != nil {
+				return fmt.Errorf("failed to add registry %s: %w", repo.URL, err)
+			}
 		}
 		result.MergeParent(proj)
 		current = proj.Parent
@@ -125,4 +133,18 @@ func ParentPOMPath(currentPath, relativePath string) string {
 	}
 
 	return ""
+}
+
+// GetDependencyManagement returns managed dependencies in the specified Maven project by fetching remote pom.xml.
+func GetDependencyManagement(ctx context.Context, client *datasource.MavenRegistryAPIClient, groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
+	root := maven.Parent{ProjectKey: maven.ProjectKey{GroupID: groupID, ArtifactID: artifactID, Version: version}}
+	var result maven.Project
+	// To get dependency management from another project, we need the
+	// project with parents merged, so we call MergeParents by passing
+	// an empty project.
+	if err := MergeParents(ctx, client.WithoutRegistries(), &result, root, 0, "", false); err != nil {
+		return maven.DependencyManagement{}, err
+	}
+
+	return result.DependencyManagement, nil
 }

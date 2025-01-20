@@ -72,7 +72,7 @@ Vendored dependencies have been directly copied into the project folder, but do 
 
 ## Transitive dependency scanning
 
-OSV-Scanner supports transitive dependency scanning for Maven pom.xml. This feature is enabled by default when scanning, but it is disabled in the [offline mode](./offline-mode.md).
+OSV-Scanner supports transitive dependency scanning for Maven pom.xml. This feature is enabled by default when scanning, but it can be disabled using the `--experimental-no-resolve` flag. It is also disabled in the [offline mode](./offline-mode.md).
 
 OSV-Scanner uses [deps.dev’s resolver library](https://pkg.go.dev/deps.dev/util/resolve) to compute the dependency graph of a project. This graph includes all of the direct and transitive dependencies. By default, [deps.dev API](https://docs.deps.dev/api/v3/index.html) is queried for package versions and requirements. The support for private registries is [coming soon](https://github.com/google/osv-scanner/issues/1045).
 
@@ -80,6 +80,14 @@ After the dependency resolution, the OSV database is queried for the vulnerabili
 
 {: .note }
 Test dependencies are not supported yet in the computed dependency graph for Maven pom.xml.
+
+### Data source
+
+By default, we use the [deps.dev API](https://docs.deps.dev/api/v3/) to find version and dependency information of packages during transitive scanning.
+
+If instead you'd like to fetch data from [Maven Central](https://repo.maven.apache.org/maven2/), you can use the `--experimental-resolution-data-source=native` flag.
+
+If your project uses mirrored or private registries, in addition to setting `--experimental-resolution-data-source=native`, you will need to use the `--experimental-maven-registry=<full-registry-url>` flag to specify the registry (e.g. `--experimental-maven-registry=https://repo.maven.apache.org/maven2/`).
 
 ## Custom Lockfiles
 

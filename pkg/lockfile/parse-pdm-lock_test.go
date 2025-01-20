@@ -52,14 +52,13 @@ func TestPdmExtractor_ShouldExtract(t *testing.T) {
 		},
 	}
 
-	for _, test := range tests {
-		tst := test
-		t.Run(tst.name, func(t *testing.T) {
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			ext := lockfile.PdmLockExtractor{}
-			should := ext.ShouldExtract(tst.path)
-			if should != tst.want {
-				t.Errorf("ShouldExtract() - got %v, expected %v", should, tst.want)
+			should := ext.ShouldExtract(tt.path)
+			if should != tt.want {
+				t.Errorf("ShouldExtract() - got %v, expected %v", should, tt.want)
 			}
 		})
 	}
