@@ -46,7 +46,7 @@ We currently support the remediation vulnerabilities in the following files:
 | Maven     | `pom.xml` (manifest)<sup>[note](#pom-note)</sup> | [`override`](#override-dependency-versions-remediation)     |
 
 {: .note #pom-note}
-By default, the tool only checks dependencies that are actually present in a POM's dependency graph - it will not detect vulnerabilities in `<dependencyManagement>` dependencies if they are not actually used when resolving the POM. The [`--maven-fix-management`](#Maven-flags) flag can be used to also fix them.
+By default, the tool only checks dependencies that are actually present in a POM's dependency graph - it will not detect vulnerabilities in `<dependencyManagement>` dependencies if they are not actually used when resolving the POM. The [`--maven-fix-management`](#maven-flags) flag can be used to also fix them.
 
 ## Basic usage
 
