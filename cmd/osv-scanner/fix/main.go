@@ -48,12 +48,13 @@ const (
 
 type osvFixOptions struct {
 	remediation.Options
-	Client     client.ResolutionClient
-	Manifest   string
-	ManifestRW manifest.ReadWriter
-	Lockfile   string
-	LockfileRW lockfile.ReadWriter
-	RelockCmd  string
+	Client      client.ResolutionClient
+	Manifest    string
+	ManifestRW  manifest.ReadWriter
+	Lockfile    string
+	LockfileRW  lockfile.ReadWriter
+	RelockCmd   string
+	NoIntroduce bool
 }
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
@@ -149,6 +150,11 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Name:     "apply-top",
 				Usage:    "apply the top N patches",
 				Value:    -1,
+			},
+			&cli.BoolFlag{
+				Category: autoModeCategory,
+				Name:     "no-introduce",
+				Usage:    "exclude patches that would introduce new vulnerabilities",
 			},
 
 			&cli.StringSliceFlag{
@@ -311,9 +317,10 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			MaxDepth:      ctx.Int("max-depth"),
 			UpgradeConfig: parseUpgradeConfig(ctx, r),
 		},
-		Manifest:  ctx.String("manifest"),
-		Lockfile:  ctx.String("lockfile"),
-		RelockCmd: ctx.String("relock-cmd"),
+		Manifest:    ctx.String("manifest"),
+		Lockfile:    ctx.String("lockfile"),
+		RelockCmd:   ctx.String("relock-cmd"),
+		NoIntroduce: ctx.Bool("no-introduce"),
 	}
 
 	system := resolve.UnknownSystem
