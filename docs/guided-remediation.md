@@ -163,31 +163,35 @@ osv-scanner fix --non-interactive --format text --strategy=override -M path/to/p
 
 ```
 Resolving path/to/pom.xml...
-Found 56 vulnerabilities matching the filter
-Can fix 39/56 matching vulnerabilities by overriding 20 dependencies
+Found 60 vulnerabilities matching the filter
+Can fix 44/60 matching vulnerabilities by overriding 24 dependencies
 OVERRIDE-PACKAGE: io.atomix:atomix,3.1.6
 OVERRIDE-PACKAGE: org.apache.pdfbox:pdfbox,2.0.24
 OVERRIDE-PACKAGE: xerces:xercesImpl,2.12.2
 OVERRIDE-PACKAGE: com.google.guava:guava,32.0.0-jre
+OVERRIDE-PACKAGE: org.apache.mina:mina-core,2.0.27
 OVERRIDE-PACKAGE: com.fasterxml.jackson.core:jackson-databind,2.12.7.1
 OVERRIDE-PACKAGE: io.netty:netty-handler,4.1.94.Final
 OVERRIDE-PACKAGE: org.apache.commons:commons-compress,1.26.0
 OVERRIDE-PACKAGE: org.apache.commons:commons-configuration2,2.10.1
-OVERRIDE-PACKAGE: org.apache.mina:mina-core,2.0.22
 OVERRIDE-PACKAGE: org.apache.shiro:shiro-web,1.13.0
 OVERRIDE-PACKAGE: org.eclipse.jgit:org.eclipse.jgit,5.13.3.202401111512-r
 OVERRIDE-PACKAGE: com.nimbusds:nimbus-jose-jwt,9.37.2
+OVERRIDE-PACKAGE: commons-io:commons-io,2.14.0
 OVERRIDE-PACKAGE: io.netty:netty,3.9.8.Final
+OVERRIDE-PACKAGE: io.netty:netty-common,4.1.115.Final
 OVERRIDE-PACKAGE: org.apache.directory.api:api-ldap-model,1.0.0-M31
 OVERRIDE-PACKAGE: org.apache.shiro:shiro-core,1.13.0
+OVERRIDE-PACKAGE: org.eclipse.jetty:jetty-http,12.0.12
+OVERRIDE-PACKAGE: org.eclipse.jetty:jetty-server,9.4.56.v20240826
 OVERRIDE-PACKAGE: org.glassfish.jersey.core:jersey-common,2.34
 OVERRIDE-PACKAGE: xalan:xalan,2.7.3
 OVERRIDE-PACKAGE: org.apache.thrift:libthrift,0.14.0
 OVERRIDE-PACKAGE: org.apache.tomcat.embed:tomcat-embed-core,8.5.99
 OVERRIDE-PACKAGE: io.netty:netty-codec,4.1.68.Final
-FIXED-VULN-IDS: GHSA-2fqw-684c-pvp7,GHSA-2h3j-m7gr-25xj,GHSA-3p86-9955-h393,GHSA-4265-ccf5-phj5,GHSA-4g9r-vxhx-9pgx,GHSA-4jhc-wjr3-pwh2,GHSA-5h29-qq92-wj7f,GHSA-5mg8-w23w-74h3,GHSA-6mcm-j9cj-3vc3,GHSA-6mjq-h674-j845,GHSA-6vqp-h455-42mr,GHSA-6vvh-5794-vpmj,GHSA-7fr2-94h7-ccg2,GHSA-7g45-4rm6-3mm3,GHSA-7grw-6pjh-jpc9,GHSA-7j4h-8wpf-rqfh,GHSA-9339-86wc-4qgf,GHSA-9w38-p64v-xpmv,GHSA-c43q-5hpj-4crv,GHSA-cx3q-cv6w-mx4h,GHSA-fg3j-q579-v8x4,GHSA-g2fg-mr77-6vrm,GHSA-g7p8-r2ch-4rmf,GHSA-gvpg-vgmx-xg6w,GHSA-h65f-jvqw-m9fj,GHSA-hhw5-c326-822h,GHSA-jc7h-c423-mpjc,GHSA-jjjh-jjxp-wpff,GHSA-m4h3-7mc2-v295,GHSA-mf27-wg66-m8f5,GHSA-mm9x-g8pc-w292,GHSA-mvr2-9pj6-7w5j,GHSA-pmhc-2g4f-85cg,GHSA-q446-82vq-w674,GHSA-rgv9-q543-rqg4,GHSA-vmqm-g3vh-847m,GHSA-w4jq-qh47-hvjq,GHSA-xfv3-rrfm-f2rv,GHSA-xjp4-hw94-mvp5
-REMAINING-VULNS: 17
-UNFIXABLE-VULNS: 16
+FIXED-VULN-IDS: GHSA-2fqw-684c-pvp7,GHSA-2h3j-m7gr-25xj,GHSA-3p86-9955-h393,GHSA-4265-ccf5-phj5,GHSA-4g9r-vxhx-9pgx,GHSA-4jhc-wjr3-pwh2,GHSA-5h29-qq92-wj7f,GHSA-5mg8-w23w-74h3,GHSA-6mcm-j9cj-3vc3,GHSA-6mjq-h674-j845,GHSA-6vqp-h455-42mr,GHSA-6vvh-5794-vpmj,GHSA-76h9-2vwh-w278,GHSA-78wr-2p64-hpwj,GHSA-7fr2-94h7-ccg2,GHSA-7g45-4rm6-3mm3,GHSA-7grw-6pjh-jpc9,GHSA-7j4h-8wpf-rqfh,GHSA-9339-86wc-4qgf,GHSA-9w38-p64v-xpmv,GHSA-c43q-5hpj-4crv,GHSA-cx3q-cv6w-mx4h,GHSA-fg3j-q579-v8x4,GHSA-g2fg-mr77-6vrm,GHSA-g7p8-r2ch-4rmf,GHSA-g8m5-722r-8whq,GHSA-gvpg-vgmx-xg6w,GHSA-h65f-jvqw-m9fj,GHSA-hhw5-c326-822h,GHSA-jc7h-c423-mpjc,GHSA-jjjh-jjxp-wpff,GHSA-m4h3-7mc2-v295,GHSA-mf27-wg66-m8f5,GHSA-mm9x-g8pc-w292,GHSA-mvr2-9pj6-7w5j,GHSA-pmhc-2g4f-85cg,GHSA-q446-82vq-w674,GHSA-qh8g-58pp-2wxh,GHSA-rgv9-q543-rqg4,GHSA-vmqm-g3vh-847m,GHSA-w4jq-qh47-hvjq,GHSA-xfv3-rrfm-f2rv,GHSA-xjp4-hw94-mvp5,GHSA-xq3w-v528-46rv
+REMAINING-VULNS: 16
+UNFIXABLE-VULNS: 15
 Rewriting path/to/pom.xml...
 ```
 
@@ -287,6 +291,315 @@ osv-scanner fix --non-interactive --format json --strategy=relax -M path/to/pack
             {
               "name": "minimist",
               "version": "0.0.8"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+</details>
+
+```bash
+osv-scanner fix --non-interactive --format json --strategy=override -M path/to/pom.xml
+```
+
+<details markdown="1">
+<summary><b>Sample override JSON output</b></summary>
+
+```json
+{
+  "path": "path/to/pom.xml",
+  "ecosystem": "Maven",
+  "strategy": "override",
+  "vulnerabilities": [
+    {
+      "id": "GHSA-3832-9276-x7gf",
+      "packages": [
+        {
+          "name": "commons-httpclient:commons-httpclient",
+          "version": "3.0.1"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-56h3-78gp-v83r",
+      "packages": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "version": "1.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-6hgm-866r-3cjv",
+      "packages": [
+        {
+          "name": "commons-collections:commons-collections",
+          "version": "3.2.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-6phf-73q6-gh87",
+      "packages": [
+        {
+          "name": "commons-beanutils:commons-beanutils",
+          "version": "1.7.0"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-78wr-2p64-hpwj",
+      "packages": [
+        {
+          "name": "commons-io:commons-io",
+          "version": "2.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-7rf3-mqpx-h7xg",
+      "packages": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "version": "1.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-c27h-mcmw-48hv",
+      "packages": [
+        {
+          "name": "org.codehaus.jackson:jackson-mapper-asl",
+          "version": "1.8.8"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-cgp8-4m63-fhh5",
+      "packages": [
+        {
+          "name": "commons-net:commons-net",
+          "version": "1.4.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-fjq5-5j5f-mvxh",
+      "packages": [
+        {
+          "name": "commons-collections:commons-collections",
+          "version": "3.2.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-grr4-wv38-f68w",
+      "packages": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "version": "1.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-gwrp-pvrq-jmwv",
+      "packages": [
+        {
+          "name": "commons-io:commons-io",
+          "version": "2.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-q6g2-g7f3-rr83",
+      "packages": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "version": "1.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-r6j9-8759-g62w",
+      "packages": [
+        {
+          "name": "org.codehaus.jackson:jackson-mapper-asl",
+          "version": "1.8.8"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-x27m-9w8j-5vcw",
+      "packages": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "version": "1.1"
+        }
+      ]
+    }
+  ],
+  "patches": [
+    {
+      "packageUpdates": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "versionFrom": "1.1",
+          "versionTo": "1.5.4",
+          "transitive": true
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-56h3-78gp-v83r",
+          "packages": [
+            {
+              "name": "org.codehaus.jettison:jettison",
+              "version": "1.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-7rf3-mqpx-h7xg",
+          "packages": [
+            {
+              "name": "org.codehaus.jettison:jettison",
+              "version": "1.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-grr4-wv38-f68w",
+          "packages": [
+            {
+              "name": "org.codehaus.jettison:jettison",
+              "version": "1.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-q6g2-g7f3-rr83",
+          "packages": [
+            {
+              "name": "org.codehaus.jettison:jettison",
+              "version": "1.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-x27m-9w8j-5vcw",
+          "packages": [
+            {
+              "name": "org.codehaus.jettison:jettison",
+              "version": "1.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
+          "name": "commons-collections:commons-collections",
+          "versionFrom": "3.2.1",
+          "versionTo": "3.2.2",
+          "transitive": true
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-6hgm-866r-3cjv",
+          "packages": [
+            {
+              "name": "commons-collections:commons-collections",
+              "version": "3.2.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-fjq5-5j5f-mvxh",
+          "packages": [
+            {
+              "name": "commons-collections:commons-collections",
+              "version": "3.2.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
+          "name": "commons-io:commons-io",
+          "versionFrom": "2.1",
+          "versionTo": "2.14.0",
+          "transitive": false
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-78wr-2p64-hpwj",
+          "packages": [
+            {
+              "name": "commons-io:commons-io",
+              "version": "2.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-gwrp-pvrq-jmwv",
+          "packages": [
+            {
+              "name": "commons-io:commons-io",
+              "version": "2.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
+          "name": "commons-beanutils:commons-beanutils",
+          "versionFrom": "1.7.0",
+          "versionTo": "1.9.4",
+          "transitive": true
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-6phf-73q6-gh87",
+          "packages": [
+            {
+              "name": "commons-beanutils:commons-beanutils",
+              "version": "1.7.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
+          "name": "commons-net:commons-net",
+          "versionFrom": "1.4.1",
+          "versionTo": "3.9.0",
+          "transitive": false
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-cgp8-4m63-fhh5",
+          "packages": [
+            {
+              "name": "commons-net:commons-net",
+              "version": "1.4.1"
             }
           ]
         }
