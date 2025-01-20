@@ -57,6 +57,7 @@ func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, lay
 
 			// No need to handle the error, if we can't get the base image for a layer, skip it
 			baseImagesMap[i], _ = matcher.queryBaseImagesForChainID(ctx, chainID)
+
 			return nil
 		})
 	}
@@ -124,7 +125,7 @@ func (matcher *DepsDevBaseImageMatcher) makeRetryRequest(action func(client *htt
 		lastErr = fmt.Errorf("server error: status=%q body=%s", resp.Status, errBody)
 	}
 
-	return nil, fmt.Errorf("max retries exceeded: %v", lastErr)
+	return nil, fmt.Errorf("max retries exceeded: %w", lastErr)
 }
 
 func (matcher *DepsDevBaseImageMatcher) queryBaseImagesForChainID(ctx context.Context, chainID digest.Digest) ([]models.BaseImageDetails, error) {
