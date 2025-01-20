@@ -364,6 +364,14 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		}
 	}
 
+	// TODO: This is a heuristic, assume that packages under usr/ is an OS package
+	// Replace this with an actual implementation in OSV-Scalibr (potentially via full filesystem accountability).
+	for _, psr := range scanResult.PackageScanResults {
+		if strings.HasPrefix(psr.PackageInfo.Location(), "usr/") {
+			psr.PackageInfo.Annotations = append(psr.PackageInfo.Annotations, extractor.InsideOSPackage)
+		}
+	}
+
 	results := buildVulnerabilityResults(r, actions, &scanResult)
 
 	filtered := filterResults(r, &results, &scanResult.ConfigManager, actions.ShowAllPackages)
