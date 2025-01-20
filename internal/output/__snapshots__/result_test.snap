@@ -29,7 +29,6 @@
       {
         "Package": {
           "name": "regex",
-          "OSPackageName": "",
           "version": "1.5.1",
           "ecosystem": "crates.io"
         },
@@ -235,7 +234,6 @@
       {
         "Package": {
           "name": "github.com/gogo/protobuf",
-          "OSPackageName": "",
           "version": "1.3.1",
           "ecosystem": "Go"
         },
@@ -316,7 +314,6 @@
       {
         "Package": {
           "name": "regex",
-          "OSPackageName": "",
           "version": "1.5.1",
           "ecosystem": "crates.io"
         },

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strings"
 	"time"
 
 	scalibr "github.com/google/osv-scalibr"
@@ -17,13 +18,13 @@ import (
 	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/internal/config"
+	"github.com/google/osv-scanner/internal/datasource"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/imodels"
 	"github.com/google/osv-scanner/internal/imodels/results"
 	"github.com/google/osv-scanner/internal/osvdev"
 	"github.com/google/osv-scanner/internal/output"
 	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
 	"github.com/google/osv-scanner/internal/version"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osvscanner/internal/imagehelpers"
@@ -121,7 +122,7 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 
 	// --- License Matcher ---
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		depsDevAPIClient, err := datasource.NewDepsDevAPIClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		depsDevAPIClient, err := datasource.NewCachedInsightsClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 		if err != nil {
 			return ExternalAccessors{}, err
 		}
@@ -134,8 +135,9 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 	// --- Base Image Matcher ---
 	if actions.Image != "" || actions.ScanOCIImage != "" {
 		externalAccessors.BaseImageMatcher = &baseimagematcher.DepsDevBaseImageMatcher{
-			Client:   *http.DefaultClient,
-			Reporter: r,
+			HTTPClient: *http.DefaultClient,
+			Config:     baseimagematcher.DefaultConfig(),
+			Reporter:   r,
 		}
 	}
 
@@ -270,33 +272,54 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		},
 	}
 
+	if actions.ConfigOverridePath != "" {
+		err := scanResult.ConfigManager.UseOverride(r, actions.ConfigOverridePath)
+		if err != nil {
+			r.Errorf("Failed to read config file: %s\n", err)
+			return models.VulnerabilityResults{}, err
+		}
+	}
+
 	// --- Setup Accessors/Clients ---
 	accessors, err := initializeExternalAccessors(r, actions)
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
-	// --- Initialize Image To Scan ---
+	// --- Initialize Image To Scan ---'
+
+	getLocalPathOrEmpty := func() string {
+		if actions.ScanOCIImage != "" {
+			return actions.ScanOCIImage
+		}
+
+		if strings.Contains(actions.Image, ".tar") {
+			if _, err := os.Stat(actions.Image); err == nil {
+				return actions.Image
+			}
+		}
+
+		return ""
+	}
+
 	var img *image.Image
-	if actions.ScanOCIImage != "" {
-		img, err = image.FromTarball(actions.ScanOCIImage, image.DefaultConfig())
-		r.Infof("Scanning image %q\n", actions.ScanOCIImage)
+	if localPath := getLocalPathOrEmpty(); localPath != "" {
+		r.Infof("Scanning local image tarball %q\n", localPath)
+		img, err = image.FromTarball(localPath, image.DefaultConfig())
 	} else if actions.Image != "" {
 		path, exportErr := imagehelpers.ExportDockerImage(r, actions.Image)
 		if exportErr != nil {
 			return models.VulnerabilityResults{}, exportErr
 		}
+		defer os.Remove(path)
 
-		// If Image is a local tar file, then path == Image, and we shouldn't remove it
-		if path != actions.Image {
-			defer os.Remove(path)
-		}
 		img, err = image.FromTarball(path, image.DefaultConfig())
 		r.Infof("Scanning image %q\n", actions.Image)
 	}
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
+
 	defer func() {
 		err := img.CleanUp()
 		if err != nil {
@@ -346,6 +369,14 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResult.PackageScanResults)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
+		}
+	}
+
+	// TODO: This is a heuristic, assume that packages under usr/ is an OS package
+	// Replace this with an actual implementation in OSV-Scalibr (potentially via full filesystem accountability).
+	for _, psr := range scanResult.PackageScanResults {
+		if strings.HasPrefix(psr.PackageInfo.Location(), "usr/") {
+			psr.PackageInfo.Annotations = append(psr.PackageInfo.Annotations, extractor.InsideOSPackage)
 		}
 	}
 

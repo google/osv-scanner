@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
-	"strings"
 
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
@@ -61,14 +60,13 @@ func BuildImageMetadata(img *image.Image, baseImageMatcher clientinterfaces.Base
 	return &imgMetadata, nil
 }
 
+// ExportDockerImage will execute the docker binary to export an image to a temporary file in the tarball OCI format.
+//
+// If ExportDockerImage does not error, the temporary file needs to be cleaned up by the caller, otherwise, it will be
+// cleaned automatically by this function.
+//
+// ExportDockerImage will first try to locate the image locally, and if not found, attempt to pull the image from the docker registry.
 func ExportDockerImage(r reporter.Reporter, dockerImageName string) (string, error) {
-	// Skip saving if the file is already a tar archive.
-	if strings.Contains(dockerImageName, ".tar") {
-		if _, err := os.Stat(dockerImageName); err == nil {
-			return dockerImageName, nil
-		}
-	}
-
 	tempImageFile, err := os.CreateTemp("", "docker-image-*.tar")
 	if err != nil {
 		r.Errorf("Failed to create temporary file: %s\n", err)
@@ -77,6 +75,8 @@ func ExportDockerImage(r reporter.Reporter, dockerImageName string) (string, err
 
 	err = tempImageFile.Close()
 	if err != nil {
+		_ = os.RemoveAll(tempImageFile.Name())
+
 		return "", err
 	}
 
@@ -88,6 +88,8 @@ func ExportDockerImage(r reporter.Reporter, dockerImageName string) (string, err
 		r.Infof("Image not found locally, pulling docker image (%q)...\n", dockerImageName)
 		err = runCommandLogError(r, "docker", "pull", "-q", dockerImageName)
 		if err != nil {
+			_ = os.RemoveAll(tempImageFile.Name())
+
 			return "", fmt.Errorf("failed to pull container image: %w", err)
 		}
 	}
@@ -95,6 +97,8 @@ func ExportDockerImage(r reporter.Reporter, dockerImageName string) (string, err
 	r.Infof("Saving docker image (%q) to temporary file...\n", dockerImageName)
 	err = runCommandLogError(r, "docker", "save", "-o", tempImageFile.Name(), dockerImageName)
 	if err != nil {
+		_ = os.RemoveAll(tempImageFile.Name())
+
 		return "", err
 	}
 

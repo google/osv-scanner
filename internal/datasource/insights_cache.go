@@ -43,7 +43,7 @@ func protoUnmarshalCache[K comparable, V any, PV interface {
 	return nil
 }
 
-func (c *DepsDevAPIClient) GobEncode() ([]byte, error) {
+func (c *CachedInsightsClient) GobEncode() ([]byte, error) {
 	var cache depsdevAPICache
 	c.mu.Lock()
 	defer c.mu.Unlock()
@@ -71,7 +71,7 @@ func (c *DepsDevAPIClient) GobEncode() ([]byte, error) {
 	return gobMarshal(cache)
 }
 
-func (c *DepsDevAPIClient) GobDecode(b []byte) error {
+func (c *CachedInsightsClient) GobDecode(b []byte) error {
 	var cache depsdevAPICache
 	if err := gobUnmarshal(b, &cache); err != nil {
 		return err

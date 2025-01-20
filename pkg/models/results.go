@@ -3,6 +3,8 @@ package models
 import (
 	"slices"
 	"strings"
+
+	"github.com/google/osv-scalibr/extractor"
 )
 
 // Combined vulnerabilities found for the scanned packages
@@ -87,8 +89,10 @@ func (s SourceInfo) String() string {
 
 // Vulnerabilities grouped by sources
 type PackageSource struct {
-	Source   SourceInfo     `json:"source"`
-	Packages []PackageVulns `json:"packages"`
+	Source SourceInfo `json:"source"`
+	// Place Annotations in PackageSource instead of SourceInfo as we need SourceInfo to be mappable
+	ExperimentalAnnotations []extractor.Annotation `json:"experimental_annotations,omitempty"`
+	Packages                []PackageVulns         `json:"packages"`
 }
 
 // License is an SPDX license.
@@ -111,7 +115,7 @@ type GroupInfo struct {
 	// Aliases include all aliases and IDs
 	Aliases []string `json:"aliases"`
 	// Map of Vulnerability IDs to AnalysisInfo
-	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimentalAnalysis,omitempty"`
+	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimental_analysis,omitempty"`
 	MaxSeverity          string                  `json:"max_severity"`
 }
 
