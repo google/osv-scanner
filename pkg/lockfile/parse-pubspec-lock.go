@@ -115,5 +115,5 @@ func init() {
 }
 
 func ParsePubspecLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, PubspecLockExtractor{})
+	return ExtractFromFile(pathToLockfile, PubspecLockExtractor{})
 }

@@ -63,5 +63,5 @@ func init() {
 }
 
 func ParseRenvLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, RenvLockExtractor{})
+	return ExtractFromFile(pathToLockfile, RenvLockExtractor{})
 }

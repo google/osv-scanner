@@ -29,7 +29,7 @@ func TestNugetCsprojMatcher_GetSourceFile_FileDoesNotExist(t *testing.T) {
 func TestNugetCsprojMatcher_GetSourceFile(t *testing.T) {
 	t.Parallel()
 
-	lockFile, err := lockfile.OpenLocalDepFile("fixtures/nuget/one-framework-one-package.v1.json")
+	lockFile, err := lockfile.OpenLocalDepFile("fixtures/nuget/one-framework-one-package-with-csproj/packages.lock.json")
 	if err != nil {
 		t.Errorf("Got unexpected error: %v", err)
 	}
@@ -44,7 +44,7 @@ func TestNugetCsprojMatcher_GetSourceFile(t *testing.T) {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	basePath := "fixtures/nuget/"
+	basePath := "fixtures/nuget/one-framework-one-package-with-csproj/"
 	sourceFilePath := filepath.FromSlash(filepath.Join(dir, basePath+"project.csproj"))
 
 	assert.Equal(t, sourceFile.Path(), sourceFilePath)
@@ -104,6 +104,7 @@ func TestNugetCsprojMatcher_Match_Packages(t *testing.T) {
 				Column:   models.Position{Start: 30, End: 40},
 				Filename: sourceFilePath,
 			},
+			DepGroups: []string{string(lockfile.DepGroupProd)},
 		},
 		{
 			Name:           "MaterialDesignThemes",
@@ -123,6 +124,7 @@ func TestNugetCsprojMatcher_Match_Packages(t *testing.T) {
 				Column:   models.Position{Start: 30, End: 50},
 				Filename: sourceFilePath,
 			},
+			DepGroups: []string{string(lockfile.DepGroupProd)},
 		},
 		{
 			Name:           "Test.Core",
@@ -142,6 +144,7 @@ func TestNugetCsprojMatcher_Match_Packages(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 25},
 				Filename: sourceFilePath,
 			},
+			DepGroups: []string{string(lockfile.DepGroupProd)},
 		},
 	})
 }

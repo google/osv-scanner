@@ -202,7 +202,7 @@ func init() {
 }
 
 func ParseGoLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, GoLockExtractor{})
+	return ExtractFromFile(pathToLockfile, GoLockExtractor{})
 }
 
 func hasHostnamePrefix(path string) bool {

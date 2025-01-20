@@ -78,5 +78,5 @@ func init() {
 }
 
 func ParsePdmLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, PdmLockExtractor{})
+	return ExtractFromFile(pathToLockfile, PdmLockExtractor{})
 }

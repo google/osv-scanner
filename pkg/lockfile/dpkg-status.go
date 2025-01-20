@@ -105,7 +105,7 @@ func parseDpkgPackageGroup(group []string) PackageDetails {
 }
 
 func ParseDpkgStatus(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, DpkgStatusExtractor{})
+	return ExtractFromFile(pathToLockfile, DpkgStatusExtractor{})
 }
 
 type DpkgStatusExtractor struct{}

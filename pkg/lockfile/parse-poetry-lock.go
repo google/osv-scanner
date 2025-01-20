@@ -75,5 +75,5 @@ func init() {
 }
 
 func ParsePoetryLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, PoetryExtractor)
+	return ExtractFromFile(pathToLockfile, PoetryExtractor)
 }

@@ -8,7 +8,7 @@ import (
 )
 
 func ParseOSVScannerResults(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, OSVScannerResultsExtractor{})
+	return ExtractFromFile(pathToLockfile, OSVScannerResultsExtractor{})
 }
 
 type OSVScannerResultsExtractor struct{}
@@ -54,7 +54,7 @@ var _ Extractor = OSVScannerResultsExtractor{}
 
 // FromOSVScannerResults attempts to extract packages stored in the OSVScannerResults format
 func FromOSVScannerResults(pathToInstalled string) (Lockfile, error) {
-	packages, err := extractFromFile(pathToInstalled, OSVScannerResultsExtractor{})
+	packages, err := ExtractFromFile(pathToInstalled, OSVScannerResultsExtractor{})
 
 	return Lockfile{
 		FilePath: pathToInstalled,

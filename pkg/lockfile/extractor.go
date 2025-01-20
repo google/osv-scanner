@@ -1,7 +1,6 @@
 package lockfile
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -13,8 +12,6 @@ import (
 	"golang.org/x/text/encoding/unicode"
 	"golang.org/x/text/transform"
 )
-
-var ErrOpenNotSupported = errors.New("this file does not support opening files")
 
 // DepFile is an abstraction for a file that has been opened for extraction,
 // and that knows how to open other DepFiles relative to itself.
@@ -98,7 +95,7 @@ func OpenLocalDepFile(path string) (NestedDepFile, error) {
 var _ DepFile = LocalFile{}
 var _ NestedDepFile = LocalFile{}
 
-func extractFromFile(pathToLockfile string, extractor Extractor) ([]PackageDetails, error) {
+func ExtractFromFile(pathToLockfile string, extractor Extractor) ([]PackageDetails, error) {
 	f, err := OpenLocalDepFile(pathToLockfile)
 
 	if err != nil {

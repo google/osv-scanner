@@ -58,5 +58,5 @@ func init() {
 }
 
 func ParseGradleVerificationMetadata(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, GradleVerificationExtractor)
+	return ExtractFromFile(pathToLockfile, GradleVerificationExtractor)
 }

@@ -80,5 +80,5 @@ func init() {
 }
 
 func ParsePipenvLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, PipenvExtractor)
+	return ExtractFromFile(pathToLockfile, PipenvExtractor)
 }

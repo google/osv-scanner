@@ -59,7 +59,7 @@ func parseApkPackageGroup(group []string) PackageDetails {
 }
 
 func ParseApkInstalled(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, ApkInstalledExtractor{})
+	return ExtractFromFile(pathToLockfile, ApkInstalledExtractor{})
 }
 
 type ApkInstalledExtractor struct{}

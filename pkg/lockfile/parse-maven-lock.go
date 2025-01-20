@@ -636,5 +636,5 @@ func init() {
 }
 
 func ParseMavenLock(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, MavenLockExtractor{})
+	return ExtractFromFile(pathToLockfile, MavenLockExtractor{})
 }

@@ -453,5 +453,5 @@ func init() {
 }
 
 func ParseRequirementsTxt(pathToLockfile string) ([]PackageDetails, error) {
-	return extractFromFile(pathToLockfile, RequirementsTxtExtractor{})
+	return ExtractFromFile(pathToLockfile, RequirementsTxtExtractor{})
 }
