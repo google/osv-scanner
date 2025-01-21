@@ -109,21 +109,21 @@ func findGems(language *treesitter.Language, root *treesitter.Node, sourceFileCo
 	)`
 
 	gems := make([]gemMetadata, 0)
-	err := query(language, sourceFileContent, root, gemQueryString, func(query *treesitter.Query, match *treesitter.QueryMatch) error {
-		callNode := getFirstCapturedNode(query, match, "gem_call")
+	err := query(language, sourceFileContent, root, gemQueryString, func(match *matchResult) error {
+		callNode := match.findFirstByName("gem_call")
 		if onlyRootDeps && callNode.Parent().GrammarName() != "program" {
 			return nil
 		}
 
-		dependencyNameNode := getFirstCapturedNode(query, match, "gem_name").Child(1)
-		dependencyName := dependencyNameNode.Utf8Text(sourceFileContent)
-
-		requirementNode := getFirstCapturedNode(query, match, "gem_requirement")
-		if requirementNode != nil && requirementNode.GrammarName() == "string" {
-			requirementNode = requirementNode.Child(1)
+		dependencyNameNode := match.findFirstByName("gem_name")
+		dependencyName, err := match.extractTextValue(dependencyNameNode)
+		if err != nil {
+			return err
 		}
 
-		groups, err := findGroupsInCapturedNodes(language, callNode, sourceFileContent)
+		requirementNode := match.findFirstByName("gem_requirement")
+
+		groups, err := findGroupsInPairs(language, callNode, sourceFileContent)
 		if err != nil {
 			return err
 		}
@@ -134,12 +134,12 @@ func findGems(language *treesitter.Language, root *treesitter.Node, sourceFileCo
 			blockLine:   models.Position{Start: int(callNode.StartPosition().Row) + 1, End: int(callNode.EndPosition().Row) + 1},
 			blockColumn: models.Position{Start: int(callNode.StartPosition().Column) + 1, End: int(callNode.EndPosition().Column) + 1},
 			nameLine:    models.Position{Start: int(dependencyNameNode.StartPosition().Row) + 1, End: int(dependencyNameNode.EndPosition().Row) + 1},
-			nameColumn:  models.Position{Start: int(dependencyNameNode.StartPosition().Column), End: int(dependencyNameNode.EndPosition().Column) + 2},
+			nameColumn:  models.Position{Start: int(dependencyNameNode.StartPosition().Column) + 1, End: int(dependencyNameNode.EndPosition().Column) + 1},
 		}
 
 		if requirementNode != nil {
 			metadata.versionLine = &models.Position{Start: int(requirementNode.StartPosition().Row) + 1, End: int(requirementNode.EndPosition().Row) + 1}
-			metadata.versionColumn = &models.Position{Start: int(requirementNode.StartPosition().Column), End: int(requirementNode.EndPosition().Column) + 2}
+			metadata.versionColumn = &models.Position{Start: int(requirementNode.StartPosition().Column) + 1, End: int(requirementNode.EndPosition().Column) + 1}
 		}
 
 		gems = append(gems, metadata)
@@ -164,25 +164,25 @@ func findGroupedGems(language *treesitter.Language, root *treesitter.Node, sourc
 	)`
 
 	gems := make([]gemMetadata, 0)
-	err := query(language, sourceFileContent, root, groupQueryString, func(query *treesitter.Query, match *treesitter.QueryMatch) error {
-		groupKeysNode := getFirstCapturedNode(query, match, "group_keys")
-		groups, err := extractGroups(groupKeysNode, sourceFileContent)
+	err := query(language, sourceFileContent, root, groupQueryString, func(match *matchResult) error {
+		groupKeysNode := match.findFirstByName("group_keys")
+		groups, err := match.extractTextValues(groupKeysNode)
 		if err != nil {
 			return err
 		}
 
-		blockNode := getFirstCapturedNode(query, match, "block")
-		gs, err := findGems(language, blockNode, sourceFileContent, false)
+		blockNode := match.findFirstByName("block")
+		blockGems, err := findGems(language, blockNode, sourceFileContent, false)
 		if err != nil {
 			return err
 		}
 
 		// Top-level group always applies to all gem defined groups
-		for idx := range gs {
-			gs[idx].groups = groups
+		for idx := range blockGems {
+			blockGems[idx].groups = groups
 		}
 
-		gems = append(gems, gs...)
+		gems = append(gems, blockGems...)
 
 		return nil
 	})
@@ -193,24 +193,24 @@ func findGroupedGems(language *treesitter.Language, root *treesitter.Node, sourc
 	return gems, nil
 }
 
-func findGroupsInCapturedNodes(language *treesitter.Language, node *treesitter.Node, sourceFileContent []byte) ([]string, error) {
+func findGroupsInPairs(language *treesitter.Language, node *treesitter.Node, sourceFileContent []byte) ([]string, error) {
 	pairQuery := `(
 		(pair
-			key: [(hash_key_symbol) (simple_symbol)] @group_key
-			(#match? @group_key "group")
-			value: [(array) (simple_symbol) (string)] @group_value
+			key: [(hash_key_symbol) (simple_symbol)] @pair_key
+			(#match? @pair_key "group")
+			value: [(array) (simple_symbol) (string)] @pair_value
 		)
 	)`
 
 	var groups []string
-	err := query(language, sourceFileContent, node, pairQuery, func(query *treesitter.Query, match *treesitter.QueryMatch) error {
-		groupValueNode := getFirstCapturedNode(query, match, "group_value")
-		nodeGroups, err := extractGroups(groupValueNode, sourceFileContent)
+	err := query(language, sourceFileContent, node, pairQuery, func(match *matchResult) error {
+		pairValueNode := match.findFirstByName("pair_value")
+		pairGroups, err := match.extractTextValues(pairValueNode)
 		if err != nil {
 			return err
 		}
 
-		groups = append(groups, nodeGroups...)
+		groups = append(groups, pairGroups...)
 
 		return nil
 	})
@@ -221,7 +221,63 @@ func findGroupsInCapturedNodes(language *treesitter.Language, node *treesitter.N
 	return groups, nil
 }
 
-func query(language *treesitter.Language, sourceFileContent []byte, node *treesitter.Node, queryString string, onMatch func(query *treesitter.Query, match *treesitter.QueryMatch) error) error {
+type matchResult struct {
+	language          *treesitter.Language
+	sourceFileContent []byte
+	query             *treesitter.Query
+	match             *treesitter.QueryMatch
+}
+
+func (m matchResult) findFirstByName(captureName string) *treesitter.Node {
+	if idx, exists := m.query.CaptureIndexForName(captureName); exists {
+		for _, capture := range m.match.Captures {
+			if uint(capture.Index) == idx {
+				return &capture.Node
+			}
+		}
+	}
+
+	return nil
+}
+
+func (m matchResult) extractTextValues(node *treesitter.Node) ([]string, error) {
+	if node.GrammarName() == "simple_symbol" || node.GrammarName() == "string" {
+		textValue, err := m.extractTextValue(node)
+		if err != nil {
+			return nil, err
+		}
+		return []string{textValue}, nil
+	} else if _, skip := knownGrammarSeparators[node.GrammarName()]; skip {
+		return nil, nil
+	} else if node.GrammarName() == "array" || node.GrammarName() == "argument_list" {
+		groups := make([]string, 0)
+		for i := uint(0); i < node.ChildCount(); i++ {
+			childNode := node.Child(i)
+			extractedGroups, err := m.extractTextValues(childNode)
+			if err != nil {
+				return nil, err
+			}
+			groups = append(groups, extractedGroups...)
+		}
+		return groups, nil
+	} else {
+		return nil, errors.New("found unsupported grammar type")
+	}
+}
+
+func (m matchResult) extractTextValue(node *treesitter.Node) (string, error) {
+	if node.GrammarName() == "simple_symbol" {
+		// Symbols are prefixed with a colon, so we need to remove it to get the clean text value
+		return strings.TrimPrefix(node.Utf8Text(m.sourceFileContent), ":"), nil
+	} else if node.GrammarName() == "string" {
+		// Strings are wrapped in quotes, so we need to extract the text from the inner node
+		return node.Child(1).Utf8Text(m.sourceFileContent), nil
+	} else {
+		return "", errors.New("found unsupported grammar type to extract text value")
+	}
+}
+
+func query(language *treesitter.Language, sourceFileContent []byte, node *treesitter.Node, queryString string, onMatch func(match *matchResult) error) error {
 	query, err := treesitter.NewQuery(language, queryString)
 	if err != nil {
 		return err
@@ -238,52 +294,18 @@ func query(language *treesitter.Language, sourceFileContent []byte, node *treesi
 			break
 		}
 
-		err := onMatch(query, match)
+		err := onMatch(&matchResult{
+			language:          language,
+			sourceFileContent: sourceFileContent,
+			query:             query,
+			match:             match,
+		})
 		if err != nil {
 			return err
 		}
 	}
 
 	return nil
-}
-
-func getFirstCapturedNode(query *treesitter.Query, match *treesitter.QueryMatch, name string) *treesitter.Node {
-	if idx, exists := query.CaptureIndexForName(name); exists {
-		for _, capture := range match.Captures {
-			if uint(capture.Index) == idx {
-				return &capture.Node
-			}
-		}
-	}
-
-	return nil
-}
-
-func extractGroups(node *treesitter.Node, sourceFileContent []byte) ([]string, error) {
-	if node.GrammarName() == "simple_symbol" {
-		return []string{extractGroupName(node, sourceFileContent)}, nil
-	} else if node.GrammarName() == "string" {
-		return []string{extractGroupName(node.Child(1), sourceFileContent)}, nil
-	} else if _, skip := knownGrammarSeparators[node.GrammarName()]; skip {
-		return nil, nil
-	} else if node.GrammarName() == "array" || node.GrammarName() == "argument_list" {
-		groups := make([]string, 0)
-		for i := uint(0); i < node.ChildCount(); i++ {
-			childNode := node.Child(i)
-			extractedGroups, err := extractGroups(childNode, sourceFileContent)
-			if err != nil {
-				return nil, err
-			}
-			groups = append(groups, extractedGroups...)
-		}
-		return groups, nil
-	} else {
-		return nil, errors.New("found unsupported grammar type")
-	}
-}
-
-func extractGroupName(node *treesitter.Node, sourceFileContent []byte) string {
-	return strings.TrimPrefix(node.Utf8Text(sourceFileContent), ":")
 }
 
 func indexPackages(packages []PackageDetails) map[string]*PackageDetails {
@@ -295,8 +317,8 @@ func indexPackages(packages []PackageDetails) map[string]*PackageDetails {
 	return result
 }
 
-func enrichPackagesWithLocation(sourceFile DepFile, remainingGems []gemMetadata, packagesByName map[string]*PackageDetails) {
-	for _, gem := range remainingGems {
+func enrichPackagesWithLocation(sourceFile DepFile, gems []gemMetadata, packagesByName map[string]*PackageDetails) {
+	for _, gem := range gems {
 		pkg := packagesByName[gem.name]
 
 		pkg.BlockLocation = models.FilePosition{
