@@ -808,6 +808,6 @@ Remediation in npm `workspaces` is only partially supported:
 
 ### Maven
 
-- Dependencies that use properties in their `groupId`/`artifactId` may not be updated correctly.
-- Support for profiles is limited.
+- [#1238](https://github.com/google/osv-scanner/issues/1238) Dependencies that use properties in their `groupId`/`artifactId` may not be updated correctly.
+- [#1239](https://github.com/google/osv-scanner/issues/1239) Support for profiles is limited.
 - Encrypted values in `settings.xml` files are not supported.
