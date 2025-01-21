@@ -15,11 +15,29 @@
           <p>All layers ({{ .VulnCount.AnalysisCount.Regular }})</p>
           {{ template "severity_summary_template.gohtml" .VulnCount.SeverityCount }}
         </div>
-        {{ range .AllLayers }}
-        <div title="{{ .LayerID}}" class="filter-option layer-filter-option">
-          <p>{{ .Index }} {{ .LayerCommand }}</p>
+        {{ range .ImageInfo.AllLayers }}
+        {{ $index := .Index }}
+        {{ $originalCommand := .LayerMetadata.Command }}
+        {{ $commandSet := formatLayerCommand $originalCommand }}
+        {{ $command := index $commandSet 0 }}
+        {{ $commandDetail := index $commandSet 1 }}
+        {{ $diffID := .LayerMetadata.DiffID }}
+        {{ $longCommand := false }}
+        {{ if gt (len $command) 109 }}
+          {{ $longCommand = true }}
+        {{ end }}
+
+        {{ if gt .Count.AnalysisCount.Regular 0 }}
+        <div title="{{ $diffID }}" class="filter-option layer-filter-option">
+          <div {{ if $longCommand }} class="tooltip" {{ end }}>
+            <p class="layer-command">{{ $index }} {{ $command }}</p>
+            {{ if $longCommand }}
+            <span class="tooltiptext layer-tooltiptext">{{ $originalCommand }}</span>
+            {{ end }}
+            </div>
           {{ template "severity_summary_template.gohtml".Count.SeverityCount }}
         </div>
+        {{ end }}
         {{ end }}
       </div>
     </div>

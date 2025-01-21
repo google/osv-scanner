@@ -34,6 +34,10 @@
       <div id="summary-tab" class="tab">
         {{ template "filter_template.gohtml" .}}
 
+        {{ if .IsContainerScanning }}
+        {{ template "base_image_template.gohtml" .}}
+        {{end}}
+
         <div class="search-box">
           <div class="search-icon">
             <i class="material-icons">search</i>
