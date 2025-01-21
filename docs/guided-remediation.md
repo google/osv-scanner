@@ -37,7 +37,7 @@ This feature is experimental and might change or be removed with only a minor ve
 
 ### Supported strategies
 
-We currently support the remediation vulnerabilities in the following files:
+We currently support remediating vulnerabilities in the following files:
 
 | Ecosystem | File Format (Type)                               | Supported [Remediation Strategies](#remediation-strategies) |
 | :-------- | :----------------------------------------------- | :---------------------------------------------------------- |
@@ -200,6 +200,8 @@ Rewriting path/to/pom.xml...
 #### JSON
 
 Outputs the results as a JSON object to stdout, with all other output being directed to stderr - this makes it safe to redirect the output to a file.
+
+The `json` format is expected to be stable. It is intended to be suitable for integration with automated tooling.
 
 ```bash
 osv-scanner fix --non-interactive --format json --strategy=relax -M path/to/package.json
@@ -621,6 +623,9 @@ Check out our [sample Python script](https://github.com/google/osv-scanner/blob/
 
 Interactive mode provides a step-by-step process to understand and fix vulnerabilities in your project.
 
+{: .note }
+Interactive mode currently only supports npm manifest and lockfiles.
+
 To run it, you can use the following command:
 
 ```bash
@@ -648,7 +653,7 @@ From the first results screen, you can select which of the two remediation strat
 
 There are currently three remediation strategies:
 
-### In-place lockfile remediation
+### In-place lockfile changes
 
 'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but will often fix less vulnerabilities than the [relax strategy](#relock-and-relax-direct-dependency-remediation).
 
@@ -663,7 +668,7 @@ If you wish to apply the proposed in-place patches, select the "Write" option to
 {: .note }
 Writing these changes will not reinstall your dependencies. You'll need to run `npm ci` (or equivalent) separately.
 
-### Relock and relax direct dependency remediation
+### Relock and relax direct dependencies
 
 Relocking recomputes your entire dependency graph based on your manifest file, taking the newest possible versions of all your required packages. Doing so will often allow for constraints on vulnerable packages to be unblocked and thus able to be remediated. However, relocking may cause a large number of changes to your dependency graph, which potentially carries a larger risk of breakages.
 
@@ -683,7 +688,7 @@ If you wish to apply your current relock & relaxation changes, select the "Write
 >
 > The `--relock-cmd` flag can be used to change the executed install command.
 
-### Override dependency versions remediation
+### Override dependency versions
 
 {: .note }
 The `override` strategy is currently only supported in `--non-interactive` mode.
@@ -762,7 +767,7 @@ If your project uses mirrored or private registries, you will need to use `--dat
 
 {: .note }
 
-> The subcommand caches the requests it makes in `package.json.resolve.deps` (deps.dev), `package.json.resolve.npm` (native npm), or `package.json.resolve.maven` (native Maven).
+> The subcommand caches the requests it makes in `[FILE].resolve.deps` (deps.dev), `package.json.resolve.npm` (native npm), or `pom.xml.resolve.maven` (native Maven).
 >
 > The native caches will store the addresses of private registries used, though not any authentication information.
 
