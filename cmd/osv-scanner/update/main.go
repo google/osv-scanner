@@ -6,8 +6,10 @@ import (
 	"io"
 	"os"
 
+	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/depsdev"
 	"github.com/google/osv-scanner/internal/remediation/suggest"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution/client"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 	"github.com/google/osv-scanner/internal/version"
@@ -29,17 +31,26 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				TakesFile: true,
 				Required:  true,
 			},
-			&cli.StringSliceFlag{
-				Name:  "disallow-package-upgrades",
-				Usage: "list of packages that disallow updates",
-			},
-			&cli.StringSliceFlag{
-				Name:  "disallow-major-upgrades",
-				Usage: "list of packages that disallow major updates",
-			},
 			&cli.BoolFlag{
 				Name:  "ignore-dev",
 				Usage: "whether to ignore development dependencies for updates",
+			},
+			&cli.StringSliceFlag{
+				Name:        "upgrade-config",
+				Usage:       "the allowed package upgrades, in the format `[package-name:]level`. If package-name is omitted, level is applied to all packages. level must be one of (major, minor, patch, none).",
+				DefaultText: "major",
+			},
+			&cli.StringFlag{
+				Name:  "data-source",
+				Usage: "source to fetch package information from; value can be: deps.dev, native",
+				Value: "deps.dev",
+				Action: func(_ *cli.Context, s string) error {
+					if s != "deps.dev" && s != "native" {
+						return fmt.Errorf("unsupported data-source \"%s\" - must be one of: deps.dev, native", s)
+					}
+
+					return nil
+				},
 			},
 		},
 		Action: func(ctx *cli.Context) error {
@@ -52,36 +63,56 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 }
 
 type updateOptions struct {
-	Manifest   string
-	NoUpdates  []string
-	AvoidMajor []string
-	IgnoreDev  bool
+	Manifest      string
+	IgnoreDev     bool
+	UpgradeConfig upgrade.Config // Allowed upgrade levels per package.
 
-	Client     client.ResolutionClient
+	Client     client.DependencyClient
 	ManifestRW manifest.ReadWriter
 }
 
 func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
+	r := reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
+
 	options := updateOptions{
-		Manifest:   ctx.String("manifest"),
-		NoUpdates:  ctx.StringSlice("disallow-package-upgrades"),
-		AvoidMajor: ctx.StringSlice("disallow-major-upgrades"),
-		IgnoreDev:  ctx.Bool("ignore-dev"),
+		Manifest:      ctx.String("manifest"),
+		IgnoreDev:     ctx.Bool("ignore-dev"),
+		UpgradeConfig: upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config"), r),
 	}
+
 	if _, err := os.Stat(options.Manifest); errors.Is(err, os.ErrNotExist) {
 		return nil, fmt.Errorf("file not found: %s", options.Manifest)
 	} else if err != nil {
 		return nil, err
 	}
 
-	var err error
-	options.Client.DependencyClient, err = client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_update/"+version.OSVVersion)
-	if err != nil {
-		return nil, err
+	system := resolve.UnknownSystem
+	if options.Manifest != "" {
+		rw, err := manifest.GetReadWriter(options.Manifest, ctx.String("maven-registry"))
+		if err != nil {
+			return nil, err
+		}
+		options.ManifestRW = rw
+		system = rw.System()
 	}
-	options.ManifestRW, err = manifest.GetReadWriter(options.Manifest, "")
-	if err != nil {
-		return nil, err
+
+	var err error
+	switch ctx.String("data-source") {
+	case "deps.dev":
+		options.Client, err = client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_update/"+version.OSVVersion)
+		if err != nil {
+			return nil, err
+		}
+	case "native":
+		switch system {
+		case resolve.Maven:
+			options.Client, err = client.NewMavenRegistryClient(ctx.String("maven-registry"))
+			if err != nil {
+				return nil, err
+			}
+		default:
+			return nil, fmt.Errorf("native data-source currently unsupported for %s ecosystem", system.String())
+		}
 	}
 
 	df, err := lockfile.OpenLocalDepFile(options.Manifest)
@@ -99,13 +130,12 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		return nil, err
 	}
 	patch, err := suggester.Suggest(ctx.Context, options.Client, mf, suggest.Options{
-		IgnoreDev:  options.IgnoreDev,
-		NoUpdates:  options.NoUpdates,
-		AvoidMajor: options.AvoidMajor,
+		IgnoreDev:     options.IgnoreDev,
+		UpgradeConfig: options.UpgradeConfig,
 	})
 	if err != nil {
 		return nil, err
 	}
 
-	return reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0), manifest.Overwrite(options.ManifestRW, options.Manifest, patch)
+	return r, manifest.Overwrite(options.ManifestRW, options.Manifest, patch)
 }

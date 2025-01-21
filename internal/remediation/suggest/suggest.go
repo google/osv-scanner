@@ -6,13 +6,13 @@ import (
 	"fmt"
 
 	"deps.dev/util/resolve"
+	"github.com/google/osv-scanner/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/internal/resolution/manifest"
 )
 
 type Options struct {
-	IgnoreDev  bool     // Whether we should ignore development dependencies for updates
-	NoUpdates  []string // List of packages that disallow updates
-	AvoidMajor []string // List of packages that disallow major updates
+	IgnoreDev     bool           // Whether we should ignore development dependencies for updates
+	UpgradeConfig upgrade.Config // Allowed upgrade levels per package.
 }
 
 // A PatchSuggester provides an ecosystem-specific method for 'suggesting'
