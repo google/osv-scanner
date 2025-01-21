@@ -38,8 +38,12 @@ func (dc DependencyChain) End() (resolve.VersionKey, string) {
 func ChainIsDev(dc DependencyChain, groups map[manifest.RequirementKey][]string) bool {
 	edge := dc.Edges[len(dc.Edges)-1]
 	// This check only applies to the graphs created from the in-place lockfile scanning.
-	// TODO: consider dev dependencies in e.g. workspaces that aren't direct
 	if edge.Type.HasAttr(dep.Dev) {
+		return true
+	}
+
+	// As a workaround for npm workspaces, repeat above in-place check 1 layer deeper.
+	if len(dc.Edges) > 1 && dc.Edges[len(dc.Edges)-2].Type.HasAttr(dep.Dev) {
 		return true
 	}
 
@@ -51,7 +55,7 @@ func ChainIsDev(dc DependencyChain, groups map[manifest.RequirementKey][]string)
 	if !ok {
 		return false
 	}
-
+	// TODO: Below check doesn't support npm workspaces correctly.
 	return lockfile.Ecosystem(ecosystem).IsDevGroup(groups[manifest.MakeRequirementKey(req)])
 }
 
