@@ -59,6 +59,12 @@ func (pkg *PackageInfo) Name() string {
 		}
 	}
 
+	if metadata, ok := pkg.Inventory.Metadata.(*apk.Metadata); ok {
+		if metadata.OriginName != "" {
+			return metadata.OriginName
+		}
+	}
+
 	return pkg.Inventory.Name
 }
 
@@ -164,20 +170,13 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 type PackageScanResult struct {
 	PackageInfo PackageInfo
 	// TODO: Use osvschema.Vulnerability instead
-	Vulnerabilities    []*models.Vulnerability
-	Licenses           []models.License
-	ImageOriginLayerID string
+	Vulnerabilities []*models.Vulnerability
+	Licenses        []models.License
+	LayerDetails    *extractor.LayerDetails
 
 	// TODO(v2):
 	// SourceAnalysis *SourceAnalysis
 	// Any additional scan enrichment steps
-}
-
-type ImageMetadata struct {
-	// TODO:
-	// OS
-	// BaseImage
-	// LayerMetadata []LayerMetadata
 }
 
 // SourceType categorizes packages based on the extractor that extracted

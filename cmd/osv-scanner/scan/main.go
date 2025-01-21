@@ -14,6 +14,7 @@ import (
 	"time"
 
 	"github.com/google/osv-scanner/internal/spdx"
+	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"
 	"golang.org/x/term"
@@ -282,10 +283,10 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		scanLicensesAllowlist = []string{}
 	}
 
-	vulnResult, err := osvscanner.DoScan(osvscanner.ScannerActions{
+	scannerAction := osvscanner.ScannerActions{
 		LockfilePaths:      context.StringSlice("lockfile"),
 		SBOMPaths:          context.StringSlice("sbom"),
-		DockerImageName:    context.String("docker"),
+		Image:              context.String("docker"),
 		Recursive:          context.Bool("recursive"),
 		SkipGit:            context.Bool("skip-git"),
 		NoIgnore:           context.Bool("no-ignore"),
@@ -311,7 +312,14 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 				MavenRegistry:    context.String("experimental-maven-registry"),
 			},
 		},
-	}, r)
+	}
+
+	var vulnResult models.VulnerabilityResults
+	if context.String("docker") != "" || context.String("experimental-oci-image") != "" {
+		vulnResult, err = osvscanner.DoContainerScan(scannerAction, r)
+	} else {
+		vulnResult, err = osvscanner.DoScan(scannerAction, r)
+	}
 
 	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 		return r, err

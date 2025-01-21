@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"regexp"
 	"runtime"
 	"strings"
 	"testing"
@@ -104,6 +105,15 @@ func normalizeErrors(t *testing.T, str string) string {
 	return str
 }
 
+func removeUntestableLines(t *testing.T, str string) string {
+	t.Helper()
+
+	replacer := regexp.MustCompile(`Image not found locally, pulling docker image .*\.\.\.\n`)
+	str = replacer.ReplaceAllLiteralString(str, "")
+
+	return str
+}
+
 // normalizeStdStream applies a series of normalizes to the buffer from a std stream like stdout and stderr
 func normalizeStdStream(t *testing.T, std *bytes.Buffer) string {
 	t.Helper()
@@ -116,6 +126,7 @@ func normalizeStdStream(t *testing.T, std *bytes.Buffer) string {
 		normalizeTempDirectory,
 		normalizeUserCacheDirectory,
 		normalizeErrors,
+		removeUntestableLines,
 	} {
 		str = normalizer(t, str)
 	}
@@ -762,11 +773,8 @@ func TestRun_Licenses(t *testing.T) {
 	}
 }
 
-// TODO(v2): Image scanning is not temporarily disabled
-
 func TestRun_Docker(t *testing.T) {
 	t.Parallel()
-	t.Skip("Skipping until image scanning is reenabled")
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
 
@@ -795,7 +803,7 @@ func TestRun_Docker(t *testing.T) {
 		{
 			name: "Real Alpine image",
 			args: []string{"", "--docker", "alpine:3.18.9"},
-			exit: 0,
+			exit: 1,
 		},
 	}
 	for _, tt := range tests {
@@ -812,7 +820,6 @@ func TestRun_Docker(t *testing.T) {
 
 func TestRun_OCIImage(t *testing.T) {
 	t.Parallel()
-	t.Skip("Skipping until image scanning is reenabled")
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 

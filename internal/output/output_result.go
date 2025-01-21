@@ -156,7 +156,7 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 		// which are already covered by OS-specific vulnerabilities.
 		// This filtering should be handled by the container scanning process.
 		// TODO(gongh@): Revisit this once container scanning can distinguish these cases.
-		if strings.Contains(packageSource.Source.String(), "/usr/lib/") {
+		if strings.HasPrefix(packageSource.Source.Path, "usr/lib/") {
 			continue
 		}
 
@@ -289,10 +289,10 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 
 	if vulnPkg.Package.ImageOrigin != nil {
 		packageLayerDetail := PackageLayerDetail{
-			LayerID:     vulnPkg.Package.ImageOrigin.LayerID,
-			InBaseImage: vulnPkg.Package.ImageOrigin.InBaseImage,
+			LayerID:     "",
+			InBaseImage: true,
 		}
-		packageLayerDetail.LayerCommand, packageLayerDetail.LayerCommandDetailed = formatLayerCommand(vulnPkg.Package.ImageOrigin.OriginCommand)
+		packageLayerDetail.LayerCommand, packageLayerDetail.LayerCommandDetailed = formatLayerCommand("COMMAND")
 		packageResult.LayerDetail = packageLayerDetail
 	}
 
