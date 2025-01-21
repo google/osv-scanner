@@ -30,6 +30,8 @@ require (
 	github.com/tidwall/gjson v1.17.1
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
+	github.com/tree-sitter/go-tree-sitter v0.24.0
+	github.com/tree-sitter/tree-sitter-ruby v0.23.1
 	github.com/urfave/cli/v2 v2.27.3
 	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56
 	golang.org/x/mod v0.19.0
@@ -82,6 +84,7 @@ require (
 	github.com/maruel/natural v1.1.1 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-localereader v0.0.1 // indirect
+	github.com/mattn/go-pointer v0.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.15 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.26 // indirect
 	github.com/muesli/ansi v0.0.0-20230316100256-276c6243b2f6 // indirect

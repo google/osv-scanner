@@ -1,30 +1,41 @@
 package lockfile
 
 import (
+	"errors"
+	"github.com/google/osv-scanner/pkg/models"
+	treesitter "github.com/tree-sitter/go-tree-sitter"
+	ruby "github.com/tree-sitter/tree-sitter-ruby/bindings/go"
 	"io"
 	"path/filepath"
 	"strings"
-
-	"github.com/google/osv-scanner/internal/cachedregexp"
-
-	"github.com/google/osv-scanner/internal/utility/fileposition"
-	"github.com/google/osv-scanner/pkg/models"
 )
 
 const gemfileFilename = "Gemfile"
-const gemField = "gem"
 
-// This is used to clean properties from the gem function syntax
-// We are keeping quotes to stay consistent with the version as we can have multiple version qualifiers
-var gemSyntaxRemover = strings.NewReplacer(",", "")
+// Source: https://www.bundler.cn/guides/groups.html
+var knownBundlerDevelopmentGroups = map[string]struct{}{
+	"dev":         {},
+	"development": {},
+	"test":        {},
+	"ci":          {},
+	"cucumber":    {},
+	"linting":     {},
+	"rubocop":     {},
+}
 
-// We use a specific remover to clean quotes when we fetch the name to find it in the index
-var gemNameSyntaxRemover = strings.NewReplacer(",", "", "\"", "", "'", "")
+var knownGrammarSeparators = map[string]struct{}{
+	"[": {},
+	"]": {},
+	"{": {},
+	"}": {},
+	"(": {},
+	")": {},
+	",": {},
+}
 
-type GemfileMatcher struct{}
-
-type gemInformation struct {
+type gemMetadata struct {
 	name          string
+	groups        []string
 	blockLine     models.Position
 	blockColumn   models.Position
 	nameLine      models.Position
@@ -32,6 +43,8 @@ type gemInformation struct {
 	versionLine   *models.Position
 	versionColumn *models.Position
 }
+
+type GemfileMatcher struct{}
 
 func (matcher GemfileMatcher) GetSourceFile(lockfile DepFile) (DepFile, error) {
 	lockfileDir := filepath.Dir(lockfile.Path())
@@ -42,188 +55,224 @@ func (matcher GemfileMatcher) GetSourceFile(lockfile DepFile) (DepFile, error) {
 }
 
 func (matcher GemfileMatcher) Match(sourceFile DepFile, packages []PackageDetails) error {
-	content, err := io.ReadAll(sourceFile)
+	packagesByName := indexPackages(packages)
 
+	parser := treesitter.NewParser()
+	defer parser.Close()
+
+	language := treesitter.NewLanguage(ruby.Language())
+	err := parser.SetLanguage(language)
 	if err != nil {
 		return err
 	}
 
-	indexedPkgs := indexPackages(packages)
-	lines := fileposition.BytesToLines(content)
+	sourceFileContent, err := io.ReadAll(sourceFile)
+	if err != nil {
+		return err
+	}
 
-	for index, line := range lines {
-		lineNumber := index + 1
-		lineFields := strings.Fields(line)
+	tree := parser.Parse(sourceFileContent, nil)
+	defer tree.Close()
 
-		if len(lineFields) == 0 {
-			continue
-		} else if lineFields[0] == gemField {
-			// We found a package definition, we need to find which one it is.
-			// It can be multi-lined
-			gemLines := accumulateGemLines(lines, index)
-			info := extractInfoFromGemLines(gemLines, lineNumber)
-			pkg, exists := indexedPkgs[info.name]
+	root := tree.RootNode()
 
-			if !exists {
-				// It should always exists, we should have less dependencies here than in the lockfile
-				// If it does not exists, lockfile is not updated, so we skip the dependency
-				continue
+	rootGems, err := findGems(language, root, sourceFileContent, true)
+	if err != nil {
+		return err
+	}
+	enrichPackagesWithLocation(sourceFile, rootGems, packagesByName)
+
+	remainingGems, err := findGroupedGems(language, root, sourceFileContent)
+	if err != nil {
+		return err
+	}
+	enrichPackagesWithLocation(sourceFile, remainingGems, packagesByName)
+
+	return nil
+}
+
+func findGems(language *treesitter.Language, root *treesitter.Node, sourceFileContent []byte, onlyRootDeps bool) ([]gemMetadata, error) {
+	gemQueryString := `(
+		(call
+			method: (identifier) @method_name
+			(#match? @method_name "gem")
+			arguments: (argument_list
+				.
+				(string) @gem_name
+				.
+				(string)? @gem_requirement
+				.
+				(_)*
+				.
+			)
+		) @gem_call
+	)`
+
+	gems := make([]gemMetadata, 0)
+	err := query(language, sourceFileContent, root, gemQueryString, func(match *treesitter.QueryMatch) error {
+		callNode := match.Captures[0].Node
+		if onlyRootDeps && callNode.Parent().GrammarName() != "program" {
+			return nil
+		}
+
+		dependencyNameNode := match.Captures[2].Node.Child(1)
+		dependencyName := dependencyNameNode.Utf8Text(sourceFileContent)
+
+		var requirementNode *treesitter.Node
+		if len(match.Captures) > 3 {
+			if match.Captures[3].Node.GrammarName() == "string" {
+				requirementNode = match.Captures[3].Node.Child(1)
 			}
-			updatePackageDetails(sourceFile.Path(), info, pkg)
+		}
+
+		groups, err := findGroupsInCapturedNodes(language, &callNode, sourceFileContent)
+		if err != nil {
+			return err
+		}
+
+		metadata := gemMetadata{
+			name:        dependencyName,
+			groups:      groups,
+			blockLine:   models.Position{Start: int(callNode.StartPosition().Row) + 1, End: int(callNode.EndPosition().Row) + 1},
+			blockColumn: models.Position{Start: int(callNode.StartPosition().Column) + 1, End: int(callNode.EndPosition().Column) + 1},
+			nameLine:    models.Position{Start: int(dependencyNameNode.StartPosition().Row) + 1, End: int(dependencyNameNode.EndPosition().Row) + 1},
+			nameColumn:  models.Position{Start: int(dependencyNameNode.StartPosition().Column), End: int(dependencyNameNode.EndPosition().Column) + 2},
+		}
+
+		if requirementNode != nil {
+			metadata.versionLine = &models.Position{Start: int(requirementNode.StartPosition().Row) + 1, End: int(requirementNode.EndPosition().Row) + 1}
+			metadata.versionColumn = &models.Position{Start: int(requirementNode.StartPosition().Column), End: int(requirementNode.EndPosition().Column) + 2}
+		}
+
+		gems = append(gems, metadata)
+
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return gems, nil
+}
+
+func findGroupedGems(language *treesitter.Language, root *treesitter.Node, sourceFileContent []byte) ([]gemMetadata, error) {
+	groupQueryString := `(
+		(call
+			method: (identifier) @method_name
+			(#match? @method_name "group")
+			arguments: (argument_list . [(simple_symbol) (string)]+) @group_keys
+			block: (_) @block
+		)
+	)`
+
+	gems := make([]gemMetadata, 0)
+	err := query(language, sourceFileContent, root, groupQueryString, func(match *treesitter.QueryMatch) error {
+		groupsNode := match.Captures[1].Node
+		groups, err := extractGroups(&groupsNode, sourceFileContent)
+		if err != nil {
+			return err
+		}
+
+		blockNode := match.Captures[2].Node
+		gs, err := findGems(language, &blockNode, sourceFileContent, false)
+		if err != nil {
+			return err
+		}
+
+		// Top-level group always applies to all gem defined groups
+		for idx := range gs {
+			gs[idx].groups = groups
+		}
+
+		gems = append(gems, gs...)
+
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return gems, nil
+}
+
+func findGroupsInCapturedNodes(language *treesitter.Language, node *treesitter.Node, sourceFileContent []byte) ([]string, error) {
+	pairQuery := `(
+		(pair
+			key: [(hash_key_symbol) (simple_symbol)] @group_key
+			(#match? @group_key "group")
+			value: [(array) (simple_symbol) (string)] @group_value
+		)
+	)`
+
+	var groups []string
+	err := query(language, sourceFileContent, node, pairQuery, func(match *treesitter.QueryMatch) error {
+		nodeGroups, err := extractGroups(&match.Captures[1].Node, sourceFileContent)
+		if err != nil {
+			return err
+		}
+
+		groups = append(groups, nodeGroups...)
+
+		return nil
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return groups, nil
+}
+
+func query(language *treesitter.Language, sourceFileContent []byte, node *treesitter.Node, queryString string, onMatch func(match *treesitter.QueryMatch) error) error {
+	query, err := treesitter.NewQuery(language, queryString)
+	if err != nil {
+		return err
+	}
+	defer query.Close()
+
+	queryCursor := treesitter.NewQueryCursor()
+	defer queryCursor.Close()
+
+	matches := queryCursor.Matches(query, node, sourceFileContent)
+	for {
+		match := matches.Next()
+		if match == nil {
+			break
+		}
+
+		err := onMatch(match)
+		if err != nil {
+			return err
 		}
 	}
 
 	return nil
 }
 
-func updatePackageDetails(filePath string, info gemInformation, pkg *PackageDetails) {
-	pkg.BlockLocation = models.FilePosition{
-		Line:     info.blockLine,
-		Column:   info.blockColumn,
-		Filename: filePath,
-	}
-
-	pkg.NameLocation = &models.FilePosition{
-		Line:     info.nameLine,
-		Column:   info.nameColumn,
-		Filename: filePath,
-	}
-
-	if info.versionLine != nil && info.versionColumn != nil {
-		pkg.VersionLocation = &models.FilePosition{
-			Line:     *info.versionLine,
-			Column:   *info.versionColumn,
-			Filename: filePath,
-		}
-	}
-}
-
-func accumulateGemLines(lines []string, startIndex int) []string {
-	result := make([]string, 0)
-
-	for i := startIndex; i < len(lines); i++ {
-		result = append(result, lines[i])
-		if !shouldContinueAccumulate(lines[i]) {
-			break
-		}
-	}
-
-	return result
-}
-
-func shouldContinueAccumulate(line string) bool {
-	commentRemover := cachedregexp.MustCompile("#.*$")
-	cleanedLine := strings.TrimSpace(commentRemover.ReplaceAllString(line, ""))
-
-	return len(cleanedLine) == 0 || strings.HasSuffix(cleanedLine, ",")
-}
-
-func extractInfoFromGemLines(gemLines []string, startLineNumber int) gemInformation {
-	info := gemInformation{}
-
-	// We fill information about the block first
-	info.blockLine = models.Position{
-		Start: startLineNumber,
-		End:   startLineNumber + len(gemLines) - 1,
-	}
-	info.blockColumn = models.Position{
-		Start: strings.Index(gemLines[0], "gem") + 1,
-		End:   len(gemLines[len(gemLines)-1]) + 1,
-	}
-
-	// Then we extract the name as it is a mandatory field
-	// It is always in the first line as it is the first gem function argument, it can't be multi-lined
-	extractName(gemLines[0], startLineNumber, &info)
-
-	// Then we check if we have versions specifiers
-	// They are always before positional arguments, after the name, and in a sequence.
-	// They can be multi-lined
-	extractVersions(gemLines, startLineNumber, &info)
-
-	return info
-}
-
-func extractName(line string, startLineNumber int, info *gemInformation) {
-	fields := strings.Fields(line)
-	nameToLocate := gemSyntaxRemover.Replace(fields[1])
-	info.name = gemNameSyntaxRemover.Replace(fields[1])
-	nameColumnStart := strings.Index(line, nameToLocate)
-	info.nameLine = models.Position{
-		Start: startLineNumber,
-		End:   startLineNumber,
-	}
-	info.nameColumn = models.Position{
-		Start: nameColumnStart + 1,
-		End:   nameColumnStart + 1 + len(nameToLocate),
-	}
-}
-
-func extractVersions(lines []string, startLineNumber int, info *gemInformation) {
-	versionLineStart, versionLineEnd := -1, -1
-	versionColumnStart, versionColumnEnd := -1, -1
-
-	for index, line := range lines {
-		fields := strings.Fields(line)
-		startFieldIndex := 0
-
-		if index == 0 {
-			// It's the first gem line, which have "gem" + name, so we start to search after those two
-			startFieldIndex = 2
-		}
-		for fieldIndex := startFieldIndex; fieldIndex < len(fields); fieldIndex++ {
-			if isCommentField(fields[fieldIndex]) {
-				// We found a comment, go to next line
-				break
-			} else if !isVersionField(fields[fieldIndex]) {
-				// Once it is not a version field anymore, it means we only have positional arguments anymore
-				// If we have not declared any version start, it means no version has been declared, we return early
-				if versionLineStart == -1 {
-					return
-				}
-
-				break
+func extractGroups(node *treesitter.Node, sourceFileContent []byte) ([]string, error) {
+	if node.GrammarName() == "simple_symbol" {
+		return []string{extractGroupName(node, sourceFileContent)}, nil
+	} else if node.GrammarName() == "string" {
+		return []string{extractGroupName(node.Child(1), sourceFileContent)}, nil
+	} else if _, skip := knownGrammarSeparators[node.GrammarName()]; skip {
+		return nil, nil
+	} else if node.GrammarName() == "array" || node.GrammarName() == "argument_list" {
+		groups := make([]string, 0)
+		for i := uint(0); i < node.ChildCount(); i++ {
+			childNode := node.Child(i)
+			extractedGroups, err := extractGroups(childNode, sourceFileContent)
+			if err != nil {
+				return nil, err
 			}
-
-			// We have a version field, if we haven't registered a start line, we do it
-			if versionLineStart == -1 {
-				versionLineStart = startLineNumber + index
-				versionColumnStart = strings.Index(line, fields[fieldIndex]) + 1
-			}
-
-			// And we update the end information
-			version := gemSyntaxRemover.Replace(fields[fieldIndex])
-			versionLineEnd = startLineNumber + index
-			versionColumnEnd = strings.Index(line, fields[fieldIndex]) + len(version) + 1
+			groups = append(groups, extractedGroups...)
 		}
-
-		if versionLineStart != -1 {
-			break
-		}
-	}
-
-	// And now we fill the info structure with everything
-	info.versionLine = &models.Position{
-		Start: versionLineStart,
-		End:   versionLineEnd,
-	}
-	info.versionColumn = &models.Position{
-		Start: versionColumnStart,
-		End:   versionColumnEnd,
+		return groups, nil
+	} else {
+		return nil, errors.New("found unsupported grammar type")
 	}
 }
 
-// If the field starts with anything followed by ':', it means it is one of the named arguments
-// The only non-named arguments are name and version
-// caller must be sure to call this after name has already been passed
-func isVersionField(field string) bool {
-	matcher := cachedregexp.MustCompile("^\\w*:")
-	matched := matcher.MatchString(field)
-
-	return !matched
-}
-
-func isCommentField(field string) bool {
-	return strings.HasPrefix(field, "#")
+func extractGroupName(node *treesitter.Node, sourceFileContent []byte) string {
+	return strings.TrimPrefix(node.Utf8Text(sourceFileContent), ":")
 }
 
 func indexPackages(packages []PackageDetails) map[string]*PackageDetails {
@@ -233,4 +282,31 @@ func indexPackages(packages []PackageDetails) map[string]*PackageDetails {
 	}
 
 	return result
+}
+
+func enrichPackagesWithLocation(sourceFile DepFile, remainingGems []gemMetadata, packagesByName map[string]*PackageDetails) {
+	for _, gem := range remainingGems {
+		pkg := packagesByName[gem.name]
+
+		pkg.BlockLocation = models.FilePosition{
+			Line:     gem.blockLine,
+			Column:   gem.blockColumn,
+			Filename: sourceFile.Path(),
+		}
+		pkg.NameLocation = &models.FilePosition{
+			Line:     gem.nameLine,
+			Column:   gem.nameColumn,
+			Filename: sourceFile.Path(),
+		}
+		if gem.versionLine != nil && gem.versionColumn != nil {
+			pkg.VersionLocation = &models.FilePosition{
+				Line:     *gem.versionLine,
+				Column:   *gem.versionColumn,
+				Filename: sourceFile.Path(),
+			}
+		}
+		if len(gem.groups) > 0 {
+			pkg.DepGroups = gem.groups
+		}
+	}
 }

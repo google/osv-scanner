@@ -13,7 +13,7 @@ type PackageDetails struct {
 	Commit          string                `json:"commit,omitempty"`
 	Ecosystem       Ecosystem             `json:"ecosystem,omitempty"`
 	CompareAs       Ecosystem             `json:"compareAs,omitempty"`
-	DepGroups       []string              `json:"-"`
+	DepGroups       []string              `json:"depGroups,omitempty"`
 	BlockLocation   models.FilePosition   `json:"blockLocation,omitempty"`
 	VersionLocation *models.FilePosition  `json:"versionLocation,omitempty"`
 	NameLocation    *models.FilePosition  `json:"nameLocation,omitempty"`
@@ -47,7 +47,9 @@ func (sys Ecosystem) IsDevGroup(groups []string) bool {
 		return sys.isDevGroup(groups, "build-requires")
 	case MavenEcosystem:
 		return sys.isMavenDevGroup(groups)
-	case AlpineEcosystem, DebianEcosystem, CargoEcosystem, BundlerEcosystem, GoEcosystem, MixEcosystem, CRANEcosystem:
+	case BundlerEcosystem:
+		return isBundlerDevGroup(groups)
+	case AlpineEcosystem, DebianEcosystem, CargoEcosystem, GoEcosystem, MixEcosystem, CRANEcosystem:
 		return false
 	}
 
@@ -84,6 +86,20 @@ func (sys Ecosystem) isNpmDevGroup(groups []string) bool {
 	}
 
 	return containsDev
+}
+
+func isBundlerDevGroup(groups []string) bool {
+	if len(groups) == 0 {
+		return false
+	}
+
+	for _, group := range groups {
+		if _, isDevGroup := knownBundlerDevelopmentGroups[group]; !isDevGroup {
+			return false
+		}
+	}
+
+	return true
 }
 
 func (sys Ecosystem) isDevGroup(groups []string, devGroupName string) bool {

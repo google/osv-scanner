@@ -1,6 +1,7 @@
 package lockfile_test
 
 import (
+	"github.com/google/osv-scanner/internal/testutility"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -91,4 +92,52 @@ func TestGemfileMatcher_Match_OnePackage(t *testing.T) {
 			},
 		},
 	})
+}
+
+func TestGemfileMatcher_Match_Groups(t *testing.T) {
+	t.Parallel()
+
+	sourceFile, err := lockfile.OpenLocalDepFile("fixtures/bundler/groups/Gemfile")
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	packages := []lockfile.PackageDetails{
+		{
+			Name:           "thor",
+			Version:        "1.3.2",
+			PackageManager: models.Bundler,
+		},
+		{
+			Name:           "timeout",
+			Version:        "0.4.3",
+			PackageManager: models.Bundler,
+		},
+		{
+			Name:           "useragent",
+			Version:        "0.16.11",
+			PackageManager: models.Bundler,
+		},
+		{
+			Name:           "websocket-driver",
+			PackageManager: models.Bundler,
+		},
+		{
+			Name:           "websocket-extensions",
+			Version:        "0.1.5",
+			PackageManager: models.Bundler,
+		},
+		{
+			Name:           "zeitwerk",
+			Version:        "2.7.1",
+			PackageManager: models.Bundler,
+		},
+	}
+
+	err = gemfileMatcher.Match(sourceFile, packages)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	testutility.NewSnapshot().WithCRLFReplacement().MatchJSON(t, packages)
 }

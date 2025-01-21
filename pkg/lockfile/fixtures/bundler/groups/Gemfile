@@ -1,0 +1,24 @@
+source 'https://rubygems.org'
+
+# No groups
+gem 'thor', '1.3.2'
+
+# Multiple pairs and last is a group
+gem 'timeout', '0.4.3', :require => 'websocket-driver', group: 'production'
+
+# Multiple pairs inside hash and second is array of groups
+gem 'useragent', '0.16.11', { :require => 'websocket-driver', :group => [:default,
+:production] }
+
+# Group method with block using curly brackets
+group(:development) {
+  gem 'websocket-driver'
+}
+
+# Group method with block using multiple groups,
+#   gem without group that will get the external ones and
+#   gem with a group that is going to be superseded by the external ones
+group :development, :test do
+  gem 'websocket-extensions', '0.1.5'
+  gem 'zeitwerk', '2.7.1', group: :production
+end
