@@ -41,28 +41,28 @@ We currently support remediating vulnerabilities in the following files:
 
 | Ecosystem | File Format (Type)                               | Supported [Remediation Strategies](#remediation-strategies) |
 | :-------- | :----------------------------------------------- | :---------------------------------------------------------- |
-| npm       | `package-lock.json` (lockfile)                   | [`in-place`](#in-place-lockfile-remediation)                |
-| npm       | `package.json` (manifest)                        | [`relock`](#relock-and-relax-direct-dependency-remediation) |
-| Maven     | `pom.xml` (manifest)<sup>[note](#pom-note)</sup> | [`override`](#override-dependency-versions-remediation)     |
+| npm       | `package-lock.json` (lockfile)                   | [`in-place`](#in-place-lockfile-changes)                |
+| npm       | `package.json` (manifest)                        | [`relock`](#relock-and-relax-direct-dependencies) |
+| Maven     | `pom.xml` (manifest)<sup>[note](#pom-note)</sup> | [`override`](#override-dependency-versions)     |
 
 {: .note #pom-note}
 By default, the tool only checks dependencies that are actually present in a POM's dependency graph - it will not detect vulnerabilities in `<dependencyManagement>` dependencies if they are not actually used when resolving the POM. The [`--maven-fix-management`](#maven-flags) flag can be used to also fix them.
 
 ## Basic usage
 
-To fix as many vulnerabilities as possible in your `package-lock.json` file [in-place](#in-place-lockfile-remediation), you can use the following command:
+To fix as many vulnerabilities as possible in your `package-lock.json` file [in-place](#in-place-lockfile-changes), you can use the following command:
 
 ```bash
 osv-scanner fix --non-interactive --strategy=in-place -L path/to/package-lock.json
 ```
 
-Alternatively, to potentially resolve even more vulnerabilities with larger (potentially breaking) changes, you can [regenerate your lockfile and update your direct dependencies](#relock-and-relax-direct-dependency-remediation) with the following command:
+Alternatively, to potentially resolve even more vulnerabilities with larger (potentially breaking) changes, you can [regenerate your lockfile and update your direct dependencies](#relock-and-relax-direct-dependencies) with the following command:
 
 ```bash
 osv-scanner fix --non-interactive --strategy=relax -M path/to/package.json -L path/to/package-lock.json
 ```
 
-For Maven `pom.xml` files, you can update direct dependencies and [add version overrides](#override-dependency-versions-remediation) to your POM's `<dependencyManagement>` section with the following command:
+For Maven `pom.xml` files, you can update direct dependencies and [add version overrides](#override-dependency-versions) to your POM's `<dependencyManagement>` section with the following command:
 
 ```bash
 osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
@@ -655,7 +655,7 @@ There are currently three remediation strategies:
 
 ### In-place lockfile changes
 
-'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but will often fix less vulnerabilities than the [relax strategy](#relock-and-relax-direct-dependency-remediation).
+'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but will often fix less vulnerabilities than the [relax strategy](#relock-and-relax-direct-dependencies).
 
 Selecting the "Modify lockfile in place" option will bring you to the in-place information page. From here, you can see which vulnerabilities can and cannot be resolved by this strategy. By default, every possible in-place patch will be chosen to be applied. You may instead choose which subset of patches you wish to apply.
 
@@ -707,7 +707,7 @@ The `fix` subcommand has a number of flags to allow you to control which vulnera
 
 The following flags may be used when running in non-interactive mode only:
 
-- `--strategy=` [`in-place`](#in-place-lockfile-remediation) OR [`relax`](#relock-and-relax-direct-dependency-remediation) OR [`override`](#override-dependency-versions-remediation): Which remediation strategy to use.
+- `--strategy=` [`in-place`](#in-place-lockfile-changes) OR [`relax`](#relock-and-relax-direct-dependencies) OR [`override`](#override-dependency-versions): Which remediation strategy to use.
 - `--apply-top=<value>`: Specifies the maximum number of patches to apply. Patches are chosen in the same order as they would appear in the interactive mode.
 
   For example, `--apply-top=1` will only apply one patch, and `--apply-top=2` would apply the two best compatible patches. This flag is particularly useful when scripting to test the outcome of specific patches. Setting `--apply-top=-1` will apply every possible patch (default behavior).
