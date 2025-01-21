@@ -49,7 +49,7 @@ func (matcher GemfileMatcher) Match(sourceFile DepFile, packages []PackageDetail
 	}
 	defer treeResult.Close()
 
-	rootGems, err := findGems(treeResult.node, true)
+	rootGems, err := findGems(treeResult.node)
 	if err != nil {
 		return err
 	}
@@ -64,14 +64,18 @@ func (matcher GemfileMatcher) Match(sourceFile DepFile, packages []PackageDetail
 	return nil
 }
 
-func findGems(node *Node, onlyRootDeps bool) ([]gemMetadata, error) {
+func findGems(node *Node) ([]gemMetadata, error) {
 	gemQueryString := `(
 		(call
 			method: (identifier) @method_name
 			(#match? @method_name "gem")
 			arguments: (argument_list
 				.
+				(comment)*
+				.
 				(string) @gem_name
+				.
+				(comment)*
 				.
 				(string)? @gem_requirement
 				.
@@ -84,9 +88,6 @@ func findGems(node *Node, onlyRootDeps bool) ([]gemMetadata, error) {
 	gems := make([]gemMetadata, 0)
 	err := node.Query(gemQueryString, func(match *MatchResult) error {
 		callNode := match.FindFirstByName("gem_call")
-		if onlyRootDeps && callNode.node.Parent().GrammarName() != "program" {
-			return nil
-		}
 
 		dependencyNameNode := match.FindFirstByName("gem_name")
 		dependencyName, err := node.ctx.ExtractTextValue(dependencyNameNode.node)
@@ -131,7 +132,15 @@ func findGroupedGems(node *Node) ([]gemMetadata, error) {
 		(call
 			method: (identifier) @method_name
 			(#match? @method_name "group")
-			arguments: (argument_list . [(simple_symbol) (string)]+) @group_keys
+			arguments: (argument_list
+				.
+				(comment)*
+				.
+				[(simple_symbol) (string)]+
+				.
+				(comment)*
+				.
+			) @group_keys
 			block: (_) @block
 		)
 	)`
@@ -145,7 +154,7 @@ func findGroupedGems(node *Node) ([]gemMetadata, error) {
 		}
 
 		blockNode := match.FindFirstByName("block")
-		blockGems, err := findGems(blockNode, false)
+		blockGems, err := findGems(blockNode)
 		if err != nil {
 			return err
 		}

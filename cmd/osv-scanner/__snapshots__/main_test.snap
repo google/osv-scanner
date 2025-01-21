@@ -1475,6 +1475,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/CVE-2023-6129       | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2023-6237       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-0727       | 5.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2024-13176      |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-2511       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-4603       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-4741       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1539,6 +1540,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4016-1          |      | Debian    | ucf                            | 3.0036                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2016-2779       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3995       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3996       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1694,6 +1696,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/CVE-2023-6129       | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2023-6237       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-0727       | 5.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2024-13176      |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-2511       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-4603       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-4741       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1758,6 +1761,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4016-1          |      | Debian    | ucf                            | 3.0036                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2016-2779       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3995       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3996       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -12980,6 +12984,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:gem/cucumber-rails@1.4.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -13016,6 +13024,10 @@ No package sources found, --help for usage information.
       "version": "0.10.0",
       "purl": "pkg:gem/cucumber-websteps@0.10.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -13079,6 +13091,10 @@ No package sources found, --help for usage information.
       "version": "2.0.2",
       "purl": "pkg:gem/database_cleaner@2.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -13155,6 +13171,10 @@ No package sources found, --help for usage information.
       "version": "4.9.0",
       "purl": "pkg:gem/factory_girl@4.9.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -13707,6 +13727,10 @@ No package sources found, --help for usage information.
       "purl": "pkg:gem/rspec-activemodel-mocks@1.2.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -13730,6 +13754,10 @@ No package sources found, --help for usage information.
       "version": "1.2.1",
       "purl": "pkg:gem/rspec-collection_matchers@1.2.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -13806,6 +13834,10 @@ No package sources found, --help for usage information.
       "version": "3.13.0",
       "purl": "pkg:gem/rspec@3.13.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -17850,6 +17882,10 @@ Filtered 3 local package/s from the scan.
       "purl": "pkg:gem/cucumber-rails@1.4.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -17886,6 +17922,10 @@ Filtered 3 local package/s from the scan.
       "version": "0.10.0",
       "purl": "pkg:gem/cucumber-websteps@0.10.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -17949,6 +17989,10 @@ Filtered 3 local package/s from the scan.
       "version": "2.0.2",
       "purl": "pkg:gem/database_cleaner@2.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -18025,6 +18069,10 @@ Filtered 3 local package/s from the scan.
       "version": "4.9.0",
       "purl": "pkg:gem/factory_girl@4.9.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -18577,6 +18625,10 @@ Filtered 3 local package/s from the scan.
       "purl": "pkg:gem/rspec-activemodel-mocks@1.2.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -18600,6 +18652,10 @@ Filtered 3 local package/s from the scan.
       "version": "1.2.1",
       "purl": "pkg:gem/rspec-collection_matchers@1.2.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -18676,6 +18732,10 @@ Filtered 3 local package/s from the scan.
       "version": "3.13.0",
       "purl": "pkg:gem/rspec@3.13.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -22652,6 +22712,10 @@ Filtered 2 local package/s from the scan.
       "purl": "pkg:gem/cucumber-rails@1.4.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -22688,6 +22752,10 @@ Filtered 2 local package/s from the scan.
       "version": "0.10.0",
       "purl": "pkg:gem/cucumber-websteps@0.10.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -22751,6 +22819,10 @@ Filtered 2 local package/s from the scan.
       "version": "2.0.2",
       "purl": "pkg:gem/database_cleaner@2.0.2",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -22827,6 +22899,10 @@ Filtered 2 local package/s from the scan.
       "version": "4.9.0",
       "purl": "pkg:gem/factory_girl@4.9.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -23379,6 +23455,10 @@ Filtered 2 local package/s from the scan.
       "purl": "pkg:gem/rspec-activemodel-mocks@1.2.0",
       "properties": [
         {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
+        {
           "name": "osv-scanner:is-direct",
           "value": "true"
         },
@@ -23402,6 +23482,10 @@ Filtered 2 local package/s from the scan.
       "version": "1.2.1",
       "purl": "pkg:gem/rspec-collection_matchers@1.2.1",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"
@@ -23478,6 +23562,10 @@ Filtered 2 local package/s from the scan.
       "version": "3.13.0",
       "purl": "pkg:gem/rspec@3.13.0",
       "properties": [
+        {
+          "name": "osv-scanner:is-dev",
+          "value": "true"
+        },
         {
           "name": "osv-scanner:is-direct",
           "value": "true"

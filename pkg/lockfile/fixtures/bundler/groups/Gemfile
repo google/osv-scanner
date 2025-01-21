@@ -1,13 +1,20 @@
 source 'https://rubygems.org'
 
 # No groups
-gem 'thor', '1.3.2'
+platform :ruby do
+  gem 'thor', '1.3.2'
+end
 
 # Multiple pairs and last is a group
 gem 'timeout', '0.4.3', :require => 'websocket-driver', group: 'production'
 
 # Multiple pairs inside hash and second is array of groups
-gem 'useragent', '0.16.11', { :require => 'websocket-driver', :group => [:default,
+gem 'useragent', # comment to make sure the parser can handle this
+  # one more comment to make sure the parser can handle this
+  '0.16.11',
+  # even one more comment to make sure the parser can handle this
+  { :require => 'websocket-driver', :group => [:default,
+  # one last comment to make sure the parser can handle this
 :production] }
 
 # Group method with block using curly brackets and

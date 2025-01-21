@@ -10,13 +10,14 @@ import (
 )
 
 var knownGrammarSeparators = map[string]struct{}{
-	"[": {},
-	"]": {},
-	"{": {},
-	"}": {},
-	"(": {},
-	")": {},
-	",": {},
+	"[":       {},
+	"]":       {},
+	"{":       {},
+	"}":       {},
+	"(":       {},
+	")":       {},
+	",":       {},
+	"comment": {},
 }
 
 type SourceContext struct {
@@ -48,7 +49,7 @@ func (sc SourceContext) ExtractTextValues(node *treesitter.Node) ([]string, erro
 		return groups, nil
 	}
 
-	return nil, errors.New("found unsupported grammar type")
+	return nil, errors.New("found unsupported grammar type=" + node.GrammarName())
 }
 
 func (sc SourceContext) ExtractTextValue(node *treesitter.Node) (string, error) {

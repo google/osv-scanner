@@ -6,34 +6,34 @@
     "version": "1.3.2",
     "blockLocation": {
       "line": {
-        "start": 4,
-        "end": 4
+        "start": 5,
+        "end": 5
       },
       "column": {
-        "start": 1,
-        "end": 20
+        "start": 3,
+        "end": 22
       },
       "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "versionLocation": {
       "line": {
-        "start": 4,
-        "end": 4
+        "start": 5,
+        "end": 5
       },
       "column": {
-        "start": 13,
-        "end": 20
+        "start": 15,
+        "end": 22
       },
       "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "nameLocation": {
       "line": {
-        "start": 4,
-        "end": 4
+        "start": 5,
+        "end": 5
       },
       "column": {
-        "start": 5,
-        "end": 11
+        "start": 7,
+        "end": 13
       },
       "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
@@ -47,8 +47,8 @@
     ],
     "blockLocation": {
       "line": {
-        "start": 7,
-        "end": 7
+        "start": 9,
+        "end": 9
       },
       "column": {
         "start": 1,
@@ -58,8 +58,8 @@
     },
     "versionLocation": {
       "line": {
-        "start": 7,
-        "end": 7
+        "start": 9,
+        "end": 9
       },
       "column": {
         "start": 16,
@@ -69,8 +69,8 @@
     },
     "nameLocation": {
       "line": {
-        "start": 7,
-        "end": 7
+        "start": 9,
+        "end": 9
       },
       "column": {
         "start": 5,
@@ -89,8 +89,8 @@
     ],
     "blockLocation": {
       "line": {
-        "start": 10,
-        "end": 11
+        "start": 12,
+        "end": 18
       },
       "column": {
         "start": 1,
@@ -100,19 +100,19 @@
     },
     "versionLocation": {
       "line": {
-        "start": 10,
-        "end": 10
+        "start": 14,
+        "end": 14
       },
       "column": {
-        "start": 18,
-        "end": 27
+        "start": 3,
+        "end": 12
       },
       "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "nameLocation": {
       "line": {
-        "start": 10,
-        "end": 10
+        "start": 12,
+        "end": 12
       },
       "column": {
         "start": 5,
@@ -130,8 +130,8 @@
     ],
     "blockLocation": {
       "line": {
-        "start": 16,
-        "end": 16
+        "start": 23,
+        "end": 23
       },
       "column": {
         "start": 3,
@@ -141,8 +141,8 @@
     },
     "nameLocation": {
       "line": {
-        "start": 16,
-        "end": 16
+        "start": 23,
+        "end": 23
       },
       "column": {
         "start": 7,
@@ -161,8 +161,8 @@
     ],
     "blockLocation": {
       "line": {
-        "start": 23,
-        "end": 23
+        "start": 30,
+        "end": 30
       },
       "column": {
         "start": 3,
@@ -172,8 +172,8 @@
     },
     "versionLocation": {
       "line": {
-        "start": 23,
-        "end": 23
+        "start": 30,
+        "end": 30
       },
       "column": {
         "start": 31,
@@ -183,8 +183,8 @@
     },
     "nameLocation": {
       "line": {
-        "start": 23,
-        "end": 23
+        "start": 30,
+        "end": 30
       },
       "column": {
         "start": 7,
@@ -203,8 +203,8 @@
     ],
     "blockLocation": {
       "line": {
-        "start": 24,
-        "end": 24
+        "start": 31,
+        "end": 31
       },
       "column": {
         "start": 3,
@@ -214,8 +214,8 @@
     },
     "versionLocation": {
       "line": {
-        "start": 24,
-        "end": 24
+        "start": 31,
+        "end": 31
       },
       "column": {
         "start": 19,
@@ -225,8 +225,8 @@
     },
     "nameLocation": {
       "line": {
-        "start": 24,
-        "end": 24
+        "start": 31,
+        "end": 31
       },
       "column": {
         "start": 7,
