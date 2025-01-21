@@ -8,6 +8,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/identifiers"
 	"github.com/google/osv-scanner/internal/semantic"
@@ -164,11 +165,15 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 	var resultCount VulnCount
 
 	for _, packageSource := range vulnResult.Results {
-		// Temporary workaround: it is a heuristic to ignore installed packages
-		// which are already covered by OS-specific vulnerabilities.
-		// This filtering should be handled by the container scanning process.
-		// TODO(gongh@): Revisit this once container scanning can distinguish these cases.
-		if strings.HasPrefix(packageSource.Source.Path, "usr/") {
+		skipSource := false
+		for _, annotation := range packageSource.ExperimentalAnnotations {
+			if annotation == extractor.InsideOSPackage {
+				skipSource = true
+				break
+			}
+		}
+
+		if skipSource {
 			continue
 		}
 
@@ -178,12 +183,11 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 		resultCount.Add(sourceResult.VulnCount)
 	}
 
-	outputResult := populateResult(ecosystemMap, resultCount, vulnResult.ImageMetadata)
-	return outputResult
+	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata)
 }
 
-// populateResult builds the final Result object from the ecosystem map and total vulnerability count.
-func populateResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata) Result {
+// buildResult builds the final Result object from the ecosystem map and total vulnerability count.
+func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata) Result {
 	result := Result{}
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
@@ -224,42 +228,30 @@ func populateResult(ecosystemMap map[string][]SourceResult, resultCount VulnCoun
 	result.VulnCount = resultCount
 
 	if imageMetadata != nil {
-		populateImageMetadata(&result, *imageMetadata)
+		populateResultWithImageMetadata(&result, *imageMetadata)
 	}
 
 	return result
 }
 
-// populateImageMetadata modifies the result by adding image metadata to it.
+// populateResultWithImageMetadata modifies the result by adding image metadata to it.
 // It uses a pointer receiver (*Result) to modify the original result in place.
-func populateImageMetadata(result *Result, imageMetadata models.ImageMetadata) {
-	allLayers := getAllLayers(imageMetadata.LayerMetadata)
-	allBaseImages := getAllBaseImages(imageMetadata.BaseImages)
+func populateResultWithImageMetadata(result *Result, imageMetadata models.ImageMetadata) {
+	allLayers := buildLayers(imageMetadata.LayerMetadata)
+	allBaseImages := buildBaseImages(imageMetadata.BaseImages)
 
-	layerCount := make(map[int]VulnCount)
-	baseImageCount := make(map[int]VulnCount)
-
-	for i := range allLayers {
-		layerCount[i] = VulnCount{}
-	}
-
-	for i := range allBaseImages {
-		baseImageCount[i] = VulnCount{}
-	}
+	layerCount := make([]VulnCount, len(allLayers))
+	baseImageCount := make([]VulnCount, len(allBaseImages))
 
 	// Calculate total vulns for each layer and base image.
 	for _, ecosystem := range result.Ecosystems {
 		for _, source := range ecosystem.Sources {
 			for _, pkg := range source.Packages {
 				layerIndex := pkg.LayerDetail.LayerIndex
-				resultCount := layerCount[layerIndex]
-				resultCount.Add(pkg.VulnCount)
-				layerCount[layerIndex] = resultCount
+				layerCount[layerIndex].Add(pkg.VulnCount)
 
 				baseImageIndex := allLayers[layerIndex].LayerMetadata.BaseImageIndex
-				imageResultCount := baseImageCount[baseImageIndex]
-				imageResultCount.Add(pkg.VulnCount)
-				baseImageCount[baseImageIndex] = imageResultCount
+				baseImageCount[baseImageIndex].Add(pkg.VulnCount)
 			}
 		}
 	}
@@ -311,10 +303,9 @@ func populateImageMetadata(result *Result, imageMetadata models.ImageMetadata) {
 	if len(allLayers) != 0 {
 		result.IsContainerScanning = true
 	}
-
 }
 
-func getAllBaseImages(baseImages [][]models.BaseImageDetails) []BaseImageGroupInfo {
+func buildBaseImages(baseImages [][]models.BaseImageDetails) []BaseImageGroupInfo {
 	allBaseImages := make([]BaseImageGroupInfo, len(baseImages))
 	for i, baseImage := range baseImages {
 		allBaseImages[i] = BaseImageGroupInfo{
@@ -322,10 +313,11 @@ func getAllBaseImages(baseImages [][]models.BaseImageDetails) []BaseImageGroupIn
 			BaseImageInfo: baseImage,
 		}
 	}
+
 	return allBaseImages
 }
 
-func getAllLayers(layerMetadata []models.LayerMetadata) []LayerInfo {
+func buildLayers(layerMetadata []models.LayerMetadata) []LayerInfo {
 	allLayers := make([]LayerInfo, len(layerMetadata))
 	for i, layer := range layerMetadata {
 		allLayers[i] = LayerInfo{
@@ -333,16 +325,22 @@ func getAllLayers(layerMetadata []models.LayerMetadata) []LayerInfo {
 			LayerMetadata: layer,
 		}
 	}
+
 	return allLayers
 }
 
 // processSource processes a single source (lockfile or artifact) and returns an SourceResult.
 func processSource(packageSource models.PackageSource) SourceResult {
 	var sourceResult SourceResult
+	// Handle potential duplicate source packages with different OS package names.
+	// This map ensures each package is processed only once,
+	// with subsequent occurrences only adding their OSPackageName to the list.
 	packageMap := make(map[string]PackageResult)
 
 	for _, vulnPkg := range packageSource.Packages {
 		sourceResult.Ecosystem = vulnPkg.Package.Ecosystem
+		// Use a unique identifier (package name + version) to deduplicate packages (same version),
+		// ensuring each is processed only once.
 		key := vulnPkg.Package.Name + ":" + vulnPkg.Package.Version
 		if _, exist := packageMap[key]; exist {
 			pkgTemp := packageMap[key]
@@ -406,11 +404,9 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 
 	packageFixedVersion := calculatePackageFixedVersion(vulnPkg.Package.Ecosystem, regularVulnList)
 
-	binaryNames := []string{vulnPkg.Package.OSPackageName}
-
 	packageResult := PackageResult{
 		Name:             vulnPkg.Package.Name,
-		OSPackageNames:   binaryNames,
+		OSPackageNames:   []string{vulnPkg.Package.OSPackageName},
 		InstalledVersion: vulnPkg.Package.Version,
 		FixedVersion:     packageFixedVersion,
 		RegularVulns:     regularVulnList,
