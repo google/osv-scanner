@@ -110,22 +110,47 @@ func getAllCommands(commands []*cli.Command) []string {
 
 // Inserts the default command to args if no command is specified.
 func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand string, stdout, stderr io.Writer) []string {
+	// Do nothing if no command or file name is provided.
 	if len(args) < 2 {
 		return args
 	}
 
 	allCommands := getAllCommands(commands)
+	// If no command is provided, use the default command and subcommand.
 	if !slices.Contains(allCommands, args[1]) {
 		// Avoids modifying args in-place, as some unit tests rely on its original value for multiple calls.
-		argsTmp := make([]string, len(args)+1)
-		copy(argsTmp[2:], args[1:])
+		argsTmp := make([]string, len(args)+2)
+		copy(argsTmp[3:], args[1:])
 		argsTmp[1] = defaultCommand
+		// Set the default subCommand of Scan
+		argsTmp[2] = scan.DefaultSubcommand
 
 		// Executes the cli app with the new args.
 		return argsTmp
-	} else if _, err := os.Stat(args[1]); err == nil {
-		r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
-		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[1]s`, you must specify `%[1]s %[1]s` in your command line.\n", args[1])
+	} else {
+		// If a command with the same name as a file exists, warn the user and prioritize the command.
+		if _, err := os.Stat(args[1]); err == nil {
+			r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
+			r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[1]s`, you must specify `%[1]s %[1]s` in your command line.\n", args[1])
+		}
+
+		// If only the default command is provided without its subcommand, append the subcommand.
+		if args[1] == defaultCommand {
+			if len(args) < 3 {
+				// Indicates that only "osv-scanner scan" was provided, without a subcommand or filename
+				return args
+			}
+
+			// Default to the "project" subcommand if none is provided.
+			if !slices.Contains(scan.Subcommands, args[2]) {
+				argsTmp := make([]string, len(args)+1)
+				copy(argsTmp[3:], args[2:])
+				argsTmp[1] = defaultCommand
+				argsTmp[2] = scan.DefaultSubcommand
+
+				return argsTmp
+			}
+		}
 	}
 
 	return args

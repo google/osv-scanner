@@ -54,7 +54,6 @@ type ExperimentalScannerActions struct {
 	ShowAllPackages       bool
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
-	ScanOCIImage          string
 
 	LocalDBPath string
 	TransitiveScanningActions
@@ -133,7 +132,7 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 	}
 
 	// --- Base Image Matcher ---
-	if actions.Image != "" || actions.ScanOCIImage != "" {
+	if actions.Image != "" {
 		externalAccessors.BaseImageMatcher = &baseimagematcher.DepsDevBaseImageMatcher{
 			HTTPClient: *http.DefaultClient,
 			Config:     baseimagematcher.DefaultConfig(),
@@ -289,10 +288,6 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	// --- Initialize Image To Scan ---'
 
 	getLocalPathOrEmpty := func() string {
-		if actions.ScanOCIImage != "" {
-			return actions.ScanOCIImage
-		}
-
 		if strings.Contains(actions.Image, ".tar") {
 			if _, err := os.Stat(actions.Image); err == nil {
 				return actions.Image
