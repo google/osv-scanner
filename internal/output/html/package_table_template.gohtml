@@ -96,7 +96,7 @@
           <p class="layer-command">{{ $command }}</p>
           {{ end }}
         </div>
-        <p><span class="package-detail-title">In base image:</span> {{ if eq $baseImageIndex 0 }} False {{ else }} True: {{ getBaseImageNames $element.LayerDetail.BaseImageInfo }}{{ end }}</p>
+        <p><span class="package-detail-title">In base image:</span> {{ if eq $baseImageIndex 0 }} False {{ else }} True ({{ getBaseImageNames $element.LayerDetail.BaseImageInfo }}){{ end }}</p>
         {{ end }}
         {{ template "vuln_table_template.gohtml" $element }}
       </div>

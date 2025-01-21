@@ -409,7 +409,7 @@ func TestRunCallAnalysis(t *testing.T) {
 	t.Parallel()
 
 	// Switch to acceptance test if this takes too long, or when we add rust tests
-	// testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
 	tests := []cliTestCase{
 		{
