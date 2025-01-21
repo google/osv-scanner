@@ -2,10 +2,11 @@ package lockfile
 
 import (
 	"errors"
-	treesitter "github.com/tree-sitter/go-tree-sitter"
-	ruby "github.com/tree-sitter/tree-sitter-ruby/bindings/go"
 	"io"
 	"strings"
+
+	treesitter "github.com/tree-sitter/go-tree-sitter"
+	ruby "github.com/tree-sitter/tree-sitter-ruby/bindings/go"
 )
 
 var knownGrammarSeparators = map[string]struct{}{
@@ -29,12 +30,13 @@ func (sc SourceContext) ExtractTextValues(node *treesitter.Node) ([]string, erro
 		if err != nil {
 			return nil, err
 		}
+
 		return []string{textValue}, nil
 	} else if _, skip := knownGrammarSeparators[node.GrammarName()]; skip {
 		return nil, nil
 	} else if node.GrammarName() == "array" || node.GrammarName() == "argument_list" {
 		groups := make([]string, 0)
-		for i := uint(0); i < node.ChildCount(); i++ {
+		for i := range node.ChildCount() {
 			childNode := node.Child(i)
 			extractedGroups, err := sc.ExtractTextValues(childNode)
 			if err != nil {
@@ -42,10 +44,11 @@ func (sc SourceContext) ExtractTextValues(node *treesitter.Node) ([]string, erro
 			}
 			groups = append(groups, extractedGroups...)
 		}
+
 		return groups, nil
-	} else {
-		return nil, errors.New("found unsupported grammar type")
 	}
+
+	return nil, errors.New("found unsupported grammar type")
 }
 
 func (sc SourceContext) ExtractTextValue(node *treesitter.Node) (string, error) {
@@ -55,9 +58,9 @@ func (sc SourceContext) ExtractTextValue(node *treesitter.Node) (string, error) 
 	} else if node.GrammarName() == "string" {
 		// Strings are wrapped in quotes, so we need to extract the text from the inner node
 		return node.Child(1).Utf8Text(sc.sourceFileContent), nil
-	} else {
-		return "", errors.New("found unsupported grammar type to extract text value")
 	}
+
+	return "", errors.New("found unsupported grammar type to extract text value")
 }
 
 type ParseResult struct {
@@ -87,6 +90,7 @@ func ParseRubyFile(sourceFile DepFile) (*ParseResult, error) {
 		language,
 		sourceFileContent,
 	}
+
 	return &ParseResult{
 		ctx:  ctx,
 		tree: tree,

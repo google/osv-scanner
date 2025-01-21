@@ -1,8 +1,9 @@
 package lockfile
 
 import (
-	"github.com/google/osv-scanner/pkg/models"
 	"path/filepath"
+
+	"github.com/google/osv-scanner/pkg/models"
 )
 
 const gemfileFilename = "Gemfile"

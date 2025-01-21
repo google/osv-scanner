@@ -292,7 +292,6 @@ func main() {
 
 	group := &errgroup.Group{}
 	for _, filename := range os.Args[1:] {
-		filename := filename
 		if io, err := manifest.GetManifestIO(filename); err == nil {
 			if remediation.SupportsRelax(io) {
 				group.Go(func() error {

@@ -1,11 +1,12 @@
 package lockfile_test
 
 import (
-	"github.com/google/osv-scanner/internal/testutility"
 	"io/fs"
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/google/osv-scanner/internal/testutility"
 
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/google/osv-scanner/pkg/models"
