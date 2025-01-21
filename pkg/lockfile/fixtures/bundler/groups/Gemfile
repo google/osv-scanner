@@ -10,9 +10,10 @@ gem 'timeout', '0.4.3', :require => 'websocket-driver', group: 'production'
 gem 'useragent', '0.16.11', { :require => 'websocket-driver', :group => [:default,
 :production] }
 
-# Group method with block using curly brackets
+# Group method with block using curly brackets and
+#   gem using group without requirement
 group(:development) {
-  gem 'websocket-driver'
+  gem 'websocket-driver', group: :ignored
 }
 
 # Group method with block using multiple groups,
@@ -20,5 +21,5 @@ group(:development) {
 #   gem with a group that is going to be superseded by the external ones
 group :development, :test do
   gem 'websocket-extensions', '0.1.5'
-  gem 'zeitwerk', '2.7.1', group: :production
+  gem 'zeitwerk', '2.7.1', group: :ignored
 end

@@ -109,23 +109,21 @@ func findGems(language *treesitter.Language, root *treesitter.Node, sourceFileCo
 	)`
 
 	gems := make([]gemMetadata, 0)
-	err := query(language, sourceFileContent, root, gemQueryString, func(match *treesitter.QueryMatch) error {
-		callNode := match.Captures[0].Node
+	err := query(language, sourceFileContent, root, gemQueryString, func(query *treesitter.Query, match *treesitter.QueryMatch) error {
+		callNode := getFirstCapturedNode(query, match, "gem_call")
 		if onlyRootDeps && callNode.Parent().GrammarName() != "program" {
 			return nil
 		}
 
-		dependencyNameNode := match.Captures[2].Node.Child(1)
+		dependencyNameNode := getFirstCapturedNode(query, match, "gem_name").Child(1)
 		dependencyName := dependencyNameNode.Utf8Text(sourceFileContent)
 
-		var requirementNode *treesitter.Node
-		if len(match.Captures) > 3 {
-			if match.Captures[3].Node.GrammarName() == "string" {
-				requirementNode = match.Captures[3].Node.Child(1)
-			}
+		requirementNode := getFirstCapturedNode(query, match, "gem_requirement")
+		if requirementNode != nil && requirementNode.GrammarName() == "string" {
+			requirementNode = requirementNode.Child(1)
 		}
 
-		groups, err := findGroupsInCapturedNodes(language, &callNode, sourceFileContent)
+		groups, err := findGroupsInCapturedNodes(language, callNode, sourceFileContent)
 		if err != nil {
 			return err
 		}
@@ -166,15 +164,15 @@ func findGroupedGems(language *treesitter.Language, root *treesitter.Node, sourc
 	)`
 
 	gems := make([]gemMetadata, 0)
-	err := query(language, sourceFileContent, root, groupQueryString, func(match *treesitter.QueryMatch) error {
-		groupsNode := match.Captures[1].Node
-		groups, err := extractGroups(&groupsNode, sourceFileContent)
+	err := query(language, sourceFileContent, root, groupQueryString, func(query *treesitter.Query, match *treesitter.QueryMatch) error {
+		groupKeysNode := getFirstCapturedNode(query, match, "group_keys")
+		groups, err := extractGroups(groupKeysNode, sourceFileContent)
 		if err != nil {
 			return err
 		}
 
-		blockNode := match.Captures[2].Node
-		gs, err := findGems(language, &blockNode, sourceFileContent, false)
+		blockNode := getFirstCapturedNode(query, match, "block")
+		gs, err := findGems(language, blockNode, sourceFileContent, false)
 		if err != nil {
 			return err
 		}
@@ -205,8 +203,9 @@ func findGroupsInCapturedNodes(language *treesitter.Language, node *treesitter.N
 	)`
 
 	var groups []string
-	err := query(language, sourceFileContent, node, pairQuery, func(match *treesitter.QueryMatch) error {
-		nodeGroups, err := extractGroups(&match.Captures[1].Node, sourceFileContent)
+	err := query(language, sourceFileContent, node, pairQuery, func(query *treesitter.Query, match *treesitter.QueryMatch) error {
+		groupValueNode := getFirstCapturedNode(query, match, "group_value")
+		nodeGroups, err := extractGroups(groupValueNode, sourceFileContent)
 		if err != nil {
 			return err
 		}
@@ -222,7 +221,7 @@ func findGroupsInCapturedNodes(language *treesitter.Language, node *treesitter.N
 	return groups, nil
 }
 
-func query(language *treesitter.Language, sourceFileContent []byte, node *treesitter.Node, queryString string, onMatch func(match *treesitter.QueryMatch) error) error {
+func query(language *treesitter.Language, sourceFileContent []byte, node *treesitter.Node, queryString string, onMatch func(query *treesitter.Query, match *treesitter.QueryMatch) error) error {
 	query, err := treesitter.NewQuery(language, queryString)
 	if err != nil {
 		return err
@@ -239,9 +238,21 @@ func query(language *treesitter.Language, sourceFileContent []byte, node *treesi
 			break
 		}
 
-		err := onMatch(match)
+		err := onMatch(query, match)
 		if err != nil {
 			return err
+		}
+	}
+
+	return nil
+}
+
+func getFirstCapturedNode(query *treesitter.Query, match *treesitter.QueryMatch, name string) *treesitter.Node {
+	if idx, exists := query.CaptureIndexForName(name); exists {
+		for _, capture := range match.Captures {
+			if uint(capture.Index) == idx {
+				return &capture.Node
+			}
 		}
 	}
 
