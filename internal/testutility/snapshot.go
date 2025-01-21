@@ -13,19 +13,22 @@ type Snapshot struct {
 
 // NewSnapshot creates a snapshot that can be passed around within tests
 func NewSnapshot() Snapshot {
-	return Snapshot{windowsReplacements: map[string]string{}}
+	return Snapshot{
+		windowsReplacements: map[string]string{},
+	}
 }
 
 // WithWindowsReplacements adds a map of strings with values that they should be
 // replaced within before comparing the snapshot when running on Windows
 func (s Snapshot) WithWindowsReplacements(replacements map[string]string) Snapshot {
-	s.windowsReplacements = replacements
+	for k, v := range replacements {
+		s.windowsReplacements[k] = v
+	}
 
 	return s
 }
 
 // WithCRLFReplacement adds a Windows replacement for "\r\n" to "\n".
-// This should be called after WithWindowsReplacements if used together.
 func (s Snapshot) WithCRLFReplacement() Snapshot {
 	s.windowsReplacements["\r\n"] = "\n"
 
@@ -50,5 +53,8 @@ func (s Snapshot) MatchJSON(t *testing.T, got any) {
 func (s Snapshot) MatchText(t *testing.T, got string) {
 	t.Helper()
 
-	snaps.MatchSnapshot(t, applyWindowsReplacements(got, s.windowsReplacements))
+	got = normalizeRootDirectory(t, got)
+	got = applyWindowsReplacements(got, s.windowsReplacements)
+
+	snaps.MatchSnapshot(t, got)
 }

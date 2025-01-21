@@ -7,6 +7,9 @@
     "targetVersions": [
       "^2.1.1"
     ],
+    "depGroups": [
+      "prod"
+    ],
     "blockLocation": {
       "line": {
         "start": 4,
@@ -48,6 +51,9 @@
     "version": "",
     "targetVersions": [
       "^2.1.1"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {
@@ -94,6 +100,9 @@
     "version": "",
     "targetVersions": [
       "^4.0.0"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {
@@ -162,6 +171,9 @@
     "targetVersions": [
       "^4.2.5"
     ],
+    "depGroups": [
+      "prod"
+    ],
     "blockLocation": {
       "line": {
         "start": 7,
@@ -202,6 +214,9 @@
     "version": "3.535.0",
     "targetVersions": [
       "^3.535.0"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {
@@ -249,6 +264,9 @@
     "targetVersions": [
       "1.0.0 - 2.9999.9999"
     ],
+    "depGroups": [
+      "prod"
+    ],
     "blockLocation": {
       "line": {
         "start": 3,
@@ -290,6 +308,9 @@
     "version": "1.5.3",
     "targetVersions": [
       "/u003e=1.0.2 /u003c2.1.2"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {
@@ -333,6 +354,9 @@
     "targetVersions": [
       "/u003e1.0.2 /u003c=2.3.4"
     ],
+    "depGroups": [
+      "prod"
+    ],
     "blockLocation": {
       "line": {
         "start": 5,
@@ -374,6 +398,9 @@
     "version": "1.5.3",
     "targetVersions": [
       "1.5.3"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {
@@ -417,6 +444,9 @@
     "targetVersions": [
       "/u003c1.0.0 || /u003e=2.3.1 /u003c2.4.5 || /u003e=2.5.2 /u003c3.0.0"
     ],
+    "depGroups": [
+      "prod"
+    ],
     "blockLocation": {
       "line": {
         "start": 6,
@@ -458,6 +488,9 @@
     "version": "1.5.3",
     "targetVersions": [
       "http://asdf.com/asdf.tar.gz"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {
@@ -501,6 +534,9 @@
     "targetVersions": [
       "~1.5"
     ],
+    "depGroups": [
+      "prod"
+    ],
     "blockLocation": {
       "line": {
         "start": 8,
@@ -542,6 +578,9 @@
     "version": "1.5.3",
     "targetVersions": [
       "~1.5.3"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {
@@ -585,6 +624,9 @@
     "targetVersions": [
       "1.x"
     ],
+    "depGroups": [
+      "prod"
+    ],
     "blockLocation": {
       "line": {
         "start": 10,
@@ -626,6 +668,9 @@
     "version": "1.5.3",
     "targetVersions": [
       "1.5.x"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {
@@ -669,6 +714,9 @@
     "targetVersions": [
       "latest"
     ],
+    "depGroups": [
+      "prod"
+    ],
     "blockLocation": {
       "line": {
         "start": 12,
@@ -710,6 +758,9 @@
     "version": "1.5.3",
     "targetVersions": [
       "file:../dyl"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {
@@ -753,6 +804,9 @@
     "targetVersions": [
       "npm:pkg@1.5.0"
     ],
+    "depGroups": [
+      "prod"
+    ],
     "blockLocation": {
       "line": {
         "start": 14,
@@ -795,6 +849,9 @@
     "targetVersions": [
       "1"
     ],
+    "depGroups": [
+      "prod"
+    ],
     "blockLocation": {
       "line": {
         "start": 17,
@@ -836,6 +893,9 @@
     "version": "1.5.3",
     "targetVersions": [
       "/u003e1.0.2"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {
@@ -898,6 +958,9 @@
     "version": "0.0.0-use.local",
     "targetVersions": [
       "javascript/datadog"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {
@@ -967,6 +1030,9 @@
       "^0.7",
       "~0.7.2"
     ],
+    "depGroups": [
+      "prod"
+    ],
     "blockLocation": {
       "line": {
         "start": 5,
@@ -1007,6 +1073,9 @@
     "version": "",
     "targetVersions": [
       "^0.1.4"
+    ],
+    "depGroups": [
+      "prod"
     ],
     "blockLocation": {
       "line": {

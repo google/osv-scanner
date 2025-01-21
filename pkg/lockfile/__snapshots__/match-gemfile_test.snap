@@ -13,7 +13,7 @@
         "start": 1,
         "end": 20
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "versionLocation": {
       "line": {
@@ -24,7 +24,7 @@
         "start": 13,
         "end": 20
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "nameLocation": {
       "line": {
@@ -35,7 +35,7 @@
         "start": 5,
         "end": 11
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "packageManager": "Bundler"
   },
@@ -54,7 +54,7 @@
         "start": 1,
         "end": 76
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "versionLocation": {
       "line": {
@@ -65,7 +65,7 @@
         "start": 16,
         "end": 23
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "nameLocation": {
       "line": {
@@ -76,7 +76,7 @@
         "start": 5,
         "end": 14
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "packageManager": "Bundler"
   },
@@ -96,7 +96,7 @@
         "start": 1,
         "end": 15
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "versionLocation": {
       "line": {
@@ -107,7 +107,7 @@
         "start": 18,
         "end": 27
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "nameLocation": {
       "line": {
@@ -118,7 +118,7 @@
         "start": 5,
         "end": 16
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "packageManager": "Bundler"
   },
@@ -137,7 +137,7 @@
         "start": 3,
         "end": 42
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "nameLocation": {
       "line": {
@@ -148,7 +148,7 @@
         "start": 7,
         "end": 25
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "packageManager": "Bundler"
   },
@@ -168,7 +168,7 @@
         "start": 3,
         "end": 38
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "versionLocation": {
       "line": {
@@ -179,7 +179,7 @@
         "start": 31,
         "end": 38
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "nameLocation": {
       "line": {
@@ -190,7 +190,7 @@
         "start": 7,
         "end": 29
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "packageManager": "Bundler"
   },
@@ -210,7 +210,7 @@
         "start": 3,
         "end": 43
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "versionLocation": {
       "line": {
@@ -221,7 +221,7 @@
         "start": 19,
         "end": 26
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "nameLocation": {
       "line": {
@@ -232,7 +232,7 @@
         "start": 7,
         "end": 17
       },
-      "file_name": "/Users/rodrigo.fernandes/go/src/github.com/DataDog/osv-scanner/pkg/lockfile/fixtures/bundler/groups/Gemfile"
+      "file_name": "<rootdir>/fixtures/bundler/groups/Gemfile"
     },
     "packageManager": "Bundler"
   }

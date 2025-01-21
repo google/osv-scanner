@@ -139,5 +139,5 @@ func TestGemfileMatcher_Match_Groups(t *testing.T) {
 		t.Errorf("Got unexpected error: %v", err)
 	}
 
-	testutility.NewSnapshot().WithCRLFReplacement().MatchJSON(t, packages)
+	testutility.NewSnapshot().MatchJSON(t, packages)
 }
