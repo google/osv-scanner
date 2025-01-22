@@ -363,7 +363,7 @@ func processSource(packageSource models.PackageSource) SourceResult {
 		}
 	}
 
-	packages := make([]PackageResult, 0)
+	packages := make([]PackageResult, 0, len(packageMap))
 	for _, pkg := range packageMap {
 		packages = append(packages, pkg)
 	}

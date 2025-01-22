@@ -972,7 +972,7 @@ Alpine:v3.18
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| openssl | 3.1.7-r0          | Fix Available |          1 | # 0 Layer        | True (alpine) |
+| openssl | 3.1.7-r0          | Fix Available |          1 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
@@ -2798,7 +2798,7 @@ Alpine:v3.20
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| openssl | 3.3.1-r0          | Fix Available |          3 | # 0 Layer        | True (alpine) |
+| openssl | 3.3.1-r0          | Fix Available |          3 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
@@ -2822,8 +2822,8 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | True (alpine) |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | True (alpine) |
+| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
@@ -2856,8 +2856,8 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | True (alpine) |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | True (alpine) |
+| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
@@ -2881,8 +2881,8 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | True (alpine) |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | True (alpine) |
+| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
@@ -2906,8 +2906,8 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | True (alpine) |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | True (alpine) |
+| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
@@ -2931,8 +2931,8 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | True (alpine) |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | True (alpine) |
+| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
@@ -2956,8 +2956,8 @@ Alpine:v3.19
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | True (alpine) |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | True (alpine) |
+| busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
