@@ -45,7 +45,18 @@ func TestMustParse(t *testing.T) {
 	}
 }
 
-func TestMustParse_Panic(t *testing.T) {
+func TestMustParse_Panic_UnsupportedEcosystem(t *testing.T) {
+	t.Parallel()
+
+	defer func() { _ = recover() }()
+
+	semantic.MustParse("", models.EcosystemOSSFuzz)
+
+	// if we reached here, then we can't have panicked
+	t.Errorf("function did not panic when given an unsupported ecosystem")
+}
+
+func TestMustParse_Panic_UnknownEcosystem(t *testing.T) {
 	t.Parallel()
 
 	defer func() { _ = recover() }()
