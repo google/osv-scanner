@@ -1150,17 +1150,18 @@ failed to pull container image: failed to run docker command
 Checking if docker image ("alpine:3.18.9") exists locally...
 Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
+Container Scanning Result (Alpine Linux v3.18):
 Total 1 packages affected by 1 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystems.
 1 vulnerabilities have fixes available.
 
 Alpine:v3.18
-+----------------------------------------------------------+
-| Source:os:lib/apk/db/installed                           |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| openssl | 3.1.7-r0          | Fix Available |          1 |
-+---------+-------------------+---------------+------------+
++---------------------------------------------------------------------------------------------+
+| Source:os:lib/apk/db/installed                                                              |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| openssl | 3.1.7-r0          | Fix Available |          1 | # 0 Layer        | alpine        |
++---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.

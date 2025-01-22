@@ -100,6 +100,7 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 }
 
 func printContainerScanningResult(result Result, outputWriter io.Writer, terminalWidth int) {
+	fmt.Fprintf(outputWriter, "Container Scanning Result (%s):\n", result.ImageInfo.OS)
 	summary := fmt.Sprintf(
 		"Total %[1]d packages affected by %[2]d vulnerabilities (%[3]d Critical, %[4]d High, %[5]d Medium, %[6]d Low, %[7]d Unknown) from %[8]d ecosystems.\n"+
 			"%[9]d vulnerabilities have fixes available.",
@@ -123,7 +124,7 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 		for _, source := range ecosystem.Sources {
 			outputTable := newTable(outputWriter, terminalWidth)
 			outputTable.SetTitle("Source:" + source.Name)
-			outputTable.AppendHeader(table.Row{"Package", "Installed Version", "Fix available", "Vuln count"})
+			outputTable.AppendHeader(table.Row{"Package", "Installed Version", "Fix Available", "Vuln Count", "Introduced Layer", "In Base Image"})
 			for _, pkg := range source.Packages {
 				if pkg.VulnCount.AnalysisCount.Regular == 0 {
 					continue
@@ -140,7 +141,14 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 						fixAvailable = "Fix Available"
 					}
 				}
-				outputRow = append(outputRow, pkg.Name, pkg.InstalledVersion, fixAvailable, totalCount)
+
+				layer := fmt.Sprintf("# %d Layer", pkg.LayerDetail.LayerIndex)
+
+				inBaseImage := "--"
+				if pkg.LayerDetail.BaseImageInfo.Index != 0 {
+					inBaseImage = getBaseImageName(pkg.LayerDetail.BaseImageInfo)
+				}
+				outputRow = append(outputRow, pkg.Name, pkg.InstalledVersion, fixAvailable, totalCount, layer, inBaseImage)
 				outputTable.AppendRow(outputRow)
 			}
 			outputTable.Render()

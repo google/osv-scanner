@@ -53,7 +53,6 @@ type osvFixOptions struct {
 	ManifestRW  manifest.ReadWriter
 	Lockfile    string
 	LockfileRW  lockfile.ReadWriter
-	RelockCmd   string
 	NoIntroduce bool
 }
 
@@ -90,10 +89,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			&cli.StringFlag{
 				Name:  "maven-registry",
 				Usage: "URL of the default Maven registry to fetch metadata",
-			},
-			&cli.StringFlag{
-				Name:  "relock-cmd",
-				Usage: "command to run to regenerate lockfile on disk after changing the manifest",
 			},
 
 			&cli.BoolFlag{
@@ -319,7 +314,6 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		},
 		Manifest:    ctx.String("manifest"),
 		Lockfile:    ctx.String("lockfile"),
-		RelockCmd:   ctx.String("relock-cmd"),
 		NoIntroduce: ctx.Bool("no-introduce"),
 	}
 
