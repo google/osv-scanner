@@ -144,7 +144,7 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 
 				layer := fmt.Sprintf("# %d Layer", pkg.LayerDetail.LayerIndex)
 
-				inBaseImage := "False"
+				inBaseImage := "--"
 				if pkg.LayerDetail.BaseImageInfo.Index != 0 {
 					inBaseImage = getBaseImageName(pkg.LayerDetail.BaseImageInfo)
 				}
