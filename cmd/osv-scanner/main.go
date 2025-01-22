@@ -30,15 +30,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	app := &cli.App{
-		Name:    "osv-scanner",
-		Version: version.OSVVersion,
-		Usage:   "scans various mediums for dependencies and checks them against the OSV database",
-		// UsageText:      getUsageText(),
-		ExtraInfo: func() map[string]string {
-			return map[string]string{
-				"Examples": getUsageText(),
-			}
-		},
+		Name:           "osv-scanner",
+		Version:        version.OSVVersion,
+		Usage:          "scans various mediums for dependencies and checks them against the OSV database",
 		Suggest:        true,
 		Writer:         stdout,
 		ErrWriter:      stderr,
@@ -48,6 +42,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			fix.Command(stdout, stderr, &r),
 			update.Command(stdout, stderr, &r),
 		},
+		CustomAppHelpTemplate: getCustomHelpTemplate(),
 	}
 
 	// If ExitErrHandler is not set, cli will use the default cli.HandleExitCoder.
@@ -90,26 +85,40 @@ func run(args []string, stdout, stderr io.Writer) int {
 	return 0
 }
 
-func getUsageText() string {
+func getCustomHelpTemplate() string {
+	return `
+NAME:
+	{{.Name}} - {{.Usage}}
 
-	output := `
-# scan a source directory recursively
-$ osv-scanner scan source -r <source_directory>
+USAGE:
+	{{.HelpName}} {{if .VisibleFlags}}[global options]{{end}}{{if .Commands}} command [command options]{{end}}
 
-# scan a container image
-$ osv-scanner scan image <image_name>
+EXAMPLES:
 
-# scan a local image archive (e.g. a tar file) and generate HTML output
-$ osv-scanner scan image --serve --archive <image_name.tar>
+	#Scan a source directory
+	$ {{.HelpName}} scan source -r <source_directory>
 
-# fix vulnerabilities in a manifest file or lockfile:
-$ osv-scanner fix --non-interactive -M <manifest file> -L <lockfile>
+	# Scan a container image:
+	$ {{.HelpName}} scan image <image_name>
 
-for full usage details, please refer to the help command of each subcommand (e.g. osv-scanner scan --help).
+	# Scan a local image archive (e.g. a tar file) and generate HTML output:
+	$ {{.HelpName}} scan image --serve --archive <image_name.tar>
+
+	# Fix vulnerabilities in a manifest file and lockfile (non-interactive mode):
+	$ {{.HelpName}} fix --non-interactive -M <manifest_file> -L <lockfile>
+
+	For full usage details, please refer to the help command of each subcommand (e.g. {{.HelpName}} scan --help).
+
+VERSION:
+	{{.Version}}
+
+COMMANDS:
+	{{range .Commands}}{{if not .HideHelp}}  {{join .Names ", "}}{{ "\t"}}{{.Usage}}{{ "\n" }}{{end}}{{end}}
+{{if .VisibleFlags}}
+GLOBAL OPTIONS:
+	{{range .VisibleFlags}}  {{.}}{{end}}
+{{end}}
 `
-
-	return output
-
 }
 
 // Gets all valid commands and global options for OSV-Scanner.
