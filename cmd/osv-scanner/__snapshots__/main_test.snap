@@ -1207,6 +1207,14 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 ---
 
+[TestRun_InsertDefaultCommand - 15]
+
+---
+
+[TestRun_InsertDefaultCommand - 16]
+
+---
+
 [TestRun_Licenses/Licenses_in_summary_mode_json - 1]
 {
   "results": [

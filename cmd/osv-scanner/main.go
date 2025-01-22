@@ -30,9 +30,15 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	app := &cli.App{
-		Name:           "osv-scanner",
-		Version:        version.OSVVersion,
-		Usage:          "scans various mediums for dependencies and checks them against the OSV database",
+		Name:    "osv-scanner",
+		Version: version.OSVVersion,
+		Usage:   "scans various mediums for dependencies and checks them against the OSV database",
+		// UsageText:      getUsageText(),
+		ExtraInfo: func() map[string]string {
+			return map[string]string{
+				"Examples": getUsageText(),
+			}
+		},
 		Suggest:        true,
 		Writer:         stdout,
 		ErrWriter:      stderr,
@@ -84,6 +90,28 @@ func run(args []string, stdout, stderr io.Writer) int {
 	return 0
 }
 
+func getUsageText() string {
+
+	output := `
+# scan a source directory recursively
+$ osv-scanner scan source -r <source_directory>
+
+# scan a container image
+$ osv-scanner scan image <image_name>
+
+# scan a local image archive (e.g. a tar file) and generate HTML output
+$ osv-scanner scan image --serve --archive <image_name.tar>
+
+# fix vulnerabilities in a manifest file or lockfile:
+$ osv-scanner fix --non-interactive -M <manifest file> -L <lockfile>
+
+for full usage details, please refer to the help command of each subcommand (e.g. osv-scanner scan --help).
+`
+
+	return output
+
+}
+
 // Gets all valid commands and global options for OSV-Scanner.
 func getAllCommands(commands []*cli.Command) []string {
 	// Adding all subcommands
@@ -116,8 +144,9 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 	}
 
 	allCommands := getAllCommands(commands)
+	command := args[1]
 	// If no command is provided, use the default command and subcommand.
-	if !slices.Contains(allCommands, args[1]) {
+	if !slices.Contains(allCommands, command) {
 		// Avoids modifying args in-place, as some unit tests rely on its original value for multiple calls.
 		argsTmp := make([]string, len(args)+2)
 		copy(argsTmp[3:], args[1:])
@@ -130,26 +159,33 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 	}
 
 	// If a command with the same name as a file exists, warn the user and prioritize the command.
-	if _, err := os.Stat(args[1]); err == nil {
+	if _, err := os.Stat(command); err == nil {
 		r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
-		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[1]s`, you must specify `%[1]s %[1]s` in your command line.\n", args[1])
+		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[1]s`, you must specify `%[1]s %[1]s` in your command line.\n", command)
 	}
 
 	// If only the default command is provided without its subcommand, append the subcommand.
-	if args[1] == defaultCommand {
+	if command == defaultCommand {
 		if len(args) < 3 {
 			// Indicates that only "osv-scanner scan" was provided, without a subcommand or filename
 			return args
 		}
 
+		subcommand := args[2]
 		// Default to the "project" subcommand if none is provided.
-		if !slices.Contains(scan.Subcommands, args[2]) {
+		if !slices.Contains(scan.Subcommands, subcommand) {
 			argsTmp := make([]string, len(args)+1)
 			copy(argsTmp[3:], args[2:])
 			argsTmp[1] = defaultCommand
 			argsTmp[2] = scan.DefaultSubcommand
 
 			return argsTmp
+		}
+
+		// Print a warning message if subcommand is a valid directory.
+		if _, err := os.Stat(subcommand); err == nil {
+			r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
+			r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[1]s`, you must specify `%[1]s %[1]s` in your command line.\n", subcommand)
 		}
 	}
 

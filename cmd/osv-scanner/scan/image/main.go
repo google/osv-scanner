@@ -1,4 +1,4 @@
-package docker
+package image
 
 import (
 	"errors"
@@ -20,10 +20,18 @@ import (
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	return &cli.Command{
-		Name:        "docker",
-		Usage:       "detects vulnerabilities in a Docker image's dependencies using the OSV database.",
-		Description: "detects vulnerabilities in a Docker image's dependencies using the OSV database.",
+		Name:        "image",
+		Usage:       "detects vulnerabilities in a container image's dependencies using the OSV database.",
+		Description: "detects vulnerabilities in a container image's dependencies using the OSV database.",
 		Flags: []cli.Flag{
+			&cli.BoolFlag{
+				Name:  "archive",
+				Usage: "input a local archive image (e.g. a tar file)",
+			},
+			&cli.BoolFlag{
+				Name:  "serve",
+				Usage: "output as HTML result and serve it locally",
+			},
 			&cli.StringFlag{
 				Name:    "format",
 				Aliases: []string{"f"},
@@ -36,10 +44,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 
 					return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
 				},
-			},
-			&cli.BoolFlag{
-				Name:  "serve",
-				Usage: "output as HTML result and serve it locally",
 			},
 			&cli.StringFlag{
 				Name:      "output",
@@ -57,7 +61,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Value: "info",
 			},
 		},
-		ArgsUsage: "[docker image]",
+		ArgsUsage: "[image imageName]",
 		Action: func(c *cli.Context) error {
 			var err error
 			*r, err = action(c, stdout, stderr)
@@ -113,9 +117,13 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		return r, err
 	}
 
+	if context.Args().Len() == 0 {
+		return r, fmt.Errorf("please provide an image name or see the help document")
+	}
 	scannerAction := osvscanner.ScannerActions{
 		Image:              context.Args().First(),
 		ConfigOverridePath: context.String("config"),
+		IsImageArchive:     context.Bool("archive"),
 	}
 
 	var vulnResult models.VulnerabilityResults

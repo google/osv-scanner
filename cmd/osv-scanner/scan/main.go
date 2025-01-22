@@ -3,18 +3,18 @@ package scan
 import (
 	"io"
 
-	"github.com/google/osv-scanner/cmd/osv-scanner/scan/docker"
-	"github.com/google/osv-scanner/cmd/osv-scanner/scan/project"
+	"github.com/google/osv-scanner/cmd/osv-scanner/scan/image"
+	"github.com/google/osv-scanner/cmd/osv-scanner/scan/source"
 	"github.com/google/osv-scanner/pkg/reporter"
 
 	"github.com/urfave/cli/v2"
 )
 
-const projectSubCommand = "project"
+const sourceSubCommand = "source"
 
-const DefaultSubcommand = projectSubCommand
+const DefaultSubcommand = sourceSubCommand
 
-var Subcommands = []string{projectSubCommand, "docker"}
+var Subcommands = []string{sourceSubCommand, "image"}
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	return &cli.Command{
@@ -22,8 +22,8 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 		Usage:       "scans projects and Docker images for dependencies, and checks them against the OSV database.",
 		Description: "scans projects and Docker images for dependencies, and checks them against the OSV database.",
 		Subcommands: []*cli.Command{
-			project.Command(stdout, stderr, r),
-			docker.Command(stdout, stderr, r),
+			source.Command(stdout, stderr, r),
+			image.Command(stdout, stderr, r),
 		},
 	}
 }
