@@ -118,7 +118,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	}
 
 	if context.Args().Len() == 0 {
-		return r, fmt.Errorf("please provide an image name or see the help document")
+		return r, errors.New("please provide an image name or see the help document")
 	}
 	scannerAction := osvscanner.ScannerActions{
 		Image:              context.Args().First(),
