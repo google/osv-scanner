@@ -49,7 +49,7 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			return a + b
 		},
 		"getFilteredVulnReasons": getFilteredVulnReasons,
-		"getBaseImageNames":      getBaseImageNames,
+		"getBaseImageName":       getBaseImageName,
 		"formatSlice":            formatSlice,
 		"formatLayerCommand":     formatLayerCommand,
 	}

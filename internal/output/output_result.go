@@ -164,17 +164,12 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 	var ecosystemMap = make(map[string][]SourceResult)
 	var resultCount VulnCount
 
+RowLoop:
 	for _, packageSource := range vulnResult.Results {
-		skipSource := false
 		for _, annotation := range packageSource.ExperimentalAnnotations {
 			if annotation == extractor.InsideOSPackage {
-				skipSource = true
-				break
+				continue RowLoop
 			}
-		}
-
-		if skipSource {
-			continue
 		}
 
 		// Process vulnerabilities for each source
@@ -614,7 +609,7 @@ func getFilteredVulnReasons(vulns []VulnResult) string {
 	return strings.Join(reasons, ", ")
 }
 
-func getBaseImageNames(baseImageInfo BaseImageGroupInfo) string {
+func getBaseImageName(baseImageInfo BaseImageGroupInfo) string {
 	if len(baseImageInfo.BaseImageInfo) > 0 {
 		return baseImageInfo.BaseImageInfo[0].Name
 	}

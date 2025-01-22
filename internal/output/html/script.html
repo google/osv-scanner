@@ -482,7 +482,7 @@
         const clickedOption = event.target.closest(".layer-filter-option");
         if (clickedOption) {
           resetSearchText();
-          selectedLayer = clickedOption.getAttribute("title");
+          selectedLayer = clickedOption.getAttribute("data-layer-hash");
           selectedDisplay = document.getElementById("layer-filter-selected");
           layerCommand = clickedOption.querySelector("p:first-child");
           selectedDisplay.textContent = layerCommand.textContent;

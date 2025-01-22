@@ -146,7 +146,7 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 
 				inBaseImage := "False"
 				if pkg.LayerDetail.BaseImageInfo.Index != 0 {
-					inBaseImage = fmt.Sprintf("True (%s)", pkg.LayerDetail.BaseImageInfo.BaseImageInfo[0].Name)
+					inBaseImage = getBaseImageName(pkg.LayerDetail.BaseImageInfo)
 				}
 				outputRow = append(outputRow, pkg.Name, pkg.InstalledVersion, fixAvailable, totalCount, layer, inBaseImage)
 				outputTable.AppendRow(outputRow)

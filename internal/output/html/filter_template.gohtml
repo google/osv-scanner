@@ -10,7 +10,7 @@
         </div>
       </div>
       <div id="layer-filter-option-container" class="filter-option-container">
-        <div title="all" class="filter-option layer-filter-option" id="all-layer-checkbox"
+        <div data-layer-hash="all" class="filter-option layer-filter-option" id="all-layer-checkbox"
           data-layer-all-count="{{ .VulnCount.AnalysisCount.Regular }}">
           <p>All layers ({{ .VulnCount.AnalysisCount.Regular }})</p>
           {{ template "severity_summary_template.gohtml" .VulnCount.SeverityCount }}
@@ -28,7 +28,7 @@
         {{ end }}
 
         {{ if gt .Count.AnalysisCount.Regular 0 }}
-        <div title="{{ $diffID }}" class="filter-option layer-filter-option">
+        <div data-layer-hash="{{ $diffID }}" class="filter-option layer-filter-option">
           <div {{ if $longCommand }} class="tooltip" {{ end }}>
             <p class="layer-command">{{ $index }} {{ $command }}</p>
             {{ if $longCommand }}
