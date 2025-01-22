@@ -342,11 +342,13 @@ func dependenciesSatisfied(ctx context.Context, cl client.DependencyClient, vk r
 	}
 	// TODO: correctly handle other attrs e.g. npm peerDependencies
 
-	// remove the optional deps from the regular deps (because they show up in both) if they're not already installed
+	// remove the optional deps from the regular deps (because they can show up in both) if they're not already installed
 	for _, optVk := range optDeps {
 		if !slices.ContainsFunc(children, func(vk resolve.VersionKey) bool { return vk.Name == optVk.Name }) {
 			idx := slices.IndexFunc(deps, func(vk resolve.VersionKey) bool { return vk.Name == optVk.Name })
-			deps = slices.Delete(deps, idx, idx+1)
+			if idx >= 0 {
+				deps = slices.Delete(deps, idx, idx+1)
+			}
 		}
 	}
 
