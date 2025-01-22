@@ -1,6 +1,7 @@
 package testutility
 
 import (
+	"bytes"
 	"encoding/json"
 	"testing"
 
@@ -8,6 +9,7 @@ import (
 )
 
 type Snapshot struct {
+	jsonNormalization   bool
 	windowsReplacements map[string]string
 }
 
@@ -16,6 +18,13 @@ func NewSnapshot() Snapshot {
 	return Snapshot{
 		windowsReplacements: map[string]string{},
 	}
+}
+
+// WithJSONNormalization applies JSON normalization to the snapshot to errors and paths
+func (s Snapshot) WithJSONNormalization() Snapshot {
+	s.jsonNormalization = true
+
+	return s
 }
 
 // WithWindowsReplacements adds a map of strings with values that they should be
@@ -53,7 +62,9 @@ func (s Snapshot) MatchJSON(t *testing.T, got any) {
 func (s Snapshot) MatchText(t *testing.T, got string) {
 	t.Helper()
 
-	got = normalizeRootDirectory(t, got)
+	if s.jsonNormalization {
+		got = NormalizeStdStream(t, bytes.NewBufferString(got))
+	}
 	got = applyWindowsReplacements(got, s.windowsReplacements)
 
 	snaps.MatchSnapshot(t, got)
