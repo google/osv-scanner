@@ -113,7 +113,7 @@ VERSION:
 	{{.Version}}
 
 COMMANDS:
-	{{range .Commands}}{{if not .HideHelp}}  {{join .Names ", "}}{{ "\t"}}{{.Usage}}{{ "\n" }}{{end}}{{end}}
+{{range .Commands}}{{if not .HideHelp}}  {{join .Names ", "}}{{ "\t"}}{{.Usage}}{{ "\n" }}{{end}}{{end}}
 {{if .VisibleFlags}}
 GLOBAL OPTIONS:
 	{{range .VisibleFlags}}  {{.}}{{end}}

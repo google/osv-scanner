@@ -19,8 +19,8 @@ var Subcommands = []string{sourceSubCommand, "image"}
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	return &cli.Command{
 		Name:        "scan",
-		Usage:       "scans projects and Docker images for dependencies, and checks them against the OSV database.",
-		Description: "scans projects and Docker images for dependencies, and checks them against the OSV database.",
+		Usage:       "scans projects and container images for dependencies, and checks them against the OSV database.",
+		Description: "scans projects and container images for dependencies, and checks them against the OSV database.",
 		Subcommands: []*cli.Command{
 			source.Command(stdout, stderr, r),
 			image.Command(stdout, stderr, r),

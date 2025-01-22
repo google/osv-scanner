@@ -21,8 +21,8 @@ import (
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	return &cli.Command{
 		Name:        "image",
-		Usage:       "detects vulnerabilities in a container image's dependencies using the OSV database.",
-		Description: "detects vulnerabilities in a container image's dependencies using the OSV database.",
+		Usage:       "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
+		Description: "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
 		Flags: []cli.Flag{
 			&cli.BoolFlag{
 				Name:  "archive",
