@@ -372,10 +372,13 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		}
 	}
 
-	// TODO: This is a heuristic, assume that packages under usr/ is an OS package
+	// TODO: This is a set of heuristics,
+	//    - Assume that packages under usr/ might be a OS package depending on ecosystem
+	//    - Assume python packages under dist-packages is a OS package
 	// Replace this with an actual implementation in OSV-Scalibr (potentially via full filesystem accountability).
 	for _, psr := range scanResult.PackageScanResults {
-		if strings.HasPrefix(psr.PackageInfo.Location(), "usr/") {
+		if (strings.HasPrefix(psr.PackageInfo.Location(), "usr/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemGo) ||
+			strings.Contains(psr.PackageInfo.Location(), "dist-packages/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
 			psr.PackageInfo.Annotations = append(psr.PackageInfo.Annotations, extractor.InsideOSPackage)
 		}
 	}

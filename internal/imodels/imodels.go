@@ -2,6 +2,7 @@ package imodels
 
 import (
 	"log"
+	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
@@ -9,6 +10,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
+	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/pkg/models"
@@ -47,10 +49,19 @@ func (pkg *PackageInfo) Name() string {
 		return pkg.purlCache.Name
 	}
 
+	// --- Make specific patches to names as necessary ---
+	// Patch Go package to stdlib
 	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo && pkg.Inventory.Name == "go" {
 		return "stdlib"
 	}
 
+	// Patch python package names to be normalized
+	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
+		// per https://peps.python.org/pep-0503/#normalized-names
+		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Inventory.Name, "-"))
+	}
+
+	// --- OS metadata ---
 	if metadata, ok := pkg.Inventory.Metadata.(*dpkg.Metadata); ok {
 		// Debian uses source name on osv.dev
 		// (fallback to using the normal name if source name is empty)
