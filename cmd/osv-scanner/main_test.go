@@ -850,11 +850,6 @@ func TestRun_OCIImage(t *testing.T) {
 			exit: 1,
 		},
 		{
-			name: "Scanning java image with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-java-empty.tar"},
-			exit: 1,
-		},
-		{
 			name: "scanning node_modules using npm with no packages",
 			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
 			exit: 1,

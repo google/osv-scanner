@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 	"strings"
@@ -345,6 +346,13 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	for i, inv := range scalibrSR.Inventories {
 		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
 		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
+
+		if scanResult.PackageScanResults[i].PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemMaven {
+			if inv.Name == "kafka-clients" {
+				log.Printf("%v", scanResult.PackageScanResults[i].PackageInfo.Name())
+
+			}
+		}
 	}
 
 	// --- Fill Image Metadata ---

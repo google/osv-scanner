@@ -2743,92 +2743,214 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 
 ---
 
-[TestRun_OCIImage/Scanning_python_with_some_packages - 1]
-Scanning local image tarball "../../internal/image/fixtures/test-python.tar"
-Total 17 packages affected by 31 vulnerabilities (0 Critical, 8 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-31 vulnerabilities have fixes available.
+[TestRun_OCIImage/Scanning_java_image_with_some_packages - 1]
+Scanning local image tarball "../../internal/image/fixtures/test-java-full.tar"
+Container Scanning Result (Alpine Linux v3.21):
+Total 9 packages affected by 12 vulnerabilities (1 Critical, 5 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+12 vulnerabilities have fixes available.
 
-PyPI
-+----------------------------------------------------------+
-| Source:lockfile:usr/local/lib/python3.9/site-packages/Dj |
-| ango-1.11.29.dist-info/METADATA                          |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| django  | 1.11.29           | Fix Available |          3 |
-+---------+-------------------+---------------+------------+
-+----------------------------------------------------------+
-| Source:lockfile:usr/local/lib/python3.9/site-packages/Fl |
-| ask-0.12.2.dist-info/METADATA                            |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| flask   | 0.12.2            | Fix Available |          3 |
-+---------+-------------------+---------------+------------+
-+----------------------------------------------------------+
-| Source:lockfile:usr/local/lib/python3.9/site-packages/id |
-| na-2.7.dist-info/METADATA                                |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| idna    | 2.7               | Fix Available |          1 |
-+---------+-------------------+---------------+------------+
-+----------------------------------------------------------+
-| Source:lockfile:usr/local/lib/python3.9/site-packages/pi |
-| p-23.0.1.dist-info/METADATA                              |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| pip     | 23.0.1            | Fix Available |          1 |
-+---------+-------------------+---------------+------------+
-+-----------------------------------------------------------+
-| Source:lockfile:usr/local/lib/python3.9/site-packages/req |
-| uests-2.20.0.dist-info/METADATA                           |
-+----------+-------------------+---------------+------------+
-| PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+----------+-------------------+---------------+------------+
-| requests | 2.20.0            | Fix Available |          2 |
-+----------+-------------------+---------------+------------+
-+-------------------------------------------------------------+
-| Source:lockfile:usr/local/lib/python3.9/site-packages/setup |
-| tools-58.1.0.dist-info/METADATA                             |
-+------------+-------------------+---------------+------------+
-| PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+------------+-------------------+---------------+------------+
-| setuptools | 58.1.0            | Fix Available |          2 |
-+------------+-------------------+---------------+------------+
-+----------------------------------------------------------+
-| Source:lockfile:usr/local/lib/python3.9/site-packages/ur |
-| llib3-1.24.3.dist-info/METADATA                          |
-+---------+-------------------+---------------+------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT |
-+---------+-------------------+---------------+------------+
-| urllib3 | 1.24.3            | Fix Available |          5 |
-+---------+-------------------+---------------+------------+
-Debian:10
-+------------------------------------------------------------------------------+
-| Source:os:var/lib/dpkg/status                                                |
-+------------------------+------------------------+---------------+------------+
-| PACKAGE                | INSTALLED VERSION      | FIX AVAILABLE | VULN COUNT |
-+------------------------+------------------------+---------------+------------+
-| debian-archive-keyring | 2019.1+deb10u1         | Fix Available |          1 |
-| expat                  | 2.2.6-2+deb10u6        | Fix Available |          1 |
-| glibc                  | 2.28-10+deb10u2        | Fix Available |          2 |
-| gnutls28               | 3.6.7-4+deb10u10       | Fix Available |          2 |
-| ncurses                | 6.1+20181013-2+deb10u3 | Fix Available |          2 |
-| openssl                | 1.1.1n-0+deb10u5       | Fix Available |          1 |
-| systemd                | 241-7~deb10u9          | Fix Available |          1 |
-| tar                    | 1.30+dfsg-6            | Fix Available |          1 |
-| tzdata                 | 2021a-0+deb10u11       | Fix Available |          2 |
-| util-linux             | 2.33.1-0.1             | Fix Available |          1 |
-+------------------------+------------------------+---------------+------------+
+Maven
++-----------------------------------------------------------------------------------------------------------------------+
+| Source:lockfile:app/target.jar/META-INF/maven/com.google.protobuf/protobuf-java/pom.properties                        |
++-----------------------------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE                           | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++-----------------------------------+-------------------+---------------+------------+------------------+---------------+
+| com.google.protobuf:protobuf-java | 3.21.12           | Fix Available |          1 | # 5 Layer        | --            |
++-----------------------------------+-------------------+---------------+------------+------------------+---------------+
++------------------------------------------------------------------------------------------------------------------+
+| Source:lockfile:app/target.jar/META-INF/maven/com.nimbusds/nimbus-jose-jwt/pom.properties                        |
++------------------------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE                      | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++------------------------------+-------------------+---------------+------------+------------------+---------------+
+| com.nimbusds:nimbus-jose-jwt | 9.31              | Fix Available |          1 | # 5 Layer        | --            |
++------------------------------+-------------------+---------------+------------+------------------+---------------+
++-----------------------------------------------------------------------------------------------------+
+| Source:lockfile:app/target.jar/META-INF/maven/dnsjava/dnsjava/pom.properties                        |
++-----------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE         | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++-----------------+-------------------+---------------+------------+------------------+---------------+
+| dnsjava:dnsjava | 3.4.0             | Fix Available |          1 | # 5 Layer        | --            |
++-----------------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------------------------+
+| Source:lockfile:app/target.jar/META-INF/maven/io.netty/netty-codec-http/pom.properties                        |
++---------------------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE                   | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------------------------+-------------------+---------------+------------+------------------+---------------+
+| io.netty:netty-codec-http | 4.1.100.Final     | Fix Available |          1 | # 5 Layer        | --            |
++---------------------------+-------------------+---------------+------------+------------------+---------------+
++-----------------------------------------------------------------------------------------------------------+
+| Source:lockfile:app/target.jar/META-INF/maven/io.netty/netty-common/pom.properties                        |
++-----------------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE               | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++-----------------------+-------------------+---------------+------------+------------------+---------------+
+| io.netty:netty-common | 4.1.100.Final     | Fix Available |          1 | # 5 Layer        | --            |
++-----------------------+-------------------+---------------+------------+------------------+---------------+
++----------------------------------------------------------------------------------------------------------+
+| Source:lockfile:app/target.jar/META-INF/maven/org.apache.avro/avro/pom.properties                        |
++----------------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE              | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++----------------------+-------------------+---------------+------------+------------------+---------------+
+| org.apache.avro:avro | 1.9.2             | Fix Available |          2 | # 5 Layer        | --            |
++----------------------+-------------------+---------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------------------------+
+| Source:lockfile:app/target.jar/META-INF/maven/org.apache.commons/commons-compress/pom.properties                        |
++-------------------------------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE                             | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++-------------------------------------+-------------------+---------------+------------+------------------+---------------+
+| org.apache.commons:commons-compress | 1.21              | Fix Available |          2 | # 5 Layer        | --            |
++-------------------------------------+-------------------+---------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------------------------------+
+| Source:lockfile:app/target.jar/META-INF/maven/org.apache.commons/commons-configuration2/pom.properties                        |
++-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE                                   | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
+| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          2 | # 5 Layer        | --            |
++-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
++------------------------------------------------------------------------------------------------------------------+
+| Source:lockfile:app/target.jar/META-INF/maven/org.eclipse.jetty/jetty-http/pom.properties                        |
++------------------------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE                      | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++------------------------------+-------------------+---------------+------------+------------------+---------------+
+| org.eclipse.jetty:jetty-http | 9.4.53.v20231009  | Fix Available |          1 | # 5 Layer        | --            |
++------------------------------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
 
 ---
 
-[TestRun_OCIImage/Scanning_python_with_some_packages - 2]
+[TestRun_OCIImage/Scanning_java_image_with_some_packages - 2]
+
+---
+
+[TestRun_OCIImage/Scanning_python_image_with_no_packages - 1]
+Scanning local image tarball "../../internal/image/fixtures/test-python-empty.tar"
+Container Scanning Result (Debian GNU/Linux 10 (buster)):
+Total 12 packages affected by 17 vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
+17 vulnerabilities have fixes available.
+
+PyPI
++---------------------------------------------------------------------------------------------+
+| Source:lockfile:usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA         |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Fix Available |          1 | # 13 Layer       | python        |
++---------+-------------------+---------------+------------+------------------+---------------+
++------------------------------------------------------------------------------------------------+
+| Source:lockfile:usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA     |
++------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++------------+-------------------+---------------+------------+------------------+---------------+
+| setuptools | 58.1.0            | Fix Available |          2 | # 13 Layer       | python        |
++------------+-------------------+---------------+------------+------------------+---------------+
+Debian:10
++-----------------------------------------------------------------------------------------------------------------+
+| Source:os:var/lib/dpkg/status                                                                                   |
++------------------------+------------------------+---------------+------------+------------------+---------------+
+| PACKAGE                | INSTALLED VERSION      | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++------------------------+------------------------+---------------+------------+------------------+---------------+
+| debian-archive-keyring | 2019.1+deb10u1         | Fix Available |          1 | # 0 Layer        | python        |
+| expat                  | 2.2.6-2+deb10u6        | Fix Available |          1 | # 7 Layer        | python        |
+| glibc                  | 2.28-10+deb10u2        | Fix Available |          2 | # 0 Layer        | python        |
+| gnutls28               | 3.6.7-4+deb10u10       | Fix Available |          2 | # 0 Layer        | python        |
+| ncurses                | 6.1+20181013-2+deb10u3 | Fix Available |          2 | # 0 Layer        | python        |
+| openssl                | 1.1.1n-0+deb10u5       | Fix Available |          1 | # 4 Layer        | python        |
+| systemd                | 241-7~deb10u9          | Fix Available |          1 | # 0 Layer        | python        |
+| tar                    | 1.30+dfsg-6            | Fix Available |          1 | # 0 Layer        | python        |
+| tzdata                 | 2021a-0+deb10u11       | Fix Available |          2 | # 0 Layer        | python        |
+| util-linux             | 2.33.1-0.1             | Fix Available |          1 | # 0 Layer        | python        |
++------------------------+------------------------+---------------+------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
+
+---
+
+[TestRun_OCIImage/Scanning_python_image_with_no_packages - 2]
+
+---
+
+[TestRun_OCIImage/Scanning_python_image_with_some_packages - 1]
+Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar"
+Container Scanning Result (Debian GNU/Linux 10 (buster)):
+Total 17 packages affected by 31 vulnerabilities (0 Critical, 8 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+31 vulnerabilities have fixes available.
+
+PyPI
++---------------------------------------------------------------------------------------------+
+| Source:lockfile:usr/local/lib/python3.9/site-packages/Django-1.11.29.dist-info/METADATA     |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| django  | 1.11.29           | Fix Available |          3 | # 17 Layer       | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:lockfile:usr/local/lib/python3.9/site-packages/Flask-0.12.2.dist-info/METADATA       |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| flask   | 0.12.2            | Fix Available |          3 | # 17 Layer       | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:lockfile:usr/local/lib/python3.9/site-packages/idna-2.7.dist-info/METADATA           |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| idna    | 2.7               | Fix Available |          1 | # 17 Layer       | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:lockfile:usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA         |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Fix Available |          1 | # 13 Layer       | python        |
++---------+-------------------+---------------+------------+------------------+---------------+
++----------------------------------------------------------------------------------------------+
+| Source:lockfile:usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA     |
++----------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++----------+-------------------+---------------+------------+------------------+---------------+
+| requests | 2.20.0            | Fix Available |          2 | # 17 Layer       | --            |
++----------+-------------------+---------------+------------+------------------+---------------+
++------------------------------------------------------------------------------------------------+
+| Source:lockfile:usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA     |
++------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++------------+-------------------+---------------+------------+------------------+---------------+
+| setuptools | 58.1.0            | Fix Available |          2 | # 13 Layer       | python        |
++------------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:lockfile:usr/local/lib/python3.9/site-packages/urllib3-1.24.3.dist-info/METADATA     |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| urllib3 | 1.24.3            | Fix Available |          5 | # 17 Layer       | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
+Debian:10
++-----------------------------------------------------------------------------------------------------------------+
+| Source:os:var/lib/dpkg/status                                                                                   |
++------------------------+------------------------+---------------+------------+------------------+---------------+
+| PACKAGE                | INSTALLED VERSION      | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++------------------------+------------------------+---------------+------------+------------------+---------------+
+| debian-archive-keyring | 2019.1+deb10u1         | Fix Available |          1 | # 0 Layer        | python        |
+| expat                  | 2.2.6-2+deb10u6        | Fix Available |          1 | # 7 Layer        | python        |
+| glibc                  | 2.28-10+deb10u2        | Fix Available |          2 | # 0 Layer        | python        |
+| gnutls28               | 3.6.7-4+deb10u10       | Fix Available |          2 | # 0 Layer        | python        |
+| ncurses                | 6.1+20181013-2+deb10u3 | Fix Available |          2 | # 0 Layer        | python        |
+| openssl                | 1.1.1n-0+deb10u5       | Fix Available |          1 | # 4 Layer        | python        |
+| systemd                | 241-7~deb10u9          | Fix Available |          1 | # 0 Layer        | python        |
+| tar                    | 1.30+dfsg-6            | Fix Available |          1 | # 0 Layer        | python        |
+| tzdata                 | 2021a-0+deb10u11       | Fix Available |          2 | # 0 Layer        | python        |
+| util-linux             | 2.33.1-0.1             | Fix Available |          1 | # 0 Layer        | python        |
++------------------------+------------------------+---------------+------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner --format html --output results.html`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner --format vertical`.
+
+---
+
+[TestRun_OCIImage/Scanning_python_image_with_some_packages - 2]
 
 ---
 

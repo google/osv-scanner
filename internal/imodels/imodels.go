@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
@@ -59,6 +60,15 @@ func (pkg *PackageInfo) Name() string {
 	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
 		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Inventory.Name, "-"))
+	}
+
+	// Patch Maven archive extractor package names
+	if metadata, ok := pkg.Inventory.Metadata.(*archive.Metadata); ok {
+		// Debian uses source name on osv.dev
+		// (fallback to using the normal name if source name is empty)
+		if metadata.ArtifactID != "" && metadata.GroupID != "" {
+			return metadata.GroupID + ":" + metadata.ArtifactID
+		}
 	}
 
 	// --- OS metadata ---
