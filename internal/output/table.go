@@ -100,6 +100,8 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 }
 
 func printContainerScanningResult(result Result, outputWriter io.Writer, terminalWidth int) {
+	// Add a newline to separate results from logs.
+	fmt.Fprintln(outputWriter)
 	fmt.Fprintf(outputWriter, "Container Scanning Result (%s):\n", result.ImageInfo.OS)
 	summary := fmt.Sprintf(
 		"Total %[1]d packages affected by %[2]d vulnerabilities (%[3]d Critical, %[4]d High, %[5]d Medium, %[6]d Low, %[7]d Unknown) from %[8]d ecosystems.\n"+
