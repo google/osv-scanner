@@ -9,6 +9,8 @@ import (
 	ruby "github.com/tree-sitter/tree-sitter-ruby/bindings/go"
 )
 
+var Ruby = treesitter.NewLanguage(ruby.Language())
+
 var knownGrammarSeparators = map[string]struct{}{
 	"[":       {},
 	"]":       {},
@@ -73,11 +75,10 @@ type ParseResult struct {
 	node *Node
 }
 
-func ParseRubyFile(sourceFile DepFile) (*ParseResult, error) {
+func ParseFile(sourceFile DepFile, language *treesitter.Language) (*ParseResult, error) {
 	parser := treesitter.NewParser()
 	defer parser.Close()
 
-	language := treesitter.NewLanguage(ruby.Language())
 	err := parser.SetLanguage(language)
 	if err != nil {
 		return nil, err

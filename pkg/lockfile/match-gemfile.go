@@ -43,7 +43,7 @@ func (matcher GemfileMatcher) GetSourceFile(lockfile DepFile) (DepFile, error) {
 func (matcher GemfileMatcher) Match(sourceFile DepFile, packages []PackageDetails) error {
 	packagesByName := indexPackages(packages)
 
-	treeResult, err := ParseRubyFile(sourceFile)
+	treeResult, err := ParseFile(sourceFile, Ruby)
 	if err != nil {
 		return err
 	}
