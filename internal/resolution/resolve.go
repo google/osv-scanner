@@ -25,11 +25,20 @@ type Vulnerability struct {
 	// 'NonProblem' chains re-use the vulnerable version, but would not resolve to a vulnerable version in isolation.
 	ProblemChains    []DependencyChain
 	NonProblemChains []DependencyChain
+
+	Subgraphs []DependencySubgraph
 }
 
 func (rv Vulnerability) IsDirect() bool {
-	fn := func(dc DependencyChain) bool { return len(dc.Edges) == 1 }
-	return slices.ContainsFunc(rv.ProblemChains, fn) || slices.ContainsFunc(rv.NonProblemChains, fn)
+	// fn := func(dc DependencyChain) bool { return len(dc.Edges) == 1 }
+	// return slices.ContainsFunc(rv.ProblemChains, fn) || slices.ContainsFunc(rv.NonProblemChains, fn)
+	for _, sg := range rv.Subgraphs {
+		if sg.Edges[0].Distance == 1 {
+			return true
+		}
+	}
+
+	return false
 }
 
 type Result struct {
@@ -225,11 +234,19 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 		}
 	}
 
-	nodeChains := ComputeChains(res.Graph, vulnerableNodes)
-	vulnChains := make(map[string][]DependencyChain)
+	// nodeChains := ComputeChains(res.Graph, vulnerableNodes)
+	// vulnChains := make(map[string][]DependencyChain)
+	// for i, nID := range vulnerableNodes {
+	// 	for _, vuln := range nodeVulns[nID] {
+	// 		vulnChains[vuln.ID] = append(vulnChains[vuln.ID], nodeChains[i]...)
+	// 	}
+	// }
+
+	nodeSubgraphs := ComputeSubgraphs(res.Graph, vulnerableNodes)
+	vulnSubgraphs := make(map[string][]DependencySubgraph)
 	for i, nID := range vulnerableNodes {
 		for _, vuln := range nodeVulns[nID] {
-			vulnChains[vuln.ID] = append(vulnChains[vuln.ID], nodeChains[i]...)
+			vulnSubgraphs[vuln.ID] = append(vulnSubgraphs[vuln.ID], nodeSubgraphs[i])
 		}
 	}
 
@@ -239,20 +256,22 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 	// TODO: Combine aliased IDs
 	for id, vuln := range vulnInfo {
 		rv := Vulnerability{OSV: vuln, DevOnly: true}
-		for _, chain := range vulnChains[id] {
-			if chainConstrains(ctx, cl, chain, &rv.OSV) {
-				rv.ProblemChains = append(rv.ProblemChains, chain)
-			} else {
-				rv.NonProblemChains = append(rv.NonProblemChains, chain)
-			}
-			rv.DevOnly = rv.DevOnly && ChainIsDev(chain, res.Manifest.Groups)
-		}
-		if len(rv.ProblemChains) == 0 {
-			// There has to be at least one problem chain for the vulnerability to appear.
-			// If our heuristic couldn't determine any, treat them all as problematic.
-			rv.ProblemChains = rv.NonProblemChains
-			rv.NonProblemChains = nil
-		}
+		// for _, chain := range vulnChains[id] {
+		// 	if chainConstrains(ctx, cl, chain, &rv.OSV) {
+		// 		rv.ProblemChains = append(rv.ProblemChains, chain)
+		// 	} else {
+		// 		rv.NonProblemChains = append(rv.NonProblemChains, chain)
+		// 	}
+		// 	rv.DevOnly = rv.DevOnly && ChainIsDev(chain, res.Manifest.Groups)
+		// }
+		// if len(rv.ProblemChains) == 0 {
+		// 	// There has to be at least one problem chain for the vulnerability to appear.
+		// 	// If our heuristic couldn't determine any, treat them all as problematic.
+		// 	rv.ProblemChains = rv.NonProblemChains
+		// 	rv.NonProblemChains = nil
+		// }
+		rv.Subgraphs = vulnSubgraphs[id]
+		rv.DevOnly = !slices.ContainsFunc(rv.Subgraphs, func(ds DependencySubgraph) bool { return !ds.IsDevOnly(res.Manifest.Groups) })
 		res.Vulns = append(res.Vulns, rv)
 	}
 

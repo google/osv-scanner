@@ -102,18 +102,24 @@ func (opts Options) matchDepth(v resolution.Vulnerability) bool {
 		return true
 	}
 
-	if len(v.ProblemChains)+len(v.NonProblemChains) == 0 {
-		panic("vulnerability with no dependency chains")
-	}
+	// if len(v.ProblemChains)+len(v.NonProblemChains) == 0 {
+	// 	panic("vulnerability with no dependency chains")
+	// }
 
-	for _, ch := range v.ProblemChains {
-		if len(ch.Edges) <= opts.MaxDepth {
-			return true
-		}
-	}
+	// for _, ch := range v.ProblemChains {
+	// 	if len(ch.Edges) <= opts.MaxDepth {
+	// 		return true
+	// 	}
+	// }
 
-	for _, ch := range v.NonProblemChains {
-		if len(ch.Edges) <= opts.MaxDepth {
+	// for _, ch := range v.NonProblemChains {
+	// 	if len(ch.Edges) <= opts.MaxDepth {
+	// 		return true
+	// 	}
+	// }
+
+	for _, sg := range v.Subgraphs {
+		if sg.Edges[0].Distance <= opts.MaxDepth {
 			return true
 		}
 	}

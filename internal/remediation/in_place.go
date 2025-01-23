@@ -117,9 +117,14 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 	for vk, vulns := range res.vkVulns {
 		reqVers := make(map[string]struct{})
 		for _, vuln := range vulns {
-			for _, c := range vuln.ProblemChains {
-				_, req := c.End()
-				reqVers[req] = struct{}{}
+			// for _, c := range vuln.ProblemChains {
+			// 	_, req := c.End()
+			// 	reqVers[req] = struct{}{}
+			// }
+			for _, sg := range vuln.Subgraphs {
+				for _, e := range sg.Edges[sg.Dependency].Parents {
+					reqVers[e.Requirement] = struct{}{}
+				}
 			}
 		}
 		set, err := buildConstraintSet(vk.Semver(), maps.Keys(reqVers))
@@ -268,24 +273,30 @@ func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatc
 			nodeIDs = append(nodeIDs, resolve.NodeID(nID))
 		}
 	}
-	nodeChains := resolution.ComputeChains(graph, nodeIDs)
+	// nodeChains := resolution.ComputeChains(graph, nodeIDs)
 	// Computing ALL chains might be overkill...
 	// We only actually care about the shortest chain, the unique dependents of the vulnerable node, and maybe the unique direct dependencies.
+	nodeSubgraphs := resolution.ComputeSubgraphs(graph, nodeIDs)
 
 	for i, nID := range nodeIDs {
-		chains := nodeChains[i]
+		// chains := nodeChains[i]
 		vk := graph.Nodes[nID].Version
 		result.vkNodes[vk] = append(result.vkNodes[vk], nID)
 		for _, vuln := range nodeVulns[nID] {
 			resVuln := resolution.Vulnerability{
-				OSV:           *vuln,
-				ProblemChains: slices.Clone(chains),
-				DevOnly:       !slices.ContainsFunc(chains, func(dc resolution.DependencyChain) bool { return !resolution.ChainIsDev(dc, nil) }),
+				OSV: *vuln,
+				// ProblemChains: slices.Clone(chains),
+				// DevOnly:       !slices.ContainsFunc(chains, func(dc resolution.DependencyChain) bool { return !resolution.ChainIsDev(dc, nil) }),
+
+				Subgraphs: []resolution.DependencySubgraph{nodeSubgraphs[i]},
+				DevOnly:   nodeSubgraphs[i].IsDevOnly(nil),
 			}
 			idx := slices.IndexFunc(result.vkVulns[vk], func(rv resolution.Vulnerability) bool { return rv.OSV.ID == resVuln.OSV.ID })
 			if idx >= 0 {
-				result.vkVulns[vk][idx].ProblemChains = append(result.vkVulns[vk][idx].ProblemChains, resVuln.ProblemChains...)
+				// result.vkVulns[vk][idx].ProblemChains = append(result.vkVulns[vk][idx].ProblemChains, resVuln.ProblemChains...)
 				result.vkVulns[vk][idx].DevOnly = result.vkVulns[vk][idx].DevOnly && resVuln.DevOnly
+
+				result.vkVulns[vk][idx].Subgraphs = append(result.vkVulns[vk][idx].Subgraphs, resVuln.Subgraphs...)
 			} else {
 				result.vkVulns[vk] = append(result.vkVulns[vk], resVuln)
 			}

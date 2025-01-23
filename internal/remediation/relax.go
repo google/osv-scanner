@@ -87,7 +87,7 @@ func tryRelaxRemediate(
 	}
 
 	newRes := orig
-	toRelax := reqsToRelax(newRes, vulnIDs, opts)
+	toRelax := reqsToRelax(ctx, cl, newRes, vulnIDs, opts)
 	for len(toRelax) > 0 {
 		// Try relaxing all necessary requirements
 		manif := newRes.Manifest.Clone()
@@ -109,13 +109,13 @@ func tryRelaxRemediate(
 		if err != nil {
 			return nil, err
 		}
-		toRelax = reqsToRelax(newRes, vulnIDs, opts)
+		toRelax = reqsToRelax(ctx, cl, newRes, vulnIDs, opts)
 	}
 
 	return newRes, nil
 }
 
-func reqsToRelax(res *resolution.Result, vulnIDs []string, opts Options) []int {
+func reqsToRelax(ctx context.Context, cl resolve.Client, res *resolution.Result, vulnIDs []string, opts Options) []int {
 	toRelax := make(map[resolve.VersionKey]string)
 	for _, v := range res.Vulns {
 		// Don't do a full opts.MatchVuln() since we know we don't need to check every condition
@@ -123,10 +123,22 @@ func reqsToRelax(res *resolution.Result, vulnIDs []string, opts Options) []int {
 			continue
 		}
 		// Only relax dependencies if their chain length is less than MaxDepth
-		for _, ch := range v.ProblemChains {
-			if opts.MaxDepth <= 0 || len(ch.Edges) <= opts.MaxDepth {
-				vk, req := ch.Direct()
-				toRelax[vk] = req
+		// for _, ch := range v.ProblemChains {
+		// 	if opts.MaxDepth <= 0 || len(ch.Edges) <= opts.MaxDepth {
+		// 		vk, req := ch.Direct()
+		// 		toRelax[vk] = req
+		// 	}
+		// }
+		for _, sg := range v.Subgraphs {
+			constr := sg.ConstrainingSubgraph(ctx, cl, &v.OSV)
+			if constr.Edges == nil {
+				constr = sg
+			}
+			for _, edge := range constr.Edges[0].Children {
+				gNode := constr.Edges[edge.To]
+				if opts.MaxDepth <= 0 || gNode.Distance+1 <= opts.MaxDepth {
+					toRelax[gNode.Version] = edge.Requirement
+				}
 			}
 		}
 	}

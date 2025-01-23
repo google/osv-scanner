@@ -131,31 +131,43 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 			// Keep track of VersionKeys we've seen for this vuln to avoid duplicates.
 			// Usually, there will only be one VersionKey per vuln, but some vulns affect multiple packages.
 			seenVKs := make(map[resolve.VersionKey]struct{})
-			// Use the DependencyChains to find all the affected nodes.
-			for _, c := range v.ProblemChains {
-				// Currently, there is no way to know if a specific classifier or type exists for a given version with deps.dev.
-				// Blindly updating versions can lead to compilation failures if the artifact+version+classifier+type doesn't exist.
-				// We can't reliably attempt remediation in these cases, so don't try.
-				// TODO: query Maven registry for existence of classifiers in getVersionsGreater
-				typ := c.Edges[0].Type
-				if typ.HasAttr(dep.MavenClassifier) || typ.HasAttr(dep.MavenArtifactType) {
-					return nil, nil, fmt.Errorf("%w: cannot fix vulns in artifacts with classifier or type", errOverrideImpossible)
-				}
-				vk, _ := c.End()
-				if _, seen := seenVKs[vk]; !seen {
-					vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
-					seenVKs[vk] = struct{}{}
-				}
-			}
-			for _, c := range v.NonProblemChains {
-				typ := c.Edges[0].Type
-				if typ.HasAttr(dep.MavenClassifier) || typ.HasAttr(dep.MavenArtifactType) {
-					return nil, nil, fmt.Errorf("%w: cannot fix vulns in artifacts with classifier or type", errOverrideImpossible)
-				}
-				vk, _ := c.End()
-				if _, seen := seenVKs[vk]; !seen {
-					vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
-					seenVKs[vk] = struct{}{}
+			// // Use the DependencyChains to find all the affected nodes.
+			// for _, c := range v.ProblemChains {
+			// 	// Currently, there is no way to know if a specific classifier or type exists for a given version with deps.dev.
+			// 	// Blindly updating versions can lead to compilation failures if the artifact+version+classifier+type doesn't exist.
+			// 	// We can't reliably attempt remediation in these cases, so don't try.
+			// 	// TODO: query Maven registry for existence of classifiers in getVersionsGreater
+			// 	typ := c.Edges[0].Type
+			// 	if typ.HasAttr(dep.MavenClassifier) || typ.HasAttr(dep.MavenArtifactType) {
+			// 		return nil, nil, fmt.Errorf("%w: cannot fix vulns in artifacts with classifier or type", errOverrideImpossible)
+			// 	}
+			// 	vk, _ := c.End()
+			// 	if _, seen := seenVKs[vk]; !seen {
+			// 		vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
+			// 		seenVKs[vk] = struct{}{}
+			// 	}
+			// }
+			// for _, c := range v.NonProblemChains {
+			// 	typ := c.Edges[0].Type
+			// 	if typ.HasAttr(dep.MavenClassifier) || typ.HasAttr(dep.MavenArtifactType) {
+			// 		return nil, nil, fmt.Errorf("%w: cannot fix vulns in artifacts with classifier or type", errOverrideImpossible)
+			// 	}
+			// 	vk, _ := c.End()
+			// 	if _, seen := seenVKs[vk]; !seen {
+			// 		vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
+			// 		seenVKs[vk] = struct{}{}
+			// 	}
+			// }
+			for _, sg := range v.Subgraphs {
+				for _, e := range sg.Edges[sg.Dependency].Parents {
+					if e.Type.HasAttr(dep.MavenClassifier) || e.Type.HasAttr(dep.MavenArtifactType) {
+						return nil, nil, fmt.Errorf("%w: cannot fix vulns in artifacts with classifier or type", errOverrideImpossible)
+					}
+					vk := sg.Graph.Nodes[sg.Dependency].Version
+					if _, seen := seenVKs[vk]; !seen {
+						vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
+						seenVKs[vk] = struct{}{}
+					}
 				}
 			}
 		}
