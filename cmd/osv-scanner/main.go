@@ -113,7 +113,7 @@ VERSION:
 	{{.Version}}
 
 COMMANDS:
-{{range .Commands}}{{if not .HideHelp}}  {{join .Names ", "}}{{ "\t"}}{{.Usage}}{{ "\n" }}{{end}}{{end}}
+{{range .Commands}}{{if and (not .HideHelp) (not .Hidden)}}  {{join .Names ", "}}{{ "\t"}}{{.Usage}}{{ "\n" }}{{end}}{{end}}
 {{if .VisibleFlags}}
 GLOBAL OPTIONS:
 	{{range .VisibleFlags}}  {{.}}{{end}}
@@ -145,6 +145,14 @@ func getAllCommands(commands []*cli.Command) []string {
 	return allCommands
 }
 
+// Warns the user if a directory with the same name as a subcommand exists.
+func warnIfDirectoryExist(command string, stdout, stderr io.Writer) {
+	if _, err := os.Stat(command); err == nil {
+		r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
+		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[1]s`, you must specify `%[1]s %[1]s` in your command line.\n", command)
+	}
+}
+
 // Inserts the default command to args if no command is specified.
 func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand string, stdout, stderr io.Writer) []string {
 	// Do nothing if no command or file name is provided.
@@ -167,11 +175,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 		return argsTmp
 	}
 
-	// If a command with the same name as a file exists, warn the user and prioritize the command.
-	if _, err := os.Stat(command); err == nil {
-		r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
-		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[1]s`, you must specify `%[1]s %[1]s` in your command line.\n", command)
-	}
+	warnIfDirectoryExist(command, stdout, stderr)
 
 	// If only the default command is provided without its subcommand, append the subcommand.
 	if command == defaultCommand {
@@ -192,10 +196,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 		}
 
 		// Print a warning message if subcommand is a valid directory.
-		if _, err := os.Stat(subcommand); err == nil {
-			r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
-			r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[1]s`, you must specify `%[1]s %[1]s` in your command line.\n", subcommand)
-		}
+		warnIfDirectoryExist(subcommand, stdout, stderr)
 	}
 
 	return args
