@@ -1031,3 +1031,42 @@ func TestRun_MavenTransitive(t *testing.T) {
 		})
 	}
 }
+
+func TestRun_MoreLockfiles(t *testing.T) {
+	t.Parallel()
+	tests := []cliTestCase{
+		{
+			name: "uv.lock",
+			args: []string{"", "-L", "./fixtures/locks-scalibr/uv.lock"},
+			exit: 0,
+		},
+		{
+			name: "depsjson",
+			args: []string{"", "-L", "deps.json:./fixtures/locks-scalibr/depsjson"},
+			exit: 0,
+		},
+		{
+			name: "cabal.project.freeze",
+			args: []string{"", "-L", "./fixtures/locks-scalibr/cabal.project.freeze"},
+			exit: 0,
+		},
+		{
+			name: "stack.yaml.lock",
+			args: []string{"", "-L", "./fixtures/locks-scalibr/stack.yaml.lock"},
+			exit: 0,
+		},
+		/*
+			{
+				name: "Package.resolved",
+				args: []string{"", "-L", "./fixtures/locks-scalibr/Package.resolved"},
+				exit: 0,
+			},
+		*/
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			testCli(t, tt)
+		})
+	}
+}
