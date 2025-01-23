@@ -14,7 +14,7 @@
       {{ $element.ID }}
       {{ else }}
       <div class="tooltip">
-        {{ $element.ID }}
+        <div class="clickable" onclick="openVulnInNewTab('{{ $element.ID }}')">{{ $element.ID }}</div>
         <span class="tooltiptext">Group IDs: {{ join $element.GroupIDs ", " }}</span>
       </div>
       {{ end }}

@@ -27,6 +27,10 @@ func uniqueIndex(index *int) func() int {
 	}
 }
 
+func formatSlice(slice []string) string {
+	return strings.Join(slice, ", ")
+}
+
 func formatRating(rating severity.Rating) string {
 	return strings.ToLower(string(rating))
 }
@@ -45,6 +49,9 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			return a + b
 		},
 		"getFilteredVulnReasons": getFilteredVulnReasons,
+		"getBaseImageName":       getBaseImageName,
+		"formatSlice":            formatSlice,
+		"formatLayerCommand":     formatLayerCommand,
 	}
 
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))
