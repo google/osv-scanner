@@ -59,9 +59,12 @@ func (sc SourceContext) ExtractTextValue(node *treesitter.Node) (string, error) 
 	} else if node.GrammarName() == "string" {
 		// Strings are wrapped in quotes, so we need to extract the text from the inner node
 		return node.Child(1).Utf8Text(sc.sourceFileContent), nil
+	} else if node.GrammarName() == "identifier" || node.GrammarName() == "string_content" {
+		// Strings are wrapped in quotes, so we need to extract the text from the inner node
+		return node.Utf8Text(sc.sourceFileContent), nil
 	}
 
-	return "", errors.New("found unsupported grammar type to extract text value")
+	return "", errors.New("found unsupported grammar type='" + node.GrammarName() + "' to extract text value")
 }
 
 type ParseResult struct {

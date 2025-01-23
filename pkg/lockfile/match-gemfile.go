@@ -134,11 +134,12 @@ func findGroupedGems(node *Node) ([]gemMetadata, error) {
 			(#match? @method_name "group")
 			arguments: (argument_list
 				.
-				(comment)*
-				.
-				[(simple_symbol) (string)]+
-				.
-				(comment)*
+				[
+					(simple_symbol)
+					(string)
+					(comment)
+					","
+				]*
 				.
 			) @group_keys
 			block: (_) @block
