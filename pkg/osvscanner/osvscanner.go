@@ -342,6 +342,8 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	// ----- Filtering -----
 	filterUnscannablePackages(r, &scanResult)
 
+	filterNonContainerRelevantPackages(r, &scanResult)
+
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
 		err = makeVulnRequestWithMatcher(r, scanResult.PackageScanResults, accessors.VulnMatcher)
