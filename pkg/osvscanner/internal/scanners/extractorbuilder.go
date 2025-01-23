@@ -68,7 +68,7 @@ var lockfileExtractors = []filesystem.Extractor{
 	depsjson.Extractor{},
 	cabal.Extractor{},
 	stacklock.Extractor{},
-	//packageresolved.Extractor{},
+	// packageresolved.Extractor{},
 }
 
 // BuildLockfileExtractors returns all relevant extractors for lockfile scanning given the required clients
