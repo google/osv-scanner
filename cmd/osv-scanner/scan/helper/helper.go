@@ -125,7 +125,7 @@ func OpenHTML(r reporter.Reporter, outputPath string) {
 	}
 }
 
-// Serve the single HTML file for remote accessing.
+// ServeHTML serves the single HTML file for remote accessing.
 // The program will keep running to serve the HTML report on localhost
 // until the user manually terminates it (e.g. using Ctrl+C).
 func ServeHTML(r reporter.Reporter, outputPath string) {
