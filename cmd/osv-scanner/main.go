@@ -98,13 +98,13 @@ EXAMPLES:
 	# Scan a source directory
 	$ {{.HelpName}} scan source -r <source_directory>
 
-	# Scan a container image:
+	# Scan a container image
 	$ {{.HelpName}} scan image <image_name>
 
-	# Scan a local image archive (e.g. a tar file) and generate HTML output:
+	# Scan a local image archive (e.g. a tar file) and generate HTML output
 	$ {{.HelpName}} scan image --serve --archive <image_name.tar>
 
-	# Fix vulnerabilities in a manifest file and lockfile (non-interactive mode):
+	# Fix vulnerabilities in a manifest file and lockfile (non-interactive mode)
 	$ {{.HelpName}} fix --non-interactive -M <manifest_file> -L <lockfile>
 
 	For full usage details, please refer to the help command of each subcommand (e.g. {{.HelpName}} scan --help).
