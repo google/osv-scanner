@@ -137,7 +137,7 @@ func TestParsePoetryLock_OnePackage_MatcherFailed(t *testing.T) {
 
 	// Mock pyprojectTOMLMatcher to fail
 	matcherError := errors.New("pyprojectTOMLMatcher failed")
-	lockfile.PoetryExtractor.Matcher = FailingMatcher{Error: matcherError}
+	lockfile.PoetryExtractor.Matchers = []lockfile.Matcher{FailingMatcher{Error: matcherError}}
 
 	path := filepath.FromSlash(filepath.Join(dir, "fixtures/poetry/one-package.lock"))
 	packages, err := lockfile.ParsePoetryLock(path)

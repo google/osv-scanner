@@ -73,10 +73,12 @@ func ExtractDeps(f DepFile, extractAs string, enabledParsers map[string]bool) (L
 
 	// Match extracted packages with source file to enrich their details
 	if e, ok := extractor.(ExtractorWithMatcher); ok {
-		if matcher := e.GetMatcher(); matcher != nil {
-			matchError := matchWithFile(f, packages, matcher)
-			if matchError != nil {
-				_, _ = fmt.Fprintf(os.Stderr, "there was an error matching the source file: %s\n", matchError.Error())
+		if matchers := e.GetMatchers(); len(matchers) > 0 {
+			for _, matcher := range matchers {
+				matchError := matchWithFile(f, packages, matcher)
+				if matchError != nil {
+					_, _ = fmt.Fprintf(os.Stderr, "there was an error matching the source file: %s\n", matchError.Error())
+				}
 			}
 		}
 	}

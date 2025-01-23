@@ -66,7 +66,7 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 }
 
 var PoetryExtractor = PoetryLockExtractor{
-	WithMatcher{Matcher: PyprojectTOMLMatcher{}},
+	WithMatcher{Matchers: []Matcher{&PyprojectTOMLMatcher{}}},
 }
 
 //nolint:gochecknoinits

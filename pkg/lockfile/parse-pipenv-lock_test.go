@@ -137,7 +137,7 @@ func TestParsePipenvLock_OnePackage_MatcherFailed(t *testing.T) {
 
 	// Mock pipfileMatcher to fail
 	matcherError := errors.New("pipfileMatcher failed")
-	lockfile.PipenvExtractor.Matcher = FailingMatcher{Error: matcherError}
+	lockfile.PipenvExtractor.Matchers = []lockfile.Matcher{FailingMatcher{Error: matcherError}}
 
 	path := filepath.FromSlash(filepath.Join(dir, "fixtures/pipenv/one-package.json"))
 	packages, err := lockfile.ParsePipenvLock(path)

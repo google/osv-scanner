@@ -380,7 +380,7 @@ func (e YarnLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 }
 
 var YarnExtractor = YarnLockExtractor{
-	WithMatcher{Matcher: PackageJSONMatcher{}},
+	WithMatcher{Matchers: []Matcher{&PackageJSONMatcher{}}},
 }
 
 //nolint:gochecknoinits

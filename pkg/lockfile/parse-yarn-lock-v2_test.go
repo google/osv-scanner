@@ -78,7 +78,7 @@ func TestParseYarnLock_v2_OnePackage_MatcherFailed(t *testing.T) {
 
 	// Mock packageJSONMatcher to fail
 	matcherError := errors.New("packageJSONMatcher failed")
-	lockfile.YarnExtractor.Matcher = FailingMatcher{Error: matcherError}
+	lockfile.YarnExtractor.Matchers = []lockfile.Matcher{FailingMatcher{Error: matcherError}}
 
 	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/one-package.v2.lock"))
 	packages, err := lockfile.ParseYarnLock(path)

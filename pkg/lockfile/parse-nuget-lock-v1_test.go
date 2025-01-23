@@ -189,7 +189,7 @@ func TestParseNuGetLock_v1_OneFramework_OnePackage_MatchedFailed(t *testing.T) {
 	// Mock NugetCsprojMatcher to fail
 	matcherError := errors.New("NugetCsprojMatcher failed")
 	nuGetExtractor := lockfile.NuGetLockExtractor{
-		lockfile.WithMatcher{Matcher: FailingMatcher{Error: matcherError}},
+		WithMatcher: lockfile.WithMatcher{Matchers: []lockfile.Matcher{FailingMatcher{Error: matcherError}}},
 	}
 
 	packages, err := lockfile.ExtractFromFile("fixtures/nuget/one-framework-one-package/packages.lock.json", nuGetExtractor)

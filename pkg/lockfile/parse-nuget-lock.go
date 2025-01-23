@@ -85,7 +85,7 @@ func (e NuGetLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 }
 
 var NuGetExtractor = NuGetLockExtractor{
-	WithMatcher{Matcher: NugetCsprojMatcher{}},
+	WithMatcher{Matchers: []Matcher{&NugetCsprojMatcher{}}},
 }
 
 //nolint:gochecknoinits

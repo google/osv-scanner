@@ -166,7 +166,7 @@ func TestParseGradleLock_OnePackage_MatcherFailed(t *testing.T) {
 
 	// Mock buildGradleMatcher to fail
 	matcherError := errors.New("buildGradleMatcher failed")
-	lockfile.GradleExtractor.Matcher = FailingMatcher{Error: matcherError}
+	lockfile.GradleExtractor.Matchers = []lockfile.Matcher{FailingMatcher{Error: matcherError}}
 
 	path := filepath.FromSlash(filepath.Join(dir, "fixtures/gradle-lockfile/one-pkg"))
 	packages, err := lockfile.ParseGradleLock(path)
