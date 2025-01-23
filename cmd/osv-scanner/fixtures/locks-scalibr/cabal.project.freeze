@@ -1,0 +1,6 @@
+constraints: any.AC-Angle ==1.0,
+             any.ALUT ==2.4.0.3,
+             any.ANum ==0.2.0.2,
+             any.Agda ==2.6.4.3,
+             transformers-base +orphaninstances,
+             any.Allure ==0.11.0.0,
