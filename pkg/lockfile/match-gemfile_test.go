@@ -105,6 +105,11 @@ func TestGemfileMatcher_Match_Groups(t *testing.T) {
 
 	packages := []lockfile.PackageDetails{
 		{
+			Name:           "base64",
+			Version:        "0.2.0",
+			PackageManager: models.Bundler,
+		},
+		{
 			Name:           "thor",
 			Version:        "1.3.2",
 			PackageManager: models.Bundler,
@@ -121,6 +126,7 @@ func TestGemfileMatcher_Match_Groups(t *testing.T) {
 		},
 		{
 			Name:           "websocket-driver",
+			Version:        "0.7.7",
 			PackageManager: models.Bundler,
 		},
 		{
