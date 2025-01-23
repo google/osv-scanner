@@ -835,13 +835,23 @@ func TestRun_OCIImage(t *testing.T) {
 			exit: 1,
 		},
 		{
-			name: "Scanning python with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-alpine.tar"},
+			name: "Scanning python image with some packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-python-full.tar"},
 			exit: 1,
 		},
 		{
-			name: "Scanning python with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-python.tar"},
+			name: "Scanning python image with no packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-python-empty.tar"},
+			exit: 1,
+		},
+		{
+			name: "Scanning java image with some packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-java-full.tar"},
+			exit: 1,
+		},
+		{
+			name: "Scanning java image with no packages",
+			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-java-empty.tar"},
 			exit: 1,
 		},
 		{
