@@ -95,7 +95,7 @@ USAGE:
 
 EXAMPLES:
 
-	#Scan a source directory
+	# Scan a source directory
 	$ {{.HelpName}} scan source -r <source_directory>
 
 	# Scan a container image:
