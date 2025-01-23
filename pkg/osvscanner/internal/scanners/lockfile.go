@@ -31,7 +31,7 @@ var lockfileExtractorMapping = map[string]string{
 	"Pipfile.lock":                "python/Pipfilelock",
 	"pdm.lock":                    "python/pdmlock",
 	"requirements.txt":            "python/requirements",
-	"uv.lock":										 "python/uvlock",
+	"uv.lock":                     "python/uvlock",
 	"Cargo.lock":                  "rust/Cargolock",
 	"composer.lock":               "php/composerlock",
 	"mix.lock":                    "erlang/mixlock",
