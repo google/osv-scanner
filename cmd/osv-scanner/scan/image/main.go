@@ -6,8 +6,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"slices"
-	"strings"
 
 	"github.com/google/osv-scanner/cmd/osv-scanner/scan/helper"
 	"github.com/google/osv-scanner/pkg/models"
@@ -18,50 +16,20 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+var imageScanFlags = []cli.Flag{
+	&cli.BoolFlag{
+		Name:  "archive",
+		Usage: "input a local archive image (e.g. a tar file)",
+	},
+}
+
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	return &cli.Command{
 		Name:        "image",
 		Usage:       "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
 		Description: "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
-		Flags: []cli.Flag{
-			&cli.BoolFlag{
-				Name:  "archive",
-				Usage: "input a local archive image (e.g. a tar file)",
-			},
-			&cli.BoolFlag{
-				Name:  "serve",
-				Usage: "output as HTML result and serve it locally",
-			},
-			&cli.StringFlag{
-				Name:    "format",
-				Aliases: []string{"f"},
-				Usage:   "sets the output format; value can be: " + strings.Join(reporter.Format(), ", "),
-				Value:   "table",
-				Action: func(_ *cli.Context, s string) error {
-					if slices.Contains(reporter.Format(), s) {
-						return nil
-					}
-
-					return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
-				},
-			},
-			&cli.StringFlag{
-				Name:      "output",
-				Usage:     "saves the result to the given file path",
-				TakesFile: true,
-			},
-			&cli.StringFlag{
-				Name:      "config",
-				Usage:     "set/override config file",
-				TakesFile: true,
-			},
-			&cli.StringFlag{
-				Name:  "verbosity",
-				Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(reporter.VerbosityLevels(), ", "),
-				Value: "info",
-			},
-		},
-		ArgsUsage: "[image imageName]",
+		Flags:       append(imageScanFlags, helper.GlobalScanFlags...),
+		ArgsUsage:   "[image imageName]",
 		Action: func(c *cli.Context) error {
 			var err error
 			*r, err = action(c, stdout, stderr)

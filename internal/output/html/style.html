@@ -47,23 +47,43 @@
 
   header {
     display: flex;
-    align-items: center;
     margin-bottom: 50px;
+    justify-content: space-between;
+  }
+
+  #header-left {
+   display: flex;
+   align-items: center;
   }
 
   .logo {
     height: 20px;
   }
 
-  header .vl {
+  #header-left .vl {
     border-left: 2px solid #fff;
     height: 25px;
     margin-left: 20px;
     margin-right: 20px;
   }
 
-  header h1 {
+  #header-left h1 {
     font-size: 23px;
+  }
+
+  #header-right {
+    display:flex;
+    align-items: center;
+  }
+
+  #header-right ::after {
+    display: inline-block;
+    content: " ";
+    background-image: url(https://osv.dev/static/img/external-link.svg);
+    width: 16px;
+    height: 16px;
+    margin-left: 3px;
+    vertical-align: middle;
   }
 
   .material-icons {

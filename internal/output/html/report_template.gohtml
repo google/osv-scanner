@@ -14,9 +14,14 @@
   {{ template "script.html" }}
   <div class="container">
     <header>
-      <img src="https://osv.dev/static/img/logo.png" alt="OSV-Scanner Logo" class="logo" />
-      <div class="vl"></div>
-      <h1>Open Source Vulnerabilities</h1>
+      <div id="header-left">
+        <img src="https://osv.dev/static/img/logo.png" alt="OSV-Scanner Logo" class="logo" />
+        <div class="vl"></div>
+        <h1>Open Source Vulnerabilities</h1>
+      </div>
+      <div id="header-right">
+        <a class="improvement-link" href="https://github.com/google/osv-scanner/discussions/1521"> Feedback </a>
+      </div>
     </header>
 
     <div id="tab-switch">

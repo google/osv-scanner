@@ -6,7 +6,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"slices"
 	"strings"
 
 	"github.com/google/osv-scanner/cmd/osv-scanner/scan/helper"
@@ -18,154 +17,77 @@ import (
 	"golang.org/x/term"
 )
 
+var projectScanFlags = []cli.Flag{
+	&cli.StringSliceFlag{
+		Name:      "lockfile",
+		Aliases:   []string{"L"},
+		Usage:     "scan package lockfile on this path",
+		TakesFile: true,
+	},
+	&cli.StringSliceFlag{
+		Name:      "sbom",
+		Aliases:   []string{"S"},
+		Usage:     "scan sbom file on this path",
+		TakesFile: true,
+	},
+	&cli.BoolFlag{
+		Name:  "json",
+		Usage: "sets output to json (deprecated, use --format json instead)",
+	},
+	&cli.BoolFlag{
+		Name:  "skip-git",
+		Usage: "skip scanning git repositories",
+		Value: false,
+	},
+	&cli.BoolFlag{
+		Name:    "recursive",
+		Aliases: []string{"r"},
+		Usage:   "check subdirectories",
+		Value:   false,
+	},
+	&cli.BoolFlag{
+		Name:  "experimental-call-analysis",
+		Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
+		Value: false,
+	},
+	&cli.BoolFlag{
+		Name:  "no-ignore",
+		Usage: "also scan files that would be ignored by .gitignore",
+		Value: false,
+	},
+	&cli.StringSliceFlag{
+		Name:  "call-analysis",
+		Usage: "attempt call analysis on code to detect only active vulnerabilities",
+	},
+	&cli.StringSliceFlag{
+		Name:  "no-call-analysis",
+		Usage: "disables call graph analysis",
+	},
+	&cli.StringFlag{
+		Name:  "experimental-resolution-data-source",
+		Usage: "source to fetch package information from; value can be: deps.dev, native",
+		Value: "deps.dev",
+		Action: func(_ *cli.Context, s string) error {
+			if s != "deps.dev" && s != "native" {
+				return fmt.Errorf("unsupported data-source \"%s\" - must be one of: deps.dev, native", s)
+			}
+
+			return nil
+		},
+	},
+	&cli.StringFlag{
+		Name:  "experimental-maven-registry",
+		Usage: "URL of the default registry to fetch Maven metadata",
+	},
+}
+
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	return &cli.Command{
 		Name:        "source",
 		Usage:       "scans a source project's dependencies for known vulnerabilities using the OSV database.",
 		Description: "scans a source project's dependencies for known vulnerabilities using the OSV database.",
-		Flags: []cli.Flag{
-			&cli.StringSliceFlag{
-				Name:      "lockfile",
-				Aliases:   []string{"L"},
-				Usage:     "scan package lockfile on this path",
-				TakesFile: true,
-			},
-			&cli.StringSliceFlag{
-				Name:      "sbom",
-				Aliases:   []string{"S"},
-				Usage:     "scan sbom file on this path",
-				TakesFile: true,
-			},
-			&cli.StringFlag{
-				Name:      "config",
-				Usage:     "set/override config file",
-				TakesFile: true,
-			},
-			&cli.StringFlag{
-				Name:    "format",
-				Aliases: []string{"f"},
-				Usage:   "sets the output format; value can be: " + strings.Join(reporter.Format(), ", "),
-				Value:   "table",
-				Action: func(_ *cli.Context, s string) error {
-					if slices.Contains(reporter.Format(), s) {
-						return nil
-					}
-
-					return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
-				},
-			},
-			&cli.BoolFlag{
-				Name:  "serve",
-				Usage: "output as HTML result and serve it locally",
-			},
-			&cli.BoolFlag{
-				Name:  "json",
-				Usage: "sets output to json (deprecated, use --format json instead)",
-			},
-			&cli.StringFlag{
-				Name:      "output",
-				Usage:     "saves the result to the given file path",
-				TakesFile: true,
-			},
-			&cli.BoolFlag{
-				Name:  "skip-git",
-				Usage: "skip scanning git repositories",
-				Value: false,
-			},
-			&cli.BoolFlag{
-				Name:    "recursive",
-				Aliases: []string{"r"},
-				Usage:   "check subdirectories",
-				Value:   false,
-			},
-			&cli.BoolFlag{
-				Name:  "experimental-call-analysis",
-				Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
-				Value: false,
-			},
-			&cli.BoolFlag{
-				Name:  "no-ignore",
-				Usage: "also scan files that would be ignored by .gitignore",
-				Value: false,
-			},
-			&cli.StringSliceFlag{
-				Name:  "call-analysis",
-				Usage: "attempt call analysis on code to detect only active vulnerabilities",
-			},
-			&cli.StringSliceFlag{
-				Name:  "no-call-analysis",
-				Usage: "disables call graph analysis",
-			},
-			&cli.StringFlag{
-				Name:  "verbosity",
-				Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(reporter.VerbosityLevels(), ", "),
-				Value: "info",
-			},
-			&cli.BoolFlag{
-				Name:  "experimental-offline",
-				Usage: "run in offline mode, disabling any features requiring network access",
-				Action: func(ctx *cli.Context, b bool) error {
-					if !b {
-						return nil
-					}
-					// Disable the features requiring network access.
-					for flag, value := range helper.OfflineFlags {
-						// TODO(michaelkedar): do something if the flag was already explicitly set.
-						if err := ctx.Set(flag, value); err != nil {
-							panic(fmt.Sprintf("failed setting offline flag %s to %s: %v", flag, value, err))
-						}
-					}
-
-					return nil
-				},
-			},
-			&cli.BoolFlag{
-				Name:  "experimental-offline-vulnerabilities",
-				Usage: "checks for vulnerabilities using local databases that are already cached",
-			},
-			&cli.BoolFlag{
-				Name:  "experimental-download-offline-databases",
-				Usage: "downloads vulnerability databases for offline comparison",
-			},
-			&cli.StringFlag{
-				Name:   "experimental-local-db-path",
-				Usage:  "sets the path that local databases should be stored",
-				Hidden: true,
-			},
-			&cli.BoolFlag{
-				Name:  "experimental-all-packages",
-				Usage: "when json output is selected, prints all packages",
-			},
-			&cli.BoolFlag{
-				Name:  "experimental-licenses-summary",
-				Usage: "report a license summary, implying the --experimental-all-packages flag",
-			},
-			&cli.StringSliceFlag{
-				Name:  "experimental-licenses",
-				Usage: "report on licenses based on an allowlist",
-			},
-			&cli.BoolFlag{
-				Name:  "experimental-no-resolve",
-				Usage: "disable transitive dependency resolution of manifest files",
-			},
-			&cli.StringFlag{
-				Name:  "experimental-resolution-data-source",
-				Usage: "source to fetch package information from; value can be: deps.dev, native",
-				Value: "deps.dev",
-				Action: func(_ *cli.Context, s string) error {
-					if s != "deps.dev" && s != "native" {
-						return fmt.Errorf("unsupported data-source \"%s\" - must be one of: deps.dev, native", s)
-					}
-
-					return nil
-				},
-			},
-			&cli.StringFlag{
-				Name:  "experimental-maven-registry",
-				Usage: "URL of the default registry to fetch Maven metadata",
-			},
-		},
-		ArgsUsage: "[directory1 directory2...]",
+		Flags:       append(projectScanFlags, helper.GlobalScanFlags...),
+		ArgsUsage:   "[directory1 directory2...]",
 		Action: func(c *cli.Context) error {
 			var err error
 			*r, err = Action(c, stdout, stderr)

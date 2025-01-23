@@ -5,9 +5,12 @@ import (
 	"net/http"
 	"os/exec"
 	"runtime"
+	"slices"
+	"strings"
 	"time"
 
 	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/urfave/cli/v2"
 )
 
 // flags that require network access and values to disable them.
@@ -17,6 +20,88 @@ var OfflineFlags = map[string]string{
 	"experimental-no-resolve":              "true",
 	"experimental-licenses-summary":        "false",
 	// "experimental-licenses": "", // StringSliceFlag has to be manually cleared.
+}
+
+var GlobalScanFlags = []cli.Flag{
+	&cli.StringFlag{
+		Name:      "config",
+		Usage:     "set/override config file",
+		TakesFile: true,
+	},
+	&cli.StringFlag{
+		Name:    "format",
+		Aliases: []string{"f"},
+		Usage:   "sets the output format; value can be: " + strings.Join(reporter.Format(), ", "),
+		Value:   "table",
+		Action: func(_ *cli.Context, s string) error {
+			if slices.Contains(reporter.Format(), s) {
+				return nil
+			}
+
+			return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
+		},
+	},
+	&cli.BoolFlag{
+		Name:  "serve",
+		Usage: "output as HTML result and serve it locally",
+	},
+	&cli.StringFlag{
+		Name:      "output",
+		Usage:     "saves the result to the given file path",
+		TakesFile: true,
+	},
+	&cli.StringFlag{
+		Name:  "verbosity",
+		Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(reporter.VerbosityLevels(), ", "),
+		Value: "info",
+	},
+	&cli.BoolFlag{
+		Name:  "experimental-offline",
+		Usage: "run in offline mode, disabling any features requiring network access",
+		Action: func(ctx *cli.Context, b bool) error {
+			if !b {
+				return nil
+			}
+			// Disable the features requiring network access.
+			for flag, value := range OfflineFlags {
+				// TODO(michaelkedar): do something if the flag was already explicitly set.
+				if err := ctx.Set(flag, value); err != nil {
+					panic(fmt.Sprintf("failed setting offline flag %s to %s: %v", flag, value, err))
+				}
+			}
+
+			return nil
+		},
+	},
+	&cli.BoolFlag{
+		Name:  "experimental-offline-vulnerabilities",
+		Usage: "checks for vulnerabilities using local databases that are already cached",
+	},
+	&cli.BoolFlag{
+		Name:  "experimental-download-offline-databases",
+		Usage: "downloads vulnerability databases for offline comparison",
+	},
+	&cli.BoolFlag{
+		Name:  "experimental-no-resolve",
+		Usage: "disable transitive dependency resolution of manifest files",
+	},
+	&cli.StringFlag{
+		Name:   "experimental-local-db-path",
+		Usage:  "sets the path that local databases should be stored",
+		Hidden: true,
+	},
+	&cli.BoolFlag{
+		Name:  "experimental-all-packages",
+		Usage: "when json output is selected, prints all packages",
+	},
+	&cli.BoolFlag{
+		Name:  "experimental-licenses-summary",
+		Usage: "report a license summary, implying the --experimental-all-packages flag",
+	},
+	&cli.StringSliceFlag{
+		Name:  "experimental-licenses",
+		Usage: "report on licenses based on an allowlist",
+	},
 }
 
 // openHTML opens the outputted HTML file.
