@@ -3,6 +3,7 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -825,62 +826,62 @@ func TestRun_OCIImage(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "Invalid path",
-			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/no-file-here.tar"},
+			args: []string{"", "scan", "image", "--archive", "./fixtures/oci-image/no-file-here.tar"},
 			exit: 127,
 		},
 		{
 			name: "Alpine 3.10 image tar with 3.18 version file",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-alpine.tar"},
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-alpine.tar"},
 			exit: 1,
 		},
 		{
 			name: "Scanning python image with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-python-full.tar"},
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-python-full.tar"},
 			exit: 1,
 		},
 		{
 			name: "Scanning python image with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-python-empty.tar"},
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-python-empty.tar"},
 			exit: 1,
 		},
 		{
 			name: "Scanning java image with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-java-full.tar"},
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-java-full.tar"},
 			exit: 1,
 		},
 		{
 			name: "scanning node_modules using npm with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
 			exit: 1,
 		},
 		{
 			name: "scanning node_modules using npm with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
 			exit: 1,
 		},
 		{
 			name: "scanning node_modules using yarn with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
 			exit: 1,
 		},
 		{
 			name: "scanning node_modules using yarn with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
 			exit: 1,
 		},
 		{
 			name: "scanning node_modules using pnpm with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
 			exit: 1,
 		},
 		{
 			name: "scanning node_modules using pnpm with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
 			exit: 1,
 		},
 		{
 			name: "scanning image with go binary",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-package-tracing.tar"},
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-package-tracing.tar"},
 			exit: 1,
 		},
 	}
