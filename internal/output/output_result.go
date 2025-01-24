@@ -427,11 +427,15 @@ func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[
 		slices.SortFunc(group.Aliases, identifiers.IDSortFunc)
 
 		representID := group.IDs[0]
+		aliases := group.Aliases
+		if len(group.Aliases) > 0 && group.Aliases[0] == representID {
+			aliases = aliases[1:]
+		}
 
 		vuln := VulnResult{
 			ID:       representID,
 			GroupIDs: group.IDs,
-			Aliases:  group.Aliases,
+			Aliases:  aliases,
 		}
 
 		vuln.SeverityScore = group.MaxSeverity
