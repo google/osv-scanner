@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/google/osv-scanner/cmd/osv-scanner/scan/helper"
+	"github.com/google/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osvscanner"
 	"github.com/google/osv-scanner/pkg/reporter"

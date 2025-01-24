@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/cmd/osv-scanner/scan/helper"
+	"github.com/google/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/internal/spdx"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/osvscanner"
