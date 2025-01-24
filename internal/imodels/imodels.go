@@ -5,7 +5,9 @@ import (
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
@@ -13,6 +15,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/internal/cachedregexp"
 	"github.com/google/osv-scanner/internal/imodels/ecosystem"
+	"github.com/google/osv-scanner/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -33,6 +36,13 @@ var osExtractors = map[string]struct{}{
 	dpkg.Extractor{}.Name(): {},
 	apk.Extractor{}.Name():  {},
 	rpm.Extractor{}.Name():  {},
+}
+
+var artifactExtractors = map[string]struct{}{
+	nodemodules.Extractor{}.Name(): {},
+	gobinary.Extractor{}.Name():    {},
+	archive.Extractor{}.Name():     {},
+	wheelegg.Extractor{}.Name():    {},
 }
 
 // PackageInfo provides getter functions for commonly used fields of inventory
@@ -145,6 +155,8 @@ func (pkg *PackageInfo) SourceType() SourceType {
 		return SourceTypeSBOM
 	} else if _, ok := gitExtractors[extractorName]; ok {
 		return SourceTypeGit
+	} else if _, ok := artifactExtractors[extractorName]; ok {
+		return SourceTypeArtifact
 	}
 
 	return SourceTypeProjectPackage
@@ -208,6 +220,7 @@ const (
 	SourceTypeUnknown SourceType = iota
 	SourceTypeOSPackage
 	SourceTypeProjectPackage
+	SourceTypeArtifact
 	SourceTypeSBOM
 	SourceTypeGit
 )
