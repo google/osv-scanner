@@ -3,7 +3,6 @@ package main
 
 import (
 	"bytes"
-	"errors"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -165,7 +164,7 @@ func TestRun(t *testing.T) {
 		{
 			name: "",
 			args: []string{""},
-			exit: 128,
+			exit: 0,
 		},
 		{
 			name: "version",
@@ -781,28 +780,28 @@ func TestRun_Docker(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "Fake alpine image",
-			args: []string{"", "--docker", "alpine:non-existent-tag"},
+			args: []string{"", "scan", "image", "alpine:non-existent-tag"},
 			exit: 127,
 		},
 		{
 			name: "Fake image entirely",
-			args: []string{"", "--docker", "this-image-definitely-does-not-exist-abcde"},
+			args: []string{"", "scan", "image", "this-image-definitely-does-not-exist-abcde"},
 			exit: 127,
 		},
 		// TODO: How to prevent these snapshots from changing constantly
 		{
 			name: "Real empty image",
-			args: []string{"", "--docker", "hello-world"},
+			args: []string{"", "scan", "image", "hello-world"},
 			exit: 128, // No packages found
 		},
 		{
 			name: "Real empty image with tag",
-			args: []string{"", "--docker", "hello-world:linux"},
+			args: []string{"", "scan", "image", "hello-world:linux"},
 			exit: 128, // No package found
 		},
 		{
 			name: "Real Alpine image",
-			args: []string{"", "--docker", "alpine:3.18.9"},
+			args: []string{"", "scan", "image", "alpine:3.18.9"},
 			exit: 1,
 		},
 	}
@@ -951,22 +950,27 @@ func TestRun_InsertDefaultCommand(t *testing.T) {
 		// test when default command is specified
 		{
 			originalArgs: []string{"", "default", "file"},
-			wantArgs:     []string{"", "default", "file"},
+			wantArgs:     []string{"", "default", "source", "file"},
 		},
 		// test when command is not specified
 		{
 			originalArgs: []string{"", "file"},
-			wantArgs:     []string{"", "default", "file"},
+			wantArgs:     []string{"", "default", "source", "file"},
 		},
 		// test when command is also a filename
 		{
 			originalArgs: []string{"", "scan"}, // `scan` exists as a file on filesystem (`./cmd/osv-scanner/scan`)
 			wantArgs:     []string{"", "scan"},
 		},
+		// test when subcommand is also a filename
+		{
+			originalArgs: []string{"", "default", "image"},
+			wantArgs:     []string{"", "default", "image"},
+		},
 		// test when command is not valid
 		{
 			originalArgs: []string{"", "invalid"},
-			wantArgs:     []string{"", "default", "invalid"},
+			wantArgs:     []string{"", "default", "source", "invalid"},
 		},
 		// test when command is a built-in option
 		{

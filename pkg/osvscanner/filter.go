@@ -37,6 +37,28 @@ func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanRes
 	scanResults.PackageScanResults = packageResults
 }
 
+// filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
+func filterNonContainerRelevantPackages(r reporter.Reporter, scanResults *results.ScanResults) {
+	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+	for _, psr := range scanResults.PackageScanResults {
+		p := psr.PackageInfo
+
+		// Almost all packages with linux as a SourceName are kernel packages
+		// which does not apply within a container, as containers use the host's kernel
+		if p.Name() == "linux" {
+			continue
+		}
+
+		packageResults = append(packageResults, psr)
+	}
+
+	if len(packageResults) != len(scanResults.PackageScanResults) {
+		r.Infof("Filtered %d non container relevant package/s from the scan.\n", len(scanResults.PackageScanResults)-len(packageResults))
+	}
+
+	scanResults.PackageScanResults = packageResults
+}
+
 // filterIgnoredPackages removes ignore scanned packages according to config. Returns filtered scanned packages.
 func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults) {
 	configManager := &scanResults.ConfigManager

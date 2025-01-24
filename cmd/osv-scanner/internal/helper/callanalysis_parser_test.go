@@ -1,4 +1,4 @@
-package scan
+package helper
 
 import (
 	"reflect"
@@ -55,7 +55,7 @@ func TestCreateCallAnalysisStates(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		actualCallAnalysisStates := createCallAnalysisStates(testCase.enabledCallAnalysis, testCase.disabledCallAnalysis)
+		actualCallAnalysisStates := CreateCallAnalysisStates(testCase.enabledCallAnalysis, testCase.disabledCallAnalysis)
 
 		if !reflect.DeepEqual(actualCallAnalysisStates, testCase.expectedCallAnalysisStates) {
 			t.Errorf("expected call analysis states to be %v, but got %v", testCase.expectedCallAnalysisStates, actualCallAnalysisStates)
