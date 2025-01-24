@@ -8,6 +8,7 @@ import (
 	"github.com/google/osv-scanner/internal/imodels/results"
 	"github.com/google/osv-scanner/pkg/models"
 	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // filterUnscannablePackages removes packages that don't have enough information to be scanned
@@ -21,6 +22,7 @@ func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanRes
 		// If none of the cases match, skip this package since it's not scannable
 		case !p.Ecosystem().IsEmpty() && p.Name() != "" && p.Version() != "":
 		case p.Commit() != "":
+		case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown":
 		default:
 			continue
 		}

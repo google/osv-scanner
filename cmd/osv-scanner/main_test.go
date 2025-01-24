@@ -3,6 +3,7 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -813,6 +814,91 @@ func TestRun_Docker(t *testing.T) {
 			if runtime.GOOS == "linux" {
 				testCli(t, tt)
 			}
+		})
+	}
+}
+
+func TestRun_OCIImage(t *testing.T) {
+	t.Parallel()
+
+	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
+
+	tests := []cliTestCase{
+		{
+			name: "Invalid path",
+			args: []string{"", "scan", "image", "--archive", "./fixtures/oci-image/no-file-here.tar"},
+			exit: 127,
+		},
+		{
+			name: "Alpine 3.10 image tar with 3.18 version file",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-alpine.tar"},
+			exit: 1,
+		},
+		{
+			name: "Scanning python image with some packages",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-python-full.tar"},
+			exit: 1,
+		},
+		{
+			name: "Scanning python image with no packages",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-python-empty.tar"},
+			exit: 1,
+		},
+		{
+			name: "Scanning java image with some packages",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-java-full.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using npm with no packages",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using npm with some packages",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using yarn with no packages",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using yarn with some packages",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using pnpm with no packages",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning node_modules using pnpm with some packages",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
+			exit: 1,
+		},
+		{
+			name: "scanning image with go binary",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-package-tracing.tar"},
+			exit: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			// point out that we need the images to be built and saved separately
+			for _, arg := range tt.args {
+				if strings.HasPrefix(arg, "../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
+					if _, err := os.Stat(arg); errors.Is(err, os.ErrNotExist) {
+						t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", arg)
+					}
+				}
+			}
+
+			testCli(t, tt)
 		})
 	}
 }
