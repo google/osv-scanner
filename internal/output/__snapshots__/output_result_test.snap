@@ -4301,7 +4301,6 @@
                     "GHSA-123"
                   ],
                   "Aliases": [
-                    "OSV-1",
                     "GHSA-123"
                   ],
                   "IsFixable": false,
@@ -4469,7 +4468,6 @@
                     "GHSA-123"
                   ],
                   "Aliases": [
-                    "OSV-1",
                     "GHSA-123"
                   ],
                   "IsFixable": false,

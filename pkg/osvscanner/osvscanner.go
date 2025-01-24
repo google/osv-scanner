@@ -42,6 +42,7 @@ type ScannerActions struct {
 	SkipGit            bool
 	NoIgnore           bool
 	Image              string
+	IsImageArchive     bool
 	ConfigOverridePath string
 	CallAnalysisStates map[string]bool
 
@@ -54,7 +55,6 @@ type ExperimentalScannerActions struct {
 	ShowAllPackages       bool
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
-	ScanOCIImage          string
 
 	LocalDBPath string
 	TransitiveScanningActions
@@ -133,7 +133,7 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 	}
 
 	// --- Base Image Matcher ---
-	if actions.Image != "" || actions.ScanOCIImage != "" {
+	if actions.Image != "" {
 		externalAccessors.BaseImageMatcher = &baseimagematcher.DepsDevBaseImageMatcher{
 			HTTPClient: *http.DefaultClient,
 			Config:     baseimagematcher.DefaultConfig(),
@@ -288,24 +288,10 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 
 	// --- Initialize Image To Scan ---'
 
-	getLocalPathOrEmpty := func() string {
-		if actions.ScanOCIImage != "" {
-			return actions.ScanOCIImage
-		}
-
-		if strings.Contains(actions.Image, ".tar") {
-			if _, err := os.Stat(actions.Image); err == nil {
-				return actions.Image
-			}
-		}
-
-		return ""
-	}
-
 	var img *image.Image
-	if localPath := getLocalPathOrEmpty(); localPath != "" {
-		r.Infof("Scanning local image tarball %q\n", localPath)
-		img, err = image.FromTarball(localPath, image.DefaultConfig())
+	if actions.IsImageArchive {
+		r.Infof("Scanning local image tarball %q\n", actions.Image)
+		img, err = image.FromTarball(actions.Image, image.DefaultConfig())
 	} else if actions.Image != "" {
 		path, exportErr := imagehelpers.ExportDockerImage(r, actions.Image)
 		if exportErr != nil {
