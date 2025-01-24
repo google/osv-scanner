@@ -16,6 +16,7 @@ type PoetryLockPackage struct {
 	Name     string                  `toml:"name"`
 	Version  string                  `toml:"version"`
 	Optional bool                    `toml:"optional"`
+	Groups   []string                `toml:"groups"`
 	Source   PoetryLockPackageSource `toml:"source"`
 }
 
@@ -32,6 +33,24 @@ func (e PoetryLockExtractor) ShouldExtract(path string) bool {
 	return filepath.Base(path) == "poetry.lock"
 }
 
+func resolvePoetryPackageGroups(pkg PoetryLockPackage) []string {
+	// by definition an optional package cannot be in any other group,
+	// otherwise that would make it a required package
+	if pkg.Optional {
+		return []string{"optional"}
+	}
+
+	for _, group := range pkg.Groups {
+		// the "main" group is the default group used for "production" dependencies,
+		// which we represent by an empty slice aka no groups
+		if group == "main" {
+			return []string{}
+		}
+	}
+
+	return pkg.Groups
+}
+
 func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	var parsedLockfile *PoetryLockFile
 
@@ -44,17 +63,14 @@ func (e PoetryLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 	packages := make([]PackageDetails, 0, len(parsedLockfile.Packages))
 
 	for _, lockPackage := range parsedLockfile.Packages {
-		pkgDetails := PackageDetails{
+		packages = append(packages, PackageDetails{
 			Name:      lockPackage.Name,
 			Version:   lockPackage.Version,
 			Commit:    lockPackage.Source.Commit,
+			DepGroups: resolvePoetryPackageGroups(lockPackage),
 			Ecosystem: PoetryEcosystem,
 			CompareAs: PoetryEcosystem,
-		}
-		if lockPackage.Optional {
-			pkgDetails.DepGroups = append(pkgDetails.DepGroups, "optional")
-		}
-		packages = append(packages, pkgDetails)
+		})
 	}
 
 	return packages, nil
