@@ -147,10 +147,12 @@ func getAllCommands(commands []*cli.Command) []string {
 // warnIfCommandAmbiguous warns the user if the command they are trying to run
 // exists as both a subcommand and as a file on the filesystem.
 // If this is the case, the command is assumed to be a subcommand.
-func warnIfCommandAmbiguous(command string, stdout, stderr io.Writer) {
+func warnIfCommandAmbiguous(command, defaultCommand string, stdout, stderr io.Writer) {
 	if _, err := os.Stat(command); err == nil {
 		r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
-		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[1]s`, you must specify `%[1]s %[1]s` in your command line.\n", command)
+		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. "+
+			"`%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[2]s`, "+
+			"you must specify `%[2]s %[1]s` in your command line.\n", command, defaultCommand)
 	}
 }
 
@@ -176,7 +178,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 		return argsTmp
 	}
 
-	warnIfCommandAmbiguous(command, stdout, stderr)
+	warnIfCommandAmbiguous(command, defaultCommand, stdout, stderr)
 
 	// If only the default command is provided without its subcommand, append the subcommand.
 	if command == defaultCommand {
@@ -197,7 +199,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 		}
 
 		// Print a warning message if subcommand exist on the filesystem.
-		warnIfCommandAmbiguous(subcommand, stdout, stderr)
+		warnIfCommandAmbiguous(subcommand, scan.DefaultSubcommand, stdout, stderr)
 	}
 
 	return args

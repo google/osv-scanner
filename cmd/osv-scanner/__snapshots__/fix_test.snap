@@ -13,7 +13,7 @@ Rewriting <tempdir>/package-lock.json...
 ---
 
 [TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 2]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 
 ---
 
@@ -1867,7 +1867,7 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 ---
 
 [TestRun_Fix/fix_non-interactive_json_in-place_package-lock.json - 2]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Scanning <tempdir>/package-lock.json...
 Rewriting <tempdir>/package-lock.json...
 
@@ -3877,7 +3877,7 @@ Rewriting <tempdir>/package-lock.json...
 ---
 
 [TestRun_Fix/fix_non-interactive_json_override_pom.xml - 2]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Resolving <tempdir>/pom.xml...
 Rewriting <tempdir>/pom.xml...
 
@@ -4030,7 +4030,7 @@ Rewriting <tempdir>/pom.xml...
 ---
 
 [TestRun_Fix/fix_non-interactive_json_relax_package.json - 2]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Resolving <tempdir>/package.json...
 Rewriting <tempdir>/package.json...
 
@@ -4070,7 +4070,7 @@ Rewriting <tempdir>/pom.xml...
 ---
 
 [TestRun_Fix/fix_non-interactive_override_pom.xml - 2]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 
 ---
 
@@ -4134,7 +4134,7 @@ Rewriting <tempdir>/package.json...
 ---
 
 [TestRun_Fix/fix_non-interactive_relax_package.json - 2]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `fix`, you must specify `fix fix` in your command line.
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 
 ---
 
