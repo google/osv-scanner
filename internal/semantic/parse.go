@@ -9,6 +9,8 @@ import (
 
 var ErrUnsupportedEcosystem = errors.New("unsupported ecosystem")
 
+var ErrUnknownEcosystem = errors.New("unknown ecosystem")
+
 func MustParse(str string, ecosystem models.Ecosystem) Version {
 	v, err := Parse(str, ecosystem)
 
@@ -20,37 +22,43 @@ func MustParse(str string, ecosystem models.Ecosystem) Version {
 }
 
 func Parse(str string, ecosystem models.Ecosystem) (Version, error) {
-	//nolint:exhaustive // Using strings to specify ecosystem instead of lockfile types
+	var version Version
+	var err error
+
 	switch ecosystem {
-	case "npm":
-		return parseSemverVersion(str), nil
-	case "crates.io":
-		return parseSemverVersion(str), nil
-	case "Debian":
-		return parseDebianVersion(str), nil
-	case "Alpine":
-		return parseAlpineVersion(str), nil
-	case "RubyGems":
-		return parseRubyGemsVersion(str), nil
-	case "NuGet":
-		return parseNuGetVersion(str), nil
-	case "Packagist":
-		return parsePackagistVersion(str), nil
-	case "Go":
-		return parseSemverVersion(str), nil
-	case "Hex":
-		return parseSemverVersion(str), nil
-	case "Maven":
-		return parseMavenVersion(str), nil
-	case "PyPI":
-		return parsePyPIVersion(str), nil
-	case "Pub":
-		return parseSemverVersion(str), nil
-	case "ConanCenter":
-		return parseSemverVersion(str), nil
-	case "CRAN":
-		return parseCRANVersion(str), nil
+	case models.EcosystemNPM:
+		version = parseSemverVersion(str)
+	case models.EcosystemCratesIO:
+		version = parseSemverVersion(str)
+	case models.EcosystemDebian:
+		version = parseDebianVersion(str)
+	case models.EcosystemAlpine:
+		version = parseAlpineVersion(str)
+	case models.EcosystemRubyGems:
+		version = parseRubyGemsVersion(str)
+	case models.EcosystemNuGet:
+		version = parseNuGetVersion(str)
+	case models.EcosystemPackagist:
+		version = parsePackagistVersion(str)
+	case models.EcosystemGo:
+		version = parseSemverVersion(str)
+	case models.EcosystemHex:
+		version = parseSemverVersion(str)
+	case models.EcosystemMaven:
+		version = parseMavenVersion(str)
+	case models.EcosystemPyPI:
+		version = parsePyPIVersion(str)
+	case models.EcosystemPub:
+		version = parseSemverVersion(str)
+	case models.EcosystemConanCenter:
+		version = parseSemverVersion(str)
+	case models.EcosystemCRAN:
+		version = parseCRANVersion(str)
+	case models.EcosystemOSSFuzz, models.EcosystemLinux, models.EcosystemAndroid, models.EcosystemGitHubActions, models.EcosystemRockyLinux, models.EcosystemAlmaLinux, models.EcosystemBitnami, models.EcosystemPhotonOS, models.EcosystemBioconductor, models.EcosystemSwiftURL:
+		err = fmt.Errorf("%w %s", ErrUnsupportedEcosystem, ecosystem)
+	default:
+		err = fmt.Errorf("%w %s", ErrUnknownEcosystem, ecosystem)
 	}
 
-	return nil, fmt.Errorf("%w %s", ErrUnsupportedEcosystem, ecosystem)
+	return version, err
 }

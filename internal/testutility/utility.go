@@ -9,13 +9,20 @@ import (
 	"github.com/gkampitakis/go-snaps/snaps"
 )
 
+// applyReplacements will replace any matching strings
+func applyReplacements(content string, replacements map[string]string) string {
+	for match, replacement := range replacements {
+		content = strings.ReplaceAll(content, match, replacement)
+	}
+
+	return content
+}
+
 // applyWindowsReplacements will replace any matching strings if on Windows
 func applyWindowsReplacements(content string, replacements map[string]string) string {
 	if //goland:noinspection GoBoolExpressions
 	runtime.GOOS == "windows" {
-		for match, replacement := range replacements {
-			content = strings.ReplaceAll(content, match, replacement)
-		}
+		return applyReplacements(content, replacements)
 	}
 
 	return content

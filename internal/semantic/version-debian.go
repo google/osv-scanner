@@ -91,7 +91,7 @@ func compareDebianVersions(a, b string) int {
 			apSplit := strings.Split(ap, "")
 			bpSplit := strings.Split(bp, "")
 
-			for i := 0; i < max(len(ap), len(bp)); i++ {
+			for i := range max(len(ap), len(bp)) {
 				aw := weighDebianChar(fetch(apSplit, i, ""))
 				bw := weighDebianChar(fetch(bpSplit, i, ""))
 

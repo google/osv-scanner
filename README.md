@@ -75,6 +75,12 @@ Whenever you need to add or upgrade a dependency, you should update the file cal
 To do it, please run the following command :
 
 ```bash
+# Prerequisites
+python3 -m pip install -r requirements.txt
+go install -x github.com/goware/modvendor@latest
+go install -x github.com/frapposelli/wwhrd@latest
+go install -x github.com/go-enry/go-license-detector/v4/cmd/license-detector@latest
+
 inv -e generate-licenses
 ```
 

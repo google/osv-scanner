@@ -107,7 +107,7 @@ func (mv MavenVersion) equal(mw MavenVersion) bool {
 		return false
 	}
 
-	for i := 0; i < len(mv.tokens); i++ {
+	for i := range len(mv.tokens) {
 		if !mv.tokens[i].equal(mw.tokens[i]) {
 			return false
 		}
@@ -141,7 +141,7 @@ func (mv MavenVersion) lessThan(mw MavenVersion) bool {
 	var left mavenVersionToken
 	var right mavenVersionToken
 
-	for i := 0; i < numberOfTokens; i++ {
+	for i := range numberOfTokens {
 		// the shorter one padded with enough "null" values with matching prefix to
 		// have the same length as the longer one. Padded "null" values depend on
 		// the prefix of the other version: 0 for '.', "" for '-'
