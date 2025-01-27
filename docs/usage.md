@@ -20,16 +20,16 @@ nav_order: 4
 
 ---
 
-All OSV-Scanner commands consists of an initial package extraction step, and then some actions on the extracted result (e.g. match vulnerabilities, update packages...).
+All OSV-Scanner commands begin with an initial package extraction step, followed by actions on the extracted result (e.g., matching vulnerabilities, updating packages, etc.).
 
 ## Subcommands
 
-OSV-Scanner V2 is broken down into several subcommands:
+OSV-Scanner V2 is divided into several subcommands:
 
 | Subcommand    | Documentation Link                                   | Quick Example                                                          |
 | ------------- | ---------------------------------------------------- | ---------------------------------------------------------------------- |
 | `scan`        | [Further down this page](./usage.md#scan-subcommand) | `osv-scanner scan -r ./my-project-dir/`                                |
-| `scan source` | [Source Project Scanning]()                          | Source scanning is default, so save as above.                          |
+| `scan source` | [Source Project Scanning]()                          | Source scanning is default, so the example is the same as above.       |
 | `scan image`  | [Container Scanning](./container-image-scanning.md)  | `osv-scanner scan image my-docker-img:latest`                          |
 | `fix`         | [Guided Remediation](./guided-remediation.md)        | `osv-scanner fix -M path/to/package.json -L path/to/package-lock.json` |
 
@@ -38,16 +38,16 @@ OSV-Scanner V2 is broken down into several subcommands:
 
 The `scan` subcommand has two subcommands of its own, `source` (default) or `image`.
 
-See the following pages to see more usage details of these commands.
+See the following pages to see more usage details of these commands:
 
 - [Scanning Source](./scan-source.md)
 - [Scanning Container Images](./scan-image.md)
 
 Both of these commands share many flags to configure what happens after the initial package extraction step:
 
-## Post extraction flags:
+## Post-Extraction Flags:
 
-### Saving to file
+### Saving to File
 
 The `--output` flag can be used to save the scan results to a file instead of being printed on the stdout:
 
@@ -55,7 +55,7 @@ The `--output` flag can be used to save the scan results to a file instead of be
 osv-scanner scan -L package-lock.json --output scan-results.txt
 ```
 
-### Setting output format
+### Setting Output Format
 
 The `--format` flag can be used to specify the output format osv-scanner gives.
 
@@ -93,7 +93,7 @@ osv-scanner scan -L package-lock.json --serve
 
 ### Experimental features
 
-There are also some features gated behind experimental flags that apply to all scan commands, see their respective pages for more details
+There are also some features gated behind experimental flags that apply to all scan commands; see their respective pages for more details:
 
 - [`--experimental-offline-vulnerabilities`](./offline-mode.md)
 - [`--experimental-licenses`](./license-scanning.md)

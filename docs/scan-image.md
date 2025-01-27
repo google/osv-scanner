@@ -19,50 +19,54 @@ nav_order: 1
 {:toc}
 </details>
 
-OSV-Scanner supports scanning container images for deployed artifacts with security vulnerabilities.
+OSV-Scanner analyzes container images by extracting package information and matching it against known vulnerability databases. This helps identify potential security risks in your containerized applications.
 
-Optional Requirement:
- - `docker` command to be installed and available on the `PATH`. This is only required if you do not wish to save the image you want to scan onto disk in a compatible format before scanning.
+### Prerequisites
 
-All image scanning is done with the `scan image` subcommand: `osv-scanner scan image`.
+- **Docker (Optional)**: If you want to scan images directly by name (e.g., my-image:latest) without exporting them first, the docker command-line tool must be installed and available in your system's PATH. If you choose to scan exported image archives, Docker is not required.
 
-## Scan docker image
-
-```bash
-osv-scanner scan image image-name:tag
-```
-
-If the image `name:tag` exists locally, it will use that image, otherwise pull from the appropriate image registry. This requires docker to be installed and available to be called by osv-scanner, as we essentially run `docker save name:tag > temporary-file.tar`, then scan the exported tar.
-
-No files within the container image are executed.
-
-## Scan exported image archive:
-
-If you have already exported the image as a docker archive, you can directly scan it with the `--local` flag:
+All image scanning is done with the `scan image` subcommand:
 
 ```bash
-osv-scanner scan image --local ./path/to/img.tar
+osv-scanner scan image
 ```
 
-This does not require any docker or any other dependencies to be installed.
 
-To create the image archive from your local images, this can be done with any of these commands:
+## Scanning Methods
 
-```bash
-# With Docker
-docker save name-of-image:tag > img.tar
-# With Podman
-podman save --format=docker-archive name-of-image:tag > img.tar
-# With other image builders, use the docker archive format to export the tar
-```
+You can scan container images using two primary methods:
 
-## Additional Flags
+1. **Direct Image Scan:** Specify the image name and tag (e.g., `my-image:latest`). OSV-Scanner will attempt to locate the image locally. If not found locally, it will attempt to pull the image from the appropriate registry using the `docker` command.
+    ```bash
+    osv-scanner scan image image-name:tag
+    ```
+    * **How it works:** OSV-Scanner uses `docker save` to export the image to a temporary archive, which is then analyzed. No container code is executed during the scan.
 
-When performing container scanning, no other targets other than the container itself can be specified. However, you can still perform all the configuration flags specified on the [Usage](./usage.md) page.
+2. **Scan from Exported Image Archive:** If you have already exported your container image as a Docker archive (`.tar` file), you can scan it directly using the `--local` flag. This method does not require Docker to be installed.
+    ```bash
+    osv-scanner scan image --local ./path/to/my-image.tar
+    ```
+   * **How to create an image archive:** You can create an image archive using the following commands:
+      ```bash
+      # Using Docker
+      docker save my-image:latest > my-image.tar
 
-# Output
+      # Using Podman
+      podman save --format=docker-archive my-image:latest > my-image.tar
 
-By default, because of the large number of vulnerabilities that many images have, we do not show each vulnerability individually, but group them together into packages.
+      # Other image tools: Use the docker archive format to export the tar
+      ```
+
+### Usage Notes
+
+* **No other scan targets:** When using `scan image`, you cannot specify other scan targets (e.g., directories or lockfiles).
+
+* **Configuration Flags:** All the global configuration flags available for the `scan` command (as described in the [Usage documentation](https://www.google.com/url?sa=E&source=gmail&q=./usage.md)) can be used with the `scan image` subcommand. This includes flags for output format, verbosity, config files, and experimental features.
+
+
+## Output
+
+By default, OSV-Scanner provides a summarized output of the scan results, grouping vulnerabilities by package. This is designed to handle the large number of vulnerabilities often found in container images.
 
 <details markdown="1">
 <summary><b>Sample table output</b></summary>
@@ -113,12 +117,16 @@ Filtered Vulnerabilities:
 
 </details>
 
----
 
-To view all the vulnerabilities, and get a more detailed container image report, try out html output format. It can be activated by either using the `--format=html` flag, or via the `--serve` flag to host the output on `localhost:8000`.
+### Detailed Output:
 
-See more details of the html output on the [output page](./output.md).
+For a more detailed view of vulnerabilities, including individual vulnerability details, use the HTML output format. You can enable it using:
 
+  * `--format=html`: This will output the results to an HTML file.
+
+  * `--serve`: This will generate an HTML report and host it locally on `localhost:8000`.
+
+  See the [Output documentation](https://www.google.com/url?sa=E&source=gmail&q=./output.md) for more information on output formats.
 
 <details markdown="1">
 <summary><b>Sample HTML output</b></summary>
