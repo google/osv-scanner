@@ -248,7 +248,7 @@ func (e PnpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 }
 
 var PnpmExtractor = PnpmLockExtractor{
-	WithMatcher{Matcher: PackageJSONMatcher{}},
+	WithMatcher{Matchers: []Matcher{&PackageJSONMatcher{}}},
 }
 
 //nolint:gochecknoinits

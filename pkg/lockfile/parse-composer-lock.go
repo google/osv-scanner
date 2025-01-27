@@ -73,7 +73,7 @@ func (e ComposerLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 }
 
 var ComposerExtractor = ComposerLockExtractor{
-	WithMatcher{Matcher: ComposerMatcher{}},
+	WithMatcher{Matchers: []Matcher{&ComposerMatcher{}}},
 }
 
 //nolint:gochecknoinits

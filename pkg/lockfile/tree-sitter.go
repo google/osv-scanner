@@ -28,20 +28,22 @@ type SourceContext struct {
 }
 
 func (sc SourceContext) ExtractTextValues(node *treesitter.Node) ([]string, error) {
-	if node.GrammarName() == "simple_symbol" || node.GrammarName() == "string" {
+	if node.Kind() == "simple_symbol" || node.Kind() == "string" {
 		textValue, err := sc.ExtractTextValue(node)
 		if err != nil {
 			return nil, err
 		}
 
 		return []string{textValue}, nil
-	} else if _, skip := knownGrammarSeparators[node.GrammarName()]; skip {
+	} else if _, skip := knownGrammarSeparators[node.Kind()]; skip {
 		return nil, nil
-	} else if node.GrammarName() == "array" || node.GrammarName() == "argument_list" {
+	} else if node.Kind() == "array" || node.Kind() == "argument_list" {
 		groups := make([]string, 0)
-		for i := range node.ChildCount() {
-			childNode := node.Child(i)
-			extractedGroups, err := sc.ExtractTextValues(childNode)
+
+		cursor := node.Walk()
+		defer cursor.Close()
+		for _, childNode := range node.Children(cursor) {
+			extractedGroups, err := sc.ExtractTextValues(&childNode)
 			if err != nil {
 				return nil, err
 			}
@@ -51,28 +53,33 @@ func (sc SourceContext) ExtractTextValues(node *treesitter.Node) ([]string, erro
 		return groups, nil
 	}
 
-	return nil, errors.New("found unsupported grammar type=" + node.GrammarName())
+	return nil, errors.New("found unsupported grammar type=" + node.Kind())
 }
 
 func (sc SourceContext) ExtractTextValue(node *treesitter.Node) (string, error) {
-	if node.GrammarName() == "simple_symbol" {
+	if node.Kind() == "simple_symbol" {
 		// Symbols are prefixed with a colon, so we need to remove it to get the clean text value
 		return strings.TrimPrefix(node.Utf8Text(sc.sourceFileContent), ":"), nil
-	} else if node.GrammarName() == "string" {
-		// Strings are wrapped in quotes, so we need to extract the text from the inner node
-		return node.Child(1).Utf8Text(sc.sourceFileContent), nil
-	} else if node.GrammarName() == "identifier" || node.GrammarName() == "string_content" {
+	} else if node.Kind() == "string" {
+		// Strings are wrapped in quotes, so we need to extract the text from the inner node and check if they have content
+		stringContentNode := node.NamedChild(0)
+		if stringContentNode == nil {
+			return "", nil
+		}
+
+		return stringContentNode.Utf8Text(sc.sourceFileContent), nil
+	} else if node.Kind() == "identifier" || node.Kind() == "string_content" {
 		// Strings are wrapped in quotes, so we need to extract the text from the inner node
 		return node.Utf8Text(sc.sourceFileContent), nil
 	}
 
-	return "", errors.New("found unsupported grammar type='" + node.GrammarName() + "' to extract text value")
+	return "", errors.New("found unsupported grammar type='" + node.Kind() + "' to extract text value")
 }
 
 type ParseResult struct {
-	ctx  *SourceContext
+	Ctx  *SourceContext
 	tree *treesitter.Tree
-	node *Node
+	Node *Node
 }
 
 func ParseFile(sourceFile DepFile, language *treesitter.Language) (*ParseResult, error) {
@@ -90,6 +97,9 @@ func ParseFile(sourceFile DepFile, language *treesitter.Language) (*ParseResult,
 	}
 
 	tree := parser.Parse(sourceFileContent, nil)
+	if tree.RootNode().HasError() {
+		return nil, errors.New("Error parsing file=" + sourceFile.Path())
+	}
 
 	ctx := &SourceContext{
 		language,
@@ -97,11 +107,11 @@ func ParseFile(sourceFile DepFile, language *treesitter.Language) (*ParseResult,
 	}
 
 	return &ParseResult{
-		ctx:  ctx,
+		Ctx:  ctx,
 		tree: tree,
-		node: &Node{
-			ctx:  ctx,
-			node: tree.RootNode(),
+		Node: &Node{
+			Ctx:    ctx,
+			TSNode: tree.RootNode(),
 		},
 	}, nil
 }
@@ -111,12 +121,12 @@ func (p ParseResult) Close() {
 }
 
 type Node struct {
-	ctx  *SourceContext
-	node *treesitter.Node
+	Ctx    *SourceContext
+	TSNode *treesitter.Node
 }
 
 func (n Node) Query(queryString string, onMatch func(match *MatchResult) error) error {
-	query, err := treesitter.NewQuery(n.ctx.language, queryString)
+	query, err := treesitter.NewQuery(n.Ctx.language, queryString)
 	if err != nil {
 		return err
 	}
@@ -125,7 +135,7 @@ func (n Node) Query(queryString string, onMatch func(match *MatchResult) error) 
 	queryCursor := treesitter.NewQueryCursor()
 	defer queryCursor.Close()
 
-	matches := queryCursor.Matches(query, n.node, n.ctx.sourceFileContent)
+	matches := queryCursor.Matches(query, n.TSNode, n.Ctx.sourceFileContent)
 	for {
 		match := matches.Next()
 		if match == nil {
@@ -133,7 +143,7 @@ func (n Node) Query(queryString string, onMatch func(match *MatchResult) error) 
 		}
 
 		err := onMatch(&MatchResult{
-			ctx:   n.ctx,
+			Ctx:   n.Ctx,
 			query: query,
 			match: match,
 		})
@@ -146,7 +156,7 @@ func (n Node) Query(queryString string, onMatch func(match *MatchResult) error) 
 }
 
 type MatchResult struct {
-	ctx   *SourceContext
+	Ctx   *SourceContext
 	query *treesitter.Query
 	match *treesitter.QueryMatch
 }
@@ -156,12 +166,26 @@ func (m MatchResult) FindFirstByName(captureName string) *Node {
 		for _, capture := range m.match.Captures {
 			if uint(capture.Index) == idx {
 				return &Node{
-					ctx:  m.ctx,
-					node: &capture.Node,
+					Ctx:    m.Ctx,
+					TSNode: &capture.Node,
 				}
 			}
 		}
 	}
 
 	return nil
+}
+
+func (m MatchResult) FindByName(captureName string) []*Node {
+	var nodes []*Node
+	if idx, exists := m.query.CaptureIndexForName(captureName); exists {
+		for _, node := range m.match.NodesForCaptureIndex(idx) {
+			nodes = append(nodes, &Node{
+				Ctx:    m.Ctx,
+				TSNode: &node,
+			})
+		}
+	}
+
+	return nodes
 }

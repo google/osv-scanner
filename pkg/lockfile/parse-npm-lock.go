@@ -334,7 +334,7 @@ func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 }
 
 var NpmExtractor = NpmLockExtractor{
-	WithMatcher{Matcher: PackageJSONMatcher{}},
+	WithMatcher{Matchers: []Matcher{&PackageJSONMatcher{}}},
 }
 
 //nolint:gochecknoinits

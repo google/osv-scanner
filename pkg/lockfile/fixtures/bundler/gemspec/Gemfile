@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+
+gem 'json', '~> 2.9', '>= 2.9.1', group: 'development'
+
+gemspec

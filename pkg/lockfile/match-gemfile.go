@@ -49,13 +49,13 @@ func (matcher GemfileMatcher) Match(sourceFile DepFile, packages []PackageDetail
 	}
 	defer treeResult.Close()
 
-	rootGems, err := findGems(treeResult.node)
+	rootGems, err := findGems(treeResult.Node)
 	if err != nil {
 		return err
 	}
 	enrichPackagesWithLocation(sourceFile, rootGems, packagesByName)
 
-	remainingGems, err := findGroupedGems(treeResult.node)
+	remainingGems, err := findGroupedGems(treeResult.Node)
 	if err != nil {
 		return err
 	}
@@ -65,6 +65,8 @@ func (matcher GemfileMatcher) Match(sourceFile DepFile, packages []PackageDetail
 }
 
 func findGems(node *Node) ([]gemMetadata, error) {
+	// Matches method calls to `gem`
+	// extracting the gem dependency name and gem dependency requirement
 	gemQueryString := `(
 		(call
 			method: (identifier) @method_name
@@ -90,7 +92,7 @@ func findGems(node *Node) ([]gemMetadata, error) {
 		callNode := match.FindFirstByName("gem_call")
 
 		dependencyNameNode := match.FindFirstByName("gem_name")
-		dependencyName, err := node.ctx.ExtractTextValue(dependencyNameNode.node)
+		dependencyName, err := node.Ctx.ExtractTextValue(dependencyNameNode.TSNode)
 		if err != nil {
 			return err
 		}
@@ -105,15 +107,15 @@ func findGems(node *Node) ([]gemMetadata, error) {
 		metadata := gemMetadata{
 			name:        dependencyName,
 			groups:      groups,
-			blockLine:   models.Position{Start: int(callNode.node.StartPosition().Row) + 1, End: int(callNode.node.EndPosition().Row) + 1},
-			blockColumn: models.Position{Start: int(callNode.node.StartPosition().Column) + 1, End: int(callNode.node.EndPosition().Column) + 1},
-			nameLine:    models.Position{Start: int(dependencyNameNode.node.StartPosition().Row) + 1, End: int(dependencyNameNode.node.EndPosition().Row) + 1},
-			nameColumn:  models.Position{Start: int(dependencyNameNode.node.StartPosition().Column) + 1, End: int(dependencyNameNode.node.EndPosition().Column) + 1},
+			blockLine:   models.Position{Start: int(callNode.TSNode.StartPosition().Row) + 1, End: int(callNode.TSNode.EndPosition().Row) + 1},
+			blockColumn: models.Position{Start: int(callNode.TSNode.StartPosition().Column) + 1, End: int(callNode.TSNode.EndPosition().Column) + 1},
+			nameLine:    models.Position{Start: int(dependencyNameNode.TSNode.StartPosition().Row) + 1, End: int(dependencyNameNode.TSNode.EndPosition().Row) + 1},
+			nameColumn:  models.Position{Start: int(dependencyNameNode.TSNode.StartPosition().Column) + 1, End: int(dependencyNameNode.TSNode.EndPosition().Column) + 1},
 		}
 
 		if requirementNode != nil {
-			metadata.versionLine = &models.Position{Start: int(requirementNode.node.StartPosition().Row) + 1, End: int(requirementNode.node.EndPosition().Row) + 1}
-			metadata.versionColumn = &models.Position{Start: int(requirementNode.node.StartPosition().Column) + 1, End: int(requirementNode.node.EndPosition().Column) + 1}
+			metadata.versionLine = &models.Position{Start: int(requirementNode.TSNode.StartPosition().Row) + 1, End: int(requirementNode.TSNode.EndPosition().Row) + 1}
+			metadata.versionColumn = &models.Position{Start: int(requirementNode.TSNode.StartPosition().Column) + 1, End: int(requirementNode.TSNode.EndPosition().Column) + 1}
 		}
 
 		gems = append(gems, metadata)
@@ -128,6 +130,8 @@ func findGems(node *Node) ([]gemMetadata, error) {
 }
 
 func findGroupedGems(node *Node) ([]gemMetadata, error) {
+	// Matches method calls to `group` with a block
+	// extracting the groups and the block (which will contain the calls to `gem`)
 	groupQueryString := `(
 		(call
 			method: (identifier) @method_name
@@ -149,7 +153,7 @@ func findGroupedGems(node *Node) ([]gemMetadata, error) {
 	gems := make([]gemMetadata, 0)
 	err := node.Query(groupQueryString, func(match *MatchResult) error {
 		groupKeysNode := match.FindFirstByName("group_keys")
-		groups, err := node.ctx.ExtractTextValues(groupKeysNode.node)
+		groups, err := node.Ctx.ExtractTextValues(groupKeysNode.TSNode)
 		if err != nil {
 			return err
 		}
@@ -177,6 +181,8 @@ func findGroupedGems(node *Node) ([]gemMetadata, error) {
 }
 
 func findGroupsInPairs(node *Node) ([]string, error) {
+	// Matches pairs of key-value where the key is "group"
+	// This can be a simple pair or a pair used inside other structures like a hash
 	pairQuery := `(
 		(pair
 			key: [(hash_key_symbol) (simple_symbol)] @pair_key
@@ -188,7 +194,7 @@ func findGroupsInPairs(node *Node) ([]string, error) {
 	var groups []string
 	err := node.Query(pairQuery, func(match *MatchResult) error {
 		pairValueNode := match.FindFirstByName("pair_value")
-		pairGroups, err := node.ctx.ExtractTextValues(pairValueNode.node)
+		pairGroups, err := node.Ctx.ExtractTextValues(pairValueNode.TSNode)
 		if err != nil {
 			return err
 		}

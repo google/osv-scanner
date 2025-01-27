@@ -158,7 +158,7 @@ func TestParseGradleVerificationMetadata_OnePackage_MatcherFailed(t *testing.T) 
 
 	// Mock buildGradleMatcher to fail
 	matcherError := errors.New("buildGradleMatcher failed")
-	lockfile.GradleVerificationExtractor.Matcher = FailingMatcher{Error: matcherError}
+	lockfile.GradleVerificationExtractor.Matchers = []lockfile.Matcher{FailingMatcher{Error: matcherError}}
 
 	path := filepath.FromSlash(filepath.Join(dir, "fixtures/gradle-verification-metadata/one-package.xml"))
 	packages, err := lockfile.ParseGradleVerificationMetadata(path)

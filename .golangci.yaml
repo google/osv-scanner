@@ -25,6 +25,7 @@ linters:
     - goconst          # not everything should be a constant
     - musttag
     - nilnil
+    - exportloopref    # not needed since we are using go >= 1.22
   presets:
     - bugs
     - comment

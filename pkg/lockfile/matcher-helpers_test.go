@@ -6,20 +6,20 @@ import (
 
 func MockAllMatchers() {
 	// package.json
-	lockfile.YarnExtractor.Matcher = SuccessfulMatcher{}
-	lockfile.PnpmExtractor.Matcher = SuccessfulMatcher{}
-	lockfile.NpmExtractor.Matcher = SuccessfulMatcher{}
+	lockfile.YarnExtractor.Matchers = []lockfile.Matcher{SuccessfulMatcher{}}
+	lockfile.PnpmExtractor.Matchers = []lockfile.Matcher{SuccessfulMatcher{}}
+	lockfile.NpmExtractor.Matchers = []lockfile.Matcher{SuccessfulMatcher{}}
 	// build.gradle
-	lockfile.GradleExtractor.Matcher = SuccessfulMatcher{}
-	lockfile.GradleVerificationExtractor.Matcher = SuccessfulMatcher{}
+	lockfile.GradleExtractor.Matchers = []lockfile.Matcher{SuccessfulMatcher{}}
+	lockfile.GradleVerificationExtractor.Matchers = []lockfile.Matcher{SuccessfulMatcher{}}
 	// Pipfile (pipenv)
-	lockfile.PipenvExtractor.Matcher = SuccessfulMatcher{}
+	lockfile.PipenvExtractor.Matchers = []lockfile.Matcher{SuccessfulMatcher{}}
 	// pyproject.toml (poetry)
-	lockfile.PoetryExtractor.Matcher = SuccessfulMatcher{}
+	lockfile.PoetryExtractor.Matchers = []lockfile.Matcher{SuccessfulMatcher{}}
 	// Gemfile (ruby)
-	lockfile.GemfileExtractor.Matcher = SuccessfulMatcher{}
+	lockfile.GemfileExtractor.Matchers = []lockfile.Matcher{SuccessfulMatcher{}}
 	// Composer composer.json
-	lockfile.ComposerExtractor.Matcher = SuccessfulMatcher{}
+	lockfile.ComposerExtractor.Matchers = []lockfile.Matcher{SuccessfulMatcher{}}
 }
 
 type SuccessfulMatcher struct{}

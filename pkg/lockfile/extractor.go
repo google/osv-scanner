@@ -41,20 +41,20 @@ type Extractor interface {
 }
 
 type WithMatcher struct {
-	Matcher Matcher
+	Matchers []Matcher
 }
 
 type ExtractorWithMatcher interface {
 	Extractor
-	GetMatcher() Matcher
+	GetMatchers() []Matcher
 }
 
 type ArtifactExtractor interface {
 	GetArtifact(f DepFile) (*models.ScannedArtifact, error)
 }
 
-func (e WithMatcher) GetMatcher() Matcher {
-	return e.Matcher
+func (e WithMatcher) GetMatchers() []Matcher {
+	return e.Matchers
 }
 
 // A LocalFile represents a file that exists on the local filesystem.
@@ -111,10 +111,12 @@ func ExtractFromFile(pathToLockfile string, extractor Extractor) ([]PackageDetai
 
 	// Match extracted packages with source file to enrich their details
 	if e, ok := extractor.(ExtractorWithMatcher); ok {
-		if matcher := e.GetMatcher(); matcher != nil {
-			matchError := matchWithFile(f, packages, matcher)
-			if matchError != nil {
-				_, _ = fmt.Fprintf(os.Stderr, "there was an error matching the source file: %s\n", matchError.Error())
+		if matchers := e.GetMatchers(); len(matchers) > 0 {
+			for _, matcher := range matchers {
+				matchError := matchWithFile(f, packages, matcher)
+				if matchError != nil {
+					_, _ = fmt.Fprintf(os.Stderr, "there was an error matching the source file: %s\n", matchError.Error())
+				}
 			}
 		}
 	}

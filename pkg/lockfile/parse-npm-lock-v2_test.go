@@ -102,7 +102,7 @@ func TestParseNpmLock_v2_OnePackage_MatcherFailed(t *testing.T) {
 
 	// Mock packageJSONMatcher to fail
 	matcherError := errors.New("packageJSONMatcher failed")
-	lockfile.NpmExtractor.Matcher = FailingMatcher{Error: matcherError}
+	lockfile.NpmExtractor.Matchers = []lockfile.Matcher{FailingMatcher{Error: matcherError}}
 
 	path := filepath.FromSlash(filepath.Join(dir, "fixtures/npm/one-package.v2.json"))
 	packages, err := lockfile.ParseNpmLock(path)

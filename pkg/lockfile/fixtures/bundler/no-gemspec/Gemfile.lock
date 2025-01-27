@@ -1,0 +1,27 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    base64 (0.2.0)
+    thor (1.3.2)
+    timeout (0.4.3)
+    useragent (0.16.11)
+    websocket-driver (0.7.7)
+      base64
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.5)
+    zeitwerk (2.7.1)
+
+PLATFORMS
+  aarch64-linux
+  ruby
+
+DEPENDENCIES
+  thor (= 1.3.2)
+  timeout (= 0.4.3)
+  useragent (= 0.16.11)
+  websocket-driver
+  websocket-extensions (= 0.1.5)
+  zeitwerk (= 2.7.1)
+
+BUNDLED WITH
+   2.5.11

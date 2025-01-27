@@ -49,7 +49,7 @@ func (e GradleVerificationMetadataExtractor) Extract(f DepFile) ([]PackageDetail
 }
 
 var GradleVerificationExtractor = GradleVerificationMetadataExtractor{
-	WithMatcher{Matcher: BuildGradleMatcher{}},
+	WithMatcher{Matchers: []Matcher{&BuildGradleMatcher{}}},
 }
 
 //nolint:gochecknoinits
