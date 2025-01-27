@@ -34,3 +34,7 @@ func (p *FilePosition) SetColumnEnd(position int) {
 func (p *FilePosition) GetNestedDependencies() map[string]*FilePosition {
 	return nil
 }
+
+func (p *FilePosition) IsStartSet() bool {
+	return p.Line.Start != 0 && p.Column.Start != 0
+}

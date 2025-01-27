@@ -1,0 +1,7 @@
+<root>
+  <testCase><!-- The value is hard to read --> va<!-- When we have
+comment in the middle -->lue
+    <!-- and of course one after -->
+  </testCase>
+</root>
+

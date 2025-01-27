@@ -46,14 +46,6 @@ func ExtractDelimitedStringPositionInBlock(block []string, str string, blockStar
 	return nil
 }
 
-func ExtractRegexpPositionInBlock(block []string, str string, blockStartLine int) *models.FilePosition {
-	return ExtractDelimitedRegexpPositionInBlock(block, str, blockStartLine, "", "")
-}
-
-func QuoteMetaDelimiters(prefix string, suffix string) (string, string) {
-	return cachedregexp.QuoteMeta(prefix), cachedregexp.QuoteMeta(suffix)
-}
-
 func ExtractDelimitedRegexpPositionInBlock(block []string, str string, blockStartLine int, prefix string, suffix string) *models.FilePosition {
 	// We name the group we are looking for in order to identify it after in the matches
 	// This is required due to the fact that prefix and suffix could also be regex and contain other groups

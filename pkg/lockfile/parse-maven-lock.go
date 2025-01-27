@@ -14,7 +14,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/utility/fileposition"
 	"golang.org/x/exp/maps"
 
 	"github.com/google/osv-scanner/internal/utility/filereader"
@@ -67,7 +66,7 @@ func NewMavenRegistryAPIClient(url string) (DepFile, error) {
 	}, nil
 }
 
-func (m *MavenRegistryProject) Open(path string) (NestedDepFile, error) {
+func (m *MavenRegistryProject) Open(_ string) (NestedDepFile, error) {
 	panic("Should not be called")
 }
 
@@ -76,11 +75,11 @@ func (m *MavenRegistryProject) Path() string {
 }
 
 type MavenLockDependency struct {
-	XMLName    xml.Name `xml:"dependency"`
-	GroupID    string   `xml:"groupId"`
-	ArtifactID string   `xml:"artifactId"`
-	Version    string   `xml:"version"`
-	Scope      string   `xml:"scope"`
+	XMLName    xml.Name            `xml:"dependency"`
+	GroupID    models.StringHolder `xml:"groupId"`
+	ArtifactID models.StringHolder `xml:"artifactId"`
+	Version    models.StringHolder `xml:"version"`
+	Scope      string              `xml:"scope"`
 	SourceFile string
 	models.FilePosition
 }
@@ -97,8 +96,8 @@ type MavenLockDependencyHolder struct {
 	Dependencies []MavenLockDependency `xml:"dependency"`
 }
 
-func buildProjectProperties(lockfile MavenLockFile) map[string]string {
-	return map[string]string{
+func buildProjectProperties(lockfile MavenLockFile) map[string]models.StringHolder {
+	return map[string]models.StringHolder{
 		"project.version":      lockfile.Version,
 		"project.modelVersion": lockfile.ModelVersion,
 		"project.groupId":      lockfile.GroupID,
@@ -110,8 +109,8 @@ func buildProjectProperties(lockfile MavenLockFile) map[string]string {
  * You can see the interpolationReg working here : https://regex101.com/r/inAPiN/2
  * You can see the isMixedReg working here : https://regex101.com/r/KG4tS6/1
  */
-func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fieldToResolve string) (string, *models.FilePosition) {
-	var position *models.FilePosition
+func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fieldToResolve string) (string, models.FilePosition) {
+	var position models.FilePosition
 	variablesCount := 0
 
 	interpolationReg := cachedregexp.MustCompile(`\${([^}]+)}`)
@@ -123,15 +122,13 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 		variablesCount += 1
 		propStr := string(bytes)
 		propName := propStr[2 : len(propStr)-1]
-		propOpenTag := fmt.Sprintf("<%s>", propName)
-		propCloseTag := fmt.Sprintf("</%s>", propName)
 
 		var lockProperty MavenLockProperty
-		var property string
+		var property models.StringHolder
 		var ok bool
 
 		if strings.HasPrefix(propName, "pom.") {
-			// the pom. prefix is the legacy value of project. prefix even if it is deprecated, it is still supported
+			// the pom. prefix is the legacy Value of project. prefix even if it is deprecated, it is still supported
 			propName = "project" + strings.TrimPrefix(propName, "pom")
 		}
 
@@ -144,22 +141,27 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 			if strings.HasSuffix(propName, "version") {
 				projectPropertySourceFile = lockfile.ProjectVersionSourceFile
 			}
-			position = fileposition.ExtractStringPositionInBlock(lockfile.Lines[projectPropertySourceFile], property, 1)
-			if position != nil {
+			position = property.FilePosition
+			if position != (models.FilePosition{}) {
 				position.Filename = projectPropertySourceFile
 			}
 		} else {
 			lockProperty, ok = lockfile.Properties.m[propName]
 			if ok {
 				property = lockProperty.Property
-				if interpolationReg.MatchString(property) {
+				if interpolationReg.MatchString(property.Value) {
 					// Property uses other properties
-					property, position = mld.resolvePropertiesValue(lockfile, property)
+					var propertyStr string
+					propertyStr, position = mld.resolvePropertiesValue(lockfile, property.Value)
+					property = models.StringHolder{
+						Value: propertyStr,
+					}
+					if position != (models.FilePosition{}) {
+						property.FilePosition = position
+					}
 				} else {
-					// We should locate the property in its source File
-					propOpenTag, propCloseTag = fileposition.QuoteMetaDelimiters(propOpenTag, propCloseTag)
-					position = fileposition.ExtractDelimitedRegexpPositionInBlock(lockfile.Lines[lockProperty.SourceFile], ".*", 1, propOpenTag, propCloseTag)
-					if position != nil {
+					position = lockProperty.Property.FilePosition
+					if position != (models.FilePosition{}) {
 						position.Filename = lockProperty.SourceFile
 					}
 				}
@@ -171,62 +173,61 @@ func (mld MavenLockDependency) resolvePropertiesValue(lockfile MavenLockFile, fi
 				os.Stderr,
 				"Failed to resolve a property. fieldToResolve \"%s\" could not be found for \"%s\" (%s)\n",
 				string(bytes),
-				lockfile.GroupID+":"+lockfile.ArtifactID,
+				lockfile.GroupID.Value+":"+lockfile.ArtifactID.Value,
 				mld.SourceFile,
 			)
 
 			return []byte("")
 		}
 
-		return []byte(property)
+		return []byte(property.Value)
 	})
 
 	if variablesCount > 1 || isMixed {
-		position = nil
+		position = models.FilePosition{}
 	}
 
 	return string(result), position
 }
 
-func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) (string, *models.FilePosition) {
+func (mld MavenLockDependency) ResolveVersion(lockfile MavenLockFile) (string, models.FilePosition) {
 	versionRequirementReg := cachedregexp.MustCompile(`[[(]?(.*?)(?:,|[)\]]|$)`)
-	version, position := mld.resolvePropertiesValue(lockfile, mld.Version)
+	version, position := mld.resolvePropertiesValue(lockfile, mld.Version.Value)
 	results := versionRequirementReg.FindStringSubmatch(version)
 
 	if results == nil || results[1] == "" {
-		return "", nil
+		return "", models.FilePosition{}
 	}
 
 	return results[1], position
 }
 
-func (mld MavenLockDependency) ResolveArtifactID(lockfile MavenLockFile) (string, *models.FilePosition) {
-	return mld.resolvePropertiesValue(lockfile, mld.ArtifactID)
+func (mld MavenLockDependency) ResolveArtifactID(lockfile MavenLockFile) (string, models.FilePosition) {
+	return mld.resolvePropertiesValue(lockfile, mld.ArtifactID.Value)
 }
 
-func (mld MavenLockDependency) ResolveGroupID(lockfile MavenLockFile) (string, *models.FilePosition) {
-	return mld.resolvePropertiesValue(lockfile, mld.GroupID)
+func (mld MavenLockDependency) ResolveGroupID(lockfile MavenLockFile) (string, models.FilePosition) {
+	return mld.resolvePropertiesValue(lockfile, mld.GroupID.Value)
 }
 
 type MavenLockFile struct {
 	XMLName                  xml.Name                  `xml:"project"`
 	Parent                   MavenLockParent           `xml:"parent"`
-	Version                  string                    `xml:"version"`
-	ModelVersion             string                    `xml:"modelVersion"`
-	GroupID                  string                    `xml:"groupId"`
-	ArtifactID               string                    `xml:"artifactId"`
+	Version                  models.StringHolder       `xml:"version"`
+	ModelVersion             models.StringHolder       `xml:"modelVersion"`
+	GroupID                  models.StringHolder       `xml:"groupId"`
+	ArtifactID               models.StringHolder       `xml:"artifactId"`
 	Properties               MavenLockProperties       `xml:"properties"`
 	Dependencies             MavenLockDependencyHolder `xml:"dependencies"`
 	ManagedDependencies      MavenLockDependencyHolder `xml:"dependencyManagement>dependencies"`
 	MainSourceFile           string
 	ProjectVersionSourceFile string
-	Lines                    map[string][]string
 }
 
 const MavenEcosystem Ecosystem = "Maven"
 
 type MavenLockProperty struct {
-	Property   string
+	Property   models.StringHolder
 	SourceFile string
 }
 
@@ -245,7 +246,7 @@ func (p *MavenLockProperties) UnmarshalXML(d *xml.Decoder, start xml.StartElemen
 
 		switch tt := t.(type) {
 		case xml.StartElement:
-			var s string
+			var s models.StringHolder
 
 			if err := d.DecodeElement(&s, &tt); err != nil {
 				return fmt.Errorf("%w", err)
@@ -313,26 +314,23 @@ func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentL
 	parentLockfile.Parent = MavenLockParent{
 		XMLName:      childLockfile.Parent.XMLName,
 		RelativePath: childLockfile.Parent.RelativePath,
-		GroupID:      parentLockfile.GroupID,
-		ArtifactID:   parentLockfile.ArtifactID,
-		Version:      parentLockfile.Version,
+		GroupID:      parentLockfile.GroupID.Value,
+		ArtifactID:   parentLockfile.ArtifactID.Value,
+		Version:      parentLockfile.Version.Value,
 	}
 	// The following fields are not mandatory, in case they are not defined in the child, the one from the parent should be kept
-	if len(childLockfile.ArtifactID) > 0 {
+	if len(childLockfile.ArtifactID.Value) > 0 {
 		parentLockfile.ArtifactID = childLockfile.ArtifactID
 	}
-	if len(childLockfile.GroupID) > 0 {
+	if len(childLockfile.GroupID.Value) > 0 {
 		parentLockfile.GroupID = childLockfile.GroupID
 	}
-	if len(childLockfile.ModelVersion) > 0 {
+	if len(childLockfile.ModelVersion.Value) > 0 {
 		parentLockfile.ModelVersion = childLockfile.ModelVersion
 	}
 
-	// Merge lock File lines
-	maps.Copy(parentLockfile.Lines, childLockfile.Lines)
-
 	// If child lockfile overrides the project version, let's use it instead
-	if len(childLockfile.Version) > 0 {
+	if len(childLockfile.Version.Value) > 0 {
 		parentLockfile.Version = childLockfile.Version
 		parentLockfile.ProjectVersionSourceFile = childLockfile.ProjectVersionSourceFile
 	}
@@ -429,10 +427,6 @@ func (e MavenLockExtractor) decodeMavenFile(f DepFile, depth int, visitedPath ma
 		return nil, err
 	}
 
-	if parsedLockfile.Lines == nil {
-		parsedLockfile.Lines = map[string][]string{}
-	}
-	parsedLockfile.Lines[f.Path()] = fileposition.BytesToLines(b)
 	parsedLockfile.MainSourceFile = f.Path()
 	parsedLockfile.ProjectVersionSourceFile = f.Path()
 
@@ -523,22 +517,15 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Column:   lockPackage.Column,
 			Filename: lockPackage.SourceFile,
 		}
-		block := parsedLockfile.Lines[lockPackage.SourceFile][lockPackage.Line.Start-1 : lockPackage.Line.End]
 
-		// A position is null after resolving the value in case the value is directly defined in the block
-		if artifactPosition == nil {
-			openTag, closeTag := fileposition.QuoteMetaDelimiters("<artifactId>", "</artifactId>")
-			artifactPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, openTag, closeTag)
-			if artifactPosition != nil {
-				artifactPosition.Filename = lockPackage.SourceFile
-			}
+		// A position is null after resolving the Value in case the Value is directly defined in the block
+		if artifactPosition == (models.FilePosition{}) {
+			artifactPosition = lockPackage.ArtifactID.FilePosition
+			artifactPosition.Filename = lockPackage.SourceFile
 		}
-		if versionPosition == nil {
-			openTag, closeTag := fileposition.QuoteMetaDelimiters("<version>", "</version>")
-			versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, openTag, closeTag)
-			if versionPosition != nil {
-				versionPosition.Filename = lockPackage.SourceFile
-			}
+		if versionPosition == (models.FilePosition{}) {
+			versionPosition = lockPackage.Version.FilePosition
+			versionPosition.Filename = lockPackage.SourceFile
 		}
 
 		pkgDetails := PackageDetails{
@@ -547,8 +534,8 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			Ecosystem:       MavenEcosystem,
 			CompareAs:       MavenEcosystem,
 			BlockLocation:   blockLocation,
-			NameLocation:    artifactPosition,
-			VersionLocation: versionPosition,
+			NameLocation:    &artifactPosition,
+			VersionLocation: &versionPosition,
 			PackageManager:  models.Maven,
 			IsDirect:        true,
 		}
@@ -569,22 +556,17 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 			continue
 		}
 
-		block := parsedLockfile.Lines[lockPackage.SourceFile][lockPackage.Line.Start-1 : lockPackage.Line.End]
-
 		if pkgDetails.IsVersionEmpty() {
 			resolvedVersion, versionPosition := lockPackage.ResolveVersion(*parsedLockfile)
 
-			// A position is null after resolving the value in case the value is directly defined in the block
-			if versionPosition == nil {
-				openTag, closeTag := fileposition.QuoteMetaDelimiters("<version>", "</version>")
-				versionPosition = fileposition.ExtractDelimitedRegexpPositionInBlock(block, ".*", lockPackage.Line.Start, openTag, closeTag)
-				if versionPosition != nil {
-					versionPosition.Filename = lockPackage.SourceFile
-				}
+			// A position is null after resolving the Value in case the Value is directly defined in the block
+			if versionPosition == (models.FilePosition{}) {
+				versionPosition = lockPackage.Version.FilePosition
 			}
+			versionPosition.Filename = lockPackage.SourceFile
 
 			pkgDetails.Version = resolvedVersion
-			pkgDetails.VersionLocation = versionPosition
+			pkgDetails.VersionLocation = &versionPosition
 		}
 		if scope := strings.TrimSpace(lockPackage.Scope); scope != "" && scope != "compile" {
 			// Only append non-default scope (compile is the default scope).
@@ -604,12 +586,12 @@ func (e MavenLockExtractor) GetArtifact(f DepFile) (*models.ScannedArtifact, err
 		return nil, err
 	}
 
-	artifactName := parsedLockfile.GroupID + ":" + parsedLockfile.ArtifactID
+	artifactName := parsedLockfile.GroupID.Value + ":" + parsedLockfile.ArtifactID.Value
 
 	artifact := models.ScannedArtifact{
 		ArtifactDetail: models.ArtifactDetail{
 			Name:      artifactName,
-			Version:   parsedLockfile.Version,
+			Version:   parsedLockfile.Version.Value,
 			Filename:  f.Path(),
 			Ecosystem: models.EcosystemMaven,
 		},

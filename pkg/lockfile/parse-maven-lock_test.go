@@ -102,6 +102,132 @@ func TestParseMavenLock_NoPackages(t *testing.T) {
 	expectPackages(t, packages, []lockfile.PackageDetails{})
 }
 
+func TestParseMavenLock_ShouldRemoveComments(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/maven/with-comment.xml"))
+	packages, err := lockfile.ParseMavenLock(path)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:           "org.apache.maven:maven-artifact",
+			Version:        "1.0.0",
+			PackageManager: models.Maven,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 3, End: 15},
+				Column:   models.Position{Start: 5, End: 18},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 8, End: 9},
+				Column:   models.Position{Start: 10, End: 22},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 13, End: 13},
+				Column:   models.Position{Start: 45, End: 50},
+				Filename: path,
+			},
+			IsDirect: true,
+		},
+	})
+}
+
+func TestParseMavenLock_ShouldTrim(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/maven/with-spaces-and-tabs.xml"))
+	packages, err := lockfile.ParseMavenLock(path)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:           "org.apache.maven:maven-artifact",
+			Version:        "1.0.0",
+			PackageManager: models.Maven,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 9, End: 18},
+				Column:   models.Position{Start: 5, End: 18},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 14, End: 14},
+				Column:   models.Position{Start: 10, End: 24},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 16, End: 16},
+				Column:   models.Position{Start: 19, End: 24},
+				Filename: path,
+			},
+			IsDirect: true,
+		},
+		{
+			Name:           "org.apache.maven:maven-artifact2",
+			Version:        "3.0",
+			PackageManager: models.Maven,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 19, End: 28},
+				Column:   models.Position{Start: 5, End: 18},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 24, End: 24},
+				Column:   models.Position{Start: 9, End: 24},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 4, End: 4},
+				Column:   models.Position{Start: 9, End: 12},
+				Filename: path,
+			},
+			IsDirect: true,
+		},
+		{
+			Name:           "org.apache.maven:maven-artifact3",
+			Version:        "1.0.0",
+			PackageManager: models.Maven,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 29, End: 36},
+				Column:   models.Position{Start: 5, End: 18},
+				Filename: path,
+			},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 34, End: 34},
+				Column:   models.Position{Start: 1, End: 16},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{
+				Line:     models.Position{Start: 49, End: 49},
+				Column:   models.Position{Start: 20, End: 25},
+				Filename: path,
+			},
+			IsDirect: true,
+		},
+	})
+}
+
 func TestParseMavenLock_OnePackage(t *testing.T) {
 	t.Parallel()
 	dir, err := os.Getwd()
@@ -1081,7 +1207,7 @@ func TestMavenLockDependency_ResolveVersion(t *testing.T) {
 	t.Parallel()
 
 	type fields struct {
-		Version string
+		Version models.StringHolder
 	}
 	type args struct {
 		lockfile lockfile.MavenLockFile
@@ -1094,59 +1220,75 @@ func TestMavenLockDependency_ResolveVersion(t *testing.T) {
 	}{
 		// 1.0: Soft requirement for 1.0. Use 1.0 if no other version appears earlier in the dependency tree.
 		{
-			name:   "",
-			fields: fields{Version: "1.0"},
-			args:   args{lockfile: lockfile.MavenLockFile{}},
-			want:   "1.0",
+			name: "",
+			fields: fields{Version: models.StringHolder{
+				Value: "1.0",
+			}},
+			args: args{lockfile: lockfile.MavenLockFile{}},
+			want: "1.0",
 		},
 		// [1.0]: Hard requirement for 1.0. Use 1.0 and only 1.0.
 		{
-			name:   "",
-			fields: fields{Version: "[1.0]"},
-			args:   args{lockfile: lockfile.MavenLockFile{}},
-			want:   "1.0",
+			name: "",
+			fields: fields{Version: models.StringHolder{
+				Value: "[1.0]",
+			}},
+			args: args{lockfile: lockfile.MavenLockFile{}},
+			want: "1.0",
 		},
 		// (,1.0]: Hard requirement for any version <= 1.0.
 		{
-			name:   "",
-			fields: fields{Version: "(,1.0]"},
-			args:   args{lockfile: lockfile.MavenLockFile{}},
-			want:   "",
+			name: "",
+			fields: fields{Version: models.StringHolder{
+				Value: "(,1.0]",
+			}},
+			args: args{lockfile: lockfile.MavenLockFile{}},
+			want: "",
 		},
 		// [1.2,1.3]: Hard requirement for any version between 1.2 and 1.3 inclusive.
 		{
-			name:   "",
-			fields: fields{Version: "[1.2,1.3]"},
-			args:   args{lockfile: lockfile.MavenLockFile{}},
-			want:   "1.2",
+			name: "",
+			fields: fields{Version: models.StringHolder{
+				Value: "[1.2,1.3]",
+			}},
+			args: args{lockfile: lockfile.MavenLockFile{}},
+			want: "1.2",
 		},
 		// [1.0,2.0): 1.0 <= x < 2.0; Hard requirement for any version between 1.0 inclusive and 2.0 exclusive.
 		{
-			name:   "",
-			fields: fields{Version: "[1.0,2.0)"},
-			args:   args{lockfile: lockfile.MavenLockFile{}},
-			want:   "1.0",
+			name: "",
+			fields: fields{Version: models.StringHolder{
+				Value: "[1.0,2.0)",
+			}},
+			args: args{lockfile: lockfile.MavenLockFile{}},
+			want: "1.0",
 		},
 		// [1.5,): Hard requirement for any version greater than or equal to 1.5.
 		{
-			name:   "",
-			fields: fields{Version: "[1.5,)"},
-			args:   args{lockfile: lockfile.MavenLockFile{}},
-			want:   "1.5",
+			name: "",
+			fields: fields{Version: models.StringHolder{
+				Value: "[1.5,)",
+			}},
+			args: args{lockfile: lockfile.MavenLockFile{}},
+			want: "1.5",
 		},
 		// (,1.0],[1.2,): Hard requirement for any version less than or equal to 1.0 than or greater than or equal to 1.2, but not 1.1.
 		{
-			name:   "",
-			fields: fields{Version: "(,1.0],[1.2,)"},
-			args:   args{lockfile: lockfile.MavenLockFile{}},
-			want:   "",
+			name: "",
+			fields: fields{Version: models.StringHolder{
+				Value: "(,1.0],[1.2,)",
+			}},
+			args: args{lockfile: lockfile.MavenLockFile{}},
+			want: "",
 		},
 		// (,1.1),(1.1,): Hard requirement for any version except 1.1; for example because 1.1 has a critical vulnerability.
 		{
-			name:   "",
-			fields: fields{Version: "(,1.1),(1.1,)"},
-			args:   args{lockfile: lockfile.MavenLockFile{}},
-			want:   "",
+			name: "",
+			fields: fields{Version: models.StringHolder{
+				Value: "(,1.1),(1.1,)",
+			}},
+			args: args{lockfile: lockfile.MavenLockFile{}},
+			want: "",
 		},
 	}
 	for _, tt := range tests {
