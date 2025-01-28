@@ -10,7 +10,6 @@ import (
 	"math/rand/v2"
 	"net/http"
 	"slices"
-	"strings"
 	"time"
 
 	"github.com/google/osv-scanner/pkg/models"
@@ -22,6 +21,9 @@ import (
 const (
 	maxConcurrentRequests = 1000
 	APIEndpoint           = "https://api.deps.dev/v3alpha/querycontainerimages/"
+	// DigestSHA256EmptyTar is the canonical sha256 digest of empty tar file -
+	// (1024 NULL bytes)
+	DigestSHA256EmptyTar = digest.Digest("sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef")
 )
 
 // OSVMatcher implements the VulnerabilityMatcher interface with a osv.dev client.
@@ -39,14 +41,15 @@ func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, lay
 
 	var runningDigest digest.Digest
 	for i, l := range layerMetadata {
-		if l.DiffID == "" {
-			continue
+		diffID := l.DiffID
+		if diffID == "" {
+			diffID = DigestSHA256EmptyTar
 		}
 
 		if runningDigest == "" {
-			runningDigest = l.DiffID
+			runningDigest = diffID
 		} else {
-			runningDigest = digest.FromBytes([]byte(runningDigest + " " + l.DiffID))
+			runningDigest = digest.FromBytes([]byte(runningDigest + " " + diffID))
 		}
 
 		chainID := runningDigest
@@ -201,39 +204,6 @@ func buildBaseImageDetails(layerMetadata []models.LayerMetadata, baseImagesMap [
 		allBaseImages = append(allBaseImages, baseImages)
 		currentBaseImageIndex += 1
 		layerMetadata[i].BaseImageIndex = currentBaseImageIndex
-
-		// Backfill with heuristic:
-		//   The goal here is to replace empty layers that is currently categorized as the previous base image
-		//   with this base image if it actually belongs to this layer.
-		//
-		//   We do this by guessing the boundary of empty layers by checking for the following commands,
-		//   which are commonly the *last* layer.
-		//
-		//   Remember we are looping backwards in the outer loop,
-		//   so this backfill is actually filling down the layer stack, not up.
-		possibleFinalBaseImageCommands := []string{
-			"/bin/sh -c #(nop)  CMD",
-			"CMD",
-			"/bin/sh -c #(nop)  ENTRYPOINT",
-			"ENTRYPOINT",
-		}
-	BackfillLoop:
-		for i2 := i; i2 < len(layerMetadata); i2++ {
-			if !layerMetadata[i2].IsEmpty {
-				// If the layer is not empty, whatever base image it is current assigned
-				// would be already correct, we only need to adjust empty layers.
-				break
-			}
-			buildCommand := layerMetadata[i2].Command
-			layerMetadata[i2].BaseImageIndex = currentBaseImageIndex
-
-			// Check if this is the last layer and we can stop looping
-			for _, prefix := range possibleFinalBaseImageCommands {
-				if strings.HasPrefix(buildCommand, prefix) {
-					break BackfillLoop
-				}
-			}
-		}
 	}
 
 	return allBaseImages

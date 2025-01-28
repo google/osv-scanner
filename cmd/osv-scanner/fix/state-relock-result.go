@@ -514,7 +514,7 @@ func (st *stateRelockResult) write(m model) tea.Msg {
 		return writeMsg{err}
 	}
 
-	if m.options.Lockfile == "" && m.options.RelockCmd == "" {
+	if m.options.Lockfile == "" {
 		// TODO: there's no user feedback to show this was successful
 		return writeMsg{nil}
 	}
@@ -525,7 +525,7 @@ func (st *stateRelockResult) write(m model) tea.Msg {
 	}
 
 	return tea.ExecProcess(c, func(err error) tea.Msg {
-		if err != nil && m.options.RelockCmd == "" {
+		if err != nil {
 			// try again with "--legacy-peer-deps"
 			c, err := regenerateLockfileCmd(m.options)
 			if err != nil {

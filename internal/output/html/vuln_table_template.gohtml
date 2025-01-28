@@ -10,11 +10,11 @@
   {{ $index := uniqueID }}
   <tr class='table-tr vuln-tr' id="table-tr-{{ $index }}" data-vuln-id="{{ $element.ID }}">
     <td>
-      {{ if eq (len $element.GroupIDs) 0 }}
-      {{ $element.ID }}
+      {{ if eq (len $element.GroupIDs) 1 }}
+      <div class="clickable" onclick="openVulnInNewTab('{{ $element.ID }}')">{{ $element.ID }}</div>
       {{ else }}
       <div class="tooltip">
-        {{ $element.ID }}
+        <div class="clickable" onclick="openVulnInNewTab('{{ $element.ID }}')">{{ $element.ID }}</div>
         <span class="tooltiptext">Group IDs: {{ join $element.GroupIDs ", " }}</span>
       </div>
       {{ end }}
@@ -49,11 +49,11 @@
   {{ $index := uniqueID }}
   <tr class='table-tr vuln-tr uncalled-tr' id="table-tr-{{ $index }}" data-vuln-id="{{ $element.ID }}">
     <td class="uncalled-text">
-      {{ if eq (len $element.GroupIDs) 0 }}
-      {{ $element.ID }}
+      {{ if eq (len $element.GroupIDs) 1 }}
+      <div class="clickable" onclick="openVulnInNewTab('{{ $element.ID }}')">{{ $element.ID }}</div>
       {{ else }}
       <div class="tooltip">
-        {{ $element.ID }}
+        <div class="clickable" onclick="openVulnInNewTab('{{ $element.ID }}')">{{ $element.ID }}</div>
         <span class="tooltiptext">Group IDs: {{ join $element.GroupIDs ", " }}</span>
       </div>
       {{ end }}

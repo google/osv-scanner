@@ -1,4 +1,33 @@
 <script>
+  let selectedTypeFilterValue = new Set();
+  selectedTypeFilterValue.add("all");
+  let selectedLayer = "all";
+
+  function quickFilterByLayer(DiffID, layerCommand) {
+    resetFilterText();
+    applyFilters(selectedTypeFilterValue, DiffID);
+    selectedDisplay = document.getElementById("layer-filter-selected");
+    selectedDisplay.textContent = layerCommand;
+  }
+
+  function showBaseImageLayer(imageID) {
+    var detailElementID = "base-image-details-" + imageID;
+    var detailsElement = document.getElementById(detailElementID);
+
+    const icon = document.querySelector(
+      `#base-image-summary-${imageID} .material-icons`
+    ); // Select the icon within the row
+    if (detailsElement.style.display !== "block") {
+      detailsElement.style.display = "block";
+      icon.style.transform = "rotate(90deg)"; // Rotate 90 degrees
+      icon.style.transition = "transform 0.2s ease"; // Add smooth transition
+    } else {
+      detailsElement.style.display = "none";
+      icon.style.transform = "rotate(0deg)"; // Rotate back to 0 degrees
+      icon.style.transition = "transform 0.2s ease"; // Add smooth transition
+    }
+  }
+
   function showPackageDetails(detailsId) {
     var detailsElement = document.getElementById(
       "table-tr-" + detailsId + "-details"
@@ -318,6 +347,15 @@
       selectedCount += parseInt(uncalledTypeVulnCount, 10);
     }
 
+    if (
+      allTypeCheckbox &&
+      allTypeCheckbox.checked &&
+      uncalledTypeCheckbox &&
+      !uncalledTypeCheckbox.checked
+    ) {
+      selectedText = "Default";
+    }
+
     typeSelected.textContent = selectedText;
     selectedVulnCount.textContent = selectedCount;
   }
@@ -389,9 +427,6 @@
   document.addEventListener("DOMContentLoaded", function () {
     resetFilterText();
     showAndHideParentSections();
-    let selectedTypeFilterValue = new Set();
-    selectedTypeFilterValue.add("all");
-    let selectedLayer = "all";
 
     // Implement filter for vulnerability types
     const typeFilterOptions = document.getElementById(
@@ -447,7 +482,7 @@
         const clickedOption = event.target.closest(".layer-filter-option");
         if (clickedOption) {
           resetSearchText();
-          selectedLayer = clickedOption.getAttribute("title");
+          selectedLayer = clickedOption.getAttribute("data-layer-hash");
           selectedDisplay = document.getElementById("layer-filter-selected");
           layerCommand = clickedOption.querySelector("p:first-child");
           selectedDisplay.textContent = layerCommand.textContent;

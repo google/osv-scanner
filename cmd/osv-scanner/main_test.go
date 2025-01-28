@@ -3,7 +3,6 @@ package main
 
 import (
 	"bytes"
-	"errors"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -165,7 +164,7 @@ func TestRun(t *testing.T) {
 		{
 			name: "",
 			args: []string{""},
-			exit: 128,
+			exit: 0,
 		},
 		{
 			name: "version",
@@ -781,28 +780,28 @@ func TestRun_Docker(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "Fake alpine image",
-			args: []string{"", "--docker", "alpine:non-existent-tag"},
+			args: []string{"", "scan", "image", "alpine:non-existent-tag"},
 			exit: 127,
 		},
 		{
 			name: "Fake image entirely",
-			args: []string{"", "--docker", "this-image-definitely-does-not-exist-abcde"},
+			args: []string{"", "scan", "image", "this-image-definitely-does-not-exist-abcde"},
 			exit: 127,
 		},
 		// TODO: How to prevent these snapshots from changing constantly
 		{
 			name: "Real empty image",
-			args: []string{"", "--docker", "hello-world"},
+			args: []string{"", "scan", "image", "hello-world"},
 			exit: 128, // No packages found
 		},
 		{
 			name: "Real empty image with tag",
-			args: []string{"", "--docker", "hello-world:linux"},
+			args: []string{"", "scan", "image", "hello-world:linux"},
 			exit: 128, // No package found
 		},
 		{
 			name: "Real Alpine image",
-			args: []string{"", "--docker", "alpine:3.18.9"},
+			args: []string{"", "scan", "image", "alpine:3.18.9"},
 			exit: 1,
 		},
 	}
@@ -814,76 +813,6 @@ func TestRun_Docker(t *testing.T) {
 			if runtime.GOOS == "linux" {
 				testCli(t, tt)
 			}
-		})
-	}
-}
-
-func TestRun_OCIImage(t *testing.T) {
-	t.Parallel()
-
-	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
-
-	tests := []cliTestCase{
-		{
-			name: "Invalid path",
-			args: []string{"", "--experimental-oci-image", "./fixtures/oci-image/no-file-here.tar"},
-			exit: 127,
-		},
-		{
-			name: "Alpine 3.10 image tar with 3.18 version file",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-alpine.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning node_modules using npm with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning node_modules using npm with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning node_modules using yarn with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning node_modules using yarn with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning node_modules using pnpm with no packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning node_modules using pnpm with some packages",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
-			exit: 1,
-		},
-		{
-			name: "scanning image with go binary",
-			args: []string{"", "--experimental-oci-image", "../../internal/image/fixtures/test-package-tracing.tar"},
-			exit: 1,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
-			// point out that we need the images to be built and saved separately
-			for _, arg := range tt.args {
-				if strings.HasPrefix(arg, "../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
-					if _, err := os.Stat(arg); errors.Is(err, os.ErrNotExist) {
-						t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", arg)
-					}
-				}
-			}
-
-			testCli(t, tt)
 		})
 	}
 }
@@ -936,22 +865,27 @@ func TestRun_InsertDefaultCommand(t *testing.T) {
 		// test when default command is specified
 		{
 			originalArgs: []string{"", "default", "file"},
-			wantArgs:     []string{"", "default", "file"},
+			wantArgs:     []string{"", "default", "source", "file"},
 		},
 		// test when command is not specified
 		{
 			originalArgs: []string{"", "file"},
-			wantArgs:     []string{"", "default", "file"},
+			wantArgs:     []string{"", "default", "source", "file"},
 		},
 		// test when command is also a filename
 		{
 			originalArgs: []string{"", "scan"}, // `scan` exists as a file on filesystem (`./cmd/osv-scanner/scan`)
 			wantArgs:     []string{"", "scan"},
 		},
+		// test when subcommand is also a filename
+		{
+			originalArgs: []string{"", "default", "image"},
+			wantArgs:     []string{"", "default", "image"},
+		},
 		// test when command is not valid
 		{
 			originalArgs: []string{"", "invalid"},
-			wantArgs:     []string{"", "default", "invalid"},
+			wantArgs:     []string{"", "default", "source", "invalid"},
 		},
 		// test when command is a built-in option
 		{

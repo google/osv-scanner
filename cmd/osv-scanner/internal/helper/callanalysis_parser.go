@@ -1,4 +1,4 @@
-package scan
+package helper
 
 var stableCallAnalysisStates = map[string]bool{
 	"go":   true,
@@ -6,7 +6,7 @@ var stableCallAnalysisStates = map[string]bool{
 }
 
 // Creates a map to record if languages are enabled or disabled for call analysis.
-func createCallAnalysisStates(enabledCallAnalysis []string, disabledCallAnalysis []string) map[string]bool {
+func CreateCallAnalysisStates(enabledCallAnalysis []string, disabledCallAnalysis []string) map[string]bool {
 	callAnalysisStates := make(map[string]bool)
 
 	for _, language := range enabledCallAnalysis {

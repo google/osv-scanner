@@ -45,33 +45,45 @@
     margin-top: 20px;
   }
 
-  details summary {
-    cursor: pointer;
-  }
-
-  details p {
-    margin-left: 10px;
-  }
-
   header {
     display: flex;
-    align-items: center;
     margin-bottom: 50px;
+    justify-content: space-between;
+  }
+
+  #header-left {
+    display: flex;
+    align-items: center;
   }
 
   .logo {
     height: 20px;
   }
 
-  header .vl {
+  #header-left .vl {
     border-left: 2px solid #fff;
     height: 25px;
     margin-left: 20px;
     margin-right: 20px;
   }
 
-  header h1 {
+  #header-left h1 {
     font-size: 23px;
+  }
+
+  #header-right {
+    display: flex;
+    align-items: center;
+  }
+
+  #header-right ::after {
+    display: inline-block;
+    content: " ";
+    background-image: url(https://osv.dev/static/img/external-link.svg);
+    width: 16px;
+    height: 16px;
+    margin-left: 3px;
+    vertical-align: middle;
   }
 
   .material-icons {
@@ -121,6 +133,11 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     max-height: 800px;
     overflow: auto;
+  }
+
+  .package-details p {
+    margin-bottom: 10px;
+    margin-top: 10px;
   }
 
   .table-tr:hover .open-in-tab-tag {
@@ -296,7 +313,6 @@
   .filter-option-container {
     border: 1px solid #ddd;
     border-radius: 8px;
-    overflow: hidden;
     position: absolute;
     background-color: #292929;
     min-width: 200px;
@@ -325,11 +341,10 @@
   .layer-filter-option {
     display: flex;
     justify-content: space-between;
-    overflow: hidden;
   }
 
   .filter-option:hover {
-    background-color: black;
+    background-color: rgba(255, 255, 255, 0.04);
   }
 
   .filter-icon i {
@@ -418,7 +433,7 @@
     width: 100%;
     border: 1px solid #fff;
     background-color: transparent;
-    border-radius: 4px;
+    border-radius: 8px;
     margin-top: 30px;
   }
 
@@ -490,13 +505,20 @@
     white-space: nowrap;
     width: fit-content;
     text-align: left;
-
     /* Position the tooltip */
     position: absolute;
     z-index: 999;
     top: 100%;
-    left: 50%;
-    margin-left: -60px;
+    left: 0%;
+  }
+
+  .layer-tooltiptext {
+    white-space: normal !important;
+    margin-left: 0 !important;
+    width: 1000px !important;
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
   }
 
   .tooltip:hover .tooltiptext {
@@ -520,5 +542,71 @@
 
   .flex-box {
     display: flex;
+  }
+
+  /* new added */
+  .base-icon .tooltiptext {
+    margin-left: 0px;
+    background-color: #292929;
+  }
+
+  div.title {
+    visibility: hidden;
+  }
+
+  #base-image-section {
+    margin-top: 30px;
+    border: 1px solid #fff;
+    border-radius: 8px;
+    padding: 10px 20px;
+    max-height: 400px;
+    overflow-y: visible;
+    overflow-x: hidden;
+  }
+
+  #base-image-table {
+    width: 100%;
+  }
+
+  #base-image-table th {
+    text-align: left;
+    height: 30px;
+  }
+
+  .layer-entry {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    border-bottom: 1px dotted #666666;
+  }
+
+  .base-image-summary {
+    cursor: pointer;
+  }
+
+  .base-image-details {
+    display: none;
+    margin-bottom: 20px;
+  }
+
+  .base-image-title {
+    width: 150px;
+    color: #9aa0a6;
+    height: 20px;
+  }
+
+  .layer-command {
+    max-width: 1000px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .clickable {
+    cursor: pointer;
+  }
+
+  .clickable-layer:hover {
+    background-color: rgba(255, 255, 255, 0.04);
   }
 </style>
