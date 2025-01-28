@@ -23,20 +23,19 @@ type GraphNode struct {
 }
 
 type DependencySubgraph struct {
-	Graph      *resolve.Graph
 	Dependency resolve.NodeID
-	Edges      map[resolve.NodeID]GraphNode
+	Nodes      map[resolve.NodeID]GraphNode
 }
 
-func (ds DependencySubgraph) String() string {
+func (ds *DependencySubgraph) String() string {
 	var sb strings.Builder
-	fmt.Fprintf(&sb, "[%d: %s]\n", ds.Dependency, ds.Edges[ds.Dependency].Version)
-	for nID, e := range ds.Edges {
-		for _, p := range e.Parents {
+	fmt.Fprintf(&sb, "[%d: %s]\n", ds.Dependency, ds.Nodes[ds.Dependency].Version)
+	for nID, n := range ds.Nodes {
+		for _, p := range n.Parents {
 			fmt.Fprintf(&sb, "%d@%s ", p.From, p.Requirement)
 		}
-		fmt.Fprintf(&sb, "-> %d: %s (%d) ->", nID, e.Version, e.Distance)
-		for _, c := range e.Children {
+		fmt.Fprintf(&sb, "-> %d: %s (%d) ->", nID, n.Version, n.Distance)
+		for _, c := range n.Children {
 			fmt.Fprintf(&sb, " %d@%s", c.To, c.Requirement)
 		}
 		fmt.Fprintln(&sb)
@@ -45,7 +44,7 @@ func (ds DependencySubgraph) String() string {
 	return sb.String()
 }
 
-func ComputeSubgraphs(g *resolve.Graph, nodes []resolve.NodeID) []DependencySubgraph {
+func ComputeSubgraphs(g *resolve.Graph, nodes []resolve.NodeID) []*DependencySubgraph {
 	// find the parent nodes of each node in graph, for easier traversal
 	parentEdges := make(map[resolve.NodeID][]resolve.Edge)
 	for _, e := range g.Edges {
@@ -56,53 +55,53 @@ func ComputeSubgraphs(g *resolve.Graph, nodes []resolve.NodeID) []DependencySubg
 		parentEdges[e.To] = append(parentEdges[e.To], e)
 	}
 
-	subGraphs := make([]DependencySubgraph, 0, len(nodes))
-	for _, node := range nodes {
-		gEdges := make(map[resolve.NodeID]GraphNode)
+	subGraphs := make([]*DependencySubgraph, 0, len(nodes))
+	for _, nodeID := range nodes {
+		gNodes := make(map[resolve.NodeID]GraphNode)
 
-		seenNodes := make(map[resolve.NodeID]struct{})
-		seenNodes[node] = struct{}{}
-		toProcess := []resolve.NodeID{node}
+		seen := make(map[resolve.NodeID]struct{})
+		seen[nodeID] = struct{}{}
+		toProcess := []resolve.NodeID{nodeID}
+		currDistance := 0
 		for len(toProcess) > 0 {
-			node := toProcess[len(toProcess)-1]
-			toProcess = toProcess[:len(toProcess)-1]
+			var next []resolve.NodeID
+			for _, node := range toProcess {
+				parents := parentEdges[node]
+				gNode := gNodes[node]
+				gNode.Version = g.Nodes[node].Version
+				gNode.Distance = currDistance
+				gNode.Parents = parents
+				gNodes[node] = gNode
 
-			parents := parentEdges[node]
-			gNode := gEdges[node]
-			gNode.Version = g.Nodes[node].Version
-			gNode.Parents = parents
-			gEdges[node] = gNode
-
-			for _, edge := range parents {
-				nID := edge.From
-				pNode := gEdges[nID]
-				pNode.Children = append(pNode.Children, edge)
-				if pNode.Distance == 0 || pNode.Distance > gNode.Distance+1 {
-					pNode.Distance = gNode.Distance + 1
-				}
-				gEdges[nID] = pNode
-				if _, ok := seenNodes[nID]; !ok {
-					toProcess = append(toProcess, nID)
-					seenNodes[nID] = struct{}{}
+				for _, edge := range parents {
+					nID := edge.From
+					pNode := gNodes[nID]
+					pNode.Children = append(pNode.Children, edge)
+					gNodes[nID] = pNode
+					if _, ok := seen[nID]; !ok {
+						seen[nID] = struct{}{}
+						next = append(next, nID)
+					}
 				}
 			}
+			toProcess = next
+			currDistance++
 		}
 
-		subGraphs = append(subGraphs, DependencySubgraph{
-			Graph:      g,
-			Dependency: node,
-			Edges:      gEdges,
+		subGraphs = append(subGraphs, &DependencySubgraph{
+			Dependency: nodeID,
+			Nodes:      gNodes,
 		})
 	}
 
 	return subGraphs
 }
 
-func (ds DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]string) bool {
+func (ds *DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]string) bool {
 	if groups != nil {
-		return !slices.ContainsFunc(ds.Edges[0].Children, func(e resolve.Edge) bool {
+		return !slices.ContainsFunc(ds.Nodes[0].Children, func(e resolve.Edge) bool {
 			req := resolve.RequirementVersion{
-				VersionKey: ds.Graph.Nodes[e.To].Version,
+				VersionKey: ds.Nodes[e.To].Version,
 				Type:       e.Type.Clone(),
 			}
 			ecosystem, ok := util.OSVEcosystem[req.System]
@@ -114,14 +113,14 @@ func (ds DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]stri
 		})
 	}
 
-	for _, e := range ds.Edges[0].Children {
+	for _, e := range ds.Nodes[0].Children {
 		if e.Type.HasAttr(dep.Dev) {
 			continue
 		}
 		if e.To == ds.Dependency {
 			return false
 		}
-		for _, e2 := range ds.Edges[e.To].Children {
+		for _, e2 := range ds.Nodes[e.To].Children {
 			if !e2.Type.HasAttr(dep.Dev) {
 				return false
 			}
@@ -131,8 +130,8 @@ func (ds DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]stri
 	return true
 }
 
-func (ds DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resolve.Client, vuln *models.Vulnerability) DependencySubgraph {
-	end := ds.Edges[ds.Dependency]
+func (ds *DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resolve.Client, vuln *models.Vulnerability) *DependencySubgraph {
+	end := ds.Nodes[ds.Dependency]
 	newParents := make([]resolve.Edge, 0, len(end.Parents))
 	for _, pEdge := range end.Parents {
 		vk := end.Version
@@ -151,15 +150,11 @@ func (ds DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resolv
 	}
 
 	if len(newParents) == 0 {
-		return DependencySubgraph{
-			Graph:      ds.Graph,
-			Dependency: ds.Dependency,
-			Edges:      nil,
-		}
+		return ds
 	}
 
-	newEdges := make(map[resolve.NodeID]GraphNode)
-	newEdges[ds.Dependency] = GraphNode{
+	newNodes := make(map[resolve.NodeID]GraphNode)
+	newNodes[ds.Dependency] = GraphNode{
 		Version:  end.Version,
 		Distance: 0,
 		Parents:  newParents,
@@ -177,14 +172,27 @@ func (ds DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resolv
 	for len(toProcess) > 0 {
 		var next []resolve.NodeID
 		for _, nID := range toProcess {
-			oldEdge := ds.Edges[nID]
-			newEdges[nID] = GraphNode{
-				Version:  oldEdge.Version,
+			oldNode := ds.Nodes[nID]
+			newNode := GraphNode{
+				Version:  oldNode.Version,
 				Distance: currDistance,
-				Parents:  slices.Clone(oldEdge.Parents),
-				Children: slices.Clone(oldEdge.Children),
+				Parents:  slices.Clone(oldNode.Parents),
+				Children: slices.Clone(oldNode.Children),
 			}
-			for _, e := range oldEdge.Parents {
+			// Remove the non-constraining edge from the node's children if it ends up in the subgraph.
+			newNode.Children = slices.DeleteFunc(newNode.Children, func(e resolve.Edge) bool {
+				if e.To != ds.Dependency {
+					return false
+				}
+
+				return !slices.ContainsFunc(newParents, func(pEdge resolve.Edge) bool {
+					return pEdge.From == e.From &&
+						pEdge.Requirement == e.Requirement &&
+						pEdge.Type.Compare(e.Type) == 0
+				})
+			})
+			newNodes[nID] = newNode
+			for _, e := range newNode.Parents {
 				if _, ok := seen[e.From]; !ok {
 					seen[e.From] = struct{}{}
 					next = append(next, e.From)
@@ -194,17 +202,16 @@ func (ds DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resolv
 		toProcess = next
 		currDistance++
 	}
-	for nID, edge := range newEdges {
+	for nID, edge := range newNodes {
 		edge.Children = slices.DeleteFunc(edge.Children, func(e resolve.Edge) bool {
 			_, ok := seen[e.To]
 			return !ok
 		})
-		newEdges[nID] = edge
+		newNodes[nID] = edge
 	}
 
-	return DependencySubgraph{
-		Graph:      ds.Graph,
+	return &DependencySubgraph{
 		Dependency: ds.Dependency,
-		Edges:      newEdges,
+		Nodes:      newNodes,
 	}
 }

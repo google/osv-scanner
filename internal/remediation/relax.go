@@ -131,11 +131,8 @@ func reqsToRelax(ctx context.Context, cl resolve.Client, res *resolution.Result,
 		// }
 		for _, sg := range v.Subgraphs {
 			constr := sg.ConstrainingSubgraph(ctx, cl, &v.OSV)
-			if constr.Edges == nil {
-				constr = sg
-			}
-			for _, edge := range constr.Edges[0].Children {
-				gNode := constr.Edges[edge.To]
+			for _, edge := range constr.Nodes[0].Children {
+				gNode := constr.Nodes[edge.To]
 				if opts.MaxDepth <= 0 || gNode.Distance+1 <= opts.MaxDepth {
 					toRelax[gNode.Version] = edge.Requirement
 				}

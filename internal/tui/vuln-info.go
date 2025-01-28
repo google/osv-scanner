@@ -2,7 +2,6 @@ package tui
 
 import (
 	"fmt"
-	"slices"
 	"strings"
 
 	"github.com/charmbracelet/bubbles/key"
@@ -68,8 +67,8 @@ func NewVulnInfo(vuln *resolution.Vulnerability) *vulnInfo {
 	*v.mdStyle.Document.Margin = 0
 	v.mdStyle.Document.BlockPrefix = ""
 
-	chains := append(slices.Clone(vuln.ProblemChains), vuln.NonProblemChains...)
-	v.chainGraphs = FindChainGraphs(chains)
+	// chains := append(slices.Clone(vuln.ProblemChains), vuln.NonProblemChains...)
+	v.chainGraphs = FindChainGraphs(vuln.Subgraphs)
 
 	return &v
 }

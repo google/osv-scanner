@@ -119,7 +119,7 @@ func (opts Options) matchDepth(v resolution.Vulnerability) bool {
 	// }
 
 	for _, sg := range v.Subgraphs {
-		if sg.Edges[0].Distance <= opts.MaxDepth {
+		if sg.Nodes[0].Distance <= opts.MaxDepth {
 			return true
 		}
 	}

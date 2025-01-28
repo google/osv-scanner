@@ -11,10 +11,10 @@ import (
 )
 
 type chainGraphNode struct {
-	vk       resolve.VersionKey
-	isDirect bool // if this is a direct dependency
-	children []*chainGraphNode
-	// in this representation, a child is something that depends on this node
+	vk         resolve.VersionKey
+	isDirect   bool // if this is a direct dependency
+	dependents []*chainGraphNode
+	// in this representation, the dependents are the children of this node
 	// so the root of the tree is rendered at the bottom
 }
 
@@ -24,61 +24,122 @@ type ChainGraph struct {
 
 // for each unique vulnerable node, construct the graph from that node to each connected direct dependency,
 // choosing only the shortest path
-func FindChainGraphs(chains []resolution.DependencyChain) []ChainGraph {
-	// TODO: this is not deterministic
+// func FindChainGraphs(chains []resolution.DependencyChain) []ChainGraph {
+// 	// TODO: this is not deterministic
 
-	// identifier for unique direct dep causes of unique vulnerabilities,
-	// used as a map key, so needs to be comparable
-	type chainEndpoints struct {
-		vulnDep   resolve.NodeID
-		directDep resolve.NodeID
-	}
+// 	// identifier for unique direct dep causes of unique vulnerabilities,
+// 	// used as a map key, so needs to be comparable
+// 	type chainEndpoints struct {
+// 		vulnDep   resolve.NodeID
+// 		directDep resolve.NodeID
+// 	}
 
-	// Find the shortest-length dependency chain for each direct/vulnerable node pair
-	shortestChains := make(map[chainEndpoints]resolution.DependencyChain)
-	for _, c := range chains {
-		endpoints := chainEndpoints{c.Edges[0].To, c.Edges[len(c.Edges)-1].To}
-		old, ok := shortestChains[endpoints]
-		if !ok {
-			shortestChains[endpoints] = c
-			continue
+// 	// Find the shortest-length dependency chain for each direct/vulnerable node pair
+// 	shortestChains := make(map[chainEndpoints]resolution.DependencyChain)
+// 	for _, c := range chains {
+// 		endpoints := chainEndpoints{c.Edges[0].To, c.Edges[len(c.Edges)-1].To}
+// 		old, ok := shortestChains[endpoints]
+// 		if !ok {
+// 			shortestChains[endpoints] = c
+// 			continue
+// 		}
+// 		if len(old.Edges) > len(c.Edges) {
+// 			shortestChains[endpoints] = c
+// 		}
+// 	}
+
+// 	// Construct the ChainGraphs
+// 	nodes := make(map[resolve.NodeID]*chainGraphNode)
+// 	var ret []ChainGraph
+// 	for _, c := range shortestChains {
+// 		if _, ok := nodes[c.Edges[0].To]; !ok {
+// 			// haven't encountered this specific vulnerable node before
+// 			// create it and add it to the returned graphs
+// 			vk, _ := c.End()
+// 			n := &chainGraphNode{
+// 				vk:         vk,
+// 				dependents: nil,
+// 				isDirect:   c.Edges[0].From == 0,
+// 			}
+// 			ret = append(ret, ChainGraph{n})
+// 			nodes[c.Edges[0].To] = n
+// 		}
+// 		// Going up the chain, add the node to the previous' children if it's not there already
+// 		for i, e := range c.Edges[:len(c.Edges)-1] {
+// 			p := nodes[e.To]
+// 			n, ok := nodes[e.From]
+// 			if !ok {
+// 				vk, _ := c.At(i + 1)
+// 				n = &chainGraphNode{
+// 					vk:         vk,
+// 					dependents: nil,
+// 					isDirect:   i == len(c.Edges)-2,
+// 				}
+// 				nodes[e.From] = n
+// 			}
+// 			if !slices.Contains(p.dependents, n) {
+// 				p.dependents = append(p.dependents, n)
+// 			}
+// 		}
+// 	}
+
+// 	return ret
+// }
+
+func subgraphEdges(sg *resolution.DependencySubgraph, direct resolve.NodeID) []resolve.Edge {
+	// find the shortest chain of edges from direct to the vulnerable node, excluding the root->direct edge.
+	// return them in reverse order, with edges[0].To = sg.Dependency
+	edges := make([]resolve.Edge, 0, sg.Nodes[0].Distance-1)
+	nID := direct
+	for nID != sg.Dependency {
+		n := sg.Nodes[nID]
+		idx := slices.IndexFunc(n.Children, func(e resolve.Edge) bool { return sg.Nodes[e.To].Distance == n.Distance-1 })
+		if idx < 0 {
+			break
 		}
-		if len(old.Edges) > len(c.Edges) {
-			shortestChains[endpoints] = c
-		}
+		edge := n.Children[idx]
+		edges = append(edges, edge)
+		nID = edge.To
 	}
+	slices.Reverse(edges)
 
+	return edges
+}
+
+// for each unique vulnerable node, construct the graph from that node to each connected direct dependency,
+// choosing only the shortest path
+func FindChainGraphs(subgraphs []*resolution.DependencySubgraph) []ChainGraph {
 	// Construct the ChainGraphs
-	nodes := make(map[resolve.NodeID]*chainGraphNode)
-	var ret []ChainGraph
-	for _, c := range shortestChains {
-		if _, ok := nodes[c.Edges[0].To]; !ok {
-			// haven't encountered this specific vulnerable node before
-			// create it and add it to the returned graphs
-			vk, _ := c.End()
-			n := &chainGraphNode{
-				vk:       vk,
-				children: nil,
-				isDirect: c.Edges[0].From == 0,
-			}
-			ret = append(ret, ChainGraph{n})
-			nodes[c.Edges[0].To] = n
+	ret := make([]ChainGraph, 0, len(subgraphs))
+	for _, sg := range subgraphs {
+		nodes := make(map[resolve.NodeID]*chainGraphNode)
+		isDirect := func(nID resolve.NodeID) bool {
+			return slices.ContainsFunc(sg.Nodes[nID].Parents, func(e resolve.Edge) bool { return e.From == 0 })
 		}
-		// Going up the chain, add the node to the previous' children if it's not there already
-		for i, e := range c.Edges[:len(c.Edges)-1] {
-			p := nodes[e.To]
-			n, ok := nodes[e.From]
-			if !ok {
-				vk, _ := c.At(i + 1)
-				n = &chainGraphNode{
-					vk:       vk,
-					children: nil,
-					isDirect: i == len(c.Edges)-2,
+		// Create and add the vulnerable node to the returned graphs
+		n := &chainGraphNode{
+			vk:         sg.Nodes[sg.Dependency].Version,
+			dependents: nil,
+			isDirect:   isDirect(sg.Dependency),
+		}
+		ret = append(ret, ChainGraph{n})
+		nodes[sg.Dependency] = n
+		for _, startEdge := range sg.Nodes[0].Children {
+			// Going up the chain, add the node to the previous' children if it's not there already
+			for _, e := range subgraphEdges(sg, startEdge.To) {
+				p := nodes[e.To]
+				n, ok := nodes[e.From]
+				if !ok {
+					n = &chainGraphNode{
+						vk:         sg.Nodes[e.From].Version,
+						dependents: nil,
+						isDirect:   isDirect(e.From),
+					}
+					nodes[e.From] = n
 				}
-				nodes[e.From] = n
-			}
-			if !slices.Contains(p.children, n) {
-				p.children = append(p.children, n)
+				if !slices.Contains(p.dependents, n) {
+					p.dependents = append(p.dependents, n)
+				}
 			}
 		}
 	}
@@ -119,13 +180,13 @@ func (c *chainGraphNode) subString(isVuln bool) (string, int) {
 	nodeOffset := lipgloss.Width(nodeStr) / 2
 
 	// No children, just show the text
-	if len(c.children) == 0 {
+	if len(c.dependents) == 0 {
 		return nodeStr, nodeOffset
 	}
 
 	// one child, add a single line connecting this to the child above it
-	if len(c.children) == 1 {
-		childStr, childCenter := c.children[0].subString(false)
+	if len(c.dependents) == 1 {
+		childStr, childCenter := c.dependents[0].subString(false)
 		if nodeOffset > childCenter {
 			// left-pad the child if the parent is wider
 			childStr = lipgloss.JoinHorizontal(lipgloss.Bottom, strings.Repeat(" ", nodeOffset-childCenter), childStr)
@@ -139,11 +200,11 @@ func (c *chainGraphNode) subString(isVuln bool) (string, int) {
 
 	// multiple children:
 	// Join the children together on one line
-	nChilds := len(c.children)
+	nChilds := len(c.dependents)
 	paddedChildStrings := make([]string, 0, 2*nChilds) // string of children, with padding strings in between
 	childOffsets := make([]int, 0, nChilds)            // where above the children to connect the lines to them
 	width := 0
-	for _, ch := range c.children {
+	for _, ch := range c.dependents {
 		str, off := ch.subString(false)
 		paddedChildStrings = append(paddedChildStrings, str, " ")
 		childOffsets = append(childOffsets, width+off)

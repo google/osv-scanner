@@ -122,7 +122,7 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 			// 	reqVers[req] = struct{}{}
 			// }
 			for _, sg := range vuln.Subgraphs {
-				for _, e := range sg.Edges[sg.Dependency].Parents {
+				for _, e := range sg.Nodes[sg.Dependency].Parents {
 					reqVers[e.Requirement] = struct{}{}
 				}
 			}
@@ -288,7 +288,7 @@ func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatc
 				// ProblemChains: slices.Clone(chains),
 				// DevOnly:       !slices.ContainsFunc(chains, func(dc resolution.DependencyChain) bool { return !resolution.ChainIsDev(dc, nil) }),
 
-				Subgraphs: []resolution.DependencySubgraph{nodeSubgraphs[i]},
+				Subgraphs: []*resolution.DependencySubgraph{nodeSubgraphs[i]},
 				DevOnly:   nodeSubgraphs[i].IsDevOnly(nil),
 			}
 			idx := slices.IndexFunc(result.vkVulns[vk], func(rv resolution.Vulnerability) bool { return rv.OSV.ID == resVuln.OSV.ID })

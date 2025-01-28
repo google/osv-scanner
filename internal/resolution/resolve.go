@@ -26,14 +26,14 @@ type Vulnerability struct {
 	ProblemChains    []DependencyChain
 	NonProblemChains []DependencyChain
 
-	Subgraphs []DependencySubgraph
+	Subgraphs []*DependencySubgraph
 }
 
 func (rv Vulnerability) IsDirect() bool {
 	// fn := func(dc DependencyChain) bool { return len(dc.Edges) == 1 }
 	// return slices.ContainsFunc(rv.ProblemChains, fn) || slices.ContainsFunc(rv.NonProblemChains, fn)
 	for _, sg := range rv.Subgraphs {
-		if sg.Edges[0].Distance == 1 {
+		if sg.Nodes[0].Distance == 1 {
 			return true
 		}
 	}
@@ -243,7 +243,7 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 	// }
 
 	nodeSubgraphs := ComputeSubgraphs(res.Graph, vulnerableNodes)
-	vulnSubgraphs := make(map[string][]DependencySubgraph)
+	vulnSubgraphs := make(map[string][]*DependencySubgraph)
 	for i, nID := range vulnerableNodes {
 		for _, vuln := range nodeVulns[nID] {
 			vulnSubgraphs[vuln.ID] = append(vulnSubgraphs[vuln.ID], nodeSubgraphs[i])
@@ -271,7 +271,7 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 		// 	rv.NonProblemChains = nil
 		// }
 		rv.Subgraphs = vulnSubgraphs[id]
-		rv.DevOnly = !slices.ContainsFunc(rv.Subgraphs, func(ds DependencySubgraph) bool { return !ds.IsDevOnly(res.Manifest.Groups) })
+		rv.DevOnly = !slices.ContainsFunc(rv.Subgraphs, func(ds *DependencySubgraph) bool { return !ds.IsDevOnly(res.Manifest.Groups) })
 		res.Vulns = append(res.Vulns, rv)
 	}
 

@@ -159,11 +159,11 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 			// 	}
 			// }
 			for _, sg := range v.Subgraphs {
-				for _, e := range sg.Edges[sg.Dependency].Parents {
+				for _, e := range sg.Nodes[sg.Dependency].Parents {
 					if e.Type.HasAttr(dep.MavenClassifier) || e.Type.HasAttr(dep.MavenArtifactType) {
 						return nil, nil, fmt.Errorf("%w: cannot fix vulns in artifacts with classifier or type", errOverrideImpossible)
 					}
-					vk := sg.Graph.Nodes[sg.Dependency].Version
+					vk := sg.Nodes[sg.Dependency].Version
 					if _, seen := seenVKs[vk]; !seen {
 						vkVulns[vk] = append(vkVulns[vk], &result.Vulns[i])
 						seenVKs[vk] = struct{}{}

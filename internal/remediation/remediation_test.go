@@ -26,9 +26,9 @@ func TestMatchVuln(t *testing.T) {
 			// ProblemChains: []resolution.DependencyChain{{
 			// 	Edges: []resolve.Edge{{From: 2, To: 3}, {From: 1, To: 2}, {From: 0, To: 1}},
 			// }},
-			Subgraphs: []resolution.DependencySubgraph{{
+			Subgraphs: []*resolution.DependencySubgraph{{
 				Dependency: 3,
-				Edges: map[resolve.NodeID]resolution.GraphNode{
+				Nodes: map[resolve.NodeID]resolution.GraphNode{
 					3: {
 						Distance: 0,
 						Parents:  []resolve.Edge{{From: 2, To: 3}},
@@ -65,9 +65,9 @@ func TestMatchVuln(t *testing.T) {
 			// NonProblemChains: []resolution.DependencyChain{{
 			// 	Edges: []resolve.Edge{{From: 1, To: 3}, {From: 0, To: 1}},
 			// }},
-			Subgraphs: []resolution.DependencySubgraph{{
+			Subgraphs: []*resolution.DependencySubgraph{{
 				Dependency: 3,
-				Edges: map[resolve.NodeID]resolution.GraphNode{
+				Nodes: map[resolve.NodeID]resolution.GraphNode{
 					3: {
 						Distance: 0,
 						Parents:  []resolve.Edge{{From: 2, To: 3}, {From: 1, To: 3}},
