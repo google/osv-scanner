@@ -122,13 +122,7 @@ func reqsToRelax(ctx context.Context, cl resolve.Client, res *resolution.Result,
 		if !slices.Contains(vulnIDs, v.OSV.ID) || (!opts.DevDeps && v.DevOnly) {
 			continue
 		}
-		// Only relax dependencies if their chain length is less than MaxDepth
-		// for _, ch := range v.ProblemChains {
-		// 	if opts.MaxDepth <= 0 || len(ch.Edges) <= opts.MaxDepth {
-		// 		vk, req := ch.Direct()
-		// 		toRelax[vk] = req
-		// 	}
-		// }
+		// Only relax dependencies if their distance is less than MaxDepth
 		for _, sg := range v.Subgraphs {
 			constr := sg.ConstrainingSubgraph(ctx, cl, &v.OSV)
 			for _, edge := range constr.Nodes[0].Children {

@@ -23,9 +23,6 @@ func TestMatchVuln(t *testing.T) {
 				Aliases: []string{"CVE-111", "OSV-2"},
 			},
 			DevOnly: false,
-			// ProblemChains: []resolution.DependencyChain{{
-			// 	Edges: []resolve.Edge{{From: 2, To: 3}, {From: 1, To: 2}, {From: 0, To: 1}},
-			// }},
 			Subgraphs: []*resolution.DependencySubgraph{{
 				Dependency: 3,
 				Nodes: map[resolve.NodeID]resolution.GraphNode{
@@ -59,12 +56,6 @@ func TestMatchVuln(t *testing.T) {
 				// No severity
 			},
 			DevOnly: true,
-			// ProblemChains: []resolution.DependencyChain{{
-			// 	Edges: []resolve.Edge{{From: 2, To: 3}, {From: 1, To: 2}, {From: 0, To: 1}},
-			// }},
-			// NonProblemChains: []resolution.DependencyChain{{
-			// 	Edges: []resolve.Edge{{From: 1, To: 3}, {From: 0, To: 1}},
-			// }},
 			Subgraphs: []*resolution.DependencySubgraph{{
 				Dependency: 3,
 				Nodes: map[resolve.NodeID]resolution.GraphNode{

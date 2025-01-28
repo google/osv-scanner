@@ -2,9 +2,7 @@ package resolution
 
 import (
 	"context"
-	"fmt"
 	"slices"
-	"strings"
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
@@ -17,62 +15,54 @@ import (
 
 type GraphNode struct {
 	Version  resolve.VersionKey
-	Distance int
-	Parents  []resolve.Edge
-	Children []resolve.Edge
+	Distance int            // The shortest distance to the end Dependency Node (which has a Distance of 0)
+	Parents  []resolve.Edge // Parent edges i.e. with Edge.To == this ID
+	Children []resolve.Edge // Child edges i.e. with Edge.From == this ID
 }
 
 type DependencySubgraph struct {
-	Dependency resolve.NodeID
+	Dependency resolve.NodeID // The NodeID of the end dependency of this subgraph.
 	Nodes      map[resolve.NodeID]GraphNode
 }
 
-func (ds *DependencySubgraph) String() string {
-	var sb strings.Builder
-	fmt.Fprintf(&sb, "[%d: %s]\n", ds.Dependency, ds.Nodes[ds.Dependency].Version)
-	for nID, n := range ds.Nodes {
-		for _, p := range n.Parents {
-			fmt.Fprintf(&sb, "%d@%s ", p.From, p.Requirement)
-		}
-		fmt.Fprintf(&sb, "-> %d: %s (%d) ->", nID, n.Version, n.Distance)
-		for _, c := range n.Children {
-			fmt.Fprintf(&sb, " %d@%s", c.To, c.Requirement)
-		}
-		fmt.Fprintln(&sb)
-	}
-
-	return sb.String()
-}
-
+// ComputeSubgraphs computes the DependencySubgraphs for each specified NodeID.
+// The computed Subgraphs contains all nodes and edges that transitively depend on the specified node, and the node itself.
+//
+// Modifying any of the returned DependencySubgraphs may cause unexpected behaviour.
 func ComputeSubgraphs(g *resolve.Graph, nodes []resolve.NodeID) []*DependencySubgraph {
-	// find the parent nodes of each node in graph, for easier traversal
+	// Find the parent nodes of each node in graph, for easier traversal.
+	// These slices are shared between the returned subgraphs.
 	parentEdges := make(map[resolve.NodeID][]resolve.Edge)
 	for _, e := range g.Edges {
-		// check for a self-dependency, just in case
+		// Check for a self-dependency, just in case.
 		if e.From == e.To {
 			continue
 		}
 		parentEdges[e.To] = append(parentEdges[e.To], e)
 	}
 
+	// For each node, compute the subgraph.
 	subGraphs := make([]*DependencySubgraph, 0, len(nodes))
 	for _, nodeID := range nodes {
+		// Starting at the node of interest, visit all unvisited parents,
+		// adding the corresponding edges to the GraphNodes.
 		gNodes := make(map[resolve.NodeID]GraphNode)
-
 		seen := make(map[resolve.NodeID]struct{})
 		seen[nodeID] = struct{}{}
 		toProcess := []resolve.NodeID{nodeID}
-		currDistance := 0
+		currDistance := 0 // The current distance from end dependency.
 		for len(toProcess) > 0 {
+			// Track the next set of nodes to process, which will be +1 Distance away from end.
 			var next []resolve.NodeID
 			for _, node := range toProcess {
+				// Construct the GraphNode
 				parents := parentEdges[node]
-				gNode := gNodes[node]
+				gNode := gNodes[node] // Grab the existing GraphNode, which will have some Children populated.
 				gNode.Version = g.Nodes[node].Version
 				gNode.Distance = currDistance
 				gNode.Parents = parents
 				gNodes[node] = gNode
-
+				// Populate parent's children and add to next set.
 				for _, edge := range parents {
 					nID := edge.From
 					pNode := gNodes[nID]
@@ -97,8 +87,12 @@ func ComputeSubgraphs(g *resolve.Graph, nodes []resolve.NodeID) []*DependencySub
 	return subGraphs
 }
 
+// IsDevOnly checks if this DependencySubgraph solely contains dev (or test) dependencies.
+// If groups is nil, checks the dep.Type of the direct graph edges for the Dev Attr (for in-place).
+// Otherwise, uses the groups of the direct dependencies to determine if a non-dev path exists (for relax/override).
 func (ds *DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]string) bool {
 	if groups != nil {
+		// Check if any of the direct dependencies are not in the dev group.
 		return !slices.ContainsFunc(ds.Nodes[0].Children, func(e resolve.Edge) bool {
 			req := resolve.RequirementVersion{
 				VersionKey: ds.Nodes[e.To].Version,
@@ -113,6 +107,8 @@ func (ds *DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]str
 		})
 	}
 
+	// groups == nil
+	// Check if any of the direct dependencies do not have the Dev attr.
 	for _, e := range ds.Nodes[0].Children {
 		if e.Type.HasAttr(dep.Dev) {
 			continue
@@ -120,6 +116,7 @@ func (ds *DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]str
 		if e.To == ds.Dependency {
 			return false
 		}
+		// As a workaround for npm workspaces, check for the a Dev attr in the direct dependency's dependencies.
 		for _, e2 := range ds.Nodes[e.To].Children {
 			if !e2.Type.HasAttr(dep.Dev) {
 				return false
@@ -130,19 +127,32 @@ func (ds *DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]str
 	return true
 }
 
+// ConstrainingSubgraph finds the subgraph of the subgraph with only edges that constrains the end dependency to a vulnerable version.
+//
+// If the constraining subgraph cannot be computed for some reason, returns the original DependencySubgraph.
 func (ds *DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resolve.Client, vuln *models.Vulnerability) *DependencySubgraph {
+	// Just check if the direct requirement of the vulnerable package is constraining it.
+	// This still has some false positives.
+	// e.g. if we have
+	// A@* -> B@2.*
+	// D@* -> B@2.1.1 -> C@1.0.0
+	// resolving both together picks B@2.1.1 & thus constrains C to C@1.0.0 for A
+	// But resolving A alone could pick B@2.2.0 which might not depend on C
+	// Similarly, a direct dependency could be constrained by an indirect dependency with similar results.
 	end := ds.Nodes[ds.Dependency]
 	newParents := make([]resolve.Edge, 0, len(end.Parents))
 	for _, pEdge := range end.Parents {
+		// Check if the latest allowable version of the package is vulnerable
 		vk := end.Version
 		vk.Version = pEdge.Requirement
 		vk.VersionType = resolve.Requirement
 		vers, err := cl.MatchingVersions(ctx, vk)
-		if err != nil {
+		if err != nil || len(vers) == 0 {
+			// Could not determine MatchingVersions - assume this is constraining.
 			newParents = append(newParents, pEdge)
 			continue
 		}
-		bestVK := vers[len(vers)-1]
+		bestVK := vers[len(vers)-1] // This should be the highest version for npm
 
 		if vulnUtil.IsAffected(*vuln, util.VKToPackageDetails(bestVK.VersionKey)) {
 			newParents = append(newParents, pEdge)
@@ -150,9 +160,13 @@ func (ds *DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resol
 	}
 
 	if len(newParents) == 0 {
+		// There has to be at least one constraining path for the vulnerability to appear.
+		// If our heuristic couldn't determine any, treat the whole subgraph as constraining.
 		return ds
 	}
 
+	// Rebuild the DependencySubgraph using the dependency's newParents.
+	// Same logic as in ComputeSubgraphs.
 	newNodes := make(map[resolve.NodeID]GraphNode)
 	newNodes[ds.Dependency] = GraphNode{
 		Version:  end.Version,
@@ -202,6 +216,7 @@ func (ds *DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resol
 		toProcess = next
 		currDistance++
 	}
+	// Remove children edges to nodes that are not in the computed subgraph.
 	for nID, edge := range newNodes {
 		edge.Children = slices.DeleteFunc(edge.Children, func(e resolve.Edge) bool {
 			_, ok := seen[e.To]

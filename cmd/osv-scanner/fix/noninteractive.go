@@ -418,10 +418,6 @@ func makeResultVuln(vuln resolution.Vulnerability) vulnOutput {
 	}
 
 	affected := make(map[packageOutput]struct{})
-	// for _, c := range append(vuln.ProblemChains, vuln.NonProblemChains...) {
-	// 	vk, _ := c.End()
-	// 	affected[packageOutput{Name: vk.Name, Version: vk.Version}] = struct{}{}
-	// }
 	for _, sg := range vuln.Subgraphs {
 		vk := sg.Nodes[sg.Dependency].Version
 		affected[packageOutput{Name: vk.Name, Version: vk.Version}] = struct{}{}

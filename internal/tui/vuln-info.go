@@ -67,7 +67,6 @@ func NewVulnInfo(vuln *resolution.Vulnerability) *vulnInfo {
 	*v.mdStyle.Document.Margin = 0
 	v.mdStyle.Document.BlockPrefix = ""
 
-	// chains := append(slices.Clone(vuln.ProblemChains), vuln.NonProblemChains...)
 	v.chainGraphs = FindChainGraphs(vuln.Subgraphs)
 
 	return &v

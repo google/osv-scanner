@@ -53,12 +53,6 @@ func checkInPlaceResults(t *testing.T, res remediation.InPlaceResult) {
 	toMinimalVuln := func(v resolution.Vulnerability) minimalVuln {
 		t.Helper()
 		nodes := make(map[resolve.NodeID]struct{})
-		// for _, c := range v.ProblemChains {
-		// 	nodes[c.Edges[0].To] = struct{}{}
-		// }
-		// for _, c := range v.NonProblemChains {
-		// 	nodes[c.Edges[0].To] = struct{}{}
-		// }
 		for _, sg := range v.Subgraphs {
 			nodes[sg.Dependency] = struct{}{}
 		}
