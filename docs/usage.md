@@ -5,7 +5,7 @@ permalink: /usage/
 nav_order: 4
 ---
 
-# Usage
+# Usage Guide
 
 {: .no_toc }
 
@@ -18,9 +18,13 @@ nav_order: 4
 {:toc}
 </details>
 
----
 
-All OSV-Scanner commands begin with an initial package extraction step, followed by actions on the extracted result (e.g., matching vulnerabilities, updating packages, etc.).
+### Core Concepts
+OSV-Scanner operates in a two-step process:
+
+1. **Package Extraction**: The tool first extracts information about the packages used in your project, container image, or other target.
+
+2. **Vulnerability Matching**: The extracted package information is then matched against known vulnerability databases to identify potential security issues.
 
 ## Subcommands
 
@@ -33,17 +37,15 @@ OSV-Scanner V2 is divided into several subcommands:
 | `scan image`  | [Container Scanning](./container-image-scanning.md)  | `osv-scanner scan image my-docker-img:latest`                          |
 | `fix`         | [Guided Remediation](./guided-remediation.md)        | `osv-scanner fix -M path/to/package.json -L path/to/package-lock.json` |
 
+### The `scan` Subcommand
 
-## Scan Subcommand
+The `scan` subcommand is the primary way to initiate vulnerability scans. It has two subcommands of its own: `source` (default) and `image`.
 
-The `scan` subcommand has two subcommands of its own, `source` (default) or `image`.
+*   **`scan source`**: Scans source code directories for package dependencies and vulnerabilities. See the [Scanning Source documentation](https://www.google.com/url?sa=E&source=gmail&q=https://www.google.com/url?sa=E%26source=gmail%26q=./scan-source.md) for more details.
 
-See the following pages to see more usage details of these commands:
+*   **`scan image`**: Scans container images for vulnerabilities. See the [Scanning Container Images documentation](https://www.google.com/url?sa=E&source=gmail&q=https://www.google.com/url?sa=E%26source=gmail%26q=./scan-image.md) for more details.
 
-- [Scanning Source](./scan-source.md)
-- [Scanning Container Images](./scan-image.md)
-
-Both of these commands share many flags to configure what happens after the initial package extraction step:
+Both `scan source` and `scan image` share a common set of flags for configuring the scan and output.
 
 ## Post-Extraction Flags:
 
@@ -93,18 +95,20 @@ osv-scanner scan -L package-lock.json --serve
 
 ### Experimental features
 
-There are also some features gated behind experimental flags that apply to all scan commands; see their respective pages for more details:
+Several experimental features are available through flags. See their respective documentation pages for more details:
 
 - [`--experimental-offline-vulnerabilities`](./offline-mode.md)
 - [`--experimental-licenses`](./license-scanning.md)
-- `--experimental-no-resolve`
-  - Turns off transitive dependency resolution for supported ecosystems.
-- `experimental-all-packages`
-  - Outputs all packages in the json output format.
+- `--experimental-no-resolve`: Disables transitive dependency resolution.
+- `experimental-all-packages`: Outputs all packages in JSON format (make sure to set `--format=json`).
 
-## Pre-commit integration
+## Pre-Commit Integration
 
-If you wish to install OSV-Scanner as a [pre-commit](https://pre-commit.com) plugin in your project, you may use the `osv-scanner` pre-commit hook. Use the `args` key in your `.pre-commit-config.yaml` to pass your command-line arguments as you would using OSV-Scanner in the command line.
+OSV-Scanner can be integrated as a [pre-commit](https://pre-commit.com) hook in your project.
+
+1.  Add the `osv-scanner` hook to your `.pre-commit-config.yaml` file.
+
+2.  Use the `args` key to pass command-line arguments as you would when running OSV-Scanner directly.
 
 ### Example
 
@@ -119,7 +123,7 @@ repos:
 
 ## Running in a Docker Container
 
-The simplest way to get the osv-scanner docker image is to pull from GitHub Container Registry:
+The OSV-Scanner Docker image can be pulled from the GitHub Container Registry:
 
 ```bash
 docker pull ghcr.io/google/osv-scanner:latest
@@ -131,8 +135,7 @@ Once you have the image, you can test that it works by running:
 docker run -it ghcr.io/google/osv-scanner -h
 ```
 
-Finally, to run it, mount the directory you want to scan to `/src` and pass the
-appropriate osv-scanner flags:
+To run a scan, mount the directory to scan to `/src` and pass the necessary flags:
 
 ```bash
 docker run -it -v ${PWD}:/src ghcr.io/google/osv-scanner -L /src/go.mod
