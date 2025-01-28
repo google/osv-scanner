@@ -7,38 +7,39 @@
 [![GitHub Release](https://img.shields.io/github/v/release/google/osv-scanner)](https://github.com/google/osv-scanner/releases)
 
 Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.  
-OSV-Scanner provides an officially supported frontend to the [OSV database](https://osv.dev/) and CLI interface to [OSV-Scalibr](https://github.com/google/osv-scalibr) that connects a project’s list of dependencies with the vulnerabilities that affect them. 
+OSV-Scanner provides an officially supported frontend to the [OSV database](https://osv.dev/) and CLI interface to [OSV-Scalibr](https://github.com/google/osv-scalibr) that connects a project’s list of dependencies with the vulnerabilities that affect them.
 
 OSV-Scanner supports a wide range of project types, package managers and features, including but not limited to:
 
-* **Languages:** C/C++, Dart, Elixir, Go, Java, Javascript, PHP, Python, R, Ruby, Rust.  
-* **Package Managers:** npm, pip, yarn, maven, go modules, cargo, gem, composer, nuget and others.  
-* **Operating Systems:** Detects vulnerabilities in OS packages on Linux systems.  
-* **Containers:** Scans container images for vulnerabilities in their base images and included packages.  
-* **Guided Remediation:** Provides recommendations for package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.  
+- **Languages:** C/C++, Dart, Elixir, Go, Java, Javascript, PHP, Python, R, Ruby, Rust.
+- **Package Managers:** npm, pip, yarn, maven, go modules, cargo, gem, composer, nuget and others.
+- **Operating Systems:** Detects vulnerabilities in OS packages on Linux systems.
+- **Containers:** Scans container images for vulnerabilities in their base images and included packages.
+- **Guided Remediation:** Provides recommendations for package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.
 
 OSV-Scanner uses the extensible [OSV-Scalibr](https://github.com/google/osv-scalibr) library under the hood to provide this functionality. If a language or package manager is not supported currently, please file a [feature request.](https://github.com/google/osv-scanner/issues)
 
 #### Underlying database
+
 The underlying database, [OSV.dev](https://osv.dev/) has several benefits in comparison with closed source advisory databases and scanners:
 
-- Covering most open source language and OS ecosystems (including [Git](https://osv.dev/list?q=&ecosystem=GIT)), it’s comprehensive.  
-- Each advisory comes from an open and authoritative source (e.g. [GitHub Security Advisories](https://github.com/github/advisory-database), [RustSec Advisory Database](https://github.com/rustsec/advisory-db), [Ubuntu security notices](https://github.com/canonical/ubuntu-security-notices/tree/main/osv))  
-- Anyone can suggest improvements to advisories, resulting in a very high quality database  
+- Covering most open source language and OS ecosystems (including [Git](https://osv.dev/list?q=&ecosystem=GIT)), it’s comprehensive.
+- Each advisory comes from an open and authoritative source (e.g. [GitHub Security Advisories](https://github.com/github/advisory-database), [RustSec Advisory Database](https://github.com/rustsec/advisory-db), [Ubuntu security notices](https://github.com/canonical/ubuntu-security-notices/tree/main/osv))
+- Anyone can suggest improvements to advisories, resulting in a very high quality database.
 - The OSV format unambiguously stores information about affected versions in a machine-readable format that precisely maps onto a developer’s list of packages
 
-The above all results in accurate and actionable vulnerability notifications, which reduces the time needed to resolve them. Check out [OSV.dev](https://osv.dev/) for more details! 
+The above all results in accurate and actionable vulnerability notifications, which reduces the time needed to resolve them. Check out [OSV.dev](https://osv.dev/) for more details!
 
 ## Basic installation
 
-To install OSV-Scanner, please refer to the [installation section](https://google.github.io/osv-scanner/installation) of our documentation. OSV-Scanner releases can be found on the releases page of the [GitHub repository](https://github.com/google/osv-scanner/releases). The recommended method is to download a prebuilt binary for your platform. Alternatively, you can use   
+To install OSV-Scanner, please refer to the [installation section](https://google.github.io/osv-scanner/installation) of our documentation. OSV-Scanner releases can be found on the releases page of the [GitHub repository](https://github.com/google/osv-scanner/releases). The recommended method is to download a prebuilt binary for your platform. Alternatively, you can use  
 `go install github.com/google/osv-scanner/cmd/osv-scanner@v2.0.0-beta1`.
 
 ## Key Features
 
 For more information, please read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner.
 
-Please note: These are the instructions for the latest OSV-Scanner V2 beta. If you are using V1, checkout the V1 [README](https://github.com/google/osv-scanner-v1) and [documentation](https://google.github.io/osv-scanner-v1/) instead. 
+Please note: These are the instructions for the latest OSV-Scanner V2 beta. If you are using V1, checkout the V1 [README](https://github.com/google/osv-scanner-v1) and [documentation](https://google.github.io/osv-scanner-v1/) instead.
 
 ### Scanning a source directory
 
@@ -47,13 +48,13 @@ This command will recursively scan the specified directory for any supported pac
 
 OSV-Scanner has the option of using call analysis to determine if a vulnerable function is actually being used in the project, resulting in fewer false positives, and actionable alerts.
 
-OSV-Scanner can also detect vendored C/C++ code for vulnerability scanning. See [here](https://google.github.io/osv-scanner/usage/#cc-scanning) for details. 
+OSV-Scanner can also detect vendored C/C++ code for vulnerability scanning. See [here](https://google.github.io/osv-scanner/usage/#cc-scanning) for details.
 
 For advanced usage, please check out the [documentation](https://google.github.io/osv-scanner/usage).
 
 #### Supported Lockfiles
 
-OSV-Scanner supports 11+ language ecosystems and 19+ lockfile types. To check if your ecosystem is covered, please check out our [detailed documentation](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/). 
+OSV-Scanner supports 11+ language ecosystems and 19+ lockfile types. To check if your ecosystem is covered, please check out our [detailed documentation](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/).
 
 ### Container Scanning
 
@@ -69,23 +70,22 @@ OSV-Scanner also supports comprehensive, layer-aware scanning for container imag
 | Node Modules             | `node-app/node_modules/...`        |
 | Python wheels            | `lib/python3.11/site-packages/...` |
 
-**Usage**: 
+**Usage**:
 
 `$ osv-scanner scan image my-image-name:tag`
-
 
 ![image](https://github.com/user-attachments/assets/9e3e9c59-1948-45ab-9717-61fcbe3c7cc3)
 
 ### Guided Remediation (experimental)
 
-OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.    
+OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.  
 We currently support remediating vulnerabilities in the following files:
 
-| Ecosystem | File Format (Type) | Supported Remediation Strategies |
-| :---- | :---- | :---- |
-| npm | `package-lock.json` (lockfile) | [`in-place`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-remediation) |
-| npm | `package.json` (manifest) | [`relock`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-remediation) |
-| Maven | `pom.xml` (manifest) | [`override`](https://google.github.io/osv-scanner/experimental/guided-remediation/#override-dependency-versions) |
+| Ecosystem | File Format (Type)             | Supported Remediation Strategies                                                                                  |
+| :-------- | :----------------------------- | :---------------------------------------------------------------------------------------------------------------- |
+| npm       | `package-lock.json` (lockfile) | [`in-place`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-remediation) |
+| npm       | `package.json` (manifest)      | [`relock`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-remediation)   |
+| Maven     | `pom.xml` (manifest)           | [`override`](https://google.github.io/osv-scanner/experimental/guided-remediation/#override-dependency-versions)  |
 
 This is available as a headless CLI command, as well as an interactive mode.
 
