@@ -2919,6 +2919,16 @@ Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
 
 ---
 
+[TestRun_MoreLockfiles/cabal.project.freeze - 1]
+Scanned <rootdir>/fixtures/locks-scalibr/cabal.project.freeze file and found 6 packages
++--------------------------------+------+-----------+-----------------+---------+---------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE         | VERSION | SOURCE                                      |
++--------------------------------+------+-----------+-----------------+---------+---------------------------------------------+
+| https://osv.dev/HSEC-2024-0009 |      | Hackage   | biscuit-haskell | 0.3.0.0 | fixtures/locks-scalibr/cabal.project.freeze |
++--------------------------------+------+-----------+-----------------+---------+---------------------------------------------+
+
+---
+
 [TestRun_MoreLockfiles/cabal.project.freeze - 2]
 
 ---
@@ -2970,8 +2980,8 @@ Alpine:v3.18
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| openssl | 1.1.1k-r0         | Fix Available |         38 | # 2 Layer        | --            |
-| zlib    | 1.2.11-r1         | Fix Available |          2 | # 2 Layer        | --            |
+| openssl | 1.1.1k-r0         | Fix Available |         38 | # 3 Layer        | --            |
+| zlib    | 1.2.11-r1         | Fix Available |          2 | # 3 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
