@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Container Image Scanning
+title: Project Source Scanning
 parent: Usage
 permalink: /usage/scan-source
 nav_order: 2
