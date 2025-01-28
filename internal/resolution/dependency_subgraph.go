@@ -127,8 +127,20 @@ func (ds *DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]str
 	return true
 }
 
-// ConstrainingSubgraph finds the subgraph of the subgraph with only edges that constrains the end dependency to a vulnerable version.
+// ConstrainingSubgraph tries to construct a subgraph of the subgraph that includes only the edges that contribute to a vulnerability.
+// It identifies the dependencies which constrain the vulnerable package to use a vulnerable version.
+// This is used by the 'relax' remediation strategy to identify which direct dependencies need to be updated.
 //
+// e.g. for a subgraph with:
+//
+//	A -> C@<2.0
+//	B -> C@<3.0
+//	C resolves to C@1.9
+//
+// If the vuln affecting C is fixed in version 2.0, the constraining subgraph would only contain A,
+// since B would allow versions >=2.0 of C to be selected if not for A.
+//
+// This is a heuristic approach and may produce false positives.
 // If the constraining subgraph cannot be computed for some reason, returns the original DependencySubgraph.
 func (ds *DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resolve.Client, vuln *models.Vulnerability) *DependencySubgraph {
 	// Just check if the direct requirement of the vulnerable package is constraining it.
