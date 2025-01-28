@@ -11,7 +11,8 @@ $grey-lt-300: #e6e1e8 !default;
 $purple-000: #7253ed !default;
 $purple-100: #5e41d0 !default;
 $purple-200: #4e26af !default;
-$purple-300: #381885 !default;
+// Override the default purple 300 for better visibility
+$purple-300: #d7c6ff;
 $blue-000: #2c84fa !default;
 $blue-100: #2869e6 !default;
 $blue-200: #264caf !default;

@@ -2919,6 +2919,44 @@ Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
 
 ---
 
+[TestRun_MoreLockfiles/cabal.project.freeze - 2]
+
+---
+
+[TestRun_MoreLockfiles/depsjson - 1]
+Scanned <rootdir>/fixtures/locks-scalibr/depsjson file as a deps.json and found 4 packages
++-------------------------------------+------+-----------+--------------------------+---------+---------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                  | VERSION | SOURCE                          |
++-------------------------------------+------+-----------+--------------------------+---------+---------------------------------+
+| https://osv.dev/GHSA-4cv2-4hjh-77rx |      | NuGet     | System.Linq.Dynamic.Core | 1.3.7   | fixtures/locks-scalibr/depsjson |
++-------------------------------------+------+-----------+--------------------------+---------+---------------------------------+
+
+---
+
+[TestRun_MoreLockfiles/depsjson - 2]
+
+---
+
+[TestRun_MoreLockfiles/stack.yaml.lock - 1]
+Scanned <rootdir>/fixtures/locks-scalibr/stack.yaml.lock file and found 4 packages
+No issues found
+
+---
+
+[TestRun_MoreLockfiles/stack.yaml.lock - 2]
+
+---
+
+[TestRun_MoreLockfiles/uv.lock - 1]
+Scanned <rootdir>/fixtures/locks-scalibr/uv.lock file and found 2 packages
+No issues found
+
+---
+
+[TestRun_MoreLockfiles/uv.lock - 2]
+
+---
+
 [TestRun_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-alpine.tar"
 
