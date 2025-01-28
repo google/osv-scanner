@@ -68,6 +68,9 @@ var lockfileExtractors = []filesystem.Extractor{
 	depsjson.Extractor{},
 	cabal.Extractor{},
 	stacklock.Extractor{},
+	// TODO: map the extracted packages to SwiftURL in OSV.dev
+	// The extracted package names do not match the package names of SwiftURL in OSV.dev,
+	// so we need to find a workaround to map the names.
 	// packageresolved.Extractor{},
 }
 

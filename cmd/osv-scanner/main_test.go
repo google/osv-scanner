@@ -977,7 +977,7 @@ func TestRun_MoreLockfiles(t *testing.T) {
 		{
 			name: "depsjson",
 			args: []string{"", "-L", "deps.json:./fixtures/locks-scalibr/depsjson"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "cabal.project.freeze",
@@ -987,7 +987,7 @@ func TestRun_MoreLockfiles(t *testing.T) {
 		{
 			name: "stack.yaml.lock",
 			args: []string{"", "-L", "./fixtures/locks-scalibr/stack.yaml.lock"},
-			exit: 0,
+			exit: 1,
 		},
 		/*
 			{

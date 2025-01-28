@@ -43,7 +43,7 @@ var lockfileExtractorMapping = map[string]string{
 	"Gemfile.lock":                "ruby/gemfilelock",
 	"cabal.project.freeze":        "haskell/cabal",
 	"stack.yaml.lock":             "haskell/stacklock",
-	"Package.resolved":            "swift/packageresolved",
+	// "Package.resolved":            "swift/packageresolved",
 }
 
 // ScanSingleFile is similar to ScanSingleFileWithMapping, just without supporting the <lockfileformat>:/path/to/lockfile prefix identifier
