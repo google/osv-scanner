@@ -30,6 +30,7 @@ For every vulnerability found, OSV-Scanner will display the following informatio
 - Source: Path to the sbom or lockfile where the package originated
 
 And if you are performing layer scanning, osv-scanner additionally returns:
+
 - Layers each package belongs to
 - Layer history and commands
 - Base images the image is based on
@@ -108,6 +109,7 @@ The HTML output features a lot more interactivity and information compared to te
 - Full vulnerability advisory entries
 
 And additionally for container image scanning:
+
 - Layer filtering
 - Image layer information
 - Base image identification
@@ -121,7 +123,6 @@ This feature is in beta as part of OSV-Scanner v2, please share your feedback he
 ![HTML Output Screenshot](./images/html-container-output.png)
 
 </details>
-
 
 ### JSON
 
@@ -530,11 +531,11 @@ osv-scanner scan --format json --experimental-call-analysis -L path/to/lockfile 
 ## Return Codes
 
 |-----
-| Exit Code | Reason                                                                                     |
+| Exit Code | Reason |
 | :-------: | ------------------------------------------------------------------------------------------ |
-|    `0`    | Packages were found when scanning, but does not match any known vulnerabilities.           |
-|    `1`    | Packages were found when scanning, and there are vulnerabilities.                          |
-|  `1-126`  | Reserved for vulnerability result related errors.                                          |
-|   `127`   | General Error.                                                                             |
-|   `128`   | No packages found (likely caused by the scanning format not picking up any files to scan). |
-| `129-255` | Reserved for non result related errors.                                                    |
+| `0` | Packages were found when scanning, but does not match any known vulnerabilities. |
+| `1` | Packages were found when scanning, and there are vulnerabilities. |
+| `1-126` | Reserved for vulnerability result related errors. |
+| `127` | General Error. |
+| `128` | No packages found (likely caused by the scanning format not picking up any files to scan). |
+| `129-255` | Reserved for non result related errors. |
