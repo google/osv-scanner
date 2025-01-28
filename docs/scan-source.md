@@ -83,26 +83,9 @@ it should infer the parser based on the filename:
 osv-scanner source scan --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
-## C/C++ scanning
+## Git Repository Scanning
 
-OSV-Scanner supports C/C++ projects.
-
-Because the C/C++ ecosystem does not have a centralized package manager, C/C++ dependencies tend to be bundled with the project's source code. Dependencies are either [submoduled](#submoduled-dependencies) or [vendored](#vendored-dependencies). In either case, OSV-Scanner is able to find known vulnerabilities in your project dependencies.
-
-OSV-Scanner's C/C++ support is based on commit-level data. OSV's commit-level data covers the majority of C/C++ vulnerabilities within the OSV database, but users should be aware that there may be vulnerabilities in their dependencies that may not be in the OSV database and therefore not included in OSV-Scanner results. Adding more commit-level data to the database is an ongoing project, follow [#783](https://github.com/google/osv.dev/issues/783) for more details.
-
-### Submoduled dependencies
-
-[Submoduled](https://git-scm.com/book/en/v2/Git-Tools-Submodules) dependencies are included in the project's source code and retain their Git histories. To scan a C/C++ project with submoduled dependencies:
-
-1. Navigate to the root folder of your project.
-2. Ensure that your submodules are up to date using `git submodule update`.
-3. Run scanner using `osv-scanner -r .`.
-
-### Vendored dependencies
-
-Vendored dependencies have been directly copied into the project folder, but do not retain their Git histories. OSV-Scanner uses OSV's [determineversion API](https://google.github.io/osv.dev/post-v1-determineversion/) to estimate each dependency's version (and associated Git commit). Vulnerabilities for the estimated version are returned. This process requires no additional work from the user. Run OSV-Scanner as you normally would.
-
+OSV-Scanner will automatically scan git submodules and vendored directories for C/C++ code and try to attribute them to specific dependencies and versions. See [C/C++ Scanning](<supported_languages_and_lockfiles#C/C++ scanning>) for more details.
 
 ## Scanning with call analysis
 
