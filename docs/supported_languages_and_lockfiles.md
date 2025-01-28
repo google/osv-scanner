@@ -18,9 +18,29 @@ nav_order: 2
 {:toc}
 </details>
 
-## Supported lockfiles
+### Core Concept
 
-A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile).
+We found that when performing different forms of scanning, you are generally interested in different types of files. For example, when scanning your source project, you are much more interested in what your lockfiles and manifests contain, and less interested in what is installed on your development machine, or leftover compiled artifacts. However, if you are scanning a container, then what is installed is the vital piece of information, and lockfiles found on the system no longer matters if the artifacts they point to are not actually downloaded and installed.
+
+We make this distinction by splitting what we scan into two broad categories, **manifests** and **artifacts**.
+
+## Supported Artifacts
+
+When scanning container images (`osv-scanner scan image ...`), OSV-Scanner automatically extracts and analyzes the following artifacts:
+
+| Source                   | Example files                      |
+| ------------------------ | ---------------------------------- |
+| Alpine APK packages      | `/lib/apk/db/installed`            |
+| Debian dpkg/apt packages | `/var/lib/dpkg/status`             |
+|                          |                                    |
+| Go Binaries              | `main-go`                          |
+| Java Uber `jars`         | `my-java-app.jar`                  |
+| Node Modules             | `node-app/node_modules/...`        |
+| Python wheels            | `lib/python3.11/site-packages/...` |
+
+## Supported lockfiles/manifests
+
+When scanning source code (`osv-scanner scan source ...`), OSV-Scanner automatically extracts and analyzes the following lockfiles/manifests:
 
 | Language   | Compatible Lockfile(s)                                                                                                                     |
 | :--------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -36,19 +56,6 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 | Ruby       | `Gemfile.lock`                                                                                                                             |
 | Rust       | `Cargo.lock`                                                                                                                               |
 
-## Alpine Package Keeper and Debian Package Manager
-
-The scanner also supports:
-
-- `installed` files used by the Alpine Package Keeper (apk) that typically live at `/lib/apk/db/installed`
-- `status` files used by the Debian Package manager (dpkg) that typically live at `/var/lib/dpkg/status`
-
-however you must [specify](./usage.md/#specify-lockfiles) them explicitly using the `--lockfile` flag:
-
-```bash
-osv-scanner --lockfile 'apk-installed:/lib/apk/db/installed'
-osv-scanner --lockfile 'dpkg-status:/var/lib/dpkg/status'
-```
 
 ## C/C++ scanning
 
