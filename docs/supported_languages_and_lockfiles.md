@@ -50,10 +50,12 @@ When scanning source code (`osv-scanner scan source ...`), OSV-Scanner automatic
 | Dart       | `pubspec.lock`                                                                                                                             |
 | Elixir     | `mix.lock`                                                                                                                                 |
 | Go         | `go.mod`                                                                                                                                   |
+| Haskell    | `cabal.project.freeze`<br> `stack.yaml.lock`                                                                                               |
 | Java       | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`gradle/verification-metadata.xml`<br>`pom.xml`[\*](#transitive-dependency-scanning) |
 | Javascript | `package-lock.json`<br>`pnpm-lock.yaml`<br>`yarn.lock`                                                                                     |
+| .NET       | `deps.json`                                                                                                                                |
 | PHP        | `composer.lock`                                                                                                                            |
-| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)<br>`pdm.lock`                   |
+| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)<br>`pdm.lock`<br>`uv.lock`      |
 | R          | `renv.lock`                                                                                                                                |
 | Ruby       | `Gemfile.lock`                                                                                                                             |
 | Rust       | `Cargo.lock`                                                                                                                               |
