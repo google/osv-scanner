@@ -1,11 +1,11 @@
 ---
 layout: page
-title: Supported Languages and Lockfiles
+title: Supported Artifacts and Manifests
 permalink: /supported-languages-and-lockfiles/
 nav_order: 2
 ---
 
-# Supported Languages and Lockfiles
+# Supported Artifacts and Manifests
 
 {: .no_toc }
 
@@ -20,9 +20,10 @@ nav_order: 2
 
 ### Core Concept
 
+We split the files we can scan into two broad categories, **artifacts** and  **manifests**.
+
 We found that when performing different forms of scanning, you are generally interested in different types of files. For example, when scanning your source project, you are much more interested in what your lockfiles and manifests contain, and less interested in what is installed on your development machine, or leftover compiled artifacts. However, if you are scanning a container, then what is installed is the vital piece of information, and lockfiles found on the system no longer matters if the artifacts they point to are not actually downloaded and installed.
 
-We make this distinction by splitting what we scan into two broad categories, **manifests** and **artifacts**.
 
 ## Supported Artifacts
 

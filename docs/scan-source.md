@@ -14,7 +14,7 @@ OSV-Scanner can be used to scan your project source and lockfiles to find vulner
 osv-scanner scan source <flags> [paths...]
 ```
 
-As this is the most common usecase of osv-scanner, `source scan` is the default subcommand of osv-scanner, so the above is equivalent to:
+As this is the most common usecase of osv-scanner, `scan source` is the default subcommand of osv-scanner, so the above is equivalent to:
 
 ```bash
 osv-scanner <flags> [paths...]
@@ -101,7 +101,7 @@ OSV-Scanner uses the [`govulncheck`](https://pkg.go.dev/golang.org/x/vuln/cmd/go
 
 #### Additional Dependencies
 
-`go` compiler needs to be installed and available on `PATH`
+`go` compiler needs to be installed and available on `PATH`.
 
 ### Call analysis in Rust
 
