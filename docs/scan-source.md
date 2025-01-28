@@ -132,4 +132,3 @@ Current implementation has a few limitations:
 ```bash
 osv-scanner source scan --call-analysis=rust --no-call-analysis=go ./my/project/path
 ```
-

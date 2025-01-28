@@ -18,8 +18,8 @@ nav_order: 4
 {:toc}
 </details>
 
-
 ### Core Concepts
+
 OSV-Scanner operates in a two-step process:
 
 1. **Package Extraction**: The tool first extracts information about the packages used in your project, container image, or other target.
@@ -41,9 +41,9 @@ OSV-Scanner V2 is divided into several subcommands:
 
 The `scan` subcommand is the primary way to initiate vulnerability scans. It has two subcommands of its own: `source` (default) and `image`.
 
-*   **`scan source`**: Scans source code directories for package dependencies and vulnerabilities. See the [Scanning Source documentation](https://www.google.com/url?sa=E&source=gmail&q=https://www.google.com/url?sa=E%26source=gmail%26q=./scan-source.md) for more details.
+- **`scan source`**: Scans source code directories for package dependencies and vulnerabilities. See the [Scanning Source documentation](https://www.google.com/url?sa=E&source=gmail&q=https://www.google.com/url?sa=E%26source=gmail%26q=./scan-source.md) for more details.
 
-*   **`scan image`**: Scans container images for vulnerabilities. See the [Scanning Container Images documentation](https://www.google.com/url?sa=E&source=gmail&q=https://www.google.com/url?sa=E%26source=gmail%26q=./scan-image.md) for more details.
+- **`scan image`**: Scans container images for vulnerabilities. See the [Scanning Container Images documentation](https://www.google.com/url?sa=E&source=gmail&q=https://www.google.com/url?sa=E%26source=gmail%26q=./scan-image.md) for more details.
 
 Both `scan source` and `scan image` share a common set of flags for configuring the scan and output.
 
@@ -140,4 +140,3 @@ To run a scan, mount the directory to scan to `/src` and pass the necessary flag
 ```bash
 docker run -it -v ${PWD}:/src ghcr.io/google/osv-scanner -L /src/go.mod
 ```
-

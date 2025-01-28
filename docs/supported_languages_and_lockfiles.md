@@ -56,7 +56,6 @@ When scanning source code (`osv-scanner scan source ...`), OSV-Scanner automatic
 | Ruby       | `Gemfile.lock`                                                                                                                             |
 | Rust       | `Cargo.lock`                                                                                                                               |
 
-
 ## C/C++ scanning
 
 With the addition of [vulnerable commit ranges](https://osv.dev/blog/posts/introducing-broad-c-c++-support/) to the OSV.dev database, OSV-Scanner now supports vendored and submoduled C/C++ dependencies

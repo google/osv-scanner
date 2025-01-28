@@ -31,38 +31,41 @@ All image scanning is done with the `scan image` subcommand:
 osv-scanner scan image
 ```
 
-
 ## Scanning Methods
 
 You can scan container images using two primary methods:
 
 1. **Direct Image Scan:** Specify the image name and tag (e.g., `my-image:latest`). OSV-Scanner will attempt to locate the image locally. If not found locally, it will attempt to pull the image from the appropriate registry using the `docker` command.
-    ```bash
-    osv-scanner scan image image-name:tag
-    ```
-    * **How it works:** OSV-Scanner uses `docker save` to export the image to a temporary archive, which is then analyzed. No container code is executed during the scan.
+
+   ```bash
+   osv-scanner scan image image-name:tag
+   ```
+
+   - **How it works:** OSV-Scanner uses `docker save` to export the image to a temporary archive, which is then analyzed. No container code is executed during the scan.
 
 2. **Scan from Exported Image Archive:** If you have already exported your container image as a Docker archive (`.tar` file), you can scan it directly using the `--local` flag. This method does not require Docker to be installed.
-    ```bash
-    osv-scanner scan image --local ./path/to/my-image.tar
-    ```
-   * **How to create an image archive:** You can create an image archive using the following commands:
-      ```bash
-      # Using Docker
-      docker save my-image:latest > my-image.tar
 
-      # Using Podman
-      podman save --format=docker-archive my-image:latest > my-image.tar
+   ```bash
+   osv-scanner scan image --local ./path/to/my-image.tar
+   ```
 
-      # Other image tools: Use the docker archive format to export the tar
-      ```
+   - **How to create an image archive:** You can create an image archive using the following commands:
+
+     ```bash
+     # Using Docker
+     docker save my-image:latest > my-image.tar
+
+     # Using Podman
+     podman save --format=docker-archive my-image:latest > my-image.tar
+
+     # Other image tools: Use the docker archive format to export the tar
+     ```
 
 ### Usage Notes
 
-* **No other scan targets:** When using `scan image`, you cannot specify other scan targets (e.g., directories or lockfiles).
+- **No other scan targets:** When using `scan image`, you cannot specify other scan targets (e.g., directories or lockfiles).
 
-* **Configuration Flags:** All the global configuration flags available for the `scan` command (as described in the [Usage documentation](https://www.google.com/url?sa=E&source=gmail&q=./usage.md)) can be used with the `scan image` subcommand. This includes flags for output format, verbosity, config files, and experimental features.
-
+- **Configuration Flags:** All the global configuration flags available for the `scan` command (as described in the [Usage documentation](https://www.google.com/url?sa=E&source=gmail&q=./usage.md)) can be used with the `scan image` subcommand. This includes flags for output format, verbosity, config files, and experimental features.
 
 ## Output
 
@@ -117,16 +120,15 @@ Filtered Vulnerabilities:
 
 </details>
 
-
 ### Detailed Output:
 
 For a more detailed view of vulnerabilities, including individual vulnerability details, use the HTML output format. You can enable it using:
 
-  * `--format=html`: This will output the results to an HTML file.
+- `--format=html`: This will output the results to an HTML file.
 
-  * `--serve`: This will generate an HTML report and host it locally on `localhost:8000`.
+- `--serve`: This will generate an HTML report and host it locally on `localhost:8000`.
 
-  See the [Output documentation](https://www.google.com/url?sa=E&source=gmail&q=./output.md) for more information on output formats.
+See the [Output documentation](https://www.google.com/url?sa=E&source=gmail&q=./output.md) for more information on output formats.
 
 <details markdown="1">
 <summary><b>Sample HTML output</b></summary>
