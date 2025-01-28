@@ -65,7 +65,7 @@ You can scan container images using two primary methods:
 
 - **No other scan targets:** When using `scan image`, you cannot specify other scan targets (e.g., directories or lockfiles).
 
-- **Configuration Flags:** All the global configuration flags available for the `scan` command (as described in the [Usage documentation](https://www.google.com/url?sa=E&source=gmail&q=./usage.md)) can be used with the `scan image` subcommand. This includes flags for output format, verbosity, config files, and experimental features.
+- **Configuration Flags:** All the global configuration flags available for the `scan` command (as described in the [Usage documentation](./usage.md)) can be used with the `scan image` subcommand. This includes flags for output format, verbosity, config files, and experimental features.
 
 ## Output
 
@@ -128,7 +128,7 @@ For a more detailed view of vulnerabilities, including individual **vulnerabilit
 
 - `--serve`: This will generate an HTML report and host it locally on `localhost:8000`.
 
-See the [Output documentation](https://www.google.com/url?sa=E&source=gmail&q=./output.md) for more information on output formats.
+See the [Output documentation](./output.md) for more information on output formats.
 
 **Sample HTML Output**:
 
