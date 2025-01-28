@@ -18,6 +18,8 @@ nav_order: 2
 {:toc}
 </details>
 
+Artifact and manifest extraction logic is implemented in [OSV-Scalibr](https://github.com/google/osv-scalibr) as a standalone library. OSV-Scanner tightly integrates with OSV-Scalibr to provide a end to end vulnerability scanner for developers.
+
 ### Core Concept
 
 We split the files we can scan into two broad categories, **artifacts** and **manifests**.
