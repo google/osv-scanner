@@ -55,7 +55,7 @@ OSV-Scanner also supports comprehensive, layer-aware scanning for container imag
 
 `$ osv-scanner scan image my-image-name`
 
-[insert image here]
+![image](https://github.com/user-attachments/assets/9e3e9c59-1948-45ab-9717-61fcbe3c7cc3)
 
 ### Guided Remediation (experimental)
 
@@ -78,8 +78,7 @@ This is available as a headless CLI command, as well as an interactive mode.
 
 `$ osv-scanner fix -M path/to/package.json -L path/to/package-lock.json `
 
-
-[insert image here]
+<img src="https://google.github.io/osv-scanner/images/guided-remediation-relock-patches.png" alt="Screenshot of the interactive relock results screen with some relaxation patches selected">
 
 More information can be found [here](https://google.github.io/osv-scanner/experimental/guided-remediation/).
 
