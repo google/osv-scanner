@@ -27,14 +27,16 @@ The underlying database, [OSV.dev](https://osv.dev/) has several benefits in com
 - Anyone can suggest improvements to advisories, resulting in a very high quality database  
 - The OSV format unambiguously stores information about affected versions in a machine-readable format that precisely maps onto a developer’s list of packages
 
-The above all results in accurate and actionable vulnerability notifications, which reduces the time needed to resolve them. Check out [OSV.dev](https://osv.dev/) for more details\! 
+The above all results in accurate and actionable vulnerability notifications, which reduces the time needed to resolve them. Check out [OSV.dev](https://osv.dev/) for more details! 
 
 ## Basic installation
 
-To install OSV-Scanner, please refer to the [installation section](https://google.github.io/osv-scanner/installation) of our documentation. The recommended method is to download a prebuilt binary for your platform. Alternatively, you can use   
+To install OSV-Scanner, please refer to the [installation section](https://google.github.io/osv-scanner/installation) of our documentation. OSV-Scanner releases can be found on the releases page of the [GitHub repository](https://github.com/google/osv-scanner/releases). The recommended method is to download a prebuilt binary for your platform. Alternatively, you can use   
 `go install github.com/google/osv-scanner/cmd/osv-scanner@v2.0.0-beta1`.
 
 ## Key Features
+
+For more information, please read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner.
 
 Please note: These are the instructions for the latest OSV-Scanner V2 beta. If you are using V1, checkout the V1 [README](https://github.com/google/osv-scanner-v1) and [documentation](https://google.github.io/osv-scanner-v1/) instead. 
 
@@ -42,6 +44,10 @@ Please note: These are the instructions for the latest OSV-Scanner V2 beta. If y
 
 `osv-scanner scan source -r /path/to/your/dir`  
 This command will recursively scan the specified directory for any supported package files, such as `package.json`, `go.mod`, `pom.xml`, etc. and output any discovered vulnerabilities.
+
+OSV-Scanner has the option of using call analysis to determine if a vulnerable function is actually being used in the project, resulting in fewer false positives, and actionable alerts.
+
+OSV-Scanner can also detect vendored C/C++ code for vulnerability scanning. See [here](https://google.github.io/osv-scanner/usage/#cc-scanning) for details. 
 
 For advanced usage, please check out the [documentation](https://google.github.io/osv-scanner/usage).
 
@@ -51,9 +57,22 @@ OSV-Scanner supports 11+ language ecosystems and 19+ lockfile types. To check if
 
 ### Container Scanning
 
-OSV-Scanner also supports comprehensive, layer-aware scanning for container images to detect vulnerabilities in operating system packages and language-specific dependencies.
+OSV-Scanner also supports comprehensive, layer-aware scanning for container images to detect vulnerabilities the following operating system packages and language-specific dependencies.
 
-`$ osv-scanner scan image my-image-name`
+| Source                   | Example files                      |
+| ------------------------ | ---------------------------------- |
+| Alpine APK packages      | `/lib/apk/db/installed`            |
+| Debian dpkg/apt packages | `/var/lib/dpkg/status`             |
+|                          |                                    |
+| Go Binaries              | `main-go`                          |
+| Java Uber `jars`         | `my-java-app.jar`                  |
+| Node Modules             | `node-app/node_modules/...`        |
+| Python wheels            | `lib/python3.11/site-packages/...` |
+
+**Usage**: 
+
+`$ osv-scanner scan image my-image-name:tag`
+
 
 ![image](https://github.com/user-attachments/assets/9e3e9c59-1948-45ab-9717-61fcbe3c7cc3)
 
@@ -62,13 +81,37 @@ OSV-Scanner also supports comprehensive, layer-aware scanning for container imag
 OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.    
 We currently support remediating vulnerabilities in the following files:
 
-| Ecosystem | File Format (Type) | Supported [Remediation Strategies](#remediation-strategies) |
+| Ecosystem | File Format (Type) | Supported Remediation Strategies |
 | :---- | :---- | :---- |
 | npm | `package-lock.json` (lockfile) | [`in-place`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-remediation) |
 | npm | `package.json` (manifest) | [`relock`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-remediation) |
 | Maven | `pom.xml` (manifest) | [`override`](https://google.github.io/osv-scanner/experimental/guided-remediation/#override-dependency-versions) |
 
 This is available as a headless CLI command, as well as an interactive mode.
+
+### License Scanning
+
+OSV-Scanner supports license checking as an experimental feature. The data comes from the [deps.dev](https://deps.dev) API. If you want a summary of your dependencies licenses, use the `--experimental-licenses-summary` flag:
+
+`$ osv-scanner --experimental-licenses-summary path/to/repository`
+
+To set an allowed license list and see the details of packages that do not conform, use the `--experimental-licenses` flag:
+
+`$ osv-scanner --experimental-licenses="comma-separated list of allowed licenses" path/to/directory`
+
+Include your allowed licenses as a comma-separated list. OSV-Scanner recognizes licenses in SPDX format. Please indicate your allowed licenses using SPDX license identifiers.
+
+For more information, view the [full documentation](https://google.github.io/osv-scanner/experimental/license-scanning/).
+
+### Offline Scanning
+
+OSV-Scanner now supports offline scanning. Offline scanning checks your project against a local database instead of calling the OSV.dev API.
+
+The offline database flag --experimental-offline causes OSV-Scanner to scan your project against a previously downloaded local database. OSV-Scanner will not download or update the local database, nor will it send any project or dependency information anywhere. When a local database is not present, you will get an error message. No network connection is required when using this flag.
+
+`$ osv-scanner --experimental-offline ./path/to/your/dir`
+
+For more information, view the full documentation [here](https://google.github.io/osv-scanner/experimental/offline-mode/).
 
 #### Example (for npm)
 
@@ -82,18 +125,6 @@ This is available as a headless CLI command, as well as an interactive mode.
 
 More information can be found [here](https://google.github.io/osv-scanner/experimental/guided-remediation/).
 
-### Call analysis
-
-OSV-Scanner has the option of using call analysis to determine if a vulnerable function is actually being used in the project, resulting in fewer false positives, and actionable alerts.
-
-### Detecting vendored C/C++ code
-
-OSV-Scanner can also detect vendored C/C++ code for vulnerability scanning. See [here](https://google.github.io/osv-scanner/usage/#cc-scanning) for details. 
-
-## Documentation
-
-For more information, please read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner.
-
 ## Contribute
 
 ### Report Problems
@@ -102,7 +133,7 @@ If you have what looks like a bug, please use the [GitHub issue tracking system]
 
 ### Contributing code to `osv-scanner`
 
-See [CONTRIBUTING.md](http://CONTRIBUTING.md) for documentation on how to contribute code.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute code.
 
 ## Star History
 
