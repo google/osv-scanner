@@ -66,6 +66,7 @@ func (pkg *PackageInfo) Name() string {
 		return "stdlib"
 	}
 
+	// TODO: Move the normalization to another where matching logic happens.
 	// Patch python package names to be normalized
 	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
