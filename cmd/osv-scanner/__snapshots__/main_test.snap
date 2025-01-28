@@ -2965,69 +2965,21 @@ Total 9 packages affected by 12 vulnerabilities (1 Critical, 4 High, 7 Medium, 0
 12 vulnerabilities have fixes available.
 
 Maven
-+-----------------------------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar/META-INF/maven/com.google.protobuf/protobuf-java/pom.properties                        |
-+-----------------------------------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE                           | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+-----------------------------------+-------------------+---------------+------------+------------------+---------------+
-| com.google.protobuf:protobuf-java | 3.21.12           | Fix Available |          1 | # 5 Layer        | --            |
-+-----------------------------------+-------------------+---------------+------------+------------------+---------------+
-+------------------------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar/META-INF/maven/com.nimbusds/nimbus-jose-jwt/pom.properties                        |
-+------------------------------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE                      | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+------------------------------+-------------------+---------------+------------+------------------+---------------+
-| com.nimbusds:nimbus-jose-jwt | 9.31              | Fix Available |          1 | # 5 Layer        | --            |
-+------------------------------+-------------------+---------------+------------+------------------+---------------+
-+-----------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar/META-INF/maven/dnsjava/dnsjava/pom.properties                        |
-+-----------------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE         | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+-----------------+-------------------+---------------+------------+------------------+---------------+
-| dnsjava:dnsjava | 3.4.0             | Fix Available |          1 | # 5 Layer        | --            |
-+-----------------+-------------------+---------------+------------+------------------+---------------+
-+---------------------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar/META-INF/maven/io.netty/netty-codec-http/pom.properties                        |
-+---------------------------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE                   | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------------------------+-------------------+---------------+------------+------------------+---------------+
-| io.netty:netty-codec-http | 4.1.100.Final     | Fix Available |          1 | # 5 Layer        | --            |
-+---------------------------+-------------------+---------------+------------+------------------+---------------+
-+-----------------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar/META-INF/maven/io.netty/netty-common/pom.properties                        |
-+-----------------------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE               | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+-----------------------+-------------------+---------------+------------+------------------+---------------+
-| io.netty:netty-common | 4.1.100.Final     | Fix Available |          1 | # 5 Layer        | --            |
-+-----------------------+-------------------+---------------+------------+------------------+---------------+
-+----------------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar/META-INF/maven/org.apache.avro/avro/pom.properties                        |
-+----------------------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE              | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+----------------------+-------------------+---------------+------------+------------------+---------------+
-| org.apache.avro:avro | 1.9.2             | Fix Available |          2 | # 5 Layer        | --            |
-+----------------------+-------------------+---------------+------------+------------------+---------------+
-+-------------------------------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar/META-INF/maven/org.apache.commons/commons-compress/pom.properties                        |
-+-------------------------------------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE                             | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+-------------------------------------+-------------------+---------------+------------+------------------+---------------+
-| org.apache.commons:commons-compress | 1.21              | Fix Available |          2 | # 5 Layer        | --            |
-+-------------------------------------+-------------------+---------------+------------+------------------+---------------+
 +-------------------------------------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar/META-INF/maven/org.apache.commons/commons-configuration2/pom.properties                        |
+| Source:artifact:app/target.jar                                                                                                |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE                                   | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
-| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          2 | # 5 Layer        | --            |
+| com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available |          1 | # 4 Layer        | --            |
+| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          1 | # 4 Layer        | --            |
+| dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 4 Layer        | --            |
+| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          1 | # 4 Layer        | --            |
+| io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          1 | # 4 Layer        | --            |
+| org.apache.avro:avro                      | 1.9.2             | Fix Available |          2 | # 4 Layer        | --            |
+| org.apache.commons:commons-compress       | 1.21              | Fix Available |          2 | # 4 Layer        | --            |
+| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          2 | # 4 Layer        | --            |
+| org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available |          1 | # 4 Layer        | --            |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
-+------------------------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar/META-INF/maven/org.eclipse.jetty/jetty-http/pom.properties                        |
-+------------------------------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE                      | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+------------------------------+-------------------+---------------+------------+------------------+---------------+
-| org.eclipse.jetty:jetty-http | 9.4.53.v20231009  | Fix Available |          1 | # 5 Layer        | --            |
-+------------------------------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
