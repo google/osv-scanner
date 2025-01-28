@@ -2920,8 +2920,12 @@ Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
 ---
 
 [TestRun_MoreLockfiles/cabal.project.freeze - 1]
-Scanned <rootdir>/fixtures/locks-scalibr/cabal.project.freeze file and found 5 packages
-No issues found
+Scanned <rootdir>/fixtures/locks-scalibr/cabal.project.freeze file and found 6 packages
++--------------------------------+------+-----------+-----------------+---------+---------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE         | VERSION | SOURCE                                      |
++--------------------------------+------+-----------+-----------------+---------+---------------------------------------------+
+| https://osv.dev/HSEC-2024-0009 |      | Hackage   | biscuit-haskell | 0.3.0.0 | fixtures/locks-scalibr/cabal.project.freeze |
++--------------------------------+------+-----------+-----------------+---------+---------------------------------------------+
 
 ---
 
@@ -2944,12 +2948,8 @@ Scanned <rootdir>/fixtures/locks-scalibr/depsjson file as a deps.json and found 
 ---
 
 [TestRun_MoreLockfiles/stack.yaml.lock - 1]
-Scanned <rootdir>/fixtures/locks-scalibr/stack.yaml.lock file and found 5 packages
-+--------------------------------+------+-----------+-----------------+---------+----------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE         | VERSION | SOURCE                                 |
-+--------------------------------+------+-----------+-----------------+---------+----------------------------------------+
-| https://osv.dev/HSEC-2024-0009 |      | Hackage   | biscuit-haskell | 0.3.0.0 | fixtures/locks-scalibr/stack.yaml.lock |
-+--------------------------------+------+-----------+-----------------+---------+----------------------------------------+
+Scanned <rootdir>/fixtures/locks-scalibr/stack.yaml.lock file and found 4 packages
+No issues found
 
 ---
 

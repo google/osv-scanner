@@ -982,12 +982,12 @@ func TestRun_MoreLockfiles(t *testing.T) {
 		{
 			name: "cabal.project.freeze",
 			args: []string{"", "-L", "./fixtures/locks-scalibr/cabal.project.freeze"},
-			exit: 0,
+			exit: 1,
 		},
 		{
 			name: "stack.yaml.lock",
 			args: []string{"", "-L", "./fixtures/locks-scalibr/stack.yaml.lock"},
-			exit: 1,
+			exit: 0,
 		},
 		/*
 			{

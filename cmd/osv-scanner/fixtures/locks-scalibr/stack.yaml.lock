@@ -32,13 +32,6 @@ packages:
       size: 1096
   original:
     hackage: postgresql-libpq-0.10.1.0
-- completed:
-    hackage: biscuit-haskell-0.3.0.0@sha256:23ed9d72fcd7c5520da19e3ce97ab0dad5dea8a9885b4e7ece5963af17bab0ee,3166
-    pantry-tree:
-      sha256: 23ed9d72fcd7c5520da19e3ce97ab0dad5dea8a9885b4e7ece5963af17bab0ee
-      size: 1096
-  original:
-    hackage: biscuit-haskell-0.3.0.0
 snapshots:
 - completed:
     sha256: 1e32b51d9082fdf6f3bd92accc9dfffd4ddaf406404427fb10bf76d2bc03cbbb
