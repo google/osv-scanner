@@ -31,14 +31,19 @@ var lockfileExtractorMapping = map[string]string{
 	"Pipfile.lock":                "python/Pipfilelock",
 	"pdm.lock":                    "python/pdmlock",
 	"requirements.txt":            "python/requirements",
+	"uv.lock":                     "python/uvlock",
 	"Cargo.lock":                  "rust/Cargolock",
 	"composer.lock":               "php/composerlock",
 	"mix.lock":                    "erlang/mixlock",
 	"renv.lock":                   "r/renvlock",
+	"deps.json":                   "dotnet/depsjson",
 	"packages.lock.json":          "dotnet/packageslockjson",
 	"conan.lock":                  "cpp/conanlock",
 	"go.mod":                      "go/gomod",
 	"Gemfile.lock":                "ruby/gemfilelock",
+	"cabal.project.freeze":        "haskell/cabal",
+	"stack.yaml.lock":             "haskell/stacklock",
+	// "Package.resolved":            "swift/packageresolved",
 }
 
 // ScanSingleFile is similar to ScanSingleFileWithMapping, just without supporting the <lockfileformat>:/path/to/lockfile prefix identifier
