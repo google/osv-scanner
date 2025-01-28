@@ -41,9 +41,9 @@ OSV-Scanner V2 is divided into several subcommands:
 
 The `scan` subcommand is the primary way to initiate vulnerability scans. It has two subcommands of its own: `source` (default) and `image`.
 
-- **`scan source`**: Scans source code directories for package dependencies and vulnerabilities. See the [Scanning Source documentation](https://www.google.com/url?sa=E&source=gmail&q=https://www.google.com/url?sa=E%26source=gmail%26q=./scan-source.md) for more details.
+- **`scan source`**: Scans source code directories for package dependencies and vulnerabilities. See the [Scanning Source documentation](./scan-source.md) for more details.
 
-- **`scan image`**: Scans container images for vulnerabilities. See the [Scanning Container Images documentation](https://www.google.com/url?sa=E&source=gmail&q=https://www.google.com/url?sa=E%26source=gmail%26q=./scan-image.md) for more details.
+- **`scan image`**: Scans container images for vulnerabilities. See the [Scanning Container Images documentation](./scan-image.md) for more details.
 
 Both `scan source` and `scan image` share a common set of flags for configuring the scan and output.
 
