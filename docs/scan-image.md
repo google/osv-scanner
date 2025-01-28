@@ -19,7 +19,7 @@ nav_order: 1
 {:toc}
 </details>
 
-OSV-Scanner analyzes container images by extracting package information and matching it against known vulnerability databases. This helps identify potential security risks in your containerized applications.
+OSV-Scanner analyzes container images by extracting package information and matching it against known vulnerabilities in the OSV.dev database. This helps identify potential security risks in your containerized applications.
 
 ### Prerequisites
 
@@ -28,7 +28,7 @@ OSV-Scanner analyzes container images by extracting package information and matc
 All image scanning is done with the `scan image` subcommand:
 
 ```bash
-osv-scanner scan image
+osv-scanner scan image <image-name>:<tag>
 ```
 
 ## Scanning Methods
@@ -130,9 +130,6 @@ For a more detailed view of vulnerabilities, including individual vulnerability 
 
 See the [Output documentation](https://www.google.com/url?sa=E&source=gmail&q=./output.md) for more information on output formats.
 
-<details markdown="1">
-<summary><b>Sample HTML output</b></summary>
+**Sample HTML Output**:
 
 ![Screenshot of HTML output for container image scanning](./images/html-container-output.png)
-
-</details>

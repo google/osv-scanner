@@ -11,7 +11,7 @@ nav_order: 2
 OSV-Scanner can be used to scan your project source and lockfiles to find vulnerabilities in your dependencies.
 
 ```bash
-osv-scanner source scan <flags> [paths...]
+osv-scanner scan source <flags> [paths...]
 ```
 
 As this is the most common usecase of osv-scanner, `source scan` is the default subcommand of osv-scanner, so the above is equivalent to:
@@ -23,7 +23,7 @@ osv-scanner <flags> [paths...]
 ## General use case: scanning a directory
 
 ```bash
-osv-scanner source scan -r /path/to/your/dir
+osv-scanner scan source -r /path/to/your/dir
 ```
 
 The preceding command will find lockfiles, SBOMs, and git directories in your target directory and use them to determine the dependencies to check against the OSV database for any known vulnerabilities.
@@ -45,7 +45,7 @@ The `--no-ignore` flag can be used to force the scanner to scan ignored files.
 If you want to check for known vulnerabilities only in dependencies in your SBOM, you can use the following command:
 
 ```bash
-osv-scanner source scan --sbom=/path/to/your/sbom.spdx.json
+osv-scanner scan source --sbom=/path/to/your/sbom.spdx.json
 ```
 
 [SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported. The format is
@@ -64,13 +64,13 @@ When scanning a directory, only SBOMs following the specification filename will 
 If you want to check for known vulnerabilities in specific lockfiles, you can use the following command:
 
 ```bash
-osv-scanner source scan --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
+osv-scanner scan source --lockfile=/path/to/your/package-lock.json --lockfile=/path/to/another/Cargo.lock
 ```
 
 It is possible to specify more than one lockfile at a time; you can also specify how to parse an arbitrary file:
 
 ```bash
-osv-scanner source scan --lockfile 'requirements.txt:/path/to/your/extra-requirements.txt'
+osv-scanner scan source --lockfile 'requirements.txt:/path/to/your/extra-requirements.txt'
 ```
 
 The list of supported lockfile formats can be found [here](/osv-scanner/supported-languages-and-lockfiles/).
@@ -80,7 +80,7 @@ you can prefix the path to just a colon to explicitly signal to the scanner that
 it should infer the parser based on the filename:
 
 ```bash
-osv-scanner source scan --lockfile ':/path/to/my:projects/package-lock.json'
+osv-scanner scan source --lockfile ':/path/to/my:projects/package-lock.json'
 ```
 
 ## Git Repository Scanning
@@ -130,5 +130,5 @@ Current implementation has a few limitations:
 ### Example
 
 ```bash
-osv-scanner source scan --call-analysis=rust --no-call-analysis=go ./my/project/path
+osv-scanner scan source --call-analysis=rust --no-call-analysis=go ./my/project/path
 ```
