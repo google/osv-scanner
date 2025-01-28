@@ -147,10 +147,10 @@ a 1.0.0
 	b@1.0.0 1.0.0
 		prod: prod@1.0.0 1.0.0
 	Dev|c@1.0.0 1.0.0
-		Dev|$prod@1.0.0
-		dev: Dev|dev@1.0.0 1.0.0
+		$prod@1.0.0
+		dev: dev@1.0.0 1.0.0
 	Dev|d@1.0.0 1.0.0
-		Dev|$dev@1.0.0
+		$dev@1.0.0
 `, resolve.NPM)
 	if err != nil {
 		t.Fatalf("failed to parse test graph: %v", err)
