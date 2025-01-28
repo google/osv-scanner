@@ -2961,7 +2961,7 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 Scanning local image tarball "../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 9 packages affected by 12 vulnerabilities (1 Critical, 5 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
+Total 9 packages affected by 12 vulnerabilities (1 Critical, 4 High, 7 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
 12 vulnerabilities have fixes available.
 
 Maven
@@ -3178,8 +3178,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 7 packages affected by 27 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 27 Unknown) from 2 ecosystems.
-27 vulnerabilities have fixes available.
+Total 7 packages affected by 39 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 39 Unknown) from 2 ecosystems.
+39 vulnerabilities have fixes available.
 
 Go
 +---------------------------------------------------------------------------------------------+
@@ -3187,42 +3187,42 @@ Go
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          4 | # 9 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |          6 | # 9 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:go/bin/ptf-1.2.0                                                            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          4 | # 2 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |          6 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:go/bin/ptf-1.3.0                                                            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          4 | # 4 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |          6 | # 4 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:go/bin/ptf-1.3.0-moved                                                      |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          4 | # 3 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |          6 | # 3 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:go/bin/ptf-1.4.0                                                            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          4 | # 2 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |          6 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:go/bin/ptf-vulnerable                                                       |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          4 | # 7 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |          6 | # 7 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.20
 +---------------------------------------------------------------------------------------------+
