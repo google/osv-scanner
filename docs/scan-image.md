@@ -122,7 +122,7 @@ Filtered Vulnerabilities:
 
 ### Detailed Output:
 
-For a more detailed view of vulnerabilities, including individual vulnerability details, use the HTML output format. You can enable it using:
+For a more detailed view of vulnerabilities, including individual **vulnerability details**, **base image identification**, and **layer specific filters**, use the HTML output format. You can enable it using:
 
 - `--format=html`: This will output the results to an HTML file.
 
