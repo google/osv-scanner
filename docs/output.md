@@ -29,6 +29,13 @@ For every vulnerability found, OSV-Scanner will display the following informatio
 - Version: Package version
 - Source: Path to the sbom or lockfile where the package originated
 
+And if you are performing layer scanning, osv-scanner additionally returns:
+
+- Layer where a package was first introduced
+- Layer history and commands
+- Base images the image is based on
+- OS/Distro the container is running on
+
 ## Output formats
 
 You can control the format used by the scanner to output results with the `--format` flag.
@@ -38,7 +45,7 @@ You can control the format used by the scanner to output results with the `--for
 The default format, which outputs the results as a human-readable table.
 
 ```bash
-osv-scanner --format table your/project/dir
+osv-scanner scan --format table your/project/dir
 ```
 
 <details markdown="1">
@@ -60,7 +67,7 @@ osv-scanner --format table your/project/dir
 ### Markdown Table
 
 ```bash
-osv-scanner --format markdown your/project/dir
+osv-scanner scan --format markdown your/project/dir
 ```
 
 <details markdown="1">
@@ -69,10 +76,10 @@ osv-scanner --format markdown your/project/dir
 **Raw output:**
 
 ```
-| OSV URL | CVSS | Ecosystem | Package | Version | Source |
-| --- | --- | --- | --- | --- | --- |
-| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053 | 8.6 | Go | github.com/gogo/protobuf | 1.3.1 | ../scorecard-check-osv-e2e/go.mod |
-| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5 | crates.io | regex | 1.5.1 | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
+| OSV URL                                                                   | CVSS | Ecosystem | Package                  | Version | Source                                                 |
+| ------------------------------------------------------------------------- | ---- | --------- | ------------------------ | ------- | ------------------------------------------------------ |
+| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053      | 8.6  | Go        | github.com/gogo/protobuf | 1.3.1   | ../scorecard-check-osv-e2e/go.mod                      |
+| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5  | crates.io | regex                    | 1.5.1   | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
 ```
 
 **Rendered:**
@@ -86,16 +93,49 @@ osv-scanner --format markdown your/project/dir
 
 ---
 
-### JSON
+### HTML
 
 ```bash
-osv-scanner --format json your/project/dir
+osv-scanner scan --format html your/project/dir
+# OR
+osv-scanner scan --serve your/project/dir # Hosts HTML output at localhost port 8000
+```
+
+The HTML output features a lot more interactivity and information compared to terminal only outputs, including:
+
+- Severity breakdown
+- Package and ID filtering
+- Vulnerability importance filtering
+- Full vulnerability advisory entries
+
+And additionally for container image scanning:
+
+- Layer filtering
+- Image layer information
+- Base image identification
+
+{: .note }
+This feature is in beta as part of OSV-Scanner v2, please [share your feedback here](https://github.com/google/osv-scanner/discussions/1529).
+
+<details markdown="1">
+<summary><b>Sample HTML output</b></summary>
+
+![HTML Output Screenshot](./images/html-container-output.png)
+
+</details>
+
+### JSON
+
+JSON output allows you to get all of the information osv-scanner found in a machine readable format.
+
+```bash
+osv-scanner scan --format json your/project/dir
 ```
 
 Outputs the results as a JSON object to stdout, with all other output being directed to stderr - this makes it safe to redirect the output to a file with
 
 ```bash
-osv-scanner --format json -L path/to/lockfile > /path/to/file.json
+osv-scanner scan --format json -L path/to/lockfile > /path/to/file.json
 ```
 
 <details markdown="1">
@@ -190,7 +230,7 @@ osv-scanner --format json -L path/to/lockfile > /path/to/file.json
 ### SARIF
 
 ```bash
-osv-scanner --format sarif your/project/dir
+osv-scanner scan --format sarif your/project/dir
 ```
 
 Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 format. Each vulnerability (grouped by aliases) is a separate rule, and each package containing a vulnerable dependency is a rule violation. The help text within the SARIF report contains detailed information about the vulnerability and remediation instructions for how to resolve it.
@@ -350,7 +390,7 @@ affects code called by your project, and vulnerabilities that only affect code p
 your code.
 
 ```bash
-osv-scanner --format table --experimental-call-analysis your/project/dir
+osv-scanner scan --format table --experimental-call-analysis your/project/dir
 ```
 
 <details markdown="1">
@@ -379,7 +419,7 @@ osv-scanner --format table --experimental-call-analysis your/project/dir
 The JSON output will include analysis results for each vulnerability group.
 
 ```bash
-osv-scanner --format json --experimental-call-analysis -L path/to/lockfile > /path/to/file.json
+osv-scanner scan --format json --experimental-call-analysis -L path/to/lockfile > /path/to/file.json
 ```
 
 <details markdown="1">
@@ -490,12 +530,11 @@ osv-scanner --format json --experimental-call-analysis -L path/to/lockfile > /pa
 
 ## Return Codes
 
-|-----
-| Exit Code |Reason|
-|:---------------:|------------|
-| `0` | Packages were found when scanning, but does not match any known vulnerabilities. |
-| `1` | Packages were found when scanning, and there are vulnerabilities. |
-| `1-126` | Reserved for vulnerability result related errors. |
-| `127` | General Error. |
-| `128` | No packages found (likely caused by the scanning format not picking up any files to scan). |
-| `129-255` | Reserved for non result related errors. |
+| Exit Code | Reason                                                                                     |
+| :-------: | ------------------------------------------------------------------------------------------ |
+|    `0`    | Packages were found when scanning, but does not match any known vulnerabilities.           |
+|    `1`    | Packages were found when scanning, and there are vulnerabilities.                          |
+|  `1-126`  | Reserved for vulnerability result related errors.                                          |
+|   `127`   | General Error.                                                                             |
+|   `128`   | No packages found (likely caused by the scanning format not picking up any files to scan). |
+| `129-255` | Reserved for non result related errors.                                                    |
