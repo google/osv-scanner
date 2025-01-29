@@ -12,8 +12,8 @@ import (
 	"slices"
 	"time"
 
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/opencontainers/go-digest"
 	"golang.org/x/sync/errgroup"
 )

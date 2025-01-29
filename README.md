@@ -38,7 +38,7 @@ The above all results in accurate and actionable vulnerability notifications, wh
 ## Basic installation
 
 To install OSV-Scanner, please refer to the [installation section](https://google.github.io/osv-scanner/installation) of our documentation. OSV-Scanner releases can be found on the [releases page](https://github.com/google/osv-scanner/releases) of the GitHub repository. The recommended method is to download a prebuilt binary for your platform. Alternatively, you can use  
-`go install github.com/google/osv-scanner/cmd/osv-scanner@v2.0.0-beta1`.
+`go install github.com/google/osv-scanner/v2/cmd/osv-scanner@v2.0.0-beta1`.
 
 ## Key Features
 

@@ -6,7 +6,7 @@ import (
 
 	"deps.dev/util/resolve"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/google/osv-scanner/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution"
 	"golang.org/x/exp/slices"
 )
 

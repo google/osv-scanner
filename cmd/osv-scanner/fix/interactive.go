@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/google/osv-scanner/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/remediation"
 )
 
 // TODO: currently, it's impossible to undo commands

@@ -1,6 +1,6 @@
 package osvdev
 
-import "github.com/google/osv-scanner/internal/version"
+import "github.com/google/osv-scanner/v2/internal/version"
 
 type ClientConfig struct {
 	MaxConcurrentBatchRequests int

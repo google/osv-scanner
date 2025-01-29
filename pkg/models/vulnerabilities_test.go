@@ -3,8 +3,8 @@ package models_test
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/testutility"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestVulnerabilities_MarshalJSON(t *testing.T) {

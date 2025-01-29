@@ -7,12 +7,12 @@ import (
 	"testing"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/clienttest"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/testutility"
-	lf "github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/clienttest"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	lf "github.com/google/osv-scanner/v2/pkg/lockfile"
 	"golang.org/x/exp/maps"
 )
 

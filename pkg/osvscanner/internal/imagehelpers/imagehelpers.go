@@ -10,9 +10,9 @@ import (
 
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
-	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 func BuildImageMetadata(img *image.Image, baseImageMatcher clientinterfaces.BaseImageMatcher) (*models.ImageMetadata, error) {

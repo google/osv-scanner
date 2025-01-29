@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
-	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 const osvScannerConfigName = "osv-scanner.toml"

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/semantic"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/semantic"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func expectedResult(t *testing.T, comparator string) int {

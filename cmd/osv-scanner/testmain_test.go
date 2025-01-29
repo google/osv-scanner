@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/go-git/go-git/v5"
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 func TestMain(m *testing.M) {

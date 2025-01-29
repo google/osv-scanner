@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/remediation"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/resolution"
 )
 
 func TestComputeOverridePatches(t *testing.T) {

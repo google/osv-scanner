@@ -8,8 +8,8 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/testing/extracttest"
-	"github.com/google/osv-scanner/internal/scalibrextract/language/osv/osvscannerjson"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestExtractor_Extract(t *testing.T) {

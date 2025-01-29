@@ -12,7 +12,7 @@ import (
 	"github.com/charmbracelet/glamour/ansi"
 	"github.com/charmbracelet/glamour/styles"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/google/osv-scanner/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/muesli/reflow/wordwrap"
 )
 

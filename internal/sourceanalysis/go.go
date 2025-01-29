@@ -10,10 +10,10 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	"github.com/google/osv-scanner/internal/sourceanalysis/govulncheck"
-	"github.com/google/osv-scanner/internal/url"
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/sourceanalysis/govulncheck"
+	"github.com/google/osv-scanner/v2/internal/url"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"golang.org/x/vuln/scan"
 )
 

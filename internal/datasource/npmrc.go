@@ -12,7 +12,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"gopkg.in/ini.v1"
 )
 

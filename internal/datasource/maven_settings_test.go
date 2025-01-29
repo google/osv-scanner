@@ -5,7 +5,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"github.com/google/osv-scanner/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/datasource"
 )
 
 func TestParseMavenSettings(t *testing.T) {

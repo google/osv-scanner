@@ -6,10 +6,10 @@ import (
 	"slices"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/remediation/relax"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/remediation/relax"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
 )
 
 // ComputeRelaxPatches attempts to resolve each vulnerability found in result independently, returning the list of unique possible patches

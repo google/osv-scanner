@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/remediation"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestMatchVuln(t *testing.T) {

@@ -10,10 +10,10 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
-	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/internal/scalibrextract"
-	"github.com/google/osv-scanner/internal/scalibrextract/language/osv/osvscannerjson"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 var lockfileExtractorMapping = map[string]string{

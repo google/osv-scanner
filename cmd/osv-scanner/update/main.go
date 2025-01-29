@@ -6,13 +6,13 @@ import (
 	"io"
 	"os"
 
-	"github.com/google/osv-scanner/internal/depsdev"
-	"github.com/google/osv-scanner/internal/remediation/suggest"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/depsdev"
+	"github.com/google/osv-scanner/v2/internal/remediation/suggest"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/version"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
 )
 

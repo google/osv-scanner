@@ -4,10 +4,10 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/config"
-	"github.com/google/osv-scanner/internal/testutility"
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/config"
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 func Test_filterResults(t *testing.T) {

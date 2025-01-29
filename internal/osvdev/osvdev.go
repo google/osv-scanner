@@ -12,7 +12,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"golang.org/x/sync/errgroup"
 )
 

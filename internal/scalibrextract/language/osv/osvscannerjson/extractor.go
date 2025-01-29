@@ -10,7 +10,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 // Extractor extracts osv packages from osv-scanner json output.

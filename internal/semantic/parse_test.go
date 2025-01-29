@@ -4,9 +4,9 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/semantic"
-	"github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/semantic"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestParse(t *testing.T) {

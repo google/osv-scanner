@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
 )
 

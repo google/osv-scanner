@@ -3,8 +3,8 @@ package output
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/testutility"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func Test_groupFixedVersions(t *testing.T) {

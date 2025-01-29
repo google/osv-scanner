@@ -11,10 +11,10 @@ import (
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/resolve/maven"
 	"deps.dev/util/resolve/npm"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	mavenutil "github.com/google/osv-scanner/internal/utility/maven"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	mavenutil "github.com/google/osv-scanner/v2/internal/utility/maven"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 type Vulnerability struct {

@@ -3,9 +3,9 @@ package purl_test
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/utility/purl"
+	"github.com/google/osv-scanner/v2/internal/utility/purl"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestComposerExtraction_shouldExtractPackages(t *testing.T) {

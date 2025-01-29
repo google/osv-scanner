@@ -5,7 +5,7 @@ import (
 	"errors"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 )
 
 // A RequirementRelaxer provides an ecosystem-specific method for 'relaxing' the

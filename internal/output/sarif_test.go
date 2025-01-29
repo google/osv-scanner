@@ -4,9 +4,9 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/internal/testutility"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestGroupFixedVersions(t *testing.T) {

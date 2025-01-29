@@ -9,11 +9,11 @@ import (
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scanner/internal/cachedregexp"
-	"github.com/google/osv-scanner/internal/identifiers"
-	"github.com/google/osv-scanner/internal/semantic"
-	"github.com/google/osv-scanner/internal/utility/severity"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
+	"github.com/google/osv-scanner/v2/internal/identifiers"
+	"github.com/google/osv-scanner/v2/internal/semantic"
+	"github.com/google/osv-scanner/v2/internal/utility/severity"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 // Result represents the vulnerability scanning results for output report.

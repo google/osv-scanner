@@ -8,10 +8,10 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/clienttest"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/clienttest"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 func checkResult(t *testing.T, result *resolution.Result) {

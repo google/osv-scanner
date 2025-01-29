@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/CycloneDX/cyclonedx-go"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns) *cyclonedx.BOM {

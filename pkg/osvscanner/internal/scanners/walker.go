@@ -10,10 +10,10 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scanner/internal/customgitignore"
-	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/internal/scalibrextract"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/customgitignore"
+	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 // ScanDir walks through the given directory to try to find any relevant files

@@ -9,8 +9,8 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"github.com/google/osv-scanner/internal/datasource"
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/tidwall/gjson"
 )
 
