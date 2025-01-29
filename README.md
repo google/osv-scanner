@@ -67,7 +67,7 @@ OSV-Scanner also supports comprehensive, layer-aware scanning for container imag
 | Ubuntu         | Node                       |
 |                | Python                     |
 
-See the [full documentation](https://google.github.io/osv-scanner/usage/#cc-scanning) for details on support.
+See the [full documentation](https://google.github.io/osv-scanner/usage/scan-image) for details on support.
 
 **Usage**:
 
