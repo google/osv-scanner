@@ -87,7 +87,7 @@ To check against an allowed license list (SPDX format):
 
 Scan your project against a local OSV database. Requires a pre-downloaded database. No network connection is needed.
 
-`osv-scanner --experimental-offline ./path/to/your/dir`
+`osv-scanner --experimental-offline --experimental-download-offline-databases ./path/to/your/dir`
 
 ### [Guided Remediation](https://google.github.io/osv-scanner/experimental/guided-remediation/) (Experimental)
 
