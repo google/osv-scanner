@@ -1,6 +1,6 @@
 # v2.0.0-beta1
 
-This first beta of OSV-Scanner V2 is here! This beta release introduces significant enhancements, including refactored dependency extraction capabilities, container image scanning, and guided remediation for Maven.
+The first beta of OSV-Scanner V2 is here! This beta release introduces significant enhancements, including refactored dependency extraction capabilities, container image scanning, and guided remediation for Maven.
 
 This beta release does _not_ introduce any breaking CLI changes and the beta period is expected to last approximately one month. However, as this is a beta release, there may be breaking changes breaking changes in the final release compared to the first beta.
 
