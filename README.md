@@ -1,6 +1,6 @@
 <picture>
-    <source srcset="https://github.com/user-attachments/assets/b65c336c-3cef-468b-b1f7-3c91c97ad685"  media="(prefers-color-scheme: dark)">
-    <img src="https://github.com/user-attachments/assets/664ca40c-5ff0-4f29-b93b-6a00b410db0b">
+    <source srcset="/docs/images/osv-scanner-full-logo-darkmode.svg"  media="(prefers-color-scheme: dark)">
+    <img src="/docs/images/osv-scanner-full-logo-lightmode.svg">
 </picture>
 
 ---
