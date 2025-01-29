@@ -1,20 +1,35 @@
-OSV-Scanner v2 is coming soon! The next release will start with version `v2.0.0-alpha1`.
+# v2.0.0-beta1
 
-Here's a peek at some of the exciting upcoming features:
+This beta release of OSV-Scanner introduces significant enhancements, including a refactored dependency extraction capabilities, container image scanning, and guided remediation for Maven. 
 
-- Standalone container image scanning support.
-  - Including support for Alpine and Debian images.
-- Refactored internals to use [`osv-scalibr`](https://github.com/google/osv-scalibr) library for better extraction capabilities.
-- HTML output format for clearer vulnerability results.
-- More control over output format and logging.
-- ...and more!
+This beta release does *not* introduce any breaking changes and the beta period is expected to last approximately one month. However, as this is a beta release, the API may be subject to any change.
 
-Importantly, the CLI interface of osv-scanner will be maintained with minimal breaking changes.
-Most breaking changes will only be in the API. More details in the upcoming alpha release.
+We encourage you to try out these new features and provide feedback as we work towards the v2.0.0 final release.
 
----
+### Enhanced Dependency Extraction with `osv-scalibr`
 
-This is the final feature v1 release of osv-scanner, future releases for v1 will only contain bug fixes.
+The core dependency extraction logic has been rewritten to leverage the [`osv-scalibr`](https://github.com/google/osv-scalibr) library. We now support the following additional lockfile formats:
+    * **Haskell:** `cabal.project.freeze`, `stack.yaml.lock`
+    * **.NET:** `deps.json`
+    * **Python:** `uv.lock`
+
+### Container Image Scanning
+
+This release introduces the ability to scan container images for vulnerabilities, including support for Alpine and Debian images.
+
+**Interactive HTML Reports:**  Vulnerability scan results for container images are presented in a new interactive HTML format, allowing for easy navigation and analysis of findings.
+
+### New Subcommands
+
+Two new subcommands have been added for more targeted scanning:
+
+* `scan source`:  Specifically for scanning manifest files.
+* `scan image`:  Specifically for scanning container images.
+
+### Guided Remediation for Maven
+
+OSV-Scanner can now automatically suggest and apply updates to vulnerable dependencies in your `pom.xml` file, which includes updates on both direct and transitive dependencies. We also support Maven private registry to find available pacakge verfsions.
+
 
 # v1.9.1
 
