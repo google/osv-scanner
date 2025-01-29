@@ -20,7 +20,7 @@ nav_order: 1
 </details>
 
 {: .note }
-This feature is in beta, please share your feedback here: https://github.com/google/osv-scanner/discussions/1521
+This feature is in beta, please share your feedback here: <https://github.com/google/osv-scanner/discussions/1521>
 
 OSV-Scanner analyzes container images by extracting package information and matching it against known vulnerabilities in the OSV.dev database. This helps identify potential security risks in your containerized applications.
 
