@@ -281,7 +281,7 @@ func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, ma
 		// Update Maven registries based on the repositories defined in pom.xml,
 		// as well as the repositories merged from parent pom.xml.
 		// TODO: add registries defined in settings.xml
-		// https://github.com/google/osv-scanner/v2/issues/1269
+		// https://github.com/google/osv-scanner/issues/1269
 		specific, ok := manif.EcosystemSpecific.(manifest.MavenManifestSpecific)
 		if ok {
 			registries := make([]client.Registry, len(specific.Repositories))
