@@ -31,7 +31,7 @@ For every vulnerability found, OSV-Scanner will display the following informatio
 
 And if you are performing layer scanning, osv-scanner additionally returns:
 
-- Layers each package belongs to
+- Layer where a package was first introduced
 - Layer history and commands
 - Base images the image is based on
 - OS/Distro the container is running on
@@ -530,12 +530,11 @@ osv-scanner scan --format json --experimental-call-analysis -L path/to/lockfile 
 
 ## Return Codes
 
-|-----
-| Exit Code | Reason |
+| Exit Code | Reason                                                                                     |
 | :-------: | ------------------------------------------------------------------------------------------ |
-| `0` | Packages were found when scanning, but does not match any known vulnerabilities. |
-| `1` | Packages were found when scanning, and there are vulnerabilities. |
-| `1-126` | Reserved for vulnerability result related errors. |
-| `127` | General Error. |
-| `128` | No packages found (likely caused by the scanning format not picking up any files to scan). |
-| `129-255` | Reserved for non result related errors. |
+|    `0`    | Packages were found when scanning, but does not match any known vulnerabilities.           |
+|    `1`    | Packages were found when scanning, and there are vulnerabilities.                          |
+|  `1-126`  | Reserved for vulnerability result related errors.                                          |
+|   `127`   | General Error.                                                                             |
+|   `128`   | No packages found (likely caused by the scanning format not picking up any files to scan). |
+| `129-255` | Reserved for non result related errors.                                                    |
