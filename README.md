@@ -54,9 +54,9 @@ For advanced usage, please check out the [documentation](https://google.github.i
 
 #### Supported Lockfiles
 
-OSV-Scanner supports 11+ language ecosystems and 19+ lockfile types. To check if your ecosystem is covered, please check out our [detailed documentation](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/).
+OSV-Scanner supports 11+ language ecosystems and 19+ lockfile types. To check if your ecosystem is covered, please check out our [detailed documentation](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/#supported-lockfiles).
 
-### Container Scanning
+### [Container Scanning](https://google.github.io/osv-scanner/usage/scan-image)
 
 OSV-Scanner also supports comprehensive, layer-aware scanning for container images to detect vulnerabilities the following operating system packages and language-specific dependencies.
 
@@ -67,7 +67,7 @@ OSV-Scanner also supports comprehensive, layer-aware scanning for container imag
 | Ubuntu         | Node                       |
 |                | Python                     |
 
-See the [full documentation](https://google.github.io/osv-scanner/usage/scan-image) for details on support.
+See the [full documentation](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/#supported-artifacts) for details on support.
 
 **Usage**:
 
