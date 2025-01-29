@@ -184,6 +184,8 @@ github.com/google/go-containerregistry v0.20.2 h1:B1wPJ1SN/S7pB+ZAimcciVD+r+yV/l
 github.com/google/go-containerregistry v0.20.2/go.mod h1:z38EKdKh4h7IP2gSfUUqEvalZBqs6AoLeWfUy34nQC8=
 github.com/google/osv-scalibr v0.1.6-0.20250123155336-85f39dea4c05 h1:47dObbqXVFPmg39yLeRWfKZYw2xR6O2BJVLmgC6Zygw=
 github.com/google/osv-scalibr v0.1.6-0.20250123155336-85f39dea4c05/go.mod h1:nikSO3CqGGRQY05sGgzsgf4+84p5xCmPWOiaSomkuAU=
+github.com/google/osv-scalibr v0.1.6-0.20250128013153-34aef7c77adf h1:s6PZEjcMocRehGjuHIFN7Chy8VlMw4XheLgLaWRx21U=
+github.com/google/osv-scalibr v0.1.6-0.20250128013153-34aef7c77adf/go.mod h1:jKAptk1dYWBO91ODkI5XYKDDvZEbLKQH9DSXcTtUDSw=
 github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
@@ -233,6 +235,8 @@ github.com/mattn/go-sqlite3 v1.14.22 h1:2gZY6PC6kBnID23Tichd1K+Z0oS6nE/XwU+Vz/5o
 github.com/mattn/go-sqlite3 v1.14.22/go.mod h1:Uh1q+B4BYcTPb+yiD3kU8Ct7aC0hY9fxUwlHK0RXw+Y=
 github.com/microcosm-cc/bluemonday v1.0.27 h1:MpEUotklkwCSLeH+Qdx1VJgNqLlpY2KXwXFM08ygZfk=
 github.com/microcosm-cc/bluemonday v1.0.27/go.mod h1:jFi9vgW+H7c3V0lb6nR74Ib/DIB5OBs92Dimizgw2cA=
+github.com/microsoft/go-rustaudit v0.0.0-20240820110456-0e2abec02f8b h1:84JbAJpjZ8p1ttV6dpIqfe8IehWMf0i8DPSgmE9aZuA=
+github.com/microsoft/go-rustaudit v0.0.0-20240820110456-0e2abec02f8b/go.mod h1:vYT9HE7WCvL64iVeZylKmCsWKfE+JZ8105iuh2Trk8g=
 github.com/mitchellh/go-homedir v1.1.0 h1:lukF9ziXFxDFPkA1vsr5zpc1XuPDn/wFntq5mG+4E0Y=
 github.com/mitchellh/go-homedir v1.1.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
 github.com/moby/locker v1.0.1 h1:fOXqR41zeveg4fFODix+1Ch4mj/gT0NE1XJbp/epuBg=
