@@ -1,33 +1,102 @@
 # v2.0.0-beta1
 
-This beta release of OSV-Scanner introduces significant enhancements, including a refactored dependency extraction capabilities, container image scanning, and guided remediation for Maven.
+This first beta of OSV-Scanner V2 is here! This beta release introduces significant enhancements, including refactored dependency extraction capabilities, container image scanning, and guided remediation for Maven.
 
-This beta release does _not_ introduce any breaking changes and the beta period is expected to last approximately one month. However, as this is a beta release, the API may be subject to any change.
+This beta release does _not_ introduce any breaking CLI changes and the beta period is expected to last approximately one month. However, as this is a beta release, there may be breaking changes in the final release.
 
-We encourage you to try out these new features and provide feedback as we work towards the v2.0.0 final release.
+We encourage you to try out these new features and would appreciate any feedback you might have on our discussion topics:
 
-### Enhanced Dependency Extraction with `osv-scalibr`
+- [General V2 feedback](https://github.com/google/osv-scanner/discussions/1529)
+- [Container scanning feedback](https://github.com/google/osv-scanner/discussions/1521)
 
-The core dependency extraction logic has been rewritten to leverage the [`osv-scalibr`](https://github.com/google/osv-scalibr) library. We now support the following additional lockfile formats:
-_ **Haskell:** `cabal.project.freeze`, `stack.yaml.lock`
-_ **.NET:** `deps.json` \* **Python:** `uv.lock`
+### Layer and base image-aware container scanning
 
-### Container Image Scanning
+A significant new feature is a rewritten, layer-aware container scanning support for Debian, Ubuntu, and Alpine container images. OSV-Scanner can now analyze container images to provide:
 
-This release introduces the ability to scan container images for vulnerabilities, including support for Alpine and Debian images.
+- Layers where a package was first introduced
+- Layer history and commands
+- Base images the image is based on
+- OS/Distro the container is running on
 
-**Interactive HTML Reports:** Vulnerability scan results for container images are presented in a new interactive HTML format, allowing for easy navigation and analysis of findings.
+This layer analysis leverages [OSV-Scalibr](https://github.com/google/osv-scalibr), and supports the following OSes and languages:
+| Distro Support | Language Artifacts Support |
+| -------------- | -------------------------- |
+| Alpine OS | Go |
+| Debian | Java |
+| Ubuntu | Node |
+| | Python |
 
-### New Subcommands
+Base image identification also leverages a new experimental API provided by https://deps.dev. Check out their technical blog post for details on how this data is collected and queried.
 
-Two new subcommands have been added for more targeted scanning:
+For usage, run the new `scan image` command:
 
-- `scan source`: Specifically for scanning manifest files.
-- `scan image`: Specifically for scanning container images.
+```
+osv-scanner scan image <image-name>:<tag>
+```
+
+Check out our [documentation](https://google.github.io/osv-scanner/usage/scan-image) for more details.
+
+### Interactive HTML output
+
+A new, interactive HTML output is now available. This provides a lot more interactivity and information compared to terminal only outputs, including:
+
+- Severity breakdown
+- Package and ID filtering
+- Vulnerability importance filtering
+- Full vulnerability advisory entries
+
+And additionally for container image scanning:
+
+- Layer filtering
+- Image layer information
+- Base image identification
+
+![Screenshot of HTML output for container image scanning](docs/images/html-container-output.png)
 
 ### Guided Remediation for Maven pom.xml
 
-OSV-Scanner can now automatically suggest and apply updates to vulnerable dependencies in your `pom.xml` file, which includes updates on both direct and transitive dependencies. We also support Maven private registry to find available package versions.
+Last year we released a feature called [guided remediation](https://osv.dev/blog/posts/announcing-guided-remediation-in-osv-scanner/) for npm. We have now expanded support to Maven pom.xml.
+
+With guided remediation support for Maven, you can remediate vulnerabilities in both direct and transitive dependencies through direct version updates or overriding versions through dependency management.
+
+We’ve introduced a few new features for our Maven support:
+
+- A new remediation strategy “override” is introduced.
+- Support for reading and writing pom.xml files, including writing changes to local parent pom files.
+- Private registry can be specified to fetch Maven metadata.
+
+The guided remediation support for Maven is only available in the non-interactive mode. For basic usage, run the following command:
+
+```
+osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
+```
+
+We also introduced machine readable output for guided remediation that makes it easier to integrate guided remediation into your workflow.
+
+For more usage details on guided remediation, please see our [documentation](https://google.github.io/osv-scanner/experimental/guided-remediation/).
+
+### Enhanced Dependency Extraction with `osv-scalibr`
+
+With the help from [OSV-Scalibr](https://github.com/google/osv-scalibr), we now also have expanded support for the kinds of dependencies we can extract from projects and containers:
+
+Source manifests and lockfiles
+
+- Haskell: `cabal.project.freeze`, `stack.yaml.lock`
+- .NET: `deps.json`
+- Python: `uv.lock`
+
+Artifacts
+
+- node_modules
+- Python wheels
+- Java uber jars
+- Go binaries
+
+The full list of supported formats can be found [here](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/).
+
+The first beta doesn’t enable every single extractor currently available in OSV-Scalibr today. We’ll continue to add more leading up to the final 2.0.0 release.
+
+OSV-Scalibr also makes it incredibly easy to add new extractors. Please file a [feature request](https://github.com/google/osv-scalibr/issues) if a format you’re interested in is missing!
 
 # v1.9.1
 
