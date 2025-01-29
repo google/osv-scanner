@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 func TestMakeRetryRequest(t *testing.T) {

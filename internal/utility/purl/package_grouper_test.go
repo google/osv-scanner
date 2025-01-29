@@ -4,10 +4,10 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/utility/purl"
+	"github.com/google/osv-scanner/v2/internal/utility/purl"
 
-	"github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {

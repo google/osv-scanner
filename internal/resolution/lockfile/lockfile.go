@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
 type DependencyPatch struct {

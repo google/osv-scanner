@@ -8,9 +8,9 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/testutility"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
 func aliasType(t *testing.T, aliasedName string) dep.Type {

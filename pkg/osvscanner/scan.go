@@ -2,10 +2,10 @@ package osvscanner
 
 import (
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/scalibrextract/ecosystemmock"
-	"github.com/google/osv-scanner/pkg/osvscanner/internal/scanners"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
+	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 // scan essentially converts ScannerActions into PackageScanResult by performing the extractions

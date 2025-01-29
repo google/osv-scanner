@@ -9,14 +9,14 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/datasource"
-	"github.com/google/osv-scanner/internal/remediation"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	lf "github.com/google/osv-scanner/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/resolution/util"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	lf "github.com/google/osv-scanner/v2/internal/resolution/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/resolution/util"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"golang.org/x/exp/maps"
 )
 
@@ -281,7 +281,7 @@ func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, ma
 		// Update Maven registries based on the repositories defined in pom.xml,
 		// as well as the repositories merged from parent pom.xml.
 		// TODO: add registries defined in settings.xml
-		// https://github.com/google/osv-scanner/issues/1269
+		// https://github.com/google/osv-scanner/v2/issues/1269
 		specific, ok := manif.EcosystemSpecific.(manifest.MavenManifestSpecific)
 		if ok {
 			registries := make([]client.Registry, len(specific.Repositories))

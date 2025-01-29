@@ -5,9 +5,9 @@ import (
 	"io"
 
 	"github.com/CycloneDX/cyclonedx-go"
-	"github.com/google/osv-scanner/internal/output/sbom"
-	"github.com/google/osv-scanner/internal/utility/purl"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/output/sbom"
+	"github.com/google/osv-scanner/v2/internal/utility/purl"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 // PrintCycloneDXResults writes results to the provided writer in CycloneDX format

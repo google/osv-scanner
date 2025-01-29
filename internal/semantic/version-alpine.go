@@ -4,7 +4,7 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 )
 
 type alpineNumberComponent struct {

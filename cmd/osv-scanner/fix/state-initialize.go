@@ -6,7 +6,7 @@ import (
 
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/google/osv-scanner/internal/tui"
+	"github.com/google/osv-scanner/v2/internal/tui"
 )
 
 type stateInitialize struct {

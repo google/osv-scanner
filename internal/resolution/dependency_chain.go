@@ -6,11 +6,11 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/resolution/util"
-	vulnUtil "github.com/google/osv-scanner/internal/utility/vulns"
-	"github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/resolution/util"
+	vulnUtil "github.com/google/osv-scanner/v2/internal/utility/vulns"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 type DependencyChain struct {

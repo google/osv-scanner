@@ -9,13 +9,13 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/resolution/util"
-	"github.com/google/osv-scanner/internal/utility/maven"
-	"github.com/google/osv-scanner/internal/utility/vulns"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/resolution/util"
+	"github.com/google/osv-scanner/v2/internal/utility/maven"
+	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 )
 
 type overridePatch struct {

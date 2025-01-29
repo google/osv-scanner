@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"deps.dev/util/semver"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 )
 
 func TestLevelAllows(t *testing.T) {

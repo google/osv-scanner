@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/datasource"
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 // These tests rely on using 'globalconfig' and 'userconfig' in the package .npmrc to override their default locations.

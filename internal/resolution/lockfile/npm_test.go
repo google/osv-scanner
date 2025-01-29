@@ -9,9 +9,9 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/schema"
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/osv-scanner/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/internal/testutility"
-	lf "github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/lockfile"
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	lf "github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
 func TestNpmReadV2(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 	"testing"
 
 	"deps.dev/util/maven"
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 func TestGetProject(t *testing.T) {

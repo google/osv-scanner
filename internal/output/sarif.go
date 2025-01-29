@@ -9,11 +9,11 @@ import (
 	"strings"
 	"text/template"
 
-	"github.com/google/osv-scanner/internal/identifiers"
-	"github.com/google/osv-scanner/internal/url"
-	"github.com/google/osv-scanner/internal/utility/results"
-	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/identifiers"
+	"github.com/google/osv-scanner/v2/internal/url"
+	"github.com/google/osv-scanner/v2/internal/utility/results"
+	"github.com/google/osv-scanner/v2/internal/version"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/owenrumney/go-sarif/v2/sarif"
 )

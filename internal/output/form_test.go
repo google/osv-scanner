@@ -3,7 +3,7 @@ package output_test
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/v2/internal/output"
 )
 
 func TestForm(t *testing.T) {

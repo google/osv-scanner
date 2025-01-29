@@ -16,10 +16,10 @@ import (
 	"path"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/utility/vulns"
-	"github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/utility/vulns"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 type ZipDB struct {

@@ -17,7 +17,7 @@ func KnownEcosystems() []Ecosystem {
 		ConanEcosystem,
 		CRANEcosystem,
 		// Disabled temporarily,
-		// see https://github.com/google/osv-scanner/pull/128 discussion for additional context
+		// see https://github.com/google/osv-scanner/v2/pull/128 discussion for additional context
 		// AlpineEcosystem,
 	}
 }

@@ -5,9 +5,9 @@ import (
 	"io"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/v2/internal/output"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 type CycloneDXReporter struct {

@@ -3,7 +3,7 @@ package lockfile_test
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
 func TestNpmLockExtractor_ShouldExtract(t *testing.T) {

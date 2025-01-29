@@ -10,10 +10,10 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/osv"
 	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/testing/extracttest"
-	"github.com/google/osv-scanner/internal/datasource"
-	"github.com/google/osv-scanner/internal/resolution/clienttest"
-	"github.com/google/osv-scanner/internal/scalibrextract/language/java/pomxmlnet"
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/resolution/clienttest"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlnet"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 func TestMavenResolverExtractor_FileRequired(t *testing.T) {
