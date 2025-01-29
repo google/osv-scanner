@@ -60,15 +60,15 @@ OSV-Scanner supports 11+ language ecosystems and 19+ lockfile types. To check if
 
 OSV-Scanner also supports comprehensive, layer-aware scanning for container images to detect vulnerabilities the following operating system packages and language-specific dependencies.
 
-| Source                   | Example files                      |
-| ------------------------ | ---------------------------------- |
-| Alpine APK packages      | `/lib/apk/db/installed`            |
-| Debian dpkg/apt packages | `/var/lib/dpkg/status`             |
-|                          |                                    |
-| Go Binaries              | `main-go`                          |
-| Java Uber `jars`         | `my-java-app.jar`                  |
-| Node Modules             | `node-app/node_modules/...`        |
-| Python wheels            | `lib/python3.11/site-packages/...` |
+- Alpine
+- Debian
+- Ubuntu
+- Go
+- Java
+- Node
+- Python
+
+See the [full documentation](https://google.github.io/osv-scanner/usage/#cc-scanning) for details on support.
 
 **Usage**:
 
