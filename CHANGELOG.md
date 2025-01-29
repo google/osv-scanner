@@ -61,7 +61,7 @@ With guided remediation support for Maven, you can remediate vulnerabilities in 
 
 We’ve introduced a few new features for our Maven support:
 
-- A new remediation strategy “override” is introduced.
+- A new remediation strategy `override` is introduced.
 - Support for reading and writing pom.xml files, including writing changes to local parent pom files.
 - Private registry can be specified to fetch Maven metadata.
 
