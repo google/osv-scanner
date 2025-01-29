@@ -75,24 +75,19 @@ See the [full documentation](https://google.github.io/osv-scanner/supported-lang
 
 ### [License Scanning](https://google.github.io/osv-scanner/experimental/license-scanning/)
 
-OSV-Scanner supports license checking as an experimental feature. The data comes from the [deps.dev](https://deps.dev) API. If you want a summary of your dependencies licenses, use the `--experimental-licenses-summary` flag:
+Check your dependencies' licenses using deps.dev data. For a summary:
 
-`$ osv-scanner --experimental-licenses-summary path/to/repository`
+`osv-scanner --experimental-licenses-summary path/to/repository`
 
-To set an allowed license list and see the details of packages that do not conform, use the `--experimental-licenses` flag:
+To check against an allowed license list (SPDX format):
 
-`$ osv-scanner --experimental-licenses="comma-separated list of allowed licenses" path/to/directory`
-
-Include your allowed licenses as a comma-separated list. OSV-Scanner recognizes licenses in SPDX format. Please indicate your allowed licenses using SPDX license identifiers.
+`osv-scanner --experimental-licenses="MIT,Apache-2.0" path/to/directory`
 
 ### [Offline Scanning](https://google.github.io/osv-scanner/experimental/offline-mode/)
 
-OSV-Scanner now supports offline scanning. Offline scanning checks your project against a local database instead of calling the OSV.dev API.
+Scan your project against a local OSV database.  Requires a pre-downloaded database. No network connection is needed.
 
-The offline database flag --experimental-offline causes OSV-Scanner to scan your project against a previously downloaded local database. OSV-Scanner will not download or update the local database, nor will it send any project or dependency information anywhere. When a local database is not present, you will get an error message. No network connection is required when using this flag.
-
-`$ osv-scanner --experimental-offline ./path/to/your/dir`
-
+`osv-scanner --experimental-offline ./path/to/your/dir`
 ### [Guided Remediation (experimental)](https://google.github.io/osv-scanner/experimental/guided-remediation/)
 
 OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.  
