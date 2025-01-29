@@ -37,7 +37,7 @@ To install OSV-Scanner, please refer to the [installation section](https://googl
 
 ## Key Features
 
-For more information, please read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner.
+For more information, please read our [detailed documentation](https://google.github.io/osv-scanner) to learn how to use OSV-Scanner. For detailed information about each feature, click their titles in this README.
 
 Please note: These are the instructions for the latest OSV-Scanner V2 beta. If you are using V1, checkout the V1 [README](https://github.com/google/osv-scanner-v1) and [documentation](https://google.github.io/osv-scanner-v1/) instead.
 
@@ -73,7 +73,7 @@ See the [full documentation](https://google.github.io/osv-scanner/supported-lang
 
 ![image](https://github.com/user-attachments/assets/9e3e9c59-1948-45ab-9717-61fcbe3c7cc3)
 
-### [License Scanning](https://google.github.io/osv-scanner/experimental/license-scanning/)
+### [License Scanning](https://google.github.io/osv-scanner/experimental/license-scanning/) (Experimental)
 
 Check your dependencies' licenses using deps.dev data. For a summary:
 
@@ -83,12 +83,12 @@ To check against an allowed license list (SPDX format):
 
 `osv-scanner --experimental-licenses="MIT,Apache-2.0" path/to/directory`
 
-### [Offline Scanning](https://google.github.io/osv-scanner/experimental/offline-mode/)
+### [Offline Scanning](https://google.github.io/osv-scanner/experimental/offline-mode/) (Experimental)
 
 Scan your project against a local OSV database.  Requires a pre-downloaded database. No network connection is needed.
 
 `osv-scanner --experimental-offline ./path/to/your/dir`
-### [Guided Remediation (experimental)](https://google.github.io/osv-scanner/experimental/guided-remediation/)
+### [Guided Remediation](https://google.github.io/osv-scanner/experimental/guided-remediation/) (Experimental)
 
 OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.  
 We currently support remediating vulnerabilities in the following files:
