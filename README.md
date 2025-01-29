@@ -85,7 +85,7 @@ To check against an allowed license list (SPDX format):
 
 ### [Offline Scanning](https://google.github.io/osv-scanner/experimental/offline-mode/) (Experimental)
 
-Scan your project against a local OSV database. Requires a pre-downloaded database. No network connection is needed.
+Scan your project against a local OSV database. No network connection is required after the initial database download. The database can also be manually downloaded.
 
 `osv-scanner --experimental-offline --experimental-download-offline-databases ./path/to/your/dir`
 
