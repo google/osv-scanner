@@ -41,7 +41,7 @@ For more information, please read our [detailed documentation](https://google.gi
 
 Please note: These are the instructions for the latest OSV-Scanner V2 beta. If you are using V1, checkout the V1 [README](https://github.com/google/osv-scanner-v1) and [documentation](https://google.github.io/osv-scanner-v1/) instead.
 
-### Scanning a source directory
+### [Scanning a source directory](https://google.github.io/osv-scanner/usage)
 
 `osv-scanner scan source -r /path/to/your/dir`  
 This command will recursively scan the specified directory for any supported package files, such as `package.json`, `go.mod`, `pom.xml`, etc. and output any discovered vulnerabilities.
@@ -49,8 +49,6 @@ This command will recursively scan the specified directory for any supported pac
 OSV-Scanner has the option of using call analysis to determine if a vulnerable function is actually being used in the project, resulting in fewer false positives, and actionable alerts.
 
 OSV-Scanner can also detect vendored C/C++ code for vulnerability scanning. See [here](https://google.github.io/osv-scanner/usage/#cc-scanning) for details.
-
-For advanced usage, please check out the [documentation](https://google.github.io/osv-scanner/usage).
 
 #### Supported Lockfiles
 
@@ -75,7 +73,27 @@ See the [full documentation](https://google.github.io/osv-scanner/supported-lang
 
 ![image](https://github.com/user-attachments/assets/9e3e9c59-1948-45ab-9717-61fcbe3c7cc3)
 
-### Guided Remediation (experimental)
+### [License Scanning](https://google.github.io/osv-scanner/experimental/license-scanning/)
+
+OSV-Scanner supports license checking as an experimental feature. The data comes from the [deps.dev](https://deps.dev) API. If you want a summary of your dependencies licenses, use the `--experimental-licenses-summary` flag:
+
+`$ osv-scanner --experimental-licenses-summary path/to/repository`
+
+To set an allowed license list and see the details of packages that do not conform, use the `--experimental-licenses` flag:
+
+`$ osv-scanner --experimental-licenses="comma-separated list of allowed licenses" path/to/directory`
+
+Include your allowed licenses as a comma-separated list. OSV-Scanner recognizes licenses in SPDX format. Please indicate your allowed licenses using SPDX license identifiers.
+
+### [Offline Scanning](https://google.github.io/osv-scanner/experimental/offline-mode/)
+
+OSV-Scanner now supports offline scanning. Offline scanning checks your project against a local database instead of calling the OSV.dev API.
+
+The offline database flag --experimental-offline causes OSV-Scanner to scan your project against a previously downloaded local database. OSV-Scanner will not download or update the local database, nor will it send any project or dependency information anywhere. When a local database is not present, you will get an error message. No network connection is required when using this flag.
+
+`$ osv-scanner --experimental-offline ./path/to/your/dir`
+
+### [Guided Remediation (experimental)](https://google.github.io/osv-scanner/experimental/guided-remediation/)
 
 OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.  
 We currently support remediating vulnerabilities in the following files:
@@ -88,30 +106,6 @@ We currently support remediating vulnerabilities in the following files:
 
 This is available as a headless CLI command, as well as an interactive mode.
 
-### License Scanning
-
-OSV-Scanner supports license checking as an experimental feature. The data comes from the [deps.dev](https://deps.dev) API. If you want a summary of your dependencies licenses, use the `--experimental-licenses-summary` flag:
-
-`$ osv-scanner --experimental-licenses-summary path/to/repository`
-
-To set an allowed license list and see the details of packages that do not conform, use the `--experimental-licenses` flag:
-
-`$ osv-scanner --experimental-licenses="comma-separated list of allowed licenses" path/to/directory`
-
-Include your allowed licenses as a comma-separated list. OSV-Scanner recognizes licenses in SPDX format. Please indicate your allowed licenses using SPDX license identifiers.
-
-For more information, view the [full documentation](https://google.github.io/osv-scanner/experimental/license-scanning/).
-
-### Offline Scanning
-
-OSV-Scanner now supports offline scanning. Offline scanning checks your project against a local database instead of calling the OSV.dev API.
-
-The offline database flag --experimental-offline causes OSV-Scanner to scan your project against a previously downloaded local database. OSV-Scanner will not download or update the local database, nor will it send any project or dependency information anywhere. When a local database is not present, you will get an error message. No network connection is required when using this flag.
-
-`$ osv-scanner --experimental-offline ./path/to/your/dir`
-
-For more information, view the full documentation [here](https://google.github.io/osv-scanner/experimental/offline-mode/).
-
 #### Example (for npm)
 
 `$ osv-scanner fix \--max-depth=3 \--min-severity=5 \--ignore-dev  \--non-interactive \--strategy=in-place \-L path/to/package-lock.json`
@@ -121,8 +115,6 @@ For more information, view the full documentation [here](https://google.github.i
 `$ osv-scanner fix -M path/to/package.json -L path/to/package-lock.json `
 
 <img src="https://google.github.io/osv-scanner/images/guided-remediation-relock-patches.png" alt="Screenshot of the interactive relock results screen with some relaxation patches selected">
-
-More information can be found [here](https://google.github.io/osv-scanner/experimental/guided-remediation/).
 
 ## Contribute
 
