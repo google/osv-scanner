@@ -85,9 +85,10 @@ To check against an allowed license list (SPDX format):
 
 ### [Offline Scanning](https://google.github.io/osv-scanner/experimental/offline-mode/) (Experimental)
 
-Scan your project against a local OSV database.  Requires a pre-downloaded database. No network connection is needed.
+Scan your project against a local OSV database. Requires a pre-downloaded database. No network connection is needed.
 
 `osv-scanner --experimental-offline ./path/to/your/dir`
+
 ### [Guided Remediation](https://google.github.io/osv-scanner/experimental/guided-remediation/) (Experimental)
 
 OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.  
