@@ -79,13 +79,13 @@ For more usage details on guided remediation, please see our [documentation](htt
 
 With the help from [OSV-Scalibr](https://github.com/google/osv-scalibr), we now also have expanded support for the kinds of dependencies we can extract from projects and containers:
 
-Source manifests and lockfiles
+#### Source manifests and lockfiles
 
 - Haskell: `cabal.project.freeze`, `stack.yaml.lock`
 - .NET: `deps.json`
 - Python: `uv.lock`
 
-Artifacts
+#### Artifacts
 
 - node_modules
 - Python wheels
