@@ -1,4 +1,9 @@
-# OSV-Scanner
+<picture>
+    <source srcset="/docs/images/osv-scanner-full-logo-darkmode.svg"  media="(prefers-color-scheme: dark)">
+    <img src="/docs/images/osv-scanner-full-logo-lightmode.svg">
+</picture>
+
+---
 
 [![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/google/osv-scanner/badge)](https://scorecard.dev/viewer/?uri=github.com/google/osv-scanner)
 [![Go Report Card](https://goreportcard.com/badge/github.com/google/osv-scanner)](https://goreportcard.com/report/github.com/google/osv-scanner)
