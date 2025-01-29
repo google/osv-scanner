@@ -71,7 +71,7 @@ See the [full documentation](https://google.github.io/osv-scanner/supported-lang
 
 `$ osv-scanner scan image my-image-name:tag`
 
-![image](https://github.com/user-attachments/assets/9e3e9c59-1948-45ab-9717-61fcbe3c7cc3)
+![screencast of html output of container scanning](https://github.com/user-attachments/assets/8bb95366-27ec-45d1-86ed-e42890f2fb46)
 
 ### [License Scanning](https://google.github.io/osv-scanner/experimental/license-scanning/) (Experimental)
 
