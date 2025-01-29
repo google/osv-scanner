@@ -58,15 +58,16 @@ func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, lay
 				return ctx.Err() // this value doesn't matter to errgroup.Wait(), it will be ctx.Err()
 			}
 
-			// No need to handle the error, if we can't get the base image for a layer, skip it
-			baseImagesMap[i], _ = matcher.queryBaseImagesForChainID(ctx, chainID)
+			// If we are erroring for one base image even with retry, we probably should stop
+			var err error
+			baseImagesMap[i], err = matcher.queryBaseImagesForChainID(ctx, chainID)
 
-			return nil
+			return err
 		})
 	}
 
 	if err := g.Wait(); err != nil {
-		return nil, context.DeadlineExceeded
+		return nil, err
 	}
 
 	return buildBaseImageDetails(layerMetadata, baseImagesMap), nil
@@ -147,7 +148,7 @@ func (matcher *DepsDevBaseImageMatcher) queryBaseImagesForChainID(ctx context.Co
 	})
 
 	if err != nil {
-		matcher.Reporter.Errorf("deps.dev API error: %s\n", err)
+		matcher.Reporter.Errorf("deps.dev API error, you may need to update osv-scanner: %s\n", err)
 		return nil, err
 	}
 	defer resp.Body.Close()

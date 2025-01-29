@@ -30,15 +30,15 @@ We found that when performing different forms of scanning, you are generally int
 
 When scanning container images (`osv-scanner scan image ...`), OSV-Scanner automatically extracts and analyzes the following artifacts:
 
-| Source                   | Example files                      |
-| ------------------------ | ---------------------------------- |
-| Alpine APK packages      | `/lib/apk/db/installed`            |
-| Debian dpkg/apt packages | `/var/lib/dpkg/status`             |
-|                          |                                    |
-| Go Binaries              | `main-go`                          |
-| Java Uber `jars`         | `my-java-app.jar`                  |
-| Node Modules             | `node-app/node_modules/...`        |
-| Python wheels            | `lib/python3.11/site-packages/...` |
+| Source                          | Example files                      |
+| ------------------------------- | ---------------------------------- |
+| Alpine APK packages             | `/lib/apk/db/installed`            |
+| Debian/Ubuntu dpkg/apt packages | `/var/lib/dpkg/status`             |
+|                                 |                                    |
+| Go Binaries                     | `main-go`                          |
+| Java Uber `jars`                | `my-java-app.jar`                  |
+| Node Modules                    | `node-app/node_modules/...`        |
+| Python wheels                   | `lib/python3.11/site-packages/...` |
 
 ## Supported lockfiles/manifests
 
