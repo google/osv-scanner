@@ -113,14 +113,16 @@ func (ds *DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]str
 		if e.Type.HasAttr(dep.Dev) {
 			continue
 		}
-		if e.To == ds.Dependency {
-			return false
-		}
 		// As a workaround for npm workspaces, check for the a Dev attr in the direct dependency's dependencies.
 		for _, e2 := range ds.Nodes[e.To].Children {
 			if !e2.Type.HasAttr(dep.Dev) {
 				return false
 			}
+		}
+		// If the vulnerable dependency is a direct dependency, it'd have no Children.
+		// Since we've already checked that it doesn't have the Dev attr, it must be a non-dev dependency.
+		if e.To == ds.Dependency {
+			return false
 		}
 	}
 
@@ -140,7 +142,7 @@ func (ds *DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]str
 // If the vuln affecting C is fixed in version 2.0, the constraining subgraph would only contain A,
 // since B would allow versions >=2.0 of C to be selected if not for A.
 //
-// This is a heuristic approach and may produce false positives.
+// This is a heuristic approach and may produce false positives (meaning possibly unnecessary dependencies would be flagged to be relaxed).
 // If the constraining subgraph cannot be computed for some reason, returns the original DependencySubgraph.
 func (ds *DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resolve.Client, vuln *models.Vulnerability) *DependencySubgraph {
 	// Just check if the direct requirement of the vulnerable package is constraining it.
