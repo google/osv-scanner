@@ -6,7 +6,10 @@ The [OSV-Scanner docs](https://google.github.io/osv-scanner) are hosted on a [Gi
 
 To run the docs locally:
 
-- Install `ruby (>= 3.1.0)`. This should come with `bundler`
+- Install `ruby (>= 3.1.0)`. This should come with `bundler`.
+  - On Debian, you need to install them separately:
+    - `ruby`
+    - `ruby-bundler`
 - In this directory:
   - `bundle config set --local path 'vendor/bundle'`
   - `bundle install`
