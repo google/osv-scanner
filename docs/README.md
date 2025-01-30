@@ -17,7 +17,6 @@ To run the docs locally:
 
 Here's the full documentation on github for running the [docs locally].
 
-[pre-requisites]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll#prerequisites
 [docs locally]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll#building-your-site-locally
 
 ## Formatting docs
