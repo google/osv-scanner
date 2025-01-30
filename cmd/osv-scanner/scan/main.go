@@ -3,9 +3,9 @@ package scan
 import (
 	"io"
 
-	"github.com/google/osv-scanner/cmd/osv-scanner/scan/image"
-	"github.com/google/osv-scanner/cmd/osv-scanner/scan/source"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan/image"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan/source"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 
 	"github.com/urfave/cli/v2"
 )

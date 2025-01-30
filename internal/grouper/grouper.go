@@ -6,8 +6,8 @@ import (
 
 	"golang.org/x/exp/maps"
 
-	"github.com/google/osv-scanner/internal/identifiers"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/identifiers"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func hasAliasIntersection(v1, v2 IDAliases) bool {

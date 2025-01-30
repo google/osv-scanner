@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/remediation/relax"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/remediation/relax"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 )
 
 func TestRelaxNpm(t *testing.T) {

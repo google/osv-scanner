@@ -3,8 +3,8 @@ package lockfile_test
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/testutility"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
 func TestGoBinaryExtractor_ShouldExtract(t *testing.T) {

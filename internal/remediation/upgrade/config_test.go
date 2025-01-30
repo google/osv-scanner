@@ -3,7 +3,7 @@ package upgrade_test
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 )
 
 func configSetExpect(t *testing.T, config upgrade.Config, pkg string, level upgrade.Level, want bool) {

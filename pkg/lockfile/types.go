@@ -1,6 +1,6 @@
 package lockfile
 
-import "github.com/google/osv-scanner/pkg/models"
+import "github.com/google/osv-scanner/v2/pkg/models"
 
 // TODO(v2): Remove completely
 // TODO(v2): These fields do not need JSON tags I believe

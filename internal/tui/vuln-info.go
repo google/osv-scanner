@@ -2,7 +2,6 @@ package tui
 
 import (
 	"fmt"
-	"slices"
 	"strings"
 
 	"github.com/charmbracelet/bubbles/key"
@@ -12,7 +11,7 @@ import (
 	"github.com/charmbracelet/glamour/ansi"
 	"github.com/charmbracelet/glamour/styles"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/google/osv-scanner/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/muesli/reflow/wordwrap"
 )
 
@@ -68,8 +67,7 @@ func NewVulnInfo(vuln *resolution.Vulnerability) *vulnInfo {
 	*v.mdStyle.Document.Margin = 0
 	v.mdStyle.Document.BlockPrefix = ""
 
-	chains := append(slices.Clone(vuln.ProblemChains), vuln.NonProblemChains...)
-	v.chainGraphs = FindChainGraphs(chains)
+	v.chainGraphs = FindChainGraphs(vuln.Subgraphs)
 
 	return &v
 }

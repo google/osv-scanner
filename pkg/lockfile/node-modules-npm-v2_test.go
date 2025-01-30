@@ -3,7 +3,7 @@ package lockfile_test
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
 func TestNodeModulesExtractor_Extract_npm_v2_InvalidJson(t *testing.T) {

@@ -3,7 +3,7 @@ package purl
 import (
 	"fmt"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/package-url/packageurl-go"
 )
 

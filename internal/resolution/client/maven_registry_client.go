@@ -11,8 +11,8 @@ import (
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/version"
-	"github.com/google/osv-scanner/internal/datasource"
-	mavenutil "github.com/google/osv-scanner/internal/utility/maven"
+	"github.com/google/osv-scanner/v2/internal/datasource"
+	mavenutil "github.com/google/osv-scanner/v2/internal/utility/maven"
 )
 
 const mavenRegistryCacheExt = ".resolve.maven"

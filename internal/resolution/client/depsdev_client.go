@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/datasource"
 )
 
 const depsDevCacheExt = ".resolve.deps"

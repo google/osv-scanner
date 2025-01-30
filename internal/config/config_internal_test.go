@@ -11,9 +11,9 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/osv"
 
-	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/scalibrextract/ecosystemmock"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 // Attempts to normalize any file paths in the given `output` so that they can

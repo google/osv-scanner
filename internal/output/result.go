@@ -7,8 +7,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/identifiers"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/identifiers"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"golang.org/x/exp/maps"
 )
 

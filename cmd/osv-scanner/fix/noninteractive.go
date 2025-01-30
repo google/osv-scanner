@@ -9,14 +9,14 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/datasource"
-	"github.com/google/osv-scanner/internal/remediation"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	lf "github.com/google/osv-scanner/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/resolution/util"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	lf "github.com/google/osv-scanner/v2/internal/resolution/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/resolution/util"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"golang.org/x/exp/maps"
 )
 
@@ -418,8 +418,8 @@ func makeResultVuln(vuln resolution.Vulnerability) vulnOutput {
 	}
 
 	affected := make(map[packageOutput]struct{})
-	for _, c := range append(vuln.ProblemChains, vuln.NonProblemChains...) {
-		vk, _ := c.End()
+	for _, sg := range vuln.Subgraphs {
+		vk := sg.Nodes[sg.Dependency].Version
 		affected[packageOutput{Name: vk.Name, Version: vk.Version}] = struct{}{}
 	}
 	v.Packages = maps.Keys(affected)

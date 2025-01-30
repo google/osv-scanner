@@ -16,101 +16,279 @@ complex 9.9.9
   {
     "ID": "CMPLX-0000-0000",
     "DevOnly": false,
-    "ProblemChains": [
-      [
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^1.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 1,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "complex",
+              "VersionType": 1,
+              "Version": "9.9.9"
+            },
+            "Distance": 1,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "alice",
+              "VersionType": 1,
+              "Version": "1.0.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   },
   {
     "ID": "CMPLX-1000-0000",
     "DevOnly": false,
-    "ProblemChains": [
-      [
-        {
-          "From": 0,
-          "To": 2,
-          "Requirement": "2.2.2",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 2,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "complex",
+              "VersionType": 1,
+              "Version": "9.9.9"
+            },
+            "Distance": 1,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "2.2.2",
+                "Type": {}
+              },
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              },
+              {
+                "From": 0,
+                "To": 3,
+                "Requirement": "~3.3.3",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "alice",
+              "VersionType": 1,
+              "Version": "1.0.1"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 1,
+                "To": 2,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "2": {
+            "Version": {
+              "System": 3,
+              "Name": "bob",
+              "VersionType": 1,
+              "Version": "2.2.2"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "2.2.2",
+                "Type": {}
+              },
+              {
+                "From": 1,
+                "To": 2,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              },
+              {
+                "From": 3,
+                "To": 2,
+                "Requirement": "^2.2.2",
+                "Type": {}
+              },
+              {
+                "From": 4,
+                "To": 2,
+                "Requirement": "^2.0.1",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          },
+          "3": {
+            "Version": {
+              "System": 3,
+              "Name": "dave",
+              "VersionType": 1,
+              "Version": "3.3.3"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 3,
+                "Requirement": "~3.3.3",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 3,
+                "To": 2,
+                "Requirement": "^2.2.2",
+                "Type": {}
+              },
+              {
+                "From": 3,
+                "To": 4,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "4": {
+            "Version": {
+              "System": 3,
+              "Name": "chuck",
+              "VersionType": 1,
+              "Version": "2.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 3,
+                "To": 4,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 4,
+                "To": 2,
+                "Requirement": "^2.0.1",
+                "Type": {}
+              }
+            ]
+          }
         }
-      ],
-      [
-        {
-          "From": 1,
-          "To": 2,
-          "Requirement": "^2.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        }
-      ],
-      [
-        {
-          "From": 3,
-          "To": 2,
-          "Requirement": "^2.2.2",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 3,
-          "Requirement": "~3.3.3",
-          "Type": {}
-        }
-      ],
-      [
-        {
-          "From": 4,
-          "To": 2,
-          "Requirement": "^2.0.1",
-          "Type": {}
-        },
-        {
-          "From": 3,
-          "To": 4,
-          "Requirement": "^2.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 3,
-          "Requirement": "~3.3.3",
-          "Type": {}
-        }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   },
   {
     "ID": "CMPLX-2000-0000",
     "DevOnly": true,
-    "ProblemChains": [
-      [
-        {
-          "From": 3,
-          "To": 4,
-          "Requirement": "^2.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 3,
-          "Requirement": "~3.3.3",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 4,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "complex",
+              "VersionType": 1,
+              "Version": "9.9.9"
+            },
+            "Distance": 2,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 3,
+                "Requirement": "~3.3.3",
+                "Type": {}
+              }
+            ]
+          },
+          "3": {
+            "Version": {
+              "System": 3,
+              "Name": "dave",
+              "VersionType": 1,
+              "Version": "3.3.3"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 3,
+                "Requirement": "~3.3.3",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 3,
+                "To": 4,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "4": {
+            "Version": {
+              "System": 3,
+              "Name": "chuck",
+              "VersionType": 1,
+              "Version": "2.0.0"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 3,
+                "To": 4,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   }
 ]
 ---
@@ -131,57 +309,148 @@ diamond 1.0.0
   {
     "ID": "DIA-000-000",
     "DevOnly": false,
-    "ProblemChains": [
-      [
-        {
-          "From": 1,
-          "To": 3,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^1.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 3,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "diamond",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 2,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              },
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "pkg",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 1,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "2": {
+            "Version": {
+              "System": 3,
+              "Name": "dep-one",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 2,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              },
+              {
+                "From": 2,
+                "To": 4,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "3": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 1,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              },
+              {
+                "From": 2,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              },
+              {
+                "From": 4,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          },
+          "4": {
+            "Version": {
+              "System": 3,
+              "Name": "dep-two",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 2,
+                "To": 4,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 4,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          }
         }
-      ],
-      [
-        {
-          "From": 2,
-          "To": 3,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 2,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        }
-      ],
-      [
-        {
-          "From": 4,
-          "To": 3,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        },
-        {
-          "From": 2,
-          "To": 4,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 2,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   }
 ]
 ---
@@ -199,52 +468,187 @@ different-pkgs 3.0.0
   {
     "ID": "OSV-000-000",
     "DevOnly": false,
-    "ProblemChains": [
-      [
-        {
-          "From": 2,
-          "To": 3,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 2,
-          "Requirement": "^1.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 3,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "different-pkgs",
+              "VersionType": 1,
+              "Version": "3.0.0"
+            },
+            "Distance": 2,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "2": {
+            "Version": {
+              "System": 3,
+              "Name": "dependency",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 2,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "3": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 2,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   },
   {
     "ID": "OSV-000-001",
     "DevOnly": false,
-    "ProblemChains": [
-      [
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^1.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 1,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "different-pkgs",
+              "VersionType": 1,
+              "Version": "3.0.0"
+            },
+            "Distance": 1,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "bad2",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ],
-      [
-        {
-          "From": 2,
-          "To": 3,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 2,
-          "Requirement": "^1.0.0",
-          "Type": {}
+      },
+      {
+        "Dependency": 3,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "different-pkgs",
+              "VersionType": 1,
+              "Version": "3.0.0"
+            },
+            "Distance": 2,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "2": {
+            "Version": {
+              "System": 3,
+              "Name": "dependency",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 2,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "3": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 2,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   }
 ]
 ---
@@ -260,17 +664,49 @@ direct 1.0.0
   {
     "ID": "OSV-000-001",
     "DevOnly": false,
-    "ProblemChains": [
-      [
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^2.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 1,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "direct",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "2.2.2"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   }
 ]
 ---
@@ -290,74 +726,294 @@ duplicates 1.1.1
   {
     "ID": "OSV-000-000",
     "DevOnly": false,
-    "ProblemChains": [
-      [
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^1.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 1,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "duplicates",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 1,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ],
-      [
-        {
-          "From": 3,
-          "To": 5,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 3,
-          "Requirement": "^1.0.0",
-          "Type": {}
+      },
+      {
+        "Dependency": 5,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "duplicates",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 2,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "3": {
+            "Version": {
+              "System": 3,
+              "Name": "dependency",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 3,
+                "To": 5,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "5": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 3,
+                "To": 5,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   },
   {
     "ID": "OSV-000-001",
     "DevOnly": false,
-    "ProblemChains": [
-      [
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^1.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 1,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "duplicates",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 1,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ],
-      [
-        {
-          "From": 2,
-          "To": 4,
-          "Requirement": "^2.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 2,
-          "Requirement": "^2.0.0",
-          "Type": {}
+      },
+      {
+        "Dependency": 4,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "duplicates",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 2,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "2": {
+            "Version": {
+              "System": 3,
+              "Name": "dependency",
+              "VersionType": 1,
+              "Version": "2.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 2,
+                "To": 4,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "4": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "2.2.2"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 2,
+                "To": 4,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ],
-      [
-        {
-          "From": 3,
-          "To": 5,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 3,
-          "Requirement": "^1.0.0",
-          "Type": {}
+      },
+      {
+        "Dependency": 5,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "duplicates",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 2,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "3": {
+            "Version": {
+              "System": 3,
+              "Name": "dependency",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 3,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 3,
+                "To": 5,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "5": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 3,
+                "To": 5,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   }
 ]
 ---
@@ -374,23 +1030,74 @@ existing 1.0.0
   {
     "ID": "OSV-000-001",
     "DevOnly": false,
-    "ProblemChains": [
-      [
-        {
-          "From": 1,
-          "To": 2,
-          "Requirement": "^2.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^2.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 2,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "existing",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 2,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "dependency",
+              "VersionType": 1,
+              "Version": "2.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 1,
+                "To": 2,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "2": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "2.2.2"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 1,
+                "To": 2,
+                "Requirement": "^2.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   }
 ]
 ---
@@ -408,61 +1115,170 @@ non-problem 1.0.0
   {
     "ID": "OSV-000-000",
     "DevOnly": false,
-    "ProblemChains": [
-      [
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^1.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 1,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "non-problem",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              },
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^3.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              },
+              {
+                "From": 2,
+                "To": 1,
+                "Requirement": "*",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          },
+          "2": {
+            "Version": {
+              "System": 3,
+              "Name": "dependency",
+              "VersionType": 1,
+              "Version": "3.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^3.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 2,
+                "To": 1,
+                "Requirement": "*",
+                "Type": {}
+              }
+            ]
+          }
         }
-      ]
-    ],
-    "NonProblemChains": [
-      [
-        {
-          "From": 2,
-          "To": 1,
-          "Requirement": "*",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 2,
-          "Requirement": "^3.0.0",
-          "Type": {}
-        }
-      ]
+      }
     ]
   },
   {
     "ID": "OSV-000-001",
     "DevOnly": false,
-    "ProblemChains": [
-      [
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^1.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 1,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "non-problem",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              },
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^3.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              },
+              {
+                "From": 2,
+                "To": 1,
+                "Requirement": "*",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          },
+          "2": {
+            "Version": {
+              "System": 3,
+              "Name": "dependency",
+              "VersionType": 1,
+              "Version": "3.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 2,
+                "Requirement": "^3.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 2,
+                "To": 1,
+                "Requirement": "*",
+                "Type": {}
+              }
+            ]
+          }
         }
-      ],
-      [
-        {
-          "From": 2,
-          "To": 1,
-          "Requirement": "*",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 2,
-          "Requirement": "^3.0.0",
-          "Type": {}
-        }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   }
 ]
 ---
@@ -479,44 +1295,146 @@ simple 1.0.0
   {
     "ID": "OSV-000-000",
     "DevOnly": true,
-    "ProblemChains": [
-      [
-        {
-          "From": 1,
-          "To": 2,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^1.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 2,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "simple",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 2,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "dependency",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 1,
+                "To": 2,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "2": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 1,
+                "To": 2,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   },
   {
     "ID": "OSV-000-001",
     "DevOnly": true,
-    "ProblemChains": [
-      [
-        {
-          "From": 1,
-          "To": 2,
-          "Requirement": "^1.0.0",
-          "Type": {}
-        },
-        {
-          "From": 0,
-          "To": 1,
-          "Requirement": "^1.0.0",
-          "Type": {}
+    "Subgraphs": [
+      {
+        "Dependency": 2,
+        "Nodes": {
+          "0": {
+            "Version": {
+              "System": 3,
+              "Name": "simple",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 2,
+            "Parents": null,
+            "Children": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "1": {
+            "Version": {
+              "System": 3,
+              "Name": "dependency",
+              "VersionType": 1,
+              "Version": "1.0.0"
+            },
+            "Distance": 1,
+            "Parents": [
+              {
+                "From": 0,
+                "To": 1,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": [
+              {
+                "From": 1,
+                "To": 2,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ]
+          },
+          "2": {
+            "Version": {
+              "System": 3,
+              "Name": "bad",
+              "VersionType": 1,
+              "Version": "1.1.1"
+            },
+            "Distance": 0,
+            "Parents": [
+              {
+                "From": 1,
+                "To": 2,
+                "Requirement": "^1.0.0",
+                "Type": {}
+              }
+            ],
+            "Children": null
+          }
         }
-      ]
-    ],
-    "NonProblemChains": []
+      }
+    ]
   }
 ]
 ---

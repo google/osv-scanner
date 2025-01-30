@@ -6,7 +6,7 @@ import (
 	"sync/atomic"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/datasource"
 )
 
 func TestRequestCache(t *testing.T) {

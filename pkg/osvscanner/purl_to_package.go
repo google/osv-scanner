@@ -1,7 +1,7 @@
 package osvscanner
 
 import (
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 // PURLToPackage converts a Package URL string to models.PackageInfo

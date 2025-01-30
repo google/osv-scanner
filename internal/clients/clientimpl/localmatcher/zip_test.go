@@ -17,10 +17,10 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
-	"github.com/google/osv-scanner/internal/testutility"
-	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/version"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 const userAgent = "osv-scanner_test/" + version.OSVVersion

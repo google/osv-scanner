@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/imodels/ecosystem"
+	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 

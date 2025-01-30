@@ -3,7 +3,7 @@ package clientinterfaces
 import (
 	"context"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 type BaseImageMatcher interface {

@@ -7,10 +7,10 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/google/osv-scanner/cmd/osv-scanner/internal/helper"
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osvscanner"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/osvscanner"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"golang.org/x/term"
 
 	"github.com/urfave/cli/v2"

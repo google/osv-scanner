@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/output"
+	"github.com/google/osv-scanner/v2/internal/output"
 )
 
 func TestPrintHTMLResults_WithVulnerabilities(t *testing.T) {

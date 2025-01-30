@@ -20,7 +20,7 @@ import (
 	scalibrfs "github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
-	"github.com/google/osv-scanner/internal/osvdev"
+	"github.com/google/osv-scanner/v2/internal/osvdev"
 )
 
 var (

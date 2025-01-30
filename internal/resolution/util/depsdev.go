@@ -2,8 +2,8 @@ package util
 
 import (
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 // TODO: use osvschema.Ecosystem or imodel's ecosystem.Parsed

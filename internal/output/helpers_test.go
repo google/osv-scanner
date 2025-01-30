@@ -3,7 +3,7 @@ package output_test
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 type outputTestCaseArgs struct {

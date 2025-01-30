@@ -12,8 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/cachedregexp"
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/urfave/cli/v2"
 )
 

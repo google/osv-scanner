@@ -3,7 +3,7 @@ package results
 import (
 	"fmt"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 // Number of characters to display a git commit
