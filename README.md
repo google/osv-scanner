@@ -48,7 +48,7 @@ Please note: These are the instructions for the latest OSV-Scanner V2 beta. If y
 
 ### [Scanning a source directory](https://google.github.io/osv-scanner/usage)
 
-``` bash
+```bash
 $ osv-scanner scan source -r /path/to/your/dir
 ```
 
@@ -77,8 +77,7 @@ See the [full documentation](https://google.github.io/osv-scanner/supported-lang
 
 **Usage**:
 
-
-``` bash
+```bash
 $ osv-scanner scan image my-image-name:tag
 ```
 
@@ -88,15 +87,13 @@ $ osv-scanner scan image my-image-name:tag
 
 Check your dependencies' licenses using deps.dev data. For a summary:
 
-
-``` bash
+```bash
 osv-scanner --experimental-licenses-summary path/to/repository
 ```
 
 To check against an allowed license list (SPDX format):
 
-
-``` bash
+```bash
 osv-scanner --experimental-licenses="MIT,Apache-2.0" path/to/directory
 ```
 
@@ -104,7 +101,7 @@ osv-scanner --experimental-licenses="MIT,Apache-2.0" path/to/directory
 
 Scan your project against a local OSV database. No network connection is required after the initial database download. The database can also be manually downloaded.
 
-``` bash 
+```bash
 osv-scanner --experimental-offline --experimental-download-offline-databases ./path/to/your/dir
 ```
 
@@ -138,7 +135,7 @@ $ osv-scanner fix \
 ```bash
 $ osv-scanner fix \
     -M path/to/package.json \
-    -L path/to/package-lock.json 
+    -L path/to/package-lock.json
 ```
 
 <img src="https://google.github.io/osv-scanner/images/guided-remediation-relock-patches.png" alt="Screenshot of the interactive relock results screen with some relaxation patches selected">
