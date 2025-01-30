@@ -4,16 +4,22 @@ The [OSV-Scanner docs](https://google.github.io/osv-scanner) are hosted on a [Gi
 
 ## Running docs locally
 
-To run docs locally, you will need [Jekyll](https://jekyllrb.com/docs/installation/) on your machine.
+To run the docs locally:
 
-Here are other [pre-requisites] and instructions for running the [docs locally].
+- Install `ruby (>= 3.1.0)`. This should come with `bundler`
+- In this directory:
+  - `bundle config set --local path 'vendor/bundle'`
+  - `bundle install`
+  - `bundle exec jekyll serve`
+
+Here's the full documentation on github for running the [docs locally].
 
 [pre-requisites]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll#prerequisites
 [docs locally]: https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll#building-your-site-locally
 
 ## Formatting docs
 
-We use - [Prettier](https://prettier.io/) to standardize the format of markdown and config files.
+We use [Prettier](https://prettier.io/) to standardize the format of markdown and config files.
 
 This requires [node/npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) to be installed.
 
