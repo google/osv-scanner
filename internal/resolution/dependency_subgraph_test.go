@@ -10,9 +10,9 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/schema"
 	gocmp "github.com/google/go-cmp/cmp"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestDependencySubgraph(t *testing.T) {
