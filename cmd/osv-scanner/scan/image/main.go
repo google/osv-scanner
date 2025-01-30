@@ -6,8 +6,10 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
+	"github.com/google/osv-scanner/v2/internal/spdx"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
@@ -76,6 +78,20 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		}
 	}
 
+	if context.Bool("experimental-licenses-summary") && context.IsSet("experimental-licenses") {
+		return nil, errors.New("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
+	}
+	allowlist := context.StringSlice("experimental-licenses")
+	if context.IsSet("experimental-licenses") {
+		if len(allowlist) == 0 ||
+			(len(allowlist) == 1 && allowlist[0] == "") {
+			return nil, errors.New("--experimental-licenses requires at least one value")
+		}
+		if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
+			return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
+		}
+	}
+
 	verbosityLevel, err := reporter.ParseVerbosityLevel(context.String("verbosity"))
 	if err != nil {
 		return nil, err
@@ -85,6 +101,11 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		return r, err
 	}
 
+	scanLicensesAllowlist := context.StringSlice("experimental-licenses")
+	if context.Bool("experimental-offline") {
+		scanLicensesAllowlist = []string{}
+	}
+
 	if context.Args().Len() == 0 {
 		return r, errors.New("please provide an image name or see the help document")
 	}
@@ -92,6 +113,19 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		Image:              context.Args().First(),
 		ConfigOverridePath: context.String("config"),
 		IsImageArchive:     context.Bool("archive"),
+		ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
+			LocalDBPath:       context.String("experimental-local-db-path"),
+			DownloadDatabases: context.Bool("experimental-download-offline-databases"),
+			CompareOffline:    context.Bool("experimental-offline-vulnerabilities"),
+			// License summary mode causes all
+			// packages to appear in the json as
+			// every package has a license - even
+			// if it's just the UNKNOWN license.
+			ShowAllPackages: context.Bool("experimental-all-packages") ||
+				context.Bool("experimental-licenses-summary"),
+			ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
+			ScanLicensesAllowlist: scanLicensesAllowlist,
+		},
 	}
 
 	var vulnResult models.VulnerabilityResults
