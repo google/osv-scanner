@@ -11,7 +11,7 @@ To run the docs locally:
     - `ruby`
     - `ruby-bundler`
 - In this directory:
-  - `bundle config set --local path 'vendor/bundle'`
+  - `bundle config set --local path 'vendor/bundle'` (you can skip this step if serving from this directory, as the config is already saved in `.bundle/config`)
   - `bundle install`
   - `bundle exec jekyll serve`
 
