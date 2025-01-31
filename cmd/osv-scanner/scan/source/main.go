@@ -77,9 +77,12 @@ var projectScanExperimentalFlags = []cli.Flag{
 }
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
-	flags := append(projectScanFlags, helper.GlobalScanFlags...)
+	flags := make([]cli.Flag, 0, len(projectScanFlags)+len(helper.GlobalScanFlags)+len(projectScanExperimentalFlags))
+	flags = append(flags, projectScanFlags...)
+	flags = append(flags, helper.GlobalScanFlags...)
 	// Make sure all experimental flags show after regular flags
 	flags = append(flags, projectScanExperimentalFlags...)
+
 	return &cli.Command{
 		Name:        "source",
 		Usage:       "scans a source project's dependencies for known vulnerabilities using the OSV database.",
