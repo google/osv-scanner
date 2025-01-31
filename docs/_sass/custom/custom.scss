@@ -8,3 +8,16 @@
 .nav-list .nav-list-expander {
   display: none !important;
 }
+
+:not(pre, figure) code {
+  padding: 0.2rem 0.35rem !important;
+  font-size: 0.85em;
+}
+
+table {
+  border-collapse: collapse;
+
+  th {
+    border-bottom-width: 2px;
+  }
+}

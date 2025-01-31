@@ -20,7 +20,7 @@ nav_order: 2
 
 Artifact and manifest extraction logic is implemented in [OSV-Scalibr](https://github.com/google/osv-scalibr) as a standalone library. OSV-Scanner tightly integrates with OSV-Scalibr to provide a end to end vulnerability scanner for developers.
 
-### Core Concept
+## Core Concept
 
 We split the files we can scan into two broad categories, **artifacts** and **manifests**.
 
@@ -105,7 +105,7 @@ If you have a custom lockfile that we do not support or prefer to do your own cu
 
 Once you extracted your own dependency information, place it in a `osv-scanner.json` file, with the same format as the JSON output of osv-scanner, e.g.:
 
-```
+```jsonc
 {
   "results": [
     {
@@ -122,7 +122,7 @@ Once you extracted your own dependency information, place it in a `osv-scanner.j
             "version": "1.2.3",
             "ecosystem": "npm"
           }
-        },
+        }
         // ...
       ]
     }
