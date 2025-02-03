@@ -336,6 +336,7 @@ header {
   padding: 15px 20px;
   white-space: nowrap;
   cursor: pointer;
+  display: block;
 }
 
 .filter-option input,

@@ -24,7 +24,7 @@
         {{ $diffID := .LayerMetadata.DiffID }}
         {{ $longCommand := false }}
         {{ if gt (len $command) 109 }}
-          {{ $longCommand = true }}
+        {{ $longCommand = true }}
         {{ end }}
 
         {{ if gt .Count.AnalysisCount.Regular 0 }}
@@ -34,7 +34,7 @@
             {{ if $longCommand }}
             <span class="tooltiptext layer-tooltiptext">{{ $originalCommand }}</span>
             {{ end }}
-            </div>
+          </div>
           {{ template "severity_summary_template.gohtml".Count.SeverityCount }}
         </div>
         {{ end }}
@@ -56,26 +56,26 @@
       </div>
       <div id="type-filter-option-container" class="filter-option-container hide-block">
         {{ if .IsContainerScanning }}
-        <div class="filter-option">
+        <label class="filter-option" for="all-type-checkbox">
           <input type="checkbox" checked id="all-type-checkbox" data-type-all-count="{{ .VulnTypeSummary.All }}">
-          <label for="all-type-checkbox">Default ({{ .VulnTypeSummary.All }})</label>
-        </div>
+          Default ({{ .VulnTypeSummary.All }})
+        </label>
         {{ end }}
-        <div class="filter-option">
+        <label class="filter-option" for="project-type-checkbox">
           <input type="checkbox" checked id="project-type-checkbox"
             data-type-project-count="{{ .VulnTypeSummary.Project }}">
-          <label for="project-type-checkbox"> Project Vulnerabilities ({{ .VulnTypeSummary.Project }})</label>
-        </div>
+          Project Vulnerabilities ({{ .VulnTypeSummary.Project }})
+        </label>
         {{ if .IsContainerScanning }}
-        <div class="filter-option">
+        <label class="filter-option" for="os-type-checkbox">
           <input type="checkbox" checked id="os-type-checkbox" data-type-os-count="{{ .VulnTypeSummary.OS }}">
-          <label for="os-type-checkbox"> Operating system vulnerabilities ({{ .VulnTypeSummary.OS }})</label>
-        </div>
+          Operating system vulnerabilities ({{ .VulnTypeSummary.OS }})
+        </label>
         {{ end }}
-        <div class="filter-option">
+        <label class="filter-option" for="uncalled-type-checkbox">
           <input type="checkbox" id="uncalled-type-checkbox" data-type-uncalled-count="{{ .VulnTypeSummary.Hidden }}">
-          <label for="uncalled-type-checkbox">Uncalled/Unimportant ({{ .VulnTypeSummary.Hidden }})</label>
-        </div>
+          Uncalled/Unimportant ({{ .VulnTypeSummary.Hidden }})
+        </label>
       </div>
     </div>
   </div>

@@ -444,10 +444,10 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Hide filter options when clicking other parts
-  const filterSection = document.getElementById("filter-section");
+  const filterSections = document.querySelectorAll("div.filter");
 
   document.addEventListener("click", event => {
-    if (!filterSection.contains(event.target)) {
+    if (![...filterSections].some(c => c.contains(event.target))) {
       hideAllFilterOptions();
     }
   });
@@ -476,4 +476,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     showAndHideParentSections();
   });
+
+  showAllVulns();
 });
