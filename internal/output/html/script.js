@@ -1,17 +1,17 @@
-let selectedTypeFilterValue = new Set();
+const selectedTypeFilterValue = new Set();
 selectedTypeFilterValue.add("all");
 let selectedLayer = "all";
 
 function quickFilterByLayer(DiffID, layerCommand) {
   resetFilterText();
   applyFilters(selectedTypeFilterValue, DiffID);
-  selectedDisplay = document.getElementById("layer-filter-selected");
+  const selectedDisplay = document.getElementById("layer-filter-selected");
   selectedDisplay.textContent = layerCommand;
 }
 
 function showBaseImageLayer(imageID) {
-  var detailElementID = "base-image-details-" + imageID;
-  var detailsElement = document.getElementById(detailElementID);
+  const detailElementID = "base-image-details-" + imageID;
+  const detailsElement = document.getElementById(detailElementID);
 
   const icon = document.querySelector(
     `#base-image-summary-${imageID} .material-icons`
@@ -22,7 +22,7 @@ function showBaseImageLayer(imageID) {
 }
 
 function showPackageDetails(detailsId) {
-  var detailsElement = document.getElementById(
+  const detailsElement = document.getElementById(
     "table-tr-" + detailsId + "-details"
   );
   const icon = document.querySelector(
@@ -118,7 +118,7 @@ function closeVulnTab(inputString) {
 function openTab(activeTabId) {
   const tabs = document.getElementsByClassName("tab");
   const tabButtons = document.getElementsByClassName("tab-switch-button");
-  for (let i = 0; i < tabs.length; i++) {
+  for (let i = 0; i < tabs.length; i += 1) {
     tabs[i].classList.toggle("hide-block", tabs[i].id !== activeTabId);
     tabButtons[i].classList.toggle("tab-switch-button-selected", tabs[i].id === activeTabId);
   }
@@ -128,22 +128,23 @@ function hideAllFilterOptions() {
   const containers = document.getElementsByClassName(
     "filter-option-container"
   );
-  for (let i = 0; i < containers.length; i++) {
-    containers[i].classList.toggle("hide-block", true);
+
+  for (const container of containers) {
+    container.classList.toggle("hide-block", true);
   }
 }
 
 function toggleFilter(input) {
-  targetID = input + "-filter-option-container";
+  const targetID = input + "-filter-option-container";
   let optionContainer = document.getElementById(targetID);
   const containers = document.getElementsByClassName(
     "filter-option-container"
   );
-  for (let i = 0; i < containers.length; i++) {
-    if (containers[i].id === targetID) {
+  for (const loopContainer of containers) {
+    if (loopContainer.id === targetID) {
       optionContainer.classList.toggle("hide-block");
     } else {
-      containers[i].classList.toggle("hide-block", true);
+      loopContainer.classList.toggle("hide-block", true);
     }
   }
 }
@@ -200,9 +201,9 @@ function showAndHideParentSections() {
 
 function showAllVulns() {
   const vulnRows = document.getElementsByClassName("vuln-tr");
-  for (let i = 0; i < vulnRows.length; i++) {
-    let isUncalled = vulnRows[i].classList.contains("uncalled-tr")
-    vulnRows[i].classList.toggle("hide-block", isUncalled);
+  for (const row of vulnRows) {
+    let isUncalled = row.classList.contains("uncalled-tr")
+    row.classList.toggle("hide-block", isUncalled);
   }
 
   showAndHideParentSections();
@@ -260,16 +261,7 @@ function applyLayerFilter(selectedLayerID) {
   });
 }
 
-function updateTypeFilterText(selectedValue) {
-  let selectedAll = selectedValue.has("all");
-  let selectedProject = selectedValue.has("project");
-  let selectedOS = selectedValue.has("os");
-  let selectedUncalled = selectedValue.has("uncalled");
-  if (selectedAll) {
-    selectedProject = true;
-    selectedOS = true;
-  }
-
+function updateTypeFilterText(_selectedValue) {
   const typeSelected = document.getElementById("type-filter-selected");
   const selectedVulnCount = document.getElementById("selected-count");
 
@@ -441,8 +433,8 @@ document.addEventListener("DOMContentLoaded", function () {
       if (clickedOption) {
         resetSearchText();
         selectedLayer = clickedOption.getAttribute("data-layer-hash");
-        selectedDisplay = document.getElementById("layer-filter-selected");
-        layerCommand = clickedOption.querySelector("p:first-child");
+        const selectedDisplay = document.getElementById("layer-filter-selected");
+        const layerCommand = clickedOption.querySelector("p:first-child");
         selectedDisplay.textContent = layerCommand.textContent;
 
         hideAllFilterOptions();
@@ -480,7 +472,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     vulnRows.forEach(row => {
       const vulnID = row.getAttribute("data-vuln-id").toLowerCase();
-      row.classList.toggle("hide-block", !vulnID.includes(searchTerm))
+      row.classList.toggle("hide-block", !vulnID.includes(searchTerm));
     });
     showAndHideParentSections();
   });
