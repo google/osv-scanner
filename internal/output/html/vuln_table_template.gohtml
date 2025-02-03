@@ -15,7 +15,11 @@
       {{ else }}
       <div class="tooltip">
         <div class="clickable" onclick="openVulnInNewTab('{{ $element.ID }}')">{{ $element.ID }}</div>
-        <span class="tooltiptext">Group IDs: {{ join $element.GroupIDs ", " }}</span>
+        <span class="tooltiptext">Group IDs: <br>
+        {{ range $rowIndex, $alias := $element.GroupIDs }}
+            {{ $alias }}<br>
+        {{ end }}
+        </span>
       </div>
       {{ end }}
     </td>
