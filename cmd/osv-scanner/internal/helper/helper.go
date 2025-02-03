@@ -24,7 +24,7 @@ var OfflineFlags = map[string]string{
 
 // sets default port(8000) as a global variable
 var (
-    servePort = "8000"  // default port
+	servePort = "8000" // default port
 )
 
 var GlobalScanFlags = []cli.Flag{
@@ -54,9 +54,9 @@ var GlobalScanFlags = []cli.Flag{
 		Name:  "port",
 		Usage: "port number to use when serving HTML report (default: 8000)",
 		Action: func(_ *cli.Context, p string) error {
-            servePort = p
-            return nil
-        },
+			servePort = p
+			return nil
+		},
 	},
 	&cli.StringFlag{
 		Name:      "output",
