@@ -38,16 +38,10 @@ function showPackageDetails(detailsId) {
   ); // Select the icon within the row
   if (detailsElement.style.display !== "block") {
     detailsElement.style.display = "block";
-    rowCells.forEach(cell => {
-      cell.style.borderBottom = "1px solid transparent";
-    });
     icon.style.transform = "rotate(90deg)"; // Rotate 90 degrees
     icon.style.transition = "transform 0.2s ease"; // Add smooth transition
   } else {
     detailsElement.style.display = "none";
-    rowCells.forEach(cell => {
-      cell.style.borderBottom = "1px solid rgba(255, 255, 255, 0.12)";
-    });
     icon.style.transform = "rotate(0deg)"; // Rotate back to 0 degrees
     icon.style.transition = "transform 0.2s ease"; // Add smooth transition
   }

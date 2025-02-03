@@ -25,7 +25,11 @@
       {{ else if gt (len $element.Aliases) 1}}
       <div class="tooltip">
         {{ index $element.Aliases 0}}, ...
-        <span class="tooltiptext">{{ join $element.Aliases ", " }}</span>
+        <span class="tooltiptext">
+          {{ range $rowIndex, $alias := $element.Aliases }}
+            {{ $alias }}<br>
+          {{ end }}
+        </span>
       </div>
       {{ end }}
     </td>

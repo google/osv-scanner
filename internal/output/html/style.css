@@ -100,7 +100,7 @@ header {
 }
 
 .vuln-table th {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.33);
   padding: 16px;
 }
 
@@ -109,7 +109,6 @@ header {
 }
 
 .table-tr td {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   word-break: break-word;
   width: 200px;
   padding: 16px;
@@ -119,19 +118,18 @@ header {
   background-color: rgba(255, 255, 255, 0.04);
 }
 
+.table-tr-details > td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
 .vuln-id {
   color: #d9534f;
 }
 
 .package-details {
   text-align: left;
-  padding: 0 50px;
+  padding: 20px 50px 30px 50px;
   display: none;
-  padding-top: 20px;
-  padding-bottom: 30px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  max-height: 800px;
-  overflow: auto;
 }
 
 .package-details p {
@@ -146,7 +144,7 @@ header {
 .open-in-tab-tag {
   display: none;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 5px 5px;
+  padding: 5px;
   border-radius: 4px;
   width: fit-content;
 }
@@ -192,7 +190,7 @@ header {
 
 #vuln-tab {
   display: none;
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 #tab-switch {
@@ -427,8 +425,8 @@ header {
 
 /* CSS for the search box */
 .search-box {
-  display: inline-block;
-  position: relative;
+  display: flex;
+  align-items: center;
   width: 100%;
   border: 1px solid #fff;
   background-color: transparent;
@@ -437,13 +435,12 @@ header {
 }
 
 .search-box input[type="text"] {
-  padding: 10px 10px 10px 35px;
+  flex: 1 0 auto;
+  padding: 15px 10px;
+
   border: none;
   background-color: transparent;
-  width: 90%;
-  margin-left: 10px;
   color: #fff;
-  line-height: 2;
   font-size: 12pt;
 }
 
@@ -452,10 +449,8 @@ header {
 }
 
 .search-icon {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
+  height: fit-content;
+  padding: 13px;
 }
 
 .package-detail-title {
@@ -495,26 +490,30 @@ header {
 
 .tooltip .tooltiptext {
   visibility: hidden;
-  width: 120px;
+
   background-color: black;
   color: #fff;
-  text-align: center;
-  border-radius: 4px;
-  padding: 5px 5px;
-  white-space: nowrap;
-  width: fit-content;
+
+  white-space: normal;
   text-align: left;
+  line-height: 1.5;
+
+  max-width: 300px;
+  width: max-content;
+  padding: 10px;
+
+  border-radius: 4px;
   /* Position the tooltip */
   position: absolute;
   z-index: 999;
-  top: 100%;
+  bottom: 100%;
   left: 0%;
 }
 
-.layer-tooltiptext {
-  white-space: normal !important;
-  margin-left: 0 !important;
-  width: 1000px !important;
+.tooltip .tooltiptext.layer-tooltiptext {
+  white-space: normal;
+  margin-left: 0;
+  width: 1000px;
   max-height: 200px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -522,17 +521,6 @@ header {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-}
-
-.inner-table .tooltip .tooltiptext {
-  min-width: 300px;
-  white-space: normal;
-}
-
-th .tooltip .tooltiptext {
-  white-space: normal;
-  width: 240px;
-  padding: 10px;
 }
 
 .severity-count-summary .tooltip {
@@ -607,4 +595,11 @@ div.title {
 
 .clickable-layer:hover {
   background-color: rgba(255, 255, 255, 0.04);
+}
+
+.source-path {
+  border: 1px #888 solid;
+  border-radius: 4px;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.2);
 }
