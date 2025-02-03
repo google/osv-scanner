@@ -190,9 +190,11 @@ header {
   border: 1px solid #3c4043;
 }
 
-{{/* .uncalled-tr {
+.hide-block + .table-tr-details {
+  /* If details is after a hidden block, also hide details */
+
   display: none;
-} */}}
+}
 
 .uncalled-text {
   color: #808080;
