@@ -9,6 +9,30 @@
   display: none !important;
 }
 
+:not(pre, figure) code {
+  padding: 0.2rem 0.35rem !important;
+  font-size: 0.85em;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family:
+    "Overpass",
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+
+  th {
+    border-bottom-width: 2px;
+  }
+}
+
 .site-title {
   padding-top: 15px !important;
 }
