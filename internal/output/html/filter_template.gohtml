@@ -9,7 +9,7 @@
           <i class="material-icons">keyboard_arrow_down</i>
         </div>
       </div>
-      <div id="layer-filter-option-container" class="filter-option-container">
+      <div id="layer-filter-option-container" class="filter-option-container hide-block">
         <div data-layer-hash="all" class="filter-option layer-filter-option" id="all-layer-checkbox"
           data-layer-all-count="{{ .VulnCount.AnalysisCount.Regular }}">
           <p>All layers ({{ .VulnCount.AnalysisCount.Regular }})</p>
@@ -54,7 +54,7 @@
           <i class="material-icons">keyboard_arrow_down</i>
         </div>
       </div>
-      <div id="type-filter-option-container" class="filter-option-container">
+      <div id="type-filter-option-container" class="filter-option-container hide-block">
         {{ if .IsContainerScanning }}
         <div class="filter-option">
           <input type="checkbox" checked id="all-type-checkbox" data-type-all-count="{{ .VulnTypeSummary.All }}">

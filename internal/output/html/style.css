@@ -87,7 +87,13 @@ header {
 
 .material-icons {
   vertical-align: middle;
+  transform: rotate(0deg);
+  transition: transform 0.2s ease;
   user-select: none;
+}
+
+.material-icons.expanded {
+  transform: rotate(90deg);
 }
 
 .vuln-table {
@@ -122,6 +128,10 @@ header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.vuln-tr {
+  display: table-row;
+}
+
 .vuln-id {
   color: #d9534f;
 }
@@ -129,7 +139,7 @@ header {
 .package-details {
   text-align: left;
   padding: 20px 50px 30px 50px;
-  display: none;
+  display: block;
 }
 
 .package-details p {
@@ -180,16 +190,16 @@ header {
   border: 1px solid #3c4043;
 }
 
-.uncalled-tr {
+{{/* .uncalled-tr {
   display: none;
-}
+} */}}
 
 .uncalled-text {
   color: #808080;
 }
 
 #vuln-tab {
-  display: none;
+  display: block;
   margin-top: 30px;
 }
 
@@ -316,7 +326,7 @@ header {
   max-width: 1400px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
-  display: none;
+  display: block;
 }
 
 .filter-option {
@@ -572,7 +582,7 @@ div.title {
 }
 
 .base-image-details {
-  display: none;
+  display: block;
   margin-bottom: 20px;
 }
 
@@ -602,4 +612,8 @@ div.title {
   border-radius: 4px;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.hide-block {
+  display: none !important;
 }

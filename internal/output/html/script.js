@@ -16,35 +16,21 @@ function showBaseImageLayer(imageID) {
   const icon = document.querySelector(
     `#base-image-summary-${imageID} .material-icons`
   ); // Select the icon within the row
-  if (detailsElement.style.display !== "block") {
-    detailsElement.style.display = "block";
-    icon.style.transform = "rotate(90deg)"; // Rotate 90 degrees
-    icon.style.transition = "transform 0.2s ease"; // Add smooth transition
-  } else {
-    detailsElement.style.display = "none";
-    icon.style.transform = "rotate(0deg)"; // Rotate back to 0 degrees
-    icon.style.transition = "transform 0.2s ease"; // Add smooth transition
-  }
+
+  const hidBlock = detailsElement.classList.toggle("hide-block");
+  icon.classList.toggle("expanded", !hidBlock);
 }
 
 function showPackageDetails(detailsId) {
   var detailsElement = document.getElementById(
     "table-tr-" + detailsId + "-details"
   );
-  var rowElement = document.getElementById("table-tr-" + detailsId);
-  const rowCells = rowElement.querySelectorAll("td");
   const icon = document.querySelector(
     `#table-tr-${detailsId} .material-icons`
   ); // Select the icon within the row
-  if (detailsElement.style.display !== "block") {
-    detailsElement.style.display = "block";
-    icon.style.transform = "rotate(90deg)"; // Rotate 90 degrees
-    icon.style.transition = "transform 0.2s ease"; // Add smooth transition
-  } else {
-    detailsElement.style.display = "none";
-    icon.style.transform = "rotate(0deg)"; // Rotate back to 0 degrees
-    icon.style.transition = "transform 0.2s ease"; // Add smooth transition
-  }
+
+  const hidBlock = detailsElement.classList.toggle("hide-block");
+  icon.classList.toggle("expanded", !hidBlock);
 }
 
 function openVulnInNewTab(inputString) {
@@ -133,13 +119,8 @@ function openTab(activeTabId) {
   const tabs = document.getElementsByClassName("tab");
   const tabButtons = document.getElementsByClassName("tab-switch-button");
   for (let i = 0; i < tabs.length; i++) {
-    if (tabs[i].id === activeTabId) {
-      tabs[i].style.display = "block"; // Show the active tab
-      tabButtons[i].classList.add("tab-switch-button-selected");
-    } else {
-      tabs[i].style.display = "none"; // Hide other tabs
-      tabButtons[i].classList.remove("tab-switch-button-selected");
-    }
+    tabs[i].classList.toggle("hide-block", tabs[i].id !== activeTabId);
+    tabButtons[i].classList.toggle("tab-switch-button-selected", tabs[i].id === activeTabId);
   }
 }
 
@@ -148,25 +129,21 @@ function hideAllFilterOptions() {
     "filter-option-container"
   );
   for (let i = 0; i < containers.length; i++) {
-    containers[i].style.display = "none";
+    containers[i].classList.toggle("hide-block", true);
   }
 }
 
 function toggleFilter(input) {
   targetID = input + "-filter-option-container";
-  var optionContainer = document.getElementById(targetID);
+  let optionContainer = document.getElementById(targetID);
   const containers = document.getElementsByClassName(
     "filter-option-container"
   );
   for (let i = 0; i < containers.length; i++) {
     if (containers[i].id === targetID) {
-      if (optionContainer.style.display !== "block") {
-        optionContainer.style.display = "block";
-      } else {
-        optionContainer.style.display = "none";
-      }
+      optionContainer.classList.toggle("hide-block");
     } else {
-      containers[i].style.display = "none";
+      containers[i].classList.toggle("hide-block", true);
     }
   }
 }
@@ -186,54 +163,46 @@ function showAndHideParentSections() {
       let sourceHasVisibleRows = false;
 
       packageRows.forEach(packageRow => {
-        packageDetails = document.getElementById(packageRow.id + "-details");
+        let packageDetails = document.getElementById(packageRow.id + "-details");
         const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
         let packageHasVisibleRows = false;
         vulnRows.forEach(vulnRow => {
-          if (window.getComputedStyle(vulnRow).display !== "none") {
+          if (!vulnRow.classList.contains("hide-block")) {
             packageHasVisibleRows = true;
             return;
           }
         });
         if (packageHasVisibleRows) {
           sourceHasVisibleRows = true;
-          packageRow.style.display = "table-row";
+          packageRow.classList.toggle("hide-block", false);
           return;
         } else {
-          packageRow.style.display = "none";
-          packageDetails.style.display = "none";
+          packageRow.classList.toggle("hide-block", true);
+          packageDetails.classList.toggle("hide-block", true);
           const icon = document.querySelector(
             `#${packageRow.id} .material-icons`
           );
-          icon.style.transform = "rotate(0deg)"; // Rotate back to 0 degrees
+          icon.classList.remove("expanded"); // Rotate back to 0 degrees
         }
       });
 
-      if (!sourceHasVisibleRows) {
-        sourceContainer.style.display = "none";
-      } else {
+      sourceContainer.classList.toggle("hide-block", !sourceHasVisibleRows);
+
+      if (sourceHasVisibleRows) {
         ecosystemHasVisibleSources = true;
-        sourceContainer.style.display = "block";
-        return;
+        return
       }
     });
 
-    if (!ecosystemHasVisibleSources) {
-      ecosystemContainer.style.display = "none";
-    } else {
-      ecosystemContainer.style.display = "block";
-    }
+    ecosystemContainer.classList.toggle("hide-block", !ecosystemHasVisibleSources);
   });
 }
 
 function showAllVulns() {
   const vulnRows = document.getElementsByClassName("vuln-tr");
   for (let i = 0; i < vulnRows.length; i++) {
-    if (vulnRows[i].classList.contains("uncalled-tr")) {
-      vulnRows[i].style.display = "none";
-      continue;
-    }
-    vulnRows[i].style.display = "table-row";
+    let isUncalled = vulnRows[i].classList.contains("uncalled-tr")
+    vulnRows[i].classList.toggle("hide-block", isUncalled);
   }
 
   showAndHideParentSections();
@@ -249,10 +218,10 @@ function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
 
 function applyTypeFilter(selectedValue) {
   updateTypeFilterText(selectedValue);
-  selectedAll = selectedValue.has("all");
-  selectedProject = selectedValue.has("project");
-  selectedOS = selectedValue.has("os");
-  selectedUncalled = selectedValue.has("uncalled");
+  let selectedAll = selectedValue.has("all");
+  let selectedProject = selectedValue.has("project");
+  let selectedOS = selectedValue.has("os");
+  let selectedUncalled = selectedValue.has("uncalled");
   if (selectedAll) {
     selectedProject = true;
     selectedOS = true;
@@ -264,18 +233,14 @@ function applyTypeFilter(selectedValue) {
     const vulnElements = ecosystemElement.querySelectorAll(".vuln-tr");
     vulnElements.forEach(vuln => {
       if (vuln.classList.contains("uncalled-tr")) {
-        if (selectedUncalled) {
-          vuln.style.display = "table-row";
-        } else {
-          vuln.style.display = "none";
-        }
+        vuln.classList.toggle("hide-block", !selectedUncalled);
       }
       if (
         (ecosystemElement.classList.contains("os-type") && !selectedOS) ||
         (ecosystemElement.classList.contains("project-type") &&
           !selectedProject)
       ) {
-        vuln.style.display = "none";
+        vuln.classList.toggle("hide-block", true);
       }
     });
   });
@@ -289,17 +254,17 @@ function applyLayerFilter(selectedLayerID) {
       const packageDetails = document.getElementById(row.id + "-details");
       const vulnElements = packageDetails.querySelectorAll(".vuln-tr");
       vulnElements.forEach(vuln => {
-        vuln.style.display = "none";
+        vuln.classList.toggle("hide-block", true);
       });
     }
   });
 }
 
 function updateTypeFilterText(selectedValue) {
-  selectedAll = selectedValue.has("all");
-  selectedProject = selectedValue.has("project");
-  selectedOS = selectedValue.has("os");
-  selectedUncalled = selectedValue.has("uncalled");
+  let selectedAll = selectedValue.has("all");
+  let selectedProject = selectedValue.has("project");
+  let selectedOS = selectedValue.has("os");
+  let selectedUncalled = selectedValue.has("uncalled");
   if (selectedAll) {
     selectedProject = true;
     selectedOS = true;
@@ -515,12 +480,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     vulnRows.forEach(row => {
       const vulnID = row.getAttribute("data-vuln-id").toLowerCase();
-
-      if (vulnID.includes(searchTerm)) {
-        row.style.display = "table-row";
-      } else {
-        row.style.display = "none";
-      }
+      row.classList.toggle("hide-block", !vulnID.includes(searchTerm))
     });
     showAndHideParentSections();
   });
