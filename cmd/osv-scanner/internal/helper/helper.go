@@ -22,11 +22,6 @@ var OfflineFlags = map[string]string{
 	// "experimental-licenses": "", // StringSliceFlag has to be manually cleared.
 }
 
-// sets default port(8000) as a global variable
-var (
-	servePort = "8000" // default port
-)
-
 var GlobalScanFlags = []cli.Flag{
 	&cli.StringFlag{
 		Name:      "config",
@@ -49,14 +44,6 @@ var GlobalScanFlags = []cli.Flag{
 	&cli.BoolFlag{
 		Name:  "serve",
 		Usage: "output as HTML result and serve it locally",
-	},
-	&cli.StringFlag{
-		Name:  "port",
-		Usage: "port number to use when serving HTML report (default: 8000)",
-		Action: func(_ *cli.Context, p string) error {
-			servePort = p
-			return nil
-		},
 	},
 	&cli.StringFlag{
 		Name:      "output",
@@ -142,6 +129,7 @@ func OpenHTML(r reporter.Reporter, outputPath string) {
 // The program will keep running to serve the HTML report on localhost
 // until the user manually terminates it (e.g. using Ctrl+C).
 func ServeHTML(r reporter.Reporter, outputPath string) {
+	servePort := "8000"
 	localhostURL := fmt.Sprintf("http://localhost:%s/", servePort)
 	r.Infof("Serving HTML report at %s.\nIf you are accessing remotely, use the following SSH command:\n`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`\n", localhostURL, servePort)
 	server := &http.Server{
