@@ -25,9 +25,7 @@ function showPackageDetails(detailsId) {
   const detailsElement = document.getElementById(
     "table-tr-" + detailsId + "-details"
   );
-  const icon = document.querySelector(
-    `#table-tr-${detailsId} .material-icons`
-  ); // Select the icon within the row
+  const icon = document.querySelector(`#table-tr-${detailsId} .material-icons`); // Select the icon within the row
 
   const hidBlock = detailsElement.classList.toggle("hide-block");
   icon.classList.toggle("expanded", !hidBlock);
@@ -120,14 +118,15 @@ function openTab(activeTabId) {
   const tabButtons = document.getElementsByClassName("tab-switch-button");
   for (let i = 0; i < tabs.length; i += 1) {
     tabs[i].classList.toggle("hide-block", tabs[i].id !== activeTabId);
-    tabButtons[i].classList.toggle("tab-switch-button-selected", tabs[i].id === activeTabId);
+    tabButtons[i].classList.toggle(
+      "tab-switch-button-selected",
+      tabs[i].id === activeTabId
+    );
   }
 }
 
 function hideAllFilterOptions() {
-  const containers = document.getElementsByClassName(
-    "filter-option-container"
-  );
+  const containers = document.getElementsByClassName("filter-option-container");
 
   for (const container of containers) {
     container.classList.toggle("hide-block", true);
@@ -137,9 +136,7 @@ function hideAllFilterOptions() {
 function toggleFilter(input) {
   const targetID = input + "-filter-option-container";
   let optionContainer = document.getElementById(targetID);
-  const containers = document.getElementsByClassName(
-    "filter-option-container"
-  );
+  const containers = document.getElementsByClassName("filter-option-container");
   for (const loopContainer of containers) {
     if (loopContainer.id === targetID) {
       optionContainer.classList.toggle("hide-block");
@@ -150,9 +147,7 @@ function toggleFilter(input) {
 }
 
 function showAndHideParentSections() {
-  const ecosystemContainers = document.querySelectorAll(
-    ".ecosystem-container"
-  );
+  const ecosystemContainers = document.querySelectorAll(".ecosystem-container");
 
   ecosystemContainers.forEach(ecosystemContainer => {
     const sourceContainers =
@@ -164,7 +159,9 @@ function showAndHideParentSections() {
       let sourceHasVisibleRows = false;
 
       packageRows.forEach(packageRow => {
-        let packageDetails = document.getElementById(packageRow.id + "-details");
+        let packageDetails = document.getElementById(
+          packageRow.id + "-details"
+        );
         const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
         let packageHasVisibleRows = false;
         vulnRows.forEach(vulnRow => {
@@ -191,18 +188,21 @@ function showAndHideParentSections() {
 
       if (sourceHasVisibleRows) {
         ecosystemHasVisibleSources = true;
-        return
+        return;
       }
     });
 
-    ecosystemContainer.classList.toggle("hide-block", !ecosystemHasVisibleSources);
+    ecosystemContainer.classList.toggle(
+      "hide-block",
+      !ecosystemHasVisibleSources
+    );
   });
 }
 
 function showAllVulns() {
   const vulnRows = document.getElementsByClassName("vuln-tr");
   for (const row of vulnRows) {
-    let isUncalled = row.classList.contains("uncalled-tr")
+    let isUncalled = row.classList.contains("uncalled-tr");
     row.classList.toggle("hide-block", isUncalled);
   }
 
@@ -267,9 +267,7 @@ function updateTypeFilterText(_selectedValue) {
 
   const allTypeCheckbox = document.getElementById("all-type-checkbox");
   const osTypeCheckbox = document.getElementById("os-type-checkbox");
-  const projectTypeCheckbox = document.getElementById(
-    "project-type-checkbox"
-  );
+  const projectTypeCheckbox = document.getElementById("project-type-checkbox");
   const uncalledTypeCheckbox = document.getElementById(
     "uncalled-type-checkbox"
   );
@@ -357,9 +355,7 @@ function resetSearchText() {
 function resetTypeCheckbox() {
   const allTypeCheckbox = document.getElementById("all-type-checkbox");
   const osTypeCheckbox = document.getElementById("os-type-checkbox");
-  const projectTypeCheckbox = document.getElementById(
-    "project-type-checkbox"
-  );
+  const projectTypeCheckbox = document.getElementById("project-type-checkbox");
   const uncalledTypeCheckbox = document.getElementById(
     "uncalled-type-checkbox"
   );
@@ -389,9 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const allTypesCheckbox = document.getElementById("all-type-checkbox");
     const projectCheckbox = document.getElementById("project-type-checkbox"); // Project vulnerabilities
     const osCheckbox = document.getElementById("os-type-checkbox"); // OS vulnerabilities
-    const uncalledCheckbox = document.getElementById(
-      "uncalled-type-checkbox"
-    ); // OS vulnerabilities
+    const uncalledCheckbox = document.getElementById("uncalled-type-checkbox"); // OS vulnerabilities
     selectedTypeFilterValue.clear();
 
     if (allTypesCheckbox != null) {
@@ -433,7 +427,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (clickedOption) {
         resetSearchText();
         selectedLayer = clickedOption.getAttribute("data-layer-hash");
-        const selectedDisplay = document.getElementById("layer-filter-selected");
+        const selectedDisplay = document.getElementById(
+          "layer-filter-selected"
+        );
         const layerCommand = clickedOption.querySelector("p:first-child");
         selectedDisplay.textContent = layerCommand.textContent;
 
