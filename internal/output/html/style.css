@@ -503,6 +503,10 @@ header {
   text-underline-offset: 3px;
 }
 
+.tooltip.no-underline {
+  text-decoration: none;
+}
+
 .tooltip .tooltiptext {
   visibility: hidden;
 
