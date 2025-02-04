@@ -20,25 +20,17 @@ func checkResult(t *testing.T, result *resolution.Result) {
 	snap.MatchText(t, result.Graph.String())
 
 	type minimalVuln struct {
-		ID               string
-		DevOnly          bool
-		ProblemChains    [][]resolve.Edge
-		NonProblemChains [][]resolve.Edge
+		ID        string
+		DevOnly   bool
+		Subgraphs []*resolution.DependencySubgraph
 	}
 
 	minVulns := make([]minimalVuln, len(result.Vulns))
 	for i, v := range result.Vulns {
 		minVulns[i] = minimalVuln{
-			ID:               v.OSV.ID,
-			DevOnly:          v.DevOnly,
-			ProblemChains:    make([][]resolve.Edge, len(v.ProblemChains)),
-			NonProblemChains: make([][]resolve.Edge, len(v.NonProblemChains)),
-		}
-		for j, c := range v.ProblemChains {
-			minVulns[i].ProblemChains[j] = c.Edges
-		}
-		for j, c := range v.NonProblemChains {
-			minVulns[i].NonProblemChains[j] = c.Edges
+			ID:        v.OSV.ID,
+			DevOnly:   v.DevOnly,
+			Subgraphs: v.Subgraphs,
 		}
 	}
 	slices.SortFunc(minVulns, func(a, b minimalVuln) int {

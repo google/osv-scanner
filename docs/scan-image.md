@@ -46,10 +46,10 @@ You can scan container images using two primary methods:
 
    - **How it works:** OSV-Scanner uses `docker save` to export the image to a temporary archive, which is then analyzed. No container code is executed during the scan.
 
-2. **Scan from Exported Image Archive:** If you have already exported your container image as a Docker archive (`.tar` file), you can scan it directly using the `--local` flag. This method does not require Docker to be installed.
+2. **Scan from Exported Image Archive:** If you have already exported your container image as a Docker archive (`.tar` file), you can scan it directly using the `--archive` flag. This method does not require Docker to be installed.
 
    ```bash
-   osv-scanner scan image --local ./path/to/my-image.tar
+   osv-scanner scan image --archive ./path/to/my-image.tar
    ```
 
    - **How to create an image archive:** You can create an image archive using the following commands:

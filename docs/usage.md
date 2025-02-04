@@ -21,7 +21,7 @@ This documentation is for the beta V2 release. For the older, V1 release documen
 {:toc}
 </details>
 
-### Core Concepts
+## Core Concept
 
 OSV-Scanner operates in a two-step process:
 

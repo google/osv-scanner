@@ -1,13 +1,14 @@
 // Based on https://github.com/dwayne/sass-pygments/blob/master/styles/scss/native.scss
 
 .highlight,
-pre.highlight {
+pre.highlight,
+.highlight code {
+  color: #d0d0d0;
+  background: #202020;
+
   .hll {
     background-color: #404040;
   }
-
-  color: #d0d0d0;
-  background: #202020;
 
   .c {
     color: #999999;

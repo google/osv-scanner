@@ -11,7 +11,7 @@
 [![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
 [![GitHub Release](https://img.shields.io/github/v/release/google/osv-scanner)](https://github.com/google/osv-scanner/releases)
 
-Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.  
+Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.
 OSV-Scanner provides an officially supported frontend to the [OSV database](https://osv.dev/) and CLI interface to [OSV-Scalibr](https://github.com/google/osv-scalibr) that connects a project’s list of dependencies with the vulnerabilities that affect them.
 
 OSV-Scanner supports a wide range of project types, package managers and features, including but not limited to:
@@ -37,8 +37,8 @@ The above all results in accurate and actionable vulnerability notifications, wh
 
 ## Basic installation
 
-To install OSV-Scanner, please refer to the [installation section](https://google.github.io/osv-scanner/installation) of our documentation. OSV-Scanner releases can be found on the [releases page](https://github.com/google/osv-scanner/releases) of the GitHub repository. The recommended method is to download a prebuilt binary for your platform. Alternatively, you can use  
-`go install github.com/google/osv-scanner/v2/cmd/osv-scanner@v2.0.0-beta1`.
+To install OSV-Scanner, please refer to the [installation section](https://google.github.io/osv-scanner/installation) of our documentation. OSV-Scanner releases can be found on the [releases page](https://github.com/google/osv-scanner/releases) of the GitHub repository. The recommended method is to download a prebuilt binary for your platform. Alternatively, you can use
+`go install github.com/google/osv-scanner/v2/cmd/osv-scanner@latest` to build it from source.
 
 ## Key Features
 
@@ -48,7 +48,10 @@ Please note: These are the instructions for the latest OSV-Scanner V2 beta. If y
 
 ### [Scanning a source directory](https://google.github.io/osv-scanner/usage)
 
-`osv-scanner scan source -r /path/to/your/dir`  
+```bash
+$ osv-scanner scan source -r /path/to/your/dir
+```
+
 This command will recursively scan the specified directory for any supported package files, such as `package.json`, `go.mod`, `pom.xml`, etc. and output any discovered vulnerabilities.
 
 OSV-Scanner has the option of using call analysis to determine if a vulnerable function is actually being used in the project, resulting in fewer false positives, and actionable alerts.
@@ -74,7 +77,9 @@ See the [full documentation](https://google.github.io/osv-scanner/supported-lang
 
 **Usage**:
 
-`$ osv-scanner scan image my-image-name:tag`
+```bash
+$ osv-scanner scan image my-image-name:tag
+```
 
 ![screencast of html output of container scanning](https://github.com/user-attachments/assets/8bb95366-27ec-45d1-86ed-e42890f2fb46)
 
@@ -82,21 +87,27 @@ See the [full documentation](https://google.github.io/osv-scanner/supported-lang
 
 Check your dependencies' licenses using deps.dev data. For a summary:
 
-`osv-scanner --experimental-licenses-summary path/to/repository`
+```bash
+osv-scanner --experimental-licenses-summary path/to/repository
+```
 
 To check against an allowed license list (SPDX format):
 
-`osv-scanner --experimental-licenses="MIT,Apache-2.0" path/to/directory`
+```bash
+osv-scanner --experimental-licenses="MIT,Apache-2.0" path/to/directory
+```
 
 ### [Offline Scanning](https://google.github.io/osv-scanner/experimental/offline-mode/) (Experimental)
 
 Scan your project against a local OSV database. No network connection is required after the initial database download. The database can also be manually downloaded.
 
-`osv-scanner --experimental-offline --experimental-download-offline-databases ./path/to/your/dir`
+```bash
+osv-scanner --experimental-offline --experimental-download-offline-databases ./path/to/your/dir
+```
 
 ### [Guided Remediation](https://google.github.io/osv-scanner/experimental/guided-remediation/) (Experimental)
 
-OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.  
+OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.
 We currently support remediating vulnerabilities in the following files:
 
 | Ecosystem | File Format (Type)             | Supported Remediation Strategies                                                                                  |
@@ -109,11 +120,23 @@ This is available as a headless CLI command, as well as an interactive mode.
 
 #### Example (for npm)
 
-`$ osv-scanner fix \--max-depth=3 \--min-severity=5 \--ignore-dev  \--non-interactive \--strategy=in-place \-L path/to/package-lock.json`
+```bash
+$ osv-scanner fix \
+    --max-depth=3 \
+    --min-severity=5 \
+    --ignore-dev  \
+    --non-interactive \
+    --strategy=in-place \
+    -L path/to/package-lock.json
+```
 
 #### Interactive mode (for npm)
 
-`$ osv-scanner fix -M path/to/package.json -L path/to/package-lock.json `
+```bash
+$ osv-scanner fix \
+    -M path/to/package.json \
+    -L path/to/package-lock.json
+```
 
 <img src="https://google.github.io/osv-scanner/images/guided-remediation-relock-patches.png" alt="Screenshot of the interactive relock results screen with some relaxation patches selected">
 
