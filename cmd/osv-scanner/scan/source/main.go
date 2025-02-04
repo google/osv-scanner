@@ -6,15 +6,12 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"strings"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
-	"github.com/google/osv-scanner/v2/internal/spdx"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
-	"golang.org/x/term"
 )
 
 var projectScanFlags = []cli.Flag{
@@ -46,11 +43,6 @@ var projectScanFlags = []cli.Flag{
 		Value:   false,
 	},
 	&cli.BoolFlag{
-		Name:  "experimental-call-analysis",
-		Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
-		Value: false,
-	},
-	&cli.BoolFlag{
 		Name:  "no-ignore",
 		Usage: "also scan files that would be ignored by .gitignore",
 		Value: false,
@@ -63,6 +55,9 @@ var projectScanFlags = []cli.Flag{
 		Name:  "no-call-analysis",
 		Usage: "disables call graph analysis",
 	},
+}
+
+var projectScanExperimentalFlags = []cli.Flag{
 	&cli.StringFlag{
 		Name:  "experimental-resolution-data-source",
 		Usage: "source to fetch package information from; value can be: deps.dev, native",
@@ -79,14 +74,25 @@ var projectScanFlags = []cli.Flag{
 		Name:  "experimental-maven-registry",
 		Usage: "URL of the default registry to fetch Maven metadata",
 	},
+	&cli.BoolFlag{
+		Name:  "experimental-call-analysis",
+		Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
+		Value: false,
+	},
 }
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
+	flags := make([]cli.Flag, 0, len(projectScanFlags)+len(helper.GlobalScanFlags)+len(projectScanExperimentalFlags))
+	flags = append(flags, projectScanFlags...)
+	flags = append(flags, helper.GlobalScanFlags...)
+	// Make sure all experimental flags show after regular flags
+	flags = append(flags, projectScanExperimentalFlags...)
+
 	return &cli.Command{
 		Name:        "source",
 		Usage:       "scans a source project's dependencies for known vulnerabilities using the OSV database.",
 		Description: "scans a source project's dependencies for known vulnerabilities using the OSV database.",
-		Flags:       append(projectScanFlags, helper.GlobalScanFlags...),
+		Flags:       flags,
 		ArgsUsage:   "[directory1 directory2...]",
 		Action: func(c *cli.Context) error {
 			var err error
@@ -122,43 +128,14 @@ func Action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		}
 	}
 
-	termWidth := 0
-	var err error
-	if outputPath != "" { // Output is definitely a file
-		stdout, err = os.Create(outputPath)
-		if err != nil {
-			return nil, fmt.Errorf("failed to create output file: %w", err)
-		}
-	} else { // Output might be a terminal
-		if stdoutAsFile, ok := stdout.(*os.File); ok {
-			termWidth, _, err = term.GetSize(int(stdoutAsFile.Fd()))
-			if err != nil { // If output is not a terminal,
-				termWidth = 0
-			}
-		}
-	}
-
-	if context.Bool("experimental-licenses-summary") && context.IsSet("experimental-licenses") {
-		return nil, errors.New("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
-	}
-	allowlist := context.StringSlice("experimental-licenses")
-	if context.IsSet("experimental-licenses") {
-		if len(allowlist) == 0 ||
-			(len(allowlist) == 1 && allowlist[0] == "") {
-			return nil, errors.New("--experimental-licenses requires at least one value")
-		}
-		if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
-			return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
-		}
-	}
-
-	verbosityLevel, err := reporter.ParseVerbosityLevel(context.String("verbosity"))
+	r, err := helper.GetReporter(context, stdout, stderr, outputPath, format)
 	if err != nil {
 		return nil, err
 	}
-	r, err := reporter.New(format, stdout, stderr, verbosityLevel, termWidth)
+
+	scanLicensesAllowlist, err := helper.GetScanLicensesAllowlist(context)
 	if err != nil {
-		return r, err
+		return nil, err
 	}
 
 	var callAnalysisStates map[string]bool
@@ -169,38 +146,24 @@ func Action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		callAnalysisStates = helper.CreateCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
 	}
 
-	scanLicensesAllowlist := context.StringSlice("experimental-licenses")
-	if context.Bool("experimental-offline") {
-		scanLicensesAllowlist = []string{}
+	experimentalScannerActions := helper.GetExperimentalScannerActions(context, scanLicensesAllowlist)
+	// Add `source` specific experimental configs
+	experimentalScannerActions.TransitiveScanningActions = osvscanner.TransitiveScanningActions{
+		Disabled:         context.Bool("experimental-no-resolve"),
+		NativeDataSource: context.String("experimental-resolution-data-source") == "native",
+		MavenRegistry:    context.String("experimental-maven-registry"),
 	}
 
 	scannerAction := osvscanner.ScannerActions{
-		LockfilePaths:      context.StringSlice("lockfile"),
-		SBOMPaths:          context.StringSlice("sbom"),
-		Recursive:          context.Bool("recursive"),
-		SkipGit:            context.Bool("skip-git"),
-		NoIgnore:           context.Bool("no-ignore"),
-		ConfigOverridePath: context.String("config"),
-		DirectoryPaths:     context.Args().Slice(),
-		CallAnalysisStates: callAnalysisStates,
-		ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
-			LocalDBPath:       context.String("experimental-local-db-path"),
-			DownloadDatabases: context.Bool("experimental-download-offline-databases"),
-			CompareOffline:    context.Bool("experimental-offline-vulnerabilities"),
-			// License summary mode causes all
-			// packages to appear in the json as
-			// every package has a license - even
-			// if it's just the UNKNOWN license.
-			ShowAllPackages: context.Bool("experimental-all-packages") ||
-				context.Bool("experimental-licenses-summary"),
-			ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
-			ScanLicensesAllowlist: scanLicensesAllowlist,
-			TransitiveScanningActions: osvscanner.TransitiveScanningActions{
-				Disabled:         context.Bool("experimental-no-resolve"),
-				NativeDataSource: context.String("experimental-resolution-data-source") == "native",
-				MavenRegistry:    context.String("experimental-maven-registry"),
-			},
-		},
+		LockfilePaths:              context.StringSlice("lockfile"),
+		SBOMPaths:                  context.StringSlice("sbom"),
+		Recursive:                  context.Bool("recursive"),
+		SkipGit:                    context.Bool("skip-git"),
+		NoIgnore:                   context.Bool("no-ignore"),
+		ConfigOverridePath:         context.String("config"),
+		DirectoryPaths:             context.Args().Slice(),
+		CallAnalysisStates:         callAnalysisStates,
+		ExperimentalScannerActions: experimentalScannerActions,
 	}
 
 	var vulnResult models.VulnerabilityResults

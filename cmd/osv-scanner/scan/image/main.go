@@ -11,7 +11,6 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
-	"golang.org/x/term"
 
 	"github.com/urfave/cli/v2"
 )
@@ -60,38 +59,25 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		}
 	}
 
-	termWidth := 0
-	var err error
-	if outputPath != "" { // Output is definitely a file
-		stdout, err = os.Create(outputPath)
-		if err != nil {
-			return nil, fmt.Errorf("failed to create output file: %w", err)
-		}
-	} else { // Output might be a terminal
-		if stdoutAsFile, ok := stdout.(*os.File); ok {
-			termWidth, _, err = term.GetSize(int(stdoutAsFile.Fd()))
-			if err != nil { // If output is not a terminal,
-				termWidth = 0
-			}
-		}
-	}
-
-	verbosityLevel, err := reporter.ParseVerbosityLevel(context.String("verbosity"))
+	r, err := helper.GetReporter(context, stdout, stderr, outputPath, format)
 	if err != nil {
 		return nil, err
 	}
-	r, err := reporter.New(format, stdout, stderr, verbosityLevel, termWidth)
+
+	scanLicensesAllowlist, err := helper.GetScanLicensesAllowlist(context)
 	if err != nil {
-		return r, err
+		return nil, err
 	}
 
 	if context.Args().Len() == 0 {
 		return r, errors.New("please provide an image name or see the help document")
 	}
 	scannerAction := osvscanner.ScannerActions{
-		Image:              context.Args().First(),
-		ConfigOverridePath: context.String("config"),
-		IsImageArchive:     context.Bool("archive"),
+		Image:                      context.Args().First(),
+		ConfigOverridePath:         context.String("config"),
+		IsImageArchive:             context.Bool("archive"),
+		SkipGit:                    context.Bool("skip-git"),
+		ExperimentalScannerActions: helper.GetExperimentalScannerActions(context, scanLicensesAllowlist),
 	}
 
 	var vulnResult models.VulnerabilityResults
