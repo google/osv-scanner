@@ -1,0 +1,47 @@
+{{ $index := uniqueID }}
+{{ $element := .Element }}
+<tr class="table-tr vuln-tr {{ if .IsHidden }}uncalled-tr{{ end }}" id="table-tr-{{ $index }}" data-vuln-id="{{ $element.ID }}">
+  <td {{ if .IsHidden }}class="uncalled-text"{{ end }}>
+    {{ if eq (len $element.GroupIDs) 1 }}
+    <div class="clickable" onclick="openVulnInNewTab('{{ $element.ID }}')">{{ $element.ID }}</div>
+    {{ else }}
+    <div class="tooltip">
+      <div class="clickable" onclick="openVulnInNewTab('{{ $element.ID }}')">{{ $element.ID }}</div>
+      <span class="tooltiptext">Group IDs: <br>
+      {{ range $rowIndex, $alias := $element.GroupIDs }}
+          {{ $alias }}<br>
+      {{ end }}
+      </span>
+    </div>
+    {{ end }}
+  </td>
+  <td {{ if .IsHidden }}class="uncalled-text"{{ end }}>
+    {{ if eq (len $element.Aliases) 1 }}
+    {{ index $element.Aliases 0 }}
+    {{ else if gt (len $element.Aliases) 1}}
+    <div class="tooltip">
+      {{ index $element.Aliases 0}}, ...
+      <span class="tooltiptext">
+        {{ range $rowIndex, $alias := $element.Aliases }}
+          {{ $alias }}<br>
+        {{ end }}
+      </span>
+    </div>
+    {{ else }}
+      <span class="uncalled-text">No Aliases</span>
+    {{ end }}
+  </td>
+
+  <td {{ if .IsHidden }}class="uncalled-text"{{ end }}>
+    <p {{ if not $element.IsFixable }} class="fixable-tag no-fix" {{ end }}>
+      {{$element.FixedVersion }}</p>
+  </td>
+  <td class="severity-cell">
+    <div id="{{ formatRating $element.SeverityRating }}-short" class="severity-short">
+      <p class="{{ formatRating $element.SeverityRating }}">{{ $element.SeverityScore }}</p>
+    </div>
+  </td>
+  <td class="open-in-tab-cell">
+    <p class="open-in-tab-tag" onclick="openVulnInNewTab('{{ $element.ID }}')">Open in tab</p>
+  </td>
+</tr>

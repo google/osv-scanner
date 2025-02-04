@@ -140,6 +140,8 @@ header {
   text-align: left;
   padding: 20px 50px 30px 50px;
   display: block;
+  max-height: 800px;
+  overflow: auto;
 }
 
 .package-details p {
@@ -517,16 +519,16 @@ header {
 
   border-radius: 4px;
   /* Position the tooltip */
-  position: absolute;
+  position: fixed;
+  transform: translateY(-100%);
   z-index: 999;
-  bottom: 100%;
-  left: 0%;
 }
 
 .tooltip .tooltiptext.layer-tooltiptext {
   white-space: normal;
   margin-left: 0;
   width: 1000px;
+  max-width: 1000px;
   max-height: 200px;
   overflow-x: hidden;
   overflow-y: auto;

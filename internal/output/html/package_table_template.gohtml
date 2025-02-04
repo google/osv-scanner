@@ -31,15 +31,15 @@
     <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>{{ $element.InstalledVersion }}</td>
     <td>
       {{ if ne $element.VulnCount.FixableCount.UnFixed 0 }}
-      {{ if eq $element.VulnCount.FixableCount.Fixed 0}}
-      <p class="fixable-tag no-fix">No fix available</p>
-      {{ else }}
-      <div class="tooltip">
-        <p class="fixable-tag has-fix">Partial fixes available</p>
-        <span class="tooltiptext">Upgrading the package will fix {{ $element.VulnCount.FixableCount.Fixed }} out of {{
-          $element.VulnCount.AnalysisCount.Regular }} vulnerabilities</span>
-      </div>
-      {{ end }}
+        {{ if eq $element.VulnCount.FixableCount.Fixed 0}}
+          <p class="fixable-tag no-fix">No fix available</p>
+          {{ else }}
+          <div class="tooltip">
+            <p class="fixable-tag has-fix">Partial fixes available</p>
+            <span class="tooltiptext">Upgrading the package will fix {{ $element.VulnCount.FixableCount.Fixed }} out of {{
+              $element.VulnCount.AnalysisCount.Regular }} vulnerabilities</span>
+          </div>
+        {{ end }}
       {{ else }}
       <p class="fixable-tag has-fix">Fix available</p>
       {{ end }}
@@ -82,7 +82,7 @@
           <p class="package-detail-title">Introduced in layer #{{ $index }}:&nbsp;</p>
           <div class="tooltip">
             <p class="layer-command">{{ $command }}</p>
-            <span class="tooltiptext">{{ $commandDetail }}</span>
+            <span class="tooltiptext layer-tooltiptext">{{ $commandDetail }}</span>
           </div>
           {{ else }}
           <p class="package-detail-title">Introduced in layer #{{ $index }}:&nbsp;</p>

@@ -473,5 +473,16 @@ document.addEventListener("DOMContentLoaded", function () {
     showAndHideParentSections();
   });
 
+  // Implement tooltips
+  document.querySelectorAll(".tooltip").forEach(elem => {
+    elem.addEventListener("mouseover", event => {
+      const rect = elem.getBoundingClientRect();
+      const tooltipElem = elem.querySelector(".tooltiptext");
+
+      tooltipElem.style.left = rect.left + "px";
+      tooltipElem.style.top = rect.top + "px";
+    });
+  });
+
   showAllVulns();
 });
