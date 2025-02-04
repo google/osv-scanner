@@ -1,6 +1,7 @@
 package imodels
 
 import (
+	"fmt"
 	"log"
 	"strings"
 
@@ -17,6 +18,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/semantic"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
@@ -123,6 +125,18 @@ func (pkg *PackageInfo) Version() string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 	if pkg.purlCache != nil {
 		return pkg.purlCache.Version
+	}
+
+	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo && pkg.Name() == "stdlib" {
+		v := semantic.ParseSemverLikeVersion(pkg.Inventory.Version, 3)
+		if len(v.Components) == 2 {
+			return fmt.Sprintf(
+				"%d.%d.%d",
+				v.Components.Fetch(0),
+				v.Components.Fetch(1),
+				99,
+			)
+		}
 	}
 
 	return pkg.Inventory.Version

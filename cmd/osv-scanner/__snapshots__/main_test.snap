@@ -1085,15 +1085,15 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | https://osv.dev/GO-2023-1558        | 5.9  | Go        | github.com/ipfs/go-bitfield | 1.0.0   | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GHSA-2h6c-j3gf-xp9r |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-2375        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2102        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2185        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2382        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2598        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2599        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2687        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2375        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2102        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2185        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2382        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2598        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2599        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2687        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | Uncalled vulnerabilities            |      |           |                             |         |                                          |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
@@ -1107,18 +1107,18 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 | https://osv.dev/GHSA-x92r-3vfx-4cv3 |      |           |                             |         |                                          |
 | https://osv.dev/GO-2024-2937        | 8.7  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GHSA-9phm-fm57-rhg8 |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-2041        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2043        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2186        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2600        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2609        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2610        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2888        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2963        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3105        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3106        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3107        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3420        |      | Go        | stdlib                      | 1.19    | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2041        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2043        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2023-2186        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2600        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2609        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2610        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2888        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-2963        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-3105        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-3106        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2024-3107        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2025-3420        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 
 ---
