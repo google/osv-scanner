@@ -62,11 +62,6 @@ var GlobalScanFlags = []cli.Flag{
 		Value: "info",
 	},
 	&cli.BoolFlag{
-		Name:  "skip-git",
-		Usage: "skip scanning git repositories",
-		Value: false,
-	},
-	&cli.BoolFlag{
 		Name:  "experimental-offline",
 		Usage: "run in offline mode, disabling any features requiring network access",
 		Action: func(ctx *cli.Context, b bool) error {
@@ -76,6 +71,14 @@ var GlobalScanFlags = []cli.Flag{
 			// Disable the features requiring network access.
 			for flag, value := range OfflineFlags {
 				// TODO(michaelkedar): do something if the flag was already explicitly set.
+
+				// Skip setting the flag if the current command doesn't have it."
+				if !slices.ContainsFunc(ctx.Command.Flags, func(f cli.Flag) bool {
+					return slices.Contains(f.Names(), flag)
+				}) {
+					continue
+				}
+
 				if err := ctx.Set(flag, value); err != nil {
 					panic(fmt.Sprintf("failed setting offline flag %s to %s: %v", flag, value, err))
 				}

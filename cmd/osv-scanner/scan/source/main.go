@@ -32,6 +32,11 @@ var projectScanFlags = []cli.Flag{
 		Usage: "sets output to json (deprecated, use --format json instead)",
 	},
 	&cli.BoolFlag{
+		Name:  "skip-git",
+		Usage: "skip scanning git repositories",
+		Value: false,
+	},
+	&cli.BoolFlag{
 		Name:    "recursive",
 		Aliases: []string{"r"},
 		Usage:   "check subdirectories",
