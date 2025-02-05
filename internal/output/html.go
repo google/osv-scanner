@@ -35,6 +35,18 @@ func formatRating(rating severity.Rating) string {
 	return strings.ToLower(string(rating))
 }
 
+type VulnTableEntryArgument struct {
+	Element  VulnResult
+	IsHidden bool
+}
+
+func buildVulnTableEntryArgument(element VulnResult, isHidden bool) VulnTableEntryArgument {
+	return VulnTableEntryArgument{
+		IsHidden: isHidden,
+		Element:  element,
+	}
+}
+
 func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
 	// htmlResult := BuildHTMLResults(vulnResult)
 	result := BuildResults(vulnResult)
@@ -48,10 +60,11 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		"add": func(a, b int) int {
 			return a + b
 		},
-		"getFilteredVulnReasons": getFilteredVulnReasons,
-		"getBaseImageName":       getBaseImageName,
-		"formatSlice":            formatSlice,
-		"formatLayerCommand":     formatLayerCommand,
+		"getFilteredVulnReasons":      getFilteredVulnReasons,
+		"getBaseImageName":            getBaseImageName,
+		"formatSlice":                 formatSlice,
+		"formatLayerCommand":          formatLayerCommand,
+		"buildVulnTableEntryArgument": buildVulnTableEntryArgument,
 	}
 
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))

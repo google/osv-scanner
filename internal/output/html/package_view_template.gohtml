@@ -4,7 +4,7 @@
   <div class="ecosystem-sources-container">
     {{ range .Sources }}
     <div class="source-container">
-      <h3 class="source-heading">Source: {{ .Name }}</h3>
+      <h3 class="source-heading">Source: <span class="source-path">{{ .Name }}</span></h3>
       {{ template "package_table_template.gohtml" .Packages }}
     </div>
     {{ end }}

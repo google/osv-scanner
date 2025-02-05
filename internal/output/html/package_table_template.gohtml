@@ -30,19 +30,21 @@
     <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>{{ $element.Name }}</td>
     <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>{{ $element.InstalledVersion }}</td>
     <td>
+      <div class="tooltip no-underline">
       {{ if ne $element.VulnCount.FixableCount.UnFixed 0 }}
-      {{ if eq $element.VulnCount.FixableCount.Fixed 0}}
-      <p class="fixable-tag no-fix">No fix available</p>
+        {{ if eq $element.VulnCount.FixableCount.Fixed 0}}
+          <p class="fixable-tag no-fix">No fix available</p>
+            <span class="tooltiptext">All {{ $element.VulnCount.AnalysisCount.Regular }} vulnerabilities have no fixed version available.</span>
+          {{ else }}
+          <p class="fixable-tag has-fix">Partial fixes available</p>
+          <span class="tooltiptext">Upgrading the package can fix {{ $element.VulnCount.FixableCount.Fixed }} out of {{
+            $element.VulnCount.AnalysisCount.Regular }} vulnerabilities.</span>
+        {{ end }}
       {{ else }}
-      <div class="tooltip">
-        <p class="fixable-tag has-fix">Partial fixes available</p>
-        <span class="tooltiptext">Upgrading the package will fix {{ $element.VulnCount.FixableCount.Fixed }} out of {{
-          $element.VulnCount.AnalysisCount.Regular }} vulnerabilities</span>
+        <p class="fixable-tag has-fix">Fix available</p>
+        <span class="tooltiptext">Upgrading the package can fix all {{ $element.VulnCount.FixableCount.Fixed }} vulnerabilities.</span>
+      {{ end }}
       </div>
-      {{ end }}
-      {{ else }}
-      <p class="fixable-tag has-fix">Fix available</p>
-      {{ end }}
     </td>
     <td>
       {{ if ne $element.VulnCount.AnalysisCount.Regular 0 }}
@@ -52,9 +54,9 @@
       {{ end }}
     </td>
   </tr>
-  <tr>
+  <tr class="table-tr-details">
     <td colspan="100%">
-      <div id="table-tr-{{ $index }}-details" class="package-details">
+      <div id="table-tr-{{ $index }}-details" class="package-details hide-block">
         {{ if and $element.LayerDetail.LayerInfo.LayerMetadata (not (eq $element.LayerDetail.LayerInfo.LayerMetadata.Command "")) }}
         {{ $index := $element.LayerDetail.LayerIndex }}
         {{ $diffID := $element.LayerDetail.LayerInfo.LayerMetadata.DiffID }}
@@ -82,7 +84,7 @@
           <p class="package-detail-title">Introduced in layer #{{ $index }}:&nbsp;</p>
           <div class="tooltip">
             <p class="layer-command">{{ $command }}</p>
-            <span class="tooltiptext">{{ $commandDetail }}</span>
+            <span class="tooltiptext layer-tooltiptext">{{ $commandDetail }}</span>
           </div>
           {{ else }}
           <p class="package-detail-title">Introduced in layer #{{ $index }}:&nbsp;</p>

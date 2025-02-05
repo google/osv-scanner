@@ -7,11 +7,12 @@
   <link href='https://fonts.googleapis.com/css?family=Overpass' rel='stylesheet'>
   <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  {{ template "style.html" }}
+  <style>
+  {{ template "style.css" }}
+  </style>
 </head>
 
 <body>
-  {{ template "script.html" }}
   <div class="container">
     <header>
       <div id="header-left">
@@ -57,6 +58,9 @@
     </div>
 
   </div>
+  <script>
+  {{ template "script.js" }}
+  </script>
 </body>
 
 </html>
