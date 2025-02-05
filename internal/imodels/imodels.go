@@ -1,6 +1,7 @@
 package imodels
 
 import (
+	"fmt"
 	"log"
 	"strings"
 
@@ -17,6 +18,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/semantic"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
@@ -123,6 +125,26 @@ func (pkg *PackageInfo) Version() string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 	if pkg.purlCache != nil {
 		return pkg.purlCache.Version
+	}
+
+	// Assume Go stdlib patch version as the latest version
+	//
+	// This is done because go1.20 and earlier do not support patch
+	// version in go.mod file, and will fail to build.
+	//
+	// However, if we assume patch version as .0, this will cause a lot of
+	// false positives. This compromise still allows osv-scanner to pick up
+	// when the user is using a minor version that is out-of-support.
+	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo && pkg.Name() == "stdlib" {
+		v := semantic.ParseSemverLikeVersion(pkg.Inventory.Version, 3)
+		if len(v.Components) == 2 {
+			return fmt.Sprintf(
+				"%d.%d.%d",
+				v.Components.Fetch(0),
+				v.Components.Fetch(1),
+				99,
+			)
+		}
 	}
 
 	return pkg.Inventory.Version
