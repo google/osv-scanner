@@ -5,7 +5,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
@@ -15,6 +14,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/bunlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/pnpmlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/yarnlock"
@@ -48,26 +48,51 @@ var sbomExtractors = []filesystem.Extractor{
 }
 
 var lockfileExtractors = []filesystem.Extractor{
+	// C
 	conanlock.Extractor{},
-	packageslockjson.Extractor{},
+
+	// Erlang
 	mixlock.Extractor{},
+
+	// Flutter
 	pubspec.Extractor{},
+
+	// Go
 	gomod.Extractor{},
+
+	// Java
 	gradlelockfile.Extractor{},
 	gradleverificationmetadataxml.Extractor{},
+
+	// Javascript
 	packagelockjson.Extractor{},
 	pnpmlock.Extractor{},
 	yarnlock.Extractor{},
+	bunlock.Extractor{},
+
+	// PHP
 	composerlock.Extractor{},
+
+	// Python
 	pipfilelock.Extractor{},
 	pdmlock.Extractor{},
 	poetrylock.Extractor{},
 	requirements.Extractor{},
-	renvlock.Extractor{},
-	gemfilelock.Extractor{},
-	cargolock.Extractor{},
 	uvlock.Extractor{},
+
+	// R
+	renvlock.Extractor{},
+
+	// Ruby
+	gemfilelock.Extractor{},
+
+	// Rust
+	cargolock.Extractor{},
+
+	// NuGet
 	depsjson.Extractor{},
+
+	// Haskell
 	cabal.Extractor{},
 	stacklock.Extractor{},
 	// TODO: map the extracted packages to SwiftURL in OSV.dev

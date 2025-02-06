@@ -40,6 +40,7 @@ var lockfileExtractorMapping = map[string]string{
 	"packages.lock.json":          "dotnet/packageslockjson",
 	"conan.lock":                  "cpp/conanlock",
 	"go.mod":                      "go/gomod",
+	"bun.lock":                    "javascript/bunlock",
 	"Gemfile.lock":                "ruby/gemfilelock",
 	"cabal.project.freeze":        "haskell/cabal",
 	"stack.yaml.lock":             "haskell/stacklock",
