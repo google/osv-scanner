@@ -15,7 +15,8 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-const zippedDBRemoteHost = "https://osv-vulnerabilities.storage.googleapis.com"
+var ZippedDBRemoteHost = "https://osv-vulnerabilities.storage.googleapis.com"
+
 const envKeyLocalDBCacheDirectory = "OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY"
 
 // LocalMatcher implements the VulnerabilityMatcher interface by downloading the osv export zip files,
@@ -100,7 +101,7 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecos
 		return nil, matcher.failedDBs[ecosystem.Ecosystem]
 	}
 
-	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem.Ecosystem), matcher.userAgent, !matcher.downloadDB)
+	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", ZippedDBRemoteHost, ecosystem.Ecosystem), matcher.userAgent, !matcher.downloadDB)
 
 	if err != nil {
 		matcher.failedDBs[ecosystem.Ecosystem] = err
