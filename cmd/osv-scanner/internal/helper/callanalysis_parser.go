@@ -5,7 +5,7 @@ var stableCallAnalysisStates = map[string]bool{
 	"rust": false,
 }
 
-// Creates a map to record if languages are enabled or disabled for call analysis.
+// CreateCallAnalysisStates creates a map to record if languages are enabled or disabled for call analysis
 func CreateCallAnalysisStates(enabledCallAnalysis []string, disabledCallAnalysis []string) map[string]bool {
 	callAnalysisStates := make(map[string]bool)
 

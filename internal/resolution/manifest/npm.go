@@ -306,9 +306,11 @@ func (NpmReadWriter) Write(r lockfile.DepFile, w io.Writer, patch Patch) error {
 	return err
 }
 
-// extract the real package name & version from an alias-specified version
+// SplitNPMAlias extracts the real package name and version from an alias-specified version.
+//
 // e.g. "npm:pkg@^1.2.3" -> name: "pkg", version: "^1.2.3"
-// name is empty and version is unchanged if not an alias specifier
+//
+// If the version is not an alias specifier, the name will be empty and the version unchanged.
 func SplitNPMAlias(v string) (name, version string) {
 	if r, ok := strings.CutPrefix(v, "npm:"); ok {
 		if i := strings.LastIndex(r, "@"); i > 0 {

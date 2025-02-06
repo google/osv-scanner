@@ -21,7 +21,7 @@ const (
 // MaxParent sets a limit on the number of parents to avoid indefinite loop.
 const MaxParent = 100
 
-// MergeMavenParents parses local accessible parent pom.xml or fetches it from
+// MergeParents parses local accessible parent pom.xml or fetches it from
 // upstream, merges into root project, then interpolate the properties.
 // result holds the merged Maven project.
 // current holds the current parent project to merge.
@@ -115,9 +115,10 @@ func ProjectKey(proj maven.Project) maven.ProjectKey {
 	return proj.ProjectKey
 }
 
-// Maven looks for the parent POM first in 'relativePath',
-// then the local repository '../pom.xml',
-// and lastly in the remote repo.
+// ParentPOMPath resolves the path to the parent POM in the same manner as Maven.
+//
+// That is, it first looks for the parent POM in the 'relativePath' directory,
+// then in the parent directory, and finally in the remote repository.
 func ParentPOMPath(currentPath, relativePath string) string {
 	if relativePath == "" {
 		relativePath = "../pom.xml"

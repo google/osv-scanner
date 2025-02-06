@@ -19,7 +19,8 @@ import (
 	"golang.org/x/term"
 )
 
-// flags that require network access and values to disable them.
+// OfflineFlags is a map of flags which require network access to operate,
+// with the values to set them to in order to disable them
 var OfflineFlags = map[string]string{
 	"include-git-root":                     "true",
 	"experimental-offline-vulnerabilities": "true",
@@ -131,7 +132,7 @@ var GlobalScanFlags = []cli.Flag{
 	},
 }
 
-// openHTML opens the outputted HTML file.
+// OpenHTML will attempt to open the outputted HTML file in the default browser
 func OpenHTML(r reporter.Reporter, outputPath string) {
 	// Open the outputted HTML file in the default browser.
 	r.Infof("Opening %s...\n", outputPath)

@@ -137,8 +137,8 @@ func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
 	return ignoreUntil.After(time.Now())
 }
 
-// Sets the override config by reading the config file at configPath.
-// Will return an error if loading the config file fails
+// UseOverride updates the Manager to use the config at the given path in place
+// of any other config files that would be loaded when calling Get
 func (c *Manager) UseOverride(r reporter.Reporter, configPath string) error {
 	config, configErr := tryLoadConfig(r, configPath)
 	if configErr != nil {
@@ -149,7 +149,7 @@ func (c *Manager) UseOverride(r reporter.Reporter, configPath string) error {
 	return nil
 }
 
-// Attempts to get the config
+// Get returns the appropriate config to use based on the targetPath
 func (c *Manager) Get(r reporter.Reporter, targetPath string) Config {
 	if c.OverrideConfig != nil {
 		return *c.OverrideConfig
