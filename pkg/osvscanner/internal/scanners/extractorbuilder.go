@@ -1,6 +1,8 @@
 package scanners
 
 import (
+	"github.com/google/osv-scalibr/clients/datasource"
+	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
@@ -14,6 +16,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/bunlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/pnpmlock"
@@ -32,11 +35,8 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
-	"github.com/google/osv-scanner/v2/internal/datasource"
 	"github.com/google/osv-scanner/v2/internal/osvdev"
-	"github.com/google/osv-scanner/v2/internal/resolution/client"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlnet"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -103,7 +103,7 @@ var lockfileExtractors = []filesystem.Extractor{
 
 // BuildLockfileExtractors returns all relevant extractors for lockfile scanning given the required clients
 // All clients can be nil, and if nil the extractors requiring those clients will not be returned.
-func BuildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]client.DependencyClient, mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
+func BuildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolution.DependencyClient, mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
 	extractorsToUse := lockfileExtractors
 
 	if dependencyClients[osvschema.EcosystemMaven] != nil && mavenAPIClient != nil {
@@ -128,7 +128,7 @@ func BuildSBOMExtractors() []filesystem.Extractor {
 func BuildWalkerExtractors(
 	skipGit bool,
 	osvdevClient *osvdev.OSVClient,
-	dependencyClients map[osvschema.Ecosystem]client.DependencyClient,
+	dependencyClients map[osvschema.Ecosystem]resolution.DependencyClient,
 	mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
 	relevantExtractors := []filesystem.Extractor{}
 

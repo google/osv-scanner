@@ -17,7 +17,7 @@ require (
 	github.com/go-git/go-billy/v5 v5.6.2
 	github.com/go-git/go-git/v5 v5.13.2
 	github.com/google/go-cmp v0.6.0
-	github.com/google/osv-scalibr v0.1.7-0.20250205161050-34e66e88be2f
+	github.com/google/osv-scalibr v0.1.7-0.20250207023429-620a2939fa4d
 	github.com/ianlancetaylor/demangle v0.0.0-20240912202439-0a2b6291aafd
 	github.com/jedib0t/go-pretty/v6 v6.6.5
 	github.com/muesli/reflow v0.3.0
