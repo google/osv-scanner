@@ -46,6 +46,11 @@ var projectScanFlags = []cli.Flag{
 		Name:  "no-call-analysis",
 		Usage: "disables call graph analysis",
 	},
+	&cli.BoolFlag{
+		Name:  "include-git-root",
+		Usage: "include scanning git root (non-submoduled) repositories",
+		Value: false,
+	},
 }
 
 var projectScanExperimentalFlags = []cli.Flag{
