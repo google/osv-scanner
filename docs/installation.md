@@ -21,6 +21,14 @@ You may download the [SLSA3](https://slsa.dev) compliant binaries for Linux, mac
 scoop install osv-scanner
 ```
 
+### Windows WinGet
+
+Windows users can also install osv-scanner from the official [WinGet repo](https://github.com/microsoft/winget-pkgs):
+
+```bash
+winget install Google.OSVScanner
+```
+
 ### Homebrew
 
 [Homebrew](https://brew.sh/) users can install [osv-scanner](https://formulae.brew.sh/formula/osv-scanner) via:
