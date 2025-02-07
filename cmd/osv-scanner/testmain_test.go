@@ -5,6 +5,8 @@ import (
 	"testing"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
+	"github.com/google/osv-scanner/v2/internal/testdb"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
@@ -18,6 +20,9 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		panic(err)
 	}
+
+	localmatcher.ZippedDBRemoteHost = testdb.NewZipDBCacheServer().URL
+
 	code := m.Run()
 
 	testutility.CleanSnapshots(m)

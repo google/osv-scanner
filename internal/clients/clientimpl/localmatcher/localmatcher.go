@@ -28,6 +28,8 @@ type LocalMatcher struct {
 	failedDBs map[osvschema.Ecosystem]error
 	// userAgent sets the user agent requests for db zips are made with
 	userAgent string
+
+	zippedDBRemoteHost string
 }
 
 func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*LocalMatcher, error) {
@@ -42,6 +44,8 @@ func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*Lo
 		downloadDB: downloadDB,
 		userAgent:  userAgent,
 		failedDBs:  make(map[osvschema.Ecosystem]error),
+
+		zippedDBRemoteHost: ZippedDBRemoteHost,
 	}, nil
 }
 
@@ -82,10 +86,8 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 
 // LoadEcosystem tries to preload the ecosystem into the cache, and returns an error if the ecosystem
 // cannot be loaded.
-func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, ecosystem ecosystem.Parsed) error {
-	_, err := matcher.loadDBFromCache(ctx, ecosystem)
-
-	return err
+func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, ecosystem ecosystem.Parsed) (*ZipDB, error) {
+	return matcher.loadDBFromCache(ctx, ecosystem)
 }
 
 func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecosystem.Parsed) (*ZipDB, error) {
@@ -97,7 +99,7 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecos
 		return nil, matcher.failedDBs[ecosystem.Ecosystem]
 	}
 
-	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", ZippedDBRemoteHost, ecosystem.Ecosystem), matcher.userAgent, !matcher.downloadDB)
+	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", matcher.zippedDBRemoteHost, ecosystem.Ecosystem), matcher.userAgent, !matcher.downloadDB)
 
 	if err != nil {
 		matcher.failedDBs[ecosystem.Ecosystem] = err
