@@ -126,21 +126,24 @@ func BuildSBOMExtractors() []filesystem.Extractor {
 // BuildWalkerExtractors returns all relevant extractors for directory scanning given the required clients
 // All clients can be nil, and if nil the extractors requiring those clients will not be returned.
 func BuildWalkerExtractors(
-	skipGit bool,
+	includeRootGit bool,
 	osvdevClient *osvdev.OSVClient,
 	dependencyClients map[osvschema.Ecosystem]resolution.DependencyClient,
 	mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
 	relevantExtractors := []filesystem.Extractor{}
 
-	if !skipGit {
-		relevantExtractors = append(relevantExtractors, gitrepo.Extractor{})
+	if includeRootGit {
+		relevantExtractors = append(relevantExtractors, gitrepo.Extractor{
+			IncludeRootGit: includeRootGit,
+		})
 	}
 	relevantExtractors = append(relevantExtractors, lockfileExtractors...)
 	relevantExtractors = append(relevantExtractors, sbomExtractors...)
 
 	if osvdevClient != nil {
 		relevantExtractors = append(relevantExtractors, vendored.Extractor{
-			ScanGitDir: skipGit,
+			// Only attempt to vendor check git directories if we are not skipping scanning root git directories
+			ScanGitDir: !includeRootGit,
 			OSVClient:  osvdevClient,
 		})
 	}

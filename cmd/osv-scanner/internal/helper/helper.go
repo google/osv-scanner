@@ -21,7 +21,7 @@ import (
 
 // flags that require network access and values to disable them.
 var OfflineFlags = map[string]string{
-	"skip-git":                             "true",
+	"include-git-root":                     "true",
 	"experimental-offline-vulnerabilities": "true",
 	"experimental-no-resolve":              "true",
 	"experimental-licenses-summary":        "false",

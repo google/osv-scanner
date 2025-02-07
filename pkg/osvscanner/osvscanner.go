@@ -39,7 +39,7 @@ type ScannerActions struct {
 	DirectoryPaths     []string
 	GitCommits         []string
 	Recursive          bool
-	SkipGit            bool
+	IncludeGitRoot     bool
 	NoIgnore           bool
 	Image              string
 	IsImageArchive     bool
@@ -182,8 +182,6 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	// --- Sanity check flags ----
 	// TODO(v2): Move the logic of the offline flag changing other flags into here from the main.go/scan.go
 	if actions.CompareOffline {
-		actions.SkipGit = true
-
 		if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
 			return models.VulnerabilityResults{}, errors.New("cannot retrieve licenses locally")
 		}
