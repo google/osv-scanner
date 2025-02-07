@@ -12,6 +12,7 @@ import (
 	"slices"
 	"time"
 
+	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/opencontainers/go-digest"
@@ -35,7 +36,7 @@ type DepsDevBaseImageMatcher struct {
 }
 
 func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, layerMetadata []models.LayerMetadata) ([][]models.BaseImageDetails, error) {
-	baseImagesMap := make([][]models.BaseImageDetails, len(layerMetadata))
+	baseImagesToLayerMap := make([][]models.BaseImageDetails, len(layerMetadata))
 	g, ctx := errgroup.WithContext(ctx)
 	g.SetLimit(maxConcurrentRequests)
 
@@ -60,7 +61,7 @@ func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, lay
 
 			// If we are erroring for one base image even with retry, we probably should stop
 			var err error
-			baseImagesMap[i], err = matcher.queryBaseImagesForChainID(ctx, chainID)
+			baseImagesToLayerMap[i], err = matcher.queryBaseImagesForChainID(ctx, chainID)
 
 			return err
 		})
@@ -70,7 +71,7 @@ func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, lay
 		return nil, err
 	}
 
-	return buildBaseImageDetails(layerMetadata, baseImagesMap), nil
+	return buildBaseImageDetails(layerMetadata, baseImagesToLayerMap), nil
 }
 
 // makeRetryRequest will return an error on both network errors, and if the response is not 200 or 404
@@ -187,7 +188,7 @@ func (matcher *DepsDevBaseImageMatcher) queryBaseImagesForChainID(ctx context.Co
 	return baseImagePossibilities, nil
 }
 
-func buildBaseImageDetails(layerMetadata []models.LayerMetadata, baseImagesMap [][]models.BaseImageDetails) [][]models.BaseImageDetails {
+func buildBaseImageDetails(layerMetadata []models.LayerMetadata, baseImagesToLayersMap [][]models.BaseImageDetails) [][]models.BaseImageDetails {
 	allBaseImages := [][]models.BaseImageDetails{
 		// The base image at index 0 is a placeholder representing your image, so always empty
 		// This is the case even if your image is a base image, in that case no layers point to index 0
@@ -195,13 +196,20 @@ func buildBaseImageDetails(layerMetadata []models.LayerMetadata, baseImagesMap [
 	}
 
 	currentBaseImageIndex := 0
-	for i, baseImages := range slices.Backward(baseImagesMap) {
+	for i, baseImages := range slices.Backward(baseImagesToLayersMap) {
 		if len(baseImages) == 0 {
 			layerMetadata[i].BaseImageIndex = currentBaseImageIndex
 			continue
 		}
 
-		// This layer is a base image boundary
+		// Is the current set of baseImages the same as the previous?
+		if cmp.Equal(baseImages, allBaseImages[len(allBaseImages)-1]) {
+			// If so, merge them
+			layerMetadata[i].BaseImageIndex = currentBaseImageIndex
+			continue
+		}
+
+		// This layer is a new base image boundary
 		allBaseImages = append(allBaseImages, baseImages)
 		currentBaseImageIndex += 1
 		layerMetadata[i].BaseImageIndex = currentBaseImageIndex
