@@ -5,11 +5,85 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/binary"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
 )
+
+// a struct to hold the result from each request including an index
+// which will be used for sorting the results after they come in
+type result struct {
+	id  string
+	res []byte
+	err error
+}
+
+// fetchOSVs fetches the OSV data for the given IDs from the OSV API
+func fetchOSVs(ids []string) (map[string][]byte, error) {
+	conLimit := 200
+
+	osvs := make(map[string][]byte, len(ids))
+
+	if len(ids) == 0 {
+		return osvs, nil
+	}
+
+	// buffered channel which controls the number of concurrent operations
+	semaphoreChan := make(chan struct{}, conLimit)
+	resultsChan := make(chan *result)
+
+	defer func() {
+		close(semaphoreChan)
+		close(resultsChan)
+	}()
+
+	for _, id := range ids {
+		go func(id string) {
+			// read from the buffered semaphore channel, which will block if we're
+			// already got as many goroutines as our concurrency limit allows
+			//
+			// when one of those routines finish they'll read from this channel,
+			// freeing up a slot to unblock this send
+			semaphoreChan <- struct{}{}
+
+			// capture both the osv data and any error that occurred
+			osv, err := fetchOSV(id)
+			result := &result{id, osv, err}
+
+			resultsChan <- result
+
+			// read from the buffered semaphore to free up a slot to allow
+			// another goroutine to start, since this one is wrapping up
+			<-semaphoreChan
+		}(id)
+	}
+
+	var errs []error
+
+	// since we're using a map which might have repeated keys,
+	// we have to keep track of how many results we've gotten
+	// separately to know when we're done fetching everything
+	count := 0
+
+	for {
+		result := <-resultsChan
+		osvs[result.id] = result.res
+
+		if result.err != nil {
+			errs = append(errs, result.err)
+		}
+
+		count += 1
+
+		if count == len(ids) {
+			break
+		}
+	}
+
+	return osvs, errors.Join(errs...)
+}
 
 // fetchOSV returns the JSON data for the given OSV ID from the OSV API
 func fetchOSV(id string) ([]byte, error) {
@@ -39,13 +113,14 @@ func buildCherryPickedZipDB(advisories []string) ([]byte, error) {
 	buf := new(bytes.Buffer)
 	writer := zip.NewWriter(buf)
 
-	for _, osv := range advisories {
-		data, err := fetchOSV(osv)
-		if err != nil {
-			return nil, err
-		}
+	results, err := fetchOSVs(advisories)
 
-		f, err := writer.Create(osv + ".json")
+	if err != nil {
+		return nil, err
+	}
+
+	for id, data := range results {
+		f, err := writer.Create(id + ".json")
 		if err != nil {
 			return nil, err
 		}
