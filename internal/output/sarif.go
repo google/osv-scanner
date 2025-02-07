@@ -2,10 +2,12 @@ package output
 
 import (
 	"fmt"
+	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"io"
 	"log"
 	"path/filepath"
 	"slices"
+	"strconv"
 	"strings"
 	"text/template"
 
@@ -276,6 +278,21 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			WithFullDescription(sarif.NewMultiformatMessageString(longDescription).WithMarkdown(longDescription)).
 			WithMarkdownHelp(helpText).
 			WithTextHelp(helpText)
+
+		// Find the worst severity score
+		var worstScore float64 = -1
+		for _, v := range gv.AliasedVulns {
+			score, _, _ := severity.CalculateOverallScore(v.Severity)
+			if score > worstScore {
+				worstScore = score
+			}
+		}
+
+		if worstScore >= 0 {
+			var bag = sarif.NewPropertyBag()
+			bag.AddString("security-severity", strconv.FormatFloat(worstScore, 'f', -1, 64))
+			rule.WithProperties(bag.Properties)
+		}
 
 		rule.DeprecatedIds = gv.AliasedIDList
 
