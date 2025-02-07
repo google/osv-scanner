@@ -4,6 +4,7 @@ import (
 	"cmp"
 	"encoding/json"
 	"io"
+	"regexp"
 	"slices"
 	"sort"
 	"strings"
@@ -60,6 +61,7 @@ type VulnResult struct {
 	ID               string
 	GroupIDs         []string
 	Aliases          []string
+	Description      string
 	IsFixable        bool
 	FixedVersion     string
 	VulnAnalysisType VulnAnalysisType
@@ -466,6 +468,10 @@ func updateVuln(vulnMap map[string]VulnResult, vulnPkg models.PackageVulns) {
 		if outputVuln, exist := vulnMap[vuln.ID]; exist {
 			outputVuln.FixedVersion = fixedVersion
 			outputVuln.IsFixable = fixable
+			outputVuln.Description = vuln.Summary
+			if outputVuln.Description == "" {
+				outputVuln.Description = vuln.Details
+			}
 			vulnMap[vuln.ID] = outputVuln
 		}
 	}
@@ -703,6 +709,7 @@ func calculateCount(regularVulnList, hiddenVulnList []VulnResult) VulnCount {
 // formatLayerCommand formats the layer command output for better readability.
 // It replaces the unreadable file ID with "UNKNOWN" and extracting the ID separately.
 func formatLayerCommand(command string) []string {
+	command = cleanupSpaces(command)
 	re := cachedregexp.MustCompile(`(dir|file):([a-f0-9]+)`)
 	match := re.FindStringSubmatch(command)
 
@@ -715,4 +722,14 @@ func formatLayerCommand(command string) []string {
 	}
 
 	return []string{command, ""}
+}
+
+// cleanupSpaces uses a regular expression to replace multiple spaces with a single space.
+func cleanupSpaces(s string) string {
+
+	re := regexp.MustCompile(`\s+`)
+	s = re.ReplaceAllString(s, " ")
+	s = strings.TrimSpace(s)
+
+	return s
 }
