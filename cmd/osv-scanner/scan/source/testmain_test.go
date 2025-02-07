@@ -9,6 +9,8 @@ import (
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan/source"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
+	"github.com/google/osv-scanner/v2/internal/testdb"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
@@ -23,6 +25,8 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		panic(err)
 	}
+
+	localmatcher.ZippedDBRemoteHost = testdb.NewZipDBCacheServer().URL
 
 	slog.SetDefault(slog.New(testlogger.New()))
 	testcmd.CommandsUnderTest = []cmd.CommandBuilder{source.Command}
