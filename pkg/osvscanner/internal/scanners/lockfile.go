@@ -21,9 +21,8 @@ var lockfileExtractorMapping = map[string]string{
 	"pnpm-lock.yaml":    "javascript/pnpmlock",
 	"yarn.lock":         "javascript/yarnlock",
 	"package-lock.json": "javascript/packagelockjson",
-	// This translation works for both the transitive scanning and non transitive scanning
-	// As both extractors have the same name
-	"pom.xml":                     "java/pomxml",
+	// Use the transitive extractor by default.
+	"pom.xml":                     "java/pomxmlnet",
 	"buildscript-gradle.lockfile": "java/gradlelockfile",
 	"gradle.lockfile":             "java/gradlelockfile",
 	"verification-metadata.xml":   "java/gradleverificationmetadataxml",
