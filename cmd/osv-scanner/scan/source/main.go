@@ -28,15 +28,6 @@ var projectScanFlags = []cli.Flag{
 		TakesFile: true,
 	},
 	&cli.BoolFlag{
-		Name:  "json",
-		Usage: "sets output to json (deprecated, use --format json instead)",
-	},
-	&cli.BoolFlag{
-		Name:  "skip-git",
-		Usage: "skip scanning git repositories",
-		Value: false,
-	},
-	&cli.BoolFlag{
 		Name:    "recursive",
 		Aliases: []string{"r"},
 		Usage:   "check subdirectories",
@@ -106,10 +97,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 func Action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
 	format := context.String("format")
 
-	if context.Bool("json") {
-		format = "json"
-	}
-
 	outputPath := context.String("output")
 	serve := context.Bool("serve")
 	if serve {
@@ -158,7 +145,7 @@ func Action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		LockfilePaths:              context.StringSlice("lockfile"),
 		SBOMPaths:                  context.StringSlice("sbom"),
 		Recursive:                  context.Bool("recursive"),
-		SkipGit:                    context.Bool("skip-git"),
+		IncludeGitRoot:             context.Bool("include-git-root"),
 		NoIgnore:                   context.Bool("no-ignore"),
 		ConfigOverridePath:         context.String("config"),
 		DirectoryPaths:             context.Args().Slice(),
