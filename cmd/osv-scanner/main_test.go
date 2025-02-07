@@ -244,14 +244,8 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
-		// output with json
 		{
-			name: "json output 1",
-			args: []string{"", "--json", "./fixtures/locks-many/composer.lock"},
-			exit: 0,
-		},
-		{
-			name: "json output 2",
+			name: "json output",
 			args: []string{"", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
@@ -629,11 +623,6 @@ func TestRun_LocalDatabases(t *testing.T) {
 		{
 			name: "ignoring .gitignore",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
-			exit: 0,
-		},
-		{
-			name: "output with json",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		{

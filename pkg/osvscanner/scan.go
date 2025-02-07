@@ -37,7 +37,7 @@ func scan(r reporter.Reporter, accessors ExternalAccessors, actions ScannerActio
 
 	// --- Directories ---
 	dirExtractors := scanners.BuildWalkerExtractors(
-		actions.SkipGit,
+		actions.IncludeGitRoot,
 		accessors.OSVDevClient,
 		accessors.DependencyClients,
 		accessors.MavenRegistryAPIClient,

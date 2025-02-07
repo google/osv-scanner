@@ -76,7 +76,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		Image:                      context.Args().First(),
 		ConfigOverridePath:         context.String("config"),
 		IsImageArchive:             context.Bool("archive"),
-		SkipGit:                    context.Bool("skip-git"),
+		IncludeGitRoot:             context.Bool("include-git-root"),
 		ExperimentalScannerActions: helper.GetExperimentalScannerActions(context, scanLicensesAllowlist),
 	}
 

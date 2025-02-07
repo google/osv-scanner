@@ -30,8 +30,6 @@ The preceding command will find lockfiles, SBOMs, and git directories in your ta
 
 The recursive flag `-r` or `--recursive` will tell the scanner to search all subdirectories in addition to the specified directory. It can find additional lockfiles, dependencies, and vulnerabilities. If your project has deeply nested subdirectories, a recursive search may take a long time.
 
-Git directories are searched for the latest commit hash. Searching for git commit hash is intended to work with projects that use git submodules or a similar mechanism where dependencies are checked out as real git repositories.
-
 ## Ignored files
 
 By default, OSV-Scanner will not scan files that are ignored by `.gitignore` files. All recursively scanned files are matched to a git repository (if it exists) and any matching `.gitignore` files within that repository are taken into account.
@@ -86,6 +84,8 @@ osv-scanner scan source --lockfile ':/path/to/my:projects/package-lock.json'
 ## Git Repository Scanning
 
 OSV-Scanner will automatically scan git submodules and vendored directories for C/C++ code and try to attribute them to specific dependencies and versions. See [C/C++ Scanning](<supported_languages_and_lockfiles#C/C++ scanning>) for more details.
+
+By default, root git directories (i.e. git repositories that are not a submodule of a bigger git repo) are skipped. You can include those repositories by setting the `--include-git-root` flag.
 
 ## Scanning with call analysis
 
