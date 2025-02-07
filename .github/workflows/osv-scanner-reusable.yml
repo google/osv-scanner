@@ -26,7 +26,6 @@ on:
         type: string
         default: |-
           -r
-          --skip-git
           ./
       results-file-name:
         description: "File name of the result SARIF file"
