@@ -342,16 +342,19 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 Scanning dir ./fixtures/maven-transitive
 Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
 Filtered 1 local/unscannable package/s from the scan.
 Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
 Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
+Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
+Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
 Package Maven/org.apache.logging.log4j:log4j-api/2.14.1 has been filtered out because: it makes the table output really really long
 Package Maven/org.apache.logging.log4j:log4j-core/2.14.1 has been filtered out because: it makes the table output really really long
 Package Maven/org.apache.logging.log4j:log4j-web/2.14.1 has been filtered out because: it makes the table output really really long
-Filtered 5 ignored package/s from the scan.
+Filtered 7 ignored package/s from the scan.
 overriding license for package Alpine/alpine-baselayout/3.4.0-r0 with MIT
 overriding license for package Alpine/alpine-baselayout-data/3.4.0-r0 with MIT
 overriding license for package Alpine/alpine-keys/2.4-r1 with MIT
@@ -456,6 +459,22 @@ No issues found
       "version": "1.0.8",
       "licenses": [],
       "purl": "pkg:composer/league/flysystem@1.0.8"
+    },
+    {
+      "bom-ref": "pkg:npm/has-flag@4.0.0",
+      "type": "library",
+      "name": "has-flag",
+      "version": "4.0.0",
+      "licenses": [],
+      "purl": "pkg:npm/has-flag@4.0.0"
+    },
+    {
+      "bom-ref": "pkg:npm/wrappy@1.0.2",
+      "type": "library",
+      "name": "wrappy",
+      "version": "1.0.2",
+      "licenses": [],
+      "purl": "pkg:npm/wrappy@1.0.2"
     }
   ],
   "vulnerabilities": [
@@ -501,6 +520,7 @@ No issues found
 
 [TestRun/cyclonedx_1.4_output - 2]
 Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
@@ -519,6 +539,22 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
       "version": "1.0.8",
       "licenses": [],
       "purl": "pkg:composer/league/flysystem@1.0.8"
+    },
+    {
+      "bom-ref": "pkg:npm/has-flag@4.0.0",
+      "type": "library",
+      "name": "has-flag",
+      "version": "4.0.0",
+      "licenses": [],
+      "purl": "pkg:npm/has-flag@4.0.0"
+    },
+    {
+      "bom-ref": "pkg:npm/wrappy@1.0.2",
+      "type": "library",
+      "name": "wrappy",
+      "version": "1.0.2",
+      "licenses": [],
+      "purl": "pkg:npm/wrappy@1.0.2"
     }
   ],
   "vulnerabilities": [
@@ -564,6 +600,7 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 [TestRun/cyclonedx_1.5_output - 2]
 Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
@@ -1635,11 +1672,14 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
 Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
-Filtered 2 ignored package/s from the scan.
+Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
+Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
+Filtered 4 ignored package/s from the scan.
 ignoring license for package Alpine/alpine-baselayout/3.4.0-r0
 ignoring license for package Alpine/alpine-baselayout-data/3.4.0-r0
 ignoring license for package Alpine/alpine-keys/2.4-r1
@@ -2751,6 +2791,7 @@ stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
 Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
 Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 +-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
@@ -2770,6 +2811,7 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
 Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
 Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 +-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
@@ -2817,6 +2859,7 @@ could not determine extractor, requested my-file
 [TestRun_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file - 1]
 Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
 Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 +-------------------------------------+------+-----------+------------------+---------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                       |
