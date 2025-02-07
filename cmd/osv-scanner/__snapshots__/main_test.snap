@@ -873,7 +873,7 @@ invalid verbosity level "unknown" - must be one of: error, warn, info, verbose
 
 ---
 
-[TestRun/json_output_1 - 1]
+[TestRun/json_output - 1]
 {
   "results": [],
   "experimental_config": {
@@ -886,27 +886,7 @@ invalid verbosity level "unknown" - must be one of: error, warn, info, verbose
 
 ---
 
-[TestRun/json_output_1 - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-
----
-
-[TestRun/json_output_2 - 1]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
-[TestRun/json_output_2 - 2]
+[TestRun/json_output - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
@@ -2626,48 +2606,6 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 ---
 
 [TestRun_LocalDatabases/output_with_json - 4]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-
----
-
-[TestRun_LocalDatabases/output_with_json#01 - 1]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
-[TestRun_LocalDatabases/output_with_json#01 - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-
----
-
-[TestRun_LocalDatabases/output_with_json#01 - 3]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
-[TestRun_LocalDatabases/output_with_json#01 - 4]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
