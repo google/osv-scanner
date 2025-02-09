@@ -1,5 +1,4 @@
-const selectedTypeFilterValue = new Set();
-selectedTypeFilterValue.add("all");
+const selectedTypeFilterValue = new Set(["all"]);
 let selectedLayer = "all";
 
 function quickFilterByLayer(DiffID, layerCommand) {
@@ -10,7 +9,7 @@ function quickFilterByLayer(DiffID, layerCommand) {
 }
 
 function showBaseImageLayer(imageID) {
-  const detailElementID = "base-image-details-" + imageID;
+  const detailElementID = `base-image-details-${imageID}`;
   const detailsElement = document.getElementById(detailElementID);
 
   const icon = document.querySelector(
@@ -23,7 +22,7 @@ function showBaseImageLayer(imageID) {
 
 function showPackageDetails(detailsId) {
   const detailsElement = document.getElementById(
-    "table-tr-" + detailsId + "-details"
+    `table-tr-${detailsId}-details`
   );
   const icon = document.querySelector(`#table-tr-${detailsId} .material-icons`); // Select the icon within the row
 
@@ -53,9 +52,9 @@ function openVulnInNewTab(inputString) {
 
   // Create a new tab button
   const newTabButton = document.createElement("div");
-  newTabButton.id = inputString + "-button";
+  newTabButton.id = `${inputString}-button`;
   newTabButton.className = "tab-switch-button";
-  newTabButton.onclick = function () {
+  newTabButton.onclick = () => {
     openTab(inputString);
   };
 
@@ -76,7 +75,7 @@ function openVulnInNewTab(inputString) {
   closeIcon.className = "material-icons";
   closeIcon.textContent = "close";
   // Add the onclick function to the close icon
-  closeIcon.onclick = function (event) {
+  closeIcon.onclick = event => {
     event.stopPropagation(); // Prevent the click from opening the tab
     closeVulnTab(inputString);
   };
@@ -94,7 +93,7 @@ function openVulnInNewTab(inputString) {
 
 function closeVulnTab(inputString) {
   const tabToRemove = document.getElementById(inputString);
-  const buttonToRemove = document.getElementById(inputString + "-button");
+  const buttonToRemove = document.getElementById(`${inputString}-button`);
   const tabs = document.getElementById("tabs");
   const tabSwitches = document.getElementById("tab-switch");
 
@@ -129,19 +128,19 @@ function hideAllFilterOptions() {
   const containers = document.getElementsByClassName("filter-option-container");
 
   for (const container of containers) {
-    container.classList.toggle("hide-block", true);
+    container.classList.add("hide-block");
   }
 }
 
 function toggleFilter(input) {
-  const targetID = input + "-filter-option-container";
-  let optionContainer = document.getElementById(targetID);
+  const targetID = `${input}-filter-option-container`;
+  const optionContainer = document.getElementById(targetID);
   const containers = document.getElementsByClassName("filter-option-container");
   for (const loopContainer of containers) {
     if (loopContainer.id === targetID) {
       optionContainer.classList.toggle("hide-block");
     } else {
-      loopContainer.classList.toggle("hide-block", true);
+      loopContainer.classList.add("hide-block");
     }
   }
 }
@@ -159,36 +158,28 @@ function showAndHideParentSections() {
       let sourceHasVisibleRows = false;
 
       packageRows.forEach(packageRow => {
-        let packageDetails = document.getElementById(
-          packageRow.id + "-details"
+        const packageDetails = document.getElementById(
+          `${packageRow.id}-details`
         );
         const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
-        let packageHasVisibleRows = false;
-        vulnRows.forEach(vulnRow => {
-          if (!vulnRow.classList.contains("hide-block")) {
-            packageHasVisibleRows = true;
-            return;
-          }
-        });
-        if (packageHasVisibleRows) {
+        if (vulnRows.some(row => !row.classList.contains("hide-block"))) {
           sourceHasVisibleRows = true;
-          packageRow.classList.toggle("hide-block", false);
+          packageRow.classList.remove("hide-block");
           return;
-        } else {
-          packageRow.classList.toggle("hide-block", true);
-          packageDetails.classList.toggle("hide-block", true);
-          const icon = document.querySelector(
-            `#${packageRow.id} .material-icons`
-          );
-          icon.classList.remove("expanded"); // Rotate back to 0 degrees
         }
+
+        packageRow.classList.add("hide-block");
+        packageDetails.classList.add("hide-block");
+        const icon = document.querySelector(
+          `#${packageRow.id} .material-icons`
+        );
+        icon.classList.remove("expanded"); // Rotate back to 0 degrees
       });
 
       sourceContainer.classList.toggle("hide-block", !sourceHasVisibleRows);
 
       if (sourceHasVisibleRows) {
         ecosystemHasVisibleSources = true;
-        return;
       }
     });
 
@@ -202,7 +193,7 @@ function showAndHideParentSections() {
 function showAllVulns() {
   const vulnRows = document.getElementsByClassName("vuln-tr");
   for (const row of vulnRows) {
-    let isUncalled = row.classList.contains("uncalled-tr");
+    const isUncalled = row.classList.contains("uncalled-tr");
     row.classList.toggle("hide-block", isUncalled);
   }
 
@@ -218,15 +209,11 @@ function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
 }
 
 function applyTypeFilter(selectedValue) {
-  updateTypeFilterText(selectedValue);
-  let selectedAll = selectedValue.has("all");
-  let selectedProject = selectedValue.has("project");
-  let selectedOS = selectedValue.has("os");
-  let selectedUncalled = selectedValue.has("uncalled");
-  if (selectedAll) {
-    selectedProject = true;
-    selectedOS = true;
-  }
+  updateTypeFilterText();
+  const selectedAll = selectedValue.has("all");
+  const selectedProject = selectedAll || selectedValue.has("project");
+  const selectedOS = selectedAll || selectedValue.has("os");
+  const selectedUncalled = selectedValue.has("uncalled");
 
   const ecosystemElements = document.querySelectorAll(".ecosystem-container");
 
@@ -241,7 +228,7 @@ function applyTypeFilter(selectedValue) {
         (ecosystemElement.classList.contains("project-type") &&
           !selectedProject)
       ) {
-        vuln.classList.toggle("hide-block", true);
+        vuln.classList.add("hide-block");
       }
     });
   });
@@ -252,16 +239,16 @@ function applyLayerFilter(selectedLayerID) {
   tableRows.forEach(row => {
     const rowLayerID = row.getAttribute("data-layer");
     if (selectedLayerID !== "all" && rowLayerID !== selectedLayerID) {
-      const packageDetails = document.getElementById(row.id + "-details");
+      const packageDetails = document.getElementById(`${row.id}-details`);
       const vulnElements = packageDetails.querySelectorAll(".vuln-tr");
       vulnElements.forEach(vuln => {
-        vuln.classList.toggle("hide-block", true);
+        vuln.classList.add("hide-block");
       });
     }
   });
 }
 
-function updateTypeFilterText(_selectedValue) {
+function updateTypeFilterText() {
   const typeSelected = document.getElementById("type-filter-selected");
   const selectedVulnCount = document.getElementById("selected-count");
 
@@ -276,19 +263,19 @@ function updateTypeFilterText(_selectedValue) {
   let selectedCount = 0;
 
   if (projectTypeCheckbox && projectTypeCheckbox.checked) {
-    selectedText += (selectedText ? ", " : "") + "Project";
+    selectedText += `${selectedText ? ", " : ""}Project`;
     const projectTypeVulnCount = projectTypeCheckbox.getAttribute(
       "data-type-project-count"
     );
     selectedCount += parseInt(projectTypeVulnCount, 10);
   }
   if (osTypeCheckbox && osTypeCheckbox.checked) {
-    selectedText += (selectedText ? ", " : "") + "OS";
+    selectedText += `${selectedText ? ", " : ""}OS`;
     const osTypeVulnCount = osTypeCheckbox.getAttribute("data-type-os-count");
     selectedCount += parseInt(osTypeVulnCount, 10);
   }
   if (uncalledTypeCheckbox && uncalledTypeCheckbox.checked) {
-    selectedText += (selectedText ? ", " : "") + "Unimportant";
+    selectedText += `${selectedText ? ", " : ""}Unimportant`;
     const uncalledTypeVulnCount = uncalledTypeCheckbox.getAttribute(
       "data-type-uncalled-count"
     );
@@ -312,10 +299,7 @@ function resetFilterText() {
   const layerSelected = document.getElementById("layer-filter-selected");
   const allLayerCheckedBox = document.getElementById("all-layer-checkbox");
   if (layerSelected) {
-    layerSelected.textContent =
-      "All layers (" +
-      allLayerCheckedBox.getAttribute("data-layer-all-count") +
-      ")";
+    layerSelected.textContent = `All layers (${allLayerCheckedBox.getAttribute("data-layer-all-count")})`;
   }
 
   const typeSelected = document.getElementById("type-filter-selected");
@@ -346,7 +330,7 @@ function resetFilterText() {
 
 function resetSearchText() {
   const vulnSearchInput = document.getElementById("vuln-search");
-  if (vulnSearchInput.value != "") {
+  if (vulnSearchInput.value !== "") {
     vulnSearchInput.value = "";
     showAllVulns();
   }
@@ -370,7 +354,7 @@ function resetTypeCheckbox() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   resetFilterText();
   showAndHideParentSections();
 
@@ -379,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "type-filter-option-container"
   );
 
-  typeFilterOptions.addEventListener("change", function () {
+  typeFilterOptions.addEventListener("change", event => {
     resetSearchText();
     const changedElement = event.target;
     const allTypesCheckbox = document.getElementById("all-type-checkbox");
@@ -388,8 +372,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const uncalledCheckbox = document.getElementById("uncalled-type-checkbox"); // OS vulnerabilities
     selectedTypeFilterValue.clear();
 
-    if (allTypesCheckbox != null) {
-      if (changedElement == allTypesCheckbox) {
+    if (allTypesCheckbox !== null) {
+      if (changedElement === allTypesCheckbox) {
         osCheckbox.checked = allTypesCheckbox.checked;
         projectCheckbox.checked = allTypesCheckbox.checked;
         if (allTypesCheckbox.checked === true) {
@@ -450,7 +434,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Search bar
   const vulnSearchInput = document.getElementById("vuln-search");
-  vulnSearchInput.addEventListener("keyup", event => {
+  vulnSearchInput.addEventListener("keyup", () => {
     resetFilterText();
     selectedTypeFilterValue.clear();
     selectedTypeFilterValue.add("all");
@@ -475,12 +459,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Implement tooltips
   document.querySelectorAll(".tooltip").forEach(elem => {
-    elem.addEventListener("mouseover", event => {
+    elem.addEventListener("mouseover", () => {
       const rect = elem.getBoundingClientRect();
       const tooltipElem = elem.querySelector(".tooltiptext");
 
-      tooltipElem.style.left = rect.left + "px";
-      tooltipElem.style.top = rect.top + "px";
+      tooltipElem.style.left = `${rect.left}px`;
+      tooltipElem.style.top = `${rect.top}px`;
     });
   });
 
