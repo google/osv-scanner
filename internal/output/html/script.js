@@ -210,7 +210,7 @@ function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
 }
 
 function applyTypeFilter(selectedValue) {
-  updateTypeFilterText(selectedValue);
+  updateTypeFilterText();
   const selectedAll = selectedValue.has("all");
   let selectedProject = selectedValue.has("project");
   let selectedOS = selectedValue.has("os");
@@ -253,7 +253,7 @@ function applyLayerFilter(selectedLayerID) {
   });
 }
 
-function updateTypeFilterText(_selectedValue) {
+function updateTypeFilterText() {
   const typeSelected = document.getElementById("type-filter-selected");
   const selectedVulnCount = document.getElementById("selected-count");
 
@@ -439,7 +439,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Search bar
   const vulnSearchInput = document.getElementById("vuln-search");
-  vulnSearchInput.addEventListener("keyup", event => {
+  vulnSearchInput.addEventListener("keyup", () => {
     resetFilterText();
     selectedTypeFilterValue.clear();
     selectedTypeFilterValue.add("all");
@@ -464,7 +464,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Implement tooltips
   document.querySelectorAll(".tooltip").forEach(elem => {
-    elem.addEventListener("mouseover", event => {
+    elem.addEventListener("mouseover", () => {
       const rect = elem.getBoundingClientRect();
       const tooltipElem = elem.querySelector(".tooltiptext");
 
