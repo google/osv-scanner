@@ -16,8 +16,5 @@ function build_docker_image_fixture {
   fi
 }
 
-for dockerfile in internal/image/fixtures/*.Dockerfile; do
-  image_name=$(basename "$dockerfile" .Dockerfile)
-
-  build_docker_image_fixture "$image_name"
-done
+export -f build_docker_image_fixture
+find internal/image/fixtures/ -name '*.Dockerfile' | parallel -j0 build_docker_image_fixture {/.}
