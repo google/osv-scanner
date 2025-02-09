@@ -212,13 +212,9 @@ function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
 function applyTypeFilter(selectedValue) {
   updateTypeFilterText();
   const selectedAll = selectedValue.has("all");
-  let selectedProject = selectedValue.has("project");
-  let selectedOS = selectedValue.has("os");
+  const selectedProject = selectedAll || selectedValue.has("project");
+  const selectedOS = selectedAll || selectedValue.has("os");
   const selectedUncalled = selectedValue.has("uncalled");
-  if (selectedAll) {
-    selectedProject = true;
-    selectedOS = true;
-  }
 
   const ecosystemElements = document.querySelectorAll(".ecosystem-container");
 
