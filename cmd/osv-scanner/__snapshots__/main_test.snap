@@ -3010,8 +3010,8 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 Scanning local image tarball "../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 9 packages affected by 12 vulnerabilities (1 Critical, 4 High, 7 Medium, 0 Low, 0 Unknown) from 1 ecosystems.
-12 vulnerabilities have fixes available.
+Total 10 packages affected by 13 vulnerabilities (1 Critical, 4 High, 7 Medium, 0 Low, 1 Unknown) from 2 ecosystems.
+13 vulnerabilities have fixes available.
 
 Maven
 +-------------------------------------------------------------------------------------------------------------------------------+
@@ -3029,6 +3029,14 @@ Maven
 | org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          2 | # 4 Layer        | --            |
 | org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available |          1 | # 4 Layer        | --            |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
+Alpine:v3.21
++---------------------------------------------------------------------------------------------+
+| Source:os:lib/apk/db/installed                                                              |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| openssl | 3.3.2-r4          | Fix Available |          1 | # 0 Layer        | alpine        |
++---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -3179,8 +3187,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 7 packages affected by 45 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 45 Unknown) from 2 ecosystems.
-45 vulnerabilities have fixes available.
+Total 7 packages affected by 46 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 46 Unknown) from 2 ecosystems.
+46 vulnerabilities have fixes available.
 
 Go
 +---------------------------------------------------------------------------------------------+
@@ -3231,7 +3239,7 @@ Alpine:v3.20
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| openssl | 3.3.1-r0          | Fix Available |          3 | # 0 Layer        | alpine        |
+| openssl | 3.3.1-r0          | Fix Available |          4 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
