@@ -163,13 +163,7 @@ function showAndHideParentSections() {
           packageRow.id + "-details"
         );
         const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
-        let packageHasVisibleRows = false;
-        vulnRows.forEach(vulnRow => {
-          if (!vulnRow.classList.contains("hide-block")) {
-            packageHasVisibleRows = true;
-          }
-        });
-        if (packageHasVisibleRows) {
+        if (vulnRows.some(row => !row.classList.contains("hide-block"))) {
           sourceHasVisibleRows = true;
           packageRow.classList.toggle("hide-block", false);
           return;
