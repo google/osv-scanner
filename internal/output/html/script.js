@@ -1,5 +1,4 @@
-const selectedTypeFilterValue = new Set();
-selectedTypeFilterValue.add("all");
+const selectedTypeFilterValue = new Set(["all"]);
 let selectedLayer = "all";
 
 function quickFilterByLayer(DiffID, layerCommand) {
