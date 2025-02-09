@@ -135,7 +135,7 @@ function hideAllFilterOptions() {
 
 function toggleFilter(input) {
   const targetID = input + "-filter-option-container";
-  let optionContainer = document.getElementById(targetID);
+  const optionContainer = document.getElementById(targetID);
   const containers = document.getElementsByClassName("filter-option-container");
   for (const loopContainer of containers) {
     if (loopContainer.id === targetID) {
@@ -159,7 +159,7 @@ function showAndHideParentSections() {
       let sourceHasVisibleRows = false;
 
       packageRows.forEach(packageRow => {
-        let packageDetails = document.getElementById(
+        const packageDetails = document.getElementById(
           packageRow.id + "-details"
         );
         const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
@@ -194,7 +194,7 @@ function showAndHideParentSections() {
 function showAllVulns() {
   const vulnRows = document.getElementsByClassName("vuln-tr");
   for (const row of vulnRows) {
-    let isUncalled = row.classList.contains("uncalled-tr");
+    const isUncalled = row.classList.contains("uncalled-tr");
     row.classList.toggle("hide-block", isUncalled);
   }
 
@@ -211,10 +211,10 @@ function applyFilters(selectedTypeFilterValue, selectedLayerFilterValue) {
 
 function applyTypeFilter(selectedValue) {
   updateTypeFilterText(selectedValue);
-  let selectedAll = selectedValue.has("all");
+  const selectedAll = selectedValue.has("all");
   let selectedProject = selectedValue.has("project");
   let selectedOS = selectedValue.has("os");
-  let selectedUncalled = selectedValue.has("uncalled");
+  const selectedUncalled = selectedValue.has("uncalled");
   if (selectedAll) {
     selectedProject = true;
     selectedOS = true;
