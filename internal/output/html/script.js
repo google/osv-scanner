@@ -10,7 +10,7 @@ function quickFilterByLayer(DiffID, layerCommand) {
 }
 
 function showBaseImageLayer(imageID) {
-  const detailElementID = "base-image-details-" + imageID;
+  const detailElementID = `base-image-details-${imageID}`;
   const detailsElement = document.getElementById(detailElementID);
 
   const icon = document.querySelector(
@@ -23,7 +23,7 @@ function showBaseImageLayer(imageID) {
 
 function showPackageDetails(detailsId) {
   const detailsElement = document.getElementById(
-    "table-tr-" + detailsId + "-details"
+    `table-tr-${detailsId}-details`
   );
   const icon = document.querySelector(`#table-tr-${detailsId} .material-icons`); // Select the icon within the row
 
@@ -53,7 +53,7 @@ function openVulnInNewTab(inputString) {
 
   // Create a new tab button
   const newTabButton = document.createElement("div");
-  newTabButton.id = inputString + "-button";
+  newTabButton.id = `${inputString}-button`;
   newTabButton.className = "tab-switch-button";
   newTabButton.onclick = function () {
     openTab(inputString);
@@ -94,7 +94,7 @@ function openVulnInNewTab(inputString) {
 
 function closeVulnTab(inputString) {
   const tabToRemove = document.getElementById(inputString);
-  const buttonToRemove = document.getElementById(inputString + "-button");
+  const buttonToRemove = document.getElementById(`${inputString}-button`);
   const tabs = document.getElementById("tabs");
   const tabSwitches = document.getElementById("tab-switch");
 
@@ -134,7 +134,7 @@ function hideAllFilterOptions() {
 }
 
 function toggleFilter(input) {
-  const targetID = input + "-filter-option-container";
+  const targetID = `${input}-filter-option-container`;
   const optionContainer = document.getElementById(targetID);
   const containers = document.getElementsByClassName("filter-option-container");
   for (const loopContainer of containers) {
@@ -160,7 +160,7 @@ function showAndHideParentSections() {
 
       packageRows.forEach(packageRow => {
         const packageDetails = document.getElementById(
-          packageRow.id + "-details"
+          `${packageRow.id}-details`
         );
         const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
         if (vulnRows.some(row => !row.classList.contains("hide-block"))) {
@@ -244,7 +244,7 @@ function applyLayerFilter(selectedLayerID) {
   tableRows.forEach(row => {
     const rowLayerID = row.getAttribute("data-layer");
     if (selectedLayerID !== "all" && rowLayerID !== selectedLayerID) {
-      const packageDetails = document.getElementById(row.id + "-details");
+      const packageDetails = document.getElementById(`${row.id}-details`);
       const vulnElements = packageDetails.querySelectorAll(".vuln-tr");
       vulnElements.forEach(vuln => {
         vuln.classList.toggle("hide-block", true);
@@ -268,19 +268,19 @@ function updateTypeFilterText(_selectedValue) {
   let selectedCount = 0;
 
   if (projectTypeCheckbox && projectTypeCheckbox.checked) {
-    selectedText += (selectedText ? ", " : "") + "Project";
+    selectedText += `${selectedText ? ", " : ""}Project`;
     const projectTypeVulnCount = projectTypeCheckbox.getAttribute(
       "data-type-project-count"
     );
     selectedCount += parseInt(projectTypeVulnCount, 10);
   }
   if (osTypeCheckbox && osTypeCheckbox.checked) {
-    selectedText += (selectedText ? ", " : "") + "OS";
+    selectedText += `${selectedText ? ", " : ""}OS`;
     const osTypeVulnCount = osTypeCheckbox.getAttribute("data-type-os-count");
     selectedCount += parseInt(osTypeVulnCount, 10);
   }
   if (uncalledTypeCheckbox && uncalledTypeCheckbox.checked) {
-    selectedText += (selectedText ? ", " : "") + "Unimportant";
+    selectedText += `${selectedText ? ", " : ""}Unimportant`;
     const uncalledTypeVulnCount = uncalledTypeCheckbox.getAttribute(
       "data-type-uncalled-count"
     );
@@ -304,10 +304,7 @@ function resetFilterText() {
   const layerSelected = document.getElementById("layer-filter-selected");
   const allLayerCheckedBox = document.getElementById("all-layer-checkbox");
   if (layerSelected) {
-    layerSelected.textContent =
-      "All layers (" +
-      allLayerCheckedBox.getAttribute("data-layer-all-count") +
-      ")";
+    layerSelected.textContent = `All layers (${allLayerCheckedBox.getAttribute("data-layer-all-count")})`;
   }
 
   const typeSelected = document.getElementById("type-filter-selected");
@@ -471,8 +468,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const rect = elem.getBoundingClientRect();
       const tooltipElem = elem.querySelector(".tooltiptext");
 
-      tooltipElem.style.left = rect.left + "px";
-      tooltipElem.style.top = rect.top + "px";
+      tooltipElem.style.left = `${rect.left}px`;
+      tooltipElem.style.top = `${rect.top}px`;
     });
   });
 
