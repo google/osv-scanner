@@ -10,6 +10,7 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
@@ -408,7 +409,7 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 
 func sortVulns(vulns []vulnOutput) {
 	slices.SortFunc(vulns, func(a, b vulnOutput) int {
-		return cmp.Compare(a.ID, b.ID)
+		return identifiers.IDSortFunc(a.ID, b.ID)
 	})
 }
 
