@@ -55,7 +55,7 @@ function openVulnInNewTab(inputString) {
   const newTabButton = document.createElement("div");
   newTabButton.id = `${inputString}-button`;
   newTabButton.className = "tab-switch-button";
-  newTabButton.onclick = function () {
+  newTabButton.onclick = () => {
     openTab(inputString);
   };
 
@@ -76,7 +76,7 @@ function openVulnInNewTab(inputString) {
   closeIcon.className = "material-icons";
   closeIcon.textContent = "close";
   // Add the onclick function to the close icon
-  closeIcon.onclick = function (event) {
+  closeIcon.onclick = event => {
     event.stopPropagation(); // Prevent the click from opening the tab
     closeVulnTab(inputString);
   };
@@ -355,7 +355,7 @@ function resetTypeCheckbox() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   resetFilterText();
   showAndHideParentSections();
 
@@ -364,7 +364,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "type-filter-option-container"
   );
 
-  typeFilterOptions.addEventListener("change", function (event) {
+  typeFilterOptions.addEventListener("change", event => {
     resetSearchText();
     const changedElement = event.target;
     const allTypesCheckbox = document.getElementById("all-type-checkbox");
