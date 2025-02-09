@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
@@ -222,8 +223,15 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 				source.Path = sourcePath
 			}
 
+			sorted := pkg.Groups
+
+			// Ensure that groups are sorted consistently using the first ID in each group
+			slices.SortFunc(sorted, func(a, b models.GroupInfo) int {
+				return identifiers.IDSortFunc(a.IDs[0], b.IDs[0])
+			})
+
 			// Merge groups into the same row
-			for _, group := range pkg.Groups {
+			for _, group := range sorted {
 				if !(group.IsCalled() == calledVulns && group.IsGroupUnimportant() == unimportantVulns) {
 					continue
 				}
