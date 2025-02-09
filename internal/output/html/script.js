@@ -368,7 +368,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "type-filter-option-container"
   );
 
-  typeFilterOptions.addEventListener("change", function () {
+  typeFilterOptions.addEventListener("change", function (event) {
     resetSearchText();
     const changedElement = event.target;
     const allTypesCheckbox = document.getElementById("all-type-checkbox");
