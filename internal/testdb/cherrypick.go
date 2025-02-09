@@ -10,6 +10,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"strings"
 )
 
 // a struct to hold the result from each request including an index
@@ -139,10 +140,21 @@ func buildCherryPickedZipDB(advisories []string) ([]byte, error) {
 
 // NewZipDBCherryPickServer creates a httptest.Server which acts like the osv-vulnerabilities
 // database storage server, except it serves much smaller databases made up of specific advisories
+//
+// It takes a map of ecosystems with advisory IDs which will be "cherry-picked" from the osv.dev API
+// into an in-memory zip file which the server will serve as the database for each ecosystem.
+//
+// To help with potential debugging, the cherry-picker will skip any ecosystem whose key starts with
+// two slashes (//), so that you can easily play around with ecosystems and advisories without having
+// to comment out every single ID for a particular ecosystem (as that could be quite a lot).
 func NewZipDBCherryPickServer(ecosystems map[string][]string) *httptest.Server {
 	dbs := make(map[string][]byte, len(ecosystems))
 
 	for eco, advisories := range ecosystems {
+		if strings.HasPrefix(eco, "//") {
+			continue
+		}
+
 		db, err := buildCherryPickedZipDB(advisories)
 		if err != nil {
 			panic(err)
