@@ -7,6 +7,7 @@ import (
 	"slices"
 	"strings"
 
+	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	depgroups "github.com/google/osv-scanner/v2/internal/utility/depgroup"
 	"github.com/google/osv-scanner/v2/internal/utility/results"
@@ -223,15 +224,13 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 				source.Path = sourcePath
 			}
 
-			sorted := pkg.Groups
-
 			// Ensure that groups are sorted consistently using the first ID in each group
-			slices.SortFunc(sorted, func(a, b models.GroupInfo) int {
+			slices.SortFunc(pkg.Groups, func(a, b models.GroupInfo) int {
 				return identifiers.IDSortFunc(a.IDs[0], b.IDs[0])
 			})
 
 			// Merge groups into the same row
-			for _, group := range sorted {
+			for _, group := range pkg.Groups {
 				if !(group.IsCalled() == calledVulns && group.IsGroupUnimportant() == unimportantVulns) {
 					continue
 				}
