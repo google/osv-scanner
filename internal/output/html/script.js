@@ -129,7 +129,7 @@ function hideAllFilterOptions() {
   const containers = document.getElementsByClassName("filter-option-container");
 
   for (const container of containers) {
-    container.classList.toggle("hide-block", true);
+    container.classList.add("hide-block");
   }
 }
 
@@ -141,7 +141,7 @@ function toggleFilter(input) {
     if (loopContainer.id === targetID) {
       optionContainer.classList.toggle("hide-block");
     } else {
-      loopContainer.classList.toggle("hide-block", true);
+      loopContainer.classList.add("hide-block");
     }
   }
 }
@@ -165,12 +165,12 @@ function showAndHideParentSections() {
         const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
         if (vulnRows.some(row => !row.classList.contains("hide-block"))) {
           sourceHasVisibleRows = true;
-          packageRow.classList.toggle("hide-block", false);
+          packageRow.classList.remove("hide-block");
           return;
         }
 
-        packageRow.classList.toggle("hide-block", true);
-        packageDetails.classList.toggle("hide-block", true);
+        packageRow.classList.add("hide-block");
+        packageDetails.classList.add("hide-block");
         const icon = document.querySelector(
           `#${packageRow.id} .material-icons`
         );
@@ -233,7 +233,7 @@ function applyTypeFilter(selectedValue) {
         (ecosystemElement.classList.contains("project-type") &&
           !selectedProject)
       ) {
-        vuln.classList.toggle("hide-block", true);
+        vuln.classList.add("hide-block");
       }
     });
   });
@@ -247,7 +247,7 @@ function applyLayerFilter(selectedLayerID) {
       const packageDetails = document.getElementById(`${row.id}-details`);
       const vulnElements = packageDetails.querySelectorAll(".vuln-tr");
       vulnElements.forEach(vuln => {
-        vuln.classList.toggle("hide-block", true);
+        vuln.classList.add("hide-block");
       });
     }
   });
