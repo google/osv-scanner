@@ -46,10 +46,21 @@ If you want to check for known vulnerabilities only in dependencies in your SBOM
 osv-scanner scan source --sbom=/path/to/your/sbom.spdx.json
 ```
 
-[SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported. The format is
-auto-detected based on the input file contents and the file name.
+[SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported.
 
-When scanning a directory, only SBOMs following the specification filename will be scanned. See the specs for [SPDX Filenames] and [CycloneDX Filenames].
+To identify the correct SBOM format, the file name must follow the SBOM specifications for each format:
+
+- [SPDX Filenames]:
+  - `*.spdx.json`
+  - `*.spdx`
+  - `*.spdx.yml`
+  - `*.spdx.rdf`
+  - `*.spdx.rdf.xml`
+- [CycloneDX Filenames]:
+  - `bom.json`
+  - `*.cdx.json`
+  - `bom.xml`
+  - `*.cdx.xml`
 
 [SPDX]: https://spdx.dev/
 [SPDX Filenames]: https://spdx.github.io/spdx-spec/v2.3/conformance/
