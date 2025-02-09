@@ -167,28 +167,26 @@ function showAndHideParentSections() {
         vulnRows.forEach(vulnRow => {
           if (!vulnRow.classList.contains("hide-block")) {
             packageHasVisibleRows = true;
-            return;
           }
         });
         if (packageHasVisibleRows) {
           sourceHasVisibleRows = true;
           packageRow.classList.toggle("hide-block", false);
           return;
-        } else {
-          packageRow.classList.toggle("hide-block", true);
-          packageDetails.classList.toggle("hide-block", true);
-          const icon = document.querySelector(
-            `#${packageRow.id} .material-icons`
-          );
-          icon.classList.remove("expanded"); // Rotate back to 0 degrees
         }
+
+        packageRow.classList.toggle("hide-block", true);
+        packageDetails.classList.toggle("hide-block", true);
+        const icon = document.querySelector(
+          `#${packageRow.id} .material-icons`
+        );
+        icon.classList.remove("expanded"); // Rotate back to 0 degrees
       });
 
       sourceContainer.classList.toggle("hide-block", !sourceHasVisibleRows);
 
       if (sourceHasVisibleRows) {
         ecosystemHasVisibleSources = true;
-        return;
       }
     });
 
