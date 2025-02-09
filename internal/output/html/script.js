@@ -335,7 +335,7 @@ function resetFilterText() {
 
 function resetSearchText() {
   const vulnSearchInput = document.getElementById("vuln-search");
-  if (vulnSearchInput.value != "") {
+  if (vulnSearchInput.value !== "") {
     vulnSearchInput.value = "";
     showAllVulns();
   }
@@ -377,8 +377,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const uncalledCheckbox = document.getElementById("uncalled-type-checkbox"); // OS vulnerabilities
     selectedTypeFilterValue.clear();
 
-    if (allTypesCheckbox != null) {
-      if (changedElement == allTypesCheckbox) {
+    if (allTypesCheckbox !== null) {
+      if (changedElement === allTypesCheckbox) {
         osCheckbox.checked = allTypesCheckbox.checked;
         projectCheckbox.checked = allTypesCheckbox.checked;
         if (allTypesCheckbox.checked === true) {
