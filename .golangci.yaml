@@ -33,6 +33,12 @@ linters:
     - unused
 
 linters-settings:
+  forbidigo:
+    forbid:
+      - p: ^testing.T.Skip
+        pkg: ^testing$
+        msg: "go-snaps needs to know the test has been skipped, so use `testutility.Skip` instead"
+    analyze-types: true
   govet:
     settings:
       printf:
