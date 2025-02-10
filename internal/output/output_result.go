@@ -93,7 +93,7 @@ type LayerInfo struct {
 	Count         VulnCount
 }
 
-// VulnSummary represents the count of each vulnerability type at the top level
+// VulnTypeSummary represents the count of each vulnerability type at the top level
 // of the scanning results.
 type VulnTypeSummary struct {
 	All     int
