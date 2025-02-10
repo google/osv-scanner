@@ -50,7 +50,9 @@ func TestExtractor_Extract(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-			extr := gitrepo.Extractor{}
+			extr := gitrepo.Extractor{
+				IncludeRootGit: true,
+			}
 			parent := filepath.Dir(tt.InputConfig.Path)
 			err := os.Rename(path.Join(parent, "git-hidden"), path.Join(parent, ".git"))
 			if err != nil {
