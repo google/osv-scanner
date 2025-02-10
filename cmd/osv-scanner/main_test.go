@@ -244,14 +244,8 @@ func TestRun(t *testing.T) {
 			args: []string{"", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
-		// output with json
 		{
-			name: "json output 1",
-			args: []string{"", "--json", "./fixtures/locks-many/composer.lock"},
-			exit: 0,
-		},
-		{
-			name: "json output 2",
+			name: "json output",
 			args: []string{"", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
@@ -633,11 +627,6 @@ func TestRun_LocalDatabases(t *testing.T) {
 		},
 		{
 			name: "output with json",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--json", "./fixtures/locks-many/composer.lock"},
-			exit: 0,
-		},
-		{
-			name: "output with json",
 			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
@@ -811,9 +800,11 @@ func TestRun_Docker(t *testing.T) {
 			t.Parallel()
 
 			// Only test on linux, and mac/windows CI/CD does not come with docker preinstalled
-			if runtime.GOOS == "linux" {
-				testCli(t, tt)
+			if runtime.GOOS != "linux" {
+				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
 			}
+
+			testCli(t, tt)
 		})
 	}
 }

@@ -30,8 +30,6 @@ The preceding command will find lockfiles, SBOMs, and git directories in your ta
 
 The recursive flag `-r` or `--recursive` will tell the scanner to search all subdirectories in addition to the specified directory. It can find additional lockfiles, dependencies, and vulnerabilities. If your project has deeply nested subdirectories, a recursive search may take a long time.
 
-Git directories are searched for the latest commit hash. Searching for git commit hash is intended to work with projects that use git submodules or a similar mechanism where dependencies are checked out as real git repositories.
-
 ## Ignored files
 
 By default, OSV-Scanner will not scan files that are ignored by `.gitignore` files. All recursively scanned files are matched to a git repository (if it exists) and any matching `.gitignore` files within that repository are taken into account.
@@ -48,10 +46,21 @@ If you want to check for known vulnerabilities only in dependencies in your SBOM
 osv-scanner scan source --sbom=/path/to/your/sbom.spdx.json
 ```
 
-[SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported. The format is
-auto-detected based on the input file contents and the file name.
+[SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported.
 
-When scanning a directory, only SBOMs following the specification filename will be scanned. See the specs for [SPDX Filenames] and [CycloneDX Filenames].
+To identify the correct SBOM format, the file name must follow the SBOM specifications for each format:
+
+- [SPDX Filenames]:
+  - `*.spdx.json`
+  - `*.spdx`
+  - `*.spdx.yml`
+  - `*.spdx.rdf`
+  - `*.spdx.rdf.xml`
+- [CycloneDX Filenames]:
+  - `bom.json`
+  - `*.cdx.json`
+  - `bom.xml`
+  - `*.cdx.xml`
 
 [SPDX]: https://spdx.dev/
 [SPDX Filenames]: https://spdx.github.io/spdx-spec/v2.3/conformance/
@@ -86,6 +95,8 @@ osv-scanner scan source --lockfile ':/path/to/my:projects/package-lock.json'
 ## Git Repository Scanning
 
 OSV-Scanner will automatically scan git submodules and vendored directories for C/C++ code and try to attribute them to specific dependencies and versions. See [C/C++ Scanning](<supported_languages_and_lockfiles#C/C++ scanning>) for more details.
+
+By default, root git directories (i.e. git repositories that are not a submodule of a bigger git repo) are skipped. You can include those repositories by setting the `--include-git-root` flag.
 
 ## Scanning with call analysis
 

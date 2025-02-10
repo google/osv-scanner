@@ -484,7 +484,7 @@ func getVulnList(vulnMap map[string]VulnResult) []VulnResult {
 
 	// Sort projectResults to ensure consistent output
 	slices.SortFunc(vulnList, func(a, b VulnResult) int {
-		return cmp.Compare(a.ID, b.ID)
+		return identifiers.IDSortFunc(a.ID, b.ID)
 	})
 
 	return vulnList
