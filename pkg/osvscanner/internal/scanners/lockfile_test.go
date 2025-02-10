@@ -11,9 +11,11 @@ func TestLockfileScalibrMappingExists(t *testing.T) {
 	for _, target := range lockfileExtractors {
 		found := false
 		for _, val := range lockfileExtractorMapping {
-			if target.Name() == val {
-				found = true
-				break
+			for _, name := range val {
+				if target.Name() == name {
+					found = true
+					break
+				}
 			}
 		}
 

@@ -16,33 +16,32 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
-var lockfileExtractorMapping = map[string]string{
-	"pubspec.lock":      "dart/pubspec",
-	"pnpm-lock.yaml":    "javascript/pnpmlock",
-	"yarn.lock":         "javascript/yarnlock",
-	"package-lock.json": "javascript/packagelockjson",
-	// Use the transitive extractor by default.
-	"pom.xml":                     "java/pomxmlnet",
-	"buildscript-gradle.lockfile": "java/gradlelockfile",
-	"gradle.lockfile":             "java/gradlelockfile",
-	"verification-metadata.xml":   "java/gradleverificationmetadataxml",
-	"poetry.lock":                 "python/poetrylock",
-	"Pipfile.lock":                "python/Pipfilelock",
-	"pdm.lock":                    "python/pdmlock",
-	"requirements.txt":            "python/requirements",
-	"uv.lock":                     "python/uvlock",
-	"Cargo.lock":                  "rust/Cargolock",
-	"composer.lock":               "php/composerlock",
-	"mix.lock":                    "erlang/mixlock",
-	"renv.lock":                   "r/renvlock",
-	"deps.json":                   "dotnet/depsjson",
-	"packages.lock.json":          "dotnet/packageslockjson",
-	"conan.lock":                  "cpp/conanlock",
-	"go.mod":                      "go/gomod",
-	"bun.lock":                    "javascript/bunlock",
-	"Gemfile.lock":                "ruby/gemfilelock",
-	"cabal.project.freeze":        "haskell/cabal",
-	"stack.yaml.lock":             "haskell/stacklock",
+var lockfileExtractorMapping = map[string][]string{
+	"pubspec.lock":                {"dart/pubspec"},
+	"pnpm-lock.yaml":              {"javascript/pnpmlock"},
+	"yarn.lock":                   {"javascript/yarnlock"},
+	"package-lock.json":           {"javascript/packagelockjson"},
+	"pom.xml":                     {"java/pomxmlnet", "java/pomxml"},
+	"buildscript-gradle.lockfile": {"java/gradlelockfile"},
+	"gradle.lockfile":             {"java/gradlelockfile"},
+	"verification-metadata.xml":   {"java/gradleverificationmetadataxml"},
+	"poetry.lock":                 {"python/poetrylock"},
+	"Pipfile.lock":                {"python/Pipfilelock"},
+	"pdm.lock":                    {"python/pdmlock"},
+	"requirements.txt":            {"python/requirements"},
+	"uv.lock":                     {"python/uvlock"},
+	"Cargo.lock":                  {"rust/Cargolock"},
+	"composer.lock":               {"php/composerlock"},
+	"mix.lock":                    {"erlang/mixlock"},
+	"renv.lock":                   {"r/renvlock"},
+	"deps.json":                   {"dotnet/depsjson"},
+	"packages.lock.json":          {"dotnet/packageslockjson"},
+	"conan.lock":                  {"cpp/conanlock"},
+	"go.mod":                      {"go/gomod"},
+	"bun.lock":                    {"javascript/bunlock"},
+	"Gemfile.lock":                {"ruby/gemfilelock"},
+	"cabal.project.freeze":        {"haskell/cabal"},
+	"stack.yaml.lock":             {"haskell/stacklock"},
 	// "Package.resolved":            "swift/packageresolved",
 }
 
@@ -102,13 +101,16 @@ func ScanSingleFileWithMapping(r reporter.Reporter, scanPath string, extractorsT
 		inventories, err = scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 	default: // A specific parseAs without a special case is selected
 		// Find and extract with the extractor of parseAs
-		if name, ok := lockfileExtractorMapping[parseAs]; ok {
-			for _, ext := range extractorsToUse {
-				if name == ext.Name() {
-					inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, ext)
-					break
+		if names, ok := lockfileExtractorMapping[parseAs]; ok {
+			for _, name := range names {
+				for _, ext := range extractorsToUse {
+					if name == ext.Name() {
+						inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, ext)
+						break
+					}
 				}
 			}
+
 		} else {
 			return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
 		}
