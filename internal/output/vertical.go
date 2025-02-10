@@ -3,6 +3,7 @@ package output
 import (
 	"fmt"
 	"io"
+	"strconv"
 	"strings"
 	"unicode"
 
@@ -38,9 +39,14 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 }
 
 func printSummary(result Result, out io.Writer) {
+	packageForm := Form(result.PackageTypeCount.Regular, "package", "packages")
+	vulnerabilityForm := Form(result.VulnTypeSummary.All, "vulnerability", "vulnerabilities")
+	fixedVulnForm := Form(result.VulnCount.FixableCount.Fixed, "vulnerability", "vulnerabilities")
+	ecosystemForm := Form(len(result.Ecosystems), "ecosystem", "ecosystems")
+
 	summary := fmt.Sprintf(
-		"Total %[1]d packages affected by %[2]d vulnerabilities (%[3]s, %[4]s, %[5]s, %[6]s, %[7]s) from %[8]s.\n"+
-			"%[9]d vulnerabilities have fixes available.\n",
+		"Total %[1]d %[10]s affected by %[2]d known %[11]s (%[3]s, %[4]s, %[5]s, %[6]s, %[7]s) from %[8]s.\n"+
+			"%[9]d %[12]s can be fixed.\n",
 		result.PackageTypeCount.Regular,
 		result.VulnTypeSummary.All,
 		text.FgRed.Sprintf("%d Critical", result.VulnCount.SeverityCount.Critical),
@@ -48,8 +54,12 @@ func printSummary(result Result, out io.Writer) {
 		text.FgYellow.Sprintf("%d Medium", result.VulnCount.SeverityCount.Medium),
 		text.FgHiCyan.Sprintf("%d Low", result.VulnCount.SeverityCount.Low),
 		text.FgCyan.Sprintf("%d Unknown", result.VulnCount.SeverityCount.Unknown),
-		text.FgGreen.Sprintf("%d ecosystems", len(result.Ecosystems)),
+		text.FgGreen.Sprintf("%d %s", len(result.Ecosystems), ecosystemForm),
 		result.VulnCount.FixableCount.Fixed,
+
+		packageForm,
+		vulnerabilityForm,
+		fixedVulnForm,
 	)
 	fmt.Fprintln(out, summary)
 }
@@ -57,6 +67,8 @@ func printSummary(result Result, out io.Writer) {
 func printBaseImages(imageResult ImageInfo, out io.Writer) {
 	fmt.Fprintf(out, "Container image information:\n")
 	fmt.Fprintf(out, "  OS version: %s\n", text.FgGreen.Sprintf("%s", imageResult.OS))
+	// Calculate the number of digits in the largest layer index
+	maxDigits := len(strconv.Itoa(len(imageResult.AllLayers) - 1))
 	for _, baseImage := range imageResult.AllBaseImages {
 		baseImageString := text.FgYellow.Sprintf("Base Image %d (%s)", baseImage.Index, getBaseImageName(baseImage))
 		if baseImage.Index == 0 {
@@ -66,7 +78,13 @@ func printBaseImages(imageResult ImageInfo, out io.Writer) {
 		for _, layer := range baseImage.AllLayers {
 			layerCommand := formatLayerCommand(layer.LayerMetadata.Command)[0]
 			layerCommand = truncate(layerCommand, 100)
-			fmt.Fprintf(out, "    %s %s", text.FgCyan.Sprintf("Layer %d", layer.Index), text.Italic.Sprintf("%s", layerCommand))
+			fmt.Fprintf(out, "    %s", text.FgCyan.Sprintf("Layer %d", layer.Index))
+
+			// Add spaces for alignment
+			padding := strings.Repeat(" ", maxDigits-len(strconv.Itoa(layer.Index)))
+			fmt.Fprintf(out, "%s", padding)
+
+			fmt.Fprintf(out, "%s", text.Italic.Sprintf(" %s", layerCommand))
 			if layer.Count.AnalysisCount.Regular > 0 {
 				fmt.Fprintf(out, " %s\n", text.FgRed.Sprintf("(%d vulns)", layer.Count.AnalysisCount.Regular))
 			} else {
@@ -89,15 +107,20 @@ func printVerticalHeader(result SourceResult, out io.Writer) {
 
 func printVerticalPackageContainerInfo(pkg PackageResult, out io.Writer) {
 	baseImageName := getBaseImageName(pkg.LayerDetail.BaseImageInfo)
-	fmt.Fprintf(out, "    Layer introduced in: %s", text.FgCyan.Sprintf("# %d Layer", pkg.LayerDetail.LayerIndex))
+	fmt.Fprintf(out, "    introduced in %s", text.FgCyan.Sprintf("# %d Layer", pkg.LayerDetail.LayerIndex))
 	if baseImageName != "" {
 		fmt.Fprintf(out, "%s", text.FgCyan.Sprintf(" (%s)", baseImageName))
 	}
 	fmt.Fprintln(out)
 }
 
-func printVerticalVulnerabilitiesCountSummary(count int, state string, sourcePath string, out io.Writer) {
-	fmt.Fprintf(out, "\n  %s\n",
+func printVerticalVulnerabilitiesCountSummary(count int, printingCalled bool, sourcePath string, out io.Writer) {
+	state := "known"
+	if !printingCalled {
+		state = "uncalled/unimportant"
+	}
+
+	fmt.Fprintf(out, "\n  %s",
 		text.FgRed.Sprintf(
 			"%d %s %s found in %s",
 			count,
@@ -106,6 +129,13 @@ func printVerticalVulnerabilitiesCountSummary(count int, state string, sourcePat
 			sourcePath,
 		),
 	)
+
+	if !printingCalled {
+		fmt.Fprintf(out, "%s",
+			text.FgRed.Sprint(" (filtered out)"))
+	}
+
+	fmt.Fprintln(out)
 }
 
 func printVerticalVulnerabilitiesForPackages(packages []PackageResult, out io.Writer, printingCalled bool, isContainerScanning bool) {
@@ -163,14 +193,14 @@ func printVerticalVulnerabilities(sourceResult SourceResult, isContainerScanning
 		fmt.Fprintln(out)
 
 		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, true, isContainerScanning)
-		printVerticalVulnerabilitiesCountSummary(countCalled, "known", sourceResult.Name, out)
+		printVerticalVulnerabilitiesCountSummary(countCalled, true, sourceResult.Name, out)
 	}
 
 	if countUncalled > 0 {
 		fmt.Fprintln(out)
 
 		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, false, isContainerScanning)
-		printVerticalVulnerabilitiesCountSummary(countUncalled, "uncalled/unimportant", sourceResult.Name, out)
+		printVerticalVulnerabilitiesCountSummary(countUncalled, false, sourceResult.Name, out)
 	}
 }
 

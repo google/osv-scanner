@@ -4,7 +4,6 @@ import (
 	"cmp"
 	"encoding/json"
 	"io"
-	"regexp"
 	"slices"
 	"sort"
 	"strings"
@@ -726,8 +725,7 @@ func formatLayerCommand(command string) []string {
 
 // cleanupSpaces uses a regular expression to replace multiple spaces with a single space.
 func cleanupSpaces(s string) string {
-
-	re := regexp.MustCompile(`\s+`)
+	re := cachedregexp.MustCompile(`\s+`)
 	s = re.ReplaceAllString(s, " ")
 	s = strings.TrimSpace(s)
 
