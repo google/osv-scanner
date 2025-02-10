@@ -10,6 +10,7 @@ import (
 	"math/rand/v2"
 	"net/http"
 	"slices"
+	"strings"
 	"time"
 
 	"github.com/google/go-cmp/cmp"
@@ -182,7 +183,13 @@ func (matcher *DepsDevBaseImageMatcher) queryBaseImagesForChainID(ctx context.Co
 	// TODO(v2): Temporary heuristic for what is more popular
 	// Ideally this is done by deps.dev before release
 	slices.SortFunc(baseImagePossibilities, func(a, b models.BaseImageDetails) int {
-		return len(a.Name) - len(b.Name)
+		lengthDiff := len(a.Name) - len(b.Name)
+		if lengthDiff != 0 {
+			return lengthDiff
+		}
+
+		// Apply deterministic ordering to same length base images
+		return strings.Compare(a.Name, b.Name)
 	})
 
 	return baseImagePossibilities, nil
