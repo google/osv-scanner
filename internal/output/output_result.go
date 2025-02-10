@@ -57,9 +57,10 @@ type PackageResult struct {
 
 // VulnResult represents a single vulnerability.
 type VulnResult struct {
-	ID               string
-	GroupIDs         []string
-	Aliases          []string
+	ID       string
+	GroupIDs []string
+	Aliases  []string
+	// Description is either the Vulnerability.Summary (default) or the Vulnerability.Details.
 	Description      string
 	IsFixable        bool
 	FixedVersion     string
