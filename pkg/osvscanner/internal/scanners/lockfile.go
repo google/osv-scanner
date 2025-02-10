@@ -110,7 +110,6 @@ func ScanSingleFileWithMapping(r reporter.Reporter, scanPath string, extractorsT
 					}
 				}
 			}
-
 		} else {
 			return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
 		}
