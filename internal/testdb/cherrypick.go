@@ -5,12 +5,15 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/binary"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
+
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // a struct to hold the result from each request including an index
@@ -22,10 +25,10 @@ type result struct {
 }
 
 // fetchOSVs fetches the OSV data for the given IDs from the OSV API
-func fetchOSVs(ids []string) (map[string][]byte, error) {
+func fetchOSVs(ids []string) (map[string]result, error) {
 	conLimit := 200
 
-	osvs := make(map[string][]byte, len(ids))
+	osvs := make(map[string]result, len(ids))
 
 	if len(ids) == 0 {
 		return osvs, nil
@@ -70,7 +73,7 @@ func fetchOSVs(ids []string) (map[string][]byte, error) {
 
 	for {
 		result := <-resultsChan
-		osvs[result.id] = result.res
+		osvs[result.id] = *result
 
 		if result.err != nil {
 			errs = append(errs, result.err)
@@ -110,11 +113,87 @@ func fetchOSV(id string) ([]byte, error) {
 	return data, err
 }
 
+// fetchOSVsAndRelated fetches the OSV data for the given ids from the OSV API,
+// along with any related advisories mentioned in the "related" and "aliases"
+// fields of each advisory.
+func fetchOSVsAndRelated(ids []string) (map[string][]byte, error) {
+	initial, err := fetchOSVs(ids)
+
+	// if any of the initial OSVs failed to fetch, return the error since they were
+	// explicitly requested and so assumingly are expected to test specific cases
+	//
+	// (this is different from the related advisories which are fetched implicitly)
+	if err != nil {
+		return nil, err
+	}
+
+	// (might as well assume there's at least one alias per OSV)
+	extraIDs := make([]string, 0, len(initial))
+
+	// a map that holds all the OSVs we've fetched, keyed by their id
+	all := make(map[string][]byte, len(initial))
+
+	for _, r := range initial {
+		var vulnerability osvschema.Vulnerability
+
+		if err := json.Unmarshal(r.res, &vulnerability); err != nil {
+			return nil, fmt.Errorf("could not unmarshal JSON data: %w", err)
+		}
+
+		// add the advisory to our results
+		all[r.id] = r.res
+
+		// for each alias, add it to the list of extra IDs to fetch if we haven't already
+		for _, id := range vulnerability.Aliases {
+			// if we've already got this OSV, skip it
+			if _, ok := all[id]; ok {
+				continue
+			}
+
+			extraIDs = append(extraIDs, id)
+		}
+
+		for _, id := range vulnerability.Related {
+			// if we've already got this OSV, skip it
+			if _, ok := all[id]; ok {
+				continue
+			}
+
+			extraIDs = append(extraIDs, id)
+		}
+	}
+
+	// fetch the related OSVs and add them to the results
+	related, _ := fetchOSVs(extraIDs)
+
+	for id, data := range related {
+		// a few OVSs have related advisories that don't exist in the osv.dev database
+		// typically because their source doesn't have a complete entry in their database
+		//
+		// e.g. CGA-758j-cqx5-pjx9 has GHSA-vf3q-65gx-324p as an alias, which exists
+		// but does not have an ecosystem or package data because the GH advisory
+		// database does not yet support the Chainguard ecosystem
+		//
+		// because of this, we just skip any errors here given these OSVs have not
+		// been explicitly requested to be fetched for our tests
+		//
+		// todo: we should check that we've gotten a 404 specifically
+		if data.err != nil {
+			// fmt.Printf("error fetching %s: %v\n", id, data.err)
+			continue
+		}
+
+		all[id] = data.res
+	}
+
+	return all, nil
+}
+
 func buildCherryPickedZipDB(advisories []string) ([]byte, error) {
 	buf := new(bytes.Buffer)
 	writer := zip.NewWriter(buf)
 
-	results, err := fetchOSVs(advisories)
+	results, err := fetchOSVsAndRelated(advisories)
 
 	if err != nil {
 		return nil, err
