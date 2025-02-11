@@ -732,6 +732,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/CVE-2023-6129       | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2023-6237       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-0727       | 5.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2024-12797      |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-13176      |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-2511       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-4603       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2209,6 +2210,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2023-6129       | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2023-6237       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-0727       | 5.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2024-12797      |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-13176      |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-2511       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-4603       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2419,6 +2421,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2023-6129       | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2023-6237       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-0727       | 5.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2024-12797      |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-13176      |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-2511       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-4603       |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3014,8 +3017,8 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 Scanning local image tarball "../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 12 packages affected by 16 vulnerabilities (1 Critical, 5 High, 9 Medium, 0 Low, 1 Unknown) from 2 ecosystems.
-15 vulnerabilities have fixes available.
+Total 12 packages affected by 17 vulnerabilities (1 Critical, 5 High, 9 Medium, 0 Low, 2 Unknown) from 2 ecosystems.
+16 vulnerabilities have fixes available.
 
 Maven
 +-----------------------------------------------------------------------------------------------------------------------------------------+
@@ -3041,7 +3044,7 @@ Alpine:v3.21
 | PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE   |
 +----------+-------------------+---------------+------------+------------------+-----------------+
 | libtasn1 | 4.19.0-r2         | Fix Available |          1 | # 5 Layer        | eclipse-temurin |
-| openssl  | 3.3.2-r4          | Fix Available |          1 | # 0 Layer        | alpine          |
+| openssl  | 3.3.2-r4          | Fix Available |          2 | # 0 Layer        | alpine          |
 +----------+-------------------+---------------+------------+------------------+-----------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -3262,8 +3265,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 10 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystems.
-10 vulnerabilities have fixes available.
+Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
+11 vulnerabilities have fixes available.
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3272,7 +3275,7 @@ Alpine:v3.19
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          7 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -3289,8 +3292,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 4 packages affected by 13 vulnerabilities (2 Critical, 0 High, 5 Medium, 0 Low, 6 Unknown) from 2 ecosystems.
-12 vulnerabilities have fixes available.
+Total 4 packages affected by 14 vulnerabilities (2 Critical, 0 High, 5 Medium, 0 Low, 7 Unknown) from 2 ecosystems.
+13 vulnerabilities have fixes available.
 
 npm
 +-------------------------------------------------------------------------------------------------+
@@ -3308,7 +3311,7 @@ Alpine:v3.19
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          7 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -3325,8 +3328,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 10 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystems.
-10 vulnerabilities have fixes available.
+Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
+11 vulnerabilities have fixes available.
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3335,7 +3338,7 @@ Alpine:v3.19
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          7 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -3352,8 +3355,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 10 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystems.
-10 vulnerabilities have fixes available.
+Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
+11 vulnerabilities have fixes available.
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3362,7 +3365,7 @@ Alpine:v3.19
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          7 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -3379,8 +3382,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 10 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystems.
-10 vulnerabilities have fixes available.
+Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
+11 vulnerabilities have fixes available.
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3389,7 +3392,7 @@ Alpine:v3.19
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          7 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -3406,8 +3409,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 10 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystems.
-10 vulnerabilities have fixes available.
+Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
+11 vulnerabilities have fixes available.
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3416,7 +3419,7 @@ Alpine:v3.19
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | busybox | 1.36.1-r15        | Fix Available |          4 | # 0 Layer        | alpine        |
-| openssl | 3.1.4-r5          | Fix Available |          6 | # 0 Layer        | alpine        |
+| openssl | 3.1.4-r5          | Fix Available |          7 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
