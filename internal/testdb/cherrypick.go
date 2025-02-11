@@ -277,6 +277,8 @@ func NewZipDBCherryPickServer(ecosystems map[string][]string) *httptest.Server {
 		w.Header().Add("x-goog-hash", "crc32c="+base64.StdEncoding.EncodeToString(binary.BigEndian.AppendUint32([]byte{}, hash)))
 
 		_, _ = w.Write(b)
+
+		fmt.Printf("(test server) serving %s database\n", eco)
 	}))
 
 	return ts
