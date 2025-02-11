@@ -106,6 +106,9 @@ func ScanSingleFileWithMapping(r reporter.Reporter, scanPath string, extractorsT
 			i := slices.IndexFunc(extractorsToUse, func(ext filesystem.Extractor) bool {
 				return slices.Contains(names, ext.Name())
 			})
+			if i < 0 {
+				return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
+			}
 			inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, extractorsToUse[i])
 		} else {
 			return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
