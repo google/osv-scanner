@@ -2,6 +2,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"errors"
 	"os"
@@ -23,14 +24,33 @@ type cliTestCase struct {
 	exit int
 }
 
+// Only apply file path normalization to lines greater than 250
+func normalizeFilePathsOnOutput(t *testing.T, output string) string {
+	t.Helper()
+
+	builder := strings.Builder{}
+	scanner := bufio.NewScanner(strings.NewReader(output))
+	for scanner.Scan() {
+		text := scanner.Text()
+		if len(text) <= 250 {
+		}
+
+		builder.WriteString(text)
+		builder.WriteString("\n")
+	}
+
+	return builder.String()
+
+}
+
 // Attempts to normalize any file paths in the given `output` so that they can
 // be compared reliably regardless of the file path separator being used.
 //
 // Namely, escaped forward slashes are replaced with backslashes.
 func normalizeFilePaths(t *testing.T, output string) string {
 	t.Helper()
+	return strings.ReplaceAll(strings.ReplaceAll(output, "\\\\", "/"), "\\", "/")
 
-	return strings.ReplaceAll(output, "\\\\", "/")
 }
 
 // normalizeRootDirectory attempts to replace references to the current working
@@ -121,7 +141,7 @@ func normalizeStdStream(t *testing.T, std *bytes.Buffer) string {
 	str := std.String()
 
 	for _, normalizer := range []func(t *testing.T, str string) string{
-		normalizeFilePaths,
+		normalizeFilePathsOnOutput,
 		normalizeRootDirectory,
 		normalizeTempDirectory,
 		normalizeUserCacheDirectory,

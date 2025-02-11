@@ -828,6 +828,7 @@ Filtered 9 local/unscannable package/s from the scan.
 Scanning dir ./fixtures/locks-many/package-lock.json
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 ::error file=fixtures/locks-many/package-lock.json::fixtures/locks-many/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
+
 ---
 
 [TestRun/ignores_without_reason_should_be_explicitly_called_out - 1]
