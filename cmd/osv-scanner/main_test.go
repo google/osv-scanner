@@ -2,6 +2,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"errors"
 	"os"
@@ -24,6 +25,27 @@ type cliTestCase struct {
 
 	// replaceRules are only used for JSON output
 	replaceRules []testutility.JSONReplaceRule
+}
+
+// Only apply file path normalization to lines greater than 250
+func normalizeFilePathsOnOutput(t *testing.T, output string) string {
+	t.Helper()
+
+	builder := strings.Builder{}
+	scanner := bufio.NewScanner(strings.NewReader(output))
+	for scanner.Scan() {
+		text := scanner.Text()
+		if len(text) <= 250 {
+			text = normalizeFilePaths(t, text)
+		}
+
+		// Always replace \\ because it could be in a long SARIF/JSON output
+		text = strings.ReplaceAll(text, "\\\\", "/")
+		builder.WriteString(text)
+		builder.WriteString("\n")
+	}
+
+	return builder.String()
 }
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -91,7 +113,7 @@ func normalizeTempDirectory(t *testing.T, str string) string {
 
 	//nolint:gocritic // ensure that the directory doesn't end with a trailing slash
 	tempDir := normalizeFilePaths(t, filepath.Join(os.TempDir()))
-	re := cachedregexp.MustCompile(regexp.QuoteMeta(filepath.Join(tempDir, `osv-scanner-test-`)) + `\d+`)
+	re := cachedregexp.MustCompile(regexp.QuoteMeta(tempDir+`/osv-scanner-test-`) + `\d+`)
 
 	return re.ReplaceAllString(str, "<tempdir>")
 }
@@ -124,7 +146,7 @@ func normalizeStdStream(t *testing.T, std *bytes.Buffer) string {
 	str := std.String()
 
 	for _, normalizer := range []func(t *testing.T, str string) string{
-		normalizeFilePaths,
+		normalizeFilePathsOnOutput,
 		normalizeRootDirectory,
 		normalizeTempDirectory,
 		normalizeUserCacheDirectory,
