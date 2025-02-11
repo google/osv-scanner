@@ -33,6 +33,7 @@ func normalizeFilePathsOnOutput(t *testing.T, output string) string {
 	for scanner.Scan() {
 		text := scanner.Text()
 		if len(text) <= 250 {
+			text = normalizeFilePaths(t, text)
 		}
 
 		builder.WriteString(text)
@@ -40,7 +41,6 @@ func normalizeFilePathsOnOutput(t *testing.T, output string) string {
 	}
 
 	return builder.String()
-
 }
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -50,7 +50,6 @@ func normalizeFilePathsOnOutput(t *testing.T, output string) string {
 func normalizeFilePaths(t *testing.T, output string) string {
 	t.Helper()
 	return strings.ReplaceAll(strings.ReplaceAll(output, "\\\\", "/"), "\\", "/")
-
 }
 
 // normalizeRootDirectory attempts to replace references to the current working
