@@ -88,7 +88,7 @@ func normalizeTempDirectory(t *testing.T, str string) string {
 
 	//nolint:gocritic // ensure that the directory doesn't end with a trailing slash
 	tempDir := normalizeFilePaths(t, filepath.Join(os.TempDir()))
-	re := cachedregexp.MustCompile(tempDir + `/osv-scanner-test-\d+`)
+	re := cachedregexp.MustCompile(regexp.QuoteMeta(filepath.Join(tempDir, `osv-scanner-test-`)) + `\d+`)
 
 	return re.ReplaceAllString(str, "<tempdir>")
 }
