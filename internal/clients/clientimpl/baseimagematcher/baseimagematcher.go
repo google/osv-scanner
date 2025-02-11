@@ -28,7 +28,9 @@ const (
 	DigestSHA256EmptyTar = digest.Digest("sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef")
 )
 
-// OSVMatcher implements the VulnerabilityMatcher interface with a osv.dev client.
+// DepsDevBaseImageMatcher is an implementation of clientinterfaces.BaseImageMatcher
+// that uses the deps.dev API to match base images.
+//
 // It sends out requests for every package version and does not perform caching.
 type DepsDevBaseImageMatcher struct {
 	HTTPClient http.Client

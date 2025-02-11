@@ -42,8 +42,7 @@ func subgraphEdges(sg *resolution.DependencySubgraph, direct resolve.NodeID) []r
 	return edges
 }
 
-// for each unique vulnerable node, construct the graph from that node to each connected direct dependency,
-// choosing only the shortest path
+// FindChainGraphs constructs a graph of the shortest paths from each direct dependency to each unique vulnerable node
 func FindChainGraphs(subgraphs []*resolution.DependencySubgraph) []ChainGraph {
 	// Construct the ChainGraphs
 	ret := make([]ChainGraph, 0, len(subgraphs))

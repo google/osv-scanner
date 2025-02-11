@@ -13,9 +13,7 @@ COPY ./java-fixture/app .
 # Download dependencies with maven
 RUN mvn clean package
 
-FROM alpine:3.21@sha256:56fa17d2a7e7f168a043a2712e63aed1f8543aeafdcee47c58dcffe38ed51099
-
-RUN apk update && apk add openjdk21-jre
+FROM eclipse-temurin:21-jre-alpine-3.21@sha256:7832115c38e9359db1156f94f9228fdf1341388f17dbd9df6c45727d233d1f5f
 
 WORKDIR /app
 
