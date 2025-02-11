@@ -12,6 +12,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"strings"
+	"sync"
 
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
@@ -23,6 +24,9 @@ type result struct {
 	res []byte
 	err error
 }
+
+// var cache = make(map[string]*result)
+var cache = sync.Map{}
 
 // fetchOSVs fetches the OSV data for the given IDs from the OSV API
 func fetchOSVs(ids []string) (map[string]result, error) {
@@ -52,11 +56,15 @@ func fetchOSVs(ids []string) (map[string]result, error) {
 			// freeing up a slot to unblock this send
 			semaphoreChan <- struct{}{}
 
-			// capture both the osv data and any error that occurred
-			osv, err := fetchOSV(id)
-			result := &result{id, osv, err}
+			if _, ok := cache.Load(id); !ok {
+				osv, err := fetchOSV(id)
 
-			resultsChan <- result
+				cache.Store(id, &result{id, osv, err})
+			}
+
+			r, _ := cache.Load(id)
+
+			resultsChan <- r.(*result)
 
 			// read from the buffered semaphore to free up a slot to allow
 			// another goroutine to start, since this one is wrapping up
