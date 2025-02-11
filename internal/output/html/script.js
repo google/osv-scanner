@@ -2,8 +2,8 @@ const selectedTypeFilterValue = new Set(["all"]);
 let selectedLayer = "all";
 
 function quickFilterByLayer(DiffID, layerCommand) {
-  resetFilterText();
-  applyFilters(selectedTypeFilterValue, DiffID);
+  selectedLayer = DiffID;
+  applyFilters(selectedTypeFilterValue, selectedLayer);
   const selectedDisplay = document.getElementById("layer-filter-selected");
   selectedDisplay.textContent = layerCommand;
 }
@@ -162,7 +162,11 @@ function showAndHideParentSections() {
           `${packageRow.id}-details`
         );
         const vulnRows = packageDetails.querySelectorAll(".vuln-tr");
-        if (vulnRows.some(row => !row.classList.contains("hide-block"))) {
+        if (
+          Array.from(vulnRows).some(
+            row => !row.classList.contains("hide-block")
+          )
+        ) {
           sourceHasVisibleRows = true;
           packageRow.classList.remove("hide-block");
           return;

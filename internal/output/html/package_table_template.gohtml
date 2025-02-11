@@ -29,6 +29,7 @@
     </td>
     <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>{{ $element.Name }}</td>
     <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>{{ $element.InstalledVersion }}</td>
+    {{ if ne $element.VulnCount.AnalysisCount.Regular 0 }}
     <td>
       <div class="tooltip no-underline">
       {{ if ne $element.VulnCount.FixableCount.UnFixed 0 }}
@@ -47,12 +48,19 @@
       </div>
     </td>
     <td>
-      {{ if ne $element.VulnCount.AnalysisCount.Regular 0 }}
       {{ template "severity_summary_template.gohtml" $element.VulnCount.SeverityCount }}
-      {{ else }}
-      <p class="uncalled-text">{{ getFilteredVulnReasons $element.HiddenVulns }}</p>
-      {{ end }}
     </td>
+    {{ else }}
+    <td>
+      <p class="fixable-tag no-fix">Filtered out</p>
+    </td>
+    <td>
+      <p class="uncalled-text">{{ getFilteredVulnReasons $element.HiddenVulns }}</p>
+    </td>
+    {{ end }}
+
+
+
   </tr>
   <tr class="table-tr-details">
     <td colspan="100%">
@@ -75,19 +83,19 @@
         {{ end }}
         <div class="layer-command-container">
           {{ if $longCommand }}
-          <p class="package-detail-title">Introduced in layer #{{ $index }}:&nbsp;</p>
+          <p class="package-detail-title">Introduced in layer # {{ $index }}:&nbsp;</p>
           <div class="tooltip">
             <p class="layer-command">{{ $command }}</p>
             <span class="tooltiptext layer-tooltiptext">{{ $originalCommand }}</span>
           </div>
           {{ else if ne $commandDetail "" }}
-          <p class="package-detail-title">Introduced in layer #{{ $index }}:&nbsp;</p>
+          <p class="package-detail-title">Introduced in layer # {{ $index }}:&nbsp;</p>
           <div class="tooltip">
             <p class="layer-command">{{ $command }}</p>
             <span class="tooltiptext layer-tooltiptext">{{ $commandDetail }}</span>
           </div>
           {{ else }}
-          <p class="package-detail-title">Introduced in layer #{{ $index }}:&nbsp;</p>
+          <p class="package-detail-title">Introduced in layer # {{ $index }}:&nbsp;</p>
           <p class="layer-command">{{ $command }}</p>
           {{ end }}
         </div>
