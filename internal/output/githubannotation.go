@@ -53,6 +53,8 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 			artifactPath = source.Source.Path
 		}
 
+		artifactPath = filepath.ToSlash(artifactPath)
+
 		remediationTable := createSourceRemediationTable(source, groupFixedVersions)
 
 		renderedTable := remediationTable.Render()
