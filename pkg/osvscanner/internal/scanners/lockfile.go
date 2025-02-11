@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -101,15 +102,11 @@ func ScanSingleFileWithMapping(r reporter.Reporter, scanPath string, extractorsT
 		inventories, err = scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 	default: // A specific parseAs without a special case is selected
 		// Find and extract with the extractor of parseAs
-		if names, ok := lockfileExtractorMapping[parseAs]; ok {
-			for _, name := range names {
-				for _, ext := range extractorsToUse {
-					if name == ext.Name() {
-						inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, ext)
-						break
-					}
-				}
-			}
+		if names, ok := lockfileExtractorMapping[parseAs]; ok && len(names) > 0 {
+			i := slices.IndexFunc(extractorsToUse, func(ext filesystem.Extractor) bool {
+				return slices.Contains(names, ext.Name())
+			})
+			inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, extractorsToUse[i])
 		} else {
 			return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
 		}
