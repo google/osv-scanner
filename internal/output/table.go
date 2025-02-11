@@ -7,11 +7,10 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"golang.org/x/exp/maps"
 
-	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"github.com/google/osv-scanner/v2/pkg/models"
 
 	"github.com/jedib0t/go-pretty/v6/table"
@@ -35,7 +34,7 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		printContainerScanningResult(outputResult, outputWriter, terminalWidth)
 	} else {
 		outputTable := newTable(outputWriter, terminalWidth)
-		outputTable = tableBuilder(outputTable, vulnResult)
+		outputTable = tableBuilder(outputTable, outputResult)
 		if outputTable.Length() != 0 {
 			outputTable.Render()
 		}
@@ -67,14 +66,14 @@ func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
 	return outputTable
 }
 
-func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
+func tableBuilder(outputTable table.Writer, result Result) table.Writer {
 	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
-	rows := tableBuilderInner(vulnResult, true, false)
+	rows := tableBuilderInner(result, VulnTypeRegular)
 	for _, elem := range rows {
 		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
 	}
 
-	uncalledRows := tableBuilderInner(vulnResult, false, false)
+	uncalledRows := tableBuilderInner(result, VulnTypeUncalled)
 	if len(uncalledRows) != 0 {
 		outputTable.AppendSeparator()
 		outputTable.AppendRow(table.Row{"Uncalled vulnerabilities"})
@@ -85,7 +84,7 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 		}
 	}
 
-	unimportantRows := tableBuilderInner(vulnResult, true, true)
+	unimportantRows := tableBuilderInner(result, VulnTypeUnimportant)
 	if len(unimportantRows) != 0 {
 		outputTable.AppendSeparator()
 		outputTable.AppendRow(table.Row{"Unimportant vulnerabilities"})
@@ -195,58 +194,62 @@ type tbInnerResponse struct {
 	shouldMerge bool
 }
 
-func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool, unimportantVulns bool) []tbInnerResponse {
+func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInnerResponse {
 	allOutputRows := []tbInnerResponse{}
-	workingDir := mustGetWorkingDirectory()
+	// workingDir := mustGetWorkingDirectory()
 
-	for _, sourceRes := range vulnResult.Results {
-		for _, pkg := range sourceRes.Packages {
-			source := sourceRes.Source
-			sourcePath, err := filepath.Rel(workingDir, source.Path)
-			if err == nil { // Simplify the path if possible
-				source.Path = sourcePath
-			}
+	for _, ecosystem := range result.Ecosystems {
+		for _, source := range ecosystem.Sources {
+			for _, pkg := range source.Packages {
+				var everything []VulnResult
 
-			// Merge groups into the same row
-			for _, group := range pkg.Groups {
-				if !(group.IsCalled() == calledVulns && group.IsGroupUnimportant() == unimportantVulns) {
-					continue
-				}
+				everything = append(everything, pkg.RegularVulns...)
+				everything = append(everything, pkg.HiddenVulns...)
 
-				outputRow := table.Row{}
-				shouldMerge := false
+				for _, vuln := range everything {
+					outputRow := table.Row{}
+					shouldMerge := false
 
-				var links []string
+					var links []string
 
-				for _, vuln := range group.IDs {
-					links = append(links, OSVBaseVulnerabilityURL+text.Bold.Sprintf("%s", vuln))
-
-					// For container scanning results, if there is a DSA, then skip printing its sub-CVEs.
-					if strings.Split(vuln, "-")[0] == "DSA" {
-						break
+					if vuln.VulnAnalysisType != vulnAnalysisType {
+						continue
 					}
-				}
 
-				outputRow = append(outputRow, strings.Join(links, "\n"))
-				outputRow = append(outputRow, group.MaxSeverity)
+					for _, id := range vuln.GroupIDs {
+						links = append(links, OSVBaseVulnerabilityURL+text.Bold.Sprintf("%s", id))
 
-				if pkg.Package.Ecosystem == "" && pkg.Package.Commit != "" {
-					pkgCommitStr := results.PkgToString(pkg.Package)
-					outputRow = append(outputRow, "GIT", pkgCommitStr, pkgCommitStr)
-					shouldMerge = true
-				} else {
-					name := pkg.Package.Name
-					if lockfile.Ecosystem(pkg.Package.Ecosystem).IsDevGroup(pkg.DepGroups) {
+						// For container scanning results, if there is a DSA, then skip printing its sub-CVEs.
+						if strings.Split(id, "-")[0] == "DSA" {
+							break
+						}
+					}
+
+					outputRow = append(outputRow, strings.Join(links, "\n"))
+
+					// todo: this is just to make the snapshots pass without change
+					if vuln.SeverityScore == "N/A" {
+						outputRow = append(outputRow, "")
+					} else {
+						outputRow = append(outputRow, vuln.SeverityScore)
+					}
+
+					outputRow = append(outputRow, ecosystem.Name)
+
+					name := pkg.Name
+
+					if lockfile.Ecosystem(ecosystem.Name).IsDevGroup(pkg.DepGroups) {
 						name += " (dev)"
 					}
-					outputRow = append(outputRow, pkg.Package.Ecosystem, name, pkg.Package.Version)
-				}
+					outputRow = append(outputRow, name)
+					outputRow = append(outputRow, pkg.InstalledVersion)
+					outputRow = append(outputRow, pkg.Path)
 
-				outputRow = append(outputRow, source.Path)
-				allOutputRows = append(allOutputRows, tbInnerResponse{
-					row:         outputRow,
-					shouldMerge: shouldMerge,
-				})
+					allOutputRows = append(allOutputRows, tbInnerResponse{
+						row:         outputRow,
+						shouldMerge: shouldMerge,
+					})
+				}
 			}
 		}
 	}

@@ -53,6 +53,8 @@ type PackageResult struct {
 	HiddenVulns      []VulnResult
 	LayerDetail      PackageContainerInfo
 	VulnCount        VulnCount
+	Path             string   `json:"-"`
+	DepGroups        []string `json:"-"`
 }
 
 // VulnResult represents a single vulnerability.
@@ -347,7 +349,7 @@ func processSource(packageSource models.PackageSource) SourceResult {
 			continue // Skip processing this vulnPkg as it was already added
 		}
 
-		packageResult := processPackage(vulnPkg)
+		packageResult := processPackage(vulnPkg, packageSource.Source.Path)
 		if vulnPkg.Package.ImageOrigin != nil {
 			packageResult.LayerDetail = PackageContainerInfo{
 				LayerIndex: vulnPkg.Package.ImageOrigin.Index,
@@ -389,7 +391,7 @@ func processSource(packageSource models.PackageSource) SourceResult {
 // This function processes the vulnerability groups, updates vulnerability details,
 // and constructs the final output result for the package, including details about
 // called and uncalled vulnerabilities, fixable counts, and layer information (if available).
-func processPackage(vulnPkg models.PackageVulns) PackageResult {
+func processPackage(vulnPkg models.PackageVulns, path string) PackageResult {
 	regularVulnMap, hiddenVulnMap := processVulnGroups(vulnPkg)
 	updateVuln(regularVulnMap, vulnPkg)
 	updateVuln(hiddenVulnMap, vulnPkg)
@@ -409,6 +411,8 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 		RegularVulns:     regularVulnList,
 		HiddenVulns:      hiddenVulnList,
 		VulnCount:        count,
+		DepGroups:        vulnPkg.DepGroups,
+		Path:             path,
 	}
 
 	return packageResult
