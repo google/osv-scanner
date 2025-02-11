@@ -908,7 +908,7 @@ func TestRun_OCIImage(t *testing.T) {
 func TestRun_OCIImageAllPackagesJSON(t *testing.T) {
 	t.Parallel()
 
-	// testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
+	testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
 
 	tests := []cliTestCase{
 		{
@@ -933,16 +933,6 @@ func TestRun_OCIImageAllPackagesJSON(t *testing.T) {
 				testutility.ShortenHistoryCommandLength,
 			},
 		},
-		// {
-		// 	name: "scanning image with go binary",
-		// 	args: []string{"", "scan", "image", "--archive", "--format=json", "../../internal/image/fixtures/test-package-tracing.tar"},
-		// 	exit: 1,
-		// 	replaceRules: []testutility.JSONReplaceRule{
-		// 		testutility.GroupsAsArrayLen,
-		// 		testutility.OnlyIDVulnsRule,
-		// 		testutility.OnlyFirstBaseImage,
-		// 	},
-		// },
 		{
 			name: "scanning image with go binary",
 			args: []string{"", "scan", "image", "--archive", "--experimental-all-packages", "--format=json", "../../internal/image/fixtures/test-go-binary.tar"},
