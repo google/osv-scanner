@@ -30,7 +30,7 @@ type cliTestCase struct {
 func normalizeFilePaths(t *testing.T, output string) string {
 	t.Helper()
 
-	return strings.ReplaceAll(strings.ReplaceAll(output, "\\\\", "/"), "\\", "/")
+	return strings.ReplaceAll(output, "\\\\", "/")
 }
 
 // normalizeRootDirectory attempts to replace references to the current working
