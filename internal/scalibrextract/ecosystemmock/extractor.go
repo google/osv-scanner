@@ -1,4 +1,4 @@
-// ecosystemmock extractor just returns the passed in Ecosystem string from Ecosystem()
+// Package ecosystemmock provides an extractor that just returns the passed in Ecosystem string from Ecosystem()
 // This is useful when manually creating an inventory so that inv.Ecosystem() returns the ecosystem you want
 package ecosystemmock
 

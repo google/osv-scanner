@@ -93,7 +93,7 @@ type LayerInfo struct {
 	Count         VulnCount
 }
 
-// VulnSummary represents the count of each vulnerability type at the top level
+// VulnTypeSummary represents the count of each vulnerability type at the top level
 // of the scanning results.
 type VulnTypeSummary struct {
 	All     int
@@ -479,7 +479,7 @@ func getVulnList(vulnMap map[string]VulnResult) []VulnResult {
 
 	// Sort projectResults to ensure consistent output
 	slices.SortFunc(vulnList, func(a, b VulnResult) int {
-		return cmp.Compare(a.ID, b.ID)
+		return identifiers.IDSortFunc(a.ID, b.ID)
 	})
 
 	return vulnList

@@ -8,7 +8,7 @@ import (
 	"github.com/jedib0t/go-pretty/v6/text"
 )
 
-// PrintTableResults prints the osv scan results into a human friendly table.
+// PrintMarkdownTableResults prints the osv scan results into a human friendly table.
 func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
 	text.DisableColors()
 

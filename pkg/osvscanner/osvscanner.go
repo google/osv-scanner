@@ -173,7 +173,7 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 	return externalAccessors, nil
 }
 
-// Perform osv scanner action, with optional reporter to output information
+// DoScan performs the osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityResults, error) {
 	if r == nil {
 		r = &reporter.VoidReporter{}

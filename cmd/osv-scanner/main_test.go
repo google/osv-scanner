@@ -800,9 +800,11 @@ func TestRun_Docker(t *testing.T) {
 			t.Parallel()
 
 			// Only test on linux, and mac/windows CI/CD does not come with docker preinstalled
-			if runtime.GOOS == "linux" {
-				testCli(t, tt)
+			if runtime.GOOS != "linux" {
+				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
 			}
+
+			testCli(t, tt)
 		})
 	}
 }

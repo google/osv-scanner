@@ -10,7 +10,7 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-// HTML templates directory
+// TemplateDir is the directory containing the HTML templates
 const TemplateDir = "html/*"
 
 //go:embed html/*

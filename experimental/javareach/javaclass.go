@@ -10,7 +10,7 @@ import (
 )
 
 var (
-	// From https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.3
+	// BinaryBaseTypes comes from https://docs.oracle.com/javase/specs/jvms/se7/html/jvms-4.html#jvms-4.3
 	BinaryBaseTypes = []string{
 		"B",
 		"C",
