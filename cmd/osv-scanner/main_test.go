@@ -36,6 +36,8 @@ func normalizeFilePathsOnOutput(t *testing.T, output string) string {
 			text = normalizeFilePaths(t, text)
 		}
 
+		// Always replace \\ because it could be in a long SARIF/JSON output
+		text = strings.ReplaceAll(text, "\\\\", "/")
 		builder.WriteString(text)
 		builder.WriteString("\n")
 	}
@@ -107,7 +109,7 @@ func normalizeTempDirectory(t *testing.T, str string) string {
 
 	//nolint:gocritic // ensure that the directory doesn't end with a trailing slash
 	tempDir := normalizeFilePaths(t, filepath.Join(os.TempDir()))
-	re := cachedregexp.MustCompile(regexp.QuoteMeta(filepath.Join(tempDir, `osv-scanner-test-`)) + `\d+`)
+	re := cachedregexp.MustCompile(regexp.QuoteMeta(tempDir+`/osv-scanner-test-`) + `\d+`)
 
 	return re.ReplaceAllString(str, "<tempdir>")
 }
