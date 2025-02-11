@@ -21,6 +21,9 @@ type cliTestCase struct {
 	name string
 	args []string
 	exit int
+
+	// replaceRules are only used for JSON output
+	replaceRules []testutility.JSONReplaceRule
 }
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -155,6 +158,14 @@ func testCli(t *testing.T, tc cliTestCase) {
 	stdout, stderr := runCli(t, tc)
 
 	testutility.NewSnapshot().MatchText(t, stdout)
+	testutility.NewSnapshot().MatchText(t, stderr)
+}
+
+func testCliJSONWithCustomRules(t *testing.T, tc cliTestCase) {
+	t.Helper()
+
+	stdout, stderr := runCli(t, tc)
+	testutility.NewSnapshot().MatchOSVScannerJSONOutput(t, stdout, tc.replaceRules...)
 	testutility.NewSnapshot().MatchText(t, stderr)
 }
 
@@ -890,6 +901,73 @@ func TestRun_OCIImage(t *testing.T) {
 			}
 
 			testCli(t, tt)
+		})
+	}
+}
+
+func TestRun_OCIImageAllPackagesJSON(t *testing.T) {
+	t.Parallel()
+
+	// testutility.SkipIfNotAcceptanceTesting(t, "Not consistent on MacOS/Windows")
+
+	tests := []cliTestCase{
+		{
+			name: "Scanning python image with some packages",
+			args: []string{"", "scan", "image", "--archive", "--format=json", "../../internal/image/fixtures/test-python-full.tar"},
+			exit: 1,
+			replaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.ShortenHistoryCommandLength,
+			},
+		},
+		{
+			name: "scanning node_modules using npm with some packages",
+			args: []string{"", "scan", "image", "--archive", "--format=json", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
+			exit: 1,
+			replaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.ShortenHistoryCommandLength,
+			},
+		},
+		// {
+		// 	name: "scanning image with go binary",
+		// 	args: []string{"", "scan", "image", "--archive", "--format=json", "../../internal/image/fixtures/test-package-tracing.tar"},
+		// 	exit: 1,
+		// 	replaceRules: []testutility.JSONReplaceRule{
+		// 		testutility.GroupsAsArrayLen,
+		// 		testutility.OnlyIDVulnsRule,
+		// 		testutility.OnlyFirstBaseImage,
+		// 	},
+		// },
+		{
+			name: "scanning image with go binary",
+			args: []string{"", "scan", "image", "--archive", "--experimental-all-packages", "--format=json", "../../internal/image/fixtures/test-go-binary.tar"},
+			exit: 1,
+			replaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			// point out that we need the images to be built and saved separately
+			for _, arg := range tt.args {
+				if strings.HasPrefix(arg, "../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
+					if _, err := os.Stat(arg); errors.Is(err, os.ErrNotExist) {
+						t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", arg)
+					}
+				}
+			}
+
+			testCliJSONWithCustomRules(t, tt)
 		})
 	}
 }
