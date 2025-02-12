@@ -27,5 +27,6 @@ func GetShortCommit(commit string) string {
 	if len(commit) > ShortCommitLen {
 		return commit[:ShortCommitLen]
 	}
+
 	return commit
 }
