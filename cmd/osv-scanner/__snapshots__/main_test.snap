@@ -1185,8 +1185,8 @@ Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 1 packages affected by 1 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystems.
-1 vulnerabilities have fixes available.
+Total 1 packages affected by 2 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystems.
+2 vulnerabilities have fixes available.
 
 Alpine:v3.18
 +---------------------------------------------------------------------------------------------+
@@ -1194,7 +1194,7 @@ Alpine:v3.18
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| openssl | 3.1.7-r0          | Fix Available |          1 | # 0 Layer        | alpine        |
+| openssl | 3.1.7-r0          | Fix Available |          2 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -2979,8 +2979,8 @@ No issues found
 Scanning local image tarball "../../internal/image/fixtures/test-alpine.tar"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 2 packages affected by 40 vulnerabilities (2 Critical, 17 High, 14 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
-40 vulnerabilities have fixes available.
+Total 2 packages affected by 41 vulnerabilities (2 Critical, 17 High, 14 Medium, 0 Low, 8 Unknown) from 1 ecosystems.
+41 vulnerabilities have fixes available.
 
 Alpine:v3.18
 +---------------------------------------------------------------------------------------------+
@@ -2988,7 +2988,7 @@ Alpine:v3.18
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| openssl | 1.1.1k-r0         | Fix Available |         38 | # 3 Layer        | --            |
+| openssl | 1.1.1k-r0         | Fix Available |         39 | # 3 Layer        | --            |
 | zlib    | 1.2.11-r1         | Fix Available |          2 | # 3 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
@@ -3196,8 +3196,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 7 packages affected by 46 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 46 Unknown) from 2 ecosystems.
-46 vulnerabilities have fixes available.
+Total 7 packages affected by 47 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 47 Unknown) from 2 ecosystems.
+47 vulnerabilities have fixes available.
 
 Go
 +---------------------------------------------------------------------------------------------+
@@ -3248,7 +3248,7 @@ Alpine:v3.20
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| openssl | 3.3.1-r0          | Fix Available |          4 | # 0 Layer        | alpine        |
+| openssl | 3.3.1-r0          | Fix Available |          5 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
