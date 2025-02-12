@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"log/slog"
 	"strings"
-
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 type Config map[string]Level
@@ -42,7 +40,7 @@ func (c Config) Get(pkg string) Level {
 	return c[""]
 }
 
-func ParseUpgradeConfig(specs []string, r reporter.Reporter) Config {
+func ParseUpgradeConfig(specs []string) Config {
 	config := NewConfig()
 
 	for _, spec := range specs {

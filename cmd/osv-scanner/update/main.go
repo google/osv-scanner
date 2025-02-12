@@ -77,7 +77,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	options := updateOptions{
 		Manifest:      ctx.String("manifest"),
 		IgnoreDev:     ctx.Bool("ignore-dev"),
-		UpgradeConfig: upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config"), r),
+		UpgradeConfig: upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config")),
 	}
 
 	if _, err := os.Stat(options.Manifest); errors.Is(err, os.ErrNotExist) {

@@ -14,12 +14,11 @@ import (
 	"github.com/google/osv-scanner/v2/internal/sourceanalysis/govulncheck"
 	"github.com/google/osv-scanner/v2/internal/url"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/vuln/scan"
 )
 
-func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
+func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 	cmd := exec.Command("go", "version")
 	_, err := cmd.Output()
 	if err != nil {

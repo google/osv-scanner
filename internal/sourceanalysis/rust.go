@@ -17,7 +17,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/thirdparty/ar"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ianlancetaylor/demangle"
 )
 
@@ -32,8 +31,8 @@ const (
 	RustLibExtension = ".rcgu.o/"
 )
 
-func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
-	binaryPaths, err := rustBuildSource(r, source)
+func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
+	binaryPaths, err := rustBuildSource(source)
 	if err != nil {
 		slog.Error(fmt.Sprintf("failed to build cargo/rust project from source: %s\n", err))
 		return
@@ -219,7 +218,7 @@ func extractRlibArchive(rlibPath string) (bytes.Buffer, error) {
 	return buf, nil
 }
 
-func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, error) {
+func rustBuildSource(source models.SourceInfo) ([]string, error) {
 	projectBaseDir := filepath.Dir(source.Path)
 
 	cmd := exec.Command("cargo", "build", "--workspace", "--all-targets", "--release")
