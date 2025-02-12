@@ -9,10 +9,10 @@ import (
 
 	"golang.org/x/exp/maps"
 
-	"github.com/google/osv-scanner/internal/utility/results"
-	"github.com/google/osv-scanner/internal/utility/severity"
-	"github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/utility/results"
+	"github.com/google/osv-scanner/v2/internal/utility/severity"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/pkg/models"
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
@@ -100,6 +100,9 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 }
 
 func printContainerScanningResult(result Result, outputWriter io.Writer, terminalWidth int) {
+	// Add a newline to separate results from logs.
+	fmt.Fprintln(outputWriter)
+	fmt.Fprintf(outputWriter, "Container Scanning Result (%s):\n", result.ImageInfo.OS)
 	summary := fmt.Sprintf(
 		"Total %[1]d packages affected by %[2]d vulnerabilities (%[3]d Critical, %[4]d High, %[5]d Medium, %[6]d Low, %[7]d Unknown) from %[8]d ecosystems.\n"+
 			"%[9]d vulnerabilities have fixes available.",
@@ -123,7 +126,7 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 		for _, source := range ecosystem.Sources {
 			outputTable := newTable(outputWriter, terminalWidth)
 			outputTable.SetTitle("Source:" + source.Name)
-			outputTable.AppendHeader(table.Row{"Package", "Installed Version", "Fix available", "Vuln count"})
+			outputTable.AppendHeader(table.Row{"Package", "Installed Version", "Fix Available", "Vuln Count", "Introduced Layer", "In Base Image"})
 			for _, pkg := range source.Packages {
 				if pkg.VulnCount.AnalysisCount.Regular == 0 {
 					continue
@@ -140,7 +143,14 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 						fixAvailable = "Fix Available"
 					}
 				}
-				outputRow = append(outputRow, pkg.Name, pkg.InstalledVersion, fixAvailable, totalCount)
+
+				layer := fmt.Sprintf("# %d Layer", pkg.LayerDetail.LayerIndex)
+
+				inBaseImage := "--"
+				if pkg.LayerDetail.BaseImageInfo.Index != 0 {
+					inBaseImage = getBaseImageName(pkg.LayerDetail.BaseImageInfo)
+				}
+				outputRow = append(outputRow, pkg.Name, pkg.InstalledVersion, fixAvailable, totalCount, layer, inBaseImage)
 				outputTable.AppendRow(outputRow)
 			}
 			outputTable.Render()
@@ -174,9 +184,9 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 	fmt.Fprintln(outputWriter)
 
 	const promptMessage = "For the most comprehensive scan results, we recommend using the HTML output: " +
-		"`osv-scanner --format html --output results.html`.\n" +
+		"`osv-scanner scan image --serve <image_name>`.\n" +
 		"You can also view the full vulnerability list in your terminal with: " +
-		"`osv-scanner --format vertical`."
+		"`osv-scanner scan image --format vertical <image_name>`."
 	fmt.Fprintln(outputWriter, promptMessage)
 }
 

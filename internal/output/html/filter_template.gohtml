@@ -9,17 +9,35 @@
           <i class="material-icons">keyboard_arrow_down</i>
         </div>
       </div>
-      <div id="layer-filter-option-container" class="filter-option-container">
-        <div title="all" class="filter-option layer-filter-option" id="all-layer-checkbox"
+      <div id="layer-filter-option-container" class="filter-option-container hide-block">
+        <div data-layer-hash="all" class="filter-option layer-filter-option" id="all-layer-checkbox"
           data-layer-all-count="{{ .VulnCount.AnalysisCount.Regular }}">
           <p>All layers ({{ .VulnCount.AnalysisCount.Regular }})</p>
           {{ template "severity_summary_template.gohtml" .VulnCount.SeverityCount }}
         </div>
-        {{ range .AllLayers }}
-        <div title="{{ .LayerID}}" class="filter-option layer-filter-option">
-          <p>{{ .Index }} {{ .LayerCommand }}</p>
+        {{ range .ImageInfo.AllLayers }}
+        {{ $index := .Index }}
+        {{ $originalCommand := .LayerMetadata.Command }}
+        {{ $commandSet := formatLayerCommand $originalCommand }}
+        {{ $command := index $commandSet 0 }}
+        {{ $commandDetail := index $commandSet 1 }}
+        {{ $diffID := .LayerMetadata.DiffID }}
+        {{ $longCommand := false }}
+        {{ if gt (len $command) 109 }}
+        {{ $longCommand = true }}
+        {{ end }}
+
+        {{ if gt .Count.AnalysisCount.Regular 0 }}
+        <div data-layer-hash="{{ $diffID }}" class="filter-option layer-filter-option">
+          <div {{ if $longCommand }} class="tooltip" {{ end }}>
+            <p class="layer-command">{{ $index }} {{ $command }}</p>
+            {{ if $longCommand }}
+            <span class="tooltiptext layer-tooltiptext">{{ $originalCommand }}</span>
+            {{ end }}
+          </div>
           {{ template "severity_summary_template.gohtml".Count.SeverityCount }}
         </div>
+        {{ end }}
         {{ end }}
       </div>
     </div>
@@ -36,28 +54,28 @@
           <i class="material-icons">keyboard_arrow_down</i>
         </div>
       </div>
-      <div id="type-filter-option-container" class="filter-option-container">
+      <div id="type-filter-option-container" class="filter-option-container hide-block">
         {{ if .IsContainerScanning }}
-        <div class="filter-option">
+        <label class="filter-option" for="all-type-checkbox">
           <input type="checkbox" checked id="all-type-checkbox" data-type-all-count="{{ .VulnTypeSummary.All }}">
-          <label for="all-type-checkbox">Default ({{ .VulnTypeSummary.All }})</label>
-        </div>
+          Default ({{ .VulnTypeSummary.All }})
+        </label>
         {{ end }}
-        <div class="filter-option">
+        <label class="filter-option" for="project-type-checkbox">
           <input type="checkbox" checked id="project-type-checkbox"
             data-type-project-count="{{ .VulnTypeSummary.Project }}">
-          <label for="project-type-checkbox"> Project Vulnerabilities ({{ .VulnTypeSummary.Project }})</label>
-        </div>
+          Project Vulnerabilities ({{ .VulnTypeSummary.Project }})
+        </label>
         {{ if .IsContainerScanning }}
-        <div class="filter-option">
+        <label class="filter-option" for="os-type-checkbox">
           <input type="checkbox" checked id="os-type-checkbox" data-type-os-count="{{ .VulnTypeSummary.OS }}">
-          <label for="os-type-checkbox"> Operating system vulnerabilities ({{ .VulnTypeSummary.OS }})</label>
-        </div>
+          Operating system vulnerabilities ({{ .VulnTypeSummary.OS }})
+        </label>
         {{ end }}
-        <div class="filter-option">
+        <label class="filter-option" for="uncalled-type-checkbox">
           <input type="checkbox" id="uncalled-type-checkbox" data-type-uncalled-count="{{ .VulnTypeSummary.Hidden }}">
-          <label for="uncalled-type-checkbox">Uncalled/Unimportant ({{ .VulnTypeSummary.Hidden }})</label>
-        </div>
+          Uncalled/Unimportant ({{ .VulnTypeSummary.Hidden }})
+        </label>
       </div>
     </div>
   </div>

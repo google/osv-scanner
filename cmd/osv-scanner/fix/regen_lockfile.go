@@ -4,7 +4,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"strings"
 )
 
 func regenerateLockfileCmd(opts osvFixOptions) (*exec.Cmd, error) {
@@ -19,12 +18,7 @@ func regenerateLockfileCmd(opts osvFixOptions) (*exec.Cmd, error) {
 	}
 	// TODO: need to also remove node_modules/ in workspace packages
 
-	cmd := opts.RelockCmd
-	if cmd == "" {
-		cmd = "npm install --package-lock-only"
-	}
-	cmdParts := strings.Split(cmd, " ")
-	c := exec.Command(cmdParts[0], cmdParts[1:]...) //nolint:gosec
+	c := exec.Command("npm", "install", "--package-lock-only")
 	c.Dir = dir
 
 	return c, nil

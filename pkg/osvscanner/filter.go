@@ -3,11 +3,12 @@ package osvscanner
 import (
 	"fmt"
 
-	"github.com/google/osv-scanner/internal/config"
-	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/imodels/results"
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/config"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/imodels/results"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // filterUnscannablePackages removes packages that don't have enough information to be scanned
@@ -19,8 +20,9 @@ func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanRes
 
 		switch {
 		// If none of the cases match, skip this package since it's not scannable
-		case !p.Ecosystem.IsEmpty() && p.Name != "" && p.Version != "":
-		case p.Commit != "":
+		case !p.Ecosystem().IsEmpty() && p.Name() != "" && p.Version() != "":
+		case p.Commit() != "":
+		case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown":
 		default:
 			continue
 		}
@@ -35,6 +37,28 @@ func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanRes
 	scanResults.PackageScanResults = packageResults
 }
 
+// filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
+func filterNonContainerRelevantPackages(r reporter.Reporter, scanResults *results.ScanResults) {
+	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+	for _, psr := range scanResults.PackageScanResults {
+		p := psr.PackageInfo
+
+		// Almost all packages with linux as a SourceName are kernel packages
+		// which does not apply within a container, as containers use the host's kernel
+		if p.Name() == "linux" {
+			continue
+		}
+
+		packageResults = append(packageResults, psr)
+	}
+
+	if len(packageResults) != len(scanResults.PackageScanResults) {
+		r.Infof("Filtered %d non container relevant package/s from the scan.\n", len(scanResults.PackageScanResults)-len(packageResults))
+	}
+
+	scanResults.PackageScanResults = packageResults
+}
+
 // filterIgnoredPackages removes ignore scanned packages according to config. Returns filtered scanned packages.
 func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults) {
 	configManager := &scanResults.ConfigManager
@@ -42,10 +66,10 @@ func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults
 	out := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		p := psr.PackageInfo
-		configToUse := configManager.Get(r, p.Location)
+		configToUse := configManager.Get(r, p.Location())
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(p); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem.String(), p.Name, p.Version)
+			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem().String(), p.Name(), p.Version())
 
 			reason := ignoreLine.Reason
 			if reason == "" {

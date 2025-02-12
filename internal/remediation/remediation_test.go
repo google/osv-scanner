@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/remediation"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestMatchVuln(t *testing.T) {
@@ -23,8 +23,30 @@ func TestMatchVuln(t *testing.T) {
 				Aliases: []string{"CVE-111", "OSV-2"},
 			},
 			DevOnly: false,
-			ProblemChains: []resolution.DependencyChain{{
-				Edges: []resolve.Edge{{From: 2, To: 3}, {From: 1, To: 2}, {From: 0, To: 1}},
+			Subgraphs: []*resolution.DependencySubgraph{{
+				Dependency: 3,
+				Nodes: map[resolve.NodeID]resolution.GraphNode{
+					3: {
+						Distance: 0,
+						Parents:  []resolve.Edge{{From: 2, To: 3}},
+						Children: []resolve.Edge{},
+					},
+					2: {
+						Distance: 1,
+						Parents:  []resolve.Edge{{From: 1, To: 2}},
+						Children: []resolve.Edge{{From: 2, To: 3}},
+					},
+					1: {
+						Distance: 2,
+						Parents:  []resolve.Edge{{From: 0, To: 1}},
+						Children: []resolve.Edge{{From: 1, To: 2}},
+					},
+					0: {
+						Distance: 3,
+						Parents:  []resolve.Edge{},
+						Children: []resolve.Edge{{From: 0, To: 1}},
+					},
+				},
 			}},
 		}
 		// ID: VULN-002, Dev: true, Severity: N/A, Depth: 2
@@ -34,11 +56,30 @@ func TestMatchVuln(t *testing.T) {
 				// No severity
 			},
 			DevOnly: true,
-			ProblemChains: []resolution.DependencyChain{{
-				Edges: []resolve.Edge{{From: 2, To: 3}, {From: 1, To: 2}, {From: 0, To: 1}},
-			}},
-			NonProblemChains: []resolution.DependencyChain{{
-				Edges: []resolve.Edge{{From: 1, To: 3}, {From: 0, To: 1}},
+			Subgraphs: []*resolution.DependencySubgraph{{
+				Dependency: 3,
+				Nodes: map[resolve.NodeID]resolution.GraphNode{
+					3: {
+						Distance: 0,
+						Parents:  []resolve.Edge{{From: 2, To: 3}, {From: 1, To: 3}},
+						Children: []resolve.Edge{},
+					},
+					2: {
+						Distance: 1,
+						Parents:  []resolve.Edge{{From: 1, To: 2}},
+						Children: []resolve.Edge{{From: 2, To: 3}},
+					},
+					1: {
+						Distance: 1,
+						Parents:  []resolve.Edge{{From: 0, To: 1}},
+						Children: []resolve.Edge{{From: 1, To: 2}, {From: 1, To: 3}},
+					},
+					0: {
+						Distance: 2,
+						Parents:  []resolve.Edge{},
+						Children: []resolve.Edge{{From: 0, To: 1}},
+					},
+				},
 			}},
 		}
 	)

@@ -8,11 +8,12 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/cachedregexp"
-	"github.com/google/osv-scanner/internal/identifiers"
-	"github.com/google/osv-scanner/internal/semantic"
-	"github.com/google/osv-scanner/internal/utility/severity"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
+	"github.com/google/osv-scanner/v2/internal/identifiers"
+	"github.com/google/osv-scanner/v2/internal/semantic"
+	"github.com/google/osv-scanner/v2/internal/utility/severity"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 // Result represents the vulnerability scanning results for output report.
@@ -20,7 +21,7 @@ type Result struct {
 	Ecosystems []EcosystemResult
 	// Container scanning related
 	IsContainerScanning bool
-	AllLayers           []LayerInfo
+	ImageInfo           ImageInfo
 	VulnTypeSummary     VulnTypeSummary
 	PackageTypeCount    AnalysisCount
 	VulnCount           VulnCount
@@ -45,11 +46,12 @@ type SourceResult struct {
 // PackageResult represents the vulnerability scanning results for a package.
 type PackageResult struct {
 	Name             string
+	OSPackageNames   []string
 	InstalledVersion string
 	FixedVersion     string
 	RegularVulns     []VulnResult
 	HiddenVulns      []VulnResult
-	LayerDetail      PackageLayerDetail
+	LayerDetail      PackageContainerInfo
 	VulnCount        VulnCount
 }
 
@@ -65,22 +67,33 @@ type VulnResult struct {
 	SeverityScore    string
 }
 
-// PackageLayerDetail represents detailed layer tracing information about a package.
-type PackageLayerDetail struct {
-	LayerCommand         string
-	LayerCommandDetailed string
-	LayerID              string
-	InBaseImage          bool
+type ImageInfo struct {
+	OS            string
+	AllLayers     []LayerInfo
+	AllBaseImages []BaseImageGroupInfo
+}
+
+// PackageContainerInfo represents detailed layer tracing information about a package.
+type PackageContainerInfo struct {
+	LayerIndex    int
+	LayerInfo     LayerInfo
+	BaseImageInfo BaseImageGroupInfo
+}
+
+type BaseImageGroupInfo struct {
+	Index         int
+	BaseImageInfo []models.BaseImageDetails
+	AllLayers     []LayerInfo
+	Count         VulnCount
 }
 
 type LayerInfo struct {
-	Index        int
-	LayerCommand string
-	LayerID      string
-	Count        VulnCount
+	Index         int
+	LayerMetadata models.LayerMetadata
+	Count         VulnCount
 }
 
-// VulnSummary represents the count of each vulnerability type at the top level
+// VulnTypeSummary represents the count of each vulnerability type at the top level
 // of the scanning results.
 type VulnTypeSummary struct {
 	All     int
@@ -151,13 +164,12 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 	var ecosystemMap = make(map[string][]SourceResult)
 	var resultCount VulnCount
 
+RowLoop:
 	for _, packageSource := range vulnResult.Results {
-		// Temporary workaround: it is a heuristic to ignore installed packages
-		// which are already covered by OS-specific vulnerabilities.
-		// This filtering should be handled by the container scanning process.
-		// TODO(gongh@): Revisit this once container scanning can distinguish these cases.
-		if strings.Contains(packageSource.Source.String(), "/usr/lib/") {
-			continue
+		for _, annotation := range packageSource.ExperimentalAnnotations {
+			if annotation == extractor.InsideOSPackage {
+				continue RowLoop
+			}
 		}
 
 		// Process vulnerabilities for each source
@@ -166,14 +178,15 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 		resultCount.Add(sourceResult.VulnCount)
 	}
 
-	// Build the final result
-	return buildResult(ecosystemMap, resultCount)
+	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata)
 }
 
 // buildResult builds the final Result object from the ecosystem map and total vulnerability count.
-func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount) Result {
+func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata) Result {
+	result := Result{}
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
+
 	for ecosystem, sources := range ecosystemMap {
 		ecosystemResult := EcosystemResult{
 			Name:    ecosystem,
@@ -201,42 +214,144 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount) 
 	// Add project results before OS results
 	ecosystemResults = append(ecosystemResults, osResults...)
 
-	isContainerScanning := false
-	layers := getAllLayerInfo(ecosystemResults)
-	if len(layers) > 0 {
-		isContainerScanning = true
-	}
 	vulnTypeSummary := getVulnTypeSummary(ecosystemResults)
 	packageTypeCount := getPackageTypeCount(ecosystemResults)
 
-	return Result{
-		Ecosystems:          ecosystemResults,
-		VulnTypeSummary:     vulnTypeSummary,
-		PackageTypeCount:    packageTypeCount,
-		VulnCount:           resultCount,
-		IsContainerScanning: isContainerScanning,
-		AllLayers:           layers,
+	result.Ecosystems = ecosystemResults
+	result.VulnTypeSummary = vulnTypeSummary
+	result.PackageTypeCount = packageTypeCount
+	result.VulnCount = resultCount
+
+	if imageMetadata != nil {
+		populateResultWithImageMetadata(&result, *imageMetadata)
 	}
+
+	return result
+}
+
+// populateResultWithImageMetadata modifies the result by adding image metadata to it.
+// It uses a pointer receiver (*Result) to modify the original result in place.
+func populateResultWithImageMetadata(result *Result, imageMetadata models.ImageMetadata) {
+	allLayers := buildLayers(imageMetadata.LayerMetadata)
+	allBaseImages := buildBaseImages(imageMetadata.BaseImages)
+
+	layerCount := make([]VulnCount, len(allLayers))
+	baseImageCount := make([]VulnCount, len(allBaseImages))
+
+	// Calculate total vulns for each layer and base image.
+	for _, ecosystem := range result.Ecosystems {
+		for _, source := range ecosystem.Sources {
+			for _, pkg := range source.Packages {
+				layerIndex := pkg.LayerDetail.LayerIndex
+				layerCount[layerIndex].Add(pkg.VulnCount)
+
+				baseImageIndex := allLayers[layerIndex].LayerMetadata.BaseImageIndex
+				baseImageCount[baseImageIndex].Add(pkg.VulnCount)
+			}
+		}
+	}
+
+	baseImageMap := make(map[int][]LayerInfo)
+
+	// Update vuln count for layers and base images
+	for i := range allLayers {
+		allLayers[i].Count = layerCount[i]
+		baseImageIndex := allLayers[i].LayerMetadata.BaseImageIndex
+		baseImageMap[baseImageIndex] = append(baseImageMap[baseImageIndex], allLayers[i])
+	}
+
+	for i := range allBaseImages {
+		allBaseImages[i].Count = baseImageCount[i]
+		slices.SortFunc(baseImageMap[i], func(a, b LayerInfo) int {
+			return cmp.Compare(a.Index, b.Index)
+		})
+		allBaseImages[i].AllLayers = baseImageMap[i]
+	}
+
+	// Fill up Layer info for each package
+	for i := range result.Ecosystems {
+		for j := range result.Ecosystems[i].Sources {
+			for k := range result.Ecosystems[i].Sources[j].Packages {
+				// Pointer to packageInfo to modify directly.
+				packageInfo := &result.Ecosystems[i].Sources[j].Packages[k]
+
+				layerIndex := packageInfo.LayerDetail.LayerIndex
+				packageInfo.LayerDetail.LayerInfo = allLayers[layerIndex]
+
+				baseImageIndex := allLayers[layerIndex].LayerMetadata.BaseImageIndex
+				packageInfo.LayerDetail.BaseImageInfo = allBaseImages[baseImageIndex]
+			}
+		}
+	}
+
+	// Display base images in a reverse order
+	slices.SortFunc(allBaseImages, func(a, b BaseImageGroupInfo) int {
+		return cmp.Compare(b.Index, a.Index)
+	})
+
+	result.ImageInfo = ImageInfo{
+		OS:            imageMetadata.OS,
+		AllLayers:     allLayers,
+		AllBaseImages: allBaseImages,
+	}
+
+	if len(allLayers) != 0 {
+		result.IsContainerScanning = true
+	}
+}
+
+func buildBaseImages(baseImages [][]models.BaseImageDetails) []BaseImageGroupInfo {
+	allBaseImages := make([]BaseImageGroupInfo, len(baseImages))
+	for i, baseImage := range baseImages {
+		allBaseImages[i] = BaseImageGroupInfo{
+			Index:         i,
+			BaseImageInfo: baseImage,
+		}
+	}
+
+	return allBaseImages
+}
+
+func buildLayers(layerMetadata []models.LayerMetadata) []LayerInfo {
+	allLayers := make([]LayerInfo, len(layerMetadata))
+	for i, layer := range layerMetadata {
+		allLayers[i] = LayerInfo{
+			Index:         i,
+			LayerMetadata: layer,
+		}
+	}
+
+	return allLayers
 }
 
 // processSource processes a single source (lockfile or artifact) and returns an SourceResult.
 func processSource(packageSource models.PackageSource) SourceResult {
 	var sourceResult SourceResult
-	packages := make([]PackageResult, 0)
-	packageSet := make(map[string]struct{})
+	// Handle potential duplicate source packages with different OS package names.
+	// This map ensures each package is processed only once,
+	// with subsequent occurrences only adding their OSPackageName to the list.
+	packageMap := make(map[string]PackageResult)
 
 	for _, vulnPkg := range packageSource.Packages {
 		sourceResult.Ecosystem = vulnPkg.Package.Ecosystem
+		// Use a unique identifier (package name + version) to deduplicate packages (same version),
+		// ensuring each is processed only once.
 		key := vulnPkg.Package.Name + ":" + vulnPkg.Package.Version
-		if _, exist := packageSet[key]; exist {
-			// In container scanning, the same package (same name and version) might be found multiple times
-			// within a single source. This happens because we use the upstream source name instead of
-			// the Linux distribution package name.
-			continue
+		if _, exist := packageMap[key]; exist {
+			pkgTemp := packageMap[key]
+			pkgTemp.OSPackageNames = append(pkgTemp.OSPackageNames, vulnPkg.Package.OSPackageName)
+			packageMap[key] = pkgTemp
+
+			continue // Skip processing this vulnPkg as it was already added
 		}
+
 		packageResult := processPackage(vulnPkg)
-		packages = append(packages, packageResult)
-		packageSet[key] = struct{}{}
+		if vulnPkg.Package.ImageOrigin != nil {
+			packageResult.LayerDetail = PackageContainerInfo{
+				LayerIndex: vulnPkg.Package.ImageOrigin.Index,
+			}
+		}
+		packageMap[key] = packageResult
 
 		sourceResult.VulnCount.Add(packageResult.VulnCount)
 		if len(packageResult.RegularVulns) != 0 {
@@ -247,6 +362,12 @@ func processSource(packageSource models.PackageSource) SourceResult {
 			sourceResult.PackageTypeCount.Hidden += 1
 		}
 	}
+
+	packages := make([]PackageResult, 0, len(packageMap))
+	for _, pkg := range packageMap {
+		packages = append(packages, pkg)
+	}
+
 	// Sort packageResults to ensure consistent output
 	slices.SortFunc(packages, func(a, b PackageResult) int {
 		return cmp.Or(
@@ -280,20 +401,12 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 
 	packageResult := PackageResult{
 		Name:             vulnPkg.Package.Name,
+		OSPackageNames:   []string{vulnPkg.Package.OSPackageName},
 		InstalledVersion: vulnPkg.Package.Version,
 		FixedVersion:     packageFixedVersion,
 		RegularVulns:     regularVulnList,
 		HiddenVulns:      hiddenVulnList,
 		VulnCount:        count,
-	}
-
-	if vulnPkg.Package.ImageOrigin != nil {
-		packageLayerDetail := PackageLayerDetail{
-			LayerID:     vulnPkg.Package.ImageOrigin.LayerID,
-			InBaseImage: vulnPkg.Package.ImageOrigin.InBaseImage,
-		}
-		packageLayerDetail.LayerCommand, packageLayerDetail.LayerCommandDetailed = formatLayerCommand(vulnPkg.Package.ImageOrigin.OriginCommand)
-		packageResult.LayerDetail = packageLayerDetail
 	}
 
 	return packageResult
@@ -314,11 +427,15 @@ func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[
 		slices.SortFunc(group.Aliases, identifiers.IDSortFunc)
 
 		representID := group.IDs[0]
+		aliases := group.Aliases
+		if len(group.Aliases) > 0 && group.Aliases[0] == representID {
+			aliases = aliases[1:]
+		}
 
 		vuln := VulnResult{
 			ID:       representID,
 			GroupIDs: group.IDs,
-			Aliases:  group.Aliases,
+			Aliases:  aliases,
 		}
 
 		vuln.SeverityScore = group.MaxSeverity
@@ -362,7 +479,7 @@ func getVulnList(vulnMap map[string]VulnResult) []VulnResult {
 
 	// Sort projectResults to ensure consistent output
 	slices.SortFunc(vulnList, func(a, b VulnResult) int {
-		return cmp.Compare(a.ID, b.ID)
+		return identifiers.IDSortFunc(a.ID, b.ID)
 	})
 
 	return vulnList
@@ -496,6 +613,14 @@ func getFilteredVulnReasons(vulns []VulnResult) string {
 	return strings.Join(reasons, ", ")
 }
 
+func getBaseImageName(baseImageInfo BaseImageGroupInfo) string {
+	if len(baseImageInfo.BaseImageInfo) > 0 {
+		return baseImageInfo.BaseImageInfo[0].Name
+	}
+
+	return ""
+}
+
 func increaseSeverityCount(severityCount SeverityCount, severityType severity.Rating) SeverityCount {
 	switch severityType {
 	case severity.CriticalRating:
@@ -521,44 +646,6 @@ func isOSEcosystem(ecosystem string) bool {
 	}
 
 	return false
-}
-
-func getAllLayerInfo(result []EcosystemResult) []LayerInfo {
-	layerMap := make(map[string]string)
-	layerCount := make(map[string]VulnCount)
-
-	for _, ecosystem := range result {
-		for _, source := range ecosystem.Sources {
-			for _, packageInfo := range source.Packages {
-				layerID := packageInfo.LayerDetail.LayerID
-				layerCommand := packageInfo.LayerDetail.LayerCommand
-
-				resultCount := layerCount[layerID] // Access the count, returns empty VulnCount if not found
-				resultCount.Add(packageInfo.VulnCount)
-				layerCount[layerID] = resultCount
-				layerMap[layerID] = layerCommand // Store the layer ID and command
-			}
-		}
-	}
-
-	// Convert the map to a slice of LayerInfo
-	layers := make([]LayerInfo, 0, len(layerMap))
-	i := 0
-	for layerID, layerCommand := range layerMap {
-		if layerCommand == "" {
-			continue
-		}
-		layers = append(layers, LayerInfo{
-			// TODO(gongh@): replace with the actual layer index
-			Index:        i,
-			LayerCommand: layerCommand,
-			LayerID:      layerID,
-			Count:        layerCount[layerID],
-		})
-		i++
-	}
-
-	return layers
 }
 
 func getVulnTypeSummary(result []EcosystemResult) VulnTypeSummary {
@@ -615,7 +702,7 @@ func calculateCount(regularVulnList, hiddenVulnList []VulnResult) VulnCount {
 
 // formatLayerCommand formats the layer command output for better readability.
 // It replaces the unreadable file ID with "UNKNOWN" and extracting the ID separately.
-func formatLayerCommand(command string) (string, string) {
+func formatLayerCommand(command string) []string {
 	re := cachedregexp.MustCompile(`(dir|file):([a-f0-9]+)`)
 	match := re.FindStringSubmatch(command)
 
@@ -624,8 +711,8 @@ func formatLayerCommand(command string) (string, string) {
 		hash := match[2]   // Capture the hash ID
 		newCommand := re.ReplaceAllString(command, prefix+":UNKNOWN")
 
-		return newCommand, "File ID: " + hash
+		return []string{newCommand, "File ID: " + hash}
 	}
 
-	return command, ""
+	return []string{command, ""}
 }

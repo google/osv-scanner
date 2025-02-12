@@ -7,11 +7,11 @@ import (
 	"os"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/ci"
-	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osvscanner"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/ci"
+	"github.com/google/osv-scanner/v2/internal/version"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/osvscanner"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/term"
 )
@@ -183,7 +183,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			// if vulnerability exists it should return error
 			if len(diffVulns.Results) > 0 && failOnVuln && anyIsCalled {
-				return osvscanner.VulnerabilitiesFoundErr
+				return osvscanner.ErrVulnerabilitiesFound
 			}
 
 			return nil
@@ -194,11 +194,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		if tableReporter == nil {
 			tableReporter = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 		}
-		if errors.Is(err, osvscanner.VulnerabilitiesFoundErr) {
+		if errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 			return 1
 		}
 
-		if errors.Is(err, osvscanner.NoPackagesFoundErr) {
+		if errors.Is(err, osvscanner.ErrNoPackagesFound) {
 			tableReporter.Errorf("No package sources found, --help for usage information.\n")
 			return 128
 		}

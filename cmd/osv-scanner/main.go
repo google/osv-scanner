@@ -6,13 +6,12 @@ import (
 	"os"
 	"slices"
 
-	"github.com/google/osv-scanner/cmd/osv-scanner/fix"
-	"github.com/google/osv-scanner/cmd/osv-scanner/scan"
-	"github.com/google/osv-scanner/cmd/osv-scanner/update"
-	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/osv"
-	"github.com/google/osv-scanner/pkg/osvscanner"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
+	"github.com/google/osv-scanner/v2/internal/version"
+	"github.com/google/osv-scanner/v2/pkg/osvscanner"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 
 	"github.com/urfave/cli/v2"
 )
@@ -30,8 +29,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 		r.Infof("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
 	}
 
-	osv.RequestUserAgent = "osv-scanner/" + version.OSVVersion
-
 	app := &cli.App{
 		Name:           "osv-scanner",
 		Version:        version.OSVVersion,
@@ -45,6 +42,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			fix.Command(stdout, stderr, &r),
 			update.Command(stdout, stderr, &r),
 		},
+		CustomAppHelpTemplate: getCustomHelpTemplate(),
 	}
 
 	// If ExitErrHandler is not set, cli will use the default cli.HandleExitCoder.
@@ -66,9 +64,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 			r = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
 		}
 		switch {
-		case errors.Is(err, osvscanner.VulnerabilitiesFoundErr):
+		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
-		case errors.Is(err, osvscanner.NoPackagesFoundErr):
+		case errors.Is(err, osvscanner.ErrNoPackagesFound):
 			r.Errorf("No package sources found, --help for usage information.\n")
 			return 128
 		case errors.Is(err, osvscanner.ErrAPIFailed):
@@ -85,6 +83,41 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	return 0
+}
+
+func getCustomHelpTemplate() string {
+	return `
+NAME:
+	{{.Name}} - {{.Usage}}
+
+USAGE:
+	{{.Name}} {{if .VisibleFlags}}[global options]{{end}}{{if .Commands}} command [command options]{{end}}
+
+EXAMPLES:
+	# Scan a source directory
+	$ {{.Name}} scan source -r <source_directory>
+
+	# Scan a container image
+	$ {{.Name}} scan image <image_name>
+
+	# Scan a local image archive (e.g. a tar file) and generate HTML output
+	$ {{.Name}} scan image --serve --archive <image_name.tar>
+
+	# Fix vulnerabilities in a manifest file and lockfile (non-interactive mode)
+	$ {{.Name}} fix --non-interactive -M <manifest_file> -L <lockfile>
+
+	For full usage details, please refer to the help command of each subcommand (e.g. {{.Name}} scan --help).
+
+VERSION:
+	{{.Version}}
+
+COMMANDS:
+{{range .Commands}}{{if and (not .HideHelp) (not .Hidden)}}  {{join .Names ", "}}{{ "\t"}}{{.Usage}}{{ "\n" }}{{end}}{{end}}
+{{if .VisibleFlags}}
+GLOBAL OPTIONS:
+	{{range .VisibleFlags}}  {{.}}{{end}}
+{{end}}
+`
 }
 
 // Gets all valid commands and global options for OSV-Scanner.
@@ -111,24 +144,62 @@ func getAllCommands(commands []*cli.Command) []string {
 	return allCommands
 }
 
+// warnIfCommandAmbiguous warns the user if the command they are trying to run
+// exists as both a subcommand and as a file on the filesystem.
+// If this is the case, the command is assumed to be a subcommand.
+func warnIfCommandAmbiguous(command, defaultCommand string, stdout, stderr io.Writer) {
+	if _, err := os.Stat(command); err == nil {
+		r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
+		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. "+
+			"`%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[2]s`, "+
+			"you must specify `%[2]s %[1]s` in your command line.\n", command, defaultCommand)
+	}
+}
+
 // Inserts the default command to args if no command is specified.
 func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand string, stdout, stderr io.Writer) []string {
+	// Do nothing if no command or file name is provided.
 	if len(args) < 2 {
 		return args
 	}
 
 	allCommands := getAllCommands(commands)
-	if !slices.Contains(allCommands, args[1]) {
+	command := args[1]
+	// If no command is provided, use the default command and subcommand.
+	if !slices.Contains(allCommands, command) {
 		// Avoids modifying args in-place, as some unit tests rely on its original value for multiple calls.
-		argsTmp := make([]string, len(args)+1)
-		copy(argsTmp[2:], args[1:])
+		argsTmp := make([]string, len(args)+2)
+		copy(argsTmp[3:], args[1:])
 		argsTmp[1] = defaultCommand
+		// Set the default subCommand of Scan
+		argsTmp[2] = scan.DefaultSubcommand
 
 		// Executes the cli app with the new args.
 		return argsTmp
-	} else if _, err := os.Stat(args[1]); err == nil {
-		r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
-		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[1]s`, you must specify `%[1]s %[1]s` in your command line.\n", args[1])
+	}
+
+	warnIfCommandAmbiguous(command, defaultCommand, stdout, stderr)
+
+	// If only the default command is provided without its subcommand, append the subcommand.
+	if command == defaultCommand {
+		if len(args) < 3 {
+			// Indicates that only "osv-scanner scan" was provided, without a subcommand or filename
+			return args
+		}
+
+		subcommand := args[2]
+		// Default to the "source" subcommand if none is provided.
+		if !slices.Contains(scan.Subcommands, subcommand) {
+			argsTmp := make([]string, len(args)+1)
+			copy(argsTmp[3:], args[2:])
+			argsTmp[1] = defaultCommand
+			argsTmp[2] = scan.DefaultSubcommand
+
+			return argsTmp
+		}
+
+		// Print a warning message if subcommand exist on the filesystem.
+		warnIfCommandAmbiguous(subcommand, scan.DefaultSubcommand, stdout, stderr)
 	}
 
 	return args

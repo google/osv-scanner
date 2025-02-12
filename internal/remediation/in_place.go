@@ -9,12 +9,14 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	lf "github.com/google/osv-scanner/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/internal/resolution/util"
-	"github.com/google/osv-scanner/internal/utility/vulns"
+	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	lf "github.com/google/osv-scanner/v2/internal/resolution/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/util"
+	"github.com/google/osv-scanner/v2/internal/utility/vulns"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"golang.org/x/exp/maps"
 )
 
@@ -105,7 +107,7 @@ func (r InPlaceResult) VulnCount() VulnCount {
 // ComputeInPlacePatches finds all possible targeting version changes that would fix vulnerabilities in a resolved graph.
 // TODO: Check for introduced vulnerabilities
 func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, graph *resolve.Graph, opts Options) (InPlaceResult, error) {
-	res, err := inPlaceVulnsNodes(cl, graph)
+	res, err := inPlaceVulnsNodes(ctx, cl, graph)
 	if err != nil {
 		return InPlaceResult{}, err
 	}
@@ -115,9 +117,10 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 	for vk, vulns := range res.vkVulns {
 		reqVers := make(map[string]struct{})
 		for _, vuln := range vulns {
-			for _, c := range vuln.ProblemChains {
-				_, req := c.End()
-				reqVers[req] = struct{}{}
+			for _, sg := range vuln.Subgraphs {
+				for _, e := range sg.Nodes[sg.Dependency].Parents {
+					reqVers[e.Requirement] = struct{}{}
+				}
 			}
 		}
 		set, err := buildConstraintSet(vk.Semver(), maps.Keys(reqVers))
@@ -235,11 +238,15 @@ type inPlaceVulnsNodesResult struct {
 	vkNodes          map[resolve.VersionKey][]resolve.NodeID
 }
 
-func inPlaceVulnsNodes(cl client.VulnerabilityClient, graph *resolve.Graph) (inPlaceVulnsNodesResult, error) {
-	nodeVulns, err := cl.FindVulns(graph)
+func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatcher, graph *resolve.Graph) (inPlaceVulnsNodesResult, error) {
+	nodeVulns, err := m.MatchVulnerabilities(ctx, client.GraphToInventory(graph))
 	if err != nil {
 		return inPlaceVulnsNodesResult{}, err
 	}
+
+	// GraphToInventory/MatchVulnerabilities excludes the root node of the graph.
+	// Prepend an element to nodeVulns so that the indices line up with graph.Nodes[i] <=> nodeVulns[i]
+	nodeVulns = append([][]*models.Vulnerability{nil}, nodeVulns...)
 
 	result := inPlaceVulnsNodesResult{
 		nodeDependencies: make(map[resolve.NodeID][]resolve.VersionKey),
@@ -262,24 +269,22 @@ func inPlaceVulnsNodes(cl client.VulnerabilityClient, graph *resolve.Graph) (inP
 			nodeIDs = append(nodeIDs, resolve.NodeID(nID))
 		}
 	}
-	nodeChains := resolution.ComputeChains(graph, nodeIDs)
-	// Computing ALL chains might be overkill...
-	// We only actually care about the shortest chain, the unique dependents of the vulnerable node, and maybe the unique direct dependencies.
+	nodeSubgraphs := resolution.ComputeSubgraphs(graph, nodeIDs)
 
 	for i, nID := range nodeIDs {
-		chains := nodeChains[i]
 		vk := graph.Nodes[nID].Version
 		result.vkNodes[vk] = append(result.vkNodes[vk], nID)
 		for _, vuln := range nodeVulns[nID] {
 			resVuln := resolution.Vulnerability{
-				OSV:           vuln,
-				ProblemChains: slices.Clone(chains),
-				DevOnly:       !slices.ContainsFunc(chains, func(dc resolution.DependencyChain) bool { return !resolution.ChainIsDev(dc, nil) }),
+				OSV:       *vuln,
+				Subgraphs: []*resolution.DependencySubgraph{nodeSubgraphs[i]},
+				DevOnly:   nodeSubgraphs[i].IsDevOnly(nil),
 			}
 			idx := slices.IndexFunc(result.vkVulns[vk], func(rv resolution.Vulnerability) bool { return rv.OSV.ID == resVuln.OSV.ID })
 			if idx >= 0 {
-				result.vkVulns[vk][idx].ProblemChains = append(result.vkVulns[vk][idx].ProblemChains, resVuln.ProblemChains...)
 				result.vkVulns[vk][idx].DevOnly = result.vkVulns[vk][idx].DevOnly && resVuln.DevOnly
+
+				result.vkVulns[vk][idx].Subgraphs = append(result.vkVulns[vk][idx].Subgraphs, resVuln.Subgraphs...)
 			} else {
 				result.vkVulns[vk] = append(result.vkVulns[vk], resVuln)
 			}
@@ -336,11 +341,13 @@ func dependenciesSatisfied(ctx context.Context, cl client.DependencyClient, vk r
 	}
 	// TODO: correctly handle other attrs e.g. npm peerDependencies
 
-	// remove the optional deps from the regular deps (because they show up in both) if they're not already installed
+	// remove the optional deps from the regular deps (because they can show up in both) if they're not already installed
 	for _, optVk := range optDeps {
 		if !slices.ContainsFunc(children, func(vk resolve.VersionKey) bool { return vk.Name == optVk.Name }) {
 			idx := slices.IndexFunc(deps, func(vk resolve.VersionKey) bool { return vk.Name == optVk.Name })
-			deps = slices.Delete(deps, idx, idx+1)
+			if idx >= 0 {
+				deps = slices.Delete(deps, idx, idx+1)
+			}
 		}
 	}
 

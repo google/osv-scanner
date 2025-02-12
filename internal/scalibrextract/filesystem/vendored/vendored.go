@@ -1,7 +1,9 @@
 package vendored
 
 import (
+	"bytes"
 	"context"
+	"io"
 	"slices"
 
 	//nolint:gosec
@@ -10,7 +12,6 @@ import (
 	"errors"
 	"fmt"
 	"io/fs"
-	"os"
 	"path/filepath"
 	"strings"
 
@@ -19,7 +20,7 @@ import (
 	scalibrfs "github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
-	"github.com/google/osv-scanner/pkg/osv"
+	"github.com/google/osv-scanner/v2/internal/osvdev"
 )
 
 var (
@@ -57,8 +58,7 @@ type Extractor struct {
 	// ScanGitDir determines whether a vendored library with a git directory is scanned or not,
 	// this is used to avoid duplicate results, once from git scanning, once from vendoredDir scanning
 	ScanGitDir bool
-	// TODO(v2): Client rework
-	// determineVersionsClient
+	OSVClient  *osvdev.OSVClient
 }
 
 var _ filesystem.Extractor = Extractor{}
@@ -95,12 +95,10 @@ func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 
 // Extract determines the most likely package version from the directory and returns them as
 // commit hash inventory entries
-func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
+func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
 	var packages []*extractor.Inventory
 
-	// r.Infof("Scanning potential vendored dir: %s\n", libPath)
-	// TODO: make this a goroutine to parallelize this operation
-	results, err := queryDetermineVersions(input.Path, input.FS, e.ScanGitDir)
+	results, err := e.queryDetermineVersions(ctx, input.Path, input.FS, e.ScanGitDir)
 	if err != nil {
 		return nil, err
 	}
@@ -129,8 +127,8 @@ func (e Extractor) Ecosystem(_ *extractor.Inventory) string {
 	return ""
 }
 
-func queryDetermineVersions(repoDir string, fsys scalibrfs.FS, scanGitDir bool) (*osv.DetermineVersionResponse, error) {
-	var hashes []osv.DetermineVersionHash
+func (e Extractor) queryDetermineVersions(ctx context.Context, repoDir string, fsys scalibrfs.FS, scanGitDir bool) (*osvdev.DetermineVersionResponse, error) {
+	var hashes []osvdev.DetermineVersionHash
 
 	err := fs.WalkDir(fsys, repoDir, func(p string, d fs.DirEntry, _ error) error {
 		if d.IsDir() {
@@ -154,12 +152,17 @@ func queryDetermineVersions(repoDir string, fsys scalibrfs.FS, scanGitDir bool) 
 			return nil
 		}
 
-		buf, err := os.ReadFile(p)
+		file, err := fsys.Open(p)
 		if err != nil {
 			return err
 		}
-		hash := md5.Sum(buf) //nolint:gosec
-		hashes = append(hashes, osv.DetermineVersionHash{
+		buf := bytes.NewBuffer(nil)
+		_, err = io.Copy(buf, file)
+		if err != nil {
+			return err
+		}
+		hash := md5.Sum(buf.Bytes()) //nolint:gosec
+		hashes = append(hashes, osvdev.DetermineVersionHash{
 			Path: strings.ReplaceAll(p, repoDir, ""),
 			Hash: hash[:],
 		})
@@ -174,7 +177,11 @@ func queryDetermineVersions(repoDir string, fsys scalibrfs.FS, scanGitDir bool) 
 		return nil, fmt.Errorf("failed during hashing: %w", err)
 	}
 
-	result, err := osv.MakeDetermineVersionRequest(filepath.Base(repoDir), hashes)
+	result, err := e.OSVClient.ExperimentalDetermineVersion(ctx, &osvdev.DetermineVersionsRequest{
+		Name:       filepath.Base(repoDir),
+		FileHashes: hashes,
+	})
+
 	if err != nil {
 		return nil, fmt.Errorf("failed to determine versions: %w", err)
 	}

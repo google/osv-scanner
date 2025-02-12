@@ -1,6 +1,6 @@
 package osvdev
 
-import "github.com/google/osv-scanner/pkg/models"
+import "github.com/google/osv-scanner/v2/pkg/models"
 
 // Package represents a package identifier for OSV.
 type Package struct {
@@ -11,9 +11,10 @@ type Package struct {
 
 // Query represents a query to OSV.
 type Query struct {
-	Commit  string  `json:"commit,omitempty"`
-	Package Package `json:"package,omitempty"`
-	Version string  `json:"version,omitempty"`
+	Commit    string  `json:"commit,omitempty"`
+	Package   Package `json:"package,omitempty"`
+	Version   string  `json:"version,omitempty"`
+	PageToken string  `json:"page_token,omitempty"`
 }
 
 // BatchedQuery represents a batched query to OSV.
@@ -28,12 +29,14 @@ type MinimalVulnerability struct {
 
 // Response represents a full response from OSV.
 type Response struct {
-	Vulns []models.Vulnerability `json:"vulns"`
+	Vulns         []models.Vulnerability `json:"vulns"`
+	NextPageToken string                 `json:"next_page_token"`
 }
 
 // MinimalResponse represents an unhydrated response from OSV.
 type MinimalResponse struct {
-	Vulns []MinimalVulnerability `json:"vulns"`
+	Vulns         []MinimalVulnerability `json:"vulns"`
+	NextPageToken string                 `json:"next_page_token"`
 }
 
 // BatchedResponse represents an unhydrated batched response from OSV.

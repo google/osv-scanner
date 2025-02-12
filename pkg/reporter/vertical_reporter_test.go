@@ -5,7 +5,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 func TestVerticalReporter_Errorf(t *testing.T) {

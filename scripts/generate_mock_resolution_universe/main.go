@@ -13,6 +13,7 @@ import (
 	"encoding/gob"
 	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"path/filepath"
 	"slices"
@@ -22,18 +23,22 @@ import (
 	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/depsdev"
-	"github.com/google/osv-scanner/internal/remediation"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/clienttest"
-	"github.com/google/osv-scanner/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/resolution/util"
-	lf "github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
+	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
+	"github.com/google/osv-scanner/v2/internal/depsdev"
+	"github.com/google/osv-scanner/v2/internal/osvdev"
+	"github.com/google/osv-scanner/v2/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/clienttest"
+	"github.com/google/osv-scanner/v2/internal/resolution/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/resolution/util"
+	"github.com/google/osv-scanner/v2/internal/version"
+	lf "github.com/google/osv-scanner/v2/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/osv"
 	"golang.org/x/exp/maps"
 	"golang.org/x/sync/errgroup"
 	"gopkg.in/yaml.v3"
@@ -48,10 +53,26 @@ var remediationOpts = remediation.Options{
 	UpgradeConfig: upgrade.NewConfig(),
 }
 
+const userAgent = "osv-scanner_generate_mock/" + version.OSVVersion
+
+func vulnMatcher() clientinterfaces.VulnerabilityMatcher {
+	config := osvdev.DefaultConfig()
+	config.UserAgent = userAgent
+
+	return &osvmatcher.CachedOSVMatcher{
+		Client: osvdev.OSVClient{
+			HTTPClient:  http.DefaultClient,
+			Config:      config,
+			BaseHostURL: osvdev.DefaultBaseURL,
+		},
+		InitialQueryTimeout: 5 * time.Minute,
+	}
+}
+
 func doRelockRelax(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
-		VulnerabilityClient: client.NewOSVClient(),
-		DependencyClient:    ddCl,
+		VulnerabilityMatcher: vulnMatcher(),
+		DependencyClient:     ddCl,
 	}
 
 	f, err := lf.OpenLocalDepFile(filename)
@@ -77,8 +98,8 @@ func doRelockRelax(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename 
 
 func doOverride(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
-		VulnerabilityClient: client.NewOSVClient(),
-		DependencyClient:    ddCl,
+		VulnerabilityMatcher: vulnMatcher(),
+		DependencyClient:     ddCl,
 	}
 
 	f, err := lf.OpenLocalDepFile(filename)
@@ -104,8 +125,8 @@ func doOverride(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename str
 
 func doInPlace(ddCl *client.DepsDevClient, rw lockfile.ReadWriter, filename string) error {
 	cl := client.ResolutionClient{
-		VulnerabilityClient: client.NewOSVClient(),
-		DependencyClient:    ddCl,
+		VulnerabilityMatcher: vulnMatcher(),
+		DependencyClient:     ddCl,
 	}
 
 	f, err := lf.OpenLocalDepFile(filename)
@@ -282,7 +303,7 @@ func typeString(t dep.Type) string {
 }
 
 func main() {
-	cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI)
+	cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)

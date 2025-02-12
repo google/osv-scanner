@@ -11,25 +11,29 @@ import (
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/resolve/maven"
 	"deps.dev/util/resolve/npm"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	mavenutil "github.com/google/osv-scanner/internal/utility/maven"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	mavenutil "github.com/google/osv-scanner/v2/internal/utility/maven"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 type Vulnerability struct {
 	OSV     models.Vulnerability
 	DevOnly bool
-	// Chains are paths through requirements from direct dependency to vulnerable package.
-	// A 'Problem' chain constrains the package to a vulnerable version.
-	// 'NonProblem' chains re-use the vulnerable version, but would not resolve to a vulnerable version in isolation.
-	ProblemChains    []DependencyChain
-	NonProblemChains []DependencyChain
+	// Subgraphs are the collections of nodes and edges that reach the vulnerable node.
+	// Subgraphs all contain the root node (NodeID 0) with no incoming edges (Parents),
+	// and the vulnerable node (NodeID DependencySubgraph.Dependency) with no outgoing edges (Children).
+	Subgraphs []*DependencySubgraph
 }
 
 func (rv Vulnerability) IsDirect() bool {
-	fn := func(dc DependencyChain) bool { return len(dc.Edges) == 1 }
-	return slices.ContainsFunc(rv.ProblemChains, fn) || slices.ContainsFunc(rv.NonProblemChains, fn)
+	for _, sg := range rv.Subgraphs {
+		if sg.Nodes[0].Distance == 1 {
+			return true
+		}
+	}
+
+	return false
 }
 
 type Result struct {
@@ -204,10 +208,15 @@ func resolvePostProcess(ctx context.Context, cl client.ResolutionClient, m manif
 
 // computeVulns scans for vulnerabilities in a resolved graph and populates res.Vulns
 func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient) error {
-	nodeVulns, err := cl.FindVulns(res.Graph)
+	nodeVulns, err := cl.MatchVulnerabilities(ctx, client.GraphToInventory(res.Graph))
 	if err != nil {
 		return err
 	}
+
+	// GraphToInventory/MatchVulnerabilities excludes the root node of the graph.
+	// Prepend an element to nodeVulns so that the indices line up with graph.Nodes[i] <=> nodeVulns[i]
+	nodeVulns = append([][]*models.Vulnerability{nil}, nodeVulns...)
+
 	// Find all dependency paths to the vulnerable dependencies
 	var vulnerableNodes []resolve.NodeID
 	vulnInfo := make(map[string]models.Vulnerability)
@@ -216,15 +225,15 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 			vulnerableNodes = append(vulnerableNodes, resolve.NodeID(i))
 		}
 		for _, vuln := range vulns {
-			vulnInfo[vuln.ID] = vuln
+			vulnInfo[vuln.ID] = *vuln
 		}
 	}
 
-	nodeChains := ComputeChains(res.Graph, vulnerableNodes)
-	vulnChains := make(map[string][]DependencyChain)
-	for i, idx := range vulnerableNodes {
-		for _, vuln := range nodeVulns[idx] {
-			vulnChains[vuln.ID] = append(vulnChains[vuln.ID], nodeChains[i]...)
+	nodeSubgraphs := ComputeSubgraphs(res.Graph, vulnerableNodes)
+	vulnSubgraphs := make(map[string][]*DependencySubgraph)
+	for i, nID := range vulnerableNodes {
+		for _, vuln := range nodeVulns[nID] {
+			vulnSubgraphs[vuln.ID] = append(vulnSubgraphs[vuln.ID], nodeSubgraphs[i])
 		}
 	}
 
@@ -234,20 +243,8 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 	// TODO: Combine aliased IDs
 	for id, vuln := range vulnInfo {
 		rv := Vulnerability{OSV: vuln, DevOnly: true}
-		for _, chain := range vulnChains[id] {
-			if chainConstrains(ctx, cl, chain, &rv.OSV) {
-				rv.ProblemChains = append(rv.ProblemChains, chain)
-			} else {
-				rv.NonProblemChains = append(rv.NonProblemChains, chain)
-			}
-			rv.DevOnly = rv.DevOnly && ChainIsDev(chain, res.Manifest.Groups)
-		}
-		if len(rv.ProblemChains) == 0 {
-			// There has to be at least one problem chain for the vulnerability to appear.
-			// If our heuristic couldn't determine any, treat them all as problematic.
-			rv.ProblemChains = rv.NonProblemChains
-			rv.NonProblemChains = nil
-		}
+		rv.Subgraphs = vulnSubgraphs[id]
+		rv.DevOnly = !slices.ContainsFunc(rv.Subgraphs, func(ds *DependencySubgraph) bool { return !ds.IsDevOnly(res.Manifest.Groups) })
 		res.Vulns = append(res.Vulns, rv)
 	}
 

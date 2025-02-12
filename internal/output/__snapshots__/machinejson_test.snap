@@ -877,7 +877,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -926,7 +926,7 @@
                 "OSV-2"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-2": {
                   "called": true,
                   "unimportant": false
@@ -995,7 +995,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -1225,7 +1225,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": true,
                   "unimportant": false
@@ -1290,7 +1290,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -2276,7 +2276,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -2289,7 +2289,7 @@
                 "OSV-5"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-5": {
                   "called": true,
                   "unimportant": false
@@ -2407,7 +2407,7 @@
                 "OSV-3"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-3": {
                   "called": true,
                   "unimportant": false
@@ -2580,7 +2580,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": true,
                   "unimportant": false
@@ -2593,7 +2593,7 @@
                 "GHSA-123"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "GHSA-123": {
                   "called": false,
                   "unimportant": false
@@ -2650,7 +2650,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": true,
                   "unimportant": false
@@ -2707,7 +2707,7 @@
                 "OSV-1"
               ],
               "aliases": null,
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false
@@ -2887,7 +2887,7 @@
                 "OSV-1",
                 "GHSA-123"
               ],
-              "experimentalAnalysis": {
+              "experimental_analysis": {
                 "OSV-1": {
                   "called": false,
                   "unimportant": false

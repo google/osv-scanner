@@ -1,7 +1,7 @@
 package reporter
 
 import (
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 type VoidReporter struct {

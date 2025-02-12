@@ -6,7 +6,7 @@ import (
 	"slices"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 func copyFileTo(t *testing.T, file, dir string) string {
@@ -49,10 +49,10 @@ func TestRun_Fix(t *testing.T) {
 			lockfile: "./fix/fixtures/in-place-npm/package-lock.json",
 		},
 		{
-			name:     "fix non-interactive relock package.json",
-			args:     []string{"", "fix", "--non-interactive", "--strategy=relock"},
+			name:     "fix non-interactive relax package.json",
+			args:     []string{"", "fix", "--non-interactive", "--strategy=relax"},
 			exit:     0,
-			manifest: "./fix/fixtures/relock-npm/package.json",
+			manifest: "./fix/fixtures/relax-npm/package.json",
 		},
 		{
 			name:     "fix non-interactive override pom.xml",
@@ -60,7 +60,24 @@ func TestRun_Fix(t *testing.T) {
 			exit:     0,
 			manifest: "./fix/fixtures/override-maven/pom.xml",
 		},
-		// TODO: add tests with the cli flags
+		{
+			name:     "fix non-interactive json in-place package-lock.json",
+			args:     []string{"", "fix", "--non-interactive", "--strategy=in-place", "--format=json"},
+			exit:     0,
+			lockfile: "./fix/fixtures/in-place-npm/package-lock.json",
+		},
+		{
+			name:     "fix non-interactive json relax package.json",
+			args:     []string{"", "fix", "--non-interactive", "--strategy=relax", "--format=json"},
+			exit:     0,
+			manifest: "./fix/fixtures/relax-npm/package.json",
+		},
+		{
+			name:     "fix non-interactive json override pom.xml",
+			args:     []string{"", "fix", "--non-interactive", "--strategy=override", "--format=json"},
+			exit:     0,
+			manifest: "./fix/fixtures/override-maven/pom.xml",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

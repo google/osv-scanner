@@ -39,7 +39,7 @@ type Parsed struct {
 	Suffix    string
 }
 
-func (p *Parsed) IsEmpty() bool {
+func (p Parsed) IsEmpty() bool {
 	return p.Ecosystem == ""
 }
 
@@ -70,8 +70,7 @@ func (p Parsed) MarshalJSON() ([]byte, error) {
 	return []byte(`"` + p.String() + `"`), nil
 }
 
-//goland:noinspection GoMixedReceiverTypes
-func (p *Parsed) String() string {
+func (p Parsed) String() string {
 	str := string(p.Ecosystem)
 
 	if p.Suffix != "" {
@@ -94,6 +93,12 @@ func MustParse(str string) Parsed {
 
 // Parse parses a string into a constants.Ecosystem and an optional suffix specified with a ":"
 func Parse(str string) (Parsed, error) {
+	// Special case to return an empty ecosystem if str is empty
+	// This is not considered an error.
+	if str == "" {
+		return Parsed{}, nil
+	}
+
 	ecosystem, suffix, _ := strings.Cut(str, ":")
 
 	// Always return the full parsed value even if it might be invalid

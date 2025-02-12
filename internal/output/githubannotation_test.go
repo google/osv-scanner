@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 func TestPrintGHAnnotationReport_WithVulnerabilities(t *testing.T) {

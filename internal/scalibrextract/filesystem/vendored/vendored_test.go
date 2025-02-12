@@ -3,6 +3,7 @@ package vendored_test
 import (
 	"context"
 	"io/fs"
+	"os"
 	"path/filepath"
 	"runtime"
 	"testing"
@@ -13,8 +14,9 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/testing/extracttest"
 	"github.com/google/osv-scalibr/testing/fakefs"
-	"github.com/google/osv-scanner/internal/scalibrextract/filesystem/vendored"
-	"github.com/google/osv-scanner/internal/testutility"
+	"github.com/google/osv-scanner/v2/internal/osvdev"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
@@ -100,12 +102,17 @@ func TestExtractor_Extract(t *testing.T) {
 		// TODO: Reenable when #657 is resolved.
 		testutility.Skip(t, "Temporarily disabled until #657 is resolved")
 	}
+	cwd, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	tests := []extracttest.TestTableEntry{
 		{
 			Name: "zlib test",
 			InputConfig: extracttest.ScanInputMockConfig{
-				Path: "testdata/thirdparty/zlib",
+				Path:         "testdata/thirdparty/zlib",
+				FakeScanRoot: cwd,
 			},
 			WantInventory: []*extractor.Inventory{
 				{
@@ -121,7 +128,9 @@ func TestExtractor_Extract(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-			extr := vendored.Extractor{}
+			extr := vendored.Extractor{
+				OSVClient: osvdev.DefaultClient(),
+			}
 
 			scanInput := extracttest.GenerateScanInputMock(t, tt.InputConfig)
 			defer extracttest.CloseTestScanInput(t, scanInput)

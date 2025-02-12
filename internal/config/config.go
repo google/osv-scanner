@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
-	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 const osvScannerConfigName = "osv-scanner.toml"
@@ -54,19 +54,19 @@ type PackageOverrideEntry struct {
 }
 
 func (e PackageOverrideEntry) matches(pkg imodels.PackageInfo) bool {
-	if e.Name != "" && e.Name != pkg.Name {
+	if e.Name != "" && e.Name != pkg.Name() {
 		return false
 	}
-	if e.Version != "" && e.Version != pkg.Version {
+	if e.Version != "" && e.Version != pkg.Version() {
 		return false
 	}
 	// If there is an ecosystem filter, the filter must not match both the:
 	//  - Full ecosystem + suffix
 	//  - The base ecosystem
-	if e.Ecosystem != "" && (e.Ecosystem != pkg.Ecosystem.String() && e.Ecosystem != string(pkg.Ecosystem.Ecosystem)) {
+	if e.Ecosystem != "" && (e.Ecosystem != pkg.Ecosystem().String() && e.Ecosystem != string(pkg.Ecosystem().Ecosystem)) {
 		return false
 	}
-	if e.Group != "" && !slices.Contains(pkg.DepGroups, e.Group) {
+	if e.Group != "" && !slices.Contains(pkg.DepGroups(), e.Group) {
 		return false
 	}
 
@@ -137,8 +137,8 @@ func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
 	return ignoreUntil.After(time.Now())
 }
 
-// Sets the override config by reading the config file at configPath.
-// Will return an error if loading the config file fails
+// UseOverride updates the Manager to use the config at the given path in place
+// of any other config files that would be loaded when calling Get
 func (c *Manager) UseOverride(r reporter.Reporter, configPath string) error {
 	config, configErr := tryLoadConfig(r, configPath)
 	if configErr != nil {
@@ -149,7 +149,7 @@ func (c *Manager) UseOverride(r reporter.Reporter, configPath string) error {
 	return nil
 }
 
-// Attempts to get the config
+// Get returns the appropriate config to use based on the targetPath
 func (c *Manager) Get(r reporter.Reporter, targetPath string) Config {
 	if c.OverrideConfig != nil {
 		return *c.OverrideConfig

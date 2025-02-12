@@ -11,8 +11,8 @@ import (
 	"deps.dev/util/maven"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/version"
-	"github.com/google/osv-scanner/internal/resolution/datasource"
-	mavenutil "github.com/google/osv-scanner/internal/utility/maven"
+	"github.com/google/osv-scanner/v2/internal/datasource"
+	mavenutil "github.com/google/osv-scanner/v2/internal/utility/maven"
 )
 
 const mavenRegistryCacheExt = ".resolve.maven"
@@ -107,12 +107,15 @@ func (c *MavenRegistryClient) Requirements(ctx context.Context, vk resolve.Versi
 	if err := proj.MergeProfiles("", maven.ActivationOS{}); err != nil {
 		return nil, err
 	}
+
+	// We should not add registries defined in dependencies pom.xml files.
+	apiWithoutRegistries := c.api.WithoutRegistries()
 	// We need to merge parents for potential dependencies in parents.
-	if err := mavenutil.MergeParents(ctx, c.api, &proj, proj.Parent, 1, "", false); err != nil {
+	if err := mavenutil.MergeParents(ctx, apiWithoutRegistries, &proj, proj.Parent, 1, "", false); err != nil {
 		return nil, err
 	}
 	proj.ProcessDependencies(func(groupID, artifactID, version maven.String) (maven.DependencyManagement, error) {
-		return mavenutil.GetDependencyManagement(ctx, c.api, groupID, artifactID, version)
+		return mavenutil.GetDependencyManagement(ctx, apiWithoutRegistries, groupID, artifactID, version)
 	})
 
 	reqs := make([]resolve.RequirementVersion, 0, len(proj.Dependencies))

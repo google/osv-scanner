@@ -10,12 +10,10 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
-	"github.com/google/osv-scanner/internal/customgitignore"
-	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/internal/scalibrextract"
-	"github.com/google/osv-scanner/internal/scalibrextract/vcs/gitrepo"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/customgitignore"
+	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 // ScanDir walks through the given directory to try to find any relevant files
@@ -25,7 +23,7 @@ import (
 //   - Any git repositories with scanGit
 //
 // TODO(V2 Models): pomExtractor is temporary until V2 Models
-func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useGitIgnore bool, pomExtractor filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanDir(r reporter.Reporter, dir string, recursive bool, useGitIgnore bool, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -37,20 +35,6 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 	}
 
 	root := true
-
-	// Setup scan config
-	relevantExtractors := []filesystem.Extractor{}
-	if !skipGit {
-		relevantExtractors = append(relevantExtractors, gitrepo.Extractor{})
-	}
-	relevantExtractors = append(relevantExtractors, lockfileExtractors...)
-	relevantExtractors = append(relevantExtractors, SBOMExtractors...)
-	if pomExtractor != nil {
-		relevantExtractors = append(relevantExtractors, pomExtractor)
-	} else {
-		// Use the offline pomxml extractor if networking is unavailable
-		relevantExtractors = append(relevantExtractors, pomxml.Extractor{})
-	}
 
 	var scannedInventories []*extractor.Inventory
 
@@ -84,7 +68,7 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 		}
 
 		// -------- Perform scanning --------
-		inventories, err := scalibrextract.ExtractWithExtractors(context.Background(), path, relevantExtractors)
+		inventories, err := scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 		if err != nil && !errors.Is(err, scalibrextract.ErrExtractorNotFound) {
 			r.Errorf("Error during extraction: %s\n", err)
 		}
@@ -107,17 +91,6 @@ func ScanDir(r reporter.Reporter, dir string, skipGit bool, recursive bool, useG
 			// Always skip git repository directories
 			return filepath.SkipDir
 		}
-
-		// TODO(V2): Reenable vendored libs scanning
-		// if info.IsDir() && !compareOffline {
-		// 	if _, ok := vendoredLibNames[strings.ToLower(filepath.Base(path))]; ok {
-		// 		pkgs, err := ScanDirWithVendoredLibs(r, path)
-		// 		if err != nil {
-		// 			r.Infof("scan failed for dir containing vendored libs %s: %v\n", path, err)
-		// 		}
-		// 		scannedPackages = append(scannedPackages, pkgs...)
-		// 	}
-		// }
 
 		if !root && !recursive && info.IsDir() {
 			return filepath.SkipDir

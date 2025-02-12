@@ -6,10 +6,10 @@ import (
 	"slices"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/remediation/relax"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/remediation/relax"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
 )
 
 // ComputeRelaxPatches attempts to resolve each vulnerability found in result independently, returning the list of unique possible patches
@@ -87,7 +87,7 @@ func tryRelaxRemediate(
 	}
 
 	newRes := orig
-	toRelax := reqsToRelax(newRes, vulnIDs, opts)
+	toRelax := reqsToRelax(ctx, cl, newRes, vulnIDs, opts)
 	for len(toRelax) > 0 {
 		// Try relaxing all necessary requirements
 		manif := newRes.Manifest.Clone()
@@ -109,24 +109,27 @@ func tryRelaxRemediate(
 		if err != nil {
 			return nil, err
 		}
-		toRelax = reqsToRelax(newRes, vulnIDs, opts)
+		toRelax = reqsToRelax(ctx, cl, newRes, vulnIDs, opts)
 	}
 
 	return newRes, nil
 }
 
-func reqsToRelax(res *resolution.Result, vulnIDs []string, opts Options) []int {
+func reqsToRelax(ctx context.Context, cl resolve.Client, res *resolution.Result, vulnIDs []string, opts Options) []int {
 	toRelax := make(map[resolve.VersionKey]string)
 	for _, v := range res.Vulns {
 		// Don't do a full opts.MatchVuln() since we know we don't need to check every condition
 		if !slices.Contains(vulnIDs, v.OSV.ID) || (!opts.DevDeps && v.DevOnly) {
 			continue
 		}
-		// Only relax dependencies if their chain length is less than MaxDepth
-		for _, ch := range v.ProblemChains {
-			if opts.MaxDepth <= 0 || len(ch.Edges) <= opts.MaxDepth {
-				vk, req := ch.Direct()
-				toRelax[vk] = req
+		// Only relax dependencies if their distance is less than MaxDepth
+		for _, sg := range v.Subgraphs {
+			constr := sg.ConstrainingSubgraph(ctx, cl, &v.OSV)
+			for _, edge := range constr.Nodes[0].Children {
+				gNode := constr.Nodes[edge.To]
+				if opts.MaxDepth <= 0 || gNode.Distance+1 <= opts.MaxDepth {
+					toRelax[gNode.Version] = edge.Requirement
+				}
 			}
 		}
 	}

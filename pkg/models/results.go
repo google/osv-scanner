@@ -3,12 +3,15 @@ package models
 import (
 	"slices"
 	"strings"
+
+	"github.com/google/osv-scalibr/extractor"
 )
 
-// Combined vulnerabilities found for the scanned packages
+// VulnerabilityResults is the top-level struct for the results of a scan
 type VulnerabilityResults struct {
 	Results                    []PackageSource            `json:"results"`
 	ExperimentalAnalysisConfig ExperimentalAnalysisConfig `json:"experimental_config"`
+	ImageMetadata              *ImageMetadata             `json:"image_metadata,omitempty"`
 }
 
 // ExperimentalAnalysisConfig is an experimental type intended to contain the
@@ -57,7 +60,7 @@ func getGroupInfoForVuln(groups []GroupInfo, vulnID string) GroupInfo {
 	return groups[groupIdx]
 }
 
-// Flattened Vulnerability Information.
+// VulnerabilityFlattened is a flattened version of the VulnerabilityResults
 // TODO: rename this to IssueFlattened or similar in the next major release as
 // it now contains license violations.
 type VulnerabilityFlattened struct {
@@ -84,16 +87,18 @@ func (s SourceInfo) String() string {
 	return s.Type + ":" + s.Path
 }
 
-// Vulnerabilities grouped by sources
+// PackageSource represents Vulnerabilities associated with a Source
 type PackageSource struct {
-	Source   SourceInfo     `json:"source"`
-	Packages []PackageVulns `json:"packages"`
+	Source SourceInfo `json:"source"`
+	// Place Annotations in PackageSource instead of SourceInfo as we need SourceInfo to be mappable
+	ExperimentalAnnotations []extractor.Annotation `json:"experimental_annotations,omitempty"`
+	Packages                []PackageVulns         `json:"packages"`
 }
 
 // License is an SPDX license.
 type License string
 
-// Vulnerabilities grouped by package
+// PackageVulns grouped by package
 // TODO: rename this to be Package as it now includes license information too.
 type PackageVulns struct {
 	Package           PackageInfo     `json:"package"`
@@ -110,7 +115,7 @@ type GroupInfo struct {
 	// Aliases include all aliases and IDs
 	Aliases []string `json:"aliases"`
 	// Map of Vulnerability IDs to AnalysisInfo
-	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimentalAnalysis,omitempty"`
+	ExperimentalAnalysis map[string]AnalysisInfo `json:"experimental_analysis,omitempty"`
 	MaxSeverity          string                  `json:"max_severity"`
 }
 
@@ -186,11 +191,11 @@ type AnalysisInfo struct {
 	Unimportant bool `json:"unimportant"`
 }
 
-// Specific package information
 type PackageInfo struct {
-	Name        string              `json:"name"`
-	Version     string              `json:"version"`
-	Ecosystem   string              `json:"ecosystem"`
-	Commit      string              `json:"commit,omitempty"`
-	ImageOrigin *ImageOriginDetails `json:"imageOrigin,omitempty"`
+	Name          string              `json:"name"`
+	OSPackageName string              `json:"os_package_name,omitempty"`
+	Version       string              `json:"version"`
+	Ecosystem     string              `json:"ecosystem"`
+	Commit        string              `json:"commit,omitempty"`
+	ImageOrigin   *ImageOriginDetails `json:"image_origin_details,omitempty"`
 }

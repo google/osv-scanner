@@ -158,7 +158,7 @@
           "GO-2021-0053"
         ],
         "aliases": null,
-        "experimentalAnalysis": {
+        "experimental_analysis": {
           "GO-2021-0053": {
             "called": false,
             "unimportant": false
@@ -312,7 +312,7 @@
           "GO-2023-1558"
         ],
         "aliases": null,
-        "experimentalAnalysis": {
+        "experimental_analysis": {
           "GO-2023-1558": {
             "called": true,
             "unimportant": false
@@ -467,7 +467,7 @@
           "GO-2023-1572"
         ],
         "aliases": null,
-        "experimentalAnalysis": {
+        "experimental_analysis": {
           "GO-2023-1572": {
             "called": false,
             "unimportant": false

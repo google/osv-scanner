@@ -10,8 +10,8 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/pkg/models"
 
 	"golang.org/x/sync/errgroup"
 )
@@ -125,13 +125,13 @@ func MakePURLRequest(purl string) *Query {
 
 func MakePkgRequest(pkgInfo imodels.PackageInfo) *Query {
 	return &Query{
-		Version: pkgInfo.Version,
+		Version: pkgInfo.Version(),
 		Package: Package{
-			Name:      pkgInfo.Name,
-			Ecosystem: pkgInfo.Ecosystem.String(),
+			Name:      pkgInfo.Name(),
+			Ecosystem: pkgInfo.Ecosystem().String(),
 		},
 		Metadata: models.Metadata{
-			DepGroups: pkgInfo.DepGroups,
+			DepGroups: pkgInfo.DepGroups(),
 		},
 	}
 }

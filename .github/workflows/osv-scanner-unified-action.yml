@@ -38,7 +38,6 @@ jobs:
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
-        --skip-git
         ./
         ./docs/
   scan-pr:
@@ -52,6 +51,5 @@ jobs:
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
-        --skip-git
         ./
         ./docs/

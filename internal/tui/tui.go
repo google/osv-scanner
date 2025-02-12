@@ -11,7 +11,6 @@ import (
 	"github.com/charmbracelet/lipgloss"
 )
 
-// Key bindings
 type KeyMap struct {
 	Up         key.Binding
 	Down       key.Binding
@@ -68,7 +67,7 @@ var Keys = KeyMap{
 	),
 }
 
-// Helper to have all spinners styled consistently
+// NewSpinner creates a stylised spinner
 func NewSpinner() spinner.Model {
 	sp := spinner.New(spinner.WithSpinner(spinner.Line))
 	// Spinner.FPS is actually the duration of each frame, not the frames per second
@@ -77,7 +76,7 @@ func NewSpinner() spinner.Model {
 	return sp
 }
 
-// Inline selector renderer, for layouts that don't fit neatly into a list/table
+// RenderSelectorOption provides an inline selector renderer, for layouts that don't fit neatly into a list/table
 func RenderSelectorOption(
 	selected bool, // whether this line is currently highlighted
 	cursor string, // the cursor to display before the line, if it's selected
@@ -96,15 +95,15 @@ func RenderSelectorOption(
 	return fmt.Sprintf(cursor+format, args...)
 }
 
-// tea-like model for representing the secondary info panel
-// Allows for resizing
+// ViewModel provides a tea-like model for representing the secondary info panel
+// which allows for resizing
 type ViewModel interface {
 	Update(msg tea.Msg) (ViewModel, tea.Cmd)
 	View() string
 	Resize(w, h int)
 }
 
-// Msg and Cmd to use to quit out of the ViewModel
+// ViewModelCloseMsg provides a message to close the ViewModel
 type ViewModelCloseMsg struct{}
 
 var CloseViewModel tea.Cmd = func() tea.Msg { return ViewModelCloseMsg{} }

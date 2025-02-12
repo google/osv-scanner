@@ -3,11 +3,13 @@ package osvdev_test
 import (
 	"context"
 	"testing"
+	"time"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/google/osv-scalibr/testing/extracttest"
-	"github.com/google/osv-scanner/internal/osvdev"
+	"github.com/google/osv-scanner/v2/internal/osvdev"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -45,7 +47,7 @@ func TestOSVClient_GetVulnsByID(t *testing.T) {
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
 
-			got, err := c.GetVulnsByID(context.Background(), tt.id)
+			got, err := c.GetVulnByID(context.Background(), tt.id)
 
 			if diff := cmp.Diff(tt.wantErr, err, cmpopts.EquateErrors()); diff != "" {
 				t.Fatalf("Unexpected error (-want +got):\n%s", diff)
@@ -159,6 +161,75 @@ func TestOSVClient_QueryBatch(t *testing.T) {
 	}
 }
 
+func TestOSVClient_QueryBatchDeadline(t *testing.T) {
+	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to run")
+
+	tests := []struct {
+		name    string
+		queries []*osvdev.Query
+		wantIDs [][]string
+		wantErr error
+	}{
+		{
+			name: "linux package lookup",
+			queries: []*osvdev.Query{
+				{
+					Commit: "60e572dbf7b4ded66b488f54773f66aaf6184321",
+				},
+				{
+					Package: osvdev.Package{
+						Name:      "linux",
+						Ecosystem: "Ubuntu:22.04:LTS",
+					},
+					Version: "5.15.0-17.17",
+				},
+				{
+					Package: osvdev.Package{
+						Name:      "abcd-definitely-does-not-exist",
+						Ecosystem: string(osvschema.EcosystemNPM),
+					},
+					Version: "1.0.0",
+				},
+			},
+			wantErr: context.DeadlineExceeded,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			c := osvdev.DefaultClient()
+			c.Config.UserAgent = "osv-scanner-api-test"
+			ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Second*1))
+
+			got, err := c.QueryBatch(ctx, tt.queries)
+			cancel()
+			if diff := cmp.Diff(tt.wantErr, err, cmpopts.EquateErrors()); diff != "" {
+				t.Fatalf("Unexpected error (-want +got):\n%s", diff)
+			}
+
+			if err != nil {
+				return
+			}
+
+			gotResults := make([][]string, 0, len(got.Results))
+			for _, res := range got.Results {
+				gotVulnIDs := make([]string, 0, len(res.Vulns))
+				for _, vuln := range res.Vulns {
+					gotVulnIDs = append(gotVulnIDs, vuln.ID)
+				}
+				gotResults = append(gotResults, gotVulnIDs)
+			}
+
+			if diff := cmp.Diff(tt.wantIDs, gotResults); diff != "" {
+				t.Errorf("Unexpected vuln IDs (-want +got):\n%s", diff)
+			}
+		})
+	}
+}
+
 func TestOSVClient_Query(t *testing.T) {
 	t.Parallel()
 
@@ -211,7 +282,8 @@ func TestOSVClient_Query(t *testing.T) {
 			},
 			wantErr: extracttest.ContainsErrStr{
 				Str: `client error: status="400 Bad Request" body={"code":3,"message":"Invalid query."}`,
-			}},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -221,6 +293,59 @@ func TestOSVClient_Query(t *testing.T) {
 			c.Config.UserAgent = "osv-scanner-api-test"
 
 			got, err := c.Query(context.Background(), &tt.query)
+
+			if diff := cmp.Diff(tt.wantErr, err, cmpopts.EquateErrors()); diff != "" {
+				t.Fatalf("Unexpected error (-want +got):\n%s", diff)
+			}
+
+			if err != nil {
+				return
+			}
+
+			gotVulnIDs := make([]string, 0, len(got.Vulns))
+			for _, vuln := range got.Vulns {
+				gotVulnIDs = append(gotVulnIDs, vuln.ID)
+			}
+
+			if diff := cmp.Diff(tt.wantIDs, gotVulnIDs); diff != "" {
+				t.Errorf("Unexpected vuln IDs (-want +got):\n%s", diff)
+			}
+		})
+	}
+}
+
+func TestOSVClient_QueryDeadline(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name    string
+		query   osvdev.Query
+		wantIDs []string
+		wantErr error
+	}{
+		{
+			name: "linux Package lookup",
+			query: osvdev.Query{
+				Package: osvdev.Package{
+					// Use a deleted package as it is less likely new vulns will be published for it
+					Name:      "linux",
+					Ecosystem: "Ubuntu:22.04:LTS",
+				},
+				Version: "5.15.0-17.17",
+			},
+			wantErr: context.DeadlineExceeded,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			c := osvdev.DefaultClient()
+			c.Config.UserAgent = "osv-scanner-api-test"
+
+			ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Second*1))
+			got, err := c.Query(ctx, &tt.query)
+			cancel()
 
 			if diff := cmp.Diff(tt.wantErr, err, cmpopts.EquateErrors()); diff != "" {
 				t.Fatalf("Unexpected error (-want +got):\n%s", diff)

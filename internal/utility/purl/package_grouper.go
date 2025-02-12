@@ -3,7 +3,7 @@ package purl
 import (
 	"slices"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 // Group takes a list of packages, and group them in a map using their PURL

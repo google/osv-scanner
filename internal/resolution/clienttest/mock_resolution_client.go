@@ -1,16 +1,18 @@
 package clienttest
 
 import (
+	"context"
 	"os"
 	"strings"
 	"testing"
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/schema"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/util"
-	"github.com/google/osv-scanner/internal/utility/vulns"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"gopkg.in/yaml.v3"
 )
 
@@ -20,19 +22,12 @@ type ResolutionUniverse struct {
 	Vulns  []models.Vulnerability `yaml:"vulns"`
 }
 
-type mockVulnerabilityClient []models.Vulnerability
+type mockVulnerabilityMatcher []models.Vulnerability
 
-func (mvc mockVulnerabilityClient) FindVulns(g *resolve.Graph) ([]models.Vulnerabilities, error) {
-	result := make([]models.Vulnerabilities, len(g.Nodes))
-	for i, n := range g.Nodes {
-		if i == 0 {
-			continue // skip root node
-		}
-		for _, v := range mvc {
-			if vulns.IsAffected(v, util.VKToPackageDetails(n.Version)) {
-				result[i] = append(result[i], v)
-			}
-		}
+func (mvc mockVulnerabilityMatcher) MatchVulnerabilities(_ context.Context, invs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
+	result := make([][]*models.Vulnerability, len(invs))
+	for i, inv := range invs {
+		result[i] = localmatcher.VulnerabilitiesAffectingPackage(mvc, imodels.FromInventory(inv))
 	}
 
 	return result, nil
@@ -61,7 +56,7 @@ func NewMockResolutionClient(t *testing.T, universeYAML string) client.Resolutio
 	}
 
 	cl := client.ResolutionClient{
-		VulnerabilityClient: mockVulnerabilityClient(universe.Vulns),
+		VulnerabilityMatcher: mockVulnerabilityMatcher(universe.Vulns),
 	}
 
 	var sys resolve.System

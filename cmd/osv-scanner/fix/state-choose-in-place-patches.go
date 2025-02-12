@@ -8,7 +8,7 @@ import (
 	"github.com/charmbracelet/bubbles/table"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/google/osv-scanner/internal/tui"
+	"github.com/google/osv-scanner/v2/internal/tui"
 )
 
 type stateChooseInPlacePatches struct {

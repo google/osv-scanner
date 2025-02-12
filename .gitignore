@@ -3,6 +3,7 @@
 .idea/
 /dist/
 /osv-scanner
+/temp
 /coverage.out
 /coverage.html
 *.tar

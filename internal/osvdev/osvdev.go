@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"math"
@@ -11,7 +12,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -25,6 +26,8 @@ const (
 
 	// MaxQueriesPerQueryBatchRequest is a limit set in osv.dev's API, so is not configurable
 	MaxQueriesPerQueryBatchRequest = 1000
+
+	DefaultBaseURL = "https://api.osv.dev"
 )
 
 type OSVClient struct {
@@ -33,17 +36,17 @@ type OSVClient struct {
 	BaseHostURL string
 }
 
-// DefaultClient() creates a new OSVClient with default settings
+// DefaultClient creates a new OSVClient with default settings
 func DefaultClient() *OSVClient {
 	return &OSVClient{
 		HTTPClient:  http.DefaultClient,
 		Config:      DefaultConfig(),
-		BaseHostURL: "https://api.osv.dev",
+		BaseHostURL: DefaultBaseURL,
 	}
 }
 
-// GetVulnsByID is an interface to this endpoint: https://google.github.io/osv.dev/get-v1-vulns/
-func (c *OSVClient) GetVulnsByID(ctx context.Context, id string) (*models.Vulnerability, error) {
+// GetVulnByID is an interface to this endpoint: https://google.github.io/osv.dev/get-v1-vulns/
+func (c *OSVClient) GetVulnByID(ctx context.Context, id string) (*models.Vulnerability, error) {
 	resp, err := c.makeRetryRequest(func(client *http.Client) (*http.Response, error) {
 		req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.BaseHostURL+GetEndpoint+"/"+id, nil)
 		if err != nil {
@@ -73,12 +76,16 @@ func (c *OSVClient) GetVulnsByID(ctx context.Context, id string) (*models.Vulner
 }
 
 // QueryBatch is an interface to this endpoint: https://google.github.io/osv.dev/post-v1-querybatch/
+// This function performs paging invisibly until the context expires, after which all pages that has already
+// been retrieved are returned.
+//
+// See if next_page_token field in the response is fully filled out to determine if there are extra pages remaining
 func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedResponse, error) {
 	// API has a limit of how many queries are in one batch
 	queryChunks := chunkBy(queries, MaxQueriesPerQueryBatchRequest)
 	totalOsvRespBatched := make([][]MinimalResponse, len(queryChunks))
 
-	g, ctx := errgroup.WithContext(ctx)
+	g, errGrpCtx := errgroup.WithContext(ctx)
 	g.SetLimit(c.Config.MaxConcurrentBatchRequests)
 	for batchIndex, queries := range queryChunks {
 		requestBytes, err := json.Marshal(BatchedQuery{Queries: queries})
@@ -89,7 +96,7 @@ func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedR
 		g.Go(func() error {
 			// exit early if another hydration request has already failed
 			// results are thrown away later, so avoid needless work
-			if ctx.Err() != nil {
+			if errGrpCtx.Err() != nil {
 				return nil
 			}
 
@@ -97,7 +104,7 @@ func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedR
 				// Make sure request buffer is inside retry, if outside
 				// http request would finish the buffer, and retried requests would be empty
 				requestBuf := bytes.NewBuffer(requestBytes)
-				req, err := http.NewRequestWithContext(ctx, http.MethodPost, c.BaseHostURL+QueryBatchEndpoint, requestBuf)
+				req, err := http.NewRequestWithContext(errGrpCtx, http.MethodPost, c.BaseHostURL+QueryBatchEndpoint, requestBuf)
 				if err != nil {
 					return nil, err
 				}
@@ -142,6 +149,10 @@ func (c *OSVClient) QueryBatch(ctx context.Context, queries []*Query) (*BatchedR
 }
 
 // Query is an interface to this endpoint: https://google.github.io/osv.dev/post-v1-query/
+// This function performs paging invisibly until the context expires, after which all pages that has already
+// been retrieved are returned.
+//
+// See if next_page_token field in the response is fully filled out to determine if there are extra pages remaining
 func (c *OSVClient) Query(ctx context.Context, query *Query) (*Response, error) {
 	requestBytes, err := json.Marshal(query)
 	if err != nil {
@@ -178,7 +189,6 @@ func (c *OSVClient) Query(ctx context.Context, query *Query) (*Response, error) 
 	return &osvResp, nil
 }
 
-// ExperimentalDetermineVersion
 func (c *OSVClient) ExperimentalDetermineVersion(ctx context.Context, query *DetermineVersionsRequest) (*DetermineVersionResponse, error) {
 	requestBytes, err := json.Marshal(query)
 	if err != nil {
@@ -231,6 +241,11 @@ func (c *OSVClient) makeRetryRequest(action func(client *http.Client) (*http.Res
 				time.Duration(jitterAmount*1000)*time.Millisecond)
 
 		resp, err = action(c.HTTPClient)
+
+		// Don't retry, since deadline has already been exceeded
+		if errors.Is(err, context.DeadlineExceeded) {
+			return nil, err
+		}
 
 		// The network request itself failed, did not even get a response
 		if err != nil {

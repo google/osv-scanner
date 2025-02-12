@@ -36,15 +36,15 @@ def is_unsupported_comparison(line):
 
 
 def uncomment(line):
-  if line.startswith("#"):
+  if line.startswith('#'):
     return line[1:]
-  if line.startswith("//"):
+  if line.startswith('//'):
     return line[2:]
   return line
 
 
 def download_redhat_db():
-  urllib.request.urlretrieve("https://osv-vulnerabilities.storage.googleapis.com/Red%20Hat/all.zip", "redhat-db.zip")
+  urllib.request.urlretrieve('https://osv-vulnerabilities.storage.googleapis.com/Red%20Hat/all.zip', 'redhat-db.zip')
 
 
 def extract_packages_with_versions(osvs):
@@ -87,17 +87,17 @@ class RedHatVersionComparer:
   def _load_cache(self):
     if self.cache_path:
       self.cache_path.touch()
-      with open(self.cache_path, "r") as f:
+      with open(self.cache_path, 'r') as f:
         lines = f.readlines()
 
         for line in lines:
           line = line.strip()
-          key, result = line.split(",")
+          key, result = line.split(',')
 
-          if result == "True":
+          if result == 'True':
             self.cache[key] = True
             continue
-          if result == "False":
+          if result == 'False':
             self.cache[key] = False
             continue
 
@@ -107,49 +107,49 @@ class RedHatVersionComparer:
     self.cache[key] = result
     if self.cache_path:
       self.cache_path.touch()
-      with open(self.cache_path, "a") as f:
-        f.write(f"{key},{result}\n")
+      with open(self.cache_path, 'a') as f:
+        f.write(f'{key},{result}\n')
 
   def _compare1(self, a, op, b):
-    cmd = ["rpm", "--eval", f"%{{lua:print(rpm.vercmp('{a}', '{b}'))}}"]
+    cmd = ['rpm', '--eval', f'%{{lua:print(rpm.vercmp("{a}", "{b}"))}}']
     out = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if out.returncode != 0 or out.stderr:
-      raise Exception(f"rpm did not like comparing {a} {op} {b}: {out.stderr.decode('utf-8')}")
+      raise Exception(f'rpm did not like comparing {a} {op} {b}: {out.stderr.decode("utf-8")}')
 
     r = out.stdout.decode('utf-8').strip()
 
-    if r == "0" and op == "=":
+    if r == '0' and op == '=':
       return True
-    elif r == "1" and op == ">":
+    elif r == '1' and op == '>':
       return True
-    elif r == "-1" and op == "<":
+    elif r == '-1' and op == '<':
       return True
 
     return False
 
   def _compare2(self, a, op, b):
-    if op == "=":
-      op = "=="  # lua uses == for equality
+    if op == '=':
+      op = '=='  # lua uses == for equality
 
-    cmd = ["rpm", "--eval", f"%{{lua:print(rpm.ver('{a}') {op} rpm.ver('{b}'))}}"]
+    cmd = ['rpm', '--eval', f'%{{lua:print(rpm.ver("{a}") {op} rpm.ver("{b}"))}}']
     out = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     if out.returncode != 0 or out.stderr:
-      raise Exception(f"rpm did not like comparing {a} {op} {b}: {out.stderr.decode('utf-8')}")
+      raise Exception(f'rpm did not like comparing {a} {op} {b}: {out.stderr.decode("utf-8")}')
 
     r = out.stdout.decode('utf-8').strip()
 
-    if r == "true":
+    if r == 'True':
       return True
-    elif r == "false":
+    elif r == 'False':
       return False
 
-    raise Exception(f"unexpected result from rpm: {r}")
+    raise Exception(f'unexpected result from rpm: {r}')
 
 
   def compare(self, a, op, b):
-    key = f"{a} {op} {b}"
+    key = f'{a} {op} {b}'
     if key in self.cache:
       return self.cache[key]
 
@@ -160,7 +160,7 @@ class RedHatVersionComparer:
     return r
 
 
-redhat_comparer = RedHatVersionComparer("/tmp/redhat-versions-generator-cache.csv")
+redhat_comparer = RedHatVersionComparer('/tmp/redhat-versions-generator-cache.csv')
 
 
 class RedHatVersion:
@@ -188,39 +188,39 @@ def compare(v1, relate, v2):
   return ops[relate](v1, v2)
 
 
-def compare_versions(lines, select="all"):
+def compare_versions(lines, select='all'):
   has_any_failed = False
 
   for line in lines:
     line = line.strip()
 
-    if line == "" or line.startswith('#') or line.startswith('//'):
+    if line == '' or line.startswith('#') or line.startswith('//'):
       maybe_unsupported = uncomment(line).strip()
 
       if is_unsupported_comparison(maybe_unsupported):
-        print(f"\033[96mS\033[0m: \033[93m{maybe_unsupported}\033[0m")
+        print(f'\033[96mS\033[0m: \033[93m{maybe_unsupported}\033[0m')
       continue
 
-    v1, op, v2 = line.strip().split(" ")
+    v1, op, v2 = line.strip().split(' ')
 
     r = compare(RedHatVersion(v1), op, RedHatVersion(v2))
 
     if not r:
       has_any_failed = r
 
-    if select == "failures" and r:
+    if select == 'failures' and r:
       continue
 
-    if select == "successes" and not r:
+    if select == 'successes' and not r:
       continue
 
     color = '\033[92m' if r else '\033[91m'
-    rs = "T" if r else "F"
-    print(f"{color}{rs}\033[0m: \033[93m{line}\033[0m")
+    rs = 'T' if r else 'F'
+    print(f'{color}{rs}\033[0m: \033[93m{line}\033[0m')
   return has_any_failed
 
 
-def compare_versions_in_file(filepath, select="all"):
+def compare_versions_in_file(filepath, select='all'):
   with open(filepath) as f:
     lines = f.readlines()
     return compare_versions(lines, select)
@@ -232,10 +232,10 @@ def generate_version_compares(versions):
     if i == 0:
       continue
 
-    comparison = f"{versions[i - 1]} < {version}\n"
+    comparison = f'{versions[i - 1]} < {version}\n'
 
     if is_unsupported_comparison(comparison.strip()):
-      comparison = "# " + comparison
+      comparison = '# ' + comparison
     comparisons.append(comparison)
   return comparisons
 
@@ -262,16 +262,16 @@ def fetch_packages_versions():
   return extract_packages_with_versions(osvs)
 
 
-outfile = "internal/semantic/fixtures/redhat-versions-generated.txt"
+outfile = 'internal/semantic/fixtures/redhat-versions-generated.txt'
 
 packs = fetch_packages_versions()
-with open(outfile, "w") as f:
+with open(outfile, 'w') as f:
   f.writelines(generate_package_compares(packs))
-  f.write("\n")
+  f.write('\n')
 
 # set this to either "failures" or "successes" to only have those comparison results
 # printed; setting it to anything else will have all comparison results printed
-show = os.environ.get("VERSION_GENERATOR_PRINT", "failures")
+show = os.environ.get('VERSION_GENERATOR_PRINT', 'failures')
 
 did_any_fail = compare_versions_in_file(outfile, show)
 

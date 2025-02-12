@@ -9,11 +9,11 @@ import (
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/google/osv-scanner/internal/remediation"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	manif "github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/tui"
+	"github.com/google/osv-scanner/v2/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	manif "github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/tui"
 	"golang.org/x/exp/maps"
 )
 
@@ -238,6 +238,29 @@ func (st *stateRelockResult) buildPatchInfoViews(m model) {
 	st.unfixableList = tui.NewVulnList(unfixableVulns, "")
 	st.numUnfixable = len(unfixableVulns)
 	st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
+}
+
+func relockUnfixableVulns(diffs []resolution.Difference) []*resolution.Vulnerability {
+	if len(diffs) == 0 {
+		return nil
+	}
+	// find every vuln ID fixed in any patch
+	fixableVulnIDs := make(map[string]struct{})
+	for _, diff := range diffs {
+		for _, v := range diff.RemovedVulns {
+			fixableVulnIDs[v.OSV.ID] = struct{}{}
+		}
+	}
+
+	// select only vulns that aren't fixed in any patch
+	var unfixable []*resolution.Vulnerability
+	for i, v := range diffs[0].Original.Vulns {
+		if _, ok := fixableVulnIDs[v.OSV.ID]; !ok {
+			unfixable = append(unfixable, &diffs[0].Original.Vulns[i])
+		}
+	}
+
+	return unfixable
 }
 
 func (st *stateRelockResult) parseInput(m model) (tea.Model, tea.Cmd) {
@@ -491,7 +514,7 @@ func (st *stateRelockResult) write(m model) tea.Msg {
 		return writeMsg{err}
 	}
 
-	if m.options.Lockfile == "" && m.options.RelockCmd == "" {
+	if m.options.Lockfile == "" {
 		// TODO: there's no user feedback to show this was successful
 		return writeMsg{nil}
 	}
@@ -502,7 +525,7 @@ func (st *stateRelockResult) write(m model) tea.Msg {
 	}
 
 	return tea.ExecProcess(c, func(err error) tea.Msg {
-		if err != nil && m.options.RelockCmd == "" {
+		if err != nil {
 			// try again with "--legacy-peer-deps"
 			c, err := regenerateLockfileCmd(m.options)
 			if err != nil {

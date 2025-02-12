@@ -7,22 +7,17 @@ import (
 	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/depsdev"
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
+	"deps.dev/util/semver"
+	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
+	"github.com/google/osv-scanner/v2/internal/depsdev"
+	"github.com/google/osv-scanner/v2/pkg/osv"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
 
 type ResolutionClient struct {
 	DependencyClient
-	VulnerabilityClient
-}
-
-type VulnerabilityClient interface {
-	// FindVulns finds the vulnerabilities affecting each of Nodes in the graph.
-	// The returned Vulnerabilities[i] corresponds to the vulnerabilities in g.Nodes[i].
-	FindVulns(g *resolve.Graph) ([]models.Vulnerabilities, error)
+	clientinterfaces.VulnerabilityMatcher
 }
 
 type DependencyClient interface {
@@ -65,20 +60,29 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 		if im.Type.HasAttr(dep.MavenDependencyOrigin) {
 			continue
 		}
-		// Get the preferred version of the import requirement
-		vks, err := c.MatchingVersions(ctx, im.VersionKey)
-		if err != nil || len(vks) == 0 {
-			continue
-		}
 
-		vk := vks[len(vks)-1]
-
-		// We prefer the exact version for soft requirements.
-		for _, v := range vks {
-			if im.Version == v.Version {
-				vk = v
-				break
+		var vk resolve.Version
+		var constraint *semver.Constraint
+		// Maven registry client may be slow calling MatchingVersions which makes requests to `maven-metadata.xml`.
+		// We can avoid this by only calling MatchingVersions for non-soft requirements.
+		if im.System == resolve.Maven {
+			if constraint, err = semver.Maven.ParseConstraint(im.Version); err != nil {
+				continue
 			}
+		}
+		if constraint != nil && constraint.IsSimple() {
+			// If the requirement is a simple version, use it as the VersionKey,
+			// so we do not need to call MatchingVersions to get available versions.
+			vk = resolve.Version{
+				VersionKey: im.VersionKey,
+			}
+		} else {
+			// Get the preferred version of the import requirement
+			vks, err := c.MatchingVersions(ctx, im.VersionKey)
+			if err != nil || len(vks) == 0 {
+				continue
+			}
+			vk = vks[len(vks)-1]
 		}
 
 		// Make a request for the precomputed dependency tree
@@ -107,9 +111,12 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 			}
 
 			// TODO: We might want to limit the number of goroutines this creates.
-			go c.Requirements(ctx, vk)        //nolint:errcheck
-			go c.Version(ctx, vk)             //nolint:errcheck
-			go c.Versions(ctx, vk.PackageKey) //nolint:errcheck
+			go c.Requirements(ctx, vk) //nolint:errcheck
+			go c.Version(ctx, vk)      //nolint:errcheck
+			if vk.System != resolve.Maven {
+				// Avoid making requests to `maven-metadata.xml`
+				go c.Versions(ctx, vk.PackageKey) //nolint:errcheck
+			}
 		}
 	}
 	// don't bother waiting for goroutines to finish.

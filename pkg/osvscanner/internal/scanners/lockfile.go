@@ -8,53 +8,13 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/pnpmlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/yarnlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pdmlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
-	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/internal/scalibrextract"
-	"github.com/google/osv-scanner/internal/scalibrextract/language/osv/osvscannerjson"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
-
-var lockfileExtractors = []filesystem.Extractor{
-	conanlock.Extractor{},
-	packageslockjson.Extractor{},
-	mixlock.Extractor{},
-	pubspec.Extractor{},
-	gomod.Extractor{},
-	gradlelockfile.Extractor{},
-	gradleverificationmetadataxml.Extractor{},
-	packagelockjson.Extractor{},
-	pnpmlock.Extractor{},
-	yarnlock.Extractor{},
-	composerlock.Extractor{},
-	pipfilelock.Extractor{},
-	pdmlock.Extractor{},
-	poetrylock.Extractor{},
-	requirements.Extractor{},
-	renvlock.Extractor{},
-	gemfilelock.Extractor{},
-	cargolock.Extractor{},
-}
 
 var lockfileExtractorMapping = map[string]string{
 	"pubspec.lock":      "dart/pubspec",
@@ -71,37 +31,62 @@ var lockfileExtractorMapping = map[string]string{
 	"Pipfile.lock":                "python/Pipfilelock",
 	"pdm.lock":                    "python/pdmlock",
 	"requirements.txt":            "python/requirements",
+	"uv.lock":                     "python/uvlock",
 	"Cargo.lock":                  "rust/Cargolock",
 	"composer.lock":               "php/composerlock",
 	"mix.lock":                    "erlang/mixlock",
 	"renv.lock":                   "r/renvlock",
+	"deps.json":                   "dotnet/depsjson",
 	"packages.lock.json":          "dotnet/packageslockjson",
 	"conan.lock":                  "cpp/conanlock",
 	"go.mod":                      "go/gomod",
+	"bun.lock":                    "javascript/bunlock",
 	"Gemfile.lock":                "ruby/gemfilelock",
+	"cabal.project.freeze":        "haskell/cabal",
+	"stack.yaml.lock":             "haskell/stacklock",
+	// "Package.resolved":            "swift/packageresolved",
 }
 
-// ScanLockfile will load, identify, and parse the lockfile path passed in, and add the dependencies specified
+// ScanSingleFile is similar to ScanSingleFileWithMapping, just without supporting the <lockfileformat>:/path/to/lockfile prefix identifier
+func ScanSingleFile(r reporter.Reporter, path string, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
+	// TODO: Update the logging output to stop referring to SBOMs
+	path, err := filepath.Abs(path)
+	if err != nil {
+		r.Errorf("Failed to resolved path %q with error: %s\n", path, err)
+		return nil, err
+	}
+
+	invs, err := scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
+	if err != nil {
+		r.Infof("Failed to parse SBOM %q with error: %s\n", path, err)
+		return nil, err
+	}
+
+	pkgCount := len(invs)
+	if pkgCount > 0 {
+		r.Infof(
+			"Scanned %s file and found %d %s\n",
+			path,
+			pkgCount,
+			output.Form(pkgCount, "package", "packages"),
+		)
+	}
+
+	return invs, nil
+}
+
+// ScanSingleFileWithMapping will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-//
-// TODO(V2 Models): pomExtractor is temporary until V2 Models
-func ScanLockfile(r reporter.Reporter, scanArg string, pomExtractor filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanSingleFileWithMapping(r reporter.Reporter, scanPath string, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
 	var err error
 	var inventories []*extractor.Inventory
 
-	parseAs, path := parseLockfilePath(scanArg)
+	parseAs, path := parseLockfilePath(scanPath)
 
 	path, err = filepath.Abs(path)
 	if err != nil {
 		r.Errorf("Failed to resolved path %q with error: %s\n", path, err)
 		return nil, err
-	}
-	extractorsToUse := lockfileExtractors
-
-	if pomExtractor != nil {
-		extractorsToUse = append(extractorsToUse, pomExtractor)
-	} else {
-		extractorsToUse = append(extractorsToUse, pomxml.Extractor{})
 	}
 
 	// special case for the APK and DPKG parsers because they have a very generic name while
