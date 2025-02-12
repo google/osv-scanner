@@ -3,6 +3,7 @@
 This second beta release brings a series of fixes and improvements to the previous release.
 
 ### Improvements:
+
 - [Feature #1561](https://github.com/google/osv-scanner/pull/1561) Updated HTML report for better contrast and usability
 - [Feature #1569](https://github.com/google/osv-scanner/pull/1569) Add support for bun.lock lockfiles.
 - [Feature #1584](https://github.com/google/osv-scanner/pull/1584) Make skip root git repository the default behavior.
@@ -10,6 +11,7 @@ This second beta release brings a series of fixes and improvements to the previo
 - [Feature #1557](https://github.com/google/osv-scanner/pull/1557) Allow setting port number when using the `--serve` flag with the new `--port` flag.
 
 ### Fixes
+
 - [Fix #1585](https://github.com/google/osv-scanner/pull/1585) Fixed issue where base images are occasionally duplicated.
 - [Fix #1597](https://github.com/google/osv-scanner/pull/1597) Fixed issue where SBOM parsers are not correctly parsing CycloneDX files when using the `bom.xml` filename.
 - [Fix #1566](https://github.com/google/osv-scanner/pull/1566) Fixed issue where offline scanning returns different results from online scanning.
@@ -38,10 +40,10 @@ A significant new feature is a rewritten, layer-aware container scanning support
 This layer analysis leverages [OSV-Scalibr](https://github.com/google/osv-scalibr), and supports the following OSes and languages:
 | Distro Support | Language Artifacts Support |
 | -------------- | -------------------------- |
-| Alpine OS      | Go                         |
-| Debian         | Java                       |
-| Ubuntu         | Node                       |
-|                | Python                     |
+| Alpine OS | Go |
+| Debian | Java |
+| Ubuntu | Node |
+| | Python |
 
 Base image identification also leverages a new experimental API provided by https://deps.dev.
 
