@@ -11,7 +11,6 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -28,11 +27,9 @@ type LocalMatcher struct {
 	failedDBs map[osvschema.Ecosystem]error
 	// userAgent sets the user agent requests for db zips are made with
 	userAgent string
-	// TODO(v2 logging): Remove this reporter
-	r reporter.Reporter
 }
 
-func NewLocalMatcher(r reporter.Reporter, localDBPath string, userAgent string, downloadDB bool) (*LocalMatcher, error) {
+func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*LocalMatcher, error) {
 	dbBasePath, err := setupLocalDBDirectory(localDBPath)
 	if err != nil {
 		return nil, fmt.Errorf("could not create %s: %w", dbBasePath, err)
@@ -42,7 +39,6 @@ func NewLocalMatcher(r reporter.Reporter, localDBPath string, userAgent string, 
 		dbBasePath: dbBasePath,
 		dbs:        make(map[osvschema.Ecosystem]*ZipDB),
 		downloadDB: downloadDB,
-		r:          r,
 		userAgent:  userAgent,
 		failedDBs:  make(map[osvschema.Ecosystem]error),
 	}, nil

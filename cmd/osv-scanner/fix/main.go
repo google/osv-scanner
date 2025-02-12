@@ -244,7 +244,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			DevDeps:       !ctx.Bool("ignore-dev"),
 			MinSeverity:   ctx.Float64("min-severity"),
 			MaxDepth:      ctx.Int("max-depth"),
-			UpgradeConfig: upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config"), r),
+			UpgradeConfig: upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config")),
 		},
 		Manifest:    ctx.String("manifest"),
 		Lockfile:    ctx.String("lockfile"),
@@ -310,7 +310,6 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	userAgent := "osv-scanner_fix/" + version.OSVVersion
 	if ctx.Bool("offline-vulnerabilities") {
 		matcher, err := localmatcher.NewLocalMatcher(
-			r,
 			ctx.String("local-db-path"),
 			userAgent,
 			ctx.Bool("download-offline-databases"),

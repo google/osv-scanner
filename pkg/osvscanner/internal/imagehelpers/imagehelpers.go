@@ -13,7 +13,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
 	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 func BuildImageMetadata(img *image.Image, baseImageMatcher clientinterfaces.BaseImageMatcher) (*models.ImageMetadata, error) {
@@ -67,7 +66,7 @@ func BuildImageMetadata(img *image.Image, baseImageMatcher clientinterfaces.Base
 // cleaned automatically by this function.
 //
 // ExportDockerImage will first try to locate the image locally, and if not found, attempt to pull the image from the docker registry.
-func ExportDockerImage(r reporter.Reporter, dockerImageName string) (string, error) {
+func ExportDockerImage(dockerImageName string) (string, error) {
 	tempImageFile, err := os.CreateTemp("", "docker-image-*.tar")
 	if err != nil {
 		slog.Error(fmt.Sprintf("Failed to create temporary file: %s\n", err))
@@ -87,7 +86,7 @@ func ExportDockerImage(r reporter.Reporter, dockerImageName string) (string, err
 	output, err := cmd.Output()
 	if err != nil || string(output) == "" {
 		slog.Info(fmt.Sprintf("Image not found locally, pulling docker image (%q)...\n", dockerImageName))
-		err = runCommandLogError(r, "docker", "pull", "-q", dockerImageName)
+		err = runCommandLogError("docker", "pull", "-q", dockerImageName)
 		if err != nil {
 			_ = os.RemoveAll(tempImageFile.Name())
 
@@ -96,7 +95,7 @@ func ExportDockerImage(r reporter.Reporter, dockerImageName string) (string, err
 	}
 
 	slog.Info(fmt.Sprintf("Saving docker image (%q) to temporary file...\n", dockerImageName))
-	err = runCommandLogError(r, "docker", "save", "-o", tempImageFile.Name(), dockerImageName)
+	err = runCommandLogError("docker", "save", "-o", tempImageFile.Name(), dockerImageName)
 	if err != nil {
 		_ = os.RemoveAll(tempImageFile.Name())
 
@@ -106,7 +105,7 @@ func ExportDockerImage(r reporter.Reporter, dockerImageName string) (string, err
 	return tempImageFile.Name(), nil
 }
 
-func runCommandLogError(r reporter.Reporter, name string, args ...string) error {
+func runCommandLogError(name string, args ...string) error {
 	cmd := exec.Command(name, args...)
 
 	// Get stderr for debugging when docker fails

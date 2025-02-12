@@ -153,7 +153,7 @@ func GetScanGlobalFlags() []cli.Flag {
 }
 
 // OpenHTML will attempt to open the outputted HTML file in the default browser
-func OpenHTML(r reporter.Reporter, outputPath string) {
+func OpenHTML(outputPath string) {
 	// Open the outputted HTML file in the default browser.
 	slog.Info(fmt.Sprintf("Opening %s...\n", outputPath))
 	var err error
@@ -176,7 +176,7 @@ func OpenHTML(r reporter.Reporter, outputPath string) {
 // ServeHTML serves the single HTML file for remote accessing.
 // The program will keep running to serve the HTML report on localhost
 // until the user manually terminates it (e.g. using Ctrl+C).
-func ServeHTML(r reporter.Reporter, outputPath string) {
+func ServeHTML(outputPath string) {
 	localhostURL := fmt.Sprintf("http://localhost:%s/", servePort)
 	slog.Info(fmt.Sprintf("Serving HTML report at %s.\nIf you are accessing remotely, use the following SSH command:\n`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`\n", localhostURL, servePort))
 	server := &http.Server{

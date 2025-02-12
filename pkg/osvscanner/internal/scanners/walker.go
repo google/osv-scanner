@@ -15,7 +15,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/customgitignore"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 // ScanDir walks through the given directory to try to find any relevant files
@@ -25,7 +24,7 @@ import (
 //   - Any git repositories with scanGit
 //
 // TODO(V2 Models): pomExtractor is temporary until V2 Models
-func ScanDir(r reporter.Reporter, dir string, recursive bool, useGitIgnore bool, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanDir(dir string, recursive bool, useGitIgnore bool, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error

@@ -7,7 +7,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 func Test_filterResults(t *testing.T) {
@@ -37,7 +36,6 @@ func Test_filterResults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			r := &reporter.VoidReporter{}
 			// configManager looks for osv-scanner.toml in the source path.
 			// Sources in the test input should point to files/folders in the text fixture folder for this to work correctly.
 			configManager := config.Manager{
@@ -46,7 +44,7 @@ func Test_filterResults(t *testing.T) {
 			}
 
 			got := testutility.LoadJSONFixture[models.VulnerabilityResults](t, filepath.Join(tt.path, "input.json"))
-			filtered := filterResults(r, &got, &configManager, false)
+			filtered := filterResults(&got, &configManager, false)
 
 			testutility.NewSnapshot().MatchJSON(t, got)
 
