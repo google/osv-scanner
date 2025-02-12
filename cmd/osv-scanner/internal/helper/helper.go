@@ -13,6 +13,7 @@ import (
 	"time"
 
 	"github.com/google/osv-scanner/v2/internal/spdx"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
@@ -191,13 +192,13 @@ func ServeHTML(outputPath string) {
 	}
 }
 
-func GetReporter(context *cli.Context, stdout, stderr io.Writer, outputPath, format string) (reporter.Reporter, error) {
+func PrintResult(context *cli.Context, stdout, stderr io.Writer, outputPath, format string, diffVulns *models.VulnerabilityResults) error {
 	termWidth := 0
 	var err error
 	if outputPath != "" { // Output is definitely a file
 		stdout, err = os.Create(outputPath)
 		if err != nil {
-			return nil, fmt.Errorf("failed to create output file: %w", err)
+			return fmt.Errorf("failed to create output file: %w", err)
 		}
 	} else { // Output might be a terminal
 		if stdoutAsFile, ok := stdout.(*os.File); ok {
@@ -210,14 +211,10 @@ func GetReporter(context *cli.Context, stdout, stderr io.Writer, outputPath, for
 
 	verbosityLevel, err := reporter.ParseVerbosityLevel(context.String("verbosity"))
 	if err != nil {
-		return nil, err
-	}
-	r, err := reporter.New(format, stdout, stderr, verbosityLevel, termWidth)
-	if err != nil {
-		return r, err
+		return err
 	}
 
-	return r, nil
+	return reporter.PrintResult(diffVulns, format, stdout, stderr, verbosityLevel, termWidth)
 }
 
 func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {

@@ -137,17 +137,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 				diffVulns = ci.DiffVulnerabilityResults(oldVulns, newVulns)
 			}
 
-			if errPrint := tableReporter.PrintResult(&diffVulns); errPrint != nil {
+			if errPrint := reporter.PrintResult(&diffVulns, "table", stdout, stderr, reporter.InfoLevel, termWidth); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
 
 			if context.Bool("gh-annotations") {
-				var ghAnnotationsReporter reporter.Reporter
-				if ghAnnotationsReporter, err = reporter.New("gh-annotations", stdout, stderr, reporter.InfoLevel, termWidth); err != nil {
-					return err
-				}
-
-				if errPrint := ghAnnotationsReporter.PrintResult(&diffVulns); errPrint != nil {
+				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stdout, stderr, reporter.InfoLevel, termWidth); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
@@ -160,12 +155,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 					return fmt.Errorf("failed to create output file: %w", err)
 				}
 				termWidth = 0
-				var sarifReporter reporter.Reporter
-				if sarifReporter, err = reporter.New("sarif", stdout, stderr, reporter.InfoLevel, termWidth); err != nil {
-					return err
-				}
 
-				if errPrint := sarifReporter.PrintResult(&diffVulns); errPrint != nil {
+				if errPrint := reporter.PrintResult(&diffVulns, "sarif", stdout, stderr, reporter.InfoLevel, termWidth); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
