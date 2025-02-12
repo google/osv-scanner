@@ -34,15 +34,11 @@ func splitLastArg(args []string) []string {
 }
 
 func run(args []string, stdout, stderr io.Writer) int {
-	var tableReporter reporter.Reporter
-
 	// Allow multiple arguments to be defined by github actions by splitting the last argument
 	// by new lines.
 	args = splitLastArg(args)
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
-		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
-		tableReporter = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, reporter.InfoLevel, false, 0)
 		slog.Info(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
@@ -91,10 +87,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 				if err != nil { // If output is not a terminal,
 					termWidth = 0
 				}
-			}
-
-			if tableReporter, err = reporter.New("table", stdout, stderr, reporter.InfoLevel, termWidth); err != nil {
-				return err
 			}
 
 			oldPath := context.String("old")
@@ -183,9 +175,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	if err := app.Run(args); err != nil {
-		if tableReporter == nil {
-			tableReporter = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
-		}
 		if errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 			return 1
 		}
@@ -198,11 +187,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 		slog.Error(fmt.Sprintf("%v\n", err))
 	}
 
+	// todo: how do we handle this case?
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	if tableReporter != nil && tableReporter.HasErrored() {
-		return 127
-	}
+	// if r != nil && r.HasErrored() {
+	// 	return 127
+	// }
 
 	return 0
 }
