@@ -55,6 +55,7 @@ type PackageResult struct {
 	HiddenVulns       []VulnResult
 	LayerDetail       PackageContainerInfo
 	VulnCount         VulnCount
+	Licenses          []models.License
 	LicenseViolations []models.License
 }
 
@@ -424,6 +425,7 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 		RegularVulns:      regularVulnList,
 		HiddenVulns:       hiddenVulnList,
 		VulnCount:         count,
+		Licenses:          vulnPkg.Licenses,
 		LicenseViolations: vulnPkg.LicenseViolations,
 	}
 
@@ -439,7 +441,7 @@ func calculateLicenseSummary(result *Result) {
 	for _, ecosystem := range result.Ecosystems {
 		for _, pkgSource := range ecosystem.Sources {
 			for _, pkg := range pkgSource.Packages {
-				for _, l := range pkg.LicenseViolations {
+				for _, l := range pkg.Licenses {
 					counts[l] += 1
 				}
 			}
