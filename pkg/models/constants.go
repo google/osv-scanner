@@ -14,6 +14,7 @@ const (
 	EcosystemNuGet         Ecosystem = "NuGet"
 	EcosystemLinux         Ecosystem = "Linux"
 	EcosystemDebian        Ecosystem = "Debian"
+	EcosystemUbuntu        Ecosystem = "Ubuntu"
 	EcosystemAlpine        Ecosystem = "Alpine"
 	EcosystemHex           Ecosystem = "Hex"
 	EcosystemAndroid       Ecosystem = "Android"
@@ -41,6 +42,7 @@ var Ecosystems = []Ecosystem{
 	EcosystemNuGet,
 	EcosystemLinux,
 	EcosystemDebian,
+	EcosystemUbuntu,
 	EcosystemAlpine,
 	EcosystemHex,
 	EcosystemAndroid,
