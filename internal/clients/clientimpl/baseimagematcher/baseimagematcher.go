@@ -151,7 +151,7 @@ func (matcher *DepsDevBaseImageMatcher) queryBaseImagesForChainID(ctx context.Co
 	})
 
 	if err != nil {
-		slog.Error("deps.dev API error, you may need to update osv-scanner: %s\n", err)
+		slog.Error(fmt.Sprintf("deps.dev API error, you may need to update osv-scanner: %s\n", err))
 		return nil, err
 	}
 	defer resp.Body.Close()
@@ -169,7 +169,7 @@ func (matcher *DepsDevBaseImageMatcher) queryBaseImagesForChainID(ctx context.Co
 	d := json.NewDecoder(resp.Body)
 	err = d.Decode(&results)
 	if err != nil {
-		slog.Error("Unexpected return type from deps.dev base image endpoint: %s", err)
+		slog.Error(fmt.Sprintf("Unexpected return type from deps.dev base image endpoint: %s", err))
 		return nil, err
 	}
 

@@ -35,7 +35,7 @@ const (
 func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
 	binaryPaths, err := rustBuildSource(r, source)
 	if err != nil {
-		slog.Error("failed to build cargo/rust project from source: %s\n", err)
+		slog.Error(fmt.Sprintf("failed to build cargo/rust project from source: %s\n", err))
 		return
 	}
 
@@ -51,14 +51,14 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 			// Is a library, so need an extra step to extract the object binary file before passing to parseDWARFData
 			buf, err := extractRlibArchive(path)
 			if err != nil {
-				slog.Error("failed to analyse '%s': %s\n", path, err)
+				slog.Error(fmt.Sprintf("failed to analyse '%s': %s\n", path, err))
 				continue
 			}
 			readAt = bytes.NewReader(buf.Bytes())
 		} else {
 			f, err := os.Open(path)
 			if err != nil {
-				slog.Error("failed to read binary '%s': %s\n", path, err)
+				slog.Error(fmt.Sprintf("failed to read binary '%s': %s\n", path, err))
 				continue
 			}
 			// This is fine to defer til the end of the function as there's
@@ -69,7 +69,7 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 
 		calls, err := functionsFromDWARF(readAt)
 		if err != nil {
-			slog.Error("failed to analyse '%s': %s\n", path, err)
+			slog.Error(fmt.Sprintf("failed to analyse '%s': %s\n", path, err))
 			continue
 		}
 
@@ -234,11 +234,11 @@ func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, e
 	cmd.Stdout = &stdoutBuffer
 	cmd.Stderr = &stderrBuffer
 
-	slog.Info("Begin building rust/cargo project\n")
+	slog.Info(fmt.Sprintf("Begin building rust/cargo project\n"))
 
 	if err := cmd.Run(); err != nil {
-		slog.Error("cargo stdout:\n%s", stdoutBuffer.String())
-		slog.Error("cargo stderr:\n%s", stderrBuffer.String())
+		slog.Error(fmt.Sprintf("cargo stdout:\n%s", stdoutBuffer.String()))
+		slog.Error(fmt.Sprintf("cargo stderr:\n%s", stderrBuffer.String()))
 
 		return nil, fmt.Errorf("failed to run `%v`: %w", cmd.String(), err)
 	}

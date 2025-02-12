@@ -43,7 +43,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
 		tableReporter = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, reporter.InfoLevel, false, 0)
-		slog.Info("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
+		slog.Info(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
 	app := &cli.App{
@@ -204,7 +204,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			return 128
 		}
 
-		slog.Error("%v\n", err)
+		slog.Error(fmt.Sprintf("%v\n", err))
 	}
 
 	// if we've been told to print an error, and not already exited with

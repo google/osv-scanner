@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"log/slog"
 	"os"
@@ -27,7 +28,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
 		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, reporter.InfoLevel, false, 0)
-		slog.Info("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
+		slog.Info(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
 	app := &cli.App{
@@ -68,13 +69,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
 		case errors.Is(err, osvscanner.ErrNoPackagesFound):
-			slog.Error("No package sources found, --help for usage information.\n")
+			slog.Error(fmt.Sprintf("No package sources found, --help for usage information.\n"))
 			return 128
 		case errors.Is(err, osvscanner.ErrAPIFailed):
-			slog.Error("%v\n", err)
+			slog.Error(fmt.Sprintf("%v\n", err))
 			return 129
 		}
-		slog.Error("%v\n", err)
+		slog.Error(fmt.Sprintf("%v\n", err))
 	}
 
 	// if we've been told to print an error, and not already exited with
@@ -153,9 +154,9 @@ func getAllCommands(commands []*cli.Command) []string {
 // If this is the case, the command is assumed to be a subcommand.
 func warnIfCommandAmbiguous(command, defaultCommand string) {
 	if _, err := os.Stat(command); err == nil {
-		slog.Warn("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. "+
+		slog.Warn(fmt.Sprintf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. "+
 			"`%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[2]s`, "+
-			"you must specify `%[2]s %[1]s` in your command line.\n", command, defaultCommand)
+			"you must specify `%[2]s %[1]s` in your command line.\n", command, defaultCommand))
 	}
 }
 

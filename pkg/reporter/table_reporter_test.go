@@ -2,6 +2,7 @@ package reporter_test
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"log/slog"
 	"testing"
@@ -16,7 +17,7 @@ func TestTableReporter_Errorf(t *testing.T) {
 	r := reporter.NewTableReporter(io.Discard, writer, reporter.ErrorLevel, false, 0)
 	text := "hello world!"
 
-	slog.Error("%s", text)
+	slog.Error(fmt.Sprintf("%s", text))
 
 	if writer.String() != text {
 		t.Error("Error level message should have been printed")
