@@ -55,6 +55,8 @@ var (
 
 // replaceJSONInput takes a gjson path and replaces all elements the path matches with the output of matcher
 func replaceJSONInput(t *testing.T, jsonInput, path string, matcher func(toReplace gjson.Result) any) string {
+	t.Helper()
+
 	pathArray := []string{}
 
 	// If there are more than 2 #, sjson cannot replace them directly. Iterate out all individual entries
@@ -86,6 +88,8 @@ func replaceJSONInput(t *testing.T, jsonInput, path string, matcher func(toRepla
 }
 
 func buildSJSONPaths(t *testing.T, pathToBuild *[]string, path string, structure gjson.Result) {
+	t.Helper()
+
 	if structure.IsArray() {
 		// More nesting to go
 		for i, res := range structure.Array() {
@@ -102,7 +106,7 @@ func buildSJSONPaths(t *testing.T, pathToBuild *[]string, path string, structure
 		if strings.Count(path, "#") != 1 {
 			t.Fatalf("programmer error: there should only be 1 # left")
 		}
-		for i2 := 0; i2 < int(structure.Int()); i2++ {
+		for i2 := range int(structure.Int()) {
 			newPath := strings.Replace(path, "#", strconv.Itoa(i2), 1)
 			*pathToBuild = append(*pathToBuild, newPath)
 		}

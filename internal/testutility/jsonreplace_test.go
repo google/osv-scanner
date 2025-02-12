@@ -10,6 +10,8 @@ import (
 )
 
 func Test_replaceJSONInput(t *testing.T) {
+	t.Parallel()
+
 	// A nested JSON structure with arrays
 	nestedArray := `{
     "items": [
@@ -143,7 +145,9 @@ func Test_replaceJSONInput(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := replaceJSONInput(nil, tt.args.jsonInput, tt.args.path, tt.args.matcher)
+			t.Parallel()
+
+			got := replaceJSONInput(&testing.T{}, tt.args.jsonInput, tt.args.path, tt.args.matcher)
 			if !gjson.Valid(got) {
 				t.Fatalf("Output not valid: \n%s", got)
 			}
@@ -155,8 +159,8 @@ func Test_replaceJSONInput(t *testing.T) {
 			var wantPretty bytes.Buffer
 			var gotPretty bytes.Buffer
 
-			json.Indent(&wantPretty, []byte(tt.want), "", "\t")
-			json.Indent(&gotPretty, []byte(got), "", "\t")
+			_ = json.Indent(&wantPretty, []byte(tt.want), "", "\t")
+			_ = json.Indent(&gotPretty, []byte(got), "", "\t")
 
 			if diff := cmp.Diff(wantPretty.String(), gotPretty.String()); diff != "" {
 				t.Errorf("replaceJSONInput() diff (-want +got): %s", diff)
