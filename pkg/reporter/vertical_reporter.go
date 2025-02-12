@@ -9,7 +9,7 @@ import (
 	"github.com/jedib0t/go-pretty/v6/text"
 )
 
-type VerticalReporter struct {
+type verticalReporter struct {
 	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
@@ -19,8 +19,8 @@ type VerticalReporter struct {
 	terminalWidth int
 }
 
-func NewVerticalReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel, markdown bool, terminalWidth int) *VerticalReporter {
-	return &VerticalReporter{
+func newVerticalReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel, markdown bool, terminalWidth int) *verticalReporter {
+	return &verticalReporter{
 		stdout:        stdout,
 		stderr:        stderr,
 		hasErrored:    false,
@@ -30,7 +30,7 @@ func NewVerticalReporter(stdout io.Writer, stderr io.Writer, level VerbosityLeve
 	}
 }
 
-func (r *VerticalReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
+func (r *verticalReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil && !r.hasErrored {
 		fmt.Fprintf(r.stdout, "No issues found\n")
 		return nil

@@ -7,15 +7,15 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-type HTMLReporter struct {
+type htmlReporter struct {
 	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
 	level      VerbosityLevel
 }
 
-func NewHTMLReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *HTMLReporter {
-	return &HTMLReporter{
+func newHTMLReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *htmlReporter {
+	return &htmlReporter{
 		stdout:     stdout,
 		stderr:     stderr,
 		level:      level,
@@ -23,6 +23,6 @@ func NewHTMLReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *
 	}
 }
 
-func (r *HTMLReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
+func (r *htmlReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintHTMLResults(vulnResult, r.stdout)
 }

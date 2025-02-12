@@ -7,15 +7,15 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-type SARIFReporter struct {
+type sarifReporter struct {
 	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
 	level      VerbosityLevel
 }
 
-func NewSarifReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *SARIFReporter {
-	return &SARIFReporter{
+func newSarifReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *sarifReporter {
+	return &sarifReporter{
 		stdout:     stdout,
 		stderr:     stderr,
 		level:      level,
@@ -23,6 +23,6 @@ func NewSarifReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) 
 	}
 }
 
-func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
+func (r *sarifReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintSARIFReport(vulnResult, r.stdout)
 }
