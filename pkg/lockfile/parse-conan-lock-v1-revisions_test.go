@@ -8,7 +8,7 @@ import (
 )
 
 func TestParseConanLock_v1_revisions_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/does-not-exist")
 
@@ -17,7 +17,7 @@ func TestParseConanLock_v1_revisions_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseConanLock_v1_revisions_InvalidJson(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/not-json.txt")
 
@@ -26,7 +26,7 @@ func TestParseConanLock_v1_revisions_InvalidJson(t *testing.T) {
 }
 
 func TestParseConanLock_v1_revisions_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/empty.v1.revisions.json")
 
@@ -38,7 +38,7 @@ func TestParseConanLock_v1_revisions_NoPackages(t *testing.T) {
 }
 
 func TestParseConanLock_v1_revisions_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/one-package.v1.revisions.json")
 
@@ -57,7 +57,7 @@ func TestParseConanLock_v1_revisions_OnePackage(t *testing.T) {
 }
 
 func TestParseConanLock_v1_revisions_NoName(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/no-name.v1.revisions.json")
 
@@ -76,7 +76,7 @@ func TestParseConanLock_v1_revisions_NoName(t *testing.T) {
 }
 
 func TestParseConanLock_v1_revisions_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/two-packages.v1.revisions.json")
 
@@ -101,7 +101,7 @@ func TestParseConanLock_v1_revisions_TwoPackages(t *testing.T) {
 }
 
 func TestParseConanLock_v1_revisions_NestedDependencies(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/nested-dependencies.v1.revisions.json")
 
@@ -144,7 +144,7 @@ func TestParseConanLock_v1_revisions_NestedDependencies(t *testing.T) {
 }
 
 func TestParseConanLock_v1_revisions_OnePackageDev(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/one-package-dev.v1.revisions.json")
 

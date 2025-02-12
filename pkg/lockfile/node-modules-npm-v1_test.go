@@ -7,7 +7,7 @@ import (
 )
 
 func TestNodeModulesExtractor_Extract_npm_v1_InvalidJson(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/not-json.txt")
 
@@ -16,7 +16,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_InvalidJson(t *testing.T) {
 }
 
 func TestNodeModulesExtractor_Extract_npm_v1_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/empty.v1.json")
 
@@ -28,7 +28,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_NoPackages(t *testing.T) {
 }
 
 func TestNodeModulesExtractor_Extract_npm_v1_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/one-package.v1.json")
 
@@ -47,7 +47,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_OnePackage(t *testing.T) {
 }
 
 func TestNodeModulesExtractor_Extract_npm_v1_OnePackageDev(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/one-package-dev.v1.json")
 
@@ -67,7 +67,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_OnePackageDev(t *testing.T) {
 }
 
 func TestNodeModulesExtractor_Extract_npm_v1_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/two-packages.v1.json")
 
@@ -92,7 +92,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_TwoPackages(t *testing.T) {
 }
 
 func TestNodeModulesExtractor_Extract_npm_v1_ScopedPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/scoped-packages.v1.json")
 
@@ -117,7 +117,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_ScopedPackages(t *testing.T) {
 }
 
 func TestNodeModulesExtractor_Extract_npm_v1_NestedDependencies(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/nested-dependencies.v1.json")
 
@@ -160,7 +160,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_NestedDependencies(t *testing.T) {
 }
 
 func TestNodeModulesExtractor_Extract_npm_v1_NestedDependenciesDup(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/nested-dependencies-dup.v1.json")
 
@@ -196,7 +196,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_NestedDependenciesDup(t *testing.T)
 }
 
 func TestNodeModulesExtractor_Extract_npm_v1_Commits(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/commits.v1.json")
 
@@ -322,7 +322,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_Commits(t *testing.T) {
 }
 
 func TestNodeModulesExtractor_Extract_npm_v1_Files(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/files.v1.json")
 
@@ -349,7 +349,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_Files(t *testing.T) {
 }
 
 func TestNodeModulesExtractor_Extract_npm_v1_Alias(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/alias.v1.json")
 
@@ -380,7 +380,7 @@ func TestNodeModulesExtractor_Extract_npm_v1_Alias(t *testing.T) {
 }
 
 func TestNodeModulesExtractor_Extract_npm_v1_OptionalPackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := testParsingNodeModules(t, "fixtures/npm/optional-package.v1.json")
 

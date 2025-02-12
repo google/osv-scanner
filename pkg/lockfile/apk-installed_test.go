@@ -10,7 +10,7 @@ import (
 const alpineEcosystem = lockfile.AlpineEcosystem + ":" + lockfile.AlpineFallbackVersion
 
 func TestParseApkInstalled_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/does-not-exist")
 
@@ -19,7 +19,7 @@ func TestParseApkInstalled_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseApkInstalled_Empty(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/empty_installed")
 
@@ -31,7 +31,7 @@ func TestParseApkInstalled_Empty(t *testing.T) {
 }
 
 func TestParseApkInstalled_NotAnInstalled(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/not_installed")
 
@@ -43,7 +43,7 @@ func TestParseApkInstalled_NotAnInstalled(t *testing.T) {
 }
 
 func TestParseApkInstalled_Malformed(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/malformed_installed")
 
@@ -63,7 +63,7 @@ func TestParseApkInstalled_Malformed(t *testing.T) {
 }
 
 func TestParseApkInstalled_Single(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/single_installed")
 
@@ -83,7 +83,7 @@ func TestParseApkInstalled_Single(t *testing.T) {
 }
 
 func TestParseApkInstalled_Shuffled(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/shuffled_installed")
 
@@ -103,7 +103,7 @@ func TestParseApkInstalled_Shuffled(t *testing.T) {
 }
 
 func TestParseApkInstalled_Multiple(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseApkInstalled("fixtures/apk/multiple_installed")
 

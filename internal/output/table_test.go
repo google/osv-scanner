@@ -10,7 +10,7 @@ import (
 )
 
 func TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -23,7 +23,7 @@ func TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities(t *testing.
 }
 
 func TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -36,7 +36,7 @@ func TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations(t *testin
 }
 
 func TestPrintTableResults_StandardTerminalWidth_WithMixedIssues(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -49,7 +49,7 @@ func TestPrintTableResults_StandardTerminalWidth_WithMixedIssues(t *testing.T) {
 }
 
 func TestPrintTableResults_LongTerminalWidth_WithVulnerabilities(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -62,7 +62,7 @@ func TestPrintTableResults_LongTerminalWidth_WithVulnerabilities(t *testing.T) {
 }
 
 func TestPrintTableResults_LongTerminalWidth_WithLicenseViolations(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -75,7 +75,7 @@ func TestPrintTableResults_LongTerminalWidth_WithLicenseViolations(t *testing.T)
 }
 
 func TestPrintTableResults_LongTerminalWidth_WithMixedIssues(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -88,7 +88,7 @@ func TestPrintTableResults_LongTerminalWidth_WithMixedIssues(t *testing.T) {
 }
 
 func TestPrintTableResults_NoTerminalWidth_WithVulnerabilities(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -101,7 +101,7 @@ func TestPrintTableResults_NoTerminalWidth_WithVulnerabilities(t *testing.T) {
 }
 
 func TestPrintTableResults_NoTerminalWidth_WithLicenseViolations(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -114,7 +114,7 @@ func TestPrintTableResults_NoTerminalWidth_WithLicenseViolations(t *testing.T) {
 }
 
 func TestPrintTableResults_NoTerminalWidth_WithMixedIssues(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()

@@ -20,7 +20,7 @@ import (
 )
 
 func TestExtractor_FileRequired(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name         string
@@ -74,7 +74,7 @@ func TestExtractor_FileRequired(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			extr := vendored.Extractor{}
 
@@ -96,7 +96,7 @@ func TestExtractor_FileRequired(t *testing.T) {
 }
 
 func TestExtractor_Extract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	if runtime.GOOS == "windows" {
 		// TODO: Reenable when #657 is resolved.
@@ -127,7 +127,7 @@ func TestExtractor_Extract(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			extr := vendored.Extractor{
 				OSVClient: osvdev.DefaultClient(),
 			}

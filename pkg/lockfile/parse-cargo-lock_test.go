@@ -8,7 +8,7 @@ import (
 )
 
 func TestCargoLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -48,7 +48,7 @@ func TestCargoLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.CargoLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -59,7 +59,7 @@ func TestCargoLockExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParseCargoLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseCargoLock("fixtures/cargo/does-not-exist")
 
@@ -68,7 +68,7 @@ func TestParseCargoLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseCargoLock_InvalidToml(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseCargoLock("fixtures/cargo/not-toml.txt")
 
@@ -77,7 +77,7 @@ func TestParseCargoLock_InvalidToml(t *testing.T) {
 }
 
 func TestParseCargoLock_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseCargoLock("fixtures/cargo/empty.lock")
 
@@ -89,7 +89,7 @@ func TestParseCargoLock_NoPackages(t *testing.T) {
 }
 
 func TestParseCargoLock_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseCargoLock("fixtures/cargo/one-package.lock")
 
@@ -108,7 +108,7 @@ func TestParseCargoLock_OnePackage(t *testing.T) {
 }
 
 func TestParseCargoLock_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseCargoLock("fixtures/cargo/two-packages.lock")
 
@@ -133,7 +133,7 @@ func TestParseCargoLock_TwoPackages(t *testing.T) {
 }
 
 func TestParseCargoLock_TwoPackagesWithLocal(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseCargoLock("fixtures/cargo/two-packages-with-local.lock")
 
@@ -158,7 +158,7 @@ func TestParseCargoLock_TwoPackagesWithLocal(t *testing.T) {
 }
 
 func TestParseCargoLock_PackageWithBuildString(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseCargoLock("fixtures/cargo/package-with-build-string.lock")
 

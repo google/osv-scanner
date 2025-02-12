@@ -8,7 +8,7 @@ import (
 )
 
 func TestParseNpmLock_v2_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/does-not-exist")
 
@@ -17,7 +17,7 @@ func TestParseNpmLock_v2_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_InvalidJson(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/not-json.txt")
 
@@ -26,7 +26,7 @@ func TestParseNpmLock_v2_InvalidJson(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/empty.v2.json")
 
@@ -38,7 +38,7 @@ func TestParseNpmLock_v2_NoPackages(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/one-package.v2.json")
 
@@ -57,7 +57,7 @@ func TestParseNpmLock_v2_OnePackage(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_OnePackageDev(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/one-package-dev.v2.json")
 
@@ -77,7 +77,7 @@ func TestParseNpmLock_v2_OnePackageDev(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/two-packages.v2.json")
 
@@ -102,7 +102,7 @@ func TestParseNpmLock_v2_TwoPackages(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_ScopedPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/scoped-packages.v2.json")
 
@@ -127,7 +127,7 @@ func TestParseNpmLock_v2_ScopedPackages(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_NestedDependencies(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/nested-dependencies.v2.json")
 
@@ -170,7 +170,7 @@ func TestParseNpmLock_v2_NestedDependencies(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_NestedDependenciesDup(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/nested-dependencies-dup.v2.json")
 
@@ -195,7 +195,7 @@ func TestParseNpmLock_v2_NestedDependenciesDup(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_Commits(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/commits.v2.json")
 
@@ -316,7 +316,7 @@ func TestParseNpmLock_v2_Commits(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_Files(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/files.v2.json")
 
@@ -353,7 +353,7 @@ func TestParseNpmLock_v2_Files(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_Alias(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/alias.v2.json")
 
@@ -384,7 +384,7 @@ func TestParseNpmLock_v2_Alias(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_OptionalPackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/optional-package.v2.json")
 
@@ -411,7 +411,7 @@ func TestParseNpmLock_v2_OptionalPackage(t *testing.T) {
 }
 
 func TestParseNpmLock_v2_SamePackageDifferentGroups(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNpmLock("fixtures/npm/same-package-different-groups.v2.json")
 

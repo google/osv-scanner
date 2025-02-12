@@ -8,7 +8,7 @@ import (
 )
 
 func TestGradleVerificationMetadataExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -73,7 +73,7 @@ func TestGradleVerificationMetadataExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.GradleVerificationMetadataExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -84,7 +84,7 @@ func TestGradleVerificationMetadataExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParseGradleVerificationMetadata_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleVerificationMetadata("fixtures/gradle-verification-metadata/does-not-exist")
 
@@ -93,7 +93,7 @@ func TestParseGradleVerificationMetadata_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseGradleVerificationMetadata_InvalidXml(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleVerificationMetadata("fixtures/gradle-verification-metadata/not-xml.txt")
 
@@ -102,7 +102,7 @@ func TestParseGradleVerificationMetadata_InvalidXml(t *testing.T) {
 }
 
 func TestParseGradleVerificationMetadata_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleVerificationMetadata("fixtures/gradle-verification-metadata/empty.xml")
 
@@ -114,7 +114,7 @@ func TestParseGradleVerificationMetadata_NoPackages(t *testing.T) {
 }
 
 func TestParseGradleVerificationMetadata_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleVerificationMetadata("fixtures/gradle-verification-metadata/one-package.xml")
 
@@ -133,7 +133,7 @@ func TestParseGradleVerificationMetadata_OnePackage(t *testing.T) {
 }
 
 func TestParseGradleVerificationMetadata_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleVerificationMetadata("fixtures/gradle-verification-metadata/two-packages.xml")
 
@@ -158,7 +158,7 @@ func TestParseGradleVerificationMetadata_TwoPackages(t *testing.T) {
 }
 
 func TestParseGradleVerificationMetadata_MultipleVersions(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleVerificationMetadata("fixtures/gradle-verification-metadata/multiple-versions.xml")
 
@@ -279,7 +279,7 @@ func TestParseGradleVerificationMetadata_MultipleVersions(t *testing.T) {
 }
 
 func TestParseGradleVerificationMetadata_Complex(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleVerificationMetadata("fixtures/gradle-verification-metadata/complex.xml")
 

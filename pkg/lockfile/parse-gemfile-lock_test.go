@@ -8,7 +8,7 @@ import (
 )
 
 func TestGemfileLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -48,7 +48,7 @@ func TestGemfileLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.GemfileLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -59,7 +59,7 @@ func TestGemfileLockExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParseGemfileLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/does-not-exist")
 
@@ -68,7 +68,7 @@ func TestParseGemfileLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseGemfileLock_NoSpecSection(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/no-spec-section.lock")
 
@@ -80,7 +80,7 @@ func TestParseGemfileLock_NoSpecSection(t *testing.T) {
 }
 
 func TestParseGemfileLock_NoGemSection(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/no-gem-section.lock")
 
@@ -92,7 +92,7 @@ func TestParseGemfileLock_NoGemSection(t *testing.T) {
 }
 
 func TestParseGemfileLock_NoGems(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/no-gems.lock")
 
@@ -104,7 +104,7 @@ func TestParseGemfileLock_NoGems(t *testing.T) {
 }
 
 func TestParseGemfileLock_OneGem(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/one-gem.lock")
 
@@ -123,7 +123,7 @@ func TestParseGemfileLock_OneGem(t *testing.T) {
 }
 
 func TestParseGemfileLock_SomeGems(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/some-gems.lock")
 
@@ -154,7 +154,7 @@ func TestParseGemfileLock_SomeGems(t *testing.T) {
 }
 
 func TestParseGemfileLock_MultipleGems(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/multiple-gems.lock")
 
@@ -203,7 +203,7 @@ func TestParseGemfileLock_MultipleGems(t *testing.T) {
 }
 
 func TestParseGemfileLock_Rails(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/rails.lock")
 
@@ -492,7 +492,7 @@ func TestParseGemfileLock_Rails(t *testing.T) {
 }
 
 func TestParseGemfileLock_Rubocop(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/rubocop.lock")
 
@@ -565,7 +565,7 @@ func TestParseGemfileLock_Rubocop(t *testing.T) {
 }
 
 func TestParseGemfileLock_HasLocalGem(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/has-local-gem.lock")
 
@@ -758,7 +758,7 @@ func TestParseGemfileLock_HasLocalGem(t *testing.T) {
 }
 
 func TestParseGemfileLock_HasGitGem(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/has-git-gem.lock")
 

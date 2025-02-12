@@ -8,7 +8,7 @@ import (
 )
 
 func TestGoBinaryExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -63,7 +63,7 @@ func TestGoBinaryExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.GoBinaryExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -74,7 +74,7 @@ func TestGoBinaryExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestExtractGoBinary_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	file, err := lockfile.OpenLocalDepFile("fixtures/go/binaries/just-go")
 	if err != nil {
@@ -97,7 +97,7 @@ func TestExtractGoBinary_NoPackages(t *testing.T) {
 }
 
 func TestExtractGoBinary_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	file, err := lockfile.OpenLocalDepFile("fixtures/go/binaries/has-one-dep")
 	if err != nil {
@@ -126,7 +126,7 @@ func TestExtractGoBinary_OnePackage(t *testing.T) {
 }
 
 func TestExtractGoBinary_NotAGoBinary(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	file, err := lockfile.OpenLocalDepFile("fixtures/go/one-package.mod")
 	if err != nil {

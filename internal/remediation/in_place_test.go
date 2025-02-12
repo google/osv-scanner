@@ -106,7 +106,7 @@ func checkInPlaceResults(t *testing.T, res remediation.InPlaceResult) {
 }
 
 func TestComputeInPlacePatches(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	basicOpts := remediation.Options{
 		DevDeps:       true,
@@ -130,7 +130,7 @@ func TestComputeInPlacePatches(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			g, cl := parseInPlaceFixture(t, tt.universePath, tt.lockfilePath)
 			res, err := remediation.ComputeInPlacePatches(context.Background(), cl, g, tt.opts)
 			if err != nil {

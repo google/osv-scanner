@@ -8,7 +8,7 @@ import (
 )
 
 func TestGradleLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -73,7 +73,7 @@ func TestGradleLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.GradleLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -84,7 +84,7 @@ func TestGradleLockExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParseGradleLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleLock("fixtures/gradle/does-not-exist")
 
@@ -93,7 +93,7 @@ func TestParseGradleLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseGradleLock_OnlyComments(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleLock("fixtures/gradle/only-comments")
 
@@ -105,7 +105,7 @@ func TestParseGradleLock_OnlyComments(t *testing.T) {
 }
 
 func TestParseGradleLock_EmptyStatement(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleLock("fixtures/gradle/only-empty")
 
@@ -117,7 +117,7 @@ func TestParseGradleLock_EmptyStatement(t *testing.T) {
 }
 
 func TestParseGradleLock_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleLock("fixtures/gradle/one-pkg")
 
@@ -136,7 +136,7 @@ func TestParseGradleLock_OnePackage(t *testing.T) {
 }
 
 func TestParseGradleLock_MultiplePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleLock("fixtures/gradle/5-pkg")
 
@@ -180,7 +180,7 @@ func TestParseGradleLock_MultiplePackage(t *testing.T) {
 }
 
 func TestParseGradleLock_WithInvalidLines(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGradleLock("fixtures/gradle/with-bad-pkg")
 

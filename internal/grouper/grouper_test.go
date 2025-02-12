@@ -9,7 +9,7 @@ import (
 )
 
 func TestGroup(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// Should be grouped by IDs appearing in alias.
 	v1 := grouper.IDAliases{

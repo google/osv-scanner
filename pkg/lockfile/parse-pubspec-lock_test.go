@@ -8,7 +8,7 @@ import (
 )
 
 func TestPubspecLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -48,7 +48,7 @@ func TestPubspecLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.PubspecLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -59,7 +59,7 @@ func TestPubspecLockExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParsePubspecLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/does-not-exist")
 
@@ -68,7 +68,7 @@ func TestParsePubspecLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParsePubspecLock_InvalidYaml(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/not-yaml.txt")
 
@@ -77,7 +77,7 @@ func TestParsePubspecLock_InvalidYaml(t *testing.T) {
 }
 
 func TestParsePubspecLock_Empty(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/empty.lock")
 
@@ -89,7 +89,7 @@ func TestParsePubspecLock_Empty(t *testing.T) {
 }
 
 func TestParsePubspecLock_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/no-packages.lock")
 
@@ -101,7 +101,7 @@ func TestParsePubspecLock_NoPackages(t *testing.T) {
 }
 
 func TestParsePubspecLock_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/one-package.lock")
 
@@ -119,7 +119,7 @@ func TestParsePubspecLock_OnePackage(t *testing.T) {
 }
 
 func TestParsePubspecLock_OnePackageDev(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/one-package-dev.lock")
 
@@ -138,7 +138,7 @@ func TestParsePubspecLock_OnePackageDev(t *testing.T) {
 }
 
 func TestParsePubspecLock_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/two-packages.lock")
 
@@ -161,7 +161,7 @@ func TestParsePubspecLock_TwoPackages(t *testing.T) {
 }
 
 func TestParsePubspecLock_MixedPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/mixed-packages.lock")
 
@@ -195,7 +195,7 @@ func TestParsePubspecLock_MixedPackages(t *testing.T) {
 }
 
 func TestParsePubspecLock_PackageWithGitSource(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/source-git.lock")
 
@@ -238,7 +238,7 @@ func TestParsePubspecLock_PackageWithGitSource(t *testing.T) {
 }
 
 func TestParsePubspecLock_PackageWithSdkSource(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/source-sdk.lock")
 
@@ -257,7 +257,7 @@ func TestParsePubspecLock_PackageWithSdkSource(t *testing.T) {
 }
 
 func TestParsePubspecLock_PackageWithPathSource(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePubspecLock("fixtures/pub/source-path.lock")
 

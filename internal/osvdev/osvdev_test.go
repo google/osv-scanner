@@ -14,7 +14,7 @@ import (
 )
 
 func TestOSVClient_GetVulnsByID(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name    string
@@ -42,7 +42,7 @@ func TestOSVClient_GetVulnsByID(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
@@ -65,7 +65,7 @@ func TestOSVClient_GetVulnsByID(t *testing.T) {
 }
 
 func TestOSVClient_QueryBatch(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name    string
@@ -130,7 +130,7 @@ func TestOSVClient_QueryBatch(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
@@ -162,7 +162,7 @@ func TestOSVClient_QueryBatch(t *testing.T) {
 }
 
 func TestOSVClient_QueryBatchDeadline(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to run")
 
 	tests := []struct {
@@ -198,7 +198,7 @@ func TestOSVClient_QueryBatchDeadline(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
@@ -231,7 +231,7 @@ func TestOSVClient_QueryBatchDeadline(t *testing.T) {
 }
 
 func TestOSVClient_Query(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name    string
@@ -287,7 +287,7 @@ func TestOSVClient_Query(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
@@ -315,7 +315,7 @@ func TestOSVClient_Query(t *testing.T) {
 }
 
 func TestOSVClient_QueryDeadline(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name    string
@@ -338,7 +338,7 @@ func TestOSVClient_QueryDeadline(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
@@ -368,7 +368,7 @@ func TestOSVClient_QueryDeadline(t *testing.T) {
 }
 
 func TestOSVClient_ExperimentalDetermineVersion(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name     string
@@ -392,7 +392,7 @@ func TestOSVClient_ExperimentalDetermineVersion(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"

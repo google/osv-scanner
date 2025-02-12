@@ -9,7 +9,7 @@ import (
 )
 
 func TestTableReporter_Errorf(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	writer := &bytes.Buffer{}
 	r := reporter.NewTableReporter(io.Discard, writer, reporter.ErrorLevel, false, 0)
@@ -26,7 +26,7 @@ func TestTableReporter_Errorf(t *testing.T) {
 }
 
 func TestTableReporter_Warnf(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {
@@ -50,7 +50,7 @@ func TestTableReporter_Warnf(t *testing.T) {
 }
 
 func TestTableReporter_Infof(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {
@@ -74,7 +74,7 @@ func TestTableReporter_Infof(t *testing.T) {
 }
 
 func TestTableReporter_Verbosef(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {

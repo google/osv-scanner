@@ -27,7 +27,7 @@ func normalizeFilePaths(t *testing.T, output string) string {
 }
 
 func Test_normalizeConfigLoadPath(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type args struct {
 		target string
@@ -89,7 +89,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			got, err := normalizeConfigLoadPath(tt.args.target)
 			if (err != nil) != tt.wantErr {
@@ -106,7 +106,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 }
 
 func Test_tryLoadConfig(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type args struct {
 		configPath string
@@ -175,7 +175,7 @@ func Test_tryLoadConfig(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			got, err := tryLoadConfig(&reporter.VoidReporter{}, tt.args.configPath)
 			if (err != nil) != tt.wantErr {
@@ -190,7 +190,7 @@ func Test_tryLoadConfig(t *testing.T) {
 }
 
 func TestTryLoadConfig_UnknownKeys(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		configPath string
@@ -246,7 +246,7 @@ func TestTryLoadConfig_UnknownKeys(t *testing.T) {
 }
 
 func TestConfig_ShouldIgnore(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type args struct {
 		vulnID string
@@ -346,7 +346,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			gotOk, gotEntry := tt.config.ShouldIgnore(tt.args.vulnID)
 			if gotOk != tt.wantOk {
@@ -360,7 +360,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 }
 
 func TestConfig_ShouldIgnorePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name      string
@@ -914,7 +914,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			gotOk, gotEntry := tt.config.ShouldIgnorePackage(tt.args)
 			if gotOk != tt.wantOk {
@@ -928,7 +928,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 }
 
 func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name   string
@@ -1017,7 +1017,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			gotOk := tt.config.ShouldIgnorePackageVulnerabilities(tt.args)
 			if gotOk != tt.wantOk {
@@ -1028,7 +1028,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 }
 
 func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name      string
@@ -1231,7 +1231,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			gotOk, gotEntry := tt.config.ShouldOverridePackageLicense(tt.args)
 			if gotOk != tt.wantOk {

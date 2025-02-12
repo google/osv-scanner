@@ -8,7 +8,7 @@ import (
 )
 
 func TestComposerLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -48,7 +48,7 @@ func TestComposerLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.ComposerLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -59,7 +59,7 @@ func TestComposerLockExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParseComposerLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/does-not-exist")
 
@@ -68,7 +68,7 @@ func TestParseComposerLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseComposerLock_InvalidJson(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/not-json.txt")
 
@@ -77,7 +77,7 @@ func TestParseComposerLock_InvalidJson(t *testing.T) {
 }
 
 func TestParseComposerLock_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/empty.json")
 
@@ -89,7 +89,7 @@ func TestParseComposerLock_NoPackages(t *testing.T) {
 }
 
 func TestParseComposerLock_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/one-package.json")
 
@@ -109,7 +109,7 @@ func TestParseComposerLock_OnePackage(t *testing.T) {
 }
 
 func TestParseComposerLock_OnePackageDev(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/one-package-dev.json")
 
@@ -130,7 +130,7 @@ func TestParseComposerLock_OnePackageDev(t *testing.T) {
 }
 
 func TestParseComposerLock_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/two-packages.json")
 
@@ -158,7 +158,7 @@ func TestParseComposerLock_TwoPackages(t *testing.T) {
 }
 
 func TestParseComposerLock_TwoPackagesAlt(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseComposerLock("fixtures/composer/two-packages-alt.json")
 

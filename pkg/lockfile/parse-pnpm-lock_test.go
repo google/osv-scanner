@@ -8,7 +8,7 @@ import (
 )
 
 func TestPnpmLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -48,7 +48,7 @@ func TestPnpmLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.PnpmLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -59,7 +59,7 @@ func TestPnpmLockExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParsePnpmLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/does-not-exist")
 
@@ -68,7 +68,7 @@ func TestParsePnpmLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParsePnpmLock_InvalidYaml(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/not-yaml.txt")
 
@@ -77,7 +77,7 @@ func TestParsePnpmLock_InvalidYaml(t *testing.T) {
 }
 
 func TestParsePnpmLock_Empty(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/empty.yaml")
 
@@ -89,7 +89,7 @@ func TestParsePnpmLock_Empty(t *testing.T) {
 }
 
 func TestParsePnpmLock_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/no-packages.yaml")
 
@@ -101,7 +101,7 @@ func TestParsePnpmLock_NoPackages(t *testing.T) {
 }
 
 func TestParsePnpmLock_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/one-package.yaml")
 
@@ -120,7 +120,7 @@ func TestParsePnpmLock_OnePackage(t *testing.T) {
 }
 
 func TestParsePnpmLock_OnePackageV6Lockfile(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/one-package-v6-lockfile.yaml")
 
@@ -139,7 +139,7 @@ func TestParsePnpmLock_OnePackageV6Lockfile(t *testing.T) {
 }
 
 func TestParsePnpmLock_OnePackageDev(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/one-package-dev.yaml")
 
@@ -158,7 +158,7 @@ func TestParsePnpmLock_OnePackageDev(t *testing.T) {
 }
 
 func TestParsePnpmLock_ScopedPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/scoped-packages.yaml")
 
@@ -177,7 +177,7 @@ func TestParsePnpmLock_ScopedPackages(t *testing.T) {
 }
 
 func TestParsePnpmLock_ScopedPackagesV6Lockfile(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/scoped-packages-v6-lockfile.yaml")
 
@@ -196,7 +196,7 @@ func TestParsePnpmLock_ScopedPackagesV6Lockfile(t *testing.T) {
 }
 
 func TestParsePnpmLock_PeerDependencies(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/peer-dependencies.yaml")
 
@@ -221,7 +221,7 @@ func TestParsePnpmLock_PeerDependencies(t *testing.T) {
 }
 
 func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/peer-dependencies-advanced.yaml")
 
@@ -288,7 +288,7 @@ func TestParsePnpmLock_PeerDependenciesAdvanced(t *testing.T) {
 }
 
 func TestParsePnpmLock_MultiplePackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/multiple-packages.yaml")
 
@@ -385,7 +385,7 @@ func TestParsePnpmLock_MultiplePackages(t *testing.T) {
 }
 
 func TestParsePnpmLock_MultipleVersions(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/multiple-versions.yaml")
 
@@ -416,7 +416,7 @@ func TestParsePnpmLock_MultipleVersions(t *testing.T) {
 }
 
 func TestParsePnpmLock_Tarball(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/tarball.yaml")
 
@@ -437,7 +437,7 @@ func TestParsePnpmLock_Tarball(t *testing.T) {
 }
 
 func TestParsePnpmLock_Exotic(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/exotic.yaml")
 
@@ -492,7 +492,7 @@ func TestParsePnpmLock_Exotic(t *testing.T) {
 }
 
 func TestParsePnpmLock_Commits(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/commits.yaml")
 
@@ -540,7 +540,7 @@ func TestParsePnpmLock_Commits(t *testing.T) {
 }
 
 func TestParsePnpmLock_Files(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/files.yaml")
 
@@ -588,7 +588,7 @@ func TestParsePnpmLock_Files(t *testing.T) {
 }
 
 func TestParsePnpmLock_InvalidPackagePath(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePnpmLock("fixtures/pnpm/invalid-package-path.yaml")
 

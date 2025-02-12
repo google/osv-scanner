@@ -8,7 +8,7 @@ import (
 )
 
 func TestParseNuGetLock_v1_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/does-not-exist")
 
@@ -17,7 +17,7 @@ func TestParseNuGetLock_v1_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseNuGetLock_v1_InvalidJson(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/not-json.txt")
 
@@ -26,7 +26,7 @@ func TestParseNuGetLock_v1_InvalidJson(t *testing.T) {
 }
 
 func TestParseNuGetLock_v1_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/empty.v1.json")
 
@@ -38,7 +38,7 @@ func TestParseNuGetLock_v1_NoPackages(t *testing.T) {
 }
 
 func TestParseNuGetLock_v1_OneFramework_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-one-package.v1.json")
 
@@ -57,7 +57,7 @@ func TestParseNuGetLock_v1_OneFramework_OnePackage(t *testing.T) {
 }
 
 func TestParseNuGetLock_v1_OneFramework_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/one-framework-two-packages.v1.json")
 
@@ -82,7 +82,7 @@ func TestParseNuGetLock_v1_OneFramework_TwoPackages(t *testing.T) {
 }
 
 func TestParseNuGetLock_v1_TwoFrameworks_MixedPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-mixed-packages.v1.json")
 
@@ -113,7 +113,7 @@ func TestParseNuGetLock_v1_TwoFrameworks_MixedPackages(t *testing.T) {
 }
 
 func TestParseNuGetLock_v1_TwoFrameworks_DifferentPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-different-packages.v1.json")
 
@@ -138,7 +138,7 @@ func TestParseNuGetLock_v1_TwoFrameworks_DifferentPackages(t *testing.T) {
 }
 
 func TestParseNuGetLock_v1_TwoFrameworks_DuplicatePackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseNuGetLock("fixtures/nuget/two-frameworks-duplicate-packages.v1.json")
 

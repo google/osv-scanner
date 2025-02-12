@@ -8,7 +8,7 @@ import (
 )
 
 func TestParseRenvLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRenvLock("fixtures/renv/does-not-exist")
 
@@ -17,7 +17,7 @@ func TestParseRenvLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseRenvLock_InvalidJson(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRenvLock("fixtures/renv/not-json.txt")
 
@@ -26,7 +26,7 @@ func TestParseRenvLock_InvalidJson(t *testing.T) {
 }
 
 func TestParseRenvLock_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRenvLock("fixtures/renv/empty.lock")
 
@@ -38,7 +38,7 @@ func TestParseRenvLock_NoPackages(t *testing.T) {
 }
 
 func TestParseRenvLock_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRenvLock("fixtures/renv/one-package.lock")
 
@@ -57,7 +57,7 @@ func TestParseRenvLock_OnePackage(t *testing.T) {
 }
 
 func TestParseRenvLock_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRenvLock("fixtures/renv/two-packages.lock")
 
@@ -82,7 +82,7 @@ func TestParseRenvLock_TwoPackages(t *testing.T) {
 }
 
 func TestParseRenvLock_WithMixedSources(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRenvLock("fixtures/renv/with-mixed-sources.lock")
 
@@ -101,7 +101,7 @@ func TestParseRenvLock_WithMixedSources(t *testing.T) {
 }
 
 func TestParseRenvLock_WithBioconductor(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRenvLock("fixtures/renv/with-bioconductor.lock")
 
@@ -121,7 +121,7 @@ func TestParseRenvLock_WithBioconductor(t *testing.T) {
 }
 
 func TestParseRenvLock_WithoutRepository(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRenvLock("fixtures/renv/without-repository.lock")
 

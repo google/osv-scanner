@@ -30,7 +30,7 @@ var _ lockfile.DepFile = TestDepFile{}
 var _ lockfile.NestedDepFile = TestDepFile{}
 
 func TestFindExtractor(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	lockfiles := map[string]string{
 		"buildscript-gradle.lockfile":      "gradle.lockfile",
@@ -68,7 +68,7 @@ func TestFindExtractor(t *testing.T) {
 }
 
 func TestFindExtractor_ExplicitExtractAs(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	extractor, extractedAs := lockfile.FindExtractor("/path/to/my/package-lock.json", "composer.lock")
 
@@ -82,7 +82,7 @@ func TestFindExtractor_ExplicitExtractAs(t *testing.T) {
 }
 
 func TestExtractDeps_FindsExpectedExtractor(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	lockfiles := []string{
 		"buildscript-gradle.lockfile",
@@ -126,7 +126,7 @@ func TestExtractDeps_FindsExpectedExtractor(t *testing.T) {
 }
 
 func TestExtractDeps_ExtractorNotFound(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	_, err := lockfile.ExtractDeps(openTestDepFile("/path/to/my/"), "")
 
@@ -140,7 +140,7 @@ func TestExtractDeps_ExtractorNotFound(t *testing.T) {
 }
 
 func TestExtractDeps_ExtractorNotFound_WithExplicitExtractAs(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	_, err := lockfile.ExtractDeps(openTestDepFile("/path/to/my/"), "unsupported")
 
@@ -154,7 +154,7 @@ func TestExtractDeps_ExtractorNotFound_WithExplicitExtractAs(t *testing.T) {
 }
 
 func TestListExtractors(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	extractors := lockfile.ListExtractors()
 

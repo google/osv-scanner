@@ -8,7 +8,7 @@ import (
 )
 
 func TestParseOSVScannerResults_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseOSVScannerResults("fixtures/osvscannerresults/does-not-exist")
 
@@ -17,7 +17,7 @@ func TestParseOSVScannerResults_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseOSVScannerResults_InvalidJSON(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseOSVScannerResults("fixtures/osvscannerresults/not-json.txt")
 
@@ -26,7 +26,7 @@ func TestParseOSVScannerResults_InvalidJSON(t *testing.T) {
 }
 
 func TestParseOSVScannerResults_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseOSVScannerResults("fixtures/osvscannerresults/empty.json")
 
@@ -38,7 +38,7 @@ func TestParseOSVScannerResults_NoPackages(t *testing.T) {
 }
 
 func TestParseOSVScannerResults_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseOSVScannerResults("fixtures/osvscannerresults/one-package.json")
 
@@ -57,7 +57,7 @@ func TestParseOSVScannerResults_OnePackage(t *testing.T) {
 }
 
 func TestParseOSVScannerResults_OnePackageCommit(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseOSVScannerResults("fixtures/osvscannerresults/one-package-commit.json")
 
@@ -73,7 +73,7 @@ func TestParseOSVScannerResults_OnePackageCommit(t *testing.T) {
 }
 
 func TestParseOSVScannerResults_MultiPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseOSVScannerResults("fixtures/osvscannerresults/multi-packages-with-vulns.json")
 

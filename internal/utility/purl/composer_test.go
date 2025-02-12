@@ -9,7 +9,7 @@ import (
 )
 
 func TestComposerExtraction_shouldExtractPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	testCase := struct {
 		packageInfo       models.PackageInfo
 		expectedNamespace string
@@ -39,7 +39,7 @@ func TestComposerExtraction_shouldExtractPackages(t *testing.T) {
 }
 
 func TestComposerExtraction_shouldFilterPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	testCases := []struct {
 		name        string
 		packageInfo models.PackageInfo
@@ -67,7 +67,7 @@ func TestComposerExtraction_shouldFilterPackages(t *testing.T) {
 	for _, test := range testCases {
 		testCase := test
 		t.Run(testCase.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			_, _, err := purl.FromComposer(testCase.packageInfo)
 
 			if err == nil {

@@ -13,7 +13,7 @@ import (
 )
 
 func TestMakeRetryRequest(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	testutility.Skip(t, "This test takes a long time (14+ seconds)")
 
 	tests := []struct {
@@ -48,7 +48,7 @@ func TestMakeRetryRequest(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			attempts := 0
 			idx := 0

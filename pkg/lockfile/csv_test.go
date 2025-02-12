@@ -9,7 +9,7 @@ import (
 )
 
 func TestFromCSVRows(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type args struct {
 		filePath string
@@ -140,7 +140,7 @@ func TestFromCSVRows(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			got, err := lockfile.FromCSVRows(tt.args.filePath, tt.args.parseAs, tt.args.rows)
 			if err != nil {
@@ -156,7 +156,7 @@ func TestFromCSVRows(t *testing.T) {
 }
 
 func TestFromCSVRows_Errors(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type args struct {
 		filePath string
@@ -241,7 +241,7 @@ func TestFromCSVRows_Errors(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			_, err := lockfile.FromCSVRows(tt.args.filePath, tt.args.parseAs, tt.args.rows)
 
@@ -259,7 +259,7 @@ func TestFromCSVRows_Errors(t *testing.T) {
 }
 
 func TestFromCSVFile(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type args struct {
 		pathToCSV string
@@ -480,7 +480,7 @@ func TestFromCSVFile(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			got, err := lockfile.FromCSVFile(tt.args.pathToCSV, tt.args.parseAs)
 			if err != nil {
@@ -496,7 +496,7 @@ func TestFromCSVFile(t *testing.T) {
 }
 
 func TestFromCSVFile_Errors(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type args struct {
 		pathToCSV string
@@ -527,7 +527,7 @@ func TestFromCSVFile_Errors(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			_, err := lockfile.FromCSVFile(tt.args.pathToCSV, tt.args.parseAs)
 

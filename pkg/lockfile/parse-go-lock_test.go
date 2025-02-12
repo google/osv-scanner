@@ -8,7 +8,7 @@ import (
 )
 
 func TestGoLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -48,7 +48,7 @@ func TestGoLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.GoLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -59,7 +59,7 @@ func TestGoLockExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParseGoLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/does-not-exist")
 
@@ -68,7 +68,7 @@ func TestParseGoLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseGoLock_Invalid(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/not-go-mod.txt")
 
@@ -77,7 +77,7 @@ func TestParseGoLock_Invalid(t *testing.T) {
 }
 
 func TestParseGoLock_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/empty.mod")
 
@@ -89,7 +89,7 @@ func TestParseGoLock_NoPackages(t *testing.T) {
 }
 
 func TestParseGoLock_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/one-package.mod")
 
@@ -108,7 +108,7 @@ func TestParseGoLock_OnePackage(t *testing.T) {
 }
 
 func TestParseGoLock_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/two-packages.mod")
 
@@ -139,7 +139,7 @@ func TestParseGoLock_TwoPackages(t *testing.T) {
 }
 
 func TestParseGoLock_IndirectPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/indirect-packages.mod")
 
@@ -188,7 +188,7 @@ func TestParseGoLock_IndirectPackages(t *testing.T) {
 }
 
 func TestParseGoLock_Replacements_One(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/replace-one.mod")
 
@@ -207,7 +207,7 @@ func TestParseGoLock_Replacements_One(t *testing.T) {
 }
 
 func TestParseGoLock_Replacements_Mixed(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/replace-mixed.mod")
 
@@ -232,7 +232,7 @@ func TestParseGoLock_Replacements_Mixed(t *testing.T) {
 }
 
 func TestParseGoLock_Replacements_Local(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/replace-local.mod")
 
@@ -257,7 +257,7 @@ func TestParseGoLock_Replacements_Local(t *testing.T) {
 }
 
 func TestParseGoLock_Replacements_Different(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/replace-different.mod")
 
@@ -282,7 +282,7 @@ func TestParseGoLock_Replacements_Different(t *testing.T) {
 }
 
 func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/replace-not-required.mod")
 
@@ -307,7 +307,7 @@ func TestParseGoLock_Replacements_NotRequired(t *testing.T) {
 }
 
 func TestParseGoLock_Replacements_NoVersion(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseGoLock("fixtures/go/replace-no-version.mod")
 

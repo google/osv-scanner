@@ -8,7 +8,7 @@ import (
 )
 
 func TestPoetryLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -48,7 +48,7 @@ func TestPoetryLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.PoetryLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -59,7 +59,7 @@ func TestPoetryLockExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParsePoetryLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/does-not-exist")
 
@@ -68,7 +68,7 @@ func TestParsePoetryLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParsePoetryLock_InvalidToml(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/not-toml.txt")
 
@@ -77,7 +77,7 @@ func TestParsePoetryLock_InvalidToml(t *testing.T) {
 }
 
 func TestParsePoetryLock_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/empty.lock")
 
@@ -89,7 +89,7 @@ func TestParsePoetryLock_NoPackages(t *testing.T) {
 }
 
 func TestParsePoetryLock_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/one-package.lock")
 
@@ -108,7 +108,7 @@ func TestParsePoetryLock_OnePackage(t *testing.T) {
 }
 
 func TestParsePoetryLock_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/two-packages.lock")
 
@@ -133,7 +133,7 @@ func TestParsePoetryLock_TwoPackages(t *testing.T) {
 }
 
 func TestParsePoetryLock_PackageWithMetadata(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/one-package-with-metadata.lock")
 
@@ -152,7 +152,7 @@ func TestParsePoetryLock_PackageWithMetadata(t *testing.T) {
 }
 
 func TestParsePoetryLock_PackageWithGitSource(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/source-git.lock")
 
@@ -172,7 +172,7 @@ func TestParsePoetryLock_PackageWithGitSource(t *testing.T) {
 }
 
 func TestParsePoetryLock_PackageWithLegacySource(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/source-legacy.lock")
 
@@ -192,7 +192,7 @@ func TestParsePoetryLock_PackageWithLegacySource(t *testing.T) {
 }
 
 func TestParsePoetryLock_OptionalPackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePoetryLock("fixtures/poetry/optional-package.lock")
 

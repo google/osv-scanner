@@ -8,7 +8,7 @@ import (
 )
 
 func TestMavenLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -48,7 +48,7 @@ func TestMavenLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.MavenLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -59,7 +59,7 @@ func TestMavenLockExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParseMavenLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/does-not-exist")
 
@@ -68,7 +68,7 @@ func TestParseMavenLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseMavenLock_Invalid(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/not-pom.txt")
 
@@ -77,7 +77,7 @@ func TestParseMavenLock_Invalid(t *testing.T) {
 }
 
 func TestParseMavenLock_InvalidSyntax(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/invalid-syntax.xml")
 
@@ -86,7 +86,7 @@ func TestParseMavenLock_InvalidSyntax(t *testing.T) {
 }
 
 func TestParseMavenLock_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/empty.xml")
 
@@ -98,7 +98,7 @@ func TestParseMavenLock_NoPackages(t *testing.T) {
 }
 
 func TestParseMavenLock_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/one-package.xml")
 
@@ -117,7 +117,7 @@ func TestParseMavenLock_OnePackage(t *testing.T) {
 }
 
 func TestParseMavenLock_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/two-packages.xml")
 
@@ -142,7 +142,7 @@ func TestParseMavenLock_TwoPackages(t *testing.T) {
 }
 
 func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/with-dependency-management.xml")
 
@@ -173,7 +173,7 @@ func TestParseMavenLock_WithDependencyManagement(t *testing.T) {
 }
 
 func TestParseMavenLock_Interpolation(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/interpolation.xml")
 
@@ -204,7 +204,7 @@ func TestParseMavenLock_Interpolation(t *testing.T) {
 }
 
 func TestMavenLockDependency_ResolveVersion(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type fields struct {
 		Version string
@@ -277,7 +277,7 @@ func TestMavenLockDependency_ResolveVersion(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			mld := lockfile.MavenLockDependency{
 				Version: tt.fields.Version,
@@ -290,7 +290,7 @@ func TestMavenLockDependency_ResolveVersion(t *testing.T) {
 }
 
 func TestParseMavenLock_WithScope(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMavenLock("fixtures/maven/with-scope.xml")
 
