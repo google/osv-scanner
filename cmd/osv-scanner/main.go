@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"io"
+	"log/slog"
 	"os"
 	"slices"
 
@@ -26,7 +27,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
 		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, reporter.InfoLevel, false, 0)
-		r.Infof("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
+		slog.Info("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
 	}
 
 	app := &cli.App{
@@ -57,7 +58,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	// This removes the handler entirely so that behavior will not unexpectedly happen.
 	app.ExitErrHandler = func(_ *cli.Context, _ error) {}
 
-	args = insertDefaultCommand(args, app.Commands, app.DefaultCommand, stdout, stderr)
+	args = insertDefaultCommand(args, app.Commands, app.DefaultCommand)
 
 	if err := app.Run(args); err != nil {
 		if r == nil {
@@ -67,13 +68,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
 		case errors.Is(err, osvscanner.ErrNoPackagesFound):
-			r.Errorf("No package sources found, --help for usage information.\n")
+			slog.Error("No package sources found, --help for usage information.\n")
 			return 128
 		case errors.Is(err, osvscanner.ErrAPIFailed):
-			r.Errorf("%v\n", err)
+			slog.Error("%v\n", err)
 			return 129
 		}
-		r.Errorf("%v\n", err)
+		slog.Error("%v\n", err)
 	}
 
 	// if we've been told to print an error, and not already exited with
@@ -150,17 +151,16 @@ func getAllCommands(commands []*cli.Command) []string {
 // warnIfCommandAmbiguous warns the user if the command they are trying to run
 // exists as both a subcommand and as a file on the filesystem.
 // If this is the case, the command is assumed to be a subcommand.
-func warnIfCommandAmbiguous(command, defaultCommand string, stdout, stderr io.Writer) {
+func warnIfCommandAmbiguous(command, defaultCommand string) {
 	if _, err := os.Stat(command); err == nil {
-		r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
-		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. "+
+		slog.Warn("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. "+
 			"`%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[2]s`, "+
 			"you must specify `%[2]s %[1]s` in your command line.\n", command, defaultCommand)
 	}
 }
 
 // Inserts the default command to args if no command is specified.
-func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand string, stdout, stderr io.Writer) []string {
+func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand string) []string {
 	// Do nothing if no command or file name is provided.
 	if len(args) < 2 {
 		return args
@@ -181,7 +181,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 		return argsTmp
 	}
 
-	warnIfCommandAmbiguous(command, defaultCommand, stdout, stderr)
+	warnIfCommandAmbiguous(command, defaultCommand)
 
 	// If only the default command is provided without its subcommand, append the subcommand.
 	if command == defaultCommand {
@@ -202,7 +202,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 		}
 
 		// Print a warning message if subcommand exist on the filesystem.
-		warnIfCommandAmbiguous(subcommand, scan.DefaultSubcommand, stdout, stderr)
+		warnIfCommandAmbiguous(subcommand, scan.DefaultSubcommand)
 	}
 
 	return args

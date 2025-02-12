@@ -1,6 +1,7 @@
 package upgrade
 
 import (
+	"log/slog"
 	"strings"
 
 	"github.com/google/osv-scanner/v2/pkg/reporter"
@@ -46,7 +47,7 @@ func ParseUpgradeConfig(specs []string, r reporter.Reporter) Config {
 	for _, spec := range specs {
 		idx := strings.LastIndex(spec, ":")
 		if idx == 0 {
-			r.Warnf("WARNING: `--upgrade-config %s` - skipping empty package name\n", spec)
+			slog.Warn("WARNING: `--upgrade-config %s` - skipping empty package name\n", spec)
 			continue
 		}
 		pkg := ""
@@ -66,11 +67,11 @@ func ParseUpgradeConfig(specs []string, r reporter.Reporter) Config {
 		case "none":
 			level = None
 		default:
-			r.Warnf("WARNING: `--upgrade-config %s` - invalid level string '%s'\n", spec, levelStr)
+			slog.Warn("WARNING: `--upgrade-config %s` - invalid level string '%s'\n", spec, levelStr)
 			continue
 		}
 		if config.Set(pkg, level) { // returns true if was previously set
-			r.Warnf("WARNING: `--upgrade-config %s` - config for package specified multiple times\n", spec)
+			slog.Warn("WARNING: `--upgrade-config %s` - config for package specified multiple times\n", spec)
 		}
 	}
 

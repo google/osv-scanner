@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log/slog"
 	"math"
 	"math/rand/v2"
 	"net/http"
@@ -15,7 +16,6 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/opencontainers/go-digest"
 	"golang.org/x/sync/errgroup"
 )
@@ -35,7 +35,6 @@ const (
 type DepsDevBaseImageMatcher struct {
 	HTTPClient http.Client
 	Config     ClientConfig
-	Reporter   reporter.Reporter
 }
 
 func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, layerMetadata []models.LayerMetadata) ([][]models.BaseImageDetails, error) {
@@ -152,7 +151,7 @@ func (matcher *DepsDevBaseImageMatcher) queryBaseImagesForChainID(ctx context.Co
 	})
 
 	if err != nil {
-		matcher.Reporter.Errorf("deps.dev API error, you may need to update osv-scanner: %s\n", err)
+		slog.Error("deps.dev API error, you may need to update osv-scanner: %s\n", err)
 		return nil, err
 	}
 	defer resp.Body.Close()
@@ -170,7 +169,7 @@ func (matcher *DepsDevBaseImageMatcher) queryBaseImagesForChainID(ctx context.Co
 	d := json.NewDecoder(resp.Body)
 	err = d.Decode(&results)
 	if err != nil {
-		matcher.Reporter.Errorf("Unexpected return type from deps.dev base image endpoint: %s", err)
+		slog.Error("Unexpected return type from deps.dev base image endpoint: %s", err)
 		return nil, err
 	}
 

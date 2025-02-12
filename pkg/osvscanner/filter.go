@@ -2,6 +2,7 @@ package osvscanner
 
 import (
 	"fmt"
+	"log/slog"
 
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/imodels"
@@ -31,7 +32,7 @@ func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanRes
 	}
 
 	if len(packageResults) != len(scanResults.PackageScanResults) {
-		r.Infof("Filtered %d local/unscannable package/s from the scan.\n", len(scanResults.PackageScanResults)-len(packageResults))
+		slog.Info("Filtered %d local/unscannable package/s from the scan.\n", len(scanResults.PackageScanResults)-len(packageResults))
 	}
 
 	scanResults.PackageScanResults = packageResults
@@ -53,7 +54,7 @@ func filterNonContainerRelevantPackages(r reporter.Reporter, scanResults *result
 	}
 
 	if len(packageResults) != len(scanResults.PackageScanResults) {
-		r.Infof("Filtered %d non container relevant package/s from the scan.\n", len(scanResults.PackageScanResults)-len(packageResults))
+		slog.Info("Filtered %d non container relevant package/s from the scan.\n", len(scanResults.PackageScanResults)-len(packageResults))
 	}
 
 	scanResults.PackageScanResults = packageResults
@@ -75,7 +76,7 @@ func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults
 			if reason == "" {
 				reason = "(no reason given)"
 			}
-			r.Infof("Package %s has been filtered out because: %s\n", pkgString, reason)
+			slog.Info("Package %s has been filtered out because: %s\n", pkgString, reason)
 
 			continue
 		}
@@ -83,7 +84,7 @@ func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults
 	}
 
 	if len(out) != len(scanResults.PackageScanResults) {
-		r.Infof("Filtered %d ignored package/s from the scan.\n", len(scanResults.PackageScanResults)-len(out))
+		slog.Info("Filtered %d ignored package/s from the scan.\n", len(scanResults.PackageScanResults)-len(out))
 	}
 
 	scanResults.PackageScanResults = out
@@ -138,11 +139,11 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 				// NB: This only prints the first reason encountered in all the aliases.
 				switch len(group.Aliases) {
 				case 1:
-					r.Infof("%s has been filtered out because: %s\n", ignoreLine.ID, reason)
+					slog.Info("%s has been filtered out because: %s\n", ignoreLine.ID, reason)
 				case 2:
-					r.Infof("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, reason)
+					slog.Info("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, reason)
 				default:
-					r.Infof("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, reason)
+					slog.Info("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, reason)
 				}
 
 				break

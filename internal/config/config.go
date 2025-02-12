@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"slices"
@@ -170,12 +171,12 @@ func (c *Manager) Get(r reporter.Reporter, targetPath string) Config {
 
 	config, configErr := tryLoadConfig(r, configPath)
 	if configErr == nil {
-		r.Infof("Loaded filter from: %s\n", config.LoadPath)
+		slog.Info("Loaded filter from: %s\n", config.LoadPath)
 	} else {
 		// anything other than the config file not existing is most likely due to an invalid config file
 		if !errors.Is(configErr, os.ErrNotExist) {
-			r.Errorf("Ignored invalid config file at: %s\n", configPath)
-			r.Verbosef("Config file %s is invalid because: %v\n", configPath, configErr)
+			slog.Error("Ignored invalid config file at: %s\n", configPath)
+			slog.Debug("Config file %s is invalid because: %v\n", configPath, configErr)
 		}
 		// If config doesn't exist, use the default config
 		config = c.DefaultConfig
@@ -233,7 +234,7 @@ func (c *Config) warnAboutDuplicates(r reporter.Reporter) {
 
 	for _, vuln := range c.IgnoredVulns {
 		if _, ok := seen[vuln.ID]; ok {
-			r.Warnf("warning: %s has multiple ignores for %s - only the first will be used!\n", c.LoadPath, vuln.ID)
+			slog.Warn("warning: %s has multiple ignores for %s - only the first will be used!\n", c.LoadPath, vuln.ID)
 		}
 		seen[vuln.ID] = struct{}{}
 	}

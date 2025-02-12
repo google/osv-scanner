@@ -3,6 +3,7 @@ package reporter_test
 import (
 	"bytes"
 	"io"
+	"log/slog"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/pkg/reporter"
@@ -15,7 +16,7 @@ func TestTableReporter_Errorf(t *testing.T) {
 	r := reporter.NewTableReporter(io.Discard, writer, reporter.ErrorLevel, false, 0)
 	text := "hello world!"
 
-	r.Errorf("%s", text)
+	slog.Error("%s", text)
 
 	if writer.String() != text {
 		t.Error("Error level message should have been printed")

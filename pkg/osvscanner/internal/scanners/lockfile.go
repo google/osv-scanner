@@ -3,6 +3,7 @@ package scanners
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"path/filepath"
 	"slices"
 	"strings"
@@ -51,19 +52,19 @@ func ScanSingleFile(r reporter.Reporter, path string, extractorsToUse []filesyst
 	// TODO: Update the logging output to stop referring to SBOMs
 	path, err := filepath.Abs(path)
 	if err != nil {
-		r.Errorf("Failed to resolved path %q with error: %s\n", path, err)
+		slog.Error("Failed to resolved path %q with error: %s\n", path, err)
 		return nil, err
 	}
 
 	invs, err := scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 	if err != nil {
-		r.Infof("Failed to parse SBOM %q with error: %s\n", path, err)
+		slog.Info("Failed to parse SBOM %q with error: %s\n", path, err)
 		return nil, err
 	}
 
 	pkgCount := len(invs)
 	if pkgCount > 0 {
-		r.Infof(
+		slog.Info(
 			"Scanned %s file and found %d %s\n",
 			path,
 			pkgCount,
@@ -84,7 +85,7 @@ func ScanSingleFileWithMapping(r reporter.Reporter, scanPath string, extractorsT
 
 	path, err = filepath.Abs(path)
 	if err != nil {
-		r.Errorf("Failed to resolved path %q with error: %s\n", path, err)
+		slog.Error("Failed to resolved path %q with error: %s\n", path, err)
 		return nil, err
 	}
 
@@ -127,7 +128,7 @@ func ScanSingleFileWithMapping(r reporter.Reporter, scanPath string, extractorsT
 
 	pkgCount := len(inventories)
 
-	r.Infof(
+	slog.Info(
 		"Scanned %s file %sand found %d %s\n",
 		path,
 		parsedAsComment,
