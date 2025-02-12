@@ -13,8 +13,6 @@ import (
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
-
 	"github.com/urfave/cli/v2"
 )
 
@@ -24,10 +22,7 @@ var (
 )
 
 func run(args []string, stdout, stderr io.Writer) int {
-	var r reporter.Reporter
 	cli.VersionPrinter = func(ctx *cli.Context) {
-		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
-		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, reporter.InfoLevel, false, 0)
 		slog.Info(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
 
@@ -40,9 +35,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 		ErrWriter:      stderr,
 		DefaultCommand: "scan",
 		Commands: []*cli.Command{
-			scan.Command(stdout, stderr, &r),
-			fix.Command(stdout, stderr, &r),
-			update.Command(stdout, stderr, &r),
+			scan.Command(stdout, stderr),
+			fix.Command(stdout, stderr),
+			update.Command(),
 		},
 		CustomAppHelpTemplate: getCustomHelpTemplate(),
 	}
@@ -62,9 +57,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 	args = insertDefaultCommand(args, app.Commands, app.DefaultCommand)
 
 	if err := app.Run(args); err != nil {
-		if r == nil {
-			r = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
-		}
 		switch {
 		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
@@ -78,11 +70,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 		slog.Error(fmt.Sprintf("%v\n", err))
 	}
 
+	// todo: how do we handle this case?
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	if r != nil && r.HasErrored() {
-		return 127
-	}
+	// if r != nil && r.HasErrored() {
+	// 	return 127
+	// }
 
 	return 0
 }
