@@ -10,8 +10,6 @@ import (
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
-
 	"github.com/urfave/cli/v2"
 )
 
@@ -22,7 +20,7 @@ var imageScanFlags = []cli.Flag{
 	},
 }
 
-func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
+func Command(stdout, stderr io.Writer) *cli.Command {
 	return &cli.Command{
 		Name:        "image",
 		Usage:       "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
@@ -30,15 +28,12 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 		Flags:       append(imageScanFlags, helper.GetScanGlobalFlags()...),
 		ArgsUsage:   "[image imageName]",
 		Action: func(c *cli.Context) error {
-			var err error
-			*r, err = action(c, stdout, stderr)
-
-			return err
+			return action(c, stdout, stderr)
 		},
 	}
 }
 
-func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
+func action(context *cli.Context, stdout, stderr io.Writer) error {
 	format := context.String("format")
 
 	outputPath := context.String("output")
@@ -49,7 +44,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 			// Create a temporary directory
 			tmpDir, err := os.MkdirTemp("", "osv-scanner-result")
 			if err != nil {
-				return nil, fmt.Errorf("failed creating temporary directory: %w\n"+
+				return fmt.Errorf("failed creating temporary directory: %w\n"+
 					"Please use `--output result.html` to specify the output path", err)
 			}
 
@@ -61,16 +56,16 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 
 	r, err := helper.GetReporter(context, stdout, stderr, outputPath, format)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	scanLicensesAllowlist, err := helper.GetScanLicensesAllowlist(context)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	if context.Args().Len() == 0 {
-		return r, errors.New("please provide an image name or see the help document")
+		return errors.New("please provide an image name or see the help document")
 	}
 	scannerAction := osvscanner.ScannerActions{
 		Image:                      context.Args().First(),
@@ -81,14 +76,14 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	}
 
 	var vulnResult models.VulnerabilityResults
-	vulnResult, err = osvscanner.DoContainerScan(scannerAction, r)
+	vulnResult, err = osvscanner.DoContainerScan(scannerAction)
 
 	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
-		return r, err
+		return err
 	}
 
 	if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
-		return r, fmt.Errorf("failed to write output: %w", errPrint)
+		return fmt.Errorf("failed to write output: %w", errPrint)
 	}
 
 	// Auto-open outputted HTML file for users.
@@ -101,5 +96,5 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	}
 
 	// This may be nil.
-	return r, err
+	return err
 }

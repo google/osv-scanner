@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
 )
 
@@ -14,7 +13,7 @@ func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Context,
 	// Then use app.Run() to parse the flags into the cli.Context, which is returned.
 	t.Helper()
 	appFlags := make([]cli.Flag, 0, len(flags))
-	for _, f := range Command(nil, nil, nil).Flags {
+	for _, f := range Command(nil, nil).Flags {
 		if slices.ContainsFunc(f.Names(), func(s string) bool { return slices.Contains(flags, s) }) {
 			appFlags = append(appFlags, f)
 		}
