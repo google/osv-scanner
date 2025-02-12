@@ -11,8 +11,6 @@ import (
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
-	"github.com/google/osv-scalibr/clients/datasource"
-	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
@@ -20,11 +18,13 @@ import (
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/v2/internal/config"
+	"github.com/google/osv-scanner/v2/internal/datasource"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/osvdev"
 	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
@@ -80,7 +80,7 @@ type ExternalAccessors struct {
 	// DependencyClients is a map of implementations of DependencyClient
 	// for each ecosystem, the following is currently implemented:
 	// - [osvschema.EcosystemMaven] required for pomxmlnet Extractor
-	DependencyClients map[osvschema.Ecosystem]resolution.DependencyClient
+	DependencyClients map[osvschema.Ecosystem]client.DependencyClient
 }
 
 // ErrNoPackagesFound for when no packages are found during a scan.
@@ -96,7 +96,7 @@ var ErrAPIFailed = errors.New("API query failed")
 
 func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (ExternalAccessors, error) {
 	externalAccessors := ExternalAccessors{
-		DependencyClients: map[osvschema.Ecosystem]resolution.DependencyClient{},
+		DependencyClients: map[osvschema.Ecosystem]client.DependencyClient{},
 	}
 	var err error
 
@@ -161,9 +161,9 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 	}
 
 	if !actions.TransitiveScanningActions.NativeDataSource {
-		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	} else {
-		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(actions.TransitiveScanningActions.MavenRegistry)
+		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = client.NewMavenRegistryClient(actions.TransitiveScanningActions.MavenRegistry)
 	}
 
 	if err != nil {
