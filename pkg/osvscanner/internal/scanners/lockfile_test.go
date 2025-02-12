@@ -1,9 +1,6 @@
 package scanners
 
-import (
-	"slices"
-	"testing"
-)
+import "testing"
 
 func TestLockfileScalibrMappingExists(t *testing.T) {
 	t.Parallel()
@@ -13,8 +10,8 @@ func TestLockfileScalibrMappingExists(t *testing.T) {
 	// and not present in lockfileExtractors
 	for _, target := range lockfileExtractors {
 		found := false
-		for _, names := range lockfileExtractorMapping {
-			if slices.Contains(names, target.Name()) {
+		for _, val := range lockfileExtractorMapping {
+			if target.Name() == val {
 				found = true
 				break
 			}
