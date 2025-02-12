@@ -2,7 +2,6 @@ package output
 
 import (
 	"fmt"
-	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"io"
 	"log"
 	"path/filepath"
@@ -14,6 +13,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/internal/url"
 	"github.com/google/osv-scanner/v2/internal/utility/results"
+	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
