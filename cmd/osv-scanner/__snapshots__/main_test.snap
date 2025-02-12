@@ -3452,7 +3452,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
    {
     "base_image_index": 1,
     "command": "/bin/sh -c #(nop) ADD fil...",
-    "diff_id": "sha256:e2ef8a51359d088511d34c725305c220294a1fcd5fe5e5dbe4d698c7239ce2c9",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
@@ -3476,7 +3476,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
    {
     "base_image_index": 1,
     "command": "RUN /bin/sh -c set -eux; ...",
-    "diff_id": "sha256:ae2d55769c5efcb6230d27c88eef033128fa1d238bdafe50812402f471152bb7",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
@@ -3494,13 +3494,13 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
    {
     "base_image_index": 1,
     "command": "RUN /bin/sh -c set -eux; ...",
-    "diff_id": "sha256:14cbeede8d6e46477338e9edd10f89c7a4f22ced60d4e6ae5ac1f0f886a19065",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
     "base_image_index": 1,
     "command": "RUN /bin/sh -c set -eux; ...",
-    "diff_id": "sha256:7fb1037e08b36a6ebd4b7f27021e7568a13dbc7cc72674a1b6361d0b53dc8f2f",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
@@ -3530,7 +3530,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
    {
     "base_image_index": 1,
     "command": "RUN /bin/sh -c set -eux; ...",
-    "diff_id": "sha256:067ea27560c1b4abe60cab2335c24e824b74705d534e8d9e561660c116ceb1d0",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
@@ -3542,25 +3542,25 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
    {
     "base_image_index": 0,
     "command": "WORKDIR /app",
-    "diff_id": "sha256:5ad2acabc00515678c8dc633004ce005c182dd1255e0b08674f54af10fb7adb4",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
     "base_image_index": 0,
     "command": "COPY ./python-fixture/req...",
-    "diff_id": "sha256:9d6fbc52f5913af02fb58a4218823138471827ecb6b2163a1e01d045d4db0ba7",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
     "base_image_index": 0,
     "command": "RUN /bin/sh -c pip instal...",
-    "diff_id": "sha256:198cff0edf4670fe6c0a013bd70da68bd8db6d704b74beb239a9193ef0b4d818",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
     "base_image_index": 0,
     "command": "COPY python-fixture/main....",
-    "diff_id": "sha256:0d2ffa5e1af0436632607de56d6a424f8bb6c79cf4b9126b2bb8126fa0c2f0bf",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
@@ -4143,7 +4143,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
    {
     "base_image_index": 2,
     "command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-    "diff_id": "sha256:94e5f06ff8e3d4441dc3cd8b090ff38dc911bfa8ebdb0dc28395bc98f82f983f",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
@@ -4155,7 +4155,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
    {
     "base_image_index": 0,
     "command": "COPY /work/ptf-1.4.0 /go/bin/ # buildkit",
-    "diff_id": "sha256:b85b0f487a8d5c1e85dee29fe254785eb61fe8b1c3eca5c44ecd35ce0a278aef",
+    "diff_id": "sha256:...",
     "is_empty": false
    }
   ],
@@ -4446,7 +4446,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
    {
     "base_image_index": 4,
     "command": "/bin/sh -c #(nop) ADD fil...",
-    "diff_id": "sha256:d4fc045c9e3a848011de66f34b81f052d4f2c15a17bb196d637e526349601820",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
@@ -4464,7 +4464,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
    {
     "base_image_index": 1,
     "command": "/bin/sh -c addgroup -g 10...",
-    "diff_id": "sha256:076bedb6e6e105e652dcb482c5192ba621e065e0f2a60e7a495a0bd0827f425b",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
@@ -4476,13 +4476,13 @@ Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
    {
     "base_image_index": 1,
     "command": "/bin/sh -c apk add --no-c...",
-    "diff_id": "sha256:284df1fcd13063c8d9c8ef4392d1fcc223dffbd6f449975df32898b008a6ca24",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
     "base_image_index": 1,
     "command": "/bin/sh -c #(nop) COPY fi...",
-    "diff_id": "sha256:06b6473e1b557d1e62838c2d95834058351cabb7dadffd88d61837c0555a5c0f",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
@@ -4506,37 +4506,37 @@ Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
    {
     "base_image_index": 0,
     "command": "WORKDIR /prod/app",
-    "diff_id": "sha256:ffa901e0ddfe1a60ef79405608eaa1486b559c0fe324ff7f050232139d376c42",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
     "base_image_index": 0,
     "command": "RUN |1 MANAGER_VERSION=10...",
-    "diff_id": "sha256:f95cca7766757036ed536cd7aa64d467c7ce4bcdb7180fc91461019f54242d10",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
     "base_image_index": 0,
     "command": "RUN |1 MANAGER_VERSION=10...",
-    "diff_id": "sha256:96cca9ac0539578ac360c7933b8a4560f7578a7b1f7c442bfff29b84a4816f1e",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
     "base_image_index": 0,
     "command": "RUN |1 MANAGER_VERSION=10...",
-    "diff_id": "sha256:ac3364113431ff99cfe071c753ac7c84f4e40b05913903811ba0a7005282958c",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
     "base_image_index": 0,
     "command": "RUN |1 MANAGER_VERSION=10...",
-    "diff_id": "sha256:c6a7b8bc19d7fc6bcc9a59d32e134e7c4b9b2c6c92ce92825e92f2dc681fa8cf",
+    "diff_id": "sha256:...",
     "is_empty": false
    },
    {
     "base_image_index": 0,
     "command": "RUN |1 MANAGER_VERSION=10...",
-    "diff_id": "sha256:faf4c5a2025415e04513b9e2a11b0b608fadad5642e9f0ae0bd77488f44f32a3",
+    "diff_id": "sha256:...",
     "is_empty": false
    }
   ],

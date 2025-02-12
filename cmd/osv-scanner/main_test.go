@@ -941,6 +941,7 @@ func TestRun_OCIImageAllPackagesJSON(t *testing.T) {
 				testutility.GroupsAsArrayLen,
 				testutility.OnlyIDVulnsRule,
 				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
 				testutility.ShortenHistoryCommandLength,
 			},
 		},
@@ -952,6 +953,7 @@ func TestRun_OCIImageAllPackagesJSON(t *testing.T) {
 				testutility.GroupsAsArrayLen,
 				testutility.OnlyIDVulnsRule,
 				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
 				testutility.ShortenHistoryCommandLength,
 			},
 		},
@@ -963,6 +965,7 @@ func TestRun_OCIImageAllPackagesJSON(t *testing.T) {
 				testutility.GroupsAsArrayLen,
 				testutility.OnlyIDVulnsRule,
 				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
 			},
 		},
 	}

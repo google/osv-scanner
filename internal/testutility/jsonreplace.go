@@ -41,6 +41,16 @@ var (
 			return struct{}{}
 		},
 	}
+	AnyDiffID = JSONReplaceRule{
+		Path: "image_metadata.layer_metadata.#.diff_id",
+		ReplaceFunc: func(toReplace gjson.Result) any {
+			if len(toReplace.String()) > 7 {
+				return toReplace.String()[:7] + "..."
+			}
+
+			return ""
+		},
+	}
 	ShortenHistoryCommandLength = JSONReplaceRule{
 		Path: "image_metadata.layer_metadata.#.command",
 		ReplaceFunc: func(toReplace gjson.Result) any {
