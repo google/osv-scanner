@@ -1,6 +1,8 @@
 package osvscanner
 
 import (
+	"log/slog"
+
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
@@ -43,7 +45,7 @@ func scan(r reporter.Reporter, accessors ExternalAccessors, actions ScannerActio
 		accessors.MavenRegistryAPIClient,
 	)
 	for _, dir := range actions.DirectoryPaths {
-		r.Infof("Scanning dir %s\n", dir)
+		slog.Info("Scanning dir %s\n", dir)
 		pkgs, err := scanners.ScanDir(r, dir, actions.Recursive, !actions.NoIgnore, dirExtractors)
 		if err != nil {
 			return nil, err

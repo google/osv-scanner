@@ -3,6 +3,7 @@ package reporter_test
 import (
 	"bytes"
 	"io"
+	"log/slog"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -24,7 +25,7 @@ func TestCycloneDXReporter_Errorf(t *testing.T) {
 		writer := &bytes.Buffer{}
 		r := reporter.NewCycloneDXReporter(io.Discard, writer, tt.version, reporter.ErrorLevel)
 
-		r.Errorf("%s", text)
+		slog.Error("%s", text)
 
 		if writer.String() != text {
 			t.Error("Error level message should have been printed")

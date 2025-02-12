@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -22,7 +23,7 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 	cmd := exec.Command("go", "version")
 	_, err := cmd.Output()
 	if err != nil {
-		r.Infof("Skipping call analysis on Go code since Go is not installed.\n")
+		slog.Info("Skipping call analysis on Go code since Go is not installed.\n")
 		return
 	}
 
@@ -48,7 +49,7 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 	res, err := runGovulncheck(filepath.Dir(source.Path), filteredVulns, goVersion)
 	if err != nil {
 		// TODO: Better method to identify the type of error and give advice specific to the error
-		r.Errorf(
+		slog.Error(
 			"Failed to run code analysis (govulncheck) on '%s' because %s\n"+
 				"(the Go toolchain is required)\n", source.Path, err.Error(),
 		)

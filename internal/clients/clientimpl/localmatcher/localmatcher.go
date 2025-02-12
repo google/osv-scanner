@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"path"
 
@@ -65,7 +66,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 			// Is a commit based query, skip local scanning
 			results = append(results, []*osvschema.Vulnerability{})
 			// TODO (V2 logging):
-			matcher.r.Infof("Skipping commit scanning for: %s\n", pkg.Commit())
+			slog.Info("Skipping commit scanning for: %s\n", pkg.Commit())
 
 			continue
 		}
@@ -103,13 +104,13 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecos
 
 	if err != nil {
 		matcher.failedDBs[ecosystem.Ecosystem] = err
-		matcher.r.Errorf("could not load db for %s ecosystem: %v\n", ecosystem.Ecosystem, err)
+		slog.Error("could not load db for %s ecosystem: %v\n", ecosystem.Ecosystem, err)
 
 		return nil, err
 	}
 
 	// TODO(v2 logging): Replace with slog / another logger
-	matcher.r.Infof("Loaded %s local db from %s\n", db.Name, db.StoredAt)
+	slog.Info("Loaded %s local db from %s\n", db.Name, db.StoredAt)
 
 	matcher.dbs[ecosystem.Ecosystem] = db
 
