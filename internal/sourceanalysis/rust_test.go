@@ -14,7 +14,7 @@ import (
 )
 
 func Test_extractRlibArchive(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	entries, err := os.ReadDir("fixtures-rust/archives")
 	if err != nil {
 		t.Error(err)
@@ -22,7 +22,7 @@ func Test_extractRlibArchive(t *testing.T) {
 	for _, file := range entries {
 		filename := file.Name()
 		t.Run("Extract Rlib "+filename, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			buf, err := extractRlibArchive(filepath.Join("fixtures-rust/archives", filename))
 			if err != nil {
 				t.Error(err)
@@ -41,7 +41,7 @@ func Test_extractRlibArchive(t *testing.T) {
 }
 
 func Test_functionsFromDWARF(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	entries, err := os.ReadDir("fixtures-rust/objs")
 	if err != nil {
 		t.Error(err)
@@ -49,7 +49,7 @@ func Test_functionsFromDWARF(t *testing.T) {
 	for _, file := range entries {
 		filename := file.Name()
 		t.Run("Parsing DWARF "+filename, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			buf, err := os.ReadFile(filepath.Join("fixtures-rust/objs", filename))
 			if err != nil {
 				t.Error(err)
@@ -66,7 +66,7 @@ func Test_functionsFromDWARF(t *testing.T) {
 
 func Test_rustBuildSource(t *testing.T) {
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires rust toolchain to be installed")
-	t.Parallel()
+	// t.Parallel()
 
 	workingDir, err := os.Getwd()
 	if err != nil {

@@ -54,7 +54,7 @@ func mavenReqKey(t *testing.T, name, artifactType, classifier string) Requiremen
 }
 
 func TestMavenReadWrite(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
 	srv.SetResponse(t, "org/upstream/parent-pom/1.2.3/parent-pom-1.2.3.pom", []byte(`
@@ -427,7 +427,7 @@ func TestMavenReadWrite(t *testing.T) {
 }
 
 func TestMavenWrite(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	dir, err := os.Getwd()
 	if err != nil {
@@ -539,7 +539,7 @@ func TestMavenWrite(t *testing.T) {
 }
 
 func TestMavenWriteDM(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	dir, err := os.Getwd()
 	if err != nil {
@@ -607,7 +607,7 @@ func TestMavenWriteDM(t *testing.T) {
 }
 
 func Test_buildPatches(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	dir, err := os.Getwd()
 	if err != nil {
@@ -958,7 +958,7 @@ func Test_buildPatches(t *testing.T) {
 }
 
 func Test_generatePropertyPatches(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	tests := []struct {
 		s1       string
 		s2       string

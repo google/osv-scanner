@@ -21,7 +21,7 @@ func namer(t *testing.T, license models.License, licenses []string, expected boo
 }
 
 func TestSatisfies(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		license models.License
@@ -295,7 +295,7 @@ func TestSatisfies(t *testing.T) {
 	for _, tt := range tests {
 		for _, variant := range tt.pass {
 			t.Run(namer(t, tt.license, variant, true), func(t *testing.T) {
-				t.Parallel()
+				// t.Parallel()
 
 				got, err := spdx.Satisfies(tt.license, variant)
 
@@ -311,7 +311,7 @@ func TestSatisfies(t *testing.T) {
 
 		for _, variant := range tt.fail {
 			t.Run(namer(t, tt.license, variant, false), func(t *testing.T) {
-				t.Parallel()
+				// t.Parallel()
 
 				got, err := spdx.Satisfies(tt.license, variant)
 
@@ -328,7 +328,7 @@ func TestSatisfies(t *testing.T) {
 }
 
 func TestSatisfies_Invalid(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		license models.License
@@ -400,7 +400,7 @@ func TestSatisfies_Invalid(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(string(tt.license), func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			got, err := spdx.Satisfies(tt.license, []string{})
 

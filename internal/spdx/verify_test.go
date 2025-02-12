@@ -8,7 +8,7 @@ import (
 )
 
 func TestUnrecognized(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	tests := []struct {
 		name     string
 		licenses []string
@@ -30,7 +30,7 @@ func TestUnrecognized(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			if got := spdx.Unrecognized(tt.licenses); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Unrecognized() = %v,\nwant %v", got, tt.want)
 			}

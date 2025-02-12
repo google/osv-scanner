@@ -9,7 +9,7 @@ import (
 )
 
 func TestJSONReporter_Errorf(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	writer := &bytes.Buffer{}
 	r := reporter.NewJSONReporter(io.Discard, writer, reporter.ErrorLevel)
@@ -26,7 +26,7 @@ func TestJSONReporter_Errorf(t *testing.T) {
 }
 
 func TestJSONReporter_Warnf(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {
@@ -50,7 +50,7 @@ func TestJSONReporter_Warnf(t *testing.T) {
 }
 
 func TestJSONReporter_Infof(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {
@@ -74,7 +74,7 @@ func TestJSONReporter_Infof(t *testing.T) {
 }
 
 func TestJSONReporter_Verbosef(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {

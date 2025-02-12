@@ -30,7 +30,7 @@ func configGetExpect(t *testing.T, config upgrade.Config, pkg string, want upgra
 }
 
 func TestConfig(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	config := upgrade.NewConfig()
 
 	// Default everything to allow major

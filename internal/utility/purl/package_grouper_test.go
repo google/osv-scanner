@@ -11,7 +11,7 @@ import (
 )
 
 func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	input := []models.PackageSource{
 		{
 			Source: models.SourceInfo{

@@ -34,7 +34,7 @@ func matchFile(t *testing.T, file string) {
 }
 
 func Test_run_Fix(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	tests := []struct {
 		name     string
 		args     []string
@@ -81,7 +81,7 @@ func Test_run_Fix(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			tc := cliTestCase{
 				name: tt.name,

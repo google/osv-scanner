@@ -15,7 +15,7 @@ import (
 )
 
 func TestNpmReadV2(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// This lockfile was generated using a private registry with https://verdaccio.org/
 	// Mock packages were published to it and installed with npm.
@@ -66,7 +66,7 @@ r 1.0.0
 }
 
 func TestNpmReadV1(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// This lockfile was generated using a private registry with https://verdaccio.org/
 	// Mock packages were published to it and installed with npm.
@@ -113,7 +113,7 @@ r 1.0.0
 }
 
 func TestNpmReadTypeOrder(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// Testing the behavior when a package is included in multiple dependency type fields.
 	// Empirically, devDependencies > optionalDependencies > dependencies > peerDependencies
@@ -156,7 +156,7 @@ root 1.0.0
 }
 
 func TestNpmWrite(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// Set up mock npm registry
 	srv := testutility.NewMockHTTPServer(t)

@@ -9,7 +9,7 @@ import (
 )
 
 func TestVerticalReporter_Errorf(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	writer := &bytes.Buffer{}
 	r := reporter.NewVerticalReporter(io.Discard, writer, reporter.ErrorLevel, false, 0)
@@ -26,7 +26,7 @@ func TestVerticalReporter_Errorf(t *testing.T) {
 }
 
 func TestVerticalReporter_Warnf(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {
@@ -50,7 +50,7 @@ func TestVerticalReporter_Warnf(t *testing.T) {
 }
 
 func TestVerticalReporter_Infof(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {
@@ -74,7 +74,7 @@ func TestVerticalReporter_Infof(t *testing.T) {
 }
 
 func TestVerticalReporter_Verbosef(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {

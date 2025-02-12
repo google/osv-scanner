@@ -41,7 +41,7 @@ func TestParseMavenSettings(t *testing.T) {
 }
 
 func TestMakeMavenAuth(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	globalSettings := datasource.MavenSettingsXML{
 		Servers: []datasource.MavenSettingsXMLServer{
 			{

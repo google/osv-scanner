@@ -10,7 +10,7 @@ import (
 )
 
 func TestGroupFixedVersions(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -36,7 +36,7 @@ func TestGroupFixedVersions(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			got := output.GroupFixedVersions(tt.args)
 			tt.want.MatchJSON(t, got)
 		})
@@ -44,7 +44,7 @@ func TestGroupFixedVersions(t *testing.T) {
 }
 
 func TestPrintSARIFReport(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -73,7 +73,7 @@ func TestPrintSARIFReport(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			bufOut := bytes.Buffer{}
 			err := output.PrintSARIFReport(&tt.args, &bufOut)
@@ -86,7 +86,7 @@ func TestPrintSARIFReport(t *testing.T) {
 }
 
 func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -108,7 +108,7 @@ func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
 }
 
 func TestPrintSARIFReport_WithLicenseViolations(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -130,7 +130,7 @@ func TestPrintSARIFReport_WithLicenseViolations(t *testing.T) {
 }
 
 func TestPrintSARIFReport_WithMixedIssues(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()

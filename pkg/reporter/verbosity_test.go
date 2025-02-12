@@ -7,7 +7,7 @@ import (
 )
 
 func TestParseVerbosityLevel_GivenValidLevels(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		input       string
@@ -31,7 +31,7 @@ func TestParseVerbosityLevel_GivenValidLevels(t *testing.T) {
 }
 
 func TestParseVerbosityLevel_GivenInvalidLevels(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	_, err := reporter.ParseVerbosityLevel("invalidlvl")
 	if err == nil {

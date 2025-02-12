@@ -17,7 +17,7 @@ import (
 )
 
 func TestRecursivelyParsingGitignoreFilesFromIgnoredDir(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// Create a specific git repo with .gitignore files
 	gitRepo := setupGitRepo(t)
@@ -83,7 +83,7 @@ func TestRecursivelyParsingGitignoreFilesFromIgnoredDir(t *testing.T) {
 }
 
 func TestNonRecursivelyParsingGitignoreFilesFromIgnoredDir(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// Create a specific git repo with .gitignore files
 	gitRepo := setupGitRepo(t)
@@ -149,7 +149,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromIgnoredDir(t *testing.T) {
 }
 
 func TestRecursivelyParsingGitignoreFilesFromMidTree(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// Create a specific git repo with .gitignore files
 	gitRepo := setupGitRepo(t)
@@ -220,7 +220,7 @@ func TestRecursivelyParsingGitignoreFilesFromMidTree(t *testing.T) {
 }
 
 func TestNonRecursivelyParsingGitignoreFilesFromMidTree(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// Create a specific git repo with .gitignore files
 	gitRepo := setupGitRepo(t)
@@ -288,7 +288,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromMidTree(t *testing.T) {
 }
 
 func TestRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// expect this to be the same as TestNonRecursivelyParsingGitignoreFilesFromMidTree
 	//   because the a_file is inside the that tests start-dir
@@ -362,7 +362,7 @@ func TestRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
 }
 
 func TestNonRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// expect this to be have the same results as TestNonRecursivelyParsingGitignoreFilesFromMidTree
 	//   because the a_file is inside the that tests start-dir
@@ -433,7 +433,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
 }
 
 func TestRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// Create a specific git repo with .gitignore files
 	gitRepo := setupGitRepo(t)
@@ -496,7 +496,7 @@ func TestRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
 }
 
 func TestNonRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// Create a specific git repo with .gitignore files
 	gitRepo := setupGitRepo(t)
@@ -551,7 +551,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromRoot(t *testing.T) {
 }
 
 func TestRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	plainDir := setupPlainDirWithGitignores(t)
 
@@ -569,7 +569,7 @@ func TestRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
 }
 
 func TestNonRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	plainDir := setupPlainDirWithGitignores(t)
 
@@ -587,7 +587,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
 }
 
 func TestParsingGitRepoWithoutGitignoreFiles(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	gitRepo := setupGitRepo(t)
 

@@ -6,7 +6,7 @@ import (
 )
 
 func Test_idSortFunc(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type args struct {
 		a string
@@ -34,7 +34,7 @@ func Test_idSortFunc(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			if got := IDSortFunc(tt.args.a, tt.args.b); got != tt.want {
 				t.Errorf("idSortFunc() = %v, want %v", got, tt.want)
@@ -44,7 +44,7 @@ func Test_idSortFunc(t *testing.T) {
 }
 
 func Test_idSortFuncUsage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -75,7 +75,7 @@ func Test_idSortFuncUsage(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			if got := slices.MinFunc(tt.args, IDSortFunc); got != tt.want {
 				t.Errorf("slices.MinFunc = %v, want %v", got, tt.want)

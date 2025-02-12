@@ -10,7 +10,7 @@ import (
 )
 
 func TestPrintCycloneDX14Results_WithVulnerabilities(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -27,7 +27,7 @@ func TestPrintCycloneDX14Results_WithVulnerabilities(t *testing.T) {
 }
 
 func TestPrintCycloneDX14Results_WithLicenseViolations(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -44,7 +44,7 @@ func TestPrintCycloneDX14Results_WithLicenseViolations(t *testing.T) {
 }
 
 func TestPrintCycloneDX14Results_WithMixedIssues(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -61,7 +61,7 @@ func TestPrintCycloneDX14Results_WithMixedIssues(t *testing.T) {
 }
 
 func TestPrintCycloneDX15Results_WithVulnerabilities(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -78,7 +78,7 @@ func TestPrintCycloneDX15Results_WithVulnerabilities(t *testing.T) {
 }
 
 func TestPrintCycloneDX15Results_WithLicenseViolations(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -95,7 +95,7 @@ func TestPrintCycloneDX15Results_WithLicenseViolations(t *testing.T) {
 }
 
 func TestPrintCycloneDX15Results_WithMixedIssues(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()

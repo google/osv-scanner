@@ -11,7 +11,7 @@ import (
 )
 
 func Test_filterResults(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -36,7 +36,7 @@ func Test_filterResults(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			r := &reporter.VoidReporter{}
 			// configManager looks for osv-scanner.toml in the source path.
 			// Sources in the test input should point to files/folders in the text fixture folder for this to work correctly.

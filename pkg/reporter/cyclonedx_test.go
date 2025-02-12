@@ -10,7 +10,7 @@ import (
 )
 
 func TestCycloneDXReporter_Errorf(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		version models.CycloneDXVersion
@@ -36,7 +36,7 @@ func TestCycloneDXReporter_Errorf(t *testing.T) {
 }
 
 func TestCycloneDXReporter_Warnf(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {
@@ -63,7 +63,7 @@ func TestCycloneDXReporter_Warnf(t *testing.T) {
 }
 
 func TestCycloneDXReporter_Infof(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {
@@ -90,7 +90,7 @@ func TestCycloneDXReporter_Infof(t *testing.T) {
 }
 
 func TestCycloneDXReporter_Verbosef(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	text := "hello world!"
 	tests := []struct {
 		version          models.CycloneDXVersion

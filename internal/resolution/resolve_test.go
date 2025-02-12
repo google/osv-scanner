@@ -40,7 +40,7 @@ func checkResult(t *testing.T, result *resolution.Result) {
 }
 
 func TestResolve(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	aliasType := func(knownAs string) dep.Type {
 		t.Helper()
@@ -200,7 +200,7 @@ func TestResolve(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			cl := clienttest.NewMockResolutionClient(t, tt.universe)
 			var m manifest.Manifest
 			m.Root = resolve.Version{

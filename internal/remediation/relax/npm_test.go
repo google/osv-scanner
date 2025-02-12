@@ -10,7 +10,7 @@ import (
 )
 
 func TestRelaxNpm(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type result struct {
 		version string
@@ -167,7 +167,7 @@ func TestRelaxNpm(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			cl := resolve.NewLocalClient()
 			pk := resolve.PackageKey{
 				Name:   tt.name,

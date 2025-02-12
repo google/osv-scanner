@@ -9,7 +9,7 @@ import (
 )
 
 func TestPrintMarkdownTableResults_WithVulnerabilities(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -22,7 +22,7 @@ func TestPrintMarkdownTableResults_WithVulnerabilities(t *testing.T) {
 }
 
 func TestPrintMarkdownTableResults_WithLicenseViolations(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -35,7 +35,7 @@ func TestPrintMarkdownTableResults_WithLicenseViolations(t *testing.T) {
 }
 
 func TestPrintMarkdownTableResults_WithMixedIssues(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()

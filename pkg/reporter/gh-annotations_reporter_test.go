@@ -9,7 +9,7 @@ import (
 )
 
 func TestGHAnnotationsReporter_Errorf(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	writer := &bytes.Buffer{}
 	r := reporter.NewGHAnnotationsReporter(io.Discard, writer, reporter.ErrorLevel)
@@ -26,7 +26,7 @@ func TestGHAnnotationsReporter_Errorf(t *testing.T) {
 }
 
 func TestGHAnnotationsReporter_Warnf(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {
@@ -50,7 +50,7 @@ func TestGHAnnotationsReporter_Warnf(t *testing.T) {
 }
 
 func TestGHAnnotationsReporter_Infof(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {
@@ -74,7 +74,7 @@ func TestGHAnnotationsReporter_Infof(t *testing.T) {
 }
 
 func TestGHAnnotationsReporter_Verbosef(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	text := "hello world!"
 	tests := []struct {
