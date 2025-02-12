@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/internal/semantic"
+	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
@@ -401,10 +402,16 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 
 	packageFixedVersion := calculatePackageFixedVersion(vulnPkg.Package.Ecosystem, regularVulnList)
 
+	installVersion := vulnPkg.Package.Version
+	// If the ecosystem is not set, it's most likely from Git
+	if installVersion == "" && vulnPkg.Package.Ecosystem == "" {
+		installVersion = results.GetShortCommit(vulnPkg.Package.Commit)
+	}
+
 	packageResult := PackageResult{
 		Name:             vulnPkg.Package.Name,
 		OSPackageNames:   []string{vulnPkg.Package.OSPackageName},
-		InstalledVersion: vulnPkg.Package.Version,
+		InstalledVersion: installVersion,
 		FixedVersion:     packageFixedVersion,
 		RegularVulns:     regularVulnList,
 		HiddenVulns:      hiddenVulnList,
