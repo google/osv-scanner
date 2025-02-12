@@ -1235,12 +1235,12 @@ No package sources found, --help for usage information.
 
 [TestRun_GithubActions/scanning_osv-scanner_custom_format - 1]
 Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
-+--------------------------------+------+-----------+----------------------------+----------------------------+-------------------------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE                    | VERSION                    | SOURCE                                                |
-+--------------------------------+------+-----------+----------------------------+----------------------------+-------------------------------------------------------+
-| https://osv.dev/CVE-2023-39137 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054 | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
-| https://osv.dev/CVE-2023-39139 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054 | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
-+--------------------------------+------+-----------+---------------------------------------------------------+-------------------------------------------------------+
++--------------------------------+------+-----------+----------------------------+-----------------------------+-------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE                    | VERSION                     | SOURCE                                                |
++--------------------------------+------+-----------+----------------------------+-----------------------------+-------------------------------------------------------+
+| https://osv.dev/CVE-2023-39137 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054  | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| https://osv.dev/CVE-2023-39139 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054  | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
++--------------------------------+------+-----------+----------------------------------------------------------+-------------------------------------------------------+
 
 ---
 

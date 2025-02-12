@@ -1,28 +1,28 @@
 module github.com/google/osv-scanner/v2
 
-go 1.23.5
+go 1.23.6
 
 require (
-	deps.dev/api/v3 v3.0.0-20250129021108-7b38e5d02c19
-	deps.dev/util/maven v0.0.0-20250129021108-7b38e5d02c19
-	deps.dev/util/resolve v0.0.0-20250129021108-7b38e5d02c19
-	deps.dev/util/semver v0.0.0-20250129021108-7b38e5d02c19
+	deps.dev/api/v3 v3.0.0-20250210015309-e519ac173dde
+	deps.dev/util/maven v0.0.0-20250210015309-e519ac173dde
+	deps.dev/util/resolve v0.0.0-20250210015309-e519ac173dde
+	deps.dev/util/semver v0.0.0-20250210015309-e519ac173dde
 	github.com/BurntSushi/toml v1.4.0
 	github.com/CycloneDX/cyclonedx-go v0.9.2
 	github.com/charmbracelet/bubbles v0.20.0
-	github.com/charmbracelet/bubbletea v1.3.0
+	github.com/charmbracelet/bubbletea v1.3.3
 	github.com/charmbracelet/glamour v0.8.0
 	github.com/charmbracelet/lipgloss v1.0.0
-	github.com/gkampitakis/go-snaps v0.5.9
+	github.com/gkampitakis/go-snaps v0.5.10
 	github.com/go-git/go-billy/v5 v5.6.2
 	github.com/go-git/go-git/v5 v5.13.2
 	github.com/google/go-cmp v0.6.0
-	github.com/google/osv-scalibr v0.1.7-0.20250207023429-620a2939fa4d
+	github.com/google/osv-scalibr v0.1.7-0.20250212003031-df6e1f45cd0c
 	github.com/ianlancetaylor/demangle v0.0.0-20240912202439-0a2b6291aafd
-	github.com/jedib0t/go-pretty/v6 v6.6.5
+	github.com/jedib0t/go-pretty/v6 v6.6.6
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/ossf/osv-schema/bindings/go v0.0.0-20250203092159-a5a512f7c72d
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20250210065807-ab8a4f6e6389
 	github.com/owenrumney/go-sarif/v2 v2.3.3
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
@@ -30,14 +30,14 @@ require (
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.5
-	golang.org/x/exp v0.0.0-20250128182459-e0ece0dbea4c
+	golang.org/x/exp v0.0.0-20250210185358-939b2ce775ac
 	golang.org/x/mod v0.23.0
-	golang.org/x/net v0.34.0
+	golang.org/x/net v0.35.0
 	golang.org/x/sync v0.11.0
 	golang.org/x/term v0.29.0
 	golang.org/x/vuln v1.0.4
 	google.golang.org/grpc v1.70.0
-	google.golang.org/protobuf v1.36.4
+	google.golang.org/protobuf v1.36.5
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
 )
@@ -142,10 +142,10 @@ require (
 	go.opentelemetry.io/otel/metric v1.32.0 // indirect
 	go.opentelemetry.io/otel/trace v1.32.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/crypto v0.32.0 // indirect
+	golang.org/x/crypto v0.33.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
-	golang.org/x/text v0.21.0 // indirect
-	golang.org/x/tools v0.29.0 // indirect
+	golang.org/x/text v0.22.0 // indirect
+	golang.org/x/tools v0.30.0 // indirect
 	golang.org/x/xerrors v0.0.0-20231012003039-104605ab7028 // indirect
 	google.golang.org/genproto v0.0.0-20240123012728-ef4313101c80 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20241202173237-19429a94021a // indirect
