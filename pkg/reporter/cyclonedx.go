@@ -29,27 +29,6 @@ func NewCycloneDXReporter(stdout, stderr io.Writer, version models.CycloneDXVers
 	}
 }
 
-func (r *CycloneDXReporter) Errorf(format string, a ...any) {
-	fmt.Fprintf(r.stderr, format, a...)
-	r.hasErrored = true
-}
-
-func (r *CycloneDXReporter) HasErrored() bool {
-	return r.hasErrored
-}
-
-func (r *CycloneDXReporter) Warnf(format string, a ...any) {
-	if WarnLevel <= r.level {
-		fmt.Fprintf(r.stderr, format, a...)
-	}
-}
-
-func (r *CycloneDXReporter) Infof(format string, a ...any) {
-	if InfoLevel <= r.level {
-		fmt.Fprintf(r.stderr, format, a...)
-	}
-}
-
 func (r *CycloneDXReporter) PrintResult(vulnerabilityResults *models.VulnerabilityResults) error {
 	errs := output.PrintCycloneDXResults(vulnerabilityResults, r.version, r.stdout)
 	if errs != nil {

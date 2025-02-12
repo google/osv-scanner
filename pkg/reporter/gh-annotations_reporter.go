@@ -1,7 +1,6 @@
 package reporter
 
 import (
-	"fmt"
 	"io"
 
 	"github.com/google/osv-scanner/v2/internal/output"
@@ -21,27 +20,6 @@ func NewGHAnnotationsReporter(stdout io.Writer, stderr io.Writer, level Verbosit
 		stderr:     stderr,
 		level:      level,
 		hasErrored: false,
-	}
-}
-
-func (r *GHAnnotationsReporter) Errorf(format string, a ...any) {
-	fmt.Fprintf(r.stderr, format, a...)
-	r.hasErrored = true
-}
-
-func (r *GHAnnotationsReporter) HasErrored() bool {
-	return r.hasErrored
-}
-
-func (r *GHAnnotationsReporter) Warnf(format string, a ...any) {
-	if WarnLevel <= r.level {
-		fmt.Fprintf(r.stderr, format, a...)
-	}
-}
-
-func (r *GHAnnotationsReporter) Infof(format string, a ...any) {
-	if InfoLevel <= r.level {
-		fmt.Fprintf(r.stderr, format, a...)
 	}
 }
 

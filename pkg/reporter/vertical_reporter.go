@@ -30,27 +30,6 @@ func NewVerticalReporter(stdout io.Writer, stderr io.Writer, level VerbosityLeve
 	}
 }
 
-func (r *VerticalReporter) Errorf(format string, a ...any) {
-	fmt.Fprintf(r.stderr, format, a...)
-	r.hasErrored = true
-}
-
-func (r *VerticalReporter) HasErrored() bool {
-	return r.hasErrored
-}
-
-func (r *VerticalReporter) Warnf(format string, a ...any) {
-	if WarnLevel <= r.level {
-		fmt.Fprintf(r.stdout, format, a...)
-	}
-}
-
-func (r *VerticalReporter) Infof(format string, a ...any) {
-	if InfoLevel <= r.level {
-		fmt.Fprintf(r.stdout, format, a...)
-	}
-}
-
 func (r *VerticalReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil && !r.hasErrored {
 		fmt.Fprintf(r.stdout, "No issues found\n")

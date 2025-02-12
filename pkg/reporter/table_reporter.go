@@ -29,27 +29,6 @@ func NewTableReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel, 
 	}
 }
 
-func (r *TableReporter) Errorf(format string, a ...any) {
-	fmt.Fprintf(r.stderr, format, a...)
-	r.hasErrored = true
-}
-
-func (r *TableReporter) HasErrored() bool {
-	return r.hasErrored
-}
-
-func (r *TableReporter) Warnf(format string, a ...any) {
-	if WarnLevel <= r.level {
-		fmt.Fprintf(r.stdout, format, a...)
-	}
-}
-
-func (r *TableReporter) Infof(format string, a ...any) {
-	if InfoLevel <= r.level {
-		fmt.Fprintf(r.stdout, format, a...)
-	}
-}
-
 func (r *TableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil && !r.hasErrored {
 		fmt.Fprintf(r.stdout, "No issues found\n")
