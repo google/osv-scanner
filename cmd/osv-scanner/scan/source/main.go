@@ -106,11 +106,6 @@ func action(context *cli.Context, stdout, stderr io.Writer) error {
 		}
 	}
 
-	r, err := helper.GetReporter(context, stdout, stderr, outputPath, format)
-	if err != nil {
-		return err
-	}
-
 	scanLicensesAllowlist, err := helper.GetScanLicensesAllowlist(context)
 	if err != nil {
 		return err
@@ -145,7 +140,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) error {
 		return err
 	}
 
-	if errPrint := r.PrintResult(&vulnResult); errPrint != nil {
+	if errPrint := helper.PrintResult(context, stdout, stderr, outputPath, format, &vulnResult); errPrint != nil {
 		return fmt.Errorf("failed to write output: %w", errPrint)
 	}
 

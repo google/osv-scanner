@@ -1,6 +1,8 @@
 package reporter
 
 import (
+	"io"
+
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
@@ -27,7 +29,26 @@ type Reporter interface {
 	Warnf(format string, a ...any)
 	// Infof prints text providing general information about what OSV-Scanner is doing during its runtime.
 	Infof(format string, a ...any)
+}
+
+type resultPrinter interface {
 	// PrintResult prints the models.VulnerabilityResults per the logic of the
 	// actual reporter
 	PrintResult(vulnResult *models.VulnerabilityResults) error
+}
+
+func PrintResult(
+	vulnResult *models.VulnerabilityResults,
+	format string,
+	stdout, stderr io.Writer,
+	level VerbosityLevel,
+	terminalWidth int,
+) error {
+	r, err := newResultPrinter(format, stdout, stderr, level, terminalWidth)
+
+	if err != nil {
+		return err
+	}
+
+	return r.PrintResult(vulnResult)
 }
