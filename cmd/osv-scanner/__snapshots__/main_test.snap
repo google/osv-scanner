@@ -4296,7 +4296,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
      "vulnerabilities": null
     },
     {
-     "groups": 4,
+     "groups": 5,
      "package": {
       "ecosystem": "Alpine:v3.20",
       "image_origin_details": {
@@ -4307,6 +4307,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
       "version": "3.3.1-r0"
      },
      "vulnerabilities": [
+      "CVE-2024-12797",
       "CVE-2024-13176",
       "CVE-2024-5535",
       "CVE-2024-6119",
@@ -4314,7 +4315,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
      ]
     },
     {
-     "groups": 4,
+     "groups": 5,
      "package": {
       "ecosystem": "Alpine:v3.20",
       "image_origin_details": {
@@ -4325,6 +4326,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
       "version": "3.3.1-r0"
      },
      "vulnerabilities": [
+      "CVE-2024-12797",
       "CVE-2024-13176",
       "CVE-2024-5535",
       "CVE-2024-6119",
@@ -4580,7 +4582,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
      ]
     },
     {
-     "groups": 6,
+     "groups": 7,
      "package": {
       "ecosystem": "Alpine:v3.19",
       "image_origin_details": {
@@ -4591,6 +4593,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
       "version": "3.1.4-r5"
      },
      "vulnerabilities": [
+      "CVE-2024-13176",
       "CVE-2024-2511",
       "CVE-2024-4603",
       "CVE-2024-4741",
@@ -4600,7 +4603,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
      ]
     },
     {
-     "groups": 6,
+     "groups": 7,
      "package": {
       "ecosystem": "Alpine:v3.19",
       "image_origin_details": {
@@ -4611,6 +4614,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
       "version": "3.1.4-r5"
      },
      "vulnerabilities": [
+      "CVE-2024-13176",
       "CVE-2024-2511",
       "CVE-2024-4603",
       "CVE-2024-4741",
