@@ -4,24 +4,24 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-type VoidReporter struct {
+type voidReporter struct {
 	hasErrored bool
 }
 
-func (r *VoidReporter) Errorf(_ string, _ ...any) {
+func (r *voidReporter) Errorf(_ string, _ ...any) {
 	r.hasErrored = true
 }
 
-func (r *VoidReporter) HasErrored() bool {
+func (r *voidReporter) HasErrored() bool {
 	return r.hasErrored
 }
 
-func (r *VoidReporter) Warnf(_ string, _ ...any) {
+func (r *voidReporter) Warnf(_ string, _ ...any) {
 }
 
-func (r *VoidReporter) Infof(_ string, _ ...any) {
+func (r *voidReporter) Infof(_ string, _ ...any) {
 }
 
-func (r *VoidReporter) PrintResult(_ *models.VulnerabilityResults) error {
+func (r *voidReporter) PrintResult(_ *models.VulnerabilityResults) error {
 	return nil
 }

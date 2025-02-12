@@ -7,15 +7,15 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-type GHAnnotationsReporter struct {
+type ghAnnotationsReporter struct {
 	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
 	level      VerbosityLevel
 }
 
-func NewGHAnnotationsReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *GHAnnotationsReporter {
-	return &GHAnnotationsReporter{
+func newGHAnnotationsReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *ghAnnotationsReporter {
+	return &ghAnnotationsReporter{
 		stdout:     stdout,
 		stderr:     stderr,
 		level:      level,
@@ -23,6 +23,6 @@ func NewGHAnnotationsReporter(stdout io.Writer, stderr io.Writer, level Verbosit
 	}
 }
 
-func (r *GHAnnotationsReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
+func (r *ghAnnotationsReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintGHAnnotationReport(vulnResult, r.stderr)
 }

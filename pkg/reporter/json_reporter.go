@@ -7,17 +7,17 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-// JSONReporter prints vulnerability results in JSON format to stdout. Runtime information
+// jsonReporter prints vulnerability results in JSON format to stdout. Runtime information
 // will be written to stderr.
-type JSONReporter struct {
+type jsonReporter struct {
 	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
 	level      VerbosityLevel
 }
 
-func NewJSONReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *JSONReporter {
-	return &JSONReporter{
+func newJSONReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *jsonReporter {
+	return &jsonReporter{
 		stdout:     stdout,
 		stderr:     stderr,
 		level:      level,
@@ -25,6 +25,6 @@ func NewJSONReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *
 	}
 }
 
-func (r *JSONReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
+func (r *jsonReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintJSONResults(vulnResult, r.stdout)
 }

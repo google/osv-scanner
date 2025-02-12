@@ -11,7 +11,7 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-type CycloneDXReporter struct {
+type cycloneDXReporter struct {
 	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
@@ -19,8 +19,8 @@ type CycloneDXReporter struct {
 	level      VerbosityLevel
 }
 
-func NewCycloneDXReporter(stdout, stderr io.Writer, version models.CycloneDXVersion, level VerbosityLevel) *CycloneDXReporter {
-	return &CycloneDXReporter{
+func newCycloneDXReporter(stdout, stderr io.Writer, version models.CycloneDXVersion, level VerbosityLevel) *cycloneDXReporter {
+	return &cycloneDXReporter{
 		stdout:     stdout,
 		stderr:     stderr,
 		hasErrored: false,
@@ -29,7 +29,7 @@ func NewCycloneDXReporter(stdout, stderr io.Writer, version models.CycloneDXVers
 	}
 }
 
-func (r *CycloneDXReporter) PrintResult(vulnerabilityResults *models.VulnerabilityResults) error {
+func (r *cycloneDXReporter) PrintResult(vulnerabilityResults *models.VulnerabilityResults) error {
 	errs := output.PrintCycloneDXResults(vulnerabilityResults, r.version, r.stdout)
 	if errs != nil {
 		for _, err := range strings.Split(errs.Error(), "\n") {

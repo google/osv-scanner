@@ -8,7 +8,7 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-type TableReporter struct {
+type tableReporter struct {
 	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
@@ -18,8 +18,8 @@ type TableReporter struct {
 	terminalWidth int
 }
 
-func NewTableReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel, markdown bool, terminalWidth int) *TableReporter {
-	return &TableReporter{
+func newTableReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel, markdown bool, terminalWidth int) *tableReporter {
+	return &tableReporter{
 		stdout:        stdout,
 		stderr:        stderr,
 		hasErrored:    false,
@@ -29,7 +29,7 @@ func NewTableReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel, 
 	}
 }
 
-func (r *TableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
+func (r *tableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil && !r.hasErrored {
 		fmt.Fprintf(r.stdout, "No issues found\n")
 		return nil
