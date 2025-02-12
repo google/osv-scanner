@@ -667,7 +667,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			if testutility.IsAcceptanceTest() {
+			if testutility.IsAcceptanceTesting() {
 				testDir := testutility.CreateTestDir(t)
 				old := tt.args
 				tt.args = []string{"", "--experimental-local-db-path", testDir}
