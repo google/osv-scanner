@@ -3886,7 +3886,7 @@ Rewriting <tempdir>/pom.xml...
 [TestRun_Fix/fix_non-interactive_json_override_pom.xml - 3]
 <project>
   <modelVersion>4.0.0</modelVersion>
- 
+
   <groupId>dev.osv</groupId>
   <artifactId>osv-fix</artifactId>
   <version>1</version>
@@ -3928,6 +3928,7 @@ Rewriting <tempdir>/pom.xml...
     </dependency>
   </dependencies>
 </project>
+
 ---
 
 [TestRun_Fix/fix_non-interactive_json_relax_package.json - 1]
@@ -4077,7 +4078,7 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 [TestRun_Fix/fix_non-interactive_override_pom.xml - 3]
 <project>
   <modelVersion>4.0.0</modelVersion>
- 
+
   <groupId>dev.osv</groupId>
   <artifactId>osv-fix</artifactId>
   <version>1</version>
@@ -4119,6 +4120,7 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
     </dependency>
   </dependencies>
 </project>
+
 ---
 
 [TestRun_Fix/fix_non-interactive_relax_package.json - 1]
