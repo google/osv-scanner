@@ -27,6 +27,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -118,6 +119,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -130,6 +132,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -248,6 +251,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -339,6 +343,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "Description": "Something mildly scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -351,6 +356,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -516,6 +522,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -607,6 +614,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -619,6 +627,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -737,6 +746,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -828,6 +838,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "Description": "Something mildly scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -840,6 +851,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1523,6 +1535,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1641,6 +1654,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1837,6 +1851,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2080,6 +2095,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "Description": "Something mildly scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2092,6 +2108,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2183,6 +2200,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2307,6 +2325,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2319,6 +2338,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2410,6 +2430,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2575,6 +2596,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "Description": "Something mildly scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2587,6 +2609,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2678,6 +2701,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2802,6 +2826,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2816,6 +2841,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -2906,6 +2932,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -3461,6 +3488,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -3475,6 +3503,7 @@
                     "GHSA-123"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -3639,6 +3668,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -3805,6 +3835,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -3969,6 +4000,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -4134,6 +4166,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -4303,6 +4336,7 @@
                   "Aliases": [
                     "GHSA-123"
                   ],
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -4470,6 +4504,7 @@
                   "Aliases": [
                     "GHSA-123"
                   ],
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -4635,6 +4670,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -4726,6 +4762,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -4891,6 +4928,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -5161,6 +5199,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -5279,6 +5318,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
