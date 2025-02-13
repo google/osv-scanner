@@ -7,7 +7,6 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -62,33 +61,12 @@ type errorOutput struct {
 	// }
 }
 
-// TODO: stop relying on old reporter implementation
-type outputReporter struct {
-	Stdout       io.Writer
-	Stderr       io.Writer
-	OutputResult func(fixOutput) error
-	hasErrored   bool
-}
+func printResult(outputResult fixOutput, opts osvFixOptions) error {
+	if opts.OutputJSON {
+		return outputJSON(opts.Stdout, outputResult)
+	}
 
-func (r *outputReporter) Errorf(format string, a ...any) {
-	fmt.Fprintf(r.Stderr, format, a...)
-	r.hasErrored = true
-}
-
-func (r *outputReporter) HasErrored() bool {
-	return r.hasErrored
-}
-
-func (r *outputReporter) Warnf(format string, a ...any) {
-	fmt.Fprintf(r.Stdout, format, a...)
-}
-
-func (r *outputReporter) Infof(format string, a ...any) {
-	fmt.Fprintf(r.Stdout, format, a...)
-}
-
-func (r *outputReporter) PrintResult(*models.VulnerabilityResults) error {
-	panic("not implemented")
+	return outputText(opts.Stdout, outputResult)
 }
 
 func outputText(w io.Writer, out fixOutput) error {

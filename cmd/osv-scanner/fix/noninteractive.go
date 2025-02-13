@@ -22,7 +22,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 )
 
-func autoInPlace(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
+func autoInPlace(ctx context.Context, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsInPlace(opts.LockfileRW) {
 		return fmt.Errorf("%s strategy is not supported for lockfile", strategyInPlace)
 	}
@@ -51,7 +51,7 @@ func autoInPlace(ctx context.Context, r *outputReporter, opts osvFixOptions, max
 
 	patches := autoChooseInPlacePatches(res, maxUpgrades, &outputResult)
 
-	if err := r.OutputResult(outputResult); err != nil {
+	if err := printResult(outputResult, opts); err != nil {
 		slog.Error(fmt.Sprintf("failed writing output"))
 		return err
 	}
@@ -122,7 +122,7 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 	return patches
 }
 
-func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
+func autoRelax(ctx context.Context, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsRelax(opts.ManifestRW) {
 		return fmt.Errorf("%s strategy is not supported for manifest", strategyRelax)
 	}
@@ -170,7 +170,7 @@ func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUp
 
 	depPatches := autoChooseRelaxPatches(allPatches, maxUpgrades, &outputResult)
 
-	if err := r.OutputResult(outputResult); err != nil {
+	if err := printResult(outputResult, opts); err != nil {
 		slog.Error(fmt.Sprintf("failed writing output"))
 		return err
 	}
@@ -193,8 +193,8 @@ func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUp
 			return err
 		}
 
-		cmd.Stdout = r.Stdout
-		cmd.Stderr = r.Stderr
+		cmd.Stdout = opts.Stdout
+		cmd.Stderr = opts.Stderr
 		slog.Info(fmt.Sprintf("Executing `%s`...\n", cmd))
 		err = cmd.Run()
 		if err == nil {
@@ -207,8 +207,8 @@ func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUp
 			return err
 		}
 		cmd.Args = append(cmd.Args, "--legacy-peer-deps")
-		cmd.Stdout = r.Stdout
-		cmd.Stderr = r.Stderr
+		cmd.Stdout = opts.Stdout
+		cmd.Stderr = opts.Stderr
 
 		return cmd.Run()
 	}
@@ -258,7 +258,7 @@ func autoChooseRelaxPatches(diffs []resolution.Difference, maxUpgrades int, outp
 	return patches
 }
 
-func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
+func autoOverride(ctx context.Context, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsOverride(opts.ManifestRW) {
 		return errors.New("override strategy is not supported for manifest")
 	}
@@ -326,7 +326,7 @@ func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, ma
 
 	depPatches := autoChooseOverridePatches(allPatches, maxUpgrades, &outputResult)
 
-	if err := r.OutputResult(outputResult); err != nil {
+	if err := printResult(outputResult, opts); err != nil {
 		slog.Error(fmt.Sprintf("failed writing output"))
 		return err
 	}
