@@ -4,6 +4,7 @@ package main
 import (
 	"bytes"
 	"errors"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -11,6 +12,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/v2/internal/clilogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/urfave/cli/v2"
 )
@@ -903,7 +905,11 @@ func Test_insertDefaultCommand(t *testing.T) {
 	for _, tt := range tests {
 		stdout := &bytes.Buffer{}
 		stderr := &bytes.Buffer{}
-		// todo: make this actually work
+
+		logger := clilogger.New(stdout, stderr)
+
+		slog.SetDefault(slog.New(&logger))
+
 		argsActual := insertDefaultCommand(tt.originalArgs, commands, defaultCommand)
 		if !reflect.DeepEqual(argsActual, tt.wantArgs) {
 			t.Errorf("Test Failed. Details:\n"+
