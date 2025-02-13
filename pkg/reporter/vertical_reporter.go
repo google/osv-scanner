@@ -10,8 +10,7 @@ import (
 )
 
 type verticalReporter struct {
-	writer   io.Writer
-	markdown bool
+	writer io.Writer
 	// 0 indicates not a terminal output
 	terminalWidth int
 }
