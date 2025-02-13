@@ -12,21 +12,19 @@ import (
 )
 
 type cycloneDXReporter struct {
-	stdout     io.Writer
-	stderr     io.Writer
-	version    models.CycloneDXVersion
+	writer  io.Writer
+	version models.CycloneDXVersion
 }
 
-func newCycloneDXReporter(stdout, stderr io.Writer, version models.CycloneDXVersion) *cycloneDXReporter {
+func newCycloneDXReporter(writer io.Writer, version models.CycloneDXVersion) *cycloneDXReporter {
 	return &cycloneDXReporter{
-		stdout:     stdout,
-		stderr:     stderr,
-		version:    version,
+		writer:  writer,
+		version: version,
 	}
 }
 
 func (r *cycloneDXReporter) PrintResult(vulnerabilityResults *models.VulnerabilityResults) error {
-	errs := output.PrintCycloneDXResults(vulnerabilityResults, r.version, r.stdout)
+	errs := output.PrintCycloneDXResults(vulnerabilityResults, r.version, r.writer)
 	if errs != nil {
 		for _, err := range strings.Split(errs.Error(), "\n") {
 			slog.Warn(fmt.Sprintf("Failed to parse package URL: %v", err))

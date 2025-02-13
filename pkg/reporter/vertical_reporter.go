@@ -10,17 +10,15 @@ import (
 )
 
 type verticalReporter struct {
-	stdout     io.Writer
-	stderr     io.Writer
-	markdown   bool
+	writer   io.Writer
+	markdown bool
 	// 0 indicates not a terminal output
 	terminalWidth int
 }
 
-func newVerticalReporter(stdout io.Writer, stderr io.Writer, markdown bool, terminalWidth int) *verticalReporter {
+func newVerticalReporter(writer io.Writer, markdown bool, terminalWidth int) *verticalReporter {
 	return &verticalReporter{
-		stdout:        stdout,
-		stderr:        stderr,
+		writer:        writer,
 		markdown:      markdown,
 		terminalWidth: terminalWidth,
 	}
@@ -28,7 +26,7 @@ func newVerticalReporter(stdout io.Writer, stderr io.Writer, markdown bool, term
 
 func (r *verticalReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil {
-		fmt.Fprintf(r.stdout, "No issues found\n")
+		fmt.Fprintf(r.writer, "No issues found\n")
 		return nil
 	}
 
@@ -36,7 +34,7 @@ func (r *verticalReporter) PrintResult(vulnResult *models.VulnerabilityResults) 
 		text.DisableColors()
 	}
 
-	output.PrintVerticalResults(vulnResult, r.stdout)
+	output.PrintVerticalResults(vulnResult, r.writer)
 
 	return nil
 }

@@ -134,12 +134,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 				diffVulns = ci.DiffVulnerabilityResults(oldVulns, newVulns)
 			}
 
-			if errPrint := reporter.PrintResult(&diffVulns, "table", stdout, stderr, termWidth); errPrint != nil {
+			if errPrint := reporter.PrintResult(&diffVulns, "table", stdout, termWidth); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
 
 			if context.Bool("gh-annotations") {
-				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stdout, stderr, termWidth); errPrint != nil {
+				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stderr, termWidth); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
@@ -153,7 +153,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 				termWidth = 0
 
-				if errPrint := reporter.PrintResult(&diffVulns, "sarif", stdout, stderr, termWidth); errPrint != nil {
+				if errPrint := reporter.PrintResult(&diffVulns, "sarif", stdout, termWidth); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
