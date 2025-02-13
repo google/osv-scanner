@@ -3,7 +3,7 @@ package reporter_test
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/v2/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/reporter"
 )
 
 func TestParseVerbosityLevel_GivenValidLevels(t *testing.T) {

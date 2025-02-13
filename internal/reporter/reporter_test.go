@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
+	"github.com/google/osv-scanner/v2/internal/reporter"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 func TestPrintResult(t *testing.T) {
