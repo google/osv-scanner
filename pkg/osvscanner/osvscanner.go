@@ -4,8 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"maps"
 	"net/http"
 	"os"
+	"slices"
 	"sort"
 	"strings"
 	"time"
@@ -33,7 +35,6 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
-	"golang.org/x/exp/maps"
 )
 
 type ScannerActions struct {
@@ -411,7 +412,7 @@ func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount 
 		return []models.LicenseCount{}
 	}
 
-	licenses := maps.Keys(counts)
+	licenses := slices.Collect(maps.Keys(counts))
 
 	// Sort the license count in descending count order with the UNKNOWN
 	// license last.

@@ -13,6 +13,7 @@ import (
 	"encoding/gob"
 	"errors"
 	"fmt"
+	"maps"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -38,7 +39,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
-	"golang.org/x/exp/maps"
 	"golang.org/x/sync/errgroup"
 	"gopkg.in/yaml.v3"
 )
@@ -209,7 +209,7 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 		return clienttest.ResolutionUniverse{}, err
 	}
 
-	pks := maps.Keys(pkgs)
+	pks := slices.Collect(maps.Keys(pkgs))
 	slices.SortFunc(pks, func(a, b resolve.PackageKey) int { return a.Compare(b) })
 
 	if len(pks) == 0 {

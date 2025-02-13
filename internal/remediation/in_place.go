@@ -4,6 +4,7 @@ import (
 	"cmp"
 	"context"
 	"errors"
+	"maps"
 	"slices"
 
 	"deps.dev/util/resolve"
@@ -17,7 +18,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
-	"golang.org/x/exp/maps"
 )
 
 type InPlacePatch struct {
@@ -123,7 +123,7 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 				}
 			}
 		}
-		set, err := buildConstraintSet(vk.Semver(), maps.Keys(reqVers))
+		set, err := buildConstraintSet(vk.Semver(), slices.Collect(maps.Keys(reqVers)))
 		if err != nil {
 			// TODO: log error?
 			continue
