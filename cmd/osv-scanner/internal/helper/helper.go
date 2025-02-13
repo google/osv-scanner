@@ -209,12 +209,13 @@ func PrintResult(context *cli.Context, stdout, stderr io.Writer, outputPath, for
 		}
 	}
 
-	verbosityLevel, err := reporter.ParseVerbosityLevel(context.String("verbosity"))
+	// todo: re-implement verbosity level support (this is just here to maintain old output behaviour)
+	_, err = reporter.ParseVerbosityLevel(context.String("verbosity"))
 	if err != nil {
 		return err
 	}
 
-	return reporter.PrintResult(diffVulns, format, stdout, stderr, verbosityLevel, termWidth)
+	return reporter.PrintResult(diffVulns, format, stdout, stderr, termWidth)
 }
 
 func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {

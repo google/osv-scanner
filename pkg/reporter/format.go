@@ -13,26 +13,26 @@ func Format() []string {
 	return format
 }
 
-func newResultPrinter(format string, stdout, stderr io.Writer, level VerbosityLevel, terminalWidth int) (resultPrinter, error) {
+func newResultPrinter(format string, stdout, stderr io.Writer, terminalWidth int) (resultPrinter, error) {
 	switch format {
 	case "html":
-		return newHTMLReporter(stdout, stderr, level), nil
+		return newHTMLReporter(stdout, stderr), nil
 	case "json":
-		return newJSONReporter(stdout, stderr, level), nil
+		return newJSONReporter(stdout, stderr), nil
 	case "vertical":
-		return newVerticalReporter(stdout, stderr, level, false, terminalWidth), nil
+		return newVerticalReporter(stdout, stderr, false, terminalWidth), nil
 	case "table":
-		return newTableReporter(stdout, stderr, level, false, terminalWidth), nil
+		return newTableReporter(stdout, stderr, false, terminalWidth), nil
 	case "markdown":
-		return newTableReporter(stdout, stderr, level, true, terminalWidth), nil
+		return newTableReporter(stdout, stderr, true, terminalWidth), nil
 	case "sarif":
-		return newSarifReporter(stdout, stderr, level), nil
+		return newSarifReporter(stdout, stderr), nil
 	case "gh-annotations":
-		return newGHAnnotationsReporter(stdout, stderr, level), nil
+		return newGHAnnotationsReporter(stdout, stderr), nil
 	case "cyclonedx-1-4":
-		return newCycloneDXReporter(stdout, stderr, models.CycloneDXVersion14, level), nil
+		return newCycloneDXReporter(stdout, stderr, models.CycloneDXVersion14), nil
 	case "cyclonedx-1-5":
-		return newCycloneDXReporter(stdout, stderr, models.CycloneDXVersion15, level), nil
+		return newCycloneDXReporter(stdout, stderr, models.CycloneDXVersion15), nil
 	default:
 		return nil, fmt.Errorf("%v is not a valid format", format)
 	}

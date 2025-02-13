@@ -8,18 +8,14 @@ import (
 )
 
 type sarifReporter struct {
-	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
-	level      VerbosityLevel
 }
 
-func newSarifReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *sarifReporter {
+func newSarifReporter(stdout io.Writer, stderr io.Writer) *sarifReporter {
 	return &sarifReporter{
 		stdout:     stdout,
 		stderr:     stderr,
-		level:      level,
-		hasErrored: false,
 	}
 }
 

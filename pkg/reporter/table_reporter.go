@@ -9,28 +9,24 @@ import (
 )
 
 type tableReporter struct {
-	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
-	level      VerbosityLevel
 	markdown   bool
 	// 0 indicates not a terminal output
 	terminalWidth int
 }
 
-func newTableReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel, markdown bool, terminalWidth int) *tableReporter {
+func newTableReporter(stdout io.Writer, stderr io.Writer, markdown bool, terminalWidth int) *tableReporter {
 	return &tableReporter{
 		stdout:        stdout,
 		stderr:        stderr,
-		hasErrored:    false,
-		level:         level,
 		markdown:      markdown,
 		terminalWidth: terminalWidth,
 	}
 }
 
 func (r *tableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
-	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil && !r.hasErrored {
+	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil {
 		fmt.Fprintf(r.stdout, "No issues found\n")
 		return nil
 	}

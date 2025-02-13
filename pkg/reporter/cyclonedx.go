@@ -12,20 +12,16 @@ import (
 )
 
 type cycloneDXReporter struct {
-	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
 	version    models.CycloneDXVersion
-	level      VerbosityLevel
 }
 
-func newCycloneDXReporter(stdout, stderr io.Writer, version models.CycloneDXVersion, level VerbosityLevel) *cycloneDXReporter {
+func newCycloneDXReporter(stdout, stderr io.Writer, version models.CycloneDXVersion) *cycloneDXReporter {
 	return &cycloneDXReporter{
 		stdout:     stdout,
 		stderr:     stderr,
-		hasErrored: false,
 		version:    version,
-		level:      level,
 	}
 }
 

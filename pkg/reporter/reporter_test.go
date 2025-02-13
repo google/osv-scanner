@@ -15,7 +15,7 @@ func TestPrintResult(t *testing.T) {
 		stdout := &bytes.Buffer{}
 		stderr := &bytes.Buffer{}
 
-		err := reporter.PrintResult(&models.VulnerabilityResults{}, format, stdout, stderr, reporter.InfoLevel, 0)
+		err := reporter.PrintResult(&models.VulnerabilityResults{}, format, stdout, stderr, 0)
 		if err != nil {
 			t.Errorf("Reporter for '%s' format not implemented", format)
 		}
@@ -28,7 +28,7 @@ func TestPrintResult_UnsupportedFormatter(t *testing.T) {
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 
-	err := reporter.PrintResult(&models.VulnerabilityResults{}, "unsupported", stdout, stderr, reporter.InfoLevel, 0)
+	err := reporter.PrintResult(&models.VulnerabilityResults{}, "unsupported", stdout, stderr, 0)
 
 	if err == nil {
 		t.Errorf("Did not get expected error")
