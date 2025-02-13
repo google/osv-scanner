@@ -3,11 +3,12 @@ package lockfile
 import (
 	"bufio"
 	"fmt"
+	"maps"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
-	"golang.org/x/exp/maps"
 )
 
 const PipEcosystem Ecosystem = "PyPI"
@@ -195,7 +196,7 @@ func parseRequirementsTxt(f DepFile, requiredAlready map[string]struct{}) ([]Pac
 		return []PackageDetails{}, fmt.Errorf("error while scanning %s: %w", f.Path(), err)
 	}
 
-	return maps.Values(packages), nil
+	return slices.Collect(maps.Values(packages)), nil
 }
 
 var _ Extractor = RequirementsTxtExtractor{}
