@@ -12,6 +12,7 @@ type CLILogger struct {
 	stderr        io.Writer
 	stdoutHandler slog.Handler
 	stderrHandler slog.Handler
+	hasErrored    bool
 }
 
 // handler returns the log handler to use for the given level
@@ -36,9 +37,19 @@ func (c CLILogger) Enabled(ctx context.Context, level slog.Level) bool {
 }
 
 func (c CLILogger) Handle(_ context.Context, record slog.Record) error {
+	if record.Level == slog.LevelError {
+		c.hasErrored = true
+	}
+
 	_, err := fmt.Fprint(c.writer(record.Level), record.Message)
 
 	return err
+}
+
+// HasErrored returns true if there have been any calls to Handle with
+// a level of [slog.LevelError]
+func (c CLILogger) HasErrored() bool {
+	return c.hasErrored
 }
 
 func (c CLILogger) WithAttrs(attrs []slog.Attr) slog.Handler {

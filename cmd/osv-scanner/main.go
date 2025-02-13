@@ -23,7 +23,9 @@ var (
 )
 
 func run(args []string, stdout, stderr io.Writer) int {
-	slog.SetDefault(slog.New(clilogger.New(stdout, stderr)))
+	logger := clilogger.New(stdout, stderr)
+
+	slog.SetDefault(slog.New(logger))
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		slog.Info(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
@@ -73,12 +75,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		slog.Error(fmt.Sprintf("%v\n", err))
 	}
 
-	// todo: how do we handle this case?
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	// if r != nil && r.HasErrored() {
-	// 	return 127
-	// }
+	if logger.HasErrored() {
+		return 127
+	}
 
 	return 0
 }

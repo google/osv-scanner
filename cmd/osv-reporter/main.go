@@ -35,7 +35,9 @@ func splitLastArg(args []string) []string {
 }
 
 func run(args []string, stdout, stderr io.Writer) int {
-	slog.SetDefault(slog.New(clilogger.New(stdout, stderr)))
+	logger := clilogger.New(stdout, stderr)
+
+	slog.SetDefault(slog.New(&logger))
 
 	// Allow multiple arguments to be defined by github actions by splitting the last argument
 	// by new lines.
@@ -190,12 +192,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		slog.Error(fmt.Sprintf("%v\n", err))
 	}
 
-	// todo: how do we handle this case?
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	// if r != nil && r.HasErrored() {
-	// 	return 127
-	// }
+	if logger.HasErrored() {
+		return 127
+	}
 
 	return 0
 }
