@@ -16,23 +16,23 @@ func Format() []string {
 func newResultPrinter(format string, writer io.Writer, terminalWidth int) (resultPrinter, error) {
 	switch format {
 	case "html":
-		return newHTMLReporter(writer), nil
+		return &htmlReporter{writer}, nil
 	case "json":
-		return newJSONReporter(writer), nil
+		return &jsonReporter{writer}, nil
 	case "vertical":
-		return newVerticalReporter(writer, false, terminalWidth), nil
+		return &verticalReporter{writer, false, terminalWidth}, nil
 	case "table":
-		return newTableReporter(writer, false, terminalWidth), nil
+		return &tableReporter{writer, false, terminalWidth}, nil
 	case "markdown":
-		return newTableReporter(writer, true, terminalWidth), nil
+		return &tableReporter{writer, true, terminalWidth}, nil
 	case "sarif":
-		return newSarifReporter(writer), nil
+		return &sarifReporter{writer}, nil
 	case "gh-annotations":
-		return newGHAnnotationsReporter(writer), nil
+		return &ghAnnotationsReporter{writer}, nil
 	case "cyclonedx-1-4":
-		return newCycloneDXReporter(writer, models.CycloneDXVersion14), nil
+		return &cycloneDXReporter{writer, models.CycloneDXVersion14}, nil
 	case "cyclonedx-1-5":
-		return newCycloneDXReporter(writer, models.CycloneDXVersion15), nil
+		return &cycloneDXReporter{writer, models.CycloneDXVersion15}, nil
 	default:
 		return nil, fmt.Errorf("%v is not a valid format", format)
 	}

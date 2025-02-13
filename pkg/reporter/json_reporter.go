@@ -11,12 +11,6 @@ type jsonReporter struct {
 	writer io.Writer
 }
 
-func newJSONReporter(writer io.Writer) *jsonReporter {
-	return &jsonReporter{
-		writer: writer,
-	}
-}
-
 func (r *jsonReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintJSONResults(vulnResult, r.writer)
 }

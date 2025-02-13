@@ -16,14 +16,6 @@ type verticalReporter struct {
 	terminalWidth int
 }
 
-func newVerticalReporter(writer io.Writer, markdown bool, terminalWidth int) *verticalReporter {
-	return &verticalReporter{
-		writer:        writer,
-		markdown:      markdown,
-		terminalWidth: terminalWidth,
-	}
-}
-
 func (r *verticalReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil {
 		fmt.Fprintf(r.writer, "No issues found\n")

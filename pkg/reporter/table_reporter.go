@@ -15,14 +15,6 @@ type tableReporter struct {
 	terminalWidth int
 }
 
-func newTableReporter(writer io.Writer, markdown bool, terminalWidth int) *tableReporter {
-	return &tableReporter{
-		writer:        writer,
-		markdown:      markdown,
-		terminalWidth: terminalWidth,
-	}
-}
-
 func (r *tableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil {
 		fmt.Fprintf(r.writer, "No issues found\n")
