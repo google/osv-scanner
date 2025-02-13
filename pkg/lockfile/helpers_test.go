@@ -122,6 +122,7 @@ func expectPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expe
 func createTestDir(t *testing.T) (string, func()) {
 	t.Helper()
 
+	//nolint:usetesting // we need to customize the directory name to replace in snapshots
 	p, err := os.MkdirTemp("", "osv-scanner-test-*")
 	if err != nil {
 		t.Fatalf("could not create test directory: %v", err)
