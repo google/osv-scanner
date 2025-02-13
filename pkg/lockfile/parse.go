@@ -3,11 +3,11 @@ package lockfile
 import (
 	"errors"
 	"fmt"
+	"maps"
 	"path/filepath"
+	"slices"
 	"sort"
 	"strings"
-
-	"golang.org/x/exp/maps"
 )
 
 func FindParser(pathToLockfile string, parseAs string) (PackageDetailsParser, string) {
@@ -67,7 +67,7 @@ func (ps Packages) Ecosystems() []Ecosystem {
 		ecosystems[pkg.Ecosystem] = struct{}{}
 	}
 
-	slicedEcosystems := maps.Keys(ecosystems)
+	slicedEcosystems := slices.Collect(maps.Keys(ecosystems))
 
 	sort.Slice(slicedEcosystems, func(i, j int) bool {
 		return slicedEcosystems[i] < slicedEcosystems[j]

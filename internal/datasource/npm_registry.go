@@ -5,12 +5,13 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"maps"
 	"net/http"
+	"slices"
 	"sync"
 	"time"
 
 	"github.com/tidwall/gjson"
-	"golang.org/x/exp/maps"
 )
 
 type NpmRegistryAPIClient struct {
@@ -55,7 +56,7 @@ func (c *NpmRegistryAPIClient) Versions(ctx context.Context, pkg string) (NpmReg
 	}
 
 	return NpmRegistryVersions{
-		Versions: maps.Keys(pkgDetails.Versions),
+		Versions: slices.Collect(maps.Keys(pkgDetails.Versions)),
 		Tags:     pkgDetails.Tags,
 	}, nil
 }

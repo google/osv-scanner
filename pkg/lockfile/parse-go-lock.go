@@ -3,10 +3,11 @@ package lockfile
 import (
 	"fmt"
 	"io"
+	"maps"
 	"path/filepath"
+	"slices"
 	"strings"
 
-	"golang.org/x/exp/maps"
 	"golang.org/x/mod/modfile"
 )
 
@@ -92,7 +93,7 @@ func (e GoLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		}
 	}
 
-	return maps.Values(deduplicatePackages(packages)), nil
+	return slices.Collect(maps.Values(deduplicatePackages(packages))), nil
 }
 
 var _ Extractor = GoLockExtractor{}

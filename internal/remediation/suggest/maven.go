@@ -5,12 +5,12 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"slices"
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/pkg/lockfile"
-	"golang.org/x/exp/slices"
 )
 
 type MavenSuggester struct{}

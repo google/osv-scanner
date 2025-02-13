@@ -3,12 +3,13 @@ package lockfile
 import (
 	"encoding/xml"
 	"fmt"
+	"maps"
 	"os"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
-	"golang.org/x/exp/maps"
 )
 
 type MavenLockDependency struct {
@@ -153,7 +154,7 @@ func (e MavenLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		details[finalName] = pkgDetails
 	}
 
-	return maps.Values(details), nil
+	return slices.Collect(maps.Values(details)), nil
 }
 
 var _ Extractor = MavenLockExtractor{}

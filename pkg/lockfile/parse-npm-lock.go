@@ -3,12 +3,11 @@ package lockfile
 import (
 	"encoding/json"
 	"fmt"
+	"maps"
 	"path"
 	"path/filepath"
+	"slices"
 	"strings"
-
-	"golang.org/x/exp/maps"
-	"golang.org/x/exp/slices"
 )
 
 type NpmLockDependency struct {
@@ -232,7 +231,7 @@ func (e NpmLockExtractor) Extract(f DepFile) ([]PackageDetails, error) {
 		return []PackageDetails{}, fmt.Errorf("could not extract from %s: %w", f.Path(), err)
 	}
 
-	return maps.Values(parseNpmLock(*parsedLockfile)), nil
+	return slices.Collect(maps.Values(parseNpmLock(*parsedLockfile))), nil
 }
 
 var _ Extractor = NpmLockExtractor{}

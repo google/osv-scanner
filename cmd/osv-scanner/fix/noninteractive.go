@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"maps"
 	"slices"
 
 	"deps.dev/util/resolve"
@@ -18,7 +19,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/pkg/lockfile"
-	"golang.org/x/exp/maps"
 )
 
 func autoInPlace(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
@@ -423,7 +423,7 @@ func makeResultVuln(vuln resolution.Vulnerability) vulnOutput {
 		vk := sg.Nodes[sg.Dependency].Version
 		affected[packageOutput{Name: vk.Name, Version: vk.Version}] = struct{}{}
 	}
-	v.Packages = maps.Keys(affected)
+	v.Packages = slices.Collect(maps.Keys(affected))
 	slices.SortFunc(v.Packages, func(a, b packageOutput) int {
 		if c := cmp.Compare(a.Name, b.Name); c != 0 {
 			return c
@@ -471,7 +471,7 @@ func populateResultVulns(outputResult *fixOutput, res *resolution.Result, allPat
 		}
 	}
 
-	outputResult.Vulnerabilities = maps.Values(vulns)
+	outputResult.Vulnerabilities = slices.Collect(maps.Values(vulns))
 	sortVulns(outputResult.Vulnerabilities)
 }
 

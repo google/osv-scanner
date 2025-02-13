@@ -4,6 +4,7 @@ import (
 	"cmp"
 	"context"
 	"errors"
+	"maps"
 	"path/filepath"
 	"slices"
 	"strings"
@@ -15,7 +16,6 @@ import (
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/pretty"
 	"github.com/tidwall/sjson"
-	"golang.org/x/exp/maps"
 )
 
 // New-style (npm >= 7 / lockfileVersion 2+) structure
@@ -177,7 +177,7 @@ func (rw NpmReadWriter) makeNodeModuleDeps(pkg lockfile.NpmLockPackage, includeD
 }
 
 func (rw NpmReadWriter) packageNamesByNodeModuleDepth(packages map[string]lockfile.NpmLockPackage) []string {
-	keys := maps.Keys(packages)
+	keys := slices.Collect(maps.Keys(packages))
 	slices.SortFunc(keys, func(a, b string) int {
 		aSplit := strings.Split(a, "node_modules/")
 		bSplit := strings.Split(b, "node_modules/")

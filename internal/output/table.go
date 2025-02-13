@@ -3,11 +3,11 @@ package output
 import (
 	"fmt"
 	"io"
+	"maps"
 	"path/filepath"
+	"slices"
 	"sort"
 	"strings"
-
-	"golang.org/x/exp/maps"
 
 	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
@@ -298,7 +298,7 @@ func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.Vul
 		// No packages found.
 		return outputTable
 	}
-	licenses := maps.Keys(counts)
+	licenses := slices.Collect(maps.Keys(counts))
 	// Sort the license count in descending count order with the UNKNOWN
 	// license last.
 	sort.Slice(licenses, func(i, j int) bool {
