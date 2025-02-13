@@ -8,17 +8,15 @@ import (
 )
 
 type ghAnnotationsReporter struct {
-	stdout     io.Writer
-	stderr     io.Writer
+	writer io.Writer
 }
 
-func newGHAnnotationsReporter(stdout io.Writer, stderr io.Writer) *ghAnnotationsReporter {
+func newGHAnnotationsReporter(writer io.Writer) *ghAnnotationsReporter {
 	return &ghAnnotationsReporter{
-		stdout:     stdout,
-		stderr:     stderr,
+		writer: writer,
 	}
 }
 
 func (r *ghAnnotationsReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
-	return output.PrintGHAnnotationReport(vulnResult, r.stderr)
+	return output.PrintGHAnnotationReport(vulnResult, r.writer)
 }

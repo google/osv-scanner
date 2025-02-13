@@ -8,17 +8,15 @@ import (
 )
 
 type htmlReporter struct {
-	stdout     io.Writer
-	stderr     io.Writer
+	writer io.Writer
 }
 
-func newHTMLReporter(stdout io.Writer, stderr io.Writer) *htmlReporter {
+func newHTMLReporter(writer io.Writer) *htmlReporter {
 	return &htmlReporter{
-		stdout:     stdout,
-		stderr:     stderr,
+		writer: writer,
 	}
 }
 
 func (r *htmlReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
-	return output.PrintHTMLResults(vulnResult, r.stdout)
+	return output.PrintHTMLResults(vulnResult, r.writer)
 }

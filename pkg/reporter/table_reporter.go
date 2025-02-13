@@ -9,17 +9,15 @@ import (
 )
 
 type tableReporter struct {
-	stdout     io.Writer
-	stderr     io.Writer
-	markdown   bool
+	writer   io.Writer
+	markdown bool
 	// 0 indicates not a terminal output
 	terminalWidth int
 }
 
-func newTableReporter(stdout io.Writer, stderr io.Writer, markdown bool, terminalWidth int) *tableReporter {
+func newTableReporter(writer io.Writer, markdown bool, terminalWidth int) *tableReporter {
 	return &tableReporter{
-		stdout:        stdout,
-		stderr:        stderr,
+		writer:        writer,
 		markdown:      markdown,
 		terminalWidth: terminalWidth,
 	}
@@ -27,14 +25,14 @@ func newTableReporter(stdout io.Writer, stderr io.Writer, markdown bool, termina
 
 func (r *tableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil {
-		fmt.Fprintf(r.stdout, "No issues found\n")
+		fmt.Fprintf(r.writer, "No issues found\n")
 		return nil
 	}
 
 	if r.markdown {
-		output.PrintMarkdownTableResults(vulnResult, r.stdout)
+		output.PrintMarkdownTableResults(vulnResult, r.writer)
 	} else {
-		output.PrintTableResults(vulnResult, r.stdout, r.terminalWidth)
+		output.PrintTableResults(vulnResult, r.writer, r.terminalWidth)
 	}
 
 	return nil

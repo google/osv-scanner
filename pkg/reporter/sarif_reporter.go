@@ -8,17 +8,15 @@ import (
 )
 
 type sarifReporter struct {
-	stdout     io.Writer
-	stderr     io.Writer
+	writer io.Writer
 }
 
-func newSarifReporter(stdout io.Writer, stderr io.Writer) *sarifReporter {
+func newSarifReporter(writer io.Writer) *sarifReporter {
 	return &sarifReporter{
-		stdout:     stdout,
-		stderr:     stderr,
+		writer: writer,
 	}
 }
 
 func (r *sarifReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
-	return output.PrintSARIFReport(vulnResult, r.stdout)
+	return output.PrintSARIFReport(vulnResult, r.writer)
 }

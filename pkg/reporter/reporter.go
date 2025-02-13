@@ -15,10 +15,10 @@ type resultPrinter interface {
 func PrintResult(
 	vulnResult *models.VulnerabilityResults,
 	format string,
-	stdout, stderr io.Writer,
+	writer io.Writer,
 	terminalWidth int,
 ) error {
-	r, err := newResultPrinter(format, stdout, stderr, terminalWidth)
+	r, err := newResultPrinter(format, writer, terminalWidth)
 
 	if err != nil {
 		return err
