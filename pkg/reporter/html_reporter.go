@@ -8,18 +8,14 @@ import (
 )
 
 type htmlReporter struct {
-	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
-	level      VerbosityLevel
 }
 
-func newHTMLReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *htmlReporter {
+func newHTMLReporter(stdout io.Writer, stderr io.Writer) *htmlReporter {
 	return &htmlReporter{
 		stdout:     stdout,
 		stderr:     stderr,
-		level:      level,
-		hasErrored: false,
 	}
 }
 

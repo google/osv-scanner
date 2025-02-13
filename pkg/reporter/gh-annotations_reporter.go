@@ -8,18 +8,14 @@ import (
 )
 
 type ghAnnotationsReporter struct {
-	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
-	level      VerbosityLevel
 }
 
-func newGHAnnotationsReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *ghAnnotationsReporter {
+func newGHAnnotationsReporter(stdout io.Writer, stderr io.Writer) *ghAnnotationsReporter {
 	return &ghAnnotationsReporter{
 		stdout:     stdout,
 		stderr:     stderr,
-		level:      level,
-		hasErrored: false,
 	}
 }
 

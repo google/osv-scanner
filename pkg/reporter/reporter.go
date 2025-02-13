@@ -16,10 +16,9 @@ func PrintResult(
 	vulnResult *models.VulnerabilityResults,
 	format string,
 	stdout, stderr io.Writer,
-	level VerbosityLevel,
 	terminalWidth int,
 ) error {
-	r, err := newResultPrinter(format, stdout, stderr, level, terminalWidth)
+	r, err := newResultPrinter(format, stdout, stderr, terminalWidth)
 
 	if err != nil {
 		return err

@@ -10,18 +10,14 @@ import (
 // jsonReporter prints vulnerability results in JSON format to stdout. Runtime information
 // will be written to stderr.
 type jsonReporter struct {
-	hasErrored bool
 	stdout     io.Writer
 	stderr     io.Writer
-	level      VerbosityLevel
 }
 
-func newJSONReporter(stdout io.Writer, stderr io.Writer, level VerbosityLevel) *jsonReporter {
+func newJSONReporter(stdout io.Writer, stderr io.Writer) *jsonReporter {
 	return &jsonReporter{
 		stdout:     stdout,
 		stderr:     stderr,
-		level:      level,
-		hasErrored: false,
 	}
 }
 
