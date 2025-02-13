@@ -63,6 +63,7 @@ func ValueIfOnWindows(win, or string) string {
 func CreateTestDir(t *testing.T) string {
 	t.Helper()
 
+	//nolint:usetesting // we need to customize the directory name to replace in snapshots
 	p, err := os.MkdirTemp("", "osv-scanner-test-*")
 	if err != nil {
 		t.Fatalf("could not create test directory: %v", err)

@@ -23,7 +23,6 @@ linters:
     - nonamedreturns   # disagree with, for now (another-rex)
     - goconst          # not everything should be a constant
     - exptostd         # will be enabled shortly
-    - usetesting       # will be enabled shortly
   presets:
     - bugs
     - comment
