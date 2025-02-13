@@ -20,7 +20,6 @@
 ---
 
 [Test_insertDefaultCommand - 6]
-Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `default`, you must specify `default scan` in your command line.
 
 ---
 
@@ -101,6 +100,9 @@ No issues found
 ---
 
 [Test_run/Empty_cyclonedx_1.4_output - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
@@ -113,13 +115,13 @@ No issues found
 ---
 
 [Test_run/Empty_cyclonedx_1.4_output - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
 [Test_run/Empty_cyclonedx_1.5_output - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
@@ -132,24 +134,24 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 ---
 
 [Test_run/Empty_cyclonedx_1.5_output - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
 [Test_run/Empty_gh-annotations_output - 1]
-
----
-
-[Test_run/Empty_gh-annotations_output - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
+[Test_run/Empty_gh-annotations_output - 2]
+
+---
+
 [Test_run/Empty_sarif_output - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 {
   "version": "2.1.0",
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
@@ -171,9 +173,6 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 ---
 
 [Test_run/Empty_sarif_output - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
@@ -257,7 +256,7 @@ Scanned <rootdir>/fixtures/go-project/nested/go.mod file and found 1 package
 
 [Test_run/PURL_SBOM_case_sensitivity_(api) - 1]
 Scanning dir ./fixtures/sbom-insecure/alpine.cdx.xml
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc00083b740 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc001790030 Properties:0xc001790138 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
@@ -275,7 +274,7 @@ Filtered 1 local/unscannable package/s from the scan.
 
 [Test_run/PURL_SBOM_case_sensitivity_(local) - 1]
 Scanning dir ./fixtures/sbom-insecure/alpine.cdx.xml
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc002023440 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc0010027b0 Properties:0xc0010028b8 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
@@ -297,6 +296,8 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 ---
 
 [Test_run/Sarif_with_vulns - 1]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 {
   "version": "2.1.0",
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
@@ -367,15 +368,13 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 ---
 
 [Test_run/Sarif_with_vulns - 2]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 
 ---
 
 [Test_run/Scan_locks-many - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc0013af320 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc000b8a108 Properties:0xc000b8a228 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -396,6 +395,7 @@ No issues found
 Scanning dir ./fixtures/locks-many-with-invalid
 Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
+No issues found
 
 ---
 
@@ -408,7 +408,7 @@ Error during extraction: (extracting as php/composerlock) could not extract from
 Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc0009481e0 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc0012c1878 Properties:0xc0012c19c8 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -473,6 +473,7 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 [Test_run/config_file_is_invalid - 1]
 Scanning dir ./fixtures/config-invalid
 Scanned <rootdir>/fixtures/config-invalid/composer.lock file and found 1 package
+No issues found
 
 ---
 
@@ -492,10 +493,9 @@ unknown keys in config file: RustVersionOverride, PackageOverrides.skip, Package
 ---
 
 [Test_run/config_files_should_not_have_multiple_ignores_with_the_same_id - 1]
-warning: ./fixtures/osv-scanner-duplicate-config.toml has multiple ignores for GO-2022-0274 - only the first will be used!
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc001001200 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc000a340c0 Properties:0xc000a34270 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -508,10 +508,14 @@ No issues found
 ---
 
 [Test_run/config_files_should_not_have_multiple_ignores_with_the_same_id - 2]
+warning: ./fixtures/osv-scanner-duplicate-config.toml has multiple ignores for GO-2022-0274 - only the first will be used!
 
 ---
 
 [Test_run/cyclonedx_1.4_output - 1]
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
@@ -585,13 +589,13 @@ No issues found
 ---
 
 [Test_run/cyclonedx_1.4_output - 2]
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
 [Test_run/cyclonedx_1.5_output - 1]
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
@@ -665,18 +669,15 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 ---
 
 [Test_run/cyclonedx_1.5_output - 2]
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
 [Test_run/folder_of_supported_sbom_with_vulns - 1]
 Scanning dir ./fixtures/sbom-insecure/
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
-Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
-Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc00108ef00 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc0013143c0 Properties:0xc0013144c8 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
+Invalid PURL "pkg:pypi/" for package ref: "pkg:apk/alpine/alpine-keys@2.4-r1?arch=x86_64&upstream=alpine-keys&distro=alpine-3.17.2&package-id=2b5e23d349b556cf"Invalid PURL "pkg:pypi/" for package ref: "pkg:apk/alpine/ca-certificates-bundle@20220614-r4?arch=x86_64&upstream=ca-certificates&distro=alpine-3.17.2&package-id=b805d823ae624f04"Invalid PURL "pkg:///" for package ref: "pkg:apk/alpine/libc-utils@0.7.2-r3?arch=x86_64&upstream=libc-dev&distro=alpine-3.17.2&package-id=8126b232e2d3c608"Invalid PURL "/" for package ref: "pkg:apk/alpine/musl@1.2.3-r4?arch=x86_64&upstream=musl&distro=alpine-3.17.2&package-id=d9700f02cf26e8b8"Invalid PURL "pkg:apk/alpine/@1.36.1-r27?arch=x86_64&upstream=busybox&distro=alpine-3.17.2" for package ref: "pkg:apk/alpine/ssl_client@1.36.1-r27?arch=x86_64&upstream=busybox&distro=alpine-3.17.2&package-id=b15247aafcd4a647"Invalid PURL "pkg:pypi/" for package ref: "pkg:apk/alpine/zlib@1.2.10-r0?arch=x86_64&upstream=zlib&distro=alpine-3.17.2&package-id=94014313cfcd2b71"Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name: Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc000f16a20 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc000166978 Properties:0xc000166a68 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:debian Version:9 Description:Debian GNU/Linux 9 (stretch) Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc001007ec0 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc00087b9f8 Properties:0xc00087bb90 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc000ea3ec0 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc000adadb0 Properties:0xc000adaeb8 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
 Filtered 9 local/unscannable package/s from the scan.
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
@@ -895,12 +896,12 @@ Filtered 9 local/unscannable package/s from the scan.
 ---
 
 [Test_run/gh-annotations_with_vulns - 1]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 
 ---
 
 [Test_run/gh-annotations_with_vulns - 2]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 ::error file=fixtures/locks-many/package-lock.json::fixtures/locks-many/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
 ---
 
@@ -940,15 +941,21 @@ No issues found
 ---
 
 [Test_run/invalid_--verbosity_value - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
 [Test_run/invalid_--verbosity_value - 2]
-invalid verbosity level "unknown" - must be one of: error, warn, info
+failed to write output: invalid verbosity level "unknown" - must be one of: error, warn, info
 
 ---
 
 [Test_run/json_output - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 {
   "results": [],
   "experimental_config": {
@@ -962,9 +969,6 @@ invalid verbosity level "unknown" - must be one of: error, warn, info
 ---
 
 [Test_run/json_output - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
@@ -1007,7 +1011,7 @@ No issues found
 ---
 
 [Test_run/one_specific_supported_sbom_with_duplicate_PURLs - 1]
-Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc001d2e240 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc000420a20 Properties:0xc000420b28 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                         |
@@ -1024,7 +1028,7 @@ Filtered 1 local/unscannable package/s from the scan.
 ---
 
 [Test_run/one_specific_supported_sbom_with_invalid_PURLs - 1]
-Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
+Invalid PURL "pkg:pypi/" for package ref: "pkg:apk/alpine/alpine-keys@2.4-r1?arch=x86_64&upstream=alpine-keys&distro=alpine-3.17.2&package-id=2b5e23d349b556cf"Invalid PURL "pkg:pypi/" for package ref: "pkg:apk/alpine/ca-certificates-bundle@20220614-r4?arch=x86_64&upstream=ca-certificates&distro=alpine-3.17.2&package-id=b805d823ae624f04"Invalid PURL "pkg:///" for package ref: "pkg:apk/alpine/libc-utils@0.7.2-r3?arch=x86_64&upstream=libc-dev&distro=alpine-3.17.2&package-id=8126b232e2d3c608"Invalid PURL "/" for package ref: "pkg:apk/alpine/musl@1.2.3-r4?arch=x86_64&upstream=musl&distro=alpine-3.17.2&package-id=d9700f02cf26e8b8"Invalid PURL "pkg:apk/alpine/@1.36.1-r27?arch=x86_64&upstream=busybox&distro=alpine-3.17.2" for package ref: "pkg:apk/alpine/ssl_client@1.36.1-r27?arch=x86_64&upstream=busybox&distro=alpine-3.17.2&package-id=b15247aafcd4a647"Invalid PURL "pkg:pypi/" for package ref: "pkg:apk/alpine/zlib@1.2.10-r0?arch=x86_64&upstream=zlib&distro=alpine-3.17.2&package-id=94014313cfcd2b71"Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name: Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc00083be00 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc001002930 Properties:0xc001002a08 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
 Filtered 7 local/unscannable package/s from the scan.
 No issues found
 
@@ -1035,7 +1039,7 @@ No issues found
 ---
 
 [Test_run/one_specific_supported_sbom_with_vulns - 1]
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc0008e8ae0 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc000b1d008 Properties:0xc000b1d110 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
@@ -1143,6 +1147,9 @@ Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file
 ---
 
 [Test_run/verbosity_level_=_error - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -1258,7 +1265,7 @@ failed to pull container image: failed to run docker command
 Checking if docker image ("alpine:3.18.9") exists locally...
 Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
-
+Starting filesystem walk for root: End status: 101 dirs visited, 527 inodes visited, 24 Extract calls, 1.394541ms elapsed, 1.394629ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 108.316µs elapsed, 108.379µs wall time
 Container Scanning Result (Alpine Linux v3.18):
 Total 2 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
 3 vulnerabilities can be fixed.
@@ -1288,7 +1295,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Checking if docker image ("hello-world") exists locally...
 Saving docker image ("hello-world") to temporary file...
 Scanning image "hello-world"
-
+Starting filesystem walk for root: End status: 1 dirs visited, 2 inodes visited, 1 Extract calls, 99.774µs elapsed, 99.836µs wall time
 ---
 
 [Test_run_Docker/Real_empty_image - 2]
@@ -1301,7 +1308,7 @@ No package sources found, --help for usage information.
 Checking if docker image ("hello-world:linux") exists locally...
 Saving docker image ("hello-world:linux") to temporary file...
 Scanning image "hello-world:linux"
-
+Starting filesystem walk for root: End status: 1 dirs visited, 2 inodes visited, 1 Extract calls, 69.42µs elapsed, 69.484µs wall time
 ---
 
 [Test_run_Docker/Real_empty_image_with_tag - 2]
@@ -1326,6 +1333,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 ---
 
 [Test_run_GithubActions/scanning_osv-scanner_custom_format_output_json - 1]
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 {
   "version": "2.1.0",
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
@@ -1435,11 +1443,12 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 ---
 
 [Test_run_GithubActions/scanning_osv-scanner_custom_format_output_json - 2]
-Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 
 ---
 
 [Test_run_Licenses/Licenses_in_summary_mode_json - 1]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 {
   "results": [],
   "experimental_config": {
@@ -1467,8 +1476,6 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 ---
 
 [Test_run_Licenses/Licenses_in_summary_mode_json - 2]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
@@ -1526,6 +1533,8 @@ license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.
 ---
 
 [Test_run_Licenses/No_license_violations_and_show-all-packages_in_json - 1]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 {
   "results": [
     {
@@ -1605,15 +1614,13 @@ license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.
 ---
 
 [Test_run_Licenses/No_license_violations_and_show-all-packages_in_json - 2]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
 [Test_run_Licenses/No_vulnerabilities_with_license_summary - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc001ae7920 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc0019c4858 Properties:0xc0019c4960 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -1639,7 +1646,7 @@ Filtered 2 vulnerabilities from output
 [Test_run_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc002f23b00 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc001d620c0 Properties:0xc001d621c8 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -1661,6 +1668,8 @@ Filtered 2 vulnerabilities from output
 ---
 
 [Test_run_Licenses/Show_all_Packages_with_license_summary_in_json - 1]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 {
   "results": [
     {
@@ -1737,15 +1746,13 @@ Filtered 2 vulnerabilities from output
 ---
 
 [Test_run_Licenses/Show_all_Packages_with_license_summary_in_json - 2]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
 [Test_run_Licenses/Some_packages_with_ignored_licenses - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc0013f9020 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc002563860 Properties:0xc002563968 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -1801,6 +1808,8 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 ---
 
 [Test_run_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 1]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 {
   "results": [
     {
@@ -1882,12 +1891,12 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 ---
 
 [Test_run_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 2]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
 [Test_run_Licenses/Some_packages_with_license_violations_in_json - 1]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 {
   "results": [
     {
@@ -1939,8 +1948,6 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 pac
 ---
 
 [Test_run_Licenses/Some_packages_with_license_violations_in_json - 2]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
@@ -2040,7 +2047,7 @@ No issues found
 [Test_run_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc000a303c0 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc0012c1578 Properties:0xc0012c18a8 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -2064,7 +2071,7 @@ No issues found
 [Test_run_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 3]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc0019cb800 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc0009bbd58 Properties:0xc000420840 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -2091,6 +2098,7 @@ Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1
 Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
 
 ---
 
@@ -2105,6 +2113,7 @@ Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1
 Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
 
 ---
 
@@ -2229,7 +2238,7 @@ No issues found
 
 [Test_run_LocalDatabases/one_specific_supported_sbom_with_vulns - 1]
 Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
-Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:debian Version:9 Description:Debian GNU/Linux 9 (stretch) Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc001965bc0 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc002248e40 Properties:0xc002248fd8 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
@@ -2445,7 +2454,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 
 [Test_run_LocalDatabases/one_specific_supported_sbom_with_vulns - 3]
 Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
-Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:debian Version:9 Description:Debian GNU/Linux 9 (stretch) Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc000a9a120 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc0144bc360 Properties:0xc0144bc4f8 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
@@ -2730,6 +2739,10 @@ No issues found
 ---
 
 [Test_run_LocalDatabases/output_with_json - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 {
   "results": [],
   "experimental_config": {
@@ -2743,14 +2756,14 @@ No issues found
 ---
 
 [Test_run_LocalDatabases/output_with_json - 2]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
 [Test_run_LocalDatabases/output_with_json - 3]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 {
   "results": [],
   "experimental_config": {
@@ -2764,10 +2777,6 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 ---
 
 [Test_run_LocalDatabases/output_with_json - 4]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
@@ -2780,11 +2789,12 @@ Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 
 Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc000752e40 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc000b3f050 Properties:0xc000b3f3c8 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
+No issues found
 
 ---
 
@@ -2806,11 +2816,12 @@ Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 
 Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Neither CPE nor PURL found for package: {BOMRef: MIMEType: Type:operating-system Supplier:<nil> Manufacturer:<nil> Author: Authors:<nil> Publisher: Group: Name:alpine Version:3.17.2 Description:Alpine Linux v3.17 Scope: Hashes:<nil> Licenses:<nil> Copyright: CPE: PackageURL: OmniborID:<nil> SWHID:<nil> SWID:0xc000894540 Modified:<nil> Pedigree:<nil> ExternalReferences:0xc02591e0c0 Properties:0xc02591e210 Components:<nil> Evidence:<nil> ReleaseNotes:<nil> ModelCard:<nil> Data:<nil> CryptoProperties:<nil>}Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
+No issues found
 
 ---
 
@@ -3128,7 +3139,7 @@ No issues found
 
 [Test_run_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-alpine.tar"
-
+Starting filesystem walk for root: End status: 89 dirs visited, 483 inodes visited, 22 Extract calls, 1.196247ms elapsed, 1.196419ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 93.282µs elapsed, 93.354µs wall time
 Container Scanning Result (Alpine Linux v3.18):
 Total 2 packages affected by 41 known vulnerabilities (2 Critical, 17 High, 14 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
 41 vulnerabilities can be fixed.
@@ -3167,7 +3178,7 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 
 [Test_run_OCIImage/Scanning_java_image_with_some_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-java-full.tar"
-
+Starting filesystem walk for root: End status: 260 dirs visited, 2387 inodes visited, 123 Extract calls, 150.498567ms elapsed, 150.498638ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 832.936µs elapsed, 833.017µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 797.033µs elapsed, 797.125µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 901.135µs elapsed, 901.23µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 872.969µs elapsed, 873.062µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 813.082µs elapsed, 813.17µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 786.776µs elapsed, 786.867µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 810.732µs elapsed, 810.82µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 799.129µs elapsed, 799.218µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 153.947µs elapsed, 154.029µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 169.149µs elapsed, 169.229µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 170.452µs elapsed, 170.529µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 125.628µs elapsed, 125.707µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 148.569µs elapsed, 148.65µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 132.259379ms elapsed, 132.259665ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 369.98µs elapsed, 370.033µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 250.472µs elapsed, 250.529µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 289.108µs elapsed, 289.168µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 236.624µs elapsed, 236.676µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 231.575µs elapsed, 231.636µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 224.281µs elapsed, 224.341µs wall time
 Container Scanning Result (Alpine Linux v3.21):
 Total 13 packages affected by 18 known vulnerabilities (1 Critical, 5 High, 8 Medium, 0 Low, 4 Unknown) from 2 ecosystems.
 18 vulnerabilities can be fixed.
@@ -3213,7 +3224,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/Scanning_python_image_with_no_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-python-empty.tar"
-
+Starting filesystem walk for root: End status: 661 dirs visited, 7132 inodes visited, 603 Extract calls, 17.224637ms elapsed, 17.224765ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 770.471µs elapsed, 770.538µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 661.798µs elapsed, 661.85µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 619.365µs elapsed, 619.42µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 587.813µs elapsed, 587.861µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 676.135µs elapsed, 676.194µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 583.201µs elapsed, 583.258µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 796.49µs elapsed, 796.675µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 714.144µs elapsed, 714.213µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 627.909µs elapsed, 627.969µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 584.53µs elapsed, 584.586µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 587.787µs elapsed, 587.846µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 571.492µs elapsed, 571.543µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 565.134µs elapsed, 565.188µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 524.434µs elapsed, 524.482µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 540.356µs elapsed, 540.435µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 554.098µs elapsed, 554.227µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 520.942µs elapsed, 520.996µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 110.214µs elapsed, 110.275µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 17.589µs elapsed, 17.63µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.404µs elapsed, 15.45µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 14.114µs elapsed, 14.156µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 73.77µs elapsed, 73.824µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 21.848µs elapsed, 21.895µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 23.907µs elapsed, 23.949µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 20.808µs elapsed, 20.848µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 139.774µs elapsed, 139.855µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 20.708µs elapsed, 20.753µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 14.127µs elapsed, 14.169µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 14.354µs elapsed, 14.398µs wall time
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
 Total 12 packages affected by 17 known vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
 17 vulnerabilities can be fixed.
@@ -3264,7 +3275,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/Scanning_python_image_with_some_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar"
-
+Starting filesystem walk for root: End status: 3202 dirs visited, 15541 inodes visited, 634 Extract calls, 47.058275ms elapsed, 47.058396ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 41.121µs elapsed, 41.295µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 47.562µs elapsed, 47.642µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 33.185µs elapsed, 33.274µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 23.932µs elapsed, 24.001µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 31.068µs elapsed, 31.149µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 21.933µs elapsed, 22.003µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 31.788µs elapsed, 31.854µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 29.205µs elapsed, 29.285µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 23.308µs elapsed, 23.377µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 38.103µs elapsed, 38.17µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 1.135211ms elapsed, 1.135352ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 1.005455ms elapsed, 1.005547ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 1.135617ms elapsed, 1.135862ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 1.200793ms elapsed, 1.200883ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 1.008636ms elapsed, 1.00873ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 1.050033ms elapsed, 1.050122ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 1.096823ms elapsed, 1.097059ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 7.946649ms elapsed, 7.94691ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 9.062148ms elapsed, 9.062274ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 2.397004ms elapsed, 2.397135ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 682.729µs elapsed, 682.782µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 644.27µs elapsed, 644.329µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 606.403µs elapsed, 606.464µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 594.825µs elapsed, 594.884µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 578.891µs elapsed, 578.95µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 608.186µs elapsed, 608.255µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 1.046647ms elapsed, 1.046725ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 594.63µs elapsed, 594.684µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 601.071µs elapsed, 601.129µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 51.881µs elapsed, 51.942µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 18.735µs elapsed, 18.781µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 16.316µs elapsed, 16.363µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 13.895µs elapsed, 13.94µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 16.027µs elapsed, 16.074µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 33.953µs elapsed, 33.998µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 60.574µs elapsed, 60.635µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 16.487µs elapsed, 16.535µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 49.384µs elapsed, 49.446µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 14.86µs elapsed, 14.906µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 100.699µs elapsed, 100.769µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 22.436µs elapsed, 22.491µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 17.334µs elapsed, 17.396µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 21.86µs elapsed, 21.915µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 19.259µs elapsed, 19.316µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 17.778µs elapsed, 17.831µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 31.082µs elapsed, 31.138µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 21.949µs elapsed, 22.005µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 85.197µs elapsed, 85.273µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 28.532µs elapsed, 28.608µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 82.462µs elapsed, 82.524µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 26.347µs elapsed, 26.395µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 21.657µs elapsed, 21.711µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 21.516µs elapsed, 21.561µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 21.698µs elapsed, 21.751µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 21.392µs elapsed, 21.438µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 91.907µs elapsed, 92.023µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 63.177µs elapsed, 63.248µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 51.252µs elapsed, 51.323µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 19.353µs elapsed, 19.421µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 17.368µs elapsed, 17.423µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 17.842µs elapsed, 17.909µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 17.293µs elapsed, 17.361µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 17.456µs elapsed, 17.522µs wall time
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
 Total 17 packages affected by 31 known vulnerabilities (0 Critical, 8 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
 31 vulnerabilities can be fixed.
@@ -3350,7 +3361,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_image_with_go_binary - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-package-tracing.tar"
-
+Starting filesystem walk for root: End status: 99 dirs visited, 526 inodes visited, 28 Extract calls, 1.525472ms elapsed, 1.525556ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 116.989µs elapsed, 117.063µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 88.858µs elapsed, 88.915µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 81.296µs elapsed, 81.356µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 79.925µs elapsed, 79.979µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 81.535µs elapsed, 81.598µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 91.309µs elapsed, 91.363µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 76.938µs elapsed, 76.999µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 83.945µs elapsed, 84.007µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 78.955µs elapsed, 79.001µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 76.489µs elapsed, 76.544µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 36.979µs elapsed, 37.042µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 24.178µs elapsed, 24.239µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.857µs elapsed, 15.91µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 17.781µs elapsed, 17.836µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 16.354µs elapsed, 16.407µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 35.146µs elapsed, 35.202µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 17.001µs elapsed, 17.062µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 16.841µs elapsed, 16.895µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.349µs elapsed, 15.405µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 22.03µs elapsed, 22.084µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.861µs elapsed, 15.915µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 18.431µs elapsed, 18.485µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 14.961µs elapsed, 15.013µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.144µs elapsed, 15.197µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 14.895µs elapsed, 14.947µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 14.16µs elapsed, 14.219µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 22.411µs elapsed, 22.476µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.25µs elapsed, 15.302µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 20.193µs elapsed, 20.254µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.522µs elapsed, 15.575µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 14.449µs elapsed, 14.502µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 23.755µs elapsed, 23.808µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 20.338µs elapsed, 20.391µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 14.421µs elapsed, 14.475µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 17.795µs elapsed, 17.849µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.158µs elapsed, 15.211µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 16.765µs elapsed, 16.818µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.558µs elapsed, 15.612µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.218µs elapsed, 15.276µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.797µs elapsed, 15.851µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 20.376µs elapsed, 20.428µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 15.952µs elapsed, 16.006µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 24.609µs elapsed, 24.662µs wall time
 Container Scanning Result (Alpine Linux v3.20):
 Total 8 packages affected by 48 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 48 Unknown) from 2 ecosystems.
 48 vulnerabilities can be fixed.
@@ -3421,7 +3432,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-empty.tar"
-
+Starting filesystem walk for root: End status: 725 dirs visited, 3784 inodes visited, 102 Extract calls, 7.981576ms elapsed, 7.981646ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 131.725µs elapsed, 131.789µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 121.472µs elapsed, 121.535µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 115.139µs elapsed, 115.204µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 131.794µs elapsed, 131.848µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 90.805µs elapsed, 90.861µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 88.754µs elapsed, 88.802µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 94.641µs elapsed, 94.693µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 87.641µs elapsed, 87.695µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 95.142µs elapsed, 95.205µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 89.743µs elapsed, 89.804µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 88.682µs elapsed, 88.729µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 78.654µs elapsed, 78.702µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 82.446µs elapsed, 82.492µs wall time
 Container Scanning Result (Alpine Linux v3.19):
 Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
@@ -3449,7 +3460,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-full.tar"
-
+Starting filesystem walk for root: End status: 780 dirs visited, 3936 inodes visited, 104 Extract calls, 12.799757ms elapsed, 12.799997ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 115.318µs elapsed, 115.379µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 114.782µs elapsed, 114.843µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 101.534µs elapsed, 101.595µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 89.481µs elapsed, 89.534µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 89.834µs elapsed, 89.893µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 92.64µs elapsed, 92.686µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 91.984µs elapsed, 92.043µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 96.554µs elapsed, 96.614µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 94.177µs elapsed, 94.228µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 87.994µs elapsed, 88.057µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 95.79µs elapsed, 95.849µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 95.972µs elapsed, 96.033µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 85.386µs elapsed, 85.446µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 76.494µs elapsed, 76.539µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 77.043µs elapsed, 77.096µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 107.513µs elapsed, 107.57µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 37.866µs elapsed, 37.918µs wall time
 Container Scanning Result (Alpine Linux v3.19):
 Total 4 packages affected by 14 known vulnerabilities (2 Critical, 0 High, 5 Medium, 0 Low, 7 Unknown) from 2 ecosystems.
 13 vulnerabilities can be fixed.
@@ -3486,7 +3497,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"
-
+Starting filesystem walk for root: End status: 924 dirs visited, 4666 inodes visited, 109 Extract calls, 19.426098ms elapsed, 19.42618ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 231.579µs elapsed, 231.669µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 213.24µs elapsed, 213.348µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 162.048µs elapsed, 162.128µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 159.993µs elapsed, 160.078µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 149.674µs elapsed, 149.751µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 145.865µs elapsed, 145.941µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 177.658µs elapsed, 177.749µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 166.229µs elapsed, 166.332µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 206.278µs elapsed, 206.379µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 150.118µs elapsed, 150.228µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 139.823µs elapsed, 139.915µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 132.926µs elapsed, 133.018µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 130.119µs elapsed, 130.21µs wall time
 Container Scanning Result (Alpine Linux v3.19):
 Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
@@ -3514,7 +3525,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"
-
+Starting filesystem walk for root: End status: 1013 dirs visited, 4914 inodes visited, 112 Extract calls, 9.485033ms elapsed, 9.485111ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 134.465µs elapsed, 134.518µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 93.55µs elapsed, 93.594µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 123.293µs elapsed, 123.356µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 283.607µs elapsed, 283.725µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 249.641µs elapsed, 249.764µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 161.642µs elapsed, 161.695µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 134.495µs elapsed, 134.614µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 114.211µs elapsed, 114.258µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 178.365µs elapsed, 194.015µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 128.969µs elapsed, 129.061µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 146.775µs elapsed, 146.834µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 105.321µs elapsed, 105.38µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 101.921µs elapsed, 101.973µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 1.086914ms elapsed, 1.086993ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 96.575µs elapsed, 96.621µs wall time
 Container Scanning Result (Alpine Linux v3.19):
 Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
@@ -3542,7 +3553,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"
-
+Starting filesystem walk for root: End status: 719 dirs visited, 3748 inodes visited, 108 Extract calls, 10.114125ms elapsed, 10.11422ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 98.655µs elapsed, 98.702µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 81.425µs elapsed, 81.471µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 80.071µs elapsed, 80.122µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 84.229µs elapsed, 84.286µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 83.605µs elapsed, 83.652µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 81.083µs elapsed, 81.132µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 88.409µs elapsed, 88.456µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 83.394µs elapsed, 83.45µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 86.682µs elapsed, 86.732µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 82.924µs elapsed, 82.973µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 80.293µs elapsed, 80.333µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 73.71µs elapsed, 73.757µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 72.904µs elapsed, 72.945µs wall time
 Container Scanning Result (Alpine Linux v3.19):
 Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
@@ -3570,7 +3581,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-full.tar"
-
+Starting filesystem walk for root: End status: 753 dirs visited, 3936 inodes visited, 110 Extract calls, 10.602701ms elapsed, 10.602829ms wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 175.032µs elapsed, 175.106µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 140.915µs elapsed, 140.982µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 126.196µs elapsed, 126.269µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 122.127µs elapsed, 122.195µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 125.036µs elapsed, 125.102µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 152.047µs elapsed, 152.132µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 130.331µs elapsed, 130.414µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 118.369µs elapsed, 118.44µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 113.837µs elapsed, 113.898µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 109.251µs elapsed, 109.332µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 129.102µs elapsed, 129.176µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 107.651µs elapsed, 107.711µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 109.483µs elapsed, 109.544µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 101.543µs elapsed, 101.605µs wall timeStarting filesystem walk for root: End status: 0 dirs visited, 1 inodes visited, 1 Extract calls, 99.723µs elapsed, 99.792µs wall time
 Container Scanning Result (Alpine Linux v3.19):
 Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
@@ -3593,1275 +3604,6 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 [Test_run_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 2]
 Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
-
----
-
-[Test_run_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 1]
-{
-  "results": [
-    {
-      "source": {
-        "path": "usr/local/lib/python3.9/site-packages/Django-1.11.29.dist-info/METADATA",
-        "type": "artifact"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "django",
-            "version": "1.11.29",
-            "ecosystem": "PyPI",
-            "image_origin_details": {
-              "index": 17
-            }
-          },
-          "vulnerabilities": [
-            "GHSA-68w8-qjq3-2gfm",
-            "GHSA-8x94-hmjh-97hq",
-            "GHSA-rrqc-c2jx-6jgv",
-            "PYSEC-2021-98"
-          ],
-          "groups": 3
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "usr/local/lib/python3.9/site-packages/Flask-0.12.2.dist-info/METADATA",
-        "type": "artifact"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "flask",
-            "version": "0.12.2",
-            "ecosystem": "PyPI",
-            "image_origin_details": {
-              "index": 17
-            }
-          },
-          "vulnerabilities": [
-            "GHSA-562c-5r94-xh97",
-            "GHSA-5wv5-4vpf-pj6m",
-            "GHSA-m2qf-hxjv-5gpq",
-            "PYSEC-2018-66",
-            "PYSEC-2019-179",
-            "PYSEC-2023-62"
-          ],
-          "groups": 3
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "usr/local/lib/python3.9/site-packages/idna-2.7.dist-info/METADATA",
-        "type": "artifact"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "idna",
-            "version": "2.7",
-            "ecosystem": "PyPI",
-            "image_origin_details": {
-              "index": 17
-            }
-          },
-          "vulnerabilities": [
-            "GHSA-jjg7-2v4v-x38h",
-            "PYSEC-2024-60"
-          ],
-          "groups": 1
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA",
-        "type": "artifact"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "pip",
-            "version": "23.0.1",
-            "ecosystem": "PyPI",
-            "image_origin_details": {
-              "index": 13
-            }
-          },
-          "vulnerabilities": [
-            "GHSA-mq26-g339-26xf",
-            "PYSEC-2023-228"
-          ],
-          "groups": 1
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA",
-        "type": "artifact"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "requests",
-            "version": "2.20.0",
-            "ecosystem": "PyPI",
-            "image_origin_details": {
-              "index": 17
-            }
-          },
-          "vulnerabilities": [
-            "GHSA-9wx4-h78v-vm56",
-            "GHSA-j8r2-6x86-q33q",
-            "PYSEC-2023-74"
-          ],
-          "groups": 2
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA",
-        "type": "artifact"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "setuptools",
-            "version": "58.1.0",
-            "ecosystem": "PyPI",
-            "image_origin_details": {
-              "index": 13
-            }
-          },
-          "vulnerabilities": [
-            "GHSA-cx63-2mw6-8hw5",
-            "GHSA-r9hx-vwmv-q579",
-            "PYSEC-2022-43012"
-          ],
-          "groups": 2
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "usr/local/lib/python3.9/site-packages/urllib3-1.24.3.dist-info/METADATA",
-        "type": "artifact"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "urllib3",
-            "version": "1.24.3",
-            "ecosystem": "PyPI",
-            "image_origin_details": {
-              "index": 17
-            }
-          },
-          "vulnerabilities": [
-            "GHSA-34jh-p97f-mpxf",
-            "GHSA-g4mx-q9vg-27p4",
-            "GHSA-v845-jxx5-vc9f",
-            "GHSA-wqvq-5m8c-6g24",
-            "PYSEC-2020-148",
-            "PYSEC-2021-108",
-            "PYSEC-2023-192",
-            "PYSEC-2023-212"
-          ],
-          "groups": 5
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "var/lib/dpkg/status",
-        "type": "os"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "debian-archive-keyring",
-            "os_package_name": "debian-archive-keyring",
-            "version": "2019.1+deb10u1",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3482-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "fdisk",
-            "version": "2.33.1-0.1",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3782-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "libblkid1",
-            "version": "2.33.1-0.1",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3782-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "glibc",
-            "os_package_name": "libc-bin",
-            "version": "2.28-10+deb10u2",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3807-1",
-            "DLA-3850-1"
-          ],
-          "groups": 2
-        },
-        {
-          "package": {
-            "name": "glibc",
-            "os_package_name": "libc6",
-            "version": "2.28-10+deb10u2",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3807-1",
-            "DLA-3850-1"
-          ],
-          "groups": 2
-        },
-        {
-          "package": {
-            "name": "expat",
-            "os_package_name": "libexpat1",
-            "version": "2.2.6-2+deb10u6",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 7
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3783-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "libfdisk1",
-            "version": "2.33.1-0.1",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3782-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "gnutls28",
-            "os_package_name": "libgnutls30",
-            "version": "3.6.7-4+deb10u10",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3660-1",
-            "DLA-3740-1"
-          ],
-          "groups": 2
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "libmount1",
-            "version": "2.33.1-0.1",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3782-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "ncurses",
-            "os_package_name": "libncursesw6",
-            "version": "6.1+20181013-2+deb10u3",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3586-1",
-            "DLA-3682-1"
-          ],
-          "groups": 2
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "libsmartcols1",
-            "version": "2.33.1-0.1",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3782-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "openssl",
-            "os_package_name": "libssl1.1",
-            "version": "1.1.1n-0+deb10u5",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3530-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "systemd",
-            "os_package_name": "libsystemd0",
-            "version": "241-7~deb10u9",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3474-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "ncurses",
-            "os_package_name": "libtinfo6",
-            "version": "6.1+20181013-2+deb10u3",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3586-1",
-            "DLA-3682-1"
-          ],
-          "groups": 2
-        },
-        {
-          "package": {
-            "name": "systemd",
-            "os_package_name": "libudev1",
-            "version": "241-7~deb10u9",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3474-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "libuuid1",
-            "version": "2.33.1-0.1",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3782-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "mount",
-            "version": "2.33.1-0.1",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3782-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "ncurses",
-            "os_package_name": "ncurses-base",
-            "version": "6.1+20181013-2+deb10u3",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3586-1",
-            "DLA-3682-1"
-          ],
-          "groups": 2
-        },
-        {
-          "package": {
-            "name": "ncurses",
-            "os_package_name": "ncurses-bin",
-            "version": "6.1+20181013-2+deb10u3",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3586-1",
-            "DLA-3682-1"
-          ],
-          "groups": 2
-        },
-        {
-          "package": {
-            "name": "openssl",
-            "os_package_name": "openssl",
-            "version": "1.1.1n-0+deb10u5",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3530-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "tar",
-            "os_package_name": "tar",
-            "version": "1.30+dfsg-6",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3755-1"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "tzdata",
-            "os_package_name": "tzdata",
-            "version": "2021a-0+deb10u11",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3684-1",
-            "DLA-3788-1"
-          ],
-          "groups": 2
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "util-linux",
-            "version": "2.33.1-0.1",
-            "ecosystem": "Debian:10",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "DLA-3782-1"
-          ],
-          "groups": 1
-        }
-      ]
-    }
-  ],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  },
-  "image_metadata": {
-    "os": "Debian GNU/Linux 10 (buster)",
-    "layer_metadata": [
-      {
-        "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) ADD fil...",
-        "is_empty": false,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "/bin/sh -c #(nop)  CMD [/"...",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "ENV PATH=/usr/local/bin:/...",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "ENV LANG=C.UTF-8",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "RUN /bin/sh -c set -eux; ...",
-        "is_empty": false,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "ENV GPG_KEY=E3FF2839C048B...",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "ENV PYTHON_VERSION=3.9.17",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "RUN /bin/sh -c set -eux; ...",
-        "is_empty": false,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "RUN /bin/sh -c set -eux; ...",
-        "is_empty": false,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "ENV PYTHON_PIP_VERSION=23...",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "ENV PYTHON_SETUPTOOLS_VER...",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "ENV PYTHON_GET_PIP_URL=ht...",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "ENV PYTHON_GET_PIP_SHA256...",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "RUN /bin/sh -c set -eux; ...",
-        "is_empty": false,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "CMD [/"python3/"]",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "WORKDIR /app",
-        "is_empty": false,
-        "base_image_index": 0
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "COPY ./python-fixture/req...",
-        "is_empty": false,
-        "base_image_index": 0
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "RUN /bin/sh -c pip instal...",
-        "is_empty": false,
-        "base_image_index": 0
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "COPY python-fixture/main....",
-        "is_empty": false,
-        "base_image_index": 0
-      },
-      {
-        "diff_id": "",
-        "command": "CMD [/"python/" /"main.py/"]",
-        "is_empty": true,
-        "base_image_index": 0
-      }
-    ],
-    "base_images": [
-      {},
-      {
-        "name": "python",
-        "tags": null
-      }
-    ]
-  }
-}
-
----
-
-[Test_run_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 2]
-Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
-Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar"
-
----
-
-[Test_run_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 1]
-{
-  "results": [
-    {
-      "source": {
-        "path": "go/bin/ptf-1.4.0",
-        "type": "artifact"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "github.com/BurntSushi/toml",
-            "version": "1.4.0",
-            "ecosystem": "Go",
-            "image_origin_details": {
-              "index": 2
-            }
-          },
-          "groups": 0,
-          "vulnerabilities": null
-        },
-        {
-          "package": {
-            "name": "stdlib",
-            "version": "1.22.4",
-            "ecosystem": "Go",
-            "image_origin_details": {
-              "index": 2
-            }
-          },
-          "vulnerabilities": [
-            "GO-2024-2963",
-            "GO-2024-3105",
-            "GO-2024-3106",
-            "GO-2024-3107",
-            "GO-2025-3373",
-            "GO-2025-3420",
-            "GO-2025-3447"
-          ],
-          "groups": 7
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "lib/apk/db/installed",
-        "type": "os"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "alpine-baselayout",
-            "os_package_name": "alpine-baselayout",
-            "version": "3.6.5-r0",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 0,
-          "vulnerabilities": null
-        },
-        {
-          "package": {
-            "name": "alpine-baselayout",
-            "os_package_name": "alpine-baselayout-data",
-            "version": "3.6.5-r0",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 0,
-          "vulnerabilities": null
-        },
-        {
-          "package": {
-            "name": "alpine-keys",
-            "os_package_name": "alpine-keys",
-            "version": "2.4-r1",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 0,
-          "vulnerabilities": null
-        },
-        {
-          "package": {
-            "name": "apk-tools",
-            "os_package_name": "apk-tools",
-            "version": "2.14.4-r0",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 0,
-          "vulnerabilities": null
-        },
-        {
-          "package": {
-            "name": "busybox",
-            "os_package_name": "busybox",
-            "version": "1.36.1-r29",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 0,
-          "vulnerabilities": null
-        },
-        {
-          "package": {
-            "name": "busybox",
-            "os_package_name": "busybox-binsh",
-            "version": "1.36.1-r29",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 0,
-          "vulnerabilities": null
-        },
-        {
-          "package": {
-            "name": "ca-certificates",
-            "os_package_name": "ca-certificates-bundle",
-            "version": "20240226-r0",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 0,
-          "vulnerabilities": null
-        },
-        {
-          "package": {
-            "name": "openssl",
-            "os_package_name": "libcrypto3",
-            "version": "3.3.1-r0",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "CVE-2024-12797",
-            "CVE-2024-13176",
-            "CVE-2024-5535",
-            "CVE-2024-6119",
-            "CVE-2024-9143"
-          ],
-          "groups": 5
-        },
-        {
-          "package": {
-            "name": "openssl",
-            "os_package_name": "libssl3",
-            "version": "3.3.1-r0",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "CVE-2024-12797",
-            "CVE-2024-13176",
-            "CVE-2024-5535",
-            "CVE-2024-6119",
-            "CVE-2024-9143"
-          ],
-          "groups": 5
-        },
-        {
-          "package": {
-            "name": "musl",
-            "os_package_name": "musl",
-            "version": "1.2.5-r0",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "CVE-2025-26519"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "musl",
-            "os_package_name": "musl-utils",
-            "version": "1.2.5-r0",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "CVE-2025-26519"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "pax-utils",
-            "os_package_name": "scanelf",
-            "version": "1.3.7-r2",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 0,
-          "vulnerabilities": null
-        },
-        {
-          "package": {
-            "name": "busybox",
-            "os_package_name": "ssl_client",
-            "version": "1.36.1-r29",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 0,
-          "vulnerabilities": null
-        },
-        {
-          "package": {
-            "name": "zlib",
-            "os_package_name": "zlib",
-            "version": "1.3.1-r1",
-            "ecosystem": "Alpine:v3.20",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 0,
-          "vulnerabilities": null
-        }
-      ]
-    }
-  ],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  },
-  "image_metadata": {
-    "os": "Alpine Linux v3.20",
-    "layer_metadata": [
-      {
-        "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
-        "is_empty": false,
-        "base_image_index": 2
-      },
-      {
-        "diff_id": "",
-        "command": "/bin/sh -c #(nop)  CMD [/"/bin/sh/"]",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "COPY /work/ptf-1.4.0 /go/bin/ # buildkit",
-        "is_empty": false,
-        "base_image_index": 0
-      }
-    ],
-    "base_images": [
-      {},
-      {
-        "name": "alpine",
-        "tags": null
-      },
-      {
-        "name": "alpine",
-        "tags": null
-      }
-    ]
-  }
-}
-
----
-
-[Test_run_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 2]
-Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
-Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
-
----
-
-[Test_run_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 1]
-{
-  "results": [
-    {
-      "source": {
-        "path": "lib/apk/db/installed",
-        "type": "os"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "busybox",
-            "os_package_name": "busybox",
-            "version": "1.36.1-r15",
-            "ecosystem": "Alpine:v3.19",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "CVE-2023-42363",
-            "CVE-2023-42364",
-            "CVE-2023-42365",
-            "CVE-2023-42366"
-          ],
-          "groups": 4
-        },
-        {
-          "package": {
-            "name": "busybox",
-            "os_package_name": "busybox-binsh",
-            "version": "1.36.1-r15",
-            "ecosystem": "Alpine:v3.19",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "CVE-2023-42363",
-            "CVE-2023-42364",
-            "CVE-2023-42365",
-            "CVE-2023-42366"
-          ],
-          "groups": 4
-        },
-        {
-          "package": {
-            "name": "openssl",
-            "os_package_name": "libcrypto3",
-            "version": "3.1.4-r5",
-            "ecosystem": "Alpine:v3.19",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "CVE-2024-13176",
-            "CVE-2024-2511",
-            "CVE-2024-4603",
-            "CVE-2024-4741",
-            "CVE-2024-5535",
-            "CVE-2024-6119",
-            "CVE-2024-9143"
-          ],
-          "groups": 7
-        },
-        {
-          "package": {
-            "name": "openssl",
-            "os_package_name": "libssl3",
-            "version": "3.1.4-r5",
-            "ecosystem": "Alpine:v3.19",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "CVE-2024-13176",
-            "CVE-2024-2511",
-            "CVE-2024-4603",
-            "CVE-2024-4741",
-            "CVE-2024-5535",
-            "CVE-2024-6119",
-            "CVE-2024-9143"
-          ],
-          "groups": 7
-        },
-        {
-          "package": {
-            "name": "busybox",
-            "os_package_name": "ssl_client",
-            "version": "1.36.1-r15",
-            "ecosystem": "Alpine:v3.19",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "vulnerabilities": [
-            "CVE-2023-42363",
-            "CVE-2023-42364",
-            "CVE-2023-42365",
-            "CVE-2023-42366"
-          ],
-          "groups": 4
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "prod/app/node_modules/.package-lock.json",
-        "type": "artifact"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "cryo",
-            "version": "0.0.6",
-            "ecosystem": "npm",
-            "image_origin_details": {
-              "index": 14
-            }
-          },
-          "vulnerabilities": [
-            "GHSA-38f5-ghc2-fcmv"
-          ],
-          "groups": 1
-        },
-        {
-          "package": {
-            "name": "minimist",
-            "version": "0.0.8",
-            "ecosystem": "npm",
-            "image_origin_details": {
-              "index": 13
-            }
-          },
-          "vulnerabilities": [
-            "GHSA-vh95-rmgr-6w4m",
-            "GHSA-xvch-5gv4-984h"
-          ],
-          "groups": 2
-        }
-      ]
-    }
-  ],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  },
-  "image_metadata": {
-    "os": "Alpine Linux v3.19",
-    "layer_metadata": [
-      {
-        "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) ADD fil...",
-        "is_empty": false,
-        "base_image_index": 4
-      },
-      {
-        "diff_id": "",
-        "command": "/bin/sh -c #(nop)  CMD [/"...",
-        "is_empty": true,
-        "base_image_index": 3
-      },
-      {
-        "diff_id": "",
-        "command": "/bin/sh -c #(nop)  ENV NO...",
-        "is_empty": true,
-        "base_image_index": 2
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "/bin/sh -c addgroup -g 10...",
-        "is_empty": false,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "/bin/sh -c #(nop)  ENV YA...",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "/bin/sh -c apk add --no-c...",
-        "is_empty": false,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) COPY fi...",
-        "is_empty": false,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "/bin/sh -c #(nop)  ENTRYP...",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "/bin/sh -c #(nop)  CMD [/"...",
-        "is_empty": true,
-        "base_image_index": 1
-      },
-      {
-        "diff_id": "",
-        "command": "ARG MANAGER_VERSION=10.2.4",
-        "is_empty": true,
-        "base_image_index": 0
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "WORKDIR /prod/app",
-        "is_empty": false,
-        "base_image_index": 0
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "RUN |1 MANAGER_VERSION=10...",
-        "is_empty": false,
-        "base_image_index": 0
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "RUN |1 MANAGER_VERSION=10...",
-        "is_empty": false,
-        "base_image_index": 0
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "RUN |1 MANAGER_VERSION=10...",
-        "is_empty": false,
-        "base_image_index": 0
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "RUN |1 MANAGER_VERSION=10...",
-        "is_empty": false,
-        "base_image_index": 0
-      },
-      {
-        "diff_id": "sha256:...",
-        "command": "RUN |1 MANAGER_VERSION=10...",
-        "is_empty": false,
-        "base_image_index": 0
-      }
-    ],
-    "base_images": [
-      {},
-      {
-        "name": "library/node",
-        "tags": null
-      },
-      {
-        "name": "ayan4m1/maven-node",
-        "tags": null
-      },
-      {
-        "name": "alpine",
-        "tags": null
-      },
-      {
-        "name": "alpine",
-        "tags": null
-      }
-    ]
-  }
-}
-
----
-
-[Test_run_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 2]
-Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
-Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-full.tar"
 
 ---
 

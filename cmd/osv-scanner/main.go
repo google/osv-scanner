@@ -11,6 +11,7 @@ import (
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
+	"github.com/google/osv-scanner/v2/internal/clilogger"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/urfave/cli/v2"
@@ -22,6 +23,8 @@ var (
 )
 
 func run(args []string, stdout, stderr io.Writer) int {
+	slog.SetDefault(slog.New(clilogger.New(stdout, stderr)))
+
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		slog.Info(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
 	}
