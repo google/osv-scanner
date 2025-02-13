@@ -16,13 +16,6 @@ type cycloneDXReporter struct {
 	version models.CycloneDXVersion
 }
 
-func newCycloneDXReporter(writer io.Writer, version models.CycloneDXVersion) *cycloneDXReporter {
-	return &cycloneDXReporter{
-		writer:  writer,
-		version: version,
-	}
-}
-
 func (r *cycloneDXReporter) PrintResult(vulnerabilityResults *models.VulnerabilityResults) error {
 	errs := output.PrintCycloneDXResults(vulnerabilityResults, r.version, r.writer)
 	if errs != nil {

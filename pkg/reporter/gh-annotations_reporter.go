@@ -11,12 +11,6 @@ type ghAnnotationsReporter struct {
 	writer io.Writer
 }
 
-func newGHAnnotationsReporter(writer io.Writer) *ghAnnotationsReporter {
-	return &ghAnnotationsReporter{
-		writer: writer,
-	}
-}
-
 func (r *ghAnnotationsReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintGHAnnotationReport(vulnResult, r.writer)
 }

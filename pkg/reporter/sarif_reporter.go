@@ -11,12 +11,6 @@ type sarifReporter struct {
 	writer io.Writer
 }
 
-func newSarifReporter(writer io.Writer) *sarifReporter {
-	return &sarifReporter{
-		writer: writer,
-	}
-}
-
 func (r *sarifReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintSARIFReport(vulnResult, r.writer)
 }
