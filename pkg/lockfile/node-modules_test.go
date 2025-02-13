@@ -5,27 +5,26 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
-func createTestDirWithNodeModulesDir(t *testing.T) (string, func()) {
+func createTestDirWithNodeModulesDir(t *testing.T) string {
 	t.Helper()
 
-	testDir, cleanupTestDir := createTestDir(t)
+	testDir := testutility.CreateTestDir(t)
 
 	if err := os.Mkdir(filepath.Join(testDir, "node_modules"), 0750); err != nil {
-		cleanupTestDir()
 		t.Fatalf("could not create node_modules directory: %v", err)
 	}
 
-	return testDir, cleanupTestDir
+	return testDir
 }
 
 func testParsingNodeModules(t *testing.T, fixture string) ([]lockfile.PackageDetails, error) {
 	t.Helper()
 
-	testDir, cleanupTestDir := createTestDirWithNodeModulesDir(t)
-	defer cleanupTestDir()
+	testDir := createTestDirWithNodeModulesDir(t)
 
 	file := copyFile(t, fixture, filepath.Join(testDir, "node_modules", ".package-lock.json"))
 
