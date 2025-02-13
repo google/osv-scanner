@@ -51,9 +51,7 @@ func Command() *cli.Command {
 				},
 			},
 		},
-		Action: func(ctx *cli.Context) error {
-			return action(ctx)
-		},
+		Action: action,
 	}
 }
 
