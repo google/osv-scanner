@@ -22,7 +22,7 @@ func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 	cmd := exec.Command("go", "version")
 	_, err := cmd.Output()
 	if err != nil {
-		slog.Info(fmt.Sprintf("Skipping call analysis on Go code since Go is not installed.\n"))
+		slog.Info("Skipping call analysis on Go code since Go is not installed.\n")
 		return
 	}
 

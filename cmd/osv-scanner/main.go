@@ -66,7 +66,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
 		case errors.Is(err, osvscanner.ErrNoPackagesFound):
-			slog.Error(fmt.Sprintf("No package sources found, --help for usage information.\n"))
+			slog.Error("No package sources found, --help for usage information.\n")
 			return 128
 		case errors.Is(err, osvscanner.ErrAPIFailed):
 			slog.Error(fmt.Sprintf("%v\n", err))

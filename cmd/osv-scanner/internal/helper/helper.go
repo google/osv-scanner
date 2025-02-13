@@ -166,7 +166,7 @@ func OpenHTML(outputPath string) {
 	case "darwin": // macOS
 		err = exec.Command("open", outputPath).Start()
 	default:
-		slog.Info(fmt.Sprintf("Unsupported OS.\n"))
+		slog.Info("Unsupported OS.\n")
 	}
 
 	if err != nil {

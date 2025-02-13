@@ -233,11 +233,11 @@ func rustBuildSource(source models.SourceInfo) ([]string, error) {
 	cmd.Stdout = &stdoutBuffer
 	cmd.Stderr = &stderrBuffer
 
-	slog.Info(fmt.Sprintf("Begin building rust/cargo project\n"))
+	slog.Info("Begin building rust/cargo project\n")
 
 	if err := cmd.Run(); err != nil {
-		slog.Error(fmt.Sprintf("cargo stdout:\n%s", stdoutBuffer.String()))
-		slog.Error(fmt.Sprintf("cargo stderr:\n%s", stderrBuffer.String()))
+		slog.Error("cargo stdout:\n" + stdoutBuffer.String())
+		slog.Error("cargo stderr:\n" + stderrBuffer.String())
 
 		return nil, fmt.Errorf("failed to run `%v`: %w", cmd.String(), err)
 	}
