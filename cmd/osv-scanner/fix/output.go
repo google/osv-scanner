@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"slices"
 	"strings"
 
@@ -69,30 +70,30 @@ func printResult(outputResult fixOutput, opts osvFixOptions) error {
 	return outputText(opts.Stdout, outputResult)
 }
 
-func outputText(w io.Writer, out fixOutput) error {
+func outputText(_ io.Writer, out fixOutput) error {
 	if len(out.Errors) > 0 {
-		fmt.Fprintf(w, "WARNING: encountered %d errors during dependency resolution:\n", len(out.Errors))
+		slog.Warn(fmt.Sprintf("WARNING: encountered %d errors during dependency resolution:\n", len(out.Errors)))
 		for _, err := range out.Errors {
-			fmt.Fprintf(w, "Error when resolving %s@%s:\n", err.Package.Name, err.Package.Version)
+			slog.Error(fmt.Sprintf("Error when resolving %s@%s:\n", err.Package.Name, err.Package.Version))
 			if strings.Contains(err.Requirement.Version, ":") {
 				// this will be the case with unsupported npm requirements e.g. `file:...`, `git+https://...`
 				// TODO: don't rely on resolution to propagate these errors
 				// No easy access to the `knownAs` field to find which package this corresponds to
-				fmt.Fprintf(w, "\tSkipped resolving unsupported version specification: %s\n", err.Requirement.Version)
+				slog.Error(fmt.Sprintf("\tSkipped resolving unsupported version specification: %s\n", err.Requirement.Version))
 			} else {
-				fmt.Fprintf(w, "\t%v: %s@%s\n", err.Error, err.Requirement.Name, err.Requirement.Version)
+				slog.Error(fmt.Sprintf("\t%v: %s@%s\n", err.Error, err.Requirement.Name, err.Requirement.Version))
 			}
 		}
 	}
 
 	nVulns := len(out.Vulnerabilities)
 
-	fmt.Fprintf(w, "Found %d vulnerabilities matching the filter\n", nVulns)
+	slog.Info(fmt.Sprintf("Found %d vulnerabilities matching the filter\n", nVulns))
 
 	if len(out.Patches) == 0 {
-		fmt.Fprintf(w, "No dependency patches are possible\n")
-		fmt.Fprintf(w, "REMAINING-VULNS: %d\n", nVulns)
-		fmt.Fprintf(w, "UNFIXABLE-VULNS: %d\n", nVulns)
+		slog.Info(fmt.Sprintf("No dependency patches are possible\n"))
+		slog.Info(fmt.Sprintf("REMAINING-VULNS: %d\n", nVulns))
+		slog.Info(fmt.Sprintf("UNFIXABLE-VULNS: %d\n", nVulns))
 
 		return nil
 	}
@@ -107,23 +108,23 @@ func outputText(w io.Writer, out fixOutput) error {
 	}
 
 	if out.Strategy == strategyOverride {
-		fmt.Fprintf(w, "Can fix %d/%d matching vulnerabilities by overriding %d dependencies\n", len(fixedVulns), nVulns, changedDeps)
+		slog.Info(fmt.Sprintf("Can fix %d/%d matching vulnerabilities by overriding %d dependencies\n", len(fixedVulns), nVulns, changedDeps))
 		for _, patch := range out.Patches {
 			for _, pkg := range patch.PackageUpdates {
-				fmt.Fprintf(w, "OVERRIDE-PACKAGE: %s,%s\n", pkg.Name, pkg.VersionTo)
+				slog.Info(fmt.Sprintf("OVERRIDE-PACKAGE: %s,%s\n", pkg.Name, pkg.VersionTo))
 			}
 		}
 	} else {
-		fmt.Fprintf(w, "Can fix %d/%d matching vulnerabilities by changing %d dependencies\n", len(fixedVulns), nVulns, changedDeps)
+		slog.Info(fmt.Sprintf("Can fix %d/%d matching vulnerabilities by changing %d dependencies\n", len(fixedVulns), nVulns, changedDeps))
 		for _, patch := range out.Patches {
 			for _, pkg := range patch.PackageUpdates {
-				fmt.Fprintf(w, "UPGRADED-PACKAGE: %s,%s,%s\n", pkg.Name, pkg.VersionFrom, pkg.VersionTo)
+				slog.Info(fmt.Sprintf("UPGRADED-PACKAGE: %s,%s,%s\n", pkg.Name, pkg.VersionFrom, pkg.VersionTo))
 			}
 		}
 	}
 	slices.Sort(fixedVulns)
-	fmt.Fprintf(w, "FIXED-VULN-IDS: %s\n", strings.Join(fixedVulns, ","))
-	fmt.Fprintf(w, "REMAINING-VULNS: %d\n", nVulns-len(fixedVulns))
+	slog.Info(fmt.Sprintf("FIXED-VULN-IDS: %s\n", strings.Join(fixedVulns, ",")))
+	slog.Info(fmt.Sprintf("REMAINING-VULNS: %d\n", nVulns-len(fixedVulns)))
 
 	nUnfixable := 0
 	for _, v := range out.Vulnerabilities {
@@ -131,7 +132,7 @@ func outputText(w io.Writer, out fixOutput) error {
 			nUnfixable++
 		}
 	}
-	fmt.Fprintf(w, "UNFIXABLE-VULNS: %d\n", nUnfixable)
+	slog.Info(fmt.Sprintf("UNFIXABLE-VULNS: %d\n", nUnfixable))
 
 	return nil
 }
