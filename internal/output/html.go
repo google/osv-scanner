@@ -31,6 +31,15 @@ func formatSlice(slice []string) string {
 	return strings.Join(slice, ", ")
 }
 
+func formatLicense(slice []models.License) string {
+	stringSlice := make([]string, len(slice))
+	for i, license := range slice {
+		stringSlice[i] = string(license)
+	}
+
+	return formatSlice(stringSlice)
+}
+
 func formatRating(rating severity.Rating) string {
 	return strings.ToLower(string(rating))
 }
@@ -65,6 +74,7 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		"formatSlice":                 formatSlice,
 		"formatLayerCommand":          formatLayerCommand,
 		"buildVulnTableEntryArgument": buildVulnTableEntryArgument,
+		"formatLicense":               formatLicense,
 	}
 
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))

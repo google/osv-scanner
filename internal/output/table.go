@@ -39,15 +39,15 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		if outputTable.Length() != 0 {
 			outputTable.Render()
 		}
-	}
 
-	// Render the licenses if any.
-	outputLicenseTable := newTable(outputWriter, terminalWidth)
-	outputLicenseTable = licenseTableBuilder(outputLicenseTable, vulnResult)
-	if outputLicenseTable.Length() == 0 {
-		return
+		// Render the licenses if any.
+		outputLicenseTable := newTable(outputWriter, terminalWidth)
+		outputLicenseTable = licenseTableBuilder(outputLicenseTable, vulnResult)
+		if outputLicenseTable.Length() == 0 {
+			return
+		}
+		outputLicenseTable.Render()
 	}
-	outputLicenseTable.Render()
 }
 
 func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
@@ -103,22 +103,13 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 	// Add a newline to separate results from logs.
 	fmt.Fprintln(outputWriter)
 	fmt.Fprintf(outputWriter, "Container Scanning Result (%s):\n", result.ImageInfo.OS)
-	summary := fmt.Sprintf(
-		"Total %[1]d packages affected by %[2]d vulnerabilities (%[3]d Critical, %[4]d High, %[5]d Medium, %[6]d Low, %[7]d Unknown) from %[8]d ecosystems.\n"+
-			"%[9]d vulnerabilities have fixes available.",
-		result.PackageTypeCount.Regular,
-		result.VulnTypeSummary.All,
-		result.VulnCount.SeverityCount.Critical,
-		result.VulnCount.SeverityCount.High,
-		result.VulnCount.SeverityCount.Medium,
-		result.VulnCount.SeverityCount.Low,
-		result.VulnCount.SeverityCount.Unknown,
-		len(result.Ecosystems),
-		result.VulnCount.FixableCount.Fixed,
-	)
-	fmt.Fprintln(outputWriter, summary)
+	printSummary(result, outputWriter)
 	// Add a newline
 	fmt.Fprintln(outputWriter)
+
+	if result.LicenseSummary.Summary {
+		printLicenseSummary(result.LicenseSummary, outputWriter, terminalWidth)
+	}
 
 	for _, ecosystem := range result.Ecosystems {
 		fmt.Fprintln(outputWriter, ecosystem.Name)
@@ -126,9 +117,14 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 		for _, source := range ecosystem.Sources {
 			outputTable := newTable(outputWriter, terminalWidth)
 			outputTable.SetTitle("Source:" + source.Name)
-			outputTable.AppendHeader(table.Row{"Package", "Installed Version", "Fix Available", "Vuln Count", "Introduced Layer", "In Base Image"})
+			tableHeader := table.Row{"Package", "Installed Version", "Fix Available", "Vuln Count", "Introduced Layer", "In Base Image"}
+			if result.LicenseSummary.ShowViolations {
+				tableHeader = append(tableHeader, "License Violations")
+			}
+
+			outputTable.AppendHeader(tableHeader)
 			for _, pkg := range source.Packages {
-				if pkg.VulnCount.AnalysisCount.Regular == 0 {
+				if pkg.VulnCount.AnalysisCount.Regular == 0 && len(pkg.LicenseViolations) == 0 {
 					continue
 				}
 				outputRow := table.Row{}
@@ -151,6 +147,13 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 					inBaseImage = getBaseImageName(pkg.LayerDetail.BaseImageInfo)
 				}
 				outputRow = append(outputRow, pkg.Name, pkg.InstalledVersion, fixAvailable, totalCount, layer, inBaseImage)
+				if result.LicenseSummary.ShowViolations {
+					if len(pkg.LicenseViolations) == 0 {
+						outputRow = append(outputRow, "--")
+					} else {
+						outputRow = append(outputRow, pkg.LicenseViolations)
+					}
+				}
 				outputTable.AppendRow(outputRow)
 			}
 			outputTable.Render()
@@ -188,6 +191,18 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 		"You can also view the full vulnerability list in your terminal with: " +
 		"`osv-scanner scan image --format vertical <image_name>`."
 	fmt.Fprintln(outputWriter, promptMessage)
+}
+
+func printLicenseSummary(licenseSummary LicenseSummary, outputWriter io.Writer, terminalWidth int) {
+	outputTable := newTable(outputWriter, terminalWidth)
+	outputTable.AppendHeader(table.Row{"License", "No. of package versions"})
+	for _, license := range licenseSummary.LicenseCount {
+		outputTable.AppendRow(table.Row{license.Name, license.Count})
+	}
+
+	outputTable.Render()
+
+	fmt.Fprintln(outputWriter)
 }
 
 type tbInnerResponse struct {

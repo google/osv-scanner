@@ -3,6 +3,7 @@ package output
 import (
 	"cmp"
 	"encoding/json"
+	"fmt"
 	"io"
 	"slices"
 	"sort"
@@ -14,6 +15,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/semantic"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/jedib0t/go-pretty/v6/text"
 	"golang.org/x/exp/maps"
 )
 
@@ -38,11 +40,12 @@ type EcosystemResult struct {
 
 // SourceResult represents the vulnerability scanning results for a source file.
 type SourceResult struct {
-	Name             string
-	Ecosystem        string
-	PackageTypeCount AnalysisCount
-	Packages         []PackageResult
-	VulnCount        VulnCount
+	Name                   string
+	Ecosystem              string
+	PackageTypeCount       AnalysisCount
+	Packages               []PackageResult
+	VulnCount              VulnCount
+	LicenseViolationsCount int
 }
 
 // PackageResult represents the vulnerability scanning results for a package.
@@ -80,8 +83,9 @@ type ImageInfo struct {
 }
 
 type LicenseSummary struct {
-	Summary      bool
-	LicenseCount []LicenseCount
+	Summary        bool
+	ShowViolations bool
+	LicenseCount   []LicenseCount
 }
 
 type LicenseCount struct {
@@ -194,11 +198,11 @@ RowLoop:
 		resultCount.Add(sourceResult.VulnCount)
 	}
 
-	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata, vulnResult.ExperimentalAnalysisConfig.Licenses.Summary)
+	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata, vulnResult.ExperimentalAnalysisConfig.Licenses)
 }
 
 // buildResult builds the final Result object from the ecosystem map and total vulnerability count.
-func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata, showLicenseSummary bool) Result {
+func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata, licenseConfig models.ExperimentalLicenseConfig) Result {
 	result := Result{}
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
@@ -242,8 +246,12 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, 
 		populateResultWithImageMetadata(&result, *imageMetadata)
 	}
 
-	if showLicenseSummary {
+	if licenseConfig.Summary {
 		calculateLicenseSummary(&result)
+	}
+
+	if len(licenseConfig.Allowlist) != 0 {
+		result.LicenseSummary.ShowViolations = true
 	}
 
 	return result
@@ -374,6 +382,7 @@ func processSource(packageSource models.PackageSource) SourceResult {
 		packageMap[key] = packageResult
 
 		sourceResult.VulnCount.Add(packageResult.VulnCount)
+		sourceResult.LicenseViolationsCount += len(packageResult.LicenseViolations)
 		if len(packageResult.RegularVulns) != 0 {
 			sourceResult.PackageTypeCount.Regular += 1
 		}
@@ -794,4 +803,30 @@ func cleanupSpaces(s string) string {
 	s = strings.TrimSpace(s)
 
 	return s
+}
+
+func printSummary(result Result, out io.Writer) {
+	packageForm := Form(result.PackageTypeCount.Regular, "package", "packages")
+	vulnerabilityForm := Form(result.VulnTypeSummary.All, "vulnerability", "vulnerabilities")
+	fixedVulnForm := Form(result.VulnCount.FixableCount.Fixed, "vulnerability", "vulnerabilities")
+	ecosystemForm := Form(len(result.Ecosystems), "ecosystem", "ecosystems")
+
+	summary := fmt.Sprintf(
+		"Total %[1]d %[10]s affected by %[2]d known %[11]s (%[3]s, %[4]s, %[5]s, %[6]s, %[7]s) from %[8]s.\n"+
+			"%[9]d %[12]s can be fixed.\n",
+		result.PackageTypeCount.Regular,
+		result.VulnTypeSummary.All,
+		text.FgRed.Sprintf("%d Critical", result.VulnCount.SeverityCount.Critical),
+		text.FgHiYellow.Sprintf("%d High", result.VulnCount.SeverityCount.High),
+		text.FgYellow.Sprintf("%d Medium", result.VulnCount.SeverityCount.Medium),
+		text.FgHiCyan.Sprintf("%d Low", result.VulnCount.SeverityCount.Low),
+		text.FgCyan.Sprintf("%d Unknown", result.VulnCount.SeverityCount.Unknown),
+		text.FgGreen.Sprintf("%d %s", len(result.Ecosystems), ecosystemForm),
+		result.VulnCount.FixableCount.Fixed,
+
+		packageForm,
+		vulnerabilityForm,
+		fixedVulnForm,
+	)
+	fmt.Fprintln(out, summary)
 }
