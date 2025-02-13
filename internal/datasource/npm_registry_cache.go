@@ -1,10 +1,9 @@
 package datasource
 
 import (
+	"maps"
 	"strings"
 	"time"
-
-	"golang.org/x/exp/maps"
 )
 
 type npmRegistryCache struct {
