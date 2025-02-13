@@ -101,7 +101,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			if oldPath != "" {
 				oldVulns, err = ci.LoadVulnResults(oldPath)
 				if err != nil {
-					fmt.Fprintf(os.Stderr, "failed to open old results at %s: %v - likely because target branch has no lockfiles.\n", oldPath, err)
+					slog.Error(fmt.Sprintf("failed to open old results at %s: %v - likely because target branch has no lockfiles.\n", oldPath, err))
 					// Do not return, assume there is no oldVulns (which will display all new vulns).
 					oldVulns = models.VulnerabilityResults{}
 				}
@@ -109,7 +109,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			newVulns, err := ci.LoadVulnResults(newPath)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "failed to open new results at %s: %v - likely because previous step failed.\n", newPath, err)
+				slog.Error(fmt.Sprintf("failed to open new results at %s: %v - likely because previous step failed.\n", newPath, err))
 				newVulns = models.VulnerabilityResults{}
 				// Do not return a non zero error code.
 			}

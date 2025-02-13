@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"hash/crc32"
 	"io"
+	"log/slog"
 	"net/http"
 	"os"
 	"path"
@@ -136,7 +137,7 @@ func (db *ZipDB) fetchZip(ctx context.Context) ([]byte, error) {
 	}
 
 	if err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "Failed to save database to %s: %v\n", db.StoredAt, err)
+		slog.Warn(fmt.Sprintf("Failed to save database to %s: %v\n", db.StoredAt, err))
 	}
 
 	return body, nil
@@ -147,7 +148,7 @@ func (db *ZipDB) fetchZip(ctx context.Context) ([]byte, error) {
 func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 	file, err := zipFile.Open()
 	if err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "Could not read %s: %v\n", zipFile.Name, err)
+		slog.Warn(fmt.Sprintf("Could not read %s: %v\n", zipFile.Name, err))
 
 		return
 	}
@@ -155,7 +156,7 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 
 	content, err := io.ReadAll(file)
 	if err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "Could not read %s: %v\n", zipFile.Name, err)
+		slog.Warn(fmt.Sprintf("Could not read %s: %v\n", zipFile.Name, err))
 
 		return
 	}
@@ -163,7 +164,7 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 	var vulnerability osvschema.Vulnerability
 
 	if err := json.Unmarshal(content, &vulnerability); err != nil {
-		_, _ = fmt.Fprintf(os.Stderr, "%s is not a valid JSON file: %v\n", zipFile.Name, err)
+		slog.Warn(fmt.Sprintf("%s is not a valid JSON file: %v\n", zipFile.Name, err))
 
 		return
 	}
