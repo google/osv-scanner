@@ -121,6 +121,16 @@ func normalizeErrors(t *testing.T, str string) string {
 	return str
 }
 
+// normalizeMemoryAddresses attempts to replace references to memory addresses
+func normalizeMemoryAddresses(t *testing.T, str string) string {
+	t.Helper()
+
+	replacer := regexp.MustCompile(`0x[0-9a-fA-F]+`)
+	str = replacer.ReplaceAllLiteralString(str, "0x<memoryaddress>")
+
+	return str
+}
+
 // removeUntestableLines remove some lines from the output that are not testable
 func removeUntestableLines(t *testing.T, str string) string {
 	t.Helper()
@@ -141,6 +151,7 @@ func normalizeSnapshot(t *testing.T, str string) string {
 		normalizeTempDirectory,
 		normalizeUserCacheDirectory,
 		normalizeErrors,
+		normalizeMemoryAddresses,
 		removeUntestableLines,
 	} {
 		str = normalizer(t, str)
