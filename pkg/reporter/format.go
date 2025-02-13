@@ -20,7 +20,7 @@ func newResultPrinter(format string, writer io.Writer, terminalWidth int) (resul
 	case "json":
 		return &jsonReporter{writer}, nil
 	case "vertical":
-		return &verticalReporter{writer, false, terminalWidth}, nil
+		return &verticalReporter{writer, terminalWidth}, nil
 	case "table":
 		return &tableReporter{writer, false, terminalWidth}, nil
 	case "markdown":
