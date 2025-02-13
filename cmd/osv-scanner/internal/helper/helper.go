@@ -12,10 +12,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/google/osv-scanner/v2/internal/reporter"
 	"github.com/google/osv-scanner/v2/internal/spdx"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/term"
 )

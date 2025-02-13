@@ -7,7 +7,6 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/v2/internal/output"
-
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
