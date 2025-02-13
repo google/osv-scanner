@@ -9,6 +9,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/v2/internal/ci"
+	"github.com/google/osv-scanner/v2/internal/clilogger"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
@@ -34,6 +35,8 @@ func splitLastArg(args []string) []string {
 }
 
 func run(args []string, stdout, stderr io.Writer) int {
+	slog.SetDefault(slog.New(clilogger.New(stdout, stderr)))
+
 	// Allow multiple arguments to be defined by github actions by splitting the last argument
 	// by new lines.
 	args = splitLastArg(args)
