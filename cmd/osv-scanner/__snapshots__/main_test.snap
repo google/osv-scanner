@@ -20,6 +20,7 @@
 ---
 
 [Test_insertDefaultCommand - 6]
+Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `default`, you must specify `default scan` in your command line.
 
 ---
 
