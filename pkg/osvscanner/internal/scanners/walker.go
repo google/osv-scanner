@@ -58,7 +58,7 @@ func ScanDir(dir string, recursive bool, useGitIgnore bool, extractorsToUse []fi
 				// Don't skip if we can't parse now - potentially noisy for directories with lots of items
 			} else if match {
 				if root { // Don't silently skip if the argument file was ignored.
-					slog.Error(fmt.Sprintf("%s was not scanned because it is excluded by a .gitignore file. Use --no-ignore to scan it.\n", path))
+					slog.Error(path + " was not scanned because it is excluded by a .gitignore file. Use --no-ignore to scan it.\n")
 				}
 				if info.IsDir() {
 					return filepath.SkipDir

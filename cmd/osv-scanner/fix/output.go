@@ -91,7 +91,7 @@ func outputText(_ io.Writer, out fixOutput) error {
 	slog.Info(fmt.Sprintf("Found %d vulnerabilities matching the filter\n", nVulns))
 
 	if len(out.Patches) == 0 {
-		slog.Info(fmt.Sprintf("No dependency patches are possible\n"))
+		slog.Info("No dependency patches are possible\n")
 		slog.Info(fmt.Sprintf("REMAINING-VULNS: %d\n", nVulns))
 		slog.Info(fmt.Sprintf("UNFIXABLE-VULNS: %d\n", nVulns))
 

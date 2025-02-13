@@ -52,7 +52,7 @@ func autoInPlace(ctx context.Context, opts osvFixOptions, maxUpgrades int) error
 	patches := autoChooseInPlacePatches(res, maxUpgrades, &outputResult)
 
 	if err := printResult(outputResult, opts); err != nil {
-		slog.Error(fmt.Sprintf("failed writing output"))
+		slog.Error("failed writing output")
 		return err
 	}
 
@@ -171,7 +171,7 @@ func autoRelax(ctx context.Context, opts osvFixOptions, maxUpgrades int) error {
 	depPatches := autoChooseRelaxPatches(allPatches, maxUpgrades, &outputResult)
 
 	if err := printResult(outputResult, opts); err != nil {
-		slog.Error(fmt.Sprintf("failed writing output"))
+		slog.Error("failed writing output")
 		return err
 	}
 
@@ -187,7 +187,7 @@ func autoRelax(ctx context.Context, opts osvFixOptions, maxUpgrades int) error {
 	if opts.Lockfile != "" {
 		// We only recreate the lockfile if we know a lockfile already exists
 		// or we've been given a command to run.
-		slog.Info(fmt.Sprintf("Shelling out to regenerate lockfile...\n"))
+		slog.Info("Shelling out to regenerate lockfile...\n")
 		cmd, err := regenerateLockfileCmd(opts)
 		if err != nil {
 			return err
@@ -201,7 +201,7 @@ func autoRelax(ctx context.Context, opts osvFixOptions, maxUpgrades int) error {
 			return nil
 		}
 
-		slog.Warn(fmt.Sprintf("Install failed. Trying again with `--legacy-peer-deps`...\n"))
+		slog.Warn("Install failed. Trying again with `--legacy-peer-deps`...\n")
 		cmd, err = regenerateLockfileCmd(opts)
 		if err != nil {
 			return err
@@ -327,7 +327,7 @@ func autoOverride(ctx context.Context, opts osvFixOptions, maxUpgrades int) erro
 	depPatches := autoChooseOverridePatches(allPatches, maxUpgrades, &outputResult)
 
 	if err := printResult(outputResult, opts); err != nil {
-		slog.Error(fmt.Sprintf("failed writing output"))
+		slog.Error("failed writing output")
 		return err
 	}
 
