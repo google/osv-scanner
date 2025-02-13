@@ -25,7 +25,7 @@ var (
 func run(args []string, stdout, stderr io.Writer) int {
 	logger := clilogger.New(stdout, stderr)
 
-	slog.SetDefault(slog.New(logger))
+	slog.SetDefault(slog.New(&logger))
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		slog.Info(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
