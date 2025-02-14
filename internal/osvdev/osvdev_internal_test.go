@@ -13,7 +13,7 @@ import (
 	"github.com/google/osv-scalibr/testing/extracttest"
 )
 
-func TestMakeRetryRequest(t *testing.T) {
+func TestOSVClient_makeRetryRequest(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
