@@ -92,14 +92,14 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 		ArgsUsage:   "[directory1 directory2...]",
 		Action: func(c *cli.Context) error {
 			var err error
-			*r, err = Action(c, stdout, stderr)
+			*r, err = action(c, stdout, stderr)
 
 			return err
 		},
 	}
 }
 
-func Action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
+func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
 	format := context.String("format")
 
 	outputPath := context.String("output")
