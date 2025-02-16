@@ -313,13 +313,10 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION  | SOURCE                             |
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
-| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml |
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
+Filtered 2 vulnerabilities from output
+No issues found
 
 ---
 
@@ -442,13 +439,10 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
+CVE-2025-26519 has been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 1 vulnerability from output
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION  | SOURCE                             |
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
-| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml |
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
+Filtered 2 vulnerabilities from output
+No issues found
 
 ---
 
@@ -1623,13 +1617,9 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION  | SOURCE                             |
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
-| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml |
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
+Filtered 2 vulnerabilities from output
 +------------+-------------------------+
 | LICENSE    | NO. OF PACKAGE VERSIONS |
 +------------+-------------------------+
@@ -1653,11 +1643,9 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
-| OSV URL | CVSS | Ecosystem | Package | Version | Source |
-| --- | --- | --- | --- | --- | --- |
-| https://osv.dev/CVE-2025-26519 |  | Alpine | musl | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml |
+Filtered 2 vulnerabilities from output
 | License | No. of package versions |
 | --- | ---:|
 | Apache-2.0 | 1 |
@@ -1935,13 +1923,10 @@ Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION  | SOURCE                             |
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
-| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml |
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
+Filtered 2 vulnerabilities from output
+No issues found
 
 ---
 
@@ -1962,13 +1947,10 @@ Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION  | SOURCE                             |
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
-| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml |
-+--------------------------------+------+-----------+---------+----------+------------------------------------+
+Filtered 2 vulnerabilities from output
+No issues found
 
 ---
 
