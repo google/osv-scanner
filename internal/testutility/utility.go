@@ -1,6 +1,7 @@
 package testutility
 
 import (
+	"flag"
 	"os"
 	"runtime"
 	"strings"
@@ -34,16 +35,30 @@ func Skip(t *testing.T, args ...any) {
 	snaps.Skip(t, args...)
 }
 
+// isThisTestRunTarget tries to determine if the currently running test has been
+// targeted with the -run flag, by comparing the flags value to [testing.T.Name]
+//
+// Since this just does a direct comparison, it will not match for regex patterns
+func isThisTestRunTarget(t *testing.T) bool {
+	t.Helper()
+
+	runOnly := flag.Lookup("test.run").Value.String()
+
+	return runOnly == t.Name()
+}
+
 // IsAcceptanceTesting returns true if the test suite is being run with acceptance tests enabled
 func IsAcceptanceTesting() bool {
 	return os.Getenv("TEST_ACCEPTANCE") == "true"
 }
 
 // SkipIfNotAcceptanceTesting marks the test as skipped unless the test suite is
-// being run with acceptance tests enabled, as indicated by IsAcceptanceTesting
+// being run with acceptance tests enabled, as indicated by IsAcceptanceTesting,
+// or the test is being run specifically with the -run flag
 func SkipIfNotAcceptanceTesting(t *testing.T, reason string) {
 	t.Helper()
-	if !IsAcceptanceTesting() {
+
+	if !IsAcceptanceTesting() && !isThisTestRunTarget(t) {
 		Skip(t, "Skipping extended test: ", reason)
 	}
 }
