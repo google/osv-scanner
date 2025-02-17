@@ -3031,26 +3031,26 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 Scanning local image tarball "../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 12 packages affected by 17 vulnerabilities (1 Critical, 5 High, 9 Medium, 0 Low, 2 Unknown) from 2 ecosystems.
-16 vulnerabilities have fixes available.
+Total 13 packages affected by 18 vulnerabilities (1 Critical, 5 High, 9 Medium, 0 Low, 3 Unknown) from 2 ecosystems.
+18 vulnerabilities have fixes available.
 
 Maven
-+-----------------------------------------------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar                                                                                                          |
-+-------------------------------------------+-------------------+-------------------------+------------+------------------+---------------+
-| PACKAGE                                   | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+-------------------------------------------+-------------------+-------------------------+------------+------------------+---------------+
-| com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available           |          1 | # 12 Layer       | --            |
-| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available           |          1 | # 12 Layer       | --            |
-| dnsjava:dnsjava                           | 3.4.0             | Fix Available           |          1 | # 12 Layer       | --            |
-| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available           |          1 | # 12 Layer       | --            |
-| io.netty:netty-common                     | 4.1.100.Final     | Partial fixes Available |          2 | # 12 Layer       | --            |
-| io.netty:netty-handler                    | 4.1.100.Final     | Fix Available           |          1 | # 12 Layer       | --            |
-| org.apache.avro:avro                      | 1.9.2             | Fix Available           |          2 | # 12 Layer       | --            |
-| org.apache.commons:commons-compress       | 1.21              | Fix Available           |          2 | # 12 Layer       | --            |
-| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available           |          2 | # 12 Layer       | --            |
-| org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available           |          1 | # 12 Layer       | --            |
-+-------------------------------------------+-------------------+-------------------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------------------------------+
+| Source:artifact:app/target.jar                                                                                                |
++-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE                                   | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
+| com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available |          1 | # 12 Layer       | --            |
+| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          1 | # 12 Layer       | --            |
+| dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
+| io.netty:netty-handler                    | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| org.apache.avro:avro                      | 1.9.2             | Fix Available |          2 | # 12 Layer       | --            |
+| org.apache.commons:commons-compress       | 1.21              | Fix Available |          2 | # 12 Layer       | --            |
+| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          2 | # 12 Layer       | --            |
+| org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available |          1 | # 12 Layer       | --            |
++-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.21
 +------------------------------------------------------------------------------------------------+
 | Source:os:lib/apk/db/installed                                                                 |
@@ -3058,6 +3058,7 @@ Alpine:v3.21
 | PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE   |
 +----------+-------------------+---------------+------------+------------------+-----------------+
 | libtasn1 | 4.19.0-r2         | Fix Available |          1 | # 5 Layer        | eclipse-temurin |
+| musl     | 1.2.5-r8          | Fix Available |          1 | # 0 Layer        | alpine          |
 | openssl  | 3.3.2-r4          | Fix Available |          2 | # 0 Layer        | alpine          |
 +----------+-------------------+---------------+------------+------------------+-----------------+
 
@@ -3210,8 +3211,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 7 packages affected by 47 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 47 Unknown) from 2 ecosystems.
-47 vulnerabilities have fixes available.
+Total 8 packages affected by 48 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 48 Unknown) from 2 ecosystems.
+48 vulnerabilities have fixes available.
 
 Go
 +---------------------------------------------------------------------------------------------+
@@ -3262,6 +3263,7 @@ Alpine:v3.20
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
+| musl    | 1.2.5-r0          | Fix Available |          1 | # 0 Layer        | alpine        |
 | openssl | 3.3.1-r0          | Fix Available |          5 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
