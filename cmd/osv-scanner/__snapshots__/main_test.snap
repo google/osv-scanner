@@ -197,6 +197,7 @@ Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4  | fixtures/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
@@ -215,6 +216,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4  | fixtures/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/CVE-2016-9840  | 8.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/CVE-2016-9841  | 9.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/CVE-2016-9842  | 8.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
@@ -314,8 +316,9 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 No issues found
 
 ---
@@ -374,11 +377,12 @@ overriding license for package Alpine/ssl_client/1.36.1-r27 with MIT
 overriding license for package Alpine/zlib/1.2.13-r0 with MIT
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
-+-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                |
-+-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock |
-+-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
++-------------------------------------+------+-----------+------------------+----------+---------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | SOURCE                                |
++-------------------------------------+------+-----------+------------------+----------+---------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8    | fixtures/locks-insecure/composer.lock |
+| https://osv.dev/CVE-2025-26519      |      | Alpine    | musl             | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml    |
++-------------------------------------+------+-----------+------------------+----------+---------------------------------------+
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE                                        | VERSION | SOURCE                                                |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
@@ -438,8 +442,9 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
+CVE-2025-26519 has been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 No issues found
 
 ---
@@ -618,6 +623,7 @@ Filtered 9 local/unscannable package/s from the scan.
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
+| https://osv.dev/CVE-2025-26519      |      | Alpine    | musl                           | 1.2.3-r4                           | fixtures/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/CVE-2018-25032      | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | fixtures/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | fixtures/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/CVE-2018-0501       | 5.9  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -795,6 +801,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/DLA-3782-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5123-1          | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-3094       | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-26519      |      | Alpine    | musl                           | 1.2.3-r4                           | fixtures/sbom-insecure/with-duplicates.cdx.xml  |
 | https://osv.dev/CVE-2018-25032      | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | fixtures/sbom-insecure/with-duplicates.cdx.xml  |
 | https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | fixtures/sbom-insecure/with-duplicates.cdx.xml  |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
@@ -943,6 +950,7 @@ Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                         |
 +--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
+| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4  | fixtures/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/with-duplicates.cdx.xml |
 +--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
@@ -970,6 +978,7 @@ Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4  | fixtures/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
@@ -1106,6 +1115,8 @@ built at: n/a
 [TestRunCallAnalysis/Run_with_govulncheck - 1]
 Scanning dir ./fixtures/call-analysis-go-project
 Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 packages
+GO-2025-3447 and 2 aliases have been filtered out because: This is called in Go v1.23, but not in v1.24
+Filtered 1 vulnerability from output
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                     | VERSION | SOURCE                                   |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
@@ -1120,7 +1131,6 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 | https://osv.dev/GO-2024-2687        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3447        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | Uncalled vulnerabilities            |      |           |                             |         |                                          |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
@@ -1188,8 +1198,8 @@ Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 1 packages affected by 2 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystems.
-2 vulnerabilities have fixes available.
+Total 2 packages affected by 3 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystems.
+3 vulnerabilities have fixes available.
 
 Alpine:v3.18
 +---------------------------------------------------------------------------------------------+
@@ -1197,6 +1207,7 @@ Alpine:v3.18
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
+| musl    | 1.2.4-r2          | Fix Available |          1 | # 0 Layer        | alpine        |
 | openssl | 3.1.7-r0          | Fix Available |          2 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
@@ -1617,8 +1628,9 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 +------------+-------------------------+
 | LICENSE    | NO. OF PACKAGE VERSIONS |
 +------------+-------------------------+
@@ -1642,8 +1654,9 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 | License | No. of package versions |
 | --- | ---:|
 | Apache-2.0 | 1 |
@@ -1688,11 +1701,12 @@ ignoring license for package Alpine/ssl_client/1.36.1-r27
 ignoring license for package Alpine/zlib/1.2.13-r0
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
-+-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                |
-+-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | fixtures/locks-insecure/composer.lock |
-+-------------------------------------+------+-----------+------------------+---------+---------------------------------------+
++-------------------------------------+------+-----------+------------------+----------+---------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | SOURCE                                |
++-------------------------------------+------+-----------+------------------+----------+---------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8    | fixtures/locks-insecure/composer.lock |
+| https://osv.dev/CVE-2025-26519      |      | Alpine    | musl             | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml    |
++-------------------------------------+------+-----------+------------------+----------+---------------------------------------+
 +-------------------+-----------+------------------+----------+---------------------------------------+
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION  | SOURCE                                |
 +-------------------+-----------+------------------+----------+---------------------------------------+
@@ -1920,8 +1934,9 @@ Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 No issues found
 
 ---
@@ -1943,8 +1958,9 @@ Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 No issues found
 
 ---
@@ -3026,26 +3042,26 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 Scanning local image tarball "../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 12 packages affected by 17 vulnerabilities (1 Critical, 5 High, 9 Medium, 0 Low, 2 Unknown) from 2 ecosystems.
-16 vulnerabilities have fixes available.
+Total 13 packages affected by 18 vulnerabilities (1 Critical, 5 High, 9 Medium, 0 Low, 3 Unknown) from 2 ecosystems.
+18 vulnerabilities have fixes available.
 
 Maven
-+-----------------------------------------------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar                                                                                                          |
-+-------------------------------------------+-------------------+-------------------------+------------+------------------+---------------+
-| PACKAGE                                   | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+-------------------------------------------+-------------------+-------------------------+------------+------------------+---------------+
-| com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available           |          1 | # 12 Layer       | --            |
-| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available           |          1 | # 12 Layer       | --            |
-| dnsjava:dnsjava                           | 3.4.0             | Fix Available           |          1 | # 12 Layer       | --            |
-| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available           |          1 | # 12 Layer       | --            |
-| io.netty:netty-common                     | 4.1.100.Final     | Partial fixes Available |          2 | # 12 Layer       | --            |
-| io.netty:netty-handler                    | 4.1.100.Final     | Fix Available           |          1 | # 12 Layer       | --            |
-| org.apache.avro:avro                      | 1.9.2             | Fix Available           |          2 | # 12 Layer       | --            |
-| org.apache.commons:commons-compress       | 1.21              | Fix Available           |          2 | # 12 Layer       | --            |
-| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available           |          2 | # 12 Layer       | --            |
-| org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available           |          1 | # 12 Layer       | --            |
-+-------------------------------------------+-------------------+-------------------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------------------------------+
+| Source:artifact:app/target.jar                                                                                                |
++-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE                                   | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
+| com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available |          1 | # 12 Layer       | --            |
+| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          1 | # 12 Layer       | --            |
+| dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
+| io.netty:netty-handler                    | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| org.apache.avro:avro                      | 1.9.2             | Fix Available |          2 | # 12 Layer       | --            |
+| org.apache.commons:commons-compress       | 1.21              | Fix Available |          2 | # 12 Layer       | --            |
+| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          2 | # 12 Layer       | --            |
+| org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available |          1 | # 12 Layer       | --            |
++-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.21
 +------------------------------------------------------------------------------------------------+
 | Source:os:lib/apk/db/installed                                                                 |
@@ -3053,6 +3069,7 @@ Alpine:v3.21
 | PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE   |
 +----------+-------------------+---------------+------------+------------------+-----------------+
 | libtasn1 | 4.19.0-r2         | Fix Available |          1 | # 5 Layer        | eclipse-temurin |
+| musl     | 1.2.5-r8          | Fix Available |          1 | # 0 Layer        | alpine          |
 | openssl  | 3.3.2-r4          | Fix Available |          2 | # 0 Layer        | alpine          |
 +----------+-------------------+---------------+------------+------------------+-----------------+
 
@@ -3205,8 +3222,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 7 packages affected by 47 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 47 Unknown) from 2 ecosystems.
-47 vulnerabilities have fixes available.
+Total 8 packages affected by 48 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 48 Unknown) from 2 ecosystems.
+48 vulnerabilities have fixes available.
 
 Go
 +---------------------------------------------------------------------------------------------+
@@ -3257,6 +3274,7 @@ Alpine:v3.20
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
+| musl    | 1.2.5-r0          | Fix Available |          1 | # 0 Layer        | alpine        |
 | openssl | 3.3.1-r0          | Fix Available |          5 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
