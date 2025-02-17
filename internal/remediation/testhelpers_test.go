@@ -10,9 +10,9 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
 	"github.com/google/osv-scanner/v2/internal/resolution/clienttest"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	lf "github.com/google/osv-scanner/v2/pkg/lockfile"
 	"golang.org/x/exp/maps"
 )
 
@@ -24,7 +24,7 @@ func parseRemediationFixture(t *testing.T, universePath, manifestPath string, op
 		t.Fatalf("Failed to get ReadWriter: %v", err)
 	}
 
-	f, err := lf.OpenLocalDepFile(manifestPath)
+	f, err := depfile.OpenLocalDepFile(manifestPath)
 	if err != nil {
 		t.Fatalf("Failed to open manifest: %v", err)
 	}

@@ -14,9 +14,9 @@ import (
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	manif "github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/tui"
-	osvLockfile "github.com/google/osv-scanner/v2/pkg/lockfile"
 	"golang.org/x/term"
 )
 
@@ -184,7 +184,7 @@ type inPlaceResolutionMsg struct {
 }
 
 func doInPlaceResolution(ctx context.Context, cl client.ResolutionClient, opts osvFixOptions) tea.Msg {
-	lf, err := osvLockfile.OpenLocalDepFile(opts.Lockfile)
+	lf, err := depfile.OpenLocalDepFile(opts.Lockfile)
 	if err != nil {
 		return inPlaceResolutionMsg{err: err}
 	}
@@ -219,7 +219,7 @@ func doRelock(ctx context.Context, cl client.ResolutionClient, m manif.Manifest,
 }
 
 func doInitialRelock(ctx context.Context, opts osvFixOptions) tea.Msg {
-	f, err := osvLockfile.OpenLocalDepFile(opts.Manifest)
+	f, err := depfile.OpenLocalDepFile(opts.Manifest)
 	if err != nil {
 		return doRelockMsg{err: err}
 	}

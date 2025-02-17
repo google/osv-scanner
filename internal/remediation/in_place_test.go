@@ -12,9 +12,9 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
 	"github.com/google/osv-scanner/v2/internal/resolution/clienttest"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	lf "github.com/google/osv-scanner/v2/pkg/lockfile"
 	"golang.org/x/exp/maps"
 )
 
@@ -26,7 +26,7 @@ func parseInPlaceFixture(t *testing.T, universePath, lockfilePath string) (*reso
 		t.Fatalf("Failed to get ReadWriter: %v", err)
 	}
 
-	f, err := lf.OpenLocalDepFile(lockfilePath)
+	f, err := depfile.OpenLocalDepFile(lockfilePath)
 	if err != nil {
 		t.Fatalf("Failed to open lockfile: %v", err)
 	}

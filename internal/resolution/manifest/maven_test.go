@@ -13,8 +13,8 @@ import (
 	"deps.dev/util/resolve/dep"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
 var (
@@ -103,7 +103,7 @@ func TestMavenReadWrite(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to get current directory: %v", err)
 	}
-	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
+	df, err := depfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -412,7 +412,7 @@ func TestMavenReadWrite(t *testing.T) {
 	}
 
 	// Re-open the file for writing.
-	df, err = lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
+	df, err = depfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -433,7 +433,7 @@ func TestMavenWrite(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to get current directory: %v", err)
 	}
-	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
+	df, err := depfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}
@@ -545,7 +545,7 @@ func TestMavenWriteDM(t *testing.T) {
 	if err != nil {
 		t.Fatalf("failed to get current directory: %v", err)
 	}
-	df, err := lockfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "no-dependency-management.xml"))
+	df, err := depfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "no-dependency-management.xml"))
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}

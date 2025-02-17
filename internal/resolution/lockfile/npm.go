@@ -11,8 +11,8 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
 type NpmReadWriter struct{}
@@ -73,7 +73,7 @@ func (n npmNodeModule) IsAliased() bool {
 	return len(n.ActualName) > 0
 }
 
-func (rw NpmReadWriter) Read(file lockfile.DepFile) (*resolve.Graph, error) {
+func (rw NpmReadWriter) Read(file depfile.DepFile) (*resolve.Graph, error) {
 	dec := json.NewDecoder(file)
 	var lockJSON npmLockfile
 	if err := dec.Decode(&lockJSON); err != nil {
@@ -177,7 +177,7 @@ func (rw NpmReadWriter) reVersionAliasedDeps(deps map[string]npmDependencyVersio
 	}
 }
 
-func (rw NpmReadWriter) Write(original lockfile.DepFile, output io.Writer, patches []DependencyPatch) error {
+func (rw NpmReadWriter) Write(original depfile.DepFile, output io.Writer, patches []DependencyPatch) error {
 	var buf strings.Builder
 	_, err := io.Copy(&buf, original)
 	if err != nil {
