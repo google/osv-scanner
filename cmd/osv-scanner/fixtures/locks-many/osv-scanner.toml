@@ -6,3 +6,7 @@ reason = "Test manifest file"
 [[IgnoredVulns]]
 id = "CVE-2022-48174"
 reason = "Test manifest file (alpine.cdx.xml)"
+
+[[IgnoredVulns]]
+id = "CVE-2025-26519"
+reason = "Test manifest file (alpine.cdx.xml)"

@@ -58,6 +58,10 @@ func Test_runGovulncheck(t *testing.T) {
 		traceItem.Position.Filename = "<Any value>"
 		traceItem.Position.Offset = -1
 		traceItem.Position.Line = -1 // This number differs between go versions
+
+		if traceItem.Function == "ListenAndServe" && traceItem.Receiver == "*Server" {
+			traceItem.Position.Column = -1 // This number differs between go versions
+		}
 	}
 
 	testutility.NewSnapshot().MatchJSON(t, res)
