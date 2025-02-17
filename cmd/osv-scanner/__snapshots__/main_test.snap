@@ -1194,8 +1194,8 @@ Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 1 packages affected by 2 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystems.
-2 vulnerabilities have fixes available.
+Total 2 packages affected by 3 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystems.
+3 vulnerabilities have fixes available.
 
 Alpine:v3.18
 +---------------------------------------------------------------------------------------------+
@@ -1203,6 +1203,7 @@ Alpine:v3.18
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
+| musl    | 1.2.4-r2          | Fix Available |          1 | # 0 Layer        | alpine        |
 | openssl | 3.1.7-r0          | Fix Available |          2 | # 0 Layer        | alpine        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 
