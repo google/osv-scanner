@@ -1112,6 +1112,8 @@ built at: n/a
 [TestRunCallAnalysis/Run_with_govulncheck - 1]
 Scanning dir ./fixtures/call-analysis-go-project
 Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 packages
+GO-2025-3447 and 2 aliases have been filtered out because: This is called in Go v1.23, but not in v1.24
+Filtered 1 vulnerability from output
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                     | VERSION | SOURCE                                   |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
@@ -1126,7 +1128,6 @@ Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 pack
 | https://osv.dev/GO-2024-2687        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3447        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | Uncalled vulnerabilities            |      |           |                             |         |                                          |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
