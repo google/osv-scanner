@@ -11,7 +11,6 @@ import (
 	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/v2/internal/datasource"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
 )
@@ -21,7 +20,7 @@ import (
 // Installed packages stored in recursive "dependencies" object
 // with "requires" field listing direct dependencies, and each possibly having their own "dependencies"
 // No dependency information package-lock.json for the root node, so we must also have the package.json
-func (rw NpmReadWriter) nodesFromDependencies(lockJSON lockfile.NpmLockfile, manifestFile io.Reader) (*resolve.Graph, *npmNodeModule, error) {
+func (rw NpmReadWriter) nodesFromDependencies(lockJSON npmLockfile, manifestFile io.Reader) (*resolve.Graph, *npmNodeModule, error) {
 	// Need to grab the root requirements from the package.json, since it's not in the lockfile
 	var manifestJSON manifest.PackageJSON
 	if err := json.NewDecoder(manifestFile).Decode(&manifestJSON); err != nil {
@@ -66,7 +65,7 @@ func (rw NpmReadWriter) nodesFromDependencies(lockJSON lockfile.NpmLockfile, man
 	return &g, nodeModuleTree, err
 }
 
-func (rw NpmReadWriter) computeDependenciesRecursive(g *resolve.Graph, parent *npmNodeModule, deps map[string]lockfile.NpmLockDependency) error {
+func (rw NpmReadWriter) computeDependenciesRecursive(g *resolve.Graph, parent *npmNodeModule, deps map[string]npmLockDependency) error {
 	for name, d := range deps {
 		actualName, version := manifest.SplitNPMAlias(d.Version)
 		nID := g.AddNode(resolve.VersionKey{
