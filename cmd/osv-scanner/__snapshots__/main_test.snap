@@ -3054,27 +3054,27 @@ Maven
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE                                   | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
-| com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available |          1 | # 4 Layer        | --            |
-| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          1 | # 4 Layer        | --            |
-| dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 4 Layer        | --            |
-| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          1 | # 4 Layer        | --            |
-| io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 4 Layer        | --            |
-| io.netty:netty-handler                    | 4.1.100.Final     | Fix Available |          1 | # 4 Layer        | --            |
-| org.apache.avro:avro                      | 1.9.2             | Fix Available |          2 | # 4 Layer        | --            |
-| org.apache.commons:commons-compress       | 1.21              | Fix Available |          2 | # 4 Layer        | --            |
-| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          2 | # 4 Layer        | --            |
-| org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available |          1 | # 4 Layer        | --            |
+| com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available |          1 | # 12 Layer       | --            |
+| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          1 | # 12 Layer       | --            |
+| dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
+| io.netty:netty-handler                    | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| org.apache.avro:avro                      | 1.9.2             | Fix Available |          2 | # 12 Layer       | --            |
+| org.apache.commons:commons-compress       | 1.21              | Fix Available |          2 | # 12 Layer       | --            |
+| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          2 | # 12 Layer       | --            |
+| org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available |          1 | # 12 Layer       | --            |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.21
-+----------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                               |
-+----------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+----------+-------------------+---------------+------------+------------------+---------------+
-| libtasn1 | 4.19.0-r2         | Fix Available |          1 | # 2 Layer        | --            |
-| musl     | 1.2.5-r8          | Fix Available |          1 | # 0 Layer        | alpine        |
-| openssl  | 3.3.2-r4          | Fix Available |          2 | # 0 Layer        | alpine        |
-+----------+-------------------+---------------+------------+------------------+---------------+
++------------------------------------------------------------------------------------------------+
+| Source:os:lib/apk/db/installed                                                                 |
++----------+-------------------+---------------+------------+------------------+-----------------+
+| PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE   |
++----------+-------------------+---------------+------------+------------------+-----------------+
+| libtasn1 | 4.19.0-r2         | Fix Available |          1 | # 5 Layer        | eclipse-temurin |
+| musl     | 1.2.5-r8          | Fix Available |          1 | # 0 Layer        | alpine          |
+| openssl  | 3.3.2-r4          | Fix Available |          2 | # 0 Layer        | alpine          |
++----------+-------------------+---------------+------------+------------------+-----------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
