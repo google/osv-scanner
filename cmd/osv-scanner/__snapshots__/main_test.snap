@@ -4361,7 +4361,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
      ]
     },
     {
-     "groups": 0,
+     "groups": 1,
      "package": {
       "ecosystem": "Alpine:v3.20",
       "image_origin_details": {
@@ -4371,10 +4371,12 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
       "os_package_name": "musl",
       "version": "1.2.5-r0"
      },
-     "vulnerabilities": null
+     "vulnerabilities": [
+      "CVE-2025-26519"
+     ]
     },
     {
-     "groups": 0,
+     "groups": 1,
      "package": {
       "ecosystem": "Alpine:v3.20",
       "image_origin_details": {
@@ -4384,7 +4386,9 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
       "os_package_name": "musl-utils",
       "version": "1.2.5-r0"
      },
-     "vulnerabilities": null
+     "vulnerabilities": [
+      "CVE-2025-26519"
+     ]
     },
     {
      "groups": 0,
