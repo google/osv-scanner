@@ -390,7 +390,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			// Something's very wrong if we hit this
 			panic("unhandled resolve.Ecosystem: " + system.String())
 		}
-		if err := matcher.LoadEcosystem(ctx.Context, ecosystem.Parsed{Ecosystem: osvschema.Ecosystem(eco)}); err != nil {
+		if _, err := matcher.LoadEcosystem(ctx.Context, ecosystem.Parsed{Ecosystem: osvschema.Ecosystem(eco)}); err != nil {
 			return nil, err
 		}
 
