@@ -5,10 +5,12 @@ import (
 	"flag"
 	"os"
 	"path/filepath"
-	"regexp"
 	"runtime"
 	"strings"
 	"testing"
+
+	//nolint: depguard // We need regexp for the QuoteMeta function
+	"regexp"
 
 	"github.com/gkampitakis/go-snaps/snaps"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
