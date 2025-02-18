@@ -49,6 +49,7 @@ type PackageResult struct {
 	Name             string
 	OSPackageNames   []string
 	InstalledVersion string
+	Commit           string
 	FixedVersion     string
 	RegularVulns     []VulnResult
 	HiddenVulns      []VulnResult
@@ -376,6 +377,7 @@ func processSource(packageSource models.PackageSource) SourceResult {
 		return cmp.Or(
 			cmp.Compare(a.Name, b.Name),
 			cmp.Compare(a.InstalledVersion, b.InstalledVersion),
+			cmp.Compare(a.Commit, b.Commit),
 		)
 	})
 	sourceResult.Name = packageSource.Source.String()
@@ -402,16 +404,11 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 
 	packageFixedVersion := calculatePackageFixedVersion(vulnPkg.Package.Ecosystem, regularVulnList)
 
-	installVersion := vulnPkg.Package.Version
-	// If the ecosystem is not set, it's most likely from Git
-	if installVersion == "" && vulnPkg.Package.Ecosystem == "" {
-		installVersion = results.GetShortCommit(vulnPkg.Package.Commit)
-	}
-
 	packageResult := PackageResult{
 		Name:             vulnPkg.Package.Name,
 		OSPackageNames:   []string{vulnPkg.Package.OSPackageName},
-		InstalledVersion: installVersion,
+		InstalledVersion: vulnPkg.Package.Version,
+		Commit:           vulnPkg.Package.Commit,
 		FixedVersion:     packageFixedVersion,
 		RegularVulns:     regularVulnList,
 		HiddenVulns:      hiddenVulnList,
@@ -738,4 +735,13 @@ func cleanupSpaces(s string) string {
 	s = strings.TrimSpace(s)
 
 	return s
+}
+
+func getInstalledVersionOrCommit(pkg PackageResult) string {
+	result := pkg.InstalledVersion
+	if result == "" && pkg.Commit != "" {
+		result = results.GetShortCommit(pkg.Commit)
+	}
+
+	return result
 }

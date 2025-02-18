@@ -28,7 +28,16 @@
       </div>
     </td>
     <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>{{ $element.Name }}</td>
-    <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>{{ $element.InstalledVersion }}</td>
+    <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>
+    {{ if ne $element.InstalledVersion "" }}
+      {{ $element.InstalledVersion }}
+    {{ else if ne $element.Commit "" }}
+      <div class="tooltip">
+        <div>@{{ GetShortCommit $element.Commit }}</div>
+        <span class="tooltiptext">Commit: {{ $element.Commit }}</span>
+      </div>
+    {{ end }}
+    </td>
     {{ if ne $element.VulnCount.AnalysisCount.Regular 0 }}
     <td>
       <div class="tooltip no-underline">
