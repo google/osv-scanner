@@ -1,6 +1,7 @@
 package testutility
 
 import (
+	"bytes"
 	"encoding/json"
 	"testing"
 
@@ -43,14 +44,14 @@ func (s Snapshot) MatchJSON(t *testing.T, got any) {
 		t.Fatalf("Failed to marshal JSON: %s", err)
 	}
 
-	s.MatchText(t, string(j))
+	snaps.MatchSnapshot(t, applyWindowsReplacements(string(j), s.windowsReplacements))
 }
 
 // MatchText asserts the existing snapshot matches what was gotten in the test
 func (s Snapshot) MatchText(t *testing.T, got string) {
 	t.Helper()
 
-	snaps.MatchSnapshot(t, applyWindowsReplacements(got, s.windowsReplacements))
+	snaps.MatchSnapshot(t, normalizeSnapshot(t, applyWindowsReplacements(got, s.windowsReplacements)))
 }
 
 // MatchOSVScannerJSONOutput asserts the existing snapshot matches the osv-scanner json output, while using a list of jsonReplacementRules
@@ -61,5 +62,12 @@ func (s Snapshot) MatchOSVScannerJSONOutput(t *testing.T, jsonInput string, json
 		jsonInput = replaceJSONInput(t, jsonInput, rule.Path, rule.ReplaceFunc)
 	}
 
-	snaps.MatchJSON(t, jsonInput)
+	jsonFormatted := bytes.Buffer{}
+	err := json.Indent(&jsonFormatted, []byte(jsonInput), "", "  ")
+
+	if err != nil {
+		t.Fatalf("Failed to marshal JSON: %s", err)
+	}
+
+	s.MatchText(t, jsonFormatted.String())
 }
