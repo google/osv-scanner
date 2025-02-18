@@ -36,7 +36,7 @@ func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Context,
 
 func TestParseUpgradeConfig(t *testing.T) {
 	t.Parallel()
-	flags := []string{"upgrade-config", "disallow-major-upgrades", "disallow-package-upgrades"}
+	flags := []string{"upgrade-config"}
 
 	tests := []struct {
 		name string
