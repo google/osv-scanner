@@ -110,6 +110,8 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			if err != nil {
 				return nil, err
 			}
+		case resolve.NPM:
+		case resolve.UnknownSystem:
 		default:
 			return nil, fmt.Errorf("native data-source currently unsupported for %s ecosystem", system.String())
 		}
