@@ -443,7 +443,7 @@ func TestRunCallAnalysis(t *testing.T) {
 			name: "Run with govulncheck",
 			args: []string{"",
 				"--call-analysis=go",
-				"--config=./fixtures/osv-scanner-empty-config.toml",
+				"--config=./fixtures/osv-scanner-call-analysis-config.toml",
 				"./fixtures/call-analysis-go-project"},
 			exit: 1,
 		},
@@ -679,7 +679,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			if testutility.IsAcceptanceTest() {
+			if testutility.IsAcceptanceTesting() {
 				testDir := testutility.CreateTestDir(t)
 				old := tt.args
 				tt.args = []string{"", "--experimental-local-db-path", testDir}
