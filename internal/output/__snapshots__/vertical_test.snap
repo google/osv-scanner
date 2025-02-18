@@ -8,12 +8,15 @@ npm
 
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 :path/to/my/second/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 :path/to/my/third/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 
 ---
@@ -28,11 +31,26 @@ npm
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
 
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/first/lockfile
+
 :path/to/my/second/lockfile: found 0 packages with issues
   no known vulnerabilities found
 
+  license violations found:
+    mine2@3.2.5 (Apache-2.0)
+
+  1 license violation found in :path/to/my/second/lockfile
+
 :path/to/my/third/lockfile: found 0 packages with issues
   no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/third/lockfile
 
 
 ---
@@ -66,13 +84,28 @@ Packagist
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
 
+  license violations found:
+    author1/mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/first/lockfile
+
 :path/to/my/third/lockfile: found 0 packages with issues
   no known vulnerabilities found
+
+  license violations found:
+    author1/mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/third/lockfile
 
 npm
 
 :path/to/my/second/lockfile: found 0 packages with issues
   no known vulnerabilities found
+
+  license violations found:
+    mine2@3.2.5 (Apache-2.0)
+
+  1 license violation found in :path/to/my/second/lockfile
 
 
 ---
@@ -87,11 +120,26 @@ npm
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
 
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/first/lockfile
+
 :path/to/my/second/lockfile: found 0 packages with issues
   no known vulnerabilities found
 
+  license violations found:
+    mine2@3.2.5 (Apache-2.0)
+
+  1 license violation found in :path/to/my/second/lockfile
+
 :path/to/my/third/lockfile: found 0 packages with issues
   no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/third/lockfile
 
 
 ---
@@ -105,12 +153,15 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 :path/to/my/second/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 :path/to/my/third/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 
 ---
@@ -133,6 +184,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 
 ---
@@ -146,6 +198,7 @@ npm
 
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 
 ---
@@ -159,6 +212,7 @@ npm
 
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 
 ---
@@ -172,6 +226,7 @@ npm
 
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 
 ---
@@ -186,6 +241,11 @@ npm
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
 
+  license violations found:
+    mine1@1.2.3 (MIT, Apache-2.0)
+
+  2 license violations found in :path/to/my/first/lockfile
+
 
 ---
 
@@ -198,6 +258,11 @@ npm
 
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/first/lockfile
 
 
 ---
@@ -212,6 +277,11 @@ npm
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
 
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/first/lockfile
+
 
 ---
 
@@ -225,8 +295,14 @@ npm
 :path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
 
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/first/lockfile
+
 :path/to/my/second/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 
 ---
@@ -245,12 +321,18 @@ npm
 
   1 uncalled/unimportant vulnerability found in :path/to/my/first/lockfile (filtered out)
 
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/first/lockfile
+
 :path/to/my/second/lockfile: found 1 package with issues
 
   mine2@3.2.5 has the following known vulnerabilities:
     OSV-2: Something less scary! (https://osv.dev/OSV-2)
 
   1 known vulnerability found in :path/to/my/second/lockfile
+  no license violations found
 
 :path/to/my/third/lockfile: found 0 packages with issues
 
@@ -258,6 +340,12 @@ npm
     OSV-1: Something scary! (https://osv.dev/OSV-1)
 
   1 uncalled/unimportant vulnerability found in :path/to/my/third/lockfile (filtered out)
+
+  license violations found:
+    mine1@1.2.3 (Apache-2.0)
+    mine1@1.3.5 (MIT)
+
+  2 license violations found in :path/to/my/third/lockfile
 
 
 ---
@@ -276,12 +364,18 @@ npm
 
   1 known vulnerability found in :path/to/my/first/lockfile
 
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/first/lockfile
+
 :path/to/my/second/lockfile: found 1 package with issues
 
   mine2@3.2.5 has the following known vulnerabilities:
     OSV-2: Something less scary! (https://osv.dev/OSV-2)
 
   1 known vulnerability found in :path/to/my/second/lockfile
+  no license violations found
 
 :path/to/my/third/lockfile: found 1 package with issues
 
@@ -289,6 +383,12 @@ npm
     OSV-1: Something scary! (https://osv.dev/OSV-1)
 
   1 known vulnerability found in :path/to/my/third/lockfile
+
+  license violations found:
+    mine1@1.2.3 (Apache-2.0)
+    mine1@1.3.5 (MIT)
+
+  2 license violations found in :path/to/my/third/lockfile
 
 
 ---
@@ -307,6 +407,11 @@ npm
 
   1 known vulnerability found in :path/to/my/first/lockfile
 
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/first/lockfile
+
 
 ---
 
@@ -323,6 +428,11 @@ npm
     OSV-1: Something scary! (https://osv.dev/OSV-1)
 
   1 uncalled/unimportant vulnerability found in :path/to/my/first/lockfile (filtered out)
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/first/lockfile
 
 
 ---
@@ -341,6 +451,11 @@ npm
 
   1 known vulnerability found in :path/to/my/first/lockfile
 
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in :path/to/my/first/lockfile
+
 
 ---
 
@@ -357,9 +472,15 @@ npm
     OSV-1: Something scary! (https://osv.dev/OSV-1)
 
   1 known vulnerability found in :path/to/my/first/lockfile
+  no license violations found
 
 :path/to/my/second/lockfile: found 0 packages with issues
   no known vulnerabilities found
+
+  license violations found:
+    mine2@5.9.0 (MIT)
+
+  1 license violation found in :path/to/my/second/lockfile
 
 
 ---

@@ -231,7 +231,8 @@
               "Fixed": 0,
               "UnFixed": 3
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -459,7 +460,8 @@
               "Fixed": 0,
               "UnFixed": 3
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -473,6 +475,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -738,7 +741,8 @@
               "Fixed": 0,
               "UnFixed": 3
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -966,7 +970,8 @@
               "Fixed": 0,
               "UnFixed": 3
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -980,6 +985,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -1124,7 +1130,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -1311,7 +1318,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/third/lockfile",
@@ -1498,7 +1506,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -1512,6 +1521,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -1670,7 +1680,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -1871,7 +1882,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/third/lockfile",
@@ -2072,7 +2084,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -2086,6 +2099,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -2351,7 +2365,8 @@
               "Fixed": 0,
               "UnFixed": 3
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -2585,7 +2600,8 @@
               "Fixed": 0,
               "UnFixed": 3
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -2599,6 +2615,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -2864,7 +2881,8 @@
               "Fixed": 0,
               "UnFixed": 3
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3099,7 +3117,8 @@
               "Fixed": 0,
               "UnFixed": 2
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3113,6 +3132,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -3176,7 +3196,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -3202,7 +3223,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/third/lockfile",
@@ -3228,7 +3250,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3242,6 +3265,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -3286,6 +3310,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -3349,7 +3374,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3363,6 +3389,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -3507,7 +3534,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3521,6 +3549,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -3693,7 +3722,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3707,6 +3737,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -3865,7 +3896,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3879,6 +3911,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -4037,7 +4070,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -4051,6 +4085,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -4209,7 +4244,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -4223,6 +4259,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -4381,7 +4418,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -4395,6 +4433,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -4556,7 +4595,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -4570,6 +4610,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -4731,7 +4772,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -4745,6 +4787,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -4997,7 +5040,8 @@
               "Fixed": 0,
               "UnFixed": 2
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -5011,6 +5055,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -5169,7 +5214,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -5276,7 +5322,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -5290,6 +5337,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {
@@ -5448,7 +5496,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -5569,7 +5618,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -5583,6 +5633,7 @@
   },
   "LicenseSummary": {
     "Summary": false,
+    "ShowViolations": false,
     "LicenseCount": null
   },
   "VulnTypeSummary": {

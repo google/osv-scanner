@@ -1198,8 +1198,9 @@ Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 2 packages affected by 3 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystems.
-3 vulnerabilities have fixes available.
+Total 2 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+3 vulnerabilities can be fixed.
+
 
 Alpine:v3.18
 +---------------------------------------------------------------------------------------------+
@@ -3004,8 +3005,9 @@ No issues found
 Scanning local image tarball "../../internal/image/fixtures/test-alpine.tar"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 2 packages affected by 41 vulnerabilities (2 Critical, 17 High, 14 Medium, 0 Low, 8 Unknown) from 1 ecosystems.
-41 vulnerabilities have fixes available.
+Total 2 packages affected by 41 known vulnerabilities (2 Critical, 17 High, 14 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
+41 vulnerabilities can be fixed.
+
 
 Alpine:v3.18
 +---------------------------------------------------------------------------------------------+
@@ -3042,8 +3044,9 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 Scanning local image tarball "../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 13 packages affected by 18 vulnerabilities (1 Critical, 5 High, 9 Medium, 0 Low, 3 Unknown) from 2 ecosystems.
-18 vulnerabilities have fixes available.
+Total 13 packages affected by 18 known vulnerabilities (1 Critical, 5 High, 9 Medium, 0 Low, 3 Unknown) from 2 ecosystems.
+18 vulnerabilities can be fixed.
+
 
 Maven
 +-------------------------------------------------------------------------------------------------------------------------------+
@@ -3051,27 +3054,27 @@ Maven
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE                                   | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
-| com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available |          1 | # 12 Layer       | --            |
-| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          1 | # 12 Layer       | --            |
-| dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
-| io.netty:netty-handler                    | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| org.apache.avro:avro                      | 1.9.2             | Fix Available |          2 | # 12 Layer       | --            |
-| org.apache.commons:commons-compress       | 1.21              | Fix Available |          2 | # 12 Layer       | --            |
-| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          2 | # 12 Layer       | --            |
-| org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available |          1 | # 12 Layer       | --            |
+| com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available |          1 | # 4 Layer        | --            |
+| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          1 | # 4 Layer        | --            |
+| dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 4 Layer        | --            |
+| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          1 | # 4 Layer        | --            |
+| io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 4 Layer        | --            |
+| io.netty:netty-handler                    | 4.1.100.Final     | Fix Available |          1 | # 4 Layer        | --            |
+| org.apache.avro:avro                      | 1.9.2             | Fix Available |          2 | # 4 Layer        | --            |
+| org.apache.commons:commons-compress       | 1.21              | Fix Available |          2 | # 4 Layer        | --            |
+| org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          2 | # 4 Layer        | --            |
+| org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available |          1 | # 4 Layer        | --            |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.21
-+------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                 |
-+----------+-------------------+---------------+------------+------------------+-----------------+
-| PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE   |
-+----------+-------------------+---------------+------------+------------------+-----------------+
-| libtasn1 | 4.19.0-r2         | Fix Available |          1 | # 5 Layer        | eclipse-temurin |
-| musl     | 1.2.5-r8          | Fix Available |          1 | # 0 Layer        | alpine          |
-| openssl  | 3.3.2-r4          | Fix Available |          2 | # 0 Layer        | alpine          |
-+----------+-------------------+---------------+------------+------------------+-----------------+
++----------------------------------------------------------------------------------------------+
+| Source:os:lib/apk/db/installed                                                               |
++----------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++----------+-------------------+---------------+------------+------------------+---------------+
+| libtasn1 | 4.19.0-r2         | Fix Available |          1 | # 2 Layer        | --            |
+| musl     | 1.2.5-r8          | Fix Available |          1 | # 0 Layer        | alpine        |
+| openssl  | 3.3.2-r4          | Fix Available |          2 | # 0 Layer        | alpine        |
++----------+-------------------+---------------+------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -3087,8 +3090,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-python-empty.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 12 packages affected by 17 vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
-17 vulnerabilities have fixes available.
+Total 12 packages affected by 17 known vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
+17 vulnerabilities can be fixed.
+
 
 PyPI
 +---------------------------------------------------------------------------------------------+
@@ -3137,8 +3141,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 17 packages affected by 31 vulnerabilities (0 Critical, 8 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-31 vulnerabilities have fixes available.
+Total 17 packages affected by 31 known vulnerabilities (0 Critical, 8 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+31 vulnerabilities can be fixed.
+
 
 PyPI
 +---------------------------------------------------------------------------------------------+
@@ -3222,8 +3227,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 8 packages affected by 48 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 48 Unknown) from 2 ecosystems.
-48 vulnerabilities have fixes available.
+Total 8 packages affected by 48 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 48 Unknown) from 2 ecosystems.
+48 vulnerabilities can be fixed.
+
 
 Go
 +---------------------------------------------------------------------------------------------+
@@ -3292,8 +3298,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
-11 vulnerabilities have fixes available.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+11 vulnerabilities can be fixed.
+
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3319,8 +3326,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 4 packages affected by 14 vulnerabilities (2 Critical, 0 High, 5 Medium, 0 Low, 7 Unknown) from 2 ecosystems.
-13 vulnerabilities have fixes available.
+Total 4 packages affected by 14 known vulnerabilities (2 Critical, 0 High, 5 Medium, 0 Low, 7 Unknown) from 2 ecosystems.
+13 vulnerabilities can be fixed.
+
 
 npm
 +-------------------------------------------------------------------------------------------------+
@@ -3355,8 +3363,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
-11 vulnerabilities have fixes available.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+11 vulnerabilities can be fixed.
+
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3382,8 +3391,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
-11 vulnerabilities have fixes available.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+11 vulnerabilities can be fixed.
+
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3409,8 +3419,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
-11 vulnerabilities have fixes available.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+11 vulnerabilities can be fixed.
+
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3436,8 +3447,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
-11 vulnerabilities have fixes available.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+11 vulnerabilities can be fixed.
+
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
