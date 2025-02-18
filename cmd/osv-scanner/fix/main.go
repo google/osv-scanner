@@ -216,43 +216,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	}
 }
 
-func parseUpgradeConfig(ctx *cli.Context, r reporter.Reporter) upgrade.Config {
-	config := upgrade.NewConfig()
-
-	for _, spec := range ctx.StringSlice("upgrade-config") {
-		idx := strings.LastIndex(spec, ":")
-		if idx == 0 {
-			r.Warnf("WARNING: `--upgrade-config %s` - skipping empty package name\n", spec)
-			continue
-		}
-		pkg := ""
-		levelStr := spec
-		if idx > 0 {
-			pkg = spec[:idx]
-			levelStr = spec[idx+1:]
-		}
-		var level upgrade.Level
-		switch levelStr {
-		case "major":
-			level = upgrade.Major
-		case "minor":
-			level = upgrade.Minor
-		case "patch":
-			level = upgrade.Patch
-		case "none":
-			level = upgrade.None
-		default:
-			r.Warnf("WARNING: `--upgrade-config %s` - invalid level string '%s'\n", spec, levelStr)
-			continue
-		}
-		if config.Set(pkg, level) { // returns true if was previously set
-			r.Warnf("WARNING: `--upgrade-config %s` - config for package specified multiple times\n", spec)
-		}
-	}
-
-	return config
-}
-
 func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
 	if !ctx.IsSet("manifest") && !ctx.IsSet("lockfile") {
 		return nil, errors.New("manifest or lockfile is required")
