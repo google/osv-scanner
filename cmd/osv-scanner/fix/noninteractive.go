@@ -14,10 +14,10 @@ import (
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	lf "github.com/google/osv-scanner/v2/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"golang.org/x/exp/maps"
 )
 
@@ -32,7 +32,7 @@ func autoInPlace(ctx context.Context, r *outputReporter, opts osvFixOptions, max
 	outputResult.Ecosystem = util.OSVEcosystem[opts.LockfileRW.System()]
 	outputResult.Strategy = strategyInPlace
 
-	f, err := lockfile.OpenLocalDepFile(opts.Lockfile)
+	f, err := depfile.OpenLocalDepFile(opts.Lockfile)
 	if err != nil {
 		return err
 	}
@@ -132,7 +132,7 @@ func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUp
 	outputResult.Ecosystem = util.OSVEcosystem[opts.ManifestRW.System()]
 	outputResult.Strategy = strategyRelax
 
-	f, err := lockfile.OpenLocalDepFile(opts.Manifest)
+	f, err := depfile.OpenLocalDepFile(opts.Manifest)
 	if err != nil {
 		return err
 	}
@@ -267,7 +267,7 @@ func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, ma
 	outputResult.Path = opts.Manifest
 	outputResult.Ecosystem = util.OSVEcosystem[opts.ManifestRW.System()]
 	outputResult.Strategy = strategyOverride
-	f, err := lockfile.OpenLocalDepFile(opts.Manifest)
+	f, err := depfile.OpenLocalDepFile(opts.Manifest)
 	if err != nil {
 		return err
 	}

@@ -9,7 +9,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	vulnUtil "github.com/google/osv-scanner/v2/internal/utility/vulns"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
@@ -98,12 +97,18 @@ func (ds *DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]str
 				VersionKey: ds.Nodes[e.To].Version,
 				Type:       e.Type.Clone(),
 			}
-			ecosystem, ok := util.OSVEcosystem[req.System]
-			if !ok {
+
+			reqGroups := groups[manifest.MakeRequirementKey(req)]
+			switch req.System {
+			case resolve.NPM:
+				return !slices.Contains(reqGroups, "dev")
+			case resolve.Maven:
+				return !slices.Contains(reqGroups, "test")
+			case resolve.UnknownSystem:
+				fallthrough
+			default:
 				return true
 			}
-
-			return !lockfile.Ecosystem(ecosystem).IsDevGroup(groups[manifest.MakeRequirementKey(req)])
 		})
 	}
 
