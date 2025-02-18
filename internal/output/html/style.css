@@ -621,6 +621,7 @@ div.title {
   border-radius: 4px;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0.2);
+  line-height: 2;
 }
 
 .hide-block {
