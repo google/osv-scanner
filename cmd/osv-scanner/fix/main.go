@@ -158,19 +158,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Usage:       "the allowed package upgrades, in the format `[package-name:]level`. If package-name is omitted, level is applied to all packages. level must be one of (major, minor, patch, none).",
 				DefaultText: "major",
 			},
-			&cli.BoolFlag{
-				Category: upgradeCategory,
-				Name:     "disallow-major-upgrades",
-				Usage:    "disallow major version changes to dependencies",
-				Hidden:   true,
-			},
-			&cli.StringSliceFlag{
-				Category: upgradeCategory,
-				Name:     "disallow-package-upgrades",
-				Usage:    "list of packages to disallow version changes",
-				Hidden:   true,
-			},
-
 			&cli.IntFlag{
 				Category: vulnCategory,
 				Name:     "max-depth",

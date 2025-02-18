@@ -389,18 +389,20 @@ func TestSuggestVersion(t *testing.T) {
 		level       upgrade.Level
 		want        string
 	}{
-		// {"1.0.0", upgrade.Major, "2.3.4"},
+		{"1.0.0", upgrade.Major, "2.3.4"},
 		// No major updates allowed
 		{"1.0.0", upgrade.Minor, "1.2.3"},
+		// Only allow patch updates
+		// {"1.0.0", upgrade.Patch, "1.0.1"},
 		// Version range requirement is not outdated
-		// {"[1.0.0,)", upgrade.Major, "[1.0.0,)"},
-		// {"[2.0.0, 2.3.4]", upgrade.Major, "[2.0.0, 2.3.4]"},
+		{"[1.0.0,)", upgrade.Major, "[1.0.0,)"},
+		{"[2.0.0, 2.3.4]", upgrade.Major, "[2.0.0, 2.3.4]"},
 		// Version range requirement is outdated
-		// {"[2.0.0, 2.3.4)", upgrade.Major, "2.3.4"},
-		// {"[2.0.0, 2.2.2]", upgrade.Major, "2.3.4"},
+		{"[2.0.0, 2.3.4)", upgrade.Major, "2.3.4"},
+		{"[2.0.0, 2.2.2]", upgrade.Major, "2.3.4"},
 		// Version range requirement is outdated but latest version is a major update
-		// {"[1.0.0,2.0.0)", upgrade.Major, "2.3.4"},
-		// {"[1.0.0,2.0.0)", upgrade.Minor, "[1.0.0,2.0.0)"},
+		{"[1.0.0,2.0.0)", upgrade.Major, "2.3.4"},
+		{"[1.0.0,2.0.0)", upgrade.Minor, "[1.0.0,2.0.0)"},
 	}
 	for _, tt := range tests {
 		vk := resolve.VersionKey{

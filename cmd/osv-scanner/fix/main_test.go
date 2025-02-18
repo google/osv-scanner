@@ -103,20 +103,6 @@ func TestParseUpgradeConfig(t *testing.T) {
 				"other":            upgrade.None,
 			},
 		},
-		{
-			name: "deprecated flag",
-			args: []string{
-				"--disallow-major-upgrades",
-				"--disallow-package-upgrades=pkg1,pkg2",
-				"--upgrade-config=pkg3:patch",
-			},
-			want: map[string]upgrade.Level{
-				"pkg1": upgrade.None,
-				"pkg2": upgrade.None,
-				"pkg3": upgrade.Patch,
-				"pkg4": upgrade.Minor,
-			},
-		},
 	}
 
 	for _, tt := range tests {
