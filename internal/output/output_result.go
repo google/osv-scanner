@@ -496,7 +496,7 @@ func getVulnList(vulnMap map[string]VulnResult) []VulnResult {
 // getNextFixVersion finds the next fixed version for a given vulnerability.
 // returns a boolean value indicating whether a fixed version is available.
 func getNextFixVersion(allAffected []osvschema.Affected, installedVersion string, installedPackage string, ecosystem string) (bool, string) {
-	ecosystemPrefix := strings.Split(string(ecosystem), ":")[0]
+	ecosystemPrefix := strings.Split(ecosystem, ":")[0]
 	vp, err := semantic.Parse(installedVersion, ecosystemPrefix)
 	if err != nil {
 		return false, VersionUnsupported

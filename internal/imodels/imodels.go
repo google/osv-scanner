@@ -18,6 +18,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/utility/purl"
 	"github.com/google/osv-scanner/v2/internal/utility/semverlike"
 
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -212,9 +213,9 @@ func (pkg *PackageInfo) OSPackageName() string {
 func FromInventory(inventory *extractor.Inventory) PackageInfo {
 	pi := PackageInfo{Inventory: inventory}
 	if pi.SourceType() == SourceTypeSBOM {
-		purl := pi.Inventory.Extractor.ToPURL(pi.Inventory)
-		if purl != nil {
-			purlCache, _ := models.PURLToPackage(purl.String())
+		purlStruct := pi.Inventory.Extractor.ToPURL(pi.Inventory)
+		if purlStruct != nil {
+			purlCache, _ := purl.ToPackage(purlStruct.String())
 			pi.purlCache = &purlCache
 		}
 	}

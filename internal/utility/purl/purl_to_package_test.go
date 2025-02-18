@@ -1,10 +1,12 @@
-package models_test
+package purl_test
 
 import (
 	"reflect"
 	"testing"
 
+	"github.com/google/osv-scanner/v2/internal/utility/purl"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 func TestPURLToPackage(t *testing.T) {
@@ -26,7 +28,7 @@ func TestPURLToPackage(t *testing.T) {
 			want: models.PackageInfo{
 				Name:      "memoffset",
 				Version:   "0.6.1",
-				Ecosystem: string(models.EcosystemCratesIO),
+				Ecosystem: string(osvschema.EcosystemCratesIO),
 			},
 		},
 		{
@@ -37,7 +39,7 @@ func TestPURLToPackage(t *testing.T) {
 			want: models.PackageInfo{
 				Name:      "github.com/gogo/protobuf",
 				Version:   "5.6.0",
-				Ecosystem: string(models.EcosystemGo),
+				Ecosystem: string(osvschema.EcosystemGo),
 			},
 		},
 		{
@@ -48,7 +50,7 @@ func TestPURLToPackage(t *testing.T) {
 			want: models.PackageInfo{
 				Name:      "org.hdrhistogram:HdrHistogram",
 				Version:   "2.1.12",
-				Ecosystem: string(models.EcosystemMaven),
+				Ecosystem: string(osvschema.EcosystemMaven),
 			},
 		},
 		{
@@ -59,7 +61,7 @@ func TestPURLToPackage(t *testing.T) {
 			want: models.PackageInfo{
 				Name:      "nginx",
 				Version:   "2.36.1-8+deb11u1",
-				Ecosystem: string(models.EcosystemDebian),
+				Ecosystem: string(osvschema.EcosystemDebian),
 			},
 		},
 		{
@@ -70,7 +72,7 @@ func TestPURLToPackage(t *testing.T) {
 			want: models.PackageInfo{
 				Name:      "zlib",
 				Version:   "1.2.13-r0",
-				Ecosystem: string(models.EcosystemAlpine),
+				Ecosystem: string(osvschema.EcosystemAlpine),
 			},
 		},
 		{
@@ -85,7 +87,7 @@ func TestPURLToPackage(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			got, err := models.PURLToPackage(tt.args.purl)
+			got, err := purl.ToPackage(tt.args.purl)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("PURLToPackage() error = %v, wantErr %v", err, tt.wantErr)
 				return

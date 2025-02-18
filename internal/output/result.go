@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/v2/internal/identifiers"
+	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/exp/maps"
@@ -92,7 +93,7 @@ func groupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 			Name:      vf.Package.Name,
 		}
 		groupFixedVersions[groupIdx] =
-			append(groupFixedVersions[groupIdx], models.GetFixedVersions(vf.Vulnerability)[pkg]...)
+			append(groupFixedVersions[groupIdx], vulns.GetFixedVersions(vf.Vulnerability)[pkg]...)
 	}
 
 	// Remove duplicates

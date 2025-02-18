@@ -165,28 +165,6 @@ func (groupInfo *GroupInfo) IndexString() string {
 	return strings.Join(groupInfo.IDs, ",")
 }
 
-// FixedVersions returns a map of fixed versions for each package, or a map of empty slices if no fixed versions are available
-func GetFixedVersions(v osvschema.Vulnerability) map[osvschema.Package][]string {
-	output := map[osvschema.Package][]string{}
-	for _, a := range v.Affected {
-		packageKey := a.Package
-		packageKey.Purl = ""
-		for _, r := range a.Ranges {
-			for _, e := range r.Events {
-				if e.Fixed != "" {
-					output[packageKey] = append(output[packageKey], e.Fixed)
-					if strings.Contains(string(packageKey.Ecosystem), ":") {
-						packageKey.Ecosystem = strings.Split(string(packageKey.Ecosystem), ":")[0]
-					}
-					output[packageKey] = append(output[packageKey], e.Fixed)
-				}
-			}
-		}
-	}
-
-	return output
-}
-
 type AnalysisInfo struct {
 	Called      bool `json:"called"`
 	Unimportant bool `json:"unimportant"`
