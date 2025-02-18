@@ -9,7 +9,7 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/semver"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"golang.org/x/exp/slices"
 )

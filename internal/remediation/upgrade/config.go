@@ -3,7 +3,7 @@ package upgrade
 import (
 	"strings"
 
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 type Config map[string]Level
