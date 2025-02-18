@@ -1,4 +1,69 @@
 
+[Test_insertDefaultCommand - 1]
+
+---
+
+[Test_insertDefaultCommand - 2]
+
+---
+
+[Test_insertDefaultCommand - 3]
+
+---
+
+[Test_insertDefaultCommand - 4]
+
+---
+
+[Test_insertDefaultCommand - 5]
+
+---
+
+[Test_insertDefaultCommand - 6]
+Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `default`, you must specify `default scan` in your command line.
+
+---
+
+[Test_insertDefaultCommand - 7]
+
+---
+
+[Test_insertDefaultCommand - 8]
+
+---
+
+[Test_insertDefaultCommand - 9]
+
+---
+
+[Test_insertDefaultCommand - 10]
+
+---
+
+[Test_insertDefaultCommand - 11]
+
+---
+
+[Test_insertDefaultCommand - 12]
+
+---
+
+[Test_insertDefaultCommand - 13]
+
+---
+
+[Test_insertDefaultCommand - 14]
+
+---
+
+[Test_insertDefaultCommand - 15]
+
+---
+
+[Test_insertDefaultCommand - 16]
+
+---
+
 [Test_run/#00 - 1]
 NAME:
    osv-scanner scan - scans projects and container images for dependencies, and checks them against the OSV database.
@@ -1109,7 +1174,7 @@ built at: n/a
 
 ---
 
-[Test_runCallAnalysis/Run_with_govulncheck - 1]
+[Test_run_CallAnalysis/Run_with_govulncheck - 1]
 Scanning dir ./fixtures/call-analysis-go-project
 Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 packages
 GO-2025-3447 and 2 aliases have been filtered out because: This is called in Go v1.23, but not in v1.24
@@ -1128,57 +1193,6 @@ Filtered 1 vulnerability from output
 | https://osv.dev/GO-2024-2687        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-+-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
-| Uncalled vulnerabilities            |      |           |                             |         |                                          |
-+-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
-| https://osv.dev/GO-2021-0053        | 8.6  | Go        | github.com/gogo/protobuf    | 1.3.1   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-c3h9-896r-86jm |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-1572        | 5.5  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-qgc7-mgm3-q253 |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-1990        | 6.5  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-j3p8-6mrq-6g7h |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-1989        | 6.5  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-x92r-3vfx-4cv3 |      |           |                             |         |                                          |
-| https://osv.dev/GO-2024-2937        | 8.7  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-9phm-fm57-rhg8 |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-2041        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2043        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2186        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2600        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2609        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2610        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2888        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2963        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3105        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3106        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3107        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3420        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-+-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
-
----
-
-[Test_runCallAnalysis/Run_with_govulncheck - 2]
-
----
-
-[Test_run_CallAnalysis/Run_with_govulncheck - 1]
-Scanning dir ./fixtures/call-analysis-go-project
-Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 packages
-+-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                     | VERSION | SOURCE                                   |
-+-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
-| https://osv.dev/GO-2023-1558        | 5.9  | Go        | github.com/ipfs/go-bitfield | 1.0.0   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-2h6c-j3gf-xp9r |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-2375        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2102        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2185        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2382        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2598        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2599        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2687        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3447        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | Uncalled vulnerabilities            |      |           |                             |         |                                          |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
@@ -1415,71 +1429,6 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 
 [Test_run_GithubActions/scanning_osv-scanner_custom_format_output_json - 2]
 Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
-
----
-
-[Test_run_InsertDefaultCommand - 1]
-
----
-
-[Test_run_InsertDefaultCommand - 2]
-
----
-
-[Test_run_InsertDefaultCommand - 3]
-
----
-
-[Test_run_InsertDefaultCommand - 4]
-
----
-
-[Test_run_InsertDefaultCommand - 5]
-
----
-
-[Test_run_InsertDefaultCommand - 6]
-Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `default`, you must specify `default scan` in your command line.
-
----
-
-[Test_run_InsertDefaultCommand - 7]
-
----
-
-[Test_run_InsertDefaultCommand - 8]
-
----
-
-[Test_run_InsertDefaultCommand - 9]
-
----
-
-[Test_run_InsertDefaultCommand - 10]
-
----
-
-[Test_run_InsertDefaultCommand - 11]
-
----
-
-[Test_run_InsertDefaultCommand - 12]
-
----
-
-[Test_run_InsertDefaultCommand - 13]
-
----
-
-[Test_run_InsertDefaultCommand - 14]
-
----
-
-[Test_run_InsertDefaultCommand - 15]
-
----
-
-[Test_run_InsertDefaultCommand - 16]
 
 ---
 
