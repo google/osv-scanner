@@ -43,6 +43,16 @@ func (p Parsed) IsEmpty() bool {
 	return p.Ecosystem == ""
 }
 
+func (a Parsed) Equal(b Parsed) bool {
+	// only care about the minor version if both ecosystems have one
+	// otherwise we just assume that they're the same and move on
+	if a.Suffix != "" && b.Suffix != "" {
+		return a.Ecosystem == b.Ecosystem && a.Suffix == b.Suffix
+	}
+
+	return a.Ecosystem == b.Ecosystem
+}
+
 // UnmarshalJSON handles unmarshalls a JSON string into a Parsed struct.
 //
 // This method implements the json.Unmarshaler interface.

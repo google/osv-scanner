@@ -9,6 +9,7 @@ import (
 	"strings"
 	"time"
 
+	"deps.dev/util/resolve"
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/clients/datasource"
@@ -80,7 +81,7 @@ type ExternalAccessors struct {
 	// DependencyClients is a map of implementations of DependencyClient
 	// for each ecosystem, the following is currently implemented:
 	// - [osvschema.EcosystemMaven] required for pomxmlnet Extractor
-	DependencyClients map[osvschema.Ecosystem]resolution.DependencyClient
+	DependencyClients map[osvschema.Ecosystem]resolve.Client
 }
 
 // ErrNoPackagesFound for when no packages are found during a scan.
@@ -96,7 +97,7 @@ var ErrAPIFailed = errors.New("API query failed")
 
 func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (ExternalAccessors, error) {
 	externalAccessors := ExternalAccessors{
-		DependencyClients: map[osvschema.Ecosystem]resolution.DependencyClient{},
+		DependencyClients: map[osvschema.Ecosystem]resolve.Client{},
 	}
 	var err error
 

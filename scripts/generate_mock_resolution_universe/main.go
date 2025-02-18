@@ -37,8 +37,8 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/internal/version"
-	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osv"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/exp/maps"
 	"golang.org/x/sync/errgroup"
 	"gopkg.in/yaml.v3"
@@ -271,7 +271,7 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 		return clienttest.ResolutionUniverse{}, err
 	}
 
-	var vulns []models.Vulnerability
+	var vulns []osvschema.Vulnerability
 	for _, r := range hydrated.Results {
 		vulns = append(vulns, r.Vulns...)
 	}

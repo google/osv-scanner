@@ -17,7 +17,7 @@
 ---
 
 [TestVulnerabilities_MarshalJSON/nil - 1]
-[]
+null
 ---
 
 [TestVulnerabilities_MarshalJSON/no_vulnerabilities - 1]

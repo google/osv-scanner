@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
@@ -257,7 +258,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 	var maxSeverity float64 = -1
 	for _, vulnID := range group.IDs {
-		var severities []models.Severity
+		var severities []osvschema.Severity
 		for _, vuln := range pkg.Vulnerabilities {
 			if vuln.ID == vulnID {
 				severities = vuln.Severity

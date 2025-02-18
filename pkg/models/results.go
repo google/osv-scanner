@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // VulnerabilityResults is the top-level struct for the results of a scan
@@ -67,7 +68,7 @@ type VulnerabilityFlattened struct {
 	Source            SourceInfo
 	Package           PackageInfo
 	DepGroups         []string
-	Vulnerability     Vulnerability
+	Vulnerability     osvschema.Vulnerability
 	GroupInfo         GroupInfo
 	Licenses          []License
 	LicenseViolations []License
@@ -101,12 +102,12 @@ type License string
 // PackageVulns grouped by package
 // TODO: rename this to be Package as it now includes license information too.
 type PackageVulns struct {
-	Package           PackageInfo     `json:"package"`
-	DepGroups         []string        `json:"dependency_groups,omitempty"`
-	Vulnerabilities   []Vulnerability `json:"vulnerabilities,omitempty"`
-	Groups            []GroupInfo     `json:"groups,omitempty"`
-	Licenses          []License       `json:"licenses,omitempty"`
-	LicenseViolations []License       `json:"license_violations,omitempty"`
+	Package           PackageInfo               `json:"package"`
+	DepGroups         []string                  `json:"dependency_groups,omitempty"`
+	Vulnerabilities   []osvschema.Vulnerability `json:"vulnerabilities,omitempty"`
+	Groups            []GroupInfo               `json:"groups,omitempty"`
+	Licenses          []License                 `json:"licenses,omitempty"`
+	LicenseViolations []License                 `json:"license_violations,omitempty"`
 }
 
 type GroupInfo struct {
@@ -165,8 +166,8 @@ func (groupInfo *GroupInfo) IndexString() string {
 }
 
 // FixedVersions returns a map of fixed versions for each package, or a map of empty slices if no fixed versions are available
-func (v Vulnerability) FixedVersions() map[Package][]string {
-	output := map[Package][]string{}
+func GetFixedVersions(v osvschema.Vulnerability) map[osvschema.Package][]string {
+	output := map[osvschema.Package][]string{}
 	for _, a := range v.Affected {
 		packageKey := a.Package
 		packageKey.Purl = ""
@@ -175,7 +176,7 @@ func (v Vulnerability) FixedVersions() map[Package][]string {
 				if e.Fixed != "" {
 					output[packageKey] = append(output[packageKey], e.Fixed)
 					if strings.Contains(string(packageKey.Ecosystem), ":") {
-						packageKey.Ecosystem = Ecosystem(strings.Split(string(packageKey.Ecosystem), ":")[0])
+						packageKey.Ecosystem = strings.Split(string(packageKey.Ecosystem), ":")[0]
 					}
 					output[packageKey] = append(output[packageKey], e.Fixed)
 				}

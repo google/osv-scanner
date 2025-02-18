@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 func TestVulnerabilities_MarshalJSON(t *testing.T) {
@@ -12,7 +12,7 @@ func TestVulnerabilities_MarshalJSON(t *testing.T) {
 
 	tests := []struct {
 		name string
-		vs   models.Vulnerabilities
+		vs   []osvschema.Vulnerability
 	}{
 		{
 			name: "nil",
@@ -20,18 +20,18 @@ func TestVulnerabilities_MarshalJSON(t *testing.T) {
 		},
 		{
 			name: "no vulnerabilities",
-			vs:   models.Vulnerabilities{},
+			vs:   []osvschema.Vulnerability{},
 		},
 		{
 			name: "one vulnerability",
-			vs:   models.Vulnerabilities{models.Vulnerability{ID: "GHSA-1"}},
+			vs:   []osvschema.Vulnerability{osvschema.Vulnerability{ID: "GHSA-1"}},
 		},
 		{
 			name: "multiple vulnerabilities",
-			vs: models.Vulnerabilities{
-				models.Vulnerability{ID: "GHSA-1"},
-				models.Vulnerability{ID: "GHSA-2"},
-				models.Vulnerability{ID: "GHSA-3"},
+			vs: []osvschema.Vulnerability{
+				osvschema.Vulnerability{ID: "GHSA-1"},
+				osvschema.Vulnerability{ID: "GHSA-2"},
+				osvschema.Vulnerability{ID: "GHSA-3"},
 			},
 		},
 	}

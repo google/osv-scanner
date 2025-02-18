@@ -12,6 +12,7 @@ import (
 
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	"golang.org/x/sync/errgroup"
 )
@@ -65,7 +66,7 @@ type MinimalVulnerability struct {
 
 // Response represents a full response from OSV.
 type Response struct {
-	Vulns []models.Vulnerability `json:"vulns"`
+	Vulns []osvschema.Vulnerability `json:"vulns"`
 }
 
 // MinimalResponse represents an unhydrated response from OSV.
@@ -221,13 +222,13 @@ func MakeRequestWithClient(request BatchedQuery, client *http.Client) (*BatchedR
 }
 
 // Get a Vulnerability for the given ID.
-func Get(id string) (*models.Vulnerability, error) {
+func Get(id string) (*osvschema.Vulnerability, error) {
 	return GetWithClient(id, http.DefaultClient)
 }
 
 // GetWithClient gets a Vulnerability for the given ID with the provided http
 // client.
-func GetWithClient(id string, client *http.Client) (*models.Vulnerability, error) {
+func GetWithClient(id string, client *http.Client) (*osvschema.Vulnerability, error) {
 	resp, err := makeRetryRequest(func() (*http.Response, error) {
 		// We do not need a specific context
 		//nolint:noctx
@@ -247,7 +248,7 @@ func GetWithClient(id string, client *http.Client) (*models.Vulnerability, error
 
 	defer resp.Body.Close()
 
-	var vuln models.Vulnerability
+	var vuln osvschema.Vulnerability
 	decoder := json.NewDecoder(resp.Body)
 	err = decoder.Decode(&vuln)
 	if err != nil {
@@ -271,7 +272,7 @@ func HydrateWithClient(resp *BatchedResponse, client *http.Client) (*HydratedBat
 	hydrated.Results = make([]Response, len(resp.Results))
 	for idx := range hydrated.Results {
 		hydrated.Results[idx].Vulns =
-			make([]models.Vulnerability, len(resp.Results[idx].Vulns))
+			make([]osvschema.Vulnerability, len(resp.Results[idx].Vulns))
 	}
 
 	g, ctx := errgroup.WithContext(context.TODO())

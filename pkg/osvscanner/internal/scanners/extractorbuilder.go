@@ -1,8 +1,8 @@
 package scanners
 
 import (
+	"deps.dev/util/resolve"
 	"github.com/google/osv-scalibr/clients/datasource"
-	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
@@ -103,14 +103,14 @@ var lockfileExtractors = []filesystem.Extractor{
 
 // BuildLockfileExtractors returns all relevant extractors for lockfile scanning given the required clients
 // All clients can be nil, and if nil the extractors requiring those clients will not be returned.
-func BuildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolution.DependencyClient, mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
+func BuildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolve.Client, mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
 	extractorsToUse := lockfileExtractors
 
 	if dependencyClients[osvschema.EcosystemMaven] != nil && mavenAPIClient != nil {
-		extractorsToUse = append(extractorsToUse, pomxmlnet.Extractor{
+		extractorsToUse = append(extractorsToUse, pomxmlnet.New(pomxmlnet.Config{
 			DependencyClient:       dependencyClients[osvschema.EcosystemMaven],
 			MavenRegistryAPIClient: mavenAPIClient,
-		})
+		}))
 	} else {
 		extractorsToUse = append(extractorsToUse, pomxml.Extractor{})
 	}
@@ -128,7 +128,7 @@ func BuildSBOMExtractors() []filesystem.Extractor {
 func BuildWalkerExtractors(
 	includeRootGit bool,
 	osvdevClient *osvdev.OSVClient,
-	dependencyClients map[osvschema.Ecosystem]resolution.DependencyClient,
+	dependencyClients map[osvschema.Ecosystem]resolve.Client,
 	mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
 	relevantExtractors := []filesystem.Extractor{}
 
@@ -149,10 +149,10 @@ func BuildWalkerExtractors(
 	}
 
 	if dependencyClients[osvschema.EcosystemMaven] != nil && mavenAPIClient != nil {
-		relevantExtractors = append(relevantExtractors, pomxmlnet.Extractor{
+		relevantExtractors = append(relevantExtractors, pomxmlnet.New(pomxmlnet.Config{
 			DependencyClient:       dependencyClients[osvschema.EcosystemMaven],
 			MavenRegistryAPIClient: mavenAPIClient,
-		})
+		}))
 	} else {
 		relevantExtractors = append(relevantExtractors, pomxml.Extractor{})
 	}

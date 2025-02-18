@@ -180,7 +180,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 				// Count the remaining known vulns that affect this version.
 				count := 0 // remaining vulns
 				for _, rv := range vulnerabilities {
-					if vulns.IsAffected(rv.OSV, util.VKToPackageDetails(ver.VersionKey)) {
+					if vulns.IsAffected(rv.OSV, util.VKToPackageInfo(ver.VersionKey)) {
 						count++
 					}
 				}

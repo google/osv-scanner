@@ -5,18 +5,19 @@ import (
 
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // vulnsFromAllPkgs returns the flattened list of unique vulnerabilities
-func vulnsFromAllPkgs(pkgs []models.PackageVulns) ([]models.Vulnerability, map[string]models.Vulnerability) {
-	flatVulns := map[string]models.Vulnerability{}
+func vulnsFromAllPkgs(pkgs []models.PackageVulns) ([]osvschema.Vulnerability, map[string]osvschema.Vulnerability) {
+	flatVulns := map[string]osvschema.Vulnerability{}
 	for _, pv := range pkgs {
 		for _, vuln := range pv.Vulnerabilities {
 			flatVulns[vuln.ID] = vuln
 		}
 	}
 
-	vulns := []models.Vulnerability{}
+	vulns := []osvschema.Vulnerability{}
 	for _, v := range flatVulns {
 		vulns = append(vulns, v)
 	}

@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	gocvss20 "github.com/pandatix/go-cvss/20"
 	gocvss30 "github.com/pandatix/go-cvss/30"
 	gocvss31 "github.com/pandatix/go-cvss/31"
@@ -22,12 +22,12 @@ const (
 	UnknownRating  Rating = "UNKNOWN"
 )
 
-func CalculateScore(severity models.Severity) (float64, string, error) {
+func CalculateScore(severity osvschema.Severity) (float64, string, error) {
 	score := -1.0
 	rating := string(UnknownRating)
 	var err error
 	switch severity.Type {
-	case models.SeverityCVSSV2:
+	case osvschema.SeverityCVSSV2:
 		var vec *gocvss20.CVSS20
 		vec, err = gocvss20.ParseVector(severity.Score)
 		if err == nil {
@@ -35,7 +35,7 @@ func CalculateScore(severity models.Severity) (float64, string, error) {
 			// CVSS 2.0 does not define a rating, use CVSS 3.0's rating instead
 			rating, err = gocvss30.Rating(score)
 		}
-	case models.SeverityCVSSV3:
+	case osvschema.SeverityCVSSV3:
 		switch {
 		case strings.HasPrefix(severity.Score, "CVSS:3.0"):
 			var vec *gocvss30.CVSS30
@@ -52,7 +52,7 @@ func CalculateScore(severity models.Severity) (float64, string, error) {
 				rating, err = gocvss31.Rating(score)
 			}
 		}
-	case models.SeverityCVSSV4:
+	case osvschema.SeverityCVSSV4:
 		var vec *gocvss40.CVSS40
 		vec, err = gocvss40.ParseVector(severity.Score)
 		if err == nil {
@@ -64,7 +64,7 @@ func CalculateScore(severity models.Severity) (float64, string, error) {
 	return score, rating, err
 }
 
-func CalculateOverallScore(severities []models.Severity) (float64, string, error) {
+func CalculateOverallScore(severities []osvschema.Severity) (float64, string, error) {
 	maxScore := -1.0
 	maxRating := string(UnknownRating)
 
