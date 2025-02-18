@@ -119,19 +119,6 @@ func expectPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expe
 	}
 }
 
-func createTestDir(t *testing.T) (string, func()) {
-	t.Helper()
-
-	p, err := os.MkdirTemp("", "osv-scanner-test-*")
-	if err != nil {
-		t.Fatalf("could not create test directory: %v", err)
-	}
-
-	return p, func() {
-		_ = os.RemoveAll(p)
-	}
-}
-
 func copyFile(t *testing.T, from, to string) string {
 	t.Helper()
 

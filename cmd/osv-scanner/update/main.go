@@ -9,9 +9,9 @@ import (
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/remediation/suggest"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/version"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
 )
@@ -84,7 +84,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		return nil, err
 	}
 
-	df, err := lockfile.OpenLocalDepFile(options.Manifest)
+	df, err := depfile.OpenLocalDepFile(options.Manifest)
 	if err != nil {
 		return nil, err
 	}
