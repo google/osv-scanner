@@ -15,9 +15,9 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	internalxml "github.com/google/osv-scanner/v2/internal/thirdparty/xml"
 	mavenutil "github.com/google/osv-scanner/v2/internal/utility/maven"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
 func mavenRequirementKey(requirement resolve.RequirementVersion) RequirementKey {
@@ -67,7 +67,7 @@ type DependencyWithOrigin struct {
 	Origin string // Origin indicates where the dependency comes from
 }
 
-func (m MavenReadWriter) Read(df lockfile.DepFile) (Manifest, error) {
+func (m MavenReadWriter) Read(df depfile.DepFile) (Manifest, error) {
 	ctx := context.Background()
 
 	var project maven.Project
@@ -290,7 +290,7 @@ func mavenOrigin(list ...string) string {
 	return result
 }
 
-func (MavenReadWriter) Write(df lockfile.DepFile, w io.Writer, patch Patch) error {
+func (MavenReadWriter) Write(df depfile.DepFile, w io.Writer, patch Patch) error {
 	specific, ok := patch.Manifest.EcosystemSpecific.(MavenManifestSpecific)
 	if !ok {
 		return errors.New("invalid MavenManifestSpecific data")
@@ -351,7 +351,7 @@ func (MavenReadWriter) Write(df lockfile.DepFile, w io.Writer, patch Patch) erro
 			continue
 		}
 		// TODO: investigate how to test parent manifests are updated.
-		depFile, err := lockfile.OpenLocalDepFile(path)
+		depFile, err := depfile.OpenLocalDepFile(path)
 		if err != nil {
 			return err
 		}

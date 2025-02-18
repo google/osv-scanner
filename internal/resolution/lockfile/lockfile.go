@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 )
 
 type DependencyPatch struct {
@@ -21,14 +21,14 @@ type ReadWriter interface {
 	// System returns which ecosystem this ReadWriter is for.
 	System() resolve.System
 	// Read parses a lockfile into a resolved graph
-	Read(file lockfile.DepFile) (*resolve.Graph, error)
+	Read(file depfile.DepFile) (*resolve.Graph, error)
 	// Write applies the DependencyPatches to the lockfile, with minimal changes to the file.
 	// `original` is the original lockfile to read from. The updated lockfile is written to `output`.
-	Write(original lockfile.DepFile, output io.Writer, patches []DependencyPatch) error
+	Write(original depfile.DepFile, output io.Writer, patches []DependencyPatch) error
 }
 
 func Overwrite(rw ReadWriter, filename string, patches []DependencyPatch) error {
-	r, err := lockfile.OpenLocalDepFile(filename)
+	r, err := depfile.OpenLocalDepFile(filename)
 	if err != nil {
 		return err
 	}
