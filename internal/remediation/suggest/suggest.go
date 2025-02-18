@@ -7,7 +7,7 @@ import (
 
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 )
 
 type Options struct {

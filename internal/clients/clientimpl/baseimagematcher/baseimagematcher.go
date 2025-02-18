@@ -13,8 +13,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/opencontainers/go-digest"
 	"golang.org/x/sync/errgroup"
 )
@@ -22,9 +23,14 @@ import (
 const (
 	maxConcurrentRequests = 1000
 	APIEndpoint           = "https://api.deps.dev/v3alpha/querycontainerimages/"
+	// DigestSHA256EmptyTar is the canonical sha256 digest of empty tar file -
+	// (1024 NULL bytes)
+	DigestSHA256EmptyTar = digest.Digest("sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef")
 )
 
-// OSVMatcher implements the VulnerabilityMatcher interface with a osv.dev client.
+// DepsDevBaseImageMatcher is an implementation of clientinterfaces.BaseImageMatcher
+// that uses the deps.dev API to match base images.
+//
 // It sends out requests for every package version and does not perform caching.
 type DepsDevBaseImageMatcher struct {
 	HTTPClient http.Client
@@ -33,20 +39,21 @@ type DepsDevBaseImageMatcher struct {
 }
 
 func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, layerMetadata []models.LayerMetadata) ([][]models.BaseImageDetails, error) {
-	baseImagesMap := make([][]models.BaseImageDetails, len(layerMetadata))
+	baseImagesToLayerMap := make([][]models.BaseImageDetails, len(layerMetadata))
 	g, ctx := errgroup.WithContext(ctx)
 	g.SetLimit(maxConcurrentRequests)
 
 	var runningDigest digest.Digest
 	for i, l := range layerMetadata {
-		if l.DiffID == "" {
-			continue
+		diffID := l.DiffID
+		if diffID == "" {
+			diffID = DigestSHA256EmptyTar
 		}
 
 		if runningDigest == "" {
-			runningDigest = l.DiffID
+			runningDigest = diffID
 		} else {
-			runningDigest = digest.FromBytes([]byte(runningDigest + " " + l.DiffID))
+			runningDigest = digest.FromBytes([]byte(runningDigest + " " + diffID))
 		}
 
 		chainID := runningDigest
@@ -55,18 +62,19 @@ func (matcher *DepsDevBaseImageMatcher) MatchBaseImages(ctx context.Context, lay
 				return ctx.Err() // this value doesn't matter to errgroup.Wait(), it will be ctx.Err()
 			}
 
-			// No need to handle the error, if we can't get the base image for a layer, skip it
-			baseImagesMap[i], _ = matcher.queryBaseImagesForChainID(ctx, chainID)
+			// If we are erroring for one base image even with retry, we probably should stop
+			var err error
+			baseImagesToLayerMap[i], err = matcher.queryBaseImagesForChainID(ctx, chainID)
 
-			return nil
+			return err
 		})
 	}
 
 	if err := g.Wait(); err != nil {
-		return nil, context.DeadlineExceeded
+		return nil, err
 	}
 
-	return buildBaseImageDetails(layerMetadata, baseImagesMap), nil
+	return buildBaseImageDetails(layerMetadata, baseImagesToLayerMap), nil
 }
 
 // makeRetryRequest will return an error on both network errors, and if the response is not 200 or 404
@@ -144,7 +152,7 @@ func (matcher *DepsDevBaseImageMatcher) queryBaseImagesForChainID(ctx context.Co
 	})
 
 	if err != nil {
-		matcher.Reporter.Errorf("deps.dev API error: %s\n", err)
+		matcher.Reporter.Errorf("deps.dev API error, you may need to update osv-scanner: %s\n", err)
 		return nil, err
 	}
 	defer resp.Body.Close()
@@ -177,13 +185,19 @@ func (matcher *DepsDevBaseImageMatcher) queryBaseImagesForChainID(ctx context.Co
 	// TODO(v2): Temporary heuristic for what is more popular
 	// Ideally this is done by deps.dev before release
 	slices.SortFunc(baseImagePossibilities, func(a, b models.BaseImageDetails) int {
-		return len(a.Name) - len(b.Name)
+		lengthDiff := len(a.Name) - len(b.Name)
+		if lengthDiff != 0 {
+			return lengthDiff
+		}
+
+		// Apply deterministic ordering to same length base images
+		return strings.Compare(a.Name, b.Name)
 	})
 
 	return baseImagePossibilities, nil
 }
 
-func buildBaseImageDetails(layerMetadata []models.LayerMetadata, baseImagesMap [][]models.BaseImageDetails) [][]models.BaseImageDetails {
+func buildBaseImageDetails(layerMetadata []models.LayerMetadata, baseImagesToLayersMap [][]models.BaseImageDetails) [][]models.BaseImageDetails {
 	allBaseImages := [][]models.BaseImageDetails{
 		// The base image at index 0 is a placeholder representing your image, so always empty
 		// This is the case even if your image is a base image, in that case no layers point to index 0
@@ -191,49 +205,23 @@ func buildBaseImageDetails(layerMetadata []models.LayerMetadata, baseImagesMap [
 	}
 
 	currentBaseImageIndex := 0
-	for i, baseImages := range slices.Backward(baseImagesMap) {
+	for i, baseImages := range slices.Backward(baseImagesToLayersMap) {
 		if len(baseImages) == 0 {
 			layerMetadata[i].BaseImageIndex = currentBaseImageIndex
 			continue
 		}
 
-		// This layer is a base image boundary
+		// Is the current set of baseImages the same as the previous?
+		if cmp.Equal(baseImages, allBaseImages[len(allBaseImages)-1]) {
+			// If so, merge them
+			layerMetadata[i].BaseImageIndex = currentBaseImageIndex
+			continue
+		}
+
+		// This layer is a new base image boundary
 		allBaseImages = append(allBaseImages, baseImages)
 		currentBaseImageIndex += 1
 		layerMetadata[i].BaseImageIndex = currentBaseImageIndex
-
-		// Backfill with heuristic:
-		//   The goal here is to replace empty layers that is currently categorized as the previous base image
-		//   with this base image if it actually belongs to this layer.
-		//
-		//   We do this by guessing the boundary of empty layers by checking for the following commands,
-		//   which are commonly the *last* layer.
-		//
-		//   Remember we are looping backwards in the outer loop,
-		//   so this backfill is actually filling down the layer stack, not up.
-		possibleFinalBaseImageCommands := []string{
-			"/bin/sh -c #(nop)  CMD",
-			"CMD",
-			"/bin/sh -c #(nop)  ENTRYPOINT",
-			"ENTRYPOINT",
-		}
-	BackfillLoop:
-		for i2 := i; i2 < len(layerMetadata); i2++ {
-			if !layerMetadata[i2].IsEmpty {
-				// If the layer is not empty, whatever base image it is current assigned
-				// would be already correct, we only need to adjust empty layers.
-				break
-			}
-			buildCommand := layerMetadata[i2].Command
-			layerMetadata[i2].BaseImageIndex = currentBaseImageIndex
-
-			// Check if this is the last layer and we can stop looping
-			for _, prefix := range possibleFinalBaseImageCommands {
-				if strings.HasPrefix(buildCommand, prefix) {
-					break BackfillLoop
-				}
-			}
-		}
 	}
 
 	return allBaseImages

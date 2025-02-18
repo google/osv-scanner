@@ -5,8 +5,8 @@ import (
 	"io"
 	"testing"
 
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 func TestCycloneDXReporter_Errorf(t *testing.T) {

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 // JSONReporter prints vulnerability results in JSON format to stdout. Runtime information

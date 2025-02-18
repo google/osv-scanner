@@ -10,7 +10,7 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 )
 
 var (

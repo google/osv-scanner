@@ -4,8 +4,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/utility/severity"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/utility/severity"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestSeverity_CalculateScore(t *testing.T) {

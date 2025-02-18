@@ -1,6 +1,6 @@
 package osvdev
 
-import "github.com/google/osv-scanner/pkg/models"
+import "github.com/google/osv-scanner/v2/pkg/models"
 
 // Package represents a package identifier for OSV.
 type Package struct {

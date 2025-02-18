@@ -3,17 +3,13 @@ package osvmatcher
 import (
 	"context"
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/log"
-	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/imodels/ecosystem"
-	"github.com/google/osv-scanner/internal/osvdev"
-	"github.com/google/osv-scanner/internal/semantic"
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/osvdev"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -186,34 +182,7 @@ func invsToQueries(invs []*extractor.Inventory) []*osvdev.Query {
 	for i, inv := range invs {
 		pkg := imodels.FromInventory(inv)
 		queries[i] = pkgToQuery(pkg)
-		patchQueryForRequest(queries[i])
 	}
 
 	return queries
-}
-
-// patchQueryForRequest modifies packages before they are sent to osv.dev to
-// account for edge cases.
-func patchQueryForRequest(queryToPatch *osvdev.Query) {
-	// Assume Go stdlib patch version as the latest version
-	//
-	// This is done because go1.20 and earlier do not support patch
-	// version in go.mod file, and will fail to build.
-	//
-	// However, if we assume patch version as .0, this will cause a lot of
-	// false positives. This compromise still allows osv-scanner to pick up
-	// when the user is using a minor version that is out-of-support.
-	//
-	// MustParse works here because this query is converted from a valid ecosystem in the first place
-	if queryToPatch.Package.Name == "stdlib" && ecosystem.MustParse(queryToPatch.Package.Ecosystem).Ecosystem == osvschema.EcosystemGo {
-		v := semantic.ParseSemverLikeVersion(queryToPatch.Version, 3)
-		if len(v.Components) == 2 {
-			queryToPatch.Version = fmt.Sprintf(
-				"%d.%d.%d",
-				v.Components.Fetch(0),
-				v.Components.Fetch(1),
-				9999,
-			)
-		}
-	}
 }

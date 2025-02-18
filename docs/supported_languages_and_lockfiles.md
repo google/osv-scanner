@@ -1,11 +1,11 @@
 ---
 layout: page
-title: Supported Languages and Lockfiles
+title: Supported Artifacts and Manifests
 permalink: /supported-languages-and-lockfiles/
 nav_order: 2
 ---
 
-# Supported Languages and Lockfiles
+# Supported Artifacts and Manifests
 
 {: .no_toc }
 
@@ -18,9 +18,31 @@ nav_order: 2
 {:toc}
 </details>
 
-## Supported lockfiles
+Artifact and manifest extraction logic is implemented in [OSV-Scalibr](https://github.com/google/osv-scalibr) as a standalone library. OSV-Scanner tightly integrates with OSV-Scalibr to provide a end to end vulnerability scanner for developers.
 
-A wide range of lockfiles are supported by utilizing this [lockfile package](https://github.com/google/osv-scanner/tree/main/pkg/lockfile).
+## Core Concept
+
+We split the files we can scan into two broad categories, **artifacts** and **manifests**.
+
+We found that when performing different forms of scanning, you are generally interested in different types of files. For example, when scanning your source project, you are much more interested in what your lockfiles and manifests contain, and less interested in what is installed on your development machine, or leftover compiled artifacts. However, if you are scanning a container, then what is installed is the vital piece of information, and lockfiles found on the system no longer matters if the artifacts they point to are not actually downloaded and installed.
+
+## Supported Artifacts
+
+When scanning container images (`osv-scanner scan image ...`), OSV-Scanner automatically extracts and analyzes the following artifacts:
+
+| Source                          | Example files                      |
+| ------------------------------- | ---------------------------------- |
+| Alpine APK packages             | `/lib/apk/db/installed`            |
+| Debian/Ubuntu dpkg/apt packages | `/var/lib/dpkg/status`             |
+|                                 |                                    |
+| Go Binaries                     | `main-go`                          |
+| Java Uber `jars`                | `my-java-app.jar`                  |
+| Node Modules                    | `node-app/node_modules/...`        |
+| Python wheels                   | `lib/python3.11/site-packages/...` |
+
+## Supported lockfiles/manifests
+
+When scanning source code (`osv-scanner scan source ...`), OSV-Scanner automatically extracts and analyzes the following lockfiles/manifests:
 
 | Language   | Compatible Lockfile(s)                                                                                                                     |
 | :--------- | :----------------------------------------------------------------------------------------------------------------------------------------- |
@@ -28,27 +50,15 @@ A wide range of lockfiles are supported by utilizing this [lockfile package](htt
 | Dart       | `pubspec.lock`                                                                                                                             |
 | Elixir     | `mix.lock`                                                                                                                                 |
 | Go         | `go.mod`                                                                                                                                   |
+| Haskell    | `cabal.project.freeze`<br> `stack.yaml.lock`                                                                                               |
 | Java       | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`gradle/verification-metadata.xml`<br>`pom.xml`[\*](#transitive-dependency-scanning) |
 | Javascript | `package-lock.json`<br>`pnpm-lock.yaml`<br>`yarn.lock`                                                                                     |
+| .NET       | `deps.json`                                                                                                                                |
 | PHP        | `composer.lock`                                                                                                                            |
-| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)<br>`pdm.lock`                   |
+| Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)<br>`pdm.lock`<br>`uv.lock`      |
 | R          | `renv.lock`                                                                                                                                |
 | Ruby       | `Gemfile.lock`                                                                                                                             |
 | Rust       | `Cargo.lock`                                                                                                                               |
-
-## Alpine Package Keeper and Debian Package Manager
-
-The scanner also supports:
-
-- `installed` files used by the Alpine Package Keeper (apk) that typically live at `/lib/apk/db/installed`
-- `status` files used by the Debian Package manager (dpkg) that typically live at `/var/lib/dpkg/status`
-
-however you must [specify](./usage.md/#specify-lockfiles) them explicitly using the `--lockfile` flag:
-
-```bash
-osv-scanner --lockfile 'apk-installed:/lib/apk/db/installed'
-osv-scanner --lockfile 'dpkg-status:/var/lib/dpkg/status'
-```
 
 ## C/C++ scanning
 
@@ -95,7 +105,7 @@ If you have a custom lockfile that we do not support or prefer to do your own cu
 
 Once you extracted your own dependency information, place it in a `osv-scanner.json` file, with the same format as the JSON output of osv-scanner, e.g.:
 
-```
+```jsonc
 {
   "results": [
     {
@@ -112,7 +122,7 @@ Once you extracted your own dependency information, place it in a `osv-scanner.j
             "version": "1.2.3",
             "ecosystem": "npm"
           }
-        },
+        }
         // ...
       ]
     }

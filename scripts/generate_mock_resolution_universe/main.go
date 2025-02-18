@@ -23,22 +23,22 @@ import (
 	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
-	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
-	"github.com/google/osv-scanner/internal/depsdev"
-	"github.com/google/osv-scanner/internal/osvdev"
-	"github.com/google/osv-scanner/internal/remediation"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/clienttest"
-	"github.com/google/osv-scanner/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/resolution/util"
-	"github.com/google/osv-scanner/internal/version"
-	lf "github.com/google/osv-scanner/pkg/lockfile"
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osv"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
+	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
+	"github.com/google/osv-scanner/v2/internal/depsdev"
+	"github.com/google/osv-scanner/v2/internal/osvdev"
+	"github.com/google/osv-scanner/v2/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/clienttest"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/resolution/util"
+	"github.com/google/osv-scanner/v2/internal/version"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/osv"
 	"golang.org/x/exp/maps"
 	"golang.org/x/sync/errgroup"
 	"gopkg.in/yaml.v3"
@@ -75,7 +75,7 @@ func doRelockRelax(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename 
 		DependencyClient:     ddCl,
 	}
 
-	f, err := lf.OpenLocalDepFile(filename)
+	f, err := depfile.OpenLocalDepFile(filename)
 	if err != nil {
 		return err
 	}
@@ -102,7 +102,7 @@ func doOverride(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename str
 		DependencyClient:     ddCl,
 	}
 
-	f, err := lf.OpenLocalDepFile(filename)
+	f, err := depfile.OpenLocalDepFile(filename)
 	if err != nil {
 		return err
 	}
@@ -129,7 +129,7 @@ func doInPlace(ddCl *client.DepsDevClient, rw lockfile.ReadWriter, filename stri
 		DependencyClient:     ddCl,
 	}
 
-	f, err := lf.OpenLocalDepFile(filename)
+	f, err := depfile.OpenLocalDepFile(filename)
 	if err != nil {
 		return err
 	}

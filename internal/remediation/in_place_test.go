@@ -7,14 +7,14 @@ import (
 	"testing"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/remediation"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/clienttest"
-	"github.com/google/osv-scanner/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/internal/testutility"
-	lf "github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/clienttest"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/lockfile"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 	"golang.org/x/exp/maps"
 )
 
@@ -26,7 +26,7 @@ func parseInPlaceFixture(t *testing.T, universePath, lockfilePath string) (*reso
 		t.Fatalf("Failed to get ReadWriter: %v", err)
 	}
 
-	f, err := lf.OpenLocalDepFile(lockfilePath)
+	f, err := depfile.OpenLocalDepFile(lockfilePath)
 	if err != nil {
 		t.Fatalf("Failed to open lockfile: %v", err)
 	}
@@ -53,11 +53,8 @@ func checkInPlaceResults(t *testing.T, res remediation.InPlaceResult) {
 	toMinimalVuln := func(v resolution.Vulnerability) minimalVuln {
 		t.Helper()
 		nodes := make(map[resolve.NodeID]struct{})
-		for _, c := range v.ProblemChains {
-			nodes[c.Edges[0].To] = struct{}{}
-		}
-		for _, c := range v.NonProblemChains {
-			nodes[c.Edges[0].To] = struct{}{}
+		for _, sg := range v.Subgraphs {
+			nodes[sg.Dependency] = struct{}{}
 		}
 		sortedNodes := maps.Keys(nodes)
 		slices.Sort(sortedNodes)

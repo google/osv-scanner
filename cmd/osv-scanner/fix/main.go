@@ -11,20 +11,20 @@ import (
 	"time"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
-	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
-	"github.com/google/osv-scanner/internal/depsdev"
-	"github.com/google/osv-scanner/internal/imodels/ecosystem"
-	"github.com/google/osv-scanner/internal/osvdev"
-	"github.com/google/osv-scanner/internal/remediation"
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/resolution/util"
-	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
+	"github.com/google/osv-scanner/v2/internal/depsdev"
+	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
+	"github.com/google/osv-scanner/v2/internal/osvdev"
+	"github.com/google/osv-scanner/v2/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/resolution/util"
+	"github.com/google/osv-scanner/v2/internal/version"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/term"
@@ -53,7 +53,6 @@ type osvFixOptions struct {
 	ManifestRW  manifest.ReadWriter
 	Lockfile    string
 	LockfileRW  lockfile.ReadWriter
-	RelockCmd   string
 	NoIntroduce bool
 }
 
@@ -90,10 +89,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			&cli.StringFlag{
 				Name:  "maven-registry",
 				Usage: "URL of the default Maven registry to fetch metadata",
-			},
-			&cli.StringFlag{
-				Name:  "relock-cmd",
-				Usage: "command to run to regenerate lockfile on disk after changing the manifest",
 			},
 
 			&cli.BoolFlag{
@@ -267,7 +262,6 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		},
 		Manifest:    ctx.String("manifest"),
 		Lockfile:    ctx.String("lockfile"),
-		RelockCmd:   ctx.String("relock-cmd"),
 		NoIntroduce: ctx.Bool("no-introduce"),
 	}
 

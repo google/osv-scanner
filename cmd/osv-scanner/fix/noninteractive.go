@@ -9,14 +9,15 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/datasource"
-	"github.com/google/osv-scanner/internal/remediation"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	lf "github.com/google/osv-scanner/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/resolution/util"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/identifiers"
+	"github.com/google/osv-scanner/v2/internal/remediation"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
+	lf "github.com/google/osv-scanner/v2/internal/resolution/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"golang.org/x/exp/maps"
 )
 
@@ -31,7 +32,7 @@ func autoInPlace(ctx context.Context, r *outputReporter, opts osvFixOptions, max
 	outputResult.Ecosystem = util.OSVEcosystem[opts.LockfileRW.System()]
 	outputResult.Strategy = strategyInPlace
 
-	f, err := lockfile.OpenLocalDepFile(opts.Lockfile)
+	f, err := depfile.OpenLocalDepFile(opts.Lockfile)
 	if err != nil {
 		return err
 	}
@@ -131,7 +132,7 @@ func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUp
 	outputResult.Ecosystem = util.OSVEcosystem[opts.ManifestRW.System()]
 	outputResult.Strategy = strategyRelax
 
-	f, err := lockfile.OpenLocalDepFile(opts.Manifest)
+	f, err := depfile.OpenLocalDepFile(opts.Manifest)
 	if err != nil {
 		return err
 	}
@@ -182,7 +183,7 @@ func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUp
 		return err
 	}
 
-	if opts.Lockfile != "" || opts.RelockCmd != "" {
+	if opts.Lockfile != "" {
 		// We only recreate the lockfile if we know a lockfile already exists
 		// or we've been given a command to run.
 		r.Infof("Shelling out to regenerate lockfile...\n")
@@ -198,9 +199,7 @@ func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUp
 		if err == nil {
 			return nil
 		}
-		if opts.RelockCmd != "" {
-			return err
-		}
+
 		r.Warnf("Install failed. Trying again with `--legacy-peer-deps`...\n")
 		cmd, err = regenerateLockfileCmd(opts)
 		if err != nil {
@@ -268,7 +267,7 @@ func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, ma
 	outputResult.Path = opts.Manifest
 	outputResult.Ecosystem = util.OSVEcosystem[opts.ManifestRW.System()]
 	outputResult.Strategy = strategyOverride
-	f, err := lockfile.OpenLocalDepFile(opts.Manifest)
+	f, err := depfile.OpenLocalDepFile(opts.Manifest)
 	if err != nil {
 		return err
 	}
@@ -410,7 +409,7 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 
 func sortVulns(vulns []vulnOutput) {
 	slices.SortFunc(vulns, func(a, b vulnOutput) int {
-		return cmp.Compare(a.ID, b.ID)
+		return identifiers.IDSortFunc(a.ID, b.ID)
 	})
 }
 
@@ -420,8 +419,8 @@ func makeResultVuln(vuln resolution.Vulnerability) vulnOutput {
 	}
 
 	affected := make(map[packageOutput]struct{})
-	for _, c := range append(vuln.ProblemChains, vuln.NonProblemChains...) {
-		vk, _ := c.End()
+	for _, sg := range vuln.Subgraphs {
+		vk := sg.Nodes[sg.Dependency].Version
 		affected[packageOutput{Name: vk.Name, Version: vk.Version}] = struct{}{}
 	}
 	v.Packages = maps.Keys(affected)

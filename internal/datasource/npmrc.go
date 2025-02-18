@@ -12,7 +12,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"gopkg.in/ini.v1"
 )
 
@@ -128,7 +128,7 @@ func builtinNpmrc() string {
 	return npmrc
 }
 
-// Implementation of npm registry auth matching, adapted from npm-registry-fetch
+// NpmRegistryAuths handles npm registry authentication in a manner similar to npm-registry-fetch
 // https://github.com/npm/npm-registry-fetch/blob/237d33b45396caa00add61e0549cf09fbf9deb4f/lib/auth.js
 type NpmRegistryAuths map[string]*HTTPAuthentication
 

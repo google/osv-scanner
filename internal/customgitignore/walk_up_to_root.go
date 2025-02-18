@@ -12,7 +12,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 )
 
-// Takes a dir and processes .gitignore files from it.
+// ParseGitIgnores takes a dir and processes .gitignore files from it.
 //
 // This uses go-git under the hood and returns a slice
 // of go-git's gitignore.Pattern structs.

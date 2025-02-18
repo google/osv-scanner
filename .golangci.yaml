@@ -22,6 +22,7 @@ linters:
     - err113           # will re-add later (another-rex)
     - nonamedreturns   # disagree with, for now (another-rex)
     - goconst          # not everything should be a constant
+    - exptostd         # will be enabled shortly
   presets:
     - bugs
     - comment
@@ -33,14 +34,20 @@ linters:
     - unused
 
 linters-settings:
+  forbidigo:
+    forbid:
+      - p: ^testing.T.Skip
+        pkg: ^testing$
+        msg: "go-snaps needs to know the test has been skipped, so use `testutility.Skip` instead"
+    analyze-types: true
   govet:
     settings:
       printf:
         funcs:
-          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Errorf
-          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Warnf
-          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Verbosef
-          - (github.com/google/osv-scanner/pkg/reporter.Reporter).Infof
+          - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Errorf
+          - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Warnf
+          - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Verbosef
+          - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Infof
   depguard:
     rules:
       regexp:
@@ -49,7 +56,7 @@ linters-settings:
           - "!**/main_test.go"
         deny:
           - pkg: "regexp"
-            desc: "Use github.com/google/osv-scanner/internal/cachedregexp instead"
+            desc: "Use github.com/google/osv-scanner/v2/internal/cachedregexp instead"
   gocritic:
     disabled-checks:
       - ifElseChain

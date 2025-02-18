@@ -8,9 +8,9 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
-	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
-	"github.com/google/osv-scanner/internal/depsdev"
-	"github.com/google/osv-scanner/pkg/osv"
+	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
+	"github.com/google/osv-scanner/v2/internal/depsdev"
+	"github.com/google/osv-scanner/v2/internal/version"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 )
@@ -42,10 +42,9 @@ func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.Re
 		return
 	}
 	creds := credentials.NewClientTLSFromCert(certPool, "")
-	dialOpts := []grpc.DialOption{grpc.WithTransportCredentials(creds)}
-
-	if osv.RequestUserAgent != "" {
-		dialOpts = append(dialOpts, grpc.WithUserAgent(osv.RequestUserAgent))
+	dialOpts := []grpc.DialOption{
+		grpc.WithTransportCredentials(creds),
+		grpc.WithUserAgent("osv-scanner/" + version.OSVVersion),
 	}
 
 	conn, err := grpc.NewClient(depsdev.DepsdevAPI, dialOpts...)

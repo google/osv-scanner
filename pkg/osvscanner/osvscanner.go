@@ -11,25 +11,25 @@ import (
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
+	"github.com/google/osv-scalibr/clients/datasource"
+	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scanner/internal/clients/clientimpl/baseimagematcher"
-	"github.com/google/osv-scanner/internal/clients/clientimpl/licensematcher"
-	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
-	"github.com/google/osv-scanner/internal/clients/clientimpl/osvmatcher"
-	"github.com/google/osv-scanner/internal/clients/clientinterfaces"
-	"github.com/google/osv-scanner/internal/config"
-	"github.com/google/osv-scanner/internal/datasource"
-	"github.com/google/osv-scanner/internal/depsdev"
-	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/imodels/results"
-	"github.com/google/osv-scanner/internal/osvdev"
-	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/version"
-	"github.com/google/osv-scanner/pkg/models"
-	"github.com/google/osv-scanner/pkg/osvscanner/internal/imagehelpers"
-	"github.com/google/osv-scanner/pkg/osvscanner/internal/scanners"
-	"github.com/google/osv-scanner/pkg/reporter"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
+	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
+	"github.com/google/osv-scanner/v2/internal/config"
+	"github.com/google/osv-scanner/v2/internal/depsdev"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/imodels/results"
+	"github.com/google/osv-scanner/v2/internal/osvdev"
+	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/version"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
+	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
+	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -39,9 +39,10 @@ type ScannerActions struct {
 	DirectoryPaths     []string
 	GitCommits         []string
 	Recursive          bool
-	SkipGit            bool
+	IncludeGitRoot     bool
 	NoIgnore           bool
 	Image              string
+	IsImageArchive     bool
 	ConfigOverridePath string
 	CallAnalysisStates map[string]bool
 
@@ -54,7 +55,6 @@ type ExperimentalScannerActions struct {
 	ShowAllPackages       bool
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
-	ScanOCIImage          string
 
 	LocalDBPath string
 	TransitiveScanningActions
@@ -80,7 +80,7 @@ type ExternalAccessors struct {
 	// DependencyClients is a map of implementations of DependencyClient
 	// for each ecosystem, the following is currently implemented:
 	// - [osvschema.EcosystemMaven] required for pomxmlnet Extractor
-	DependencyClients map[osvschema.Ecosystem]client.DependencyClient
+	DependencyClients map[osvschema.Ecosystem]resolution.DependencyClient
 }
 
 // ErrNoPackagesFound for when no packages are found during a scan.
@@ -96,7 +96,7 @@ var ErrAPIFailed = errors.New("API query failed")
 
 func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (ExternalAccessors, error) {
 	externalAccessors := ExternalAccessors{
-		DependencyClients: map[osvschema.Ecosystem]client.DependencyClient{},
+		DependencyClients: map[osvschema.Ecosystem]resolution.DependencyClient{},
 	}
 	var err error
 
@@ -133,7 +133,7 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 	}
 
 	// --- Base Image Matcher ---
-	if actions.Image != "" || actions.ScanOCIImage != "" {
+	if actions.Image != "" {
 		externalAccessors.BaseImageMatcher = &baseimagematcher.DepsDevBaseImageMatcher{
 			HTTPClient: *http.DefaultClient,
 			Config:     baseimagematcher.DefaultConfig(),
@@ -161,9 +161,9 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 	}
 
 	if !actions.TransitiveScanningActions.NativeDataSource {
-		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	} else {
-		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = client.NewMavenRegistryClient(actions.TransitiveScanningActions.MavenRegistry)
+		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(actions.TransitiveScanningActions.MavenRegistry)
 	}
 
 	if err != nil {
@@ -173,7 +173,7 @@ func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (E
 	return externalAccessors, nil
 }
 
-// Perform osv scanner action, with optional reporter to output information
+// DoScan performs the osv scanner action, with optional reporter to output information
 func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityResults, error) {
 	if r == nil {
 		r = &reporter.VoidReporter{}
@@ -182,8 +182,6 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	// --- Sanity check flags ----
 	// TODO(v2): Move the logic of the offline flag changing other flags into here from the main.go/scan.go
 	if actions.CompareOffline {
-		actions.SkipGit = true
-
 		if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
 			return models.VulnerabilityResults{}, errors.New("cannot retrieve licenses locally")
 		}
@@ -288,24 +286,10 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 
 	// --- Initialize Image To Scan ---'
 
-	getLocalPathOrEmpty := func() string {
-		if actions.ScanOCIImage != "" {
-			return actions.ScanOCIImage
-		}
-
-		if strings.Contains(actions.Image, ".tar") {
-			if _, err := os.Stat(actions.Image); err == nil {
-				return actions.Image
-			}
-		}
-
-		return ""
-	}
-
 	var img *image.Image
-	if localPath := getLocalPathOrEmpty(); localPath != "" {
-		r.Infof("Scanning local image tarball %q\n", localPath)
-		img, err = image.FromTarball(localPath, image.DefaultConfig())
+	if actions.IsImageArchive {
+		r.Infof("Scanning local image tarball %q\n", actions.Image)
+		img, err = image.FromTarball(actions.Image, image.DefaultConfig())
 	} else if actions.Image != "" {
 		path, exportErr := imagehelpers.ExportDockerImage(r, actions.Image)
 		if exportErr != nil {
@@ -356,6 +340,8 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	// ----- Filtering -----
 	filterUnscannablePackages(r, &scanResult)
 
+	filterNonContainerRelevantPackages(r, &scanResult)
+
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
 		err = makeVulnRequestWithMatcher(r, scanResult.PackageScanResults, accessors.VulnMatcher)
@@ -372,10 +358,13 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 		}
 	}
 
-	// TODO: This is a heuristic, assume that packages under usr/ is an OS package
+	// TODO: This is a set of heuristics,
+	//    - Assume that packages under usr/ might be a OS package depending on ecosystem
+	//    - Assume python packages under dist-packages is a OS package
 	// Replace this with an actual implementation in OSV-Scalibr (potentially via full filesystem accountability).
 	for _, psr := range scanResult.PackageScanResults {
-		if strings.HasPrefix(psr.PackageInfo.Location(), "usr/") {
+		if (strings.HasPrefix(psr.PackageInfo.Location(), "usr/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemGo) ||
+			strings.Contains(psr.PackageInfo.Location(), "dist-packages/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
 			psr.PackageInfo.Annotations = append(psr.PackageInfo.Annotations, extractor.InsideOSPackage)
 		}
 	}

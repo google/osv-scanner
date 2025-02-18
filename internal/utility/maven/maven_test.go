@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/utility/maven"
+	"github.com/google/osv-scanner/v2/internal/utility/maven"
 )
 
 func TestParentPOMPath(t *testing.T) {

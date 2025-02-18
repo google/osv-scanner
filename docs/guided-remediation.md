@@ -32,24 +32,40 @@ This tool provides several options to users for how to prioritise and remediate 
 - Modification of package manifest and lockfiles (e.g. `package.json`/`package-lock.json`) to fix vulnerabilities.
 - Different strategies with different risk/reward ratios (e.g. in-place fixes vs relocking).
 
-{: .highlight }
-Currently, only npm `package.json` manifests and `package-lock.json` lockfiles are supported.
-
 {: .note }
 This feature is experimental and might change or be removed with only a minor version update.
 
+### Supported strategies
+
+We currently support remediating vulnerabilities in the following files:
+
+| Ecosystem | File Format (Type)                               | Supported [Remediation Strategies](#remediation-strategies) |
+| :-------- | :----------------------------------------------- | :---------------------------------------------------------- |
+| npm       | `package-lock.json` (lockfile)                   | [`in-place`](#in-place-lockfile-changes)                    |
+| npm       | `package.json` (manifest)                        | [`relock`](#relock-and-relax-direct-dependencies)           |
+| Maven     | `pom.xml` (manifest)<sup>[note](#pom-note)</sup> | [`override`](#override-dependency-versions)                 |
+
+{: .note #pom-note}
+By default, the tool only checks dependencies that are actually present in a POM's dependency graph - it will not detect vulnerabilities in `<dependencyManagement>` dependencies if they are not actually used when resolving the POM. The [`--maven-fix-management`](#maven-flags) flag can be used to also fix them.
+
 ## Basic usage
 
-To fix as many vulnerabilities as possible in your `package-lock.json` file [in-place](#in-place-lockfile-remediation), you can use the following command:
+To fix as many vulnerabilities as possible in your `package-lock.json` file [in-place](#in-place-lockfile-changes), you can use the following command:
 
 ```bash
 osv-scanner fix --non-interactive --strategy=in-place -L path/to/package-lock.json
 ```
 
-Alternatively, to potentially resolve even more vulnerabilities with larger (potentially breaking) changes, you can [regenerate your lockfile and update your direct dependencies](#relock-and-relax-direct-dependency-remediation) with the following command:
+Alternatively, to potentially resolve even more vulnerabilities with larger (potentially breaking) changes, you can [regenerate your lockfile and update your direct dependencies](#relock-and-relax-direct-dependencies) with the following command:
 
 ```bash
 osv-scanner fix --non-interactive --strategy=relax -M path/to/package.json -L path/to/package-lock.json
+```
+
+For Maven `pom.xml` files, you can update direct dependencies and [add version overrides](#override-dependency-versions) to your POM's `<dependencyManagement>` section with the following command:
+
+```bash
+osv-scanner fix --non-interactive --strategy=override -M path/to/pom.xml
 ```
 
 {: .warning }
@@ -138,9 +154,54 @@ Executing `/usr/bin/npm install --package-lock-only`...
 
 </details>
 
+```bash
+osv-scanner fix --non-interactive --format text --strategy=override -M path/to/pom.xml
+```
+
+<details markdown="1">
+<summary><b>Sample override output</b></summary>
+
+```
+Resolving path/to/pom.xml...
+Found 60 vulnerabilities matching the filter
+Can fix 44/60 matching vulnerabilities by overriding 24 dependencies
+OVERRIDE-PACKAGE: io.atomix:atomix,3.1.6
+OVERRIDE-PACKAGE: org.apache.pdfbox:pdfbox,2.0.24
+OVERRIDE-PACKAGE: xerces:xercesImpl,2.12.2
+OVERRIDE-PACKAGE: com.google.guava:guava,32.0.0-jre
+OVERRIDE-PACKAGE: org.apache.mina:mina-core,2.0.27
+OVERRIDE-PACKAGE: com.fasterxml.jackson.core:jackson-databind,2.12.7.1
+OVERRIDE-PACKAGE: io.netty:netty-handler,4.1.94.Final
+OVERRIDE-PACKAGE: org.apache.commons:commons-compress,1.26.0
+OVERRIDE-PACKAGE: org.apache.commons:commons-configuration2,2.10.1
+OVERRIDE-PACKAGE: org.apache.shiro:shiro-web,1.13.0
+OVERRIDE-PACKAGE: org.eclipse.jgit:org.eclipse.jgit,5.13.3.202401111512-r
+OVERRIDE-PACKAGE: com.nimbusds:nimbus-jose-jwt,9.37.2
+OVERRIDE-PACKAGE: commons-io:commons-io,2.14.0
+OVERRIDE-PACKAGE: io.netty:netty,3.9.8.Final
+OVERRIDE-PACKAGE: io.netty:netty-common,4.1.115.Final
+OVERRIDE-PACKAGE: org.apache.directory.api:api-ldap-model,1.0.0-M31
+OVERRIDE-PACKAGE: org.apache.shiro:shiro-core,1.13.0
+OVERRIDE-PACKAGE: org.eclipse.jetty:jetty-http,12.0.12
+OVERRIDE-PACKAGE: org.eclipse.jetty:jetty-server,9.4.56.v20240826
+OVERRIDE-PACKAGE: org.glassfish.jersey.core:jersey-common,2.34
+OVERRIDE-PACKAGE: xalan:xalan,2.7.3
+OVERRIDE-PACKAGE: org.apache.thrift:libthrift,0.14.0
+OVERRIDE-PACKAGE: org.apache.tomcat.embed:tomcat-embed-core,8.5.99
+OVERRIDE-PACKAGE: io.netty:netty-codec,4.1.68.Final
+FIXED-VULN-IDS: GHSA-2fqw-684c-pvp7,GHSA-2h3j-m7gr-25xj,GHSA-3p86-9955-h393,GHSA-4265-ccf5-phj5,GHSA-4g9r-vxhx-9pgx,GHSA-4jhc-wjr3-pwh2,GHSA-5h29-qq92-wj7f,GHSA-5mg8-w23w-74h3,GHSA-6mcm-j9cj-3vc3,GHSA-6mjq-h674-j845,GHSA-6vqp-h455-42mr,GHSA-6vvh-5794-vpmj,GHSA-76h9-2vwh-w278,GHSA-78wr-2p64-hpwj,GHSA-7fr2-94h7-ccg2,GHSA-7g45-4rm6-3mm3,GHSA-7grw-6pjh-jpc9,GHSA-7j4h-8wpf-rqfh,GHSA-9339-86wc-4qgf,GHSA-9w38-p64v-xpmv,GHSA-c43q-5hpj-4crv,GHSA-cx3q-cv6w-mx4h,GHSA-fg3j-q579-v8x4,GHSA-g2fg-mr77-6vrm,GHSA-g7p8-r2ch-4rmf,GHSA-g8m5-722r-8whq,GHSA-gvpg-vgmx-xg6w,GHSA-h65f-jvqw-m9fj,GHSA-hhw5-c326-822h,GHSA-jc7h-c423-mpjc,GHSA-jjjh-jjxp-wpff,GHSA-m4h3-7mc2-v295,GHSA-mf27-wg66-m8f5,GHSA-mm9x-g8pc-w292,GHSA-mvr2-9pj6-7w5j,GHSA-pmhc-2g4f-85cg,GHSA-q446-82vq-w674,GHSA-qh8g-58pp-2wxh,GHSA-rgv9-q543-rqg4,GHSA-vmqm-g3vh-847m,GHSA-w4jq-qh47-hvjq,GHSA-xfv3-rrfm-f2rv,GHSA-xjp4-hw94-mvp5,GHSA-xq3w-v528-46rv
+REMAINING-VULNS: 16
+UNFIXABLE-VULNS: 15
+Rewriting path/to/pom.xml...
+```
+
+</details>
+
 #### JSON
 
 Outputs the results as a JSON object to stdout, with all other output being directed to stderr - this makes it safe to redirect the output to a file.
+
+The `json` format is expected to be stable. It is intended to be suitable for integration with automated tooling.
 
 ```bash
 osv-scanner fix --non-interactive --format json --strategy=relax -M path/to/package.json
@@ -243,15 +304,327 @@ osv-scanner fix --non-interactive --format json --strategy=relax -M path/to/pack
 
 </details>
 
+```bash
+osv-scanner fix --non-interactive --format json --strategy=override -M path/to/pom.xml
+```
+
+<details markdown="1">
+<summary><b>Sample override JSON output</b></summary>
+
+```json
+{
+  "path": "path/to/pom.xml",
+  "ecosystem": "Maven",
+  "strategy": "override",
+  "vulnerabilities": [
+    {
+      "id": "GHSA-3832-9276-x7gf",
+      "packages": [
+        {
+          "name": "commons-httpclient:commons-httpclient",
+          "version": "3.0.1"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-56h3-78gp-v83r",
+      "packages": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "version": "1.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-6hgm-866r-3cjv",
+      "packages": [
+        {
+          "name": "commons-collections:commons-collections",
+          "version": "3.2.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-6phf-73q6-gh87",
+      "packages": [
+        {
+          "name": "commons-beanutils:commons-beanutils",
+          "version": "1.7.0"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-78wr-2p64-hpwj",
+      "packages": [
+        {
+          "name": "commons-io:commons-io",
+          "version": "2.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-7rf3-mqpx-h7xg",
+      "packages": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "version": "1.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-c27h-mcmw-48hv",
+      "packages": [
+        {
+          "name": "org.codehaus.jackson:jackson-mapper-asl",
+          "version": "1.8.8"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-cgp8-4m63-fhh5",
+      "packages": [
+        {
+          "name": "commons-net:commons-net",
+          "version": "1.4.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-fjq5-5j5f-mvxh",
+      "packages": [
+        {
+          "name": "commons-collections:commons-collections",
+          "version": "3.2.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-grr4-wv38-f68w",
+      "packages": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "version": "1.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-gwrp-pvrq-jmwv",
+      "packages": [
+        {
+          "name": "commons-io:commons-io",
+          "version": "2.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-q6g2-g7f3-rr83",
+      "packages": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "version": "1.1"
+        }
+      ]
+    },
+    {
+      "id": "GHSA-r6j9-8759-g62w",
+      "packages": [
+        {
+          "name": "org.codehaus.jackson:jackson-mapper-asl",
+          "version": "1.8.8"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-x27m-9w8j-5vcw",
+      "packages": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "version": "1.1"
+        }
+      ]
+    }
+  ],
+  "patches": [
+    {
+      "packageUpdates": [
+        {
+          "name": "org.codehaus.jettison:jettison",
+          "versionFrom": "1.1",
+          "versionTo": "1.5.4",
+          "transitive": true
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-56h3-78gp-v83r",
+          "packages": [
+            {
+              "name": "org.codehaus.jettison:jettison",
+              "version": "1.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-7rf3-mqpx-h7xg",
+          "packages": [
+            {
+              "name": "org.codehaus.jettison:jettison",
+              "version": "1.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-grr4-wv38-f68w",
+          "packages": [
+            {
+              "name": "org.codehaus.jettison:jettison",
+              "version": "1.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-q6g2-g7f3-rr83",
+          "packages": [
+            {
+              "name": "org.codehaus.jettison:jettison",
+              "version": "1.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-x27m-9w8j-5vcw",
+          "packages": [
+            {
+              "name": "org.codehaus.jettison:jettison",
+              "version": "1.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
+          "name": "commons-collections:commons-collections",
+          "versionFrom": "3.2.1",
+          "versionTo": "3.2.2",
+          "transitive": true
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-6hgm-866r-3cjv",
+          "packages": [
+            {
+              "name": "commons-collections:commons-collections",
+              "version": "3.2.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-fjq5-5j5f-mvxh",
+          "packages": [
+            {
+              "name": "commons-collections:commons-collections",
+              "version": "3.2.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
+          "name": "commons-io:commons-io",
+          "versionFrom": "2.1",
+          "versionTo": "2.14.0",
+          "transitive": false
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-78wr-2p64-hpwj",
+          "packages": [
+            {
+              "name": "commons-io:commons-io",
+              "version": "2.1"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-gwrp-pvrq-jmwv",
+          "packages": [
+            {
+              "name": "commons-io:commons-io",
+              "version": "2.1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
+          "name": "commons-beanutils:commons-beanutils",
+          "versionFrom": "1.7.0",
+          "versionTo": "1.9.4",
+          "transitive": true
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-6phf-73q6-gh87",
+          "packages": [
+            {
+              "name": "commons-beanutils:commons-beanutils",
+              "version": "1.7.0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
+          "name": "commons-net:commons-net",
+          "versionFrom": "1.4.1",
+          "versionTo": "3.9.0",
+          "transitive": false
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-cgp8-4m63-fhh5",
+          "packages": [
+            {
+              "name": "commons-net:commons-net",
+              "version": "1.4.1"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+</details>
+
 ## Scripted usage
 
 The `--non-interactive` mode, in combination with [other flags](#remediation-flags), can be used in scripts to automatically apply and test remediation patches.
 
-Check out our [sample Python script](https://github.com/google/osv-scanner/blob/main/scripts/examples/auto_guided_remediation.py) that uses `osv-scanner fix` to remediate as many vulnerabilities as possible without failing your project's `npm run test`.
+Check out our [sample Python script](https://github.com/google/osv-scanner/blob/main/scripts/examples/auto_guided_remediation.py) that uses `osv-scanner fix` to remediate as many vulnerabilities as possible in an npm project without failing your project's `npm run test`.
 
 ## Interactive mode
 
 Interactive mode provides a step-by-step process to understand and fix vulnerabilities in your project.
+
+{: .note }
+Interactive mode currently only supports npm manifest and lockfiles.
 
 To run it, you can use the following command:
 
@@ -276,9 +649,13 @@ The command will launch the Guided Remediation TUI and begin scanning your manif
 
 From the first results screen, you can select which of the two remediation strategies to attempt.
 
-## In-place lockfile remediation
+## Remediation strategies
 
-'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but will often fix less vulnerabilities than the [relax strategy](#relock-and-relax-direct-dependency-remediation).
+There are currently three remediation strategies:
+
+### In-place lockfile changes
+
+'In-place' remediation involves replacing vulnerable versions of packages in your lockfile with non-vulnerable versions, while still respecting the existing constraints for that dependency. This approach is usually less risky, but will often fix less vulnerabilities than the [relax strategy](#relock-and-relax-direct-dependencies).
 
 Selecting the "Modify lockfile in place" option will bring you to the in-place information page. From here, you can see which vulnerabilities can and cannot be resolved by this strategy. By default, every possible in-place patch will be chosen to be applied. You may instead choose which subset of patches you wish to apply.
 
@@ -291,7 +668,7 @@ If you wish to apply the proposed in-place patches, select the "Write" option to
 {: .note }
 Writing these changes will not reinstall your dependencies. You'll need to run `npm ci` (or equivalent) separately.
 
-## Relock and relax direct dependency remediation
+### Relock and relax direct dependencies
 
 Relocking recomputes your entire dependency graph based on your manifest file, taking the newest possible versions of all your required packages. Doing so will often allow for constraints on vulnerable packages to be unblocked and thus able to be remediated. However, relocking may cause a large number of changes to your dependency graph, which potentially carries a larger risk of breakages.
 
@@ -306,10 +683,18 @@ The relaxation patches are presented in order of effectiveness, with patches tha
 If you wish to apply your current relock & relaxation changes, select the "Write" option to update your manifest file with the new requirements and regenerate your lockfile (if provided).
 
 {: .note }
+The `package-lock.json` file is regenerated by first deleting the existing `package-lock.json` and `node_modules/` directory, then running `npm install --package-lock-only`. This recreates the lockfile but does not install the `node_modules/` dependencies. Run `npm ci` separately to install the dependencies.
 
-> The `package-lock.json` file is regenerated by first deleting the existing `package-lock.json` and `node_modules/` directory, then running `npm install --package-lock-only`. This recreates the lockfile but does not install the `node_modules/` dependencies. Run `npm ci` separately to install the dependencies.
->
-> The `--relock-cmd` flag can be used to change the executed install command.
+### Override dependency versions
+
+{: .note }
+The `override` strategy is currently only supported in `--non-interactive` mode.
+
+Maven allows for the version specification of direct and indirect dependencies to be overwritten by a POM's `<dependencyManagement>`. This mechanism can be used to force a vulnerable dependency to be updated to a newer, non-vulnerable version. Overriding dependency versions can enable otherwise inaccessible updates, but it also risks breaking the application if the new version is incompatible with other dependencies.
+
+If a direct dependency is vulnerable, the override strategy will update its version in the `<dependencies>` section (if possible). Relevant `<properties>` will be updated if used by an existing version specification.
+
+As with the other strategies, override patches are prioritized by vulnerabilities fixed per updated dependency.
 
 ## Remediation flags
 
@@ -319,7 +704,7 @@ The `fix` subcommand has a number of flags to allow you to control which vulnera
 
 The following flags may be used when running in non-interactive mode only:
 
-- `--strategy=` [`in-place`](#in-place-lockfile-remediation) OR [`relax`](#relock-and-relax-direct-dependency-remediation): Which remediation strategy to use.
+- `--strategy=` [`in-place`](#in-place-lockfile-changes) OR [`relax`](#relock-and-relax-direct-dependencies) OR [`override`](#override-dependency-versions): Which remediation strategy to use.
 - `--apply-top=<value>`: Specifies the maximum number of patches to apply. Patches are chosen in the same order as they would appear in the interactive mode.
 
   For example, `--apply-top=1` will only apply one patch, and `--apply-top=2` would apply the two best compatible patches. This flag is particularly useful when scripting to test the outcome of specific patches. Setting `--apply-top=-1` will apply every possible patch (default behavior).
@@ -372,16 +757,21 @@ The following flag may be used to limit the patches allowed for your dependencie
 
 By default, we use the [deps.dev API](https://docs.deps.dev/api/) to find version and dependency information of packages during remediation.
 
-If instead you'd like to use your ecosystem's native registry API (e.g. `https://registry.npmjs.org`), you can use the `--data-source=native` flag. `osv-scanner fix` will attempt to use the authentication specified by the native tooling (e.g. `npm config`)
+If instead you'd like to use your ecosystem's native registry API (e.g. `https://registry.npmjs.org`), you can use the `--data-source=native` flag. `osv-scanner fix` will attempt to use the authentication specified by the native tooling (e.g. `npm config` or Maven's `settings.xml`)
 
 {: .highlight }
 If your project uses mirrored or private registries, you will need to use `--data-source=native`
 
 {: .note }
 
-> The subcommand caches the requests it makes in `package.json.resolve.deps` (deps.dev) and `package.json.resolve.npm` (native npm).
+> The subcommand caches the requests it makes in `[FILE].resolve.deps` (deps.dev), `package.json.resolve.npm` (native npm), or `pom.xml.resolve.maven` (native Maven).
 >
-> The native npm cache will store the addresses of private registries used, though not any authentication information.
+> The native caches will store the addresses of private registries used, though not any authentication information.
+
+### Maven flags
+
+- `--maven-fix-management`: If set, patches for vulnerabilities in packages declared in `<dependencyManagement>` will be made, even if those packages are not found in the resolved dependency tree (useful for patching parent POM files).
+- `--maven-registry=<URL>`: Override for the default registry used to fetch dependencies (typically the `central` repository at `https://repo.maven.apache.org/maven2`)
 
 ### Offline Vulnerability Database
 
@@ -400,7 +790,7 @@ For more information, see [Offline Mode](./offline-mode.md).
 ### npm
 
 - Non-registry dependencies (local paths, URLs, Git, etc.) are not evaluated.
-- `peerDependencies` are not properly considered during dependency resolution (treated as if using `--legacy-peer-deps`).
+- [#1026](https://github.com/google/osv-scanner/issues/1026) `peerDependencies` are not properly considered during dependency resolution (treated as if using `--legacy-peer-deps`).
 - `overrides` are ignored during dependency resolution.
 
 #### Workspaces
@@ -412,3 +802,9 @@ Remediation in npm `workspaces` is only partially supported:
   - You can remediate the individual `package.json` files of each workspace, but this will be unaware of any packages or constraints caused by sibling workspaces.
 - The `node_modules/` in workspaces are not deleted when relocking, which may impact the resulting dependency graph when running `npm install`.
 - Each workspace package is considered dependency depth 1 from the root workspace.
+
+### Maven
+
+- [#1238](https://github.com/google/osv-scanner/issues/1238) Dependencies that use properties in their `groupId`/`artifactId` may not be updated correctly.
+- [#1239](https://github.com/google/osv-scanner/issues/1239) Support for profiles is limited.
+- Encrypted values in `settings.xml` files are not supported.

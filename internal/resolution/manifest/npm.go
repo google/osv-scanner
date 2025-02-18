@@ -10,7 +10,7 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
 )
@@ -45,7 +45,7 @@ type PackageJSON struct {
 	// BundleDependencies   []string          `json:"bundleDependencies"`
 }
 
-func (rw NpmReadWriter) Read(f lockfile.DepFile) (Manifest, error) {
+func (rw NpmReadWriter) Read(f depfile.DepFile) (Manifest, error) {
 	dec := json.NewDecoder(f)
 	var packagejson PackageJSON
 	if err := dec.Decode(&packagejson); err != nil {
@@ -235,7 +235,7 @@ func (rw NpmReadWriter) makeNPMReqVer(pkg, ver string) resolve.RequirementVersio
 	}
 }
 
-func (NpmReadWriter) Write(r lockfile.DepFile, w io.Writer, patch Patch) error {
+func (NpmReadWriter) Write(r depfile.DepFile, w io.Writer, patch Patch) error {
 	// Read the whole package.json into a string so we can use sjson to write in-place.
 	var buf strings.Builder
 	_, err := io.Copy(&buf, r)
@@ -306,9 +306,11 @@ func (NpmReadWriter) Write(r lockfile.DepFile, w io.Writer, patch Patch) error {
 	return err
 }
 
-// extract the real package name & version from an alias-specified version
+// SplitNPMAlias extracts the real package name and version from an alias-specified version.
+//
 // e.g. "npm:pkg@^1.2.3" -> name: "pkg", version: "^1.2.3"
-// name is empty and version is unchanged if not an alias specifier
+//
+// If the version is not an alias specifier, the name will be empty and the version unchanged.
 func SplitNPMAlias(v string) (name, version string) {
 	if r, ok := strings.CutPrefix(v, "npm:"); ok {
 		if i := strings.LastIndex(r, "@"); i > 0 {

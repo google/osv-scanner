@@ -1,6 +1,7 @@
 package testutility
 
 import (
+	"flag"
 	"os"
 	"runtime"
 	"strings"
@@ -34,17 +35,30 @@ func Skip(t *testing.T, args ...any) {
 	snaps.Skip(t, args...)
 }
 
-// Access to environment variable that toggles acceptance testing execution paths
-// Acceptance testing is "On" only when var set to "true"
-func IsAcceptanceTest() bool {
+// isThisTestRunTarget tries to determine if the currently running test has been
+// targeted with the -run flag, by comparing the flags value to [testing.T.Name]
+//
+// Since this just does a direct comparison, it will not match for regex patterns
+func isThisTestRunTarget(t *testing.T) bool {
+	t.Helper()
+
+	runOnly := flag.Lookup("test.run").Value.String()
+
+	return runOnly == t.Name()
+}
+
+// IsAcceptanceTesting returns true if the test suite is being run with acceptance tests enabled
+func IsAcceptanceTesting() bool {
 	return os.Getenv("TEST_ACCEPTANCE") == "true"
 }
 
-// AcceptanceTests marks this test function as a extended that require additional dependencies
-// automatically skipped unless running in a CI environment
+// SkipIfNotAcceptanceTesting marks the test as skipped unless the test suite is
+// being run with acceptance tests enabled, as indicated by IsAcceptanceTesting,
+// or the test is being run specifically with the -run flag
 func SkipIfNotAcceptanceTesting(t *testing.T, reason string) {
 	t.Helper()
-	if !IsAcceptanceTest() {
+
+	if !IsAcceptanceTesting() && !isThisTestRunTarget(t) {
 		Skip(t, "Skipping extended test: ", reason)
 	}
 }
@@ -64,6 +78,7 @@ func ValueIfOnWindows(win, or string) string {
 func CreateTestDir(t *testing.T) string {
 	t.Helper()
 
+	//nolint:usetesting // we need to customize the directory name to replace in snapshots
 	p, err := os.MkdirTemp("", "osv-scanner-test-*")
 	if err != nil {
 		t.Fatalf("could not create test directory: %v", err)

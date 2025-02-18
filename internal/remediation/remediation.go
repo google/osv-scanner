@@ -4,11 +4,11 @@ import (
 	"math"
 	"slices"
 
-	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/utility/severity"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/utility/severity"
 )
 
 // TODO: Supported strategies should be part of the manifest/lockfile ReadWriter directly
@@ -102,18 +102,8 @@ func (opts Options) matchDepth(v resolution.Vulnerability) bool {
 		return true
 	}
 
-	if len(v.ProblemChains)+len(v.NonProblemChains) == 0 {
-		panic("vulnerability with no dependency chains")
-	}
-
-	for _, ch := range v.ProblemChains {
-		if len(ch.Edges) <= opts.MaxDepth {
-			return true
-		}
-	}
-
-	for _, ch := range v.NonProblemChains {
-		if len(ch.Edges) <= opts.MaxDepth {
+	for _, sg := range v.Subgraphs {
+		if sg.Nodes[0].Distance <= opts.MaxDepth {
 			return true
 		}
 	}

@@ -15,6 +15,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.2",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -24,6 +27,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -33,10 +37,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -58,6 +107,9 @@
             },
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -67,6 +119,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -79,6 +132,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -88,10 +142,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -140,6 +239,9 @@
           "Packages": [
             {
               "Name": "mine2",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -149,6 +251,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -158,10 +261,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -183,6 +331,9 @@
             },
             {
               "Name": "mine3",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -192,6 +343,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "Description": "Something mildly scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -204,6 +356,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -213,10 +366,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -260,7 +458,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 6,
     "OS": 0,
@@ -308,6 +510,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.2",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -317,6 +522,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -326,10 +532,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -351,6 +602,9 @@
             },
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -360,6 +614,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -372,6 +627,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -381,10 +637,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -433,6 +734,9 @@
           "Packages": [
             {
               "Name": "mine2",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -442,6 +746,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -451,10 +756,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -476,6 +826,9 @@
             },
             {
               "Name": "mine3",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -485,6 +838,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "Description": "Something mildly scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -497,6 +851,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -506,10 +861,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -553,7 +953,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 6,
     "OS": 0,
@@ -601,15 +1005,63 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -658,15 +1110,63 @@
           "Packages": [
             {
               "Name": "mine2",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -688,15 +1188,63 @@
             },
             {
               "Name": "mine3",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -745,15 +1293,63 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -775,15 +1371,63 @@
             },
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.3.5",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -827,7 +1471,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
@@ -875,6 +1523,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -884,6 +1535,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -893,10 +1545,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -945,6 +1642,9 @@
           "Packages": [
             {
               "Name": "mine2",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -954,6 +1654,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -963,10 +1664,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -988,15 +1734,63 @@
             },
             {
               "Name": "mine3",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -1045,6 +1839,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -1054,6 +1851,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1063,10 +1861,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -1088,15 +1931,63 @@
             },
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.3.5",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -1140,7 +2031,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 3,
     "OS": 0,
@@ -1188,6 +2083,9 @@
           "Packages": [
             {
               "Name": "author3/mine3",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -1197,6 +2095,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "Description": "Something mildly scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1209,6 +2108,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1218,10 +2118,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -1243,6 +2188,9 @@
             },
             {
               "Name": "mine2",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -1252,6 +2200,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1261,10 +2210,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -1319,6 +2313,9 @@
           "Packages": [
             {
               "Name": "author1/mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -1328,6 +2325,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1340,6 +2338,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1349,10 +2348,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -1374,6 +2418,9 @@
             },
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.2",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -1383,6 +2430,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1392,10 +2440,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -1439,7 +2532,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 6,
     "OS": 0,
@@ -1487,6 +2584,9 @@
           "Packages": [
             {
               "Name": "author3/mine3",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "0.4.1",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -1496,6 +2596,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "Description": "Something mildly scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1508,6 +2609,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1517,10 +2619,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -1542,6 +2689,9 @@
             },
             {
               "Name": "mine2",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "3.2.5",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -1551,6 +2701,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1560,10 +2711,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -1618,6 +2814,9 @@
           "Packages": [
             {
               "Name": "author1/mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -1627,6 +2826,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1641,6 +2841,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -1649,10 +2850,55 @@
                 }
               ],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -1674,6 +2920,9 @@
             },
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.2",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -1683,6 +2932,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1692,10 +2942,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -1739,7 +3034,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 5,
     "OS": 0,
@@ -1860,7 +3159,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
@@ -1896,7 +3199,11 @@
 {
   "Ecosystems": null,
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
@@ -1965,7 +3272,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
@@ -2013,15 +3324,63 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -2065,7 +3424,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
@@ -2113,6 +3476,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -2122,6 +3488,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2136,6 +3503,7 @@
                     "GHSA-123"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -2144,10 +3512,55 @@
                 }
               ],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -2191,7 +3604,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
@@ -2239,6 +3656,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -2248,6 +3668,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2257,10 +3678,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -2304,7 +3770,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
@@ -2352,6 +3822,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
@@ -2362,6 +3835,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -2370,10 +3844,55 @@
                 }
               ],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -2417,7 +3936,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
@@ -2465,6 +3988,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -2474,6 +4000,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2483,10 +4010,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -2530,7 +4102,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
@@ -2578,6 +4154,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -2587,6 +4166,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2596,10 +4176,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -2643,7 +4268,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
@@ -2691,6 +4320,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
@@ -2702,9 +4334,9 @@
                     "GHSA-123"
                   ],
                   "Aliases": [
-                    "OSV-1",
                     "GHSA-123"
                   ],
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -2713,10 +4345,55 @@
                 }
               ],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -2760,7 +4437,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 0,
     "OS": 0,
@@ -2808,6 +4489,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -2818,9 +4502,9 @@
                     "GHSA-123"
                   ],
                   "Aliases": [
-                    "OSV-1",
                     "GHSA-123"
                   ],
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2830,10 +4514,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -2877,7 +4606,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
@@ -2925,6 +4658,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -2934,6 +4670,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2943,10 +4680,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -2968,6 +4750,9 @@
             },
             {
               "Name": "mine3",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "0.10.2-rc",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -2977,6 +4762,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2986,10 +4772,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -3033,7 +4864,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 2,
     "OS": 0,
@@ -3081,6 +4916,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -3090,6 +4928,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -3099,10 +4938,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -3151,15 +5035,63 @@
           "Packages": [
             {
               "Name": "mine2",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "5.9.0",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -3203,7 +5135,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 1,
     "OS": 0,
@@ -3251,6 +5187,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -3260,6 +5199,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -3269,10 +5209,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -3321,6 +5306,9 @@
           "Packages": [
             {
               "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
               "InstalledVersion": "1.2.3",
               "FixedVersion": "No fix available",
               "RegularVulns": [
@@ -3330,6 +5318,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -3339,10 +5328,55 @@
               ],
               "HiddenVulns": [],
               "LayerDetail": {
-                "LayerCommand": "",
-                "LayerCommandDetailed": "",
-                "LayerID": "",
-                "InBaseImage": false
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
               },
               "VulnCount": {
                 "AnalysisCount": {
@@ -3386,7 +5420,11 @@
     }
   ],
   "IsContainerScanning": false,
-  "AllLayers": [],
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
   "VulnTypeSummary": {
     "All": 2,
     "OS": 0,

@@ -3,9 +3,9 @@ package sourceanalysis
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/sourceanalysis/govulncheck"
-	"github.com/google/osv-scanner/internal/testutility"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/sourceanalysis/govulncheck"
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func Test_matchAnalysisWithPackageVulns(t *testing.T) {

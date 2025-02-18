@@ -12,7 +12,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -36,7 +36,7 @@ type OSVClient struct {
 	BaseHostURL string
 }
 
-// DefaultClient() creates a new OSVClient with default settings
+// DefaultClient creates a new OSVClient with default settings
 func DefaultClient() *OSVClient {
 	return &OSVClient{
 		HTTPClient:  http.DefaultClient,
@@ -189,7 +189,6 @@ func (c *OSVClient) Query(ctx context.Context, query *Query) (*Response, error) 
 	return &osvResp, nil
 }
 
-// ExperimentalDetermineVersion
 func (c *OSVClient) ExperimentalDetermineVersion(ctx context.Context, query *DetermineVersionsRequest) (*DetermineVersionResponse, error) {
 	requestBytes, err := json.Marshal(query)
 	if err != nil {

@@ -7,16 +7,22 @@
   <link href='https://fonts.googleapis.com/css?family=Overpass' rel='stylesheet'>
   <link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  {{ template "style.html" }}
+  <style>
+  {{ template "style.css" }}
+  </style>
 </head>
 
 <body>
-  {{ template "script.html" }}
   <div class="container">
     <header>
-      <img src="https://osv.dev/static/img/logo.png" alt="OSV-Scanner Logo" class="logo" />
-      <div class="vl"></div>
-      <h1>Open Source Vulnerabilities</h1>
+      <div id="header-left">
+        <img src="https://raw.githubusercontent.com/google/osv-scanner/refs/heads/main/docs/images/osv-scanner-OSV-logo-darkmode.png" alt="OSV-Scanner Logo" class="logo" />
+        <div class="vl"></div>
+        <h1>Open Source Vulnerabilities</h1>
+      </div>
+      <div id="header-right">
+        <a class="improvement-link" href="https://github.com/google/osv-scanner/discussions/1529">Feedback</a>
+      </div>
     </header>
 
     <div id="tab-switch">
@@ -34,6 +40,10 @@
       <div id="summary-tab" class="tab">
         {{ template "filter_template.gohtml" .}}
 
+        {{ if .IsContainerScanning }}
+        {{ template "base_image_template.gohtml" .}}
+        {{end}}
+
         <div class="search-box">
           <div class="search-icon">
             <i class="material-icons">search</i>
@@ -48,6 +58,9 @@
     </div>
 
   </div>
+  <script>
+  {{ template "script.js" }}
+  </script>
 </body>
 
 </html>

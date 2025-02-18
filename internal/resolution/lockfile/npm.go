@@ -10,14 +10,51 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/internal/datasource"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 )
 
 type NpmReadWriter struct{}
 
 func (NpmReadWriter) System() resolve.System { return resolve.NPM }
+
+type npmLockDependency struct {
+	// For an aliased package, Version is like "npm:[name]@[version]"
+	Version      string                       `json:"version"`
+	Dependencies map[string]npmLockDependency `json:"dependencies,omitempty"`
+
+	Dev      bool `json:"dev,omitempty"`
+	Optional bool `json:"optional,omitempty"`
+
+	Requires map[string]string `json:"requires,omitempty"`
+}
+
+type npmLockPackage struct {
+	// For an aliased package, Name is the real package name
+	Name     string `json:"name"`
+	Version  string `json:"version"`
+	Resolved string `json:"resolved"`
+
+	Dependencies         map[string]string `json:"dependencies,omitempty"`
+	DevDependencies      map[string]string `json:"devDependencies,omitempty"`
+	OptionalDependencies map[string]string `json:"optionalDependencies,omitempty"`
+	PeerDependencies     map[string]string `json:"peerDependencies,omitempty"`
+
+	Dev         bool `json:"dev,omitempty"`
+	DevOptional bool `json:"devOptional,omitempty"`
+	Optional    bool `json:"optional,omitempty"`
+
+	Link bool `json:"link,omitempty"`
+}
+
+type npmLockfile struct {
+	Version int `json:"lockfileVersion"`
+	// npm v1- lockfiles use "dependencies"
+	Dependencies map[string]npmLockDependency `json:"dependencies,omitempty"`
+	// npm v2+ lockfiles use "packages"
+	Packages map[string]npmLockPackage `json:"packages,omitempty"`
+}
 
 type npmDependencyVersionSpec struct {
 	Version string
@@ -36,9 +73,9 @@ func (n npmNodeModule) IsAliased() bool {
 	return len(n.ActualName) > 0
 }
 
-func (rw NpmReadWriter) Read(file lockfile.DepFile) (*resolve.Graph, error) {
+func (rw NpmReadWriter) Read(file depfile.DepFile) (*resolve.Graph, error) {
 	dec := json.NewDecoder(file)
-	var lockJSON lockfile.NpmLockfile
+	var lockJSON npmLockfile
 	if err := dec.Decode(&lockJSON); err != nil {
 		return nil, err
 	}
@@ -140,7 +177,7 @@ func (rw NpmReadWriter) reVersionAliasedDeps(deps map[string]npmDependencyVersio
 	}
 }
 
-func (rw NpmReadWriter) Write(original lockfile.DepFile, output io.Writer, patches []DependencyPatch) error {
+func (rw NpmReadWriter) Write(original depfile.DepFile, output io.Writer, patches []DependencyPatch) error {
 	var buf strings.Builder
 	_, err := io.Copy(&buf, original)
 	if err != nil {

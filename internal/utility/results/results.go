@@ -3,10 +3,10 @@ package results
 import (
 	"fmt"
 
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-// Number of characters to display a git commit
+// ShortCommitLen is the number of characters to display a git commit
 const ShortCommitLen = 8
 
 func PkgToString(pkgInfo models.PackageInfo) string {

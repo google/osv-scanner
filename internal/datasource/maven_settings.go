@@ -9,7 +9,7 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/google/osv-scanner/internal/cachedregexp"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 )
 
 // Maven settings.xml file parsing for registry authentication.

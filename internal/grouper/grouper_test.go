@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/google/osv-scanner/internal/grouper"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/grouper"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestGroup(t *testing.T) {

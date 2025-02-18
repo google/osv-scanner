@@ -6,11 +6,11 @@ import (
 	"io"
 	"strings"
 
-	"github.com/google/osv-scanner/internal/utility/severity"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/utility/severity"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-// HTML templates directory
+// TemplateDir is the directory containing the HTML templates
 const TemplateDir = "html/*"
 
 //go:embed html/*
@@ -27,8 +27,24 @@ func uniqueIndex(index *int) func() int {
 	}
 }
 
+func formatSlice(slice []string) string {
+	return strings.Join(slice, ", ")
+}
+
 func formatRating(rating severity.Rating) string {
 	return strings.ToLower(string(rating))
+}
+
+type VulnTableEntryArgument struct {
+	Element  VulnResult
+	IsHidden bool
+}
+
+func buildVulnTableEntryArgument(element VulnResult, isHidden bool) VulnTableEntryArgument {
+	return VulnTableEntryArgument{
+		IsHidden: isHidden,
+		Element:  element,
+	}
 }
 
 func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
@@ -44,7 +60,11 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		"add": func(a, b int) int {
 			return a + b
 		},
-		"getFilteredVulnReasons": getFilteredVulnReasons,
+		"getFilteredVulnReasons":      getFilteredVulnReasons,
+		"getBaseImageName":            getBaseImageName,
+		"formatSlice":                 formatSlice,
+		"formatLayerCommand":          formatLayerCommand,
+		"buildVulnTableEntryArgument": buildVulnTableEntryArgument,
 	}
 
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))

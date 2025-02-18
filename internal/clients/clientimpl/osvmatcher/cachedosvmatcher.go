@@ -9,10 +9,10 @@ import (
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
-	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/osvdev"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/osvdev"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"golang.org/x/sync/errgroup"
 )
 

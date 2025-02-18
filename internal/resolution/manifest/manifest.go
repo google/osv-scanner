@@ -11,7 +11,7 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 )
 
 type Manifest struct {
@@ -63,16 +63,16 @@ type ReadWriter interface {
 	// System returns which ecosystem this ReadWriter is for.
 	System() resolve.System
 	// Read parses a manifest file into a Manifest, possibly recursively following references to other local manifest files
-	Read(file lockfile.DepFile) (Manifest, error)
+	Read(file depfile.DepFile) (Manifest, error)
 	// Write applies the Patch to the manifest, with minimal changes to the file.
 	// `original` is the original manifest file to read from. The updated manifest is written to `output`.
-	Write(original lockfile.DepFile, output io.Writer, patches Patch) error
+	Write(original depfile.DepFile, output io.Writer, patches Patch) error
 }
 
 // Overwrite applies the ManifestPatch to the manifest at filename.
 // Used so as to not have the same file open for reading and writing at the same time.
 func Overwrite(rw ReadWriter, filename string, p Patch) error {
-	r, err := lockfile.OpenLocalDepFile(filename)
+	r, err := depfile.OpenLocalDepFile(filename)
 	if err != nil {
 		return err
 	}

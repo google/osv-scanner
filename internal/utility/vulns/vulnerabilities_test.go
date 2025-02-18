@@ -3,8 +3,8 @@ package vulns_test
 import (
 	"testing"
 
-	"github.com/google/osv-scanner/internal/utility/vulns"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/utility/vulns"
+	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 func TestVulnerabilities_Includes(t *testing.T) {
@@ -65,7 +65,7 @@ func TestVulnerabilities_Includes(t *testing.T) {
 					Aliases: []string{},
 				},
 			},
-			want: true,
+			want: false,
 		},
 		{
 			name: "",
@@ -81,7 +81,7 @@ func TestVulnerabilities_Includes(t *testing.T) {
 					Aliases: []string{"GHSA-1"},
 				},
 			},
-			want: true,
+			want: false,
 		},
 		{
 			name: "",
@@ -97,7 +97,7 @@ func TestVulnerabilities_Includes(t *testing.T) {
 					Aliases: []string{"CVE-1"},
 				},
 			},
-			want: true,
+			want: false,
 		},
 		{
 			name: "",
@@ -113,7 +113,7 @@ func TestVulnerabilities_Includes(t *testing.T) {
 					Aliases: []string{"CVE-2"},
 				},
 			},
-			want: true,
+			want: false,
 		},
 	}
 	for _, tt := range tests {

@@ -7,12 +7,12 @@ import (
 	"testing"
 
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/internal/resolution"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/internal/resolution/clienttest"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/internal/testutility"
-	lf "github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/internal/resolution/clienttest"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 	"golang.org/x/exp/maps"
 )
 
@@ -24,7 +24,7 @@ func parseRemediationFixture(t *testing.T, universePath, manifestPath string, op
 		t.Fatalf("Failed to get ReadWriter: %v", err)
 	}
 
-	f, err := lf.OpenLocalDepFile(manifestPath)
+	f, err := depfile.OpenLocalDepFile(manifestPath)
 	if err != nil {
 		t.Fatalf("Failed to open manifest: %v", err)
 	}
@@ -58,11 +58,8 @@ func checkRemediationResults(t *testing.T, res []resolution.Difference) {
 	toMinimalVuln := func(v resolution.Vulnerability) minimalVuln {
 		t.Helper()
 		nodes := make(map[resolve.NodeID]struct{})
-		for _, c := range v.ProblemChains {
-			nodes[c.Edges[0].To] = struct{}{}
-		}
-		for _, c := range v.NonProblemChains {
-			nodes[c.Edges[0].To] = struct{}{}
+		for _, sg := range v.Subgraphs {
+			nodes[sg.Dependency] = struct{}{}
 		}
 		sortedNodes := maps.Keys(nodes)
 		slices.Sort(sortedNodes)

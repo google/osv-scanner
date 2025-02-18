@@ -9,10 +9,10 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/schema"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scanner/internal/clients/clientimpl/localmatcher"
-	"github.com/google/osv-scanner/internal/imodels"
-	"github.com/google/osv-scanner/internal/resolution/client"
-	"github.com/google/osv-scanner/pkg/models"
+	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/resolution/client"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"gopkg.in/yaml.v3"
 )
 

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/osv-scanner/internal/output"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
 func expectErrContaining(t *testing.T, err error, str string) {
@@ -116,19 +116,6 @@ func expectPackages(t *testing.T, actualPackages []lockfile.PackageDetails, expe
 		for _, unexpectedPackage := range missingExpectedPackages {
 			t.Errorf("Did not find %s", packageToString(unexpectedPackage))
 		}
-	}
-}
-
-func createTestDir(t *testing.T) (string, func()) {
-	t.Helper()
-
-	p, err := os.MkdirTemp("", "osv-scanner-test-*")
-	if err != nil {
-		t.Fatalf("could not create test directory: %v", err)
-	}
-
-	return p, func() {
-		_ = os.RemoveAll(p)
 	}
 }
 

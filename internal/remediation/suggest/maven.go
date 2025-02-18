@@ -10,8 +10,8 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/internal/resolution/manifest"
-	"github.com/google/osv-scanner/pkg/lockfile"
+	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"golang.org/x/exp/slices"
 )
 
 type MavenSuggester struct{}
@@ -30,7 +30,8 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, cl resolve.Client, mf man
 		if opts.UpgradeConfig.Get(req.Name) == upgrade.None {
 			continue
 		}
-		if opts.IgnoreDev && lockfile.MavenEcosystem.IsDevGroup(mf.Groups[manifest.MakeRequirementKey(req)]) {
+
+		if opts.IgnoreDev && slices.Contains(mf.Groups[manifest.MakeRequirementKey(req)], "test") {
 			// Skip the update if the dependency is of development group
 			// and updates on development dependencies are not desired
 			continue

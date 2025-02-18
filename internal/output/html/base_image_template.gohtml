@@ -1,0 +1,76 @@
+
+<div id="base-image-section">
+  <table id="base-image-table">
+    <tr>
+      <th></th>
+      <th class="base-image-title">OS version:</th>
+      <th>{{ .ImageInfo.OS }}</th>
+    </tr>
+    {{ $totalVuln := .VulnTypeSummary.All }}
+    {{ range .ImageInfo.AllBaseImages}}
+
+    <tr {{ if gt (len .AllLayers) 0}}
+      id="base-image-summary-{{ .Index }}"
+      class="base-image-summary"
+      onclick="showBaseImageLayer('{{ .Index }}')"
+      {{ end }}>
+      <td class="icon-td">
+      {{ if gt (len .AllLayers) 0}}
+        <div class="expand-icon">
+          <i class="material-icons">play_arrow</i>
+        </div>
+      {{ end }}
+      </td>
+      <td class="base-image-title">
+      {{ if eq .Index 0}}
+      Your image:
+      {{ else }}
+      Base image {{ .Index }}:
+      {{ end }}
+      </td>
+      <td>
+        {{ getBaseImageName . }}<span class="base-image-title"> ({{ .Count.AnalysisCount.Regular }}/{{ $totalVuln }} vulnerabilities)</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td></td>
+      <td colspan="100%">
+        <div id="base-image-details-{{ .Index }}" class="base-image-details hide-block">
+          {{ range .AllLayers }}
+          {{ $index := .Index }}
+          {{ $originalCommand := .LayerMetadata.Command }}
+          {{ $commandSet := formatLayerCommand $originalCommand }}
+          {{ $command := index $commandSet 0 }}
+          {{ $commandDetail := index $commandSet 1 }}
+          {{ $diffID := .LayerMetadata.DiffID }}
+          {{ $longCommand := false }}
+          <!-- This number is calculated based on the width of the display section and the font size. -->
+          {{ if gt (len $command) 109 }}
+            {{ $longCommand = true }}
+          {{ end }}
+          {{ $hasVuln := false }}
+          {{ if gt .Count.AnalysisCount.Regular 0 }}
+          {{ $hasVuln = true }}
+          {{ end }}
+          <div class="layer-entry {{ if $hasVuln }}clickable clickable-layer{{ end }}" {{ if $hasVuln }}onclick="quickFilterByLayer('{{ $diffID }}', '{{ .Index }} {{ $command }}')"{{ end }}>
+            <div {{ if $longCommand }} class="tooltip" {{ end }}>
+              <p class="layer-command"><span class="base-image-title">{{ .Index }}</span> {{ $command }}</p>
+                {{ if $longCommand }}
+                <span class="tooltiptext layer-tooltiptext">{{ $originalCommand }}</span>
+                {{ end }}
+            </div>
+            {{ if $hasVuln }}
+            {{ template "severity_summary_template.gohtml".Count.SeverityCount }}
+            {{ end }}
+          </div>
+          {{ end }}
+        </div>
+      </td>
+    </tr>
+
+    {{ end }}
+
+  </table>
+
+</div>
