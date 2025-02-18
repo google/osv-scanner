@@ -10,7 +10,7 @@ import (
 )
 
 func TestParse(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	ecosystems := lockfile.KnownEcosystems()
 
@@ -26,7 +26,7 @@ func TestParse(t *testing.T) {
 }
 
 func TestMustParse(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	defer func() {
 		if r := recover(); r != nil {
@@ -44,7 +44,7 @@ func TestMustParse(t *testing.T) {
 }
 
 func TestMustParse_Panic(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	defer func() { _ = recover() }()
 

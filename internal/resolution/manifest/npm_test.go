@@ -52,7 +52,7 @@ func npmReqKey(t *testing.T, name, knownAs string) manifest.RequirementKey {
 }
 
 func TestNpmRead(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	df, err := depfile.OpenLocalDepFile("./fixtures/package.json")
 	if err != nil {
@@ -114,7 +114,7 @@ func TestNpmRead(t *testing.T) {
 }
 
 func TestNpmWorkspaceRead(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	df, err := depfile.OpenLocalDepFile("./fixtures/npm-workspaces/package.json")
 	if err != nil {
@@ -214,7 +214,7 @@ func TestNpmWorkspaceRead(t *testing.T) {
 }
 
 func TestNpmWrite(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	df, err := depfile.OpenLocalDepFile("./fixtures/package.json")
 	if err != nil {

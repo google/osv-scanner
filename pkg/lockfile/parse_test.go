@@ -40,7 +40,7 @@ func expectNumberOfParsersCalled(t *testing.T, numberOfParsersCalled int) {
 }
 
 func TestFindParser(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	lockfiles := []string{
 		"buildscript-gradle.lockfile",
@@ -77,7 +77,7 @@ func TestFindParser(t *testing.T) {
 }
 
 func TestFindParser_ExplicitParseAs(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	parser, parsedAs := lockfile.FindParser("/path/to/my/package-lock.json", "composer.lock")
 
@@ -91,7 +91,7 @@ func TestFindParser_ExplicitParseAs(t *testing.T) {
 }
 
 func TestParse_FindsExpectedParsers(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	lockfiles := []string{
 		"buildscript-gradle.lockfile",
@@ -135,7 +135,7 @@ func TestParse_FindsExpectedParsers(t *testing.T) {
 }
 
 func TestParse_ParserNotFound(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	_, err := lockfile.Parse("/path/to/my/", "")
 
@@ -143,7 +143,7 @@ func TestParse_ParserNotFound(t *testing.T) {
 }
 
 func TestParse_ParserNotFound_WithExplicitParseAs(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	_, err := lockfile.Parse("/path/to/my/", "unsupported")
 
@@ -157,7 +157,7 @@ func TestParse_ParserNotFound_WithExplicitParseAs(t *testing.T) {
 }
 
 func TestListParsers(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	parsers := lockfile.ListParsers()
 
@@ -175,7 +175,7 @@ func TestListParsers(t *testing.T) {
 }
 
 func TestLockfile_String(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	expected := strings.Join([]string{
 		"  crates.io: addr2line@0.15.2",
@@ -234,7 +234,7 @@ func TestLockfile_String(t *testing.T) {
 }
 
 func TestPackages_Ecosystems(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -306,7 +306,7 @@ func TestPackages_Ecosystems(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			if got := tt.ps.Ecosystems(); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Ecosystems() = %v, want %v", got, tt.want)

@@ -154,7 +154,7 @@ func expectEcosystemCompareResult(
 }
 
 func TestVersion_Compare_Ecosystems(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -260,7 +260,7 @@ func TestVersion_Compare_Ecosystems(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			runAgainstEcosystemFixture(t, models.Ecosystem(tt.name), tt.file)
 		})

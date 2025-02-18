@@ -9,7 +9,7 @@ import (
 )
 
 func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	testCases := []struct {
 		name              string
 		packageInfo       models.PackageInfo
@@ -54,7 +54,7 @@ func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 	for _, test := range testCases {
 		testCase := test
 		t.Run(testCase.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			namespace, name, err := purl.FromGo(testCase.packageInfo)
 
 			if err != nil {
@@ -71,7 +71,7 @@ func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 }
 
 func TestGolangExtraction_shouldFilterPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	testCases := []struct {
 		name        string
 		packageInfo models.PackageInfo
@@ -90,7 +90,7 @@ func TestGolangExtraction_shouldFilterPackages(t *testing.T) {
 	for _, test := range testCases {
 		testCase := test
 		t.Run(testCase.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			_, _, err := purl.FromGo(testCase.packageInfo)
 
 			if err == nil {

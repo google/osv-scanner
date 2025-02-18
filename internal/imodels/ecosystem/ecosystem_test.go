@@ -155,12 +155,12 @@ func buildCases(t *testing.T) []testCase {
 }
 
 func TestParsed_UnmarshalJSON(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := buildCases(t)
 	for _, tt := range tests {
 		t.Run(tt.string, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			var got ecosystem.Parsed
 
@@ -177,7 +177,7 @@ func TestParsed_UnmarshalJSON(t *testing.T) {
 }
 
 func TestParsed_UnmarshalJSON_Errors(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		input string
@@ -192,7 +192,7 @@ func TestParsed_UnmarshalJSON_Errors(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			var got ecosystem.Parsed
 			err := json.Unmarshal([]byte(tt.input), &got)
@@ -213,12 +213,12 @@ func TestParsed_UnmarshalJSON_Errors(t *testing.T) {
 }
 
 func TestParsed_MarshalJSON(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := buildCases(t)
 	for _, tt := range tests {
 		t.Run(tt.string, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			got, err := json.Marshal(tt.parsed)
 
@@ -236,12 +236,12 @@ func TestParsed_MarshalJSON(t *testing.T) {
 }
 
 func TestParsed_String(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := buildCases(t)
 	for _, tt := range tests {
 		t.Run(tt.string, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			if got := tt.parsed.String(); got != tt.string {
 				t.Errorf("String() = %v, want %v", got, tt.string)
@@ -251,12 +251,12 @@ func TestParsed_String(t *testing.T) {
 }
 
 func TestParse(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := buildCases(t)
 	for _, tt := range tests {
 		t.Run(tt.string, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			if got := ecosystem.MustParse(tt.string); !reflect.DeepEqual(got, tt.parsed) {
 				t.Errorf("Parse() = %v, want %v", got, tt.parsed)

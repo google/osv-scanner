@@ -8,7 +8,7 @@ import (
 )
 
 func TestParseDpkgStatus_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/does-not-exist")
 
@@ -17,7 +17,7 @@ func TestParseDpkgStatus_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseDpkgStatus_Empty(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/empty_status")
 
@@ -29,7 +29,7 @@ func TestParseDpkgStatus_Empty(t *testing.T) {
 }
 
 func TestParseDpkgStatus_NotAStatus(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/not_status")
 
@@ -41,7 +41,7 @@ func TestParseDpkgStatus_NotAStatus(t *testing.T) {
 }
 
 func TestParseDpkgStatus_Malformed(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/malformed_status")
 
@@ -66,7 +66,7 @@ func TestParseDpkgStatus_Malformed(t *testing.T) {
 }
 
 func TestParseDpkgStatus_Single(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/single_status")
 
@@ -85,7 +85,7 @@ func TestParseDpkgStatus_Single(t *testing.T) {
 }
 
 func TestParseDpkgStatus_Shuffled(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/shuffled_status")
 
@@ -104,7 +104,7 @@ func TestParseDpkgStatus_Shuffled(t *testing.T) {
 }
 
 func TestParseDpkgStatus_Multiple(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/multiple_status")
 
@@ -141,7 +141,7 @@ func TestParseDpkgStatus_Multiple(t *testing.T) {
 }
 
 func TestParseDpkgStatus_Source_Ver_Override(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseDpkgStatus("fixtures/dpkg/source_ver_override_status")
 

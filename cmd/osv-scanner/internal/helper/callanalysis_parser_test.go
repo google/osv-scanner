@@ -6,7 +6,7 @@ import (
 )
 
 func TestCreateCallAnalysisStates(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	testCases := []struct {
 		enabledCallAnalysis        []string
 		disabledCallAnalysis       []string

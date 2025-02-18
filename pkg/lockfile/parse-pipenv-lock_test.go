@@ -8,7 +8,7 @@ import (
 )
 
 func TestPipenvLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -48,7 +48,7 @@ func TestPipenvLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.PipenvLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -59,7 +59,7 @@ func TestPipenvLockExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParsePipenvLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/does-not-exist")
 
@@ -68,7 +68,7 @@ func TestParsePipenvLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParsePipenvLock_InvalidJson(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/not-json.txt")
 
@@ -77,7 +77,7 @@ func TestParsePipenvLock_InvalidJson(t *testing.T) {
 }
 
 func TestParsePipenvLock_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/empty.json")
 
@@ -89,7 +89,7 @@ func TestParsePipenvLock_NoPackages(t *testing.T) {
 }
 
 func TestParsePipenvLock_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/one-package.json")
 
@@ -108,7 +108,7 @@ func TestParsePipenvLock_OnePackage(t *testing.T) {
 }
 
 func TestParsePipenvLock_OnePackageDev(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/one-package-dev.json")
 
@@ -128,7 +128,7 @@ func TestParsePipenvLock_OnePackageDev(t *testing.T) {
 }
 
 func TestParsePipenvLock_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/two-packages.json")
 
@@ -154,7 +154,7 @@ func TestParsePipenvLock_TwoPackages(t *testing.T) {
 }
 
 func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/two-packages-alt.json")
 
@@ -179,7 +179,7 @@ func TestParsePipenvLock_TwoPackagesAlt(t *testing.T) {
 }
 
 func TestParsePipenvLock_MultiplePackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/multiple-packages.json")
 
@@ -217,7 +217,7 @@ func TestParsePipenvLock_MultiplePackages(t *testing.T) {
 }
 
 func TestParsePipenvLock_PackageWithoutVersion(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePipenvLock("fixtures/pipenv/no-version.json")
 

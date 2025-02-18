@@ -8,7 +8,7 @@ import (
 )
 
 func Test_groupFixedVersions(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -39,7 +39,7 @@ func Test_groupFixedVersions(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			got := groupFixedVersions(tt.args)
 			tt.want.MatchJSON(t, got)
 		})
@@ -47,7 +47,7 @@ func Test_groupFixedVersions(t *testing.T) {
 }
 
 func Test_mapIDsToGroupedSARIFFinding(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -72,7 +72,7 @@ func Test_mapIDsToGroupedSARIFFinding(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			got := mapIDsToGroupedSARIFFinding(&tt.args)
 			tt.want.MatchJSON(t, got)

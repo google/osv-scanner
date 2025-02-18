@@ -6,7 +6,7 @@ import (
 )
 
 func TestLockfileScalibrMappingExists(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	// Every lockfileExtractor should have a mapping,
 	// this might not be true the other way around as some extractors are dynamically set,

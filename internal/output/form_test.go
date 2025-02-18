@@ -7,7 +7,7 @@ import (
 )
 
 func TestForm(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type args struct {
 		count    int
@@ -49,7 +49,7 @@ func TestForm(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			if got := output.Form(tt.args.count, tt.args.singular, tt.args.plural); got != tt.want {
 				t.Errorf("Form() = %v, want %v", got, tt.want)

@@ -9,7 +9,7 @@ import (
 )
 
 func TestLevelAllows(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	// Check every combination of Level + Diff
 	allDiffs := [...]semver.Diff{
 		semver.Same,

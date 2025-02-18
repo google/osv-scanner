@@ -15,7 +15,7 @@ import (
 )
 
 func TestExtractor_Extract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []extracttest.TestTableEntry{
 		{
@@ -49,7 +49,7 @@ func TestExtractor_Extract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			extr := gitrepo.Extractor{
 				IncludeRootGit: true,
 			}

@@ -14,7 +14,7 @@ import (
 var fixturesDir = "integration/fixtures-go"
 
 func Test_runGovulncheck(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	entries, err := os.ReadDir(fixturesDir)
 	if err != nil {
 		t.Errorf("failed to read fixtures dir: %v", err)

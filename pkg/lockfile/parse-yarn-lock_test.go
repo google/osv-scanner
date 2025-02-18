@@ -7,7 +7,7 @@ import (
 )
 
 func TestYarnLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -47,7 +47,7 @@ func TestYarnLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.YarnLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {

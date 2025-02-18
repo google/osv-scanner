@@ -8,7 +8,7 @@ import (
 )
 
 func TestParseYarnLock_v2_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/does-not-exist")
 
@@ -17,7 +17,7 @@ func TestParseYarnLock_v2_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseYarnLock_v2_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/empty.v2.lock")
 
@@ -29,7 +29,7 @@ func TestParseYarnLock_v2_NoPackages(t *testing.T) {
 }
 
 func TestParseYarnLock_v2_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/one-package.v2.lock")
 
@@ -48,7 +48,7 @@ func TestParseYarnLock_v2_OnePackage(t *testing.T) {
 }
 
 func TestParseYarnLock_v2_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/two-packages.v2.lock")
 
@@ -73,7 +73,7 @@ func TestParseYarnLock_v2_TwoPackages(t *testing.T) {
 }
 
 func TestParseYarnLock_v2_WithQuotes(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-quotes.v2.lock")
 
@@ -98,7 +98,7 @@ func TestParseYarnLock_v2_WithQuotes(t *testing.T) {
 }
 
 func TestParseYarnLock_v2_MultipleVersions(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/multiple-versions.v2.lock")
 
@@ -129,7 +129,7 @@ func TestParseYarnLock_v2_MultipleVersions(t *testing.T) {
 }
 
 func TestParseYarnLock_v2_ScopedPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/scoped-packages.v2.lock")
 
@@ -160,7 +160,7 @@ func TestParseYarnLock_v2_ScopedPackages(t *testing.T) {
 }
 
 func TestParseYarnLock_v2_WithPrerelease(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-prerelease.v2.lock")
 
@@ -191,7 +191,7 @@ func TestParseYarnLock_v2_WithPrerelease(t *testing.T) {
 }
 
 func TestParseYarnLock_v2_WithBuildString(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-build-string.v2.lock")
 
@@ -223,7 +223,7 @@ func TestParseYarnLock_v2_WithBuildString(t *testing.T) {
 }
 
 func TestParseYarnLock_v2_Commits(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/commits.v2.lock")
 
@@ -285,7 +285,7 @@ func TestParseYarnLock_v2_Commits(t *testing.T) {
 }
 
 func TestParseYarnLock_v2_Files(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/files.v2.lock")
 
@@ -305,7 +305,7 @@ func TestParseYarnLock_v2_Files(t *testing.T) {
 }
 
 func TestParseYarnLock_v2_WithAliases(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseYarnLock("fixtures/yarn/with-aliases.v2.lock")
 

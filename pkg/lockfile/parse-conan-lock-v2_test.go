@@ -8,7 +8,7 @@ import (
 )
 
 func TestParseConanLock_v2_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/does-not-exist")
 
@@ -17,7 +17,7 @@ func TestParseConanLock_v2_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseConanLock_v2_InvalidJson(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/not-json.txt")
 
@@ -26,7 +26,7 @@ func TestParseConanLock_v2_InvalidJson(t *testing.T) {
 }
 
 func TestParseConanLock_v2_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/empty.v2.json")
 
@@ -38,7 +38,7 @@ func TestParseConanLock_v2_NoPackages(t *testing.T) {
 }
 
 func TestParseConanLock_v2_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/one-package.v2.json")
 
@@ -58,7 +58,7 @@ func TestParseConanLock_v2_OnePackage(t *testing.T) {
 }
 
 func TestParseConanLock_v2_NoName(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/no-name.v2.json")
 
@@ -78,7 +78,7 @@ func TestParseConanLock_v2_NoName(t *testing.T) {
 }
 
 func TestParseConanLock_v2_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/two-packages.v2.json")
 
@@ -105,7 +105,7 @@ func TestParseConanLock_v2_TwoPackages(t *testing.T) {
 }
 
 func TestParseConanLock_v2_NestedDependencies(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/nested-dependencies.v2.json")
 
@@ -153,7 +153,7 @@ func TestParseConanLock_v2_NestedDependencies(t *testing.T) {
 }
 
 func TestParseConanLock_v2_OnePackageDev(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/one-package-dev.v2.json")
 

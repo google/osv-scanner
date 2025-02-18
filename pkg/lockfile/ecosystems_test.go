@@ -30,7 +30,7 @@ func numberOfLockfileParsers(t *testing.T) int {
 }
 
 func TestKnownEcosystems(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	expectedCount := numberOfLockfileParsers(t)
 

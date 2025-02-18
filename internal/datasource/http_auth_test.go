@@ -31,7 +31,7 @@ func (mt *mockTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 }
 
 func TestHTTPAuthentication(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	tests := []struct {
 		name                  string
 		httpAuth              *datasource.HTTPAuthentication
@@ -276,7 +276,7 @@ func TestHTTPAuthentication(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			mt := &mockTransport{}
 			if len(tt.wwwAuth) > 0 {
 				mt.UnauthedResponse = &http.Response{

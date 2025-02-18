@@ -8,7 +8,7 @@ import (
 )
 
 func TestMixLockExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -48,7 +48,7 @@ func TestMixLockExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.MixLockExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -59,7 +59,7 @@ func TestMixLockExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParseMixLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMixLock("fixtures/mix/does-not-exist")
 
@@ -68,7 +68,7 @@ func TestParseMixLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseMixLock_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMixLock("fixtures/mix/empty.lock")
 
@@ -80,7 +80,7 @@ func TestParseMixLock_NoPackages(t *testing.T) {
 }
 
 func TestParseMixLock_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMixLock("fixtures/mix/one-package.lock")
 
@@ -100,7 +100,7 @@ func TestParseMixLock_OnePackage(t *testing.T) {
 }
 
 func TestParseMixLock_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMixLock("fixtures/mix/two-packages.lock")
 
@@ -127,7 +127,7 @@ func TestParseMixLock_TwoPackages(t *testing.T) {
 }
 
 func TestParseMixLock_Many(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMixLock("fixtures/mix/many.lock")
 
@@ -287,7 +287,7 @@ func TestParseMixLock_Many(t *testing.T) {
 }
 
 func TestParseMixLock_GitPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseMixLock("fixtures/mix/git.lock")
 

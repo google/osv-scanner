@@ -1020,7 +1020,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			run(t, tt.args)
 		})
@@ -1619,7 +1619,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			run(t, tt.args)
 		})
@@ -1998,7 +1998,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			run(t, tt.args)
 		})

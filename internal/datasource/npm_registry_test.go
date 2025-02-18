@@ -15,7 +15,7 @@ import (
 )
 
 func TestNpmRegistryClient(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	//nolint:gosec  // "Potential hardcoded credentials" :)
 	const (

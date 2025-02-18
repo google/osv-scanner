@@ -8,7 +8,7 @@ import (
 )
 
 func TestPdmExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -54,7 +54,7 @@ func TestPdmExtractor_ShouldExtract(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			ext := lockfile.PdmLockExtractor{}
 			should := ext.ShouldExtract(tt.path)
 			if should != tt.want {
@@ -72,7 +72,7 @@ func expectNilErr(t *testing.T, err error) {
 }
 
 func TestParsePdmLock_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePdmLock("fixtures/pdm/does-not-exist")
 
@@ -81,7 +81,7 @@ func TestParsePdmLock_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParsePdmLock_InvalidToml(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePdmLock("fixtures/pdm/not-toml.txt")
 
@@ -90,7 +90,7 @@ func TestParsePdmLock_InvalidToml(t *testing.T) {
 }
 
 func TestParsePdmLock_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePdmLock("fixtures/pdm/empty.toml")
 
@@ -99,7 +99,7 @@ func TestParsePdmLock_NoPackages(t *testing.T) {
 }
 
 func TestParsePdmLock_SinglePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePdmLock("fixtures/pdm/single-package.toml")
 
@@ -115,7 +115,7 @@ func TestParsePdmLock_SinglePackage(t *testing.T) {
 }
 
 func TestParsePdmLock_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePdmLock("fixtures/pdm/two-packages.toml")
 
@@ -137,7 +137,7 @@ func TestParsePdmLock_TwoPackages(t *testing.T) {
 }
 
 func TestParsePdmLock_PackageWithDevDependencies(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePdmLock("fixtures/pdm/dev-dependency.toml")
 
@@ -167,7 +167,7 @@ func TestParsePdmLock_PackageWithDevDependencies(t *testing.T) {
 }
 
 func TestParsePdmLock_PackageWithOptionalDependency(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePdmLock("fixtures/pdm/optional-dependency.toml")
 
@@ -197,7 +197,7 @@ func TestParsePdmLock_PackageWithOptionalDependency(t *testing.T) {
 }
 
 func TestParsePdmLock_PackageWithGitDependency(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParsePdmLock("fixtures/pdm/git-dependency.toml")
 

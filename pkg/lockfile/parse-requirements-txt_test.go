@@ -8,7 +8,7 @@ import (
 )
 
 func TestRequirementsTxtExtractor_ShouldExtract(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	tests := []struct {
 		name string
@@ -123,7 +123,7 @@ func TestRequirementsTxtExtractor_ShouldExtract(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			e := lockfile.RequirementsTxtExtractor{}
 			got := e.ShouldExtract(tt.path)
 			if got != tt.want {
@@ -134,7 +134,7 @@ func TestRequirementsTxtExtractor_ShouldExtract(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/does-not-exist")
 
@@ -143,7 +143,7 @@ func TestParseRequirementsTxt_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_Empty(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/empty.txt")
 
@@ -155,7 +155,7 @@ func TestParseRequirementsTxt_Empty(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_CommentsOnly(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/only-comments.txt")
 
@@ -167,7 +167,7 @@ func TestParseRequirementsTxt_CommentsOnly(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_OneRequirementUnconstrained(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/one-package-unconstrained.txt")
 
@@ -187,7 +187,7 @@ func TestParseRequirementsTxt_OneRequirementUnconstrained(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_OneRequirementConstrained(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/one-package-constrained.txt")
 
@@ -207,7 +207,7 @@ func TestParseRequirementsTxt_OneRequirementConstrained(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/multiple-packages-constrained.txt")
 
@@ -311,7 +311,7 @@ func TestParseRequirementsTxt_MultipleRequirementsConstrained(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/multiple-packages-mixed.txt")
 
@@ -380,7 +380,7 @@ func TestParseRequirementsTxt_MultipleRequirementsMixed(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/file-format-example.txt")
 
@@ -463,7 +463,7 @@ func TestParseRequirementsTxt_FileFormatExample(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_WithAddedSupport(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/with-added-support.txt")
 
@@ -483,7 +483,7 @@ func TestParseRequirementsTxt_WithAddedSupport(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/non-normalized-names.txt")
 
@@ -517,7 +517,7 @@ func TestParseRequirementsTxt_NonNormalizedNames(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/with-multiple-r-options.txt")
 
@@ -600,7 +600,7 @@ func TestParseRequirementsTxt_WithMultipleROptions(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_WithBadROption(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/with-bad-r-option.txt")
 
@@ -609,7 +609,7 @@ func TestParseRequirementsTxt_WithBadROption(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/duplicate-r-dev.txt")
 
@@ -650,7 +650,7 @@ func TestParseRequirementsTxt_DuplicateROptions(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_CyclicRSelf(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/cyclic-r-self.txt")
 
@@ -677,7 +677,7 @@ func TestParseRequirementsTxt_CyclicRSelf(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/cyclic-r-complex-1.txt")
 
@@ -711,7 +711,7 @@ func TestParseRequirementsTxt_CyclicRComplex(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/with-per-requirement-options.txt")
 
@@ -752,7 +752,7 @@ func TestParseRequirementsTxt_WithPerRequirementOptions(t *testing.T) {
 }
 
 func TestParseRequirementsTxt_LineContinuation(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseRequirementsTxt("fixtures/pip/line-continuation.txt")
 

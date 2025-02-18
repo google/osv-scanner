@@ -8,7 +8,7 @@ import (
 )
 
 func TestParseConanLock_v1_FileDoesNotExist(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/does-not-exist")
 
@@ -17,7 +17,7 @@ func TestParseConanLock_v1_FileDoesNotExist(t *testing.T) {
 }
 
 func TestParseConanLock_v1_InvalidJson(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/not-json.txt")
 
@@ -26,7 +26,7 @@ func TestParseConanLock_v1_InvalidJson(t *testing.T) {
 }
 
 func TestParseConanLock_v1_NoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/empty.v1.json")
 
@@ -38,7 +38,7 @@ func TestParseConanLock_v1_NoPackages(t *testing.T) {
 }
 
 func TestParseConanLock_v1_OnePackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/one-package.v1.json")
 
@@ -57,7 +57,7 @@ func TestParseConanLock_v1_OnePackage(t *testing.T) {
 }
 
 func TestParseConanLock_v1_NoName(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/no-name.v1.json")
 
@@ -76,7 +76,7 @@ func TestParseConanLock_v1_NoName(t *testing.T) {
 }
 
 func TestParseConanLock_v1_TwoPackages(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/two-packages.v1.json")
 
@@ -101,7 +101,7 @@ func TestParseConanLock_v1_TwoPackages(t *testing.T) {
 }
 
 func TestParseConanLock_v1_NestedDependencies(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/nested-dependencies.v1.json")
 
@@ -144,7 +144,7 @@ func TestParseConanLock_v1_NestedDependencies(t *testing.T) {
 }
 
 func TestParseConanLock_v1_OnePackageDev(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/one-package-dev.v1.json")
 
@@ -163,7 +163,7 @@ func TestParseConanLock_v1_OnePackageDev(t *testing.T) {
 }
 
 func TestParseConanLock_v1_OldFormat00(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/old-format-0.0.json")
 
@@ -182,7 +182,7 @@ func TestParseConanLock_v1_OldFormat00(t *testing.T) {
 }
 
 func TestParseConanLock_v1_OldFormat01(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/old-format-0.1.json")
 
@@ -201,7 +201,7 @@ func TestParseConanLock_v1_OldFormat01(t *testing.T) {
 }
 
 func TestParseConanLock_v1_OldFormat02(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/old-format-0.2.json")
 
@@ -220,7 +220,7 @@ func TestParseConanLock_v1_OldFormat02(t *testing.T) {
 }
 
 func TestParseConanLock_v1_OldFormat03(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	packages, err := lockfile.ParseConanLock("fixtures/conan/old-format-0.3.json")
 
