@@ -37,7 +37,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/internal/version"
-	"github.com/google/osv-scanner/v2/pkg/osv"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/exp/maps"
 	"golang.org/x/sync/errgroup"
@@ -252,28 +251,54 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 
 	// Get all vulns for all versions of all packages.
 	// It's easier to re-query this than to try use the vulnerability client's cache.
-	var batchRequest osv.BatchedQuery
-	batchRequest.Queries = make([]*osv.Query, len(pks))
+	batchQueries := make([]*osvdev.Query, len(pks))
 	for i, pk := range pks {
-		batchRequest.Queries[i] = &osv.Query{
-			Package: osv.Package{
+		batchQueries[i] = &osvdev.Query{
+			Package: osvdev.Package{
 				Name:      pk.Name,
 				Ecosystem: string(util.OSVEcosystem[pk.System]),
 			},
 		}
 	}
-	batchResponse, err := osv.MakeRequest(batchRequest)
-	if err != nil {
-		return clienttest.ResolutionUniverse{}, err
-	}
-	hydrated, err := osv.Hydrate(batchResponse)
+
+	batchResp, err := osvdev.DefaultClient().QueryBatch(context.Background(), batchQueries)
 	if err != nil {
 		return clienttest.ResolutionUniverse{}, err
 	}
 
+	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.Results))
+	g, ctx := errgroup.WithContext(context.Background())
+	g.SetLimit(1000)
+
+	for batchIdx, resp := range batchResp.Results {
+		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.Vulns))
+		for resultIdx, vuln := range resp.Vulns {
+			g.Go(func() error {
+				// exit early if another hydration request has already failed
+				// results are thrown away later, so avoid needless work
+				if ctx.Err() != nil {
+					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
+				}
+				vuln, err := osvdev.DefaultClient().GetVulnByID(ctx, vuln.ID)
+				if err != nil {
+					return err
+				}
+				vulnerabilities[batchIdx][resultIdx] = vuln
+
+				return nil
+			})
+		}
+	}
+
+	if err := g.Wait(); err != nil {
+		return clienttest.ResolutionUniverse{}, err
+	}
+
 	var vulns []osvschema.Vulnerability
-	for _, r := range hydrated.Results {
-		vulns = append(vulns, r.Vulns...)
+	for _, r := range vulnerabilities {
+		for _, r2 := range r {
+			vulns = append(vulns, *r2)
+		}
 	}
 
 	return clienttest.ResolutionUniverse{System: system.String(), Schema: schema.String(), Vulns: vulns}, nil
