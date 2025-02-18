@@ -32,11 +32,11 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
 	"github.com/google/osv-scanner/v2/internal/resolution/clienttest"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/internal/version"
-	lf "github.com/google/osv-scanner/v2/pkg/lockfile"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osv"
 	"golang.org/x/exp/maps"
@@ -75,7 +75,7 @@ func doRelockRelax(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename 
 		DependencyClient:     ddCl,
 	}
 
-	f, err := lf.OpenLocalDepFile(filename)
+	f, err := depfile.OpenLocalDepFile(filename)
 	if err != nil {
 		return err
 	}
@@ -102,7 +102,7 @@ func doOverride(ddCl *client.DepsDevClient, rw manifest.ReadWriter, filename str
 		DependencyClient:     ddCl,
 	}
 
-	f, err := lf.OpenLocalDepFile(filename)
+	f, err := depfile.OpenLocalDepFile(filename)
 	if err != nil {
 		return err
 	}
@@ -129,7 +129,7 @@ func doInPlace(ddCl *client.DepsDevClient, rw lockfile.ReadWriter, filename stri
 		DependencyClient:     ddCl,
 	}
 
-	f, err := lf.OpenLocalDepFile(filename)
+	f, err := depfile.OpenLocalDepFile(filename)
 	if err != nil {
 		return err
 	}

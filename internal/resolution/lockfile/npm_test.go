@@ -9,9 +9,9 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/schema"
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	lf "github.com/google/osv-scanner/v2/pkg/lockfile"
 )
 
 func TestNpmReadV2(t *testing.T) {
@@ -19,7 +19,7 @@ func TestNpmReadV2(t *testing.T) {
 
 	// This lockfile was generated using a private registry with https://verdaccio.org/
 	// Mock packages were published to it and installed with npm.
-	df, err := lf.OpenLocalDepFile("./fixtures/npm_v2/package-lock.json")
+	df, err := depfile.OpenLocalDepFile("./fixtures/npm_v2/package-lock.json")
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -70,7 +70,7 @@ func TestNpmReadV1(t *testing.T) {
 
 	// This lockfile was generated using a private registry with https://verdaccio.org/
 	// Mock packages were published to it and installed with npm.
-	df, err := lf.OpenLocalDepFile("./fixtures/npm_v1/package-lock.json")
+	df, err := depfile.OpenLocalDepFile("./fixtures/npm_v1/package-lock.json")
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -119,7 +119,7 @@ func TestNpmReadTypeOrder(t *testing.T) {
 	// Empirically, devDependencies > optionalDependencies > dependencies > peerDependencies
 
 	// This lockfile was manually constructed.
-	df, err := lf.OpenLocalDepFile("./fixtures/npm_type_order/package-lock.json")
+	df, err := depfile.OpenLocalDepFile("./fixtures/npm_type_order/package-lock.json")
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -202,7 +202,7 @@ func TestNpmWrite(t *testing.T) {
 		},
 	}
 
-	df, err := lf.OpenLocalDepFile(file)
+	df, err := depfile.OpenLocalDepFile(file)
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
