@@ -4,7 +4,7 @@ import (
 	"context"
 
 	depsdevpb "deps.dev/api/v3"
-	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/pkg/models"

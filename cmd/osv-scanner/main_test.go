@@ -431,7 +431,7 @@ func TestRunCallAnalysis(t *testing.T) {
 			name: "Run with govulncheck",
 			args: []string{"",
 				"--call-analysis=go",
-				"--config=./fixtures/osv-scanner-empty-config.toml",
+				"--config=./fixtures/osv-scanner-call-analysis-config.toml",
 				"./fixtures/call-analysis-go-project"},
 			exit: 1,
 		},
