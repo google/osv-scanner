@@ -54,8 +54,7 @@ func normalizeFilePathsOnOutput(t *testing.T, output string) string {
 // Namely, escaped forward slashes are replaced with backslashes.
 func normalizeFilePaths(t *testing.T, output string) string {
 	t.Helper()
-
-	return strings.ReplaceAll(output, "\\\\", "/")
+	return strings.ReplaceAll(strings.ReplaceAll(output, "\\\\", "/"), "\\", "/")
 }
 
 // normalizeRootDirectory attempts to replace references to the current working
