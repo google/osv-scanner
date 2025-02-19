@@ -7,8 +7,8 @@ deps.dev/util/maven v0.0.0-20250210015309-e519ac173dde h1:Ng5gs7X6Bx83nFMtS7H3S3
 deps.dev/util/maven v0.0.0-20250210015309-e519ac173dde/go.mod h1:95XAmYKjcTdXRC6BRVwH0sqVZ35SafZq/9jgnus0nYw=
 deps.dev/util/resolve v0.0.0-20250210015309-e519ac173dde h1:Rt0iztauNfzV2aEAMbLNBVxKbD18RUsmDOLOs6YU4fk=
 deps.dev/util/resolve v0.0.0-20250210015309-e519ac173dde/go.mod h1:iRm31pzwP9sNQ2yCXKXsqO4E1lVgbIhHQX1q/SX+Etc=
-deps.dev/util/semver v0.0.0-20250210015309-e519ac173dde h1:qyaH6Mm6lASpYSoFWSwNru6IsHXlDQYnenozh3EdYzI=
-deps.dev/util/semver v0.0.0-20250210015309-e519ac173dde/go.mod h1:jjJweVqtuMQ7Q4zlTQ/kCHpboojkRvpMYlhy/c93DVU=
+deps.dev/util/semver v0.0.0-20250219000316-bc85dc8a8bd7 h1:KFlPBD/9HYJb8oJvrvafCzAzZb72T+0aJPVEhGbec6Q=
+deps.dev/util/semver v0.0.0-20250219000316-bc85dc8a8bd7/go.mod h1:jjJweVqtuMQ7Q4zlTQ/kCHpboojkRvpMYlhy/c93DVU=
 github.com/AdaLogics/go-fuzz-headers v0.0.0-20230811130428-ced1acdcaa24 h1:bvDV9vkmnHYOMsOr4WLk+Vo07yKIzd94sVoIqshQ4bU=
 github.com/AdaLogics/go-fuzz-headers v0.0.0-20230811130428-ced1acdcaa24/go.mod h1:8o94RPi1/7XTJvwPpRSzSUedZrtlirdB3r9Z20bi2f8=
 github.com/AdamKorcz/go-118-fuzz-build v0.0.0-20230306123547-8075edf89bb0 h1:59MxjQVfjXsBpLy+dbd2/ELV5ofnUkUZBvWSC85sheA=

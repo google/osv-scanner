@@ -6,7 +6,7 @@ require (
 	deps.dev/api/v3 v3.0.0-20250210015309-e519ac173dde
 	deps.dev/util/maven v0.0.0-20250210015309-e519ac173dde
 	deps.dev/util/resolve v0.0.0-20250210015309-e519ac173dde
-	deps.dev/util/semver v0.0.0-20250210015309-e519ac173dde
+	deps.dev/util/semver v0.0.0-20250219000316-bc85dc8a8bd7
 	github.com/BurntSushi/toml v1.4.0
 	github.com/CycloneDX/cyclonedx-go v0.9.2
 	github.com/charmbracelet/bubbles v0.20.0

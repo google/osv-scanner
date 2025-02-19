@@ -1,0 +1,15 @@
+<div class="summary-section">
+  <table onclick="toggleDetails('license-summary')">
+    <tr class="clickable">
+      <td class="expand-icon">
+        <i id="license-summary-icon" class="material-icons">play_arrow</i>
+      </td>
+      <td>View license summary</td>
+    <tr>
+  </table>
+  <table id="license-summary-details" class="hide-block">
+  {{ range . }}
+    <tr><td>{{ .Name }}:</td><td>{{ .Count }}</td><tr>
+  {{ end }}
+  </table>
+</div>

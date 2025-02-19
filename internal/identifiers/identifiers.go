@@ -5,7 +5,7 @@ import (
 )
 
 func prefixOrder(prefix string) int {
-	if prefix == "DSA" {
+	if prefix == "DSA" || prefix == "USN" {
 		// Special case: For container scanning, DSA contains multiple CVEs and is more accurate.
 		return 3
 	} else if prefix == "CVE" {

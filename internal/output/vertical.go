@@ -20,11 +20,18 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 		printBaseImages(outputResult.ImageInfo, outputWriter)
 	}
 
+	if outputResult.LicenseSummary.Summary {
+		printVerticalLicenseSummary(outputResult.LicenseSummary, outputWriter)
+	}
+
 	for i, ecosystem := range outputResult.Ecosystems {
 		fmt.Fprintf(outputWriter, "%s", text.FgGreen.Sprintf("%s\n\n", ecosystem.Name))
 		for j, source := range ecosystem.Sources {
 			printVerticalHeader(source, outputWriter)
 			printVerticalVulnerabilities(source, outputResult.IsContainerScanning, outputWriter)
+			if outputResult.LicenseSummary.ShowViolations {
+				printVerticalLicenseViolations(source, outputWriter)
+			}
 			if j < len(ecosystem.Sources)-1 {
 				fmt.Fprintln(outputWriter)
 			}
@@ -38,30 +45,55 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 	fmt.Fprintln(outputWriter)
 }
 
-func printSummary(result Result, out io.Writer) {
-	packageForm := Form(result.PackageTypeCount.Regular, "package", "packages")
-	vulnerabilityForm := Form(result.VulnTypeSummary.All, "vulnerability", "vulnerabilities")
-	fixedVulnForm := Form(result.VulnCount.FixableCount.Fixed, "vulnerability", "vulnerabilities")
-	ecosystemForm := Form(len(result.Ecosystems), "ecosystem", "ecosystems")
+func printVerticalLicenseSummary(licenseSummary LicenseSummary, out io.Writer) {
+	fmt.Fprintf(out, "License summary:\n")
+	for _, license := range licenseSummary.LicenseCount {
+		fmt.Fprintf(out, "  %s: %d\n", text.FgCyan.Sprintf("%s", license.Name), license.Count)
+	}
 
-	summary := fmt.Sprintf(
-		"Total %[1]d %[10]s affected by %[2]d known %[11]s (%[3]s, %[4]s, %[5]s, %[6]s, %[7]s) from %[8]s.\n"+
-			"%[9]d %[12]s can be fixed.\n",
-		result.PackageTypeCount.Regular,
-		result.VulnTypeSummary.All,
-		text.FgRed.Sprintf("%d Critical", result.VulnCount.SeverityCount.Critical),
-		text.FgHiYellow.Sprintf("%d High", result.VulnCount.SeverityCount.High),
-		text.FgYellow.Sprintf("%d Medium", result.VulnCount.SeverityCount.Medium),
-		text.FgHiCyan.Sprintf("%d Low", result.VulnCount.SeverityCount.Low),
-		text.FgCyan.Sprintf("%d Unknown", result.VulnCount.SeverityCount.Unknown),
-		text.FgGreen.Sprintf("%d %s", len(result.Ecosystems), ecosystemForm),
-		result.VulnCount.FixableCount.Fixed,
+	fmt.Fprintln(out)
+}
 
-		packageForm,
-		vulnerabilityForm,
-		fixedVulnForm,
+func printVerticalLicenseViolations(source SourceResult, out io.Writer) {
+	count := source.LicenseViolationsCount
+
+	if count == 0 {
+		fmt.Fprintf(
+			out,
+			"  %s\n",
+			text.FgGreen.Sprintf("no license violations found"),
+		)
+
+		return
+	}
+
+	fmt.Fprintf(out, "\n  %s\n", text.FgRed.Sprintf("license violations found:"))
+
+	for _, pkg := range source.Packages {
+		if len(pkg.LicenseViolations) == 0 {
+			continue
+		}
+
+		violations := make([]string, len(pkg.LicenseViolations))
+		for i, l := range pkg.LicenseViolations {
+			violations[i] = string(l)
+		}
+
+		fmt.Fprintf(out,
+			"    %s (%s)\n",
+			text.FgYellow.Sprintf("%s@%s", pkg.Name, pkg.InstalledVersion),
+			text.FgCyan.Sprintf("%s", strings.Join(violations, ", ")),
+		)
+	}
+
+	fmt.Fprintf(out, "\n  %s\n",
+		text.FgRed.Sprintf(
+			"%d license %s found in %s",
+			count,
+			Form(count, "violation", "violations"),
+			source.Name,
+		),
 	)
-	fmt.Fprintln(out, summary)
 }
 
 func printBaseImages(imageResult ImageInfo, out io.Writer) {

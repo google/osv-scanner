@@ -9,6 +9,7 @@ import (
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 )
 
@@ -257,9 +258,11 @@ func TestSuggest(t *testing.T) {
 	}
 
 	got, err := suggester.Suggest(ctx, client, mf, Options{
-		IgnoreDev:  true, // Do no update test dependencies.
-		NoUpdates:  []string{"org.example:no-updates"},
-		AvoidMajor: []string{"org.import:xyz"},
+		IgnoreDev: true, // Do no update test dependencies.
+		UpgradeConfig: upgrade.Config{
+			"org.example:no-updates": upgrade.None,
+			"org.import:xyz":         upgrade.Minor,
+		},
 	})
 	if err != nil {
 		t.Fatalf("failed to suggest ManifestPatch: %v", err)
@@ -382,22 +385,24 @@ func TestSuggestVersion(t *testing.T) {
 	}
 
 	tests := []struct {
-		requirement    string
-		noMajorUpdates bool
-		want           string
+		requirement string
+		level       upgrade.Level
+		want        string
 	}{
-		{"1.0.0", false, "2.3.4"},
+		{"1.0.0", upgrade.Major, "2.3.4"},
 		// No major updates allowed
-		{"1.0.0", true, "1.2.3"},
+		{"1.0.0", upgrade.Minor, "1.2.3"},
+		// Only allow patch updates
+		{"1.0.0", upgrade.Patch, "1.0.1"},
 		// Version range requirement is not outdated
-		{"[1.0.0,)", false, "[1.0.0,)"},
-		{"[2.0.0, 2.3.4]", false, "[2.0.0, 2.3.4]"},
+		{"[1.0.0,)", upgrade.Major, "[1.0.0,)"},
+		{"[2.0.0, 2.3.4]", upgrade.Major, "[2.0.0, 2.3.4]"},
 		// Version range requirement is outdated
-		{"[2.0.0, 2.3.4)", false, "2.3.4"},
-		{"[2.0.0, 2.2.2]", false, "2.3.4"},
+		{"[2.0.0, 2.3.4)", upgrade.Major, "2.3.4"},
+		{"[2.0.0, 2.2.2]", upgrade.Major, "2.3.4"},
 		// Version range requirement is outdated but latest version is a major update
-		{"[1.0.0,2.0.0)", false, "2.3.4"},
-		{"[1.0.0,2.0.0)", true, "[1.0.0,2.0.0)"},
+		{"[1.0.0,2.0.0)", upgrade.Major, "2.3.4"},
+		{"[1.0.0,2.0.0)", upgrade.Minor, "[1.0.0,2.0.0)"},
 	}
 	for _, tt := range tests {
 		vk := resolve.VersionKey{
@@ -412,12 +417,12 @@ func TestSuggestVersion(t *testing.T) {
 				Version:     tt.want,
 			},
 		}
-		got, err := suggestMavenVersion(ctx, lc, resolve.RequirementVersion{VersionKey: vk}, tt.noMajorUpdates)
+		got, err := suggestMavenVersion(ctx, lc, resolve.RequirementVersion{VersionKey: vk}, tt.level)
 		if err != nil {
 			t.Fatalf("fail to suggest a new version for %v: %v", vk, err)
 		}
 		if !reflect.DeepEqual(got, want) {
-			t.Errorf("suggestMavenVersion(%v, %t): got %s want %s", vk, tt.noMajorUpdates, got, want)
+			t.Errorf("suggestMavenVersion(%v, %v): got %s want %s", vk, tt.level, got, want)
 		}
 	}
 }

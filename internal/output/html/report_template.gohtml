@@ -42,7 +42,11 @@
 
         {{ if .IsContainerScanning }}
         {{ template "base_image_template.gohtml" .}}
-        {{end}}
+        {{ end }}
+
+        {{ if .LicenseSummary.Summary }}
+        {{ template "license_summary_template.gohtml" .LicenseSummary.LicenseCount }}
+        {{ end }}
 
         <div class="search-box">
           <div class="search-icon">
