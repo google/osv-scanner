@@ -421,3 +421,53 @@ func TestSuggestVersion(t *testing.T) {
 		}
 	}
 }
+
+func TestSuggestVersion2(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	lc := resolve.NewLocalClient()
+
+	pk := resolve.PackageKey{
+		System: resolve.Maven,
+		Name:   "com.google.guava:guava",
+	}
+	for _, version := range []string{"1.0.0", "1.0.1-android", "1.0.1-jre", "1.1.0-android", "1.1.0-jre", "2.0.0-android", "2.0.0-jre"} {
+		lc.AddVersion(resolve.Version{
+			VersionKey: resolve.VersionKey{
+				PackageKey:  pk,
+				VersionType: resolve.Concrete,
+				Version:     version,
+			}}, nil)
+	}
+
+	tests := []struct {
+		requirement    string
+		noMajorUpdates bool
+		want           string
+	}{
+		{"1.0.0", false, "2.0.0-jre"},
+		{"1.0.1-jre", false, "2.0.0-jre"},
+		{"1.0.1-android", false, "2.0.0-android"},
+	}
+	for _, tt := range tests {
+		vk := resolve.VersionKey{
+			PackageKey:  pk,
+			VersionType: resolve.Requirement,
+			Version:     tt.requirement,
+		}
+		want := resolve.RequirementVersion{
+			VersionKey: resolve.VersionKey{
+				PackageKey:  pk,
+				VersionType: resolve.Requirement,
+				Version:     tt.want,
+			},
+		}
+		got, err := suggestMavenVersion(ctx, lc, resolve.RequirementVersion{VersionKey: vk}, tt.noMajorUpdates)
+		if err != nil {
+			t.Fatalf("fail to suggest a new version for %v: %v", vk, err)
+		}
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("suggestMavenVersion(%v, %t): got %s want %s", vk, tt.noMajorUpdates, got, want)
+		}
+	}
+}

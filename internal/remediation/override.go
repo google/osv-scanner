@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"slices"
-	"strings"
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
@@ -257,7 +256,12 @@ func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk reso
 		return nil, err
 	}
 
-	cmpFunc := comparisonFunctionWithWorkarounds(vk)
+	cmpFunc := func(a, b resolve.Version) int {
+		if vk.System == resolve.Maven {
+			return maven.CompareVersions(vk, a, b)
+		}
+		return vk.Semver().Compare(a.Version, b.Version)
+	}
 	slices.SortFunc(versions, cmpFunc)
 	// Find the index of the next higher version
 	offset, vkFound := slices.BinarySearchFunc(versions, resolve.Version{VersionKey: vk}, cmpFunc)
@@ -266,63 +270,6 @@ func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk reso
 	}
 
 	return versions[offset:], nil
-}
-
-// comparisonFunctionWithWorkarounds returns a version comparison function with special behaviour for specific packages,
-// producing more desirable ordering using non-standard comparison.
-// TODO: Move this and make it re-usable for other remediation strategies & osv-scanner update.
-func comparisonFunctionWithWorkarounds(vk resolve.VersionKey) func(resolve.Version, resolve.Version) int {
-	sys := vk.Semver()
-
-	if vk.System == resolve.Maven && vk.Name == "com.google.guava:guava" {
-		// com.google.guava:guava has 'flavors' with versions ending with -jre or -android.
-		// https://github.com/google/guava/wiki/ReleasePolicy#flavors
-		// To preserve the flavor in updates, we make the opposite flavor considered the earliest versions.
-
-		// Old versions have '22.0' and '22.0-android', and even older version don't have any flavors.
-		// Only check for the android flavor, and assume its jre otherwise.
-		wantAndroid := strings.HasSuffix(vk.Version, "-android")
-		return func(a, b resolve.Version) int {
-			aIsAndroid := strings.HasSuffix(a.Version, "-android")
-			bIsAndroid := strings.HasSuffix(b.Version, "-android")
-
-			if aIsAndroid == bIsAndroid {
-				return sys.Compare(a.Version, b.Version)
-			}
-
-			if aIsAndroid == wantAndroid {
-				return 1
-			}
-
-			return -1
-		}
-	}
-
-	if vk.System == resolve.Maven && strings.HasPrefix(vk.Name, "commons-") {
-		// Old versions of apache commons-* libraries (commons-io:commons-io, commons-math:commons-math, etc.)
-		// used date-based versions (e.g. 20040118.003354), which naturally sort after the more recent semver versions.
-		// We manually force the date versions to come before the others to prevent downgrades.
-		return func(a, b resolve.Version) int {
-			// All date-based versions of these packages seem to be in the years 2002-2005.
-			// It's extremely unlikely we'd see any versions dated before 1999 or after 2010.
-			// It's also unlikely we'd see any major versions of these packages reach up to 200.0.0.
-			// Checking if the version starts with "200" should therefore be sufficient to determine if it's a year.
-			aCal := strings.HasPrefix(a.Version, "200")
-			bCal := strings.HasPrefix(b.Version, "200")
-
-			if aCal == bCal {
-				return sys.Compare(a.Version, b.Version)
-			}
-
-			if aCal {
-				return -1
-			}
-
-			return 1
-		}
-	}
-
-	return func(a, b resolve.Version) int { return sys.Compare(a.Version, b.Version) }
 }
 
 // patchManifest applies the overridePatches to the manifest in-memory. Returns a copy of the manifest that has been patched.
