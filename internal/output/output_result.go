@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/internal/semantic"
+	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/text"
@@ -50,11 +51,15 @@ type SourceResult struct {
 
 // PackageResult represents the vulnerability scanning results for a package.
 type PackageResult struct {
-	Name              string
-	OSPackageNames    []string
-	InstalledVersion  string
-	FixedVersion      string
-	RegularVulns      []VulnResult
+	Name string
+	// OSPackageNames represents the actual installed binary names. This is primarily used for container scanning.
+	OSPackageNames   []string
+	InstalledVersion string
+	Commit           string
+	FixedVersion     string
+	// RegularVulns holds all the vulnerabilities that should be displayed to users
+	RegularVulns []VulnResult
+	// HiddenVulns holds all the vulnerabilities that should not be displayed to users, such as those deemed unimportant or uncalled.
 	HiddenVulns       []VulnResult
 	LayerDetail       PackageContainerInfo
 	VulnCount         VulnCount
@@ -193,9 +198,11 @@ RowLoop:
 		}
 
 		// Process vulnerabilities for each source
-		sourceResult := processSource(packageSource)
-		ecosystemMap[sourceResult.Ecosystem] = append(ecosystemMap[sourceResult.Ecosystem], sourceResult)
-		resultCount.Add(sourceResult.VulnCount)
+		sourceResults := processSource(packageSource)
+		for ecosystem, source := range sourceResults {
+			ecosystemMap[ecosystem] = append(ecosystemMap[ecosystem], source)
+			resultCount.Add(source.VulnCount)
+		}
 	}
 
 	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata, vulnResult.ExperimentalAnalysisConfig.Licenses)
@@ -352,19 +359,37 @@ func buildLayers(layerMetadata []models.LayerMetadata) []LayerInfo {
 	return allLayers
 }
 
-// processSource processes a single source (lockfile or artifact) and returns an SourceResult.
-func processSource(packageSource models.PackageSource) SourceResult {
-	var sourceResult SourceResult
+// processSource processes a single source (lockfile or artifact) and returns a map of ecosystems to their corresponding SourceResults.
+func processSource(packageSource models.PackageSource) map[string]SourceResult {
 	// Handle potential duplicate source packages with different OS package names.
 	// This map ensures each package is processed only once,
 	// with subsequent occurrences only adding their OSPackageName to the list.
 	packageMap := make(map[string]PackageResult)
+	// Use a map to handle one source contains packages form multiple ecosystems
+	sourceResults := make(map[string]SourceResult)
+
+	// If no packages with issues are found, mark the ecosystem as empty.
+	if len(packageSource.Packages) == 0 {
+		sourceResults[""] = SourceResult{
+			Name:      packageSource.Source.String(),
+			Ecosystem: "",
+			Packages:  []PackageResult{},
+		}
+
+		return sourceResults
+	}
 
 	for _, vulnPkg := range packageSource.Packages {
-		sourceResult.Ecosystem = vulnPkg.Package.Ecosystem
+		if _, exists := sourceResults[vulnPkg.Package.Ecosystem]; !exists {
+			sourceResults[vulnPkg.Package.Ecosystem] = SourceResult{
+				Name:      packageSource.Source.String(),
+				Ecosystem: vulnPkg.Package.Ecosystem,
+			}
+		}
+
 		// Use a unique identifier (package name + version) to deduplicate packages (same version),
 		// ensuring each is processed only once.
-		key := vulnPkg.Package.Name + ":" + vulnPkg.Package.Version
+		key := vulnPkg.Package.Ecosystem + ":" + vulnPkg.Package.Name + ":" + vulnPkg.Package.Version
 		if _, exist := packageMap[key]; exist {
 			pkgTemp := packageMap[key]
 			pkgTemp.OSPackageNames = append(pkgTemp.OSPackageNames, vulnPkg.Package.OSPackageName)
@@ -380,34 +405,41 @@ func processSource(packageSource models.PackageSource) SourceResult {
 			}
 		}
 		packageMap[key] = packageResult
-
-		sourceResult.VulnCount.Add(packageResult.VulnCount)
-		sourceResult.LicenseViolationsCount += len(packageResult.LicenseViolations)
-		if len(packageResult.RegularVulns) != 0 {
-			sourceResult.PackageTypeCount.Regular += 1
-		}
-		// A package can be counted as both regular and hidden if it has both called and uncalled vulnerabilities.
-		if len(packageResult.HiddenVulns) != 0 {
-			sourceResult.PackageTypeCount.Hidden += 1
-		}
 	}
 
-	packages := make([]PackageResult, 0, len(packageMap))
-	for _, pkg := range packageMap {
-		packages = append(packages, pkg)
+	for ecosystem, sourceResult := range sourceResults {
+		var packages []PackageResult
+		for key, pkg := range packageMap {
+			if !strings.HasPrefix(key, ecosystem) {
+				continue
+			}
+
+			packages = append(packages, pkg)
+
+			sourceResult.VulnCount.Add(pkg.VulnCount)
+			sourceResult.LicenseViolationsCount += len(pkg.LicenseViolations)
+			if len(pkg.RegularVulns) != 0 {
+				sourceResult.PackageTypeCount.Regular += 1
+			}
+			// A package can be counted as both regular and hidden if it has both called and uncalled vulnerabilities.
+			if len(pkg.HiddenVulns) != 0 {
+				sourceResult.PackageTypeCount.Hidden += 1
+			}
+		}
+
+		// Sort packageResults to ensure consistent output
+		slices.SortFunc(packages, func(a, b PackageResult) int {
+			return cmp.Or(
+				cmp.Compare(a.Name, b.Name),
+				cmp.Compare(a.InstalledVersion, b.InstalledVersion),
+				cmp.Compare(a.Commit, b.Commit),
+			)
+		})
+		sourceResult.Packages = packages
+		sourceResults[ecosystem] = sourceResult
 	}
 
-	// Sort packageResults to ensure consistent output
-	slices.SortFunc(packages, func(a, b PackageResult) int {
-		return cmp.Or(
-			cmp.Compare(a.Name, b.Name),
-			cmp.Compare(a.InstalledVersion, b.InstalledVersion),
-		)
-	})
-	sourceResult.Name = packageSource.Source.String()
-	sourceResult.Packages = packages
-
-	return sourceResult
+	return sourceResults
 }
 
 // processPackage processes vulnerability information for a given package
@@ -432,6 +464,7 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 		Name:              vulnPkg.Package.Name,
 		OSPackageNames:    []string{vulnPkg.Package.OSPackageName},
 		InstalledVersion:  vulnPkg.Package.Version,
+		Commit:            vulnPkg.Package.Commit,
 		FixedVersion:      packageFixedVersion,
 		RegularVulns:      regularVulnList,
 		HiddenVulns:       hiddenVulnList,
@@ -829,4 +862,13 @@ func printSummary(result Result, out io.Writer) {
 		fixedVulnForm,
 	)
 	fmt.Fprintln(out, summary)
+}
+
+func getInstalledVersionOrCommit(pkg PackageResult) string {
+	result := pkg.InstalledVersion
+	if result == "" && pkg.Commit != "" {
+		result = results.GetShortCommit(pkg.Commit)
+	}
+
+	return result
 }

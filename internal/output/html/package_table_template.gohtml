@@ -40,9 +40,24 @@
         <i class="material-icons">play_arrow</i>
       </div>
     </td>
+<<<<<<< HEAD
     <td {{ if $isUncalled }}class="uncalled-text" {{ end }}>{{ $element.Name }}</td>
     <td {{ if $isUncalled }}class="uncalled-text" {{ end }}>{{ $element.InstalledVersion }}</td>
     {{ if not $isUncalled }}
+=======
+    <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>{{ $element.Name }}</td>
+    <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>
+    {{ if ne $element.InstalledVersion "" }}
+      {{ $element.InstalledVersion }}
+    {{ else if ne $element.Commit "" }}
+      <div class="tooltip">
+        <div>@{{ GetShortCommit $element.Commit }}</div>
+        <span class="tooltiptext">Commit: {{ $element.Commit }}</span>
+      </div>
+    {{ end }}
+    </td>
+    {{ if ne $element.VulnCount.AnalysisCount.Regular 0 }}
+>>>>>>> upstream/main
     <td>
       <div class="tooltip no-underline">
       {{ if ne $element.VulnCount.FixableCount.UnFixed 0 }}

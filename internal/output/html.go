@@ -6,6 +6,7 @@ import (
 	"io"
 	"strings"
 
+	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
@@ -75,6 +76,7 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		"formatLayerCommand":          formatLayerCommand,
 		"buildVulnTableEntryArgument": buildVulnTableEntryArgument,
 		"formatLicense":               formatLicense,
+		"GetShortCommit":              results.GetShortCommit,
 	}
 
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))

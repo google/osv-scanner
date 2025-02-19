@@ -146,7 +146,7 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 				if pkg.LayerDetail.BaseImageInfo.Index != 0 {
 					inBaseImage = getBaseImageName(pkg.LayerDetail.BaseImageInfo)
 				}
-				outputRow = append(outputRow, pkg.Name, pkg.InstalledVersion, fixAvailable, totalCount, layer, inBaseImage)
+				outputRow = append(outputRow, pkg.Name, getInstalledVersionOrCommit(pkg), fixAvailable, totalCount, layer, inBaseImage)
 				if result.LicenseSummary.ShowViolations {
 					if len(pkg.LicenseViolations) == 0 {
 						outputRow = append(outputRow, "--")
@@ -175,7 +175,7 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 					outputRow := table.Row{}
 					totalCount := pkg.VulnCount.AnalysisCount.Hidden
 					filteredReasons := getFilteredVulnReasons(pkg.HiddenVulns)
-					outputRow = append(outputRow, pkg.Name, ecosystem.Name, pkg.InstalledVersion, totalCount, filteredReasons)
+					outputRow = append(outputRow, pkg.Name, ecosystem.Name, getInstalledVersionOrCommit(pkg), totalCount, filteredReasons)
 					outputTable.AppendRow(outputRow)
 				}
 			}
