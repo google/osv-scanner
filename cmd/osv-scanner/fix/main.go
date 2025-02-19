@@ -157,19 +157,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Usage:       "the allowed package upgrades, in the format `[package-name:]level`. If package-name is omitted, level is applied to all packages. level must be one of (major, minor, patch, none).",
 				DefaultText: "major",
 			},
-			&cli.BoolFlag{
-				Category: upgradeCategory,
-				Name:     "disallow-major-upgrades",
-				Usage:    "disallow major version changes to dependencies",
-				Hidden:   true,
-			},
-			&cli.StringSliceFlag{
-				Category: upgradeCategory,
-				Name:     "disallow-package-upgrades",
-				Usage:    "list of packages to disallow version changes",
-				Hidden:   true,
-			},
-
 			&cli.IntFlag{
 				Category: vulnCategory,
 				Name:     "max-depth",
@@ -230,21 +217,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 
 func parseUpgradeConfig(ctx *cli.Context, r reporter.Reporter) upgrade.Config {
 	config := upgrade.NewConfig()
-
-	if ctx.IsSet("disallow-major-upgrades") {
-		r.Warnf("WARNING: `--disallow-major-upgrades` flag is deprecated, use `--upgrade-config minor` instead\n")
-		if ctx.Bool("disallow-major-upgrades") {
-			config.SetDefault(upgrade.Minor)
-		} else {
-			config.SetDefault(upgrade.Major)
-		}
-	}
-	if ctx.IsSet("disallow-package-upgrades") {
-		r.Warnf("WARNING: `--disallow-package-upgrades` flag is deprecated, use `--upgrade-config PKG:none` instead\n")
-		for _, pkg := range ctx.StringSlice("disallow-package-upgrades") {
-			config.Set(pkg, upgrade.None)
-		}
-	}
 
 	for _, spec := range ctx.StringSlice("upgrade-config") {
 		idx := strings.LastIndex(spec, ":")

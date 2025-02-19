@@ -12,7 +12,8 @@ import (
 	"github.com/google/osv-scalibr/semantic"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/identifiers"
-
+	"github.com/google/osv-scanner/v2/internal/semantic"
+	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -50,6 +51,7 @@ type PackageResult struct {
 	Name             string
 	OSPackageNames   []string
 	InstalledVersion string
+	Commit           string
 	FixedVersion     string
 	RegularVulns     []VulnResult
 	HiddenVulns      []VulnResult
@@ -377,6 +379,7 @@ func processSource(packageSource models.PackageSource) SourceResult {
 		return cmp.Or(
 			cmp.Compare(a.Name, b.Name),
 			cmp.Compare(a.InstalledVersion, b.InstalledVersion),
+			cmp.Compare(a.Commit, b.Commit),
 		)
 	})
 	sourceResult.Name = packageSource.Source.String()
@@ -407,6 +410,7 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 		Name:             vulnPkg.Package.Name,
 		OSPackageNames:   []string{vulnPkg.Package.OSPackageName},
 		InstalledVersion: vulnPkg.Package.Version,
+		Commit:           vulnPkg.Package.Commit,
 		FixedVersion:     packageFixedVersion,
 		RegularVulns:     regularVulnList,
 		HiddenVulns:      hiddenVulnList,
@@ -736,4 +740,13 @@ func cleanupSpaces(s string) string {
 	s = strings.TrimSpace(s)
 
 	return s
+}
+
+func getInstalledVersionOrCommit(pkg PackageResult) string {
+	result := pkg.InstalledVersion
+	if result == "" && pkg.Commit != "" {
+		result = results.GetShortCommit(pkg.Commit)
+	}
+
+	return result
 }

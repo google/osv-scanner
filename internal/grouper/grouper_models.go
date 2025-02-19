@@ -26,6 +26,12 @@ func ConvertVulnerabilityToIDAliases(c []osvschema.Vulnerability) []IDAliases {
 			idAliases.Aliases = append(idAliases.Aliases, v.Related...)
 		}
 
+		// For Ubuntu Security Advisory data,
+		// all related CVEs should be bundled together, as they are part of this USN.
+		if strings.Split(v.ID, "-")[0] == "USN" {
+			idAliases.Aliases = append(idAliases.Aliases, v.Related...)
+		}
+
 		output = append(output, idAliases)
 	}
 
