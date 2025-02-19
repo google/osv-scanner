@@ -253,7 +253,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 					shouldMerge = true
 				} else {
 					name := pkg.Package.Name
-					// TODO: Migrate this earlier to the result struct directly
+					// TODO(#1646): Migrate this earlier to the result struct directly
 					if depgroups.IsDevGroup(ecosystem.MustParse(pkg.Package.Ecosystem).Ecosystem, pkg.DepGroups) {
 						name += " (dev)"
 					}
