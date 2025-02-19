@@ -114,7 +114,7 @@ func suggestMavenVersion(ctx context.Context, cl resolve.Client, req resolve.Req
 			continue
 		}
 		_, diff := v.Difference(current)
-		if (level == upgrade.Minor && diff == semver.DiffMajor) || (level == upgrade.Patch && (diff == semver.DiffMajor || diff == semver.DiffMinor)) {
+		if !level.Allows(diff) {
 			continue
 		}
 		newReq = v
