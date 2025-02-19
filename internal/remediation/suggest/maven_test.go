@@ -393,7 +393,7 @@ func TestSuggestVersion(t *testing.T) {
 		// No major updates allowed
 		{"1.0.0", upgrade.Minor, "1.2.3"},
 		// Only allow patch updates
-		// {"1.0.0", upgrade.Patch, "1.0.1"},
+		{"1.0.0", upgrade.Patch, "1.0.1"},
 		// Version range requirement is not outdated
 		{"[1.0.0,)", upgrade.Major, "[1.0.0,)"},
 		{"[2.0.0, 2.3.4]", upgrade.Major, "[2.0.0, 2.3.4]"},
