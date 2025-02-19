@@ -12,7 +12,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
-func TestMakeRetryRequest(t *testing.T) {
+func Test_makeRetryRequest(t *testing.T) {
 	t.Parallel()
 	testutility.Skip(t, "This test takes a long time (14+ seconds)")
 

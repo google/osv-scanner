@@ -10,7 +10,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
-func TestGetProject(t *testing.T) {
+func TestMavenRegistryAPIClient_GetProject(t *testing.T) {
 	t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
