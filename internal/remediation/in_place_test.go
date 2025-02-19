@@ -3,6 +3,7 @@ package remediation_test
 import (
 	"cmp"
 	"context"
+	"maps"
 	"slices"
 	"testing"
 
@@ -15,7 +16,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	"golang.org/x/exp/maps"
 )
 
 func parseInPlaceFixture(t *testing.T, universePath, lockfilePath string) (*resolve.Graph, client.ResolutionClient) {
@@ -56,7 +56,7 @@ func checkInPlaceResults(t *testing.T, res remediation.InPlaceResult) {
 		for _, sg := range v.Subgraphs {
 			nodes[sg.Dependency] = struct{}{}
 		}
-		sortedNodes := maps.Keys(nodes)
+		sortedNodes := slices.Collect(maps.Keys(nodes))
 		slices.Sort(sortedNodes)
 
 		return minimalVuln{

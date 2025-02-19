@@ -2,6 +2,7 @@ package fix
 
 import (
 	"fmt"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -11,7 +12,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/tui"
-	"golang.org/x/exp/slices"
 )
 
 type stateChooseStrategy struct {

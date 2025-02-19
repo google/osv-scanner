@@ -14,7 +14,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
 	manif "github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/tui"
-	"golang.org/x/exp/maps"
 )
 
 type stateRelockResult struct {
@@ -137,7 +136,7 @@ func (st *stateRelockResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			return errorAndExit(m, msg.err)
 		}
 		st.patches = msg.patches
-		maps.Clear(st.selectedPatches)
+		clear(st.selectedPatches)
 		st.buildPatchInfoViews(m)
 		st.patchesDone = true
 		if len(st.patches) > 0 {
@@ -155,7 +154,7 @@ func (st *stateRelockResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.writing = false
 		m.relockBaseRes = st.currRes // relockBaseRes must match what is in the package.json
 		m.relockBaseResErrs = m.relockBaseRes.Errors()
-		maps.Clear(st.selectedPatches)
+		clear(st.selectedPatches)
 
 	case tui.ViewModelCloseMsg:
 		// info view wants to quit, just unfocus it
