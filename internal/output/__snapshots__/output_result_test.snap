@@ -19,6 +19,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.2",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -111,6 +112,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -243,6 +245,7 @@
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -335,6 +338,7 @@
                 ""
               ],
               "InstalledVersion": "0.4.1",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -514,6 +518,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.2",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -606,6 +611,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -738,6 +744,7 @@
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -830,6 +837,7 @@
                 ""
               ],
               "InstalledVersion": "0.4.1",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -1009,6 +1017,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1114,6 +1123,7 @@
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1192,6 +1202,7 @@
                 ""
               ],
               "InstalledVersion": "0.4.1",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1297,6 +1308,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1375,6 +1387,7 @@
                 ""
               ],
               "InstalledVersion": "1.3.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1527,6 +1540,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -1646,6 +1660,7 @@
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -1738,6 +1753,7 @@
                 ""
               ],
               "InstalledVersion": "0.4.1",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1843,6 +1859,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -1935,6 +1952,7 @@
                 ""
               ],
               "InstalledVersion": "1.3.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -2087,6 +2105,7 @@
                 ""
               ],
               "InstalledVersion": "0.4.1",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2192,6 +2211,7 @@
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2317,6 +2337,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2422,6 +2443,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.2",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2588,6 +2610,7 @@
                 ""
               ],
               "InstalledVersion": "0.4.1",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2693,6 +2716,7 @@
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2818,6 +2842,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2924,6 +2949,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.2",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -3328,6 +3354,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -3480,6 +3507,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -3660,6 +3688,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -3826,6 +3855,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [
@@ -3992,6 +4022,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -4158,6 +4189,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -4324,6 +4356,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [
@@ -4493,6 +4526,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -4662,6 +4696,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -4754,6 +4789,7 @@
                 ""
               ],
               "InstalledVersion": "0.10.2-rc",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -4920,6 +4956,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -5039,6 +5076,7 @@
                 ""
               ],
               "InstalledVersion": "5.9.0",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -5191,6 +5229,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -5310,6 +5349,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
