@@ -157,7 +157,14 @@ func GetDependencyManagement(ctx context.Context, client *datasource.MavenRegist
 
 // CompareVersions returns a version comparison function with special behaviour for specific packages,
 // producing more desirable ordering using non-standard comparison.
-func CompareVersions(vk resolve.VersionKey, a resolve.Version, b resolve.Version) int {
+func CompareVersions(vk resolve.VersionKey, a *semver.Version, b *semver.Version) int {
+	if a == nil || b == nil {
+		if a == nil {
+			return -1
+		}
+		return 1
+	}
+
 	if vk.Name == "com.google.guava:guava" {
 		// com.google.guava:guava has 'flavors' with versions ending with -jre or -android.
 		// https://github.com/google/guava/wiki/ReleasePolicy#flavors
@@ -167,11 +174,11 @@ func CompareVersions(vk resolve.VersionKey, a resolve.Version, b resolve.Version
 		// Only check for the android flavor, and assume its jre otherwise.
 		wantAndroid := strings.HasSuffix(vk.Version, "-android")
 
-		aIsAndroid := strings.HasSuffix(a.Version, "-android")
-		bIsAndroid := strings.HasSuffix(b.Version, "-android")
+		aIsAndroid := strings.HasSuffix(a.String(), "-android")
+		bIsAndroid := strings.HasSuffix(b.String(), "-android")
 
 		if aIsAndroid == bIsAndroid {
-			return semver.Maven.Compare(a.Version, b.Version)
+			return a.Compare(b)
 		}
 
 		if aIsAndroid == wantAndroid {
@@ -189,11 +196,11 @@ func CompareVersions(vk resolve.VersionKey, a resolve.Version, b resolve.Version
 		// It's extremely unlikely we'd see any versions dated before 1999 or after 2010.
 		// It's also unlikely we'd see any major versions of these packages reach up to 200.0.0.
 		// Checking if the version starts with "200" should therefore be sufficient to determine if it's a year.
-		aCal := strings.HasPrefix(a.Version, "200")
-		bCal := strings.HasPrefix(b.Version, "200")
+		aCal := strings.HasPrefix(a.String(), "200")
+		bCal := strings.HasPrefix(b.String(), "200")
 
 		if aCal == bCal {
-			return semver.Maven.Compare(a.Version, b.Version)
+			return a.Compare(b)
 		}
 
 		if aCal {
@@ -203,5 +210,5 @@ func CompareVersions(vk resolve.VersionKey, a resolve.Version, b resolve.Version
 		return 1
 	}
 
-	return semver.Maven.Compare(a.Version, b.Version)
+	return a.Compare(b)
 }

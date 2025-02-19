@@ -11,6 +11,7 @@ import (
 	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scanner/v2/internal/utility/maven"
 	"golang.org/x/exp/slices"
 )
 
@@ -78,12 +79,12 @@ func suggestMavenVersion(ctx context.Context, cl resolve.Client, req resolve.Req
 	}
 	semvers := make([]*semver.Version, 0, len(versions))
 	for _, ver := range versions {
-		v, err := semver.Maven.Parse(ver.Version)
+		parsed, err := semver.Maven.Parse(ver.Version)
 		if err != nil {
-			log.Printf("parsing Maven version %s: %v", v, err)
+			log.Printf("parsing Maven version %s: %v", parsed, err)
 			continue
 		}
-		semvers = append(semvers, v)
+		semvers = append(semvers, parsed)
 	}
 
 	constraint, err := semver.Maven.ParseConstraint(req.Version)
@@ -109,12 +110,11 @@ func suggestMavenVersion(ctx context.Context, cl resolve.Client, req resolve.Req
 
 	var newReq *semver.Version
 	for _, v := range semvers {
-		if v.Compare(newReq) < 0 {
+		if maven.CompareVersions(req.VersionKey, v, newReq) < 0 {
 			// Skip versions smaller than the current requirement
 			continue
 		}
-		_, diff := v.Difference(current)
-		if !level.Allows(diff) {
+		if _, diff := v.Difference(current); !level.Allows(diff) {
 			continue
 		}
 		newReq = v
