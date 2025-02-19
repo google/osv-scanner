@@ -83,6 +83,7 @@ NuGet
 
 :path/to/my/third/lockfile: found 0 packages with issues
   no known vulnerabilities found
+  no license violations found
 
 Packagist
 

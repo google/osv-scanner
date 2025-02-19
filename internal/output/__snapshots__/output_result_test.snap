@@ -2256,7 +2256,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -2275,7 +2277,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -2395,7 +2398,9 @@
                   "Fixed": 0,
                   "UnFixed": 2
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -2414,7 +2419,8 @@
               "Fixed": 0,
               "UnFixed": 2
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -2528,107 +2534,9 @@
                   "Fixed": 0,
                   "UnFixed": 2
                 }
-<<<<<<< HEAD
               },
               "Licenses": null,
               "LicenseViolations": null
-            },
-            {
-              "Name": "mine2",
-              "OSPackageNames": [
-                ""
-              ],
-              "InstalledVersion": "3.2.5",
-              "FixedVersion": "No fix available",
-              "RegularVulns": [
-                {
-                  "ID": "OSV-2",
-                  "GroupIDs": [
-                    "OSV-2"
-                  ],
-                  "Aliases": null,
-                  "Description": "Something less scary!",
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                }
-              ],
-              "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
-              "VulnCount": {
-                "AnalysisCount": {
-                  "Regular": 1,
-                  "Hidden": 0
-                },
-                "SeverityCount": {
-                  "Critical": 0,
-                  "High": 0,
-                  "Medium": 0,
-                  "Low": 0,
-                  "Unknown": 1
-                },
-                "FixableCount": {
-                  "Fixed": 0,
-                  "UnFixed": 1
-                }
-              },
-              "Licenses": null,
-              "LicenseViolations": null
-=======
-              }
->>>>>>> upstream/main
             }
           ],
           "VulnCount": {
@@ -2665,116 +2573,6 @@
           },
           "Packages": [
             {
-<<<<<<< HEAD
-              "Name": "author1/mine1",
-              "OSPackageNames": [
-                ""
-              ],
-              "InstalledVersion": "1.2.3",
-              "FixedVersion": "No fix available",
-              "RegularVulns": [
-                {
-                  "ID": "OSV-1",
-                  "GroupIDs": [
-                    "OSV-1"
-                  ],
-                  "Aliases": null,
-                  "Description": "Something scary!",
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                },
-                {
-                  "ID": "OSV-5",
-                  "GroupIDs": [
-                    "OSV-5"
-                  ],
-                  "Aliases": null,
-                  "Description": "Something scarier!",
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                }
-              ],
-              "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
-              "VulnCount": {
-                "AnalysisCount": {
-                  "Regular": 2,
-                  "Hidden": 0
-                },
-                "SeverityCount": {
-                  "Critical": 0,
-                  "High": 0,
-                  "Medium": 0,
-                  "Low": 0,
-                  "Unknown": 2
-                },
-                "FixableCount": {
-                  "Fixed": 0,
-                  "UnFixed": 2
-                }
-              },
-              "Licenses": null,
-              "LicenseViolations": null
-            },
-            {
-=======
->>>>>>> upstream/main
               "Name": "mine1",
               "OSPackageNames": [
                 ""
@@ -2950,116 +2748,6 @@
           },
           "Packages": [
             {
-<<<<<<< HEAD
-              "Name": "author3/mine3",
-              "OSPackageNames": [
-                ""
-              ],
-              "InstalledVersion": "0.4.1",
-              "FixedVersion": "No fix available",
-              "RegularVulns": [
-                {
-                  "ID": "OSV-3",
-                  "GroupIDs": [
-                    "OSV-3"
-                  ],
-                  "Aliases": null,
-                  "Description": "Something mildly scary!",
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                },
-                {
-                  "ID": "OSV-5",
-                  "GroupIDs": [
-                    "OSV-5"
-                  ],
-                  "Aliases": null,
-                  "Description": "Something scarier!",
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                }
-              ],
-              "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
-              "VulnCount": {
-                "AnalysisCount": {
-                  "Regular": 2,
-                  "Hidden": 0
-                },
-                "SeverityCount": {
-                  "Critical": 0,
-                  "High": 0,
-                  "Medium": 0,
-                  "Low": 0,
-                  "Unknown": 2
-                },
-                "FixableCount": {
-                  "Fixed": 0,
-                  "UnFixed": 2
-                }
-              },
-              "Licenses": null,
-              "LicenseViolations": null
-            },
-            {
-=======
->>>>>>> upstream/main
               "Name": "mine2",
               "OSPackageNames": [
                 ""
@@ -3293,19 +2981,15 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-<<<<<<< HEAD
               },
               "Licenses": null,
               "LicenseViolations": null
-=======
-              }
             }
           ],
           "VulnCount": {
             "AnalysisCount": {
               "Regular": 1,
               "Hidden": 1
->>>>>>> upstream/main
             },
             "SeverityCount": {
               "Critical": 0,
@@ -3318,7 +3002,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -3432,7 +3117,9 @@
                   "Fixed": 0,
                   "UnFixed": 2
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -3451,7 +3138,8 @@
               "Fixed": 0,
               "UnFixed": 2
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
