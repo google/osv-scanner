@@ -1,3 +1,4 @@
+// semverlike is currently used to parse go mod version to determine if a patch version exists
 package semverlike
 
 import (
