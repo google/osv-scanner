@@ -1200,8 +1200,9 @@ Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 2 packages affected by 3 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystems.
-3 vulnerabilities have fixes available.
+Total 2 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+3 vulnerabilities can be fixed.
+
 
 Alpine:v3.18
 +---------------------------------------------------------------------------------------------+
@@ -2197,6 +2198,8 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2022-49043      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5391-1          | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-25062      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2024-56171      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-24928      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2408,6 +2411,8 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2022-49043      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5391-1          | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-25062      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2024-56171      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-24928      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3006,8 +3011,9 @@ No issues found
 Scanning local image tarball "../../internal/image/fixtures/test-alpine.tar"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 2 packages affected by 41 vulnerabilities (2 Critical, 17 High, 14 Medium, 0 Low, 8 Unknown) from 1 ecosystems.
-41 vulnerabilities have fixes available.
+Total 2 packages affected by 41 known vulnerabilities (2 Critical, 17 High, 14 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
+41 vulnerabilities can be fixed.
+
 
 Alpine:v3.18
 +---------------------------------------------------------------------------------------------+
@@ -3044,8 +3050,9 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 Scanning local image tarball "../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 13 packages affected by 18 vulnerabilities (1 Critical, 5 High, 9 Medium, 0 Low, 3 Unknown) from 2 ecosystems.
-18 vulnerabilities have fixes available.
+Total 13 packages affected by 18 known vulnerabilities (1 Critical, 5 High, 9 Medium, 0 Low, 3 Unknown) from 2 ecosystems.
+18 vulnerabilities can be fixed.
+
 
 Maven
 +-------------------------------------------------------------------------------------------------------------------------------+
@@ -3089,8 +3096,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-python-empty.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 12 packages affected by 17 vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
-17 vulnerabilities have fixes available.
+Total 12 packages affected by 17 known vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
+17 vulnerabilities can be fixed.
+
 
 PyPI
 +---------------------------------------------------------------------------------------------+
@@ -3139,8 +3147,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 17 packages affected by 31 vulnerabilities (0 Critical, 8 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-31 vulnerabilities have fixes available.
+Total 17 packages affected by 31 known vulnerabilities (0 Critical, 8 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+31 vulnerabilities can be fixed.
+
 
 PyPI
 +---------------------------------------------------------------------------------------------+
@@ -3224,8 +3233,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 8 packages affected by 48 vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 48 Unknown) from 2 ecosystems.
-48 vulnerabilities have fixes available.
+Total 8 packages affected by 48 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 48 Unknown) from 2 ecosystems.
+48 vulnerabilities can be fixed.
+
 
 Go
 +---------------------------------------------------------------------------------------------+
@@ -3294,8 +3304,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
-11 vulnerabilities have fixes available.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+11 vulnerabilities can be fixed.
+
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3321,8 +3332,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 4 packages affected by 14 vulnerabilities (2 Critical, 0 High, 5 Medium, 0 Low, 7 Unknown) from 2 ecosystems.
-13 vulnerabilities have fixes available.
+Total 4 packages affected by 14 known vulnerabilities (2 Critical, 0 High, 5 Medium, 0 Low, 7 Unknown) from 2 ecosystems.
+13 vulnerabilities can be fixed.
+
 
 npm
 +-------------------------------------------------------------------------------------------------+
@@ -3357,8 +3369,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
-11 vulnerabilities have fixes available.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+11 vulnerabilities can be fixed.
+
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3384,8 +3397,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
-11 vulnerabilities have fixes available.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+11 vulnerabilities can be fixed.
+
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3411,8 +3425,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
-11 vulnerabilities have fixes available.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+11 vulnerabilities can be fixed.
+
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+
@@ -3438,8 +3453,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystems.
-11 vulnerabilities have fixes available.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+11 vulnerabilities can be fixed.
+
 
 Alpine:v3.19
 +---------------------------------------------------------------------------------------------+

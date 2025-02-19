@@ -1,6 +1,16 @@
 const selectedTypeFilterValue = new Set(["all"]);
 let selectedLayer = "all";
 
+function toggleDetails(summaryID) {
+  const detailsElementID = `${summaryID}-details`;
+  const iconElementID = `${summaryID}-icon`;
+  const detailsElement = document.getElementById(detailsElementID);
+  const iconElement = document.getElementById(iconElementID);
+
+  detailsElement.classList.toggle("hide-block");
+  iconElement.classList.toggle("expanded");
+}
+
 function quickFilterByLayer(DiffID, layerCommand) {
   selectedLayer = DiffID;
   applyFilters(selectedTypeFilterValue, selectedLayer);
