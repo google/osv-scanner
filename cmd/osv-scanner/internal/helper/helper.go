@@ -1,7 +1,6 @@
 package helper
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -25,14 +24,35 @@ var OfflineFlags = map[string]string{
 	"include-git-root":                     "true",
 	"experimental-offline-vulnerabilities": "true",
 	"experimental-no-resolve":              "true",
-	"experimental-licenses-summary":        "false",
-	// "experimental-licenses": "", // StringSliceFlag has to be manually cleared.
+	"experimental-licenses":                "false",
 }
 
 // sets default port(8000) as a global variable
 var (
 	servePort = "8000" // default port
 )
+
+type licenseGenericFlag struct {
+	allowList string
+}
+
+func (g *licenseGenericFlag) Set(value string) error {
+	if value == "" || value == "false" || value == "true" {
+		g.allowList = ""
+	} else {
+		g.allowList = value
+	}
+
+	return nil
+}
+
+func (g *licenseGenericFlag) IsBoolFlag() bool {
+	return true
+}
+
+func (g *licenseGenericFlag) String() string {
+	return g.allowList
+}
 
 var GlobalScanFlags = []cli.Flag{
 	&cli.StringFlag{
@@ -122,13 +142,12 @@ var GlobalScanFlags = []cli.Flag{
 		Name:  "experimental-all-packages",
 		Usage: "when json output is selected, prints all packages",
 	},
-	&cli.BoolFlag{
-		Name:  "experimental-licenses-summary",
-		Usage: "report a license summary, implying the --experimental-all-packages flag",
-	},
-	&cli.StringSliceFlag{
+	&cli.GenericFlag{
 		Name:  "experimental-licenses",
 		Usage: "report on licenses based on an allowlist",
+		Value: &licenseGenericFlag{
+			allowList: "",
+		},
 	},
 }
 
@@ -171,29 +190,6 @@ func ServeHTML(r reporter.Reporter, outputPath string) {
 	}
 }
 
-func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
-	if context.Bool("experimental-licenses-summary") && context.IsSet("experimental-licenses") {
-		return nil, errors.New("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
-	}
-	allowlist := context.StringSlice("experimental-licenses")
-	if context.IsSet("experimental-licenses") {
-		if len(allowlist) == 0 ||
-			(len(allowlist) == 1 && allowlist[0] == "") {
-			return nil, errors.New("--experimental-licenses requires at least one value")
-		}
-		if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
-			return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
-		}
-	}
-
-	scanLicensesAllowlist := context.StringSlice("experimental-licenses")
-	if context.Bool("experimental-offline") {
-		scanLicensesAllowlist = []string{}
-	}
-
-	return scanLicensesAllowlist, nil
-}
-
 func GetReporter(context *cli.Context, stdout, stderr io.Writer, outputPath, format string) (reporter.Reporter, error) {
 	termWidth := 0
 	var err error
@@ -223,18 +219,34 @@ func GetReporter(context *cli.Context, stdout, stderr io.Writer, outputPath, for
 	return r, nil
 }
 
+func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
+	allowlist := strings.Split(context.Generic("experimental-licenses").(*licenseGenericFlag).String(), ",")
+
+	if context.IsSet("experimental-licenses") {
+		if len(allowlist) == 0 ||
+			(len(allowlist) == 1 && allowlist[0] == "") {
+			return []string{}, nil
+		}
+
+		if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
+			return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
+		}
+	}
+
+	if context.Bool("experimental-offline") {
+		allowlist = []string{}
+	}
+
+	return allowlist, nil
+}
+
 func GetExperimentalScannerActions(context *cli.Context, scanLicensesAllowlist []string) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
-		LocalDBPath:       context.String("experimental-local-db-path"),
-		DownloadDatabases: context.Bool("experimental-download-offline-databases"),
-		CompareOffline:    context.Bool("experimental-offline-vulnerabilities"),
-		// License summary mode causes all
-		// packages to appear in the json as
-		// every package has a license - even
-		// if it's just the UNKNOWN license.
-		ShowAllPackages: context.Bool("experimental-all-packages") ||
-			context.Bool("experimental-licenses-summary"),
-		ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
+		LocalDBPath:           context.String("experimental-local-db-path"),
+		DownloadDatabases:     context.Bool("experimental-download-offline-databases"),
+		CompareOffline:        context.Bool("experimental-offline-vulnerabilities"),
+		ShowAllPackages:       context.Bool("experimental-all-packages"),
+		ScanLicensesSummary:   context.IsSet("experimental-licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,
 	}
 }
