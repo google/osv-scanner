@@ -162,6 +162,7 @@ func CompareVersions(vk resolve.VersionKey, a *semver.Version, b *semver.Version
 		if a == nil {
 			return -1
 		}
+
 		return 1
 	}
 

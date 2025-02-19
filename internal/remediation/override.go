@@ -257,7 +257,7 @@ func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk reso
 	if err != nil {
 		return nil, err
 	}
-	semvers :=  make(map[resolve.VersionKey]*semver.Version)
+	semvers := make(map[resolve.VersionKey]*semver.Version)
 	for _, ver := range versions {
 		parsed, err := semver.Maven.Parse(ver.Version)
 		if err != nil {
@@ -271,6 +271,7 @@ func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk reso
 		if vk.System == resolve.Maven {
 			return maven.CompareVersions(vk, semvers[a.VersionKey], semvers[b.VersionKey])
 		}
+
 		return vk.Semver().Compare(a.Version, b.Version)
 	}
 	slices.SortFunc(versions, cmpFunc)
