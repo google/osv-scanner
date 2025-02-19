@@ -51,7 +51,7 @@
       </div>
     {{ end }}
     </td>
-    {{ if $isUncalled }}
+    {{ if not $isUncalled }}
     <td>
       <div class="tooltip no-underline">
       {{ if ne $element.VulnCount.FixableCount.UnFixed 0 }}
@@ -84,6 +84,8 @@
     {{ if $showLicense }}
       {{ if $hasLicenseViolations}}
       <td>{{ formatLicense .LicenseViolations }}</td>
+      {{ else }}
+      <td> -- </td>
       {{ end }}
     {{ end }}
 
