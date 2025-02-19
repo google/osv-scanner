@@ -238,6 +238,7 @@ jobs:
 ```
 
 #### Using download-artifact with matrix
+
 ```yml
 jobs:
   extract-deps:
