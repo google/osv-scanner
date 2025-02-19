@@ -155,7 +155,7 @@ func GetDependencyManagement(ctx context.Context, client *datasource.MavenRegist
 	return result.DependencyManagement, nil
 }
 
-// CompareVersions returns a version comparison function with special behaviour for specific packages,
+// CompareVersions compares two Maven semver versions with special behaviour for specific packages,
 // producing more desirable ordering using non-standard comparison.
 func CompareVersions(vk resolve.VersionKey, a *semver.Version, b *semver.Version) int {
 	if a == nil || b == nil {
