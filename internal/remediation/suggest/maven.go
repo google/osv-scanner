@@ -5,9 +5,11 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"strings"
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/semver"
+	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"golang.org/x/exp/slices"
 )
@@ -17,7 +19,7 @@ type MavenSuggester struct{}
 // Suggest returns the ManifestPatch to update Maven dependencies to a newer
 // version based on the options.
 // ManifestPatch also includes the property patches to update.
-func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf manifest.Manifest, opts Options) (manifest.Patch, error) {
+func (ms *MavenSuggester) Suggest(ctx context.Context, cl resolve.Client, mf manifest.Manifest, opts Options) (manifest.Patch, error) {
 	specific, ok := mf.EcosystemSpecific.(manifest.MavenManifestSpecific)
 	if !ok {
 		return manifest.Patch{}, errors.New("invalid MavenManifestSpecific data")
@@ -25,7 +27,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 
 	var changedDeps []manifest.DependencyPatch //nolint:prealloc
 	for _, req := range append(mf.Requirements, specific.RequirementsForUpdates...) {
-		if slices.Contains(opts.NoUpdates, req.Name) {
+		if opts.UpgradeConfig.Get(req.Name) == upgrade.None {
 			continue
 		}
 
@@ -34,8 +36,12 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 			// and updates on development dependencies are not desired
 			continue
 		}
+		if strings.Contains(req.Name, "${") && strings.Contains(req.Version, "${") {
+			// If there are unresolved properties, we should skip this version.
+			continue
+		}
 
-		latest, err := suggestMavenVersion(ctx, client, req, slices.Contains(opts.AvoidMajor, req.Name))
+		latest, err := suggestMavenVersion(ctx, cl, req, opts.UpgradeConfig.Get(req.Name))
 		if err != nil {
 			return manifest.Patch{}, fmt.Errorf("suggesting latest version of %s: %w", req.Version, err)
 		}
@@ -65,8 +71,8 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 //     update is a major update or not.
 //   - if the latest version does not satisfy the constraint, this version is returned;
 //     otherwise, the original version range requirement is returned.
-func suggestMavenVersion(ctx context.Context, client resolve.Client, req resolve.RequirementVersion, noMajorUpdates bool) (resolve.RequirementVersion, error) {
-	versions, err := client.Versions(ctx, req.PackageKey)
+func suggestMavenVersion(ctx context.Context, cl resolve.Client, req resolve.RequirementVersion, level upgrade.Level) (resolve.RequirementVersion, error) {
+	versions, err := cl.Versions(ctx, req.PackageKey)
 	if err != nil {
 		return resolve.RequirementVersion{}, fmt.Errorf("requesting versions of Maven package %s: %w", req.Name, err)
 	}
@@ -107,7 +113,8 @@ func suggestMavenVersion(ctx context.Context, client resolve.Client, req resolve
 			// Skip versions smaller than the current requirement
 			continue
 		}
-		if _, diff := v.Difference(current); diff == semver.DiffMajor && noMajorUpdates {
+		_, diff := v.Difference(current)
+		if !level.Allows(diff) {
 			continue
 		}
 		newReq = v
