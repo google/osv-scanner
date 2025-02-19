@@ -1,5 +1,11 @@
 package upgrade
 
+import (
+	"strings"
+
+	"github.com/google/osv-scanner/v2/pkg/reporter"
+)
+
 type Config map[string]Level
 
 func NewConfig() Config {
@@ -32,4 +38,41 @@ func (c Config) Get(pkg string) Level {
 
 	// Empty package name is used as the default level.
 	return c[""]
+}
+
+func ParseUpgradeConfig(specs []string, r reporter.Reporter) Config {
+	config := NewConfig()
+
+	for _, spec := range specs {
+		idx := strings.LastIndex(spec, ":")
+		if idx == 0 {
+			r.Warnf("WARNING: `--upgrade-config %s` - skipping empty package name\n", spec)
+			continue
+		}
+		pkg := ""
+		levelStr := spec
+		if idx > 0 {
+			pkg = spec[:idx]
+			levelStr = spec[idx+1:]
+		}
+		var level Level
+		switch levelStr {
+		case "major":
+			level = Major
+		case "minor":
+			level = Minor
+		case "patch":
+			level = Patch
+		case "none":
+			level = None
+		default:
+			r.Warnf("WARNING: `--upgrade-config %s` - invalid level string '%s'\n", spec, levelStr)
+			continue
+		}
+		if config.Set(pkg, level) { // returns true if was previously set
+			r.Warnf("WARNING: `--upgrade-config %s` - config for package specified multiple times\n", spec)
+		}
+	}
+
+	return config
 }
