@@ -17,9 +17,22 @@
           by each severity level.</span>
       </div>
     </th>
+    {{ $showLicense := false }}
+    {{ if gt .LicenseViolationsCount 0 }}
+      {{ $showLicense = true }}
+      <th>License violations</th>
+    {{ end }}
   </tr>
-  {{ range $rowIndex, $element := . }}
+  {{ range $rowIndex, $element := .Packages }}
   {{ $index := uniqueID }}
+  {{ $isUncalled := false }}
+  {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}
+  {{ $isUncalled = true }}
+  {{ end }}
+  {{ $hasLicenseViolations := false }}
+  {{ if gt (len .LicenseViolations) 0 }}
+  {{ $hasLicenseViolations = true }}
+  {{ end }}
   <tr class="table-tr package-tr {{if $element.LayerDetail }}has-layer-info"
     data-layer="{{ $element.LayerDetail.LayerInfo.LayerMetadata.DiffID }}{{ end }}" id="table-tr-{{ $index }}" onclick="showPackageDetails('{{ $index }}')">
     <td class="icon-td">
@@ -27,9 +40,18 @@
         <i class="material-icons">play_arrow</i>
       </div>
     </td>
-    <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>{{ $element.Name }}</td>
-    <td {{ if eq $element.VulnCount.AnalysisCount.Regular 0 }}class="uncalled-text" {{ end }}>{{ $element.InstalledVersion }}</td>
-    {{ if ne $element.VulnCount.AnalysisCount.Regular 0 }}
+    <td {{ if $isUncalled }}class="uncalled-text" {{ end }}>{{ $element.Name }}</td>
+    <td {{ if $isUncalled }}class="uncalled-text" {{ end }}>
+    {{ if ne $element.InstalledVersion "" }}
+      {{ $element.InstalledVersion }}
+    {{ else if ne $element.Commit "" }}
+      <div class="tooltip">
+        <div>@{{ GetShortCommit $element.Commit }}</div>
+        <span class="tooltiptext">Commit: {{ $element.Commit }}</span>
+      </div>
+    {{ end }}
+    </td>
+    {{ if not $isUncalled }}
     <td>
       <div class="tooltip no-underline">
       {{ if ne $element.VulnCount.FixableCount.UnFixed 0 }}
@@ -59,7 +81,13 @@
     </td>
     {{ end }}
 
-
+    {{ if $showLicense }}
+      {{ if $hasLicenseViolations}}
+      <td>{{ formatLicense .LicenseViolations }}</td>
+      {{ else }}
+      <td> -- </td>
+      {{ end }}
+    {{ end }}
 
   </tr>
   <tr class="table-tr-details">
