@@ -2089,122 +2089,16 @@
 {
   "Ecosystems": [
     {
-      "Name": "Packagist",
+      "Name": "NuGet",
       "Sources": [
         {
           "Name": ":path/to/my/second/lockfile",
-          "Ecosystem": "Packagist",
+          "Ecosystem": "NuGet",
           "PackageTypeCount": {
-            "Regular": 2,
+            "Regular": 1,
             "Hidden": 0
           },
           "Packages": [
-            {
-              "Name": "author3/mine3",
-              "OSPackageNames": [
-                ""
-              ],
-              "InstalledVersion": "0.4.1",
-              "Commit": "",
-              "FixedVersion": "No fix available",
-              "RegularVulns": [
-                {
-                  "ID": "OSV-3",
-                  "GroupIDs": [
-                    "OSV-3"
-                  ],
-                  "Aliases": null,
-                  "Description": "Something mildly scary!",
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                },
-                {
-                  "ID": "OSV-5",
-                  "GroupIDs": [
-                    "OSV-5"
-                  ],
-                  "Aliases": null,
-                  "Description": "Something scarier!",
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                }
-              ],
-              "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
-              "VulnCount": {
-                "AnalysisCount": {
-                  "Regular": 2,
-                  "Hidden": 0
-                },
-                "SeverityCount": {
-                  "Critical": 0,
-                  "High": 0,
-                  "Medium": 0,
-                  "Low": 0,
-                  "Unknown": 2
-                },
-                "FixableCount": {
-                  "Fixed": 0,
-                  "UnFixed": 2
-                }
-              }
-            },
             {
               "Name": "mine2",
               "OSPackageNames": [
@@ -2301,7 +2195,7 @@
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 3,
+              "Regular": 1,
               "Hidden": 0
             },
             "SeverityCount": {
@@ -2309,11 +2203,11 @@
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 3
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 3
+              "UnFixed": 1
             }
           }
         }
@@ -2321,13 +2215,13 @@
       "IsOS": false
     },
     {
-      "Name": "npm",
+      "Name": "Packagist",
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
-          "Ecosystem": "npm",
+          "Ecosystem": "Packagist",
           "PackageTypeCount": {
-            "Regular": 2,
+            "Regular": 1,
             "Hidden": 0
           },
           "Packages": [
@@ -2436,104 +2330,11 @@
                   "UnFixed": 2
                 }
               }
-            },
-            {
-              "Name": "mine1",
-              "OSPackageNames": [
-                ""
-              ],
-              "InstalledVersion": "1.2.2",
-              "Commit": "",
-              "FixedVersion": "No fix available",
-              "RegularVulns": [
-                {
-                  "ID": "OSV-1",
-                  "GroupIDs": [
-                    "OSV-1"
-                  ],
-                  "Aliases": null,
-                  "Description": "Something scary!",
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                }
-              ],
-              "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
-              "VulnCount": {
-                "AnalysisCount": {
-                  "Regular": 1,
-                  "Hidden": 0
-                },
-                "SeverityCount": {
-                  "Critical": 0,
-                  "High": 0,
-                  "Medium": 0,
-                  "Low": 0,
-                  "Unknown": 1
-                },
-                "FixableCount": {
-                  "Fixed": 0,
-                  "UnFixed": 1
-                }
-              }
             }
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 3,
+              "Regular": 2,
               "Hidden": 0
             },
             "SeverityCount": {
@@ -2541,66 +2342,19 @@
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 3
+              "Unknown": 2
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 3
+              "UnFixed": 2
             }
           }
-        }
-      ],
-      "IsOS": false
-    }
-  ],
-  "IsContainerScanning": false,
-  "ImageInfo": {
-    "OS": "",
-    "AllLayers": null,
-    "AllBaseImages": null
-  },
-  "VulnTypeSummary": {
-    "All": 6,
-    "OS": 0,
-    "Project": 6,
-    "Hidden": 0
-  },
-  "PackageTypeCount": {
-    "Regular": 4,
-    "Hidden": 0
-  },
-  "VulnCount": {
-    "AnalysisCount": {
-      "Regular": 6,
-      "Hidden": 0
-    },
-    "SeverityCount": {
-      "Critical": 0,
-      "High": 0,
-      "Medium": 0,
-      "Low": 0,
-      "Unknown": 6
-    },
-    "FixableCount": {
-      "Fixed": 0,
-      "UnFixed": 6
-    }
-  }
-}
-
----
-
-[TestPrintOutputResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities,_but_some_uncalled - 1]
-{
-  "Ecosystems": [
-    {
-      "Name": "Packagist",
-      "Sources": [
+        },
         {
           "Name": ":path/to/my/second/lockfile",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
-            "Regular": 2,
+            "Regular": 1,
             "Hidden": 0
           },
           "Packages": [
@@ -2709,7 +2463,207 @@
                   "UnFixed": 2
                 }
               }
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 2,
+              "Hidden": 0
             },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 0,
+              "Medium": 0,
+              "Low": 0,
+              "Unknown": 2
+            },
+            "FixableCount": {
+              "Fixed": 0,
+              "UnFixed": 2
+            }
+          }
+        }
+      ],
+      "IsOS": false
+    },
+    {
+      "Name": "npm",
+      "Sources": [
+        {
+          "Name": ":path/to/my/first/lockfile",
+          "Ecosystem": "npm",
+          "PackageTypeCount": {
+            "Regular": 1,
+            "Hidden": 0
+          },
+          "Packages": [
+            {
+              "Name": "mine1",
+              "OSPackageNames": [
+                ""
+              ],
+              "InstalledVersion": "1.2.2",
+              "Commit": "",
+              "FixedVersion": "No fix available",
+              "RegularVulns": [
+                {
+                  "ID": "OSV-1",
+                  "GroupIDs": [
+                    "OSV-1"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something scary!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                }
+              ],
+              "HiddenVulns": [],
+              "LayerDetail": {
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
+              },
+              "VulnCount": {
+                "AnalysisCount": {
+                  "Regular": 1,
+                  "Hidden": 0
+                },
+                "SeverityCount": {
+                  "Critical": 0,
+                  "High": 0,
+                  "Medium": 0,
+                  "Low": 0,
+                  "Unknown": 1
+                },
+                "FixableCount": {
+                  "Fixed": 0,
+                  "UnFixed": 1
+                }
+              }
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 0
+            },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 0,
+              "Medium": 0,
+              "Low": 0,
+              "Unknown": 1
+            },
+            "FixableCount": {
+              "Fixed": 0,
+              "UnFixed": 1
+            }
+          }
+        }
+      ],
+      "IsOS": false
+    }
+  ],
+  "IsContainerScanning": false,
+  "ImageInfo": {
+    "OS": "",
+    "AllLayers": null,
+    "AllBaseImages": null
+  },
+  "VulnTypeSummary": {
+    "All": 6,
+    "OS": 0,
+    "Project": 6,
+    "Hidden": 0
+  },
+  "PackageTypeCount": {
+    "Regular": 4,
+    "Hidden": 0
+  },
+  "VulnCount": {
+    "AnalysisCount": {
+      "Regular": 6,
+      "Hidden": 0
+    },
+    "SeverityCount": {
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0,
+      "Unknown": 6
+    },
+    "FixableCount": {
+      "Fixed": 0,
+      "UnFixed": 6
+    }
+  }
+}
+
+---
+
+[TestPrintOutputResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities,_but_some_uncalled - 1]
+{
+  "Ecosystems": [
+    {
+      "Name": "NuGet",
+      "Sources": [
+        {
+          "Name": ":path/to/my/second/lockfile",
+          "Ecosystem": "NuGet",
+          "PackageTypeCount": {
+            "Regular": 1,
+            "Hidden": 0
+          },
+          "Packages": [
             {
               "Name": "mine2",
               "OSPackageNames": [
@@ -2806,7 +2760,7 @@
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 3,
+              "Regular": 1,
               "Hidden": 0
             },
             "SeverityCount": {
@@ -2814,11 +2768,11 @@
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 3
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 3
+              "UnFixed": 1
             }
           }
         }
@@ -2826,13 +2780,13 @@
       "IsOS": false
     },
     {
-      "Name": "npm",
+      "Name": "Packagist",
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
-          "Ecosystem": "npm",
+          "Ecosystem": "Packagist",
           "PackageTypeCount": {
-            "Regular": 2,
+            "Regular": 1,
             "Hidden": 1
           },
           "Packages": [
@@ -2942,7 +2896,173 @@
                   "UnFixed": 1
                 }
               }
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 1
             },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 0,
+              "Medium": 0,
+              "Low": 0,
+              "Unknown": 1
+            },
+            "FixableCount": {
+              "Fixed": 0,
+              "UnFixed": 1
+            }
+          }
+        },
+        {
+          "Name": ":path/to/my/second/lockfile",
+          "Ecosystem": "Packagist",
+          "PackageTypeCount": {
+            "Regular": 1,
+            "Hidden": 0
+          },
+          "Packages": [
+            {
+              "Name": "author3/mine3",
+              "OSPackageNames": [
+                ""
+              ],
+              "InstalledVersion": "0.4.1",
+              "Commit": "",
+              "FixedVersion": "No fix available",
+              "RegularVulns": [
+                {
+                  "ID": "OSV-3",
+                  "GroupIDs": [
+                    "OSV-3"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something mildly scary!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                },
+                {
+                  "ID": "OSV-5",
+                  "GroupIDs": [
+                    "OSV-5"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something scarier!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                }
+              ],
+              "HiddenVulns": [],
+              "LayerDetail": {
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
+              },
+              "VulnCount": {
+                "AnalysisCount": {
+                  "Regular": 2,
+                  "Hidden": 0
+                },
+                "SeverityCount": {
+                  "Critical": 0,
+                  "High": 0,
+                  "Medium": 0,
+                  "Low": 0,
+                  "Unknown": 2
+                },
+                "FixableCount": {
+                  "Fixed": 0,
+                  "UnFixed": 2
+                }
+              }
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 2,
+              "Hidden": 0
+            },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 0,
+              "Medium": 0,
+              "Low": 0,
+              "Unknown": 2
+            },
+            "FixableCount": {
+              "Fixed": 0,
+              "UnFixed": 2
+            }
+          }
+        }
+      ],
+      "IsOS": false
+    },
+    {
+      "Name": "npm",
+      "Sources": [
+        {
+          "Name": ":path/to/my/first/lockfile",
+          "Ecosystem": "npm",
+          "PackageTypeCount": {
+            "Regular": 1,
+            "Hidden": 0
+          },
+          "Packages": [
             {
               "Name": "mine1",
               "OSPackageNames": [
@@ -3039,19 +3159,19 @@
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 2,
-              "Hidden": 1
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 2
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 2
+              "UnFixed": 1
             }
           }
         }
