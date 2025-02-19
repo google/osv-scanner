@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# WARNING, this workflow is for legacy purposes. To view the current workflow see: https://github.com/google/osv-scanner-action
+
 name: OSV-Scanner scanning reusable
 
 # Restrict jobs in this workflow to have no permissions by default; permissions
