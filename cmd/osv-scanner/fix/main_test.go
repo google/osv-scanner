@@ -34,7 +34,7 @@ func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Context,
 	return parsedContext, err
 }
 
-func TestParseUpgradeConfig(t *testing.T) {
+func Test_parseUpgradeConfig(t *testing.T) {
 	t.Parallel()
 	flags := []string{"upgrade-config"}
 
