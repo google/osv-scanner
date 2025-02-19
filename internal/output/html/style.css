@@ -605,7 +605,7 @@ div.title {
   visibility: hidden;
 }
 
-#base-image-section {
+.summary-section {
   margin-top: 30px;
   border: 1px solid #fff;
   border-radius: 8px;
@@ -666,8 +666,13 @@ div.title {
   border-radius: 4px;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0.2);
+  line-height: 2;
 }
 
 .hide-block {
   display: none !important;
+}
+
+#license-summary-details {
+  margin-left: 30px;
 }

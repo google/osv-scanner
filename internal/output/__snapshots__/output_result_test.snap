@@ -19,6 +19,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.2",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -27,6 +28,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -102,7 +104,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             },
             {
               "Name": "mine1",
@@ -110,6 +114,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -118,6 +123,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -130,6 +136,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -205,7 +212,9 @@
                   "Fixed": 0,
                   "UnFixed": 2
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -224,7 +233,8 @@
               "Fixed": 0,
               "UnFixed": 3
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -240,6 +250,7 @@
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -248,6 +259,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -323,7 +335,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             },
             {
               "Name": "mine3",
@@ -331,6 +345,7 @@
                 ""
               ],
               "InstalledVersion": "0.4.1",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -339,6 +354,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "Description": "Something mildly scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -351,6 +367,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -426,7 +443,9 @@
                   "Fixed": 0,
                   "UnFixed": 2
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -445,7 +464,8 @@
               "Fixed": 0,
               "UnFixed": 3
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -456,6 +476,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 6,
@@ -508,6 +533,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.2",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -516,6 +542,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -591,7 +618,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             },
             {
               "Name": "mine1",
@@ -599,6 +628,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -607,6 +637,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -619,6 +650,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -694,7 +726,9 @@
                   "Fixed": 0,
                   "UnFixed": 2
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -713,7 +747,8 @@
               "Fixed": 0,
               "UnFixed": 3
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -729,6 +764,7 @@
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -737,6 +773,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -812,7 +849,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             },
             {
               "Name": "mine3",
@@ -820,6 +859,7 @@
                 ""
               ],
               "InstalledVersion": "0.4.1",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -828,6 +868,7 @@
                     "OSV-3"
                   ],
                   "Aliases": null,
+                  "Description": "Something mildly scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -840,6 +881,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -915,7 +957,9 @@
                   "Fixed": 0,
                   "UnFixed": 2
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -934,7 +978,8 @@
               "Fixed": 0,
               "UnFixed": 3
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -945,6 +990,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 6,
@@ -997,6 +1047,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1067,7 +1118,9 @@
                   "Fixed": 0,
                   "UnFixed": 0
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -1086,7 +1139,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -1102,6 +1156,7 @@
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1172,7 +1227,9 @@
                   "Fixed": 0,
                   "UnFixed": 0
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             },
             {
               "Name": "mine3",
@@ -1180,6 +1237,7 @@
                 ""
               ],
               "InstalledVersion": "0.4.1",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1250,7 +1308,9 @@
                   "Fixed": 0,
                   "UnFixed": 0
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -1269,7 +1329,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/third/lockfile",
@@ -1285,6 +1346,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1355,7 +1417,9 @@
                   "Fixed": 0,
                   "UnFixed": 0
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             },
             {
               "Name": "mine1",
@@ -1363,6 +1427,7 @@
                 ""
               ],
               "InstalledVersion": "1.3.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1433,7 +1498,9 @@
                   "Fixed": 0,
                   "UnFixed": 0
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -1452,7 +1519,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -1463,6 +1531,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 0,
@@ -1515,6 +1588,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -1523,6 +1597,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1598,7 +1673,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -1617,7 +1694,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -1633,6 +1711,7 @@
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -1641,6 +1720,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1716,7 +1796,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             },
             {
               "Name": "mine3",
@@ -1724,6 +1806,7 @@
                 ""
               ],
               "InstalledVersion": "0.4.1",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1794,7 +1877,9 @@
                   "Fixed": 0,
                   "UnFixed": 0
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -1813,7 +1898,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/third/lockfile",
@@ -1829,6 +1915,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -1837,6 +1924,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -1912,7 +2000,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             },
             {
               "Name": "mine1",
@@ -1920,6 +2010,7 @@
                 ""
               ],
               "InstalledVersion": "1.3.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -1990,7 +2081,9 @@
                   "Fixed": 0,
                   "UnFixed": 0
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -2009,7 +2102,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -2020,6 +2114,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 3,
@@ -2056,125 +2155,23 @@
 {
   "Ecosystems": [
     {
-      "Name": "Packagist",
+      "Name": "NuGet",
       "Sources": [
         {
           "Name": ":path/to/my/second/lockfile",
-          "Ecosystem": "Packagist",
+          "Ecosystem": "NuGet",
           "PackageTypeCount": {
-            "Regular": 2,
+            "Regular": 1,
             "Hidden": 0
           },
           "Packages": [
-            {
-              "Name": "author3/mine3",
-              "OSPackageNames": [
-                ""
-              ],
-              "InstalledVersion": "0.4.1",
-              "FixedVersion": "No fix available",
-              "RegularVulns": [
-                {
-                  "ID": "OSV-3",
-                  "GroupIDs": [
-                    "OSV-3"
-                  ],
-                  "Aliases": null,
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                },
-                {
-                  "ID": "OSV-5",
-                  "GroupIDs": [
-                    "OSV-5"
-                  ],
-                  "Aliases": null,
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                }
-              ],
-              "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
-              "VulnCount": {
-                "AnalysisCount": {
-                  "Regular": 2,
-                  "Hidden": 0
-                },
-                "SeverityCount": {
-                  "Critical": 0,
-                  "High": 0,
-                  "Medium": 0,
-                  "Low": 0,
-                  "Unknown": 2
-                },
-                "FixableCount": {
-                  "Fixed": 0,
-                  "UnFixed": 2
-                }
-              }
-            },
             {
               "Name": "mine2",
               "OSPackageNames": [
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2183,6 +2180,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2258,12 +2256,14 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 3,
+              "Regular": 1,
               "Hidden": 0
             },
             "SeverityCount": {
@@ -2271,13 +2271,292 @@
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 3
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 3
+              "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
+        }
+      ],
+      "IsOS": false
+    },
+    {
+      "Name": "Packagist",
+      "Sources": [
+        {
+          "Name": ":path/to/my/first/lockfile",
+          "Ecosystem": "Packagist",
+          "PackageTypeCount": {
+            "Regular": 1,
+            "Hidden": 0
+          },
+          "Packages": [
+            {
+              "Name": "author1/mine1",
+              "OSPackageNames": [
+                ""
+              ],
+              "InstalledVersion": "1.2.3",
+              "Commit": "",
+              "FixedVersion": "No fix available",
+              "RegularVulns": [
+                {
+                  "ID": "OSV-1",
+                  "GroupIDs": [
+                    "OSV-1"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something scary!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                },
+                {
+                  "ID": "OSV-5",
+                  "GroupIDs": [
+                    "OSV-5"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something scarier!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                }
+              ],
+              "HiddenVulns": [],
+              "LayerDetail": {
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
+              },
+              "VulnCount": {
+                "AnalysisCount": {
+                  "Regular": 2,
+                  "Hidden": 0
+                },
+                "SeverityCount": {
+                  "Critical": 0,
+                  "High": 0,
+                  "Medium": 0,
+                  "Low": 0,
+                  "Unknown": 2
+                },
+                "FixableCount": {
+                  "Fixed": 0,
+                  "UnFixed": 2
+                }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 2,
+              "Hidden": 0
+            },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 0,
+              "Medium": 0,
+              "Low": 0,
+              "Unknown": 2
+            },
+            "FixableCount": {
+              "Fixed": 0,
+              "UnFixed": 2
+            }
+          },
+          "LicenseViolationsCount": 0
+        },
+        {
+          "Name": ":path/to/my/second/lockfile",
+          "Ecosystem": "Packagist",
+          "PackageTypeCount": {
+            "Regular": 1,
+            "Hidden": 0
+          },
+          "Packages": [
+            {
+              "Name": "author3/mine3",
+              "OSPackageNames": [
+                ""
+              ],
+              "InstalledVersion": "0.4.1",
+              "Commit": "",
+              "FixedVersion": "No fix available",
+              "RegularVulns": [
+                {
+                  "ID": "OSV-3",
+                  "GroupIDs": [
+                    "OSV-3"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something mildly scary!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                },
+                {
+                  "ID": "OSV-5",
+                  "GroupIDs": [
+                    "OSV-5"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something scarier!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                }
+              ],
+              "HiddenVulns": [],
+              "LayerDetail": {
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
+              },
+              "VulnCount": {
+                "AnalysisCount": {
+                  "Regular": 2,
+                  "Hidden": 0
+                },
+                "SeverityCount": {
+                  "Critical": 0,
+                  "High": 0,
+                  "Medium": 0,
+                  "Low": 0,
+                  "Unknown": 2
+                },
+                "FixableCount": {
+                  "Fixed": 0,
+                  "UnFixed": 2
+                }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 2,
+              "Hidden": 0
+            },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 0,
+              "Medium": 0,
+              "Low": 0,
+              "Unknown": 2
+            },
+            "FixableCount": {
+              "Fixed": 0,
+              "UnFixed": 2
+            }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -2289,119 +2568,17 @@
           "Name": ":path/to/my/first/lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
-            "Regular": 2,
+            "Regular": 1,
             "Hidden": 0
           },
           "Packages": [
-            {
-              "Name": "author1/mine1",
-              "OSPackageNames": [
-                ""
-              ],
-              "InstalledVersion": "1.2.3",
-              "FixedVersion": "No fix available",
-              "RegularVulns": [
-                {
-                  "ID": "OSV-1",
-                  "GroupIDs": [
-                    "OSV-1"
-                  ],
-                  "Aliases": null,
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                },
-                {
-                  "ID": "OSV-5",
-                  "GroupIDs": [
-                    "OSV-5"
-                  ],
-                  "Aliases": null,
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                }
-              ],
-              "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
-              "VulnCount": {
-                "AnalysisCount": {
-                  "Regular": 2,
-                  "Hidden": 0
-                },
-                "SeverityCount": {
-                  "Critical": 0,
-                  "High": 0,
-                  "Medium": 0,
-                  "Low": 0,
-                  "Unknown": 2
-                },
-                "FixableCount": {
-                  "Fixed": 0,
-                  "UnFixed": 2
-                }
-              }
-            },
             {
               "Name": "mine1",
               "OSPackageNames": [
                 ""
               ],
               "InstalledVersion": "1.2.2",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2410,6 +2587,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2485,12 +2663,14 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 3,
+              "Regular": 1,
               "Hidden": 0
             },
             "SeverityCount": {
@@ -2498,13 +2678,14 @@
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 3
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 3
+              "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -2515,6 +2696,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 6,
@@ -2551,125 +2737,23 @@
 {
   "Ecosystems": [
     {
-      "Name": "Packagist",
+      "Name": "NuGet",
       "Sources": [
         {
           "Name": ":path/to/my/second/lockfile",
-          "Ecosystem": "Packagist",
+          "Ecosystem": "NuGet",
           "PackageTypeCount": {
-            "Regular": 2,
+            "Regular": 1,
             "Hidden": 0
           },
           "Packages": [
-            {
-              "Name": "author3/mine3",
-              "OSPackageNames": [
-                ""
-              ],
-              "InstalledVersion": "0.4.1",
-              "FixedVersion": "No fix available",
-              "RegularVulns": [
-                {
-                  "ID": "OSV-3",
-                  "GroupIDs": [
-                    "OSV-3"
-                  ],
-                  "Aliases": null,
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                },
-                {
-                  "ID": "OSV-5",
-                  "GroupIDs": [
-                    "OSV-5"
-                  ],
-                  "Aliases": null,
-                  "IsFixable": false,
-                  "FixedVersion": "No fix available",
-                  "VulnAnalysisType": 0,
-                  "SeverityRating": "UNKNOWN",
-                  "SeverityScore": "N/A"
-                }
-              ],
-              "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
-              "VulnCount": {
-                "AnalysisCount": {
-                  "Regular": 2,
-                  "Hidden": 0
-                },
-                "SeverityCount": {
-                  "Critical": 0,
-                  "High": 0,
-                  "Medium": 0,
-                  "Low": 0,
-                  "Unknown": 2
-                },
-                "FixableCount": {
-                  "Fixed": 0,
-                  "UnFixed": 2
-                }
-              }
-            },
             {
               "Name": "mine2",
               "OSPackageNames": [
                 ""
               ],
               "InstalledVersion": "3.2.5",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2678,6 +2762,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "Something less scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2753,12 +2838,14 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 3,
+              "Regular": 1,
               "Hidden": 0
             },
             "SeverityCount": {
@@ -2766,25 +2853,26 @@
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 3
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 3
+              "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
     },
     {
-      "Name": "npm",
+      "Name": "Packagist",
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
-          "Ecosystem": "npm",
+          "Ecosystem": "Packagist",
           "PackageTypeCount": {
-            "Regular": 2,
+            "Regular": 1,
             "Hidden": 1
           },
           "Packages": [
@@ -2794,6 +2882,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2802,6 +2891,7 @@
                     "OSV-5"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2816,6 +2906,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -2890,14 +2981,187 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 1,
+              "Hidden": 1
             },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 0,
+              "Medium": 0,
+              "Low": 0,
+              "Unknown": 1
+            },
+            "FixableCount": {
+              "Fixed": 0,
+              "UnFixed": 1
+            }
+          },
+          "LicenseViolationsCount": 0
+        },
+        {
+          "Name": ":path/to/my/second/lockfile",
+          "Ecosystem": "Packagist",
+          "PackageTypeCount": {
+            "Regular": 1,
+            "Hidden": 0
+          },
+          "Packages": [
+            {
+              "Name": "author3/mine3",
+              "OSPackageNames": [
+                ""
+              ],
+              "InstalledVersion": "0.4.1",
+              "Commit": "",
+              "FixedVersion": "No fix available",
+              "RegularVulns": [
+                {
+                  "ID": "OSV-3",
+                  "GroupIDs": [
+                    "OSV-3"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something mildly scary!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                },
+                {
+                  "ID": "OSV-5",
+                  "GroupIDs": [
+                    "OSV-5"
+                  ],
+                  "Aliases": null,
+                  "Description": "Something scarier!",
+                  "IsFixable": false,
+                  "FixedVersion": "No fix available",
+                  "VulnAnalysisType": 0,
+                  "SeverityRating": "UNKNOWN",
+                  "SeverityScore": "N/A"
+                }
+              ],
+              "HiddenVulns": [],
+              "LayerDetail": {
+                "LayerIndex": 0,
+                "LayerInfo": {
+                  "Index": 0,
+                  "LayerMetadata": {
+                    "diff_id": "",
+                    "command": "",
+                    "is_empty": false,
+                    "base_image_index": 0
+                  },
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                },
+                "BaseImageInfo": {
+                  "Index": 0,
+                  "BaseImageInfo": null,
+                  "AllLayers": null,
+                  "Count": {
+                    "AnalysisCount": {
+                      "Regular": 0,
+                      "Hidden": 0
+                    },
+                    "SeverityCount": {
+                      "Critical": 0,
+                      "High": 0,
+                      "Medium": 0,
+                      "Low": 0,
+                      "Unknown": 0
+                    },
+                    "FixableCount": {
+                      "Fixed": 0,
+                      "UnFixed": 0
+                    }
+                  }
+                }
+              },
+              "VulnCount": {
+                "AnalysisCount": {
+                  "Regular": 2,
+                  "Hidden": 0
+                },
+                "SeverityCount": {
+                  "Critical": 0,
+                  "High": 0,
+                  "Medium": 0,
+                  "Low": 0,
+                  "Unknown": 2
+                },
+                "FixableCount": {
+                  "Fixed": 0,
+                  "UnFixed": 2
+                }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
+            }
+          ],
+          "VulnCount": {
+            "AnalysisCount": {
+              "Regular": 2,
+              "Hidden": 0
+            },
+            "SeverityCount": {
+              "Critical": 0,
+              "High": 0,
+              "Medium": 0,
+              "Low": 0,
+              "Unknown": 2
+            },
+            "FixableCount": {
+              "Fixed": 0,
+              "UnFixed": 2
+            }
+          },
+          "LicenseViolationsCount": 0
+        }
+      ],
+      "IsOS": false
+    },
+    {
+      "Name": "npm",
+      "Sources": [
+        {
+          "Name": ":path/to/my/first/lockfile",
+          "Ecosystem": "npm",
+          "PackageTypeCount": {
+            "Regular": 1,
+            "Hidden": 0
+          },
+          "Packages": [
             {
               "Name": "mine1",
               "OSPackageNames": [
                 ""
               ],
               "InstalledVersion": "1.2.2",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -2906,6 +3170,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -2981,26 +3246,29 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
             "AnalysisCount": {
-              "Regular": 2,
-              "Hidden": 1
+              "Regular": 1,
+              "Hidden": 0
             },
             "SeverityCount": {
               "Critical": 0,
               "High": 0,
               "Medium": 0,
               "Low": 0,
-              "Unknown": 2
+              "Unknown": 1
             },
             "FixableCount": {
               "Fixed": 0,
-              "UnFixed": 2
+              "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3011,6 +3279,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 5,
@@ -3073,7 +3346,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -3099,7 +3373,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/third/lockfile",
@@ -3125,7 +3400,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3136,6 +3412,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 0,
@@ -3176,6 +3457,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 0,
@@ -3238,7 +3524,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3249,6 +3536,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 0,
@@ -3301,6 +3593,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -3371,7 +3664,9 @@
                   "Fixed": 0,
                   "UnFixed": 0
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -3390,7 +3685,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3401,6 +3697,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 0,
@@ -3453,6 +3754,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -3461,6 +3763,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -3475,6 +3778,7 @@
                     "GHSA-123"
                   ],
                   "Aliases": null,
+                  "Description": "Something scarier!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -3549,7 +3853,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -3568,7 +3874,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3579,6 +3886,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 1,
@@ -3631,6 +3943,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -3639,6 +3952,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -3714,7 +4028,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -3733,7 +4049,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3744,6 +4061,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 1,
@@ -3796,6 +4118,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [
@@ -3805,6 +4128,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -3879,7 +4203,9 @@
                   "Fixed": 0,
                   "UnFixed": 0
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -3898,7 +4224,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -3909,6 +4236,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 0,
@@ -3961,6 +4293,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -3969,6 +4302,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -4044,7 +4378,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -4063,7 +4399,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -4074,6 +4411,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 1,
@@ -4126,6 +4468,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -4134,6 +4477,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -4209,7 +4553,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -4228,7 +4574,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -4239,6 +4586,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 1,
@@ -4291,6 +4643,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [
@@ -4303,6 +4656,7 @@
                   "Aliases": [
                     "GHSA-123"
                   ],
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 1,
@@ -4377,7 +4731,9 @@
                   "Fixed": 0,
                   "UnFixed": 0
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -4396,7 +4752,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -4407,6 +4764,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 0,
@@ -4459,6 +4821,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -4470,6 +4833,7 @@
                   "Aliases": [
                     "GHSA-123"
                   ],
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -4545,7 +4909,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -4564,7 +4930,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -4575,6 +4942,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 1,
@@ -4627,6 +4999,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -4635,6 +5008,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -4710,7 +5084,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             },
             {
               "Name": "mine3",
@@ -4718,6 +5094,7 @@
                 ""
               ],
               "InstalledVersion": "0.10.2-rc",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -4726,6 +5103,7 @@
                     "OSV-2"
                   ],
                   "Aliases": null,
+                  "Description": "",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -4801,7 +5179,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -4820,7 +5200,8 @@
               "Fixed": 0,
               "UnFixed": 2
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -4831,6 +5212,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 2,
@@ -4883,6 +5269,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -4891,6 +5278,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -4966,7 +5354,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -4985,7 +5375,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -5001,6 +5392,7 @@
                 ""
               ],
               "InstalledVersion": "5.9.0",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
@@ -5071,7 +5463,9 @@
                   "Fixed": 0,
                   "UnFixed": 0
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -5090,7 +5484,8 @@
               "Fixed": 0,
               "UnFixed": 0
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -5101,6 +5496,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 1,
@@ -5153,6 +5553,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -5161,6 +5562,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -5236,7 +5638,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -5255,7 +5659,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         },
         {
           "Name": ":path/to/my/second/lockfile",
@@ -5271,6 +5676,7 @@
                 ""
               ],
               "InstalledVersion": "1.2.3",
+              "Commit": "",
               "FixedVersion": "No fix available",
               "RegularVulns": [
                 {
@@ -5279,6 +5685,7 @@
                     "OSV-1"
                   ],
                   "Aliases": null,
+                  "Description": "Something scary!",
                   "IsFixable": false,
                   "FixedVersion": "No fix available",
                   "VulnAnalysisType": 0,
@@ -5354,7 +5761,9 @@
                   "Fixed": 0,
                   "UnFixed": 1
                 }
-              }
+              },
+              "Licenses": null,
+              "LicenseViolations": null
             }
           ],
           "VulnCount": {
@@ -5373,7 +5782,8 @@
               "Fixed": 0,
               "UnFixed": 1
             }
-          }
+          },
+          "LicenseViolationsCount": 0
         }
       ],
       "IsOS": false
@@ -5384,6 +5794,11 @@
     "OS": "",
     "AllLayers": null,
     "AllBaseImages": null
+  },
+  "LicenseSummary": {
+    "Summary": false,
+    "ShowViolations": false,
+    "LicenseCount": null
   },
   "VulnTypeSummary": {
     "All": 2,

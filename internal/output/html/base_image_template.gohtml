@@ -1,5 +1,5 @@
 
-<div id="base-image-section">
+<div id="base-image-section" class="summary-section">
   <table id="base-image-table">
     <tr>
       <th></th>
@@ -53,7 +53,7 @@
           {{ if gt .Count.AnalysisCount.Regular 0 }}
           {{ $hasVuln = true }}
           {{ end }}
-          <div class="layer-entry {{ if $hasVuln }}clickable clickable-layer{{ end }}" {{ if $hasVuln }}onclick="quickFilterByLayer('{{ $diffID }}', {{ $command }})"{{ end }}>
+          <div class="layer-entry {{ if $hasVuln }}clickable clickable-layer{{ end }}" {{ if $hasVuln }}onclick="quickFilterByLayer('{{ $diffID }}', '{{ .Index }} {{ $command }}')"{{ end }}>
             <div {{ if $longCommand }} class="tooltip" {{ end }}>
               <p class="layer-command"><span class="base-image-title">{{ .Index }}</span> {{ $command }}</p>
                 {{ if $longCommand }}
