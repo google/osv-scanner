@@ -3,6 +3,7 @@ package output
 import (
 	"cmp"
 	"encoding/json"
+	"fmt"
 	"io"
 	"slices"
 	"sort"
@@ -15,6 +16,8 @@ import (
 	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/jedib0t/go-pretty/v6/text"
+	"golang.org/x/exp/maps"
 )
 
 // Result represents the vulnerability scanning results for output report.
@@ -23,6 +26,7 @@ type Result struct {
 	// Container scanning related
 	IsContainerScanning bool
 	ImageInfo           ImageInfo
+	LicenseSummary      LicenseSummary
 	VulnTypeSummary     VulnTypeSummary
 	PackageTypeCount    AnalysisCount
 	VulnCount           VulnCount
@@ -37,11 +41,12 @@ type EcosystemResult struct {
 
 // SourceResult represents the vulnerability scanning results for a source file.
 type SourceResult struct {
-	Name             string
-	Ecosystem        string
-	PackageTypeCount AnalysisCount
-	Packages         []PackageResult
-	VulnCount        VulnCount
+	Name                   string
+	Ecosystem              string
+	PackageTypeCount       AnalysisCount
+	Packages               []PackageResult
+	VulnCount              VulnCount
+	LicenseViolationsCount int
 }
 
 // PackageResult represents the vulnerability scanning results for a package.
@@ -55,9 +60,11 @@ type PackageResult struct {
 	// RegularVulns holds all the vulnerabilities that should be displayed to users
 	RegularVulns []VulnResult
 	// HiddenVulns holds all the vulnerabilities that should not be displayed to users, such as those deemed unimportant or uncalled.
-	HiddenVulns []VulnResult
-	LayerDetail PackageContainerInfo
-	VulnCount   VulnCount
+	HiddenVulns       []VulnResult
+	LayerDetail       PackageContainerInfo
+	VulnCount         VulnCount
+	Licenses          []models.License
+	LicenseViolations []models.License
 }
 
 // VulnResult represents a single vulnerability.
@@ -78,6 +85,17 @@ type ImageInfo struct {
 	OS            string
 	AllLayers     []LayerInfo
 	AllBaseImages []BaseImageGroupInfo
+}
+
+type LicenseSummary struct {
+	Summary        bool
+	ShowViolations bool
+	LicenseCount   []LicenseCount
+}
+
+type LicenseCount struct {
+	Name  models.License
+	Count int
 }
 
 // PackageContainerInfo represents detailed layer tracing information about a package.
@@ -187,11 +205,11 @@ RowLoop:
 		}
 	}
 
-	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata)
+	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata, vulnResult.ExperimentalAnalysisConfig.Licenses)
 }
 
 // buildResult builds the final Result object from the ecosystem map and total vulnerability count.
-func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata) Result {
+func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata, licenseConfig models.ExperimentalLicenseConfig) Result {
 	result := Result{}
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
@@ -233,6 +251,14 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, 
 
 	if imageMetadata != nil {
 		populateResultWithImageMetadata(&result, *imageMetadata)
+	}
+
+	if licenseConfig.Summary {
+		calculateLicenseSummary(&result)
+	}
+
+	if len(licenseConfig.Allowlist) != 0 {
+		result.LicenseSummary.ShowViolations = true
 	}
 
 	return result
@@ -391,6 +417,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 			packages = append(packages, pkg)
 
 			sourceResult.VulnCount.Add(pkg.VulnCount)
+			sourceResult.LicenseViolationsCount += len(pkg.LicenseViolations)
 			if len(pkg.RegularVulns) != 0 {
 				sourceResult.PackageTypeCount.Regular += 1
 			}
@@ -434,17 +461,62 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 	packageFixedVersion := calculatePackageFixedVersion(vulnPkg.Package.Ecosystem, regularVulnList)
 
 	packageResult := PackageResult{
-		Name:             vulnPkg.Package.Name,
-		OSPackageNames:   []string{vulnPkg.Package.OSPackageName},
-		InstalledVersion: vulnPkg.Package.Version,
-		Commit:           vulnPkg.Package.Commit,
-		FixedVersion:     packageFixedVersion,
-		RegularVulns:     regularVulnList,
-		HiddenVulns:      hiddenVulnList,
-		VulnCount:        count,
+		Name:              vulnPkg.Package.Name,
+		OSPackageNames:    []string{vulnPkg.Package.OSPackageName},
+		InstalledVersion:  vulnPkg.Package.Version,
+		Commit:            vulnPkg.Package.Commit,
+		FixedVersion:      packageFixedVersion,
+		RegularVulns:      regularVulnList,
+		HiddenVulns:       hiddenVulnList,
+		VulnCount:         count,
+		Licenses:          vulnPkg.Licenses,
+		LicenseViolations: vulnPkg.LicenseViolations,
 	}
 
 	return packageResult
+}
+
+func calculateLicenseSummary(result *Result) {
+	result.LicenseSummary = LicenseSummary{
+		Summary: true,
+	}
+
+	counts := make(map[models.License]int)
+	for _, ecosystem := range result.Ecosystems {
+		for _, pkgSource := range ecosystem.Sources {
+			for _, pkg := range pkgSource.Packages {
+				for _, l := range pkg.Licenses {
+					counts[l] += 1
+				}
+			}
+		}
+	}
+	if len(counts) == 0 {
+		// No packages found.
+		return
+	}
+	licenses := maps.Keys(counts)
+	// Sort the license count in descending count order with the UNKNOWN
+	// license last.
+	sort.Slice(licenses, func(i, j int) bool {
+		if licenses[i] == "UNKNOWN" {
+			return false
+		}
+		if licenses[j] == "UNKNOWN" {
+			return true
+		}
+		if counts[licenses[i]] == counts[licenses[j]] {
+			return licenses[i] < licenses[j]
+		}
+
+		return counts[licenses[i]] > counts[licenses[j]]
+	})
+
+	result.LicenseSummary.LicenseCount = make([]LicenseCount, len(licenses))
+	for i, license := range licenses {
+		result.LicenseSummary.LicenseCount[i].Name = license
+		result.LicenseSummary.LicenseCount[i].Count = counts[license]
+	}
 }
 
 // processVulnGroups processes vulnerability groups within a package.
@@ -764,6 +836,32 @@ func cleanupSpaces(s string) string {
 	s = strings.TrimSpace(s)
 
 	return s
+}
+
+func printSummary(result Result, out io.Writer) {
+	packageForm := Form(result.PackageTypeCount.Regular, "package", "packages")
+	vulnerabilityForm := Form(result.VulnTypeSummary.All, "vulnerability", "vulnerabilities")
+	fixedVulnForm := Form(result.VulnCount.FixableCount.Fixed, "vulnerability", "vulnerabilities")
+	ecosystemForm := Form(len(result.Ecosystems), "ecosystem", "ecosystems")
+
+	summary := fmt.Sprintf(
+		"Total %[1]d %[10]s affected by %[2]d known %[11]s (%[3]s, %[4]s, %[5]s, %[6]s, %[7]s) from %[8]s.\n"+
+			"%[9]d %[12]s can be fixed.\n",
+		result.PackageTypeCount.Regular,
+		result.VulnTypeSummary.All,
+		text.FgRed.Sprintf("%d Critical", result.VulnCount.SeverityCount.Critical),
+		text.FgHiYellow.Sprintf("%d High", result.VulnCount.SeverityCount.High),
+		text.FgYellow.Sprintf("%d Medium", result.VulnCount.SeverityCount.Medium),
+		text.FgHiCyan.Sprintf("%d Low", result.VulnCount.SeverityCount.Low),
+		text.FgCyan.Sprintf("%d Unknown", result.VulnCount.SeverityCount.Unknown),
+		text.FgGreen.Sprintf("%d %s", len(result.Ecosystems), ecosystemForm),
+		result.VulnCount.FixableCount.Fixed,
+
+		packageForm,
+		vulnerabilityForm,
+		fixedVulnForm,
+	)
+	fmt.Fprintln(out, summary)
 }
 
 func getInstalledVersionOrCommit(pkg PackageResult) string {
