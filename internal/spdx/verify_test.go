@@ -1,11 +1,13 @@
-package spdx
+package spdx_test
 
 import (
 	"reflect"
 	"testing"
+
+	"github.com/google/osv-scanner/v2/internal/spdx"
 )
 
-func Test_unrecognized(t *testing.T) {
+func TestUnrecognized(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name     string
@@ -29,7 +31,7 @@ func Test_unrecognized(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			if got := Unrecognized(tt.licenses); !reflect.DeepEqual(got, tt.want) {
+			if got := spdx.Unrecognized(tt.licenses); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Unrecognized() = %v,\nwant %v", got, tt.want)
 			}
 		})

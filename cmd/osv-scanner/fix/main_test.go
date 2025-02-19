@@ -36,7 +36,7 @@ func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Context,
 
 func TestParseUpgradeConfig(t *testing.T) {
 	t.Parallel()
-	flags := []string{"upgrade-config", "disallow-major-upgrades", "disallow-package-upgrades"}
+	flags := []string{"upgrade-config"}
 
 	tests := []struct {
 		name string
@@ -101,20 +101,6 @@ func TestParseUpgradeConfig(t *testing.T) {
 				"none:patch":       upgrade.Minor,
 				"none":             upgrade.Patch,
 				"other":            upgrade.None,
-			},
-		},
-		{
-			name: "deprecated flag",
-			args: []string{
-				"--disallow-major-upgrades",
-				"--disallow-package-upgrades=pkg1,pkg2",
-				"--upgrade-config=pkg3:patch",
-			},
-			want: map[string]upgrade.Level{
-				"pkg1": upgrade.None,
-				"pkg2": upgrade.None,
-				"pkg3": upgrade.Patch,
-				"pkg4": upgrade.Minor,
 			},
 		},
 	}

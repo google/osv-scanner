@@ -9,7 +9,6 @@ import (
 	"deps.dev/util/resolve"
 	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"golang.org/x/exp/slices"
 )
 
@@ -29,7 +28,8 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, client resolve.Client, mf
 		if slices.Contains(opts.NoUpdates, req.Name) {
 			continue
 		}
-		if opts.IgnoreDev && lockfile.MavenEcosystem.IsDevGroup(mf.Groups[manifest.MakeRequirementKey(req)]) {
+
+		if opts.IgnoreDev && slices.Contains(mf.Groups[manifest.MakeRequirementKey(req)], "test") {
 			// Skip the update if the dependency is of development group
 			// and updates on development dependencies are not desired
 			continue
