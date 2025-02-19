@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/internal/semantic"
+	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
@@ -49,10 +50,11 @@ type PackageResult struct {
 	// OSPackageNames represents the actual installed binary names. This is primarily used for container scanning.
 	OSPackageNames   []string
 	InstalledVersion string
+	Commit           string
 	FixedVersion     string
-	// RegularVulns includes all vulnerabilities intended for display to users
+	// RegularVulns holds all the vulnerabilities that should be displayed to users
 	RegularVulns []VulnResult
-	// HiddenVulns includes vulnerabilities that are filtered out for users, such as those deemed unimportant or uncalled.
+	// HiddenVulns holds all the vulnerabilities that should not be displayed to users, such as those deemed unimportant or uncalled.
 	HiddenVulns []VulnResult
 	LayerDetail PackageContainerInfo
 	VulnCount   VulnCount
@@ -403,6 +405,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 			return cmp.Or(
 				cmp.Compare(a.Name, b.Name),
 				cmp.Compare(a.InstalledVersion, b.InstalledVersion),
+				cmp.Compare(a.Commit, b.Commit),
 			)
 		})
 		sourceResult.Packages = packages
@@ -434,6 +437,7 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 		Name:             vulnPkg.Package.Name,
 		OSPackageNames:   []string{vulnPkg.Package.OSPackageName},
 		InstalledVersion: vulnPkg.Package.Version,
+		Commit:           vulnPkg.Package.Commit,
 		FixedVersion:     packageFixedVersion,
 		RegularVulns:     regularVulnList,
 		HiddenVulns:      hiddenVulnList,
@@ -760,4 +764,13 @@ func cleanupSpaces(s string) string {
 	s = strings.TrimSpace(s)
 
 	return s
+}
+
+func getInstalledVersionOrCommit(pkg PackageResult) string {
+	result := pkg.InstalledVersion
+	if result == "" && pkg.Commit != "" {
+		result = results.GetShortCommit(pkg.Commit)
+	}
+
+	return result
 }
