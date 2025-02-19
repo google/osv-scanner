@@ -17,8 +17,8 @@ import (
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
 
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"github.com/jedib0t/go-pretty/v6/text"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/exp/maps"
 )
 
