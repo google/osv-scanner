@@ -2,21 +2,26 @@ package util
 
 import (
 	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // TODO: use osvschema.Ecosystem or imodel's ecosystem.Parsed
-var OSVEcosystem = map[resolve.System]models.Ecosystem{
-	resolve.NPM:   models.EcosystemNPM,
-	resolve.Maven: models.EcosystemMaven,
+var OSVEcosystem = map[resolve.System]osvschema.Ecosystem{
+	resolve.NPM:   osvschema.EcosystemNPM,
+	resolve.Maven: osvschema.EcosystemMaven,
 }
 
-func VKToPackageDetails(vk resolve.VersionKey) lockfile.PackageDetails {
-	return lockfile.PackageDetails{
-		Name:      vk.Name,
-		Version:   vk.Version,
-		Ecosystem: lockfile.Ecosystem(OSVEcosystem[vk.System]),
-		CompareAs: lockfile.Ecosystem(OSVEcosystem[vk.System]),
-	}
+func VKToPackageInfo(vk resolve.VersionKey) imodels.PackageInfo {
+	return imodels.FromInventory(
+		&extractor.Inventory{
+			Name:    vk.Name,
+			Version: vk.Version,
+			Extractor: ecosystemmock.Extractor{
+				MockEcosystem: string(OSVEcosystem[vk.System]),
+			},
+		},
+	)
 }

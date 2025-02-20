@@ -14,9 +14,11 @@ import (
 	"github.com/google/osv-scanner/v2/internal/url"
 	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
+	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"github.com/owenrumney/go-sarif/v2/sarif"
 )
 
@@ -104,12 +106,12 @@ func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 	// Remember to sort and compact before displaying later
 	for _, vf := range flattened {
 		groupIdx := vf.Source.String() + ":" + vf.GroupInfo.IndexString()
-		pkg := models.Package{
-			Ecosystem: models.Ecosystem(vf.Package.Ecosystem),
+		pkg := osvschema.Package{
+			Ecosystem: vf.Package.Ecosystem,
 			Name:      vf.Package.Name,
 		}
 		groupFixedVersions[groupIdx] =
-			append(groupFixedVersions[groupIdx], vf.Vulnerability.FixedVersions()[pkg]...)
+			append(groupFixedVersions[groupIdx], vulns.GetFixedVersions(vf.Vulnerability)[pkg]...)
 	}
 
 	// Remove duplicates
@@ -180,7 +182,7 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 
 	hasFixedVersion := false
 	for _, v := range gv.AliasedVulns {
-		for p, v2 := range v.FixedVersions() {
+		for p, v2 := range vulns.GetFixedVersions(v) {
 			slices.Sort(v2)
 			fixedPkgTableData = append(fixedPkgTableData, FixedPkgTableData{
 				PackageName:  p.Name,

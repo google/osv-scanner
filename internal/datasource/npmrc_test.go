@@ -84,7 +84,7 @@ func checkNpmRegistryRequest(t *testing.T, config datasource.NpmRegistryConfig, 
 	}
 }
 
-func TestNpmrcNoRegistries(t *testing.T) {
+func TestLoadNpmRegistryConfig_WithNoRegistries(t *testing.T) {
 	t.Parallel()
 	npmrcFiles := makeBlankNpmrcFiles(t)
 
@@ -101,7 +101,7 @@ func TestNpmrcNoRegistries(t *testing.T) {
 		"https://registry.npmjs.org/@test%2fpackage/1.2.3", "")
 }
 
-func TestNpmrcRegistryAuth(t *testing.T) {
+func TestLoadNpmRegistryConfig_WithAuth(t *testing.T) {
 	t.Parallel()
 	npmrcFiles := makeBlankNpmrcFiles(t)
 	writeToNpmrc(t, npmrcFiles.project,
@@ -126,7 +126,7 @@ func TestNpmrcRegistryAuth(t *testing.T) {
 }
 
 // Do not make this test parallel because it calls t.Setenv()
-func TestNpmrcRegistryOverriding(t *testing.T) {
+func TestLoadNpmRegistryConfig_WithOverrides(t *testing.T) {
 	check := func(t *testing.T, npmrcFiles testNpmrcFiles, wantURLs [5]string) {
 		t.Helper()
 		config, err := datasource.LoadNpmRegistryConfig(filepath.Dir(npmrcFiles.project))

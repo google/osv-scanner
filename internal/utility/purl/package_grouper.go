@@ -17,7 +17,7 @@ func Group(packageSources []models.PackageSource) (map[string]models.PackageVuln
 
 	for _, packageSource := range packageSources {
 		for _, pkg := range packageSource.Packages {
-			packageURL, err := From(pkg.Package)
+			packageURL, err := FromPackage(pkg.Package)
 			if err != nil {
 				errors = append(errors, err)
 				continue

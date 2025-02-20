@@ -8,16 +8,17 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // fixOutput is a description of changes made by guided remediation to a manifest/lockfile.
 type fixOutput struct {
-	Path            string           `json:"path"`             // path to the manifest/lockfile.
-	Ecosystem       models.Ecosystem `json:"ecosystem"`        // the OSV ecosystem of the file (npm, Maven)
-	Strategy        strategy         `json:"strategy"`         // the remediation strategy that was used.
-	Vulnerabilities []vulnOutput     `json:"vulnerabilities"`  // vulns detected in the initial manifest/lockfile.
-	Patches         []patchOutput    `json:"patches"`          // list of dependency patches that were applied.
-	Errors          []errorOutput    `json:"errors,omitempty"` // non-fatal errors encountered in initial resolution.
+	Path            string              `json:"path"`             // path to the manifest/lockfile.
+	Ecosystem       osvschema.Ecosystem `json:"ecosystem"`        // the OSV ecosystem of the file (npm, Maven)
+	Strategy        strategy            `json:"strategy"`         // the remediation strategy that was used.
+	Vulnerabilities []vulnOutput        `json:"vulnerabilities"`  // vulns detected in the initial manifest/lockfile.
+	Patches         []patchOutput       `json:"patches"`          // list of dependency patches that were applied.
+	Errors          []errorOutput       `json:"errors,omitempty"` // non-fatal errors encountered in initial resolution.
 }
 
 // vulnOutput represents a vulnerability that was found in a project.

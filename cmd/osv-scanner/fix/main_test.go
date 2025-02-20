@@ -34,7 +34,7 @@ func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Context,
 	return parsedContext, err
 }
 
-func TestParseUpgradeConfig(t *testing.T) {
+func Test_parseUpgradeConfig(t *testing.T) {
 	t.Parallel()
 	flags := []string{"upgrade-config"}
 
@@ -112,7 +112,7 @@ func TestParseUpgradeConfig(t *testing.T) {
 			if err != nil {
 				t.Fatalf("error parsing flags: %v", err)
 			}
-			config := parseUpgradeConfig(ctx, &reporter.VoidReporter{})
+			config := upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config"), &reporter.VoidReporter{})
 			for pkg, want := range tt.want {
 				if got := config.Get(pkg); got != want {
 					t.Errorf("Config.Get(%s) got = %v, want %v", pkg, got, want)

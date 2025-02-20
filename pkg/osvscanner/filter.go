@@ -154,7 +154,7 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 		}
 	}
 
-	var newVulns []models.Vulnerability
+	var newVulns []osvschema.Vulnerability
 	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
 		for _, vuln := range pkgVulns.Vulnerabilities {
 			if _, filtered := ignoredVulns[vuln.ID]; !filtered {

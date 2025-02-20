@@ -7,8 +7,8 @@ deps.dev/util/maven v0.0.0-20250210015309-e519ac173dde h1:Ng5gs7X6Bx83nFMtS7H3S3
 deps.dev/util/maven v0.0.0-20250210015309-e519ac173dde/go.mod h1:95XAmYKjcTdXRC6BRVwH0sqVZ35SafZq/9jgnus0nYw=
 deps.dev/util/resolve v0.0.0-20250210015309-e519ac173dde h1:Rt0iztauNfzV2aEAMbLNBVxKbD18RUsmDOLOs6YU4fk=
 deps.dev/util/resolve v0.0.0-20250210015309-e519ac173dde/go.mod h1:iRm31pzwP9sNQ2yCXKXsqO4E1lVgbIhHQX1q/SX+Etc=
-deps.dev/util/semver v0.0.0-20250210015309-e519ac173dde h1:qyaH6Mm6lASpYSoFWSwNru6IsHXlDQYnenozh3EdYzI=
-deps.dev/util/semver v0.0.0-20250210015309-e519ac173dde/go.mod h1:jjJweVqtuMQ7Q4zlTQ/kCHpboojkRvpMYlhy/c93DVU=
+deps.dev/util/semver v0.0.0-20250219000316-bc85dc8a8bd7 h1:KFlPBD/9HYJb8oJvrvafCzAzZb72T+0aJPVEhGbec6Q=
+deps.dev/util/semver v0.0.0-20250219000316-bc85dc8a8bd7/go.mod h1:jjJweVqtuMQ7Q4zlTQ/kCHpboojkRvpMYlhy/c93DVU=
 github.com/AdaLogics/go-fuzz-headers v0.0.0-20230811130428-ced1acdcaa24 h1:bvDV9vkmnHYOMsOr4WLk+Vo07yKIzd94sVoIqshQ4bU=
 github.com/AdaLogics/go-fuzz-headers v0.0.0-20230811130428-ced1acdcaa24/go.mod h1:8o94RPi1/7XTJvwPpRSzSUedZrtlirdB3r9Z20bi2f8=
 github.com/AdamKorcz/go-118-fuzz-build v0.0.0-20230306123547-8075edf89bb0 h1:59MxjQVfjXsBpLy+dbd2/ELV5ofnUkUZBvWSC85sheA=
@@ -184,6 +184,8 @@ github.com/google/go-containerregistry v0.20.2 h1:B1wPJ1SN/S7pB+ZAimcciVD+r+yV/l
 github.com/google/go-containerregistry v0.20.2/go.mod h1:z38EKdKh4h7IP2gSfUUqEvalZBqs6AoLeWfUy34nQC8=
 github.com/google/osv-scalibr v0.1.7-0.20250212003031-df6e1f45cd0c h1:ilFIS3hr2JyqzN/gNr7Idd02cyiEou8uT4GniZdyI9Q=
 github.com/google/osv-scalibr v0.1.7-0.20250212003031-df6e1f45cd0c/go.mod h1:QIEHZfY/muD9/oouPNaUQKpeZKr87pKOTNpXQxpVnoE=
+github.com/google/osv-scalibr v0.1.7-0.20250217184457-86c1198d241c h1:K77JWMko3l5eHtitj5FtXi4KJomFB4UZVMXfo9HYBzw=
+github.com/google/osv-scalibr v0.1.7-0.20250217184457-86c1198d241c/go.mod h1:WCoQkl3WaqtPg0JRfuANQybxLsna3qmaFHQhBgCv/7I=
 github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/google/uuid v1.6.0 h1:NIvaJDMOsjHA8n1jAhLSgzrAzy1Hgr+hNrb57e+94F0=
 github.com/google/uuid v1.6.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=

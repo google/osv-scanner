@@ -14,11 +14,11 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	mavenutil "github.com/google/osv-scanner/v2/internal/utility/maven"
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 type Vulnerability struct {
-	OSV     models.Vulnerability
+	OSV     osvschema.Vulnerability
 	DevOnly bool
 	// Subgraphs are the collections of nodes and edges that reach the vulnerable node.
 	// Subgraphs all contain the root node (NodeID 0) with no incoming edges (Parents),
@@ -215,11 +215,11 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 
 	// GraphToInventory/MatchVulnerabilities excludes the root node of the graph.
 	// Prepend an element to nodeVulns so that the indices line up with graph.Nodes[i] <=> nodeVulns[i]
-	nodeVulns = append([][]*models.Vulnerability{nil}, nodeVulns...)
+	nodeVulns = append([][]*osvschema.Vulnerability{nil}, nodeVulns...)
 
 	// Find all dependency paths to the vulnerable dependencies
 	var vulnerableNodes []resolve.NodeID
-	vulnInfo := make(map[string]models.Vulnerability)
+	vulnInfo := make(map[string]osvschema.Vulnerability)
 	for i, vulns := range nodeVulns {
 		if len(vulns) > 0 {
 			vulnerableNodes = append(vulnerableNodes, resolve.NodeID(i))

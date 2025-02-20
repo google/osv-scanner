@@ -6,7 +6,7 @@ require (
 	deps.dev/api/v3 v3.0.0-20250210015309-e519ac173dde
 	deps.dev/util/maven v0.0.0-20250210015309-e519ac173dde
 	deps.dev/util/resolve v0.0.0-20250210015309-e519ac173dde
-	deps.dev/util/semver v0.0.0-20250210015309-e519ac173dde
+	deps.dev/util/semver v0.0.0-20250219000316-bc85dc8a8bd7
 	github.com/BurntSushi/toml v1.4.0
 	github.com/CycloneDX/cyclonedx-go v0.9.2
 	github.com/charmbracelet/bubbles v0.20.0
@@ -17,7 +17,7 @@ require (
 	github.com/go-git/go-billy/v5 v5.6.2
 	github.com/go-git/go-git/v5 v5.13.2
 	github.com/google/go-cmp v0.6.0
-	github.com/google/osv-scalibr v0.1.7-0.20250212003031-df6e1f45cd0c
+	github.com/google/osv-scalibr v0.1.7-0.20250217184457-86c1198d241c
 	github.com/ianlancetaylor/demangle v0.0.0-20240912202439-0a2b6291aafd
 	github.com/jedib0t/go-pretty/v6 v6.6.6
 	github.com/muesli/reflow v0.3.0

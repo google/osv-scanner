@@ -7,6 +7,7 @@ import (
 
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns) *cyclonedx.BOM {
@@ -92,7 +93,7 @@ func formatDateIfExists(date time.Time) string {
 	return date.Format(time.RFC3339)
 }
 
-func buildCredits(vulnerability models.Vulnerability) *cyclonedx.Credits {
+func buildCredits(vulnerability osvschema.Vulnerability) *cyclonedx.Credits {
 	organizations := make([]cyclonedx.OrganizationalEntity, len(vulnerability.Credits))
 
 	for index, credit := range vulnerability.Credits {
@@ -107,7 +108,7 @@ func buildCredits(vulnerability models.Vulnerability) *cyclonedx.Credits {
 	}
 }
 
-func buildAffectedPackages(vulnerability models.Vulnerability) *[]cyclonedx.Affects {
+func buildAffectedPackages(vulnerability osvschema.Vulnerability) *[]cyclonedx.Affects {
 	affectedPackages := make([]cyclonedx.Affects, len(vulnerability.Affected))
 
 	for index, affected := range vulnerability.Affected {
@@ -119,7 +120,7 @@ func buildAffectedPackages(vulnerability models.Vulnerability) *[]cyclonedx.Affe
 	return &affectedPackages
 }
 
-func buildRatings(vulnerability models.Vulnerability) *[]cyclonedx.VulnerabilityRating {
+func buildRatings(vulnerability osvschema.Vulnerability) *[]cyclonedx.VulnerabilityRating {
 	ratings := make([]cyclonedx.VulnerabilityRating, len(vulnerability.Severity))
 	for index, severity := range vulnerability.Severity {
 		ratings[index] = cyclonedx.VulnerabilityRating{
@@ -131,7 +132,7 @@ func buildRatings(vulnerability models.Vulnerability) *[]cyclonedx.Vulnerability
 	return &ratings
 }
 
-func buildReferences(vulnerability models.Vulnerability) *[]cyclonedx.VulnerabilityReference {
+func buildReferences(vulnerability osvschema.Vulnerability) *[]cyclonedx.VulnerabilityReference {
 	references := make([]cyclonedx.VulnerabilityReference, len(vulnerability.Aliases))
 
 	for index, alias := range vulnerability.Aliases {
@@ -144,10 +145,10 @@ func buildReferences(vulnerability models.Vulnerability) *[]cyclonedx.Vulnerabil
 	return &references
 }
 
-func buildAdvisories(vulnerability models.Vulnerability) *[]cyclonedx.Advisory {
+func buildAdvisories(vulnerability osvschema.Vulnerability) *[]cyclonedx.Advisory {
 	advisories := make([]cyclonedx.Advisory, 0)
 	for _, reference := range vulnerability.References {
-		if reference.Type != models.ReferenceAdvisory {
+		if reference.Type != osvschema.ReferenceAdvisory {
 			continue
 		}
 		advisories = append(advisories, cyclonedx.Advisory{

@@ -6,8 +6,11 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"deps.dev/util/maven"
+	"deps.dev/util/resolve"
+	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/v2/internal/datasource"
 )
 
@@ -150,4 +153,63 @@ func GetDependencyManagement(ctx context.Context, client *datasource.MavenRegist
 	}
 
 	return result.DependencyManagement, nil
+}
+
+// CompareVersions compares two Maven semver versions with special behaviour for specific packages,
+// producing more desirable ordering using non-standard comparison.
+func CompareVersions(vk resolve.VersionKey, a *semver.Version, b *semver.Version) int {
+	if a == nil || b == nil {
+		if a == nil {
+			return -1
+		}
+
+		return 1
+	}
+
+	if vk.Name == "com.google.guava:guava" {
+		// com.google.guava:guava has 'flavors' with versions ending with -jre or -android.
+		// https://github.com/google/guava/wiki/ReleasePolicy#flavors
+		// To preserve the flavor in updates, we make the opposite flavor considered the earliest versions.
+
+		// Old versions have '22.0' and '22.0-android', and even older version don't have any flavors.
+		// Only check for the android flavor, and assume its jre otherwise.
+		wantAndroid := strings.HasSuffix(vk.Version, "-android")
+
+		aIsAndroid := strings.HasSuffix(a.String(), "-android")
+		bIsAndroid := strings.HasSuffix(b.String(), "-android")
+
+		if aIsAndroid == bIsAndroid {
+			return a.Compare(b)
+		}
+
+		if aIsAndroid == wantAndroid {
+			return 1
+		}
+
+		return -1
+	}
+
+	// Old versions of apache commons-* libraries (commons-io:commons-io, commons-math:commons-math, etc.)
+	// used date-based versions (e.g. 20040118.003354), which naturally sort after the more recent semver versions.
+	// We manually force the date versions to come before the others to prevent downgrades.
+	if strings.HasPrefix(vk.Name, "commons-") {
+		// All date-based versions of these packages seem to be in the years 2002-2005.
+		// It's extremely unlikely we'd see any versions dated before 1999 or after 2010.
+		// It's also unlikely we'd see any major versions of these packages reach up to 200.0.0.
+		// Checking if the version starts with "200" should therefore be sufficient to determine if it's a year.
+		aCal := strings.HasPrefix(a.String(), "200")
+		bCal := strings.HasPrefix(b.String(), "200")
+
+		if aCal == bCal {
+			return a.Compare(b)
+		}
+
+		if aCal {
+			return -1
+		}
+
+		return 1
+	}
+
+	return a.Compare(b)
 }

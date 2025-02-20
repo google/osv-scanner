@@ -10,13 +10,15 @@ import (
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/semantic"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/identifiers"
-	"github.com/google/osv-scanner/v2/internal/semantic"
 	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
+
 	"github.com/jedib0t/go-pretty/v6/text"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // Result represents the vulnerability scanning results for output report.
@@ -523,7 +525,7 @@ func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[
 // updateVuln updates each vulnerability info in vulnMap from the details of vulnPkg.Vulnerabilities.
 func updateVuln(vulnMap map[string]VulnResult, vulnPkg models.PackageVulns) {
 	for _, vuln := range vulnPkg.Vulnerabilities {
-		fixable, fixedVersion := getNextFixVersion(vuln.Affected, vulnPkg.Package.Version, vulnPkg.Package.Name, models.Ecosystem(vulnPkg.Package.Ecosystem))
+		fixable, fixedVersion := getNextFixVersion(vuln.Affected, vulnPkg.Package.Version, vulnPkg.Package.Name, vulnPkg.Package.Ecosystem)
 		if outputVuln, exist := vulnMap[vuln.ID]; exist {
 			outputVuln.FixedVersion = fixedVersion
 			outputVuln.IsFixable = fixable
@@ -552,8 +554,8 @@ func getVulnList(vulnMap map[string]VulnResult) []VulnResult {
 
 // getNextFixVersion finds the next fixed version for a given vulnerability.
 // returns a boolean value indicating whether a fixed version is available.
-func getNextFixVersion(allAffected []models.Affected, installedVersion string, installedPackage string, ecosystem models.Ecosystem) (bool, string) {
-	ecosystemPrefix := models.Ecosystem(strings.Split(string(ecosystem), ":")[0])
+func getNextFixVersion(allAffected []osvschema.Affected, installedVersion string, installedPackage string, ecosystem string) (bool, string) {
+	ecosystemPrefix := strings.Split(ecosystem, ":")[0]
 	vp, err := semantic.Parse(installedVersion, ecosystemPrefix)
 	if err != nil {
 		return false, VersionUnsupported
@@ -566,13 +568,15 @@ func getNextFixVersion(allAffected []models.Affected, installedVersion string, i
 		}
 		for _, affectedRange := range affected.Ranges {
 			for _, affectedEvent := range affectedRange.Events {
+				order, _ := vp.CompareStr(affectedEvent.Fixed)
 				// Skip if it's not a fix version event or the installed version is greater than the fix version.
-				if affectedEvent.Fixed == "" || vp.CompareStr(affectedEvent.Fixed) > 0 {
+				if affectedEvent.Fixed == "" || order > 0 {
 					continue
 				}
 
+				order, _ = semantic.MustParse(affectedEvent.Fixed, ecosystemPrefix).CompareStr(minFixVersion)
 				// Find the minimum fix version
-				if minFixVersion == UnfixedDescription || semantic.MustParse(affectedEvent.Fixed, ecosystemPrefix).CompareStr(minFixVersion) < 0 {
+				if minFixVersion == UnfixedDescription || order < 0 {
 					minFixVersion = affectedEvent.Fixed
 				}
 			}
@@ -586,7 +590,7 @@ func getNextFixVersion(allAffected []models.Affected, installedVersion string, i
 
 // calculatePackageFixedVersion determines the highest version that resolves the most known vulnerabilities for a package.
 func calculatePackageFixedVersion(ecosystem string, allVulns []VulnResult) string {
-	ecosystemPrefix := models.Ecosystem(strings.Split(ecosystem, ":")[0])
+	ecosystemPrefix := strings.Split(ecosystem, ":")[0]
 	maxFixVersion := ""
 	var vp semantic.Version
 	for _, vuln := range allVulns {
@@ -604,8 +608,9 @@ func calculatePackageFixedVersion(ecosystem string, allVulns []VulnResult) strin
 			continue
 		}
 
+		order, _ := vp.CompareStr(vuln.FixedVersion)
 		// Update if the current vulnerability's fixed version is higher
-		if vp.CompareStr(vuln.FixedVersion) < 0 {
+		if order < 0 {
 			maxFixVersion = vuln.FixedVersion
 			vp = semantic.MustParse(maxFixVersion, ecosystemPrefix)
 		}

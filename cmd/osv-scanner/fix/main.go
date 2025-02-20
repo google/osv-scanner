@@ -25,7 +25,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/term"
 )
@@ -216,43 +215,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	}
 }
 
-func parseUpgradeConfig(ctx *cli.Context, r reporter.Reporter) upgrade.Config {
-	config := upgrade.NewConfig()
-
-	for _, spec := range ctx.StringSlice("upgrade-config") {
-		idx := strings.LastIndex(spec, ":")
-		if idx == 0 {
-			r.Warnf("WARNING: `--upgrade-config %s` - skipping empty package name\n", spec)
-			continue
-		}
-		pkg := ""
-		levelStr := spec
-		if idx > 0 {
-			pkg = spec[:idx]
-			levelStr = spec[idx+1:]
-		}
-		var level upgrade.Level
-		switch levelStr {
-		case "major":
-			level = upgrade.Major
-		case "minor":
-			level = upgrade.Minor
-		case "patch":
-			level = upgrade.Patch
-		case "none":
-			level = upgrade.None
-		default:
-			r.Warnf("WARNING: `--upgrade-config %s` - invalid level string '%s'\n", spec, levelStr)
-			continue
-		}
-		if config.Set(pkg, level) { // returns true if was previously set
-			r.Warnf("WARNING: `--upgrade-config %s` - config for package specified multiple times\n", spec)
-		}
-	}
-
-	return config
-}
-
 func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
 	if !ctx.IsSet("manifest") && !ctx.IsSet("lockfile") {
 		return nil, errors.New("manifest or lockfile is required")
@@ -282,7 +244,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			DevDeps:       !ctx.Bool("ignore-dev"),
 			MinSeverity:   ctx.Float64("min-severity"),
 			MaxDepth:      ctx.Int("max-depth"),
-			UpgradeConfig: parseUpgradeConfig(ctx, r),
+			UpgradeConfig: upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config"), r),
 		},
 		Manifest:    ctx.String("manifest"),
 		Lockfile:    ctx.String("lockfile"),
@@ -362,7 +324,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			// Something's very wrong if we hit this
 			panic("unhandled resolve.Ecosystem: " + system.String())
 		}
-		if err := matcher.LoadEcosystem(ctx.Context, ecosystem.Parsed{Ecosystem: osvschema.Ecosystem(eco)}); err != nil {
+		if err := matcher.LoadEcosystem(ctx.Context, ecosystem.Parsed{Ecosystem: eco}); err != nil {
 			return nil, err
 		}
 

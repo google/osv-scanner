@@ -3,8 +3,8 @@ package client
 import (
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scalibr/plugin"
-	"github.com/google/osv-scalibr/purl"
+	"github.com/google/osv-scanner/v2/internal/resolution/util"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
 )
 
 // GraphToInventory is a helper function to convert a Graph into an Inventory for use with VulnerabilityMatcher.
@@ -13,34 +13,13 @@ func GraphToInventory(g *resolve.Graph) []*extractor.Inventory {
 	inv := make([]*extractor.Inventory, len(g.Nodes)-1)
 	for i, n := range g.Nodes[1:] {
 		inv[i] = &extractor.Inventory{
-			Name:      n.Version.Name,
-			Version:   n.Version.Version,
-			Extractor: mockExtractor{n.Version.System},
+			Name:    n.Version.Name,
+			Version: n.Version.Version,
+			Extractor: ecosystemmock.Extractor{
+				MockEcosystem: string(util.OSVEcosystem[n.Version.System]),
+			},
 		}
 	}
 
 	return inv
 }
-
-// mockExtractor is for GraphToInventory to get the ecosystem.
-type mockExtractor struct {
-	ecosystem resolve.System
-}
-
-func (e mockExtractor) Ecosystem(*extractor.Inventory) string {
-	switch e.ecosystem {
-	case resolve.NPM:
-		return "npm"
-	case resolve.Maven:
-		return "Maven"
-	case resolve.UnknownSystem:
-		return ""
-	default:
-		return ""
-	}
-}
-
-func (e mockExtractor) Name() string                                 { return "" }
-func (e mockExtractor) Requirements() *plugin.Capabilities           { return nil }
-func (e mockExtractor) ToPURL(*extractor.Inventory) *purl.PackageURL { return nil }
-func (e mockExtractor) Version() int                                 { return 0 }
