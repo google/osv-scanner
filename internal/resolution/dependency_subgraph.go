@@ -9,7 +9,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	vulnUtil "github.com/google/osv-scanner/v2/internal/utility/vulns"
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 type GraphNode struct {
@@ -149,7 +149,7 @@ func (ds *DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]str
 //
 // This is a heuristic approach and may produce false positives (meaning possibly unnecessary dependencies would be flagged to be relaxed).
 // If the constraining subgraph cannot be computed for some reason, returns the original DependencySubgraph.
-func (ds *DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resolve.Client, vuln *models.Vulnerability) *DependencySubgraph {
+func (ds *DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resolve.Client, vuln *osvschema.Vulnerability) *DependencySubgraph {
 	// Just check if the direct requirement of the vulnerable package is constraining it.
 	// This still has some false positives.
 	// e.g. if we have
@@ -173,7 +173,7 @@ func (ds *DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resol
 		}
 		bestVK := vers[len(vers)-1] // This should be the highest version for npm
 
-		if vulnUtil.IsAffected(*vuln, util.VKToPackageDetails(bestVK.VersionKey)) {
+		if vulnUtil.IsAffected(*vuln, util.VKToPackageInfo(bestVK.VersionKey)) {
 			newParents = append(newParents, pEdge)
 		}
 	}

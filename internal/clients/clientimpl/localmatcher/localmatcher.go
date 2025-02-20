@@ -10,7 +10,6 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
-	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -48,8 +47,8 @@ func NewLocalMatcher(r reporter.Reporter, localDBPath string, userAgent string, 
 	}, nil
 }
 
-func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
-	results := make([][]*models.Vulnerability, 0, len(invs))
+func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Inventory) ([][]*osvschema.Vulnerability, error) {
+	results := make([][]*osvschema.Vulnerability, 0, len(invs))
 
 	for _, inv := range invs {
 		if ctx.Err() != nil {
@@ -64,7 +63,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 			}
 
 			// Is a commit based query, skip local scanning
-			results = append(results, []*models.Vulnerability{})
+			results = append(results, []*osvschema.Vulnerability{})
 			// TODO (V2 logging):
 			matcher.r.Infof("Skipping commit scanning for: %s\n", pkg.Commit())
 

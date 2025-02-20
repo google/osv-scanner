@@ -9,7 +9,7 @@ import (
 	"github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/osvdev"
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -27,7 +27,7 @@ type OSVMatcher struct {
 	InitialQueryTimeout time.Duration
 }
 
-func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
+func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Inventory) ([][]*osvschema.Vulnerability, error) {
 	var batchResp *osvdev.BatchedResponse
 	deadlineExceeded := false
 
@@ -57,12 +57,12 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 		}
 	}
 
-	vulnerabilities := make([][]*models.Vulnerability, len(batchResp.Results))
+	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.Results))
 	g, ctx := errgroup.WithContext(ctx)
 	g.SetLimit(maxConcurrentRequests)
 
 	for batchIdx, resp := range batchResp.Results {
-		vulnerabilities[batchIdx] = make([]*models.Vulnerability, len(resp.Vulns))
+		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.Vulns))
 		for resultIdx, vuln := range resp.Vulns {
 			g.Go(func() error {
 				// exit early if another hydration request has already failed
