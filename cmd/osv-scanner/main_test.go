@@ -745,7 +745,7 @@ func TestRun_Licenses(t *testing.T) {
 		},
 		{
 			name: "Some packages with ignored licenses",
-			args: []string{"", "--config=./fixtures/osv-scanner-complex-licenses-config.toml", "--experimental-licenses", "MIT", "./fixtures/locks-many", "./fixtures/locks-insecure"},
+			args: []string{"", "--config=./fixtures/osv-scanner-complex-licenses-config.toml", "--experimental-licenses=MIT", "./fixtures/locks-many", "./fixtures/locks-insecure"},
 			exit: 1,
 		},
 		{
