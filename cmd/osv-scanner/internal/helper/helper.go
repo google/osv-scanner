@@ -222,15 +222,18 @@ func GetReporter(context *cli.Context, stdout, stderr io.Writer, outputPath, for
 func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
 	allowlist := strings.Split(context.Generic("experimental-licenses").(*licenseGenericFlag).String(), ",")
 
-	if context.IsSet("experimental-licenses") {
-		if len(allowlist) == 0 ||
-			(len(allowlist) == 1 && allowlist[0] == "") {
-			return []string{}, nil
-		}
+	if !context.IsSet("experimental-licenses") {
+		return []string{}, nil
 
-		if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
-			return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
-		}
+	}
+
+	if len(allowlist) == 0 ||
+		(len(allowlist) == 1 && allowlist[0] == "") {
+		return []string{}, nil
+	}
+
+	if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
+		return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
 	}
 
 	if context.Bool("experimental-offline") {

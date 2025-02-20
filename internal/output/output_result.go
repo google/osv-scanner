@@ -17,7 +17,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/text"
-	"golang.org/x/exp/maps"
 )
 
 // Result represents the vulnerability scanning results for output report.
@@ -90,12 +89,7 @@ type ImageInfo struct {
 type LicenseSummary struct {
 	Summary        bool
 	ShowViolations bool
-	LicenseCount   []LicenseCount
-}
-
-type LicenseCount struct {
-	Name  models.License
-	Count int
+	LicenseCount   []models.LicenseCount
 }
 
 // PackageContainerInfo represents detailed layer tracing information about a package.
@@ -205,11 +199,11 @@ RowLoop:
 		}
 	}
 
-	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata, vulnResult.ExperimentalAnalysisConfig.Licenses)
+	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata, vulnResult.ExperimentalAnalysisConfig.Licenses, vulnResult.LicenseSummary)
 }
 
 // buildResult builds the final Result object from the ecosystem map and total vulnerability count.
-func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata, licenseConfig models.ExperimentalLicenseConfig) Result {
+func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata, licenseConfig models.ExperimentalLicenseConfig, licenseCount []models.LicenseCount) Result {
 	result := Result{}
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
@@ -254,7 +248,10 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, 
 	}
 
 	if licenseConfig.Summary {
-		calculateLicenseSummary(&result)
+		result.LicenseSummary = LicenseSummary{
+			Summary:      true,
+			LicenseCount: licenseCount,
+		}
 	}
 
 	if len(licenseConfig.Allowlist) != 0 {
@@ -474,49 +471,6 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 	}
 
 	return packageResult
-}
-
-func calculateLicenseSummary(result *Result) {
-	result.LicenseSummary = LicenseSummary{
-		Summary: true,
-	}
-
-	counts := make(map[models.License]int)
-	for _, ecosystem := range result.Ecosystems {
-		for _, pkgSource := range ecosystem.Sources {
-			for _, pkg := range pkgSource.Packages {
-				for _, l := range pkg.Licenses {
-					counts[l] += 1
-				}
-			}
-		}
-	}
-	if len(counts) == 0 {
-		// No packages found.
-		return
-	}
-	licenses := maps.Keys(counts)
-	// Sort the license count in descending count order with the UNKNOWN
-	// license last.
-	sort.Slice(licenses, func(i, j int) bool {
-		if licenses[i] == "UNKNOWN" {
-			return false
-		}
-		if licenses[j] == "UNKNOWN" {
-			return true
-		}
-		if counts[licenses[i]] == counts[licenses[j]] {
-			return licenses[i] < licenses[j]
-		}
-
-		return counts[licenses[i]] > counts[licenses[j]]
-	})
-
-	result.LicenseSummary.LicenseCount = make([]LicenseCount, len(licenses))
-	for i, license := range licenses {
-		result.LicenseSummary.LicenseCount[i].Name = license
-		result.LicenseSummary.LicenseCount[i].Count = counts[license]
-	}
 }
 
 // processVulnGroups processes vulnerability groups within a package.

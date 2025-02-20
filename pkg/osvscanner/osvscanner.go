@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"sort"
 	"strings"
 	"time"
 
@@ -31,6 +32,7 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"golang.org/x/exp/maps"
 )
 
 type ScannerActions struct {
@@ -246,6 +248,9 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 
 	results := buildVulnerabilityResults(r, actions, &scanResult)
 
+	licenseSummary := buildLicenseSummary(r, actions, &scanResult)
+	results.LicenseSummary = licenseSummary
+
 	filtered := filterResults(r, &results, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		r.Infof(
@@ -381,6 +386,48 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	}
 
 	return results, determineReturnErr(results)
+}
+
+func buildLicenseSummary(r reporter.Reporter, actions ScannerActions, scanResult *results.ScanResults) []models.LicenseCount {
+	var licenseSummary []models.LicenseCount
+
+	counts := make(map[models.License]int)
+	for _, pkg := range scanResult.PackageScanResults {
+		for _, l := range pkg.Licenses {
+			counts[l] += 1
+		}
+	}
+
+	if len(counts) == 0 {
+		// No packages found.
+		return []models.LicenseCount{}
+	}
+
+	licenses := maps.Keys(counts)
+
+	// Sort the license count in descending count order with the UNKNOWN
+	// license last.
+	sort.Slice(licenses, func(i, j int) bool {
+		if licenses[i] == "UNKNOWN" {
+			return false
+		}
+		if licenses[j] == "UNKNOWN" {
+			return true
+		}
+		if counts[licenses[i]] == counts[licenses[j]] {
+			return licenses[i] < licenses[j]
+		}
+
+		return counts[licenses[i]] > counts[licenses[j]]
+	})
+
+	licenseSummary = make([]models.LicenseCount, len(licenses))
+	for i, license := range licenses {
+		licenseSummary[i].Name = license
+		licenseSummary[i].Count = counts[license]
+	}
+
+	return licenseSummary
 }
 
 // determineReturnErr determines whether we found a "vulnerability" or not,
