@@ -12,20 +12,20 @@ import (
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"gopkg.in/yaml.v3"
 )
 
 type ResolutionUniverse struct {
-	System string                 `yaml:"system"`
-	Schema string                 `yaml:"schema"`
-	Vulns  []models.Vulnerability `yaml:"vulns"`
+	System string                    `yaml:"system"`
+	Schema string                    `yaml:"schema"`
+	Vulns  []osvschema.Vulnerability `yaml:"vulns"`
 }
 
-type mockVulnerabilityMatcher []models.Vulnerability
+type mockVulnerabilityMatcher []osvschema.Vulnerability
 
-func (mvc mockVulnerabilityMatcher) MatchVulnerabilities(_ context.Context, invs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
-	result := make([][]*models.Vulnerability, len(invs))
+func (mvc mockVulnerabilityMatcher) MatchVulnerabilities(_ context.Context, invs []*extractor.Inventory) ([][]*osvschema.Vulnerability, error) {
+	result := make([][]*osvschema.Vulnerability, len(invs))
 	for i, inv := range invs {
 		result[i] = localmatcher.VulnerabilitiesAffectingPackage(mvc, imodels.FromInventory(inv))
 	}

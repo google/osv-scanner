@@ -133,7 +133,7 @@ permissions:
 
 jobs:
   osv-scan:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v1.9.1"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v1.9.1"
     with:
       # Only scan the top level go.mod file without recursively scanning directories since
       # this is pipeline is about releasing the go module and binary
@@ -173,6 +173,7 @@ The GitHub Actions have the following optional inputs:
 - `download-artifact`: Optional artifact to download for scanning. Can be used if you need to do some preprocessing to prepare the lockfiles for scanning. If the file names in the artifact are not standard lockfile names, make sure to add custom scan-args to specify the lockfile type and path (see [specify lockfiles](./usage.md#specify-lockfiles)).
 - `upload-sarif`: Whether to upload the results to Security > Code Scanning. Defaults to `true`.
 - `fail-on-vuln`: Whether to fail the workflow when a vulnerability is found. Defaults to `true`.
+- `matrix-property`: Optional, adds support for matrix strategies by inserting a unique variable per job run. (E.g. `amd64-`) Defaults to `""`.
 
 <details markdown="block">
 <summary>
@@ -231,6 +232,57 @@ jobs:
         --lockfile=osv-scanner:osv-scanner-deps.json
     permissions:
       # Needed to upload the SARIF results to code-scanning dashboard.
+      security-events: write
+      contents: read
+      actions: read
+```
+
+#### Using download-artifact with matrix
+
+```yml
+jobs:
+  extract-deps:
+    strategy:
+        fail-fast: false
+        matrix:
+          platform: [
+          {target_arch: amd64},
+          {target_arch: armv7}
+          {target_arch: armhf},
+          {target_arch: aarch64}
+        ]
+    name: Extract Dependencies
+    # ...
+    steps:
+      # ... Steps to extract your dependencies for each matrix run
+      - name: "upload osv-scanner deps" # Upload the deps
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.platform.target_arch }}-OSV-Scanner-deps
+          path: osv-scanner-deps.json
+          retention-days: 2
+  vuln-scan:
+    needs:
+      - extract-deps
+    strategy:
+      fail-fast: false
+      matrix:
+        platform: [
+          {target_arch: amd64},
+          {target_arch: armv7}
+          {target_arch: armhf},
+          {target_arch: aarch64}
+        ]
+    uses: "extract/osv-scanner/.github/workflows/osv-scanner-reusable.yml@v1.9.1"
+    with:
+      download-artifact: "${{ matrix.platform.target_arch }}-OSV-Scanner-deps"
+      matrix-property: "${{ matrix.platform.target_arch }}-"
+      scan-args: |-
+        --lockfile=osv-scanner:osv-scanner-deps.json
+        --recursive
+        --skip-git
+        ./
+    permissions:
       security-events: write
       contents: read
       actions: read

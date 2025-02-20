@@ -9,10 +9,12 @@ import (
 
 	"golang.org/x/exp/maps"
 
+	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
+	depgroups "github.com/google/osv-scanner/v2/internal/utility/depgroup"
 	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/jedib0t/go-pretty/v6/text"
@@ -251,7 +253,8 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 					shouldMerge = true
 				} else {
 					name := pkg.Package.Name
-					if lockfile.Ecosystem(pkg.Package.Ecosystem).IsDevGroup(pkg.DepGroups) {
+					// TODO(#1646): Migrate this earlier to the result struct directly
+					if depgroups.IsDevGroup(ecosystem.MustParse(pkg.Package.Ecosystem).Ecosystem, pkg.DepGroups) {
 						name += " (dev)"
 					}
 					outputRow = append(outputRow, pkg.Package.Ecosystem, name, pkg.Package.Version)
@@ -272,7 +275,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 	var maxSeverity float64 = -1
 	for _, vulnID := range group.IDs {
-		var severities []models.Severity
+		var severities []osvschema.Severity
 		for _, vuln := range pkg.Vulnerabilities {
 			if vuln.ID == vulnID {
 				severities = vuln.Severity

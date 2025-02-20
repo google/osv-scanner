@@ -1,6 +1,6 @@
 package osvdev
 
-import "github.com/google/osv-scanner/v2/pkg/models"
+import "github.com/ossf/osv-schema/bindings/go/osvschema"
 
 // Package represents a package identifier for OSV.
 type Package struct {
@@ -29,8 +29,8 @@ type MinimalVulnerability struct {
 
 // Response represents a full response from OSV.
 type Response struct {
-	Vulns         []models.Vulnerability `json:"vulns"`
-	NextPageToken string                 `json:"next_page_token"`
+	Vulns         []osvschema.Vulnerability `json:"vulns"`
+	NextPageToken string                    `json:"next_page_token"`
 }
 
 // MinimalResponse represents an unhydrated response from OSV.

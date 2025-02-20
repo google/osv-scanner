@@ -18,8 +18,7 @@ import (
 
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/utility/vulns"
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 type ZipDB struct {
@@ -32,7 +31,7 @@ type ZipDB struct {
 	// the path to the zip archive on disk
 	StoredAt string
 	// the vulnerabilities that are loaded into this database
-	vulnerabilities []models.Vulnerability
+	vulnerabilities []osvschema.Vulnerability
 	// User agent to query with
 	UserAgent string
 }
@@ -161,7 +160,7 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 		return
 	}
 
-	var vulnerability models.Vulnerability
+	var vulnerability osvschema.Vulnerability
 
 	if err := json.Unmarshal(content, &vulnerability); err != nil {
 		_, _ = fmt.Fprintf(os.Stderr, "%s is not a valid JSON file: %v\n", zipFile.Name, err)
@@ -179,7 +178,7 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 // so that a new version of the archive is only downloaded if it has been
 // modified, per HTTP caching standards.
 func (db *ZipDB) load(ctx context.Context) error {
-	db.vulnerabilities = []models.Vulnerability{}
+	db.vulnerabilities = []osvschema.Vulnerability{}
 
 	body, err := db.fetchZip(ctx)
 
@@ -219,12 +218,12 @@ func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, o
 	return db, nil
 }
 
-func (db *ZipDB) Vulnerabilities(includeWithdrawn bool) []models.Vulnerability {
+func (db *ZipDB) Vulnerabilities(includeWithdrawn bool) []osvschema.Vulnerability {
 	if includeWithdrawn {
 		return db.vulnerabilities
 	}
 
-	var vulnerabilities []models.Vulnerability
+	var vulnerabilities []osvschema.Vulnerability
 
 	for _, vulnerability := range db.vulnerabilities {
 		if vulnerability.Withdrawn.IsZero() {
@@ -236,21 +235,11 @@ func (db *ZipDB) Vulnerabilities(includeWithdrawn bool) []models.Vulnerability {
 }
 
 // TODO: Move this to another file.
-func VulnerabilitiesAffectingPackage(allVulns []models.Vulnerability, pkg imodels.PackageInfo) []*models.Vulnerability {
-	var vulnerabilities []*models.Vulnerability
-
-	// TODO (V2 Models): remove this once PackageDetails has been migrated
-	mappedPackageDetails := lockfile.PackageDetails{
-		Name:      pkg.Name(),
-		Version:   pkg.Version(),
-		Commit:    pkg.Commit(),
-		Ecosystem: lockfile.Ecosystem(pkg.Ecosystem().String()),
-		CompareAs: lockfile.Ecosystem(pkg.Ecosystem().String()),
-		DepGroups: pkg.DepGroups(),
-	}
+func VulnerabilitiesAffectingPackage(allVulns []osvschema.Vulnerability, pkg imodels.PackageInfo) []*osvschema.Vulnerability {
+	var vulnerabilities []*osvschema.Vulnerability
 
 	for _, vulnerability := range allVulns {
-		if vulns.IsAffected(vulnerability, mappedPackageDetails) && !vulns.Include(vulnerabilities, vulnerability) {
+		if vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
 			vulnerabilities = append(vulnerabilities, &vulnerability)
 		}
 	}
@@ -258,9 +247,9 @@ func VulnerabilitiesAffectingPackage(allVulns []models.Vulnerability, pkg imodel
 	return vulnerabilities
 }
 
-func (db *ZipDB) Check(pkgs []imodels.PackageInfo) ([]*models.Vulnerability, error) {
+func (db *ZipDB) Check(pkgs []imodels.PackageInfo) ([]*osvschema.Vulnerability, error) {
 	allVulns := db.Vulnerabilities(false)
-	vulnerabilities := make([]*models.Vulnerability, 0, len(pkgs))
+	vulnerabilities := make([]*osvschema.Vulnerability, 0, len(pkgs))
 
 	for _, pkg := range pkgs {
 		vulnerabilities = append(vulnerabilities, VulnerabilitiesAffectingPackage(allVulns, pkg)...)

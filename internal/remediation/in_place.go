@@ -16,7 +16,7 @@ import (
 	lf "github.com/google/osv-scanner/v2/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/internal/utility/vulns"
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/exp/maps"
 )
 
@@ -164,7 +164,7 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 				}
 
 				// Check if this version is vulnerable
-				return !vulns.IsAffected(vuln.OSV, util.VKToPackageDetails(newVK))
+				return !vulns.IsAffected(vuln.OSV, util.VKToPackageInfo(newVK))
 			})
 
 			if errors.Is(err, errInPlaceImpossible) {
@@ -246,7 +246,7 @@ func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatc
 
 	// GraphToInventory/MatchVulnerabilities excludes the root node of the graph.
 	// Prepend an element to nodeVulns so that the indices line up with graph.Nodes[i] <=> nodeVulns[i]
-	nodeVulns = append([][]*models.Vulnerability{nil}, nodeVulns...)
+	nodeVulns = append([][]*osvschema.Vulnerability{nil}, nodeVulns...)
 
 	result := inPlaceVulnsNodesResult{
 		nodeDependencies: make(map[resolve.NodeID][]resolve.VersionKey),

@@ -12,7 +12,7 @@ import (
 	gocmp "github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 func TestDependencySubgraph(t *testing.T) {
@@ -92,17 +92,17 @@ root 1.0.0
 	cl.AddVersion(v, []resolve.RequirementVersion{})
 	v.Version = "2.0.0"
 	cl.AddVersion(v, []resolve.RequirementVersion{})
-	vuln := &models.Vulnerability{
+	vuln := &osvschema.Vulnerability{
 		ID: "VULN-001",
-		Affected: []models.Affected{{
-			Package: models.Package{
+		Affected: []osvschema.Affected{{
+			Package: osvschema.Package{
 				Ecosystem: "npm",
 				Name:      vulnPkgName,
 			},
-			Ranges: []models.Range{
+			Ranges: []osvschema.Range{
 				{
 					Type:   "SEMVER",
-					Events: []models.Event{{Introduced: "0"}, {Fixed: "2.0.0"}},
+					Events: []osvschema.Event{{Introduced: "0"}, {Fixed: "2.0.0"}},
 				},
 			},
 		},

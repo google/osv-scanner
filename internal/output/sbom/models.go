@@ -2,6 +2,7 @@ package sbom
 
 import (
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	"github.com/CycloneDX/cyclonedx-go"
 )
@@ -20,8 +21,8 @@ const (
 
 const libraryComponentType = "library"
 
-var SeverityMapper = map[models.SeverityType]cyclonedx.ScoringMethod{
-	models.SeverityCVSSV2: cyclonedx.ScoringMethodCVSSv2,
-	models.SeverityCVSSV3: cyclonedx.ScoringMethodCVSSv3,
-	models.SeverityCVSSV4: cyclonedx.ScoringMethodCVSSv4,
+var SeverityMapper = map[osvschema.SeverityType]cyclonedx.ScoringMethod{
+	osvschema.SeverityCVSSV2: cyclonedx.ScoringMethodCVSSv2,
+	osvschema.SeverityCVSSV3: cyclonedx.ScoringMethodCVSSv3,
+	osvschema.SeverityCVSSV4: cyclonedx.ScoringMethodCVSSv4,
 }

@@ -57,7 +57,7 @@ func testCliJSONWithCustomRules(t *testing.T, tc cliTestCase) {
 	testutility.NewSnapshot().MatchText(t, stderr)
 }
 
-func TestRun(t *testing.T) {
+func Test_run(t *testing.T) {
 	t.Parallel()
 
 	tests := []cliTestCase{
@@ -298,7 +298,7 @@ func TestRun(t *testing.T) {
 	}
 }
 
-func TestRunCallAnalysis(t *testing.T) {
+func Test_run_CallAnalysis(t *testing.T) {
 	t.Parallel()
 
 	// Switch to acceptance test if this takes too long, or when we add rust tests
@@ -323,7 +323,7 @@ func TestRunCallAnalysis(t *testing.T) {
 	}
 }
 
-func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
+func Test_run_LockfileWithExplicitParseAs(t *testing.T) {
 	t.Parallel()
 
 	tests := []cliTestCase{
@@ -450,8 +450,8 @@ func TestRun_LockfileWithExplicitParseAs(t *testing.T) {
 	}
 }
 
-// TestRun_GithubActions tests common actions the github actions reusable workflow will run
-func TestRun_GithubActions(t *testing.T) {
+// Test_run_GithubActions tests common actions the github actions reusable workflow will run
+func Test_run_GithubActions(t *testing.T) {
 	t.Parallel()
 
 	tests := []cliTestCase{
@@ -475,7 +475,7 @@ func TestRun_GithubActions(t *testing.T) {
 	}
 }
 
-func TestRun_LocalDatabases(t *testing.T) {
+func Test_run_LocalDatabases(t *testing.T) {
 	t.Parallel()
 
 	tests := []cliTestCase{
@@ -560,7 +560,7 @@ func TestRun_LocalDatabases(t *testing.T) {
 	}
 }
 
-func TestRun_LocalDatabases_AlwaysOffline(t *testing.T) {
+func Test_run_LocalDatabases_AlwaysOffline(t *testing.T) {
 	t.Parallel()
 
 	tests := []cliTestCase{
@@ -588,7 +588,7 @@ func TestRun_LocalDatabases_AlwaysOffline(t *testing.T) {
 	}
 }
 
-func TestRun_Licenses(t *testing.T) {
+func Test_run_Licenses(t *testing.T) {
 	t.Parallel()
 	tests := []cliTestCase{
 		{
@@ -661,7 +661,7 @@ func TestRun_Licenses(t *testing.T) {
 	}
 }
 
-func TestRun_Docker(t *testing.T) {
+func Test_run_Docker(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
@@ -708,7 +708,7 @@ func TestRun_Docker(t *testing.T) {
 	}
 }
 
-func TestRun_OCIImage(t *testing.T) {
+func Test_run_OCIImage(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
@@ -793,7 +793,7 @@ func TestRun_OCIImage(t *testing.T) {
 	}
 }
 
-func TestRun_OCIImageAllPackagesJSON(t *testing.T) {
+func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
@@ -859,7 +859,7 @@ func TestRun_OCIImageAllPackagesJSON(t *testing.T) {
 }
 
 // Tests all subcommands here.
-func TestRun_SubCommands(t *testing.T) {
+func Test_run_SubCommands(t *testing.T) {
 	t.Parallel()
 	tests := []cliTestCase{
 		// without subcommands
@@ -891,7 +891,7 @@ func TestRun_SubCommands(t *testing.T) {
 	}
 }
 
-func TestRun_InsertDefaultCommand(t *testing.T) {
+func Test_insertDefaultCommand(t *testing.T) {
 	t.Parallel()
 	commands := []*cli.Command{
 		{Name: "default"},
@@ -957,7 +957,7 @@ func TestRun_InsertDefaultCommand(t *testing.T) {
 	}
 }
 
-func TestRun_MavenTransitive(t *testing.T) {
+func Test_run_MavenTransitive(t *testing.T) {
 	t.Parallel()
 	tests := []cliTestCase{
 		{
@@ -1007,7 +1007,7 @@ func TestRun_MavenTransitive(t *testing.T) {
 	}
 }
 
-func TestRun_MoreLockfiles(t *testing.T) {
+func Test_run_MoreLockfiles(t *testing.T) {
 	t.Parallel()
 	tests := []cliTestCase{
 		{

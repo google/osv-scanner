@@ -18,7 +18,9 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
-	"github.com/google/osv-scanner/v2/internal/semantic"
+	"github.com/google/osv-scanner/v2/internal/utility/purl"
+	"github.com/google/osv-scanner/v2/internal/utility/semverlike"
+
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
@@ -136,7 +138,7 @@ func (pkg *PackageInfo) Version() string {
 	// false positives. This compromise still allows osv-scanner to pick up
 	// when the user is using a minor version that is out-of-support.
 	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo && pkg.Name() == "stdlib" {
-		v := semantic.ParseSemverLikeVersion(pkg.Inventory.Version, 3)
+		v := semverlike.ParseSemverLikeVersion(pkg.Inventory.Version, 3)
 		if len(v.Components) == 2 {
 			return fmt.Sprintf(
 				"%d.%d.%d",
@@ -211,9 +213,9 @@ func (pkg *PackageInfo) OSPackageName() string {
 func FromInventory(inventory *extractor.Inventory) PackageInfo {
 	pi := PackageInfo{Inventory: inventory}
 	if pi.SourceType() == SourceTypeSBOM {
-		purl := pi.Inventory.Extractor.ToPURL(pi.Inventory)
-		if purl != nil {
-			purlCache, _ := models.PURLToPackage(purl.String())
+		purlStruct := pi.Inventory.Extractor.ToPURL(pi.Inventory)
+		if purlStruct != nil {
+			purlCache, _ := purl.ToPackage(purlStruct.String())
 			pi.purlCache = &purlCache
 		}
 	}
@@ -226,7 +228,7 @@ func FromInventory(inventory *extractor.Inventory) PackageInfo {
 type PackageScanResult struct {
 	PackageInfo PackageInfo
 	// TODO: Use osvschema.Vulnerability instead
-	Vulnerabilities []*models.Vulnerability
+	Vulnerabilities []*osvschema.Vulnerability
 	Licenses        []models.License
 	LayerDetails    *extractor.LayerDetails
 
