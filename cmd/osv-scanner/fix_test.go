@@ -33,7 +33,7 @@ func matchFile(t *testing.T, file string) {
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, string(b))
 }
 
-func TestRun_Fix(t *testing.T) {
+func Test_run_Fix(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name     string
