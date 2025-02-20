@@ -9,6 +9,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 )
 
+// Components is individual components of each semver segment.
 type Components []*big.Int
 
 func (components *Components) Fetch(n int) *big.Int {
