@@ -4044,7 +4044,7 @@ Rewriting <tempdir>/package.json...
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo /"Error: no test specified/" && exit 1"
   },
   "author": "",
   "license": "ISC",
@@ -4147,7 +4147,7 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo /"Error: no test specified/" && exit 1"
   },
   "author": "",
   "license": "ISC",
