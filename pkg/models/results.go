@@ -17,8 +17,8 @@ type VulnerabilityResults struct {
 }
 
 type LicenseCount struct {
-	Name  License
-	Count int
+	Name  License `json:"name"`
+	Count int     `json:"count"`
 }
 
 // ExperimentalAnalysisConfig is an experimental type intended to contain the

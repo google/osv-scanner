@@ -24,7 +24,6 @@ var OfflineFlags = map[string]string{
 	"include-git-root":                     "true",
 	"experimental-offline-vulnerabilities": "true",
 	"experimental-no-resolve":              "true",
-	"experimental-licenses":                "false",
 }
 
 // sets default port(8000) as a global variable
@@ -224,7 +223,6 @@ func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
 
 	if !context.IsSet("experimental-licenses") {
 		return []string{}, nil
-
 	}
 
 	if len(allowlist) == 0 ||

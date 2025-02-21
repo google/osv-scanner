@@ -102,7 +102,6 @@ func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, co
 			if allPackages || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 {
 				newPackages = append(newPackages, newVulns)
 			}
-
 		}
 		// Don't want to include the package source at all if there are no vulns.
 		if len(newPackages) > 0 {
