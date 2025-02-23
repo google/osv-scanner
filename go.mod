@@ -3,9 +3,9 @@ module github.com/google/osv-scanner/v2
 go 1.23.6
 
 require (
-	deps.dev/api/v3 v3.0.0-20250210015309-e519ac173dde
-	deps.dev/util/maven v0.0.0-20250210015309-e519ac173dde
-	deps.dev/util/resolve v0.0.0-20250210015309-e519ac173dde
+	deps.dev/api/v3 v3.0.0-20250219000316-bc85dc8a8bd7
+	deps.dev/util/maven bc85dc8a8bd7
+	deps.dev/util/resolve bc85dc8a8bd7
 	deps.dev/util/semver v0.0.0-20250219000316-bc85dc8a8bd7
 	github.com/BurntSushi/toml v1.4.0
 	github.com/CycloneDX/cyclonedx-go v0.9.2
@@ -13,11 +13,11 @@ require (
 	github.com/charmbracelet/bubbletea v1.3.3
 	github.com/charmbracelet/glamour v0.8.0
 	github.com/charmbracelet/lipgloss v1.0.0
-	github.com/gkampitakis/go-snaps v0.5.10
+	github.com/gkampitakis/go-snaps v0.5.11
 	github.com/go-git/go-billy/v5 v5.6.2
 	github.com/go-git/go-git/v5 v5.13.2
-	github.com/google/go-cmp v0.6.0
-	github.com/google/osv-scalibr v0.1.7-0.20250217184457-86c1198d241c
+	github.com/google/go-cmp v0.7.0
+	github.com/google/osv-scalibr 93fce0090be1
 	github.com/ianlancetaylor/demangle v0.0.0-20240912202439-0a2b6291aafd
 	github.com/jedib0t/go-pretty/v6 v6.6.6
 	github.com/muesli/reflow v0.3.0
@@ -30,7 +30,7 @@ require (
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.5
-	golang.org/x/exp v0.0.0-20250210185358-939b2ce775ac
+	golang.org/x/exp aa4b98e5adaa
 	golang.org/x/net v0.35.0
 	golang.org/x/sync v0.11.0
 	golang.org/x/term v0.29.0
