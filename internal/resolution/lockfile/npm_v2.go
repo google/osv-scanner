@@ -176,7 +176,7 @@ func (rw NpmReadWriter) makeNodeModuleDeps(pkg npmLockPackage, includeDev bool) 
 }
 
 func (rw NpmReadWriter) packageNamesByNodeModuleDepth(packages map[string]npmLockPackage) []string {
-	keys := slices.Collect(maps.Keys(packages))
+	keys := slices.AppendSeq(make([]string, 0, len(packages)), maps.Keys(packages))
 	slices.SortFunc(keys, func(a, b string) int {
 		aSplit := strings.Split(a, "node_modules/")
 		bSplit := strings.Split(b, "node_modules/")

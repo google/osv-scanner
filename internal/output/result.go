@@ -24,7 +24,7 @@ type pkgSourceSet map[pkgWithSource]struct{}
 
 // StableKeys returns the pkgWithSource keys in a deterministic order
 func (pss *pkgSourceSet) StableKeys() []pkgWithSource {
-	pkgWithSrcKeys := slices.Collect(maps.Keys(*pss))
+	pkgWithSrcKeys := slices.AppendSeq(make([]pkgWithSource, 0, len(*pss)), maps.Keys(*pss))
 
 	slices.SortFunc(pkgWithSrcKeys, func(a, b pkgWithSource) int {
 		// compare based on each field in descending priority

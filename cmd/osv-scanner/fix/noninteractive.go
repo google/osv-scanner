@@ -423,7 +423,7 @@ func makeResultVuln(vuln resolution.Vulnerability) vulnOutput {
 		vk := sg.Nodes[sg.Dependency].Version
 		affected[packageOutput{Name: vk.Name, Version: vk.Version}] = struct{}{}
 	}
-	v.Packages = slices.Collect(maps.Keys(affected))
+	v.Packages = slices.AppendSeq(make([]packageOutput, 0, len(affected)), maps.Keys(affected))
 	slices.SortFunc(v.Packages, func(a, b packageOutput) int {
 		if c := cmp.Compare(a.Name, b.Name); c != 0 {
 			return c

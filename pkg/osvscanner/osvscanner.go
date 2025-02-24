@@ -412,7 +412,7 @@ func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount 
 		return []models.LicenseCount{}
 	}
 
-	licenses := slices.Collect(maps.Keys(counts))
+	licenses := slices.AppendSeq(make([]models.License, 0, len(counts)), maps.Keys(counts))
 
 	// Sort the license count in descending count order with the UNKNOWN
 	// license last.
