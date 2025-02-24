@@ -4,10 +4,7 @@ import (
 	"fmt"
 	"io"
 	"path/filepath"
-	"sort"
 	"strings"
-
-	"golang.org/x/exp/maps"
 
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	depgroups "github.com/google/osv-scanner/v2/internal/utility/depgroup"
@@ -43,12 +40,13 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		}
 
 		// Render the licenses if any.
-		outputLicenseTable := newTable(outputWriter, terminalWidth)
-		outputLicenseTable = licenseTableBuilder(outputLicenseTable, vulnResult)
-		if outputLicenseTable.Length() == 0 {
-			return
+		licenseConfig := vulnResult.ExperimentalAnalysisConfig.Licenses
+		if licenseConfig.Summary {
+			buildLicenseSummaryTable(outputWriter, terminalWidth, vulnResult)
 		}
-		outputLicenseTable.Render()
+		if len(licenseConfig.Allowlist) > 0 {
+			buildLicenseViolationsTable(outputWriter, terminalWidth, vulnResult)
+		}
 	}
 }
 
@@ -292,52 +290,32 @@ func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 	return fmt.Sprintf("%.1f", maxSeverity)
 }
 
-func licenseTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
-	licenseConfig := vulnResult.ExperimentalAnalysisConfig.Licenses
-	if licenseConfig.Summary {
-		return licenseSummaryTableBuilder(outputTable, vulnResult)
-	} else if len(licenseConfig.Allowlist) > 0 {
-		return licenseViolationsTableBuilder(outputTable, vulnResult)
+func buildLicenseSummaryTable(outputWriter io.Writer, terminalWidth int, vulnResult *models.VulnerabilityResults) {
+	outputTable := newTable(outputWriter, terminalWidth)
+	licenseSummaryTableBuilder(outputTable, vulnResult)
+	if outputTable.Length() == 0 {
+		return
+	}
+	outputTable.Render()
+}
+
+func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
+	outputTable.AppendHeader(table.Row{"License", "No. of package versions"})
+	for _, license := range vulnResult.LicenseSummary {
+		outputTable.AppendRow(table.Row{license.Name, license.Count})
 	}
 
 	return outputTable
 }
 
-func licenseSummaryTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
-	counts := make(map[models.License]int)
-	for _, pkgSource := range vulnResult.Results {
-		for _, pkg := range pkgSource.Packages {
-			for _, l := range pkg.Licenses {
-				counts[l] += 1
-			}
-		}
-	}
-	if len(counts) == 0 {
-		// No packages found.
-		return outputTable
-	}
-	licenses := maps.Keys(counts)
-	// Sort the license count in descending count order with the UNKNOWN
-	// license last.
-	sort.Slice(licenses, func(i, j int) bool {
-		if licenses[i] == "UNKNOWN" {
-			return false
-		}
-		if licenses[j] == "UNKNOWN" {
-			return true
-		}
-		if counts[licenses[i]] == counts[licenses[j]] {
-			return licenses[i] < licenses[j]
-		}
+func buildLicenseViolationsTable(outputWriter io.Writer, terminalWidth int, vulnResult *models.VulnerabilityResults) {
+	outputTable := newTable(outputWriter, terminalWidth)
 
-		return counts[licenses[i]] > counts[licenses[j]]
-	})
-	outputTable.AppendHeader(table.Row{"License", "No. of package versions"})
-	for _, license := range licenses {
-		outputTable.AppendRow(table.Row{license, counts[license]})
+	outputTable = licenseViolationsTableBuilder(outputTable, vulnResult)
+	if outputTable.Length() == 0 {
+		return
 	}
-
-	return outputTable
+	outputTable.Render()
 }
 
 func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
