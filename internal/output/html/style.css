@@ -269,11 +269,28 @@ header {
   color: #fff;
 }
 
+.osv-tab {
+  position: relative;
+}
+
 .osv-tab iframe {
   width: 100%;
   min-height: 1000px;
   border: none;
-  background-color: #000;
+}
+
+.iframe-spinner {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
 }
 
 #vuln-tab {
@@ -630,4 +647,13 @@ div.title {
 
 #license-summary-details {
   margin-left: 30px;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
