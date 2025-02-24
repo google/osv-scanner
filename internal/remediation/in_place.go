@@ -123,7 +123,7 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 				}
 			}
 		}
-		set, err := buildConstraintSet(vk.Semver(), slices.Collect(maps.Keys(reqVers)))
+		set, err := buildConstraintSet(vk.Semver(), slices.AppendSeq(make([]string, 0, len(reqVers)), maps.Keys(reqVers)))
 		if err != nil {
 			// TODO: log error?
 			continue

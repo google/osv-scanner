@@ -209,7 +209,7 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 		return clienttest.ResolutionUniverse{}, err
 	}
 
-	pks := slices.Collect(maps.Keys(pkgs))
+	pks := slices.AppendSeq(make([]resolve.PackageKey, 0, len(pkgs)), maps.Keys(pkgs))
 	slices.SortFunc(pks, func(a, b resolve.PackageKey) int { return a.Compare(b) })
 
 	if len(pks) == 0 {

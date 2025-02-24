@@ -50,7 +50,7 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 	}
 
 	// Sort by group ID to maintain stable order for tests.
-	sortedKeys := slices.Collect(maps.Keys(extractedGroups))
+	sortedKeys := slices.AppendSeq(make([]int, 0, len(extractedGroups)), maps.Keys(extractedGroups))
 	sort.Ints(sortedKeys)
 
 	result := make([]models.GroupInfo, 0, len(sortedKeys))

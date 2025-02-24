@@ -61,7 +61,7 @@ func checkRemediationResults(t *testing.T, res []resolution.Difference) {
 		for _, sg := range v.Subgraphs {
 			nodes[sg.Dependency] = struct{}{}
 		}
-		sortedNodes := slices.Collect(maps.Keys(nodes))
+		sortedNodes := slices.AppendSeq(make([]resolve.NodeID, 0, len(nodes)), maps.Keys(nodes))
 		slices.Sort(sortedNodes)
 
 		return minimalVuln{
