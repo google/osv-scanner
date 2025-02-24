@@ -1,6 +1,8 @@
 package javareach
 
 import (
+	"archive/zip"
+	"errors"
 	"fmt"
 	"log/slog"
 	"maps"
@@ -21,21 +23,38 @@ type DynamicCodeStrategy int
 const (
 	// Don't do any kind of special handling.
 	DontHandleDynamicCode DynamicCodeStrategy = 0
-	// Assume that the entirety of all direct dependencies are fully reachable.
+	// Assume that the entirety of all direct dependencies (i.e. all their
+	// classes) are fully reachable.
 	AssumeAllDirectDepsReachable = 1 << 0
-	// Assume that every single class from the current dependency are fully reachable.
+	// Assume that every single class belonging to the current dependency are
+	// fully reachable.
 	AssumeAllClassesReachable = 1 << 1
 )
 
 type ReachabilityEnumerator struct {
-	ClassPath                   string
+	ClassPaths                  []string
 	PackageFinder               MavenPackageFinder
 	CodeLoadingStrategy         DynamicCodeStrategy
 	DependencyInjectionStrategy DynamicCodeStrategy
+
+	loadedJARs map[string]*zip.Reader
+}
+
+func NewReachabilityEnumerator(
+	classPaths []string, packageFinder MavenPackageFinder,
+	codeLoadingStrategy DynamicCodeStrategy, dependencyInjectionStrategy DynamicCodeStrategy) *ReachabilityEnumerator {
+
+	return &ReachabilityEnumerator{
+		ClassPaths:                  classPaths,
+		PackageFinder:               packageFinder,
+		CodeLoadingStrategy:         codeLoadingStrategy,
+		DependencyInjectionStrategy: dependencyInjectionStrategy,
+		loadedJARs:                  map[string]*zip.Reader{},
+	}
 }
 
 func (r *ReachabilityEnumerator) EnumerateReachabilityFromClass(mainClass string) (*ReachabilityResult, error) {
-	cf, err := findClass(r.ClassPath, mainClass)
+	cf, err := r.findClass(r.ClassPaths, mainClass)
 	if err != nil {
 		return nil, err
 	}
@@ -46,6 +65,9 @@ func (r *ReachabilityEnumerator) EnumerateReachabilityFromClass(mainClass string
 // TODO:
 //   - See if we should do a finer grained analysis to only consider referenced
 //     classes where a method is called/referenced.
+//
+// EnumerateReachability enumerates the reachable classes from a set of root
+// classes.
 func (r *ReachabilityEnumerator) EnumerateReachability(roots []*ClassFile) (*ReachabilityResult, error) {
 	seen := map[string]struct{}{}
 	codeLoading := map[string]struct{}{}
@@ -63,22 +85,89 @@ func (r *ReachabilityEnumerator) EnumerateReachability(roots []*ClassFile) (*Rea
 	}, nil
 }
 
-func findClass(classPath string, className string) (*ClassFile, error) {
-	classFilepath := filepath.Join(classPath, className)
-	if !strings.HasPrefix(classFilepath, filepath.Clean(classPath)+string(os.PathSeparator)) {
-		return nil, fmt.Errorf("directory traversal: %s", classFilepath)
+// findClassInJAR finds the relevant parsed .class file from a .jar.
+func (r *ReachabilityEnumerator) findClassInJAR(jarPath string, className string) (*ClassFile, error) {
+	if _, ok := r.loadedJARs[jarPath]; !ok {
+		// Repeatedly opening zip files is very slow, so cache the opened JARs.
+		f, err := os.Open(jarPath)
+		if err != nil {
+			return nil, err
+		}
+		stat, err := f.Stat()
+		if err != nil {
+			return nil, err
+		}
+
+		zipr, err := zip.NewReader(f, stat.Size())
+		if err != nil {
+			return nil, err
+		}
+		r.loadedJARs[jarPath] = zipr
 	}
 
-	if !strings.HasSuffix(classFilepath, ".class") {
-		classFilepath += ".class"
-	}
-	classFile, err := os.Open(classFilepath)
+	zipr := r.loadedJARs[jarPath]
+	class, err := zipr.Open(className + ".class")
 	if err != nil {
+		if os.IsNotExist(err) {
+			// class not found in this .jar. not an error.
+			return nil, nil
+		}
 		return nil, err
 	}
-	return ParseClass(classFile)
+
+	return ParseClass(class)
 }
 
+// findClass finds the relevant parsed .class file from a list of classpaths.
+func (r *ReachabilityEnumerator) findClass(classPaths []string, className string) (*ClassFile, error) {
+	// TODO: Support META-INF/versions (multi release JARs).
+	for _, classPath := range classPaths {
+		if strings.HasSuffix(classPath, ".jar") {
+			cf, err := r.findClassInJAR(classPath, className)
+			if err != nil {
+				return nil, err
+			}
+
+			if cf != nil {
+				slog.Debug("found class in nested .jar", "class", className, "path", classPath)
+				return cf, nil
+			}
+			continue
+		}
+
+		// Look inside the class directory.
+		classFilepath := filepath.Join(classPath, className)
+		if !strings.HasPrefix(classFilepath, filepath.Clean(classPath)+string(os.PathSeparator)) {
+			return nil, fmt.Errorf("directory traversal: %s", classFilepath)
+		}
+
+		if !strings.HasSuffix(classFilepath, ".class") {
+			classFilepath += ".class"
+		}
+
+		if _, err := os.Stat(classFilepath); os.IsNotExist(err) {
+			// Class not found in this directory. Move onto the next classpath.
+			continue
+		}
+
+		classFile, err := os.Open(classFilepath)
+		if err != nil {
+			return nil, err
+		}
+		cf, err := ParseClass(classFile)
+		if err != nil {
+			return nil, err
+
+		}
+		slog.Debug("found class in directory", "class", className, "path", classPath)
+		return cf, nil
+	}
+
+	return nil, errors.New("class not found")
+}
+
+// isDynamicCodeLoading returns whether a method and its descriptor represents a
+// call to a dynamic code loading method.
 func isDynamicCodeLoading(method string, descriptor string) bool {
 	// https://docs.oracle.com/en/java/javase/23/docs/api/java.base/java/lang/ClassLoader.html#loadClass(java.lang.String)
 	if strings.Contains(method, "loadClass") && strings.HasSuffix(descriptor, "Ljava/lang/Class;") {
@@ -93,6 +182,7 @@ func isDynamicCodeLoading(method string, descriptor string) bool {
 	return false
 }
 
+// isDependencyInjection returns whether a class provides dependency injection functionality.
 func isDependencyInjection(class string) bool {
 	if strings.HasPrefix(class, "javax/inject") {
 		return true
@@ -113,6 +203,8 @@ func isDependencyInjection(class string) bool {
 	return false
 }
 
+// handleDynamicCode handles the enumeration of class reachability when there is
+// dynamic code loading, taking into account a user specified strategy.
 func (r *ReachabilityEnumerator) handleDynamicCode(q *UniqueQueue[string, *ClassFile], class string, strategy DynamicCodeStrategy) error {
 	if strategy == DontHandleDynamicCode {
 		return nil
@@ -132,7 +224,10 @@ func (r *ReachabilityEnumerator) handleDynamicCode(q *UniqueQueue[string, *Class
 			}
 
 			for _, class := range classes {
-				cf, err := findClass(r.ClassPath, class)
+				if q.Seen(class) {
+					continue
+				}
+				cf, err := r.findClass(r.ClassPaths, class)
 				if err == nil {
 					slog.Debug("assuming all package classes are reachable", "class", class, "pkg", pkg)
 					q.Push(class, cf)
@@ -143,9 +238,10 @@ func (r *ReachabilityEnumerator) handleDynamicCode(q *UniqueQueue[string, *Class
 		}
 	}
 
-	// Assume all classes that belong to the direct dependencies of the package are reachable.
+	// Assume all classes that belong to the direct dependencies of the package
+	// are reachable.
 	if strategy&AssumeAllDirectDepsReachable > 0 {
-		// TODO
+		// TODO: implement this.
 	}
 
 	return nil
@@ -246,7 +342,7 @@ func (r *ReachabilityEnumerator) enumerateReachability(
 				continue
 			}
 
-			depcf, err := findClass(r.ClassPath, class)
+			depcf, err := r.findClass(r.ClassPaths, class)
 			if err != nil {
 				// Dependencies can be optional, so this is not a fatal error.
 				slog.Error("failed to find class", "class", class, "from", thisClass, "cp idx", i, "error", err)
