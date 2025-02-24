@@ -24,7 +24,8 @@ const (
 )
 
 var (
-	ErrClassNotFound = errors.New("class not found")
+	ErrClassNotFound    = errors.New("class not found")
+	ErrArtifactNotFound = errors.New("artifact not found")
 )
 
 // MavenPackageFinder is an interface for finding Maven packages that contain a
@@ -32,12 +33,17 @@ var (
 type MavenPackageFinder interface {
 	// Find returns a list of package names that contain a class path.
 	Find(classPath string) ([]string, error)
+	// Find returns a list of class names that are part of a package.
+	Classes(artifact string) ([]string, error)
 }
 
 // DefaultPackageFinder implements a MavenPackageFinder that downloads all .jar
 // dependencies on demand and computes a local class to jar mapping.
 type DefaultPackageFinder struct {
+	// map of class to maven dependencies.
 	classMap map[string][]string
+	// map of maven dependency to class files.
+	artifactMap map[string][]string
 }
 
 // ExtractDependencies extracts Maven dependencies from a .jar.
@@ -54,7 +60,7 @@ func ExtractDependencies(jar *os.File) ([]*extractor.Inventory, error) {
 
 // extractClassMappings extracts class mappings from a .jar dependency by
 // downloading and unpacking the .jar from the relevant registry.
-func extractClassMappings(inv *extractor.Inventory, classMap map[string][]string, lock *sync.Mutex) error {
+func extractClassMappings(inv *extractor.Inventory, classMap map[string][]string, artifactMap map[string][]string, lock *sync.Mutex) error {
 	metadata := inv.Metadata.(*archive.Metadata)
 	// TODO: Handle Non-Maven central repositories.
 	jarURL := fmt.Sprintf("https://repo1.maven.org/maven2/%s/%s/%s/%s-%s.jar",
@@ -96,8 +102,9 @@ func extractClassMappings(inv *extractor.Inventory, classMap map[string][]string
 	for _, f := range reader.File {
 		if strings.HasSuffix(f.Name, ".class") {
 			name := strings.TrimSuffix(f.Name, ".class")
-			classMap[name] = append(classMap[name],
-				fmt.Sprintf("%s:%s", metadata.GroupID, metadata.ArtifactID))
+			artifactName := fmt.Sprintf("%s:%s", metadata.GroupID, metadata.ArtifactID)
+			classMap[name] = append(classMap[name], artifactName)
+			artifactMap[artifactName] = append(artifactMap[artifactName], name)
 			slog.Debug("mapping", "name", name, "to", classMap[name])
 		}
 	}
@@ -110,22 +117,25 @@ func extractClassMappings(inv *extractor.Inventory, classMap map[string][]string
 func NewDefaultPackageFinder(inv []*extractor.Inventory) (*DefaultPackageFinder, error) {
 	// Download pkg, unpack, and store class mappings for each detected dependency.
 	classMap := map[string][]string{}
+	artifactMap := map[string][]string{}
 	lock := new(sync.Mutex)
 	group := new(errgroup.Group)
 	group.SetLimit(maxGoroutines)
 
 	for _, i := range inv {
 		group.Go(func() error {
-			return extractClassMappings(i, classMap, lock)
+			return extractClassMappings(i, classMap, artifactMap, lock)
 		})
 	}
 
 	if err := group.Wait(); err != nil {
-		return nil, err
+		// Tolerate some errors.
+		slog.Error("failed to download package", "err", err)
 	}
 
 	return &DefaultPackageFinder{
-		classMap: classMap,
+		classMap:    classMap,
+		artifactMap: artifactMap,
 	}, nil
 }
 
@@ -136,6 +146,15 @@ func (f *DefaultPackageFinder) Find(classPath string) ([]string, error) {
 	}
 
 	return nil, ErrClassNotFound
+}
+
+// Find returns a list of package names that contain a class path.
+func (f *DefaultPackageFinder) Classes(artifact string) ([]string, error) {
+	if classes, ok := f.artifactMap[artifact]; ok {
+		return classes, nil
+	}
+
+	return nil, ErrArtifactNotFound
 }
 
 // GetMainClass extracts the main class name from the MANIFEST.MF file in a .jar.
