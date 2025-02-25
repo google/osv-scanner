@@ -125,8 +125,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		return nil, err
 	}
 
-	var callAnalysisStates map[string]bool
-	callAnalysisStates = helper.CreateCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
+	callAnalysisStates := helper.CreateCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
 
 	experimentalScannerActions := helper.GetExperimentalScannerActions(context, scanLicensesAllowlist)
 	// Add `source` specific experimental configs
