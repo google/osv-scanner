@@ -36,7 +36,7 @@ func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWr
 		outputLicenseViolationsTable.SetOutputMirror(outputWriter)
 		outputLicenseViolationsTable = licenseViolationsTableBuilder(outputLicenseViolationsTable, vulnResult)
 
-		if outputLicenseViolationsTable.Length() != 0 {
+		if outputLicenseViolationsTable.Length() > 0 {
 			outputLicenseViolationsTable.RenderMarkdown()
 		}
 	}

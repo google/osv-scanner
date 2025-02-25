@@ -1634,7 +1634,13 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 2 vulnerabilities from output
-No issues found
++------------+-------------------------+
+| LICENSE    | NO. OF PACKAGE VERSIONS |
++------------+-------------------------+
+| Apache-2.0 |                       1 |
+| MIT        |                       1 |
+| UNKNOWN    |                      16 |
++------------+-------------------------+
 
 ---
 
@@ -1654,7 +1660,11 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 2 vulnerabilities from output
-No issues found
+| License | No. of package versions |
+| --- | ---:|
+| Apache-2.0 | 1 |
+| MIT | 1 |
+| UNKNOWN | 16 |
 
 ---
 
