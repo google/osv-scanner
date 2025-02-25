@@ -63,7 +63,7 @@ func (r *ReachabilityEnumerator) EnumerateReachabilityFromClasses(mainClasses []
 	for _, mainClass := range mainClasses {
 		cf, err := r.findClass(r.ClassPaths, mainClass)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("failed to find class %s: %v", mainClass, err)
 		}
 		roots = append(roots, cf)
 	}

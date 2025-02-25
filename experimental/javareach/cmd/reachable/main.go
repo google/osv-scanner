@@ -2,6 +2,7 @@ package main
 
 import (
 	"archive/zip"
+	"bufio"
 	"flag"
 	"fmt"
 	"io"
@@ -125,8 +126,39 @@ func enumerateReachabilityForJar(jarPath string) error {
 		classPaths = append(classPaths, bootInfClasses)
 	}
 
+	// Look inside META-INF/services, which is used by
+	// https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html
+	servicesDir := filepath.Join(tmpDir, "META-INF/services")
+	if _, err := os.Stat(servicesDir); err == nil {
+		entries, err := os.ReadDir(servicesDir)
+		if err != nil {
+			return err
+		}
+
+		for _, entry := range entries {
+			path := filepath.Join(servicesDir, entry.Name())
+			f, err := os.Open(path)
+			if err != nil {
+				return err
+			}
+
+			scanner := bufio.NewScanner(f)
+			for scanner.Scan() {
+				provider := scanner.Text()
+				if strings.HasPrefix(strings.TrimSpace(provider), "#") {
+					continue
+				}
+				slog.Debug("adding META-INF/services provider", "provider", provider, "from", path)
+				mainClasses = append(mainClasses, strings.ReplaceAll(provider, ".", "/"))
+			}
+			if err := scanner.Err(); err != nil {
+				return err
+			}
+		}
+	}
+
 	// Enumerate reachable classes.
-	// TODO: Look inside static files (e.g. META-INF/services, XML beans configurations).
+	// TODO: Look inside more static files (e.g. XML beans configurations).
 	enumerator := javareach.NewReachabilityEnumerator(classPaths, classFinder, javareach.AssumeAllClassesReachable, javareach.AssumeAllClassesReachable)
 	result, err := enumerator.EnumerateReachabilityFromClasses(mainClasses)
 	if err != nil {
