@@ -22,10 +22,10 @@ import (
 // OfflineFlags is a map of flags which require network access to operate,
 // with the values to set them to in order to disable them
 var OfflineFlags = map[string]string{
-	"include-git-root":                     "true",
-	"experimental-offline-vulnerabilities": "true",
-	"experimental-no-resolve":              "true",
-	"experimental-licenses-summary":        "false",
+	"include-git-root":              "true",
+	"offline-vulnerabilities":       "true",
+	"experimental-no-resolve":       "true",
+	"experimental-licenses-summary": "false",
 	// "experimental-licenses": "", // StringSliceFlag has to be manually cleared.
 }
 
@@ -76,7 +76,7 @@ var GlobalScanFlags = []cli.Flag{
 		Value: "info",
 	},
 	&cli.BoolFlag{
-		Name:  "experimental-offline",
+		Name:  "offline",
 		Usage: "run in offline mode, disabling any features requiring network access",
 		Action: func(ctx *cli.Context, b bool) error {
 			if !b {
@@ -102,21 +102,21 @@ var GlobalScanFlags = []cli.Flag{
 		},
 	},
 	&cli.BoolFlag{
-		Name:  "experimental-offline-vulnerabilities",
+		Name:  "offline-vulnerabilities",
 		Usage: "checks for vulnerabilities using local databases that are already cached",
 	},
 	&cli.BoolFlag{
-		Name:  "experimental-download-offline-databases",
+		Name:  "download-offline-databases",
 		Usage: "downloads vulnerability databases for offline comparison",
+	},
+	&cli.StringFlag{
+		Name:   "local-db-path",
+		Usage:  "sets the path that local databases should be stored",
+		Hidden: true,
 	},
 	&cli.BoolFlag{
 		Name:  "experimental-no-resolve",
 		Usage: "disable transitive dependency resolution of manifest files",
-	},
-	&cli.StringFlag{
-		Name:   "experimental-local-db-path",
-		Usage:  "sets the path that local databases should be stored",
-		Hidden: true,
 	},
 	&cli.BoolFlag{
 		Name:  "experimental-all-packages",
@@ -187,7 +187,7 @@ func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
 	}
 
 	scanLicensesAllowlist := context.StringSlice("experimental-licenses")
-	if context.Bool("experimental-offline") {
+	if context.Bool("offline") {
 		scanLicensesAllowlist = []string{}
 	}
 
@@ -225,9 +225,9 @@ func GetReporter(context *cli.Context, stdout, stderr io.Writer, outputPath, for
 
 func GetExperimentalScannerActions(context *cli.Context, scanLicensesAllowlist []string) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
-		LocalDBPath:       context.String("experimental-local-db-path"),
-		DownloadDatabases: context.Bool("experimental-download-offline-databases"),
-		CompareOffline:    context.Bool("experimental-offline-vulnerabilities"),
+		LocalDBPath:       context.String("local-db-path"),
+		DownloadDatabases: context.Bool("download-offline-databases"),
+		CompareOffline:    context.Bool("offline-vulnerabilities"),
 		// License summary mode causes all
 		// packages to appear in the json as
 		// every package has a license - even

@@ -232,7 +232,7 @@ func Test_run(t *testing.T) {
 		},
 		{
 			name: "PURL SBOM case sensitivity (local)",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
 		// Go project with an overridden go version
@@ -481,62 +481,62 @@ func Test_run_LocalDatabases(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "one specific supported lockfile",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--offline", "--download-offline-databases", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		{
 			name: "one specific supported sbom with vulns",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
+			args: []string{"", "--offline", "--download-offline-databases", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
 			exit: 1,
 		},
 		{
 			name: "one specific unsupported lockfile",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many/not-a-lockfile.toml"},
+			args: []string{"", "--offline", "--download-offline-databases", "./fixtures/locks-many/not-a-lockfile.toml"},
 			exit: 128,
 		},
 		{
 			name: "all supported lockfiles in the directory should be checked",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many"},
+			args: []string{"", "--offline", "--download-offline-databases", "./fixtures/locks-many"},
 			exit: 0,
 		},
 		{
 			name: "all supported lockfiles in the directory should be checked",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many-with-invalid"},
+			args: []string{"", "--offline", "--download-offline-databases", "./fixtures/locks-many-with-invalid"},
 			exit: 127,
 		},
 		{
 			name: "only the files in the given directories are checked by default (no recursion)",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-one-with-nested"},
+			args: []string{"", "--offline", "--download-offline-databases", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
 		{
 			name: "nested directories are checked when `--recursive` is passed",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "./fixtures/locks-one-with-nested"},
+			args: []string{"", "--offline", "--download-offline-databases", "--recursive", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
 		{
 			name: ".gitignored files",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "./fixtures/locks-gitignore"},
+			args: []string{"", "--offline", "--download-offline-databases", "--recursive", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		{
 			name: "ignoring .gitignore",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
+			args: []string{"", "--offline", "--download-offline-databases", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		{
 			name: "output with json",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "json", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--offline", "--download-offline-databases", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		{
 			name: "output format: markdown table",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--offline", "--download-offline-databases", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		{
 			name: "database should be downloaded only when offline is set",
-			args: []string{"", "--experimental-download-offline-databases", "./fixtures/locks-many"},
+			args: []string{"", "--download-offline-databases", "./fixtures/locks-many"},
 			exit: 127,
 		},
 	}
@@ -548,7 +548,7 @@ func Test_run_LocalDatabases(t *testing.T) {
 			if testutility.IsAcceptanceTesting() {
 				testDir := testutility.CreateTestDir(t)
 				old := tt.args
-				tt.args = []string{"", "--experimental-local-db-path", testDir}
+				tt.args = []string{"", "--local-db-path", testDir}
 				tt.args = append(tt.args, old[1:]...)
 			}
 
@@ -566,7 +566,7 @@ func Test_run_LocalDatabases_AlwaysOffline(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "a bunch of different lockfiles and ecosystem",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "./fixtures/locks-requirements", "./fixtures/locks-many"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "./fixtures/locks-requirements", "./fixtures/locks-many"},
 			exit: 127,
 		},
 	}
@@ -577,7 +577,7 @@ func Test_run_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 			testDir := testutility.CreateTestDir(t)
 			old := tt.args
-			tt.args = []string{"", "--experimental-local-db-path", testDir}
+			tt.args = []string{"", "--local-db-path", testDir}
 			tt.args = append(tt.args, old[1:]...)
 
 			// run each test twice since they should provide the same output,
@@ -978,7 +978,7 @@ func Test_run_MavenTransitive(t *testing.T) {
 		{
 			// Direct dependencies do not have any vulnerability.
 			name: "does not scan transitive dependencies for pom.xml with offline mode",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/maven-transitive/pom.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "./fixtures/maven-transitive/pom.xml"},
 			exit: 0,
 		},
 		{
