@@ -257,6 +257,7 @@ func GetMainClasses(manifest io.Reader) ([]string, error) {
 	// Extract the Main-Class specified in MANIFEST.MF:
 	// https://docs.oracle.com/javase/tutorial/deployment/jar/appman.html
 	const mainClass = "Main-Class:"
+	// Spring Boot specific metadata.
 	const startClass = "Start-Class:"
 	markers := []string{mainClass, startClass}
 
