@@ -84,13 +84,6 @@ func enumerateReachabilityForJar(jarPath string) error {
 			"group id", dep.Metadata.(*archive.Metadata).GroupID, "artifact id", dep.Name, "version", dep.Version)
 	}
 
-	// Build .class -> Maven group ID:artifact ID mappings.
-	// TODO: Handle BOOT-INF and loading .jar dependencies from there.
-	classFinder, err := javareach.NewDefaultPackageFinder(allDeps)
-	if err != nil {
-		return err
-	}
-
 	// Unpack .jar
 	tmpDir, err := os.MkdirTemp("", "")
 	if err != nil {
@@ -100,6 +93,13 @@ func enumerateReachabilityForJar(jarPath string) error {
 
 	slog.Info("Unzipping", "jar", jarPath, "to", tmpDir)
 	nestedJARs, err := unzipJAR(jarPath, tmpDir)
+	if err != nil {
+		return err
+	}
+
+	// Build .class -> Maven group ID:artifact ID mappings.
+	// TODO: Handle BOOT-INF and loading .jar dependencies from there.
+	classFinder, err := javareach.NewDefaultPackageFinder(allDeps, tmpDir)
 	if err != nil {
 		return err
 	}
@@ -120,7 +120,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 	classPaths = append(classPaths, nestedJARs...)
 
 	// Spring Boot applications have classes in BOOT-INF/classes.
-	bootInfClasses := filepath.Join(tmpDir, "BOOT-INF/classes")
+	bootInfClasses := filepath.Join(tmpDir, javareach.BootInfClasses)
 	if _, err := os.Stat(bootInfClasses); err == nil {
 		classPaths = append(classPaths, bootInfClasses)
 	}

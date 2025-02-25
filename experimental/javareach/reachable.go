@@ -31,6 +31,11 @@ const (
 	AssumeAllClassesReachable = 1 << 1
 )
 
+const (
+	BootInfClasses  = "BOOT-INF/classes"
+	MetaInfVersions = "META-INF/versions"
+)
+
 type ReachabilityEnumerator struct {
 	ClassPaths                  []string
 	PackageFinder               MavenPackageFinder
