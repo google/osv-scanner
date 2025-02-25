@@ -253,6 +253,9 @@ func NewDefaultPackageFinder(inv []*extractor.Inventory, jarDir string) (*Defaul
 // mapRootClasses maps class files to the root application where we can determine that association.
 func mapRootClasses(jarDir string, classMap map[string][]string, artifactMap map[string][]string) error {
 	// Spring Boot.
+	// TODO: Handle non-Spring Boot applications. We could add heuristic for
+	// detecting root application classes when the class structure is flat based
+	// on the class hierachy.
 	bootInfClasses := filepath.Join(jarDir, BootInfClasses)
 	if _, err := os.Stat(bootInfClasses); err != nil {
 		if os.IsNotExist(err) {
