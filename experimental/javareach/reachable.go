@@ -53,13 +53,17 @@ func NewReachabilityEnumerator(
 	}
 }
 
-func (r *ReachabilityEnumerator) EnumerateReachabilityFromClass(mainClass string) (*ReachabilityResult, error) {
-	cf, err := r.findClass(r.ClassPaths, mainClass)
-	if err != nil {
-		return nil, err
+func (r *ReachabilityEnumerator) EnumerateReachabilityFromClasses(mainClasses []string) (*ReachabilityResult, error) {
+	var roots []*ClassFile
+	for _, mainClass := range mainClasses {
+		cf, err := r.findClass(r.ClassPaths, mainClass)
+		if err != nil {
+			return nil, err
+		}
+		roots = append(roots, cf)
 	}
 
-	return r.EnumerateReachability([]*ClassFile{cf})
+	return r.EnumerateReachability(roots)
 }
 
 // TODO:
@@ -307,13 +311,29 @@ func (r *ReachabilityEnumerator) enumerateReachability(
 				// Don't consider this class itself.
 				continue
 			}
-			if cp.Type() != ConstantKindClass {
-				continue
+
+			class := ""
+			if cp.Type() == ConstantKindClass {
+				class, err = cf.ConstantPoolClass(i)
+				if err != nil {
+					return err
+				}
+			} else if cp.Type() == ConstantKindUtf8 {
+				// Also check strings for references to classes.
+				val, err := cf.ConstantPoolUtf8(i)
+				if err != nil {
+					continue
+				}
+
+				// Found a string with the `Lpath/to/class;` format. This is
+				// likely a reference to a class. Annotations appear this way.
+				if val != "" && val[0] == 'L' && val[len(val)-1] == ';' {
+					class = val[1 : len(val)-1]
+				}
 			}
 
-			class, err := cf.ConstantPoolClass(i)
-			if err != nil {
-				return err
+			if class == "" {
+				continue
 			}
 
 			// Handle arrays.

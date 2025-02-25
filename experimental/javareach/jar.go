@@ -253,22 +253,33 @@ func (f *DefaultPackageFinder) Classes(artifact string) ([]string, error) {
 }
 
 // GetMainClass extracts the main class name from the MANIFEST.MF file in a .jar.
-func GetMainClass(manifest io.Reader) (string, error) {
+func GetMainClasses(manifest io.Reader) ([]string, error) {
 	// Extract the Main-Class specified in MANIFEST.MF:
 	// https://docs.oracle.com/javase/tutorial/deployment/jar/appman.html
 	const mainClass = "Main-Class:"
+	const startClass = "Start-Class:"
+	markers := []string{mainClass, startClass}
+
 	scanner := bufio.NewScanner(manifest)
+
+	var classes []string
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
-		if strings.HasPrefix(line, mainClass) {
-			mainClass := strings.TrimSpace(strings.TrimPrefix(line, mainClass))
-			return strings.ReplaceAll(mainClass, ".", "/"), nil
+		for _, marker := range markers {
+			if strings.HasPrefix(line, marker) {
+				class := strings.TrimSpace(strings.TrimPrefix(line, marker))
+				classes = append(classes, strings.ReplaceAll(class, ".", "/"))
+			}
 		}
 	}
 
 	if err := scanner.Err(); err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return "", errors.New("no main class")
+	if len(classes) > 0 {
+		return classes, nil
+	}
+
+	return nil, errors.New("no main class")
 }

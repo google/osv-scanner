@@ -110,19 +110,25 @@ func enumerateReachabilityForJar(jarPath string) error {
 		return err
 	}
 
-	mainClass, err := javareach.GetMainClass(manifest)
+	mainClasses, err := javareach.GetMainClasses(manifest)
 	if err != nil {
 		return err
 	}
-	slog.Info("Found", "main class", mainClass)
+	slog.Info("Found", "main classes", mainClasses)
 
 	classPaths := []string{tmpDir}
 	classPaths = append(classPaths, nestedJARs...)
 
+	// Spring Boot applications have classes in BOOT-INF/classes.
+	bootInfClasses := filepath.Join(tmpDir, "BOOT-INF/classes")
+	if _, err := os.Stat(bootInfClasses); err == nil {
+		classPaths = append(classPaths, bootInfClasses)
+	}
+
 	// Enumerate reachable classes.
 	// TODO: Look inside static files (e.g. META-INF/services, XML beans configurations).
 	enumerator := javareach.NewReachabilityEnumerator(classPaths, classFinder, javareach.AssumeAllClassesReachable, javareach.AssumeAllClassesReachable)
-	result, err := enumerator.EnumerateReachabilityFromClass(mainClass)
+	result, err := enumerator.EnumerateReachabilityFromClasses(mainClasses)
 	if err != nil {
 		return err
 	}
