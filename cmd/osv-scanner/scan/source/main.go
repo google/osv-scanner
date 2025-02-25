@@ -24,7 +24,7 @@ var projectScanFlags = []cli.Flag{
 	&cli.StringSliceFlag{
 		Name:      "sbom",
 		Aliases:   []string{"S"},
-		Usage:     "scan sbom file on this path",
+		Usage:     "scan sbom file on this path, the sbom file name must follow the relevant spec",
 		TakesFile: true,
 	},
 	&cli.BoolFlag{
