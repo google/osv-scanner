@@ -219,6 +219,8 @@ func enumerateReachabilityForJar(jarPath string) error {
 			slog.Info("Not reachable", "dep", name)
 		}
 	}
+
+	slog.Info("finished analysis", "reachable", len(reachableDeps), "unreachable", len(allDeps)-len(reachableDeps), "all", len(allDeps))
 	return nil
 }
 
