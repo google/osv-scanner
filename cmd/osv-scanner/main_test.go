@@ -250,7 +250,7 @@ func Test_run(t *testing.T) {
 		// broad config file that overrides a whole ecosystem
 		{
 			name: "config file can be broad",
-			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses", "MIT", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "./fixtures/locks-many", "./fixtures/locks-insecure", "./fixtures/maven-transitive"},
+			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses=MIT", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "./fixtures/locks-many", "./fixtures/locks-insecure", "./fixtures/maven-transitive"},
 			exit: 1,
 		},
 		// ignored vulnerabilities and packages without a reason should be called out
@@ -593,62 +593,67 @@ func Test_run_Licenses(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "No vulnerabilities with license summary",
-			args: []string{"", "--experimental-licenses-summary", "./fixtures/locks-many"},
+			args: []string{"", "--experimental-licenses", "./fixtures/locks-many"},
 			exit: 0,
 		},
 		{
 			name: "No vulnerabilities with license summary in markdown",
-			args: []string{"", "--experimental-licenses-summary", "--format=markdown", "./fixtures/locks-many"},
+			args: []string{"", "--experimental-licenses", "--format=markdown", "./fixtures/locks-many"},
 			exit: 0,
 		},
 		{
 			name: "Vulnerabilities and license summary",
-			args: []string{"", "--experimental-licenses-summary", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			args: []string{"", "--experimental-licenses", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "Vulnerabilities and license violations with allowlist",
-			args: []string{"", "--experimental-licenses", "MIT", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			args: []string{"", "--experimental-licenses=MIT", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "Vulnerabilities and all license violations allowlisted",
-			args: []string{"", "--experimental-licenses", "Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			args: []string{"", "--experimental-licenses=Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "Some packages with license violations and show-all-packages in json",
-			args: []string{"", "--format=json", "--experimental-licenses", "MIT", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--format=json", "--experimental-licenses=MIT", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "Some packages with ignored licenses",
-			args: []string{"", "--config=./fixtures/osv-scanner-complex-licenses-config.toml", "--experimental-licenses", "MIT", "./fixtures/locks-many", "./fixtures/locks-insecure"},
+			args: []string{"", "--config=./fixtures/osv-scanner-complex-licenses-config.toml", "--experimental-licenses=MIT", "./fixtures/locks-many", "./fixtures/locks-insecure"},
 			exit: 1,
 		},
 		{
 			name: "Some packages with license violations in json",
-			args: []string{"", "--format=json", "--experimental-licenses", "MIT", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--format=json", "--experimental-licenses=MIT", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "No license violations and show-all-packages in json",
-			args: []string{"", "--format=json", "--experimental-licenses", "MIT,Apache-2.0", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--format=json", "--experimental-licenses=MIT,Apache-2.0", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			exit: 0,
+		},
+		{
+			name: "Show all Packages with license summary in json",
+			args: []string{"", "--format=json", "--experimental-licenses", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 0,
 		},
 		{
 			name: "Licenses in summary mode json",
-			args: []string{"", "--format=json", "--experimental-licenses-summary", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--format=json", "--experimental-licenses", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 0,
 		},
 		{
 			name: "Licenses with expressions",
-			args: []string{"", "--config=./fixtures/osv-scanner-expressive-licenses-config.toml", "--experimental-licenses", "MIT,BSD-3-Clause", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--config=./fixtures/osv-scanner-expressive-licenses-config.toml", "--experimental-licenses=MIT,BSD-3-Clause", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "Licenses with invalid expression",
-			args: []string{"", "--config=./fixtures/osv-scanner-invalid-licenses-config.toml", "--experimental-licenses", "MIT,BSD-3-Clause", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--config=./fixtures/osv-scanner-invalid-licenses-config.toml", "--experimental-licenses=MIT,BSD-3-Clause", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 1,
 		},
 	}
