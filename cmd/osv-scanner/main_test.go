@@ -637,6 +637,11 @@ func Test_run_Licenses(t *testing.T) {
 			exit: 0,
 		},
 		{
+			name: "Show all Packages with license summary in json",
+			args: []string{"", "--format=json", "--experimental-licenses", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			exit: 0,
+		},
+		{
 			name: "Licenses in summary mode json",
 			args: []string{"", "--format=json", "--experimental-licenses", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 0,
