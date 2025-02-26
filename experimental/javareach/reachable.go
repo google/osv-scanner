@@ -8,6 +8,7 @@ import (
 	"maps"
 	"os"
 	"path/filepath"
+	"regexp"
 	"slices"
 	"strings"
 )
@@ -29,6 +30,11 @@ const (
 	// Assume that every single class belonging to the current dependency are
 	// fully reachable.
 	AssumeAllClassesReachable = 1 << 1
+)
+
+const (
+	BootInfClasses  = "BOOT-INF/classes"
+	MetaInfVersions = "META-INF/versions"
 )
 
 type ReachabilityEnumerator struct {
@@ -58,7 +64,7 @@ func (r *ReachabilityEnumerator) EnumerateReachabilityFromClasses(mainClasses []
 	for _, mainClass := range mainClasses {
 		cf, err := r.findClass(r.ClassPaths, mainClass)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("failed to find class %s: %v", mainClass, err)
 		}
 		roots = append(roots, cf)
 	}
@@ -124,7 +130,16 @@ func (r *ReachabilityEnumerator) findClassInJAR(jarPath string, className string
 
 // findClass finds the relevant parsed .class file from a list of classpaths.
 func (r *ReachabilityEnumerator) findClass(classPaths []string, className string) (*ClassFile, error) {
-	// TODO: Support META-INF/versions (multi release JARs).
+	// TODO: Support META-INF/versions (multi release JARs) if necessary.
+
+	// Remove generics from the class name.
+	// TODO: Verify that this is correct.
+	genericRE := regexp.MustCompile(`<.*>`)
+	className = genericRE.ReplaceAllString(className, "")
+
+	// Handle inner class names. The class filename will have a "$" in place of the ".".
+	className = strings.ReplaceAll(className, ".", "$")
+
 	for _, classPath := range classPaths {
 		if strings.HasSuffix(classPath, ".jar") {
 			cf, err := r.findClassInJAR(classPath, className)

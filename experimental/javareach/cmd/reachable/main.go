@@ -2,6 +2,7 @@ package main
 
 import (
 	"archive/zip"
+	"bufio"
 	"flag"
 	"fmt"
 	"io"
@@ -84,13 +85,6 @@ func enumerateReachabilityForJar(jarPath string) error {
 			"group id", dep.Metadata.(*archive.Metadata).GroupID, "artifact id", dep.Name, "version", dep.Version)
 	}
 
-	// Build .class -> Maven group ID:artifact ID mappings.
-	// TODO: Handle BOOT-INF and loading .jar dependencies from there.
-	classFinder, err := javareach.NewDefaultPackageFinder(allDeps)
-	if err != nil {
-		return err
-	}
-
 	// Unpack .jar
 	tmpDir, err := os.MkdirTemp("", "")
 	if err != nil {
@@ -100,6 +94,13 @@ func enumerateReachabilityForJar(jarPath string) error {
 
 	slog.Info("Unzipping", "jar", jarPath, "to", tmpDir)
 	nestedJARs, err := unzipJAR(jarPath, tmpDir)
+	if err != nil {
+		return err
+	}
+
+	// Build .class -> Maven group ID:artifact ID mappings.
+	// TODO: Handle BOOT-INF and loading .jar dependencies from there.
+	classFinder, err := javareach.NewDefaultPackageFinder(allDeps, tmpDir)
 	if err != nil {
 		return err
 	}
@@ -120,13 +121,44 @@ func enumerateReachabilityForJar(jarPath string) error {
 	classPaths = append(classPaths, nestedJARs...)
 
 	// Spring Boot applications have classes in BOOT-INF/classes.
-	bootInfClasses := filepath.Join(tmpDir, "BOOT-INF/classes")
+	bootInfClasses := filepath.Join(tmpDir, javareach.BootInfClasses)
 	if _, err := os.Stat(bootInfClasses); err == nil {
 		classPaths = append(classPaths, bootInfClasses)
 	}
 
+	// Look inside META-INF/services, which is used by
+	// https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html
+	servicesDir := filepath.Join(tmpDir, "META-INF/services")
+	if _, err := os.Stat(servicesDir); err == nil {
+		entries, err := os.ReadDir(servicesDir)
+		if err != nil {
+			return err
+		}
+
+		for _, entry := range entries {
+			path := filepath.Join(servicesDir, entry.Name())
+			f, err := os.Open(path)
+			if err != nil {
+				return err
+			}
+
+			scanner := bufio.NewScanner(f)
+			for scanner.Scan() {
+				provider := scanner.Text()
+				if strings.HasPrefix(strings.TrimSpace(provider), "#") {
+					continue
+				}
+				slog.Debug("adding META-INF/services provider", "provider", provider, "from", path)
+				mainClasses = append(mainClasses, strings.ReplaceAll(provider, ".", "/"))
+			}
+			if err := scanner.Err(); err != nil {
+				return err
+			}
+		}
+	}
+
 	// Enumerate reachable classes.
-	// TODO: Look inside static files (e.g. META-INF/services, XML beans configurations).
+	// TODO: Look inside more static files (e.g. XML beans configurations).
 	enumerator := javareach.NewReachabilityEnumerator(classPaths, classFinder, javareach.AssumeAllClassesReachable, javareach.AssumeAllClassesReachable)
 	result, err := enumerator.EnumerateReachabilityFromClasses(mainClasses)
 	if err != nil {
@@ -187,6 +219,8 @@ func enumerateReachabilityForJar(jarPath string) error {
 			slog.Info("Not reachable", "dep", name)
 		}
 	}
+
+	slog.Info("finished analysis", "reachable", len(reachableDeps), "unreachable", len(allDeps)-len(reachableDeps), "all", len(allDeps))
 	return nil
 }
 

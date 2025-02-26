@@ -12,6 +12,7 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 
@@ -23,6 +24,8 @@ import (
 
 const (
 	maxGoroutines = 4
+
+	rootArtifact = "<root>"
 )
 
 var (
@@ -67,16 +70,25 @@ func loadJARMappings(metadata *archive.Metadata, reader *zip.Reader, classMap ma
 	lock.Lock()
 	for _, f := range reader.File {
 		if strings.HasSuffix(f.Name, ".class") {
-			// TODO: Handle META-INF/versions/ (multi-release JAR) paths.
-			name := strings.TrimSuffix(f.Name, ".class")
 			artifactName := fmt.Sprintf("%s:%s", metadata.GroupID, metadata.ArtifactID)
-			classMap[name] = append(classMap[name], artifactName)
-			artifactMap[artifactName] = append(artifactMap[artifactName], name)
-			slog.Debug("mapping", "name", name, "to", classMap[name])
+			addClassMapping(artifactName, f.Name, classMap, artifactMap)
 		}
 	}
 	lock.Unlock()
 	return nil
+}
+
+func addClassMapping(artifactName, class string, classMap map[string][]string, artifactMap map[string][]string) {
+	name := strings.TrimSuffix(class, ".class")
+	if strings.HasPrefix(name, MetaInfVersions) {
+		// Strip the version after the META-INF/versions/<version>/
+		name = strings.TrimPrefix(name, MetaInfVersions)[1:]
+		name = name[strings.Index(name, "/")+1:]
+	}
+
+	classMap[name] = append(classMap[name], artifactName)
+	artifactMap[artifactName] = append(artifactMap[artifactName], name)
+	slog.Debug("mapping", "name", name, "to", classMap[name])
 }
 
 // openNestedJAR opens a nested JAR given by `jarPaths` containing progressively
@@ -209,7 +221,7 @@ func extractClassMappings(inv *extractor.Inventory, classMap map[string][]string
 
 // NewDefaultPackageFinder creates a new DefaultPackageFinder based on a set of
 // inventory.
-func NewDefaultPackageFinder(inv []*extractor.Inventory) (*DefaultPackageFinder, error) {
+func NewDefaultPackageFinder(inv []*extractor.Inventory, jarDir string) (*DefaultPackageFinder, error) {
 	// Download pkg, unpack, and store class mappings for each detected dependency.
 	classMap := map[string][]string{}
 	artifactMap := map[string][]string{}
@@ -228,10 +240,48 @@ func NewDefaultPackageFinder(inv []*extractor.Inventory) (*DefaultPackageFinder,
 		slog.Error("failed to download package", "err", err)
 	}
 
+	if err := mapRootClasses(jarDir, classMap, artifactMap); err != nil {
+		return nil, err
+	}
+
 	return &DefaultPackageFinder{
 		classMap:    classMap,
 		artifactMap: artifactMap,
 	}, nil
+}
+
+// mapRootClasses maps class files to the root application where we can determine that association.
+func mapRootClasses(jarDir string, classMap map[string][]string, artifactMap map[string][]string) error {
+	// Spring Boot.
+	// TODO: Handle non-Spring Boot applications. We could add heuristic for
+	// detecting root application classes when the class structure is flat based
+	// on the class hierachy.
+	bootInfClasses := filepath.Join(jarDir, BootInfClasses)
+	if _, err := os.Stat(bootInfClasses); err != nil {
+		if os.IsNotExist(err) {
+			return nil
+		}
+		return err
+	}
+
+	slog.Debug("Found Spring Boot classes", "classes", bootInfClasses)
+	return filepath.Walk(bootInfClasses, func(path string, info fs.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+
+		if !info.IsDir() && strings.HasSuffix(path, ".class") {
+			name, err := filepath.Rel(bootInfClasses, path)
+			if err != nil {
+				return err
+			}
+
+			addClassMapping(rootArtifact, name, classMap, artifactMap)
+			return nil
+		}
+
+		return nil
+	})
 }
 
 // Find returns a list of package names that contain a class path.
