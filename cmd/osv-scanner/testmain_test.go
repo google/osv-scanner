@@ -25,6 +25,9 @@ func (c *muffledHandler) Handle(ctx context.Context, record slog.Record) error {
 		"End status: ",
 		"Neither CPE nor PURL found for package",
 		"Invalid PURL",
+		"os-release[ID] not set, fallback to",
+		"VERSION_ID not set in os-release",
+		"osrelease.ParseOsRelease(): file does not exist",
 	} {
 		if strings.HasPrefix(record.Message, prefix) {
 			return nil
