@@ -58,8 +58,8 @@ type osvFixOptions struct {
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	return &cli.Command{
 		Name:        "fix",
-		Usage:       "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
-		Description: "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
+		Usage:       "[EXPERIMENTAL] scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
+		Description: "[EXPERIMENTAL] scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:      "manifest",
