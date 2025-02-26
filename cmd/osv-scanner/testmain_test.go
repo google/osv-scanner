@@ -19,18 +19,20 @@ type muffledHandler struct {
 }
 
 func (c *muffledHandler) Handle(ctx context.Context, record slog.Record) error {
-	// todo: work with the osv-scalibr team to see if we can reduce these
-	for _, prefix := range []string{
-		"Starting filesystem walk for root:",
-		"End status: ",
-		"Neither CPE nor PURL found for package",
-		"Invalid PURL",
-		"os-release[ID] not set, fallback to",
-		"VERSION_ID not set in os-release",
-		"osrelease.ParseOsRelease(): file does not exist",
-	} {
-		if strings.HasPrefix(record.Message, prefix) {
-			return nil
+	if record.Level < slog.LevelError {
+		// todo: work with the osv-scalibr team to see if we can reduce these
+		for _, prefix := range []string{
+			"Starting filesystem walk for root:",
+			"End status: ",
+			"Neither CPE nor PURL found for package",
+			"Invalid PURL",
+			"os-release[ID] not set, fallback to",
+			"VERSION_ID not set in os-release",
+			"osrelease.ParseOsRelease(): file does not exist",
+		} {
+			if strings.HasPrefix(record.Message, prefix) {
+				return nil
+			}
 		}
 	}
 
