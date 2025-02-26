@@ -51,11 +51,8 @@ var projectScanFlags = []cli.Flag{
 		Usage: "include scanning git root (non-submoduled) repositories",
 		Value: false,
 	},
-}
-
-var projectScanExperimentalFlags = []cli.Flag{
 	&cli.StringFlag{
-		Name:  "experimental-resolution-data-source",
+		Name:  "data-source",
 		Usage: "source to fetch package information from; value can be: deps.dev, native",
 		Value: "deps.dev",
 		Action: func(_ *cli.Context, s string) error {
@@ -67,17 +64,15 @@ var projectScanExperimentalFlags = []cli.Flag{
 		},
 	},
 	&cli.StringFlag{
-		Name:  "experimental-maven-registry",
+		Name:  "maven-registry",
 		Usage: "URL of the default registry to fetch Maven metadata",
 	},
 }
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
-	flags := make([]cli.Flag, 0, len(projectScanFlags)+len(helper.GetScanGlobalFlags())+len(projectScanExperimentalFlags))
+	flags := make([]cli.Flag, 0, len(projectScanFlags)+len(helper.GetScanGlobalFlags()))
 	flags = append(flags, projectScanFlags...)
 	flags = append(flags, helper.GetScanGlobalFlags()...)
-	// Make sure all experimental flags show after regular flags
-	flags = append(flags, projectScanExperimentalFlags...)
 
 	return &cli.Command{
 		Name:        "source",
@@ -130,9 +125,9 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	experimentalScannerActions := helper.GetExperimentalScannerActions(context, scanLicensesAllowlist)
 	// Add `source` specific experimental configs
 	experimentalScannerActions.TransitiveScanningActions = osvscanner.TransitiveScanningActions{
-		Disabled:         context.Bool("experimental-no-resolve"),
-		NativeDataSource: context.String("experimental-resolution-data-source") == "native",
-		MavenRegistry:    context.String("experimental-maven-registry"),
+		Disabled:         context.Bool("no-resolve"),
+		NativeDataSource: context.String("data-source") == "native",
+		MavenRegistry:    context.String("maven-registry"),
 	}
 
 	scannerAction := osvscanner.ScannerActions{
