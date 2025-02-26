@@ -42,7 +42,7 @@ func Skip(t *testing.T, args ...any) {
 func isThisTestRunTarget(t *testing.T) bool {
 	t.Helper()
 
-	runOnly := flag.Lookup("test.run").Value.String()
+	runOnly, _, _ := strings.Cut(flag.Lookup("test.run").Value.String(), "/")
 
 	return runOnly == t.Name()
 }
