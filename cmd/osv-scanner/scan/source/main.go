@@ -51,9 +51,6 @@ var projectScanFlags = []cli.Flag{
 		Usage: "include scanning git root (non-submoduled) repositories",
 		Value: false,
 	},
-}
-
-var projectScanExperimentalFlags = []cli.Flag{
 	&cli.StringFlag{
 		Name:  "data-source",
 		Usage: "source to fetch package information from; value can be: deps.dev, native",
@@ -73,11 +70,9 @@ var projectScanExperimentalFlags = []cli.Flag{
 }
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
-	flags := make([]cli.Flag, 0, len(projectScanFlags)+len(helper.GetScanGlobalFlags())+len(projectScanExperimentalFlags))
+	flags := make([]cli.Flag, 0, len(projectScanFlags)+len(helper.GetScanGlobalFlags()))
 	flags = append(flags, projectScanFlags...)
 	flags = append(flags, helper.GetScanGlobalFlags()...)
-	// Make sure all experimental flags show after regular flags
-	flags = append(flags, projectScanExperimentalFlags...)
 
 	return &cli.Command{
 		Name:        "source",
