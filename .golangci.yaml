@@ -53,7 +53,7 @@ linters-settings:
       regexp:
         files:
           - "!**/internal/cachedregexp/**"
-          - "!**/main_test.go"
+          - "!**/internal/testutility/normalize.go"
         deny:
           - pkg: "regexp"
             desc: "Use github.com/google/osv-scanner/v2/internal/cachedregexp instead"
