@@ -70,11 +70,6 @@ var projectScanExperimentalFlags = []cli.Flag{
 		Name:  "experimental-maven-registry",
 		Usage: "URL of the default registry to fetch Maven metadata",
 	},
-	&cli.BoolFlag{
-		Name:  "experimental-call-analysis",
-		Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
-		Value: false,
-	},
 }
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
@@ -130,13 +125,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		return nil, err
 	}
 
-	var callAnalysisStates map[string]bool
-	if context.IsSet("experimental-call-analysis") {
-		callAnalysisStates = helper.CreateCallAnalysisStates([]string{"all"}, context.StringSlice("no-call-analysis"))
-		r.Infof("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
-	} else {
-		callAnalysisStates = helper.CreateCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
-	}
+	callAnalysisStates := helper.CreateCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
 
 	experimentalScannerActions := helper.GetExperimentalScannerActions(context, scanLicensesAllowlist)
 	// Add `source` specific experimental configs

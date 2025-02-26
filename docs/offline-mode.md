@@ -1,15 +1,12 @@
 ---
 layout: page
 title: Offline Mode
-permalink: /experimental/offline-mode/
-parent: Experimental Features
+permalink: /usage/offline-mode/
+parent: Usage
 nav_order: 1
 ---
 
 # Offline Mode
-
-Experimental
-{: .label }
 
 {: .no_toc }
 
@@ -22,10 +19,7 @@ Experimental
 {:toc}
 </details>
 
-OSV-Scanner now supports offline scanning as an experimental feature. Offline scanning checks your project against a local database instead of calling the OSV.dev API.
-
-{: .note }
-This feature is experimental and might change or be removed with only a minor version update.
+OSV-Scanner now supports offline scanning as an official feature. Offline scanning checks your project against a local database instead of calling the OSV.dev API.
 
 ## Specify database location
 
@@ -49,29 +43,29 @@ If the `OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY` environment variable is _not_ set,
 1. The location returned by [`os.UserCacheDir`](https://pkg.go.dev/os#UserCacheDir)
 2. The location returned by [`os.TempDir`](https://pkg.go.dev/os#TempDir)
 
-The database can be [downloaded manually](#manual-database-download) or by using the [`--experimental-download-offline-databases` flag](#download-offline-databases-option).
+The database can be [downloaded manually](#manual-database-download) or by using the [`--download-offline-databases` flag](#download-offline-databases-option).
 
 ## Offline option
 
-The offline database flag `--experimental-offline` causes OSV-Scanner to scan your project against a previously downloaded local database. OSV-Scanner will not download or update the local database, nor will it send any project or dependency information anywhere. When a local database is not present, you will get an error message. No network connection is required when using this flag.
+The offline database flag `--offline` causes OSV-Scanner to scan your project against a previously downloaded local database. OSV-Scanner will not download or update the local database, nor will it send any project or dependency information anywhere. When a local database is not present, you will get an error message. No network connection is required when using this flag.
 
 ```bash
-osv-scanner --experimental-offline ./path/to/your/dir
+osv-scanner --offline ./path/to/your/dir
 ```
 
-To use offline mode for just the vulnerability database, but allow other features to possibly make network requests (e.g. [transitive dependency scanning](./supported_languages_and_lockfiles.md/#transitive-dependency-scanning)), you can use the `--experimental-offline-vulnerabilities` flag instead.
+To use offline mode for just the vulnerability database, but allow other features to possibly make network requests (e.g. [transitive dependency scanning](./supported_languages_and_lockfiles.md/#transitive-dependency-scanning)), you can use the `--offline-vulnerabilities` flag instead.
 
 ## Download offline databases option
 
-The download offline databases flag `--experimental-download-offline-databases` allows OSV-Scanner to download or update your local database when running in offline mode, to make it easier to get started. This option only works when you also set the offline flag.
+The download offline databases flag `--download-offline-databases` allows OSV-Scanner to download or update your local database when running in offline mode, to make it easier to get started. This option only works when you also set the offline flag.
 
 ```bash
-osv-scanner --experimental-offline --experimental-download-offline-databases ./path/to/your/dir
+osv-scanner --offline-vulnerabilities --download-offline-databases ./path/to/your/dir
 ```
 
 ## Manual database download
 
-Instead of using the `--experimental-download-offline-databases` flag to download the database, it is possible to manually download the database.
+Instead of using the `--download-offline-databases` flag to download the database, it is possible to manually download the database.
 
 A downloadable copy of the OSV database is stored in a GCS bucket maintained by OSV:
 [`gs://osv-vulnerabilities`](https://osv-vulnerabilities.storage.googleapis.com)
