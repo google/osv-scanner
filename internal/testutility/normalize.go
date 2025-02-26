@@ -13,7 +13,8 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 )
 
-// Only apply file path normalization to lines greater than 250
+// normalizeFilePathsOnOutput tries to ensure lines in the given `output` are
+// less than 250 characters by normalizing any file paths that are present
 func normalizeFilePathsOnOutput(t *testing.T, output string) string {
 	t.Helper()
 
@@ -39,8 +40,9 @@ func normalizeFilePathsOnOutput(t *testing.T, output string) string {
 	return strings.TrimSuffix(builder.String(), "\n")
 }
 
-// Attempts to normalize any file paths in the given `output` so that they can
-// be compared reliably regardless of the file path separator being used.
+// normalizeFilePaths attempts to normalize any file paths in the given `output`
+// so that they can be compared reliably regardless of the file path separator
+// being used.
 //
 // Namely, escaped forward slashes are replaced with backslashes.
 func normalizeFilePaths(t *testing.T, output string) string {
@@ -120,6 +122,7 @@ func normalizeErrors(t *testing.T, str string) string {
 	return str
 }
 
+// removeUntestableLines remove some lines from the output that are not testable
 func removeUntestableLines(t *testing.T, str string) string {
 	t.Helper()
 
@@ -129,7 +132,7 @@ func removeUntestableLines(t *testing.T, str string) string {
 	return str
 }
 
-// normalizeStdStream applies a series of normalizes to the buffer from a std stream like stdout and stderr
+// normalizeSnapshot applies a series of normalizes to the buffer from a std stream like stdout and stderr
 func normalizeSnapshot(t *testing.T, str string) string {
 	t.Helper()
 
