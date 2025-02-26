@@ -99,8 +99,9 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Usage: "run in the interactive mode",
 				Action: func(_ *cli.Context, b bool) error {
 					if b && !term.IsTerminal(int(os.Stdin.Fd())) {
-						return fmt.Errorf("interactive mode only to be run in a terminal")
+						return errors.New("interactive mode only to be run in a terminal")
 					}
+
 					return nil
 				},
 			},
