@@ -96,14 +96,14 @@ The `--serve` flag is a helper flag to set the output format to HTML, and serve 
 osv-scanner scan -L package-lock.json --serve
 ```
 
-### Experimental features
+### Other features
 
-Several experimental features are available through flags. See their respective documentation pages for more details:
+Several other features are available through flags. See their respective documentation pages for more details:
 
-- [`--experimental-offline-vulnerabilities`](./offline-mode.md)
-- [`--experimental-licenses`](./license-scanning.md)
-- `--experimental-no-resolve`: Disables transitive dependency resolution.
-- `experimental-all-packages`: Outputs all packages in JSON format (make sure to set `--format=json`).
+- [`--offline-vulnerabilities`](./offline-mode.md)
+- [`--licenses`](./license-scanning.md)
+- `--no-resolve`: Disables transitive dependency resolution.
+- `--all-packages`: Outputs all packages in JSON format (make sure to set `--format=json`).
 
 ## Pre-Commit Integration
 

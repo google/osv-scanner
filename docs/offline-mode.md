@@ -3,7 +3,7 @@ layout: page
 title: Offline Mode
 permalink: /usage/offline-mode/
 parent: Usage
-nav_order: 1
+nav_order: 4
 ---
 
 # Offline Mode
