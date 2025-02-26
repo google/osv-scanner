@@ -13,6 +13,12 @@ type VulnerabilityResults struct {
 	Results                    []PackageSource            `json:"results"`
 	ExperimentalAnalysisConfig ExperimentalAnalysisConfig `json:"experimental_config"`
 	ImageMetadata              *ImageMetadata             `json:"image_metadata,omitempty"`
+	LicenseSummary             []LicenseCount             `json:"license_summary,omitempty"`
+}
+
+type LicenseCount struct {
+	Name  License `json:"name"`
+	Count int     `json:"count"`
 }
 
 // ExperimentalAnalysisConfig is an experimental type intended to contain the

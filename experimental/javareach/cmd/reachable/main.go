@@ -2,6 +2,7 @@ package main
 
 import (
 	"archive/zip"
+	"bufio"
 	"flag"
 	"fmt"
 	"io"
@@ -9,6 +10,7 @@ import (
 	"maps"
 	"os"
 	"path/filepath"
+	"runtime/pprof"
 	"slices"
 	"strings"
 
@@ -25,6 +27,7 @@ import (
 // a reliable index of class -> Maven jar mappings for the entire Maven universe.
 func main() {
 	verbose := flag.Bool("verbose", false, "Enable debug logs.")
+	profile := flag.String("profile", "", "Enable profiling.")
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), "Usage: %s <arguments> <root class name> <root class name 2...>\n", os.Args[0])
 		flag.PrintDefaults()
@@ -33,6 +36,20 @@ func main() {
 
 	if *verbose {
 		slog.SetLogLoggerLevel(slog.LevelDebug)
+	}
+
+	if *profile != "" {
+		f, err := os.Create(*profile)
+		if err != nil {
+			slog.Error("could not create CPU profile", "err", err)
+			os.Exit(1)
+		}
+		defer f.Close()
+		if err := pprof.StartCPUProfile(f); err != nil {
+			slog.Error("could not start CPU profile", "err", err)
+			os.Exit(1)
+		}
+		defer pprof.StopCPUProfile()
 	}
 
 	for _, arg := range flag.Args() {
@@ -68,13 +85,6 @@ func enumerateReachabilityForJar(jarPath string) error {
 			"group id", dep.Metadata.(*archive.Metadata).GroupID, "artifact id", dep.Name, "version", dep.Version)
 	}
 
-	// Build .class -> Maven group ID:artifact ID mappings.
-	// TODO: Handle BOOT-INF and loading .jar dependencies from there.
-	classFinder, err := javareach.NewDefaultPackageFinder(allDeps)
-	if err != nil {
-		return err
-	}
-
 	// Unpack .jar
 	tmpDir, err := os.MkdirTemp("", "")
 	if err != nil {
@@ -83,7 +93,14 @@ func enumerateReachabilityForJar(jarPath string) error {
 	defer os.RemoveAll(tmpDir)
 
 	slog.Info("Unzipping", "jar", jarPath, "to", tmpDir)
-	err = unzipJar(jarPath, tmpDir)
+	nestedJARs, err := unzipJAR(jarPath, tmpDir)
+	if err != nil {
+		return err
+	}
+
+	// Build .class -> Maven group ID:artifact ID mappings.
+	// TODO: Handle BOOT-INF and loading .jar dependencies from there.
+	classFinder, err := javareach.NewDefaultPackageFinder(allDeps, tmpDir)
 	if err != nil {
 		return err
 	}
@@ -94,22 +111,56 @@ func enumerateReachabilityForJar(jarPath string) error {
 		return err
 	}
 
-	mainClass, err := javareach.GetMainClass(manifest)
+	mainClasses, err := javareach.GetMainClasses(manifest)
 	if err != nil {
 		return err
 	}
-	slog.Info("Found", "main class", mainClass)
+	slog.Info("Found", "main classes", mainClasses)
 
-	// Enumerate reachable classes.
-	// TODO: Look inside static files (e.g. META-INF/services, XML beans configurations).
-	enumerator := javareach.ReachabilityEnumerator{
-		ClassPath:                   tmpDir,
-		PackageFinder:               classFinder,
-		CodeLoadingStrategy:         javareach.AssumeAllClassesReachable,
-		DependencyInjectionStrategy: javareach.AssumeAllClassesReachable,
+	classPaths := []string{tmpDir}
+	classPaths = append(classPaths, nestedJARs...)
+
+	// Spring Boot applications have classes in BOOT-INF/classes.
+	bootInfClasses := filepath.Join(tmpDir, javareach.BootInfClasses)
+	if _, err := os.Stat(bootInfClasses); err == nil {
+		classPaths = append(classPaths, bootInfClasses)
 	}
 
-	result, err := enumerator.EnumerateReachabilityFromClass(mainClass)
+	// Look inside META-INF/services, which is used by
+	// https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html
+	servicesDir := filepath.Join(tmpDir, "META-INF/services")
+	if _, err := os.Stat(servicesDir); err == nil {
+		entries, err := os.ReadDir(servicesDir)
+		if err != nil {
+			return err
+		}
+
+		for _, entry := range entries {
+			path := filepath.Join(servicesDir, entry.Name())
+			f, err := os.Open(path)
+			if err != nil {
+				return err
+			}
+
+			scanner := bufio.NewScanner(f)
+			for scanner.Scan() {
+				provider := scanner.Text()
+				if strings.HasPrefix(strings.TrimSpace(provider), "#") {
+					continue
+				}
+				slog.Debug("adding META-INF/services provider", "provider", provider, "from", path)
+				mainClasses = append(mainClasses, strings.ReplaceAll(provider, ".", "/"))
+			}
+			if err := scanner.Err(); err != nil {
+				return err
+			}
+		}
+	}
+
+	// Enumerate reachable classes.
+	// TODO: Look inside more static files (e.g. XML beans configurations).
+	enumerator := javareach.NewReachabilityEnumerator(classPaths, classFinder, javareach.AssumeAllClassesReachable, javareach.AssumeAllClassesReachable)
+	result, err := enumerator.EnumerateReachabilityFromClasses(mainClasses)
 	if err != nil {
 		return err
 	}
@@ -168,48 +219,56 @@ func enumerateReachabilityForJar(jarPath string) error {
 			slog.Info("Not reachable", "dep", name)
 		}
 	}
+
+	slog.Info("finished analysis", "reachable", len(reachableDeps), "unreachable", len(allDeps)-len(reachableDeps), "all", len(allDeps))
 	return nil
 }
 
-func unzipJar(jarPath string, tmpDir string) error {
+// unzipJAR unzips a JAR to a target directory. It also returns a list of paths
+// to all the nested JARs found while unzipping.
+func unzipJAR(jarPath string, tmpDir string) (nestedJARs []string, err error) {
 	r, err := zip.OpenReader(jarPath)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	for _, file := range r.File {
 		path := filepath.Join(tmpDir, file.Name)
 		if !strings.HasPrefix(path, filepath.Clean(tmpDir)+string(os.PathSeparator)) {
-			return fmt.Errorf("directory traversal: %s", path)
+			return nil, fmt.Errorf("directory traversal: %s", path)
 		}
 
 		if file.FileInfo().IsDir() {
 			if err := os.MkdirAll(path, 0755); err != nil {
-				return err
+				return nil, err
 			}
 		} else {
 			if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
-				return err
+				return nil, err
+			}
+
+			if strings.HasSuffix(path, ".jar") {
+				nestedJARs = append(nestedJARs, path)
 			}
 
 			source, err := file.Open()
 			if err != nil {
-				return err
+				return nil, err
 			}
 
 			f, err := os.Create(path)
 			if err != nil {
-				return err
+				return nil, err
 			}
 
 			_, err = io.Copy(f, source)
 			if err != nil {
 				f.Close()
-				return err
+				return nil, err
 			}
 			f.Close()
 		}
 
 	}
-	return nil
+	return nestedJARs, nil
 }

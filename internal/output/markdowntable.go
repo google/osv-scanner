@@ -20,13 +20,24 @@ func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWr
 		outputTable.RenderMarkdown()
 	}
 
-	outputLicenseTable := table.NewWriter()
-	outputLicenseTable.SetOutputMirror(outputWriter)
+	licenseConfig := vulnResult.ExperimentalAnalysisConfig.Licenses
+	if licenseConfig.Summary {
+		outputLicenseSummaryTable := table.NewWriter()
+		outputLicenseSummaryTable.SetOutputMirror(outputWriter)
+		outputLicenseSummaryTable = licenseSummaryTableBuilder(outputLicenseSummaryTable, vulnResult)
 
-	outputLicenseTable = licenseTableBuilder(outputLicenseTable, vulnResult)
-
-	if outputLicenseTable.Length() == 0 {
-		return
+		if outputLicenseSummaryTable.Length() != 0 {
+			outputLicenseSummaryTable.RenderMarkdown()
+		}
 	}
-	outputLicenseTable.RenderMarkdown()
+
+	if len(licenseConfig.Allowlist) > 0 {
+		outputLicenseViolationsTable := table.NewWriter()
+		outputLicenseViolationsTable.SetOutputMirror(outputWriter)
+		outputLicenseViolationsTable = licenseViolationsTableBuilder(outputLicenseViolationsTable, vulnResult)
+
+		if outputLicenseViolationsTable.Length() > 0 {
+			outputLicenseViolationsTable.RenderMarkdown()
+		}
+	}
 }
