@@ -989,7 +989,7 @@ func Test_run_MavenTransitive(t *testing.T) {
 		{
 			// Direct dependencies do not have any vulnerability.
 			name: "does not scan transitive dependencies for pom.xml with no-resolve",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-no-resolve", "./fixtures/maven-transitive/pom.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--no-resolve", "./fixtures/maven-transitive/pom.xml"},
 			exit: 0,
 		},
 		{
@@ -999,7 +999,7 @@ func Test_run_MavenTransitive(t *testing.T) {
 		},
 		{
 			name: "resolve transitive dependencies with native data source",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-resolution-data-source=native", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--data-source=native", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
 			exit: 1,
 		},
 	}

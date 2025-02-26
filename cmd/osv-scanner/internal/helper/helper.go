@@ -22,7 +22,7 @@ import (
 // with the values to set them to in order to disable them
 var OfflineFlags = map[string]string{
 	"offline-vulnerabilities": "true",
-	"experimental-no-resolve": "true",
+	"no-resolve":              "true",
 }
 
 // sets default port(8000) as a global variable
@@ -134,7 +134,7 @@ func GetScanGlobalFlags() []cli.Flag {
 			Hidden: true,
 		},
 		&cli.BoolFlag{
-			Name:  "experimental-no-resolve",
+			Name:  "no-resolve",
 			Usage: "disable transitive dependency resolution of manifest files",
 		},
 		&cli.BoolFlag{
