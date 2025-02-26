@@ -22,7 +22,7 @@ import (
 // with the values to set them to in order to disable them
 var OfflineFlags = map[string]string{
 	"offline-vulnerabilities": "true",
-	"no-resolve":              "true",
+	"experimental-no-resolve": "true",
 }
 
 // sets default port(8000) as a global variable
