@@ -127,14 +127,14 @@ var GlobalScanFlags = []cli.Flag{
 		Name:  "download-offline-databases",
 		Usage: "downloads vulnerability databases for offline comparison",
 	},
-	&cli.BoolFlag{
-		Name:  "no-resolve",
-		Usage: "disable transitive dependency resolution of manifest files",
-	},
 	&cli.StringFlag{
 		Name:   "local-db-path",
 		Usage:  "sets the path that local databases should be stored",
 		Hidden: true,
+	},
+	&cli.BoolFlag{
+		Name:  "no-resolve",
+		Usage: "disable transitive dependency resolution of manifest files",
 	},
 	&cli.BoolFlag{
 		Name:  "experimental-all-packages",
