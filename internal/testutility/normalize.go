@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"os"
 	"path/filepath"
-	//nolint:depguard // We need regexp for the QuoteMeta function
 	"regexp"
 	"runtime"
 	"strings"
