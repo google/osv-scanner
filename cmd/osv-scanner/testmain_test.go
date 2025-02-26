@@ -43,10 +43,6 @@ func newMuffledHandler(w io.Writer) *muffledHandler {
 	return &muffledHandler{TextHandler: *slog.NewTextHandler(w, nil)}
 }
 
-func Test_FailThis(t *testing.T) {
-	t.Fail()
-}
-
 func TestMain(m *testing.M) {
 	slog.SetDefault(slog.New(newMuffledHandler(log.Writer())))
 
