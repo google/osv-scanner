@@ -242,7 +242,7 @@ func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
 
 func GetExperimentalScannerActions(context *cli.Context, scanLicensesAllowlist []string) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
-		LocalDBPath:           context.String("experimental-local-db-path"),
+		LocalDBPath:           context.String("local-db-path"),
 		DownloadDatabases:     context.Bool("download-offline-databases"),
 		CompareOffline:        context.Bool("offline-vulnerabilities"),
 		ShowAllPackages:       context.Bool("experimental-all-packages"),
