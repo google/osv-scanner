@@ -55,7 +55,7 @@ var projectScanFlags = []cli.Flag{
 
 var projectScanExperimentalFlags = []cli.Flag{
 	&cli.StringFlag{
-		Name:  "experimental-resolution-data-source",
+		Name:  "data-source",
 		Usage: "source to fetch package information from; value can be: deps.dev, native",
 		Value: "deps.dev",
 		Action: func(_ *cli.Context, s string) error {
@@ -67,7 +67,7 @@ var projectScanExperimentalFlags = []cli.Flag{
 		},
 	},
 	&cli.StringFlag{
-		Name:  "experimental-maven-registry",
+		Name:  "maven-registry",
 		Usage: "URL of the default registry to fetch Maven metadata",
 	},
 	&cli.BoolFlag{
@@ -141,9 +141,9 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 	experimentalScannerActions := helper.GetExperimentalScannerActions(context, scanLicensesAllowlist)
 	// Add `source` specific experimental configs
 	experimentalScannerActions.TransitiveScanningActions = osvscanner.TransitiveScanningActions{
-		Disabled:         context.Bool("experimental-no-resolve"),
-		NativeDataSource: context.String("experimental-resolution-data-source") == "native",
-		MavenRegistry:    context.String("experimental-maven-registry"),
+		Disabled:         context.Bool("no-resolve"),
+		NativeDataSource: context.String("data-source") == "native",
+		MavenRegistry:    context.String("maven-registry"),
 	}
 
 	scannerAction := osvscanner.ScannerActions{

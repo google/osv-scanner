@@ -23,7 +23,7 @@ import (
 var OfflineFlags = map[string]string{
 	"include-git-root":                     "true",
 	"experimental-offline-vulnerabilities": "true",
-	"experimental-no-resolve":              "true",
+	"no-resolve":                           "true",
 }
 
 // sets default port(8000) as a global variable
@@ -129,7 +129,7 @@ var GlobalScanFlags = []cli.Flag{
 		Usage: "downloads vulnerability databases for offline comparison",
 	},
 	&cli.BoolFlag{
-		Name:  "experimental-no-resolve",
+		Name:  "no-resolve",
 		Usage: "disable transitive dependency resolution of manifest files",
 	},
 	&cli.StringFlag{

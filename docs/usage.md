@@ -102,7 +102,7 @@ Several experimental features are available through flags. See their respective 
 
 - [`--experimental-offline-vulnerabilities`](./offline-mode.md)
 - [`--experimental-licenses`](./license-scanning.md)
-- `--experimental-no-resolve`: Disables transitive dependency resolution.
+- `--no-resolve`: Disables transitive dependency resolution.
 - `experimental-all-packages`: Outputs all packages in JSON format (make sure to set `--format=json`).
 
 ## Pre-Commit Integration
