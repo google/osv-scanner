@@ -98,7 +98,7 @@ EXAMPLES:
 	$ {{.Name}} scan source -r <source_directory>
 
 	# Scan a source directory in offline mode
-	$ {{.Name}} scan source --offline -r <source_directory>
+	$ {{.Name}} scan source --offline-vulnerabilities --download-offline-database -r <source_directory>
 
 	# Scan a container image
 	$ {{.Name}} scan image <image_name>

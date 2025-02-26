@@ -104,7 +104,7 @@ var GlobalScanFlags = []cli.Flag{
 			for flag, value := range OfflineFlags {
 				// TODO(michaelkedar): do something if the flag was already explicitly set.
 
-				// Skip setting the flag if the current command doesn't have it."
+				// Skip setting the flag if the current command doesn't have it.
 				if !slices.ContainsFunc(ctx.Command.Flags, func(f cli.Flag) bool {
 					return slices.Contains(f.Names(), flag)
 				}) {
