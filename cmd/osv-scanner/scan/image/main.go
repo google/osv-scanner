@@ -27,7 +27,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 		Name:        "image",
 		Usage:       "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
 		Description: "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
-		Flags:       append(imageScanFlags, helper.GlobalScanFlags...),
+		Flags:       append(imageScanFlags, helper.GetScanGlobalFlags()...),
 		ArgsUsage:   "[image imageName]",
 		Action: func(c *cli.Context) error {
 			var err error

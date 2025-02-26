@@ -73,9 +73,9 @@ var projectScanExperimentalFlags = []cli.Flag{
 }
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
-	flags := make([]cli.Flag, 0, len(projectScanFlags)+len(helper.GlobalScanFlags)+len(projectScanExperimentalFlags))
+	flags := make([]cli.Flag, 0, len(projectScanFlags)+len(helper.GetScanGlobalFlags())+len(projectScanExperimentalFlags))
 	flags = append(flags, projectScanFlags...)
-	flags = append(flags, helper.GlobalScanFlags...)
+	flags = append(flags, helper.GetScanGlobalFlags()...)
 	// Make sure all experimental flags show after regular flags
 	flags = append(flags, projectScanExperimentalFlags...)
 
