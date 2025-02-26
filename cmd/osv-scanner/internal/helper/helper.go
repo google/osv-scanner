@@ -21,8 +21,7 @@ import (
 // OfflineFlags is a map of flags which require network access to operate,
 // with the values to set them to in order to disable them
 var OfflineFlags = map[string]string{
-	"include-git-root":                     "true",
-	"experimental-offline-vulnerabilities": "true",
+	"offline-vulnerabilities": "true",
 	"no-resolve":                           "true",
 }
 
@@ -95,7 +94,7 @@ var GlobalScanFlags = []cli.Flag{
 		Value: "info",
 	},
 	&cli.BoolFlag{
-		Name:  "experimental-offline",
+		Name:  "offline",
 		Usage: "run in offline mode, disabling any features requiring network access",
 		Action: func(ctx *cli.Context, b bool) error {
 			if !b {
@@ -105,7 +104,7 @@ var GlobalScanFlags = []cli.Flag{
 			for flag, value := range OfflineFlags {
 				// TODO(michaelkedar): do something if the flag was already explicitly set.
 
-				// Skip setting the flag if the current command doesn't have it."
+				// Skip setting the flag if the current command doesn't have it.
 				if !slices.ContainsFunc(ctx.Command.Flags, func(f cli.Flag) bool {
 					return slices.Contains(f.Names(), flag)
 				}) {
@@ -121,11 +120,11 @@ var GlobalScanFlags = []cli.Flag{
 		},
 	},
 	&cli.BoolFlag{
-		Name:  "experimental-offline-vulnerabilities",
+		Name:  "offline-vulnerabilities",
 		Usage: "checks for vulnerabilities using local databases that are already cached",
 	},
 	&cli.BoolFlag{
-		Name:  "experimental-download-offline-databases",
+		Name:  "download-offline-databases",
 		Usage: "downloads vulnerability databases for offline comparison",
 	},
 	&cli.BoolFlag{
@@ -133,7 +132,7 @@ var GlobalScanFlags = []cli.Flag{
 		Usage: "disable transitive dependency resolution of manifest files",
 	},
 	&cli.StringFlag{
-		Name:   "experimental-local-db-path",
+		Name:   "local-db-path",
 		Usage:  "sets the path that local databases should be stored",
 		Hidden: true,
 	},
@@ -234,7 +233,7 @@ func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
 		return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
 	}
 
-	if context.Bool("experimental-offline") {
+	if context.Bool("offline") {
 		allowlist = []string{}
 	}
 
@@ -244,8 +243,8 @@ func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
 func GetExperimentalScannerActions(context *cli.Context, scanLicensesAllowlist []string) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
 		LocalDBPath:           context.String("experimental-local-db-path"),
-		DownloadDatabases:     context.Bool("experimental-download-offline-databases"),
-		CompareOffline:        context.Bool("experimental-offline-vulnerabilities"),
+		DownloadDatabases:     context.Bool("download-offline-databases"),
+		CompareOffline:        context.Bool("offline-vulnerabilities"),
 		ShowAllPackages:       context.Bool("experimental-all-packages"),
 		ScanLicensesSummary:   context.IsSet("experimental-licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,

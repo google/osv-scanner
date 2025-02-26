@@ -192,16 +192,16 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 			// Offline database flags, copied from osv-scanner scan
 			&cli.BoolFlag{
-				Name:    "experimental-offline-vulnerabilities",
-				Aliases: []string{"experimental-offline"},
+				Name:    "offline-vulnerabilities",
+				Aliases: []string{"offline"},
 				Usage:   "checks for vulnerabilities using local databases that are already cached",
 			},
 			&cli.BoolFlag{
-				Name:  "experimental-download-offline-databases",
+				Name:  "download-offline-databases",
 				Usage: "downloads vulnerability databases for offline comparison",
 			},
 			&cli.StringFlag{
-				Name:   "experimental-local-db-path",
+				Name:   "local-db-path",
 				Usage:  "sets the path that local databases should be stored",
 				Hidden: true,
 			},
@@ -308,12 +308,12 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	}
 
 	userAgent := "osv-scanner_fix/" + version.OSVVersion
-	if ctx.Bool("experimental-offline-vulnerabilities") {
+	if ctx.Bool("offline-vulnerabilities") {
 		matcher, err := localmatcher.NewLocalMatcher(
 			r,
-			ctx.String("experimental-local-db-path"),
+			ctx.String("local-db-path"),
 			userAgent,
-			ctx.Bool("experimental-download-offline-databases"),
+			ctx.Bool("download-offline-databases"),
 		)
 		if err != nil {
 			return nil, err
