@@ -125,7 +125,6 @@ $ osv-scanner fix \
     --max-depth=3 \
     --min-severity=5 \
     --ignore-dev  \
-    --non-interactive \
     --strategy=in-place \
     -L path/to/package-lock.json
 ```
