@@ -13,6 +13,7 @@ import (
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
+	"github.com/google/osv-scanner/v2/internal/clilogger"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/v2/internal/osvdev"
@@ -115,6 +116,10 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 				Value:   "text",
 				Action: func(_ *cli.Context, s string) error {
 					if s == "text" || s == "json" {
+						if s == "json" {
+							clilogger.SendEverythingToStderr()
+						}
+
 						return nil
 					}
 

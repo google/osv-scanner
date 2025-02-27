@@ -7,12 +7,35 @@ import (
 	"log/slog"
 )
 
+// SendEverythingToStderr tells the logger (if its in use) to send all logs
+// to stderr regardless of their level.
+//
+// This is useful if we're expecting to output structured data to stdout such
+// as JSON, which cannot be mixed with other output.
+func SendEverythingToStderr() {
+	l, ok := slog.Default().Handler().(*CLILogger)
+
+	if ok {
+		l.SendEverythingToStderr()
+	}
+}
+
 type CLILogger struct {
-	stdout        io.Writer
-	stderr        io.Writer
-	stdoutHandler slog.Handler
-	stderrHandler slog.Handler
-	hasErrored    bool
+	stdout             io.Writer
+	stderr             io.Writer
+	stdoutHandler      slog.Handler
+	stderrHandler      slog.Handler
+	hasErrored         bool
+	everythingToStderr bool
+}
+
+// SendEverythingToStderr tells the logger to send all logs to stderr regardless
+// of their level.
+//
+// This is useful if we're expecting to output structured data to stdout such
+// as JSON, which cannot be mixed with other output.
+func (c *CLILogger) SendEverythingToStderr() {
+	c.everythingToStderr = true
 }
 
 // handler returns the log handler to use for the given level
@@ -25,11 +48,11 @@ func (c *CLILogger) handler(level slog.Level) slog.Handler {
 }
 
 func (c *CLILogger) writer(level slog.Level) io.Writer {
-	if level == slog.LevelInfo {
-		return c.stdout
+	if c.everythingToStderr || level != slog.LevelInfo {
+		return c.stderr
 	}
 
-	return c.stderr
+	return c.stdout
 }
 
 func (c *CLILogger) Enabled(ctx context.Context, level slog.Level) bool {

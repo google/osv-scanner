@@ -101,9 +101,6 @@ No issues found
 ---
 
 [Test_run/Empty_cyclonedx_1.4_output - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
@@ -116,13 +113,13 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 ---
 
 [Test_run/Empty_cyclonedx_1.4_output - 2]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
 [Test_run/Empty_cyclonedx_1.5_output - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
@@ -135,24 +132,24 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 ---
 
 [Test_run/Empty_cyclonedx_1.5_output - 2]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
 [Test_run/Empty_gh-annotations_output - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
 [Test_run/Empty_gh-annotations_output - 2]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
 [Test_run/Empty_sarif_output - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 {
   "version": "2.1.0",
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
@@ -174,6 +171,9 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 ---
 
 [Test_run/Empty_sarif_output - 2]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
@@ -297,8 +297,6 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 ---
 
 [Test_run/Sarif_with_vulns - 1]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 {
   "version": "2.1.0",
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
@@ -369,6 +367,8 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 ---
 
 [Test_run/Sarif_with_vulns - 2]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 
 ---
 
@@ -514,9 +514,6 @@ warning: ./fixtures/osv-scanner-duplicate-config.toml has multiple ignores for G
 ---
 
 [Test_run/cyclonedx_1.4_output - 1]
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
@@ -590,13 +587,13 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 ---
 
 [Test_run/cyclonedx_1.4_output - 2]
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
 [Test_run/cyclonedx_1.5_output - 1]
-Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
-Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
@@ -670,6 +667,9 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 ---
 
 [Test_run/cyclonedx_1.5_output - 2]
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
@@ -897,12 +897,12 @@ Filtered 9 local/unscannable package/s from the scan.
 ---
 
 [Test_run/gh-annotations_with_vulns - 1]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 
 ---
 
 [Test_run/gh-annotations_with_vulns - 2]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 ::error file=fixtures/locks-many/package-lock.json::fixtures/locks-many/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
 ---
 
@@ -954,9 +954,6 @@ failed to write output: invalid verbosity level "unknown" - must be one of: erro
 ---
 
 [Test_run/json_output - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 {
   "results": [],
   "experimental_config": {
@@ -970,6 +967,9 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 ---
 
 [Test_run/json_output - 2]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
@@ -1334,7 +1334,6 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 ---
 
 [Test_run_GithubActions/scanning_osv-scanner_custom_format_output_json - 1]
-Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 {
   "version": "2.1.0",
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
@@ -1444,12 +1443,11 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 ---
 
 [Test_run_GithubActions/scanning_osv-scanner_custom_format_output_json - 2]
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 
 ---
 
 [Test_run_Licenses/Licenses_in_summary_mode_json - 1]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 {
   "results": [],
   "experimental_config": {
@@ -1477,6 +1475,8 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 pac
 ---
 
 [Test_run_Licenses/Licenses_in_summary_mode_json - 2]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
@@ -1534,8 +1534,6 @@ license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.
 ---
 
 [Test_run_Licenses/No_license_violations_and_show-all-packages_in_json - 1]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 {
   "results": [
     {
@@ -1615,6 +1613,8 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 pac
 ---
 
 [Test_run_Licenses/No_license_violations_and_show-all-packages_in_json - 2]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
@@ -1669,8 +1669,6 @@ Filtered 2 vulnerabilities from output
 ---
 
 [Test_run_Licenses/Show_all_Packages_with_license_summary_in_json - 1]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 {
   "results": [
     {
@@ -1747,6 +1745,8 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 pac
 ---
 
 [Test_run_Licenses/Show_all_Packages_with_license_summary_in_json - 2]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
@@ -1809,8 +1809,6 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 ---
 
 [Test_run_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 1]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 {
   "results": [
     {
@@ -1892,12 +1890,12 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 pac
 ---
 
 [Test_run_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 2]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
 [Test_run_Licenses/Some_packages_with_license_violations_in_json - 1]
-Scanning dir ./fixtures/locks-licenses/package-lock.json
-Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 {
   "results": [
     {
@@ -1949,6 +1947,8 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 pac
 ---
 
 [Test_run_Licenses/Some_packages_with_license_violations_in_json - 2]
+Scanning dir ./fixtures/locks-licenses/package-lock.json
+Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
@@ -2740,10 +2740,6 @@ No issues found
 ---
 
 [Test_run_LocalDatabases/output_with_json - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 {
   "results": [],
   "experimental_config": {
@@ -2757,14 +2753,14 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 ---
 
 [Test_run_LocalDatabases/output_with_json - 2]
-
----
-
-[Test_run_LocalDatabases/output_with_json - 3]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+
+---
+
+[Test_run_LocalDatabases/output_with_json - 3]
 {
   "results": [],
   "experimental_config": {
@@ -2778,6 +2774,10 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 ---
 
 [Test_run_LocalDatabases/output_with_json - 4]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
@@ -3606,6 +3606,1275 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [Test_run_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 2]
 Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
 
+---
+
+[Test_run_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "usr/local/lib/python3.9/site-packages/Django-1.11.29.dist-info/METADATA",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "django",
+            "version": "1.11.29",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 17
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-68w8-qjq3-2gfm",
+            "GHSA-8x94-hmjh-97hq",
+            "GHSA-rrqc-c2jx-6jgv",
+            "PYSEC-2021-98"
+          ],
+          "groups": 3
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "usr/local/lib/python3.9/site-packages/Flask-0.12.2.dist-info/METADATA",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "flask",
+            "version": "0.12.2",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 17
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-562c-5r94-xh97",
+            "GHSA-5wv5-4vpf-pj6m",
+            "GHSA-m2qf-hxjv-5gpq",
+            "PYSEC-2018-66",
+            "PYSEC-2019-179",
+            "PYSEC-2023-62"
+          ],
+          "groups": 3
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "usr/local/lib/python3.9/site-packages/idna-2.7.dist-info/METADATA",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "idna",
+            "version": "2.7",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 17
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-jjg7-2v4v-x38h",
+            "PYSEC-2024-60"
+          ],
+          "groups": 1
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "pip",
+            "version": "23.0.1",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 13
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-mq26-g339-26xf",
+            "PYSEC-2023-228"
+          ],
+          "groups": 1
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "requests",
+            "version": "2.20.0",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 17
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-9wx4-h78v-vm56",
+            "GHSA-j8r2-6x86-q33q",
+            "PYSEC-2023-74"
+          ],
+          "groups": 2
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "setuptools",
+            "version": "58.1.0",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 13
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-cx63-2mw6-8hw5",
+            "GHSA-r9hx-vwmv-q579",
+            "PYSEC-2022-43012"
+          ],
+          "groups": 2
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "usr/local/lib/python3.9/site-packages/urllib3-1.24.3.dist-info/METADATA",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "urllib3",
+            "version": "1.24.3",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 17
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-34jh-p97f-mpxf",
+            "GHSA-g4mx-q9vg-27p4",
+            "GHSA-v845-jxx5-vc9f",
+            "GHSA-wqvq-5m8c-6g24",
+            "PYSEC-2020-148",
+            "PYSEC-2021-108",
+            "PYSEC-2023-192",
+            "PYSEC-2023-212"
+          ],
+          "groups": 5
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "var/lib/dpkg/status",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "debian-archive-keyring",
+            "os_package_name": "debian-archive-keyring",
+            "version": "2019.1+deb10u1",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3482-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "util-linux",
+            "os_package_name": "fdisk",
+            "version": "2.33.1-0.1",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3782-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "util-linux",
+            "os_package_name": "libblkid1",
+            "version": "2.33.1-0.1",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3782-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "glibc",
+            "os_package_name": "libc-bin",
+            "version": "2.28-10+deb10u2",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3807-1",
+            "DLA-3850-1"
+          ],
+          "groups": 2
+        },
+        {
+          "package": {
+            "name": "glibc",
+            "os_package_name": "libc6",
+            "version": "2.28-10+deb10u2",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3807-1",
+            "DLA-3850-1"
+          ],
+          "groups": 2
+        },
+        {
+          "package": {
+            "name": "expat",
+            "os_package_name": "libexpat1",
+            "version": "2.2.6-2+deb10u6",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 7
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3783-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "util-linux",
+            "os_package_name": "libfdisk1",
+            "version": "2.33.1-0.1",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3782-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "gnutls28",
+            "os_package_name": "libgnutls30",
+            "version": "3.6.7-4+deb10u10",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3660-1",
+            "DLA-3740-1"
+          ],
+          "groups": 2
+        },
+        {
+          "package": {
+            "name": "util-linux",
+            "os_package_name": "libmount1",
+            "version": "2.33.1-0.1",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3782-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "ncurses",
+            "os_package_name": "libncursesw6",
+            "version": "6.1+20181013-2+deb10u3",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3586-1",
+            "DLA-3682-1"
+          ],
+          "groups": 2
+        },
+        {
+          "package": {
+            "name": "util-linux",
+            "os_package_name": "libsmartcols1",
+            "version": "2.33.1-0.1",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3782-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "libssl1.1",
+            "version": "1.1.1n-0+deb10u5",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3530-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "systemd",
+            "os_package_name": "libsystemd0",
+            "version": "241-7~deb10u9",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3474-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "ncurses",
+            "os_package_name": "libtinfo6",
+            "version": "6.1+20181013-2+deb10u3",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3586-1",
+            "DLA-3682-1"
+          ],
+          "groups": 2
+        },
+        {
+          "package": {
+            "name": "systemd",
+            "os_package_name": "libudev1",
+            "version": "241-7~deb10u9",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3474-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "util-linux",
+            "os_package_name": "libuuid1",
+            "version": "2.33.1-0.1",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3782-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "util-linux",
+            "os_package_name": "mount",
+            "version": "2.33.1-0.1",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3782-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "ncurses",
+            "os_package_name": "ncurses-base",
+            "version": "6.1+20181013-2+deb10u3",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3586-1",
+            "DLA-3682-1"
+          ],
+          "groups": 2
+        },
+        {
+          "package": {
+            "name": "ncurses",
+            "os_package_name": "ncurses-bin",
+            "version": "6.1+20181013-2+deb10u3",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3586-1",
+            "DLA-3682-1"
+          ],
+          "groups": 2
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "openssl",
+            "version": "1.1.1n-0+deb10u5",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3530-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "tar",
+            "os_package_name": "tar",
+            "version": "1.30+dfsg-6",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3755-1"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "tzdata",
+            "os_package_name": "tzdata",
+            "version": "2021a-0+deb10u11",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3684-1",
+            "DLA-3788-1"
+          ],
+          "groups": 2
+        },
+        {
+          "package": {
+            "name": "util-linux",
+            "os_package_name": "util-linux",
+            "version": "2.33.1-0.1",
+            "ecosystem": "Debian:10",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "DLA-3782-1"
+          ],
+          "groups": 1
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "image_metadata": {
+    "os": "Debian GNU/Linux 10 (buster)",
+    "layer_metadata": [
+      {
+        "diff_id": "sha256:...",
+        "command": "/bin/sh -c #(nop) ADD fil...",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  CMD [/"...",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "ENV PATH=/usr/local/bin:/...",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "ENV LANG=C.UTF-8",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN /bin/sh -c set -eux; ...",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "ENV GPG_KEY=E3FF2839C048B...",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "ENV PYTHON_VERSION=3.9.17",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN /bin/sh -c set -eux; ...",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN /bin/sh -c set -eux; ...",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "ENV PYTHON_PIP_VERSION=23...",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "ENV PYTHON_SETUPTOOLS_VER...",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "ENV PYTHON_GET_PIP_URL=ht...",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "ENV PYTHON_GET_PIP_SHA256...",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN /bin/sh -c set -eux; ...",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "CMD [/"python3/"]",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "WORKDIR /app",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "COPY ./python-fixture/req...",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN /bin/sh -c pip instal...",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "COPY python-fixture/main....",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "",
+        "command": "CMD [/"python/" /"main.py/"]",
+        "is_empty": true,
+        "base_image_index": 0
+      }
+    ],
+    "base_images": [
+      {},
+      {
+        "name": "python",
+        "tags": null
+      }
+    ]
+  }
+}
+
+---
+
+[Test_run_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 2]
+Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
+Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar"
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
+---
+
+[Test_run_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "go/bin/ptf-1.4.0",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "github.com/BurntSushi/toml",
+            "version": "1.4.0",
+            "ecosystem": "Go",
+            "image_origin_details": {
+              "index": 2
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
+        },
+        {
+          "package": {
+            "name": "stdlib",
+            "version": "1.22.4",
+            "ecosystem": "Go",
+            "image_origin_details": {
+              "index": 2
+            }
+          },
+          "vulnerabilities": [
+            "GO-2024-2963",
+            "GO-2024-3105",
+            "GO-2024-3106",
+            "GO-2024-3107",
+            "GO-2025-3373",
+            "GO-2025-3420",
+            "GO-2025-3447"
+          ],
+          "groups": 7
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "lib/apk/db/installed",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "alpine-baselayout",
+            "os_package_name": "alpine-baselayout",
+            "version": "3.6.5-r0",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
+        },
+        {
+          "package": {
+            "name": "alpine-baselayout",
+            "os_package_name": "alpine-baselayout-data",
+            "version": "3.6.5-r0",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
+        },
+        {
+          "package": {
+            "name": "alpine-keys",
+            "os_package_name": "alpine-keys",
+            "version": "2.4-r1",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
+        },
+        {
+          "package": {
+            "name": "apk-tools",
+            "os_package_name": "apk-tools",
+            "version": "2.14.4-r0",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
+        },
+        {
+          "package": {
+            "name": "busybox",
+            "os_package_name": "busybox",
+            "version": "1.36.1-r29",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
+        },
+        {
+          "package": {
+            "name": "busybox",
+            "os_package_name": "busybox-binsh",
+            "version": "1.36.1-r29",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
+        },
+        {
+          "package": {
+            "name": "ca-certificates",
+            "os_package_name": "ca-certificates-bundle",
+            "version": "20240226-r0",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "libcrypto3",
+            "version": "3.3.1-r0",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "CVE-2024-12797",
+            "CVE-2024-13176",
+            "CVE-2024-5535",
+            "CVE-2024-6119",
+            "CVE-2024-9143"
+          ],
+          "groups": 5
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "libssl3",
+            "version": "3.3.1-r0",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "CVE-2024-12797",
+            "CVE-2024-13176",
+            "CVE-2024-5535",
+            "CVE-2024-6119",
+            "CVE-2024-9143"
+          ],
+          "groups": 5
+        },
+        {
+          "package": {
+            "name": "musl",
+            "os_package_name": "musl",
+            "version": "1.2.5-r0",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "CVE-2025-26519"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "musl",
+            "os_package_name": "musl-utils",
+            "version": "1.2.5-r0",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "CVE-2025-26519"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "pax-utils",
+            "os_package_name": "scanelf",
+            "version": "1.3.7-r2",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
+        },
+        {
+          "package": {
+            "name": "busybox",
+            "os_package_name": "ssl_client",
+            "version": "1.36.1-r29",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
+        },
+        {
+          "package": {
+            "name": "zlib",
+            "os_package_name": "zlib",
+            "version": "1.3.1-r1",
+            "ecosystem": "Alpine:v3.20",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "image_metadata": {
+    "os": "Alpine Linux v3.20",
+    "layer_metadata": [
+      {
+        "diff_id": "sha256:...",
+        "command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+        "is_empty": false,
+        "base_image_index": 2
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  CMD [/"/bin/sh/"]",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "COPY /work/ptf-1.4.0 /go/bin/ # buildkit",
+        "is_empty": false,
+        "base_image_index": 0
+      }
+    ],
+    "base_images": [
+      {},
+      {
+        "name": "alpine",
+        "tags": null
+      },
+      {
+        "name": "alpine",
+        "tags": null
+      }
+    ]
+  }
+}
+
+---
+
+[Test_run_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 2]
+Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
+Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
+<removed><removed><removed><removed><removed><removed>
+---
+
+[Test_run_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "lib/apk/db/installed",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "busybox",
+            "os_package_name": "busybox",
+            "version": "1.36.1-r15",
+            "ecosystem": "Alpine:v3.19",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "CVE-2023-42363",
+            "CVE-2023-42364",
+            "CVE-2023-42365",
+            "CVE-2023-42366"
+          ],
+          "groups": 4
+        },
+        {
+          "package": {
+            "name": "busybox",
+            "os_package_name": "busybox-binsh",
+            "version": "1.36.1-r15",
+            "ecosystem": "Alpine:v3.19",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "CVE-2023-42363",
+            "CVE-2023-42364",
+            "CVE-2023-42365",
+            "CVE-2023-42366"
+          ],
+          "groups": 4
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "libcrypto3",
+            "version": "3.1.4-r5",
+            "ecosystem": "Alpine:v3.19",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "CVE-2024-13176",
+            "CVE-2024-2511",
+            "CVE-2024-4603",
+            "CVE-2024-4741",
+            "CVE-2024-5535",
+            "CVE-2024-6119",
+            "CVE-2024-9143"
+          ],
+          "groups": 7
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "libssl3",
+            "version": "3.1.4-r5",
+            "ecosystem": "Alpine:v3.19",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "CVE-2024-13176",
+            "CVE-2024-2511",
+            "CVE-2024-4603",
+            "CVE-2024-4741",
+            "CVE-2024-5535",
+            "CVE-2024-6119",
+            "CVE-2024-9143"
+          ],
+          "groups": 7
+        },
+        {
+          "package": {
+            "name": "busybox",
+            "os_package_name": "ssl_client",
+            "version": "1.36.1-r15",
+            "ecosystem": "Alpine:v3.19",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "CVE-2023-42363",
+            "CVE-2023-42364",
+            "CVE-2023-42365",
+            "CVE-2023-42366"
+          ],
+          "groups": 4
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "prod/app/node_modules/.package-lock.json",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "cryo",
+            "version": "0.0.6",
+            "ecosystem": "npm",
+            "image_origin_details": {
+              "index": 14
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-38f5-ghc2-fcmv"
+          ],
+          "groups": 1
+        },
+        {
+          "package": {
+            "name": "minimist",
+            "version": "0.0.8",
+            "ecosystem": "npm",
+            "image_origin_details": {
+              "index": 13
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-vh95-rmgr-6w4m",
+            "GHSA-xvch-5gv4-984h"
+          ],
+          "groups": 2
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "image_metadata": {
+    "os": "Alpine Linux v3.19",
+    "layer_metadata": [
+      {
+        "diff_id": "sha256:...",
+        "command": "/bin/sh -c #(nop) ADD fil...",
+        "is_empty": false,
+        "base_image_index": 4
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  CMD [/"...",
+        "is_empty": true,
+        "base_image_index": 3
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  ENV NO...",
+        "is_empty": true,
+        "base_image_index": 2
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "/bin/sh -c addgroup -g 10...",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  ENV YA...",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "/bin/sh -c apk add --no-c...",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "/bin/sh -c #(nop) COPY fi...",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  ENTRYP...",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  CMD [/"...",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "ARG MANAGER_VERSION=10.2.4",
+        "is_empty": true,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "WORKDIR /prod/app",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
+        "is_empty": false,
+        "base_image_index": 0
+      }
+    ],
+    "base_images": [
+      {},
+      {
+        "name": "library/node",
+        "tags": null
+      },
+      {
+        "name": "ayan4m1/maven-node",
+        "tags": null
+      },
+      {
+        "name": "alpine",
+        "tags": null
+      },
+      {
+        "name": "alpine",
+        "tags": null
+      }
+    ]
+  }
+}
+
+---
+
+[Test_run_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 2]
+Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
+Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-full.tar"
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 ---
 
 [Test_run_SubCommands/scan_with_a_flag - 1]

@@ -12,6 +12,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/google/osv-scanner/v2/internal/clilogger"
 	"github.com/google/osv-scanner/v2/internal/reporter"
 	"github.com/google/osv-scanner/v2/internal/spdx"
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -68,6 +69,10 @@ func GetScanGlobalFlags() []cli.Flag {
 			Value:   "table",
 			Action: func(_ *cli.Context, s string) error {
 				if slices.Contains(reporter.Format(), s) {
+					if s != "vertical" && s != "table" && s != "markdown" {
+						clilogger.SendEverythingToStderr()
+					}
+
 					return nil
 				}
 
