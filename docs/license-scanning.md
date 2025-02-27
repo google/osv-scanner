@@ -29,6 +29,8 @@ To also display violations, you can provide an allowlist of permitted licenses a
 ```bash
 # Show license summary only
 osv-scanner --licenses path/to/repository
+
+# Show the license summary and violations against an allowlist (provide the list after the = sign):
 osv-scanner --licenses="comma-separated list of allowed licenses" path/to/directory
 ```
 

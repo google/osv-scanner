@@ -96,14 +96,43 @@ The `--serve` flag is a helper flag to set the output format to HTML, and serve 
 osv-scanner scan -L package-lock.json --serve
 ```
 
+### Offline vulnerability match
+
+The `--offline-vulnerabilities` flag can be used to check for vulnerabilities using local databases that are already cached
+
+```bash
+osv-scanner --offline-vulnerabilities --download-offline-databases ./path/to/your/dir
+```
+
+See [offline vulnerabilities](./offline-mode.md) for more details.
+
+### Licenses scanning
+
+The `--licenses` flag can be used to report license violations based on an allowlist
+
+```bash
+# Show license summary only
+osv-scanner --licenses path/to/repository
+
+# Show the license summary and violations against an allowlist (provide the list after the = sign):
+osv-scanner --licenses="comma-separated list of allowed licenses" path/to/directory
+```
+
+See [licenses scanning](./license-scanning.md) for more details.
+
+### Show all packages
+
+The `--all-packages` flag can be used to output all packages in JSON format (make sure to set `--format=json`).
+
+```bash
+osv-scanner --all-packages --format=json path/to/repository
+```
+
 ### Other features
 
 Several other features are available through flags. See their respective documentation pages for more details:
 
-- [`--offline-vulnerabilities`](./offline-mode.md)
-- [`--licenses`](./license-scanning.md)
-- `--no-resolve`: Disables transitive dependency resolution.
-- `--all-packages`: Outputs all packages in JSON format (make sure to set `--format=json`).
+- [`--no-resolve`](./supported_languages_and_lockfiles.md): Disables transitive dependency resolution.
 
 ## Pre-Commit Integration
 
