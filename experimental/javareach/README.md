@@ -7,13 +7,10 @@ The intention is to see if this can be used to exclude transitive dependencies
 from vulnerability scanning completely, if they can be proven to be
 unreachable.
 
+This supports uber (or fat) JARs.
+
 ## Usage
 
 ```
-go run ./cmd/reachable -classpath=<classpath> path/to/root/class
+go run ./cmd/reachable /path/to/file.jar
 ```
-
-Note that `<classpath>` currently only supports a single directory path
-containing .class files, with a directory structure that mirrors the package
-hierarchy. This is unlike classpaths supported by Java runtimes (which supports
-specifying multiple directories and .jar files)
