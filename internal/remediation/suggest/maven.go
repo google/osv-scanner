@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log"
+	"slices"
 	"strings"
 
 	"deps.dev/util/resolve"
@@ -12,7 +13,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/utility/maven"
-	"golang.org/x/exp/slices"
 )
 
 type MavenSuggester struct{}

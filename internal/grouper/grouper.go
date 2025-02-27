@@ -1,10 +1,9 @@
 package grouper
 
 import (
+	"maps"
 	"slices"
 	"sort"
-
-	"golang.org/x/exp/maps"
 
 	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -51,7 +50,7 @@ func Group(vulns []IDAliases) []models.GroupInfo {
 	}
 
 	// Sort by group ID to maintain stable order for tests.
-	sortedKeys := maps.Keys(extractedGroups)
+	sortedKeys := slices.AppendSeq(make([]int, 0, len(extractedGroups)), maps.Keys(extractedGroups))
 	sort.Ints(sortedKeys)
 
 	result := make([]models.GroupInfo, 0, len(sortedKeys))
