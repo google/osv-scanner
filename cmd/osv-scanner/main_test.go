@@ -730,6 +730,11 @@ func Test_run_OCIImage(t *testing.T) {
 			exit: 1,
 		},
 		{
+			name: "Empty Ubuntu 22.04 image tar",
+			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-ubuntu.tar"},
+			exit: 1,
+		},
+		{
 			name: "Scanning python image with some packages",
 			args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-python-full.tar"},
 			exit: 1,
@@ -836,6 +841,17 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 		{
 			name: "scanning image with go binary",
 			args: []string{"", "scan", "image", "--archive", "--all-packages", "--format=json", "../../internal/image/fixtures/test-go-binary.tar"},
+			exit: 1,
+			replaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+			},
+		},
+		{
+			name: "scanning image with go binary",
+			args: []string{"", "scan", "image", "--archive", "--all-packages", "--format=json", "../../internal/image/fixtures/test-ubuntu.tar"},
 			exit: 1,
 			replaceRules: []testutility.JSONReplaceRule{
 				testutility.GroupsAsArrayLen,
