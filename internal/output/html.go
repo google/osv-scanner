@@ -57,6 +57,16 @@ func buildVulnTableEntryArgument(element VulnResult, isHidden bool) VulnTableEnt
 	}
 }
 
+func hasOSResult(ecosystems []EcosystemResult) bool {
+	for _, ecosystem := range ecosystems {
+		if ecosystem.IsOS {
+			return true
+		}
+	}
+
+	return false
+}
+
 func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
 	// htmlResult := BuildHTMLResults(vulnResult)
 	result := BuildResults(vulnResult)
@@ -76,6 +86,7 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		"formatLayerCommand":          formatLayerCommand,
 		"buildVulnTableEntryArgument": buildVulnTableEntryArgument,
 		"formatLicense":               formatLicense,
+		"hasOSResult":                 hasOSResult,
 		"GetShortCommit":              results.GetShortCommit,
 	}
 

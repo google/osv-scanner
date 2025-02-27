@@ -55,7 +55,7 @@
         </div>
       </div>
       <div id="type-filter-option-container" class="filter-option-container hide-block">
-        {{ if .IsContainerScanning }}
+        {{ if hasOSResult .Ecosystems }}
         <label class="filter-option" for="all-type-checkbox">
           <input type="checkbox" checked id="all-type-checkbox" data-type-all-count="{{ .VulnTypeSummary.All }}">
           Default ({{ .VulnTypeSummary.All }})
@@ -66,7 +66,7 @@
             data-type-project-count="{{ .VulnTypeSummary.Project }}">
           Project Vulnerabilities ({{ .VulnTypeSummary.Project }})
         </label>
-        {{ if .IsContainerScanning }}
+        {{ if hasOSResult .Ecosystems }}
         <label class="filter-option" for="os-type-checkbox">
           <input type="checkbox" checked id="os-type-checkbox" data-type-os-count="{{ .VulnTypeSummary.OS }}">
           Operating system vulnerabilities ({{ .VulnTypeSummary.OS }})
