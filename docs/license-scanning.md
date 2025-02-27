@@ -1,15 +1,12 @@
 ---
 layout: page
 title: License Scanning
-permalink: /experimental/license-scanning/
-parent: Experimental Features
-nav_order: 2
+permalink: /usage/license-scanning/
+parent: Usage
+nav_order: 3
 ---
 
 # License Scanning
-
-Experimental
-{: .label }
 
 {: .no_toc }
 
@@ -22,25 +19,19 @@ Experimental
 {:toc}
 </details>
 
-OSV-Scanner supports license checking as an experimental feature. The data comes from the [deps.dev API](https://docs.deps.dev/api/).
+OSV-Scanner supports license checking as an official feature. The data comes from the [deps.dev API](https://docs.deps.dev/api/).
 
-{: .note }
-This feature is experimental and might change or be removed with only a minor version update.
+## License Summary and Violations
 
-## License summary
-
-If you want a summary of your dependencies licenses, use the `--experimental-licenses-summary` flag:
+The `--licenses` flag provides a summary of the licenses used by your dependencies.
+To also display violations, you can provide an allowlist of permitted licenses as an argument:
 
 ```bash
-osv-scanner --experimental-licenses-summary path/to/repository
-```
+# Show license summary only
+osv-scanner --licenses path/to/repository
 
-## License violations
-
-To set an allowed license list and see the details of packages that do not conform, use the `--experimental-licenses` flag:
-
-```bash
-osv-scanner --experimental-licenses="comma-separated list of allowed licenses" path/to/directory
+# Show the license summary and violations against an allowlist (provide the list after the = sign):
+osv-scanner --licenses="comma-separated list of allowed licenses" path/to/directory
 ```
 
 Include your allowed licenses as a comma-separated list. OSV-Scanner recognizes licenses in SPDX format. Please indicate your allowed licenses using [SPDX license](https://spdx.org/licenses/) identifiers.
@@ -56,7 +47,7 @@ If you wanted to allow the following licenses:
 Your command would be in this form:
 
 ```bash
-osv-scanner --experimental-licenses="BSD-3-Clause,Apache-2.0,MIT" path/to/directory
+osv-scanner --licenses="BSD-3-Clause,Apache-2.0,MIT" path/to/directory
 ```
 
 ## Override License

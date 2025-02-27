@@ -138,11 +138,11 @@ func GetScanGlobalFlags() []cli.Flag {
 			Usage: "disable transitive dependency resolution of manifest files",
 		},
 		&cli.BoolFlag{
-			Name:  "experimental-all-packages",
+			Name:  "all-packages",
 			Usage: "when json output is selected, prints all packages",
 		},
 		&cli.GenericFlag{
-			Name:  "experimental-licenses",
+			Name:  "licenses",
 			Usage: "report on licenses based on an allowlist",
 			Value: &licenseGenericFlag{
 				allowList: "",
@@ -220,9 +220,9 @@ func GetReporter(context *cli.Context, stdout, stderr io.Writer, outputPath, for
 }
 
 func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
-	allowlist := strings.Split(context.Generic("experimental-licenses").(*licenseGenericFlag).String(), ",")
+	allowlist := strings.Split(context.Generic("licenses").(*licenseGenericFlag).String(), ",")
 
-	if !context.IsSet("experimental-licenses") {
+	if !context.IsSet("licenses") {
 		return []string{}, nil
 	}
 
@@ -232,7 +232,7 @@ func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
 	}
 
 	if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
-		return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
+		return nil, fmt.Errorf("--licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
 	}
 
 	if context.Bool("offline") {
@@ -247,8 +247,8 @@ func GetExperimentalScannerActions(context *cli.Context, scanLicensesAllowlist [
 		LocalDBPath:           context.String("local-db-path"),
 		DownloadDatabases:     context.Bool("download-offline-databases"),
 		CompareOffline:        context.Bool("offline-vulnerabilities"),
-		ShowAllPackages:       context.Bool("experimental-all-packages"),
-		ScanLicensesSummary:   context.IsSet("experimental-licenses"),
+		ShowAllPackages:       context.Bool("all-packages"),
+		ScanLicensesSummary:   context.IsSet("licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,
 	}
 }
