@@ -16,7 +16,7 @@ import (
 )
 
 func TestDependencySubgraph(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	g, err := schema.ParseResolve(`
 a 0.0.1
 	b@^1.0.1 1.0.1
@@ -50,7 +50,7 @@ a 0.0.1
 }
 
 func TestConstrainingSubgraph(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	const vulnPkgName = "vuln"
 	g, err := schema.ParseResolve(`
 root 1.0.0
@@ -141,7 +141,7 @@ root 1.0.0
 }
 
 func TestSubgraphIsDevOnly(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	g, err := schema.ParseResolve(`
 a 1.0.0
 	b@1.0.0 1.0.0

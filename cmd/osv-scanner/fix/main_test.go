@@ -35,7 +35,7 @@ func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Context,
 }
 
 func Test_parseUpgradeConfig(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	flags := []string{"upgrade-config"}
 
 	tests := []struct {
@@ -107,7 +107,7 @@ func Test_parseUpgradeConfig(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			ctx, err := parseFlags(t, flags, tt.args)
 			if err != nil {
 				t.Fatalf("error parsing flags: %v", err)

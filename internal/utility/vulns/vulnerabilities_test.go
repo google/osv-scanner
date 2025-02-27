@@ -8,7 +8,7 @@ import (
 )
 
 func TestVulnerabilities_Includes(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type args struct {
 		osv osvschema.Vulnerability
@@ -118,7 +118,7 @@ func TestVulnerabilities_Includes(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			if got := vulns.Include(tt.vs, tt.args.osv); got != tt.want {
 				t.Errorf("Includes() = %v, want %v", got, tt.want)

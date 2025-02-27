@@ -10,7 +10,7 @@ import (
 )
 
 func TestComputeOverridePatches(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	basicOpts := remediation.Options{
 		DevDeps:       true,
@@ -77,7 +77,7 @@ func TestComputeOverridePatches(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath, tt.opts.ResolveOpts)
 			res.FilterVulns(tt.opts.MatchVuln)
 			p, err := remediation.ComputeOverridePatches(context.Background(), cl, res, tt.opts)

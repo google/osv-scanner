@@ -9,7 +9,7 @@ import (
 )
 
 func TestSeverity_CalculateScore(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	type result struct {
 		score  float64
@@ -76,7 +76,7 @@ func TestSeverity_CalculateScore(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			gotScore, gotRating, err := severity.CalculateScore(tt.sev)
 			if err != nil {

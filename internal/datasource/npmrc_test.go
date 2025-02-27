@@ -85,7 +85,7 @@ func checkNpmRegistryRequest(t *testing.T, config datasource.NpmRegistryConfig, 
 }
 
 func TestLoadNpmRegistryConfig_WithNoRegistries(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	npmrcFiles := makeBlankNpmrcFiles(t)
 
 	config, err := datasource.LoadNpmRegistryConfig(filepath.Dir(npmrcFiles.project))
@@ -102,7 +102,7 @@ func TestLoadNpmRegistryConfig_WithNoRegistries(t *testing.T) {
 }
 
 func TestLoadNpmRegistryConfig_WithAuth(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	npmrcFiles := makeBlankNpmrcFiles(t)
 	writeToNpmrc(t, npmrcFiles.project,
 		"registry=https://registry1.test.com",
@@ -182,7 +182,7 @@ func TestLoadNpmRegistryConfig_WithOverrides(t *testing.T) {
 }
 
 func TestNpmRegistryAuths(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	b64enc := func(s string) string {
 		t.Helper()
 		return base64.StdEncoding.EncodeToString([]byte(s))
@@ -308,7 +308,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			config := datasource.ParseNpmRegistryInfo(tt.config)
 			// Send off requests to mockTransport to see the auth headers being added.
 			mt := &mockTransport{}

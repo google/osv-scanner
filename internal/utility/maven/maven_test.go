@@ -10,7 +10,7 @@ import (
 )
 
 func TestParentPOMPath(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	tests := []struct {
 		currentPath, relativePath string
 		want                      string

@@ -11,7 +11,7 @@ import (
 )
 
 func TestMavenRegistryAPIClient_GetProject(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
 	client, _ := NewMavenRegistryAPIClient(MavenRegistry{URL: srv.URL, ReleasesEnabled: true})
@@ -40,7 +40,7 @@ func TestMavenRegistryAPIClient_GetProject(t *testing.T) {
 }
 
 func TestGetProjectSnapshot(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
 	client, _ := NewMavenRegistryAPIClient(MavenRegistry{URL: srv.URL, SnapshotsEnabled: true})
@@ -94,7 +94,7 @@ func TestGetProjectSnapshot(t *testing.T) {
 }
 
 func TestGetArtifactMetadata(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
 	client, _ := NewMavenRegistryAPIClient(MavenRegistry{URL: srv.URL, ReleasesEnabled: true})
@@ -142,7 +142,7 @@ func TestGetArtifactMetadata(t *testing.T) {
 }
 
 func TestGetVersionMetadata(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	srv := testutility.NewMockHTTPServer(t)
 	client, _ := NewMavenRegistryAPIClient(MavenRegistry{URL: srv.URL, SnapshotsEnabled: true})
@@ -210,7 +210,7 @@ func TestGetVersionMetadata(t *testing.T) {
 }
 
 func TestMultipleRegistry(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	dft := testutility.NewMockHTTPServer(t)
 	client, _ := NewMavenRegistryAPIClient(MavenRegistry{URL: dft.URL, ReleasesEnabled: true})

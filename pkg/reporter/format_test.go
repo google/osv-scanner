@@ -8,7 +8,7 @@ import (
 )
 
 func TestNew(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	for _, format := range reporter.Format() {
 		stdout := &bytes.Buffer{}
@@ -22,7 +22,7 @@ func TestNew(t *testing.T) {
 }
 
 func TestNew_UnsupportedFormatter(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}

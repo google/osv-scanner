@@ -10,7 +10,7 @@ import (
 )
 
 func Test_matchAnalysisWithPackageVulns(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	pkgs := testutility.LoadJSONFixture[[]models.PackageVulns](t, "fixtures-go/input.json")
 	gvcResByVulnID := testutility.LoadJSONFixture[map[string][]*govulncheck.Finding](t, "fixtures-go/govulncheckinput.json")
@@ -22,7 +22,7 @@ func Test_matchAnalysisWithPackageVulns(t *testing.T) {
 }
 
 func Test_matchEmptyAnalysisWithPackageVulns(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	pkgs := testutility.LoadJSONFixture[[]models.PackageVulns](t, "fixtures-go/input-no-call-data.json")
 	// When there is no ecosystem specific data, govulncheck will return no results

@@ -10,7 +10,7 @@ import (
 )
 
 func TestMatchVuln(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	var (
 		// ID: VULN-001, Dev: false, Severity: 6.6, Depth: 3, Aliases: CVE-111, OSV-2
 		vuln1 = resolution.Vulnerability{
@@ -240,7 +240,7 @@ func TestMatchVuln(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 
 			if got := tt.opt.MatchVuln(tt.vuln); got != tt.want {
 				t.Errorf("MatchVuln() = %v, want %v", got, tt.want)

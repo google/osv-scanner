@@ -9,7 +9,7 @@ import (
 )
 
 func TestFlatten(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	// Test case 1: When there are no vulnerabilities
 	vulns := models.VulnerabilityResults{Results: []models.PackageSource{}}
 	expectedFlattened := []models.VulnerabilityFlattened{}

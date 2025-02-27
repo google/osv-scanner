@@ -8,7 +8,7 @@ import (
 )
 
 func TestPrintHTMLResults_WithVulnerabilities(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -23,7 +23,7 @@ func TestPrintHTMLResults_WithVulnerabilities(t *testing.T) {
 }
 
 func TestPrintHTMLResults_WithLicenseViolations(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -38,7 +38,7 @@ func TestPrintHTMLResults_WithLicenseViolations(t *testing.T) {
 }
 
 func TestPrintHTMLResults_WithMixedIssues(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 
 	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()

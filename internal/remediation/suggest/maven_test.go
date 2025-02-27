@@ -50,7 +50,7 @@ func mavenReqKey(t *testing.T, name, artifactType, classifier string) manifest.R
 }
 
 func TestMavenSuggester_Suggest(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	ctx := context.Background()
 	client := resolve.NewLocalClient()
 	addVersions := func(sys resolve.System, name string, versions []string) {
@@ -367,7 +367,7 @@ func TestMavenSuggester_Suggest(t *testing.T) {
 }
 
 func Test_suggestMavenVersion(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	ctx := context.Background()
 	lc := resolve.NewLocalClient()
 

@@ -10,7 +10,7 @@ import (
 )
 
 func TestPURLToPackage(t *testing.T) {
-	t.Parallel()
+	// t.Parallel()
 	type args struct {
 		purl string
 	}
@@ -86,7 +86,7 @@ func TestPURLToPackage(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+			// t.Parallel()
 			got, err := purl.ToPackage(tt.args.purl)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("PURLToPackage() error = %v, wantErr %v", err, tt.wantErr)
