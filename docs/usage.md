@@ -132,7 +132,7 @@ osv-scanner --all-packages --format=json path/to/repository
 
 Several other features are available through flags. See their respective documentation pages for more details:
 
-- `--no-resolve`: Disables [transitive dependency resolution](./supported_languages_and_lockfiles.md).
+- `--no-resolve`: Disables [transitive dependency resolution](./supported_languages_and_lockfiles.md#transitive-dependency-scanning).
 
 ## Pre-Commit Integration
 
