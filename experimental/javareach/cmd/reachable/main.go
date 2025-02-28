@@ -144,10 +144,14 @@ func enumerateReachabilityForJar(jarPath string) error {
 
 			scanner := bufio.NewScanner(f)
 			for scanner.Scan() {
-				provider := scanner.Text()
-				if strings.HasPrefix(strings.TrimSpace(provider), "#") {
+				provider := strings.TrimSpace(scanner.Text())
+				if strings.HasPrefix(provider, "#") {
 					continue
 				}
+				if len(provider) == 0 {
+					continue
+				}
+
 				slog.Debug("adding META-INF/services provider", "provider", provider, "from", path)
 				mainClasses = append(mainClasses, strings.ReplaceAll(provider, ".", "/"))
 			}
