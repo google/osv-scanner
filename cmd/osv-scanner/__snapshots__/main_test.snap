@@ -942,14 +942,11 @@ No issues found
 ---
 
 [Test_run/invalid_--verbosity_value - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
 [Test_run/invalid_--verbosity_value - 2]
-failed to write output: invalid verbosity level "unknown" - must be one of: error, warn, info
+invalid verbosity level "unknown" - must be one of: error, warn, info
 
 ---
 

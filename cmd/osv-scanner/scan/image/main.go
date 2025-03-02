@@ -77,7 +77,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) error {
 		return err
 	}
 
-	if errPrint := helper.PrintResult(context, stdout, stderr, outputPath, format, &vulnResult); errPrint != nil {
+	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult); errPrint != nil {
 		return fmt.Errorf("failed to write output: %w", errPrint)
 	}
 

@@ -100,6 +100,12 @@ func GetScanGlobalFlags() []cli.Flag {
 			Name:  "verbosity",
 			Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(reporter.VerbosityLevels(), ", "),
 			Value: "info",
+			Action: func(_ *cli.Context, s string) error {
+				// todo: we should actually set the verbosity on the logger here
+				_, err := reporter.ParseVerbosityLevel(s)
+
+				return err
+			},
 		},
 		&cli.BoolFlag{
 			Name:  "offline",
@@ -197,7 +203,7 @@ func ServeHTML(outputPath string) {
 	}
 }
 
-func PrintResult(context *cli.Context, stdout, stderr io.Writer, outputPath, format string, diffVulns *models.VulnerabilityResults) error {
+func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns *models.VulnerabilityResults) error {
 	termWidth := 0
 	var err error
 	if outputPath != "" { // Output is definitely a file
@@ -218,12 +224,6 @@ func PrintResult(context *cli.Context, stdout, stderr io.Writer, outputPath, for
 
 	if format == "gh-annotations" {
 		writer = stderr
-	}
-
-	// todo: re-implement verbosity level support (this is just here to maintain old output behaviour)
-	_, err = reporter.ParseVerbosityLevel(context.String("verbosity"))
-	if err != nil {
-		return err
 	}
 
 	return reporter.PrintResult(diffVulns, format, writer, termWidth)
