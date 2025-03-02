@@ -1,6 +1,5 @@
 
 [Test_run_Fix/fix_non-interactive_in-place_package-lock.json - 1]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Scanning <tempdir>/package-lock.json...
 Found 7 vulnerabilities matching the filter
 Can fix 2/7 matching vulnerabilities by changing 2 dependencies
@@ -14,6 +13,7 @@ Rewriting <tempdir>/package-lock.json...
 ---
 
 [Test_run_Fix/fix_non-interactive_in-place_package-lock.json - 2]
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 
 ---
 
@@ -1744,7 +1744,6 @@ Rewriting <tempdir>/package-lock.json...
 ---
 
 [Test_run_Fix/fix_non-interactive_json_in-place_package-lock.json - 1]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 {
   "path": "<tempdir>/package-lock.json",
   "ecosystem": "npm",
@@ -1868,6 +1867,7 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 ---
 
 [Test_run_Fix/fix_non-interactive_json_in-place_package-lock.json - 2]
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Scanning <tempdir>/package-lock.json...
 Rewriting <tempdir>/package-lock.json...
 
@@ -3600,7 +3600,6 @@ Rewriting <tempdir>/package-lock.json...
 ---
 
 [Test_run_Fix/fix_non-interactive_json_override_pom.xml - 1]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 {
   "path": "<tempdir>/pom.xml",
   "ecosystem": "Maven",
@@ -3878,6 +3877,7 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 ---
 
 [Test_run_Fix/fix_non-interactive_json_override_pom.xml - 2]
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Resolving <tempdir>/pom.xml...
 Rewriting <tempdir>/pom.xml...
 
@@ -3932,7 +3932,6 @@ Rewriting <tempdir>/pom.xml...
 ---
 
 [Test_run_Fix/fix_non-interactive_json_relax_package.json - 1]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 {
   "path": "<tempdir>/package.json",
   "ecosystem": "npm",
@@ -4032,6 +4031,7 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 ---
 
 [Test_run_Fix/fix_non-interactive_json_relax_package.json - 2]
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Resolving <tempdir>/package.json...
 Rewriting <tempdir>/package.json...
 
@@ -4056,7 +4056,6 @@ Rewriting <tempdir>/package.json...
 ---
 
 [Test_run_Fix/fix_non-interactive_override_pom.xml - 1]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Resolving <tempdir>/pom.xml...
 Found 12 vulnerabilities matching the filter
 Can fix 12/12 matching vulnerabilities by overriding 4 dependencies
@@ -4072,6 +4071,7 @@ Rewriting <tempdir>/pom.xml...
 ---
 
 [Test_run_Fix/fix_non-interactive_override_pom.xml - 2]
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 
 ---
 
@@ -4124,7 +4124,6 @@ Rewriting <tempdir>/pom.xml...
 ---
 
 [Test_run_Fix/fix_non-interactive_relax_package.json - 1]
-Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Resolving <tempdir>/package.json...
 Found 5 vulnerabilities matching the filter
 Can fix 3/5 matching vulnerabilities by changing 1 dependencies
@@ -4137,6 +4136,7 @@ Rewriting <tempdir>/package.json...
 ---
 
 [Test_run_Fix/fix_non-interactive_relax_package.json - 2]
+Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 
 ---
 

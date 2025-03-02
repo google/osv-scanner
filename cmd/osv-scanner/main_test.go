@@ -940,7 +940,7 @@ func Test_insertDefaultCommand(t *testing.T) {
 
 		slog.SetDefault(slog.New(&logger))
 
-		argsActual := insertDefaultCommand(tt.originalArgs, commands, defaultCommand)
+		argsActual := insertDefaultCommand(tt.originalArgs, commands, defaultCommand, stderr)
 		if !reflect.DeepEqual(argsActual, tt.wantArgs) {
 			t.Errorf("Test Failed. Details:\n"+
 				"Args (Got):  %s\n"+
