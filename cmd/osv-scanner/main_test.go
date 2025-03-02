@@ -43,9 +43,7 @@ func (m muffledWriter) Write(p []byte) (int, error) {
 		"osrelease.ParseOsRelease(): file does not exist",
 	} {
 		if bytes.HasPrefix(p, []byte(prefix)) {
-			_, err := m.Buffer.Write([]byte("<removed>"))
-
-			return len(p), err
+			return len(p), nil
 		}
 	}
 
