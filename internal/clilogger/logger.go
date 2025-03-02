@@ -20,6 +20,20 @@ func SendEverythingToStderr() {
 	}
 }
 
+// HasErrored returns true if there have been any calls to Handle with
+// a level of [slog.LevelError], assuming the logger is a [CLILogger].
+//
+// If the logger is not a [CLILogger], this will always return false.
+func HasErrored() bool {
+	l, ok := slog.Default().Handler().(*CLILogger)
+
+	if ok {
+		return l.HasErrored()
+	}
+
+	return false
+}
+
 type CLILogger struct {
 	stdout             io.Writer
 	stderr             io.Writer

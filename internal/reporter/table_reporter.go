@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io"
 
+	"github.com/google/osv-scanner/v2/internal/clilogger"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
@@ -16,7 +17,7 @@ type tableReporter struct {
 }
 
 func (r *tableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
-	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil {
+	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil && !clilogger.HasErrored() {
 		fmt.Fprintf(r.writer, "No issues found\n")
 		return nil
 	}

@@ -396,7 +396,6 @@ No issues found
 Scanning dir ./fixtures/locks-many-with-invalid
 Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
-No issues found
 
 ---
 
@@ -474,7 +473,6 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 [Test_run/config_file_is_invalid - 1]
 Scanning dir ./fixtures/config-invalid
 Scanned <rootdir>/fixtures/config-invalid/composer.lock file and found 1 package
-No issues found
 
 ---
 
@@ -2096,7 +2094,6 @@ Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1
 Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
 
 ---
 
@@ -2111,7 +2108,6 @@ Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1
 Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
-No issues found
 
 ---
 
@@ -2792,7 +2788,6 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
-No issues found
 
 ---
 
@@ -2819,7 +2814,6 @@ Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
-No issues found
 
 ---
 
