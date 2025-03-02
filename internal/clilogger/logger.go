@@ -23,8 +23,6 @@ func SendEverythingToStderr() {
 type CLILogger struct {
 	stdout             io.Writer
 	stderr             io.Writer
-	stdoutHandler      slog.Handler
-	stderrHandler      slog.Handler
 	hasErrored         bool
 	everythingToStderr bool
 }
@@ -38,15 +36,6 @@ func (c *CLILogger) SendEverythingToStderr() {
 	c.everythingToStderr = true
 }
 
-// handler returns the log handler to use for the given level
-func (c *CLILogger) handler(level slog.Level) slog.Handler {
-	if level == slog.LevelInfo {
-		return c.stdoutHandler
-	}
-
-	return c.stderrHandler
-}
-
 func (c *CLILogger) writer(level slog.Level) io.Writer {
 	if c.everythingToStderr || level != slog.LevelInfo {
 		return c.stderr
@@ -55,8 +44,8 @@ func (c *CLILogger) writer(level slog.Level) io.Writer {
 	return c.stdout
 }
 
-func (c *CLILogger) Enabled(ctx context.Context, level slog.Level) bool {
-	return c.handler(level).Enabled(ctx, level)
+func (c *CLILogger) Enabled(_ context.Context, level slog.Level) bool {
+	return level >= slog.LevelInfo
 }
 
 func (c *CLILogger) Handle(_ context.Context, record slog.Record) error {
@@ -75,31 +64,19 @@ func (c *CLILogger) HasErrored() bool {
 	return c.hasErrored
 }
 
-func (c *CLILogger) WithAttrs(attrs []slog.Attr) slog.Handler {
-	return &CLILogger{
-		stdout:        c.stdout,
-		stderr:        c.stderr,
-		stdoutHandler: c.stdoutHandler.WithAttrs(attrs),
-		stderrHandler: c.stderrHandler.WithAttrs(attrs),
-	}
+func (c *CLILogger) WithAttrs(_ []slog.Attr) slog.Handler {
+	panic("not supported")
 }
 
-func (c *CLILogger) WithGroup(name string) slog.Handler {
-	return &CLILogger{
-		stdout:        c.stdout,
-		stderr:        c.stderr,
-		stdoutHandler: c.stdoutHandler.WithGroup(name),
-		stderrHandler: c.stderrHandler.WithGroup(name),
-	}
+func (c *CLILogger) WithGroup(_ string) slog.Handler {
+	panic("not supported")
 }
 
 var _ slog.Handler = &CLILogger{}
 
 func New(stdout, stderr io.Writer) CLILogger {
 	return CLILogger{
-		stdout:        stdout,
-		stderr:        stderr,
-		stdoutHandler: slog.NewTextHandler(stdout, nil),
-		stderrHandler: slog.NewTextHandler(stderr, nil),
+		stdout: stdout,
+		stderr: stderr,
 	}
 }
