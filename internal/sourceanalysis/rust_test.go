@@ -10,7 +10,6 @@ import (
 
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 func Test_extractRlibArchive(t *testing.T) {
@@ -74,7 +73,6 @@ func Test_rustBuildSource(t *testing.T) {
 	}
 
 	type args struct {
-		r      reporter.Reporter
 		source models.SourceInfo
 	}
 	tests := []struct {
@@ -85,7 +83,6 @@ func Test_rustBuildSource(t *testing.T) {
 	}{
 		{
 			args: args{
-				r: &reporter.VoidReporter{},
 				source: models.SourceInfo{
 					Path: "fixtures-rust/rust-project/Cargo.lock",
 					Type: "lockfile",
@@ -97,7 +94,7 @@ func Test_rustBuildSource(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		got, err := rustBuildSource(tt.args.r, tt.args.source)
+		got, err := rustBuildSource(tt.args.source)
 		if (err != nil) != tt.wantErr {
 			t.Errorf("rustBuildSource() error = %v, wantErr %v", err, tt.wantErr)
 			return

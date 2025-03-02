@@ -4,7 +4,6 @@ import (
 	"path/filepath"
 
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -26,13 +25,13 @@ func vulnsFromAllPkgs(pkgs []models.PackageVulns) ([]osvschema.Vulnerability, ma
 }
 
 // Run runs the language specific analyzers on the code given packages and source info
-func Run(r reporter.Reporter, source models.SourceInfo, pkgs []models.PackageVulns, callAnalysis map[string]bool) {
+func Run(source models.SourceInfo, pkgs []models.PackageVulns, callAnalysis map[string]bool) {
 	// GoVulnCheck
 	if source.Type == "lockfile" && filepath.Base(source.Path) == "go.mod" && callAnalysis["go"] {
-		goAnalysis(r, pkgs, source)
+		goAnalysis(pkgs, source)
 	}
 
 	if source.Type == "lockfile" && filepath.Base(source.Path) == "Cargo.lock" && callAnalysis["rust"] {
-		rustAnalysis(r, pkgs, source)
+		rustAnalysis(pkgs, source)
 	}
 }

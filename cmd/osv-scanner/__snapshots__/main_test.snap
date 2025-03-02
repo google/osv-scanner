@@ -257,7 +257,7 @@ Scanned <rootdir>/fixtures/go-project/nested/go.mod file and found 1 package
 
 [Test_run/PURL_SBOM_case_sensitivity_(api) - 1]
 Scanning dir ./fixtures/sbom-insecure/alpine.cdx.xml
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
@@ -275,7 +275,7 @@ Filtered 1 local/unscannable package/s from the scan.
 
 [Test_run/PURL_SBOM_case_sensitivity_(local) - 1]
 Scanning dir ./fixtures/sbom-insecure/alpine.cdx.xml
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
@@ -375,7 +375,7 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 [Test_run/Scan_locks-many - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -396,6 +396,7 @@ No issues found
 Scanning dir ./fixtures/locks-many-with-invalid
 Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
+No issues found
 
 ---
 
@@ -408,7 +409,7 @@ Error during extraction: (extracting as php/composerlock) could not extract from
 Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -473,6 +474,7 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 [Test_run/config_file_is_invalid - 1]
 Scanning dir ./fixtures/config-invalid
 Scanned <rootdir>/fixtures/config-invalid/composer.lock file and found 1 package
+No issues found
 
 ---
 
@@ -484,7 +486,7 @@ Ignored invalid config file at: <rootdir>/fixtures/config-invalid/osv-scanner.to
 [Test_run/config_file_is_invalid#01 - 1]
 Scanning dir ./fixtures/config-invalid
 Scanned <rootdir>/fixtures/config-invalid/composer.lock file and found 1 package
-Config file <rootdir>/fixtures/config-invalid/osv-scanner.toml is invalid because: toml: line 1: expected '.' or '=', but got '!' instead
+No issues found
 
 ---
 
@@ -504,10 +506,9 @@ unknown keys in config file: RustVersionOverride, PackageOverrides.skip, Package
 ---
 
 [Test_run/config_files_should_not_have_multiple_ignores_with_the_same_id - 1]
-warning: ./fixtures/osv-scanner-duplicate-config.toml has multiple ignores for GO-2022-0274 - only the first will be used!
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -520,6 +521,7 @@ No issues found
 ---
 
 [Test_run/config_files_should_not_have_multiple_ignores_with_the_same_id - 2]
+warning: ./fixtures/osv-scanner-duplicate-config.toml has multiple ignores for GO-2022-0274 - only the first will be used!
 
 ---
 
@@ -685,10 +687,10 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 [Test_run/folder_of_supported_sbom_with_vulns - 1]
 Scanning dir ./fixtures/sbom-insecure/
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
-Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
-Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
+<removed><removed><removed><removed><removed><removed><removed>Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
+<removed>Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
 Filtered 9 local/unscannable package/s from the scan.
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
@@ -952,11 +954,14 @@ No issues found
 ---
 
 [Test_run/invalid_--verbosity_value - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
 [Test_run/invalid_--verbosity_value - 2]
-invalid verbosity level "unknown" - must be one of: error, warn, info, verbose
+failed to write output: invalid verbosity level "unknown" - must be one of: error, warn, info, verbose
 
 ---
 
@@ -1019,7 +1024,7 @@ No issues found
 ---
 
 [Test_run/one_specific_supported_sbom_with_duplicate_PURLs - 1]
-Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                         |
@@ -1036,7 +1041,7 @@ Filtered 1 local/unscannable package/s from the scan.
 ---
 
 [Test_run/one_specific_supported_sbom_with_invalid_PURLs - 1]
-Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
+<removed><removed><removed><removed><removed><removed><removed>Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
 Filtered 7 local/unscannable package/s from the scan.
 No issues found
 
@@ -1047,7 +1052,7 @@ No issues found
 ---
 
 [Test_run/one_specific_supported_sbom_with_vulns - 1]
-Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
@@ -1085,8 +1090,6 @@ No issues found
 ---
 
 [Test_run/output_format:_markdown_table - 1]
-Scanning dir ./fixtures/locks-many/package-lock.json
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 | OSV URL | CVSS | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5 | npm | ansi-html | 0.0.1 | fixtures/locks-many/package-lock.json |
@@ -1094,6 +1097,8 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 ---
 
 [Test_run/output_format:_markdown_table - 2]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 
 ---
 
@@ -1155,6 +1160,9 @@ Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file
 ---
 
 [Test_run/verbosity_level_=_error - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -1270,7 +1278,7 @@ failed to pull container image: failed to run docker command
 Checking if docker image ("alpine:3.18.9") exists locally...
 Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
-
+<removed><removed><removed><removed>
 Container Scanning Result (Alpine Linux v3.18):
 Total 2 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
 3 vulnerabilities can be fixed.
@@ -1300,7 +1308,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Checking if docker image ("hello-world") exists locally...
 Saving docker image ("hello-world") to temporary file...
 Scanning image "hello-world"
-
+<removed><removed>
 ---
 
 [Test_run_Docker/Real_empty_image - 2]
@@ -1313,7 +1321,7 @@ No package sources found, --help for usage information.
 Checking if docker image ("hello-world:linux") exists locally...
 Saving docker image ("hello-world:linux") to temporary file...
 Scanning image "hello-world:linux"
-
+<removed><removed>
 ---
 
 [Test_run_Docker/Real_empty_image_with_tag - 2]
@@ -1625,7 +1633,7 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 pac
 [Test_run_Licenses/No_vulnerabilities_with_license_summary - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -1649,17 +1657,6 @@ Filtered 2 vulnerabilities from output
 ---
 
 [Test_run_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 1]
-Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
 | License | No. of package versions |
 | --- | ---:|
 | Apache-2.0 | 1 |
@@ -1669,6 +1666,17 @@ Filtered 2 vulnerabilities from output
 ---
 
 [Test_run_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 2]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+<removed>Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Filtered 1 local/unscannable package/s from the scan.
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 2 vulnerabilities from output
 
 ---
 
@@ -1757,7 +1765,7 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 pac
 [Test_run_Licenses/Some_packages_with_ignored_licenses - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -2052,7 +2060,7 @@ No issues found
 [Test_run_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -2076,7 +2084,7 @@ No issues found
 [Test_run_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 3]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
@@ -2103,6 +2111,7 @@ Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1
 Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
 
 ---
 
@@ -2117,6 +2126,7 @@ Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1
 Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
 
 ---
 
@@ -2241,7 +2251,7 @@ No issues found
 
 [Test_run_LocalDatabases/one_specific_supported_sbom_with_vulns - 1]
 Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
-Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
+<removed>Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
@@ -2457,7 +2467,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 
 [Test_run_LocalDatabases/one_specific_supported_sbom_with_vulns - 3]
 Scanning dir ./fixtures/sbom-insecure/postgres-stretch.cdx.xml
-Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
+<removed>Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
@@ -2716,28 +2726,28 @@ No issues found
 ---
 
 [Test_run_LocalDatabases/output_format:_markdown_table - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
-Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 No issues found
 
 ---
 
 [Test_run_LocalDatabases/output_format:_markdown_table - 2]
-
----
-
-[Test_run_LocalDatabases/output_format:_markdown_table - 3]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+
+---
+
+[Test_run_LocalDatabases/output_format:_markdown_table - 3]
 No issues found
 
 ---
 
 [Test_run_LocalDatabases/output_format:_markdown_table - 4]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
@@ -2792,11 +2802,12 @@ Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 
 Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
+No issues found
 
 ---
 
@@ -2818,11 +2829,12 @@ Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 
 Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+<removed>Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
+No issues found
 
 ---
 
@@ -3140,7 +3152,7 @@ No issues found
 
 [Test_run_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-alpine.tar"
-
+<removed><removed><removed><removed>
 Container Scanning Result (Alpine Linux v3.18):
 Total 2 packages affected by 41 known vulnerabilities (2 Critical, 17 High, 14 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
 41 vulnerabilities can be fixed.
@@ -3179,7 +3191,7 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 
 [Test_run_OCIImage/Scanning_java_image_with_some_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-java-full.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 Container Scanning Result (Alpine Linux v3.21):
 Total 13 packages affected by 18 known vulnerabilities (1 Critical, 5 High, 8 Medium, 0 Low, 4 Unknown) from 2 ecosystems.
 18 vulnerabilities can be fixed.
@@ -3225,7 +3237,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/Scanning_python_image_with_no_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-python-empty.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
 Total 12 packages affected by 17 known vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
 17 vulnerabilities can be fixed.
@@ -3276,7 +3288,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/Scanning_python_image_with_some_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
 Total 17 packages affected by 31 known vulnerabilities (0 Critical, 8 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
 31 vulnerabilities can be fixed.
@@ -3362,7 +3374,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_image_with_go_binary - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-package-tracing.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 Container Scanning Result (Alpine Linux v3.20):
 Total 8 packages affected by 48 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 48 Unknown) from 2 ecosystems.
 48 vulnerabilities can be fixed.
@@ -3433,7 +3445,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-empty.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 Container Scanning Result (Alpine Linux v3.19):
 Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
@@ -3461,7 +3473,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-full.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 Container Scanning Result (Alpine Linux v3.19):
 Total 4 packages affected by 14 known vulnerabilities (2 Critical, 0 High, 5 Medium, 0 Low, 7 Unknown) from 2 ecosystems.
 13 vulnerabilities can be fixed.
@@ -3498,7 +3510,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 Container Scanning Result (Alpine Linux v3.19):
 Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
@@ -3526,7 +3538,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 Container Scanning Result (Alpine Linux v3.19):
 Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
@@ -3554,7 +3566,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 Container Scanning Result (Alpine Linux v3.19):
 Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
@@ -3582,7 +3594,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-yarn-full.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 Container Scanning Result (Alpine Linux v3.19):
 Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
@@ -4293,7 +4305,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 [Test_run_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 2]
 Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
 Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 ---
 
 [Test_run_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 1]
@@ -4593,7 +4605,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
 [Test_run_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 2]
 Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
 Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
-
+<removed><removed><removed><removed><removed><removed>
 ---
 
 [Test_run_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 1]
@@ -4874,7 +4886,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
 [Test_run_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 2]
 Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
 Scanning local image tarball "../../internal/image/fixtures/test-node_modules-npm-full.tar"
-
+<removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed><removed>
 ---
 
 [Test_run_SubCommands/scan_with_a_flag - 1]

@@ -4,6 +4,7 @@ package main
 import (
 	"bytes"
 	"errors"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -11,6 +12,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/v2/internal/clilogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/urfave/cli/v2"
 )
@@ -24,11 +26,41 @@ type cliTestCase struct {
 	replaceRules []testutility.JSONReplaceRule
 }
 
+// muffledHandler eats certain log messages to reduce noise in the test output
+type muffledWriter struct {
+	*bytes.Buffer
+}
+
+func (m muffledWriter) Write(p []byte) (int, error) {
+	// todo: work with the osv-scalibr team to see if we can reduce these
+	for _, prefix := range []string{
+		"Starting filesystem walk for root:",
+		"End status: ",
+		"Neither CPE nor PURL found for package",
+		"Invalid PURL",
+		"os-release[ID] not set, fallback to",
+		"VERSION_ID not set in os-release",
+		"osrelease.ParseOsRelease(): file does not exist",
+	} {
+		if bytes.HasPrefix(p, []byte(prefix)) {
+			_, err := m.Buffer.Write([]byte("<removed>"))
+
+			return len(p), err
+		}
+	}
+
+	return m.Buffer.Write(p)
+}
+
+func newMuffledWriter() muffledWriter {
+	return muffledWriter{Buffer: &bytes.Buffer{}}
+}
+
 func runCli(t *testing.T, tc cliTestCase) (string, string) {
 	t.Helper()
 
-	stdout := &bytes.Buffer{}
-	stderr := &bytes.Buffer{}
+	stdout := newMuffledWriter()
+	stderr := newMuffledWriter()
 
 	ec := run(tc.args, stdout, stderr)
 
@@ -58,8 +90,6 @@ func testCliJSONWithCustomRules(t *testing.T, tc cliTestCase) {
 }
 
 func Test_run(t *testing.T) {
-	t.Parallel()
-
 	tests := []cliTestCase{
 		{
 			name: "",
@@ -291,16 +321,12 @@ func Test_run(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			testCli(t, tt)
 		})
 	}
 }
 
 func Test_run_CallAnalysis(t *testing.T) {
-	t.Parallel()
-
 	// Switch to acceptance test if this takes too long, or when we add rust tests
 	// testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
@@ -316,16 +342,12 @@ func Test_run_CallAnalysis(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			testCli(t, tt)
 		})
 	}
 }
 
 func Test_run_LockfileWithExplicitParseAs(t *testing.T) {
-	t.Parallel()
-
 	tests := []cliTestCase{
 		{
 			name: "unsupported parse-as",
@@ -438,8 +460,6 @@ func Test_run_LockfileWithExplicitParseAs(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			stdout, stderr := runCli(t, tt)
 
 			testutility.NewSnapshot().MatchText(t, stdout)
@@ -452,8 +472,6 @@ func Test_run_LockfileWithExplicitParseAs(t *testing.T) {
 
 // Test_run_GithubActions tests common actions the github actions reusable workflow will run
 func Test_run_GithubActions(t *testing.T) {
-	t.Parallel()
-
 	tests := []cliTestCase{
 		{
 			name: "scanning osv-scanner custom format",
@@ -468,16 +486,12 @@ func Test_run_GithubActions(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			testCli(t, tt)
 		})
 	}
 }
 
 func Test_run_LocalDatabases(t *testing.T) {
-	t.Parallel()
-
 	tests := []cliTestCase{
 		{
 			name: "one specific supported lockfile",
@@ -543,8 +557,6 @@ func Test_run_LocalDatabases(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			if testutility.IsAcceptanceTesting() {
 				testDir := testutility.CreateTestDir(t)
 				old := tt.args
@@ -561,8 +573,6 @@ func Test_run_LocalDatabases(t *testing.T) {
 }
 
 func Test_run_LocalDatabases_AlwaysOffline(t *testing.T) {
-	t.Parallel()
-
 	tests := []cliTestCase{
 		{
 			name: "a bunch of different lockfiles and ecosystem",
@@ -573,8 +583,6 @@ func Test_run_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			testDir := testutility.CreateTestDir(t)
 			old := tt.args
 			tt.args = []string{"", "--local-db-path", testDir}
@@ -589,7 +597,6 @@ func Test_run_LocalDatabases_AlwaysOffline(t *testing.T) {
 }
 
 func Test_run_Licenses(t *testing.T) {
-	t.Parallel()
 	tests := []cliTestCase{
 		{
 			name: "No vulnerabilities with license summary",
@@ -659,16 +666,12 @@ func Test_run_Licenses(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			testCli(t, tt)
 		})
 	}
 }
 
 func Test_run_Docker(t *testing.T) {
-	t.Parallel()
-
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
 
 	tests := []cliTestCase{
@@ -701,8 +704,6 @@ func Test_run_Docker(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			// Only test on linux, and mac/windows CI/CD does not come with docker preinstalled
 			if runtime.GOOS != "linux" {
 				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
@@ -714,8 +715,6 @@ func Test_run_Docker(t *testing.T) {
 }
 
 func Test_run_OCIImage(t *testing.T) {
-	t.Parallel()
-
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
 	tests := []cliTestCase{
@@ -782,8 +781,6 @@ func Test_run_OCIImage(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.args {
 				if strings.HasPrefix(arg, "../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
@@ -799,8 +796,6 @@ func Test_run_OCIImage(t *testing.T) {
 }
 
 func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
-	t.Parallel()
-
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
 	if runtime.GOOS == "windows" {
@@ -847,8 +842,6 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.args {
 				if strings.HasPrefix(arg, "../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
@@ -865,7 +858,6 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 
 // Tests all subcommands here.
 func Test_run_SubCommands(t *testing.T) {
-	t.Parallel()
 	tests := []cliTestCase{
 		// without subcommands
 		{
@@ -889,15 +881,12 @@ func Test_run_SubCommands(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
-
 			testCli(t, tt)
 		})
 	}
 }
 
 func Test_insertDefaultCommand(t *testing.T) {
-	t.Parallel()
 	commands := []*cli.Command{
 		{Name: "default"},
 		{Name: "scan"},
@@ -951,7 +940,12 @@ func Test_insertDefaultCommand(t *testing.T) {
 	for _, tt := range tests {
 		stdout := &bytes.Buffer{}
 		stderr := &bytes.Buffer{}
-		argsActual := insertDefaultCommand(tt.originalArgs, commands, defaultCommand, stdout, stderr)
+
+		logger := clilogger.New(stdout, stderr)
+
+		slog.SetDefault(slog.New(&logger))
+
+		argsActual := insertDefaultCommand(tt.originalArgs, commands, defaultCommand)
 		if !reflect.DeepEqual(argsActual, tt.wantArgs) {
 			t.Errorf("Test Failed. Details:\n"+
 				"Args (Got):  %s\n"+
@@ -963,7 +957,6 @@ func Test_insertDefaultCommand(t *testing.T) {
 }
 
 func Test_run_MavenTransitive(t *testing.T) {
-	t.Parallel()
 	tests := []cliTestCase{
 		{
 			name: "scans transitive dependencies for pom.xml by default",
@@ -1006,14 +999,12 @@ func Test_run_MavenTransitive(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
 			testCli(t, tt)
 		})
 	}
 }
 
 func Test_run_MoreLockfiles(t *testing.T) {
-	t.Parallel()
 	tests := []cliTestCase{
 		{
 			name: "uv.lock",
@@ -1045,7 +1036,6 @@ func Test_run_MoreLockfiles(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
 			testCli(t, tt)
 		})
 	}
