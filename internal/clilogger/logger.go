@@ -37,7 +37,7 @@ func (c *CLILogger) SendEverythingToStderr() {
 }
 
 func (c *CLILogger) writer(level slog.Level) io.Writer {
-	if c.everythingToStderr || level != slog.LevelInfo {
+	if c.everythingToStderr || level == slog.LevelError {
 		return c.stderr
 	}
 
