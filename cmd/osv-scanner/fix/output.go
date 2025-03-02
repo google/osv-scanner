@@ -87,10 +87,6 @@ func (r *outputReporter) Infof(format string, a ...any) {
 	fmt.Fprintf(r.Stdout, format, a...)
 }
 
-func (r *outputReporter) Verbosef(format string, a ...any) {
-	fmt.Fprintf(r.Stdout, format, a...)
-}
-
 func (r *outputReporter) PrintResult(*models.VulnerabilityResults) error {
 	panic("not implemented")
 }

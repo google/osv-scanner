@@ -27,8 +27,6 @@ type Reporter interface {
 	Warnf(format string, a ...any)
 	// Infof prints text providing general information about what OSV-Scanner is doing during its runtime.
 	Infof(format string, a ...any)
-	// Verbosef prints text providing additional information about the inner workings of OSV-Scanner to the user.
-	Verbosef(format string, a ...any)
 	// PrintResult prints the models.VulnerabilityResults per the logic of the
 	// actual reporter
 	PrintResult(vulnResult *models.VulnerabilityResults) error

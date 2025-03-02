@@ -45,12 +45,6 @@ func (r *GHAnnotationsReporter) Infof(format string, a ...any) {
 	}
 }
 
-func (r *GHAnnotationsReporter) Verbosef(format string, a ...any) {
-	if VerboseLevel <= r.level {
-		fmt.Fprintf(r.stderr, format, a...)
-	}
-}
-
 func (r *GHAnnotationsReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintGHAnnotationReport(vulnResult, r.stderr)
 }

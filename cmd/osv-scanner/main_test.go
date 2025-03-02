@@ -265,11 +265,6 @@ func Test_run(t *testing.T) {
 			args: []string{"", "./fixtures/config-invalid"},
 			exit: 127,
 		},
-		{
-			name: "config file is invalid",
-			args: []string{"", "--verbosity", "verbose", "./fixtures/config-invalid"},
-			exit: 127,
-		},
 		// config file with unknown keys
 		{
 			name: "config files cannot have unknown keys",
