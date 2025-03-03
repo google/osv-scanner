@@ -335,7 +335,9 @@ function resetFilterText() {
     selectedVulnCount.textContent = allTypeCheckedBox.getAttribute(
       "data-type-all-count"
     );
-    allLayerCheckedBox.checked = true;
+    if (allLayerCheckedBox) {
+      allLayerCheckedBox.checked = true;
+    }
     uncalledTypeCheckBox.checked = false;
   } else {
     const projectTypeCheckedBox = document.getElementById(
