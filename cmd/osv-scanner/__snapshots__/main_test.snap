@@ -1143,9 +1143,6 @@ Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file
 ---
 
 [Test_run/verbosity_level_=_error - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---

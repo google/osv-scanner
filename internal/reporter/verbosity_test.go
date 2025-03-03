@@ -1,6 +1,7 @@
 package reporter_test
 
 import (
+	"log/slog"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/reporter"
@@ -11,7 +12,7 @@ func TestParseVerbosityLevel_GivenValidLevels(t *testing.T) {
 
 	tests := []struct {
 		input       string
-		expectedLvl reporter.VerbosityLevel
+		expectedLvl slog.Level
 	}{
 		{input: "error", expectedLvl: reporter.ErrorLevel},
 		{input: "warn", expectedLvl: reporter.WarnLevel},

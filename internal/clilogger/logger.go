@@ -34,11 +34,20 @@ func HasErrored() bool {
 	return false
 }
 
+func SetLevel(level slog.Leveler) {
+	l, ok := slog.Default().Handler().(*CLILogger)
+
+	if ok {
+		l.Level = level
+	}
+}
+
 type CLILogger struct {
 	stdout             io.Writer
 	stderr             io.Writer
 	hasErrored         bool
 	everythingToStderr bool
+	Level              slog.Leveler
 }
 
 // SendEverythingToStderr tells the logger to send all logs to stderr regardless
@@ -59,7 +68,11 @@ func (c *CLILogger) writer(level slog.Level) io.Writer {
 }
 
 func (c *CLILogger) Enabled(_ context.Context, level slog.Level) bool {
-	return level >= slog.LevelInfo
+	if level == slog.LevelError {
+		c.hasErrored = true
+	}
+
+	return level >= c.Level.Level()
 }
 
 func (c *CLILogger) Handle(_ context.Context, record slog.Record) error {
@@ -92,5 +105,6 @@ func New(stdout, stderr io.Writer) CLILogger {
 	return CLILogger{
 		stdout: stdout,
 		stderr: stderr,
+		Level:  slog.LevelInfo,
 	}
 }
