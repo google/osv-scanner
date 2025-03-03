@@ -3,6 +3,7 @@ package remediation_test
 import (
 	"cmp"
 	"context"
+	"maps"
 	"slices"
 	"testing"
 
@@ -13,7 +14,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	"golang.org/x/exp/maps"
 )
 
 func parseRemediationFixture(t *testing.T, universePath, manifestPath string, opts resolution.ResolveOpts) (*resolution.Result, client.ResolutionClient) {
@@ -61,7 +61,7 @@ func checkRemediationResults(t *testing.T, res []resolution.Difference) {
 		for _, sg := range v.Subgraphs {
 			nodes[sg.Dependency] = struct{}{}
 		}
-		sortedNodes := maps.Keys(nodes)
+		sortedNodes := slices.AppendSeq(make([]resolve.NodeID, 0, len(nodes)), maps.Keys(nodes))
 		slices.Sort(sortedNodes)
 
 		return minimalVuln{

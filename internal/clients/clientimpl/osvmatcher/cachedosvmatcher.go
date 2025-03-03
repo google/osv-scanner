@@ -82,7 +82,7 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 				toQuery[&osvdev.Query{Package: pkg}] = struct{}{}
 			}
 		}
-		queries = slices.Collect(maps.Keys(toQuery))
+		queries = slices.AppendSeq(make([]*osvdev.Query, 0, len(toQuery)), maps.Keys(toQuery))
 	}
 
 	if len(queries) == 0 {
