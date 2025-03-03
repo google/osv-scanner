@@ -1,9 +1,10 @@
 package lockfile_test
 
 import (
+	"testing"
+
 	"github.com/google/osv-scanner/pkg/lockfile"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func Test_ParseFile(t *testing.T) {
