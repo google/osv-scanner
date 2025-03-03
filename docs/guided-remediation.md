@@ -700,6 +700,8 @@ As with the other strategies, override patches are prioritized by vulnerabilitie
 
 The `fix` subcommand has a number of flags to allow you to control which vulnerabilities and patches may be considered during remediation.
 
+Guided remediation can be run in the [interactive mode](#interactive-mode) with `--interactive` flag.
+
 ### Non-interactive flags
 
 The following flags may be used when running in non-interactive mode only:

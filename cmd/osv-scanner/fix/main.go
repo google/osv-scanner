@@ -90,9 +90,10 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Usage: "URL of the default Maven registry to fetch metadata",
 			},
 			&cli.BoolFlag{
-				Name:  "non-interactive",
-				Usage: "[DEPRECATED] run in the non-interactive mode",
-				Value: !term.IsTerminal(int(os.Stdin.Fd())), // Default to non-interactive if not being run in a terminal
+				Name:   "non-interactive",
+				Usage:  "[DEPRECATED] run in the non-interactive mode",
+				Hidden: true,
+				Value:  true,
 			},
 			&cli.BoolFlag{
 				Name:  "interactive",
