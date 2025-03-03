@@ -4,11 +4,20 @@
 
 ### CLI changes:
 
-Most experimental commands have now been stablized:
+Most experimental commands have now been stablized, all experimental versions of these flags have been removed:
 
 - `--experimental-call-analysis` => `--call-analysis`
+- `--experimental-no-call-analysis` => `--no-call-analysis`
 - `--experimental-all-packages` => `--all-packages`
-- ... TODO
+- `--experimental-licenses` & `--experimental-license-summary` => `--licenses`
+    - Instead of two separate flags, by having no values after `--licenses`, it behaves the same way as just `--experimental-license-summary`
+    - You can still specify the license allow list after `--licenses` flag like so: `--licenses="MIT,Apache 2.0,..."`
+- `--experimental-offline` => `--offline`
+- `--experimental-offline-vulnerabilities` => `--offline-vulnerabilities`
+- `--experimental-download-offline-databases` => `--offline-download-offline-databases`
+- `--experimental-no-resolve` => `--no-resolve`
+
+---
 
 Container scanning and the `--docker/-D` flag has been migrated to it's own command
 
@@ -16,9 +25,26 @@ Container scanning and the `--docker/-D` flag has been migrated to it's own comm
 osv-scanner scan image <image-name>
 ```
 
+---
+
 `--verbosity=verbose` verbosity level removed. Now there is only `info`, `warn`, `error`
 
+---
+
 `osv-scanner <dir>` is now a shortcut for `osv-scanner scan source <dir>`
+
+---
+
+SBOM scanning (`osv-scanner --sbom`) now relies on the filename of the sbom file to follow the relevant SBOM specs. E.g. `*.spdx.json`
+
+---
+
+`.git` root hash is not automatically scanned now, therefore:
+
+`--skip-git` flag removed, replaced with `--include-git-root`
+
+---
+
 
 TODO: #1636?
 
