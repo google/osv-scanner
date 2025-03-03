@@ -49,12 +49,6 @@ func (r *CycloneDXReporter) Infof(format string, a ...any) {
 	}
 }
 
-func (r *CycloneDXReporter) Verbosef(format string, a ...any) {
-	if VerboseLevel <= r.level {
-		fmt.Fprintf(r.stderr, format, a...)
-	}
-}
-
 func (r *CycloneDXReporter) PrintResult(vulnerabilityResults *models.VulnerabilityResults) error {
 	errs := output.PrintCycloneDXResults(vulnerabilityResults, r.version, r.stdout)
 	if errs != nil {

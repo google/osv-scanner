@@ -16,7 +16,6 @@ func TestParseVerbosityLevel_GivenValidLevels(t *testing.T) {
 		{input: "error", expectedLvl: reporter.ErrorLevel},
 		{input: "warn", expectedLvl: reporter.WarnLevel},
 		{input: "info", expectedLvl: reporter.InfoLevel},
-		{input: "verbose", expectedLvl: reporter.VerboseLevel},
 	}
 
 	for _, tt := range tests {

@@ -174,8 +174,7 @@ func (c *Manager) Get(r reporter.Reporter, targetPath string) Config {
 	} else {
 		// anything other than the config file not existing is most likely due to an invalid config file
 		if !errors.Is(configErr, os.ErrNotExist) {
-			r.Errorf("Ignored invalid config file at: %s\n", configPath)
-			r.Verbosef("Config file %s is invalid because: %v\n", configPath, configErr)
+			r.Errorf("Ignored invalid config file at %s because: %v\n", configPath, configErr)
 		}
 		// If config doesn't exist, use the default config
 		config = c.DefaultConfig

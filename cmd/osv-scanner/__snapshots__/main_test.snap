@@ -477,19 +477,7 @@ Scanned <rootdir>/fixtures/config-invalid/composer.lock file and found 1 package
 ---
 
 [Test_run/config_file_is_invalid - 2]
-Ignored invalid config file at: <rootdir>/fixtures/config-invalid/osv-scanner.toml
-
----
-
-[Test_run/config_file_is_invalid#01 - 1]
-Scanning dir ./fixtures/config-invalid
-Scanned <rootdir>/fixtures/config-invalid/composer.lock file and found 1 package
-Config file <rootdir>/fixtures/config-invalid/osv-scanner.toml is invalid because: toml: line 1: expected '.' or '=', but got '!' instead
-
----
-
-[Test_run/config_file_is_invalid#01 - 2]
-Ignored invalid config file at: <rootdir>/fixtures/config-invalid/osv-scanner.toml
+Ignored invalid config file at <rootdir>/fixtures/config-invalid/osv-scanner.toml because: toml: line 1: expected '.' or '=', but got '!' instead
 
 ---
 
@@ -956,7 +944,7 @@ No issues found
 ---
 
 [Test_run/invalid_--verbosity_value - 2]
-invalid verbosity level "unknown" - must be one of: error, warn, info, verbose
+invalid verbosity level "unknown" - must be one of: error, warn, info
 
 ---
 
