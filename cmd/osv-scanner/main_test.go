@@ -184,7 +184,7 @@ func Test_run(t *testing.T) {
 		},
 		{
 			name: "cyclonedx 1.4 output",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-4", "--experimental-all-packages", "./fixtures/locks-insecure"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-4", "--all-packages", "./fixtures/locks-insecure"},
 			exit: 1,
 		},
 		// output format: cyclonedx 1.5
@@ -195,7 +195,7 @@ func Test_run(t *testing.T) {
 		},
 		{
 			name: "cyclonedx 1.5 output",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-5", "--experimental-all-packages", "./fixtures/locks-insecure"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-5", "--all-packages", "./fixtures/locks-insecure"},
 			exit: 1,
 		},
 		// output format: unsupported
@@ -232,7 +232,7 @@ func Test_run(t *testing.T) {
 		},
 		{
 			name: "PURL SBOM case sensitivity (local)",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			exit: 1,
 		},
 		// Go project with an overridden go version
@@ -250,7 +250,7 @@ func Test_run(t *testing.T) {
 		// broad config file that overrides a whole ecosystem
 		{
 			name: "config file can be broad",
-			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--experimental-licenses=MIT", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "./fixtures/locks-many", "./fixtures/locks-insecure", "./fixtures/maven-transitive"},
+			args: []string{"", "--config=./fixtures/osv-scanner-composite-config.toml", "--licenses=MIT", "-L", "osv-scanner:./fixtures/locks-insecure/osv-scanner-flutter-deps.json", "./fixtures/locks-many", "./fixtures/locks-insecure", "./fixtures/maven-transitive"},
 			exit: 1,
 		},
 		// ignored vulnerabilities and packages without a reason should be called out
@@ -263,11 +263,6 @@ func Test_run(t *testing.T) {
 		{
 			name: "config file is invalid",
 			args: []string{"", "./fixtures/config-invalid"},
-			exit: 127,
-		},
-		{
-			name: "config file is invalid",
-			args: []string{"", "--verbosity", "verbose", "./fixtures/config-invalid"},
 			exit: 127,
 		},
 		// config file with unknown keys
@@ -481,62 +476,62 @@ func Test_run_LocalDatabases(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "one specific supported lockfile",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--offline", "--download-offline-databases", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		{
 			name: "one specific supported sbom with vulns",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
+			args: []string{"", "--offline", "--download-offline-databases", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
 			exit: 1,
 		},
 		{
 			name: "one specific unsupported lockfile",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many/not-a-lockfile.toml"},
+			args: []string{"", "--offline", "--download-offline-databases", "./fixtures/locks-many/not-a-lockfile.toml"},
 			exit: 128,
 		},
 		{
 			name: "all supported lockfiles in the directory should be checked",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many"},
+			args: []string{"", "--offline", "--download-offline-databases", "./fixtures/locks-many"},
 			exit: 0,
 		},
 		{
 			name: "all supported lockfiles in the directory should be checked",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-many-with-invalid"},
+			args: []string{"", "--offline", "--download-offline-databases", "./fixtures/locks-many-with-invalid"},
 			exit: 127,
 		},
 		{
 			name: "only the files in the given directories are checked by default (no recursion)",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/locks-one-with-nested"},
+			args: []string{"", "--offline", "--download-offline-databases", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
 		{
 			name: "nested directories are checked when `--recursive` is passed",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "./fixtures/locks-one-with-nested"},
+			args: []string{"", "--offline", "--download-offline-databases", "--recursive", "./fixtures/locks-one-with-nested"},
 			exit: 0,
 		},
 		{
 			name: ".gitignored files",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "./fixtures/locks-gitignore"},
+			args: []string{"", "--offline", "--download-offline-databases", "--recursive", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		{
 			name: "ignoring .gitignore",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
+			args: []string{"", "--offline", "--download-offline-databases", "--recursive", "--no-ignore", "./fixtures/locks-gitignore"},
 			exit: 0,
 		},
 		{
 			name: "output with json",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "json", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--offline", "--download-offline-databases", "--format", "json", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		{
 			name: "output format: markdown table",
-			args: []string{"", "--experimental-offline", "--experimental-download-offline-databases", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
+			args: []string{"", "--offline", "--download-offline-databases", "--format", "markdown", "./fixtures/locks-many/composer.lock"},
 			exit: 0,
 		},
 		{
 			name: "database should be downloaded only when offline is set",
-			args: []string{"", "--experimental-download-offline-databases", "./fixtures/locks-many"},
+			args: []string{"", "--download-offline-databases", "./fixtures/locks-many"},
 			exit: 127,
 		},
 	}
@@ -548,7 +543,7 @@ func Test_run_LocalDatabases(t *testing.T) {
 			if testutility.IsAcceptanceTesting() {
 				testDir := testutility.CreateTestDir(t)
 				old := tt.args
-				tt.args = []string{"", "--experimental-local-db-path", testDir}
+				tt.args = []string{"", "--local-db-path", testDir}
 				tt.args = append(tt.args, old[1:]...)
 			}
 
@@ -566,7 +561,7 @@ func Test_run_LocalDatabases_AlwaysOffline(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "a bunch of different lockfiles and ecosystem",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "./fixtures/locks-requirements", "./fixtures/locks-many"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "./fixtures/locks-requirements", "./fixtures/locks-many"},
 			exit: 127,
 		},
 	}
@@ -577,7 +572,7 @@ func Test_run_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 			testDir := testutility.CreateTestDir(t)
 			old := tt.args
-			tt.args = []string{"", "--experimental-local-db-path", testDir}
+			tt.args = []string{"", "--local-db-path", testDir}
 			tt.args = append(tt.args, old[1:]...)
 
 			// run each test twice since they should provide the same output,
@@ -593,67 +588,67 @@ func Test_run_Licenses(t *testing.T) {
 	tests := []cliTestCase{
 		{
 			name: "No vulnerabilities with license summary",
-			args: []string{"", "--experimental-licenses", "./fixtures/locks-many"},
+			args: []string{"", "--licenses", "./fixtures/locks-many"},
 			exit: 0,
 		},
 		{
 			name: "No vulnerabilities with license summary in markdown",
-			args: []string{"", "--experimental-licenses", "--format=markdown", "./fixtures/locks-many"},
+			args: []string{"", "--licenses", "--format=markdown", "./fixtures/locks-many"},
 			exit: 0,
 		},
 		{
 			name: "Vulnerabilities and license summary",
-			args: []string{"", "--experimental-licenses", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			args: []string{"", "--licenses", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "Vulnerabilities and license violations with allowlist",
-			args: []string{"", "--experimental-licenses=MIT", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			args: []string{"", "--licenses=MIT", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "Vulnerabilities and all license violations allowlisted",
-			args: []string{"", "--experimental-licenses=Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			args: []string{"", "--licenses=Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "Some packages with license violations and show-all-packages in json",
-			args: []string{"", "--format=json", "--experimental-licenses=MIT", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--format=json", "--licenses=MIT", "--all-packages", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "Some packages with ignored licenses",
-			args: []string{"", "--config=./fixtures/osv-scanner-complex-licenses-config.toml", "--experimental-licenses=MIT", "./fixtures/locks-many", "./fixtures/locks-insecure"},
+			args: []string{"", "--config=./fixtures/osv-scanner-complex-licenses-config.toml", "--licenses=MIT", "./fixtures/locks-many", "./fixtures/locks-insecure"},
 			exit: 1,
 		},
 		{
 			name: "Some packages with license violations in json",
-			args: []string{"", "--format=json", "--experimental-licenses=MIT", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--format=json", "--licenses=MIT", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "No license violations and show-all-packages in json",
-			args: []string{"", "--format=json", "--experimental-licenses=MIT,Apache-2.0", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--format=json", "--licenses=MIT,Apache-2.0", "--all-packages", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 0,
 		},
 		{
 			name: "Show all Packages with license summary in json",
-			args: []string{"", "--format=json", "--experimental-licenses", "--experimental-all-packages", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--format=json", "--licenses", "--all-packages", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 0,
 		},
 		{
 			name: "Licenses in summary mode json",
-			args: []string{"", "--format=json", "--experimental-licenses", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--format=json", "--licenses", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 0,
 		},
 		{
 			name: "Licenses with expressions",
-			args: []string{"", "--config=./fixtures/osv-scanner-expressive-licenses-config.toml", "--experimental-licenses=MIT,BSD-3-Clause", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--config=./fixtures/osv-scanner-expressive-licenses-config.toml", "--licenses=MIT,BSD-3-Clause", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 1,
 		},
 		{
 			name: "Licenses with invalid expression",
-			args: []string{"", "--config=./fixtures/osv-scanner-invalid-licenses-config.toml", "--experimental-licenses=MIT,BSD-3-Clause", "./fixtures/locks-licenses/package-lock.json"},
+			args: []string{"", "--config=./fixtures/osv-scanner-invalid-licenses-config.toml", "--licenses=MIT,BSD-3-Clause", "./fixtures/locks-licenses/package-lock.json"},
 			exit: 1,
 		},
 	}
@@ -835,7 +830,7 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 		},
 		{
 			name: "scanning image with go binary",
-			args: []string{"", "scan", "image", "--archive", "--experimental-all-packages", "--format=json", "../../internal/image/fixtures/test-go-binary.tar"},
+			args: []string{"", "scan", "image", "--archive", "--all-packages", "--format=json", "../../internal/image/fixtures/test-go-binary.tar"},
 			exit: 1,
 			replaceRules: []testutility.JSONReplaceRule{
 				testutility.GroupsAsArrayLen,
@@ -983,13 +978,13 @@ func Test_run_MavenTransitive(t *testing.T) {
 		{
 			// Direct dependencies do not have any vulnerability.
 			name: "does not scan transitive dependencies for pom.xml with offline mode",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-offline", "--experimental-download-offline-databases", "./fixtures/maven-transitive/pom.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "./fixtures/maven-transitive/pom.xml"},
 			exit: 0,
 		},
 		{
 			// Direct dependencies do not have any vulnerability.
 			name: "does not scan transitive dependencies for pom.xml with no-resolve",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-no-resolve", "./fixtures/maven-transitive/pom.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--no-resolve", "./fixtures/maven-transitive/pom.xml"},
 			exit: 0,
 		},
 		{
@@ -999,7 +994,7 @@ func Test_run_MavenTransitive(t *testing.T) {
 		},
 		{
 			name: "resolve transitive dependencies with native data source",
-			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--experimental-resolution-data-source=native", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
+			args: []string{"", "--config=./fixtures/osv-scanner-empty-config.toml", "--data-source=native", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
 			exit: 1,
 		},
 	}

@@ -22,9 +22,6 @@ func (r *VoidReporter) Warnf(_ string, _ ...any) {
 func (r *VoidReporter) Infof(_ string, _ ...any) {
 }
 
-func (r *VoidReporter) Verbosef(_ string, _ ...any) {
-}
-
 func (r *VoidReporter) PrintResult(_ *models.VulnerabilityResults) error {
 	return nil
 }

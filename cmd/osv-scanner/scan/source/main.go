@@ -51,11 +51,8 @@ var projectScanFlags = []cli.Flag{
 		Usage: "include scanning git root (non-submoduled) repositories",
 		Value: false,
 	},
-}
-
-var projectScanExperimentalFlags = []cli.Flag{
 	&cli.StringFlag{
-		Name:  "experimental-resolution-data-source",
+		Name:  "data-source",
 		Usage: "source to fetch package information from; value can be: deps.dev, native",
 		Value: "deps.dev",
 		Action: func(_ *cli.Context, s string) error {
@@ -67,22 +64,15 @@ var projectScanExperimentalFlags = []cli.Flag{
 		},
 	},
 	&cli.StringFlag{
-		Name:  "experimental-maven-registry",
+		Name:  "maven-registry",
 		Usage: "URL of the default registry to fetch Maven metadata",
-	},
-	&cli.BoolFlag{
-		Name:  "experimental-call-analysis",
-		Usage: "[Deprecated] attempt call analysis on code to detect only active vulnerabilities",
-		Value: false,
 	},
 }
 
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
-	flags := make([]cli.Flag, 0, len(projectScanFlags)+len(helper.GlobalScanFlags)+len(projectScanExperimentalFlags))
+	flags := make([]cli.Flag, 0, len(projectScanFlags)+len(helper.GetScanGlobalFlags()))
 	flags = append(flags, projectScanFlags...)
-	flags = append(flags, helper.GlobalScanFlags...)
-	// Make sure all experimental flags show after regular flags
-	flags = append(flags, projectScanExperimentalFlags...)
+	flags = append(flags, helper.GetScanGlobalFlags()...)
 
 	return &cli.Command{
 		Name:        "source",
@@ -130,20 +120,14 @@ func action(context *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, 
 		return nil, err
 	}
 
-	var callAnalysisStates map[string]bool
-	if context.IsSet("experimental-call-analysis") {
-		callAnalysisStates = helper.CreateCallAnalysisStates([]string{"all"}, context.StringSlice("no-call-analysis"))
-		r.Infof("Warning: the experimental-call-analysis flag has been replaced. Please use the call-analysis and no-call-analysis flags instead.\n")
-	} else {
-		callAnalysisStates = helper.CreateCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
-	}
+	callAnalysisStates := helper.CreateCallAnalysisStates(context.StringSlice("call-analysis"), context.StringSlice("no-call-analysis"))
 
 	experimentalScannerActions := helper.GetExperimentalScannerActions(context, scanLicensesAllowlist)
 	// Add `source` specific experimental configs
 	experimentalScannerActions.TransitiveScanningActions = osvscanner.TransitiveScanningActions{
-		Disabled:         context.Bool("experimental-no-resolve"),
-		NativeDataSource: context.String("experimental-resolution-data-source") == "native",
-		MavenRegistry:    context.String("experimental-maven-registry"),
+		Disabled:         context.Bool("no-resolve"),
+		NativeDataSource: context.String("data-source") == "native",
+		MavenRegistry:    context.String("maven-registry"),
 	}
 
 	scannerAction := osvscanner.ScannerActions{

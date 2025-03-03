@@ -46,14 +46,13 @@ linters-settings:
         funcs:
           - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Errorf
           - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Warnf
-          - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Verbosef
           - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Infof
   depguard:
     rules:
       regexp:
         files:
           - "!**/internal/cachedregexp/**"
-          - "!**/main_test.go"
+          - "!**/internal/testutility/normalize.go"
         deny:
           - pkg: "regexp"
             desc: "Use github.com/google/osv-scanner/v2/internal/cachedregexp instead"

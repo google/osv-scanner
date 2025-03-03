@@ -15,15 +15,12 @@ const (
 	WarnLevel
 	// InfoLevel is for general information about what OSV-Scanner is doing during its runtime.
 	InfoLevel
-	// VerboseLevel is for providing even more information compared to InfoLevel about the inner workings of OSV-Scanner.
-	VerboseLevel
 )
 
 var verbosityLevels = []string{
 	"error",
 	"warn",
 	"info",
-	"verbose",
 }
 
 func VerbosityLevels() []string {
@@ -38,8 +35,6 @@ func ParseVerbosityLevel(text string) (VerbosityLevel, error) {
 		return WarnLevel, nil
 	case "info":
 		return InfoLevel, nil
-	case "verbose":
-		return VerboseLevel, nil
 	default:
 		var l VerbosityLevel
 

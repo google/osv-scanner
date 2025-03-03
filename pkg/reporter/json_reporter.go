@@ -47,12 +47,6 @@ func (r *JSONReporter) Infof(format string, a ...any) {
 	}
 }
 
-func (r *JSONReporter) Verbosef(format string, a ...any) {
-	if VerboseLevel <= r.level {
-		fmt.Fprintf(r.stderr, format, a...)
-	}
-}
-
 func (r *JSONReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintJSONResults(vulnResult, r.stdout)
 }

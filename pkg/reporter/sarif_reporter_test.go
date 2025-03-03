@@ -72,27 +72,3 @@ func TestSarifReporter_Infof(t *testing.T) {
 		}
 	}
 }
-
-func TestSarifReporter_Verbosef(t *testing.T) {
-	t.Parallel()
-
-	text := "hello world!"
-	tests := []struct {
-		lvl              reporter.VerbosityLevel
-		expectedPrintout string
-	}{
-		{lvl: reporter.VerboseLevel, expectedPrintout: text},
-		{lvl: reporter.InfoLevel, expectedPrintout: ""},
-	}
-
-	for _, tt := range tests {
-		writer := &bytes.Buffer{}
-		r := reporter.NewSarifReporter(io.Discard, writer, tt.lvl)
-
-		r.Verbosef("%s", text)
-
-		if writer.String() != tt.expectedPrintout {
-			t.Errorf("expected \"%s\", got \"%s\"", tt.expectedPrintout, writer.String())
-		}
-	}
-}
