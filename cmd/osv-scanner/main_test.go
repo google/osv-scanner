@@ -12,7 +12,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/osv-scanner/v2/internal/clilogger"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/urfave/cli/v2"
 )
@@ -934,7 +934,7 @@ func Test_insertDefaultCommand(t *testing.T) {
 		stdout := &bytes.Buffer{}
 		stderr := &bytes.Buffer{}
 
-		logger := clilogger.New(stdout, stderr)
+		logger := cmdlogger.New(stdout, stderr)
 
 		slog.SetDefault(slog.New(&logger))
 

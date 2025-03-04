@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/google/osv-scanner/v2/internal/ci"
-	"github.com/google/osv-scanner/v2/internal/clilogger"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/reporter"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -35,7 +35,7 @@ func splitLastArg(args []string) []string {
 }
 
 func run(args []string, stdout, stderr io.Writer) int {
-	logger := clilogger.New(stdout, stderr)
+	logger := cmdlogger.New(stdout, stderr)
 
 	slog.SetDefault(slog.New(&logger))
 
