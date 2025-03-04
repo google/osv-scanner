@@ -137,6 +137,18 @@ func enumerateReachabilityForJar(jarPath string) error {
 
 		for _, entry := range entries {
 			path := filepath.Join(servicesDir, entry.Name())
+
+			fileInfo, err := os.Stat(path)
+			if err != nil {
+				slog.Debug("failed getting META-INF/services provider from", path)
+			}
+
+			// Check if it's a directory
+			if fileInfo.IsDir() {
+				slog.Debug("skipping META-INF/services provider:", path, "is a directory")
+				continue
+			}
+
 			f, err := os.Open(path)
 			if err != nil {
 				return err
