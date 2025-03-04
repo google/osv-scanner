@@ -46,7 +46,7 @@ func ParseUpgradeConfig(specs []string) Config {
 	for _, spec := range specs {
 		idx := strings.LastIndex(spec, ":")
 		if idx == 0 {
-			slog.Warn(fmt.Sprintf("WARNING: `--upgrade-config %s` - skipping empty package name\n", spec))
+			slog.Warn(fmt.Sprintf("WARNING: `--upgrade-config %s` - skipping empty package name", spec))
 			continue
 		}
 		pkg := ""
@@ -66,11 +66,11 @@ func ParseUpgradeConfig(specs []string) Config {
 		case "none":
 			level = None
 		default:
-			slog.Warn(fmt.Sprintf("WARNING: `--upgrade-config %s` - invalid level string '%s'\n", spec, levelStr))
+			slog.Warn(fmt.Sprintf("WARNING: `--upgrade-config %s` - invalid level string '%s'", spec, levelStr))
 			continue
 		}
 		if config.Set(pkg, level) { // returns true if was previously set
-			slog.Warn(fmt.Sprintf("WARNING: `--upgrade-config %s` - config for package specified multiple times\n", spec))
+			slog.Warn(fmt.Sprintf("WARNING: `--upgrade-config %s` - config for package specified multiple times", spec))
 		}
 	}
 

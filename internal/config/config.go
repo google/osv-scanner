@@ -170,11 +170,11 @@ func (c *Manager) Get(targetPath string) Config {
 
 	config, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
-		slog.Info(fmt.Sprintf("Loaded filter from: %s\n", config.LoadPath))
+		slog.Info("Loaded filter from: " + config.LoadPath)
 	} else {
 		// anything other than the config file not existing is most likely due to an invalid config file
 		if !errors.Is(configErr, os.ErrNotExist) {
-			slog.Error(fmt.Sprintf("Ignored invalid config file at %s because: %v\n", configPath, configErr))
+			slog.Error(fmt.Sprintf("Ignored invalid config file at %s because: %v", configPath, configErr))
 		}
 		// If config doesn't exist, use the default config
 		config = c.DefaultConfig
@@ -232,7 +232,7 @@ func (c *Config) warnAboutDuplicates() {
 
 	for _, vuln := range c.IgnoredVulns {
 		if _, ok := seen[vuln.ID]; ok {
-			slog.Warn(fmt.Sprintf("warning: %s has multiple ignores for %s - only the first will be used!\n", c.LoadPath, vuln.ID))
+			slog.Warn(fmt.Sprintf("warning: %s has multiple ignores for %s - only the first will be used!", c.LoadPath, vuln.ID))
 		}
 		seen[vuln.ID] = struct{}{}
 	}

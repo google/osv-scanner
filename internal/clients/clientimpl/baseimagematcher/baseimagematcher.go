@@ -151,7 +151,7 @@ func (matcher *DepsDevBaseImageMatcher) queryBaseImagesForChainID(ctx context.Co
 	})
 
 	if err != nil {
-		slog.Error(fmt.Sprintf("deps.dev API error, you may need to update osv-scanner: %s\n", err))
+		slog.Error(fmt.Sprintf("deps.dev API error, you may need to update osv-scanner: %s", err))
 		return nil, err
 	}
 	defer resp.Body.Close()

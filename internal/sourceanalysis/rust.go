@@ -34,7 +34,7 @@ const (
 func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 	binaryPaths, err := rustBuildSource(source)
 	if err != nil {
-		slog.Error(fmt.Sprintf("failed to build cargo/rust project from source: %s\n", err))
+		slog.Error(fmt.Sprintf("failed to build cargo/rust project from source: %s", err))
 		return
 	}
 
@@ -50,14 +50,14 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 			// Is a library, so need an extra step to extract the object binary file before passing to parseDWARFData
 			buf, err := extractRlibArchive(path)
 			if err != nil {
-				slog.Error(fmt.Sprintf("failed to analyse '%s': %s\n", path, err))
+				slog.Error(fmt.Sprintf("failed to analyse '%s': %s", path, err))
 				continue
 			}
 			readAt = bytes.NewReader(buf.Bytes())
 		} else {
 			f, err := os.Open(path)
 			if err != nil {
-				slog.Error(fmt.Sprintf("failed to read binary '%s': %s\n", path, err))
+				slog.Error(fmt.Sprintf("failed to read binary '%s': %s", path, err))
 				continue
 			}
 			// This is fine to defer til the end of the function as there's
@@ -68,7 +68,7 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 
 		calls, err := functionsFromDWARF(readAt)
 		if err != nil {
-			slog.Error(fmt.Sprintf("failed to analyse '%s': %s\n", path, err))
+			slog.Error(fmt.Sprintf("failed to analyse '%s': %s", path, err))
 			continue
 		}
 
@@ -233,7 +233,7 @@ func rustBuildSource(source models.SourceInfo) ([]string, error) {
 	cmd.Stdout = &stdoutBuffer
 	cmd.Stderr = &stderrBuffer
 
-	slog.Info("Begin building rust/cargo project\n")
+	slog.Info("Begin building rust/cargo project")
 
 	if err := cmd.Run(); err != nil {
 		slog.Error("cargo stdout:\n" + stdoutBuffer.String())

@@ -201,7 +201,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	if actions.ConfigOverridePath != "" {
 		err := scanResult.ConfigManager.UseOverride(actions.ConfigOverridePath)
 		if err != nil {
-			slog.Error(fmt.Sprintf("Failed to read config file: %s\n", err))
+			slog.Error(fmt.Sprintf("Failed to read config file: %s", err))
 			return models.VulnerabilityResults{}, err
 		}
 	}
@@ -253,7 +253,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	filtered := filterResults(&results, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		slog.Info(fmt.Sprintf(
-			"Filtered %d %s from output\n",
+			"Filtered %d %s from output",
 			filtered,
 			output.Form(filtered, "vulnerability", "vulnerabilities"),
 		))
@@ -273,7 +273,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	if actions.ConfigOverridePath != "" {
 		err := scanResult.ConfigManager.UseOverride(actions.ConfigOverridePath)
 		if err != nil {
-			slog.Error(fmt.Sprintf("Failed to read config file: %s\n", err))
+			slog.Error(fmt.Sprintf("Failed to read config file: %s", err))
 			return models.VulnerabilityResults{}, err
 		}
 	}
@@ -288,7 +288,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	var img *image.Image
 	if actions.IsImageArchive {
-		slog.Info(fmt.Sprintf("Scanning local image tarball %q\n", actions.Image))
+		slog.Info(fmt.Sprintf("Scanning local image tarball %q", actions.Image))
 		img, err = image.FromTarball(actions.Image, image.DefaultConfig())
 	} else if actions.Image != "" {
 		path, exportErr := imagehelpers.ExportDockerImage(actions.Image)
@@ -298,7 +298,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		defer os.Remove(path)
 
 		img, err = image.FromTarball(path, image.DefaultConfig())
-		slog.Info(fmt.Sprintf("Scanning image %q\n", actions.Image))
+		slog.Info(fmt.Sprintf("Scanning image %q", actions.Image))
 	}
 	if err != nil {
 		return models.VulnerabilityResults{}, err
@@ -307,7 +307,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	defer func() {
 		err := img.CleanUp()
 		if err != nil {
-			slog.Error(fmt.Sprintf("Failed to clean up image: %s\n", err))
+			slog.Error(fmt.Sprintf("Failed to clean up image: %s", err))
 		}
 	}()
 
@@ -379,7 +379,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	filtered := filterResults(&results, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		slog.Info(fmt.Sprintf(
-			"Filtered %d %s from output\n",
+			"Filtered %d %s from output",
 			filtered,
 			output.Form(filtered, "vulnerability", "vulnerabilities"),
 		))

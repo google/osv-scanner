@@ -80,7 +80,7 @@ func (c *CmdLogger) Handle(_ context.Context, record slog.Record) error {
 		c.hasErrored = true
 	}
 
-	_, err := fmt.Fprint(c.writer(record.Level), record.Message)
+	_, err := fmt.Fprint(c.writer(record.Level), record.Message+"\n")
 
 	return err
 }

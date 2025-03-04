@@ -30,7 +30,7 @@ func ScanDir(dir string, recursive bool, useGitIgnore bool, extractorsToUse []fi
 		var err error
 		ignoreMatcher, err = parseGitIgnores(dir, recursive)
 		if err != nil {
-			slog.Error(fmt.Sprintf("Unable to parse git ignores: %v\n", err))
+			slog.Error(fmt.Sprintf("Unable to parse git ignores: %v", err))
 			useGitIgnore = false
 		}
 	}
@@ -41,24 +41,24 @@ func ScanDir(dir string, recursive bool, useGitIgnore bool, extractorsToUse []fi
 
 	err := filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {
-			slog.Info(fmt.Sprintf("Failed to walk %s: %v\n", path, err))
+			slog.Info(fmt.Sprintf("Failed to walk %s: %v", path, err))
 			return err
 		}
 
 		path, err = filepath.Abs(path)
 		if err != nil {
-			slog.Error(fmt.Sprintf("Failed to walk path %s\n", err))
+			slog.Error(fmt.Sprintf("Failed to walk path %s", err))
 			return err
 		}
 
 		if useGitIgnore {
 			match, err := ignoreMatcher.match(path, info.IsDir())
 			if err != nil {
-				slog.Info(fmt.Sprintf("Failed to resolve gitignore for %s: %v\n", path, err))
+				slog.Info(fmt.Sprintf("Failed to resolve gitignore for %s: %v", path, err))
 				// Don't skip if we can't parse now - potentially noisy for directories with lots of items
 			} else if match {
 				if root { // Don't silently skip if the argument file was ignored.
-					slog.Error(path + " was not scanned because it is excluded by a .gitignore file. Use --no-ignore to scan it.\n")
+					slog.Error(path + " was not scanned because it is excluded by a .gitignore file. Use --no-ignore to scan it.")
 				}
 				if info.IsDir() {
 					return filepath.SkipDir
@@ -71,14 +71,14 @@ func ScanDir(dir string, recursive bool, useGitIgnore bool, extractorsToUse []fi
 		// -------- Perform scanning --------
 		inventories, err := scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 		if err != nil && !errors.Is(err, scalibrextract.ErrExtractorNotFound) {
-			slog.Error(fmt.Sprintf("Error during extraction: %s\n", err))
+			slog.Error(fmt.Sprintf("Error during extraction: %s", err))
 		}
 
 		pkgCount := len(inventories)
 		if pkgCount > 0 {
 			// TODO(v2): Display the name of the extractor used here
 			slog.Info(fmt.Sprintf(
-				"Scanned %s file and found %d %s\n",
+				"Scanned %s file and found %d %s",
 				path,
 				pkgCount,
 				output.Form(pkgCount, "package", "packages"),

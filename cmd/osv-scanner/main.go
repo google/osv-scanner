@@ -28,7 +28,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 	slog.SetDefault(slog.New(&logger))
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
-		slog.Info(fmt.Sprintf("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date))
+		slog.Info("osv-scanner version: " + ctx.App.Version)
+		slog.Info("commit: " + commit)
+		slog.Info("built at: " + date)
 	}
 
 	app := &cli.App{
@@ -66,13 +68,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
 		case errors.Is(err, osvscanner.ErrNoPackagesFound):
-			slog.Error("No package sources found, --help for usage information.\n")
+			slog.Error("No package sources found, --help for usage information.")
 			return 128
 		case errors.Is(err, osvscanner.ErrAPIFailed):
-			slog.Error(fmt.Sprintf("%v\n", err))
+			slog.Error(fmt.Sprintf("%v", err))
 			return 129
 		}
-		slog.Error(fmt.Sprintf("%v\n", err))
+		slog.Error(fmt.Sprintf("%v", err))
 	}
 
 	// if we've been told to print an error, and not already exited with

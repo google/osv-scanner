@@ -22,7 +22,7 @@ func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 	cmd := exec.Command("go", "version")
 	_, err := cmd.Output()
 	if err != nil {
-		slog.Info("Skipping call analysis on Go code since Go is not installed.\n")
+		slog.Info("Skipping call analysis on Go code since Go is not installed.")
 		return
 	}
 
@@ -50,7 +50,7 @@ func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 		// TODO: Better method to identify the type of error and give advice specific to the error
 		slog.Error(fmt.Sprintf(
 			"Failed to run code analysis (govulncheck) on '%s' because %s\n"+
-				"(the Go toolchain is required)\n", source.Path, err.Error(),
+				"(the Go toolchain is required)", source.Path, err.Error(),
 		))
 
 		return

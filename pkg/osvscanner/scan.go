@@ -1,7 +1,6 @@
 package osvscanner
 
 import (
-	"fmt"
 	"log/slog"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -45,7 +44,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		accessors.MavenRegistryAPIClient,
 	)
 	for _, dir := range actions.DirectoryPaths {
-		slog.Info(fmt.Sprintf("Scanning dir %s\n", dir))
+		slog.Info("Scanning dir " + dir)
 		pkgs, err := scanners.ScanDir(dir, actions.Recursive, !actions.NoIgnore, dirExtractors)
 		if err != nil {
 			return nil, err

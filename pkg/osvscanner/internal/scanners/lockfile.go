@@ -51,20 +51,20 @@ func ScanSingleFile(path string, extractorsToUse []filesystem.Extractor) ([]*ext
 	// TODO: Update the logging output to stop referring to SBOMs
 	path, err := filepath.Abs(path)
 	if err != nil {
-		slog.Error(fmt.Sprintf("Failed to resolved path %q with error: %s\n", path, err))
+		slog.Error(fmt.Sprintf("Failed to resolved path %q with error: %s", path, err))
 		return nil, err
 	}
 
 	invs, err := scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 	if err != nil {
-		slog.Info(fmt.Sprintf("Failed to parse SBOM %q with error: %s\n", path, err))
+		slog.Info(fmt.Sprintf("Failed to parse SBOM %q with error: %s", path, err))
 		return nil, err
 	}
 
 	pkgCount := len(invs)
 	if pkgCount > 0 {
 		slog.Info(fmt.Sprintf(
-			"Scanned %s file and found %d %s\n",
+			"Scanned %s file and found %d %s",
 			path,
 			pkgCount,
 			output.Form(pkgCount, "package", "packages"),
@@ -84,7 +84,7 @@ func ScanSingleFileWithMapping(scanPath string, extractorsToUse []filesystem.Ext
 
 	path, err = filepath.Abs(path)
 	if err != nil {
-		slog.Error(fmt.Sprintf("Failed to resolved path %q with error: %s\n", path, err))
+		slog.Error(fmt.Sprintf("Failed to resolved path %q with error: %s", path, err))
 		return nil, err
 	}
 
@@ -128,7 +128,7 @@ func ScanSingleFileWithMapping(scanPath string, extractorsToUse []filesystem.Ext
 	pkgCount := len(inventories)
 
 	slog.Info(fmt.Sprintf(
-		"Scanned %s file %sand found %d %s\n",
+		"Scanned %s file %sand found %d %s",
 		path,
 		parsedAsComment,
 		pkgCount,
