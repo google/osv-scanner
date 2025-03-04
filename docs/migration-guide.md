@@ -10,8 +10,8 @@ Most experimental commands have now been stablized, all experimental versions of
 - `--experimental-no-call-analysis` => `--no-call-analysis`
 - `--experimental-all-packages` => `--all-packages`
 - `--experimental-licenses` & `--experimental-license-summary` => `--licenses`
-    - Instead of two separate flags, by having no values after `--licenses`, it behaves the same way as just `--experimental-license-summary`
-    - You can still specify the license allow list after `--licenses` flag like so: `--licenses="MIT,Apache 2.0,..."`
+  - Instead of two separate flags, by having no values after `--licenses`, it behaves the same way as just `--experimental-license-summary`
+  - You can still specify the license allow list after `--licenses` flag like so: `--licenses="MIT,Apache 2.0,..."`
 - `--experimental-offline` => `--offline`
 - `--experimental-offline-vulnerabilities` => `--offline-vulnerabilities`
 - `--experimental-download-offline-databases` => `--offline-download-offline-databases`
@@ -55,10 +55,6 @@ The following deprecated flags have been removed:
 - `fix --disallow-major-upgrades` removed
 - `fix --disallow-package-upgrades`
 
-
 ### JSON output changes:
 
 License summary is now in JSON output when `--license-summary` is used, rather than showing every package.
-
-
-
