@@ -45,8 +45,9 @@ SBOM scanning (`osv-scanner --sbom`) now relies on the filename of the sbom file
 
 ---
 
+[Guided remeidation](https://google.github.io/osv-scanner/experimental/guided-remediation/) now defaults to the non-interactive mode. To run in the interactive mode, use `--interactive` flag.
 
-TODO: #1636?
+---
 
 The following deprecated flags have been removed:
 
