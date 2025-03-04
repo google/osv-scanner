@@ -161,30 +161,6 @@ header {
     100% 20px;
 
   background-attachment: local, local, scroll, scroll;
-
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #292929;
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #292929;
-    border-radius: 4px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #353535;
-  }
-
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: #3d3d3d #292929;
-  }
 }
 
 .package-details p {
