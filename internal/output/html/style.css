@@ -128,32 +128,37 @@ header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.table-tr-details {
+.vuln-tr {
+  display: table-row;
+}
+
+.vuln-id {
+  color: #d9534f;
+}
+
+.package-details {
+  text-align: left;
+  padding: 20px 50px 30px 50px;
+  display: block;
+  max-height: 800px;
   overflow: auto;
-  width: 200px;
-  max-height: 200px;
-  margin: 50px auto;
 
   background:
-    linear-gradient(rgb(38, 38, 38) 30%, rgba(255, 255, 255, 0)),
-    linear-gradient(rgba(255, 255, 255, 0), rgb(38, 38, 38) 70%) 0 100%,
-    radial-gradient(
-      farthest-side at 50% 0,
-      rgba(0, 0, 0, 0.2),
-      rgba(0, 0, 0, 0)
-    ),
-    radial-gradient(
-        farthest-side at 50% 100%,
-        rgba(0, 0, 0, 0.2),
-        rgba(0, 0, 0, 0)
-      )
-      0 100%;
+    /* Cover TOP */
+    linear-gradient(rgb(41, 41, 41) 30%, rgba(41, 41, 41, 0)) center top,
+    /* Cover BOTTOM */ linear-gradient(rgba(41, 41, 41, 0), rgb(41, 41, 41) 70%)
+      center bottom,
+    /* Shadow TOP */ linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0))
+      center top,
+    /* Shadow BOTTOM */ linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))
+      center bottom;
+
   background-repeat: no-repeat;
   background-size:
     100% 40px,
     100% 40px,
-    100% 14px,
-    100% 14px;
+    100% 20px,
+    100% 20px;
 
   background-attachment: local, local, scroll, scroll;
 
@@ -180,22 +185,6 @@ header {
     scrollbar-width: auto;
     scrollbar-color: #3d3d3d #292929;
   }
-}
-
-.vuln-tr {
-  display: table-row;
-}
-
-.vuln-id {
-  color: #d9534f;
-}
-
-.package-details {
-  text-align: left;
-  padding: 20px 50px 30px 50px;
-  display: block;
-  max-height: 800px;
-  overflow: auto;
 }
 
 .package-details p {
@@ -703,6 +692,7 @@ div.title {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
