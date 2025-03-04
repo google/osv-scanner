@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/fs"
 	"log/slog"
 	"maps"
 	"os"
@@ -130,41 +131,47 @@ func enumerateReachabilityForJar(jarPath string) error {
 	// https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html
 	servicesDir := filepath.Join(tmpDir, "META-INF/services")
 	if _, err := os.Stat(servicesDir); err == nil {
-		entries, err := os.ReadDir(servicesDir)
+		var entries []string
+
+		err := filepath.WalkDir(servicesDir, func(path string, d fs.DirEntry, err error) error {
+			if err != nil {
+				return err
+			}
+
+			if !d.IsDir() {
+				entries = append(entries, path)
+			}
+
+			return nil
+		})
+
 		if err != nil {
 			return err
 		}
 
 		for _, entry := range entries {
-			path := filepath.Join(servicesDir, entry.Name())
-
-			fileInfo, err := os.Stat(path)
-			if err != nil {
-				slog.Debug("failed getting META-INF/services provider from", path)
-			}
-
-			// Check if it's a directory
-			if fileInfo.IsDir() {
-				slog.Debug("skipping META-INF/services provider:", path, "is a directory")
-				continue
-			}
-
-			f, err := os.Open(path)
+			f, err := os.Open(entry)
 			if err != nil {
 				return err
 			}
 
 			scanner := bufio.NewScanner(f)
 			for scanner.Scan() {
-				provider := strings.TrimSpace(scanner.Text())
-				if strings.HasPrefix(provider, "#") {
-					continue
+				provider := scanner.Text()
+				provider = strings.Split(provider, "#")[0] // remove comments
+
+				// Some files specify the class name using the format: "class = foo".
+				if strings.Contains(provider, "=") {
+					provider = strings.Split(provider, "=")[1]
 				}
+
+				provider = strings.TrimSpace(provider)
+
 				if len(provider) == 0 {
 					continue
 				}
 
-				slog.Debug("adding META-INF/services provider", "provider", provider, "from", path)
+				slog.Debug("adding META-INF/services provider", "provider", provider, "from", entry)
 				mainClasses = append(mainClasses, strings.ReplaceAll(provider, ".", "/"))
 			}
 			if err := scanner.Err(); err != nil {
