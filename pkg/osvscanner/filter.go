@@ -2,18 +2,18 @@ package osvscanner
 
 import (
 	"fmt"
+	"log/slog"
 
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // filterUnscannablePackages removes packages that don't have enough information to be scanned
 // e,g, local packages that specified by path
-func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanResults) {
+func filterUnscannablePackages(scanResults *results.ScanResults) {
 	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		p := psr.PackageInfo
@@ -31,14 +31,14 @@ func filterUnscannablePackages(r reporter.Reporter, scanResults *results.ScanRes
 	}
 
 	if len(packageResults) != len(scanResults.PackageScanResults) {
-		r.Infof("Filtered %d local/unscannable package/s from the scan.\n", len(scanResults.PackageScanResults)-len(packageResults))
+		slog.Info(fmt.Sprintf("Filtered %d local/unscannable package/s from the scan.", len(scanResults.PackageScanResults)-len(packageResults)))
 	}
 
 	scanResults.PackageScanResults = packageResults
 }
 
 // filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
-func filterNonContainerRelevantPackages(r reporter.Reporter, scanResults *results.ScanResults) {
+func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
 	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		p := psr.PackageInfo
@@ -53,20 +53,20 @@ func filterNonContainerRelevantPackages(r reporter.Reporter, scanResults *result
 	}
 
 	if len(packageResults) != len(scanResults.PackageScanResults) {
-		r.Infof("Filtered %d non container relevant package/s from the scan.\n", len(scanResults.PackageScanResults)-len(packageResults))
+		slog.Info(fmt.Sprintf("Filtered %d non container relevant package/s from the scan.", len(scanResults.PackageScanResults)-len(packageResults)))
 	}
 
 	scanResults.PackageScanResults = packageResults
 }
 
 // filterIgnoredPackages removes ignore scanned packages according to config. Returns filtered scanned packages.
-func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults) {
+func filterIgnoredPackages(scanResults *results.ScanResults) {
 	configManager := &scanResults.ConfigManager
 
 	out := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		p := psr.PackageInfo
-		configToUse := configManager.Get(r, p.Location())
+		configToUse := configManager.Get(p.Location())
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(p); ignore {
 			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem().String(), p.Name(), p.Version())
@@ -75,7 +75,7 @@ func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults
 			if reason == "" {
 				reason = "(no reason given)"
 			}
-			r.Infof("Package %s has been filtered out because: %s\n", pkgString, reason)
+			slog.Info(fmt.Sprintf("Package %s has been filtered out because: %s", pkgString, reason))
 
 			continue
 		}
@@ -83,21 +83,21 @@ func filterIgnoredPackages(r reporter.Reporter, scanResults *results.ScanResults
 	}
 
 	if len(out) != len(scanResults.PackageScanResults) {
-		r.Infof("Filtered %d ignored package/s from the scan.\n", len(scanResults.PackageScanResults)-len(out))
+		slog.Info(fmt.Sprintf("Filtered %d ignored package/s from the scan.", len(scanResults.PackageScanResults)-len(out)))
 	}
 
 	scanResults.PackageScanResults = out
 }
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
-func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, configManager *config.Manager, allPackages bool) int {
+func filterResults(results *models.VulnerabilityResults, configManager *config.Manager, allPackages bool) int {
 	removedCount := 0
 	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
 	for _, pkgSrc := range results.Results {
-		configToUse := configManager.Get(r, pkgSrc.Source.Path)
+		configToUse := configManager.Get(pkgSrc.Source.Path)
 		var newPackages []models.PackageVulns
 		for _, pkgVulns := range pkgSrc.Packages {
-			newVulns := filterPackageVulns(r, pkgVulns, configToUse)
+			newVulns := filterPackageVulns(pkgVulns, configToUse)
 			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
 			if allPackages || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 {
 				newPackages = append(newPackages, newVulns)
@@ -115,7 +115,7 @@ func filterResults(r reporter.Reporter, results *models.VulnerabilityResults, co
 }
 
 // Filters package-grouped vulnerabilities according to config, preserving ordering. Returns filtered package vulnerabilities.
-func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
+func filterPackageVulns(pkgVulns models.PackageVulns, configToUse config.Config) models.PackageVulns {
 	ignoredVulns := map[string]struct{}{}
 
 	// Iterate over groups first to remove all aliases of ignored vulnerabilities.
@@ -138,11 +138,11 @@ func filterPackageVulns(r reporter.Reporter, pkgVulns models.PackageVulns, confi
 				// NB: This only prints the first reason encountered in all the aliases.
 				switch len(group.Aliases) {
 				case 1:
-					r.Infof("%s has been filtered out because: %s\n", ignoreLine.ID, reason)
+					slog.Info(fmt.Sprintf("%s has been filtered out because: %s", ignoreLine.ID, reason))
 				case 2:
-					r.Infof("%s and 1 alias have been filtered out because: %s\n", ignoreLine.ID, reason)
+					slog.Info(fmt.Sprintf("%s and 1 alias have been filtered out because: %s", ignoreLine.ID, reason))
 				default:
-					r.Infof("%s and %d aliases have been filtered out because: %s\n", ignoreLine.ID, len(group.Aliases)-1, reason)
+					slog.Info(fmt.Sprintf("%s and %d aliases have been filtered out because: %s", ignoreLine.ID, len(group.Aliases)-1, reason))
 				}
 
 				break

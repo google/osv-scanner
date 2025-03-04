@@ -1,22 +1,23 @@
 package osvscanner
 
 import (
+	"log/slog"
+
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 // scan essentially converts ScannerActions into PackageScanResult by performing the extractions
-func scan(r reporter.Reporter, accessors ExternalAccessors, actions ScannerActions) ([]imodels.PackageScanResult, error) {
+func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.PackageScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Inventory
 
 	// --- Lockfiles ---
 	lockfileExtractors := scanners.BuildLockfileExtractors(accessors.DependencyClients, accessors.MavenRegistryAPIClient)
 	for _, lockfileElem := range actions.LockfilePaths {
-		invs, err := scanners.ScanSingleFileWithMapping(r, lockfileElem, lockfileExtractors)
+		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
 		if err != nil {
 			return nil, err
 		}
@@ -27,7 +28,7 @@ func scan(r reporter.Reporter, accessors ExternalAccessors, actions ScannerActio
 	// --- SBOMs ---
 	sbomExtractors := scanners.BuildSBOMExtractors()
 	for _, sbomPath := range actions.SBOMPaths {
-		invs, err := scanners.ScanSingleFile(r, sbomPath, sbomExtractors)
+		invs, err := scanners.ScanSingleFile(sbomPath, sbomExtractors)
 		if err != nil {
 			return nil, err
 		}
@@ -43,8 +44,8 @@ func scan(r reporter.Reporter, accessors ExternalAccessors, actions ScannerActio
 		accessors.MavenRegistryAPIClient,
 	)
 	for _, dir := range actions.DirectoryPaths {
-		r.Infof("Scanning dir %s\n", dir)
-		pkgs, err := scanners.ScanDir(r, dir, actions.Recursive, !actions.NoIgnore, dirExtractors)
+		slog.Info("Scanning dir " + dir)
+		pkgs, err := scanners.ScanDir(dir, actions.Recursive, !actions.NoIgnore, dirExtractors)
 		if err != nil {
 			return nil, err
 		}

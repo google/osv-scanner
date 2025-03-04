@@ -5,6 +5,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"maps"
 	"slices"
 
@@ -21,12 +22,12 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 )
 
-func autoInPlace(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
+func autoInPlace(ctx context.Context, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsInPlace(opts.LockfileRW) {
 		return fmt.Errorf("%s strategy is not supported for lockfile", strategyInPlace)
 	}
 
-	r.Infof("Scanning %s...\n", opts.Lockfile)
+	slog.Info(fmt.Sprintf("Scanning %s...", opts.Lockfile))
 	var outputResult fixOutput
 	outputResult.Path = opts.Lockfile
 	outputResult.Ecosystem = util.OSVEcosystem[opts.LockfileRW.System()]
@@ -50,12 +51,12 @@ func autoInPlace(ctx context.Context, r *outputReporter, opts osvFixOptions, max
 
 	patches := autoChooseInPlacePatches(res, maxUpgrades, &outputResult)
 
-	if err := r.OutputResult(outputResult); err != nil {
-		r.Errorf("failed writing output")
+	if err := printResult(outputResult, opts); err != nil {
+		slog.Error("failed writing output")
 		return err
 	}
 
-	r.Infof("Rewriting %s...\n", opts.Lockfile)
+	slog.Info(fmt.Sprintf("Rewriting %s...", opts.Lockfile))
 
 	return lf.Overwrite(opts.LockfileRW, opts.Lockfile, patches)
 }
@@ -121,12 +122,12 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 	return patches
 }
 
-func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
+func autoRelax(ctx context.Context, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsRelax(opts.ManifestRW) {
 		return fmt.Errorf("%s strategy is not supported for manifest", strategyRelax)
 	}
 
-	r.Infof("Resolving %s...\n", opts.Manifest)
+	slog.Info(fmt.Sprintf("Resolving %s...", opts.Manifest))
 	var outputResult fixOutput
 	outputResult.Path = opts.Manifest
 	outputResult.Ecosystem = util.OSVEcosystem[opts.ManifestRW.System()]
@@ -164,13 +165,13 @@ func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUp
 	populateResultVulns(&outputResult, res, allPatches)
 
 	if err := opts.Client.WriteCache(manif.FilePath); err != nil {
-		r.Warnf("WARNING: failed to write resolution cache: %v\n", err)
+		slog.Warn(fmt.Sprintf("WARNING: failed to write resolution cache: %v", err))
 	}
 
 	depPatches := autoChooseRelaxPatches(allPatches, maxUpgrades, &outputResult)
 
-	if err := r.OutputResult(outputResult); err != nil {
-		r.Errorf("failed writing output")
+	if err := printResult(outputResult, opts); err != nil {
+		slog.Error("failed writing output")
 		return err
 	}
 
@@ -178,7 +179,7 @@ func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUp
 		return nil
 	}
 
-	r.Infof("Rewriting %s...\n", opts.Manifest)
+	slog.Info(fmt.Sprintf("Rewriting %s...", opts.Manifest))
 	if err := manifest.Overwrite(opts.ManifestRW, opts.Manifest, manifest.Patch{Manifest: &manif, Deps: depPatches}); err != nil {
 		return err
 	}
@@ -186,28 +187,28 @@ func autoRelax(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUp
 	if opts.Lockfile != "" {
 		// We only recreate the lockfile if we know a lockfile already exists
 		// or we've been given a command to run.
-		r.Infof("Shelling out to regenerate lockfile...\n")
+		slog.Info("Shelling out to regenerate lockfile...")
 		cmd, err := regenerateLockfileCmd(opts)
 		if err != nil {
 			return err
 		}
 
-		cmd.Stdout = r.Stdout
-		cmd.Stderr = r.Stderr
-		r.Infof("Executing `%s`...\n", cmd)
+		cmd.Stdout = opts.Stdout
+		cmd.Stderr = opts.Stderr
+		slog.Info(fmt.Sprintf("Executing `%s`...", cmd))
 		err = cmd.Run()
 		if err == nil {
 			return nil
 		}
 
-		r.Warnf("Install failed. Trying again with `--legacy-peer-deps`...\n")
+		slog.Warn("Install failed. Trying again with `--legacy-peer-deps`...")
 		cmd, err = regenerateLockfileCmd(opts)
 		if err != nil {
 			return err
 		}
 		cmd.Args = append(cmd.Args, "--legacy-peer-deps")
-		cmd.Stdout = r.Stdout
-		cmd.Stderr = r.Stderr
+		cmd.Stdout = opts.Stdout
+		cmd.Stderr = opts.Stderr
 
 		return cmd.Run()
 	}
@@ -257,12 +258,12 @@ func autoChooseRelaxPatches(diffs []resolution.Difference, maxUpgrades int, outp
 	return patches
 }
 
-func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, maxUpgrades int) error {
+func autoOverride(ctx context.Context, opts osvFixOptions, maxUpgrades int) error {
 	if !remediation.SupportsOverride(opts.ManifestRW) {
 		return errors.New("override strategy is not supported for manifest")
 	}
 
-	r.Infof("Resolving %s...\n", opts.Manifest)
+	slog.Info(fmt.Sprintf("Resolving %s...", opts.Manifest))
 	var outputResult fixOutput
 	outputResult.Path = opts.Manifest
 	outputResult.Ecosystem = util.OSVEcosystem[opts.ManifestRW.System()]
@@ -320,13 +321,13 @@ func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, ma
 	populateResultVulns(&outputResult, res, allPatches)
 
 	if err := opts.Client.WriteCache(manif.FilePath); err != nil {
-		r.Warnf("WARNING: failed to write resolution cache: %v\n", err)
+		slog.Warn(fmt.Sprintf("WARNING: failed to write resolution cache: %v", err))
 	}
 
 	depPatches := autoChooseOverridePatches(allPatches, maxUpgrades, &outputResult)
 
-	if err := r.OutputResult(outputResult); err != nil {
-		r.Errorf("failed writing output")
+	if err := printResult(outputResult, opts); err != nil {
+		slog.Error("failed writing output")
 		return err
 	}
 
@@ -334,7 +335,7 @@ func autoOverride(ctx context.Context, r *outputReporter, opts osvFixOptions, ma
 		return nil
 	}
 
-	r.Infof("Rewriting %s...\n", opts.Manifest)
+	slog.Info(fmt.Sprintf("Rewriting %s...", opts.Manifest))
 	if err := manifest.Overwrite(opts.ManifestRW, opts.Manifest, manifest.Patch{Manifest: &manif, Deps: depPatches}); err != nil {
 		return err
 	}

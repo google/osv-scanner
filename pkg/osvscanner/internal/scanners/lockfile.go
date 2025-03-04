@@ -3,6 +3,7 @@ package scanners
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"path/filepath"
 	"slices"
 	"strings"
@@ -14,7 +15,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 var lockfileExtractorMapping = map[string][]string{
@@ -47,28 +47,28 @@ var lockfileExtractorMapping = map[string][]string{
 }
 
 // ScanSingleFile is similar to ScanSingleFileWithMapping, just without supporting the <lockfileformat>:/path/to/lockfile prefix identifier
-func ScanSingleFile(r reporter.Reporter, path string, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanSingleFile(path string, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
 	// TODO: Update the logging output to stop referring to SBOMs
 	path, err := filepath.Abs(path)
 	if err != nil {
-		r.Errorf("Failed to resolved path %q with error: %s\n", path, err)
+		slog.Error(fmt.Sprintf("Failed to resolved path %q with error: %s", path, err))
 		return nil, err
 	}
 
 	invs, err := scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 	if err != nil {
-		r.Infof("Failed to parse SBOM %q with error: %s\n", path, err)
+		slog.Info(fmt.Sprintf("Failed to parse SBOM %q with error: %s", path, err))
 		return nil, err
 	}
 
 	pkgCount := len(invs)
 	if pkgCount > 0 {
-		r.Infof(
-			"Scanned %s file and found %d %s\n",
+		slog.Info(fmt.Sprintf(
+			"Scanned %s file and found %d %s",
 			path,
 			pkgCount,
 			output.Form(pkgCount, "package", "packages"),
-		)
+		))
 	}
 
 	return invs, nil
@@ -76,7 +76,7 @@ func ScanSingleFile(r reporter.Reporter, path string, extractorsToUse []filesyst
 
 // ScanSingleFileWithMapping will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func ScanSingleFileWithMapping(r reporter.Reporter, scanPath string, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanSingleFileWithMapping(scanPath string, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
 	var err error
 	var inventories []*extractor.Inventory
 
@@ -84,7 +84,7 @@ func ScanSingleFileWithMapping(r reporter.Reporter, scanPath string, extractorsT
 
 	path, err = filepath.Abs(path)
 	if err != nil {
-		r.Errorf("Failed to resolved path %q with error: %s\n", path, err)
+		slog.Error(fmt.Sprintf("Failed to resolved path %q with error: %s", path, err))
 		return nil, err
 	}
 
@@ -127,13 +127,13 @@ func ScanSingleFileWithMapping(r reporter.Reporter, scanPath string, extractorsT
 
 	pkgCount := len(inventories)
 
-	r.Infof(
-		"Scanned %s file %sand found %d %s\n",
+	slog.Info(fmt.Sprintf(
+		"Scanned %s file %sand found %d %s",
 		path,
 		parsedAsComment,
 		pkgCount,
 		output.Form(pkgCount, "package", "packages"),
-	)
+	))
 
 	return inventories, nil
 }
