@@ -27,6 +27,10 @@ osv-scanner scan image <image-name>
 
 ---
 
+[Guided remeidation](https://google.github.io/osv-scanner/experimental/guided-remediation/) now defaults to the non-interactive mode. To run in the interactive mode, use `--interactive` flag.
+
+---
+
 `--verbosity=verbose` verbosity level removed. Now there is only `info`, `warn`, `error`
 
 ---
@@ -42,10 +46,6 @@ SBOM scanning (`osv-scanner --sbom`) now relies on the filename of the sbom file
 `.git` root hash is not automatically scanned now, therefore:
 
 `--skip-git` flag removed, replaced with `--include-git-root`
-
----
-
-[Guided remeidation](https://google.github.io/osv-scanner/experimental/guided-remediation/) now defaults to the non-interactive mode. To run in the interactive mode, use `--interactive` flag.
 
 ---
 
