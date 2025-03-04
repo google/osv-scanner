@@ -134,7 +134,8 @@ header {
   max-height: 200px;
   margin: 50px auto;
 
-  background: linear-gradient(rgb(38, 38, 38) 30%, rgba(255, 255, 255, 0)),
+  background:
+    linear-gradient(rgb(38, 38, 38) 30%, rgba(255, 255, 255, 0)),
     linear-gradient(rgba(255, 255, 255, 0), rgb(38, 38, 38) 70%) 0 100%,
     radial-gradient(
       farthest-side at 50% 0,
@@ -148,7 +149,11 @@ header {
       )
       0 100%;
   background-repeat: no-repeat;
-  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+  background-size:
+    100% 40px,
+    100% 40px,
+    100% 14px,
+    100% 14px;
 
   background-attachment: local, local, scroll, scroll;
 
