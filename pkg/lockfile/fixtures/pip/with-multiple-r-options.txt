@@ -1,5 +1,0 @@
--r ./one-package-constrained.txt
--r ./multiple-packages-mixed.txt
-
-requests==1.2.3
-pandas==0.23.4

@@ -1,7 +1,6 @@
 package helper
 
 import (
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -22,11 +21,8 @@ import (
 // OfflineFlags is a map of flags which require network access to operate,
 // with the values to set them to in order to disable them
 var OfflineFlags = map[string]string{
-	"include-git-root":                     "true",
-	"experimental-offline-vulnerabilities": "true",
-	"experimental-no-resolve":              "true",
-	"experimental-licenses-summary":        "false",
-	// "experimental-licenses": "", // StringSliceFlag has to be manually cleared.
+	"offline-vulnerabilities": "true",
+	"no-resolve":              "true",
 }
 
 // sets default port(8000) as a global variable
@@ -34,102 +30,125 @@ var (
 	servePort = "8000" // default port
 )
 
-var GlobalScanFlags = []cli.Flag{
-	&cli.StringFlag{
-		Name:      "config",
-		Usage:     "set/override config file",
-		TakesFile: true,
-	},
-	&cli.StringFlag{
-		Name:    "format",
-		Aliases: []string{"f"},
-		Usage:   "sets the output format; value can be: " + strings.Join(reporter.Format(), ", "),
-		Value:   "table",
-		Action: func(_ *cli.Context, s string) error {
-			if slices.Contains(reporter.Format(), s) {
-				return nil
-			}
+type licenseGenericFlag struct {
+	allowList string
+}
 
-			return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
-		},
-	},
-	&cli.BoolFlag{
-		Name:  "serve",
-		Usage: "output as HTML result and serve it locally",
-	},
-	&cli.StringFlag{
-		Name:  "port",
-		Usage: "port number to use when serving HTML report (default: 8000)",
-		Action: func(_ *cli.Context, p string) error {
-			servePort = p
-			return nil
-		},
-	},
-	&cli.StringFlag{
-		Name:      "output",
-		Usage:     "saves the result to the given file path",
-		TakesFile: true,
-	},
-	&cli.StringFlag{
-		Name:  "verbosity",
-		Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(reporter.VerbosityLevels(), ", "),
-		Value: "info",
-	},
-	&cli.BoolFlag{
-		Name:  "experimental-offline",
-		Usage: "run in offline mode, disabling any features requiring network access",
-		Action: func(ctx *cli.Context, b bool) error {
-			if !b {
-				return nil
-			}
-			// Disable the features requiring network access.
-			for flag, value := range OfflineFlags {
-				// TODO(michaelkedar): do something if the flag was already explicitly set.
+func (g *licenseGenericFlag) Set(value string) error {
+	if value == "" || value == "false" || value == "true" {
+		g.allowList = ""
+	} else {
+		g.allowList = value
+	}
 
-				// Skip setting the flag if the current command doesn't have it."
-				if !slices.ContainsFunc(ctx.Command.Flags, func(f cli.Flag) bool {
-					return slices.Contains(f.Names(), flag)
-				}) {
-					continue
+	return nil
+}
+
+func (g *licenseGenericFlag) IsBoolFlag() bool {
+	return true
+}
+
+func (g *licenseGenericFlag) String() string {
+	return g.allowList
+}
+
+func GetScanGlobalFlags() []cli.Flag {
+	return []cli.Flag{
+		&cli.StringFlag{
+			Name:      "config",
+			Usage:     "set/override config file",
+			TakesFile: true,
+		},
+		&cli.StringFlag{
+			Name:    "format",
+			Aliases: []string{"f"},
+			Usage:   "sets the output format; value can be: " + strings.Join(reporter.Format(), ", "),
+			Value:   "table",
+			Action: func(_ *cli.Context, s string) error {
+				if slices.Contains(reporter.Format(), s) {
+					return nil
 				}
 
-				if err := ctx.Set(flag, value); err != nil {
-					panic(fmt.Sprintf("failed setting offline flag %s to %s: %v", flag, value, err))
-				}
-			}
-
-			return nil
+				return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
+			},
 		},
-	},
-	&cli.BoolFlag{
-		Name:  "experimental-offline-vulnerabilities",
-		Usage: "checks for vulnerabilities using local databases that are already cached",
-	},
-	&cli.BoolFlag{
-		Name:  "experimental-download-offline-databases",
-		Usage: "downloads vulnerability databases for offline comparison",
-	},
-	&cli.BoolFlag{
-		Name:  "experimental-no-resolve",
-		Usage: "disable transitive dependency resolution of manifest files",
-	},
-	&cli.StringFlag{
-		Name:   "experimental-local-db-path",
-		Usage:  "sets the path that local databases should be stored",
-		Hidden: true,
-	},
-	&cli.BoolFlag{
-		Name:  "experimental-all-packages",
-		Usage: "when json output is selected, prints all packages",
-	},
-	&cli.BoolFlag{
-		Name:  "experimental-licenses-summary",
-		Usage: "report a license summary, implying the --experimental-all-packages flag",
-	},
-	&cli.StringSliceFlag{
-		Name:  "experimental-licenses",
-		Usage: "report on licenses based on an allowlist",
-	},
+		&cli.BoolFlag{
+			Name:  "serve",
+			Usage: "output as HTML result and serve it locally",
+		},
+		&cli.StringFlag{
+			Name:  "port",
+			Usage: "port number to use when serving HTML report (default: 8000)",
+			Action: func(_ *cli.Context, p string) error {
+				servePort = p
+				return nil
+			},
+		},
+		&cli.StringFlag{
+			Name:      "output",
+			Usage:     "saves the result to the given file path",
+			TakesFile: true,
+		},
+		&cli.StringFlag{
+			Name:  "verbosity",
+			Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(reporter.VerbosityLevels(), ", "),
+			Value: "info",
+		},
+		&cli.BoolFlag{
+			Name:  "offline",
+			Usage: "run in offline mode, disabling any features requiring network access",
+			Action: func(ctx *cli.Context, b bool) error {
+				if !b {
+					return nil
+				}
+				// Disable the features requiring network access.
+				for flag, value := range OfflineFlags {
+					// TODO(michaelkedar): do something if the flag was already explicitly set.
+
+					// Skip setting the flag if the current command doesn't have it.
+					if !slices.ContainsFunc(ctx.Command.Flags, func(f cli.Flag) bool {
+						return slices.Contains(f.Names(), flag)
+					}) {
+						continue
+					}
+
+					if err := ctx.Set(flag, value); err != nil {
+						panic(fmt.Sprintf("failed setting offline flag %s to %s: %v", flag, value, err))
+					}
+				}
+
+				return nil
+			},
+		},
+		&cli.BoolFlag{
+			Name:  "offline-vulnerabilities",
+			Usage: "checks for vulnerabilities using local databases that are already cached",
+		},
+		&cli.BoolFlag{
+			Name:  "download-offline-databases",
+			Usage: "downloads vulnerability databases for offline comparison",
+		},
+		&cli.StringFlag{
+			Name:   "local-db-path",
+			Usage:  "sets the path that local databases should be stored",
+			Hidden: true,
+		},
+		&cli.BoolFlag{
+			Name:  "no-resolve",
+			Usage: "disable transitive dependency resolution of manifest files",
+		},
+		&cli.BoolFlag{
+			Name:  "all-packages",
+			Usage: "when json output is selected, prints all packages",
+		},
+		&cli.GenericFlag{
+			Name:  "licenses",
+			Usage: "report on licenses based on an allowlist",
+			Value: &licenseGenericFlag{
+				allowList: "",
+			},
+		},
+	}
 }
 
 // OpenHTML will attempt to open the outputted HTML file in the default browser
@@ -171,29 +190,6 @@ func ServeHTML(r reporter.Reporter, outputPath string) {
 	}
 }
 
-func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
-	if context.Bool("experimental-licenses-summary") && context.IsSet("experimental-licenses") {
-		return nil, errors.New("--experimental-licenses-summary and --experimental-licenses flags cannot be set")
-	}
-	allowlist := context.StringSlice("experimental-licenses")
-	if context.IsSet("experimental-licenses") {
-		if len(allowlist) == 0 ||
-			(len(allowlist) == 1 && allowlist[0] == "") {
-			return nil, errors.New("--experimental-licenses requires at least one value")
-		}
-		if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
-			return nil, fmt.Errorf("--experimental-licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
-		}
-	}
-
-	scanLicensesAllowlist := context.StringSlice("experimental-licenses")
-	if context.Bool("experimental-offline") {
-		scanLicensesAllowlist = []string{}
-	}
-
-	return scanLicensesAllowlist, nil
-}
-
 func GetReporter(context *cli.Context, stdout, stderr io.Writer, outputPath, format string) (reporter.Reporter, error) {
 	termWidth := 0
 	var err error
@@ -223,18 +219,36 @@ func GetReporter(context *cli.Context, stdout, stderr io.Writer, outputPath, for
 	return r, nil
 }
 
+func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
+	allowlist := strings.Split(context.Generic("licenses").(*licenseGenericFlag).String(), ",")
+
+	if !context.IsSet("licenses") {
+		return []string{}, nil
+	}
+
+	if len(allowlist) == 0 ||
+		(len(allowlist) == 1 && allowlist[0] == "") {
+		return []string{}, nil
+	}
+
+	if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
+		return nil, fmt.Errorf("--licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
+	}
+
+	if context.Bool("offline") {
+		allowlist = []string{}
+	}
+
+	return allowlist, nil
+}
+
 func GetExperimentalScannerActions(context *cli.Context, scanLicensesAllowlist []string) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
-		LocalDBPath:       context.String("experimental-local-db-path"),
-		DownloadDatabases: context.Bool("experimental-download-offline-databases"),
-		CompareOffline:    context.Bool("experimental-offline-vulnerabilities"),
-		// License summary mode causes all
-		// packages to appear in the json as
-		// every package has a license - even
-		// if it's just the UNKNOWN license.
-		ShowAllPackages: context.Bool("experimental-all-packages") ||
-			context.Bool("experimental-licenses-summary"),
-		ScanLicensesSummary:   context.Bool("experimental-licenses-summary"),
+		LocalDBPath:           context.String("local-db-path"),
+		DownloadDatabases:     context.Bool("download-offline-databases"),
+		CompareOffline:        context.Bool("offline-vulnerabilities"),
+		ShowAllPackages:       context.Bool("all-packages"),
+		ScanLicensesSummary:   context.IsSet("licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,
 	}
 }

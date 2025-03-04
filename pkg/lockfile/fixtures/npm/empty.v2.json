@@ -1,9 +1,0 @@
-{
-  "name": "my-library",
-  "lockfileVersion": 2,
-  "requires": true,
-  "packages": {
-    "": {}
-  },
-  "dependencies": {}
-}

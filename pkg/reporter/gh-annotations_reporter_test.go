@@ -72,27 +72,3 @@ func TestGHAnnotationsReporter_Infof(t *testing.T) {
 		}
 	}
 }
-
-func TestGHAnnotationsReporter_Verbosef(t *testing.T) {
-	t.Parallel()
-
-	text := "hello world!"
-	tests := []struct {
-		lvl              reporter.VerbosityLevel
-		expectedPrintout string
-	}{
-		{lvl: reporter.VerboseLevel, expectedPrintout: text},
-		{lvl: reporter.InfoLevel, expectedPrintout: ""},
-	}
-
-	for _, test := range tests {
-		writer := &bytes.Buffer{}
-		r := reporter.NewGHAnnotationsReporter(io.Discard, writer, test.lvl)
-
-		r.Verbosef("%s", text)
-
-		if writer.String() != test.expectedPrintout {
-			t.Errorf("expected \"%s\", got \"%s\"", test.expectedPrintout, writer.String())
-		}
-	}
-}

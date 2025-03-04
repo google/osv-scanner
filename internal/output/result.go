@@ -3,13 +3,15 @@ package output
 import (
 	"encoding/json"
 	"log"
+	"maps"
 	"os"
 	"slices"
 	"strings"
 
 	"github.com/google/osv-scanner/v2/internal/identifiers"
+	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"golang.org/x/exp/maps"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 type pkgWithSource struct {
@@ -22,7 +24,7 @@ type pkgSourceSet map[pkgWithSource]struct{}
 
 // StableKeys returns the pkgWithSource keys in a deterministic order
 func (pss *pkgSourceSet) StableKeys() []pkgWithSource {
-	pkgWithSrcKeys := maps.Keys(*pss)
+	pkgWithSrcKeys := slices.AppendSeq(make([]pkgWithSource, 0, len(*pss)), maps.Keys(*pss))
 
 	slices.SortFunc(pkgWithSrcKeys, func(a, b pkgWithSource) int {
 		// compare based on each field in descending priority
@@ -86,12 +88,12 @@ func groupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 	// Remember to sort and compact before displaying later
 	for _, vf := range flattened {
 		groupIdx := vf.Source.String() + ":" + vf.GroupInfo.IndexString()
-		pkg := models.Package{
-			Ecosystem: models.Ecosystem(vf.Package.Ecosystem),
+		pkg := osvschema.Package{
+			Ecosystem: vf.Package.Ecosystem,
 			Name:      vf.Package.Name,
 		}
 		groupFixedVersions[groupIdx] =
-			append(groupFixedVersions[groupIdx], vf.Vulnerability.FixedVersions()[pkg]...)
+			append(groupFixedVersions[groupIdx], vulns.GetFixedVersions(vf.Vulnerability)[pkg]...)
 	}
 
 	// Remove duplicates
@@ -109,7 +111,7 @@ type groupedSARIFFinding struct {
 	DisplayID string
 	PkgSource pkgSourceSet
 	// AliasedVulns contains vulns that are OSV vulnerabilities
-	AliasedVulns map[string]models.Vulnerability
+	AliasedVulns map[string]osvschema.Vulnerability
 	// AliasedIDList contains all aliased IDs, including ones that are not OSV (e.g. CVE IDs)
 	// Sorted by idSortFunc, therefore the first element will be the display ID
 	AliasedIDList []string
@@ -137,7 +139,7 @@ func mapIDsToGroupedSARIFFinding(vulns *models.VulnerabilityResults) map[string]
 				if data == nil {
 					data = &groupedSARIFFinding{
 						PkgSource:    make(pkgSourceSet),
-						AliasedVulns: make(map[string]models.Vulnerability),
+						AliasedVulns: make(map[string]osvschema.Vulnerability),
 					}
 				}
 				// Point all the IDs of the same group to the same data, either newly created or existing

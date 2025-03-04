@@ -70,6 +70,12 @@ You can scan container images using two primary methods:
 
 - **Configuration Flags:** All the global configuration flags available for the `scan` command (as described in the [Usage documentation](./usage.md)) can be used with the `scan image` subcommand. This includes flags for output format, verbosity, config files, and experimental features.
 
+## Scanning targets
+
+OSV-Scanner scans for OS packages and build artifacts, including dependency information, on the given image, and attributes them to specific layers in the container.
+
+See [Supported Artifacts](./supported_languages_and_lockfiles.md#supported-artifacts) for details on what targets are scanned.
+
 ## Output
 
 By default, OSV-Scanner provides a summarized output of the scan results, grouping vulnerabilities by package. This is designed to handle the large number of vulnerabilities often found in container images.

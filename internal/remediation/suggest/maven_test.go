@@ -49,7 +49,7 @@ func mavenReqKey(t *testing.T, name, artifactType, classifier string) manifest.R
 	})
 }
 
-func TestSuggest(t *testing.T) {
+func TestMavenSuggester_Suggest(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
 	client := resolve.NewLocalClient()
@@ -366,7 +366,7 @@ func TestSuggest(t *testing.T) {
 	}
 }
 
-func TestSuggestVersion(t *testing.T) {
+func Test_suggestMavenVersion(t *testing.T) {
 	t.Parallel()
 	ctx := context.Background()
 	lc := resolve.NewLocalClient()
@@ -396,12 +396,127 @@ func TestSuggestVersion(t *testing.T) {
 		{"1.0.0", upgrade.Patch, "1.0.1"},
 		// Version range requirement is not outdated
 		{"[1.0.0,)", upgrade.Major, "[1.0.0,)"},
-		{"[2.0.0, 2.3.4]", upgrade.Major, "[2.0.0, 2.3.4]"},
+		{"[2.0.0,2.3.4]", upgrade.Major, "[2.0.0,2.3.4]"},
 		// Version range requirement is outdated
-		{"[2.0.0, 2.3.4)", upgrade.Major, "2.3.4"},
-		{"[2.0.0, 2.2.2]", upgrade.Major, "2.3.4"},
+		{"[2.0.0,2.3.4)", upgrade.Major, "2.3.4"},
+		{"[2.0.0,2.2.2]", upgrade.Major, "2.3.4"},
 		// Version range requirement is outdated but latest version is a major update
 		{"[1.0.0,2.0.0)", upgrade.Major, "2.3.4"},
+		{"[1.0.0,2.0.0)", upgrade.Minor, "[1.0.0,2.0.0)"},
+	}
+	for _, tt := range tests {
+		vk := resolve.VersionKey{
+			PackageKey:  pk,
+			VersionType: resolve.Requirement,
+			Version:     tt.requirement,
+		}
+		want := resolve.RequirementVersion{
+			VersionKey: resolve.VersionKey{
+				PackageKey:  pk,
+				VersionType: resolve.Requirement,
+				Version:     tt.want,
+			},
+		}
+		got, err := suggestMavenVersion(ctx, lc, resolve.RequirementVersion{VersionKey: vk}, tt.level)
+		if err != nil {
+			t.Fatalf("fail to suggest a new version for %v: %v", vk, err)
+		}
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("suggestMavenVersion(%v, %v): got %s want %s", vk, tt.level, got, want)
+		}
+	}
+}
+
+func TestSuggestVersion_Guava(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	lc := resolve.NewLocalClient()
+
+	pk := resolve.PackageKey{
+		System: resolve.Maven,
+		Name:   "com.google.guava:guava",
+	}
+	for _, version := range []string{"1.0.0", "1.0.1-android", "1.0.1-jre", "1.1.0-android", "1.1.0-jre", "2.0.0-android", "2.0.0-jre"} {
+		lc.AddVersion(resolve.Version{
+			VersionKey: resolve.VersionKey{
+				PackageKey:  pk,
+				VersionType: resolve.Concrete,
+				Version:     version,
+			}}, nil)
+	}
+
+	tests := []struct {
+		requirement string
+		level       upgrade.Level
+		want        string
+	}{
+		{"1.0.0", upgrade.Major, "2.0.0-jre"},
+		// Update to the version with the same flavour
+		{"1.0.1-jre", upgrade.Major, "2.0.0-jre"},
+		{"1.0.1-android", upgrade.Major, "2.0.0-android"},
+		{"1.0.1-jre", upgrade.Minor, "1.1.0-jre"},
+		{"1.0.1-android", upgrade.Minor, "1.1.0-android"},
+		// Version range requirement is not outdated
+		{"[1.0.0,)", upgrade.Major, "[1.0.0,)"},
+		// Version range requirement is outdated and the latest version is a major update
+		{"[1.0.0,2.0.0)", upgrade.Major, "2.0.0-jre"},
+		{"[1.0.0,2.0.0)", upgrade.Minor, "[1.0.0,2.0.0)"},
+	}
+	for _, tt := range tests {
+		vk := resolve.VersionKey{
+			PackageKey:  pk,
+			VersionType: resolve.Requirement,
+			Version:     tt.requirement,
+		}
+		want := resolve.RequirementVersion{
+			VersionKey: resolve.VersionKey{
+				PackageKey:  pk,
+				VersionType: resolve.Requirement,
+				Version:     tt.want,
+			},
+		}
+		got, err := suggestMavenVersion(ctx, lc, resolve.RequirementVersion{VersionKey: vk}, tt.level)
+		if err != nil {
+			t.Fatalf("fail to suggest a new version for %v: %v", vk, err)
+		}
+		if !reflect.DeepEqual(got, want) {
+			t.Errorf("suggestMavenVersion(%v, %v): got %s want %s", vk, tt.level, got, want)
+		}
+	}
+}
+
+func TestSuggestVersion_Commons(t *testing.T) {
+	t.Parallel()
+	ctx := context.Background()
+	lc := resolve.NewLocalClient()
+
+	pk := resolve.PackageKey{
+		System: resolve.Maven,
+		Name:   "commons-io:commons-io",
+	}
+	for _, version := range []string{"1.0.0", "1.0.1", "1.1.0", "2.0.0", "20010101.000000"} {
+		lc.AddVersion(resolve.Version{
+			VersionKey: resolve.VersionKey{
+				PackageKey:  pk,
+				VersionType: resolve.Concrete,
+				Version:     version,
+			}}, nil)
+	}
+
+	tests := []struct {
+		requirement string
+		level       upgrade.Level
+		want        string
+	}{
+		{"1.0.0", upgrade.Major, "2.0.0"},
+		// No major updates allowed
+		{"1.0.0", upgrade.Minor, "1.1.0"},
+		// Only allow patch updates
+		{"1.0.0", upgrade.Patch, "1.0.1"},
+		// Version range requirement is not outdated
+		{"[1.0.0,)", upgrade.Major, "[1.0.0,)"},
+		// Version range requirement is outdated and the latest version is a major update
+		{"[1.0.0,2.0.0)", upgrade.Major, "2.0.0"},
 		{"[1.0.0,2.0.0)", upgrade.Minor, "[1.0.0,2.0.0)"},
 	}
 	for _, tt := range tests {

@@ -50,14 +50,8 @@ func (r *TableReporter) Infof(format string, a ...any) {
 	}
 }
 
-func (r *TableReporter) Verbosef(format string, a ...any) {
-	if VerboseLevel <= r.level {
-		fmt.Fprintf(r.stdout, format, a...)
-	}
-}
-
 func (r *TableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
-	if len(vulnResult.Results) == 0 && !r.hasErrored {
+	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil && !r.hasErrored {
 		fmt.Fprintf(r.stdout, "No issues found\n")
 		return nil
 	}

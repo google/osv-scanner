@@ -45,12 +45,6 @@ func (r *SARIFReporter) Infof(format string, a ...any) {
 	}
 }
 
-func (r *SARIFReporter) Verbosef(format string, a ...any) {
-	if VerboseLevel <= r.level {
-		fmt.Fprintf(r.stderr, format, a...)
-	}
-}
-
 func (r *SARIFReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintSARIFReport(vulnResult, r.stdout)
 }

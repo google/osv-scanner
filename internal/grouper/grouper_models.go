@@ -3,7 +3,7 @@ package grouper
 import (
 	"strings"
 
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 type IDAliases struct {
@@ -11,7 +11,7 @@ type IDAliases struct {
 	Aliases []string
 }
 
-func ConvertVulnerabilityToIDAliases(c []models.Vulnerability) []IDAliases {
+func ConvertVulnerabilityToIDAliases(c []osvschema.Vulnerability) []IDAliases {
 	output := []IDAliases{}
 	for _, v := range c {
 		idAliases := IDAliases{

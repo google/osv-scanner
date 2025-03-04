@@ -56,9 +56,16 @@ function openVulnInNewTab(inputString) {
   newTab.id = inputString; // Set the ID to the input string
   newTab.className = "tab osv-tab"; // Set the class name
 
+  // Create a spinner indicating loading status
+  const spinner = document.createElement("div");
+  spinner.className = "iframe-spinner";
+
   // Create the iframe element.
   const iframe = document.createElement("iframe");
   iframe.src = osvURL;
+  iframe.onload = () => {
+    newTab.removeChild(spinner);
+  };
 
   // Create a new tab button
   const newTabButton = document.createElement("div");
@@ -93,6 +100,7 @@ function openVulnInNewTab(inputString) {
   newTabButton.appendChild(closeIcon);
 
   // Add the iframe to the new tab div.
+  newTab.appendChild(spinner);
   newTab.appendChild(iframe);
   // Add the iframe to the container.
   tabs.appendChild(newTab);
@@ -327,7 +335,9 @@ function resetFilterText() {
     selectedVulnCount.textContent = allTypeCheckedBox.getAttribute(
       "data-type-all-count"
     );
-    allLayerCheckedBox.checked = true;
+    if (allLayerCheckedBox) {
+      allLayerCheckedBox.checked = true;
+    }
     uncalledTypeCheckBox.checked = false;
   } else {
     const projectTypeCheckedBox = document.getElementById(

@@ -82,8 +82,7 @@
       "trace": [
         {
           "module": "stdlib",
-          "version": "v1.19.0",
-          "package": "net/http/internal"
+          "version": "v1.19.0"
         }
       ]
     },

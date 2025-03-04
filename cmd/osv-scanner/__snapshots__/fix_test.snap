@@ -1,5 +1,5 @@
 
-[TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 1]
+[Test_run_Fix/fix_non-interactive_in-place_package-lock.json - 1]
 Scanning <tempdir>/package-lock.json...
 Found 7 vulnerabilities matching the filter
 Can fix 2/7 matching vulnerabilities by changing 2 dependencies
@@ -12,12 +12,12 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 2]
+[Test_run_Fix/fix_non-interactive_in-place_package-lock.json - 2]
 Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 
 ---
 
-[TestRun_Fix/fix_non-interactive_in-place_package-lock.json - 3]
+[Test_run_Fix/fix_non-interactive_in-place_package-lock.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
@@ -1743,7 +1743,7 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 
 ---
 
-[TestRun_Fix/fix_non-interactive_json_in-place_package-lock.json - 1]
+[Test_run_Fix/fix_non-interactive_json_in-place_package-lock.json - 1]
 {
   "path": "<tempdir>/package-lock.json",
   "ecosystem": "npm",
@@ -1866,14 +1866,14 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 
 ---
 
-[TestRun_Fix/fix_non-interactive_json_in-place_package-lock.json - 2]
+[Test_run_Fix/fix_non-interactive_json_in-place_package-lock.json - 2]
 Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Scanning <tempdir>/package-lock.json...
 Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_json_in-place_package-lock.json - 3]
+[Test_run_Fix/fix_non-interactive_json_in-place_package-lock.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
@@ -3599,7 +3599,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_json_override_pom.xml - 1]
+[Test_run_Fix/fix_non-interactive_json_override_pom.xml - 1]
 {
   "path": "<tempdir>/pom.xml",
   "ecosystem": "Maven",
@@ -3876,14 +3876,14 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_json_override_pom.xml - 2]
+[Test_run_Fix/fix_non-interactive_json_override_pom.xml - 2]
 Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Resolving <tempdir>/pom.xml...
 Rewriting <tempdir>/pom.xml...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_json_override_pom.xml - 3]
+[Test_run_Fix/fix_non-interactive_json_override_pom.xml - 3]
 <project>
   <modelVersion>4.0.0</modelVersion>
 
@@ -3931,7 +3931,7 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_json_relax_package.json - 1]
+[Test_run_Fix/fix_non-interactive_json_relax_package.json - 1]
 {
   "path": "<tempdir>/package.json",
   "ecosystem": "npm",
@@ -4030,21 +4030,21 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_json_relax_package.json - 2]
+[Test_run_Fix/fix_non-interactive_json_relax_package.json - 2]
 Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 Resolving <tempdir>/package.json...
 Rewriting <tempdir>/package.json...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_json_relax_package.json - 3]
+[Test_run_Fix/fix_non-interactive_json_relax_package.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo /"Error: no test specified/" && exit 1"
   },
   "author": "",
   "license": "ISC",
@@ -4055,7 +4055,7 @@ Rewriting <tempdir>/package.json...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_override_pom.xml - 1]
+[Test_run_Fix/fix_non-interactive_override_pom.xml - 1]
 Resolving <tempdir>/pom.xml...
 Found 12 vulnerabilities matching the filter
 Can fix 12/12 matching vulnerabilities by overriding 4 dependencies
@@ -4070,12 +4070,12 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_override_pom.xml - 2]
+[Test_run_Fix/fix_non-interactive_override_pom.xml - 2]
 Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 
 ---
 
-[TestRun_Fix/fix_non-interactive_override_pom.xml - 3]
+[Test_run_Fix/fix_non-interactive_override_pom.xml - 3]
 <project>
   <modelVersion>4.0.0</modelVersion>
 
@@ -4123,7 +4123,7 @@ Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the f
 
 ---
 
-[TestRun_Fix/fix_non-interactive_relax_package.json - 1]
+[Test_run_Fix/fix_non-interactive_relax_package.json - 1]
 Resolving <tempdir>/package.json...
 Found 5 vulnerabilities matching the filter
 Can fix 3/5 matching vulnerabilities by changing 1 dependencies
@@ -4135,19 +4135,19 @@ Rewriting <tempdir>/package.json...
 
 ---
 
-[TestRun_Fix/fix_non-interactive_relax_package.json - 2]
+[Test_run_Fix/fix_non-interactive_relax_package.json - 2]
 Warning: `fix` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `fix` is assumed to be a subcommand here. If you intended for `fix` to be an argument to `scan`, you must specify `scan fix` in your command line.
 
 ---
 
-[TestRun_Fix/fix_non-interactive_relax_package.json - 3]
+[Test_run_Fix/fix_non-interactive_relax_package.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo /"Error: no test specified/" && exit 1"
   },
   "author": "",
   "license": "ISC",

@@ -45,12 +45,6 @@ func (r *HTMLReporter) Infof(format string, a ...any) {
 	}
 }
 
-func (r *HTMLReporter) Verbosef(format string, a ...any) {
-	if VerboseLevel <= r.level {
-		fmt.Fprintf(r.stderr, format, a...)
-	}
-}
-
 func (r *HTMLReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	return output.PrintHTMLResults(vulnResult, r.stdout)
 }

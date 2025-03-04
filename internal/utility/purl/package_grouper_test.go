@@ -5,8 +5,8 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/utility/purl"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
-	"github.com/google/osv-scanner/v2/pkg/lockfile"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
@@ -23,9 +23,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 					Package: models.PackageInfo{
 						Name:      "foo.bar:the-first-package",
 						Version:   "1.0.0",
-						Ecosystem: string(lockfile.MavenEcosystem),
+						Ecosystem: string(osvschema.EcosystemMaven),
 					},
-					Vulnerabilities: []models.Vulnerability{
+					Vulnerabilities: []osvschema.Vulnerability{
 						{ID: "GHSA-456"},
 					},
 					Groups: []models.GroupInfo{
@@ -40,9 +40,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 					Package: models.PackageInfo{
 						Name:      "foo.bar:the-first-package",
 						Version:   "1.0.0",
-						Ecosystem: string(lockfile.MavenEcosystem),
+						Ecosystem: string(osvschema.EcosystemMaven),
 					},
-					Vulnerabilities: []models.Vulnerability{
+					Vulnerabilities: []osvschema.Vulnerability{
 						{ID: "GHSA-456"},
 					},
 					Groups: []models.GroupInfo{
@@ -56,9 +56,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 					Package: models.PackageInfo{
 						Name:      "foo.bar:the-first-package",
 						Version:   "1.0.0",
-						Ecosystem: string(lockfile.MavenEcosystem),
+						Ecosystem: string(osvschema.EcosystemMaven),
 					},
-					Vulnerabilities: []models.Vulnerability{
+					Vulnerabilities: []osvschema.Vulnerability{
 						{ID: "GHSA-456"},
 					},
 					Groups: []models.GroupInfo{
@@ -71,7 +71,7 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 				{
 					Package: models.PackageInfo{
 						Name:      "foo.bar:package-2",
-						Ecosystem: string(lockfile.MavenEcosystem),
+						Ecosystem: string(osvschema.EcosystemMaven),
 						Version:   "1.0.0",
 					},
 				},
@@ -87,9 +87,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 					Package: models.PackageInfo{
 						Name:      "foo.bar:the-first-package",
 						Version:   "1.0.0",
-						Ecosystem: string(lockfile.MavenEcosystem),
+						Ecosystem: string(osvschema.EcosystemMaven),
 					},
-					Vulnerabilities: []models.Vulnerability{
+					Vulnerabilities: []osvschema.Vulnerability{
 						{ID: "GHSA-456"},
 					},
 					Groups: []models.GroupInfo{
@@ -103,7 +103,7 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 				{
 					Package: models.PackageInfo{
 						Name:      "foo.bar:package-2",
-						Ecosystem: string(lockfile.MavenEcosystem),
+						Ecosystem: string(osvschema.EcosystemMaven),
 						Version:   "1.0.0",
 					},
 				},
@@ -118,9 +118,9 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 			Package: models.PackageInfo{
 				Name:      "foo.bar:the-first-package",
 				Version:   "1.0.0",
-				Ecosystem: string(lockfile.MavenEcosystem),
+				Ecosystem: string(osvschema.EcosystemMaven),
 			},
-			Vulnerabilities: []models.Vulnerability{
+			Vulnerabilities: []osvschema.Vulnerability{
 				{ID: "GHSA-456"},
 			},
 			Groups: []models.GroupInfo{
@@ -135,7 +135,7 @@ func TestGroupPackageByPURL_ShouldUnifyPackages(t *testing.T) {
 			Package: models.PackageInfo{
 				Name:      "foo.bar:package-2",
 				Version:   "1.0.0",
-				Ecosystem: string(lockfile.MavenEcosystem),
+				Ecosystem: string(osvschema.EcosystemMaven),
 			},
 		},
 	}

@@ -14,6 +14,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/url"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/vuln/scan"
 )
 
@@ -37,7 +38,7 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 	vulns, vulnsByID := vulnsFromAllPkgs(pkgs)
 	// Filter out advisories with no symbol information first
 	// This is purely an optimisation step, further filtering is done in matchAnalysisWithPackageVulns function
-	filteredVulns := models.Vulnerabilities{}
+	filteredVulns := []osvschema.Vulnerability{}
 	for _, vuln := range vulns {
 		if vulnHasImportsField(vuln, nil) {
 			filteredVulns = append(filteredVulns, vuln)
@@ -57,7 +58,7 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 	matchAnalysisWithPackageVulns(pkgs, res, vulnsByID)
 }
 
-func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[string][]*govulncheck.Finding, vulnsByID map[string]models.Vulnerability) {
+func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[string][]*govulncheck.Finding, vulnsByID map[string]osvschema.Vulnerability) {
 	idToModuleToCalled := map[string]map[string]bool{}
 	for id, findings := range idToFindings {
 		idToModuleToCalled[id] = map[string]bool{}
@@ -97,7 +98,7 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 	}
 }
 
-func vulnHasImportsField(vuln models.Vulnerability, pkg *models.PackageInfo) bool {
+func vulnHasImportsField(vuln osvschema.Vulnerability, pkg *models.PackageInfo) bool {
 	for _, affected := range vuln.Affected {
 		if pkg != nil {
 			// TODO: Compare versions to see if this is the correct affected element
@@ -116,7 +117,7 @@ func vulnHasImportsField(vuln models.Vulnerability, pkg *models.PackageInfo) boo
 }
 
 // fillNotImportedAnalysisInfo checks for any source information in advisories, and sets called to false
-func fillNotImportedAnalysisInfo(vulnsByID map[string]models.Vulnerability, vulnID string, pv models.PackageVulns, analysis *map[string]models.AnalysisInfo) {
+func fillNotImportedAnalysisInfo(vulnsByID map[string]osvschema.Vulnerability, vulnID string, pv models.PackageVulns, analysis *map[string]models.AnalysisInfo) {
 	if vulnHasImportsField(vulnsByID[vulnID], &pv.Package) {
 		// If there is source information, then analysis has been performed, and
 		// code does not import the vulnerable package, so definitely not called
@@ -126,7 +127,7 @@ func fillNotImportedAnalysisInfo(vulnsByID map[string]models.Vulnerability, vuln
 	}
 }
 
-func runGovulncheck(moddir string, vulns []models.Vulnerability, goVersion string) (map[string][]*govulncheck.Finding, error) {
+func runGovulncheck(moddir string, vulns []osvschema.Vulnerability, goVersion string) (map[string][]*govulncheck.Finding, error) {
 	// Create a temporary directory containing all the vulnerabilities that
 	// are passed in to check against govulncheck.
 	//
@@ -162,9 +163,7 @@ func runGovulncheck(moddir string, vulns []models.Vulnerability, goVersion strin
 	cmd := scan.Command(context.Background(), "-db", dbdirURL.String(), "-C", moddir, "-json", "./...")
 	var b bytes.Buffer
 	cmd.Stdout = &b
-	// Disable CGO because govulncheck does not support CGO code, and will always fail.
-	// This still leaves govulncheck enabled for non C related calls.
-	cmd.Env = append(os.Environ(), "GOVERSION=go"+goVersion, "CGO_ENABLED=0")
+	cmd.Env = append(os.Environ(), "GOVERSION=go"+goVersion)
 	if err := cmd.Start(); err != nil {
 		return nil, err
 	}

@@ -606,7 +606,7 @@ func TestMavenWriteDM(t *testing.T) {
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, out.String())
 }
 
-func TestBuildPatches(t *testing.T) {
+func Test_buildPatches(t *testing.T) {
 	t.Parallel()
 
 	dir, err := os.Getwd()
@@ -957,7 +957,7 @@ func TestBuildPatches(t *testing.T) {
 	}
 }
 
-func TestGeneratePropertyPatches(t *testing.T) {
+func Test_generatePropertyPatches(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		s1       string

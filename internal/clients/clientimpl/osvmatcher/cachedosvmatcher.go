@@ -12,7 +12,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/osvdev"
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -29,16 +29,16 @@ type CachedOSVMatcher struct {
 	// still return fully hydrated.
 	InitialQueryTimeout time.Duration
 
-	vulnCache sync.Map // map[osvdev.Package][]models.Vulnerability
+	vulnCache sync.Map // map[osvdev.Package][]osvschema.Vulnerability
 }
 
-func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Inventory) ([][]*models.Vulnerability, error) {
+func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Inventory) ([][]*osvschema.Vulnerability, error) {
 	// populate vulnCache with missing packages
 	if err := matcher.doQueries(ctx, invs); err != nil {
 		return nil, err
 	}
 
-	results := make([][]*models.Vulnerability, len(invs))
+	results := make([][]*osvschema.Vulnerability, len(invs))
 
 	for i, inv := range invs {
 		if ctx.Err() != nil {
@@ -54,7 +54,7 @@ func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs 
 		if !ok {
 			continue
 		}
-		results[i] = localmatcher.VulnerabilitiesAffectingPackage(vulns.([]models.Vulnerability), pkgInfo)
+		results[i] = localmatcher.VulnerabilitiesAffectingPackage(vulns.([]osvschema.Vulnerability), pkgInfo)
 	}
 
 	return results, nil
@@ -82,7 +82,7 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 				toQuery[&osvdev.Query{Package: pkg}] = struct{}{}
 			}
 		}
-		queries = slices.Collect(maps.Keys(toQuery))
+		queries = slices.AppendSeq(make([]*osvdev.Query, 0, len(toQuery)), maps.Keys(toQuery))
 	}
 
 	if len(queries) == 0 {
@@ -111,12 +111,12 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 		}
 	}
 
-	vulnerabilities := make([][]models.Vulnerability, len(batchResp.Results))
+	vulnerabilities := make([][]osvschema.Vulnerability, len(batchResp.Results))
 	g, ctx := errgroup.WithContext(ctx)
 	g.SetLimit(maxConcurrentRequests)
 
 	for batchIdx, resp := range batchResp.Results {
-		vulnerabilities[batchIdx] = make([]models.Vulnerability, len(resp.Vulns))
+		vulnerabilities[batchIdx] = make([]osvschema.Vulnerability, len(resp.Vulns))
 		for resultIdx, vuln := range resp.Vulns {
 			g.Go(func() error {
 				// exit early if another hydration request has already failed

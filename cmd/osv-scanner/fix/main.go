@@ -25,7 +25,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/reporter"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/term"
 )
@@ -59,8 +58,8 @@ type osvFixOptions struct {
 func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 	return &cli.Command{
 		Name:        "fix",
-		Usage:       "[EXPERIMENTAL] scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
-		Description: "[EXPERIMENTAL] scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
+		Usage:       "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
+		Description: "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:      "manifest",
@@ -90,11 +89,22 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Name:  "maven-registry",
 				Usage: "URL of the default Maven registry to fetch metadata",
 			},
-
 			&cli.BoolFlag{
-				Name:  "non-interactive",
-				Usage: "run in the non-interactive mode",
-				Value: !term.IsTerminal(int(os.Stdin.Fd())), // Default to non-interactive if not being run in a terminal
+				Name:   "non-interactive",
+				Usage:  "[DEPRECATED] run in the non-interactive mode",
+				Hidden: true,
+				Value:  true,
+			},
+			&cli.BoolFlag{
+				Name:  "interactive",
+				Usage: "run in the interactive mode",
+				Action: func(_ *cli.Context, b bool) error {
+					if b && !term.IsTerminal(int(os.Stdin.Fd())) {
+						return errors.New("interactive mode only to be run in a terminal")
+					}
+
+					return nil
+				},
 			},
 			&cli.StringFlag{
 				Name:    "format",
@@ -114,10 +124,6 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				Name:     "strategy",
 				Usage:    "remediation approach to use; value can be: " + strings.Join(strategies, ", "),
 				Action: func(ctx *cli.Context, s string) error {
-					if !ctx.Bool("non-interactive") {
-						// This flag isn't used in interactive mode
-						return nil
-					}
 					switch strategy(s) {
 					case strategyInPlace:
 						if !ctx.IsSet("lockfile") {
@@ -193,16 +199,16 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 			},
 			// Offline database flags, copied from osv-scanner scan
 			&cli.BoolFlag{
-				Name:    "experimental-offline-vulnerabilities",
-				Aliases: []string{"experimental-offline"},
+				Name:    "offline-vulnerabilities",
+				Aliases: []string{"offline"},
 				Usage:   "checks for vulnerabilities using local databases that are already cached",
 			},
 			&cli.BoolFlag{
-				Name:  "experimental-download-offline-databases",
+				Name:  "download-offline-databases",
 				Usage: "downloads vulnerability databases for offline comparison",
 			},
 			&cli.StringFlag{
-				Name:   "experimental-local-db-path",
+				Name:   "local-db-path",
 				Usage:  "sets the path that local databases should be stored",
 				Hidden: true,
 			},
@@ -309,12 +315,12 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	}
 
 	userAgent := "osv-scanner_fix/" + version.OSVVersion
-	if ctx.Bool("experimental-offline-vulnerabilities") {
+	if ctx.Bool("offline-vulnerabilities") {
 		matcher, err := localmatcher.NewLocalMatcher(
 			r,
-			ctx.String("experimental-local-db-path"),
+			ctx.String("local-db-path"),
 			userAgent,
-			ctx.Bool("experimental-download-offline-databases"),
+			ctx.Bool("download-offline-databases"),
 		)
 		if err != nil {
 			return nil, err
@@ -325,7 +331,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 			// Something's very wrong if we hit this
 			panic("unhandled resolve.Ecosystem: " + system.String())
 		}
-		if err := matcher.LoadEcosystem(ctx.Context, ecosystem.Parsed{Ecosystem: osvschema.Ecosystem(eco)}); err != nil {
+		if err := matcher.LoadEcosystem(ctx.Context, ecosystem.Parsed{Ecosystem: eco}); err != nil {
 			return nil, err
 		}
 
@@ -343,7 +349,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 		}
 	}
 
-	if !ctx.Bool("non-interactive") {
+	if ctx.Bool("interactive") {
 		return nil, interactiveMode(ctx.Context, opts)
 	}
 

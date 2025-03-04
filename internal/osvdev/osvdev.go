@@ -12,7 +12,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -46,7 +46,7 @@ func DefaultClient() *OSVClient {
 }
 
 // GetVulnByID is an interface to this endpoint: https://google.github.io/osv.dev/get-v1-vulns/
-func (c *OSVClient) GetVulnByID(ctx context.Context, id string) (*models.Vulnerability, error) {
+func (c *OSVClient) GetVulnByID(ctx context.Context, id string) (*osvschema.Vulnerability, error) {
 	resp, err := c.makeRetryRequest(func(client *http.Client) (*http.Response, error) {
 		req, err := http.NewRequestWithContext(ctx, http.MethodGet, c.BaseHostURL+GetEndpoint+"/"+id, nil)
 		if err != nil {
@@ -65,7 +65,7 @@ func (c *OSVClient) GetVulnByID(ctx context.Context, id string) (*models.Vulnera
 
 	defer resp.Body.Close()
 
-	var vuln models.Vulnerability
+	var vuln osvschema.Vulnerability
 	decoder := json.NewDecoder(resp.Body)
 	err = decoder.Decode(&vuln)
 	if err != nil {

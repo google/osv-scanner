@@ -8,7 +8,7 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 var fixturesDir = "integration/fixtures-go"
@@ -20,7 +20,7 @@ func Test_runGovulncheck(t *testing.T) {
 		t.Errorf("failed to read fixtures dir: %v", err)
 	}
 
-	vulns := []models.Vulnerability{}
+	vulns := []osvschema.Vulnerability{}
 	for _, de := range entries {
 		if !de.Type().IsRegular() {
 			continue
@@ -36,7 +36,7 @@ func Test_runGovulncheck(t *testing.T) {
 			t.Errorf("failed to open fixture vuln files: %v", err)
 		}
 
-		newVuln := models.Vulnerability{}
+		newVuln := osvschema.Vulnerability{}
 		err = json.NewDecoder(file).Decode(&newVuln)
 		if err != nil {
 			t.Errorf("failed to decode fixture vuln file (%q): %v", fn, err)

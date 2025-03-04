@@ -97,6 +97,9 @@ EXAMPLES:
 	# Scan a source directory
 	$ {{.Name}} scan source -r <source_directory>
 
+	# Scan a source directory in offline mode
+	$ {{.Name}} scan source --offline-vulnerabilities --download-offline-database -r <source_directory>
+
 	# Scan a container image
 	$ {{.Name}} scan image <image_name>
 
@@ -104,7 +107,7 @@ EXAMPLES:
 	$ {{.Name}} scan image --serve --archive <image_name.tar>
 
 	# Fix vulnerabilities in a manifest file and lockfile (non-interactive mode)
-	$ {{.Name}} fix --non-interactive -M <manifest_file> -L <lockfile>
+	$ {{.Name}} fix -M <manifest_file> -L <lockfile>
 
 	For full usage details, please refer to the help command of each subcommand (e.g. {{.Name}} scan --help).
 

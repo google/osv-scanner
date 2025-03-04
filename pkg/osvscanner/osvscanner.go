@@ -4,11 +4,15 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"maps"
 	"net/http"
 	"os"
+	"slices"
+	"sort"
 	"strings"
 	"time"
 
+	"deps.dev/util/resolve"
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/clients/datasource"
@@ -80,7 +84,7 @@ type ExternalAccessors struct {
 	// DependencyClients is a map of implementations of DependencyClient
 	// for each ecosystem, the following is currently implemented:
 	// - [osvschema.EcosystemMaven] required for pomxmlnet Extractor
-	DependencyClients map[osvschema.Ecosystem]resolution.DependencyClient
+	DependencyClients map[osvschema.Ecosystem]resolve.Client
 }
 
 // ErrNoPackagesFound for when no packages are found during a scan.
@@ -96,7 +100,7 @@ var ErrAPIFailed = errors.New("API query failed")
 
 func initializeExternalAccessors(r reporter.Reporter, actions ScannerActions) (ExternalAccessors, error) {
 	externalAccessors := ExternalAccessors{
-		DependencyClients: map[osvschema.Ecosystem]resolution.DependencyClient{},
+		DependencyClients: map[osvschema.Ecosystem]resolve.Client{},
 	}
 	var err error
 
@@ -182,7 +186,7 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	// --- Sanity check flags ----
 	// TODO(v2): Move the logic of the offline flag changing other flags into here from the main.go/scan.go
 	if actions.CompareOffline {
-		if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
+		if actions.ScanLicensesSummary {
 			return models.VulnerabilityResults{}, errors.New("cannot retrieve licenses locally")
 		}
 	}
@@ -245,6 +249,11 @@ func DoScan(actions ScannerActions, r reporter.Reporter) (models.VulnerabilityRe
 	}
 
 	results := buildVulnerabilityResults(r, actions, &scanResult)
+
+	if actions.ScanLicensesSummary {
+		licenseSummary := buildLicenseSummary(&scanResult)
+		results.LicenseSummary = licenseSummary
+	}
 
 	filtered := filterResults(r, &results, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
@@ -371,6 +380,11 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 
 	results := buildVulnerabilityResults(r, actions, &scanResult)
 
+	if actions.ScanLicensesSummary {
+		licenseSummary := buildLicenseSummary(&scanResult)
+		results.LicenseSummary = licenseSummary
+	}
+
 	filtered := filterResults(r, &results, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		r.Infof(
@@ -381,6 +395,48 @@ func DoContainerScan(actions ScannerActions, r reporter.Reporter) (models.Vulner
 	}
 
 	return results, determineReturnErr(results)
+}
+
+func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount {
+	var licenseSummary []models.LicenseCount
+
+	counts := make(map[models.License]int)
+	for _, pkg := range scanResult.PackageScanResults {
+		for _, l := range pkg.Licenses {
+			counts[l] += 1
+		}
+	}
+
+	if len(counts) == 0 {
+		// No packages found.
+		return []models.LicenseCount{}
+	}
+
+	licenses := slices.AppendSeq(make([]models.License, 0, len(counts)), maps.Keys(counts))
+
+	// Sort the license count in descending count order with the UNKNOWN
+	// license last.
+	sort.Slice(licenses, func(i, j int) bool {
+		if licenses[i] == "UNKNOWN" {
+			return false
+		}
+		if licenses[j] == "UNKNOWN" {
+			return true
+		}
+		if counts[licenses[i]] == counts[licenses[j]] {
+			return licenses[i] < licenses[j]
+		}
+
+		return counts[licenses[i]] > counts[licenses[j]]
+	})
+
+	licenseSummary = make([]models.LicenseCount, len(licenses))
+	for i, license := range licenses {
+		licenseSummary[i].Name = license
+		licenseSummary[i].Count = counts[license]
+	}
+
+	return licenseSummary
 }
 
 // determineReturnErr determines whether we found a "vulnerability" or not,
