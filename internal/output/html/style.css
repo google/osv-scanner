@@ -142,6 +142,25 @@ header {
   display: block;
   max-height: 800px;
   overflow: auto;
+
+  background:
+    /* Cover TOP */
+    linear-gradient(rgb(41, 41, 41) 30%, rgba(41, 41, 41, 0)) center top,
+    /* Cover BOTTOM */ linear-gradient(rgba(41, 41, 41, 0), rgb(41, 41, 41) 70%)
+      center bottom,
+    /* Shadow TOP */ linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0))
+      center top,
+    /* Shadow BOTTOM */ linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2))
+      center bottom;
+
+  background-repeat: no-repeat;
+  background-size:
+    100% 40px,
+    100% 40px,
+    100% 20px,
+    100% 20px;
+
+  background-attachment: local, local, scroll, scroll;
 }
 
 .package-details p {
@@ -291,10 +310,6 @@ header {
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-}
-
-#vuln-tab {
-  display: block;
 }
 
 .package-tr {
@@ -653,6 +668,7 @@ div.title {
   0% {
     transform: rotate(0deg);
   }
+
   100% {
     transform: rotate(360deg);
   }
