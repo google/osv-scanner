@@ -19,7 +19,7 @@ Most experimental commands have now been stablized, all experimental versions of
 
 ---
 
-Container scanning and the `--docker/-D` flag has been migrated to it's own command
+Container scanning and the `--docker/-D` flag has been migrated to it's own command.
 
 ```bash
 osv-scanner scan image <image-name>
@@ -27,25 +27,25 @@ osv-scanner scan image <image-name>
 
 ---
 
-[Guided remeidation](https://google.github.io/osv-scanner/experimental/guided-remediation/) now defaults to the non-interactive mode. To run in the interactive mode, use `--interactive` flag.
+[Guided remeidation](https://google.github.io/osv-scanner/experimental/guided-remediation/) now defaults to the non-interactive mode. To run in the interactive mode, use the `--interactive` flag.
 
 ---
 
-`--verbosity=verbose` verbosity level removed. Now there is only `info`, `warn`, `error`
+`--verbosity=verbose` verbosity level removed. Now there are only `info`, `warn`, `error` verbosity levels.
 
 ---
 
-`osv-scanner <dir>` is now a shortcut for `osv-scanner scan source <dir>`
+`osv-scanner <dir>` is now a shortcut for `osv-scanner scan source <dir>`.
 
 ---
 
-SBOM scanning (`osv-scanner --sbom`) now relies on the filename of the sbom file to follow the relevant SBOM specs. E.g. `*.spdx.json`
+SBOM scanning (`osv-scanner --sbom`) now relies on the filename of the sbom file to follow the relevant SBOM specs. E.g. `*.spdx.json`.
 
 ---
 
-`.git` root hash is not automatically scanned now, therefore:
+The `.git` root hash directory is not automatically scanned now, therefore:
 
-`--skip-git` flag removed, replaced with `--include-git-root`
+`--skip-git` flag removed, replaced with `--include-git-root`.
 
 ---
 
