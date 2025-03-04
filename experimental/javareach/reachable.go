@@ -59,12 +59,21 @@ func NewReachabilityEnumerator(
 	}
 }
 
-func (r *ReachabilityEnumerator) EnumerateReachabilityFromClasses(mainClasses []string) (*ReachabilityResult, error) {
+func (r *ReachabilityEnumerator) EnumerateReachabilityFromClasses(mainClasses []string, serviceClasses []string) (*ReachabilityResult, error) {
 	var roots []*ClassFile
 	for _, mainClass := range mainClasses {
 		cf, err := r.findClass(r.ClassPaths, mainClass)
 		if err != nil {
-			return nil, fmt.Errorf("failed to find class %s: %v", mainClass, err)
+			return nil, fmt.Errorf("failed to find main class %s: %v", mainClass, err)
+		}
+		roots = append(roots, cf)
+	}
+
+	// ServiceClasses are those from META-INF/services. They might not exist in the Jar.
+	for _, serviceClass := range serviceClasses {
+		cf, err := r.findClass(r.ClassPaths, serviceClass)
+		if err != nil {
+			continue
 		}
 		roots = append(roots, cf)
 	}
