@@ -31,7 +31,6 @@ We've also added a migration guide here: https://google.github.io/osv-scanner/mi
 - [Feature #1666](https://github.com/google/osv-scanner/pull/1666) Removes `reporter`, all logging now goes through slog, which you can override to change the output.
 - [Feature #1638](https://github.com/google/osv-scanner/pull/1638) All deprecated packages have been removed from the osv-scanner module, this includes the `lockfile` package, which has been migrated to the `OSV-Scalibr` library.
 
-
 # v2.0.0-beta2
 
 This second beta release brings a series of fixes and improvements to the previous release.
