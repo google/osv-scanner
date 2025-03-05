@@ -21,7 +21,7 @@ func TestLockfileScalibrMappingExists(t *testing.T) {
 		}
 
 		if !found {
-			t.Errorf("Extractor %v not found.", target)
+			t.Errorf("Extractor %v not found.", target.Name())
 		}
 	}
 }

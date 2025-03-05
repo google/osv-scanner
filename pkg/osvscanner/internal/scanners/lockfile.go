@@ -10,6 +10,31 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/cabal"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/stacklock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/bunlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/pnpmlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/yarnlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pdmlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/uvlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scanner/v2/internal/output"
@@ -18,32 +43,32 @@ import (
 )
 
 var lockfileExtractorMapping = map[string][]string{
-	"pubspec.lock":                {"dart/pubspec"},
-	"pnpm-lock.yaml":              {"javascript/pnpmlock"},
-	"yarn.lock":                   {"javascript/yarnlock"},
-	"package-lock.json":           {"javascript/packagelockjson"},
-	"pom.xml":                     {"java/pomxmlnet", "java/pomxml"},
-	"buildscript-gradle.lockfile": {"java/gradlelockfile"},
-	"gradle.lockfile":             {"java/gradlelockfile"},
-	"verification-metadata.xml":   {"java/gradleverificationmetadataxml"},
-	"poetry.lock":                 {"python/poetrylock"},
-	"Pipfile.lock":                {"python/Pipfilelock"},
-	"pdm.lock":                    {"python/pdmlock"},
-	"requirements.txt":            {"python/requirements"},
-	"uv.lock":                     {"python/uvlock"},
-	"Cargo.lock":                  {"rust/Cargolock"},
-	"composer.lock":               {"php/composerlock"},
-	"mix.lock":                    {"erlang/mixlock"},
-	"renv.lock":                   {"r/renvlock"},
-	"deps.json":                   {"dotnet/depsjson"},
-	"packages.lock.json":          {"dotnet/packageslockjson"},
-	"conan.lock":                  {"cpp/conanlock"},
-	"go.mod":                      {"go/gomod"},
-	"bun.lock":                    {"javascript/bunlock"},
-	"Gemfile.lock":                {"ruby/gemfilelock"},
-	"cabal.project.freeze":        {"haskell/cabal"},
-	"stack.yaml.lock":             {"haskell/stacklock"},
-	// "Package.resolved":            "swift/packageresolved",
+	"pubspec.lock":                {pubspec.Name},
+	"pnpm-lock.yaml":              {pnpmlock.Name},
+	"yarn.lock":                   {yarnlock.Name},
+	"package-lock.json":           {packagelockjson.Name},
+	"pom.xml":                     {pomxmlnet.Name, pomxml.Name},
+	"buildscript-gradle.lockfile": {gradlelockfile.Name},
+	"gradle.lockfile":             {gradlelockfile.Name},
+	"verification-metadata.xml":   {gradleverificationmetadataxml.Name},
+	"poetry.lock":                 {poetrylock.Name},
+	"Pipfile.lock":                {pipfilelock.Name},
+	"pdm.lock":                    {pdmlock.Name},
+	"requirements.txt":            {requirements.Name},
+	"uv.lock":                     {uvlock.Name},
+	"Cargo.lock":                  {cargolock.Name},
+	"composer.lock":               {composerlock.Name},
+	"mix.lock":                    {mixlock.Name},
+	"renv.lock":                   {renvlock.Name},
+	"deps.json":                   {depsjson.Name},
+	"packages.lock.json":          {packageslockjson.Name},
+	"conan.lock":                  {conanlock.Name},
+	"go.mod":                      {gomod.Name},
+	"bun.lock":                    {bunlock.Name},
+	"Gemfile.lock":                {gemfilelock.Name},
+	"cabal.project.freeze":        {cabal.Name},
+	"stack.yaml.lock":             {stacklock.Name},
+	// "Package.resolved":            {packageresolved.Name},
 }
 
 // ScanSingleFile is similar to ScanSingleFileWithMapping, just without supporting the <lockfileformat>:/path/to/lockfile prefix identifier
