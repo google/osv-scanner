@@ -1,6 +1,6 @@
-# v2.0.0-beta3
+# v2.0.0-rc1
 
-This third and final beta makes various breaking changes osv-scanner to help future proof osv-scanner in V2!
+Our first release candidate for OSV-Scanner V2, which includes various breaking changes osv-scanner to help future proof osv-scanner in V2! See the changelog for beta1 and beta2 for the full list of changes.
 
 We've also added a migration guide here: https://google.github.io/osv-scanner/migration-guide.html
 
@@ -11,8 +11,9 @@ We've also added a migration guide here: https://google.github.io/osv-scanner/mi
 - [Feature #1673](https://github.com/google/osv-scanner/pull/1673) & [Feature #1664](https://github.com/google/osv-scanner/pull/1664) Moves all our experimental flags out of experimental, and removes the experimental flags.
 - [Feature #1651](https://github.com/google/osv-scanner/pull/1651) License flags have been merged into a single license flag. See `--help` or migration guide for more details.
 
-### Improvements:
+### Features:
 
+- [Feature #1636](https://github.com/google/osv-scanner/pull/1636) `osv-scanner update` command has been released as an experimental feature.
 - [Feature #1582](https://github.com/google/osv-scanner/pull/1582) Add container scanning related information to vertical output format.
 - [Feature #1587](https://github.com/google/osv-scanner/pull/1587) Add support for severity in SARIF report format.
 
