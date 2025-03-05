@@ -98,10 +98,10 @@ func GetScanGlobalFlags() []cli.Flag {
 		},
 		&cli.StringFlag{
 			Name:  "verbosity",
-			Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(reporter.VerbosityLevels(), ", "),
+			Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(cmdlogger.Levels(), ", "),
 			Value: "info",
 			Action: func(_ *cli.Context, s string) error {
-				lvl, err := reporter.ParseVerbosityLevel(s)
+				lvl, err := cmdlogger.ParseLevel(s)
 
 				if err != nil {
 					return err
