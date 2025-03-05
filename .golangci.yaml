@@ -124,5 +124,8 @@ issues:
     - path: _test\.go
       linters:
         - dupl
+    - path: cmd/osv-scanner/.+_test.go
+      linters:
+        - paralleltest
   exclude-dirs:
     - internal/thirdparty/xml

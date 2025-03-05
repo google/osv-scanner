@@ -5,7 +5,6 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
 )
 
@@ -14,7 +13,7 @@ func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Context,
 	// Then use app.Run() to parse the flags into the cli.Context, which is returned.
 	t.Helper()
 	appFlags := make([]cli.Flag, 0, len(flags))
-	for _, f := range Command(nil, nil, nil).Flags {
+	for _, f := range Command(nil, nil).Flags {
 		if slices.ContainsFunc(f.Names(), func(s string) bool { return slices.Contains(flags, s) }) {
 			appFlags = append(appFlags, f)
 		}
@@ -35,7 +34,6 @@ func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Context,
 }
 
 func Test_parseUpgradeConfig(t *testing.T) {
-	t.Parallel()
 	flags := []string{"upgrade-config"}
 
 	tests := []struct {
@@ -107,12 +105,11 @@ func Test_parseUpgradeConfig(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
 			ctx, err := parseFlags(t, flags, tt.args)
 			if err != nil {
 				t.Fatalf("error parsing flags: %v", err)
 			}
-			config := upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config"), &reporter.VoidReporter{})
+			config := upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config"))
 			for pkg, want := range tt.want {
 				if got := config.Get(pkg); got != want {
 					t.Errorf("Config.Get(%s) got = %v, want %v", pkg, got, want)

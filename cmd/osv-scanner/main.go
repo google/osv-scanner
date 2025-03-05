@@ -2,17 +2,18 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"io"
+	"log/slog"
 	"os"
 	"slices"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
-
 	"github.com/urfave/cli/v2"
 )
 
@@ -22,11 +23,14 @@ var (
 )
 
 func run(args []string, stdout, stderr io.Writer) int {
-	var r reporter.Reporter
+	logger := cmdlogger.New(stdout, stderr)
+
+	slog.SetDefault(slog.New(&logger))
+
 	cli.VersionPrinter = func(ctx *cli.Context) {
-		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
-		r = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, reporter.InfoLevel, false, 0)
-		r.Infof("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
+		slog.Info("osv-scanner version: " + ctx.App.Version)
+		slog.Info("commit: " + commit)
+		slog.Info("built at: " + date)
 	}
 
 	app := &cli.App{
@@ -38,9 +42,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 		ErrWriter:      stderr,
 		DefaultCommand: "scan",
 		Commands: []*cli.Command{
-			scan.Command(stdout, stderr, &r),
-			fix.Command(stdout, stderr, &r),
-			update.Command(stdout, stderr, &r),
+			scan.Command(stdout, stderr),
+			fix.Command(stdout, stderr),
+			update.Command(),
 		},
 		CustomAppHelpTemplate: getCustomHelpTemplate(),
 	}
@@ -57,28 +61,25 @@ func run(args []string, stdout, stderr io.Writer) int {
 	// This removes the handler entirely so that behavior will not unexpectedly happen.
 	app.ExitErrHandler = func(_ *cli.Context, _ error) {}
 
-	args = insertDefaultCommand(args, app.Commands, app.DefaultCommand, stdout, stderr)
+	args = insertDefaultCommand(args, app.Commands, app.DefaultCommand, stderr)
 
 	if err := app.Run(args); err != nil {
-		if r == nil {
-			r = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
-		}
 		switch {
 		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
 		case errors.Is(err, osvscanner.ErrNoPackagesFound):
-			r.Errorf("No package sources found, --help for usage information.\n")
+			slog.Error("No package sources found, --help for usage information.")
 			return 128
 		case errors.Is(err, osvscanner.ErrAPIFailed):
-			r.Errorf("%v\n", err)
+			slog.Error(fmt.Sprintf("%v", err))
 			return 129
 		}
-		r.Errorf("%v\n", err)
+		slog.Error(fmt.Sprintf("%v", err))
 	}
 
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	if r != nil && r.HasErrored() {
+	if logger.HasErrored() {
 		return 127
 	}
 
@@ -150,17 +151,17 @@ func getAllCommands(commands []*cli.Command) []string {
 // warnIfCommandAmbiguous warns the user if the command they are trying to run
 // exists as both a subcommand and as a file on the filesystem.
 // If this is the case, the command is assumed to be a subcommand.
-func warnIfCommandAmbiguous(command, defaultCommand string, stdout, stderr io.Writer) {
+func warnIfCommandAmbiguous(command, defaultCommand string, stderr io.Writer) {
 	if _, err := os.Stat(command); err == nil {
-		r := reporter.NewJSONReporter(stdout, stderr, reporter.InfoLevel)
-		r.Warnf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. "+
+		// todo this should be using slog.Warn, maybe...
+		fmt.Fprintf(stderr, "Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. "+
 			"`%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[2]s`, "+
 			"you must specify `%[2]s %[1]s` in your command line.\n", command, defaultCommand)
 	}
 }
 
 // Inserts the default command to args if no command is specified.
-func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand string, stdout, stderr io.Writer) []string {
+func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand string, stderr io.Writer) []string {
 	// Do nothing if no command or file name is provided.
 	if len(args) < 2 {
 		return args
@@ -181,7 +182,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 		return argsTmp
 	}
 
-	warnIfCommandAmbiguous(command, defaultCommand, stdout, stderr)
+	warnIfCommandAmbiguous(command, defaultCommand, stderr)
 
 	// If only the default command is provided without its subcommand, append the subcommand.
 	if command == defaultCommand {
@@ -202,7 +203,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 		}
 
 		// Print a warning message if subcommand exist on the filesystem.
-		warnIfCommandAmbiguous(subcommand, scan.DefaultSubcommand, stdout, stderr)
+		warnIfCommandAmbiguous(subcommand, scan.DefaultSubcommand, stderr)
 	}
 
 	return args
