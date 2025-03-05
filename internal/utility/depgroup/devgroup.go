@@ -9,7 +9,6 @@ import (
 // IsDevGroup returns if any string in groups indicates the development dependency group for the specified ecosystem.
 func IsDevGroup(sys osvschema.Ecosystem, groups []string) bool {
 	var dev string
-	//nolint: exhaustive
 	switch sys {
 	case osvschema.EcosystemPackagist, osvschema.EcosystemNPM, osvschema.EcosystemPyPI, osvschema.EcosystemPub:
 		dev = "dev"

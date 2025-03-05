@@ -33,6 +33,8 @@ linters:
     - unused
 
 linters-settings:
+  exhaustive:
+    default-signifies-exhaustive: true
   forbidigo:
     forbid:
       - p: ^testing.T.Skip
