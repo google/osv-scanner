@@ -1,3 +1,36 @@
+# v2.0.0-rc1
+
+Our first release candidate for OSV-Scanner V2, which includes various breaking changes osv-scanner to help future proof osv-scanner in V2! See the changelog for beta1 and beta2 for the full list of changes.
+
+We've also added a migration guide here: https://google.github.io/osv-scanner/migration-guide.html
+
+### Changes:
+
+- [Feature #1670](https://github.com/google/osv-scanner/pull/1670) Guided remediation now makes non-interactive the default mode, and adds the `--interactive` flag.
+- [Feature #1670](https://github.com/google/osv-scanner/pull/1686) Removes the `--verbosity=verbose` verbosity level.
+- [Feature #1673](https://github.com/google/osv-scanner/pull/1673) & [Feature #1664](https://github.com/google/osv-scanner/pull/1664) Moves all our experimental flags out of experimental, and removes the experimental flags.
+- [Feature #1651](https://github.com/google/osv-scanner/pull/1651) License flags have been merged into a single license flag. See `--help` or migration guide for more details.
+
+### Features:
+
+- [Feature #1636](https://github.com/google/osv-scanner/pull/1636) `osv-scanner update` command has been released as an experimental feature.
+- [Feature #1582](https://github.com/google/osv-scanner/pull/1582) Add container scanning related information to vertical output format.
+- [Feature #1587](https://github.com/google/osv-scanner/pull/1587) Add support for severity in SARIF report format.
+
+### Fixes
+
+- [Fix #1677](https://github.com/google/osv-scanner/pull/1677) Fix OS filter for HTML report.
+- [Fix #1598](https://github.com/google/osv-scanner/pull/1598) Fix table output vulnerability ordering.
+- [Fix #1661](https://github.com/google/osv-scanner/pull/1661) Add spinner to iframs in the HTML report.
+- [Fix #1648](https://github.com/google/osv-scanner/pull/1648) Updated HTML report styling to improve contrast.
+- [Fix #1616](https://github.com/google/osv-scanner/pull/1616) Display git scanning results in HTML report.
+- [Fix #1616](https://github.com/google/osv-scanner/pull/1616) Filter out Ubuntu unimportant vulnerabilities.
+
+### API changes
+
+- [Feature #1666](https://github.com/google/osv-scanner/pull/1666) Removes `reporter`, all logging now goes through slog, which you can override to change the output.
+- [Feature #1638](https://github.com/google/osv-scanner/pull/1638) All deprecated packages have been removed from the osv-scanner module, this includes the `lockfile` package, which has been migrated to the `OSV-Scalibr` library.
+
 # v2.0.0-beta2
 
 This second beta release brings a series of fixes and improvements to the previous release.
