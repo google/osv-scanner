@@ -160,7 +160,7 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "2.0.0-beta3"
+          "version": "2.0.0-rc1"
         }
       },
       "results": []
@@ -330,7 +330,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
               }
             }
           ],
-          "version": "2.0.0-beta3"
+          "version": "2.0.0-rc1"
         }
       },
       "artifacts": [
@@ -1164,7 +1164,7 @@ No issues found
 ---
 
 [Test_run/version - 1]
-osv-scanner version: 2.0.0-beta3
+osv-scanner version: 2.0.0-rc1
 commit: n/a
 built at: n/a
 
@@ -1381,7 +1381,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               }
             }
           ],
-          "version": "2.0.0-beta3"
+          "version": "2.0.0-rc1"
         }
       },
       "artifacts": [
@@ -3266,8 +3266,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 17 packages affected by 31 known vulnerabilities (0 Critical, 8 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-31 vulnerabilities can be fixed.
+Total 18 packages affected by 32 known vulnerabilities (0 Critical, 8 High, 9 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+32 vulnerabilities can be fixed.
 
 
 PyPI
@@ -3291,6 +3291,13 @@ PyPI
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | idna    | 2.7               | Fix Available |          1 | # 17 Layer       | --            |
++---------+-------------------+---------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:usr/local/lib/python3.9/site-packages/jinja2-3.1.5.dist-info/METADATA       |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| jinja2  | 3.1.5             | Fix Available |          1 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA         |
@@ -3669,6 +3676,28 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
           "vulnerabilities": [
             "GHSA-jjg7-2v4v-x38h",
             "PYSEC-2024-60"
+          ],
+          "groups": 1
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "usr/local/lib/python3.9/site-packages/jinja2-3.1.5.dist-info/METADATA",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "jinja2",
+            "version": "3.1.5",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 17
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-cpwx-vrp4-4pq7"
           ],
           "groups": 1
         }
