@@ -130,6 +130,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 	// Look inside META-INF/services, which is used by
 	// https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html
 	servicesDir := filepath.Join(tmpDir, "META-INF/services")
+	var optionalRootClasses []string
 	if _, err := os.Stat(servicesDir); err == nil {
 		var entries []string
 
@@ -172,7 +173,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 				}
 
 				slog.Debug("adding META-INF/services provider", "provider", provider, "from", entry)
-				mainClasses = append(mainClasses, strings.ReplaceAll(provider, ".", "/"))
+				optionalRootClasses = append(optionalRootClasses, strings.ReplaceAll(provider, ".", "/"))
 			}
 			if err := scanner.Err(); err != nil {
 				return err
@@ -183,7 +184,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 	// Enumerate reachable classes.
 	// TODO: Look inside more static files (e.g. XML beans configurations).
 	enumerator := javareach.NewReachabilityEnumerator(classPaths, classFinder, javareach.AssumeAllClassesReachable, javareach.AssumeAllClassesReachable)
-	result, err := enumerator.EnumerateReachabilityFromClasses(mainClasses)
+	result, err := enumerator.EnumerateReachabilityFromClasses(mainClasses, optionalRootClasses)
 	if err != nil {
 		return err
 	}
