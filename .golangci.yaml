@@ -119,6 +119,8 @@ linters-settings:
     block-size: 2
 
 issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
   exclude-rules:
     - path: pkg/reporter
       linters:
