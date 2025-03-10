@@ -2879,7 +2879,7 @@ stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 ---
 
 [Test_run_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 2]
-(extracting as rust/Cargolock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
+(extracting as rust/cargolock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
 
 ---
 
