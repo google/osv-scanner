@@ -69,7 +69,7 @@ NAME:
    osv-scanner scan - scans projects and container images for dependencies, and checks them against the OSV database.
 
 USAGE:
-   osv-scanner scan command [command options]
+   osv-scanner scan [command options]
 
 DESCRIPTION:
    scans projects and container images for dependencies, and checks them against the OSV database.
