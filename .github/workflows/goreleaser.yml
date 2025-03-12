@@ -15,7 +15,7 @@ jobs:
       hashes: ${{ steps.hash.outputs.hashes }}
     permissions:
       contents: write # for goreleaser/goreleaser-action to create a GitHub release
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04-arm
     env:
       # Required for buildx on docker 19.x
       DOCKER_CLI_EXPERIMENTAL: "enabled"

@@ -17,17 +17,11 @@ builds:
       # prettier-ignore
       - '-s -w -X github.com/DataDog/osv-scanner/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
     goos:
-      # Further testing before supporting freebsd
-      # - freebsd
       - windows
       - linux
       - darwin
     goarch:
       - amd64
-      # 32bit does not compile at the moment because of spdx dependency
-      # - '386'
-      # Further testing before supporting arm
-      # - arm
       - arm64
 
 archives:
