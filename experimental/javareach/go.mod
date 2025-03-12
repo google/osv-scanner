@@ -4,7 +4,7 @@ go 1.23.6
 
 require (
 	github.com/google/osv-scalibr v0.1.6
-	golang.org/x/sync v0.11.0
+	golang.org/x/sync v0.12.0
 )
 
 require (
