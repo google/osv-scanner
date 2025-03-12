@@ -38,7 +38,7 @@ jobs:
           GORELEASER_CROSS_VERSION: v1.24-v2.7.0
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          docker run --rm -e CGO_ENABLED=1 \
+          docker run --rm -e CGO_ENABLED=1 -e GITHUB_TOKEN=${{secrets.GITHUB_TOKEN}} \
             -v /var/run/docker.sock:/var/run/docker.sock \
             -v `pwd`:/go/src/osv-scanner \
             -w /go/src/osv-scanner \
