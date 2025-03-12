@@ -4,32 +4,114 @@ before:
   hooks:
     - go mod tidy
 builds:
-  - main: ./cmd/osv-scanner/
-    id: osv-scanner
+  - id: darwin-amd64
+    main: ./cmd/osv-scanner/
     binary: osv-scanner
     env:
       - CGO_ENABLED=1
       - GO111MODULE=on
+      - CC=o64-clang
+      - CXX=o64-clang++
+    goarch:
+      - amd64
+    goos:
+      - darwin
     mod_timestamp: "{{ .CommitTimestamp }}"
     flags:
       - -trimpath
     ldflags:
       # prettier-ignore
       - '-s -w -X github.com/DataDog/osv-scanner/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+  - id: darwin-arm64
+    main: ./cmd/osv-scanner/
+    binary: osv-scanner
+    env:
+      - CGO_ENABLED=1
+      - GO111MODULE=on
+      - CC=oa64-clang
+      - CXX=oa64-clang++
+    goarch:
+      - arm64
     goos:
-      # Further testing before supporting freebsd
-      # - freebsd
-      - windows
-      - linux
       - darwin
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      # prettier-ignore
+      - '-s -w -X github.com/DataDog/osv-scanner/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+  - id: linux-amd64
+    main: ./cmd/osv-scanner/
+    binary: osv-scanner
+    env:
+      - CGO_ENABLED=1
+      - GO111MODULE=on
+      - CC=x86_64-linux-gnu-gcc
+      - CXX=x86_64-linux-gnu-g++
     goarch:
       - amd64
-      # 32bit does not compile at the moment because of spdx dependency
-      # - '386'
-      # Further testing before supporting arm
-      # - arm
+    goos:
+      - linux
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      # prettier-ignore
+      - '-s -w -X github.com/DataDog/osv-scanner/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+  - id: linux-arm64
+    main: ./cmd/osv-scanner/
+    binary: osv-scanner
+    env:
+      - CGO_ENABLED=1
+      - GO111MODULE=on
+      - CC=aarch64-linux-gnu-gcc
+      - CXX=aarch64-linux-gnu-g++
+    goarch:
       - arm64
-
+    goos:
+      - linux
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      # prettier-ignore
+      - '-s -w -X github.com/DataDog/osv-scanner/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+  - id: windows-amd64
+    main: ./cmd/osv-scanner/
+    binary: osv-scanner
+    env:
+      - CGO_ENABLED=1
+      - GO111MODULE=on
+      - CC=x86_64-w64-mingw32-gcc
+      - CXX=x86_64-w64-mingw32-g++
+    goarch:
+      - amd64
+    goos:
+      - windows
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      # prettier-ignore
+      - '-s -w -X github.com/DataDog/osv-scanner/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+  - id: windows-arm64
+    main: ./cmd/osv-scanner/
+    binary: osv-scanner
+    env:
+      - CGO_ENABLED=1
+      - GO111MODULE=on
+      - CC=/llvm-mingw/bin/aarch64-w64-mingw32-gcc
+      - CXX=/llvm-mingw/bin/aarch64-w64-mingw32-g++
+    goarch:
+      - arm64
+    goos:
+      - windows
+    mod_timestamp: "{{ .CommitTimestamp }}"
+    flags:
+      - -trimpath
+    ldflags:
+      # prettier-ignore
+      - '-s -w -X github.com/DataDog/osv-scanner/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
 archives:
   - formats: ["zip"]
     name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
