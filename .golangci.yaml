@@ -130,4 +130,4 @@ issues:
       linters:
         - paralleltest
   exclude-dirs:
-    - internal/thirdparty/xml
+    - internal/thirdparty/
