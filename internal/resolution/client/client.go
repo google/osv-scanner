@@ -30,7 +30,7 @@ type DependencyClient interface {
 	AddRegistries(registries []Registry) error
 }
 
-type Registry interface{}
+type Registry any
 
 // PreFetch loads cache, then makes and caches likely queries needed for resolving a package with a list of requirements
 func PreFetch(ctx context.Context, c DependencyClient, requirements []resolve.RequirementVersion, manifestPath string) {

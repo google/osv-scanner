@@ -84,11 +84,11 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 					//     ],
 					//     "arch": []
 					// }
-					ecosystemAffects, ok := a.EcosystemSpecific["affects"].(map[string]interface{})
+					ecosystemAffects, ok := a.EcosystemSpecific["affects"].(map[string]any)
 					if !ok {
 						continue
 					}
-					affectedFunctions, ok := ecosystemAffects["functions"].([]interface{})
+					affectedFunctions, ok := ecosystemAffects["functions"].([]any)
 					if !ok {
 						continue
 					}
