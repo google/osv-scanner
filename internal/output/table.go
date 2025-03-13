@@ -296,7 +296,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 					}
 					outputRow = append(outputRow, name)
 					outputRow = append(outputRow, pkg.InstalledVersion)
-					outputRow = append(outputRow, pkg.Path)
+					outputRow = append(outputRow, strings.TrimPrefix(source.Name, ":"))
 
 					allOutputRows = append(allOutputRows, tbInnerResponse{
 						row:         outputRow,
