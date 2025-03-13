@@ -66,7 +66,6 @@ type PackageResult struct {
 	VulnCount         VulnCount
 	Licenses          []models.License
 	LicenseViolations []models.License
-	Path              string   `json:"-"`
 	DepGroups         []string `json:"-"`
 }
 
@@ -399,7 +398,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 			continue // Skip processing this vulnPkg as it was already added
 		}
 
-		packageResult := processPackage(vulnPkg, packageSource.Source.Path)
+		packageResult := processPackage(vulnPkg)
 		if vulnPkg.Package.ImageOrigin != nil {
 			packageResult.LayerDetail = PackageContainerInfo{
 				LayerIndex: vulnPkg.Package.ImageOrigin.Index,
@@ -449,7 +448,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 // This function processes the vulnerability groups, updates vulnerability details,
 // and constructs the final output result for the package, including details about
 // called and uncalled vulnerabilities, fixable counts, and layer information (if available).
-func processPackage(vulnPkg models.PackageVulns, path string) PackageResult {
+func processPackage(vulnPkg models.PackageVulns) PackageResult {
 	regularVulnMap, hiddenVulnMap := processVulnGroups(vulnPkg)
 	updateVuln(regularVulnMap, vulnPkg)
 	updateVuln(hiddenVulnMap, vulnPkg)
@@ -473,7 +472,6 @@ func processPackage(vulnPkg models.PackageVulns, path string) PackageResult {
 		Licenses:          vulnPkg.Licenses,
 		LicenseViolations: vulnPkg.LicenseViolations,
 		DepGroups:         vulnPkg.DepGroups,
-		Path:              path,
 	}
 
 	return packageResult
