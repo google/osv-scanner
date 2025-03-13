@@ -314,11 +314,28 @@ func GetMainClasses(manifest io.Reader) ([]string, error) {
 	scanner := bufio.NewScanner(manifest)
 
 	var classes []string
+	var lines []string
+
+	// Read all lines into memory for easier processing.
 	for scanner.Scan() {
-		line := strings.TrimSpace(scanner.Text())
+		lines = append(lines, scanner.Text())
+	}
+
+	for i := 0; i < len(lines); i++ {
+		line := strings.TrimSpace(lines[i])
 		for _, marker := range markers {
 			if strings.HasPrefix(line, marker) {
 				class := strings.TrimSpace(strings.TrimPrefix(line, marker))
+				// Handle wrapped lines. Class names exceeding line length limits
+				// may be split across multiple lines, starting with a space.
+				for index := i + 1; index < len(lines); index++ {
+					nextLine := lines[index]
+					if strings.HasPrefix(nextLine, " ") {
+						class += strings.TrimSpace(nextLine)
+					} else {
+						break
+					}
+				}
 				classes = append(classes, strings.ReplaceAll(class, ".", "/"))
 			}
 		}

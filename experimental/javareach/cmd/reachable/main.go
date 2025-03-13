@@ -3,6 +3,7 @@ package main
 import (
 	"archive/zip"
 	"bufio"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -18,6 +19,16 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
 	"github.com/google/osv-scanner/experimental/javareach"
+)
+
+const MetaDirPath = "META-INF"
+
+var (
+	ManifestFilePath = filepath.Join(MetaDirPath, "MANIFEST.MF")
+	MavenDepDirPath  = filepath.Join(MetaDirPath, "maven")
+	ServiceDirPath   = filepath.Join(MetaDirPath, "services")
+
+	ErrMavenDependencyNotFound = errors.New(MavenDepDirPath + " directory not found")
 )
 
 // Usage:
@@ -99,6 +110,14 @@ func enumerateReachabilityForJar(jarPath string) error {
 		return err
 	}
 
+	// Reachability analysis is limited to Maven-built JARs for now.
+	// Check for the existence of the Maven metadata directory.
+	_, err = os.Stat(filepath.Join(tmpDir, MavenDepDirPath))
+	if err != nil {
+		slog.Error("reachability analysis is only supported for JARs built with Maven.")
+		return ErrMavenDependencyNotFound
+	}
+
 	// Build .class -> Maven group ID:artifact ID mappings.
 	// TODO: Handle BOOT-INF and loading .jar dependencies from there.
 	classFinder, err := javareach.NewDefaultPackageFinder(allDeps, tmpDir)
@@ -107,7 +126,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 	}
 
 	// Extract the main entrypoint.
-	manifest, err := os.Open(filepath.Join(tmpDir, "META-INF/MANIFEST.MF"))
+	manifest, err := os.Open(filepath.Join(tmpDir, ManifestFilePath))
 	if err != nil {
 		return err
 	}
@@ -129,7 +148,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 
 	// Look inside META-INF/services, which is used by
 	// https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html
-	servicesDir := filepath.Join(tmpDir, "META-INF/services")
+	servicesDir := filepath.Join(tmpDir, ServiceDirPath)
 	var optionalRootClasses []string
 	if _, err := os.Stat(servicesDir); err == nil {
 		var entries []string
@@ -194,7 +213,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 	for _, class := range result.Classes {
 		deps, err := classFinder.Find(class)
 		if err != nil {
-			slog.Error("Failed to find dep mapping", "class", class, "error", err)
+			slog.Debug("Failed to find dep mapping", "class", class, "error", err)
 			continue
 		}
 
@@ -211,7 +230,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 		slog.Info("Found use of dynamic code loading", "class", class)
 		deps, err := classFinder.Find(class)
 		if err != nil {
-			slog.Error("Failed to find dep mapping", "class", class, "error", err)
+			slog.Debug("Failed to find dep mapping", "class", class, "error", err)
 			continue
 		}
 		for _, dep := range deps {
@@ -222,7 +241,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 		slog.Info("Found use of dependency injection", "class", class)
 		deps, err := classFinder.Find(class)
 		if err != nil {
-			slog.Error("Failed to find dep mapping", "class", class, "error", err)
+			slog.Debug("Failed to find dep mapping", "class", class, "error", err)
 			continue
 		}
 		for _, dep := range deps {
