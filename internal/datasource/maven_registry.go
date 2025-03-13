@@ -210,7 +210,7 @@ func (m *MavenRegistryAPIClient) getArtifactMetadata(ctx context.Context, regist
 	return metadata, nil
 }
 
-func (m *MavenRegistryAPIClient) get(ctx context.Context, auth *HTTPAuthentication, url string, dst interface{}) error {
+func (m *MavenRegistryAPIClient) get(ctx context.Context, auth *HTTPAuthentication, url string, dst any) error {
 	resp, err := m.responses.Get(url, func() (response, error) {
 		resp, err := auth.Get(ctx, http.DefaultClient, url)
 		if err != nil {
