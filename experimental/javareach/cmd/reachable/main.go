@@ -3,6 +3,7 @@ package main
 import (
 	"archive/zip"
 	"bufio"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -20,9 +21,15 @@ import (
 	"github.com/google/osv-scanner/experimental/javareach"
 )
 
-const MavenDepDirPath = "META-INF/maven"
-const ManifestFilePath = "META-INF/MANIFEST.MF"
-const ServiceDirPath = "META-INF/services"
+const MetaDirPath = "META-INF"
+
+var (
+	ManifestFilePath = filepath.Join(MetaDirPath, "MANIFEST.MF")
+	MavenDepDirPath  = filepath.Join(MetaDirPath, "maven")
+	ServiceDirPath   = filepath.Join(MetaDirPath, "services")
+
+	ErrMavenDependencyNotFound = errors.New(MavenDepDirPath + " directory not found")
+)
 
 // Usage:
 //
@@ -108,7 +115,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 	_, err = os.Stat(filepath.Join(tmpDir, MavenDepDirPath))
 	if err != nil {
 		slog.Error("reachability analysis is only supported for JARs built with Maven.")
-		return err
+		return ErrMavenDependencyNotFound
 	}
 
 	// Build .class -> Maven group ID:artifact ID mappings.
