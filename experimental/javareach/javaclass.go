@@ -24,7 +24,6 @@ var (
 	}
 
 	StandardLibraryPrefixes = []string{
-		"com/",
 		"java/",
 		"javax/",
 		"jdk/",
