@@ -3,6 +3,8 @@
 
 This release merges the improvements, features, and fixes from v2.0.0-rc1, v2.0.0-beta2, and v2.0.0-beta1.
 
+**Important:** This release includes several breaking changes aimed at future-proofing OSV-Scanner. Please consult our comprehensive **[Migration Guide](https://google.github.io/osv-scanner/migration-guide.html)** to ensure a smooth upgrade.
+
 ### Features:
 
 * **Layer and base image-aware container scanning:**
