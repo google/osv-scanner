@@ -53,7 +53,7 @@ func ToPackage(purl string) (models.PackageInfo, error) {
 	// PackageInfo expects the full namespace in the name for ecosystems that specify it.
 	name := parsedPURL.Name
 	if parsedPURL.Namespace != "" {
-		switch ecosystem { //nolint:exhaustive
+		switch ecosystem {
 		case osvschema.EcosystemMaven:
 			// Maven uses : to separate namespace and package
 			name = parsedPURL.Namespace + ":" + parsedPURL.Name

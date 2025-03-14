@@ -22,7 +22,6 @@ linters:
     - err113           # will re-add later (another-rex)
     - nonamedreturns   # disagree with, for now (another-rex)
     - goconst          # not everything should be a constant
-    - exptostd         # will be enabled shortly
   presets:
     - bugs
     - comment
@@ -34,6 +33,8 @@ linters:
     - unused
 
 linters-settings:
+  exhaustive:
+    default-signifies-exhaustive: true
   forbidigo:
     forbid:
       - p: ^testing.T.Skip
@@ -46,7 +47,6 @@ linters-settings:
         funcs:
           - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Errorf
           - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Warnf
-          - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Verbosef
           - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Infof
   depguard:
     rules:
@@ -108,6 +108,8 @@ linters-settings:
         disabled: false
       - name: unused-parameter
         disabled: false
+      - name: use-any
+        disabled: false
       - name: var-declaration
         disabled: false
       - name: var-naming
@@ -119,6 +121,8 @@ linters-settings:
     block-size: 2
 
 issues:
+  max-issues-per-linter: 0
+  max-same-issues: 0
   exclude-rules:
     - path: pkg/reporter
       linters:
@@ -126,5 +130,8 @@ issues:
     - path: _test\.go
       linters:
         - dupl
+    - path: cmd/osv-scanner/.+_test.go
+      linters:
+        - paralleltest
   exclude-dirs:
-    - internal/thirdparty/xml
+    - internal/thirdparty/

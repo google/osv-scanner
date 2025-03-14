@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"path/filepath"
 	"slices"
@@ -11,7 +12,6 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"github.com/google/osv-scanner/v2/internal/imodels"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 const osvScannerConfigName = "osv-scanner.toml"
@@ -139,8 +139,8 @@ func shouldIgnoreTimestamp(ignoreUntil time.Time) bool {
 
 // UseOverride updates the Manager to use the config at the given path in place
 // of any other config files that would be loaded when calling Get
-func (c *Manager) UseOverride(r reporter.Reporter, configPath string) error {
-	config, configErr := tryLoadConfig(r, configPath)
+func (c *Manager) UseOverride(configPath string) error {
+	config, configErr := tryLoadConfig(configPath)
 	if configErr != nil {
 		return configErr
 	}
@@ -150,7 +150,7 @@ func (c *Manager) UseOverride(r reporter.Reporter, configPath string) error {
 }
 
 // Get returns the appropriate config to use based on the targetPath
-func (c *Manager) Get(r reporter.Reporter, targetPath string) Config {
+func (c *Manager) Get(targetPath string) Config {
 	if c.OverrideConfig != nil {
 		return *c.OverrideConfig
 	}
@@ -168,14 +168,13 @@ func (c *Manager) Get(r reporter.Reporter, targetPath string) Config {
 		return config
 	}
 
-	config, configErr := tryLoadConfig(r, configPath)
+	config, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
-		r.Infof("Loaded filter from: %s\n", config.LoadPath)
+		slog.Info("Loaded filter from: " + config.LoadPath)
 	} else {
 		// anything other than the config file not existing is most likely due to an invalid config file
 		if !errors.Is(configErr, os.ErrNotExist) {
-			r.Errorf("Ignored invalid config file at: %s\n", configPath)
-			r.Verbosef("Config file %s is invalid because: %v\n", configPath, configErr)
+			slog.Error(fmt.Sprintf("Ignored invalid config file at %s because: %v", configPath, configErr))
 		}
 		// If config doesn't exist, use the default config
 		config = c.DefaultConfig
@@ -205,7 +204,7 @@ func normalizeConfigLoadPath(target string) (string, error) {
 
 // tryLoadConfig attempts to parse the config file at the given path as TOML,
 // returning the Config object if successful or otherwise the error
-func tryLoadConfig(r reporter.Reporter, configPath string) (Config, error) {
+func tryLoadConfig(configPath string) (Config, error) {
 	config := Config{}
 	m, err := toml.DecodeFile(configPath, &config)
 	if err == nil {
@@ -222,18 +221,18 @@ func tryLoadConfig(r reporter.Reporter, configPath string) (Config, error) {
 		}
 
 		config.LoadPath = configPath
-		config.warnAboutDuplicates(r)
+		config.warnAboutDuplicates()
 	}
 
 	return config, err
 }
 
-func (c *Config) warnAboutDuplicates(r reporter.Reporter) {
+func (c *Config) warnAboutDuplicates() {
 	seen := make(map[string]struct{})
 
 	for _, vuln := range c.IgnoredVulns {
 		if _, ok := seen[vuln.ID]; ok {
-			r.Warnf("warning: %s has multiple ignores for %s - only the first will be used!\n", c.LoadPath, vuln.ID)
+			slog.Warn(fmt.Sprintf("warning: %s has multiple ignores for %s - only the first will be used!", c.LoadPath, vuln.ID))
 		}
 		seen[vuln.ID] = struct{}{}
 	}

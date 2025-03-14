@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"log/slog"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -16,7 +17,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/thirdparty/ar"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ianlancetaylor/demangle"
 )
 
@@ -31,10 +31,10 @@ const (
 	RustLibExtension = ".rcgu.o/"
 )
 
-func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
-	binaryPaths, err := rustBuildSource(r, source)
+func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
+	binaryPaths, err := rustBuildSource(source)
 	if err != nil {
-		r.Errorf("failed to build cargo/rust project from source: %s\n", err)
+		slog.Error(fmt.Sprintf("failed to build cargo/rust project from source: %s", err))
 		return
 	}
 
@@ -50,14 +50,14 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 			// Is a library, so need an extra step to extract the object binary file before passing to parseDWARFData
 			buf, err := extractRlibArchive(path)
 			if err != nil {
-				r.Errorf("failed to analyse '%s': %s\n", path, err)
+				slog.Error(fmt.Sprintf("failed to analyse '%s': %s", path, err))
 				continue
 			}
 			readAt = bytes.NewReader(buf.Bytes())
 		} else {
 			f, err := os.Open(path)
 			if err != nil {
-				r.Errorf("failed to read binary '%s': %s\n", path, err)
+				slog.Error(fmt.Sprintf("failed to read binary '%s': %s", path, err))
 				continue
 			}
 			// This is fine to defer til the end of the function as there's
@@ -68,7 +68,7 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 
 		calls, err := functionsFromDWARF(readAt)
 		if err != nil {
-			r.Errorf("failed to analyse '%s': %s\n", path, err)
+			slog.Error(fmt.Sprintf("failed to analyse '%s': %s", path, err))
 			continue
 		}
 
@@ -84,11 +84,11 @@ func rustAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models
 					//     ],
 					//     "arch": []
 					// }
-					ecosystemAffects, ok := a.EcosystemSpecific["affects"].(map[string]interface{})
+					ecosystemAffects, ok := a.EcosystemSpecific["affects"].(map[string]any)
 					if !ok {
 						continue
 					}
-					affectedFunctions, ok := ecosystemAffects["functions"].([]interface{})
+					affectedFunctions, ok := ecosystemAffects["functions"].([]any)
 					if !ok {
 						continue
 					}
@@ -218,7 +218,7 @@ func extractRlibArchive(rlibPath string) (bytes.Buffer, error) {
 	return buf, nil
 }
 
-func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, error) {
+func rustBuildSource(source models.SourceInfo) ([]string, error) {
 	projectBaseDir := filepath.Dir(source.Path)
 
 	cmd := exec.Command("cargo", "build", "--workspace", "--all-targets", "--release")
@@ -233,11 +233,11 @@ func rustBuildSource(r reporter.Reporter, source models.SourceInfo) ([]string, e
 	cmd.Stdout = &stdoutBuffer
 	cmd.Stderr = &stderrBuffer
 
-	r.Infof("Begin building rust/cargo project\n")
+	slog.Info("Begin building rust/cargo project")
 
 	if err := cmd.Run(); err != nil {
-		r.Errorf("cargo stdout:\n%s", stdoutBuffer.String())
-		r.Errorf("cargo stderr:\n%s", stderrBuffer.String())
+		slog.Error("cargo stdout:\n" + stdoutBuffer.String())
+		slog.Error("cargo stderr:\n" + stderrBuffer.String())
 
 		return nil, fmt.Errorf("failed to run `%v`: %w", cmd.String(), err)
 	}

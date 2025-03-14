@@ -2,12 +2,12 @@ package tui
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 
 	"deps.dev/util/resolve"
 	"github.com/charmbracelet/lipgloss"
 	"github.com/google/osv-scanner/v2/internal/resolution"
-	"golang.org/x/exp/slices"
 )
 
 type chainGraphNode struct {

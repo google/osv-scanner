@@ -4,13 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"os"
 	"path"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -27,11 +27,9 @@ type LocalMatcher struct {
 	failedDBs map[osvschema.Ecosystem]error
 	// userAgent sets the user agent requests for db zips are made with
 	userAgent string
-	// TODO(v2 logging): Remove this reporter
-	r reporter.Reporter
 }
 
-func NewLocalMatcher(r reporter.Reporter, localDBPath string, userAgent string, downloadDB bool) (*LocalMatcher, error) {
+func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*LocalMatcher, error) {
 	dbBasePath, err := setupLocalDBDirectory(localDBPath)
 	if err != nil {
 		return nil, fmt.Errorf("could not create %s: %w", dbBasePath, err)
@@ -41,7 +39,6 @@ func NewLocalMatcher(r reporter.Reporter, localDBPath string, userAgent string, 
 		dbBasePath: dbBasePath,
 		dbs:        make(map[osvschema.Ecosystem]*ZipDB),
 		downloadDB: downloadDB,
-		r:          r,
 		userAgent:  userAgent,
 		failedDBs:  make(map[osvschema.Ecosystem]error),
 	}, nil
@@ -65,7 +62,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 			// Is a commit based query, skip local scanning
 			results = append(results, []*osvschema.Vulnerability{})
 			// TODO (V2 logging):
-			matcher.r.Infof("Skipping commit scanning for: %s\n", pkg.Commit())
+			slog.Info("Skipping commit scanning for: " + pkg.Commit())
 
 			continue
 		}
@@ -103,13 +100,13 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecos
 
 	if err != nil {
 		matcher.failedDBs[ecosystem.Ecosystem] = err
-		matcher.r.Errorf("could not load db for %s ecosystem: %v\n", ecosystem.Ecosystem, err)
+		slog.Error(fmt.Sprintf("could not load db for %s ecosystem: %v", ecosystem.Ecosystem, err))
 
 		return nil, err
 	}
 
 	// TODO(v2 logging): Replace with slog / another logger
-	matcher.r.Infof("Loaded %s local db from %s\n", db.Name, db.StoredAt)
+	slog.Info(fmt.Sprintf("Loaded %s local db from %s", db.Name, db.StoredAt))
 
 	matcher.dbs[ecosystem.Ecosystem] = db
 

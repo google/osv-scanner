@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log/slog"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -13,16 +14,15 @@ import (
 	"github.com/google/osv-scanner/v2/internal/sourceanalysis/govulncheck"
 	"github.com/google/osv-scanner/v2/internal/url"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/vuln/scan"
 )
 
-func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.SourceInfo) {
+func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 	cmd := exec.Command("go", "version")
 	_, err := cmd.Output()
 	if err != nil {
-		r.Infof("Skipping call analysis on Go code since Go is not installed.\n")
+		slog.Info("Skipping call analysis on Go code since Go is not installed.")
 		return
 	}
 
@@ -48,10 +48,10 @@ func goAnalysis(r reporter.Reporter, pkgs []models.PackageVulns, source models.S
 	res, err := runGovulncheck(filepath.Dir(source.Path), filteredVulns, goVersion)
 	if err != nil {
 		// TODO: Better method to identify the type of error and give advice specific to the error
-		r.Errorf(
+		slog.Error(fmt.Sprintf(
 			"Failed to run code analysis (govulncheck) on '%s' because %s\n"+
-				"(the Go toolchain is required)\n", source.Path, err.Error(),
-		)
+				"(the Go toolchain is required)", source.Path, err.Error(),
+		))
 
 		return
 	}

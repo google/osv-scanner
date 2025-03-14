@@ -2,6 +2,7 @@ package fix
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/charmbracelet/bubbles/key"
@@ -10,7 +11,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	lockf "github.com/google/osv-scanner/v2/internal/resolution/lockfile"
 	"github.com/google/osv-scanner/v2/internal/tui"
-	"golang.org/x/exp/slices"
 )
 
 type stateInPlaceResult struct {

@@ -3,6 +3,7 @@ package helper
 import (
 	"fmt"
 	"io"
+	"log/slog"
 	"net/http"
 	"os"
 	"os/exec"
@@ -11,9 +12,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/reporter"
 	"github.com/google/osv-scanner/v2/internal/spdx"
+	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/term"
 )
@@ -66,6 +69,10 @@ func GetScanGlobalFlags() []cli.Flag {
 			Value:   "table",
 			Action: func(_ *cli.Context, s string) error {
 				if slices.Contains(reporter.Format(), s) {
+					if s != "vertical" && s != "table" && s != "markdown" {
+						cmdlogger.SendEverythingToStderr()
+					}
+
 					return nil
 				}
 
@@ -91,8 +98,19 @@ func GetScanGlobalFlags() []cli.Flag {
 		},
 		&cli.StringFlag{
 			Name:  "verbosity",
-			Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(reporter.VerbosityLevels(), ", "),
+			Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(cmdlogger.Levels(), ", "),
 			Value: "info",
+			Action: func(_ *cli.Context, s string) error {
+				lvl, err := cmdlogger.ParseLevel(s)
+
+				if err != nil {
+					return err
+				}
+
+				cmdlogger.SetLevel(lvl)
+
+				return nil
+			},
 		},
 		&cli.BoolFlag{
 			Name:  "offline",
@@ -152,9 +170,9 @@ func GetScanGlobalFlags() []cli.Flag {
 }
 
 // OpenHTML will attempt to open the outputted HTML file in the default browser
-func OpenHTML(r reporter.Reporter, outputPath string) {
+func OpenHTML(outputPath string) {
 	// Open the outputted HTML file in the default browser.
-	r.Infof("Opening %s...\n", outputPath)
+	slog.Info(fmt.Sprintf("Opening %s...", outputPath))
 	var err error
 	switch runtime.GOOS {
 	case "linux":
@@ -164,20 +182,23 @@ func OpenHTML(r reporter.Reporter, outputPath string) {
 	case "darwin": // macOS
 		err = exec.Command("open", outputPath).Start()
 	default:
-		r.Infof("Unsupported OS.\n")
+		slog.Info("Unsupported OS.")
 	}
 
 	if err != nil {
-		r.Errorf("Failed to open: %s.\n Please manually open the outputted HTML file: %s\n", err, outputPath)
+		slog.Error(fmt.Sprintf("Failed to open: %s", err))
+		slog.Error("Please manually open the outputted HTML file: " + outputPath)
 	}
 }
 
 // ServeHTML serves the single HTML file for remote accessing.
 // The program will keep running to serve the HTML report on localhost
 // until the user manually terminates it (e.g. using Ctrl+C).
-func ServeHTML(r reporter.Reporter, outputPath string) {
+func ServeHTML(outputPath string) {
 	localhostURL := fmt.Sprintf("http://localhost:%s/", servePort)
-	r.Infof("Serving HTML report at %s.\nIf you are accessing remotely, use the following SSH command:\n`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`\n", localhostURL, servePort)
+	slog.Info("Serving HTML report at" + localhostURL)
+	slog.Info("If you are accessing remotely, use the following SSH command:")
+	slog.Info(fmt.Sprintf("`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`", servePort))
 	server := &http.Server{
 		Addr: ":" + servePort,
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -186,17 +207,17 @@ func ServeHTML(r reporter.Reporter, outputPath string) {
 		ReadHeaderTimeout: 3 * time.Second,
 	}
 	if err := server.ListenAndServe(); err != nil {
-		r.Errorf("Failed to start server: %v\n", err)
+		slog.Error(fmt.Sprintf("Failed to start server: %v", err))
 	}
 }
 
-func GetReporter(context *cli.Context, stdout, stderr io.Writer, outputPath, format string) (reporter.Reporter, error) {
+func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns *models.VulnerabilityResults) error {
 	termWidth := 0
 	var err error
 	if outputPath != "" { // Output is definitely a file
 		stdout, err = os.Create(outputPath)
 		if err != nil {
-			return nil, fmt.Errorf("failed to create output file: %w", err)
+			return fmt.Errorf("failed to create output file: %w", err)
 		}
 	} else { // Output might be a terminal
 		if stdoutAsFile, ok := stdout.(*os.File); ok {
@@ -207,16 +228,13 @@ func GetReporter(context *cli.Context, stdout, stderr io.Writer, outputPath, for
 		}
 	}
 
-	verbosityLevel, err := reporter.ParseVerbosityLevel(context.String("verbosity"))
-	if err != nil {
-		return nil, err
-	}
-	r, err := reporter.New(format, stdout, stderr, verbosityLevel, termWidth)
-	if err != nil {
-		return r, err
+	writer := stdout
+
+	if format == "gh-annotations" {
+		writer = stderr
 	}
 
-	return r, nil
+	return reporter.PrintResult(diffVulns, format, writer, termWidth)
 }
 
 func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {

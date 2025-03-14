@@ -156,8 +156,8 @@ func TestNpmRegistryClient(t *testing.T) {
 		if err != nil {
 			t.Fatalf("failed getting full json: %v", err)
 		}
-		wantMap := want.Value().(map[string]interface{})
-		gotMap := got.Value().(map[string]interface{})
+		wantMap := want.Value().(map[string]any)
+		gotMap := got.Value().(map[string]any)
 		if diff := cmp.Diff(wantMap, gotMap, cmpopts.SortSlices(compare.Less[string])); diff != "" {
 			t.Errorf("FullJSON(\"%s\", \"%s\") (-want +got)\n%s", pkg, ver, diff)
 		}

@@ -13,7 +13,6 @@ import (
 
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 )
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -177,7 +176,7 @@ func Test_tryLoadConfig(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got, err := tryLoadConfig(&reporter.VoidReporter{}, tt.args.configPath)
+			got, err := tryLoadConfig(tt.args.configPath)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("tryLoadConfig() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -227,7 +226,7 @@ func TestTryLoadConfig_UnknownKeys(t *testing.T) {
 	}
 
 	for _, testData := range tests {
-		c, err := tryLoadConfig(&reporter.VoidReporter{}, testData.configPath)
+		c, err := tryLoadConfig(testData.configPath)
 
 		// we should always be returning an empty config on error
 		if diff := cmp.Diff(Config{}, c); diff != "" {

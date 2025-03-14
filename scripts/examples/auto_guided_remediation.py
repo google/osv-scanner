@@ -43,7 +43,7 @@ def run_fix(n_patches: int, avoid_pkgs: List[str], strategy: List[str]) -> Tuple
   # restore package.json & package-lock.json
   subprocess.check_call(['git', 'checkout', 'package.json', 'package-lock.json'], cwd=directory)
   # run osv-fix and parse changes
-  cmd = ['osv-scanner', 'fix', '--non-interactive', '-M', manifest, '-L', lockfile] + osv_fix_args + strategy
+  cmd = ['osv-scanner', 'fix', '-M', manifest, '-L', lockfile] + osv_fix_args + strategy
 
   # 0 is a magic value that means we try all patches.
   if n_patches != 0:

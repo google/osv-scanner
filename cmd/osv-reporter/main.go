@@ -4,14 +4,16 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log/slog"
 	"os"
 	"strings"
 
 	"github.com/google/osv-scanner/v2/internal/ci"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/reporter"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/term"
 )
@@ -33,16 +35,18 @@ func splitLastArg(args []string) []string {
 }
 
 func run(args []string, stdout, stderr io.Writer) int {
-	var tableReporter reporter.Reporter
+	logger := cmdlogger.New(stdout, stderr)
+
+	slog.SetDefault(slog.New(&logger))
 
 	// Allow multiple arguments to be defined by github actions by splitting the last argument
 	// by new lines.
 	args = splitLastArg(args)
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
-		// Use the app Writer and ErrWriter since they will be the writers to keep parallel tests consistent
-		tableReporter = reporter.NewTableReporter(ctx.App.Writer, ctx.App.ErrWriter, reporter.InfoLevel, false, 0)
-		tableReporter.Infof("osv-scanner version: %s\ncommit: %s\nbuilt at: %s\n", ctx.App.Version, commit, date)
+		slog.Info("osv-scanner version: " + ctx.App.Version)
+		slog.Info("commit: " + commit)
+		slog.Info("built at: " + date)
 	}
 
 	app := &cli.App{
@@ -92,10 +96,6 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
-			if tableReporter, err = reporter.New("table", stdout, stderr, reporter.InfoLevel, termWidth); err != nil {
-				return err
-			}
-
 			oldPath := context.String("old")
 			newPath := context.String("new")
 
@@ -103,7 +103,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			if oldPath != "" {
 				oldVulns, err = ci.LoadVulnResults(oldPath)
 				if err != nil {
-					fmt.Fprintf(os.Stderr, "failed to open old results at %s: %v - likely because target branch has no lockfiles.\n", oldPath, err)
+					slog.Error(fmt.Sprintf("failed to open old results at %s: %v - likely because target branch has no lockfiles.", oldPath, err))
 					// Do not return, assume there is no oldVulns (which will display all new vulns).
 					oldVulns = models.VulnerabilityResults{}
 				}
@@ -111,7 +111,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			newVulns, err := ci.LoadVulnResults(newPath)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "failed to open new results at %s: %v - likely because previous step failed.\n", newPath, err)
+				slog.Error(fmt.Sprintf("failed to open new results at %s: %v - likely because previous step failed.", newPath, err))
 				newVulns = models.VulnerabilityResults{}
 				// Do not return a non zero error code.
 			}
@@ -136,17 +136,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 				diffVulns = ci.DiffVulnerabilityResults(oldVulns, newVulns)
 			}
 
-			if errPrint := tableReporter.PrintResult(&diffVulns); errPrint != nil {
+			if errPrint := reporter.PrintResult(&diffVulns, "table", stdout, termWidth); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
 
 			if context.Bool("gh-annotations") {
-				var ghAnnotationsReporter reporter.Reporter
-				if ghAnnotationsReporter, err = reporter.New("gh-annotations", stdout, stderr, reporter.InfoLevel, termWidth); err != nil {
-					return err
-				}
-
-				if errPrint := ghAnnotationsReporter.PrintResult(&diffVulns); errPrint != nil {
+				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stderr, termWidth); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
@@ -159,12 +154,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 					return fmt.Errorf("failed to create output file: %w", err)
 				}
 				termWidth = 0
-				var sarifReporter reporter.Reporter
-				if sarifReporter, err = reporter.New("sarif", stdout, stderr, reporter.InfoLevel, termWidth); err != nil {
-					return err
-				}
 
-				if errPrint := sarifReporter.PrintResult(&diffVulns); errPrint != nil {
+				if errPrint := reporter.PrintResult(&diffVulns, "sarif", stdout, termWidth); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
@@ -191,24 +182,21 @@ func run(args []string, stdout, stderr io.Writer) int {
 	}
 
 	if err := app.Run(args); err != nil {
-		if tableReporter == nil {
-			tableReporter = reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
-		}
 		if errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 			return 1
 		}
 
 		if errors.Is(err, osvscanner.ErrNoPackagesFound) {
-			tableReporter.Errorf("No package sources found, --help for usage information.\n")
+			slog.Error("No package sources found, --help for usage information.")
 			return 128
 		}
 
-		tableReporter.Errorf("%v\n", err)
+		slog.Error(fmt.Sprintf("%v", err))
 	}
 
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	if tableReporter != nil && tableReporter.HasErrored() {
+	if logger.HasErrored() {
 		return 127
 	}
 

@@ -3,7 +3,6 @@ package update
 import (
 	"errors"
 	"fmt"
-	"io"
 	"os"
 
 	"deps.dev/util/resolve"
@@ -14,11 +13,10 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/version"
-	"github.com/google/osv-scanner/v2/pkg/reporter"
 	"github.com/urfave/cli/v2"
 )
 
-func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
+func Command() *cli.Command {
 	return &cli.Command{
 		Hidden: true,
 		Name:   "update",
@@ -53,12 +51,7 @@ func Command(stdout, stderr io.Writer, r *reporter.Reporter) *cli.Command {
 				},
 			},
 		},
-		Action: func(ctx *cli.Context) error {
-			var err error
-			*r, err = action(ctx, stdout, stderr)
-
-			return err
-		},
+		Action: action,
 	}
 }
 
@@ -71,26 +64,24 @@ type updateOptions struct {
 	ManifestRW manifest.ReadWriter
 }
 
-func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, error) {
-	r := reporter.NewTableReporter(stdout, stderr, reporter.InfoLevel, false, 0)
-
+func action(ctx *cli.Context) error {
 	options := updateOptions{
 		Manifest:      ctx.String("manifest"),
 		IgnoreDev:     ctx.Bool("ignore-dev"),
-		UpgradeConfig: upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config"), r),
+		UpgradeConfig: upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config")),
 	}
 
 	if _, err := os.Stat(options.Manifest); errors.Is(err, os.ErrNotExist) {
-		return nil, fmt.Errorf("file not found: %s", options.Manifest)
+		return fmt.Errorf("file not found: %s", options.Manifest)
 	} else if err != nil {
-		return nil, err
+		return err
 	}
 
 	system := resolve.UnknownSystem
 	if options.Manifest != "" {
 		rw, err := manifest.GetReadWriter(options.Manifest, ctx.String("maven-registry"))
 		if err != nil {
-			return nil, err
+			return err
 		}
 		options.ManifestRW = rw
 		system = rw.System()
@@ -101,43 +92,43 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) (reporter.Reporter, erro
 	case "deps.dev":
 		options.Client, err = client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_update/"+version.OSVVersion)
 		if err != nil {
-			return nil, err
+			return err
 		}
 	case "native":
 		switch system {
 		case resolve.Maven:
 			options.Client, err = client.NewMavenRegistryClient(ctx.String("maven-registry"))
 			if err != nil {
-				return nil, err
+				return err
 			}
 		case resolve.NPM, resolve.UnknownSystem:
 			fallthrough
 		default:
-			return nil, fmt.Errorf("native data-source currently unsupported for %s ecosystem", system.String())
+			return fmt.Errorf("native data-source currently unsupported for %s ecosystem", system.String())
 		}
 	}
 
 	df, err := depfile.OpenLocalDepFile(options.Manifest)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	mf, err := options.ManifestRW.Read(df)
 	df.Close() // Close the dep file and we may re-open it for writing
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	suggester, err := suggest.GetSuggester(mf.System())
 	if err != nil {
-		return nil, err
+		return err
 	}
 	patch, err := suggester.Suggest(ctx.Context, options.Client, mf, suggest.Options{
 		IgnoreDev:     options.IgnoreDev,
 		UpgradeConfig: options.UpgradeConfig,
 	})
 	if err != nil {
-		return nil, err
+		return err
 	}
 
-	return r, manifest.Overwrite(options.ManifestRW, options.Manifest, patch)
+	return manifest.Overwrite(options.ManifestRW, options.Manifest, patch)
 }

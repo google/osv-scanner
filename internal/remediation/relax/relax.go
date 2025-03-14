@@ -26,7 +26,7 @@ type RequirementRelaxer interface {
 
 func GetRelaxer(ecosystem resolve.System) (RequirementRelaxer, error) {
 	// TODO: is using ecosystem fine, or should this be per manifest?
-	switch ecosystem { //nolint:exhaustive
+	switch ecosystem {
 	case resolve.NPM:
 		return NpmRelaxer{}, nil
 	default:
