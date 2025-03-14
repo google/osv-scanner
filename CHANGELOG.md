@@ -1,3 +1,67 @@
+
+# OSV-Scanner v2.0.0
+
+This release merges the improvements, features, and fixes from v2.0.0-rc1, v2.0.0-beta2, and v2.0.0-beta1.
+
+### Features:
+
+* **Layer and base image-aware container scanning:**
+    * Rewritten support for Debian, Ubuntu, and Alpine container images.
+    * Layer level analysis and vulnerability breakdown.
+    * Supports Go, Java, Node, and Python artifacts within supported distros.
+    * Base image identification via `deps.dev`.
+    * Usage: `osv-scanner scan image <image-name>:<tag>`
+* **Interactive HTML output:**
+    * Severity breakdown, package/ID/importance filtering, vulnerability details.
+    * Container image layer filtering, layer info, base image identification.
+    * Usage: `osv-scanner scan --serve ...`
+* **Guided Remediation for Maven pom.xml:**
+    * Remediate direct and transitive dependencies (non-interactive mode).
+    * New `override` remediation strategy.
+    * Support for reading/writing `pom.xml` and parent POM files.
+    * Private registry support for Maven metadata.
+    * Machine-readable output for guided remediation.
+* **Enhanced Dependency Extraction with `osv-scalibr`:**
+    * Haskell: `cabal.project.freeze`, `stack.yaml.lock`
+    * .NET: `deps.json`
+    * Python: `uv.lock`
+    * Artifacts: `node_module`s, Python wheels, Java uber jars, Go binaries
+* [Feature #1636](https://github.com/google/osv-scanner/pull/1636) `osv-scanner update` command for updating the local vulnerability database (formerly experimental).
+* [Feature #1582](https://github.com/google/osv-scanner/pull/1582) Add container scanning information to vertical output format.
+* [Feature #1587](https://github.com/google/osv-scanner/pull/1587) Add support for severity in SARIF report format.
+* [Feature #1569](https://github.com/google/osv-scanner/pull/1569) Add support for `bun.lock` lockfiles.
+* [Feature #1547](https://github.com/google/osv-scanner/pull/1547) Add experimental config support to the `scan image` command.
+* [Feature #1557](https://github.com/google/osv-scanner/pull/1557) Allow setting port number with `--serve` using the new `--port` flag.
+
+### Breaking Changes:
+
+* [Feature #1670](https://github.com/google/osv-scanner/pull/1670) Guided remediation now defaults to non-interactive mode; use the `--interactive` flag for interactive mode.
+* [Feature #1670](https://github.com/google/osv-scanner/pull/1686) Removed the `--verbosity=verbose` verbosity level.
+* [Feature #1673](https://github.com/google/osv-scanner/pull/1673) & [Feature #1664](https://github.com/google/osv-scanner/pull/1664) All previous experimental flags are now out of experimental, and the experimental flag mechanism has been removed.
+* [Feature #1651](https://github.com/google/osv-scanner/pull/1651) Multiple license flags have been merged into a single `--license` flag.
+* [Feature #1666](https://github.com/google/osv-scanner/pull/1666) API: `reporter` removed; logging now uses `slog`, which can be overridden.
+* [Feature #1638](https://github.com/google/osv-scanner/pull/1638) API: Deprecated packages removed, including `lockfile` (migrated to `OSV-Scalibr`).
+
+### Improvements:
+
+* [Feature #1561](https://github.com/google/osv-scanner/pull/1561) Updated HTML report for better contrast and usability (from beta2).
+* [Feature #1584](https://github.com/google/osv-scanner/pull/1584) Make skipping the root git repository the default behavior (from beta2).
+* [Feature #1648](https://github.com/google/osv-scanner/pull/1648) Updated HTML report styling to improve contrast (from rc1).
+
+### Fixes:
+
+* [Fix #1598](https://github.com/google/osv-scanner/pull/1598) Fix table output vulnerability ordering.
+* [Fix #1616](https://github.com/google/osv-scanner/pull/1616) Filter out Ubuntu unimportant vulnerabilities.
+* [Fix #1585](https://github.com/google/osv-scanner/pull/1585) Fixed issue where base images are occasionally duplicated.
+* [Fix #1597](https://github.com/google/osv-scanner/pull/1597) Fixed issue where SBOM parsers are not correctly parsing CycloneDX files when using the `bom.xml` filename.
+* [Fix #1566](https://github.com/google/osv-scanner/pull/1566) Fixed issue where offline scanning returns different results from online scanning.
+* [Fix #1538](https://github.com/google/osv-scanner/pull/1538) Reduce memory usage when using guided remediation.
+
+We encourage everyone to upgrade to OSV-Scanner v2.0.0 and experience these powerful new capabilities! As always, your feedback is invaluable, so please don't hesitate to share your thoughts and suggestions.
+
+- [General V2 feedback](https://github.com/google/osv-scanner/discussions/1529)
+- [Container scanning feedback](https://github.com/google/osv-scanner/discussions/1521)
+
 # v2.0.0-rc1
 
 Our first release candidate for OSV-Scanner V2, which includes various breaking changes osv-scanner to help future proof osv-scanner in V2! See the changelog for beta1 and beta2 for the full list of changes.
