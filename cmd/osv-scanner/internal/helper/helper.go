@@ -66,7 +66,7 @@ func GetScanGlobalFlags() []cli.Flag {
 			Name:    "format",
 			Aliases: []string{"f"},
 			Usage:   "sets the output format; value can be: " + strings.Join(reporter.Format(), ", "),
-			Value:   "table",
+			Value:   "vertical",
 			Action: func(_ *cli.Context, s string) error {
 				if slices.Contains(reporter.Format(), s) {
 					if s != "vertical" && s != "table" && s != "markdown" {
