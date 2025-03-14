@@ -838,8 +838,8 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 			},
 		},
 		{
-			name: "scanning image with go binary",
-			args: []string{"", "scan", "image", "--archive", "--all-packages", "--format=json", "../../internal/image/fixtures/test-ubuntu.tar"},
+			name: "scanning ubuntu image in json format",
+			args: []string{"", "scan", "image", "--archive", "--format=json", "../../internal/image/fixtures/test-ubuntu.tar"},
 			exit: 1,
 			replaceRules: []testutility.JSONReplaceRule{
 				testutility.GroupsAsArrayLen,
