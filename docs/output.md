@@ -99,6 +99,7 @@ osv-scanner scan --format markdown your/project/dir
 osv-scanner scan --format html your/project/dir
 # OR
 osv-scanner scan --serve your/project/dir # Hosts HTML output at localhost port 8000
+# Use the --port flag along with --serve to specify a custom port to host the output
 ```
 
 The HTML output features a lot more interactivity and information compared to terminal only outputs, including:
