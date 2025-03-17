@@ -3169,8 +3169,8 @@ failed to load image from tarball with path "./fixtures/oci-image/no-file-here.t
 Scanning local image tarball "../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 13 packages affected by 18 known vulnerabilities (1 Critical, 5 High, 8 Medium, 0 Low, 4 Unknown) from 2 ecosystems.
-18 vulnerabilities can be fixed.
+Total 14 packages affected by 19 known vulnerabilities (1 Critical, 5 High, 8 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
+19 vulnerabilities can be fixed.
 
 
 Maven
@@ -3196,6 +3196,7 @@ Alpine:v3.21
 +----------+-------------------+---------------+------------+------------------+-----------------+
 | PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE   |
 +----------+-------------------+---------------+------------+------------------+-----------------+
+| expat    | 2.6.4-r0          | Fix Available |          1 | # 5 Layer        | eclipse-temurin |
 | libtasn1 | 4.19.0-r2         | Fix Available |          1 | # 5 Layer        | eclipse-temurin |
 | musl     | 1.2.5-r8          | Fix Available |          1 | # 0 Layer        | alpine          |
 | openssl  | 3.3.2-r4          | Fix Available |          2 | # 0 Layer        | alpine          |
