@@ -1,7 +1,6 @@
 package lockfile
 
 import (
-	"errors"
 	"os"
 	"path/filepath"
 	"strings"
@@ -38,7 +37,8 @@ func (matcher GemspecFileMatcher) GetSourceFile(lockfile DepFile) (DepFile, erro
 		}
 	}
 
-	return nil, errors.New("no " + gemspecFileSuffix + " file found")
+	// .gemspec are optional, Gemfile.lock sometimes has no .gemspec and that is fine
+	return nil, nil
 }
 
 func (matcher GemspecFileMatcher) Match(sourceFile DepFile, packages []PackageDetails) error {
