@@ -152,5 +152,7 @@ formatters:
       - examples$
 
 issues:
+  include:
+    - EXC0015 # revive package-comments
   max-issues-per-linter: 0
   max-same-issues: 0
