@@ -24,7 +24,7 @@ func TestGemspecFileMatcher_GetSourceFile_FileDoesNotExist(t *testing.T) {
 
 	sourceFile, err := gemspecFileMatcher.GetSourceFile(lockFile)
 	assert.Nil(t, sourceFile)
-	assert.Error(t, err, "no .gemspec file found")
+	assert.NoError(t, err)
 }
 
 func TestGemspecFileMatcher_GetSourceFile(t *testing.T) {

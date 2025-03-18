@@ -906,3 +906,31 @@ func TestParseGemfileLock_HasGitGem(t *testing.T) {
 		},
 	})
 }
+
+func TestParseGemfileLock_PlatformSpecificDependencyIsParsed(t *testing.T) {
+	t.Parallel()
+
+	packages, err := lockfile.ParseGemfileLock("fixtures/bundler/platform-specific/Gemfile.lock")
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:           "zeitwerk",
+			Version:        "2.6.0",
+			PackageManager: models.Bundler,
+			Ecosystem:      lockfile.BundlerEcosystem,
+			CompareAs:      lockfile.BundlerEcosystem,
+			IsDirect:       true,
+		},
+		{
+			Name:           "tzinfo-data",
+			Version:        "",
+			PackageManager: models.Bundler,
+			Ecosystem:      lockfile.BundlerEcosystem,
+			CompareAs:      lockfile.BundlerEcosystem,
+			IsDirect:       true,
+		},
+	})
+}

@@ -38,8 +38,8 @@ type FailingMatcher struct {
 	Error error
 }
 
-func (m FailingMatcher) GetSourceFile(_ lockfile.DepFile) (lockfile.DepFile, error) {
-	return nil, nil
+func (m FailingMatcher) GetSourceFile(f lockfile.DepFile) (lockfile.DepFile, error) {
+	return f, nil
 }
 
 func (m FailingMatcher) Match(_ lockfile.DepFile, _ []lockfile.PackageDetails) error {

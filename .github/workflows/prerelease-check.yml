@@ -17,17 +17,19 @@ on:
 permissions: {}
 
 jobs:
-  osv-scan:
-    permissions:
-      contents: read # to fetch code (actions/checkout)
-      security-events: write # for uploading SARIF files
-    uses: ./.github/workflows/osv-scanner-reusable.yml
-    with:
-      # Only scan the top level go.mod file without recursively scanning directories since
-      # this is pipeline is about releasing the go module and binary
-      scan-args: |-
-        --skip-git
-        ./
+  # Disable for now until we have a better way to handle vuln detection
+  # For now this fork only cares about scanning dependencies and we are moving to the new datadog-sbom-scanner soon
+  #  osv-scan:
+  #    permissions:
+  #      contents: read # to fetch code (actions/checkout)
+  #      security-events: write # for uploading SARIF files
+  #    uses: ./.github/workflows/osv-scanner-reusable.yml
+  #    with:
+  #      # Only scan the top level go.mod file without recursively scanning directories since
+  #      # this is pipeline is about releasing the go module and binary
+  #      scan-args: |-
+  #        --skip-git
+  #        ./
 
   format:
     permissions:
@@ -110,7 +112,7 @@ jobs:
       - format
       - lint
       - tests
-      - osv-scan
+    #      - osv-scan
     steps:
       - name: Print Scripts
         env:

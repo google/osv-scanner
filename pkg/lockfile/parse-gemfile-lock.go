@@ -81,13 +81,27 @@ func (parser *gemfileLockfileParser) addDependency(name string, version string) 
 	}
 
 	// find the package that exists already from parsing the `GEM` section
-	// and set it as a direct dep
-
+	// if not found, add it as a direct dep if found just set it as a direct dep
+	found := false
 	for i, dep := range parser.dependencies {
 		if dep.Name == name {
 			parser.dependencies[i].IsDirect = true
-			return
+			found = true
+
+			break
 		}
+	}
+
+	if !found {
+		parser.dependencies = append(parser.dependencies, PackageDetails{
+			Name:           name,
+			Version:        version,
+			PackageManager: models.Bundler,
+			Ecosystem:      BundlerEcosystem,
+			CompareAs:      BundlerEcosystem,
+			Commit:         parser.currentGemCommit,
+			IsDirect:       true,
+		})
 	}
 }
 
