@@ -3320,8 +3320,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 18 packages affected by 32 known vulnerabilities (0 Critical, 8 High, 9 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-32 vulnerabilities can be fixed.
+Total 17 packages affected by 31 known vulnerabilities (0 Critical, 8 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+31 vulnerabilities can be fixed.
 
 
 PyPI
@@ -3345,13 +3345,6 @@ PyPI
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | idna    | 2.7               | Fix Available |          1 | # 17 Layer       | --            |
-+---------+-------------------+---------------+------------+------------------+---------------+
-+---------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/site-packages/jinja2-3.1.5.dist-info/METADATA       |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| jinja2  | 3.1.5             | Fix Available |          1 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA         |
@@ -3730,28 +3723,6 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
           "vulnerabilities": [
             "GHSA-jjg7-2v4v-x38h",
             "PYSEC-2024-60"
-          ],
-          "groups": 1
-        }
-      ]
-    },
-    {
-      "source": {
-        "path": "usr/local/lib/python3.9/site-packages/jinja2-3.1.5.dist-info/METADATA",
-        "type": "artifact"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "jinja2",
-            "version": "3.1.5",
-            "ecosystem": "PyPI",
-            "image_origin_details": {
-              "index": 17
-            }
-          },
-          "vulnerabilities": [
-            "GHSA-cpwx-vrp4-4pq7"
           ],
           "groups": 1
         }
@@ -4320,31 +4291,31 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
       },
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) WORKDIR...",
+        "command": "WORKDIR /app",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) COPY fi...",
+        "command": "COPY ./python-fixture/req...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c pip install --...",
+        "command": "RUN /bin/sh -c pip instal...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) COPY fi...",
+        "command": "COPY python-fixture/main....",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "",
-        "command": "/bin/sh -c #(nop)  CMD [/"...",
+        "command": "CMD [/"python/" /"main.py/"]",
         "is_empty": true,
         "base_image_index": 0
       }
@@ -4640,7 +4611,7 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
       },
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) COPY file:420f79474f8c83dc7ec59abbce117c7fb394afb647a85fe9dec3bd3ad6c6adff in /go/bin/ ",
+        "command": "COPY /work/ptf-1.4.0 /go/bin/ # buildkit",
         "is_empty": false,
         "base_image_index": 0
       }
@@ -4877,43 +4848,43 @@ Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
       },
       {
         "diff_id": "",
-        "command": "/bin/sh -c #(nop)  ARG MA...",
+        "command": "ARG MANAGER_VERSION=10.2.4",
         "is_empty": true,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) WORKDIR...",
+        "command": "WORKDIR /prod/app",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "|1 MANAGER_VERSION=10.2.4...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "|1 MANAGER_VERSION=10.2.4...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "|1 MANAGER_VERSION=10.2.4...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "|1 MANAGER_VERSION=10.2.4...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "|1 MANAGER_VERSION=10.2.4...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
         "is_empty": false,
         "base_image_index": 0
       }
