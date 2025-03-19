@@ -776,3 +776,40 @@ func TestParseYarnLock_v1_WithDependencies(t *testing.T) {
 
 	expectPackagesWithoutLocations(t, packages, expected)
 }
+
+func TestParseYarnLock_v1_WithResolution(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/yarn/resolution.v1.lock"))
+	packages, err := lockfile.ParseYarnLock(path)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expected := []lockfile.PackageDetails{
+		{
+			Name:           "@typescript-eslint/parser",
+			Version:        "2.34.0",
+			TargetVersions: []string{"^2.26.0"},
+			Ecosystem:      lockfile.YarnEcosystem,
+			CompareAs:      lockfile.YarnEcosystem,
+			PackageManager: models.Yarn,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
+		},
+		{
+			Name:           "my-custom-parser",
+			Version:        "3.10.1",
+			TargetVersions: []string{"^3.10.0"},
+			Ecosystem:      lockfile.YarnEcosystem,
+			CompareAs:      lockfile.YarnEcosystem,
+			PackageManager: models.Yarn,
+			Dependencies:   make([]*lockfile.PackageDetails, 0),
+		},
+	}
+
+	expectPackagesWithoutLocations(t, packages, expected)
+}

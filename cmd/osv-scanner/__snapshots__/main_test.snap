@@ -481,6 +481,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4085-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4016-1          |      | Debian    | ucf                            | 3.0036                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2016-2779       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3995       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1772,6 +1773,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4085-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4016-1          |      | Debian    | ucf                            | 3.0036                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2016-2779       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3995       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2003,6 +2005,7 @@ Filtered 16 vulnerabilities from output
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4085-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4016-1          |      | Debian    | ucf                            | 3.0036                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2016-2779       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3995       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |

@@ -81,14 +81,11 @@ func extractYarnPackageNameAndTargetVersions(str string) (string, []string) {
 	parts := strings.Split(str, ",")
 
 	var name, right string
-	var isScoped bool
 	targetVersions := make([]string, 0)
 
 	for _, part := range parts {
 		part = strings.TrimPrefix(part, " ")
 		partIsScoped := strings.HasPrefix(part, "@")
-		isScoped = isScoped || partIsScoped
-
 		if partIsScoped {
 			part = strings.TrimPrefix(part, "@")
 		}
@@ -96,6 +93,9 @@ func extractYarnPackageNameAndTargetVersions(str string) (string, []string) {
 		_name, _right, _ := strings.Cut(part, "@")
 		if len(name) == 0 {
 			name = _name
+			if partIsScoped {
+				name = "@" + name
+			}
 		}
 		right = _right
 
@@ -122,10 +122,6 @@ func extractYarnPackageNameAndTargetVersions(str string) (string, []string) {
 		right, _, _ = strings.Cut(right, "::locator")
 
 		targetVersions = append(targetVersions, right)
-	}
-
-	if isScoped {
-		name = "@" + name
 	}
 
 	return name, targetVersions
