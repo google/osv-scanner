@@ -61,7 +61,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 	// This removes the handler entirely so that behavior will not unexpectedly happen.
 	app.ExitErrHandler = func(_ *cli.Context, _ error) {}
 
-	args = insertDefaultCommand(args, app.Commands, app.DefaultCommand, stderr)
+	args = insertDefaultCommand(args, app.Commands, app.DefaultCommand)
 
 	if err := app.Run(args); err != nil {
 		switch {
@@ -151,17 +151,16 @@ func getAllCommands(commands []*cli.Command) []string {
 // warnIfCommandAmbiguous warns the user if the command they are trying to run
 // exists as both a subcommand and as a file on the filesystem.
 // If this is the case, the command is assumed to be a subcommand.
-func warnIfCommandAmbiguous(command, defaultCommand string, stderr io.Writer) {
+func warnIfCommandAmbiguous(command, defaultCommand string) {
 	if _, err := os.Stat(command); err == nil {
-		// todo this should be using slog.Warn, maybe...
-		fmt.Fprintf(stderr, "Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. "+
+		slog.Warn(fmt.Sprintf("Warning: `%[1]s` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. "+
 			"`%[1]s` is assumed to be a subcommand here. If you intended for `%[1]s` to be an argument to `%[2]s`, "+
-			"you must specify `%[2]s %[1]s` in your command line.\n", command, defaultCommand)
+			"you must specify `%[2]s %[1]s` in your command line.", command, defaultCommand))
 	}
 }
 
 // Inserts the default command to args if no command is specified.
-func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand string, stderr io.Writer) []string {
+func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand string) []string {
 	// Do nothing if no command or file name is provided.
 	if len(args) < 2 {
 		return args
@@ -182,7 +181,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 		return argsTmp
 	}
 
-	warnIfCommandAmbiguous(command, defaultCommand, stderr)
+	warnIfCommandAmbiguous(command, defaultCommand)
 
 	// If only the default command is provided without its subcommand, append the subcommand.
 	if command == defaultCommand {
@@ -203,7 +202,7 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 		}
 
 		// Print a warning message if subcommand exist on the filesystem.
-		warnIfCommandAmbiguous(subcommand, scan.DefaultSubcommand, stderr)
+		warnIfCommandAmbiguous(subcommand, scan.DefaultSubcommand)
 	}
 
 	return args
