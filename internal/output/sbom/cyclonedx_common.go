@@ -109,12 +109,17 @@ func buildCredits(vulnerability osvschema.Vulnerability) *cyclonedx.Credits {
 }
 
 func buildAffectedPackages(vulnerability osvschema.Vulnerability) *[]cyclonedx.Affects {
-	affectedPackages := make([]cyclonedx.Affects, len(vulnerability.Affected))
+	uniqueRefs := make(map[string]bool)
+	affectedPackages := make([]cyclonedx.Affects, 0)
 
-	for index, affected := range vulnerability.Affected {
-		affectedPackages[index] = cyclonedx.Affects{
-			Ref: affected.Package.Purl,
+	for _, affected := range vulnerability.Affected {
+		if _, exists := uniqueRefs[affected.Package.Purl]; exists {
+			continue
 		}
+		uniqueRefs[affected.Package.Purl] = true
+		affectedPackages = append(affectedPackages, cyclonedx.Affects{
+			Ref: affected.Package.Purl,
+		})
 	}
 
 	return &affectedPackages
