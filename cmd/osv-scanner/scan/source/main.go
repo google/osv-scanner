@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log/slog"
 	"os"
 	"path/filepath"
 
@@ -149,7 +150,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) error {
 		if serve {
 			helper.ServeHTML(outputPath)
 		} else if format == "html" {
-			helper.OpenHTML(outputPath)
+			slog.Info("HTML output available at: " + outputPath)
 		}
 	}
 
