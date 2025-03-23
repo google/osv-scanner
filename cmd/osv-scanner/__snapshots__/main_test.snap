@@ -1133,7 +1133,10 @@ Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file
 | https://osv.dev/GHSA-xc3p-ff3m-f46v |      |           |            |         |                                                   |
 | https://osv.dev/PYSEC-2024-71       | 8.7  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
 | https://osv.dev/GHSA-hxwh-jpp2-84pm |      |           |            |         |                                                   |
+| https://osv.dev/GHSA-43qf-4rqw-9q2g | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-7rxf-gvfg-47g4 | 4.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
 | https://osv.dev/GHSA-84pr-m4jr-85g5 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-8vgw-p6qm-5gr7 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
 | https://osv.dev/PYSEC-2020-73       |      | PyPI      | pandas     | 0.23.4  | fixtures/locks-requirements/requirements.txt      |
 +-------------------------------------+------+-----------+------------+---------+---------------------------------------------------+
 
@@ -3106,6 +3109,26 @@ Scanned <rootdir>/fixtures/locks-scalibr/depsjson file as a deps.json and found 
 ---
 
 [Test_run_MoreLockfiles/depsjson - 2]
+
+---
+
+[Test_run_MoreLockfiles/packages.config - 1]
+Scanned <rootdir>/fixtures/locks-scalibr/packages.config file and found 2 packages
+No issues found
+
+---
+
+[Test_run_MoreLockfiles/packages.config - 2]
+
+---
+
+[Test_run_MoreLockfiles/packages.lock.json - 1]
+Scanned <rootdir>/fixtures/locks-scalibr/packages.lock.json file and found 1 package
+No issues found
+
+---
+
+[Test_run_MoreLockfiles/packages.lock.json - 2]
 
 ---
 

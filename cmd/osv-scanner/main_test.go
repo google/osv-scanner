@@ -1035,6 +1035,16 @@ func Test_run_MoreLockfiles(t *testing.T) {
 			args: []string{"", "-L", "./fixtures/locks-scalibr/stack.yaml.lock"},
 			exit: 0,
 		},
+		{
+			name: "packages.config",
+			args: []string{"", "-L", "./fixtures/locks-scalibr/packages.config"},
+			exit: 0,
+		},
+		{
+			name: "packages.lock.json",
+			args: []string{"", "-L", "./fixtures/locks-scalibr/packages.lock.json"},
+			exit: 0,
+		},
 		/*
 			{
 				name: "Package.resolved",
