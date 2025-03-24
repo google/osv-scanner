@@ -20,6 +20,7 @@
 ---
 
 [Test_insertDefaultCommand - 6]
+Warning: `helpers.go` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `helpers.go` is assumed to be a subcommand here. If you intended for `helpers.go` to be an argument to `default`, you must specify `default helpers.go` in your command line.
 
 ---
 

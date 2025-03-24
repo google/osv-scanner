@@ -14,6 +14,7 @@ import (
 func Test_insertDefaultCommand(t *testing.T) {
 	commands := []*cli.Command{
 		{Name: "default"},
+		{Name: "helpers.go"},
 		{Name: "scan"},
 	}
 	defaultCommand := "default"
@@ -34,8 +35,8 @@ func Test_insertDefaultCommand(t *testing.T) {
 		},
 		// test when command is also a filename
 		{
-			originalArgs: []string{"", "scan"}, // `scan` exists as a file on filesystem (`./cmd/osv-scanner/scan`)
-			wantArgs:     []string{"", "scan"},
+			originalArgs: []string{"", "helpers.go"},
+			wantArgs:     []string{"", "helpers.go"},
 		},
 		// test when subcommand is also a filename
 		{
