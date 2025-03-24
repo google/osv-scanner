@@ -28,7 +28,7 @@ This tool provides several options to users for how to prioritise and remediate 
 
 - Resolution and analysis of the entire transitive graph (leveraging [deps.dev](https://deps.dev)) to determine the minimal changes required to remove vulnerabilities.
 - Prioritising direct dependency upgrades by the total number of transitive vulnerabilities fixed.
-- Prioritising vulnerabilities by dependency depth, severity, and whether or not to care about dev-only dependencies.
+- Prioritising vulnerabilities by dependency depth, severity, and whether to care about dev-only dependencies.
 - Modification of package manifest and lockfiles (e.g. `package.json`/`package-lock.json`) to fix vulnerabilities.
 - Different strategies with different risk/reward ratios (e.g. in-place fixes vs relocking).
 
@@ -674,7 +674,7 @@ Relocking recomputes your entire dependency graph based on your manifest file, t
 
 Selecting the "Relock" option will bring you to the relock information page. Here, you can see which vulnerabilities are present after relocking.
 
-In addition to relocking, it may be possible to further remove vulnerabilities by bumping the required version constraints of your direct dependencies. You may choose to apply these patches by selecting them on the relock page then choosing the "Apply pending patches" option. The dependency graph will then be recomputed and you may continue to select more options.
+In addition to relocking, it may be possible to further remove vulnerabilities by bumping the required version constraints of your direct dependencies. You may choose to apply these patches by selecting them on the relock page then choosing the "Apply pending patches" option. The dependency graph will then be recomputed, and you may continue to select more options.
 
 ![Screenshot of the interactive relock results screen with some relaxation patches selected](images/guided-remediation-relock-patches.png)
 
@@ -800,7 +800,7 @@ For more information, see [Offline Mode](./offline-mode.md).
 Remediation in npm `workspaces` is only partially supported:
 
 - In-place updates should function correctly on the workspace `package-lock.json`.
-- Dependency relaxation can change dependencies in the `package.json` file being being scanned. This means only dependencies declared in the root package can be changed.
+- Dependency relaxation can change dependencies in the `package.json` file being scanned. This means only dependencies declared in the root package can be changed.
   - You can remediate the individual `package.json` files of each workspace, but this will be unaware of any packages or constraints caused by sibling workspaces.
 - The `node_modules/` in workspaces are not deleted when relocking, which may impact the resulting dependency graph when running `npm install`.
 - Each workspace package is considered dependency depth 1 from the root workspace.

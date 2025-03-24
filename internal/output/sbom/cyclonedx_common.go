@@ -68,7 +68,7 @@ func addVulnerabilities(vulnerabilities map[string]cyclonedx.Vulnerability, pack
 			continue
 		}
 
-		// It doesn't exists yet, lets add it
+		// It doesn't exist yet, lets add it
 		vulnerabilities[vulnerability.ID] = cyclonedx.Vulnerability{
 			ID:          vulnerability.ID,
 			Updated:     formatDateIfExists(vulnerability.Modified),

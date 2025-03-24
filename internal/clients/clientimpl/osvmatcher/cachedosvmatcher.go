@@ -102,7 +102,7 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 
 	if err != nil {
 		// Deadline being exceeded is likely caused by a long paging time
-		// if that's the case, we can should return what we already got, and
+		// if that's the case, we should return what we already got, and
 		// then let the caller know it is not all the results.
 		if errors.Is(err, context.DeadlineExceeded) {
 			deadlineExceeded = true

@@ -181,7 +181,7 @@ func resolvePostProcess(ctx context.Context, cl client.ResolutionClient, m manif
 				vk := rv.VersionKey
 				vk.VersionType = resolve.Concrete
 				if _, err := cl.Version(ctx, vk); err != nil {
-					// Not a soft requirement - try find a match.
+					// Not a soft requirement - try to find a match.
 					vk.VersionType = resolve.Requirement
 					vks, err := cl.MatchingVersions(ctx, vk)
 					if err != nil || len(vks) == 0 {

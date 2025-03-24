@@ -250,7 +250,7 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 	}
 
 	// Get all vulns for all versions of all packages.
-	// It's easier to re-query this than to try use the vulnerability client's cache.
+	// It's easier to re-query this than to try to use the vulnerability client's cache.
 	batchQueries := make([]*osvdev.Query, len(pks))
 	for i, pk := range pks {
 		batchQueries[i] = &osvdev.Query{

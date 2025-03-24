@@ -47,7 +47,7 @@ type HTTPAuthentication struct {
 }
 
 // Get makes an http GET request with the given http.Client.
-// The Authorization Header will automatically be populated according from the fields in the HTTPAuthentication.
+// The Authorization Header will automatically be populated according to the fields in the HTTPAuthentication.
 func (auth *HTTPAuthentication) Get(ctx context.Context, httpClient *http.Client, url string) (*http.Response, error) {
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {

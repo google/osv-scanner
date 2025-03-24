@@ -118,7 +118,7 @@ func (ds *DependencySubgraph) IsDevOnly(groups map[manifest.RequirementKey][]str
 		if e.Type.HasAttr(dep.Dev) {
 			continue
 		}
-		// As a workaround for npm workspaces, check for the a Dev attr in the direct dependency's dependencies.
+		// As a workaround for npm workspaces, check for the Dev attr in the direct dependency's dependencies.
 		for _, e2 := range ds.Nodes[e.To].Children {
 			if !e2.Type.HasAttr(dep.Dev) {
 				return false

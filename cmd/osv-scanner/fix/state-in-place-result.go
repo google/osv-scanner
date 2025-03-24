@@ -110,7 +110,7 @@ func (st *stateInPlaceResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) 
 			if st.cursorPos == stateInPlaceQuit {
 				return m, tea.Quit
 			}
-			// move the cursor to the quit line if its not already there
+			// move the cursor to the quit line if it's not already there
 			st.cursorPos = stateInPlaceQuit
 		case key.Matches(msg, tui.Keys.Select):
 			// enter key was pressed, parse input

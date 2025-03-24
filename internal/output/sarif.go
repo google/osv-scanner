@@ -252,7 +252,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		helpText := createSARIFHelpText(gv)
 
 		// Pick the "best" description from the alias group based on the source.
-		// Set short description to the first entry with a non empty summary
+		// Set short description to the first entry with a non-empty summary
 		// Set long description to the same entry as short description
 		// or use a random long description.
 		var shortDescription, longDescription string

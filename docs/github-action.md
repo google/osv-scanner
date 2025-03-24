@@ -23,7 +23,7 @@ OSV-Scanner is available as a CI/CD Action. We currently offer two different reu
 1. A workflow that triggers a scan with each [pull request](./github-action.md#scan-on-pull-request) and will only report new vulnerabilities introduced through the pull request.
 2. A workflow that performs a full vulnerability scan, which can be configured to scan on pushes or a [regular schedule](./github-action.md#scheduled-scans). The full vulnerability scan can also be configured to run [on release](./github-action.md#scan-on-release) to prevent releasing with known vulnerabilities in dependencies.
 
-Currently there is no prebuilt workflows for other platforms, but we welcome any contributions for this!
+Currently, there is no prebuilt workflows for other platforms, but we welcome any contributions for this!
 
 ## Scan on pull request
 
@@ -113,7 +113,7 @@ Maintainers can review results of the scan by navigating to their project's `sec
 
 ## Scan on release
 
-Here is a example of blocking on release, though the actual implementation will heavily depend on your specific release process.
+Here is an example of blocking on release, though the actual implementation will heavily depend on your specific release process.
 
 ```yml
 name: Go Release Process
