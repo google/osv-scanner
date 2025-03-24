@@ -44,6 +44,7 @@ func isThisTestRunTarget(t *testing.T) bool {
 
 	runOnly, _, _ := strings.Cut(flag.Lookup("test.run").Value.String(), "/")
 	runOnlyWithNoRegex := strings.Trim(runOnly, "^$")
+
 	return runOnly == t.Name() || runOnlyWithNoRegex == t.Name()
 }
 

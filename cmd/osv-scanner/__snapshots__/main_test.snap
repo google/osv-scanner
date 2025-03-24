@@ -857,6 +857,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4085-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4016-1          |      | Debian    | ucf                            | 3.0036                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5055-1          | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5650-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1132,7 +1133,10 @@ Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file
 | https://osv.dev/GHSA-xc3p-ff3m-f46v |      |           |            |         |                                                   |
 | https://osv.dev/PYSEC-2024-71       | 8.7  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
 | https://osv.dev/GHSA-hxwh-jpp2-84pm |      |           |            |         |                                                   |
+| https://osv.dev/GHSA-43qf-4rqw-9q2g | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-7rxf-gvfg-47g4 | 4.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
 | https://osv.dev/GHSA-84pr-m4jr-85g5 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-8vgw-p6qm-5gr7 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
 | https://osv.dev/PYSEC-2020-73       |      | PyPI      | pandas     | 0.23.4  | fixtures/locks-requirements/requirements.txt      |
 +-------------------------------------+------+-----------+------------+---------+---------------------------------------------------+
 
@@ -2409,6 +2413,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4085-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4016-1          |      | Debian    | ucf                            | 3.0036                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5055-1          | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5650-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2625,6 +2630,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/DLA-3684-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3788-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3972-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4085-1          |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4016-1          |      | Debian    | ucf                            | 3.0036                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5055-1          | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5650-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -4148,13 +4154,13 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
     "layer_metadata": [
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) ADD fil...",
+        "command": "ADD file:2818e508d01da218...",
         "is_empty": false,
         "base_image_index": 1
       },
       {
         "diff_id": "",
-        "command": "/bin/sh -c #(nop)  CMD [/"...",
+        "command": "CMD [/"bash/"]",
         "is_empty": true,
         "base_image_index": 1
       },
@@ -4546,13 +4552,13 @@ Scanning local image tarball "../../internal/image/fixtures/test-python-full.tar
     "layer_metadata": [
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
+        "command": "ADD file:33ebe56b967747a97dcec01bc2559962bee8823686c9739d26be060381bbb3ca in / ",
         "is_empty": false,
         "base_image_index": 2
       },
       {
         "diff_id": "",
-        "command": "/bin/sh -c #(nop)  CMD [/"/bin/sh/"]",
+        "command": "CMD [/"/bin/sh/"]",
         "is_empty": true,
         "base_image_index": 1
       },
@@ -4741,55 +4747,55 @@ Scanning local image tarball "../../internal/image/fixtures/test-go-binary.tar"
     "layer_metadata": [
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) ADD fil...",
+        "command": "ADD file:37a76ec18f988775...",
         "is_empty": false,
         "base_image_index": 4
       },
       {
         "diff_id": "",
-        "command": "/bin/sh -c #(nop)  CMD [/"...",
+        "command": "CMD [/"/bin/sh/"]",
         "is_empty": true,
         "base_image_index": 3
       },
       {
         "diff_id": "",
-        "command": "/bin/sh -c #(nop)  ENV NO...",
+        "command": "ENV NODE_VERSION=20.11.1",
         "is_empty": true,
         "base_image_index": 2
       },
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c addgroup -g 10...",
+        "command": "RUN /0addgroup -g 1000 no...",
         "is_empty": false,
         "base_image_index": 1
       },
       {
         "diff_id": "",
-        "command": "/bin/sh -c #(nop)  ENV YA...",
+        "command": "ENV YARN_VERSION=1.22.19",
         "is_empty": true,
         "base_image_index": 1
       },
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c apk add --no-c...",
+        "command": "RUN /0apk add --no-cache ...",
         "is_empty": false,
         "base_image_index": 1
       },
       {
         "diff_id": "sha256:...",
-        "command": "/bin/sh -c #(nop) COPY fi...",
+        "command": "COPY file:4d192565a7220e1...",
         "is_empty": false,
         "base_image_index": 1
       },
       {
         "diff_id": "",
-        "command": "/bin/sh -c #(nop)  ENTRYP...",
+        "command": "ENTRYPOINT [/"docker-entry...",
         "is_empty": true,
         "base_image_index": 1
       },
       {
         "diff_id": "",
-        "command": "/bin/sh -c #(nop)  CMD [/"...",
+        "command": "CMD [/"node/"]",
         "is_empty": true,
         "base_image_index": 1
       },
