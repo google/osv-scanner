@@ -5,6 +5,7 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/tidwall/gjson"
 	"github.com/tidwall/sjson"
 )
@@ -59,6 +60,19 @@ var (
 			}
 
 			return toReplace.String()
+		},
+	}
+	// Older and newer versions of docker has different COMMAND histories
+	NormalizeHistoryCommand = JSONReplaceRule{
+		Path: "image_metadata.layer_metadata.#.command",
+		ReplaceFunc: func(toReplace gjson.Result) any {
+			str := toReplace.String()
+			nopMatcher := cachedregexp.MustCompile(`^/bin/sh -c #\(nop\)\s+`)
+			runMatcher := cachedregexp.MustCompile(`^/bin/sh -c\s+`)
+			str = nopMatcher.ReplaceAllLiteralString(str, "")
+			str = runMatcher.ReplaceAllString(str, "RUN \\0")
+
+			return str
 		},
 	}
 )
