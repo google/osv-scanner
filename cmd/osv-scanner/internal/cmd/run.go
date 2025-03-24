@@ -6,6 +6,9 @@ import (
 	"io"
 	"log/slog"
 
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
@@ -17,7 +20,7 @@ var (
 	date   = "n/a"
 )
 
-func Run(args []string, stdout, stderr io.Writer, commands []*cli.Command) int {
+func Run(args []string, stdout, stderr io.Writer) int {
 	logger := cmdlogger.New(stdout, stderr)
 
 	slog.SetDefault(slog.New(&logger))
@@ -29,14 +32,18 @@ func Run(args []string, stdout, stderr io.Writer, commands []*cli.Command) int {
 	}
 
 	app := &cli.App{
-		Name:                  "osv-scanner",
-		Version:               version.OSVVersion,
-		Usage:                 "scans various mediums for dependencies and checks them against the OSV database",
-		Suggest:               true,
-		Writer:                stdout,
-		ErrWriter:             stderr,
-		DefaultCommand:        "scan",
-		Commands:              commands,
+		Name:           "osv-scanner",
+		Version:        version.OSVVersion,
+		Usage:          "scans various mediums for dependencies and checks them against the OSV database",
+		Suggest:        true,
+		Writer:         stdout,
+		ErrWriter:      stderr,
+		DefaultCommand: "scan",
+		Commands: []*cli.Command{
+			scan.Command(stdout, stderr),
+			fix.Command(stdout, stderr),
+			update.Command(),
+		},
 		CustomAppHelpTemplate: getCustomHelpTemplate(),
 	}
 
