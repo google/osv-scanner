@@ -17,7 +17,7 @@ require (
 	github.com/go-git/go-billy/v5 v5.6.2
 	github.com/go-git/go-git/v5 v5.14.0
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.1.7
+	github.com/google/osv-scalibr v0.1.8-0.20250324001322-68757353cde6
 	github.com/ianlancetaylor/demangle v0.0.0-20240912202439-0a2b6291aafd
 	github.com/jedib0t/go-pretty/v6 v6.6.7
 	github.com/muesli/reflow v0.3.0
@@ -42,6 +42,7 @@ require (
 
 require (
 	dario.cat/mergo v1.0.0 // indirect
+	deps.dev/util/pypi v0.0.0-20250307021655-d811e36f9cad // indirect
 	github.com/AdaLogics/go-fuzz-headers v0.0.0-20230811130428-ced1acdcaa24 // indirect
 	github.com/AdamKorcz/go-118-fuzz-build v0.0.0-20230306123547-8075edf89bb0 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
@@ -78,6 +79,7 @@ require (
 	github.com/docker/distribution v2.8.3+incompatible // indirect
 	github.com/docker/docker-credential-helpers v0.8.1 // indirect
 	github.com/docker/go-events v0.0.0-20190806004212-e31b211e4f1c // indirect
+	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/erikgeiser/coninput v0.0.0-20211004153227-1c3628e74d0f // indirect
 	github.com/erikvarga/go-rpmdb v0.0.0-20240208180226-b97e041ef9af // indirect
@@ -126,7 +128,9 @@ require (
 	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/rust-secure-code/go-rustaudit v0.0.0-20250226111315-e20ec32e963c // indirect
+	github.com/saferwall/pe v1.5.6 // indirect
 	github.com/sahilm/fuzzy v0.1.1 // indirect
+	github.com/secDre4mer/pkcs7 v0.0.0-20240322103146-665324a4461d // indirect
 	github.com/sergi/go-diff v1.3.2-0.20230802210424-5b0b94c5c0d3 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/skeema/knownhosts v1.3.1 // indirect
