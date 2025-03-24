@@ -573,9 +573,6 @@ No issues found
       "affects": [
         {
           "ref": "pkg:composer/league/flysystem"
-        },
-        {
-          "ref": "pkg:composer/league/flysystem"
         }
       ]
     }
@@ -651,9 +648,6 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
         "organizations": []
       },
       "affects": [
-        {
-          "ref": "pkg:composer/league/flysystem"
-        },
         {
           "ref": "pkg:composer/league/flysystem"
         }
