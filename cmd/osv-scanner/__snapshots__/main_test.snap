@@ -1245,13 +1245,13 @@ failed to pull container image: failed to run docker command
 ---
 
 [Test_run_Docker/Fake_image_entirely - 1]
-Checking if docker image ("this-image-definitely-does-not-exist-abcde") exists locally...
+Checking if docker image ("this-image-definitely-does-not-exist-abcde:with-tag") exists locally...
 
 ---
 
 [Test_run_Docker/Fake_image_entirely - 2]
 Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
-Docker command exited with code ("/usr/bin/docker pull -q this-image-definitely-does-not-exist-abcde"): 1
+Docker command exited with code ("/usr/bin/docker pull -q this-image-definitely-does-not-exist-abcde:with-tag"): 1
 STDERR:
 > Error response from daemon: pull access denied for this-image-definitely-does-not-exist-abcde, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
 failed to pull container image: failed to run docker command
@@ -1298,6 +1298,16 @@ Scanning image "hello-world"
 [Test_run_Docker/Real_empty_image - 2]
 Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
 No package sources found, --help for usage information.
+
+---
+
+[Test_run_Docker/Real_empty_image_with_no_tag,_invalid_scan_target - 1]
+
+---
+
+[Test_run_Docker/Real_empty_image_with_no_tag,_invalid_scan_target - 2]
+Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
+"hello-world" is not a tagged image name
 
 ---
 
