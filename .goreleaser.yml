@@ -17,8 +17,10 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      # prettier-ignore
-      - '-s -w -X github.com/google/osv-scanner/v2/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+      - "-s -w"
+      - "-X github.com/google/osv-scanner/v2/internal/version.OSVVersion={{.Version}}"
+      - "-X main.commit={{.Commit}}"
+      - "-X main.date={{.CommitDate}}"
     goos:
       # Further testing before supporting freebsd
       # - freebsd
@@ -45,8 +47,10 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      # prettier-ignore
-      - '-s -w -X github.com/google/osv-scanner/v2/internal/version.OSVVersion={{.Version}}_GHAction -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+      - "-s -w"
+      - "-X github.com/google/osv-scanner/v2/internal/version.OSVVersion={{.Version}}_GHAction"
+      - "-X main.commit={{.Commit}}"
+      - "-X main.date={{.CommitDate}}"
     goos:
       - linux
     goarch:
@@ -61,8 +65,10 @@ builds:
     flags:
       - -trimpath
     ldflags:
-      # prettier-ignore
-      - '-s -w -X github.com/google/osv-scanner/v2/internal/version.OSVVersion={{.Version}} -X main.commit={{.Commit}} -X main.date={{.CommitDate}}'
+      - "-s -w"
+      - "-X github.com/google/osv-scanner/v2/internal/version.OSVVersion={{.Version}}"
+      - "-X main.commit={{.Commit}}"
+      - "-X main.date={{.CommitDate}}"
     goos:
       - linux
     goarch:
