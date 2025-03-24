@@ -675,14 +675,13 @@ func Test_run_Docker(t *testing.T) {
 		},
 		{
 			name: "Fake image entirely",
-			args: []string{"", "scan", "image", "this-image-definitely-does-not-exist-abcde"},
+			args: []string{"", "scan", "image", "this-image-definitely-does-not-exist-abcde:with-tag"},
 			exit: 127,
 		},
-		// TODO: How to prevent these snapshots from changing constantly
 		{
-			name: "Real empty image",
+			name: "Real empty image with no tag, invalid scan target",
 			args: []string{"", "scan", "image", "hello-world"},
-			exit: 128, // No packages found
+			exit: 127, // Invalid scan target
 		},
 		{
 			name: "Real empty image with tag",
@@ -811,6 +810,7 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 				testutility.OnlyIDVulnsRule,
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
+				testutility.NormalizeHistoryCommand,
 				testutility.ShortenHistoryCommandLength,
 			},
 		},
@@ -823,6 +823,7 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 				testutility.OnlyIDVulnsRule,
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
+				testutility.NormalizeHistoryCommand,
 				testutility.ShortenHistoryCommandLength,
 			},
 		},
@@ -835,6 +836,7 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 				testutility.OnlyIDVulnsRule,
 				testutility.OnlyFirstBaseImage,
 				testutility.AnyDiffID,
+				testutility.NormalizeHistoryCommand,
 			},
 		},
 		{
