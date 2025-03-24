@@ -43,8 +43,8 @@ func isThisTestRunTarget(t *testing.T) bool {
 	t.Helper()
 
 	runOnly, _, _ := strings.Cut(flag.Lookup("test.run").Value.String(), "/")
-
-	return runOnly == t.Name()
+	runOnlyWithNoRegex := strings.Trim(runOnly, "^$")
+	return runOnly == t.Name() || runOnlyWithNoRegex == t.Name()
 }
 
 // IsAcceptanceTesting returns true if the test suite is being run with acceptance tests enabled
