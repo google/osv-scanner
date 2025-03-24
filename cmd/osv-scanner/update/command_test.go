@@ -9,7 +9,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
-func Test_run_Update(t *testing.T) {
+func TestCommand(t *testing.T) {
 	tests := []struct {
 		name     string
 		args     []string

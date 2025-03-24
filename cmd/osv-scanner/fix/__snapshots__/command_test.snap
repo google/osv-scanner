@@ -1,5 +1,5 @@
 
-[Test_run_Fix/fix_non-interactive_in-place_package-lock.json - 1]
+[TestCommand/fix_non-interactive_in-place_package-lock.json - 1]
 Scanning <tempdir>/package-lock.json...
 Found 7 vulnerabilities matching the filter
 Can fix 2/7 matching vulnerabilities by changing 2 dependencies
@@ -12,11 +12,11 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_in-place_package-lock.json - 2]
+[TestCommand/fix_non-interactive_in-place_package-lock.json - 2]
 
 ---
 
-[Test_run_Fix/fix_non-interactive_in-place_package-lock.json - 3]
+[TestCommand/fix_non-interactive_in-place_package-lock.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
@@ -1742,7 +1742,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_json_in-place_package-lock.json - 1]
+[TestCommand/fix_non-interactive_json_in-place_package-lock.json - 1]
 {
   "path": "<tempdir>/package-lock.json",
   "ecosystem": "npm",
@@ -1865,13 +1865,13 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_json_in-place_package-lock.json - 2]
+[TestCommand/fix_non-interactive_json_in-place_package-lock.json - 2]
 Scanning <tempdir>/package-lock.json...
 Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_json_in-place_package-lock.json - 3]
+[TestCommand/fix_non-interactive_json_in-place_package-lock.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
@@ -3597,7 +3597,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_json_override_pom.xml - 1]
+[TestCommand/fix_non-interactive_json_override_pom.xml - 1]
 {
   "path": "<tempdir>/pom.xml",
   "ecosystem": "Maven",
@@ -3874,13 +3874,13 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_json_override_pom.xml - 2]
+[TestCommand/fix_non-interactive_json_override_pom.xml - 2]
 Resolving <tempdir>/pom.xml...
 Rewriting <tempdir>/pom.xml...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_json_override_pom.xml - 3]
+[TestCommand/fix_non-interactive_json_override_pom.xml - 3]
 <project>
   <modelVersion>4.0.0</modelVersion>
 
@@ -3928,7 +3928,7 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_json_relax_package.json - 1]
+[TestCommand/fix_non-interactive_json_relax_package.json - 1]
 {
   "path": "<tempdir>/package.json",
   "ecosystem": "npm",
@@ -4027,13 +4027,13 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_json_relax_package.json - 2]
+[TestCommand/fix_non-interactive_json_relax_package.json - 2]
 Resolving <tempdir>/package.json...
 Rewriting <tempdir>/package.json...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_json_relax_package.json - 3]
+[TestCommand/fix_non-interactive_json_relax_package.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
@@ -4051,7 +4051,7 @@ Rewriting <tempdir>/package.json...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_override_pom.xml - 1]
+[TestCommand/fix_non-interactive_override_pom.xml - 1]
 Resolving <tempdir>/pom.xml...
 Found 12 vulnerabilities matching the filter
 Can fix 12/12 matching vulnerabilities by overriding 4 dependencies
@@ -4066,11 +4066,11 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_override_pom.xml - 2]
+[TestCommand/fix_non-interactive_override_pom.xml - 2]
 
 ---
 
-[Test_run_Fix/fix_non-interactive_override_pom.xml - 3]
+[TestCommand/fix_non-interactive_override_pom.xml - 3]
 <project>
   <modelVersion>4.0.0</modelVersion>
 
@@ -4118,7 +4118,7 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_relax_package.json - 1]
+[TestCommand/fix_non-interactive_relax_package.json - 1]
 Resolving <tempdir>/package.json...
 Found 5 vulnerabilities matching the filter
 Can fix 3/5 matching vulnerabilities by changing 1 dependencies
@@ -4130,11 +4130,11 @@ Rewriting <tempdir>/package.json...
 
 ---
 
-[Test_run_Fix/fix_non-interactive_relax_package.json - 2]
+[TestCommand/fix_non-interactive_relax_package.json - 2]
 
 ---
 
-[Test_run_Fix/fix_non-interactive_relax_package.json - 3]
+[TestCommand/fix_non-interactive_relax_package.json - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",

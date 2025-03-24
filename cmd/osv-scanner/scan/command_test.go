@@ -8,7 +8,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
-func Test_run(t *testing.T) {
+func TestCommand(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "",
@@ -240,7 +240,7 @@ func Test_run(t *testing.T) {
 	}
 }
 
-func Test_run_CallAnalysis(t *testing.T) {
+func TestCommand_CallAnalysis(t *testing.T) {
 	// Switch to acceptance test if this takes too long, or when we add rust tests
 	// testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
@@ -261,7 +261,7 @@ func Test_run_CallAnalysis(t *testing.T) {
 	}
 }
 
-func Test_run_LockfileWithExplicitParseAs(t *testing.T) {
+func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "unsupported parse-as",
@@ -384,8 +384,8 @@ func Test_run_LockfileWithExplicitParseAs(t *testing.T) {
 	}
 }
 
-// Test_run_GithubActions tests common actions the github actions reusable workflow will run
-func Test_run_GithubActions(t *testing.T) {
+// TestCommand_GithubActions tests common actions the github actions reusable workflow will run
+func TestCommand_GithubActions(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "scanning osv-scanner custom format",
@@ -405,7 +405,7 @@ func Test_run_GithubActions(t *testing.T) {
 	}
 }
 
-func Test_run_LocalDatabases(t *testing.T) {
+func TestCommand_LocalDatabases(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "one specific supported lockfile",
@@ -486,7 +486,7 @@ func Test_run_LocalDatabases(t *testing.T) {
 	}
 }
 
-func Test_run_LocalDatabases_AlwaysOffline(t *testing.T) {
+func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "a bunch of different lockfiles and ecosystem",
@@ -510,7 +510,7 @@ func Test_run_LocalDatabases_AlwaysOffline(t *testing.T) {
 	}
 }
 
-func Test_run_Licenses(t *testing.T) {
+func TestCommand_Licenses(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "No vulnerabilities with license summary",
@@ -586,7 +586,7 @@ func Test_run_Licenses(t *testing.T) {
 }
 
 // Tests all subcommands here.
-func Test_run_SubCommands(t *testing.T) {
+func TestCommand_SubCommands(t *testing.T) {
 	tests := []testcmd.Case{
 		// without subcommands
 		{
@@ -615,7 +615,7 @@ func Test_run_SubCommands(t *testing.T) {
 	}
 }
 
-func Test_run_MavenTransitive(t *testing.T) {
+func TestCommand_MavenTransitive(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "scans transitive dependencies for pom.xml by default",
@@ -663,7 +663,7 @@ func Test_run_MavenTransitive(t *testing.T) {
 	}
 }
 
-func Test_run_MoreLockfiles(t *testing.T) {
+func TestCommand_MoreLockfiles(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "uv.lock",

@@ -11,7 +11,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
-func Test_run_Docker(t *testing.T) {
+func TestCommand_Docker(t *testing.T) {
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
 
 	tests := []testcmd.Case{
@@ -53,7 +53,7 @@ func Test_run_Docker(t *testing.T) {
 	}
 }
 
-func Test_run_OCIImage(t *testing.T) {
+func TestCommand_OCIImage(t *testing.T) {
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
 	tests := []testcmd.Case{
@@ -139,7 +139,7 @@ func Test_run_OCIImage(t *testing.T) {
 	}
 }
 
-func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
+func TestCommand_OCIImageAllPackagesJSON(t *testing.T) {
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
 	if runtime.GOOS == "windows" {

@@ -1,10 +1,10 @@
 
-[Test_run_Docker/Fake_alpine_image - 1]
+[TestCommand_Docker/Fake_alpine_image - 1]
 Checking if docker image ("alpine:non-existent-tag") exists locally...
 
 ---
 
-[Test_run_Docker/Fake_alpine_image - 2]
+[TestCommand_Docker/Fake_alpine_image - 2]
 Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
 STDERR:
 > Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
@@ -12,12 +12,12 @@ failed to pull container image: failed to run docker command
 
 ---
 
-[Test_run_Docker/Fake_image_entirely - 1]
+[TestCommand_Docker/Fake_image_entirely - 1]
 Checking if docker image ("this-image-definitely-does-not-exist-abcde:with-tag") exists locally...
 
 ---
 
-[Test_run_Docker/Fake_image_entirely - 2]
+[TestCommand_Docker/Fake_image_entirely - 2]
 Docker command exited with code ("/usr/bin/docker pull -q this-image-definitely-does-not-exist-abcde:with-tag"): 1
 STDERR:
 > Error response from daemon: pull access denied for this-image-definitely-does-not-exist-abcde, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
@@ -25,7 +25,7 @@ failed to pull container image: failed to run docker command
 
 ---
 
-[Test_run_Docker/Real_Alpine_image - 1]
+[TestCommand_Docker/Real_Alpine_image - 1]
 Checking if docker image ("alpine:3.18.9") exists locally...
 Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
@@ -50,32 +50,32 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_Docker/Real_Alpine_image - 2]
+[TestCommand_Docker/Real_Alpine_image - 2]
 
 ---
 
-[Test_run_Docker/Real_empty_image_with_no_tag,_invalid_scan_target - 1]
+[TestCommand_Docker/Real_empty_image_with_no_tag,_invalid_scan_target - 1]
 
 ---
 
-[Test_run_Docker/Real_empty_image_with_no_tag,_invalid_scan_target - 2]
+[TestCommand_Docker/Real_empty_image_with_no_tag,_invalid_scan_target - 2]
 "hello-world" is not a tagged image name
 
 ---
 
-[Test_run_Docker/Real_empty_image_with_tag - 1]
+[TestCommand_Docker/Real_empty_image_with_tag - 1]
 Checking if docker image ("hello-world:linux") exists locally...
 Saving docker image ("hello-world:linux") to temporary file...
 Scanning image "hello-world:linux"
 
 ---
 
-[Test_run_Docker/Real_empty_image_with_tag - 2]
+[TestCommand_Docker/Real_empty_image_with_tag - 2]
 No package sources found, --help for usage information.
 
 ---
 
-[Test_run_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
+[TestCommand_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-alpine.tar"
 
 Container Scanning Result (Alpine Linux v3.18):
@@ -98,11 +98,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 2]
+[TestCommand_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 2]
 
 ---
 
-[Test_run_OCIImage/Empty_Ubuntu_22.04_image_tar - 1]
+[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
@@ -150,21 +150,21 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/Empty_Ubuntu_22.04_image_tar - 2]
+[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar - 2]
 
 ---
 
-[Test_run_OCIImage/Invalid_path - 1]
+[TestCommand_OCIImage/Invalid_path - 1]
 Scanning local image tarball "../../fixtures/locks-manyoci-image/no-file-here.tar"
 
 ---
 
-[Test_run_OCIImage/Invalid_path - 2]
+[TestCommand_OCIImage/Invalid_path - 2]
 failed to load image from tarball with path "../../fixtures/locks-manyoci-image/no-file-here.tar": open ../../fixtures/locks-manyoci-image/no-file-here.tar: no such file or directory
 
 ---
 
-[Test_run_OCIImage/Scanning_java_image_with_some_packages - 1]
+[TestCommand_OCIImage/Scanning_java_image_with_some_packages - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
@@ -206,11 +206,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/Scanning_java_image_with_some_packages - 2]
+[TestCommand_OCIImage/Scanning_java_image_with_some_packages - 2]
 
 ---
 
-[Test_run_OCIImage/Scanning_python_image_with_no_packages - 1]
+[TestCommand_OCIImage/Scanning_python_image_with_no_packages - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-empty.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
@@ -256,11 +256,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/Scanning_python_image_with_no_packages - 2]
+[TestCommand_OCIImage/Scanning_python_image_with_no_packages - 2]
 
 ---
 
-[Test_run_OCIImage/Scanning_python_image_with_some_packages - 1]
+[TestCommand_OCIImage/Scanning_python_image_with_some_packages - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
@@ -341,11 +341,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/Scanning_python_image_with_some_packages - 2]
+[TestCommand_OCIImage/Scanning_python_image_with_some_packages - 2]
 
 ---
 
-[Test_run_OCIImage/scanning_image_with_go_binary - 1]
+[TestCommand_OCIImage/scanning_image_with_go_binary - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
@@ -411,11 +411,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/scanning_image_with_go_binary - 2]
+[TestCommand_OCIImage/scanning_image_with_go_binary - 2]
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-npm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
@@ -438,11 +438,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_npm_with_no_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_npm_with_no_packages - 2]
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-npm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
@@ -474,11 +474,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_npm_with_some_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_npm_with_some_packages - 2]
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
@@ -501,11 +501,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 2]
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-pnpm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
@@ -528,11 +528,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 2]
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-yarn-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
@@ -555,11 +555,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 2]
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
+[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-yarn-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
@@ -582,11 +582,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 2]
+[TestCommand_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 2]
 
 ---
 
-[Test_run_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 1]
+[TestCommand_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 1]
 {
   "results": [
     {
@@ -1268,12 +1268,12 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[Test_run_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 2]
+[TestCommand_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-full.tar"
 
 ---
 
-[Test_run_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 1]
+[TestCommand_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 1]
 {
   "results": [
     {
@@ -1567,12 +1567,12 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
 
 ---
 
-[Test_run_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 2]
+[TestCommand_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary.tar"
 
 ---
 
-[Test_run_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 1]
+[TestCommand_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 1]
 {
   "results": [
     {
@@ -1847,12 +1847,12 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary
 
 ---
 
-[Test_run_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 2]
+[TestCommand_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-npm-full.tar"
 
 ---
 
-[Test_run_OCIImageAllPackagesJSON/scanning_ubuntu_image_in_json_format - 1]
+[TestCommand_OCIImageAllPackagesJSON/scanning_ubuntu_image_in_json_format - 1]
 {
   "results": [
     {
@@ -2462,7 +2462,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
 
 ---
 
-[Test_run_OCIImageAllPackagesJSON/scanning_ubuntu_image_in_json_format - 2]
+[TestCommand_OCIImageAllPackagesJSON/scanning_ubuntu_image_in_json_format - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 ---
