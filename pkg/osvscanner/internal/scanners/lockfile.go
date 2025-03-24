@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packagesconfig"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
@@ -61,6 +62,7 @@ var lockfileExtractorMapping = map[string][]string{
 	"mix.lock":                    {mixlock.Name},
 	"renv.lock":                   {renvlock.Name},
 	"deps.json":                   {depsjson.Name},
+	"packages.config":             {packagesconfig.Name},
 	"packages.lock.json":          {packageslockjson.Name},
 	"conan.lock":                  {conanlock.Name},
 	"go.mod":                      {gomod.Name},

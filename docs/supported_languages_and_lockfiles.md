@@ -53,7 +53,7 @@ When scanning source code (`osv-scanner scan source ...`), OSV-Scanner automatic
 | Haskell    | `cabal.project.freeze`<br> `stack.yaml.lock`                                                                                               |
 | Java       | `buildscript-gradle.lockfile`<br>`gradle.lockfile`<br>`gradle/verification-metadata.xml`<br>`pom.xml`[\*](#transitive-dependency-scanning) |
 | Javascript | `package-lock.json`<br>`pnpm-lock.yaml`<br>`yarn.lock`                                                                                     |
-| .NET       | `deps.json`                                                                                                                                |
+| .NET       | `deps.json`<br>`packages.config`<br>`packages.lock.json`                                                                                   |
 | PHP        | `composer.lock`                                                                                                                            |
 | Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)<br>`pdm.lock`<br>`uv.lock`      |
 | R          | `renv.lock`                                                                                                                                |

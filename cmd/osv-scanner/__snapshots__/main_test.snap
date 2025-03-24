@@ -3122,6 +3122,26 @@ Scanned <rootdir>/fixtures/locks-scalibr/depsjson file as a deps.json and found 
 
 ---
 
+[Test_run_MoreLockfiles/packages.config - 1]
+Scanned <rootdir>/fixtures/locks-scalibr/packages.config file and found 2 packages
+No issues found
+
+---
+
+[Test_run_MoreLockfiles/packages.config - 2]
+
+---
+
+[Test_run_MoreLockfiles/packages.lock.json - 1]
+Scanned <rootdir>/fixtures/locks-scalibr/packages.lock.json file and found 1 package
+No issues found
+
+---
+
+[Test_run_MoreLockfiles/packages.lock.json - 2]
+
+---
+
 [Test_run_MoreLockfiles/stack.yaml.lock - 1]
 Scanned <rootdir>/fixtures/locks-scalibr/stack.yaml.lock file and found 4 packages
 No issues found
