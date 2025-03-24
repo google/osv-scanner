@@ -30,37 +30,37 @@ func Test_run_Fix(t *testing.T) {
 			name:     "fix non-interactive in-place package-lock.json",
 			args:     []string{"", "fix", "--strategy=in-place"},
 			exit:     0,
-			lockfile: "./fix/fixtures/in-place-npm/package-lock.json",
+			lockfile: "./fixtures/in-place-npm/package-lock.json",
 		},
 		{
 			name:     "fix non-interactive relax package.json",
 			args:     []string{"", "fix", "--strategy=relax"},
 			exit:     0,
-			manifest: "./fix/fixtures/relax-npm/package.json",
+			manifest: "./fixtures/relax-npm/package.json",
 		},
 		{
 			name:     "fix non-interactive override pom.xml",
 			args:     []string{"", "fix", "--strategy=override"},
 			exit:     0,
-			manifest: "./fix/fixtures/override-maven/pom.xml",
+			manifest: "./fixtures/override-maven/pom.xml",
 		},
 		{
 			name:     "fix non-interactive json in-place package-lock.json",
 			args:     []string{"", "fix", "--strategy=in-place", "--format=json"},
 			exit:     0,
-			lockfile: "./fix/fixtures/in-place-npm/package-lock.json",
+			lockfile: "./fixtures/in-place-npm/package-lock.json",
 		},
 		{
 			name:     "fix non-interactive json relax package.json",
 			args:     []string{"", "fix", "--strategy=relax", "--format=json"},
 			exit:     0,
-			manifest: "./fix/fixtures/relax-npm/package.json",
+			manifest: "./fixtures/relax-npm/package.json",
 		},
 		{
 			name:     "fix non-interactive json override pom.xml",
 			args:     []string{"", "fix", "--strategy=override", "--format=json"},
 			exit:     0,
-			manifest: "./fix/fixtures/override-maven/pom.xml",
+			manifest: "./fixtures/override-maven/pom.xml",
 		},
 	}
 	for _, tt := range tests {

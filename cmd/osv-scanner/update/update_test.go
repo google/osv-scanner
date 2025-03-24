@@ -19,7 +19,7 @@ func Test_run_Update(t *testing.T) {
 		{
 			name:     "update pom.xml with in-place changes",
 			args:     []string{"", "update"},
-			manifest: "./update/fixtures/pom.xml",
+			manifest: "./fixtures/pom.xml",
 			exit:     0,
 		},
 		// TODO: add other test cases.

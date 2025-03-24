@@ -59,67 +59,67 @@ func Test_run_OCIImage(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "Invalid path",
-			Args: []string{"", "scan", "image", "--archive", "./fixtures/oci-image/no-file-here.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../fixtures/locks-manyoci-image/no-file-here.tar"},
 			Exit: 127,
 		},
 		{
 			Name: "Alpine 3.10 image tar with 3.18 version file",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-alpine.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-alpine.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "Empty Ubuntu 22.04 image tar",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-ubuntu.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-ubuntu.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "Scanning python image with some packages",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-python-full.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-python-full.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "Scanning python image with no packages",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-python-empty.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-python-empty.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "Scanning java image with some packages",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-java-full.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-java-full.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using npm with no packages",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using npm with some packages",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-npm-full.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using yarn with no packages",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using yarn with some packages",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using pnpm with no packages",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using pnpm with some packages",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning image with go binary",
-			Args: []string{"", "scan", "image", "--archive", "../../internal/image/fixtures/test-package-tracing.tar"},
+			Args: []string{"", "scan", "image", "--archive", "../../../../internal/image/fixtures/test-package-tracing.tar"},
 			Exit: 1,
 		},
 	}
@@ -127,7 +127,7 @@ func Test_run_OCIImage(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
-				if strings.HasPrefix(arg, "../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
+				if strings.HasPrefix(arg, "../../../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
 					if _, err := os.Stat(arg); errors.Is(err, os.ErrNotExist) {
 						t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", arg)
 					}
@@ -150,7 +150,7 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "Scanning python image with some packages",
-			Args: []string{"", "scan", "image", "--archive", "--format=json", "../../internal/image/fixtures/test-python-full.tar"},
+			Args: []string{"", "scan", "image", "--archive", "--format=json", "../../../../internal/image/fixtures/test-python-full.tar"},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.GroupsAsArrayLen,
@@ -163,7 +163,7 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 		},
 		{
 			Name: "scanning node_modules using npm with some packages",
-			Args: []string{"", "scan", "image", "--archive", "--format=json", "../../internal/image/fixtures/test-node_modules-npm-full.tar"},
+			Args: []string{"", "scan", "image", "--archive", "--format=json", "../../../../internal/image/fixtures/test-node_modules-npm-full.tar"},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.GroupsAsArrayLen,
@@ -176,7 +176,7 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 		},
 		{
 			Name: "scanning image with go binary",
-			Args: []string{"", "scan", "image", "--archive", "--all-packages", "--format=json", "../../internal/image/fixtures/test-go-binary.tar"},
+			Args: []string{"", "scan", "image", "--archive", "--all-packages", "--format=json", "../../../../internal/image/fixtures/test-go-binary.tar"},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.GroupsAsArrayLen,
@@ -188,7 +188,7 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 		},
 		{
 			Name: "scanning ubuntu image in json format",
-			Args: []string{"", "scan", "image", "--archive", "--format=json", "../../internal/image/fixtures/test-ubuntu.tar"},
+			Args: []string{"", "scan", "image", "--archive", "--format=json", "../../../../internal/image/fixtures/test-ubuntu.tar"},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.GroupsAsArrayLen,
@@ -202,7 +202,7 @@ func Test_run_OCIImageAllPackagesJSON(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
-				if strings.HasPrefix(arg, "../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
+				if strings.HasPrefix(arg, "../../../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
 					if _, err := os.Stat(arg); errors.Is(err, os.ErrNotExist) {
 						t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", arg)
 					}
