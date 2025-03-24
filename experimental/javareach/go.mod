@@ -3,7 +3,7 @@ module github.com/google/osv-scanner/experimental/javareach
 go 1.23.6
 
 require (
-	github.com/google/osv-scalibr v0.1.6
+	github.com/google/osv-scalibr v0.1.7
 	golang.org/x/sync v0.12.0
 )
 
