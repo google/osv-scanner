@@ -72,7 +72,7 @@ osv-scanner scan -L package-lock.json --format json
 
 ### Override config file
 
-The `--config` flag can be used to specify a global config override to apply to all of the files you are scanning.
+The `--config` flag can be used to specify a global config override to apply to all the files you are scanning.
 
 See [Config](./configuration.md) for more details.
 

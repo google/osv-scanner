@@ -117,7 +117,7 @@ func (st *stateChooseStrategy) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd)
 			if st.cursorPos == stateChooseQuit {
 				return m, tea.Quit
 			}
-			// otherwise move the cursor to the quit line if its not already there
+			// otherwise move the cursor to the quit line if it's not already there
 			st.cursorPos = stateChooseQuit
 		case key.Matches(msg, tui.Keys.Select):
 			// enter key was pressed, parse input

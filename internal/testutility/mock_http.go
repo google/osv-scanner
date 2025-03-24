@@ -51,7 +51,7 @@ func (m *MockHTTPServer) SetResponseFromFile(t *testing.T, path string, filename
 
 // SetAuthorization sets the contents of the 'Authorization' header the server expects for all endpoints.
 //
-// The incoming requests' headers must match the auth string exactly, otherwise the server will response with 401 Unauthorized.
+// The incoming requests' headers must match the auth string exactly, otherwise the server will respond with 401 Unauthorized.
 // If authorization is unset or empty, the server will not require authorization.
 func (m *MockHTTPServer) SetAuthorization(t *testing.T, auth string) {
 	t.Helper()

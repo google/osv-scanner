@@ -32,7 +32,7 @@ import (
 //
 // The actual parsing is intended to be similar to how tools
 // like rg work, but means that `path` may not necessarily be
-// the root of a git repo, and can produces these parsing
+// the root of a git repo, and can produce these parsing
 // behaviours:
 //
 // `path` is a plain dir:

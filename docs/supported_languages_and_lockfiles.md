@@ -18,7 +18,7 @@ nav_order: 2
 {:toc}
 </details>
 
-Artifact and manifest extraction logic is implemented in [OSV-Scalibr](https://github.com/google/osv-scalibr) as a standalone library. OSV-Scanner tightly integrates with OSV-Scalibr to provide a end to end vulnerability scanner for developers.
+Artifact and manifest extraction logic is implemented in [OSV-Scalibr](https://github.com/google/osv-scalibr) as a standalone library. OSV-Scanner tightly integrates with OSV-Scalibr to provide an end to end vulnerability scanner for developers.
 
 ## Core Concept
 
@@ -84,7 +84,7 @@ Vendored dependencies have been directly copied into the project folder, but do 
 
 OSV-Scanner supports transitive dependency scanning for Maven pom.xml. This feature is enabled by default when scanning, but it can be disabled using the `--no-resolve` flag. It is also disabled in the [offline mode](./offline-mode.md).
 
-OSV-Scanner uses [deps.dev’s resolver library](https://pkg.go.dev/deps.dev/util/resolve) to compute the dependency graph of a project. This graph includes all of the direct and transitive dependencies. By default, [deps.dev API](https://docs.deps.dev/api/v3/index.html) is queried for package versions and requirements. The support for private registries is [coming soon](https://github.com/google/osv-scanner/issues/1045).
+OSV-Scanner uses [deps.dev’s resolver library](https://pkg.go.dev/deps.dev/util/resolve) to compute the dependency graph of a project. This graph includes all the direct and transitive dependencies. By default, [deps.dev API](https://docs.deps.dev/api/v3/index.html) is queried for package versions and requirements. The support for private registries is [coming soon](https://github.com/google/osv-scanner/issues/1045).
 
 After the dependency resolution, the OSV database is queried for the vulnerabilities associated with these dependencies as usual.
 

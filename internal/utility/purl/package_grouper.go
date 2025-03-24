@@ -29,7 +29,7 @@ func Group(packageSources []models.PackageSource) (map[string]models.PackageVuln
 
 				uniquePackages[packageURL.ToString()] = packageVulns
 			} else {
-				// Entry does not exists yet, lets create it
+				// Entry does not exist yet, lets create it
 				newPackageVuln := models.PackageVulns{
 					Package: models.PackageInfo{
 						Name:      pkg.Package.Name,

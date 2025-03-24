@@ -19,7 +19,7 @@ Most experimental commands have now been stablized, all experimental versions of
 
 ---
 
-Container scanning and the `--docker/-D` flag has been migrated to it's own command.
+Container scanning and the `--docker/-D` flag has been migrated to its own command.
 
 ```bash
 osv-scanner scan image <image-name>

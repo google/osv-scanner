@@ -17,7 +17,7 @@ const (
 	maxConcurrentRequests = 1000
 )
 
-// OSVMatcher implements the VulnerabilityMatcher interface with a osv.dev client.
+// OSVMatcher implements the VulnerabilityMatcher interface with an osv.dev client.
 // It sends out requests for every package version and does not perform caching.
 type OSVMatcher struct {
 	Client osvdev.OSVClient
@@ -47,7 +47,7 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 
 		if err != nil {
 			// Deadline being exceeded is likely caused by a long paging time
-			// if that's the case, we can should return what we already got, and
+			// if that's the case, we should return what we already got, and
 			// then let the caller know it is not all the results.
 			if errors.Is(err, context.DeadlineExceeded) {
 				deadlineExceeded = true
@@ -141,7 +141,7 @@ func queryForBatchWithPaging(ctx context.Context, c *osvdev.OSVClient, queries [
 		if nextPageResp != nil {
 			for i, res := range nextPageResp.Results {
 				batchResp.Results[nextPageIndexMap[i]].Vulns = append(batchResp.Results[nextPageIndexMap[i]].Vulns, res.Vulns...)
-				// Set next page token so caller knows whether this is all of the results
+				// Set next page token so caller knows whether this is all the results
 				// even if it is being cancelled.
 				batchResp.Results[nextPageIndexMap[i]].NextPageToken = res.NextPageToken
 			}

@@ -364,7 +364,7 @@ func TestRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
 func TestNonRecursivelyParsingGitignoreFilesFromMidTreeFile(t *testing.T) {
 	t.Parallel()
 
-	// expect this to be have the same results as TestNonRecursivelyParsingGitignoreFilesFromMidTree
+	// expect this to have the same results as TestNonRecursivelyParsingGitignoreFilesFromMidTree
 	//   because the a_file is inside the that tests start-dir
 
 	// Create a specific git repo with .gitignore files

@@ -127,7 +127,7 @@ This feature is in beta as part of OSV-Scanner v2, please [share your feedback h
 
 ### JSON
 
-JSON output allows you to get all of the information osv-scanner found in a machine readable format.
+JSON output allows you to get all the information osv-scanner found in a machine-readable format.
 
 ```bash
 osv-scanner scan --format json your/project/dir
