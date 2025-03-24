@@ -1,4 +1,4 @@
-package main
+package update_test
 
 import (
 	"os"
@@ -38,7 +38,7 @@ func Test_run_Update(t *testing.T) {
 
 			var manifest string
 			if tt.manifest != "" {
-				manifest = copyFileTo(t, tt.manifest, testDir)
+				manifest = testcmd.CopyFileTo(t, tt.manifest, testDir)
 				tc.Args = append(tc.Args, "-M", manifest)
 			}
 

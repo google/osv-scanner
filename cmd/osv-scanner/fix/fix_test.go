@@ -1,29 +1,13 @@
-package main
+package fix_test
 
 import (
 	"os"
-	"path/filepath"
 	"slices"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
-
-func copyFileTo(t *testing.T, file, dir string) string {
-	t.Helper()
-	b, err := os.ReadFile(file)
-	if err != nil {
-		t.Fatalf("could not read test file: %v", err)
-	}
-
-	dst := filepath.Join(dir, filepath.Base(file))
-	if err := os.WriteFile(dst, b, 0600); err != nil {
-		t.Fatalf("could not copy test file: %v", err)
-	}
-
-	return dst
-}
 
 func matchFile(t *testing.T, file string) {
 	t.Helper()
@@ -92,11 +76,11 @@ func Test_run_Fix(t *testing.T) {
 
 			var lockfile, manifest string
 			if tt.lockfile != "" {
-				lockfile = copyFileTo(t, tt.lockfile, testDir)
+				lockfile = testcmd.CopyFileTo(t, tt.lockfile, testDir)
 				tc.Args = append(tc.Args, "-L", lockfile)
 			}
 			if tt.manifest != "" {
-				manifest = copyFileTo(t, tt.manifest, testDir)
+				manifest = testcmd.CopyFileTo(t, tt.manifest, testDir)
 				tc.Args = append(tc.Args, "-M", manifest)
 			}
 
