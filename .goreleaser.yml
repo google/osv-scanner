@@ -142,9 +142,9 @@ docker_manifests:
       - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
 
 archives:
-  - format: binary
+  - formats: binary
     name_template: "{{ .Binary }}_{{ .Os }}_{{ .Arch }}"
-    builds:
+    ids:
       - osv-scanner
 checksum:
   name_template: "{{ .ProjectName }}_SHA256SUMS"
