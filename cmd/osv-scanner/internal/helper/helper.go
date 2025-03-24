@@ -6,8 +6,6 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
-	"os/exec"
-	"runtime"
 	"slices"
 	"strings"
 	"time"
@@ -166,28 +164,6 @@ func GetScanGlobalFlags() []cli.Flag {
 				allowList: "",
 			},
 		},
-	}
-}
-
-// OpenHTML will attempt to open the outputted HTML file in the default browser
-func OpenHTML(outputPath string) {
-	// Open the outputted HTML file in the default browser.
-	slog.Info(fmt.Sprintf("Opening %s...", outputPath))
-	var err error
-	switch runtime.GOOS {
-	case "linux":
-		err = exec.Command("xdg-open", outputPath).Start()
-	case "windows":
-		err = exec.Command("start", "", outputPath).Start()
-	case "darwin": // macOS
-		err = exec.Command("open", outputPath).Start()
-	default:
-		slog.Info("Unsupported OS.")
-	}
-
-	if err != nil {
-		slog.Error(fmt.Sprintf("Failed to open: %s", err))
-		slog.Error("Please manually open the outputted HTML file: " + outputPath)
 	}
 }
 

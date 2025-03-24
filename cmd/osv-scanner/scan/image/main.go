@@ -4,8 +4,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log/slog"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -26,7 +28,7 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 		Usage:       "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
 		Description: "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
 		Flags:       append(imageScanFlags, helper.GetScanGlobalFlags()...),
-		ArgsUsage:   "[image imageName]",
+		ArgsUsage:   "[image imageNameWithTag]",
 		Action: func(c *cli.Context) error {
 			return action(c, stdout, stderr)
 		},
@@ -34,8 +36,17 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 }
 
 func action(context *cli.Context, stdout, stderr io.Writer) error {
-	format := context.String("format")
+	if context.Args().Len() == 0 {
+		return errors.New("please provide an image name or see the help document")
+	}
 
+	isImageArchive := context.Bool("archive")
+	image := context.Args().First()
+	if !isImageArchive && !strings.Contains(image, ":") {
+		return fmt.Errorf("%q is not a tagged image name", image)
+	}
+
+	format := context.String("format")
 	outputPath := context.String("output")
 	serve := context.Bool("serve")
 	if serve {
@@ -59,9 +70,6 @@ func action(context *cli.Context, stdout, stderr io.Writer) error {
 		return err
 	}
 
-	if context.Args().Len() == 0 {
-		return errors.New("please provide an image name or see the help document")
-	}
 	scannerAction := osvscanner.ScannerActions{
 		Image:                      context.Args().First(),
 		ConfigOverridePath:         context.String("config"),
@@ -86,7 +94,7 @@ func action(context *cli.Context, stdout, stderr io.Writer) error {
 		if serve {
 			helper.ServeHTML(outputPath)
 		} else if format == "html" {
-			helper.OpenHTML(outputPath)
+			slog.Info("HTML output available at: " + outputPath)
 		}
 	}
 
