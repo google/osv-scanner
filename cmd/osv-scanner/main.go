@@ -6,11 +6,6 @@ import (
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
 )
 
-var (
-	commit = "n/a"
-	date   = "n/a"
-)
-
 func main() {
 	os.Exit(
 		cmd.Run(os.Args, os.Stdout, os.Stderr),
