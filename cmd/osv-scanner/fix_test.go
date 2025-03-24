@@ -6,6 +6,7 @@ import (
 	"slices"
 	"testing"
 
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
@@ -80,10 +81,10 @@ func Test_run_Fix(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			tc := cliTestCase{
-				name: tt.name,
-				args: slices.Clone(tt.args),
-				exit: tt.exit,
+			tc := testcmd.Case{
+				Name: tt.name,
+				Args: slices.Clone(tt.args),
+				Exit: tt.exit,
 			}
 
 			// fix action overwrites files, copy them to a temporary directory
@@ -92,14 +93,14 @@ func Test_run_Fix(t *testing.T) {
 			var lockfile, manifest string
 			if tt.lockfile != "" {
 				lockfile = copyFileTo(t, tt.lockfile, testDir)
-				tc.args = append(tc.args, "-L", lockfile)
+				tc.Args = append(tc.Args, "-L", lockfile)
 			}
 			if tt.manifest != "" {
 				manifest = copyFileTo(t, tt.manifest, testDir)
-				tc.args = append(tc.args, "-M", manifest)
+				tc.Args = append(tc.Args, "-M", manifest)
 			}
 
-			stdout, stderr := runCli(t, tc)
+			stdout, stderr := testcmd.Run(t, tc)
 
 			testutility.NewSnapshot().MatchText(t, stdout)
 			testutility.NewSnapshot().MatchText(t, stderr)
