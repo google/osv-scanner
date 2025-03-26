@@ -6,22 +6,22 @@ linters:
     - goimports
   # prettier-ignore
   disable:
-    - tagliatelle      # we're parsing data from external sources (g-rath)
-    - varnamelen       # maybe later (g-rath)
+    - err113           # will re-add later (another-rex)
     - exhaustruct      # overkill (g-rath)
     - forcetypeassert  # too hard (g-rath)
-    - lll              # line length is hard (g-rath)
-    - godox            # to-do comments are fine (g-rath)
-    - godot            # comments are fine without full stops (g-rath)
-    - mnd              # not every number is magic (g-rath)
-    - wsl              # disagree with, for now (g-rath)
-    - ireturn          # disagree with, sort of (g-rath)
     - gochecknoglobals # disagree with, for non changing variables (another-rex)
-    - wrapcheck        # too difficult, will re-add later (another-rex)
-    - testpackage      # will re-add later (another-rex)
-    - err113           # will re-add later (another-rex)
-    - nonamedreturns   # disagree with, for now (another-rex)
     - goconst          # not everything should be a constant
+    - godot            # comments are fine without full stops (g-rath)
+    - godox            # to-do comments are fine (g-rath)
+    - ireturn          # disagree with, sort of (g-rath)
+    - lll              # line length is hard (g-rath)
+    - mnd              # not every number is magic (g-rath)
+    - nonamedreturns   # disagree with, for now (another-rex)
+    - tagliatelle      # we're parsing data from external sources (g-rath)
+    - testpackage      # will re-add later (another-rex)
+    - varnamelen       # maybe later (g-rath)
+    - wrapcheck        # too difficult, will re-add later (another-rex)
+    - wsl              # disagree with, for now (g-rath)
   presets:
     - bugs
     - comment
