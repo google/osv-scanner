@@ -24,6 +24,7 @@ linters:
     - nestif
     - nonamedreturns   # disagree with, for now (another-rex)
     - tagliatelle      # we're parsing data from external sources (g-rath)
+    - tenv             # deprecated
     - testpackage      # will re-add later (another-rex)
     - varnamelen       # maybe later (g-rath)
     - wrapcheck        # too difficult, will re-add later (another-rex)
