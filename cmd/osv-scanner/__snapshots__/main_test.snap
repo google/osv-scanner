@@ -706,7 +706,6 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv |      |           |                                |                                    |                                                 |
 | https://osv.dev/GO-2024-3110        | 4.8  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-jfvp-7x6p-h2pv |      |           |                                |                                    |                                                 |
-| https://osv.dev/GO-2025-3543        |      | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2022-0493        | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 |      |           |                                |                                    |                                                 |
 | https://osv.dev/DSA-5122-1          | 8.8  | Debian    | gzip                           | 1.6-5+deb9u1                       | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2273,7 +2272,6 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv |      |           |                                |                                    |                                                 |
 | https://osv.dev/GO-2024-3110        | 4.8  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-jfvp-7x6p-h2pv |      |           |                                |                                    |                                                 |
-| https://osv.dev/GO-2025-3543        |      | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2022-0493        | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 |      |           |                                |                                    |                                                 |
 | https://osv.dev/DSA-5122-1          | 8.8  | Debian    | gzip                           | 1.6-5+deb9u1                       | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2491,7 +2489,6 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/GHSA-xr7r-f8xq-vfvv |      |           |                                |                                    |                                                 |
 | https://osv.dev/GO-2024-3110        | 4.8  | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-jfvp-7x6p-h2pv |      |           |                                |                                    |                                                 |
-| https://osv.dev/GO-2025-3543        |      | Go        | github.com/opencontainers/runc | v1.0.1                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GO-2022-0493        | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8 |      |           |                                |                                    |                                                 |
 | https://osv.dev/DSA-5122-1          | 8.8  | Debian    | gzip                           | 1.6-5+deb9u1                       | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
