@@ -43,7 +43,7 @@ for dockerfile in internal/image/fixtures/*.Dockerfile; do
 
   if [ "$force" = true ]; then
     echo "Removing existing tar file for $image_name..."
-    rm -f "internal/image/fixtures/$image_name.tar"
+    rm "internal/image/fixtures/$image_name.tar"
   fi
 
   build_docker_image_fixture "$image_name"
