@@ -23,7 +23,7 @@ require (
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/ossf/osv-schema/bindings/go v0.0.0-20250318011049-e4c58d9a4a9e
-	github.com/owenrumney/go-sarif/v2 v2.3.3
+	github.com/owenrumney/go-sarif/v3 v3.1.3
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/tidwall/gjson v1.18.0
