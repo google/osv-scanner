@@ -91,22 +91,29 @@ jobs:
       contents: read # to fetch code (actions/checkout)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
-        continue-on-error: true
-        with:
-          pattern: image-fixtures-*
-          path: internal/image/fixtures/
-          merge-multiple: true
       - name: Check out code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
+      - uses: actions/cache/restore@v4
+        id: cache-image-fixtures-restore
+        with:
+          path: tmp/cache
+          key: cache-image-fixtures-${{ github.ref }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            cache-image-fixtures-${{ github.ref }}-${{ github.sha }}-
+            cache-image-fixtures-${{ github.ref }}-
+            cache-image-fixtures-
       - run: scripts/build_test_images.sh
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: image-fixtures-${{ github.run_number }}-${{ github.run_attempt }}
           path: internal/image/fixtures/*.tar
           retention-days: 1
+      - uses: actions/cache/save@v4
+        with:
+          path: internal/image/fixtures/*.tar
+          key: ${{ steps.cache-image-fixtures-restore.outputs.cache-primary-key }}
   tests:
     permissions:
       contents: read # to fetch code (actions/checkout)
