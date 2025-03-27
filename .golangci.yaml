@@ -119,6 +119,8 @@ linters-settings:
     block-size: 2
 
 issues:
+  include:
+    - EXC0015 # revive package-comments
   max-issues-per-linter: 0
   max-same-issues: 0
   exclude-rules:
