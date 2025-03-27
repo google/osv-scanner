@@ -19,8 +19,8 @@ builds:
     ldflags:
       - "-s -w"
       - "-X github.com/google/osv-scanner/v2/internal/version.OSVVersion={{.Version}}"
-      - "-X main.commit={{.Commit}}"
-      - "-X main.date={{.CommitDate}}"
+      - "-X github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd.commit={{.Commit}}"
+      - "-X github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd.date={{.CommitDate}}"
     goos:
       # Further testing before supporting freebsd
       # - freebsd
@@ -49,8 +49,8 @@ builds:
     ldflags:
       - "-s -w"
       - "-X github.com/google/osv-scanner/v2/internal/version.OSVVersion={{.Version}}_GHAction"
-      - "-X main.commit={{.Commit}}"
-      - "-X main.date={{.CommitDate}}"
+      - "-X github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd.commit={{.Commit}}"
+      - "-X github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd.date={{.CommitDate}}"
     goos:
       - linux
     goarch:
@@ -67,8 +67,8 @@ builds:
     ldflags:
       - "-s -w"
       - "-X github.com/google/osv-scanner/v2/internal/version.OSVVersion={{.Version}}"
-      - "-X main.commit={{.Commit}}"
-      - "-X main.date={{.CommitDate}}"
+      - "-X github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd.commit={{.Commit}}"
+      - "-X github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd.date={{.CommitDate}}"
     goos:
       - linux
     goarch:
@@ -142,9 +142,9 @@ docker_manifests:
       - "ghcr.io/google/osv-scanner:{{ .Tag }}-arm64"
 
 archives:
-  - formats: binary
+  - format: binary
     name_template: "{{ .Binary }}_{{ .Os }}_{{ .Arch }}"
-    ids:
+    builds:
       - osv-scanner
 checksum:
   name_template: "{{ .ProjectName }}_SHA256SUMS"

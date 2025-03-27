@@ -1,14 +1,13 @@
 
-[Test_run_Update/update_pom.xml_with_in-place_changes - 1]
+[TestCommand/update_pom.xml_with_in-place_changes - 1]
 
 ---
 
-[Test_run_Update/update_pom.xml_with_in-place_changes - 2]
-Warning: `update` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `update` is assumed to be a subcommand here. If you intended for `update` to be an argument to `scan`, you must specify `scan update` in your command line.
+[TestCommand/update_pom.xml_with_in-place_changes - 2]
 
 ---
 
-[Test_run_Update/update_pom.xml_with_in-place_changes - 3]
+[TestCommand/update_pom.xml_with_in-place_changes - 3]
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
