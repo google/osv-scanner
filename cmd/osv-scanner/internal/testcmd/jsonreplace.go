@@ -16,12 +16,14 @@ type JSONReplaceRule struct {
 }
 
 var (
+	// OnlyIDVulnsRule simplifies vulnerabilities to only their ID
 	OnlyIDVulnsRule = JSONReplaceRule{
 		Path: "results.#.packages.#.vulnerabilities",
 		ReplaceFunc: func(toReplace gjson.Result) any {
 			return toReplace.Get("#.id").Value()
 		},
 	}
+	// GroupsAsArrayLen replaces the groups array with its length
 	GroupsAsArrayLen = JSONReplaceRule{
 		Path: "results.#.packages.#.groups",
 		ReplaceFunc: func(toReplace gjson.Result) any {
@@ -32,6 +34,7 @@ var (
 			return 0
 		},
 	}
+	// OnlyFirstBaseImage simplifies the array of base images to only the first one
 	OnlyFirstBaseImage = JSONReplaceRule{
 		Path: "image_metadata.base_images.#",
 		ReplaceFunc: func(toReplace gjson.Result) any {
@@ -42,6 +45,7 @@ var (
 			return struct{}{}
 		},
 	}
+	// AnyDiffID truncates diff ids in image layer metadata to 7 characters
 	AnyDiffID = JSONReplaceRule{
 		Path: "image_metadata.layer_metadata.#.diff_id",
 		ReplaceFunc: func(toReplace gjson.Result) any {
@@ -52,6 +56,7 @@ var (
 			return ""
 		},
 	}
+	// ShortenHistoryCommandLength truncates COMMAND data to 28 characters
 	ShortenHistoryCommandLength = JSONReplaceRule{
 		Path: "image_metadata.layer_metadata.#.command",
 		ReplaceFunc: func(toReplace gjson.Result) any {
@@ -62,7 +67,8 @@ var (
 			return toReplace.String()
 		},
 	}
-	// Older and newer versions of docker has different COMMAND histories
+	// NormalizeHistoryCommand replaces COMMAND data to be consistent
+	// across different versions of docker
 	NormalizeHistoryCommand = JSONReplaceRule{
 		Path: "image_metadata.layer_metadata.#.command",
 		ReplaceFunc: func(toReplace gjson.Result) any {
