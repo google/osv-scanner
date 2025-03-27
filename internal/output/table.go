@@ -32,8 +32,8 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	outputResult := BuildResults(vulnResult)
 
 	// Render the vulnerabilities.
-	if outputResult.IsContainerScanning {
-		printContainerScanningResult(outputResult, outputWriter, terminalWidth)
+	if containsOSResult(outputResult) {
+		printSummaryResult(outputResult, outputWriter, terminalWidth)
 	} else {
 		outputTable := newTable(outputWriter, terminalWidth)
 		outputTable = tableBuilder(outputTable, vulnResult)
@@ -101,10 +101,14 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 	return outputTable
 }
 
-func printContainerScanningResult(result Result, outputWriter io.Writer, terminalWidth int) {
+func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int) {
 	// Add a newline to separate results from logs.
 	fmt.Fprintln(outputWriter)
-	fmt.Fprintf(outputWriter, "Container Scanning Result (%s):\n", result.ImageInfo.OS)
+	if result.IsContainerScanning {
+		fmt.Fprintf(outputWriter, "Container Scanning Result (%s):\n", result.ImageInfo.OS)
+	} else {
+		fmt.Fprint(outputWriter, "Scanning Result (package view):\n")
+	}
 	printSummary(result, outputWriter)
 	// Add a newline
 	fmt.Fprintln(outputWriter)
@@ -119,7 +123,21 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 		for _, source := range ecosystem.Sources {
 			outputTable := newTable(outputWriter, terminalWidth)
 			outputTable.SetTitle("Source:" + source.Name)
-			tableHeader := table.Row{"Package", "Installed Version", "Fix Available", "Vuln Count", "Introduced Layer", "In Base Image"}
+			sourcePackageHeader := "Package"
+			if isOSResult(source.Name) {
+				sourcePackageHeader = "Source Package"
+			}
+
+			tableHeader := table.Row{sourcePackageHeader, "Installed Version", "Fix Available", "Vuln Count"}
+
+			if isOSResult(source.Name) {
+				tableHeader = append(tableHeader, "Binary Packages")
+			}
+
+			if result.IsContainerScanning {
+				tableHeader = append(tableHeader, "Introduced Layer", "In Base Image")
+			}
+
 			if result.LicenseSummary.ShowViolations {
 				tableHeader = append(tableHeader, "License Violations")
 			}
@@ -142,13 +160,23 @@ func printContainerScanningResult(result Result, outputWriter io.Writer, termina
 					}
 				}
 
-				layer := fmt.Sprintf("# %d Layer", pkg.LayerDetail.LayerIndex)
+				outputRow = append(outputRow, pkg.Name, getInstalledVersionOrCommit(pkg), fixAvailable, totalCount)
 
-				inBaseImage := "--"
-				if pkg.LayerDetail.BaseImageInfo.Index != 0 {
-					inBaseImage = getBaseImageName(pkg.LayerDetail.BaseImageInfo)
+				if isOSResult(source.Name) {
+					outputRow = append(outputRow, formatBinaryPackages(pkg.OSPackageNames))
 				}
-				outputRow = append(outputRow, pkg.Name, getInstalledVersionOrCommit(pkg), fixAvailable, totalCount, layer, inBaseImage)
+
+				if result.IsContainerScanning {
+					layer := fmt.Sprintf("# %d Layer", pkg.LayerDetail.LayerIndex)
+
+					inBaseImage := "--"
+					if pkg.LayerDetail.BaseImageInfo.Index != 0 {
+						inBaseImage = getBaseImageName(pkg.LayerDetail.BaseImageInfo)
+					}
+
+					outputRow = append(outputRow, layer, inBaseImage)
+				}
+
 				if result.LicenseSummary.ShowViolations {
 					if len(pkg.LicenseViolations) == 0 {
 						outputRow = append(outputRow, "--")
@@ -352,4 +380,22 @@ func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.
 	}
 
 	return outputTable
+}
+
+func formatBinaryPackages(slice []string) string {
+	maxChars := 20
+	result := strings.Join(slice, ", ")
+
+	if len(result) <= maxChars {
+		return result
+	}
+
+	truncatedResult := result[:maxChars]
+	// Find the last comma before truncation to avoid cutting words
+	lastComma := strings.LastIndex(truncatedResult, ",")
+	if lastComma != -1 {
+		truncatedResult = truncatedResult[:lastComma]
+	}
+
+	return fmt.Sprintf("%s... (%d)", truncatedResult, len(slice))
 }

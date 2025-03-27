@@ -162,6 +162,7 @@ const (
 
 const UnfixedDescription = "No fix available"
 const VersionUnsupported = "N/A"
+const OSSourcePrefix = "os"
 
 // osEcosystems is a list of OS images.
 var osEcosystems = []string{"Debian", "Alpine", "Ubuntu"}
@@ -830,4 +831,20 @@ func getInstalledVersionOrCommit(pkg PackageResult) string {
 	}
 
 	return result
+}
+
+func isOSResult(sourceName string) bool {
+	return strings.Split(sourceName, ":")[0] == OSSourcePrefix
+}
+
+func containsOSResult(result Result) bool {
+	for _, ecosystem := range result.Ecosystems {
+		for _, source := range ecosystem.Sources {
+			if isOSResult(source.Name) {
+				return true
+			}
+		}
+	}
+
+	return false
 }
