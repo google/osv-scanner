@@ -5,7 +5,10 @@ import (
 	"encoding/json"
 	"testing"
 
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
@@ -15,7 +18,11 @@ func run(t *testing.T, tc Case) (string, string) {
 	stdout := newMuffledWriter()
 	stderr := newMuffledWriter()
 
-	ec := cmd.Run(tc.Args, stdout, stderr)
+	ec := cmd.Run(tc.Args, stdout, stderr, []cmd.CommandBuilder{
+		scan.Command,
+		fix.Command,
+		update.Command,
+	})
 
 	if ec != tc.Exit {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.Exit)
