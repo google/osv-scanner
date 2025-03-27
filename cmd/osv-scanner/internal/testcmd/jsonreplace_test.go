@@ -1,4 +1,4 @@
-package testutility
+package testcmd
 
 import (
 	"bytes"
