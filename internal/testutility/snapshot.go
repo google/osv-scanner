@@ -58,6 +58,15 @@ func (s Snapshot) MatchText(t *testing.T, got string) {
 func (s Snapshot) MatchOSVScannerJSONOutput(t *testing.T, jsonInput string, jsonReplaceRules ...JSONReplaceRule) {
 	t.Helper()
 
+	jsonFormatted := NormalizeJSON(t, jsonInput, jsonReplaceRules...)
+
+	s.MatchText(t, jsonFormatted)
+}
+
+// NormalizeJSON runs the given JSONReplaceRules on the given JSON input and returns the normalized JSON string
+func NormalizeJSON(t *testing.T, jsonInput string, jsonReplaceRules ...JSONReplaceRule) string {
+	t.Helper()
+
 	for _, rule := range jsonReplaceRules {
 		jsonInput = replaceJSONInput(t, jsonInput, rule.Path, rule.ReplaceFunc)
 	}
@@ -69,5 +78,5 @@ func (s Snapshot) MatchOSVScannerJSONOutput(t *testing.T, jsonInput string, json
 		t.Fatalf("Failed to marshal JSON: %s", err)
 	}
 
-	s.MatchText(t, jsonFormatted.String())
+	return jsonFormatted.String()
 }
