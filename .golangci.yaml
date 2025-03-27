@@ -1,36 +1,34 @@
 output:
   sort-results: true
 linters:
-  enable:
-    - gofmt
-    - goimports
+  enable-all: true
   # prettier-ignore
   disable:
-    - tagliatelle      # we're parsing data from external sources (g-rath)
-    - varnamelen       # maybe later (g-rath)
+    - cyclop
+    - err113           # will re-add later (another-rex)
     - exhaustruct      # overkill (g-rath)
     - forcetypeassert  # too hard (g-rath)
-    - lll              # line length is hard (g-rath)
-    - godox            # to-do comments are fine (g-rath)
-    - godot            # comments are fine without full stops (g-rath)
-    - mnd              # not every number is magic (g-rath)
-    - wsl              # disagree with, for now (g-rath)
-    - ireturn          # disagree with, sort of (g-rath)
+    - funlen
+    - gci
     - gochecknoglobals # disagree with, for non changing variables (another-rex)
-    - wrapcheck        # too difficult, will re-add later (another-rex)
-    - testpackage      # will re-add later (another-rex)
-    - err113           # will re-add later (another-rex)
-    - nonamedreturns   # disagree with, for now (another-rex)
+    - gocognit
     - goconst          # not everything should be a constant
-  presets:
-    - bugs
-    - comment
-    - error
-    - performance
-    - sql
-    - style
-    - test
-    - unused
+    - gocyclo
+    - godot            # comments are fine without full stops (g-rath)
+    - godox            # to-do comments are fine (g-rath)
+    - gofumpt
+    - ireturn          # disagree with, sort of (g-rath)
+    - lll              # line length is hard (g-rath)
+    - maintidx
+    - mnd              # not every number is magic (g-rath)
+    - nestif
+    - nonamedreturns   # disagree with, for now (another-rex)
+    - tagliatelle      # we're parsing data from external sources (g-rath)
+    - tenv             # deprecated
+    - testpackage      # will re-add later (another-rex)
+    - varnamelen       # maybe later (g-rath)
+    - wrapcheck        # too difficult, will re-add later (another-rex)
+    - wsl              # disagree with, for now (g-rath)
 
 linters-settings:
   exhaustive:
