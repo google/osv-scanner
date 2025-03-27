@@ -131,7 +131,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 			tableHeader := table.Row{sourcePackageHeader, "Installed Version", "Fix Available", "Vuln Count"}
 
 			if isOSResult(source.Name) {
-				tableHeader = append(tableHeader, "Binary Packages")
+				tableHeader = append(tableHeader, "Binary Packages (Count)")
 			}
 
 			if result.IsContainerScanning {
