@@ -58,7 +58,7 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		Commands: []*cli.Command{
 			scan.Command(stdout, stderr),
 			fix.Command(stdout, stderr),
-			update.Command(),
+			update.Command(stdout, stderr),
 		},
 		CustomAppHelpTemplate: getCustomHelpTemplate(),
 	}
