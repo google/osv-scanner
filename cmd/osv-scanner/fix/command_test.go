@@ -87,10 +87,7 @@ func TestCommand(t *testing.T) {
 				tc.Args = append(tc.Args, "-M", manifest)
 			}
 
-			stdout, stderr := testcmd.Run(t, tc)
-
-			testutility.NewSnapshot().MatchText(t, stdout)
-			testutility.NewSnapshot().MatchText(t, stderr)
+			testcmd.Test(t, tc)
 
 			if lockfile != "" {
 				matchFile(t, lockfile)

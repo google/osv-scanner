@@ -374,12 +374,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			stdout, stderr := testcmd.Run(t, tt)
-
-			testutility.NewSnapshot().MatchText(t, stdout)
-			testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
-				"CreateFile": "stat",
-			}).MatchText(t, stderr)
+			testcmd.Test(t, tt)
 		})
 	}
 }
