@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
 )
 
-func Run(t *testing.T, tc Case) (string, string) {
+func run(t *testing.T, tc Case) (string, string) {
 	t.Helper()
 
 	stdout := newMuffledWriter()
