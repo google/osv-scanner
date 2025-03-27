@@ -11,6 +11,8 @@
 [![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
 [![GitHub Release](https://img.shields.io/github/v/release/google/osv-scanner)](https://github.com/google/osv-scanner/releases)
 
+This is a change!
+
 Use OSV-Scanner to find existing vulnerabilities affecting your project's dependencies.
 OSV-Scanner provides an officially supported frontend to the [OSV database](https://osv.dev/) and CLI interface to [OSV-Scalibr](https://github.com/google/osv-scalibr) that connects a project’s list of dependencies with the vulnerabilities that affect them.
 
