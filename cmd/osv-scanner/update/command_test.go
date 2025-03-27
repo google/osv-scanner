@@ -42,7 +42,7 @@ func TestCommand(t *testing.T) {
 				tc.Args = append(tc.Args, "-M", manifest)
 			}
 
-			testcmd.Test(t, tc)
+			testcmd.Run(t, tc)
 
 			if manifest != "" {
 				b, err := os.ReadFile(manifest)

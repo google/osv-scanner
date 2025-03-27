@@ -235,7 +235,7 @@ func TestCommand(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
@@ -256,7 +256,7 @@ func TestCommand_CallAnalysis(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
@@ -374,7 +374,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
@@ -395,7 +395,7 @@ func TestCommand_GithubActions(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
@@ -475,8 +475,8 @@ func TestCommand_LocalDatabases(t *testing.T) {
 
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
-			testcmd.Test(t, tt)
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
@@ -499,8 +499,8 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
-			testcmd.Test(t, tt)
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
@@ -575,7 +575,7 @@ func TestCommand_Licenses(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
@@ -605,7 +605,7 @@ func TestCommand_SubCommands(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
@@ -653,7 +653,7 @@ func TestCommand_MavenTransitive(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
@@ -700,7 +700,7 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }

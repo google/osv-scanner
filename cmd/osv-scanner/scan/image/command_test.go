@@ -48,7 +48,7 @@ func TestCommand_Docker(t *testing.T) {
 				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
 			}
 
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
@@ -134,7 +134,7 @@ func TestCommand_OCIImage(t *testing.T) {
 				}
 			}
 
-			testcmd.Test(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
@@ -209,7 +209,7 @@ func TestCommand_OCIImageAllPackagesJSON(t *testing.T) {
 				}
 			}
 
-			testcmd.TestJSONWithCustomRules(t, tt)
+			testcmd.Run(t, tt)
 		})
 	}
 }
