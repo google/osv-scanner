@@ -122,7 +122,7 @@ func queryForBatchWithPaging(ctx context.Context, c *osvdev.OSVClient, queries [
 			}
 		}
 
-		nextPageResp, err := c.QueryBatch(ctx, nextPageQueries)
+		nextPageResp, err := queryForBatchWithPaging(ctx, c, nextPageQueries)
 		if err != nil {
 			var dpr *DuringPagingError
 			if ok := errors.As(err, &dpr); ok {
