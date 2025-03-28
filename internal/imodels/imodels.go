@@ -168,23 +168,23 @@ func (pkg *PackageInfo) Commit() string {
 	return ""
 }
 
-func (pkg *PackageInfo) SourceType() SourceType {
+func (pkg *PackageInfo) SourceType() models.SourceType {
 	if pkg.Inventory.Extractor == nil {
-		return SourceTypeUnknown
+		return models.SourceTypeUnknown
 	}
 
 	extractorName := pkg.Inventory.Extractor.Name()
 	if _, ok := osExtractors[extractorName]; ok {
-		return SourceTypeOSPackage
+		return models.SourceTypeOSPackage
 	} else if _, ok := sbomExtractors[extractorName]; ok {
-		return SourceTypeSBOM
+		return models.SourceTypeSBOM
 	} else if _, ok := gitExtractors[extractorName]; ok {
-		return SourceTypeGit
+		return models.SourceTypeGit
 	} else if _, ok := artifactExtractors[extractorName]; ok {
-		return SourceTypeArtifact
+		return models.SourceTypeArtifact
 	}
 
-	return SourceTypeProjectPackage
+	return models.SourceTypeProjectPackage
 }
 
 func (pkg *PackageInfo) DepGroups() []string {
@@ -212,7 +212,7 @@ func (pkg *PackageInfo) OSPackageName() string {
 // FromInventory converts an extractor.Inventory into a PackageInfo.
 func FromInventory(inventory *extractor.Inventory) PackageInfo {
 	pi := PackageInfo{Inventory: inventory}
-	if pi.SourceType() == SourceTypeSBOM {
+	if pi.SourceType() == models.SourceTypeSBOM {
 		purlStruct := pi.Inventory.Extractor.ToPURL(pi.Inventory)
 		if purlStruct != nil {
 			purlCache, _ := purl.ToPackage(purlStruct.String())
@@ -236,16 +236,3 @@ type PackageScanResult struct {
 	// SourceAnalysis *SourceAnalysis
 	// Any additional scan enrichment steps
 }
-
-// SourceType categorizes packages based on the extractor that extracted
-// the "source", for use in the output.
-type SourceType int
-
-const (
-	SourceTypeUnknown SourceType = iota
-	SourceTypeOSPackage
-	SourceTypeProjectPackage
-	SourceTypeArtifact
-	SourceTypeSBOM
-	SourceTypeGit
-)
