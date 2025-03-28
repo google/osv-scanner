@@ -80,9 +80,22 @@ type VulnerabilityFlattened struct {
 	LicenseViolations []License
 }
 
+// SourceType categorizes packages based on the extractor that extracted
+// the "source", for use in the output.
+type SourceType string
+
+const (
+	SourceTypeUnknown        SourceType = "unknown"
+	SourceTypeOSPackage      SourceType = "os"
+	SourceTypeProjectPackage SourceType = "lockfile"
+	SourceTypeArtifact       SourceType = "artifact"
+	SourceTypeSBOM           SourceType = "sbom"
+	SourceTypeGit            SourceType = "git"
+)
+
 type SourceInfo struct {
-	Path string `json:"path"`
-	Type string `json:"type"`
+	Path string     `json:"path"`
+	Type SourceType `json:"type"`
 }
 
 type Metadata struct {
@@ -91,7 +104,7 @@ type Metadata struct {
 }
 
 func (s SourceInfo) String() string {
-	return s.Type + ":" + s.Path
+	return string(s.Type) + ":" + s.Path
 }
 
 // PackageSource represents Vulnerabilities associated with a Source
