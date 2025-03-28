@@ -50,6 +50,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "--config=../fixtures/osv-scanner-empty-config.toml", "--sbom", "../fixtures/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
 		},
+		// one file that does not match the supported sbom file names
+		{
+			Name: "one file that does not match the supported sbom file names",
+			Args: []string{"", "--config=../fixtures/osv-scanner-empty-config.toml", "--sbom", "../fixtures/locks-many/composer.lock"},
+			Exit: 127,
+		},
 		// one specific unsupported lockfile
 		{
 			Name: "one specific unsupported lockfile",
