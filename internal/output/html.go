@@ -88,6 +88,7 @@ func PrintHTMLResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		"formatLicense":               formatLicense,
 		"hasOSResult":                 hasOSResult,
 		"GetShortCommit":              results.GetShortCommit,
+		"isOSResult":                  isOSResult,
 	}
 
 	tmpl := template.Must(template.New("").Funcs(funcMap).ParseFS(templates, TemplateDir))

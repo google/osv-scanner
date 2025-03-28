@@ -43,6 +43,7 @@ type EcosystemResult struct {
 // SourceResult represents the vulnerability scanning results for a source file.
 type SourceResult struct {
 	Name                   string
+	Type                   models.SourceType
 	Ecosystem              string
 	PackageTypeCount       AnalysisCount
 	Packages               []PackageResult
@@ -371,6 +372,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 	if len(packageSource.Packages) == 0 {
 		sourceResults[""] = SourceResult{
 			Name:      packageSource.Source.String(),
+			Type:      packageSource.Source.Type,
 			Ecosystem: "",
 			Packages:  []PackageResult{},
 		}
@@ -382,6 +384,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 		if _, exists := sourceResults[vulnPkg.Package.Ecosystem]; !exists {
 			sourceResults[vulnPkg.Package.Ecosystem] = SourceResult{
 				Name:      packageSource.Source.String(),
+				Type:      packageSource.Source.Type,
 				Ecosystem: vulnPkg.Package.Ecosystem,
 			}
 		}
@@ -830,4 +833,20 @@ func getInstalledVersionOrCommit(pkg PackageResult) string {
 	}
 
 	return result
+}
+
+func isOSResult(sourceType models.SourceType) bool {
+	return sourceType == models.SourceTypeOSPackage
+}
+
+func containsOSResult(result Result) bool {
+	for _, ecosystem := range result.Ecosystems {
+		for _, source := range ecosystem.Sources {
+			if isOSResult(source.Type) {
+				return true
+			}
+		}
+	}
+
+	return false
 }
