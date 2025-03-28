@@ -234,14 +234,14 @@ func printVerticalVulnerabilities(sourceResult SourceResult, isContainerScanning
 	if countCalled > 0 {
 		fmt.Fprintln(out)
 
-		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, true, isContainerScanning, isOSResult(sourceResult.Name))
+		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, true, isContainerScanning, isOSResult(sourceResult.Type))
 		printVerticalVulnerabilitiesCountSummary(countCalled, true, sourceResult.Name, out)
 	}
 
 	if countUncalled > 0 {
 		fmt.Fprintln(out)
 
-		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, false, isContainerScanning, isOSResult(sourceResult.Name))
+		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, false, isContainerScanning, isOSResult(sourceResult.Type))
 		printVerticalVulnerabilitiesCountSummary(countUncalled, false, sourceResult.Name, out)
 	}
 }

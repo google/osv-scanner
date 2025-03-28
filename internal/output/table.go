@@ -124,13 +124,13 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 			outputTable := newTable(outputWriter, terminalWidth)
 			outputTable.SetTitle("Source:" + source.Name)
 			sourcePackageHeader := "Package"
-			if isOSResult(source.Name) {
+			if isOSResult(source.Type) {
 				sourcePackageHeader = "Source Package"
 			}
 
 			tableHeader := table.Row{sourcePackageHeader, "Installed Version", "Fix Available", "Vuln Count"}
 
-			if isOSResult(source.Name) {
+			if isOSResult(source.Type) {
 				tableHeader = append(tableHeader, "Binary Packages (Count)")
 			}
 
@@ -162,7 +162,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 
 				outputRow = append(outputRow, pkg.Name, getInstalledVersionOrCommit(pkg), fixAvailable, totalCount)
 
-				if isOSResult(source.Name) {
+				if isOSResult(source.Type) {
 					outputRow = append(outputRow, formatBinaryPackages(pkg.OSPackageNames))
 				}
 
