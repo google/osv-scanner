@@ -86,11 +86,11 @@ type SourceType string
 
 const (
 	SourceTypeUnknown        SourceType = "unknown"
-	SourceTypeOSPackage                 = "os"
-	SourceTypeProjectPackage            = "lockfile"
-	SourceTypeArtifact                  = "artifact"
-	SourceTypeSBOM                      = "sbom"
-	SourceTypeGit                       = "git"
+	SourceTypeOSPackage      SourceType = "os"
+	SourceTypeProjectPackage SourceType = "lockfile"
+	SourceTypeArtifact       SourceType = "artifact"
+	SourceTypeSBOM           SourceType = "sbom"
+	SourceTypeGit            SourceType = "git"
 )
 
 type SourceInfo struct {
