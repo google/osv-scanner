@@ -7,6 +7,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 2,
@@ -238,6 +239,7 @@
         },
         {
           "Name": ":path/to/my/second/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 2,
@@ -521,6 +523,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 2,
@@ -752,6 +755,7 @@
         },
         {
           "Name": ":path/to/my/second/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 2,
@@ -1035,6 +1039,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -1144,6 +1149,7 @@
         },
         {
           "Name": ":path/to/my/second/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -1334,6 +1340,7 @@
         },
         {
           "Name": ":path/to/my/third/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -1576,6 +1583,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -1699,6 +1707,7 @@
         },
         {
           "Name": ":path/to/my/second/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -1903,6 +1912,7 @@
         },
         {
           "Name": ":path/to/my/third/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2159,6 +2169,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/second/lockfile",
+          "Type": "",
           "Ecosystem": "NuGet",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2288,6 +2299,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2424,6 +2436,7 @@
         },
         {
           "Name": ":path/to/my/second/lockfile",
+          "Type": "",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2566,6 +2579,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2741,6 +2755,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/second/lockfile",
+          "Type": "",
           "Ecosystem": "NuGet",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2870,6 +2885,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Regular": 1,
@@ -3007,6 +3023,7 @@
         },
         {
           "Name": ":path/to/my/second/lockfile",
+          "Type": "",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Regular": 1,
@@ -3149,6 +3166,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -3324,6 +3342,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "",
           "PackageTypeCount": {
             "Regular": 0,
@@ -3351,6 +3370,7 @@
         },
         {
           "Name": ":path/to/my/second/lockfile",
+          "Type": "",
           "Ecosystem": "",
           "PackageTypeCount": {
             "Regular": 0,
@@ -3378,6 +3398,7 @@
         },
         {
           "Name": ":path/to/my/third/lockfile",
+          "Type": "",
           "Ecosystem": "",
           "PackageTypeCount": {
             "Regular": 0,
@@ -3502,6 +3523,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "",
           "PackageTypeCount": {
             "Regular": 0,
@@ -3581,6 +3603,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -3742,6 +3765,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -3931,6 +3955,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -4106,6 +4131,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -4281,6 +4307,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -4456,6 +4483,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -4631,6 +4659,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -4809,6 +4838,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -4987,6 +5017,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 2,
@@ -5257,6 +5288,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -5380,6 +5412,7 @@
         },
         {
           "Name": ":path/to/my/second/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -5541,6 +5574,7 @@
       "Sources": [
         {
           "Name": ":path/to/my/first/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -5664,6 +5698,7 @@
         },
         {
           "Name": ":path/to/my/second/lockfile",
+          "Type": "",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
