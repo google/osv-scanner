@@ -32,6 +32,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
@@ -177,6 +178,8 @@ func BuildArtifactExtractors() []filesystem.Extractor {
 		gobinary.New(gobinary.DefaultConfig()),
 		// Javascript
 		nodemodules.Extractor{},
+		// Rust
+		cargoauditable.NewDefault(),
 
 		// --- OS packages ---
 		// Alpine
