@@ -3,10 +3,10 @@ module github.com/google/osv-scanner/v2
 go 1.23.6
 
 require (
-	deps.dev/api/v3 v3.0.0-20250310223405-f4cf91c9e684
-	deps.dev/util/maven v0.0.0-20250310223405-f4cf91c9e684
-	deps.dev/util/resolve v0.0.0-20250310223405-f4cf91c9e684
-	deps.dev/util/semver v0.0.0-20250310223405-f4cf91c9e684
+	deps.dev/api/v3 v3.0.0-20250328015204-fc8680254d3f
+	deps.dev/util/maven v0.0.0-20250328015204-fc8680254d3f
+	deps.dev/util/resolve v0.0.0-20250328015204-fc8680254d3f
+	deps.dev/util/semver v0.0.0-20250328015204-fc8680254d3f
 	github.com/BurntSushi/toml v1.5.0
 	github.com/CycloneDX/cyclonedx-go v0.9.2
 	github.com/charmbracelet/bubbles v0.20.0
@@ -17,7 +17,7 @@ require (
 	github.com/go-git/go-billy/v5 v5.6.2
 	github.com/go-git/go-git/v5 v5.14.0
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.1.8-0.20250325235351-bebb0b908652
+	github.com/google/osv-scalibr v0.1.8-0.20250328195516-bca3ca0dad89
 	github.com/ianlancetaylor/demangle v0.0.0-20240912202439-0a2b6291aafd
 	github.com/jedib0t/go-pretty/v6 v6.6.7
 	github.com/muesli/reflow v0.3.0
@@ -30,12 +30,12 @@ require (
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.6
-	golang.org/x/net v0.37.0
+	golang.org/x/net v0.38.0
 	golang.org/x/sync v0.12.0
 	golang.org/x/term v0.30.0
 	golang.org/x/vuln v1.1.3
 	google.golang.org/grpc v1.71.0
-	google.golang.org/protobuf v1.36.5
+	google.golang.org/protobuf v1.36.6
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
 )
