@@ -10,6 +10,8 @@ on:
     paths:
       - "renovate.json"
 
+# Restrict jobs in this workflow to have no permissions by default; permissions
+# should be granted per job as needed using a dedicated `permissions` block
 permissions: {}
 
 jobs:
