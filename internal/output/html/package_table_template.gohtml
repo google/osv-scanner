@@ -1,7 +1,11 @@
 <table class="vuln-table">
   <tr>
     <th></th>
+    {{ if isOSResult .Type }}
+    <th>Source Package</th>
+    {{ else }}
     <th>Package</th>
+    {{ end }}
     <th>Installed version</th>
     <th>
       <div class="tooltip">
@@ -93,6 +97,11 @@
   <tr class="table-tr-details">
     <td colspan="100%">
       <div id="table-tr-{{ $index }}-details" class="package-details hide-block">
+        {{ $binaries := formatSlice $element.OSPackageNames }}
+        {{ if not (eq $binaries "") }}
+        <p><span class="package-detail-title">Installed binaries:</span> {{ $binaries }}</p>
+        {{ end }}
+
         {{ if and $element.LayerDetail.LayerInfo.LayerMetadata (not (eq $element.LayerDetail.LayerInfo.LayerMetadata.Command "")) }}
         {{ $index := $element.LayerDetail.LayerIndex }}
         {{ $diffID := $element.LayerDetail.LayerInfo.LayerMetadata.DiffID }}
@@ -104,10 +113,6 @@
         {{ $longCommand := false }}
         {{ if gt (len $command) 109 }}
         {{ $longCommand = true }}
-        {{ end }}
-        {{ $binaries := formatSlice $element.OSPackageNames }}
-        {{ if not (eq $binaries "") }}
-        <p><span class="package-detail-title">Installed binaries:</span> {{ $binaries }}</p>
         {{ end }}
         <div class="layer-command-container">
           {{ if $longCommand }}

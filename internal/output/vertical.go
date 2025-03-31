@@ -170,7 +170,7 @@ func printVerticalVulnerabilitiesCountSummary(count int, printingCalled bool, so
 	fmt.Fprintln(out)
 }
 
-func printVerticalVulnerabilitiesForPackages(packages []PackageResult, out io.Writer, printingCalled bool, isContainerScanning bool) {
+func printVerticalVulnerabilitiesForPackages(packages []PackageResult, out io.Writer, printingCalled bool, isContainerScanning bool, isOSResult bool) {
 	for _, pkg := range packages {
 		vulns := pkg.RegularVulns
 		if !printingCalled {
@@ -187,9 +187,19 @@ func printVerticalVulnerabilitiesForPackages(packages []PackageResult, out io.Wr
 			state = strings.ToLower(getFilteredVulnReasons(vulns))
 		}
 
+		pkgSourceName := pkg.Name
+
+		pkgName := strings.Join(pkg.OSPackageNames, ", ")
+
+		pkgNameInfo := ""
+		if isOSResult && pkgName != "" && pkgName != pkgSourceName {
+			pkgNameInfo = fmt.Sprintf(" (binary %s: %s)", Form(len(pkg.OSPackageNames), "package", "packages"), pkgName)
+		}
+
 		fmt.Fprintf(out,
-			"  %s %s\n",
-			text.FgYellow.Sprintf("%s@%s", pkg.Name, pkg.InstalledVersion),
+			"  %s%s %s\n",
+			text.FgYellow.Sprintf("%s@%s", pkgSourceName, pkg.InstalledVersion),
+			text.FgYellow.Sprintf("%s", pkgNameInfo),
 			text.FgRed.Sprintf("has the following %s vulnerabilities:", state),
 		)
 
@@ -224,14 +234,14 @@ func printVerticalVulnerabilities(sourceResult SourceResult, isContainerScanning
 	if countCalled > 0 {
 		fmt.Fprintln(out)
 
-		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, true, isContainerScanning)
+		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, true, isContainerScanning, isOSResult(sourceResult.Type))
 		printVerticalVulnerabilitiesCountSummary(countCalled, true, sourceResult.Name, out)
 	}
 
 	if countUncalled > 0 {
 		fmt.Fprintln(out)
 
-		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, false, isContainerScanning)
+		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, false, isContainerScanning, isOSResult(sourceResult.Type))
 		printVerticalVulnerabilitiesCountSummary(countUncalled, false, sourceResult.Name, out)
 	}
 }
