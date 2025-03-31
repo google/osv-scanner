@@ -36,7 +36,7 @@ When scanning container images (`osv-scanner scan image ...`), OSV-Scanner autom
 | Debian/Ubuntu dpkg/apt packages  | `/var/lib/dpkg/status`             |
 |                                  |                                    |
 | Go Binaries                      | `main-go`                          |
-| Rust Binaries (With cargo-audit) | `main-rust-built-with-audit`       |
+| Rust Binaries (with cargo-audit) | `main-rust-built-with-audit`       |
 | Java Uber `jars`                 | `my-java-app.jar`                  |
 | Node Modules                     | `node-app/node_modules/...`        |
 | Python wheels                    | `lib/python3.11/site-packages/...` |
