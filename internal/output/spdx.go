@@ -8,7 +8,6 @@ import (
 	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/detector"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
@@ -19,11 +18,9 @@ func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	for _, source := range vulnResult.Results {
 		for _, pkg := range source.Packages {
 			scanResult.Inventories = append(scanResult.Inventories, &extractor.Inventory{
-				Name:    pkg.Package.Name,
-				Version: pkg.Package.Version,
-				Extractor: ecosystemmock.Extractor{
-					MockEcosystem: pkg.Package.Ecosystem,
-				},
+				Name:      pkg.Package.Name,
+				Version:   pkg.Package.Version,
+				Extractor: pkg.Package.Extractor,
 			})
 			for _, vuln := range pkg.Vulnerabilities {
 				scanResult.Findings = append(scanResult.Findings, &detector.Finding{
