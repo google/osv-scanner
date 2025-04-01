@@ -910,6 +910,17 @@ No issues found
 
 ---
 
+[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 1]
+Failed to parse SBOM "<rootdir>/osv-scanner/fixtures/locks-many/composer.lock" with error: could not determine extractor suitable to this file
+If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.
+
+---
+
+[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 2]
+could not determine extractor suitable to this file
+
+---
+
 [TestCommand/one_specific_supported_lockfile - 1]
 Scanning dir ../fixtures/locks-many/composer.lock
 Scanned <rootdir>/osv-scanner/fixtures/locks-many/composer.lock file and found 1 package
