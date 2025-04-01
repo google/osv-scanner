@@ -7,7 +7,21 @@ nav_order: 5
 
 # Configure OSV-Scanner
 
-To configure scanning, place an osv-scanner.toml file in the scanned file's directory. To override this osv-scanner.toml file, pass the `--config=/path/to/config.toml` flag with the path to the configuration you want to apply instead.
+To configure scanning, place an osv-scanner.toml file in the scanned file's directory. This does not propagate to child directories.
+
+**Example:**
+
+```
+/Cargo.lock
+/osv-scanner.toml (1)
+/child-dir/go.mod
+/child-dir/osv-scanner.toml (2)
+/child-dir/nested-dir/package-lock.json
+```
+
+`osv-scanner.toml (1)` will only apply to `Cargo.lock`, `osv-scanner.toml (2)` will only apply to `go.mod`, and no config will apply to `package-lock.json`.
+
+To override `osv-scanner.toml` files, pass the `--config=/path/to/config.toml` flag with the path to the configuration you want to apply instead, this will apply `config.toml` to all files parsed, and ignore `osv-scanner.toml` in all directories.
 
 ## Ignore vulnerabilities by ID
 
