@@ -1,10 +1,13 @@
 package osvscanner
 
 import (
+	"errors"
+	"fmt"
 	"log/slog"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 )
@@ -30,6 +33,12 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	for _, sbomPath := range actions.SBOMPaths {
 		invs, err := scanners.ScanSingleFile(sbomPath, sbomExtractors)
 		if err != nil {
+			slog.Info(fmt.Sprintf("Failed to parse SBOM %q with error: %s", sbomPath, err))
+
+			if errors.Is(err, scalibrextract.ErrExtractorNotFound) {
+				slog.Info("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
+			}
+
 			return nil, err
 		}
 

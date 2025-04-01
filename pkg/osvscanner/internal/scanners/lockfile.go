@@ -2,7 +2,6 @@ package scanners
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"log/slog"
 	"path/filepath"
@@ -76,7 +75,6 @@ var lockfileExtractorMapping = map[string][]string{
 
 // ScanSingleFile is similar to ScanSingleFileWithMapping, just without supporting the <lockfileformat>:/path/to/lockfile prefix identifier
 func ScanSingleFile(path string, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
-	// TODO: Update the logging output to stop referring to SBOMs
 	path, err := filepath.Abs(path)
 	if err != nil {
 		slog.Error(fmt.Sprintf("Failed to resolved path %q with error: %s", path, err))
@@ -85,12 +83,6 @@ func ScanSingleFile(path string, extractorsToUse []filesystem.Extractor) ([]*ext
 
 	invs, err := scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 	if err != nil {
-		slog.Info(fmt.Sprintf("Failed to parse SBOM %q with error: %s", path, err))
-
-		if errors.Is(err, scalibrextract.ErrExtractorNotFound) {
-			slog.Info("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
-		}
-
 		return nil, err
 	}
 
