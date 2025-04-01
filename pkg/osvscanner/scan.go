@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"log/slog"
+	"path/filepath"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/imodels"
@@ -31,9 +32,15 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	// --- SBOMs ---
 	sbomExtractors := scanners.BuildSBOMExtractors()
 	for _, sbomPath := range actions.SBOMPaths {
-		invs, err := scanners.ScanSingleFile(sbomPath, sbomExtractors)
+		path, err := filepath.Abs(sbomPath)
 		if err != nil {
-			slog.Info(fmt.Sprintf("Failed to parse SBOM %q with error: %s", sbomPath, err))
+			slog.Error(fmt.Sprintf("Failed to resolved path %q with error: %s", path, err))
+			return nil, err
+		}
+
+		invs, err := scanners.ScanSingleFile(path, sbomExtractors)
+		if err != nil {
+			slog.Info(fmt.Sprintf("Failed to parse SBOM %q with error: %s", path, err))
 
 			if errors.Is(err, scalibrextract.ErrExtractorNotFound) {
 				slog.Info("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
