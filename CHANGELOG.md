@@ -1,3 +1,30 @@
+# v2.0.1
+
+### Features:
+
+- [Feature #1730](https://github.com/google/osv-scanner/pull/1730) Add support for extracting dependencies from .NET `packages.config` and `packages.lock.json` files.
+- [Feature #1770](https://github.com/google/osv-scanner/pull/1770) Add support for extracting dependencies from rust binaries compiled with cargo-auditable.
+- [Feature #1761](https://github.com/google/osv-scanner/pull/1761) Improve output when scanning for OS packages, we now show binary packages associated with a source package in the table output.
+
+### Fixes:
+
+- [Bug #1752](https://github.com/google/osv-scanner/pull/1752) Fix paging depth issue when querying the osv.dev API.
+- [Bug #1747](https://github.com/google/osv-scanner/pull/1747) Ensure osv-reporter prints warnings instead of errors for certain messages to return correct exit code (related to [osv-scanner-action#65](https://github.com/google/osv-scanner-action/issues/65)).
+- [Bug #1717](https://github.com/google/osv-scanner/pull/1717) Fix issue where nested CycloneDX components were not being parsed.
+- [Bug #1744](https://github.com/google/osv-scanner/pull/1744) Fix issue where empty CycloneDX SBOMs was causing a panic.
+- [Bug #1726](https://github.com/google/osv-scanner/pull/1726) De-duplicate references in CycloneDX report output for improved validity.
+- [Bug #1727](https://github.com/google/osv-scanner/pull/1727) Remove automatic opening of HTML reports in the browser (fixes [#1721](https://github.com/google/osv-scanner/issues/1721)).
+- [Bug #1735](https://github.com/google/osv-scanner/pull/1735) Require a tag when scanning container images to prevent potential errors.
+
+### Docs:
+
+- [Docs #1753](https://github.com/google/osv-scanner/pull/1753) Correct documentation for the OSV-Scanner GitHub Action (fixes [osv-scanner-action#68](https://github.com/google/osv-scanner-action/issues/68)).
+- [Docs #1743](https://github.com/google/osv-scanner/pull/1743) Minor grammar fixes in documentation.
+
+### API Changes:
+- [API Change #1763](https://github.com/google/osv-scanner/pull/1763) Made the SourceType enum public.
+
+
 # OSV-Scanner v2.0.0
 
 This release merges the improvements, features, and fixes from v2.0.0-rc1, v2.0.0-beta2, and v2.0.0-beta1.
