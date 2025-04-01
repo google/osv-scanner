@@ -68,7 +68,18 @@ func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 					continue
 				}
 
+				alreadyPresentAdvisories := make(map[string]struct{})
+				for _, ref := range docPkg.PackageExternalReferences {
+					if ref.RefType == "advisory" && ref.Category == "SECURITY" {
+						alreadyPresentAdvisories[ref.Locator] = struct{}{}
+					}
+				}
+
 				for _, vuln := range scannerPkg.Vulnerabilities {
+					if _, ok := alreadyPresentAdvisories[vuln.ID]; ok {
+						continue
+					}
+
 					docPkg.PackageExternalReferences = append(docPkg.PackageExternalReferences, &v2_3.PackageExternalReference{
 						RefType:  "advisory",
 						Category: "SECURITY",

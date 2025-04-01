@@ -1407,11 +1407,6 @@
           "referenceCategory": "SECURITY",
           "referenceType": "advisory",
           "referenceLocator": "OSV-1"
-        },
-        {
-          "referenceCategory": "SECURITY",
-          "referenceType": "advisory",
-          "referenceLocator": "OSV-1"
         }
       ]
     },
@@ -1481,11 +1476,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/mine1@1.2.3"
-        },
-        {
-          "referenceCategory": "SECURITY",
-          "referenceType": "advisory",
-          "referenceLocator": "OSV-1"
         },
         {
           "referenceCategory": "SECURITY",
@@ -1596,11 +1586,6 @@
           "referenceCategory": "SECURITY",
           "referenceType": "advisory",
           "referenceLocator": "OSV-1"
-        },
-        {
-          "referenceCategory": "SECURITY",
-          "referenceType": "advisory",
-          "referenceLocator": "OSV-1"
         }
       ]
     },
@@ -1670,11 +1655,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/mine1@1.2.3"
-        },
-        {
-          "referenceCategory": "SECURITY",
-          "referenceType": "advisory",
-          "referenceLocator": "OSV-1"
         },
         {
           "referenceCategory": "SECURITY",
@@ -2571,11 +2551,6 @@
           "referenceCategory": "SECURITY",
           "referenceType": "advisory",
           "referenceLocator": "OSV-1"
-        },
-        {
-          "referenceCategory": "SECURITY",
-          "referenceType": "advisory",
-          "referenceLocator": "OSV-1"
         }
       ]
     },
@@ -2645,11 +2620,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/mine1@1.2.3"
-        },
-        {
-          "referenceCategory": "SECURITY",
-          "referenceType": "advisory",
-          "referenceLocator": "OSV-1"
         },
         {
           "referenceCategory": "SECURITY",
@@ -3915,11 +3885,6 @@
           "referenceCategory": "SECURITY",
           "referenceType": "advisory",
           "referenceLocator": "OSV-1"
-        },
-        {
-          "referenceCategory": "SECURITY",
-          "referenceType": "advisory",
-          "referenceLocator": "OSV-1"
         }
       ]
     },
@@ -3936,11 +3901,6 @@
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
           "referenceLocator": "pkg:npm/mine1@1.2.3"
-        },
-        {
-          "referenceCategory": "SECURITY",
-          "referenceType": "advisory",
-          "referenceLocator": "OSV-1"
         },
         {
           "referenceCategory": "SECURITY",
