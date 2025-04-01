@@ -22,8 +22,8 @@
 - [Docs #1743](https://github.com/google/osv-scanner/pull/1743) Minor grammar fixes in documentation.
 
 ### API Changes:
-- [API Change #1763](https://github.com/google/osv-scanner/pull/1763) Made the SourceType enum public.
 
+- [API Change #1763](https://github.com/google/osv-scanner/pull/1763) Made the SourceType enum public.
 
 # OSV-Scanner v2.0.0
 
