@@ -45,7 +45,7 @@ var (
 			return struct{}{}
 		},
 	}
-	// AnyDiffID truncates diff ids in image layer metadata to 7 characters
+	// AnyDiffID truncates diff ids in image layer metadata to just `sha256:...`
 	AnyDiffID = JSONReplaceRule{
 		Path: "image_metadata.layer_metadata.#.diff_id",
 		ReplaceFunc: func(toReplace gjson.Result) any {
