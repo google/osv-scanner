@@ -98,7 +98,7 @@ jobs:
       - uses: actions/cache/restore@v4
         id: cache-image-fixtures-restore
         with:
-          path: tmp/cache
+          path: internal/image/fixtures/
           key: cache-image-fixtures-${{ github.ref }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             cache-image-fixtures-${{ github.ref }}-${{ github.sha }}-
