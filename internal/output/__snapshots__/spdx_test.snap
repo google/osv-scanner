@@ -5,17 +5,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/6096ddd9-d75b-455c-b89b-c3e6206a3a80",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-e45a1fca-089f-47ce-b82d-4c6490bbbff7",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -25,7 +25,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-e45a1fca-089f-47ce-b82d-4c6490bbbff7",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -39,17 +39,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/5084d1ef-5650-4ef4-8402-b5c7c9e6f484",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-3b48f8d4-de62-4484-a031-198ad7752cf6",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -59,7 +59,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-3b48f8d4-de62-4484-a031-198ad7752cf6",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -73,17 +73,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/fe2bb462-73fb-4cee-b098-93ac11b4742d",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-64810cb2-c891-4206-9e73-8392b5003e28",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -93,7 +93,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-64810cb2-c891-4206-9e73-8392b5003e28",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -107,17 +107,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/e1beecee-5040-4988-8526-8125628bf67f",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-a921fb3c-4a88-4c3a-b4c1-75b277d819e0",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -127,7 +127,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-a921fb3c-4a88-4c3a-b4c1-75b277d819e0",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -141,17 +141,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/e2871a44-40b8-4663-874a-5ad37cf53e99",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-4d7656fd-fbb0-447a-a9f9-52fc48474c47",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -161,7 +161,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-4d7656fd-fbb0-447a-a9f9-52fc48474c47",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -175,17 +175,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/76dc8bdb-11c4-4757-8660-a8878f1ddc60",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-0ac8f387-8e68-41cc-85a3-86a5c8798160",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -195,7 +195,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-0ac8f387-8e68-41cc-85a3-86a5c8798160",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -209,17 +209,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/96dfaa30-4610-4227-95a8-aac7918e8821",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-1dfc5817-6b0b-4edb-b6d5-025d3405f104",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -229,7 +229,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-1dfc5817-6b0b-4edb-b6d5-025d3405f104",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -243,17 +243,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/c1750ac2-2584-4626-8e3a-cd48b4ef79a9",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-6ad1c104-2cc6-44a3-a7dc-f95a947808e2",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -263,7 +263,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-6ad1c104-2cc6-44a3-a7dc-f95a947808e2",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -277,17 +277,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/f6eeec77-d46f-4fe7-8dc3-ec2b8cbe1a81",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-4d16978a-1fcb-4052-8754-cc73f655c13f",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -297,7 +297,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-4d16978a-1fcb-4052-8754-cc73f655c13f",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -311,17 +311,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/02cba7b7-5484-4b48-a946-791f1ad65a7d",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-514e1e80-f4db-453e-b47e-6e0c1cbc32f0",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -331,7 +331,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-514e1e80-f4db-453e-b47e-6e0c1cbc32f0",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -345,17 +345,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/1eeb3da6-34df-477e-b70f-49fd861f60d2",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-be14f61b-075b-4715-8719-a4d3fda942db",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -365,7 +365,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-be14f61b-075b-4715-8719-a4d3fda942db",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -379,17 +379,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/2e15226f-df41-4982-bdbc-cfe2a0e45158",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-53c03613-0b59-436b-87e9-70cf7aeef5c8",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -399,7 +399,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-53c03613-0b59-436b-87e9-70cf7aeef5c8",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -413,17 +413,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/5f2fd010-a200-4023-b742-0f0dd59f6eac",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-20b64918-0a61-423d-8582-4acf42a7be95",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -433,7 +433,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-20b64918-0a61-423d-8582-4acf42a7be95",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -447,17 +447,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/e32b42fd-edfc-4c5b-9263-8e08337f6eb1",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-4cd9a14a-2bd7-4319-91e5-282f20a8d14c",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -467,7 +467,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-4cd9a14a-2bd7-4319-91e5-282f20a8d14c",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -481,17 +481,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/a1fe0745-d857-43d6-98f6-490f34ab1d83",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-fc20c63c-84a2-4a28-90a6-cedd04264de4",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -501,7 +501,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-fc20c63c-84a2-4a28-90a6-cedd04264de4",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -515,17 +515,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/ef19fd2a-47f2-400d-95a5-01743acf3f5c",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-5c6880a5-8baa-4842-a734-4cd9425cdcf0",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -535,7 +535,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-5c6880a5-8baa-4842-a734-4cd9425cdcf0",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -549,17 +549,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/babf9d4b-1d69-45a8-b1c8-77defa780277",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-461e55f7-d73d-47d2-a960-31c9a4fad83d",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -569,7 +569,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-461e55f7-d73d-47d2-a960-31c9a4fad83d",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -583,17 +583,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/6a5ab5a6-1ce5-49c2-980d-882940976640",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-f9b02898-44dd-41a3-ab7f-fa19d3b3089d",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -603,7 +603,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-f9b02898-44dd-41a3-ab7f-fa19d3b3089d",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -617,17 +617,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/e55786c5-5950-4a4b-8402-c9a66b5bb9a3",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-8440647f-d10a-47e5-8c69-3939bc163f9a",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -637,7 +637,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-8440647f-d10a-47e5-8c69-3939bc163f9a",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -651,17 +651,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/6c4b5955-98ea-4f08-9e77-483a702be76b",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-fa35a5c9-6a55-49e2-b92a-52e8761b5b98",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -671,7 +671,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-fa35a5c9-6a55-49e2-b92a-52e8761b5b98",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -685,17 +685,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/b37e7537-af69-4ba1-bd71-60e2c3c1f7f2",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-db6e6add-b860-4d31-a2d7-e76f064beffc",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -705,7 +705,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-db6e6add-b860-4d31-a2d7-e76f064beffc",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -719,17 +719,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/dc287d60-1c37-451f-9b16-b8e94eded94a",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-6420291f-35c4-4118-a23a-5e9533fadc68",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -739,7 +739,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-6420291f-35c4-4118-a23a-5e9533fadc68",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -753,17 +753,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/182e30cb-a57b-4d16-9b82-5e3f278235d5",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-97ff2dc9-4c5d-4b52-a5c7-8948c2888198",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -773,7 +773,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-97ff2dc9-4c5d-4b52-a5c7-8948c2888198",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -787,17 +787,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/c9bf3488-4b9e-47dd-9977-2bfe6fd43e68",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-f71fe223-e808-4de6-9314-5ba0832e1547",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -807,7 +807,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-f71fe223-e808-4de6-9314-5ba0832e1547",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -821,17 +821,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/499ff11f-9d0d-49ea-8083-81807848ce0d",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-c8900664-c792-4ad2-9977-1b111bd21633",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -841,7 +841,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-c8900664-c792-4ad2-9977-1b111bd21633",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -855,17 +855,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/c823f204-80cb-4c8f-87eb-57b34d9598b7",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-8b2afe2a-4569-4fa1-ab4c-44fb659807ff",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -875,7 +875,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-8b2afe2a-4569-4fa1-ab4c-44fb659807ff",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -889,17 +889,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/5c624b65-3501-481a-b3f9-cd6f88167ee1",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-c6a953f5-4ef1-4f36-9f4b-0ed475f01114",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -909,7 +909,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-c6a953f5-4ef1-4f36-9f4b-0ed475f01114",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -923,17 +923,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/32560811-c6ba-459e-b329-2a51d6996e3c",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-bd4d764f-1d21-4482-a274-2b4e87763a7d",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -943,7 +943,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-bd4d764f-1d21-4482-a274-2b4e87763a7d",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -957,17 +957,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/155a9885-08ab-4023-82c5-636c2a9b8fe4",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-6a09e387-931e-487d-901b-fc35555d5dbd",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -977,7 +977,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-6a09e387-931e-487d-901b-fc35555d5dbd",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -991,17 +991,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/4c16a652-9f44-4c07-ac1e-0a34210047ee",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-efaad881-3037-4515-8bdb-8686c5b66625",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1011,7 +1011,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-efaad881-3037-4515-8bdb-8686c5b66625",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -1025,17 +1025,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/bf1a819a-5a2b-4a54-a409-e0a902a972ff",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-524c991c-31db-48bc-ba4d-086129625a42",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1045,7 +1045,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-524c991c-31db-48bc-ba4d-086129625a42",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -1059,17 +1059,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/30d35272-417e-4243-8776-4e0798d5c70f",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-a6a2edec-1b1f-479a-bb2c-eed664bf3407",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1079,7 +1079,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-a6a2edec-1b1f-479a-bb2c-eed664bf3407",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -1093,17 +1093,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/5ceab970-4119-4642-9820-e0f3f3b6ce8a",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-e958d7be-f4dd-48cd-abc6-edba25b32281",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1113,7 +1113,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-e958d7be-f4dd-48cd-abc6-edba25b32281",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -1127,17 +1127,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/8b8c78b3-75dc-4ab1-a801-484755016b9d",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-f610fbc8-5a82-4d19-9e02-90478b1a47a7",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1147,7 +1147,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-f610fbc8-5a82-4d19-9e02-90478b1a47a7",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -1161,17 +1161,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/1592b9a1-266b-4b49-9b64-966eeca79856",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-43e9264b-bcf9-4fab-b60e-38853bb082f0",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1181,7 +1181,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-43e9264b-bcf9-4fab-b60e-38853bb082f0",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -1195,17 +1195,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/fa8de6eb-8959-4b2e-bad2-712a93f62a88",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-5f6950e2-71f0-4e57-86ee-7f80635290f6",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1215,7 +1215,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-5f6950e2-71f0-4e57-86ee-7f80635290f6",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -1229,17 +1229,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/592d0339-047d-4430-9378-36aab2642060",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-e1e6b227-4fa3-4e72-a6e7-aaa18218b392",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1249,7 +1249,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-e1e6b227-4fa3-4e72-a6e7-aaa18218b392",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -1263,17 +1263,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/9c5807ce-c46c-4302-86f6-8e396c8938fd",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-88a82006-1056-4724-b3b5-5d339eee1efc",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1283,7 +1283,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-88a82006-1056-4724-b3b5-5d339eee1efc",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -1297,17 +1297,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/56b9f4ad-0a29-4776-8bf2-255779d52a05",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-744b0e18-6c28-4bee-8b81-a80f0ed36f20",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1317,7 +1317,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-744b0e18-6c28-4bee-8b81-a80f0ed36f20",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -1331,17 +1331,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/8c7ee861-0d0d-4498-b58e-0e53eea7ced2",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-98ac4957-202d-4b92-bf64-7b63bee5c2a9",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1351,7 +1351,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-98ac4957-202d-4b92-bf64-7b63bee5c2a9",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
@@ -1365,17 +1365,17 @@
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
   "name": "SCALIBR-generated SPDX",
-  "documentNamespace": "https://spdx.google/15ab9412-0475-4f33-97a8-324be27728ec",
+  "documentNamespace": "https://spdx.google/<uuid>",
   "creationInfo": {
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-04-01T19:17:03Z"
+    "created": "<timestamp>"
   },
   "packages": [
     {
       "name": "main",
-      "SPDXID": "SPDXRef-Package-main-d2e10b5b-3375-43ae-b703-558acd6e7d33",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
       "versionInfo": "0",
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
@@ -1385,7 +1385,7 @@
   "relationships": [
     {
       "spdxElementId": "SPDXRef-Document",
-      "relatedSpdxElement": "SPDXRef-Package-main-d2e10b5b-3375-43ae-b703-558acd6e7d33",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
   ]
