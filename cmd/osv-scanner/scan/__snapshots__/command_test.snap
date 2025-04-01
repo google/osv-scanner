@@ -95,7 +95,7 @@ Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "2.0.0"
+          "version": "2.0.1"
         }
       },
       "results": []
@@ -265,7 +265,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
               }
             }
           ],
-          "version": "2.0.0"
+          "version": "2.0.1"
         }
       },
       "artifacts": [
@@ -1097,7 +1097,7 @@ No issues found
 ---
 
 [TestCommand/version - 1]
-osv-scanner version: 2.0.0
+osv-scanner version: 2.0.1
 commit: n/a
 built at: n/a
 
@@ -1230,7 +1230,7 @@ Scanned <rootdir>/osv-scanner/fixtures/locks-insecure/osv-scanner-flutter-deps.j
               }
             }
           ],
-          "version": "2.0.0"
+          "version": "2.0.1"
         }
       },
       "artifacts": [
