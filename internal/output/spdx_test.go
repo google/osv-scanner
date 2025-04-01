@@ -14,8 +14,7 @@ func normalizeSPDXOutput(t *testing.T, str string) string {
 	t.Helper()
 
 	str = text.StripEscape(str)
-	str = cachedregexp.MustCompile(`"SPDXRef-Package-main-.+"`).ReplaceAllString(str, `"SPDXRef-Package-main-<uuid>"`)
-	str = cachedregexp.MustCompile(`"https://spdx.google/.+"`).ReplaceAllString(str, `"https://spdx.google/<uuid>"`)
+	str = cachedregexp.MustCompile(`[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}`).ReplaceAllString(str, `<uuid>`)
 	str = cachedregexp.MustCompile(`"created": ".+T.+Z"`).ReplaceAllString(str, `"created": "<timestamp>"`)
 
 	return str
