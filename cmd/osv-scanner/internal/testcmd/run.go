@@ -24,7 +24,7 @@ func run(t *testing.T, tc Case) (string, string) {
 	return stdout.String(), stderr.String()
 }
 
-func Run(t *testing.T, tc Case) {
+func RunAndMatchSnapshots(t *testing.T, tc Case) {
 	t.Helper()
 
 	stdout, stderr := run(t, tc)
