@@ -18,10 +18,9 @@ func TestMain(m *testing.M) {
 	if err != nil {
 		panic(err)
 	}
-	code := m.Run()
+	m.Run()
 
 	testutility.CleanSnapshots(m)
 
 	os.RemoveAll("./fixtures/.git")
-	os.Exit(code)
 }
