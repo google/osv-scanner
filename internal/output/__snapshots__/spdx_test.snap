@@ -1,0 +1,1394 @@
+
+[TestPrintSPDXResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/6096ddd9-d75b-455c-b89b-c3e6206a3a80",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-e45a1fca-089f-47ce-b82d-4c6490bbbff7",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-e45a1fca-089f-47ce-b82d-4c6490bbbff7",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/5084d1ef-5650-4ef4-8402-b5c7c9e6f484",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-3b48f8d4-de62-4484-a031-198ad7752cf6",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-3b48f8d4-de62-4484-a031-198ad7752cf6",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/fe2bb462-73fb-4cee-b098-93ac11b4742d",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-64810cb2-c891-4206-9e73-8392b5003e28",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-64810cb2-c891-4206-9e73-8392b5003e28",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/e1beecee-5040-4988-8526-8125628bf67f",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-a921fb3c-4a88-4c3a-b4c1-75b277d819e0",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-a921fb3c-4a88-4c3a-b4c1-75b277d819e0",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/e2871a44-40b8-4663-874a-5ad37cf53e99",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-4d7656fd-fbb0-447a-a9f9-52fc48474c47",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-4d7656fd-fbb0-447a-a9f9-52fc48474c47",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/multiple_sources_with_no_packages - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/76dc8bdb-11c4-4757-8660-a8878f1ddc60",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-0ac8f387-8e68-41cc-85a3-86a5c8798160",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-0ac8f387-8e68-41cc-85a3-86a5c8798160",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/no_sources - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/96dfaa30-4610-4227-95a8-aac7918e8821",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-1dfc5817-6b0b-4edb-b6d5-025d3405f104",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-1dfc5817-6b0b-4edb-b6d5-025d3405f104",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/one_source_with_no_packages - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/c1750ac2-2584-4626-8e3a-cd48b4ef79a9",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-6ad1c104-2cc6-44a3-a7dc-f95a947808e2",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-6ad1c104-2cc6-44a3-a7dc-f95a947808e2",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/one_source_with_one_package,_no_license_violations - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/f6eeec77-d46f-4fe7-8dc3-ec2b8cbe1a81",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-4d16978a-1fcb-4052-8754-cc73f655c13f",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-4d16978a-1fcb-4052-8754-cc73f655c13f",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/one_source_with_one_package,_no_licenses - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/02cba7b7-5484-4b48-a946-791f1ad65a7d",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-514e1e80-f4db-453e-b47e-6e0c1cbc32f0",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-514e1e80-f4db-453e-b47e-6e0c1cbc32f0",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/one_source_with_one_package_and_an_unknown_license - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/1eeb3da6-34df-477e-b70f-49fd861f60d2",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-be14f61b-075b-4715-8719-a4d3fda942db",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-be14f61b-075b-4715-8719-a4d3fda942db",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/one_source_with_one_package_and_multiple_license_violations - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/2e15226f-df41-4982-bdbc-cfe2a0e45158",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-53c03613-0b59-436b-87e9-70cf7aeef5c8",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-53c03613-0b59-436b-87e9-70cf7aeef5c8",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/one_source_with_one_package_and_one_license_violation - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/5f2fd010-a200-4023-b742-0f0dd59f6eac",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-20b64918-0a61-423d-8582-4acf42a7be95",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-20b64918-0a61-423d-8582-4acf42a7be95",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/one_source_with_one_package_and_one_license_violation_(dev) - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/e32b42fd-edfc-4c5b-9263-8e08337f6eb1",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-4cd9a14a-2bd7-4319-91e5-282f20a8d14c",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-4cd9a14a-2bd7-4319-91e5-282f20a8d14c",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/two_sources_with_packages,_one_license_violation - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/a1fe0745-d857-43d6-98f6-490f34ab1d83",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-fc20c63c-84a2-4a28-90a6-cedd04264de4",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-fc20c63c-84a2-4a28-90a6-cedd04264de4",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_called_vulnerabilities_and_license_violations - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/ef19fd2a-47f2-400d-95a5-01743acf3f5c",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-5c6880a5-8baa-4842-a734-4cd9425cdcf0",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-5c6880a5-8baa-4842-a734-4cd9425cdcf0",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities_and_license_violations - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/babf9d4b-1d69-45a8-b1c8-77defa780277",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-461e55f7-d73d-47d2-a960-31c9a4fad83d",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-461e55f7-d73d-47d2-a960-31c9a4fad83d",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithMixedIssues/one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/6a5ab5a6-1ce5-49c2-980d-882940976640",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-f9b02898-44dd-41a3-ab7f-fa19d3b3089d",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-f9b02898-44dd-41a3-ab7f-fa19d3b3089d",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithMixedIssues/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/e55786c5-5950-4a4b-8402-c9a66b5bb9a3",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-8440647f-d10a-47e5-8c69-3939bc163f9a",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-8440647f-d10a-47e5-8c69-3939bc163f9a",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithMixedIssues/one_source_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/6c4b5955-98ea-4f08-9e77-483a702be76b",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-fa35a5c9-6a55-49e2-b92a-52e8761b5b98",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-fa35a5c9-6a55-49e2-b92a-52e8761b5b98",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithMixedIssues/two_sources_with_packages,_one_vulnerability,_one_license_violation - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/b37e7537-af69-4ba1-bd71-60e2c3c1f7f2",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-db6e6add-b860-4d31-a2d7-e76f064beffc",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-db6e6add-b860-4d31-a2d7-e76f064beffc",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_grouped_packages,_and_multiple_vulnerabilities - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/dc287d60-1c37-451f-9b16-b8e94eded94a",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-6420291f-35c4-4118-a23a-5e9533fadc68",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-6420291f-35c4-4118-a23a-5e9533fadc68",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_and_multiple_vulnerabilities - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/182e30cb-a57b-4d16-9b82-5e3f278235d5",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-97ff2dc9-4c5d-4b52-a5c7-8948c2888198",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-97ff2dc9-4c5d-4b52-a5c7-8948c2888198",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_no_vulnerabilities - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/c9bf3488-4b9e-47dd-9977-2bfe6fd43e68",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-f71fe223-e808-4de6-9314-5ba0832e1547",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-f71fe223-e808-4de6-9314-5ba0832e1547",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/499ff11f-9d0d-49ea-8083-81807848ce0d",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-c8900664-c792-4ad2-9977-1b111bd21633",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-c8900664-c792-4ad2-9977-1b111bd21633",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/c823f204-80cb-4c8f-87eb-57b34d9598b7",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-8b2afe2a-4569-4fa1-ab4c-44fb659807ff",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-8b2afe2a-4569-4fa1-ab4c-44fb659807ff",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities,_but_some_uncalled - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/5c624b65-3501-481a-b3f9-cd6f88167ee1",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-c6a953f5-4ef1-4f36-9f4b-0ed475f01114",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-c6a953f5-4ef1-4f36-9f4b-0ed475f01114",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/multiple_sources_with_no_packages - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/32560811-c6ba-459e-b329-2a51d6996e3c",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-bd4d764f-1d21-4482-a274-2b4e87763a7d",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-bd4d764f-1d21-4482-a274-2b4e87763a7d",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/no_sources - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/155a9885-08ab-4023-82c5-636c2a9b8fe4",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-6a09e387-931e-487d-901b-fc35555d5dbd",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-6a09e387-931e-487d-901b-fc35555d5dbd",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_no_packages - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/4c16a652-9f44-4c07-ac1e-0a34210047ee",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-efaad881-3037-4515-8bdb-8686c5b66625",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-efaad881-3037-4515-8bdb-8686c5b66625",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package,_no_vulnerabilities - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/bf1a819a-5a2b-4a54-a409-e0a902a972ff",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-524c991c-31db-48bc-ba4d-086129625a42",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-524c991c-31db-48bc-ba4d-086129625a42",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_called_vulnerability - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/30d35272-417e-4243-8776-4e0798d5c70f",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-a6a2edec-1b1f-479a-bb2c-eed664bf3407",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-a6a2edec-1b1f-479a-bb2c-eed664bf3407",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package_and_one_called_vulnerability - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/5ceab970-4119-4642-9820-e0f3f3b6ce8a",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-e958d7be-f4dd-48cd-abc6-edba25b32281",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-e958d7be-f4dd-48cd-abc6-edba25b32281",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package_and_one_uncalled_vulnerability - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/8b8c78b3-75dc-4ab1-a801-484755016b9d",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-f610fbc8-5a82-4d19-9e02-90478b1a47a7",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-f610fbc8-5a82-4d19-9e02-90478b1a47a7",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/1592b9a1-266b-4b49-9b64-966eeca79856",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-43e9264b-bcf9-4fab-b60e-38853bb082f0",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-43e9264b-bcf9-4fab-b60e-38853bb082f0",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/fa8de6eb-8959-4b2e-bad2-712a93f62a88",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-5f6950e2-71f0-4e57-86ee-7f80635290f6",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-5f6950e2-71f0-4e57-86ee-7f80635290f6",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/592d0339-047d-4430-9378-36aab2642060",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-e1e6b227-4fa3-4e72-a6e7-aaa18218b392",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-e1e6b227-4fa3-4e72-a6e7-aaa18218b392",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/9c5807ce-c46c-4302-86f6-8e396c8938fd",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-88a82006-1056-4724-b3b5-5d339eee1efc",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-88a82006-1056-4724-b3b5-5d339eee1efc",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/56b9f4ad-0a29-4776-8bf2-255779d52a05",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-744b0e18-6c28-4bee-8b81-a80f0ed36f20",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-744b0e18-6c28-4bee-8b81-a80f0ed36f20",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/8c7ee861-0d0d-4498-b58e-0e53eea7ced2",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-98ac4957-202d-4b92-bf64-7b63bee5c2a9",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-98ac4957-202d-4b92-bf64-7b63bee5c2a9",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/two_sources_with_the_same_vulnerable_package - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/15ab9412-0475-4f33-97a8-324be27728ec",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-04-01T19:17:03Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-d2e10b5b-3375-43ae-b703-558acd6e7d33",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-d2e10b5b-3375-43ae-b703-558acd6e7d33",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
