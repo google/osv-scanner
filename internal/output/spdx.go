@@ -9,7 +9,30 @@ import (
 	"github.com/google/osv-scalibr/detector"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/spdx/tools-golang/spdx/v2/v2_3"
 )
+
+func isProbablyPackage(scannerPkg models.PackageVulns, docPkg *v2_3.Package) bool {
+	purl := scannerPkg.Package.Extractor.ToPURL(&extractor.Inventory{
+		Name:      scannerPkg.Package.Name,
+		Version:   scannerPkg.Package.Version,
+		Extractor: scannerPkg.Package.Extractor,
+	})
+
+	if purl == nil {
+		return false
+	}
+
+	for _, ref := range docPkg.PackageExternalReferences {
+		if ref.RefType == "purl" && ref.Category == "PACKAGE-MANAGER" {
+			if ref.Locator == purl.String() {
+				return true
+			}
+		}
+	}
+
+	return false
+}
 
 // PrintSPDXResults writes results to the provided writer in SPDX format
 func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
@@ -37,6 +60,24 @@ func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	}
 
 	doc := converter.ToSPDX23(scanResult, converter.SPDXConfig{})
+
+	for _, source := range vulnResult.Results {
+		for _, scannerPkg := range source.Packages {
+			for _, docPkg := range doc.Packages {
+				if !isProbablyPackage(scannerPkg, docPkg) {
+					continue
+				}
+
+				for _, vuln := range scannerPkg.Vulnerabilities {
+					docPkg.PackageExternalReferences = append(docPkg.PackageExternalReferences, &v2_3.PackageExternalReference{
+						RefType:  "advisory",
+						Category: "SECURITY",
+						Locator:  vuln.ID,
+					})
+				}
+			}
+		}
+	}
 
 	encoder := json.NewEncoder(outputWriter)
 	encoder.SetIndent("", "  ")
