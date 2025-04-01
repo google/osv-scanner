@@ -42,10 +42,7 @@ func TestCommand(t *testing.T) {
 				tc.Args = append(tc.Args, "-M", manifest)
 			}
 
-			stdout, stderr := testcmd.Run(t, tc)
-
-			testutility.NewSnapshot().MatchText(t, stdout)
-			testutility.NewSnapshot().MatchText(t, stderr)
+			testcmd.RunAndMatchSnapshots(t, tc)
 
 			if manifest != "" {
 				b, err := os.ReadFile(manifest)

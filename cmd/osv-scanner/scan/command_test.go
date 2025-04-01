@@ -235,7 +235,7 @@ func TestCommand(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
@@ -256,7 +256,7 @@ func TestCommand_CallAnalysis(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
@@ -374,12 +374,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			stdout, stderr := testcmd.Run(t, tt)
-
-			testutility.NewSnapshot().MatchText(t, stdout)
-			testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
-				"CreateFile": "stat",
-			}).MatchText(t, stderr)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
@@ -400,7 +395,7 @@ func TestCommand_GithubActions(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
@@ -480,8 +475,8 @@ func TestCommand_LocalDatabases(t *testing.T) {
 
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
-			testcmd.Test(t, tt)
-			testcmd.Test(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
@@ -504,8 +499,8 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
-			testcmd.Test(t, tt)
-			testcmd.Test(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
@@ -580,7 +575,7 @@ func TestCommand_Licenses(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
@@ -610,7 +605,7 @@ func TestCommand_SubCommands(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
@@ -658,7 +653,7 @@ func TestCommand_MavenTransitive(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
@@ -705,7 +700,7 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			testcmd.Test(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }

@@ -48,7 +48,7 @@ func TestCommand_Docker(t *testing.T) {
 				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
 			}
 
-			testcmd.Test(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
@@ -134,7 +134,7 @@ func TestCommand_OCIImage(t *testing.T) {
 				}
 			}
 
-			testcmd.Test(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
@@ -152,49 +152,49 @@ func TestCommand_OCIImageAllPackagesJSON(t *testing.T) {
 			Name: "Scanning python image with some packages",
 			Args: []string{"", "scan", "image", "--archive", "--format=json", "../../../../internal/image/fixtures/test-python-full.tar"},
 			Exit: 1,
-			ReplaceRules: []testutility.JSONReplaceRule{
-				testutility.GroupsAsArrayLen,
-				testutility.OnlyIDVulnsRule,
-				testutility.OnlyFirstBaseImage,
-				testutility.AnyDiffID,
-				testutility.NormalizeHistoryCommand,
-				testutility.ShortenHistoryCommandLength,
+			ReplaceRules: []testcmd.JSONReplaceRule{
+				testcmd.GroupsAsArrayLen,
+				testcmd.OnlyIDVulnsRule,
+				testcmd.OnlyFirstBaseImage,
+				testcmd.AnyDiffID,
+				testcmd.NormalizeHistoryCommand,
+				testcmd.ShortenHistoryCommandLength,
 			},
 		},
 		{
 			Name: "scanning node_modules using npm with some packages",
 			Args: []string{"", "scan", "image", "--archive", "--format=json", "../../../../internal/image/fixtures/test-node_modules-npm-full.tar"},
 			Exit: 1,
-			ReplaceRules: []testutility.JSONReplaceRule{
-				testutility.GroupsAsArrayLen,
-				testutility.OnlyIDVulnsRule,
-				testutility.OnlyFirstBaseImage,
-				testutility.AnyDiffID,
-				testutility.NormalizeHistoryCommand,
-				testutility.ShortenHistoryCommandLength,
+			ReplaceRules: []testcmd.JSONReplaceRule{
+				testcmd.GroupsAsArrayLen,
+				testcmd.OnlyIDVulnsRule,
+				testcmd.OnlyFirstBaseImage,
+				testcmd.AnyDiffID,
+				testcmd.NormalizeHistoryCommand,
+				testcmd.ShortenHistoryCommandLength,
 			},
 		},
 		{
 			Name: "scanning image with go binary",
 			Args: []string{"", "scan", "image", "--archive", "--all-packages", "--format=json", "../../../../internal/image/fixtures/test-go-binary.tar"},
 			Exit: 1,
-			ReplaceRules: []testutility.JSONReplaceRule{
-				testutility.GroupsAsArrayLen,
-				testutility.OnlyIDVulnsRule,
-				testutility.OnlyFirstBaseImage,
-				testutility.AnyDiffID,
-				testutility.NormalizeHistoryCommand,
+			ReplaceRules: []testcmd.JSONReplaceRule{
+				testcmd.GroupsAsArrayLen,
+				testcmd.OnlyIDVulnsRule,
+				testcmd.OnlyFirstBaseImage,
+				testcmd.AnyDiffID,
+				testcmd.NormalizeHistoryCommand,
 			},
 		},
 		{
 			Name: "scanning ubuntu image in json format",
 			Args: []string{"", "scan", "image", "--archive", "--format=json", "../../../../internal/image/fixtures/test-ubuntu.tar"},
 			Exit: 1,
-			ReplaceRules: []testutility.JSONReplaceRule{
-				testutility.GroupsAsArrayLen,
-				testutility.OnlyIDVulnsRule,
-				testutility.OnlyFirstBaseImage,
-				testutility.AnyDiffID,
+			ReplaceRules: []testcmd.JSONReplaceRule{
+				testcmd.GroupsAsArrayLen,
+				testcmd.OnlyIDVulnsRule,
+				testcmd.OnlyFirstBaseImage,
+				testcmd.AnyDiffID,
 			},
 		},
 	}
@@ -209,7 +209,7 @@ func TestCommand_OCIImageAllPackagesJSON(t *testing.T) {
 				}
 			}
 
-			testcmd.TestJSONWithCustomRules(t, tt)
+			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }

@@ -87,10 +87,7 @@ func TestCommand(t *testing.T) {
 				tc.Args = append(tc.Args, "-M", manifest)
 			}
 
-			stdout, stderr := testcmd.Run(t, tc)
-
-			testutility.NewSnapshot().MatchText(t, stdout)
-			testutility.NewSnapshot().MatchText(t, stderr)
+			testcmd.RunAndMatchSnapshots(t, tc)
 
 			if lockfile != "" {
 				matchFile(t, lockfile)
@@ -104,7 +101,7 @@ func TestCommand(t *testing.T) {
 
 func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Context, error) {
 	// This is a bit hacky: make a mock App with only the flags we care about.
-	// Then use app.Run() to parse the flags into the cli.Context, which is returned.
+	// Then use app.RunAndMatchSnapshots() to parse the flags into the cli.Context, which is returned.
 	t.Helper()
 	appFlags := make([]cli.Flag, 0, len(flags))
 	for _, f := range fix.Command(nil, nil).Flags {
