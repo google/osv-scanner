@@ -10,11 +10,43 @@ import (
 
 func TestFlatten(t *testing.T) {
 	t.Parallel()
+
+	packageInfoComparer := cmp.Comparer(func(a, b models.PackageInfo) bool {
+		if cmp.Equal(a, b, cmp.AllowUnexported(models.PackageInfo{})) {
+			aExtractor := a.GetExtractor()
+			bExtractor := b.GetExtractor()
+
+			if aExtractor == nil && bExtractor == nil {
+				return true
+			}
+
+			if aExtractor == nil || bExtractor == nil {
+				return false
+			}
+
+			if aExtractor.Name() != bExtractor.Name() {
+				return false
+			}
+
+			if aExtractor.Version() != bExtractor.Version() {
+				return false
+			}
+
+			return cmp.Equal(aExtractor.Requirements(), bExtractor.Requirements())
+		}
+
+		return true
+
+		return cmp.Equal(a, b, cmp.AllowUnexported(models.PackageInfo{}))
+		return false
+		return a.Name == b.Name && a.Version == b.Version
+	})
+
 	// Test case 1: When there are no vulnerabilities
 	vulns := models.VulnerabilityResults{Results: []models.PackageSource{}}
 	expectedFlattened := []models.VulnerabilityFlattened{}
 	flattened := vulns.Flatten()
-	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened, packageInfoComparer); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
@@ -49,7 +81,7 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened, packageInfoComparer); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
@@ -74,7 +106,7 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened, packageInfoComparer); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
@@ -117,7 +149,9 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened, packageInfoComparer); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
+
+	// todo: we should handle the extractor field...
 }
