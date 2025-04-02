@@ -13,10 +13,10 @@ import (
 )
 
 func isProbablyPackage(scannerPkg models.PackageVulns, docPkg *v2_3.Package) bool {
-	purl := scannerPkg.Package.Extractor.ToPURL(&extractor.Inventory{
+	purl := scannerPkg.Package.GetExtractor().ToPURL(&extractor.Inventory{
 		Name:      scannerPkg.Package.Name,
 		Version:   scannerPkg.Package.Version,
-		Extractor: scannerPkg.Package.Extractor,
+		Extractor: scannerPkg.Package.GetExtractor(),
 	})
 
 	if purl == nil {
@@ -43,7 +43,7 @@ func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			scanResult.Inventories = append(scanResult.Inventories, &extractor.Inventory{
 				Name:      pkg.Package.Name,
 				Version:   pkg.Package.Version,
-				Extractor: pkg.Package.Extractor,
+				Extractor: pkg.Package.GetExtractor(),
 			})
 			for _, vuln := range pkg.Vulnerabilities {
 				scanResult.Findings = append(scanResult.Findings, &detector.Finding{

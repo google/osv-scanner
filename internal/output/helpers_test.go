@@ -3,6 +3,7 @@ package output_test
 import (
 	"testing"
 
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/dotnetpe"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
@@ -21,6 +22,31 @@ type outputTestCase struct {
 }
 
 type outputTestRunner = func(t *testing.T, args outputTestCaseArgs)
+
+type pkginfo struct {
+	Name          string
+	OSPackageName string
+	Version       string
+	Ecosystem     string
+	Commit        string
+	ImageOrigin   *models.ImageOriginDetails
+	Extractor     extractor.Extractor
+}
+
+func newPackageInfo(pi pkginfo) models.PackageInfo {
+	info := models.PackageInfo{
+		Name:          pi.Name,
+		OSPackageName: pi.OSPackageName,
+		Version:       pi.Version,
+		Ecosystem:     pi.Ecosystem,
+		Commit:        pi.Commit,
+		ImageOrigin:   pi.ImageOrigin,
+	}
+
+	info.SetExtractor(pi.Extractor)
+
+	return info
+}
 
 func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 	t.Helper()
@@ -77,12 +103,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 							},
@@ -100,12 +126,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 							},
@@ -114,21 +140,21 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 							},
@@ -137,21 +163,21 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 							},
@@ -169,12 +195,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -199,12 +225,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{
 										IDs: []string{"OSV-1"},
 										ExperimentalAnalysis: map[string]models.AnalysisInfo{
@@ -234,12 +260,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{
 										IDs: []string{"OSV-1"},
 										ExperimentalAnalysis: map[string]models.AnalysisInfo{
@@ -269,12 +295,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{
 										{
 											IDs: []string{"OSV-1"},
@@ -317,12 +343,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									DepGroups: []string{"dev"},
 									Groups:    []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
@@ -348,12 +374,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -369,12 +395,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									DepGroups: []string{"dev"},
 									Groups:    []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
@@ -400,12 +426,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{
 										IDs:     []string{"OSV-1", "GHSA-123"},
 										Aliases: []string{"OSV-1", "GHSA-123"},
@@ -439,12 +465,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{
 										IDs:     []string{"OSV-1", "GHSA-123"},
 										Aliases: []string{"OSV-1", "GHSA-123"},
@@ -481,12 +507,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -502,12 +528,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "5.9.0",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 							},
@@ -525,12 +551,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -546,12 +572,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -562,12 +588,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 							},
@@ -576,21 +602,21 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -615,12 +641,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{
 										{IDs: []string{"OSV-1"}},
 										{IDs: []string{"OSV-5"}},
@@ -639,12 +665,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.2",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -660,12 +686,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -676,12 +702,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{
 										{IDs: []string{"OSV-3"}},
 										{IDs: []string{"OSV-5"}},
@@ -714,12 +740,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									DepGroups: []string{"dev", "optional"},
 									Groups: []models.GroupInfo{
 										{IDs: []string{"OSV-1"}},
@@ -739,12 +765,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.2",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -760,12 +786,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									DepGroups: []string{"dev"},
 									Groups:    []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
@@ -777,12 +803,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									DepGroups: []string{"build"},
 									Groups: []models.GroupInfo{
 										{IDs: []string{"OSV-3"}},
@@ -816,12 +842,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
 										Extractor: composerlock.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{
 										{IDs: []string{"OSV-1"}},
 										{IDs: []string{"OSV-5"}},
@@ -840,12 +866,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.2",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -861,12 +887,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "NuGet",
 										Extractor: dotnetpe.Extractor{},
-									},
+									}),
 									DepGroups: []string{"dev"},
 									Groups:    []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
@@ -878,12 +904,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "author3/mine3",
 										Version:   "0.4.1",
 										Ecosystem: "Packagist",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									DepGroups: []string{"build"},
 									Groups: []models.GroupInfo{
 										{IDs: []string{"OSV-3"}},
@@ -917,12 +943,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
 										Extractor: composerlock.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{
 										{
 											IDs: []string{"OSV-1"},
@@ -951,12 +977,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.2",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -972,12 +998,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "NuGet",
 										Extractor: dotnetpe.Extractor{},
-									},
+									}),
 									DepGroups: []string{"dev"},
 									Groups:    []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
@@ -989,12 +1015,12 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "author3/mine3",
 										Version:   "0.4.1",
 										Ecosystem: "Packagist",
 										Extractor: composerlock.Extractor{},
-									},
+									}),
 									DepGroups: []string{"build"},
 									Groups: []models.GroupInfo{
 										{
@@ -1033,24 +1059,24 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{ID: "OSV-1", Details: "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!"},
 									},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.10.2-rc",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{ID: "OSV-2"},
@@ -1135,12 +1161,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{},
 									LicenseViolations: []models.License{},
 								},
@@ -1160,12 +1186,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"UNKNOWN"},
 									LicenseViolations: []models.License{},
 								},
@@ -1185,12 +1211,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
@@ -1210,12 +1236,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
@@ -1225,22 +1251,22 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
@@ -1250,22 +1276,22 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
@@ -1285,12 +1311,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
@@ -1310,12 +1336,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									DepGroups:         []string{"dev"},
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
@@ -1336,12 +1362,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
@@ -1351,12 +1377,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "5.9.0",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
@@ -1376,12 +1402,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
@@ -1391,22 +1417,22 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"Apache-2.0"},
 									LicenseViolations: []models.License{"Apache-2.0"},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
@@ -1416,22 +1442,22 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
@@ -1451,12 +1477,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									DepGroups:         []string{"dev", "optional"},
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
@@ -1467,23 +1493,23 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									DepGroups:         []string{"dev", "optional"},
 									Licenses:          []models.License{"Apache-2.0"},
 									LicenseViolations: []models.License{"Apache-2.0"},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
@@ -1493,22 +1519,22 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									DepGroups:         []string{"build"},
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
@@ -1529,12 +1555,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
 										Extractor: composerlock.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
@@ -1544,22 +1570,22 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"Apache-2.0"},
 									LicenseViolations: []models.License{"Apache-2.0"},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
@@ -1569,22 +1595,22 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "NuGet",
 										Extractor: packageslockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
 										Extractor: composerlock.Extractor{},
-									},
+									}),
 									DepGroups:         []string{"dev"},
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
@@ -1605,12 +1631,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"MIT", "Apache-2.0"},
 									LicenseViolations: []models.License{"MIT", "Apache-2.0"},
 								},
@@ -1629,12 +1655,12 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"MIT", "Apache-2.0"},
 									LicenseViolations: []models.License{"MIT"},
 								},
@@ -1644,22 +1670,22 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"UNKNOWN"},
 									LicenseViolations: []models.License{"UNKNOWN"},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"Apache-2.0"},
 									LicenseViolations: []models.License{},
 								},
@@ -1669,22 +1695,22 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"Apache-2.0"},
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
@@ -1722,12 +1748,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -1755,12 +1781,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{
 										IDs: []string{"OSV-1"},
 										ExperimentalAnalysis: map[string]models.AnalysisInfo{
@@ -1793,12 +1819,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{
 										IDs: []string{"OSV-1"},
 										ExperimentalAnalysis: map[string]models.AnalysisInfo{
@@ -1831,12 +1857,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -1854,12 +1880,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "5.9.0",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups:            []models.GroupInfo{},
 									Vulnerabilities:   []osvschema.Vulnerability{},
 									Licenses:          []models.License{"MIT"},
@@ -1881,12 +1907,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -1904,12 +1930,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-2"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -1922,12 +1948,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities:   []osvschema.Vulnerability{},
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
@@ -1938,23 +1964,23 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities:   []osvschema.Vulnerability{},
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -1982,12 +2008,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{
 										IDs: []string{"OSV-1"},
 										ExperimentalAnalysis: map[string]models.AnalysisInfo{
@@ -2010,12 +2036,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{
 										IDs: []string{"OSV-2"},
 										ExperimentalAnalysis: map[string]models.AnalysisInfo{
@@ -2033,12 +2059,12 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities:   []osvschema.Vulnerability{},
 									Licenses:          []models.License{"ISC"},
 									LicenseViolations: []models.License{},
@@ -2049,23 +2075,23 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
 							Packages: []models.PackageVulns{
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Vulnerabilities:   []osvschema.Vulnerability{},
 									Licenses:          []models.License{"MIT"},
 									LicenseViolations: []models.License{"MIT"},
 								},
 								{
-									Package: models.PackageInfo{
+									Package: newPackageInfo(pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
 										Extractor: packagelockjson.Extractor{},
-									},
+									}),
 									Groups: []models.GroupInfo{{
 										IDs: []string{"OSV-1"},
 										ExperimentalAnalysis: map[string]models.AnalysisInfo{

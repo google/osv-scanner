@@ -196,5 +196,13 @@ type PackageInfo struct {
 	Ecosystem     string              `json:"ecosystem"`
 	Commit        string              `json:"commit,omitempty"`
 	ImageOrigin   *ImageOriginDetails `json:"image_origin_details,omitempty"`
-	Extractor     extractor.Extractor `json:"-"`
+	extractor     extractor.Extractor
+}
+
+func (pi *PackageInfo) SetExtractor(extractor extractor.Extractor) {
+	pi.extractor = extractor
+}
+
+func (pi *PackageInfo) GetExtractor() extractor.Extractor {
+	return pi.extractor
 }
