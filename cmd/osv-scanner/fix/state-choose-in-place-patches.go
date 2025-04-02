@@ -8,17 +8,17 @@ import (
 	"github.com/charmbracelet/bubbles/table"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
-	"github.com/google/osv-scanner/v2/internal/tui"
+	"github.com/google/osv-scanner/v2/internal/cmdtui"
 )
 
 type stateChooseInPlacePatches struct {
 	stateInPlace *stateInPlaceResult
 
-	table      table.Model     // in-place table to render
-	patchIdx   []int           // for each flattened patch, its index into unflattened patches
-	vulnsInfos []tui.ViewModel // vulns info views corresponding to each flattened patch
+	table      table.Model        // in-place table to render
+	patchIdx   []int              // for each flattened patch, its index into unflattened patches
+	vulnsInfos []cmdtui.ViewModel // vulns info views corresponding to each flattened patch
 
-	focusedInfo tui.ViewModel // the infoview that is currently focused, nil if not focused
+	focusedInfo cmdtui.ViewModel // the infoview that is currently focused, nil if not focused
 
 	viewWidth int // width for rendering (same as model.mainViewWidth)
 }
@@ -28,13 +28,13 @@ func (st *stateChooseInPlacePatches) Init(m model) tea.Cmd {
 	for idx, p := range m.inPlaceResult.Patches {
 		for i := range p.ResolvedVulns {
 			st.patchIdx = append(st.patchIdx, idx)
-			st.vulnsInfos = append(st.vulnsInfos, tui.NewVulnInfo(&p.ResolvedVulns[i]))
+			st.vulnsInfos = append(st.vulnsInfos, cmdtui.NewVulnInfo(&p.ResolvedVulns[i]))
 		}
 	}
 
 	// grab the table out of the InPlaceInfo, so it looks consistent
 	// TODO: Re-use this in a less hacky way
-	st.table = tui.NewInPlaceInfo(*m.inPlaceResult).Model
+	st.table = cmdtui.NewInPlaceInfo(*m.inPlaceResult).Model
 	// insert the select/deselect all row, and a placeholder row for the 'done' line
 	r := st.table.Rows()
 	r = slices.Insert(r, 0, table.Row{"", "", ""})
@@ -52,7 +52,7 @@ func (st *stateChooseInPlacePatches) Update(m model, msg tea.Msg) (tea.Model, te
 	var cmd tea.Cmd
 	if msg, ok := msg.(tea.KeyMsg); ok {
 		switch {
-		case key.Matches(msg, tui.Keys.SwitchView):
+		case key.Matches(msg, cmdtui.Keys.SwitchView):
 			if st.IsInfoFocused() {
 				st.focusedInfo = nil
 				st.table.Focus()
@@ -67,12 +67,12 @@ func (st *stateChooseInPlacePatches) Update(m model, msg tea.Msg) (tea.Model, te
 			if st.focusedInfo == nil {
 				st.table.Focus()
 			}
-		case key.Matches(msg, tui.Keys.Quit):
+		case key.Matches(msg, cmdtui.Keys.Quit):
 			// go back to in-place results
 			m.st = st.stateInPlace
 			return m, nil
 
-		case key.Matches(msg, tui.Keys.Select):
+		case key.Matches(msg, cmdtui.Keys.Select):
 			if st.table.Cursor() == len(st.table.Rows())-1 { // hit enter on done line
 				// go back to in-place results
 				m.st = st.stateInPlace
@@ -101,7 +101,7 @@ func (st *stateChooseInPlacePatches) View(_ model) string {
 	tableStr := lipgloss.PlaceHorizontal(st.viewWidth, lipgloss.Center, st.table.View())
 	return lipgloss.JoinVertical(lipgloss.Left,
 		tableStr,
-		tui.RenderSelectorOption(st.table.Cursor() == len(st.table.Rows())-1, " > ", "%s", "Done"),
+		cmdtui.RenderSelectorOption(st.table.Cursor() == len(st.table.Rows())-1, " > ", "%s", "Done"),
 	)
 }
 
@@ -145,7 +145,7 @@ func (st *stateChooseInPlacePatches) toggleSelection(idx int) {
 	st.stateInPlace.selectedChanges[i] = !st.stateInPlace.selectedChanges[i]
 }
 
-func (st *stateChooseInPlacePatches) currentInfoView() (view tui.ViewModel, canFocus bool) {
+func (st *stateChooseInPlacePatches) currentInfoView() (view cmdtui.ViewModel, canFocus bool) {
 	if c := st.table.Cursor(); c > 0 && c < len(st.table.Rows())-1 {
 		return st.vulnsInfos[c-1], true
 	}

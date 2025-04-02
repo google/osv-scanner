@@ -12,8 +12,8 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scanner/v2/internal/cmdoutput"
 	"github.com/google/osv-scanner/v2/internal/customgitignore"
-	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 )
 
@@ -81,7 +81,7 @@ func ScanDir(dir string, recursive bool, useGitIgnore bool, extractorsToUse []fi
 				"Scanned %s file and found %d %s",
 				path,
 				pkgCount,
-				output.Form(pkgCount, "package", "packages"),
+				cmdoutput.Form(pkgCount, "package", "packages"),
 			))
 		}
 

@@ -9,11 +9,11 @@ import (
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	"github.com/google/osv-scanner/v2/internal/cmdtui"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
 	manif "github.com/google/osv-scanner/v2/internal/resolution/manifest"
-	"github.com/google/osv-scanner/v2/internal/tui"
 )
 
 type stateRelockResult struct {
@@ -28,12 +28,12 @@ type stateRelockResult struct {
 	selectedPatches map[int]struct{} // currently pending selected patches
 	viewWidth       int              // width for rendering (same as model.mainViewWidth)
 
-	vulnList      tui.ViewModel
-	unfixableList tui.ViewModel
-	patchInfo     []tui.ViewModel
-	resolveErrors tui.ViewModel
+	vulnList      cmdtui.ViewModel
+	unfixableList cmdtui.ViewModel
+	patchInfo     []cmdtui.ViewModel
+	resolveErrors cmdtui.ViewModel
 
-	focusedInfo tui.ViewModel // the infoview that is currently focused, nil if not focused
+	focusedInfo cmdtui.ViewModel // the infoview that is currently focused, nil if not focused
 }
 
 const (
@@ -89,7 +89,7 @@ func (st *stateRelockResult) Init(m model) tea.Cmd {
 	st.currErrs = m.relockBaseResErrs
 	st.resolveErrors = resolutionErrorView(st.currRes, st.currErrs)
 	st.patchesDone = false
-	st.spinner = tui.NewSpinner()
+	st.spinner = cmdtui.NewSpinner()
 	st.cursorPos = -1
 	st.selectedPatches = make(map[int]struct{})
 	st.viewWidth = m.mainViewWidth
@@ -99,7 +99,7 @@ func (st *stateRelockResult) Init(m model) tea.Cmd {
 	for i := range st.currRes.Vulns {
 		vulns[i] = &st.currRes.Vulns[i]
 	}
-	st.vulnList = tui.NewVulnList(vulns, "")
+	st.vulnList = cmdtui.NewVulnList(vulns, "")
 	st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
 
 	return tea.Batch(
@@ -123,7 +123,7 @@ func (st *stateRelockResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		for i := range st.currRes.Vulns {
 			vulns = append(vulns, &st.currRes.Vulns[i])
 		}
-		st.vulnList = tui.NewVulnList(vulns, "")
+		st.vulnList = cmdtui.NewVulnList(vulns, "")
 		st.currErrs = st.currRes.Errors()
 		st.resolveErrors = resolutionErrorView(st.currRes, st.currErrs)
 		// Compute possible patches again
@@ -156,7 +156,7 @@ func (st *stateRelockResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		m.relockBaseResErrs = m.relockBaseRes.Errors()
 		clear(st.selectedPatches)
 
-	case tui.ViewModelCloseMsg:
+	case cmdtui.ViewModelCloseMsg:
 		// info view wants to quit, just unfocus it
 		st.focusedInfo = nil
 	case tea.KeyMsg:
@@ -164,7 +164,7 @@ func (st *stateRelockResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, nil
 		}
 		switch {
-		case key.Matches(msg, tui.Keys.SwitchView):
+		case key.Matches(msg, cmdtui.Keys.SwitchView):
 			if st.IsInfoFocused() {
 				st.focusedInfo = nil
 			} else if view, canFocus := st.currentInfoView(); canFocus {
@@ -172,24 +172,24 @@ func (st *stateRelockResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 		case st.IsInfoFocused():
 			st.focusedInfo, cmd = st.focusedInfo.Update(msg)
-		case key.Matches(msg, tui.Keys.Quit):
+		case key.Matches(msg, cmdtui.Keys.Quit):
 			// only quit if the cursor is over the quit line
 			if st.getEffectiveCursor() == stateRelockQuit {
 				return m, tea.Quit
 			}
 			// move the cursor to the quit line if it's not already there
 			st.setEffectiveCursor(stateRelockQuit)
-		case key.Matches(msg, tui.Keys.Select): // enter key pressed
+		case key.Matches(msg, cmdtui.Keys.Select): // enter key pressed
 			return st.parseInput(m)
 		// move the cursor
-		case key.Matches(msg, tui.Keys.Up):
+		case key.Matches(msg, cmdtui.Keys.Up):
 			if st.getEffectiveCursor() > stateRelockRemain {
 				st.cursorPos--
 				if st.getEffectiveCursor() == stateRelockErrors && len(st.currErrs) == 0 {
 					st.cursorPos--
 				}
 			}
-		case key.Matches(msg, tui.Keys.Down):
+		case key.Matches(msg, cmdtui.Keys.Down):
 			if st.getEffectiveCursor() < stateRelockEnd-1 {
 				st.cursorPos++
 				if st.getEffectiveCursor() == stateRelockErrors && len(st.currErrs) == 0 {
@@ -204,7 +204,7 @@ func (st *stateRelockResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m, tea.Batch(cmd, c)
 }
 
-func (st *stateRelockResult) currentInfoView() (view tui.ViewModel, canFocus bool) {
+func (st *stateRelockResult) currentInfoView() (view cmdtui.ViewModel, canFocus bool) {
 	switch st.getEffectiveCursor() {
 	case stateRelockRemain: // remaining vulns
 		return st.vulnList, true
@@ -230,11 +230,11 @@ func (st *stateRelockResult) buildPatchInfoViews(m model) {
 	// and the unfixable vulns
 	st.patchInfo = nil
 	for _, p := range st.patches {
-		st.patchInfo = append(st.patchInfo, tui.NewRelockInfo(p))
+		st.patchInfo = append(st.patchInfo, cmdtui.NewRelockInfo(p))
 	}
 
 	unfixableVulns := relockUnfixableVulns(st.patches)
-	st.unfixableList = tui.NewVulnList(unfixableVulns, "")
+	st.unfixableList = cmdtui.NewVulnList(unfixableVulns, "")
 	st.numUnfixable = len(unfixableVulns)
 	st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
 }
@@ -302,7 +302,7 @@ func (st *stateRelockResult) relaxChoice(m model) (model, tea.Cmd) {
 			for i := range st.currRes.Vulns {
 				vulns = append(vulns, &st.currRes.Vulns[i])
 			}
-			st.vulnList = tui.NewVulnList(vulns, "")
+			st.vulnList = cmdtui.NewVulnList(vulns, "")
 			// Need to compute the possible patches from here
 			return m, func() tea.Msg {
 				return doComputeRelockPatches(m.ctx, m.cl, st.currRes, m.options)
@@ -345,7 +345,7 @@ func (st *stateRelockResult) View(m model) string {
 		return s.String()
 	}
 
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.getEffectiveCursor() == stateRelockRemain,
 		"",
 		"%s remain\n",
@@ -363,7 +363,7 @@ func (st *stateRelockResult) View(m model) string {
 		return s.String()
 	}
 
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.getEffectiveCursor() == stateRelockUnfixable,
 		"",
 		"%s are unfixable\n",
@@ -371,7 +371,7 @@ func (st *stateRelockResult) View(m model) string {
 	))
 
 	if len(st.currErrs) > 0 {
-		s.WriteString(tui.RenderSelectorOption(
+		s.WriteString(cmdtui.RenderSelectorOption(
 			st.cursorPos == stateRelockErrors,
 			"",
 			"WARNING: Encountered %s during graph resolution.\n",
@@ -393,9 +393,9 @@ func (st *stateRelockResult) View(m model) string {
 				checkBox = "[ ]"
 			}
 			if !st.patchCompatible(i) {
-				checkBox = tui.DisabledTextStyle.Render(checkBox)
+				checkBox = cmdtui.DisabledTextStyle.Render(checkBox)
 			}
-			checkBox = tui.RenderSelectorOption(
+			checkBox = cmdtui.RenderSelectorOption(
 				st.cursorPos == stateRelockPatches+i,
 				" > ",
 				"%s ",
@@ -406,7 +406,7 @@ func (st *stateRelockResult) View(m model) string {
 			if st.patchCompatible(i) {
 				textSt = lipgloss.NewStyle()
 			} else {
-				textSt = tui.DisabledTextStyle
+				textSt = cmdtui.DisabledTextStyle
 			}
 			text = textSt.Width(st.viewWidth - lipgloss.Width(checkBox)).Render(text)
 			patchStrs[i] = lipgloss.JoinHorizontal(lipgloss.Top, checkBox, text)
@@ -415,29 +415,29 @@ func (st *stateRelockResult) View(m model) string {
 		s.WriteString("\n")
 
 		if len(st.selectedPatches) > 0 {
-			s.WriteString(tui.RenderSelectorOption(
+			s.WriteString(cmdtui.RenderSelectorOption(
 				st.getEffectiveCursor() == stateRelockApply,
 				"> ",
 				"%s pending patches\n",
 				"Apply",
 			))
 		} else {
-			s.WriteString(tui.RenderSelectorOption(
+			s.WriteString(cmdtui.RenderSelectorOption(
 				st.getEffectiveCursor() == stateRelockApply,
 				"> ",
-				tui.DisabledTextStyle.Render("No pending patches")+"\n",
+				cmdtui.DisabledTextStyle.Render("No pending patches")+"\n",
 			))
 		}
 	}
 
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.getEffectiveCursor() == stateRelockWrite,
 		"> ",
 		"%s changes to manifest\n",
 		"Write",
 	))
 	s.WriteString("\n")
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.getEffectiveCursor() == stateRelockQuit,
 		"> ",
 		"%s without saving changes\n",

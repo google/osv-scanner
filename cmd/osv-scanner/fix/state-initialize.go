@@ -6,7 +6,7 @@ import (
 
 	"github.com/charmbracelet/bubbles/spinner"
 	tea "github.com/charmbracelet/bubbletea"
-	"github.com/google/osv-scanner/v2/internal/tui"
+	"github.com/google/osv-scanner/v2/internal/cmdtui"
 )
 
 type stateInitialize struct {
@@ -15,7 +15,7 @@ type stateInitialize struct {
 
 func (st *stateInitialize) Init(m model) tea.Cmd {
 	// create the loading spinner
-	st.spinner = tui.NewSpinner()
+	st.spinner = cmdtui.NewSpinner()
 	cmds := []tea.Cmd{st.spinner.Tick}
 
 	// TODO: both in-place/relock could potentially be done in parallel
@@ -83,7 +83,7 @@ func (st *stateInitialize) View(m model) string {
 	if m.options.Lockfile == "" {
 		s.WriteString("No lockfile provided. Assuming re-lock.\n")
 	} else {
-		s.WriteString(fmt.Sprintf("Scanning %s ", tui.SelectedTextStyle.Render(m.options.Lockfile)))
+		s.WriteString(fmt.Sprintf("Scanning %s ", cmdtui.SelectedTextStyle.Render(m.options.Lockfile)))
 		if m.inPlaceResult == nil {
 			s.WriteString(st.spinner.View())
 			s.WriteString("\n")
@@ -93,7 +93,7 @@ func (st *stateInitialize) View(m model) string {
 		s.WriteString("✓\n")
 	}
 
-	s.WriteString(fmt.Sprintf("Resolving %s ", tui.SelectedTextStyle.Render(m.options.Manifest)))
+	s.WriteString(fmt.Sprintf("Resolving %s ", cmdtui.SelectedTextStyle.Render(m.options.Manifest)))
 	if m.relockBaseRes == nil {
 		s.WriteString(st.spinner.View())
 		s.WriteString("\n")

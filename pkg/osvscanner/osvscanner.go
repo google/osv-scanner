@@ -24,12 +24,12 @@ import (
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
+	"github.com/google/osv-scanner/v2/internal/cmdoutput"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/osvdev"
-	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
@@ -255,7 +255,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		slog.Info(fmt.Sprintf(
 			"Filtered %d %s from output",
 			filtered,
-			output.Form(filtered, "vulnerability", "vulnerabilities"),
+			cmdoutput.Form(filtered, "vulnerability", "vulnerabilities"),
 		))
 	}
 
@@ -381,7 +381,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		slog.Info(fmt.Sprintf(
 			"Filtered %d %s from output",
 			filtered,
-			output.Form(filtered, "vulnerability", "vulnerabilities"),
+			cmdoutput.Form(filtered, "vulnerability", "vulnerabilities"),
 		))
 	}
 

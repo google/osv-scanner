@@ -9,24 +9,24 @@ import (
 	"github.com/charmbracelet/bubbles/key"
 	"github.com/charmbracelet/bubbles/textinput"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/google/osv-scanner/v2/internal/cmdtui"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
-	"github.com/google/osv-scanner/v2/internal/tui"
 )
 
 type stateChooseStrategy struct {
 	cursorPos int // TODO: use an enum
 	canRelock bool
 
-	vulnList       tui.ViewModel
-	inPlaceInfo    tui.ViewModel
-	relockFixVulns tui.ViewModel
-	errorsView     tui.ViewModel
+	vulnList       cmdtui.ViewModel
+	inPlaceInfo    cmdtui.ViewModel
+	relockFixVulns cmdtui.ViewModel
+	errorsView     cmdtui.ViewModel
 
 	depthInput    textinput.Model
 	severityInput textinput.Model
 
-	focusedInfo tui.ViewModel // the infoview that is currently focused, nil if not focused
+	focusedInfo cmdtui.ViewModel // the infoview that is currently focused, nil if not focused
 }
 
 const (
@@ -57,10 +57,10 @@ func (st *stateChooseStrategy) Init(m model) tea.Cmd {
 	for i := range m.inPlaceResult.Unfixable {
 		allVulns = append(allVulns, &m.inPlaceResult.Unfixable[i])
 	}
-	st.vulnList = tui.NewVulnList(allVulns, "")
+	st.vulnList = cmdtui.NewVulnList(allVulns, "")
 
 	// make the in-place view
-	st.inPlaceInfo = tui.NewInPlaceInfo(*m.inPlaceResult)
+	st.inPlaceInfo = cmdtui.NewInPlaceInfo(*m.inPlaceResult)
 
 	if m.options.Manifest != "" {
 		// find the vulns fixed by relocking to show on the relock hover
@@ -73,7 +73,7 @@ func (st *stateChooseStrategy) Init(m model) tea.Cmd {
 				relockFixes = append(relockFixes, v)
 			}
 		}
-		st.relockFixVulns = tui.NewVulnList(relockFixes, "Relocking fixes the following vulns:")
+		st.relockFixVulns = cmdtui.NewVulnList(relockFixes, "Relocking fixes the following vulns:")
 		st.ResizeInfo(m.infoViewWidth, m.infoViewHeight)
 	} else {
 		st.canRelock = false
@@ -96,12 +96,12 @@ func (st *stateChooseStrategy) Init(m model) tea.Cmd {
 func (st *stateChooseStrategy) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmds []tea.Cmd
 	switch msg := msg.(type) {
-	case tui.ViewModelCloseMsg:
+	case cmdtui.ViewModelCloseMsg:
 		// info view wants to quit, just unfocus it
 		st.focusedInfo = nil
 	case tea.KeyMsg:
 		switch {
-		case key.Matches(msg, tui.Keys.SwitchView):
+		case key.Matches(msg, cmdtui.Keys.SwitchView):
 			if st.IsInfoFocused() {
 				st.focusedInfo = nil
 			} else if view, canFocus := st.currentInfoView(); canFocus {
@@ -112,18 +112,18 @@ func (st *stateChooseStrategy) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd)
 			st.focusedInfo, cmd = st.focusedInfo.Update(msg)
 
 			return m, cmd
-		case key.Matches(msg, tui.Keys.Quit):
+		case key.Matches(msg, cmdtui.Keys.Quit):
 			// only quit if the cursor is over the quit line
 			if st.cursorPos == stateChooseQuit {
 				return m, tea.Quit
 			}
 			// otherwise move the cursor to the quit line if it's not already there
 			st.cursorPos = stateChooseQuit
-		case key.Matches(msg, tui.Keys.Select):
+		case key.Matches(msg, cmdtui.Keys.Select):
 			// enter key was pressed, parse input
 			return st.parseInput(m)
 		// move the cursor and show the corresponding info view
-		case key.Matches(msg, tui.Keys.Up):
+		case key.Matches(msg, cmdtui.Keys.Up):
 			if st.cursorPos > stateChooseInfo {
 				st.cursorPos--
 				// Resolution errors aren't rendered if there are none
@@ -132,7 +132,7 @@ func (st *stateChooseStrategy) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd)
 				}
 			}
 			st.UpdateTextFocus()
-		case key.Matches(msg, tui.Keys.Down):
+		case key.Matches(msg, cmdtui.Keys.Down):
 			if st.cursorPos < stateChooseEnd-1 {
 				st.cursorPos++
 				if st.cursorPos == stateChooseErrors && len(m.relockBaseResErrs) == 0 {
@@ -169,7 +169,7 @@ func (st *stateChooseStrategy) IsInfoFocused() bool {
 	return st.focusedInfo != nil
 }
 
-func (st *stateChooseStrategy) currentInfoView() (view tui.ViewModel, canFocus bool) {
+func (st *stateChooseStrategy) currentInfoView() (view cmdtui.ViewModel, canFocus bool) {
 	switch st.cursorPos {
 	case stateChooseInfo: // info line
 		return st.vulnList, true
@@ -241,14 +241,14 @@ func (st *stateChooseStrategy) View(m model) string {
 	pkgChange := len(m.inPlaceResult.Patches)
 
 	s := strings.Builder{}
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateChooseInfo,
 		"",
 		fmt.Sprintf("Found %%s in lockfile (%d direct, %d transitive, %d dev only) matching the criteria.\n", vulnCount.Direct, vulnCount.Transitive, vulnCount.Dev),
 		fmt.Sprintf("%d vulnerabilities", vulnCount.Total()),
 	))
 	if len(m.relockBaseResErrs) > 0 {
-		s.WriteString(tui.RenderSelectorOption(
+		s.WriteString(cmdtui.RenderSelectorOption(
 			st.cursorPos == stateChooseErrors,
 			"",
 			"WARNING: Encountered %s during graph resolution.\n",
@@ -257,7 +257,7 @@ func (st *stateChooseStrategy) View(m model) string {
 	}
 	s.WriteString("\n")
 	s.WriteString("Actions:\n")
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateChooseInPlace,
 		" > ",
 		fmt.Sprintf("%%s (fixes %d/%d vulns, changes %d packages)\n", fixCount, vulnCount.Total(), pkgChange),
@@ -268,28 +268,28 @@ func (st *stateChooseStrategy) View(m model) string {
 	if st.canRelock {
 		// TODO: In-place and relock count vulns differently; this number is wrong
 		relockFix := vulnCount.Total() - len(m.relockBaseRes.Vulns)
-		s.WriteString(tui.RenderSelectorOption(
+		s.WriteString(cmdtui.RenderSelectorOption(
 			st.cursorPos == stateChooseRelock,
 			" > ",
 			fmt.Sprintf("%%s (fixes %d/%d vulns) and try direct dependency upgrades\n", relockFix, vulnCount.Total()),
 			"Re-lock project",
 		))
 	} else {
-		s.WriteString(tui.RenderSelectorOption(
+		s.WriteString(cmdtui.RenderSelectorOption(
 			st.cursorPos == stateChooseRelock,
 			" > ",
-			tui.DisabledTextStyle.Render("Cannot re-lock - missing manifest file\n"),
+			cmdtui.DisabledTextStyle.Render("Cannot re-lock - missing manifest file\n"),
 		))
 	}
 	s.WriteString("\n")
 	s.WriteString("Criteria:\n")
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateChooseDepth,
 		" > ",
 		fmt.Sprintf("%%s: %s\n", st.depthInput.View()),
 		"Max dependency depth",
 	))
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateChooseSeverity,
 		" > ",
 		fmt.Sprintf("%%s: %s\n", st.severityInput.View()),
@@ -300,13 +300,13 @@ func (st *stateChooseStrategy) View(m model) string {
 	if m.options.DevDeps {
 		devString = "NO"
 	}
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateChooseDev,
 		" > ",
 		fmt.Sprintf("%%s: %s\n", devString),
 		"Exclude dev only",
 	))
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateChooseApplyCriteria,
 		" > ",
 		"%s\n",
@@ -314,7 +314,7 @@ func (st *stateChooseStrategy) View(m model) string {
 	))
 
 	s.WriteString("\n")
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateChooseQuit,
 		"> ",
 		"%s\n",

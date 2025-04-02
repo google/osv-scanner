@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
-	"github.com/google/osv-scanner/v2/internal/reporter"
+	"github.com/google/osv-scanner/v2/internal/cmdreporter"
 	"github.com/google/osv-scanner/v2/internal/spdx"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
@@ -63,10 +63,10 @@ func GetScanGlobalFlags() []cli.Flag {
 		&cli.StringFlag{
 			Name:    "format",
 			Aliases: []string{"f"},
-			Usage:   "sets the output format; value can be: " + strings.Join(reporter.Format(), ", "),
+			Usage:   "sets the output format; value can be: " + strings.Join(cmdreporter.Format(), ", "),
 			Value:   "table",
 			Action: func(_ *cli.Context, s string) error {
-				if slices.Contains(reporter.Format(), s) {
+				if slices.Contains(cmdreporter.Format(), s) {
 					if s != "vertical" && s != "table" && s != "markdown" {
 						cmdlogger.SendEverythingToStderr()
 					}
@@ -74,7 +74,7 @@ func GetScanGlobalFlags() []cli.Flag {
 					return nil
 				}
 
-				return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
+				return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(cmdreporter.Format(), ", "))
 			},
 		},
 		&cli.BoolFlag{
@@ -210,7 +210,7 @@ func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns 
 		writer = stderr
 	}
 
-	return reporter.PrintResult(diffVulns, format, writer, termWidth)
+	return cmdreporter.PrintResult(diffVulns, format, writer, termWidth)
 }
 
 func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {

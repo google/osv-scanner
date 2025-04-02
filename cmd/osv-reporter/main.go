@@ -8,9 +8,9 @@ import (
 	"os"
 	"strings"
 
-	"github.com/google/osv-scanner/v2/internal/ci"
+	"github.com/google/osv-scanner/v2/internal/cmdci"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
-	"github.com/google/osv-scanner/v2/internal/reporter"
+	"github.com/google/osv-scanner/v2/internal/cmdreporter"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
@@ -101,7 +101,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			oldVulns := models.VulnerabilityResults{}
 			if oldPath != "" {
-				oldVulns, err = ci.LoadVulnResults(oldPath)
+				oldVulns, err = cmdci.LoadVulnResults(oldPath)
 				if err != nil {
 					slog.Warn(fmt.Sprintf("failed to open old results at %s: %v - likely because target branch has no lockfiles.", oldPath, err))
 					// Do not return, assume there is no oldVulns (which will display all new vulns).
@@ -109,7 +109,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
-			newVulns, err := ci.LoadVulnResults(newPath)
+			newVulns, err := cmdci.LoadVulnResults(newPath)
 			if err != nil {
 				slog.Warn(fmt.Sprintf("failed to open new results at %s: %v - likely because previous step failed.", newPath, err))
 				newVulns = models.VulnerabilityResults{}
@@ -118,7 +118,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			var diffVulns models.VulnerabilityResults
 
-			diffVulnOccurrences := ci.DiffVulnerabilityResultsByOccurrences(oldVulns, newVulns)
+			diffVulnOccurrences := cmdci.DiffVulnerabilityResultsByOccurrences(oldVulns, newVulns)
 			if len(diffVulnOccurrences) == 0 {
 				// There are actually no new vulns, no need to do full diff
 				//
@@ -133,15 +133,15 @@ func run(args []string, stdout, stderr io.Writer) int {
 				diffVulns = models.VulnerabilityResults{}
 			} else {
 				// TODO: This will need to contain all scanned packages when we change osv-scanner to report all packages
-				diffVulns = ci.DiffVulnerabilityResults(oldVulns, newVulns)
+				diffVulns = cmdci.DiffVulnerabilityResults(oldVulns, newVulns)
 			}
 
-			if errPrint := reporter.PrintResult(&diffVulns, "table", stdout, termWidth); errPrint != nil {
+			if errPrint := cmdreporter.PrintResult(&diffVulns, "table", stdout, termWidth); errPrint != nil {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
 
 			if context.Bool("gh-annotations") {
-				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stderr, termWidth); errPrint != nil {
+				if errPrint := cmdreporter.PrintResult(&diffVulns, "gh-annotations", stderr, termWidth); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
@@ -155,7 +155,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 				termWidth = 0
 
-				if errPrint := reporter.PrintResult(&diffVulns, "sarif", stdout, termWidth); errPrint != nil {
+				if errPrint := cmdreporter.PrintResult(&diffVulns, "sarif", stdout, termWidth); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}

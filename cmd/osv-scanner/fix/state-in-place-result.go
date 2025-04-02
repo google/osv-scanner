@@ -7,10 +7,10 @@ import (
 
 	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
+	"github.com/google/osv-scanner/v2/internal/cmdtui"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	lockf "github.com/google/osv-scanner/v2/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/v2/internal/tui"
 )
 
 type stateInPlaceResult struct {
@@ -19,11 +19,11 @@ type stateInPlaceResult struct {
 
 	selectedChanges []bool // in-place changes to be applied
 
-	vulnList       tui.ViewModel
-	inPlaceInfo    tui.ViewModel
-	relockFixVulns tui.ViewModel
+	vulnList       cmdtui.ViewModel
+	inPlaceInfo    cmdtui.ViewModel
+	relockFixVulns cmdtui.ViewModel
 
-	focusedInfo tui.ViewModel // the infoview that is currently focused, nil if not focused
+	focusedInfo cmdtui.ViewModel // the infoview that is currently focused, nil if not focused
 }
 
 const (
@@ -44,7 +44,7 @@ func (st *stateInPlaceResult) Init(m model) tea.Cmd {
 	for i := range m.inPlaceResult.Unfixable {
 		vulns[i] = &m.inPlaceResult.Unfixable[i]
 	}
-	st.vulnList = tui.NewVulnList(vulns, "")
+	st.vulnList = cmdtui.NewVulnList(vulns, "")
 
 	// recompute the vulns fixed by relocking after the in-place update
 	if m.options.Manifest != "" {
@@ -57,7 +57,7 @@ func (st *stateInPlaceResult) Init(m model) tea.Cmd {
 				relockFixes = append(relockFixes, v)
 			}
 		}
-		st.relockFixVulns = tui.NewVulnList(relockFixes, "Relocking fixes the following vulns:")
+		st.relockFixVulns = cmdtui.NewVulnList(relockFixes, "Relocking fixes the following vulns:")
 	} else {
 		st.canRelock = false
 		st.relockFixVulns = infoStringView("Re-run with manifest to resolve vulnerabilities by re-locking")
@@ -88,16 +88,16 @@ func (st *stateInPlaceResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) 
 		// unselect all changes
 		st.selectedChanges = make([]bool, len(newPatches))
 		// regenerate the in-place info panel
-		st.inPlaceInfo = tui.NewInPlaceInfo(*m.inPlaceResult)
+		st.inPlaceInfo = cmdtui.NewInPlaceInfo(*m.inPlaceResult)
 
 		return m, cmd
 
-	case tui.ViewModelCloseMsg:
+	case cmdtui.ViewModelCloseMsg:
 		// info view wants to quit, just unfocus it
 		st.focusedInfo = nil
 	case tea.KeyMsg:
 		switch {
-		case key.Matches(msg, tui.Keys.SwitchView):
+		case key.Matches(msg, cmdtui.Keys.SwitchView):
 			if st.IsInfoFocused() {
 				st.focusedInfo = nil
 			} else if view, canFocus := st.currentInfoView(); canFocus {
@@ -105,22 +105,22 @@ func (st *stateInPlaceResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) 
 			}
 		case st.IsInfoFocused():
 			st.focusedInfo, cmd = st.focusedInfo.Update(msg)
-		case key.Matches(msg, tui.Keys.Quit):
+		case key.Matches(msg, cmdtui.Keys.Quit):
 			// only quit if the cursor is over the quit line
 			if st.cursorPos == stateInPlaceQuit {
 				return m, tea.Quit
 			}
 			// move the cursor to the quit line if it's not already there
 			st.cursorPos = stateInPlaceQuit
-		case key.Matches(msg, tui.Keys.Select):
+		case key.Matches(msg, cmdtui.Keys.Select):
 			// enter key was pressed, parse input
 			return st.parseInput(m)
 		// move the cursor and show the corresponding info view
-		case key.Matches(msg, tui.Keys.Up):
+		case key.Matches(msg, cmdtui.Keys.Up):
 			if st.cursorPos > stateInPlaceFixed {
 				st.cursorPos--
 			}
-		case key.Matches(msg, tui.Keys.Down):
+		case key.Matches(msg, cmdtui.Keys.Down):
 			if st.cursorPos < stateInPlaceEnd-1 {
 				st.cursorPos++
 			}
@@ -130,7 +130,7 @@ func (st *stateInPlaceResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) 
 	return m, cmd
 }
 
-func (st *stateInPlaceResult) currentInfoView() (view tui.ViewModel, canFocus bool) {
+func (st *stateInPlaceResult) currentInfoView() (view cmdtui.ViewModel, canFocus bool) {
 	switch st.cursorPos {
 	case stateInPlaceFixed: // info - fixed vulns
 		return st.inPlaceInfo, true
@@ -189,13 +189,13 @@ func (st *stateInPlaceResult) View(m model) string {
 
 	s := strings.Builder{}
 	s.WriteString("IN-PLACE\n") // TODO: better page title/layout
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateInPlaceFixed,
 		"",
 		fmt.Sprintf("%%s can be changed, fixing %d vulnerabilities\n", fixCount),
 		fmt.Sprintf("%d packages", pkgCount),
 	))
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateInPlaceRemain,
 		"",
 		"%s remain\n",
@@ -205,34 +205,34 @@ func (st *stateInPlaceResult) View(m model) string {
 	s.WriteString("\n")
 
 	s.WriteString("Actions:\n")
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateInPlaceChoice,
 		" > ",
 		"%s which changes to apply\n",
 		"Choose",
 	))
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateInPlaceWrite,
 		" > ",
 		fmt.Sprintf("%%s %d changes to lockfile\n", nSelected),
 		"Write",
 	))
 	if st.canRelock {
-		s.WriteString(tui.RenderSelectorOption(
+		s.WriteString(cmdtui.RenderSelectorOption(
 			st.cursorPos == stateInPlaceRelock,
 			" > ",
 			"%s the whole project instead\n",
 			"Relock",
 		))
 	} else {
-		s.WriteString(tui.RenderSelectorOption(
+		s.WriteString(cmdtui.RenderSelectorOption(
 			st.cursorPos == stateInPlaceRelock,
 			" > ",
-			tui.DisabledTextStyle.Render("Cannot re-lock - missing manifest file\n"),
+			cmdtui.DisabledTextStyle.Render("Cannot re-lock - missing manifest file\n"),
 		))
 	}
 	s.WriteString("\n")
-	s.WriteString(tui.RenderSelectorOption(
+	s.WriteString(cmdtui.RenderSelectorOption(
 		st.cursorPos == stateInPlaceQuit,
 		"> ",
 		"%s without saving changes\n",

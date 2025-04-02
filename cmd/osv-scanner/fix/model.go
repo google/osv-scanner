@@ -11,12 +11,12 @@ import (
 	"github.com/charmbracelet/bubbles/key"
 	tea "github.com/charmbracelet/bubbletea"
 	"github.com/charmbracelet/lipgloss"
+	"github.com/google/osv-scanner/v2/internal/cmdtui"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
 	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	manif "github.com/google/osv-scanner/v2/internal/resolution/manifest"
-	"github.com/google/osv-scanner/v2/internal/tui"
 	"golang.org/x/term"
 )
 
@@ -53,11 +53,11 @@ type model struct {
 func newModel(ctx context.Context, opts osvFixOptions, cl client.ResolutionClient) model {
 	mainViewStyle := lipgloss.NewStyle().
 		BorderStyle(lipgloss.RoundedBorder()).
-		Padding(tui.ViewVPad, tui.ViewHPad)
+		Padding(cmdtui.ViewVPad, cmdtui.ViewHPad)
 
 	infoViewStyle := lipgloss.NewStyle().
 		BorderStyle(lipgloss.RoundedBorder()).
-		Padding(tui.ViewVPad, tui.ViewHPad)
+		Padding(cmdtui.ViewVPad, cmdtui.ViewHPad)
 
 	m := model{
 		ctx:           ctx,
@@ -82,16 +82,16 @@ func (m *model) setTermSize(w, h int) {
 	m.termHeight = h
 
 	// The internal rendering space of the views occupy a percentage of the terminal width
-	viewWidth := int(float64(w) * tui.ViewWidthPct)
-	if viewWidth < tui.ViewMinWidth {
-		viewWidth = tui.ViewMinWidth
+	viewWidth := int(float64(w) * cmdtui.ViewWidthPct)
+	if viewWidth < cmdtui.ViewMinWidth {
+		viewWidth = cmdtui.ViewMinWidth
 	}
 	// The internal height is constant
-	viewHeight := tui.ViewMinHeight
+	viewHeight := cmdtui.ViewMinHeight
 
 	// The total width/height, including the whitespace padding and border characters on each side
-	paddedWidth := viewWidth + 2*tui.ViewHPad + 2
-	paddedHeight := viewHeight + 2*tui.ViewVPad + 2
+	paddedWidth := viewWidth + 2*cmdtui.ViewHPad + 2
+	paddedHeight := viewHeight + 2*cmdtui.ViewVPad + 2
 
 	// resize the views to the calculated dimensions
 	m.mainViewWidth = viewWidth
@@ -109,9 +109,9 @@ func (m *model) setTermSize(w, h int) {
 func (m *model) getBorderStyles() (lipgloss.Style, lipgloss.Style) {
 	if m.st.IsInfoFocused() {
 		m.infoViewStyle = m.infoViewStyle.UnsetBorderForeground()
-		m.mainViewStyle = m.mainViewStyle.BorderForeground(tui.ColorDisabled)
+		m.mainViewStyle = m.mainViewStyle.BorderForeground(cmdtui.ColorDisabled)
 	} else {
-		m.infoViewStyle = m.infoViewStyle.BorderForeground(tui.ColorDisabled)
+		m.infoViewStyle = m.infoViewStyle.BorderForeground(cmdtui.ColorDisabled)
 		m.mainViewStyle = m.mainViewStyle.UnsetBorderForeground()
 	}
 
@@ -134,7 +134,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 		switch {
 		case msg.Type == tea.KeyCtrlC: // always quit on ctrl+c
 			return m, tea.Quit
-		case key.Matches(msg, tui.Keys.Help): // toggle help
+		case key.Matches(msg, cmdtui.Keys.Help): // toggle help
 			m.help.ShowAll = !m.help.ShowAll
 		}
 	case tea.WindowSizeMsg:
@@ -161,7 +161,7 @@ func (m model) View() string {
 	}
 
 	// add the help to the bottom
-	view = lipgloss.JoinVertical(lipgloss.Center, view, m.help.View(tui.Keys))
+	view = lipgloss.JoinVertical(lipgloss.Center, view, m.help.View(cmdtui.Keys))
 
 	return lipgloss.Place(m.termWidth, m.termHeight, lipgloss.Center, lipgloss.Center, view)
 }
@@ -236,13 +236,13 @@ func doInitialRelock(ctx context.Context, opts osvFixOptions) tea.Msg {
 // tui.ViewModel for showing non-interactive strings
 type infoStringView string
 
-func (s infoStringView) Update(tea.Msg) (tui.ViewModel, tea.Cmd) { return s, nil }
-func (s infoStringView) View() string                            { return string(s) }
-func (s infoStringView) Resize(int, int)                         {}
+func (s infoStringView) Update(tea.Msg) (cmdtui.ViewModel, tea.Cmd) { return s, nil }
+func (s infoStringView) View() string                               { return string(s) }
+func (s infoStringView) Resize(int, int)                            {}
 
 var emptyInfoView = infoStringView("")
 
-func resolutionErrorView(res *resolution.Result, errs []resolution.NodeError) tui.ViewModel {
+func resolutionErrorView(res *resolution.Result, errs []resolution.NodeError) cmdtui.ViewModel {
 	if len(errs) == 0 {
 		return emptyInfoView
 	}

@@ -38,7 +38,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
-	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/cmdoutput"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 )
@@ -86,7 +86,7 @@ func ScanSingleFile(path string, extractorsToUse []filesystem.Extractor) ([]*ext
 			"Scanned %s file and found %d %s",
 			path,
 			pkgCount,
-			output.Form(pkgCount, "package", "packages"),
+			cmdoutput.Form(pkgCount, "package", "packages"),
 		))
 	}
 
@@ -151,7 +151,7 @@ func ScanSingleFileWithMapping(scanPath string, extractorsToUse []filesystem.Ext
 		path,
 		parsedAsComment,
 		pkgCount,
-		output.Form(pkgCount, "package", "packages"),
+		cmdoutput.Form(pkgCount, "package", "packages"),
 	))
 
 	return inventories, nil
