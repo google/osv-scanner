@@ -351,9 +351,15 @@ func (e MavenLockExtractor) mergeLockfiles(childLockfile *MavenLockFile, parentL
 
 func (e MavenLockExtractor) enrichDependencies(path string, dependencies []MavenLockDependency) MavenLockDependencyHolder {
 	result := make([]MavenLockDependency, len(dependencies))
+	// We don't want to have location kept if it has been found outside the repository
+	shouldEnrich := !strings.HasPrefix(path, "https")
 	for index, dependency := range dependencies {
-		if len(dependency.SourceFile) == 0 {
+		if len(dependency.SourceFile) == 0 && shouldEnrich {
 			dependency.SourceFile = path
+		} else if !shouldEnrich {
+			dependency.FilePosition = models.FilePosition{}
+			dependency.Version.FilePosition = models.FilePosition{}
+			dependency.ArtifactID.FilePosition = models.FilePosition{}
 		}
 		result[index] = dependency
 	}
@@ -362,9 +368,13 @@ func (e MavenLockExtractor) enrichDependencies(path string, dependencies []Maven
 }
 
 func (e MavenLockExtractor) enrichProperties(path string, properties map[string]MavenLockProperty) MavenLockProperties {
+	shouldEnrich := !strings.HasPrefix(path, "https")
 	for key, property := range properties {
-		if len(property.SourceFile) == 0 {
+		if len(property.SourceFile) == 0 && shouldEnrich {
 			property.SourceFile = path
+		} else if !shouldEnrich {
+			property.Property.FilePosition = models.FilePosition{}
+			property.SourceFile = ""
 		}
 		properties[key] = property
 	}

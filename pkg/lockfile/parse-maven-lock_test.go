@@ -268,6 +268,42 @@ func TestParseMavenLock_OnePackage(t *testing.T) {
 	})
 }
 
+func TestParseMavenLock_WithExternalParent(t *testing.T) {
+	t.Parallel()
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	path := filepath.FromSlash(filepath.Join(dir, "fixtures/maven/with-external-parent.xml"))
+	packages, err := lockfile.ParseMavenLock(path)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	expectPackages(t, packages, []lockfile.PackageDetails{
+		{
+			Name:           "org.apache.activemq:activemq-amqp",
+			Version:        "5.16.5",
+			PackageManager: models.Maven,
+			Ecosystem:      lockfile.MavenEcosystem,
+			CompareAs:      lockfile.MavenEcosystem,
+			BlockLocation: models.FilePosition{
+				Line:     models.Position{Start: 10, End: 13},
+				Column:   models.Position{Start: 5, End: 18},
+				Filename: path,
+			},
+			VersionLocation: &models.FilePosition{},
+			NameLocation: &models.FilePosition{
+				Line:     models.Position{Start: 12, End: 12},
+				Column:   models.Position{Start: 19, End: 32},
+				Filename: path,
+			},
+			IsDirect: true,
+		},
+	})
+}
+
 func TestParseMavenLock_OnePackageWithMultipleVersionVariable(t *testing.T) {
 	t.Parallel()
 	dir, err := os.Getwd()
@@ -1638,8 +1674,6 @@ func TestParseMavenLock_SpringRemote(t *testing.T) {
 	packages, err := lockfile.ParseMavenLock(path)
 	require.NoError(t, err)
 
-	remotePom := "https://repo.maven.apache.org/maven2/org/springframework/boot/spring-boot-dependencies/3.4.0/spring-boot-dependencies-3.4.0.pom"
-
 	expectPackages(t, packages, []lockfile.PackageDetails{
 		{
 			Name:           "org.springframework.boot:spring-boot-starter-test",
@@ -1657,13 +1691,9 @@ func TestParseMavenLock_SpringRemote(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 40},
 				Filename: path,
 			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1811, End: 1811},
-				Column:   models.Position{Start: 18, End: 23},
-				Filename: remotePom,
-			},
-			DepGroups: []string{"test"},
-			IsDirect:  true,
+			VersionLocation: &models.FilePosition{},
+			DepGroups:       []string{"test"},
+			IsDirect:        true,
 		},
 		{
 			Name:           "org.springframework.boot:spring-boot-starter-web",
@@ -1681,12 +1711,8 @@ func TestParseMavenLock_SpringRemote(t *testing.T) {
 				Column:   models.Position{Start: 16, End: 39},
 				Filename: path,
 			},
-			VersionLocation: &models.FilePosition{
-				Line:     models.Position{Start: 1836, End: 1836},
-				Column:   models.Position{Start: 18, End: 23},
-				Filename: remotePom,
-			},
-			IsDirect: true,
+			VersionLocation: &models.FilePosition{},
+			IsDirect:        true,
 		},
 	})
 }
