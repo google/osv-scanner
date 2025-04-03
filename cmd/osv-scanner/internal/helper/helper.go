@@ -172,7 +172,7 @@ func GetScanGlobalFlags() []cli.Flag {
 // until the user manually terminates it (e.g. using Ctrl+C).
 func ServeHTML(outputPath string) {
 	localhostURL := fmt.Sprintf("http://localhost:%s/", servePort)
-	slog.Info("Serving HTML report at " + localhostURL)
+	slog.Info("Serving HTML report at: " + localhostURL)
 	slog.Info("If you are accessing remotely, use the following SSH command:")
 	slog.Info(fmt.Sprintf("`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`", servePort))
 	server := &http.Server{
