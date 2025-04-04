@@ -19,6 +19,7 @@ func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		}
 	}
 
+	// TODO(#1783): Allow user configuration
 	doc := converter.ToSPDX23(scanResult, converter.SPDXConfig{})
 
 	encoder := json.NewEncoder(outputWriter)
