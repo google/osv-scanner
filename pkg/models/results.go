@@ -190,19 +190,11 @@ type AnalysisInfo struct {
 }
 
 type PackageInfo struct {
-	Name          string              `json:"name"`
-	OSPackageName string              `json:"os_package_name,omitempty"`
-	Version       string              `json:"version"`
-	Ecosystem     string              `json:"ecosystem"`
-	Commit        string              `json:"commit,omitempty"`
-	ImageOrigin   *ImageOriginDetails `json:"image_origin_details,omitempty"`
-	extractor     extractor.Extractor
-}
-
-func (pi *PackageInfo) SetExtractor(extractor extractor.Extractor) {
-	pi.extractor = extractor
-}
-
-func (pi *PackageInfo) GetExtractor() extractor.Extractor {
-	return pi.extractor
+	Name          string               `json:"name"`
+	OSPackageName string               `json:"os_package_name,omitempty"`
+	Version       string               `json:"version"`
+	Ecosystem     string               `json:"ecosystem"`
+	Commit        string               `json:"commit,omitempty"`
+	ImageOrigin   *ImageOriginDetails  `json:"image_origin_details,omitempty"`
+	Inventory     *extractor.Inventory `json:"-"`
 }

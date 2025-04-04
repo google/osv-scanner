@@ -7,17 +7,12 @@ import (
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/detector"
-	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/spdx/tools-golang/spdx/v2/v2_3"
 )
 
 func isProbablyPackage(scannerPkg models.PackageVulns, docPkg *v2_3.Package) bool {
-	purl := scannerPkg.Package.GetExtractor().ToPURL(&extractor.Inventory{
-		Name:      scannerPkg.Package.Name,
-		Version:   scannerPkg.Package.Version,
-		Extractor: scannerPkg.Package.GetExtractor(),
-	})
+	purl := scannerPkg.Package.Inventory.Extractor.ToPURL(scannerPkg.Package.Inventory)
 
 	if purl == nil {
 		return false
@@ -40,11 +35,7 @@ func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	for _, source := range vulnResult.Results {
 		for _, pkg := range source.Packages {
-			scanResult.Inventories = append(scanResult.Inventories, &extractor.Inventory{
-				Name:      pkg.Package.Name,
-				Version:   pkg.Package.Version,
-				Extractor: pkg.Package.GetExtractor(),
-			})
+			scanResult.Inventories = append(scanResult.Inventories, pkg.Package.Inventory)
 			for _, vuln := range pkg.Vulnerabilities {
 				scanResult.Findings = append(scanResult.Findings, &detector.Finding{
 					Adv: &detector.Advisory{
