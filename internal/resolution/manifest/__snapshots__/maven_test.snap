@@ -13,6 +13,8 @@
   <name>my-app</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
+  <description>Don't escape</description>
+  <developers />
 
   <parent>
     <groupId>org.parent</groupId>
@@ -158,6 +160,8 @@
   <name>my-app</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
+  <description>Don't escape</description>
+  <developers />
 
   <parent>
     <groupId>org.parent</groupId>
