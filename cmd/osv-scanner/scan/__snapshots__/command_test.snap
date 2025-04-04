@@ -795,6 +795,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/DLA-3782-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5123-1          | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-3094       | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-31115      |      | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-26519      |      | Alpine    | musl                           | 1.2.3-r4                           | ../fixtures/sbom-insecure/with-duplicates.cdx.xml  |
 | https://osv.dev/CVE-2018-25032      | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | ../fixtures/sbom-insecure/with-duplicates.cdx.xml  |
 | https://osv.dev/CVE-2022-37434      | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | ../fixtures/sbom-insecure/with-duplicates.cdx.xml  |
@@ -2279,6 +2280,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/DLA-3782-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5123-1          | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-3094       | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-31115      |      | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+----------------------------------------------------+
 | Unimportant vulnerabilities         |      |           |                                |                                    |                                                    |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+----------------------------------------------------+
@@ -2497,6 +2499,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/DLA-3782-1          |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5123-1          | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-3094       | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-31115      |      | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+----------------------------------------------------+
 | Unimportant vulnerabilities         |      |           |                                |                                    |                                                    |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+----------------------------------------------------+
