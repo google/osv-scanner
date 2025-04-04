@@ -1904,7 +1904,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2022-3219",
-            "UBUNTU-CVE-2025-30258"
+            "UBUNTU-CVE-2025-30258",
+            "USN-7412-1"
           ],
           "groups": 2
         },
