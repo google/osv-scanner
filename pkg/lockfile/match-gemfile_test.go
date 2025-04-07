@@ -148,3 +148,27 @@ func TestGemfileMatcher_Match_Groups(t *testing.T) {
 
 	testutility.NewSnapshot().WithJSONNormalization().MatchJSON(t, packages)
 }
+
+func TestGemfileMatcher_Filter_Not_In_Lockfile(t *testing.T) {
+	t.Parallel()
+
+	sourceFile, err := lockfile.OpenLocalDepFile("fixtures/bundler/lockfile-not-synced/Gemfile")
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	packages := []lockfile.PackageDetails{
+		{
+			Name:           "zeitwerk",
+			Version:        "2.6.0",
+			PackageManager: models.Bundler,
+		},
+	}
+
+	err = gemfileMatcher.Match(sourceFile, packages)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	testutility.NewSnapshot().WithJSONNormalization().MatchJSON(t, packages)
+}
