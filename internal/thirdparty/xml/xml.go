@@ -60,9 +60,11 @@ type Token any
 
 // A StartElement represents an XML start element.
 type StartElement struct {
-	Name  Name
-	Attr  []Attr
-	Empty bool
+	Name Name
+	Attr []Attr
+
+	Empty bool // Whether this is an empty element
+	Space bool // Whether this empty element has extra space
 }
 
 // Copy creates a new copy of StartElement.
@@ -803,8 +805,9 @@ func (d *Decoder) rawToken() (Token, error) {
 	}
 
 	attr = []Attr{}
+	hasSpace := false
 	for {
-		d.space()
+		hasSpace = d.space()
 		if b, ok = d.mustgetc(); !ok {
 			return nil, d.err
 		}
@@ -856,7 +859,7 @@ func (d *Decoder) rawToken() (Token, error) {
 		d.needClose = true
 		d.toClose = name
 	}
-	return StartElement{name, attr, empty}, nil
+	return StartElement{name, attr, empty, empty && hasSpace}, nil
 }
 
 func (d *Decoder) attrval() []byte {
@@ -894,7 +897,7 @@ func (d *Decoder) attrval() []byte {
 }
 
 // Skip spaces if any
-func (d *Decoder) space() {
+func (d *Decoder) space() (has bool) {
 	for {
 		b, ok := d.getc()
 		if !ok {
@@ -902,6 +905,7 @@ func (d *Decoder) space() {
 		}
 		switch b {
 		case ' ', '\r', '\n', '\t':
+			has = true
 		default:
 			d.ungetc(b)
 			return
@@ -1919,10 +1923,10 @@ func EscapeText(w io.Writer, s []byte) error {
 	return escapeText(w, s, true)
 }
 
-// escapeText writes to w the properly escaped XML equivalent
-// of the plain text data s. If escapeWhitespace is true, whitespace
-// characters will be escaped.
-func escapeText(w io.Writer, s []byte, escapeWhitespace bool) error {
+// escapeText writes to w the properly escaped XML equivalent of the plain text
+// data s. If escape is true, whitespace characters and single quote will be
+// escaped.
+func escapeText(w io.Writer, s []byte, escape bool) error {
 	var esc []byte
 	last := 0
 	for i := 0; i < len(s); {
@@ -1932,6 +1936,9 @@ func escapeText(w io.Writer, s []byte, escapeWhitespace bool) error {
 		case '"':
 			esc = escQuot
 		case '\'':
+			if !escape {
+				continue
+			}
 			esc = escApos
 		case '&':
 			esc = escAmp
@@ -1940,17 +1947,17 @@ func escapeText(w io.Writer, s []byte, escapeWhitespace bool) error {
 		case '>':
 			esc = escGT
 		case '\t':
-			if !escapeWhitespace {
+			if !escape {
 				continue
 			}
 			esc = escTab
 		case '\n':
-			if !escapeWhitespace {
+			if !escape {
 				continue
 			}
 			esc = escNL
 		case '\r':
-			if !escapeWhitespace {
+			if !escape {
 				continue
 			}
 			esc = escCR

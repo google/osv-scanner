@@ -752,6 +752,9 @@ func (p *printer) writeStart(start *StartElement) error {
 		p.WriteByte('"')
 	}
 
+	if start.Space {
+		p.WriteByte(' ')
+	}
 	if start.Empty {
 		p.WriteByte('/')
 	}
