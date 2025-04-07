@@ -1,4 +1,47 @@
 
+[TestGemfileMatcher_Filter_Not_In_Lockfile - 1]
+[
+  {
+    "name": "zeitwerk",
+    "version": "2.6.0",
+    "blockLocation": {
+      "line": {
+        "start": 3,
+        "end": 3
+      },
+      "column": {
+        "start": 1,
+        "end": 24
+      },
+      "file_name": "<rootdir>/fixtures/bundler/lockfile-not-synced/Gemfile"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 3,
+        "end": 3
+      },
+      "column": {
+        "start": 17,
+        "end": 24
+      },
+      "file_name": "<rootdir>/fixtures/bundler/lockfile-not-synced/Gemfile"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 3,
+        "end": 3
+      },
+      "column": {
+        "start": 5,
+        "end": 15
+      },
+      "file_name": "<rootdir>/fixtures/bundler/lockfile-not-synced/Gemfile"
+    },
+    "packageManager": "Bundler"
+  }
+]
+---
+
 [TestGemfileMatcher_Match_Groups - 1]
 [
   {

@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+
+gem 'zeitwerk', '2.6.0'
+gem 'websocket-extensions', '0.1.5'
+
