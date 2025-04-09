@@ -35,6 +35,14 @@ func shouldSkipYarnLine(line string) bool {
 
 func parseYarnPackageGroup(group []string) YarnPackage {
 	name, targetVersions := extractYarnPackageNameAndTargetVersions(group[0])
+	if strings.Contains(name, "?") {
+		_, _ = fmt.Fprintf(
+			os.Stderr,
+			"Received package name of %s including question mark with target versions %v \n",
+			name,
+			targetVersions,
+		)
+	}
 
 	return YarnPackage{
 		Name:           name,
