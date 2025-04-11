@@ -15,10 +15,14 @@ type TestLogger struct {
 func (tl *TestLogger) AddInstance(stdout, stderr io.Writer) {
 	key := getCallerInstance()
 	logger := cmdlogger.New(stdout, stderr)
-	_, alreadyPresent := tl.loggerMap.Swap(key, &logger)
-	if alreadyPresent {
+	prev, _ := tl.loggerMap.Swap(key, &logger)
+	if prev != nil {
 		panic("same logger being added twice")
 	}
+}
+
+func (tl *TestLogger) Delete() {
+	tl.loggerMap.Delete(getCallerInstance())
 }
 
 func (tl *TestLogger) getLogger() *cmdlogger.LoggerImpl {

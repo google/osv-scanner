@@ -16,14 +16,14 @@ func run(t *testing.T, tc Case) (string, string) {
 
 	stdout := newMuffledWriter()
 	stderr := newMuffledWriter()
-
-	if handler, ok := slog.Default().Handler().(*testlogger.TestLogger); ok {
-		handler.AddInstance(stdout, stderr)
-	} else {
+	handler, ok := slog.Default().Handler().(*testlogger.TestLogger)
+	if !ok {
 		t.Fatalf("Test failed to initialize default logger with TestLogger")
 	}
 
+	handler.AddInstance(stdout, stderr)
 	ec := cmd.Run(tc.Args, stdout, stderr)
+	handler.Delete()
 
 	if ec != tc.Exit {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.Exit)
