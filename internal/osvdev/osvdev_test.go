@@ -99,6 +99,7 @@ func TestOSVClient_QueryBatch(t *testing.T) {
 					"GHSA-5w9c-rv96-fr7g",
 				},
 				{ // Commit
+					"CVE-2024-2002",
 					"OSV-2023-890",
 				},
 				// non-existent package
@@ -259,6 +260,7 @@ func TestOSVClient_Query(t *testing.T) {
 				Commit: "60e572dbf7b4ded66b488f54773f66aaf6184321",
 			},
 			wantIDs: []string{
+				"CVE-2024-2002",
 				"OSV-2023-890",
 			},
 		},

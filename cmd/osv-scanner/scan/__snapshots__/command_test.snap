@@ -135,6 +135,7 @@ Scanned <rootdir>/osv-scanner/fixtures/go-project/go.mod file and found 1 packag
 | https://osv.dev/GO-2025-3373 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/go.mod |
 | https://osv.dev/GO-2025-3420 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/go.mod |
 | https://osv.dev/GO-2025-3447 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/go.mod |
+| https://osv.dev/GO-2025-3563 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/go.mod |
 +------------------------------+------+-----------+---------+---------+-------------------------------+
 
 ---
@@ -167,6 +168,7 @@ Scanned <rootdir>/osv-scanner/fixtures/go-project/nested/go.mod file and found 1
 | https://osv.dev/GO-2025-3373 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/go.mod        |
 | https://osv.dev/GO-2025-3420 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/go.mod        |
 | https://osv.dev/GO-2025-3447 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/go.mod        |
+| https://osv.dev/GO-2025-3563 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/go.mod        |
 | https://osv.dev/GO-2024-2598 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2024-2599 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2024-2600 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/nested/go.mod |
@@ -182,6 +184,7 @@ Scanned <rootdir>/osv-scanner/fixtures/go-project/nested/go.mod file and found 1
 | https://osv.dev/GO-2025-3373 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2025-3420 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2025-3447 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/nested/go.mod |
+| https://osv.dev/GO-2025-3563 |      | Go        | stdlib  | 1.21.7  | ../fixtures/go-project/nested/go.mod |
 +------------------------------+------+-----------+---------+---------+--------------------------------------+
 
 ---
@@ -692,6 +695,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/CVE-2024-56171      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-24928      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-27113      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-32414      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1139,6 +1143,7 @@ Filtered 1 vulnerability from output
 | https://osv.dev/GO-2024-2687        |      | Go        | stdlib                      | 1.19.99 | ../fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19.99 | ../fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19.99 | ../fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2025-3563        |      | Go        | stdlib                      | 1.19.99 | ../fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+---------------------------------------------+
 | Uncalled vulnerabilities            |      |           |                             |         |                                             |
 +-------------------------------------+------+-----------+-----------------------------+---------+---------------------------------------------+
@@ -2177,6 +2182,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2024-56171      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-24928      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-27113      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-32414      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2396,6 +2402,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2024-56171      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-24928      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-27113      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-32414      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | ../fixtures/sbom-insecure/postgres-stretch.cdx.xml |
