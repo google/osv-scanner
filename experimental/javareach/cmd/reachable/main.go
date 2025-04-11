@@ -74,7 +74,7 @@ func main() {
 	}
 }
 
-func fmtJavaInventory(i *extractor.Inventory) string {
+func fmtJavaInventory(i *extractor.Package) string {
 	return fmt.Sprintf("%s:%s", i.Metadata.(*archive.Metadata).GroupID, i.Name)
 }
 
@@ -89,7 +89,7 @@ func enumerateReachabilityForJar(jarPath string) error {
 	if err != nil {
 		return err
 	}
-	slices.SortFunc(allDeps, func(i1 *extractor.Inventory, i2 *extractor.Inventory) int {
+	slices.SortFunc(allDeps, func(i1 *extractor.Package, i2 *extractor.Package) int {
 		return strings.Compare(fmtJavaInventory(i1), fmtJavaInventory(i2))
 	})
 	for _, dep := range allDeps {

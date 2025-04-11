@@ -380,7 +380,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -412,7 +412,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -444,7 +444,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib2",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -472,7 +472,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "bin1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -501,7 +501,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "bin2",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -525,7 +525,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "bin1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -555,7 +555,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -587,7 +587,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib2",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -614,7 +614,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib2",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -639,7 +639,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -671,7 +671,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.1",
 					Extractor: ecosystemmock.Extractor{
@@ -699,7 +699,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -731,7 +731,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib2",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -761,7 +761,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -793,7 +793,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -825,7 +825,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -861,7 +861,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -898,7 +898,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "2.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -951,7 +951,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -977,7 +977,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.1",
 					Extractor: ecosystemmock.Extractor{
@@ -1002,7 +1002,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.1",
 					Extractor: ecosystemmock.Extractor{
@@ -1052,7 +1052,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -1087,7 +1087,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.0",
 					Extractor: ecosystemmock.Extractor{
@@ -1122,7 +1122,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.1",
 					Extractor: ecosystemmock.Extractor{
@@ -1149,7 +1149,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.1",
 					Extractor: ecosystemmock.Extractor{
@@ -1175,7 +1175,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.1",
 					Extractor: ecosystemmock.Extractor{
@@ -1208,7 +1208,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 				},
 			},
 			args: imodels.PackageInfo{
-				Inventory: &extractor.Inventory{
+				Package: &extractor.Package{
 					Name:    "lib1",
 					Version: "1.0.1",
 					Extractor: ecosystemmock.Extractor{

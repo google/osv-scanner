@@ -114,7 +114,7 @@ func TestExtractor_Extract(t *testing.T) {
 				Path:         "testdata/thirdparty/zlib",
 				FakeScanRoot: cwd,
 			},
-			WantInventory: []*extractor.Inventory{
+			WantPackages: []*extractor.Package{
 				{
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "09155eaa2f9270dc4ed1fa13e2b4b2613e6e4851",
@@ -142,7 +142,7 @@ func TestExtractor_Extract(t *testing.T) {
 				return
 			}
 
-			if diff := cmp.Diff(tt.WantInventory, got, cmpopts.SortSlices(extracttest.InventoryCmpLess)); diff != "" {
+			if diff := cmp.Diff(tt.WantPackages, got, cmpopts.SortSlices(extracttest.PackageCmpLess)); diff != "" {
 				t.Errorf("%s.Extract(%q) diff (-want +got):\n%s", extr.Name(), tt.InputConfig.Path, diff)
 			}
 		})

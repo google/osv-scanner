@@ -15,7 +15,7 @@ func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	for _, source := range vulnResult.Results {
 		for _, pkg := range source.Packages {
-			scanResult.Inventories = append(scanResult.Inventories, pkg.Package.Inventory)
+			scanResult.Inventory.Packages = append(scanResult.Inventory.Packages, pkg.Package.Inventory)
 		}
 	}
 

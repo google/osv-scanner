@@ -30,7 +30,7 @@ func TestExtractor_Extract(t *testing.T) {
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/example-git/.git",
 			},
-			WantInventory: []*extractor.Inventory{
+			WantPackages: []*extractor.Package{
 				{
 					Locations: []string{"testdata/example-git/.git"},
 					SourceCode: &extractor.SourceCodeIdentifier{
@@ -44,7 +44,7 @@ func TestExtractor_Extract(t *testing.T) {
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/example-clean/.git",
 			},
-			WantInventory: nil,
+			WantPackages: nil,
 		},
 	}
 	for _, tt := range tests {
@@ -76,7 +76,7 @@ func TestExtractor_Extract(t *testing.T) {
 				return
 			}
 
-			if diff := cmp.Diff(tt.WantInventory, got, cmpopts.SortSlices(extracttest.InventoryCmpLess)); diff != "" {
+			if diff := cmp.Diff(tt.WantPackages, got, cmpopts.SortSlices(extracttest.PackageCmpLess)); diff != "" {
 				t.Errorf("%s.Extract(%q) diff (-want +got):\n%s", extr.Name(), tt.InputConfig.Path, diff)
 			}
 		})

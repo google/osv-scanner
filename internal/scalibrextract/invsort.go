@@ -10,7 +10,7 @@ import (
 // InventorySort is a comparator function for Inventories, to be used in
 // tests with cmp.Diff to disregard the order in which the Inventories
 // are reported.
-func inventorySort(a, b *extractor.Inventory) int {
+func inventorySort(a, b *extractor.Package) int {
 	aLoc := fmt.Sprintf("%v", a.Locations)
 	bLoc := fmt.Sprintf("%v", b.Locations)
 
