@@ -1,7 +1,6 @@
 package gitrepo_test
 
 import (
-	"context"
 	"os"
 	"path"
 	"path/filepath"
@@ -69,7 +68,7 @@ func TestExtractor_Extract(t *testing.T) {
 			scanInput := extracttest.GenerateScanInputMock(t, tt.InputConfig)
 			defer extracttest.CloseTestScanInput(t, scanInput)
 
-			got, err := extr.Extract(context.Background(), &scanInput)
+			got, err := extr.Extract(t.Context(), &scanInput)
 
 			if diff := cmp.Diff(tt.WantErr, err, cmpopts.EquateErrors()); diff != "" {
 				t.Errorf("%s.Extract(%q) error diff (-want +got):\n%s", extr.Name(), tt.InputConfig.Path, diff)

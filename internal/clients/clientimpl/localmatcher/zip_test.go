@@ -3,7 +3,6 @@ package localmatcher_test
 import (
 	"archive/zip"
 	"bytes"
-	"context"
 	"encoding/base64"
 	"encoding/binary"
 	"encoding/json"
@@ -149,7 +148,7 @@ func TestNewZippedDB_Offline_WithoutCache(t *testing.T) {
 		t.Errorf("a server request was made when running offline")
 	})
 
-	_, err := localmatcher.NewZippedDB(context.Background(), testDir, "my-db", ts.URL, userAgent, true)
+	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, true)
 
 	if !errors.Is(err, localmatcher.ErrOfflineDatabaseNotFound) {
 		t.Errorf("expected \"%v\" error but got \"%v\"", localmatcher.ErrOfflineDatabaseNotFound, err)
@@ -181,7 +180,7 @@ func TestNewZippedDB_Offline_WithCache(t *testing.T) {
 		"GHSA-5.json": {ID: "GHSA-5"},
 	}))
 
-	db, err := localmatcher.NewZippedDB(context.Background(), testDir, "my-db", ts.URL, userAgent, true)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, true)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -199,7 +198,7 @@ func TestNewZippedDB_BadZip(t *testing.T) {
 		_, _ = w.Write([]byte("this is not a zip"))
 	})
 
-	_, err := localmatcher.NewZippedDB(context.Background(), testDir, "my-db", ts.URL, userAgent, false)
+	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false)
 
 	if err == nil {
 		t.Errorf("expected an error but did not get one")
@@ -211,7 +210,7 @@ func TestNewZippedDB_UnsupportedProtocol(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	_, err := localmatcher.NewZippedDB(context.Background(), testDir, "my-db", "file://hello-world", userAgent, false)
+	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", "file://hello-world", userAgent, false)
 
 	if err == nil {
 		t.Errorf("expected an error but did not get one")
@@ -241,7 +240,7 @@ func TestNewZippedDB_Online_WithoutCache(t *testing.T) {
 		})
 	})
 
-	db, err := localmatcher.NewZippedDB(context.Background(), testDir, "my-db", ts.URL, userAgent, false)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -273,7 +272,7 @@ func TestNewZippedDB_Online_WithoutCacheAndNoHashHeader(t *testing.T) {
 		}))
 	})
 
-	db, err := localmatcher.NewZippedDB(context.Background(), testDir, "my-db", ts.URL, userAgent, false)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -311,7 +310,7 @@ func TestNewZippedDB_Online_WithSameCache(t *testing.T) {
 
 	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), cache)
 
-	db, err := localmatcher.NewZippedDB(context.Background(), testDir, "my-db", ts.URL, userAgent, false)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -349,7 +348,7 @@ func TestNewZippedDB_Online_WithDifferentCache(t *testing.T) {
 		"GHSA-3.json": {ID: "GHSA-3"},
 	}))
 
-	db, err := localmatcher.NewZippedDB(context.Background(), testDir, "my-db", ts.URL, userAgent, false)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -379,7 +378,7 @@ func TestNewZippedDB_Online_WithCacheButNoHashHeader(t *testing.T) {
 		"GHSA-3.json": {ID: "GHSA-3"},
 	}))
 
-	_, err := localmatcher.NewZippedDB(context.Background(), testDir, "my-db", ts.URL, userAgent, false)
+	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false)
 
 	if err == nil {
 		t.Errorf("expected an error but did not get one")
@@ -407,7 +406,7 @@ func TestNewZippedDB_Online_WithBadCache(t *testing.T) {
 
 	cacheWriteBad(t, determineStoredAtPath(testDir, "my-db"), "this is not json!")
 
-	db, err := localmatcher.NewZippedDB(context.Background(), testDir, "my-db", ts.URL, userAgent, false)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -433,7 +432,7 @@ func TestNewZippedDB_FileChecks(t *testing.T) {
 		})
 	})
 
-	db, err := localmatcher.NewZippedDB(context.Background(), testDir, "my-db", ts.URL, userAgent, false)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false)
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)

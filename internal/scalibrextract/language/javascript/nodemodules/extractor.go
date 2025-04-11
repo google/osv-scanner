@@ -2,12 +2,12 @@ package nodemodules
 
 import (
 	"context"
-	"github.com/google/osv-scalibr/inventory"
 	"path/filepath"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
 )

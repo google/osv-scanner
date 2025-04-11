@@ -2,7 +2,6 @@ package resolution_test
 
 import (
 	"cmp"
-	"context"
 	"maps"
 	"slices"
 	"testing"
@@ -107,7 +106,7 @@ root 1.0.0
 			},
 		},
 		}}
-	got := subgraph.ConstrainingSubgraph(context.Background(), cl, vuln)
+	got := subgraph.ConstrainingSubgraph(t.Context(), cl, vuln)
 	checkSubgraphVersions(t, got, g)
 	checkSubgraphEdges(t, got)
 	checkSubgraphNodesReachable(t, got)
@@ -134,7 +133,7 @@ root 1.0.0
 	}
 
 	// Check that ConstrainingSubgraph is stable if reapplied
-	again := got.ConstrainingSubgraph(context.Background(), cl, vuln)
+	again := got.ConstrainingSubgraph(t.Context(), cl, vuln)
 	if diff := gocmp.Diff(got, again); diff != "" {
 		t.Errorf("ConstrainingSubgraph output changed on reapply (-want +got):\n%s", diff)
 	}

@@ -2,13 +2,13 @@ package gitrepo
 
 import (
 	"context"
-	"github.com/google/osv-scalibr/inventory"
 	"path"
 	"path/filepath"
 
 	"github.com/go-git/go-git/v5"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
 )
@@ -96,7 +96,6 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inve
 		return inventory.Inventory{}, err
 	}
 
-	//nolint:prealloc // Not sure how many there will be in advance.
 	var inventory inventory.Inventory
 
 	if e.IncludeRootGit {

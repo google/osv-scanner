@@ -3,7 +3,6 @@ package vendored
 import (
 	"bytes"
 	"context"
-	"github.com/google/osv-scalibr/inventory"
 	"io"
 	"slices"
 
@@ -19,6 +18,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	scalibrfs "github.com/google/osv-scalibr/fs"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/osvdev"
