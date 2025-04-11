@@ -74,7 +74,7 @@ var lockfileExtractorMapping = map[string][]string{
 }
 
 // ScanSingleFile is similar to ScanSingleFileWithMapping, just without supporting the <lockfileformat>:/path/to/lockfile prefix identifier
-func ScanSingleFile(path string, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanSingleFile(path string, extractorsToUse []filesystem.Extractor) ([]*extractor.Package, error) {
 	invs, err := scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 	if err != nil {
 		return nil, err
@@ -95,9 +95,9 @@ func ScanSingleFile(path string, extractorsToUse []filesystem.Extractor) ([]*ext
 
 // ScanSingleFileWithMapping will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func ScanSingleFileWithMapping(scanPath string, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanSingleFileWithMapping(scanPath string, extractorsToUse []filesystem.Extractor) ([]*extractor.Package, error) {
 	var err error
-	var inventories []*extractor.Inventory
+	var inventories []*extractor.Package
 
 	parseAs, path := parseLockfilePath(scanPath)
 

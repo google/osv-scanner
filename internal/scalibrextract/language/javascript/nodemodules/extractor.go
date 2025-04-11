@@ -7,6 +7,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
 )
@@ -34,17 +35,17 @@ func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 }
 
 // Extract extracts packages from yarn.lock files passed through the scan input.
-func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
+func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
 	return e.actualExtractor.Extract(ctx, input)
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e Extractor) ToPURL(i *extractor.Inventory) *purl.PackageURL {
+func (e Extractor) ToPURL(i *extractor.Package) *purl.PackageURL {
 	return e.actualExtractor.ToPURL(i)
 }
 
 // Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
-func (e Extractor) Ecosystem(i *extractor.Inventory) string {
+func (e Extractor) Ecosystem(i *extractor.Package) string {
 	return e.actualExtractor.Ecosystem(i)
 }
 

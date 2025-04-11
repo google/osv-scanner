@@ -1,7 +1,6 @@
 package suggest
 
 import (
-	"context"
 	"path/filepath"
 	"reflect"
 	"sort"
@@ -51,7 +50,7 @@ func mavenReqKey(t *testing.T, name, artifactType, classifier string) manifest.R
 
 func TestMavenSuggester_Suggest(t *testing.T) {
 	t.Parallel()
-	ctx := context.Background()
+	ctx := t.Context()
 	client := resolve.NewLocalClient()
 	addVersions := func(sys resolve.System, name string, versions []string) {
 		for _, version := range versions {
@@ -368,7 +367,7 @@ func TestMavenSuggester_Suggest(t *testing.T) {
 
 func Test_suggestMavenVersion(t *testing.T) {
 	t.Parallel()
-	ctx := context.Background()
+	ctx := t.Context()
 	lc := resolve.NewLocalClient()
 
 	pk := resolve.PackageKey{
@@ -429,7 +428,7 @@ func Test_suggestMavenVersion(t *testing.T) {
 
 func TestSuggestVersion_Guava(t *testing.T) {
 	t.Parallel()
-	ctx := context.Background()
+	ctx := t.Context()
 	lc := resolve.NewLocalClient()
 
 	pk := resolve.PackageKey{
@@ -487,7 +486,7 @@ func TestSuggestVersion_Guava(t *testing.T) {
 
 func TestSuggestVersion_Commons(t *testing.T) {
 	t.Parallel()
-	ctx := context.Background()
+	ctx := t.Context()
 	lc := resolve.NewLocalClient()
 
 	pk := resolve.PackageKey{

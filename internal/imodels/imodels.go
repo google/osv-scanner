@@ -55,7 +55,7 @@ type PackageInfo struct {
 	// purlCache is used to cache the special case for SBOMs where we convert Name, Version, and Ecosystem from purls
 	// extracted from the SBOM
 	purlCache *models.PackageInfo
-	*extractor.Inventory
+	*extractor.Package
 }
 
 func (pkg *PackageInfo) Name() string {
@@ -66,7 +66,7 @@ func (pkg *PackageInfo) Name() string {
 
 	// --- Make specific patches to names as necessary ---
 	// Patch Go package to stdlib
-	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo && pkg.Inventory.Name == "go" {
+	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo && pkg.Package.Name == "go" {
 		return "stdlib"
 	}
 
@@ -74,11 +74,11 @@ func (pkg *PackageInfo) Name() string {
 	// Patch python package names to be normalized
 	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
-		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Inventory.Name, "-"))
+		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Package.Name, "-"))
 	}
 
 	// Patch Maven archive extractor package names
-	if metadata, ok := pkg.Inventory.Metadata.(*archive.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*archive.Metadata); ok {
 		// Debian uses source name on osv.dev
 		// (fallback to using the normal name if source name is empty)
 		if metadata.ArtifactID != "" && metadata.GroupID != "" {
@@ -87,7 +87,7 @@ func (pkg *PackageInfo) Name() string {
 	}
 
 	// --- OS metadata ---
-	if metadata, ok := pkg.Inventory.Metadata.(*dpkg.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*dpkg.Metadata); ok {
 		// Debian uses source name on osv.dev
 		// (fallback to using the normal name if source name is empty)
 		if metadata.SourceName != "" {
@@ -95,17 +95,17 @@ func (pkg *PackageInfo) Name() string {
 		}
 	}
 
-	if metadata, ok := pkg.Inventory.Metadata.(*apk.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*apk.Metadata); ok {
 		if metadata.OriginName != "" {
 			return metadata.OriginName
 		}
 	}
 
-	return pkg.Inventory.Name
+	return pkg.Package.Name
 }
 
 func (pkg *PackageInfo) Ecosystem() ecosystem.Parsed {
-	ecosystemStr := pkg.Inventory.Ecosystem()
+	ecosystemStr := pkg.Package.Ecosystem()
 
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 	if pkg.purlCache != nil {
@@ -138,7 +138,7 @@ func (pkg *PackageInfo) Version() string {
 	// false positives. This compromise still allows osv-scanner to pick up
 	// when the user is using a minor version that is out-of-support.
 	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo && pkg.Name() == "stdlib" {
-		v := semverlike.ParseSemverLikeVersion(pkg.Inventory.Version, 3)
+		v := semverlike.ParseSemverLikeVersion(pkg.Package.Version, 3)
 		if len(v.Components) == 2 {
 			return fmt.Sprintf(
 				"%d.%d.%d",
@@ -149,31 +149,31 @@ func (pkg *PackageInfo) Version() string {
 		}
 	}
 
-	return pkg.Inventory.Version
+	return pkg.Package.Version
 }
 
 func (pkg *PackageInfo) Location() string {
-	if len(pkg.Inventory.Locations) > 0 {
-		return pkg.Inventory.Locations[0]
+	if len(pkg.Package.Locations) > 0 {
+		return pkg.Package.Locations[0]
 	}
 
 	return ""
 }
 
 func (pkg *PackageInfo) Commit() string {
-	if pkg.Inventory.SourceCode != nil {
-		return pkg.Inventory.SourceCode.Commit
+	if pkg.Package.SourceCode != nil {
+		return pkg.Package.SourceCode.Commit
 	}
 
 	return ""
 }
 
 func (pkg *PackageInfo) SourceType() models.SourceType {
-	if pkg.Inventory.Extractor == nil {
+	if pkg.Package.Extractor == nil {
 		return models.SourceTypeUnknown
 	}
 
-	extractorName := pkg.Inventory.Extractor.Name()
+	extractorName := pkg.Package.Extractor.Name()
 	if _, ok := osExtractors[extractorName]; ok {
 		return models.SourceTypeOSPackage
 	} else if _, ok := sbomExtractors[extractorName]; ok {
@@ -188,7 +188,7 @@ func (pkg *PackageInfo) SourceType() models.SourceType {
 }
 
 func (pkg *PackageInfo) DepGroups() []string {
-	if dg, ok := pkg.Inventory.Metadata.(scalibrosv.DepGroups); ok {
+	if dg, ok := pkg.Package.Metadata.(scalibrosv.DepGroups); ok {
 		return dg.DepGroups()
 	}
 
@@ -196,24 +196,24 @@ func (pkg *PackageInfo) DepGroups() []string {
 }
 
 func (pkg *PackageInfo) OSPackageName() string {
-	if metadata, ok := pkg.Inventory.Metadata.(*apk.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*apk.Metadata); ok {
 		return metadata.PackageName
 	}
-	if metadata, ok := pkg.Inventory.Metadata.(*dpkg.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*dpkg.Metadata); ok {
 		return metadata.PackageName
 	}
-	if metadata, ok := pkg.Inventory.Metadata.(*rpm.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*rpm.Metadata); ok {
 		return metadata.PackageName
 	}
 
 	return ""
 }
 
-// FromInventory converts an extractor.Inventory into a PackageInfo.
-func FromInventory(inventory *extractor.Inventory) PackageInfo {
-	pi := PackageInfo{Inventory: inventory}
+// FromInventory converts an extractor.Package into a PackageInfo.
+func FromInventory(inventory *extractor.Package) PackageInfo {
+	pi := PackageInfo{Package: inventory}
 	if pi.SourceType() == models.SourceTypeSBOM {
-		purlStruct := pi.Inventory.Extractor.ToPURL(pi.Inventory)
+		purlStruct := pi.Package.Extractor.ToPURL(pi.Package)
 		if purlStruct != nil {
 			purlCache, _ := purl.ToPackage(purlStruct.String())
 			pi.purlCache = &purlCache

@@ -1,7 +1,6 @@
 package datasource_test
 
 import (
-	"context"
 	"encoding/base64"
 	"fmt"
 	"net/http"
@@ -65,7 +64,7 @@ func checkNpmRegistryRequest(t *testing.T, config datasource.NpmRegistryConfig, 
 	t.Helper()
 	mt := &mockTransport{}
 	httpClient := &http.Client{Transport: mt}
-	resp, err := config.MakeRequest(context.Background(), httpClient, urlComponents...)
+	resp, err := config.MakeRequest(t.Context(), httpClient, urlComponents...)
 	if err != nil {
 		t.Fatalf("error making request: %v", err)
 	}
@@ -313,7 +312,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 			// Send off requests to mockTransport to see the auth headers being added.
 			mt := &mockTransport{}
 			httpClient := &http.Client{Transport: mt}
-			resp, err := config.Auths.GetAuth(tt.requestURL).Get(context.Background(), httpClient, tt.requestURL)
+			resp, err := config.Auths.GetAuth(tt.requestURL).Get(t.Context(), httpClient, tt.requestURL)
 			if err != nil {
 				t.Fatalf("error making request: %v", err)
 			}

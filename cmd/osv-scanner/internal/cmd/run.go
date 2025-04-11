@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
@@ -21,9 +22,11 @@ var (
 )
 
 func Run(args []string, stdout, stderr io.Writer) int {
-	logger := cmdlogger.New(stdout, stderr)
-
-	slog.SetDefault(slog.New(&logger))
+	// Only set the global logHandler if we are not in testing mode
+	if !testing.Testing() {
+		logger := cmdlogger.New(stdout, stderr)
+		slog.SetDefault(slog.New(&logger))
+	}
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		slog.Info("osv-scanner version: " + ctx.App.Version)
@@ -75,9 +78,10 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		slog.Error(fmt.Sprintf("%v", err))
 	}
 
+	logHandler := slog.Default().Handler().(cmdlogger.CmdLogger)
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	if logger.HasErrored() {
+	if logHandler.HasErrored() {
 		return 127
 	}
 

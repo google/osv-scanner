@@ -27,14 +27,14 @@ type OSVMatcher struct {
 	InitialQueryTimeout time.Duration
 }
 
-func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Inventory) ([][]*osvschema.Vulnerability, error) {
+func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	var batchResp *osvdev.BatchedResponse
 	deadlineExceeded := false
 
 	{
 		var err error
 
-		// convert Inventory to Query for each pkgs element
+		// convert Package to Query for each pkgs element
 		queries := invsToQueries(pkgs)
 		// If there is a timeout for the initial query, set an additional context deadline here.
 		if matcher.InitialQueryTimeout > 0 {
@@ -176,7 +176,7 @@ func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {
 
 // invsToQueries converts inventories to queries via the osv-scanner internal imodels
 // to perform the necessary transformations
-func invsToQueries(invs []*extractor.Inventory) []*osvdev.Query {
+func invsToQueries(invs []*extractor.Package) []*osvdev.Query {
 	queries := make([]*osvdev.Query, len(invs))
 
 	for i, inv := range invs {
