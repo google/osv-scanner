@@ -23,6 +23,8 @@ func run(t *testing.T, tc Case) (string, string) {
 
 	handler.AddInstance(stdout, stderr)
 	ec := cmd.Run(tc.Args, stdout, stderr)
+	// Deleting is very important, as when this test ends the same memory address
+	// could (and is) used for new test calls.
 	handler.Delete()
 
 	if ec != tc.Exit {
