@@ -1314,6 +1314,18 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "GO-2025-3563"
           ],
           "groups": 8
+        },
+        {
+          "package": {
+            "name": "ptf",
+            "version": "(devel)",
+            "ecosystem": "Go",
+            "image_origin_details": {
+              "index": 2
+            }
+          },
+          "groups": 0,
+          "vulnerabilities": null
         }
       ]
     },

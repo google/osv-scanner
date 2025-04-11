@@ -16,7 +16,7 @@ var OSVEcosystem = map[resolve.System]osvschema.Ecosystem{
 
 func VKToPackageInfo(vk resolve.VersionKey) imodels.PackageInfo {
 	return imodels.FromInventory(
-		&extractor.Inventory{
+		&extractor.Package{
 			Name:    vk.Name,
 			Version: vk.Version,
 			Extractor: ecosystemmock.Extractor{

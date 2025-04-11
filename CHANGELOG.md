@@ -585,7 +585,7 @@ OSV-Scalibr also makes it incredibly easy to add new extractors. Please file a [
 ### Features
 
 - [Feature #534](https://github.com/google/osv-scanner/pull/534)
-  New SARIF format that separates out individual vulnerabilities, see https://github.com/google/osv-scanner/issue/216
+  New SARIF format that separates out individual vulnerabilities, see https://github.com/google/osv-scanner/issues/216
 - [Experimental Feature #57](https://github.com/google/osv-scanner/issues/57) Experimental Github Action!
   Have a look at https://google.github.io/osv-scanner/experimental/ for how to use the new Github Action in your repo.
   Experimental, so might change with only a minor update.
