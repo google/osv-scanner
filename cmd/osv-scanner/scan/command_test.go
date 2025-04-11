@@ -9,6 +9,7 @@ import (
 )
 
 func TestCommand(t *testing.T) {
+	t.Parallel()
 	tests := []testcmd.Case{
 		{
 			Name: "",
@@ -241,12 +242,15 @@ func TestCommand(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
 
 func TestCommand_CallAnalysis(t *testing.T) {
+	t.Parallel()
+
 	// Switch to acceptance test if this takes too long, or when we add rust tests
 	// testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
@@ -262,12 +266,15 @@ func TestCommand_CallAnalysis(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
 
 func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
+	t.Parallel()
+
 	tests := []testcmd.Case{
 		{
 			Name: "unsupported parse-as",
@@ -380,6 +387,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -387,6 +395,8 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 
 // TestCommand_GithubActions tests common actions the github actions reusable workflow will run
 func TestCommand_GithubActions(t *testing.T) {
+	t.Parallel()
+
 	tests := []testcmd.Case{
 		{
 			Name: "scanning osv-scanner custom format",
@@ -401,12 +411,15 @@ func TestCommand_GithubActions(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
 
 func TestCommand_LocalDatabases(t *testing.T) {
+	t.Parallel()
+
 	tests := []testcmd.Case{
 		{
 			Name: "one specific supported lockfile",
@@ -472,6 +485,7 @@ func TestCommand_LocalDatabases(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			if testutility.IsAcceptanceTesting() {
 				testDir := testutility.CreateTestDir(t)
 				old := tt.Args
@@ -488,6 +502,8 @@ func TestCommand_LocalDatabases(t *testing.T) {
 }
 
 func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
+	t.Parallel()
+
 	tests := []testcmd.Case{
 		{
 			Name: "a bunch of different lockfiles and ecosystem",
@@ -498,6 +514,7 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			testDir := testutility.CreateTestDir(t)
 			old := tt.Args
 			tt.Args = []string{"", "--local-db-path", testDir}
@@ -512,6 +529,8 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 }
 
 func TestCommand_Licenses(t *testing.T) {
+	t.Parallel()
+
 	tests := []testcmd.Case{
 		{
 			Name: "No vulnerabilities with license summary",
@@ -581,6 +600,7 @@ func TestCommand_Licenses(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -588,6 +608,8 @@ func TestCommand_Licenses(t *testing.T) {
 
 // Tests all subcommands here.
 func TestCommand_SubCommands(t *testing.T) {
+	t.Parallel()
+
 	tests := []testcmd.Case{
 		// without subcommands
 		{
@@ -611,12 +633,15 @@ func TestCommand_SubCommands(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
 
 func TestCommand_MavenTransitive(t *testing.T) {
+	t.Parallel()
+
 	tests := []testcmd.Case{
 		{
 			Name: "scans transitive dependencies for pom.xml by default",
@@ -659,12 +684,15 @@ func TestCommand_MavenTransitive(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
 }
 
 func TestCommand_MoreLockfiles(t *testing.T) {
+	t.Parallel()
+
 	tests := []testcmd.Case{
 		{
 			Name: "uv.lock",
@@ -706,6 +734,7 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}

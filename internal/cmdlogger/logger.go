@@ -7,25 +7,12 @@ import (
 	"log/slog"
 )
 
-// SendEverythingToStderr tells the logger (if its in use) to send all logs
-// to stderr regardless of their level.
-//
-// This is useful if we're expecting to output structured data to stdout such
-// as JSON, which cannot be mixed with other output.
-func SendEverythingToStderr() {
-	l, ok := slog.Default().Handler().(*CmdLogger)
-
-	if ok {
-		l.SendEverythingToStderr()
-	}
-}
-
 // HasErrored returns true if there have been any calls to Handle with
-// a level of [slog.LevelError], assuming the logger is a [CmdLogger].
+// a level of [slog.LevelError], assuming the logger is a [LoggerImpl].
 //
-// If the logger is not a [CmdLogger], this will always return false.
+// If the logger is not a [LoggerImpl], this will always return false.
 func HasErrored() bool {
-	l, ok := slog.Default().Handler().(*CmdLogger)
+	l, ok := slog.Default().Handler().(CmdLogger)
 
 	if ok {
 		return l.HasErrored()
@@ -35,14 +22,14 @@ func HasErrored() bool {
 }
 
 func SetLevel(level slog.Leveler) {
-	l, ok := slog.Default().Handler().(*CmdLogger)
+	l, ok := slog.Default().Handler().(CmdLogger)
 
 	if ok {
-		l.Level = level
+		l.SetLevel(level)
 	}
 }
 
-type CmdLogger struct {
+type LoggerImpl struct {
 	stdout             io.Writer
 	stderr             io.Writer
 	hasErrored         bool
@@ -55,11 +42,15 @@ type CmdLogger struct {
 //
 // This is useful if we're expecting to output structured data to stdout such
 // as JSON, which cannot be mixed with other output.
-func (c *CmdLogger) SendEverythingToStderr() {
+func (c *LoggerImpl) SendEverythingToStderr() {
 	c.everythingToStderr = true
 }
 
-func (c *CmdLogger) writer(level slog.Level) io.Writer {
+func (c *LoggerImpl) SetLevel(level slog.Leveler) {
+	c.Level = level
+}
+
+func (c *LoggerImpl) writer(level slog.Level) io.Writer {
 	if c.everythingToStderr || level == slog.LevelError {
 		return c.stderr
 	}
@@ -67,7 +58,7 @@ func (c *CmdLogger) writer(level slog.Level) io.Writer {
 	return c.stdout
 }
 
-func (c *CmdLogger) Enabled(_ context.Context, level slog.Level) bool {
+func (c *LoggerImpl) Enabled(_ context.Context, level slog.Level) bool {
 	if level == slog.LevelError {
 		c.hasErrored = true
 	}
@@ -75,7 +66,7 @@ func (c *CmdLogger) Enabled(_ context.Context, level slog.Level) bool {
 	return level >= c.Level.Level()
 }
 
-func (c *CmdLogger) Handle(_ context.Context, record slog.Record) error {
+func (c *LoggerImpl) Handle(_ context.Context, record slog.Record) error {
 	if record.Level == slog.LevelError {
 		c.hasErrored = true
 	}
@@ -87,22 +78,23 @@ func (c *CmdLogger) Handle(_ context.Context, record slog.Record) error {
 
 // HasErrored returns true if there have been any calls to Handle with
 // a level of [slog.LevelError]
-func (c *CmdLogger) HasErrored() bool {
+func (c *LoggerImpl) HasErrored() bool {
 	return c.hasErrored
 }
 
-func (c *CmdLogger) WithAttrs(_ []slog.Attr) slog.Handler {
+func (c *LoggerImpl) WithAttrs(_ []slog.Attr) slog.Handler {
 	panic("not supported")
 }
 
-func (c *CmdLogger) WithGroup(_ string) slog.Handler {
+func (c *LoggerImpl) WithGroup(_ string) slog.Handler {
 	panic("not supported")
 }
 
-var _ slog.Handler = &CmdLogger{}
+var _ slog.Handler = &LoggerImpl{}
+var _ CmdLogger = &LoggerImpl{}
 
-func New(stdout, stderr io.Writer) CmdLogger {
-	return CmdLogger{
+func New(stdout, stderr io.Writer) LoggerImpl {
+	return LoggerImpl{
 		stdout: stdout,
 		stderr: stderr,
 		Level:  slog.LevelInfo,

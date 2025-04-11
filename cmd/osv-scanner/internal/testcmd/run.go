@@ -3,6 +3,8 @@ package testcmd
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/google/osv-scanner/v2/internal/testlogger"
+	"log/slog"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
@@ -14,6 +16,12 @@ func run(t *testing.T, tc Case) (string, string) {
 
 	stdout := newMuffledWriter()
 	stderr := newMuffledWriter()
+
+	if handler, ok := slog.Default().Handler().(*testlogger.TestLogger); ok {
+		handler.AddInstance(stdout, stderr)
+	} else {
+		t.Fatalf("Test failed to initialize default logger with TestLogger")
+	}
 
 	ec := cmd.Run(tc.Args, stdout, stderr)
 
