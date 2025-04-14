@@ -10,6 +10,7 @@ import (
 
 func TestCommand(t *testing.T) {
 	t.Parallel()
+
 	tests := []testcmd.Case{
 		{
 			Name: "",
@@ -598,6 +599,7 @@ func TestCommand_Licenses(t *testing.T) {
 			Exit: 1,
 		},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
@@ -631,6 +633,7 @@ func TestCommand_SubCommands(t *testing.T) {
 		},
 		// TODO: add tests for other future subcommands
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
@@ -732,6 +735,7 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			},
 		*/
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
