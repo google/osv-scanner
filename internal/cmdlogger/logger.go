@@ -90,11 +90,10 @@ func (c *LoggerImpl) WithGroup(_ string) slog.Handler {
 	panic("not supported")
 }
 
-var _ slog.Handler = &LoggerImpl{}
 var _ CmdLogger = &LoggerImpl{}
 
-func New(stdout, stderr io.Writer) LoggerImpl {
-	return LoggerImpl{
+func New(stdout, stderr io.Writer) CmdLogger {
+	return &LoggerImpl{
 		stdout: stdout,
 		stderr: stderr,
 		Level:  slog.LevelInfo,

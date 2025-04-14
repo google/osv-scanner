@@ -3,8 +3,6 @@ package testcmd
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/google/osv-scanner/v2/internal/testlogger"
-	"log/slog"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
@@ -16,16 +14,8 @@ func run(t *testing.T, tc Case) (string, string) {
 
 	stdout := newMuffledWriter()
 	stderr := newMuffledWriter()
-	handler, ok := slog.Default().Handler().(*testlogger.TestLogger)
-	if !ok {
-		t.Fatalf("Test failed to initialize default logger with TestLogger")
-	}
 
-	handler.AddInstance(stdout, stderr)
 	ec := cmd.Run(tc.Args, stdout, stderr)
-	// Deleting is very important, as when this test ends the same memory address
-	// could (and is) used for new test calls.
-	handler.Delete()
 
 	if ec != tc.Exit {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.Exit)

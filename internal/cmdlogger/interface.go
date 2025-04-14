@@ -3,6 +3,7 @@ package cmdlogger
 import "log/slog"
 
 type CmdLogger interface {
+	slog.Handler
 	SendEverythingToStderr()
 	HasErrored() bool
 	SetLevel(slog.Leveler)
