@@ -33,7 +33,7 @@ func (tl *TestLogger) getLogger() cmdlogger.CmdLogger {
 // AddInstance adds a "global" logger to this specific test run.
 func (tl *TestLogger) AddInstance(logger cmdlogger.CmdLogger) {
 	key := getCallerInstance()
-	prev, _ := tl.loggerMap.Swap(key, &logger)
+	prev, _ := tl.loggerMap.Swap(key, logger)
 	if prev != nil {
 		// This is used as a safety check for incorrect usage of the TestLogger, and should never happen
 		// during actual tests if Delete() is correctly called at the end of a test.
