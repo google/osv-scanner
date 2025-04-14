@@ -1,6 +1,8 @@
 module github.com/google/osv-scanner/v2
 
-go 1.23.6
+go 1.23.7
+
+toolchain go1.24.2
 
 require (
 	deps.dev/api/v3 v3.0.0-20250328015204-fc8680254d3f
@@ -22,7 +24,7 @@ require (
 	github.com/jedib0t/go-pretty/v6 v6.6.7
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/ossf/osv-schema/bindings/go v0.0.0-20250318011049-e4c58d9a4a9e
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20250401015358-964c89294a70
 	github.com/owenrumney/go-sarif/v2 v2.3.3
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
@@ -31,13 +33,14 @@ require (
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v2 v2.27.6
 	golang.org/x/net v0.38.0
-	golang.org/x/sync v0.12.0
+	golang.org/x/sync v0.13.0
 	golang.org/x/term v0.30.0
 	golang.org/x/vuln v1.1.3
 	google.golang.org/grpc v1.71.0
 	google.golang.org/protobuf v1.36.6
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
+	osv.dev/bindings/go v0.0.0-20250411041304-d50b498021fc
 )
 
 require (

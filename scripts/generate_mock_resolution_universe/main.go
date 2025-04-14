@@ -27,7 +27,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
-	"github.com/google/osv-scanner/v2/internal/osvdev"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/resolution"
@@ -41,6 +40,7 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
 	"gopkg.in/yaml.v3"
+	"osv.dev/bindings/go/osvdev"
 )
 
 var remediationOpts = remediation.Options{

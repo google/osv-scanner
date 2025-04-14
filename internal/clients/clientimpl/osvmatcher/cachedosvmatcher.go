@@ -11,9 +11,10 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/imodels"
-	"github.com/google/osv-scanner/v2/internal/osvdev"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
+	"osv.dev/bindings/go/osvdev"
+	"osv.dev/bindings/go/osvdevexperimental"
 )
 
 // CachedOSVMatcher implements the VulnerabilityMatcher interface with a osv.dev client.
@@ -94,10 +95,10 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 	// If there is a timeout for the initial query, set an additional context deadline here.
 	if matcher.InitialQueryTimeout > 0 {
 		batchQueryCtx, cancelFunc := context.WithDeadline(ctx, time.Now().Add(matcher.InitialQueryTimeout))
-		batchResp, err = queryForBatchWithPaging(batchQueryCtx, &matcher.Client, queries)
+		batchResp, err = osvdevexperimental.BatchQueryPaging(batchQueryCtx, &matcher.Client, queries)
 		cancelFunc()
 	} else {
-		batchResp, err = queryForBatchWithPaging(ctx, &matcher.Client, queries)
+		batchResp, err = osvdevexperimental.BatchQueryPaging(ctx, &matcher.Client, queries)
 	}
 
 	if err != nil {
