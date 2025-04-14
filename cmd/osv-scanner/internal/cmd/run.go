@@ -26,12 +26,12 @@ func Run(args []string, stdout, stderr io.Writer) int {
 	// --- Setup Logger ---
 	logHandler := cmdlogger.New(stdout, stderr)
 
-	// If in testing mode, set logger via TestLogger
+	// If in testing mode, set logger via Handler
 	// Otherwise, set default global logger
 	if testing.Testing() {
-		handler, ok := slog.Default().Handler().(*testlogger.TestLogger)
+		handler, ok := slog.Default().Handler().(*testlogger.Handler)
 		if !ok {
-			panic("Test failed to initialize default logger with TestLogger")
+			panic("Test failed to initialize default logger with Handler")
 		}
 
 		handler.AddInstance(logHandler)

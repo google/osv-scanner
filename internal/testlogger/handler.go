@@ -14,13 +14,13 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 )
 
-// TestLogger can be set as the global logging handler before the test starts, and individual test cases can add their
+// Handler can be set as the global logging handler before the test starts, and individual test cases can add their
 // own instance/implementation of the cmdlogger.CmdLogger interface.
-type TestLogger struct {
+type Handler struct {
 	loggerMap sync.Map // map[string]cmdlogger.CmdLogger
 }
 
-func (tl *TestLogger) getLogger() cmdlogger.CmdLogger {
+func (tl *Handler) getLogger() cmdlogger.CmdLogger {
 	key := getCallerInstance()
 	val, ok := tl.loggerMap.Load(key)
 	if !ok {
@@ -31,11 +31,11 @@ func (tl *TestLogger) getLogger() cmdlogger.CmdLogger {
 }
 
 // AddInstance adds a "global" logger to this specific test run.
-func (tl *TestLogger) AddInstance(logger cmdlogger.CmdLogger) {
+func (tl *Handler) AddInstance(logger cmdlogger.CmdLogger) {
 	key := getCallerInstance()
 	prev, _ := tl.loggerMap.Swap(key, logger)
 	if prev != nil {
-		// This is used as a safety check for incorrect usage of the TestLogger, and should never happen
+		// This is used as a safety check for incorrect usage of the Handler, and should never happen
 		// during actual tests if Delete() is correctly called at the end of a test.
 		panic("same logger being added twice")
 	}
@@ -43,7 +43,7 @@ func (tl *TestLogger) AddInstance(logger cmdlogger.CmdLogger) {
 
 // Delete removes the logger created by AddInstance()
 // This **must** be called before a test ends, as the same memory address may be reused.
-func (tl *TestLogger) Delete() {
+func (tl *Handler) Delete() {
 	tl.loggerMap.Delete(getCallerInstance())
 }
 
@@ -52,40 +52,40 @@ func (tl *TestLogger) Delete() {
 //
 // This is useful if we're expecting to output structured data to stdout such
 // as JSON, which cannot be mixed with other output.
-func (tl *TestLogger) SendEverythingToStderr() {
+func (tl *Handler) SendEverythingToStderr() {
 	tl.getLogger().SendEverythingToStderr()
 }
 
-func (tl *TestLogger) SetLevel(level slog.Leveler) {
+func (tl *Handler) SetLevel(level slog.Leveler) {
 	tl.getLogger().SetLevel(level)
 }
 
-func (tl *TestLogger) Enabled(ctx context.Context, level slog.Level) bool {
+func (tl *Handler) Enabled(ctx context.Context, level slog.Level) bool {
 	return tl.getLogger().Enabled(ctx, level)
 }
 
-func (tl *TestLogger) Handle(ctx context.Context, record slog.Record) error {
+func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 	return tl.getLogger().Handle(ctx, record)
 }
 
 // HasErrored returns true if there have been any calls to Handle with
 // a level of [slog.LevelError]
-func (tl *TestLogger) HasErrored() bool {
+func (tl *Handler) HasErrored() bool {
 	return tl.getLogger().HasErrored()
 }
 
-func (tl *TestLogger) WithAttrs(attrs []slog.Attr) slog.Handler {
+func (tl *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 	return tl.getLogger().WithAttrs(attrs)
 }
 
-func (tl *TestLogger) WithGroup(g string) slog.Handler {
+func (tl *Handler) WithGroup(g string) slog.Handler {
 	return tl.getLogger().WithGroup(g)
 }
 
-var _ cmdlogger.CmdLogger = &TestLogger{}
+var _ cmdlogger.CmdLogger = &Handler{}
 
-func New() *TestLogger {
-	return &TestLogger{
+func New() *Handler {
+	return &Handler{
 		loggerMap: sync.Map{},
 	}
 }
