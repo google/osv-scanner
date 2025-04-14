@@ -16,6 +16,13 @@
   <description>Don't escape</description>
   <developers />
 
+  <configuration>
+    <target>
+      <exec dir="src/test"
+            executable="bash" />
+    </target>
+  </configuration>
+
   <parent>
     <groupId>org.parent</groupId>
     <artifactId>parent-pom</artifactId>
@@ -162,6 +169,13 @@
   <url>http://www.example.com</url>
   <description>Don't escape</description>
   <developers />
+
+  <configuration>
+    <target>
+      <exec dir="src/test"
+            executable="bash" />
+    </target>
+  </configuration>
 
   <parent>
     <groupId>org.parent</groupId>

@@ -52,6 +52,7 @@ type Name struct {
 type Attr struct {
 	Name  Name
 	Value string
+	Diff  string // Diff whitespace between two attributes
 }
 
 // A Token is an interface holding one of the token types:
@@ -63,8 +64,8 @@ type StartElement struct {
 	Name Name
 	Attr []Attr
 
-	Empty bool // Whether this is an empty element
-	Space bool // Whether this empty element has extra space
+	Empty bool   // Whether this is an empty element
+	Diff  string // Any extra space for empty element
 }
 
 // Copy creates a new copy of StartElement.
@@ -805,9 +806,9 @@ func (d *Decoder) rawToken() (Token, error) {
 	}
 
 	attr = []Attr{}
-	hasSpace := false
+	diff := ""
 	for {
-		hasSpace = d.space()
+		diff = string(d.space())
 		if b, ok = d.mustgetc(); !ok {
 			return nil, d.err
 		}
@@ -828,6 +829,9 @@ func (d *Decoder) rawToken() (Token, error) {
 		d.ungetc(b)
 
 		a := Attr{}
+		if diff != " " {
+			a.Diff = diff
+		}
 		if a.Name, ok = d.nsname(); !ok {
 			if d.err == nil {
 				d.err = d.syntaxError("expected attribute name in element")
@@ -859,7 +863,11 @@ func (d *Decoder) rawToken() (Token, error) {
 		d.needClose = true
 		d.toClose = name
 	}
-	return StartElement{name, attr, empty, empty && hasSpace}, nil
+	if !empty {
+		// We only need the diff for self-closing tags.
+		diff = ""
+	}
+	return StartElement{name, attr, empty, diff}, nil
 }
 
 func (d *Decoder) attrval() []byte {
@@ -897,15 +905,15 @@ func (d *Decoder) attrval() []byte {
 }
 
 // Skip spaces if any
-func (d *Decoder) space() (has bool) {
+func (d *Decoder) space() (diff []byte) {
 	for {
 		b, ok := d.getc()
 		if !ok {
 			return
 		}
 		switch b {
-		case ' ', '\r', '\n', '\t':
-			has = true
+		case ' ', '\r', '\t', '\n':
+			diff = append(diff, b)
 		default:
 			d.ungetc(b)
 			return
