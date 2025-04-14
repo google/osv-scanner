@@ -44,7 +44,7 @@ func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*Lo
 	}, nil
 }
 
-func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Inventory) ([][]*osvschema.Vulnerability, error) {
+func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	results := make([][]*osvschema.Vulnerability, 0, len(invs))
 
 	for _, inv := range invs {

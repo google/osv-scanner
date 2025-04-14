@@ -18,6 +18,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	scalibrfs "github.com/google/osv-scalibr/fs"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
 	"osv.dev/bindings/go/osvdev"
@@ -95,18 +96,18 @@ func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 
 // Extract determines the most likely package version from the directory and returns them as
 // commit hash inventory entries
-func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
-	var packages []*extractor.Inventory
+func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
+	var packages []*extractor.Package
 
 	results, err := e.queryDetermineVersions(ctx, input.Path, input.FS, e.ScanGitDir)
 	if err != nil {
-		return nil, err
+		return inventory.Inventory{}, err
 	}
 
 	if len(results.Matches) > 0 && results.Matches[0].Score > determineVersionThreshold {
 		match := results.Matches[0]
 		// r.Infof("Identified %s as %s at %s.\n", libPath, match.RepoInfo.Address, match.RepoInfo.Commit)
-		packages = append(packages, &extractor.Inventory{
+		packages = append(packages, &extractor.Package{
 			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: match.RepoInfo.Commit,
 			},
@@ -114,16 +115,18 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) ([]
 		})
 	}
 
-	return packages, nil
+	return inventory.Inventory{
+		Packages: packages,
+	}, nil
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e Extractor) ToPURL(_ *extractor.Inventory) *purl.PackageURL {
+func (e Extractor) ToPURL(_ *extractor.Package) *purl.PackageURL {
 	return nil
 }
 
 // Ecosystem returns an empty string as all inventories are commit hashes
-func (e Extractor) Ecosystem(_ *extractor.Inventory) string {
+func (e Extractor) Ecosystem(_ *extractor.Package) string {
 	return ""
 }
 

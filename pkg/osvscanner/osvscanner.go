@@ -320,13 +320,13 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
 	}
 
-	if len(scalibrSR.Inventories) == 0 {
+	if scalibrSR.Inventory.IsEmpty() {
 		return models.VulnerabilityResults{}, ErrNoPackagesFound
 	}
 
 	// --- Save Scalibr Scan Results ---
-	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventories))
-	for i, inv := range scalibrSR.Inventories {
+	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventory.Packages))
+	for i, inv := range scalibrSR.Inventory.Packages {
 		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
 		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
 	}
@@ -365,18 +365,18 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	for _, psr := range scanResult.PackageScanResults {
 		if (strings.HasPrefix(psr.PackageInfo.Location(), "usr/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemGo) ||
 			strings.Contains(psr.PackageInfo.Location(), "dist-packages/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
-			psr.PackageInfo.Annotations = append(psr.PackageInfo.Annotations, extractor.InsideOSPackage)
+			psr.PackageInfo.Package.Annotations = append(psr.PackageInfo.Package.Annotations, extractor.InsideOSPackage)
 		}
 	}
 
-	results := buildVulnerabilityResults(actions, &scanResult)
+	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
 
 	if actions.ScanLicensesSummary {
 		licenseSummary := buildLicenseSummary(&scanResult)
-		results.LicenseSummary = licenseSummary
+		vulnerabilityResults.LicenseSummary = licenseSummary
 	}
 
-	filtered := filterResults(&results, &scanResult.ConfigManager, actions.ShowAllPackages)
+	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		slog.Info(fmt.Sprintf(
 			"Filtered %d %s from output",
@@ -385,7 +385,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		))
 	}
 
-	return results, determineReturnErr(results)
+	return vulnerabilityResults, determineReturnErr(vulnerabilityResults)
 }
 
 func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount {
@@ -465,9 +465,9 @@ func determineReturnErr(results models.VulnerabilityResults) error {
 func makeVulnRequestWithMatcher(
 	packages []imodels.PackageScanResult,
 	matcher clientinterfaces.VulnerabilityMatcher) error {
-	invs := make([]*extractor.Inventory, 0, len(packages))
+	invs := make([]*extractor.Package, 0, len(packages))
 	for _, pkgs := range packages {
-		invs = append(invs, pkgs.PackageInfo.Inventory)
+		invs = append(invs, pkgs.PackageInfo.Package)
 	}
 
 	res, err := matcher.MatchVulnerabilities(context.Background(), invs)
@@ -492,7 +492,7 @@ func overrideGoVersion(scanResults *results.ScanResults) {
 		if pkg.Name() == "stdlib" && pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo {
 			configToUse := scanResults.ConfigManager.Get(pkg.Location())
 			if configToUse.GoVersionOverride != "" {
-				scanResults.PackageScanResults[i].PackageInfo.Inventory.Version = configToUse.GoVersionOverride
+				scanResults.PackageScanResults[i].PackageInfo.Package.Version = configToUse.GoVersionOverride
 			}
 
 			continue

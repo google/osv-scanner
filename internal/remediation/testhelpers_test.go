@@ -2,7 +2,6 @@ package remediation_test
 
 import (
 	"cmp"
-	"context"
 	"maps"
 	"slices"
 	"testing"
@@ -37,7 +36,7 @@ func parseRemediationFixture(t *testing.T, universePath, manifestPath string, op
 
 	cl := clienttest.NewMockResolutionClient(t, universePath)
 
-	res, err := resolution.Resolve(context.Background(), cl, m, opts)
+	res, err := resolution.Resolve(t.Context(), cl, m, opts)
 	if err != nil {
 		t.Fatalf("Failed to resolve manifest: %v", err)
 	}

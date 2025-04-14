@@ -24,7 +24,7 @@ type ResolutionUniverse struct {
 
 type mockVulnerabilityMatcher []osvschema.Vulnerability
 
-func (mvc mockVulnerabilityMatcher) MatchVulnerabilities(_ context.Context, invs []*extractor.Inventory) ([][]*osvschema.Vulnerability, error) {
+func (mvc mockVulnerabilityMatcher) MatchVulnerabilities(_ context.Context, invs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	result := make([][]*osvschema.Vulnerability, len(invs))
 	for i, inv := range invs {
 		result[i] = localmatcher.VulnerabilitiesAffectingPackage(mvc, imodels.FromInventory(inv))

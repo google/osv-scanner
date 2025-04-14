@@ -1,7 +1,6 @@
 package vendored_test
 
 import (
-	"context"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -114,7 +113,7 @@ func TestExtractor_Extract(t *testing.T) {
 				Path:         "testdata/thirdparty/zlib",
 				FakeScanRoot: cwd,
 			},
-			WantInventory: []*extractor.Inventory{
+			WantPackages: []*extractor.Package{
 				{
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "09155eaa2f9270dc4ed1fa13e2b4b2613e6e4851",
@@ -135,14 +134,14 @@ func TestExtractor_Extract(t *testing.T) {
 			scanInput := extracttest.GenerateScanInputMock(t, tt.InputConfig)
 			defer extracttest.CloseTestScanInput(t, scanInput)
 
-			got, err := extr.Extract(context.Background(), &scanInput)
+			got, err := extr.Extract(t.Context(), &scanInput)
 
 			if diff := cmp.Diff(tt.WantErr, err, cmpopts.EquateErrors()); diff != "" {
 				t.Errorf("%s.Extract(%q) error diff (-want +got):\n%s", extr.Name(), tt.InputConfig.Path, diff)
 				return
 			}
 
-			if diff := cmp.Diff(tt.WantInventory, got, cmpopts.SortSlices(extracttest.InventoryCmpLess)); diff != "" {
+			if diff := cmp.Diff(tt.WantPackages, got.Packages, cmpopts.SortSlices(extracttest.PackageCmpLess)); diff != "" {
 				t.Errorf("%s.Extract(%q) diff (-want +got):\n%s", extr.Name(), tt.InputConfig.Path, diff)
 			}
 		})

@@ -27,9 +27,9 @@ import (
 //   - ext: the extractor to use
 //
 // Returns:
-//   - []*extractor.Inventory: the extracted lockfile data
+//   - []*extractor.Package: the extracted lockfile data
 //   - error: any errors encountered during extraction
-func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.Extractor) ([]*extractor.Package, error) {
 	info, err := os.Stat(localPath)
 	if err != nil {
 		return nil, err
@@ -50,17 +50,17 @@ func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.
 // - r: reporter to output logs to
 //
 // Returns:
-//   - []*extractor.Inventory: the extracted lockfile data
+//   - []*extractor.Package: the extracted lockfile data
 //   - error: any errors encountered during extraction
 //
 // If no extractors are found, then ErrExtractorNotFound is returned.
-func ExtractWithExtractors(ctx context.Context, localPath string, extractors []filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ExtractWithExtractors(ctx context.Context, localPath string, extractors []filesystem.Extractor) ([]*extractor.Package, error) {
 	info, err := os.Stat(localPath)
 	if err != nil {
 		return nil, err
 	}
 
-	result := []*extractor.Inventory{}
+	result := []*extractor.Package{}
 	extractorFound := false
 	for _, ext := range extractors {
 		if !ext.FileRequired(simplefileapi.New(localPath, info)) {
@@ -83,7 +83,7 @@ func ExtractWithExtractors(ctx context.Context, localPath string, extractors []f
 	return result, nil
 }
 
-func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInfo, ext filesystem.Extractor) ([]*extractor.Inventory, error) {
+func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInfo, ext filesystem.Extractor) ([]*extractor.Package, error) {
 	// Create a scan input centered at the system root directory,
 	// to give access to the full filesystem for each extractor.
 	rootDir := getRootDir(localPath)
@@ -97,18 +97,18 @@ func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInf
 		return nil, fmt.Errorf("(extracting as %s) %w", ext.Name(), err)
 	}
 
-	for i := range invs {
+	for i := range invs.Packages {
 		// Set parent extractor
-		invs[i].Extractor = ext
+		invs.Packages[i].Extractor = ext
 
 		// Make Location relative to the scan root as we are performing local scanning
-		for i2 := range invs[i].Locations {
-			invs[i].Locations[i2] = filepath.Join(rootDir, invs[i].Locations[i2])
+		for i2 := range invs.Packages[i].Locations {
+			invs.Packages[i].Locations[i2] = filepath.Join(rootDir, invs.Packages[i].Locations[i2])
 		}
 	}
 
-	slices.SortFunc(invs, inventorySort)
-	invsCompact := slices.CompactFunc(invs, func(a, b *extractor.Inventory) bool {
+	slices.SortFunc(invs.Packages, inventorySort)
+	invsCompact := slices.CompactFunc(invs.Packages, func(a, b *extractor.Package) bool {
 		return inventorySort(a, b) == 0
 	})
 

@@ -2,7 +2,6 @@ package remediation_test
 
 import (
 	"cmp"
-	"context"
 	"maps"
 	"slices"
 	"testing"
@@ -132,7 +131,7 @@ func TestComputeInPlacePatches(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			g, cl := parseInPlaceFixture(t, tt.universePath, tt.lockfilePath)
-			res, err := remediation.ComputeInPlacePatches(context.Background(), cl, g, tt.opts)
+			res, err := remediation.ComputeInPlacePatches(t.Context(), cl, g, tt.opts)
 			if err != nil {
 				t.Fatalf("Failed to compute in-place patches: %v", err)
 			}

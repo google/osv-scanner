@@ -8,6 +8,7 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -33,18 +34,18 @@ func (e Extractor) FileRequired(_ filesystem.FileAPI) bool {
 }
 
 // Extract extracts packages from yarn.lock files passed through the scan input.
-func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*extractor.Inventory, error) {
+func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
 	parsedResults := models.VulnerabilityResults{}
 	err := json.NewDecoder(input.Reader).Decode(&parsedResults)
 
 	if err != nil {
-		return nil, fmt.Errorf("could not extract from %s: %w", input.Path, err)
+		return inventory.Inventory{}, fmt.Errorf("could not extract from %s: %w", input.Path, err)
 	}
 
-	packages := []*extractor.Inventory{}
+	packages := []*extractor.Package{}
 	for _, res := range parsedResults.Results {
 		for _, pkg := range res.Packages {
-			inventory := extractor.Inventory{
+			inventory := extractor.Package{
 				Name:    pkg.Package.Name,
 				Version: pkg.Package.Version,
 				Metadata: Metadata{
@@ -63,20 +64,22 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) ([]*e
 		}
 	}
 
-	return packages, nil
+	return inventory.Inventory{
+		Packages: packages,
+	}, nil
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e Extractor) ToPURL(_ *extractor.Inventory) *purl.PackageURL {
+func (e Extractor) ToPURL(_ *extractor.Package) *purl.PackageURL {
 	// TODO: support purl conversion
 	return nil
 }
 
-// ToCPEs is not applicable as this extractor does not infer CPEs from the Inventory.
-func (e Extractor) ToCPEs(_ *extractor.Inventory) []string { return []string{} }
+// ToCPEs is not applicable as this extractor does not infer CPEs from the Package.
+func (e Extractor) ToCPEs(_ *extractor.Package) []string { return []string{} }
 
 // Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
-func (e Extractor) Ecosystem(i *extractor.Inventory) string {
+func (e Extractor) Ecosystem(i *extractor.Package) string {
 	return i.Metadata.(Metadata).Ecosystem
 }
 

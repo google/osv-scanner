@@ -41,7 +41,7 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 		Ecosystem:     pi.Ecosystem,
 		Commit:        pi.Commit,
 		ImageOrigin:   pi.ImageOrigin,
-		Inventory: &extractor.Inventory{
+		Inventory: &extractor.Package{
 			Name:      pi.Name,
 			Version:   pi.Version,
 			Extractor: pi.Extractor,

@@ -52,7 +52,7 @@ type DefaultPackageFinder struct {
 }
 
 // ExtractDependencies extracts Maven dependencies from a .jar.
-func ExtractDependencies(jar *os.File) ([]*extractor.Inventory, error) {
+func ExtractDependencies(jar *os.File) ([]*extractor.Package, error) {
 	info, err := jar.Stat()
 	if err != nil {
 		return nil, err
@@ -132,7 +132,7 @@ func openNestedJAR(jarPaths []string) (*zip.Reader, error) {
 	return zipr, nil
 }
 
-func checkNestedJARContains(inv *extractor.Inventory) ([]string, bool) {
+func checkNestedJARContains(inv *extractor.Package) ([]string, bool) {
 	metadata := inv.Metadata.(*archive.Metadata)
 	for i := len(inv.Locations) - 1; i >= 0; i-- {
 		// Find /path/root.jar/path/to/nested.jar
@@ -166,7 +166,7 @@ func checkNestedJARContains(inv *extractor.Inventory) ([]string, bool) {
 
 // extractClassMappings extracts class mappings from a .jar dependency by
 // downloading and unpacking the .jar from the relevant registry.
-func extractClassMappings(inv *extractor.Inventory, classMap map[string][]string, artifactMap map[string][]string, lock *sync.Mutex) error {
+func extractClassMappings(inv *extractor.Package, classMap map[string][]string, artifactMap map[string][]string, lock *sync.Mutex) error {
 	var reader *zip.Reader
 
 	metadata := inv.Metadata.(*archive.Metadata)
@@ -221,7 +221,7 @@ func extractClassMappings(inv *extractor.Inventory, classMap map[string][]string
 
 // NewDefaultPackageFinder creates a new DefaultPackageFinder based on a set of
 // inventory.
-func NewDefaultPackageFinder(inv []*extractor.Inventory, jarDir string) (*DefaultPackageFinder, error) {
+func NewDefaultPackageFinder(inv []*extractor.Package, jarDir string) (*DefaultPackageFinder, error) {
 	// Download pkg, unpack, and store class mappings for each detected dependency.
 	classMap := map[string][]string{}
 	artifactMap := map[string][]string{}
