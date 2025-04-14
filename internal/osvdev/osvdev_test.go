@@ -47,7 +47,7 @@ func TestOSVClient_GetVulnsByID(t *testing.T) {
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
 
-			got, err := c.GetVulnByID(context.Background(), tt.id)
+			got, err := c.GetVulnByID(t.Context(), tt.id)
 
 			if diff := cmp.Diff(tt.wantErr, err, cmpopts.EquateErrors()); diff != "" {
 				t.Fatalf("Unexpected error (-want +got):\n%s", diff)
@@ -136,7 +136,7 @@ func TestOSVClient_QueryBatch(t *testing.T) {
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
 
-			got, err := c.QueryBatch(context.Background(), tt.queries)
+			got, err := c.QueryBatch(t.Context(), tt.queries)
 
 			if diff := cmp.Diff(tt.wantErr, err, cmpopts.EquateErrors()); diff != "" {
 				t.Fatalf("Unexpected error (-want +got):\n%s", diff)
@@ -203,7 +203,7 @@ func TestOSVClient_QueryBatchDeadline(t *testing.T) {
 
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
-			ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Second*1))
+			ctx, cancel := context.WithDeadline(t.Context(), time.Now().Add(time.Second*1))
 
 			got, err := c.QueryBatch(ctx, tt.queries)
 			cancel()
@@ -294,7 +294,7 @@ func TestOSVClient_Query(t *testing.T) {
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
 
-			got, err := c.Query(context.Background(), &tt.query)
+			got, err := c.Query(t.Context(), &tt.query)
 
 			if diff := cmp.Diff(tt.wantErr, err, cmpopts.EquateErrors()); diff != "" {
 				t.Fatalf("Unexpected error (-want +got):\n%s", diff)
@@ -345,7 +345,7 @@ func TestOSVClient_QueryDeadline(t *testing.T) {
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
 
-			ctx, cancel := context.WithDeadline(context.Background(), time.Now().Add(time.Second*1))
+			ctx, cancel := context.WithDeadline(t.Context(), time.Now().Add(time.Second*1))
 			got, err := c.Query(ctx, &tt.query)
 			cancel()
 
@@ -399,7 +399,7 @@ func TestOSVClient_ExperimentalDetermineVersion(t *testing.T) {
 			c := osvdev.DefaultClient()
 			c.Config.UserAgent = "osv-scanner-api-test"
 
-			got, err := c.ExperimentalDetermineVersion(context.Background(), &tt.query)
+			got, err := c.ExperimentalDetermineVersion(t.Context(), &tt.query)
 			if err != nil {
 				t.Fatalf("Unexpected error %v", err)
 			}

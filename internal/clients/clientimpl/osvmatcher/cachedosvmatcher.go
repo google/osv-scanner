@@ -32,7 +32,7 @@ type CachedOSVMatcher struct {
 	vulnCache sync.Map // map[osvdev.Package][]osvschema.Vulnerability
 }
 
-func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Inventory) ([][]*osvschema.Vulnerability, error) {
+func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	// populate vulnCache with missing packages
 	if err := matcher.doQueries(ctx, invs); err != nil {
 		return nil, err
@@ -60,14 +60,14 @@ func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs 
 	return results, nil
 }
 
-func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extractor.Inventory) error {
+func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extractor.Package) error {
 	var batchResp *osvdev.BatchedResponse
 	deadlineExceeded := false
 
 	var queries []*osvdev.Query
 	{
 		// determine which packages aren't already cached
-		// convert Inventory to Query for each pkgs element
+		// convert Package to Query for each pkgs element
 		toQuery := make(map[*osvdev.Query]struct{})
 		for _, inv := range invs {
 			pkgInfo := imodels.FromInventory(inv)

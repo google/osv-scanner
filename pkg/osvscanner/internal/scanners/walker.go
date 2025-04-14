@@ -24,7 +24,7 @@ import (
 //   - Any git repositories with scanGit
 //
 // TODO(V2 Models): pomExtractor is temporary until V2 Models
-func ScanDir(dir string, recursive bool, useGitIgnore bool, extractorsToUse []filesystem.Extractor) ([]*extractor.Inventory, error) {
+func ScanDir(dir string, recursive bool, useGitIgnore bool, extractorsToUse []filesystem.Extractor) ([]*extractor.Package, error) {
 	var ignoreMatcher *gitIgnoreMatcher
 	if useGitIgnore {
 		var err error
@@ -37,7 +37,7 @@ func ScanDir(dir string, recursive bool, useGitIgnore bool, extractorsToUse []fi
 
 	root := true
 
-	var scannedInventories []*extractor.Inventory
+	var scannedInventories []*extractor.Package
 
 	err := filepath.WalkDir(dir, func(path string, info os.DirEntry, err error) error {
 		if err != nil {

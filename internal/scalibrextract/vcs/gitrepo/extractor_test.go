@@ -1,7 +1,6 @@
 package gitrepo_test
 
 import (
-	"context"
 	"os"
 	"path"
 	"path/filepath"
@@ -30,7 +29,7 @@ func TestExtractor_Extract(t *testing.T) {
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/example-git/.git",
 			},
-			WantInventory: []*extractor.Inventory{
+			WantPackages: []*extractor.Package{
 				{
 					Locations: []string{"testdata/example-git/.git"},
 					SourceCode: &extractor.SourceCodeIdentifier{
@@ -44,7 +43,7 @@ func TestExtractor_Extract(t *testing.T) {
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/example-clean/.git",
 			},
-			WantInventory: nil,
+			WantPackages: nil,
 		},
 	}
 	for _, tt := range tests {
@@ -69,14 +68,14 @@ func TestExtractor_Extract(t *testing.T) {
 			scanInput := extracttest.GenerateScanInputMock(t, tt.InputConfig)
 			defer extracttest.CloseTestScanInput(t, scanInput)
 
-			got, err := extr.Extract(context.Background(), &scanInput)
+			got, err := extr.Extract(t.Context(), &scanInput)
 
 			if diff := cmp.Diff(tt.WantErr, err, cmpopts.EquateErrors()); diff != "" {
 				t.Errorf("%s.Extract(%q) error diff (-want +got):\n%s", extr.Name(), tt.InputConfig.Path, diff)
 				return
 			}
 
-			if diff := cmp.Diff(tt.WantInventory, got, cmpopts.SortSlices(extracttest.InventoryCmpLess)); diff != "" {
+			if diff := cmp.Diff(tt.WantPackages, got.Packages, cmpopts.SortSlices(extracttest.PackageCmpLess)); diff != "" {
 				t.Errorf("%s.Extract(%q) diff (-want +got):\n%s", extr.Name(), tt.InputConfig.Path, diff)
 			}
 		})

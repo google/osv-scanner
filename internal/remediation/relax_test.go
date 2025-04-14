@@ -1,7 +1,6 @@
 package remediation_test
 
 import (
-	"context"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/remediation"
@@ -36,7 +35,7 @@ func TestComputeRelaxPatches(t *testing.T) {
 			t.Parallel()
 			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath, tt.opts.ResolveOpts)
 			res.FilterVulns(tt.opts.MatchVuln)
-			p, err := remediation.ComputeRelaxPatches(context.Background(), cl, res, tt.opts)
+			p, err := remediation.ComputeRelaxPatches(t.Context(), cl, res, tt.opts)
 			if err != nil {
 				t.Fatalf("Failed to compute relaxation patches: %v", err)
 			}

@@ -16,7 +16,7 @@ import (
 // scan essentially converts ScannerActions into PackageScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.PackageScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
-	var scannedInventories []*extractor.Inventory
+	var scannedInventories []*extractor.Package
 
 	// --- Lockfiles ---
 	lockfileExtractors := scanners.BuildLockfileExtractors(accessors.DependencyClients, accessors.MavenRegistryAPIClient)
@@ -70,7 +70,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 
 	// Add on additional direct dependencies passed straight from ScannerActions:
 	for _, commit := range actions.GitCommits {
-		inv := &extractor.Inventory{
+		inv := &extractor.Package{
 			SourceCode: &extractor.SourceCodeIdentifier{Commit: commit},
 			Extractor:  ecosystemmock.Extractor{}, // Empty ecosystem
 		}

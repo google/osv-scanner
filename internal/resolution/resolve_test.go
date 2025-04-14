@@ -2,7 +2,6 @@ package resolution_test
 
 import (
 	"cmp"
-	"context"
 	"slices"
 	"testing"
 
@@ -230,7 +229,7 @@ func TestResolve(t *testing.T) {
 				m.Groups[manifest.MakeRequirementKey(m.Requirements[i])] = req.groups
 			}
 
-			res, err := resolution.Resolve(context.Background(), cl, m, tt.opts)
+			res, err := resolution.Resolve(t.Context(), cl, m, tt.opts)
 			if err != nil {
 				t.Fatalf("error resolving: %v", err)
 			}
