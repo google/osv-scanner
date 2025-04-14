@@ -22,6 +22,8 @@ func matchFile(t *testing.T, file string) {
 }
 
 func TestCommand(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name     string
 		args     []string
@@ -69,7 +71,7 @@ func TestCommand(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			
+
 			tc := testcmd.Case{
 				Name: tt.name,
 				Args: slices.Clone(tt.args),

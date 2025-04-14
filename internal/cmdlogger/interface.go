@@ -6,7 +6,7 @@ type CmdLogger interface {
 	slog.Handler
 	SendEverythingToStderr()
 	HasErrored() bool
-	SetLevel(slog.Leveler)
+	SetLevel(level slog.Leveler)
 }
 
 // SendEverythingToStderr tells the logger (if its in use) to send all logs

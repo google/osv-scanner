@@ -3,7 +3,6 @@ package cmd
 import (
 	"errors"
 	"fmt"
-	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"io"
 	"log/slog"
 	"testing"
@@ -12,6 +11,7 @@ import (
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/urfave/cli/v2"
@@ -23,7 +23,6 @@ var (
 )
 
 func Run(args []string, stdout, stderr io.Writer) int {
-
 	// --- Setup Logger ---
 	logHandler := cmdlogger.New(stdout, stderr)
 

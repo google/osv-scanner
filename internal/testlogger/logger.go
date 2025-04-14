@@ -6,11 +6,12 @@ import (
 	"bufio"
 	"bytes"
 	"context"
-	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"log/slog"
 	"runtime"
 	"strings"
 	"sync"
+
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 )
 
 // TestLogger can be set as the global logging handler before the test starts, and individual test cases can add their

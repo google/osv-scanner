@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"log/slog"
 	"os"
 	"testing"
 
 	"github.com/go-git/go-git/v5"
+	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 

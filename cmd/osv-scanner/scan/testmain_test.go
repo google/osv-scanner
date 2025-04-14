@@ -1,10 +1,10 @@
 package scan_test
 
 import (
-	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"log/slog"
 	"testing"
 
+	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
