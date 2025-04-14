@@ -912,7 +912,7 @@ func (d *Decoder) space() (diff []byte) {
 			return
 		}
 		switch b {
-		case ' ', '\r', '\t', '\n':
+		case ' ', '\r', '\n', '\t':
 			diff = append(diff, b)
 		default:
 			d.ungetc(b)
