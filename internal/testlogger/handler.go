@@ -7,7 +7,7 @@ import (
 	"bytes"
 	"context"
 	"log/slog"
-	"runtime"
+	"runtime/debug"
 	"strings"
 	"sync"
 
@@ -98,13 +98,11 @@ func New() *Handler {
 // This is safe to be used as a key, as the first pointer address must be unique
 // while this test is running, and will only be reused after the test exists and that address is garbage collected.
 //
-// Because this inspects the stack trace, if there is a very deep recursive function, this will not be able to find the
-// correct caller instance. Currently there is no solution to this.
+// This uses debug.Stack(), which will create a buffer big enough to fit the entire stack trace.
+// If there is deep recursion, this will have a significant performance cost.
 func getCallerInstance() string {
-	var buf [8192]byte
-	runtime.Stack(buf[:], false)
-	n := runtime.Stack(buf[:], false)
-	sc := bufio.NewScanner(bytes.NewReader(buf[:n]))
+	stack := debug.Stack()
+	sc := bufio.NewScanner(bytes.NewReader(stack))
 	for sc.Scan() {
 		if strings.HasPrefix(sc.Text(), "testing.tRunner(") {
 			return sc.Text()
