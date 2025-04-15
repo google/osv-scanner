@@ -246,8 +246,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	results := buildVulnerabilityResults(actions, &scanResult)
 
 	if actions.ScanLicensesSummary {
-		licenseSummary := buildLicenseSummary(&scanResult)
-		results.LicenseSummary = licenseSummary
+		results.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
 	filtered := filterResults(&results, &scanResult.ConfigManager, actions.ShowAllPackages)
@@ -372,8 +371,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
 
 	if actions.ScanLicensesSummary {
-		licenseSummary := buildLicenseSummary(&scanResult)
-		vulnerabilityResults.LicenseSummary = licenseSummary
+		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
 	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
