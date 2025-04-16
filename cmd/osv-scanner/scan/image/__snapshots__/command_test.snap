@@ -106,7 +106,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 17 packages affected by 24 known vulnerabilities (2 Critical, 3 High, 8 Medium, 2 Low, 9 Unknown) from 1 ecosystem.
+Total 17 packages affected by 25 known vulnerabilities (2 Critical, 3 High, 8 Medium, 2 Low, 10 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -130,7 +130,7 @@ Ubuntu:22.04
 | openssl        | 3.0.2-0ubuntu1.18       | No fix available |          2 | libssl3                 | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5       | No fix available |          1 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1        | No fix available |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3       | No fix available |          1 | perl-base               | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3       | No fix available |          2 | perl-base               | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2      | No fix available |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12      | No fix available |          1 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 +----------------+-------------------------+------------------+------------+-------------------------+------------------+---------------+
@@ -168,8 +168,8 @@ failed to load image from tarball with path "../../fixtures/locks-manyoci-image/
 Scanning local image tarball "../../../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 14 packages affected by 19 known vulnerabilities (1 Critical, 5 High, 8 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
-19 vulnerabilities can be fixed.
+Total 15 packages affected by 20 known vulnerabilities (1 Critical, 5 High, 8 Medium, 0 Low, 6 Unknown) from 2 ecosystems.
+20 vulnerabilities can be fixed.
 
 
 Maven
@@ -199,6 +199,7 @@ Alpine:v3.21
 | libtasn1       | 4.19.0-r2         | Fix Available |          1 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          1 | musl, musl-utils           | # 0 Layer        | alpine          |
 | openssl        | 3.3.2-r4          | Fix Available |          2 | libcrypto3, libssl3... (3) | # 0 Layer        | alpine          |
+| sqlite         | 3.47.1-r0         | Fix Available |          1 | sqlite-libs                | # 5 Layer        | eclipse-temurin |
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -2411,9 +2412,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2023-31486",
-            "UBUNTU-CVE-2023-47039"
+            "UBUNTU-CVE-2023-47039",
+            "UBUNTU-CVE-2024-56406",
+            "USN-7434-1"
           ],
-          "groups": 2
+          "groups": 3
         }
       ]
     }
