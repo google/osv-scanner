@@ -1932,23 +1932,20 @@ func EscapeText(w io.Writer, s []byte) error {
 }
 
 // escapeText writes to w the properly escaped XML equivalent of the plain text
-// data s. If escape is true, whitespace characters and quotes will be escaped.
+// data s. If escape is false, no characters will be escaped.
 func escapeText(w io.Writer, s []byte, escape bool) error {
 	var esc []byte
 	last := 0
 	for i := 0; i < len(s); {
 		r, width := utf8.DecodeRune(s[i:])
 		i += width
+		if !escape {
+			continue
+		}
 		switch r {
 		case '"':
-			if !escape {
-				continue
-			}
 			esc = escQuot
 		case '\'':
-			if !escape {
-				continue
-			}
 			esc = escApos
 		case '&':
 			esc = escAmp
@@ -1957,19 +1954,10 @@ func escapeText(w io.Writer, s []byte, escape bool) error {
 		case '>':
 			esc = escGT
 		case '\t':
-			if !escape {
-				continue
-			}
 			esc = escTab
 		case '\n':
-			if !escape {
-				continue
-			}
 			esc = escNL
 		case '\r':
-			if !escape {
-				continue
-			}
 			esc = escCR
 		default:
 			if !isInCharacterRange(r) || (r == 0xFFFD && width == 1) {
