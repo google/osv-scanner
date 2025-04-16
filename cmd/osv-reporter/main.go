@@ -37,7 +37,7 @@ func splitLastArg(args []string) []string {
 func run(args []string, stdout, stderr io.Writer) int {
 	logger := cmdlogger.New(stdout, stderr)
 
-	slog.SetDefault(slog.New(&logger))
+	slog.SetDefault(slog.New(logger))
 
 	// Allow multiple arguments to be defined by github actions by splitting the last argument
 	// by new lines.

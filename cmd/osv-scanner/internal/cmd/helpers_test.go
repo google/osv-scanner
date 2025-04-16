@@ -69,7 +69,7 @@ func Test_insertDefaultCommand(t *testing.T) {
 
 		logger := cmdlogger.New(stdout, stderr)
 
-		slog.SetDefault(slog.New(&logger))
+		slog.SetDefault(slog.New(logger))
 
 		argsActual := insertDefaultCommand(tt.originalArgs, commands, defaultCommand, stderr)
 		if !reflect.DeepEqual(argsActual, tt.wantArgs) {
