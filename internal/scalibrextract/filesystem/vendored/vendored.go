@@ -21,7 +21,7 @@ import (
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
-	"github.com/google/osv-scanner/v2/internal/osvdev"
+	"osv.dev/bindings/go/osvdev"
 )
 
 var (

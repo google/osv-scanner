@@ -16,7 +16,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
-	"github.com/google/osv-scanner/v2/internal/osvdev"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/resolution"
@@ -27,6 +26,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/term"
+	"osv.dev/bindings/go/osvdev"
 )
 
 type strategy string

@@ -13,9 +13,9 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/testing/extracttest"
 	"github.com/google/osv-scalibr/testing/fakefs"
-	"github.com/google/osv-scanner/v2/internal/osvdev"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/testutility"
+	"osv.dev/bindings/go/osvdev"
 )
 
 func TestExtractor_FileRequired(t *testing.T) {

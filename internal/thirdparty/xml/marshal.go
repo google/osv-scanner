@@ -548,7 +548,7 @@ func (p *printer) marshalValue(val reflect.Value, finfo *fieldInfo, startTemplat
 	if tinfo.xmlname != nil && start.Name.Space == "" &&
 		tinfo.xmlname.xmlns == "" && tinfo.xmlname.name == "" &&
 		len(p.tags) != 0 && p.tags[len(p.tags)-1].Space != "" {
-		start.Attr = append(start.Attr, Attr{Name{"", xmlnsPrefix}, ""})
+		start.Attr = append(start.Attr, Attr{Name{"", xmlnsPrefix}, "", ""})
 	}
 	if err := p.writeStart(&start); err != nil {
 		return err
@@ -609,7 +609,7 @@ func (p *printer) marshalAttr(start *StartElement, name Name, val reflect.Value)
 		if err != nil {
 			return err
 		}
-		start.Attr = append(start.Attr, Attr{name, string(text)})
+		start.Attr = append(start.Attr, Attr{name, string(text), ""})
 		return nil
 	}
 
@@ -620,7 +620,7 @@ func (p *printer) marshalAttr(start *StartElement, name Name, val reflect.Value)
 			if err != nil {
 				return err
 			}
-			start.Attr = append(start.Attr, Attr{name, string(text)})
+			start.Attr = append(start.Attr, Attr{name, string(text), ""})
 			return nil
 		}
 	}
@@ -657,7 +657,7 @@ func (p *printer) marshalAttr(start *StartElement, name Name, val reflect.Value)
 	if b != nil {
 		s = string(b)
 	}
-	start.Attr = append(start.Attr, Attr{name, s})
+	start.Attr = append(start.Attr, Attr{name, s, ""})
 	return nil
 }
 
@@ -741,7 +741,13 @@ func (p *printer) writeStart(start *StartElement) error {
 		if name.Local == "" {
 			continue
 		}
-		p.WriteByte(' ')
+
+		if attr.Diff == "" {
+			p.WriteByte(' ')
+		} else {
+			p.WriteString(attr.Diff)
+		}
+
 		if name.Space != "" {
 			p.WriteString(p.createAttrPrefix(name.Space))
 			p.WriteByte(':')
@@ -752,9 +758,7 @@ func (p *printer) writeStart(start *StartElement) error {
 		p.WriteByte('"')
 	}
 
-	if start.Space {
-		p.WriteByte(' ')
-	}
+	p.WriteString(start.Diff)
 	if start.Empty {
 		p.WriteByte('/')
 	}
