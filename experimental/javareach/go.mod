@@ -5,8 +5,8 @@ go 1.24.0
 toolchain go1.24.2
 
 require (
-	github.com/google/osv-scalibr v0.1.9-0.20250411003828-a50b99d3db30
-	golang.org/x/sync v0.12.0
+	github.com/google/osv-scalibr 44572c8bff01
+	golang.org/x/sync v0.13.0
 )
 
 require (
