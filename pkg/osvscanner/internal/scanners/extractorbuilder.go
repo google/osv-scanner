@@ -45,11 +45,6 @@ import (
 	"osv.dev/bindings/go/osvdev"
 )
 
-var sbomExtractors = []filesystem.Extractor{
-	spdx.Extractor{},
-	cdx.Extractor{},
-}
-
 var lockfileExtractors = []filesystem.Extractor{
 	// C
 	conanlock.Extractor{},
@@ -118,7 +113,10 @@ func Build(
 	case "lockfile":
 		return buildLockfileExtractors(dependencyClients, mavenAPIClient)
 	case "sbom":
-		return buildSBOMExtractors()
+		return []filesystem.Extractor{
+			spdx.Extractor{},
+			cdx.Extractor{},
+		}
 	case "walker":
 		return buildWalkerExtractors(includeGitRoot, osvdevClient, dependencyClients, mavenAPIClient)
 	case "artifact":
@@ -145,11 +143,6 @@ func buildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolve.C
 	return extractorsToUse
 }
 
-// buildSBOMExtractors returns extractors relevant to SBOM extraction
-func buildSBOMExtractors() []filesystem.Extractor {
-	return sbomExtractors
-}
-
 // buildWalkerExtractors returns all relevant extractors for directory scanning given the required clients
 // All clients can be nil, and if nil the extractors requiring those clients will not be returned.
 func buildWalkerExtractors(
@@ -164,8 +157,17 @@ func buildWalkerExtractors(
 			IncludeRootGit: includeRootGit,
 		})
 	}
-	relevantExtractors = append(relevantExtractors, lockfileExtractors...)
-	relevantExtractors = append(relevantExtractors, sbomExtractors...)
+	for _, preset := range []string{"lockfile", "sbom"} {
+		relevantExtractors = append(relevantExtractors,
+			Build(
+				preset,
+				includeRootGit,
+				osvdevClient,
+				dependencyClients,
+				mavenAPIClient,
+			)...,
+		)
+	}
 
 	if osvdevClient != nil {
 		relevantExtractors = append(relevantExtractors, vendored.Extractor{
@@ -173,15 +175,6 @@ func buildWalkerExtractors(
 			ScanGitDir: !includeRootGit,
 			OSVClient:  osvdevClient,
 		})
-	}
-
-	if dependencyClients[osvschema.EcosystemMaven] != nil && mavenAPIClient != nil {
-		relevantExtractors = append(relevantExtractors, pomxmlnet.New(pomxmlnet.Config{
-			DependencyClient:       dependencyClients[osvschema.EcosystemMaven],
-			MavenRegistryAPIClient: mavenAPIClient,
-		}))
-	} else {
-		relevantExtractors = append(relevantExtractors, pomxml.Extractor{})
 	}
 
 	return relevantExtractors
