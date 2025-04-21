@@ -313,7 +313,13 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
-		FilesystemExtractors: scanners.BuildArtifactExtractors(),
+		FilesystemExtractors: scanners.Build(
+			"artifact",
+			actions.IncludeGitRoot,
+			accessors.OSVDevClient,
+			accessors.DependencyClients,
+			accessors.MavenRegistryAPIClient,
+		),
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
