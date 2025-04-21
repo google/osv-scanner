@@ -106,9 +106,31 @@ var lockfileExtractors = []filesystem.Extractor{
 	// packageresolved.Extractor{},
 }
 
-// BuildLockfileExtractors returns all relevant extractors for lockfile scanning given the required clients
+// Build returns all relevant extractors for the given preset
+func Build(
+	preset string,
+	includeGitRoot bool,
+	osvdevClient *osvdev.OSVClient,
+	dependencyClients map[osvschema.Ecosystem]resolve.Client,
+	mavenAPIClient *datasource.MavenRegistryAPIClient,
+) []filesystem.Extractor {
+	switch preset {
+	case "lockfile":
+		return buildLockfileExtractors(dependencyClients, mavenAPIClient)
+	case "sbom":
+		return buildSBOMExtractors()
+	case "walker":
+		return buildWalkerExtractors(includeGitRoot, osvdevClient, dependencyClients, mavenAPIClient)
+	case "artifact":
+		return buildArtifactExtractors()
+	}
+
+	return nil
+}
+
+// buildLockfileExtractors returns all relevant extractors for lockfile scanning given the required clients
 // All clients can be nil, and if nil the extractors requiring those clients will not be returned.
-func BuildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolve.Client, mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
+func buildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolve.Client, mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
 	extractorsToUse := lockfileExtractors
 
 	if dependencyClients[osvschema.EcosystemMaven] != nil && mavenAPIClient != nil {
@@ -123,14 +145,14 @@ func BuildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolve.C
 	return extractorsToUse
 }
 
-// BuildSBOMExtractors returns extractors relevant to SBOM extraction
-func BuildSBOMExtractors() []filesystem.Extractor {
+// buildSBOMExtractors returns extractors relevant to SBOM extraction
+func buildSBOMExtractors() []filesystem.Extractor {
 	return sbomExtractors
 }
 
-// BuildWalkerExtractors returns all relevant extractors for directory scanning given the required clients
+// buildWalkerExtractors returns all relevant extractors for directory scanning given the required clients
 // All clients can be nil, and if nil the extractors requiring those clients will not be returned.
-func BuildWalkerExtractors(
+func buildWalkerExtractors(
 	includeRootGit bool,
 	osvdevClient *osvdev.OSVClient,
 	dependencyClients map[osvschema.Ecosystem]resolve.Client,
@@ -165,9 +187,9 @@ func BuildWalkerExtractors(
 	return relevantExtractors
 }
 
-// BuildArtifactExtractors returns all relevant extractors for artifact scanning given the required clients
+// buildArtifactExtractors returns all relevant extractors for artifact scanning given the required clients
 // All clients can be nil, and if nil the extractors requiring those clients will not be returned.
-func BuildArtifactExtractors() []filesystem.Extractor {
+func buildArtifactExtractors() []filesystem.Extractor {
 	extractorsToUse := []filesystem.Extractor{
 		// --- Project artifacts ---
 		// Python

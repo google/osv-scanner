@@ -19,7 +19,13 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	var scannedInventories []*extractor.Package
 
 	// --- Lockfiles ---
-	lockfileExtractors := scanners.BuildLockfileExtractors(accessors.DependencyClients, accessors.MavenRegistryAPIClient)
+	lockfileExtractors := scanners.Build(
+		"lockfile",
+		actions.IncludeGitRoot,
+		accessors.OSVDevClient,
+		accessors.DependencyClients,
+		accessors.MavenRegistryAPIClient,
+	)
 	for _, lockfileElem := range actions.LockfilePaths {
 		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
 		if err != nil {
@@ -30,7 +36,13 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	// --- SBOMs ---
-	sbomExtractors := scanners.BuildSBOMExtractors()
+	sbomExtractors := scanners.Build(
+		"sbom",
+		actions.IncludeGitRoot,
+		accessors.OSVDevClient,
+		accessors.DependencyClients,
+		accessors.MavenRegistryAPIClient,
+	)
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
 		if err != nil {
@@ -53,7 +65,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	// --- Directories ---
-	dirExtractors := scanners.BuildWalkerExtractors(
+	dirExtractors := scanners.Build("walker",
 		actions.IncludeGitRoot,
 		accessors.OSVDevClient,
 		accessors.DependencyClients,
