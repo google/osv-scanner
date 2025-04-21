@@ -45,60 +45,118 @@ import (
 	"osv.dev/bindings/go/osvdev"
 )
 
-var lockfileExtractors = []filesystem.Extractor{
+func build(name string) filesystem.Extractor {
+	switch name {
+	// Alpine
+	case apk.Name:
+		return apk.NewDefault()
+
 	// C
-	conanlock.Extractor{},
+	case conanlock.Name:
+		return conanlock.New()
+
+	// Debian
+	case dpkg.Name:
+		return dpkg.NewDefault()
 
 	// Erlang
-	mixlock.Extractor{},
+	case mixlock.Name:
+		return mixlock.New()
 
 	// Flutter
-	pubspec.Extractor{},
+	case pubspec.Name:
+		return pubspec.New()
 
 	// Go
-	gomod.Extractor{},
-
-	// Java
-	gradlelockfile.Extractor{},
-	gradleverificationmetadataxml.Extractor{},
-
-	// Javascript
-	packagelockjson.Extractor{},
-	pnpmlock.Extractor{},
-	yarnlock.Extractor{},
-	bunlock.Extractor{},
-
-	// PHP
-	composerlock.Extractor{},
-
-	// Python
-	pipfilelock.Extractor{},
-	pdmlock.Extractor{},
-	poetrylock.Extractor{},
-	requirements.Extractor{},
-	uvlock.Extractor{},
-
-	// R
-	renvlock.Extractor{},
-
-	// Ruby
-	gemfilelock.Extractor{},
-
-	// Rust
-	cargolock.Extractor{},
-
-	// NuGet
-	depsjson.Extractor{},
-	packagesconfig.Extractor{},
-	packageslockjson.Extractor{},
+	case gomod.Name:
+		return gomod.New()
+	case gobinary.Name:
+		return gobinary.NewDefault()
 
 	// Haskell
-	cabal.Extractor{},
-	stacklock.Extractor{},
-	// TODO: map the extracted packages to SwiftURL in OSV.dev
-	// The extracted package names do not match the package names of SwiftURL in OSV.dev,
-	// so we need to find a workaround to map the names.
-	// packageresolved.Extractor{},
+	case cabal.Name:
+		return cabal.NewDefault()
+	case stacklock.Name:
+		return stacklock.NewDefault()
+
+	// Java
+	case gradlelockfile.Name:
+		return gradlelockfile.New()
+	case gradleverificationmetadataxml.Name:
+		return gradleverificationmetadataxml.New()
+	case archive.Name:
+		return archive.NewDefault()
+
+	// Javascript
+	case packagelockjson.Name:
+		return packagelockjson.NewDefault()
+	case pnpmlock.Name:
+		return pnpmlock.New()
+	case yarnlock.Name:
+		return yarnlock.New()
+	case bunlock.Name:
+		return bunlock.New()
+	case nodemodules.Name:
+		return nodemodules.Extractor{}
+
+	// NuGet
+	case depsjson.Name:
+		return depsjson.NewDefault()
+	case packagesconfig.Name:
+		return packagesconfig.NewDefault()
+	case packageslockjson.Name:
+		return packageslockjson.NewDefault()
+
+	// PHP
+	case composerlock.Name:
+		return composerlock.New()
+
+	// Python
+	case pipfilelock.Name:
+		return pipfilelock.New()
+	case pdmlock.Name:
+		return pdmlock.New()
+	case poetrylock.Name:
+		return poetrylock.New()
+	case requirements.Name:
+		return requirements.NewDefault()
+	case uvlock.Name:
+		return uvlock.New()
+	case wheelegg.Name:
+		return wheelegg.NewDefault()
+
+	// R
+	case renvlock.Name:
+		return renvlock.New()
+
+	// Ruby
+	case gemfilelock.Name:
+		return gemfilelock.New()
+
+	// Rust
+	case cargolock.Name:
+		return cargolock.New()
+	case cargoauditable.Name:
+		return cargoauditable.NewDefault()
+
+	// SBOM
+	case spdx.Name:
+		return spdx.New()
+	case cdx.Name:
+		return cdx.New()
+	}
+
+	return nil
+}
+
+func buildAll(names []string) []filesystem.Extractor {
+	extractors := make([]filesystem.Extractor, 0, len(names))
+
+	for _, name := range names {
+		extractors = append(extractors, build(name))
+	}
+
+	return extractors
 }
 
 // Build returns all relevant extractors for the given preset
@@ -113,14 +171,30 @@ func Build(
 	case "lockfile":
 		return buildLockfileExtractors(dependencyClients, mavenAPIClient)
 	case "sbom":
-		return []filesystem.Extractor{
-			spdx.Extractor{},
-			cdx.Extractor{},
-		}
+		return buildAll([]string{spdx.Name, cdx.Name})
 	case "walker":
 		return buildWalkerExtractors(includeGitRoot, osvdevClient, dependencyClients, mavenAPIClient)
 	case "artifact":
-		return buildArtifactExtractors()
+		return buildAll([]string{
+			// --- Project artifacts ---
+			// Python
+			wheelegg.Name,
+			// Java
+			archive.Name,
+			// Go
+			gobinary.Name,
+			// Javascript
+			"javascript/nodemodules",
+			// Rust
+			cargoauditable.Name,
+
+			// --- OS packages ---
+			// Alpine
+			apk.Name,
+			// Debian
+			// TODO: Add tests for debian containers
+			dpkg.Name,
+		})
 	}
 
 	return nil
@@ -129,7 +203,61 @@ func Build(
 // buildLockfileExtractors returns all relevant extractors for lockfile scanning given the required clients
 // All clients can be nil, and if nil the extractors requiring those clients will not be returned.
 func buildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolve.Client, mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
-	extractorsToUse := lockfileExtractors
+	extractorsToUse := BuildAll([]string{
+		// C
+		conanlock.Name,
+
+		// Erlang
+		mixlock.Name,
+
+		// Flutter
+		pubspec.Name,
+
+		// Go
+		gomod.Name,
+
+		// Java
+		gradlelockfile.Name,
+		gradleverificationmetadataxml.Name,
+
+		// Javascript
+		packagelockjson.Name,
+		pnpmlock.Name,
+		yarnlock.Name,
+		bunlock.Name,
+
+		// PHP
+		composerlock.Name,
+
+		// Python
+		pipfilelock.Name,
+		pdmlock.Name,
+		poetrylock.Name,
+		requirements.Name,
+		uvlock.Name,
+
+		// R
+		renvlock.Name,
+
+		// Ruby
+		gemfilelock.Name,
+
+		// Rust
+		cargolock.Name,
+
+		// NuGet
+		depsjson.Name,
+		packagesconfig.Name,
+		packageslockjson.Name,
+
+		// Haskell
+		cabal.Name,
+		stacklock.Name,
+		// TODO: map the extracted packages to SwiftURL in OSV.dev
+		// The extracted package names do not match the package names of SwiftURL in OSV.dev,
+		// so we need to find a workaround to map the names.
+		// packageresolved.Extractor{},
+	})
 
 	if dependencyClients[osvschema.EcosystemMaven] != nil && mavenAPIClient != nil {
 		extractorsToUse = append(extractorsToUse, pomxmlnet.New(pomxmlnet.Config{
@@ -178,31 +306,4 @@ func buildWalkerExtractors(
 	}
 
 	return relevantExtractors
-}
-
-// buildArtifactExtractors returns all relevant extractors for artifact scanning given the required clients
-// All clients can be nil, and if nil the extractors requiring those clients will not be returned.
-func buildArtifactExtractors() []filesystem.Extractor {
-	extractorsToUse := []filesystem.Extractor{
-		// --- Project artifacts ---
-		// Python
-		wheelegg.New(wheelegg.DefaultConfig()),
-		// Java
-		archive.New(archive.DefaultConfig()),
-		// Go
-		gobinary.New(gobinary.DefaultConfig()),
-		// Javascript
-		nodemodules.Extractor{},
-		// Rust
-		cargoauditable.NewDefault(),
-
-		// --- OS packages ---
-		// Alpine
-		apk.New(apk.DefaultConfig()),
-		// Debian
-		// TODO: Add tests for debian containers
-		dpkg.New(dpkg.DefaultConfig()),
-	}
-
-	return extractorsToUse
 }
