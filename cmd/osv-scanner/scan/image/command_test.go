@@ -11,6 +11,40 @@ import (
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
+func TestCommand_ExplicitExtractors(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "extractors_cancelled_out",
+			Args: []string{
+				"", "image",
+				"--experimental-extractors=sbom/spdx",
+				"--experimental-extractors=sbom/cdx",
+				"--experimental-no-extractors=sbom",
+				"alpine:non-existent-tag",
+			},
+			Exit: 127,
+		},
+		{
+			Name: "extractors_cancelled_out_with_presets",
+			Args: []string{
+				"", "image",
+				"--experimental-extractors=sbom",
+				"--experimental-no-extractors=sbom",
+				"alpine:non-existent-tag",
+			},
+			Exit: 127,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
 func TestCommand_Docker(t *testing.T) {
 	t.Parallel()
 
@@ -41,6 +75,14 @@ func TestCommand_Docker(t *testing.T) {
 			Name: "Real Alpine image",
 			Args: []string{"", "image", "alpine:3.18.9"},
 			Exit: 1,
+		},
+		{
+			// this will result in an error about not being able to find any package sources
+			// since we've requested the os/apk extractor disabled, and there's nothing else
+			// in the image that we support extracting
+			Name: "real_alpine_image_without_apk_extractor_enabled",
+			Args: []string{"", "image", "--experimental-no-extractors=os/apk", "alpine:3.18.9"},
+			Exit: 128,
 		},
 	}
 	for _, tt := range tests {
