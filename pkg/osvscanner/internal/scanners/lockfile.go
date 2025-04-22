@@ -21,8 +21,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/stacklock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/bunlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/pnpmlock"
@@ -40,6 +38,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 )
 
@@ -48,7 +47,7 @@ var lockfileExtractorMapping = map[string][]string{
 	"pnpm-lock.yaml":              {pnpmlock.Name},
 	"yarn.lock":                   {yarnlock.Name},
 	"package-lock.json":           {packagelockjson.Name},
-	"pom.xml":                     {pomxmlnet.Name, pomxml.Name},
+	"pom.xml":                     {pomxmlenhanceable.Name},
 	"buildscript-gradle.lockfile": {gradlelockfile.Name},
 	"gradle.lockfile":             {gradlelockfile.Name},
 	"verification-metadata.xml":   {gradleverificationmetadataxml.Name},
