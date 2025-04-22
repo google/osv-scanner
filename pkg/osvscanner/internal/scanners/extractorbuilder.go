@@ -1,8 +1,6 @@
 package scanners
 
 import (
-	"deps.dev/util/resolve"
-	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
@@ -17,8 +15,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/bunlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/pnpmlock"
@@ -40,7 +36,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 func build(name string) filesystem.Extractor {
@@ -150,10 +145,6 @@ func build(name string) filesystem.Extractor {
 }
 
 func BuildAll(names []string) []filesystem.Extractor {
-	return buildAll(names)
-}
-
-func buildAll(names []string) []filesystem.Extractor {
 	extractors := make([]filesystem.Extractor, 0, len(names))
 
 	for _, name := range names {
@@ -161,76 +152,4 @@ func buildAll(names []string) []filesystem.Extractor {
 	}
 
 	return extractors
-}
-
-// buildLockfileExtractors returns all relevant extractors for lockfile scanning given the required clients
-// All clients can be nil, and if nil the extractors requiring those clients will not be returned.
-func buildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolve.Client, mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
-	extractorsToUse := BuildAll([]string{
-		// C
-		conanlock.Name,
-
-		// Erlang
-		mixlock.Name,
-
-		// Flutter
-		pubspec.Name,
-
-		// Go
-		gomod.Name,
-
-		// Java
-		gradlelockfile.Name,
-		gradleverificationmetadataxml.Name,
-		pomxmlenhanceable.Name,
-
-		// Javascript
-		packagelockjson.Name,
-		pnpmlock.Name,
-		yarnlock.Name,
-		bunlock.Name,
-
-		// PHP
-		composerlock.Name,
-
-		// Python
-		pipfilelock.Name,
-		pdmlock.Name,
-		poetrylock.Name,
-		requirements.Name,
-		uvlock.Name,
-
-		// R
-		renvlock.Name,
-
-		// Ruby
-		gemfilelock.Name,
-
-		// Rust
-		cargolock.Name,
-
-		// NuGet
-		depsjson.Name,
-		packagesconfig.Name,
-		packageslockjson.Name,
-
-		// Haskell
-		cabal.Name,
-		stacklock.Name,
-		// TODO: map the extracted packages to SwiftURL in OSV.dev
-		// The extracted package names do not match the package names of SwiftURL in OSV.dev,
-		// so we need to find a workaround to map the names.
-		// packageresolved.Extractor{},
-	})
-
-	if dependencyClients[osvschema.EcosystemMaven] != nil && mavenAPIClient != nil {
-		extractorsToUse = append(extractorsToUse, pomxmlnet.New(pomxmlnet.Config{
-			DependencyClient:       dependencyClients[osvschema.EcosystemMaven],
-			MavenRegistryAPIClient: mavenAPIClient,
-		}))
-	} else {
-		extractorsToUse = append(extractorsToUse, pomxml.Extractor{})
-	}
-
-	return extractorsToUse
 }
