@@ -330,16 +330,12 @@ Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-insecure/composer.lock file and found 1 package
 Scanning dir ./fixtures/maven-transitive
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/maven-transitive/pom.xml file and found 3 packages
 Filtered 1 local/unscannable package/s from the scan.
 Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
 Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
 Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
-Package Maven/org.apache.logging.log4j:log4j-api/2.14.1 has been filtered out because: it makes the table output really really long
-Package Maven/org.apache.logging.log4j:log4j-core/2.14.1 has been filtered out because: it makes the table output really really long
-Package Maven/org.apache.logging.log4j:log4j-web/2.14.1 has been filtered out because: it makes the table output really really long
-Filtered 7 ignored package/s from the scan.
+Filtered 4 ignored package/s from the scan.
 overriding license for package Alpine/alpine-baselayout/3.4.0-r0 with MIT
 overriding license for package Alpine/alpine-baselayout-data/3.4.0-r0 with MIT
 overriding license for package Alpine/alpine-keys/2.4-r1 with MIT
@@ -3012,109 +3008,67 @@ Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-insecure/composer.lock 
 
 [TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 1]
 Scanning dir ./fixtures/maven-transitive/pom.xml
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/maven-transitive/pom.xml file and found 1 package
-No issues found
 
 ---
 
 [TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 2]
+No package sources found, --help for usage information.
 
 ---
 
 [TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 1]
 Scanning dir ./fixtures/maven-transitive/pom.xml
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/maven-transitive/pom.xml file and found 1 package
-Loaded Maven local db from <tempdir>/osv-scanner/Maven/all.zip
-No issues found
 
 ---
 
 [TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 2]
+No package sources found, --help for usage information.
 
 ---
 
 [TestCommand_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 1]
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
 
 ---
 
 [TestCommand_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 2]
+could not determine extractor, requested pom.xml
 
 ---
 
 [TestCommand_MavenTransitive/scans_dependencies_from_multiple_registries - 1]
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
 
 ---
 
 [TestCommand_MavenTransitive/scans_dependencies_from_multiple_registries - 2]
+could not determine extractor, requested pom.xml
 
 ---
 
 [TestCommand_MavenTransitive/scans_pom.xml_with_non_UTF-8_encoding - 1]
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/maven-transitive/encoding.xml file as a pom.xml and found 2 packages
-+-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE     | VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
-| https://osv.dev/GHSA-269g-pwp5-87pp | 4.4  | Maven     | junit:junit | 4.12    | fixtures/maven-transitive/encoding.xml |
-+-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
 
 ---
 
 [TestCommand_MavenTransitive/scans_pom.xml_with_non_UTF-8_encoding - 2]
+could not determine extractor, requested pom.xml
 
 ---
 
 [TestCommand_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/maven-transitive/abc.xml file as a pom.xml and found 3 packages
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
 
 ---
 
 [TestCommand_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 2]
+could not determine extractor, requested pom.xml
 
 ---
 
 [TestCommand_MavenTransitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
 Scanning dir ./fixtures/maven-transitive/pom.xml
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/maven-transitive/pom.xml file and found 3 packages
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
 
 ---
 
 [TestCommand_MavenTransitive/scans_transitive_dependencies_for_pom.xml_by_default - 2]
+No package sources found, --help for usage information.
 
 ---
 
