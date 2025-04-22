@@ -8,33 +8,7 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packagesconfig"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/cabal"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/stacklock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/bunlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/pnpmlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/yarnlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pdmlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/uvlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
-	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
-	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
@@ -51,62 +25,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	var scannedInventories []*extractor.Package
 
 	// --- Lockfiles ---
-	lockfileExtractors := scanners.BuildAll([]string{
-		// C
-		conanlock.Name,
-
-		// Erlang
-		mixlock.Name,
-
-		// Flutter
-		pubspec.Name,
-
-		// Go
-		gomod.Name,
-
-		// Java
-		gradlelockfile.Name,
-		gradleverificationmetadataxml.Name,
-		pomxmlenhanceable.Name,
-
-		// Javascript
-		packagelockjson.Name,
-		pnpmlock.Name,
-		yarnlock.Name,
-		bunlock.Name,
-
-		// PHP
-		composerlock.Name,
-
-		// Python
-		pipfilelock.Name,
-		pdmlock.Name,
-		poetrylock.Name,
-		requirements.Name,
-		uvlock.Name,
-
-		// R
-		renvlock.Name,
-
-		// Ruby
-		gemfilelock.Name,
-
-		// Rust
-		cargolock.Name,
-
-		// NuGet
-		depsjson.Name,
-		packagesconfig.Name,
-		packageslockjson.Name,
-
-		// Haskell
-		cabal.Name,
-		stacklock.Name,
-		// TODO: map the extracted packages to SwiftURL in OSV.dev
-		// The extracted package names do not match the package names of SwiftURL in OSV.dev,
-		// so we need to find a workaround to map the names.
-		// packageresolved.Extractor{},
-	})
+	lockfileExtractors := scanners.BuildAll(scalibrextract.ExtractorsLockfiles)
 
 	if accessors.DependencyClients[osvschema.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
 		for _, tor := range lockfileExtractors {
@@ -126,7 +45,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	// --- SBOMs ---
-	sbomExtractors := scanners.BuildAll([]string{spdx.Name, cdx.Name})
+	sbomExtractors := scanners.BuildAll(scalibrextract.ExtractorsSBOMs)
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
 		if err != nil {
