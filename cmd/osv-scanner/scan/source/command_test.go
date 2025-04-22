@@ -481,7 +481,7 @@ func TestCommand_LocalDatabases(t *testing.T) {
 				testDir := testutility.CreateTestDir(t)
 				old := tt.Args
 				tt.Args = []string{"", "scan", "source", "--local-db-path", testDir}
-				tt.Args = append(tt.Args, old[1:]...)
+				tt.Args = append(tt.Args, old[3:]...)
 			}
 
 			// run each test twice since they should provide the same output,
@@ -509,7 +509,7 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 			testDir := testutility.CreateTestDir(t)
 			old := tt.Args
 			tt.Args = []string{"", "scan", "source", "--local-db-path", testDir}
-			tt.Args = append(tt.Args, old[1:]...)
+			tt.Args = append(tt.Args, old[3:]...)
 
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available

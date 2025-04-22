@@ -2623,26 +2623,54 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 1]
-Scanning dir scan
-Failed to walk scan: lstat scan: no such file or directory
+Scanning dir ./fixtures/locks-requirements
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/my-requirements.txt file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.txt file and found 3 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/yarn.lock file and found 1 package
+Filtered 1 local/unscannable package/s from the scan.
 
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 2]
-Unable to parse git ignores: stat scan: no such file or directory
-lstat scan: no such file or directory
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 3]
-Scanning dir scan
-Failed to walk scan: lstat scan: no such file or directory
+Scanning dir ./fixtures/locks-requirements
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/my-requirements.txt file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.txt file and found 3 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/yarn.lock file and found 1 package
+Filtered 1 local/unscannable package/s from the scan.
 
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 4]
-Unable to parse git ignores: stat scan: no such file or directory
-lstat scan: no such file or directory
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 
 ---
 
