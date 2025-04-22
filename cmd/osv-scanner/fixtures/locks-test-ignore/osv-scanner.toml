@@ -1,3 +1,0 @@
-[[IgnoredVulns]]
-id = "CVE-2021-23424"
-reason = "Test manifest file (alpine.cdx.xml)"
