@@ -58,7 +58,7 @@ func (g *allowedLicencesFlag) String() string {
 	return strings.Join(g.allowlist, ",")
 }
 
-func GetScanGlobalFlags() []cli.Flag {
+func GetScanGlobalFlags(defaultExtractors []string) []cli.Flag {
 	return []cli.Flag{
 		&cli.StringFlag{
 			Name:      "config",
@@ -167,6 +167,15 @@ func GetScanGlobalFlags() []cli.Flag {
 			Usage: "report on licenses based on an allowlist",
 			Value: &allowedLicencesFlag{},
 		},
+		&cli.StringSliceFlag{
+			Name:  "experimental-extractors",
+			Usage: "list of specific extractors and ExtractorPresets of extractors to use",
+			Value: cli.NewStringSlice(defaultExtractors...),
+		},
+		&cli.StringSliceFlag{
+			Name:  "experimental-no-extractors",
+			Usage: "list of specific extractors and ExtractorPresets of extractors to not use",
+		},
 	}
 }
 
@@ -246,5 +255,9 @@ func GetExperimentalScannerActions(context *cli.Context, scanLicensesAllowlist [
 		ShowAllPackages:       context.Bool("all-packages"),
 		ScanLicensesSummary:   context.IsSet("licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,
+		ExtractorNames: ResolveEnabledExtractors(
+			context.StringSlice("experimental-extractors"),
+			context.StringSlice("experimental-no-extractors"),
+		),
 	}
 }
