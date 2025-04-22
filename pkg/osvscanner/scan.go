@@ -24,6 +24,10 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
 
+	if len(actions.ExtractorNames) == 0 {
+		actions.ExtractorNames = scalibrextract.ExtractorsLockfiles
+	}
+
 	extractors := scanners.BuildAll(actions.ExtractorNames)
 
 	// --- Lockfiles ---
