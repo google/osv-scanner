@@ -106,7 +106,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 17 packages affected by 25 known vulnerabilities (2 Critical, 3 High, 8 Medium, 2 Low, 10 Unknown) from 1 ecosystem.
+Total 17 packages affected by 26 known vulnerabilities (2 Critical, 3 High, 9 Medium, 2 Low, 10 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -121,7 +121,7 @@ Ubuntu:22.04
 | glibc          | 2.35-0ubuntu3.8         | No fix available |          2 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1       | No fix available |          2 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5        | No fix available |          1 | libgnutls30             | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4       | No fix available |          1 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4       | No fix available |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1 | No fix available |          1 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3          | No fix available |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1          | No fix available |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
@@ -2037,10 +2037,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
+            "UBUNTU-CVE-2025-3576",
             "USN-7257-1",
             "USN-7314-1"
           ],
-          "groups": 2
+          "groups": 3
         },
         {
           "package": {
@@ -2057,10 +2058,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
+            "UBUNTU-CVE-2025-3576",
             "USN-7257-1",
             "USN-7314-1"
           ],
-          "groups": 2
+          "groups": 3
         },
         {
           "package": {
@@ -2077,10 +2079,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
+            "UBUNTU-CVE-2025-3576",
             "USN-7257-1",
             "USN-7314-1"
           ],
-          "groups": 2
+          "groups": 3
         },
         {
           "package": {
@@ -2097,10 +2100,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
+            "UBUNTU-CVE-2025-3576",
             "USN-7257-1",
             "USN-7314-1"
           ],
-          "groups": 2
+          "groups": 3
         },
         {
           "package": {
