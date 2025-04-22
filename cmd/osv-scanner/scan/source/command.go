@@ -70,15 +70,11 @@ var projectScanFlags = []cli.Flag{
 }
 
 func Command(stdout, stderr io.Writer) *cli.Command {
-	flags := make([]cli.Flag, 0, len(projectScanFlags)+len(helper.GetScanGlobalFlags()))
-	flags = append(flags, projectScanFlags...)
-	flags = append(flags, helper.GetScanGlobalFlags()...)
-
 	return &cli.Command{
 		Name:        "source",
 		Usage:       "scans a source project's dependencies for known vulnerabilities using the OSV database.",
 		Description: "scans a source project's dependencies for known vulnerabilities using the OSV database.",
-		Flags:       flags,
+		Flags:       append(projectScanFlags, helper.GetScanGlobalFlags()...),
 		ArgsUsage:   "[directory1 directory2...]",
 		Action: func(c *cli.Context) error {
 			return action(c, stdout, stderr)
