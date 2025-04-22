@@ -29,6 +29,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
@@ -313,6 +314,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}()
 
 	// --- Do Scalibr Scan ---
+	if len(actions.ExtractorNames) == 0 {
+		actions.ExtractorNames = scalibrextract.ExtractorsArtifacts
+	}
+
 	extractors := scanners.BuildAll(actions.ExtractorNames)
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
