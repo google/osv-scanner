@@ -1,0 +1,20 @@
+[[PackageOverrides]]
+ecosystem = "npm"
+ignore = true
+
+[[PackageOverrides]]
+name = "https://github.com/brendan-duncan/archive.git"
+vulnerability.ignore = true
+
+[[PackageOverrides]]
+ecosystem = "Maven"
+ignore = true
+reason = "it makes the table output really really long"
+
+[[PackageOverrides]]
+ecosystem = "Packagist"
+license.override = ["0BSD"]
+
+[[PackageOverrides]]
+ecosystem = "Alpine"
+license.override = ["MIT"]

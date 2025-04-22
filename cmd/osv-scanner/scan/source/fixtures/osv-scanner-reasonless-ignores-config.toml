@@ -1,0 +1,6 @@
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"
+
+[[PackageOverrides]]
+ecosystem = "Packagist"
+ignore = true

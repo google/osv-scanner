@@ -1,0 +1,38 @@
+{
+  "results": [
+    {
+      "packageSource": {
+        "path": "/path/to/engine/DEPS",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "https://github.com/flutter/buildroot.git",
+            "commit": "5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6"
+          }
+        },
+        {
+          "package": {
+            "name": "https://github.com/brendan-duncan/archive.git",
+            "commit": "9de7a0544457c6aba755ccb65abb41b0dc1db70d"
+          }
+        }
+      ]
+    },
+    {
+      "packageSource": {
+        "path": "/path/to/engine/third_party/accessibility/README.md",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "https://chromium.googlesource.com/chromium/src",
+            "commit": "4579d5538f06c5ef615a15bc67ebb9ac0523a973"
+          }
+        }
+      ]
+    }
+  ]
+}
