@@ -26,7 +26,7 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 				Name:  "archive",
 				Usage: "input a local archive image (e.g. a tar file)",
 			},
-		}, helper.GetScanGlobalFlags()...),
+		}, helper.GetScanGlobalFlags([]string{"artifact"})...),
 		ArgsUsage: "[image imageNameWithTag]",
 		Action: func(ctx context.Context, cmd *cli.Command) error {
 			return action(ctx, cmd, stdout, stderr)

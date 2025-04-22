@@ -24,11 +24,11 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
 
-	// --- Lockfiles ---
-	lockfileExtractors := scanners.BuildAll(scalibrextract.ExtractorsLockfiles)
+	extractors := scanners.BuildAll(actions.ExtractorNames)
 
+	// --- Lockfiles ---
 	if accessors.DependencyClients[osvschema.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
-		for _, tor := range lockfileExtractors {
+		for _, tor := range extractors {
 			pomxmlenhanceable.EnhanceIfPossible(tor, pomxmlnet.Config{
 				DependencyClient:       accessors.DependencyClients[osvschema.EcosystemMaven],
 				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
@@ -36,7 +36,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		}
 	}
 	for _, lockfileElem := range actions.LockfilePaths {
-		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
+		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, extractors)
 		if err != nil {
 			return nil, err
 		}
@@ -68,8 +68,8 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	// --- Directories ---
-	dirExtractors := make([]filesystem.Extractor, 0, len(lockfileExtractors)+len(sbomExtractors)+2)
-	dirExtractors = append(dirExtractors, lockfileExtractors...)
+	dirExtractors := make([]filesystem.Extractor, 0, len(extractors)+len(sbomExtractors)+2)
+	dirExtractors = append(dirExtractors, extractors...)
 	dirExtractors = append(dirExtractors, sbomExtractors...)
 
 	// todo: see if we can move this into scanner.build
