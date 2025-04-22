@@ -38,6 +38,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -81,6 +82,8 @@ func build(name string) filesystem.Extractor {
 		return gradlelockfile.New()
 	case gradleverificationmetadataxml.Name:
 		return gradleverificationmetadataxml.New()
+	case pomxmlenhanceable.Name:
+		return pomxmlenhanceable.New()
 	case archive.Name:
 		return archive.NewDefault()
 
@@ -179,6 +182,7 @@ func buildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolve.C
 		// Java
 		gradlelockfile.Name,
 		gradleverificationmetadataxml.Name,
+		pomxmlenhanceable.Name,
 
 		// Javascript
 		packagelockjson.Name,

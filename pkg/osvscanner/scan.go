@@ -19,6 +19,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/stacklock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/bunlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/pnpmlock"
@@ -38,8 +39,10 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // scan essentially converts ScannerActions into PackageScanResult by performing the extractions
@@ -64,6 +67,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		// Java
 		gradlelockfile.Name,
 		gradleverificationmetadataxml.Name,
+		pomxmlenhanceable.Name,
 
 		// Javascript
 		packagelockjson.Name,
@@ -103,6 +107,15 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		// so we need to find a workaround to map the names.
 		// packageresolved.Extractor{},
 	})
+
+	if accessors.DependencyClients[osvschema.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
+		for _, tor := range lockfileExtractors {
+			pomxmlenhanceable.EnhanceIfPossible(tor, pomxmlnet.Config{
+				DependencyClient:       accessors.DependencyClients[osvschema.EcosystemMaven],
+				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
+			})
+		}
+	}
 	for _, lockfileElem := range actions.LockfilePaths {
 		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
 		if err != nil {
