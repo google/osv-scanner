@@ -130,6 +130,10 @@ func action(context *cli.Context, stdout, stderr io.Writer) error {
 		ExperimentalScannerActions: experimentalScannerActions,
 	}
 
+	if len(experimentalScannerActions.ExtractorNames) == 0 {
+		return errors.New("at least one extractor must be enabled")
+	}
+
 	var vulnResult models.VulnerabilityResults
 	vulnResult, err = osvscanner.DoScan(scannerAction)
 
