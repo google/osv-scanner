@@ -19,6 +19,12 @@ import (
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
@@ -313,13 +319,26 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
-		FilesystemExtractors: scanners.Build(
-			"artifact",
-			actions.IncludeGitRoot,
-			accessors.OSVDevClient,
-			accessors.DependencyClients,
-			accessors.MavenRegistryAPIClient,
-		),
+		FilesystemExtractors: scanners.BuildAll([]string{
+			// --- Project artifacts ---
+			// Python
+			wheelegg.Name,
+			// Java
+			archive.Name,
+			// Go
+			gobinary.Name,
+			// Javascript
+			"javascript/nodemodules",
+			// Rust
+			cargoauditable.Name,
+
+			// --- OS packages ---
+			// Alpine
+			apk.Name,
+			// Debian
+			// TODO: Add tests for debian containers
+			dpkg.Name,
+		}),
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
