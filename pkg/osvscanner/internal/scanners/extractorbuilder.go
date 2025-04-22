@@ -38,11 +38,8 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
-	"osv.dev/bindings/go/osvdev"
 )
 
 func build(name string) filesystem.Extractor {
@@ -149,6 +146,10 @@ func build(name string) filesystem.Extractor {
 	return nil
 }
 
+func BuildAll(names []string) []filesystem.Extractor {
+	return buildAll(names)
+}
+
 func buildAll(names []string) []filesystem.Extractor {
 	extractors := make([]filesystem.Extractor, 0, len(names))
 
@@ -157,47 +158,6 @@ func buildAll(names []string) []filesystem.Extractor {
 	}
 
 	return extractors
-}
-
-// Build returns all relevant extractors for the given preset
-func Build(
-	preset string,
-	includeGitRoot bool,
-	osvdevClient *osvdev.OSVClient,
-	dependencyClients map[osvschema.Ecosystem]resolve.Client,
-	mavenAPIClient *datasource.MavenRegistryAPIClient,
-) []filesystem.Extractor {
-	switch preset {
-	case "lockfile":
-		return buildLockfileExtractors(dependencyClients, mavenAPIClient)
-	case "sbom":
-		return buildAll([]string{spdx.Name, cdx.Name})
-	case "walker":
-		return buildWalkerExtractors(includeGitRoot, osvdevClient, dependencyClients, mavenAPIClient)
-	case "artifact":
-		return buildAll([]string{
-			// --- Project artifacts ---
-			// Python
-			wheelegg.Name,
-			// Java
-			archive.Name,
-			// Go
-			gobinary.Name,
-			// Javascript
-			"javascript/nodemodules",
-			// Rust
-			cargoauditable.Name,
-
-			// --- OS packages ---
-			// Alpine
-			apk.Name,
-			// Debian
-			// TODO: Add tests for debian containers
-			dpkg.Name,
-		})
-	}
-
-	return nil
 }
 
 // buildLockfileExtractors returns all relevant extractors for lockfile scanning given the required clients
@@ -269,41 +229,4 @@ func buildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolve.C
 	}
 
 	return extractorsToUse
-}
-
-// buildWalkerExtractors returns all relevant extractors for directory scanning given the required clients
-// All clients can be nil, and if nil the extractors requiring those clients will not be returned.
-func buildWalkerExtractors(
-	includeRootGit bool,
-	osvdevClient *osvdev.OSVClient,
-	dependencyClients map[osvschema.Ecosystem]resolve.Client,
-	mavenAPIClient *datasource.MavenRegistryAPIClient) []filesystem.Extractor {
-	relevantExtractors := []filesystem.Extractor{}
-
-	if includeRootGit {
-		relevantExtractors = append(relevantExtractors, gitrepo.Extractor{
-			IncludeRootGit: includeRootGit,
-		})
-	}
-	for _, preset := range []string{"lockfile", "sbom"} {
-		relevantExtractors = append(relevantExtractors,
-			Build(
-				preset,
-				includeRootGit,
-				osvdevClient,
-				dependencyClients,
-				mavenAPIClient,
-			)...,
-		)
-	}
-
-	if osvdevClient != nil {
-		relevantExtractors = append(relevantExtractors, vendored.Extractor{
-			// Only attempt to vendor check git directories if we are not skipping scanning root git directories
-			ScanGitDir: !includeRootGit,
-			OSVClient:  osvdevClient,
-		})
-	}
-
-	return relevantExtractors
 }
