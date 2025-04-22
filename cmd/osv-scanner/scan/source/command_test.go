@@ -641,39 +641,39 @@ func TestCommand_MavenTransitive(t *testing.T) {
 		{
 			Name: "scans transitive dependencies for pom.xml by default",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/maven-transitive/pom.xml"},
-			Exit: 128,
+			Exit: 1,
 		},
 		{
 			Name: "scans transitive dependencies by specifying pom.xml",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "pom.xml:./fixtures/maven-transitive/abc.xml"},
-			Exit: 127,
+			Exit: 1,
 		},
 		{
 			Name: "scans pom.xml with non UTF-8 encoding",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "pom.xml:./fixtures/maven-transitive/encoding.xml"},
-			Exit: 127,
+			Exit: 1,
 		},
 		{
 			// Direct dependencies do not have any vulnerability.
 			Name: "does not scan transitive dependencies for pom.xml with offline mode",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "./fixtures/maven-transitive/pom.xml"},
-			Exit: 128,
+			Exit: 0,
 		},
 		{
 			// Direct dependencies do not have any vulnerability.
 			Name: "does not scan transitive dependencies for pom.xml with no-resolve",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--no-resolve", "./fixtures/maven-transitive/pom.xml"},
-			Exit: 128,
+			Exit: 0,
 		},
 		{
 			Name: "scans dependencies from multiple registries",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
-			Exit: 127,
+			Exit: 1,
 		},
 		{
 			Name: "resolve transitive dependencies with native data source",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--data-source=native", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
-			Exit: 127,
+			Exit: 1,
 		},
 	}
 
