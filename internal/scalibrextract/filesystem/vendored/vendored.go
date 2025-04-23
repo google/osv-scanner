@@ -60,26 +60,39 @@ const (
 	maxDetermineVersionFiles  = 10000
 )
 
+type Config struct {
+	// ScanGitDir determines whether a vendored library with a git directory is scanned or not,
+	// this is used to avoid duplicate results, once from git scanning, once from vendoredDir scanning
+	ScanGitDir bool
+	OSVClient  *osvdev.OSVClient
+	Disabled   bool
+}
+
 type Extractor struct {
 	// ScanGitDir determines whether a vendored library with a git directory is scanned or not,
 	// this is used to avoid duplicate results, once from git scanning, once from vendoredDir scanning
 	ScanGitDir bool
 	OSVClient  *osvdev.OSVClient
+	Disabled   bool
 }
 
 // Name of the extractor.
-func (e Extractor) Name() string { return Name }
+func (e *Extractor) Name() string { return Name }
 
 // Version of the extractor.
-func (e Extractor) Version() int { return 0 }
+func (e *Extractor) Version() int { return 0 }
 
 // Requirements of the extractor.
-func (e Extractor) Requirements() *plugin.Capabilities {
+func (e *Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
 // FileRequired returns true for likely directories to contain vendored c/c++ code
-func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
+func (e *Extractor) FileRequired(fapi filesystem.FileAPI) bool {
+	if e.Disabled {
+		return false
+	}
+
 	// Check if parent directory is one of the vendoredLibName
 	// Clean first before Dir call to avoid trailing slashes causing problems
 	parentDir := filepath.Base(filepath.Dir(filepath.Clean(fapi.Path())))
@@ -99,7 +112,12 @@ func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 
 // Extract determines the most likely package version from the directory and returns them as
 // commit hash inventory entries
-func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
+func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
+	// todo: maybe we should return an error instead? need to double check we're always using FileRequired correctly first
+	if e.Disabled {
+		return inventory.Inventory{}, nil
+	}
+
 	var packages []*extractor.Package
 
 	results, err := e.queryDetermineVersions(ctx, input.Path, input.FS, e.ScanGitDir)
@@ -124,16 +142,16 @@ func (e Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (in
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
-func (e Extractor) ToPURL(_ *extractor.Package) *purl.PackageURL {
+func (e *Extractor) ToPURL(_ *extractor.Package) *purl.PackageURL {
 	return nil
 }
 
 // Ecosystem returns an empty string as all inventories are commit hashes
-func (e Extractor) Ecosystem(_ *extractor.Package) string {
+func (e *Extractor) Ecosystem(_ *extractor.Package) string {
 	return ""
 }
 
-func (e Extractor) queryDetermineVersions(ctx context.Context, repoDir string, fsys scalibrfs.FS, scanGitDir bool) (*osvdev.DetermineVersionResponse, error) {
+func (e *Extractor) queryDetermineVersions(ctx context.Context, repoDir string, fsys scalibrfs.FS, scanGitDir bool) (*osvdev.DetermineVersionResponse, error) {
 	var hashes []osvdev.DetermineVersionHash
 
 	err := fs.WalkDir(fsys, repoDir, func(p string, d fs.DirEntry, _ error) error {
@@ -195,4 +213,24 @@ func (e Extractor) queryDetermineVersions(ctx context.Context, repoDir string, f
 	return result, nil
 }
 
-var _ filesystem.Extractor = Extractor{}
+var _ filesystem.Extractor = &Extractor{}
+
+type configurable interface {
+	Configure(config Config)
+}
+
+func (e *Extractor) Configure(config Config) {
+	e.ScanGitDir = config.ScanGitDir
+	e.OSVClient = config.OSVClient
+	e.Disabled = config.Disabled
+}
+
+var _ configurable = &Extractor{}
+
+func Configure(extractor extractor.Extractor, config Config) {
+	us, ok := extractor.(configurable)
+
+	if ok {
+		us.Configure(config)
+	}
+}

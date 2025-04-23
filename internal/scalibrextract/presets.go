@@ -33,8 +33,10 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
 var ExtractorsSBOMs = []string{
@@ -93,6 +95,11 @@ var ExtractorsLockfiles = []string{
 	// Haskell
 	cabal.Name,
 	stacklock.Name,
+}
+
+var ExtractorsDirectories = []string{
+	gitrepo.Name,
+	vendored.Name,
 }
 
 var ExtractorsArtifacts = []string{
