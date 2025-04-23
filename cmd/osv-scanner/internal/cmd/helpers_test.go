@@ -12,6 +12,8 @@ import (
 )
 
 func Test_insertDefaultCommand(t *testing.T) {
+	t.Parallel()
+
 	commands := []*cli.Command{
 		{Name: "default"},
 		{Name: "helpers.go"},
