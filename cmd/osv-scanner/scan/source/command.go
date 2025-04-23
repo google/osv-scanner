@@ -74,7 +74,7 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 		Name:        "source",
 		Usage:       "scans a source project's dependencies for known vulnerabilities using the OSV database.",
 		Description: "scans a source project's dependencies for known vulnerabilities using the OSV database.",
-		Flags:       append(projectScanFlags, helper.GetScanGlobalFlags([]string{"lockfile"})...),
+		Flags:       append(projectScanFlags, helper.GetScanGlobalFlags([]string{"lockfile", "directory"})...),
 		ArgsUsage:   "[directory1 directory2...]",
 		Action: func(c *cli.Context) error {
 			return action(c, stdout, stderr)
