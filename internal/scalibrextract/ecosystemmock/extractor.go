@@ -12,11 +12,16 @@ import (
 	"github.com/google/osv-scalibr/purl"
 )
 
+const (
+	// Name is the unique name of this extractor.
+	Name = "ecosystemock"
+)
+
 type Extractor struct {
 	MockEcosystem string
 }
 
-func (e Extractor) Name() string { return "ecosystemmock" }
+func (e Extractor) Name() string { return Name }
 
 func (e Extractor) Version() int { return 0 }
 
