@@ -19,8 +19,6 @@ type Extractor struct {
 	IncludeRootGit bool
 }
 
-var _ filesystem.Extractor = Extractor{}
-
 func getCommitSHA(repo *git.Repository) (string, error) {
 	head, err := repo.Head()
 	if err != nil {
