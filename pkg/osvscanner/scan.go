@@ -19,26 +19,46 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
+func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAccessors, actions ScannerActions) {
+	for _, tor := range extractors {
+		if accessors.DependencyClients[osvschema.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
+			pomxmlenhanceable.EnhanceIfPossible(tor, pomxmlnet.Config{
+				DependencyClient:       accessors.DependencyClients[osvschema.EcosystemMaven],
+				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
+			})
+		}
+
+		// todo: the "disabled" aspect should probably be worked into the extractor being present in the first place
+		//  since "IncludeRootGit" is always true
+		gitrepo.Configure(tor, gitrepo.Config{
+			IncludeRootGit: actions.IncludeGitRoot,
+			Disabled:       !actions.IncludeGitRoot,
+		})
+
+		vendored.Configure(tor, vendored.Config{
+			// Only attempt to vendor check git directories if we are not skipping scanning root git directories
+			ScanGitDir: !actions.IncludeGitRoot,
+			OSVClient:  accessors.OSVDevClient,
+			Disabled:   accessors.OSVDevClient == nil,
+		})
+	}
+}
+
 // scan essentially converts ScannerActions into PackageScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.PackageScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
 
 	if len(actions.ExtractorNames) == 0 {
-		actions.ExtractorNames = scalibrextract.ExtractorsLockfiles
+		actions.ExtractorNames = append(actions.ExtractorNames, scalibrextract.ExtractorsLockfiles...)
+		actions.ExtractorNames = append(actions.ExtractorNames, scalibrextract.ExtractorsDirectories...)
 	}
 
 	extractors := scanners.BuildAll(actions.ExtractorNames)
 
+	configureExtractors(extractors, accessors, actions)
+
 	// --- Lockfiles ---
-	if accessors.DependencyClients[osvschema.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
-		for _, tor := range extractors {
-			pomxmlenhanceable.EnhanceIfPossible(tor, pomxmlnet.Config{
-				DependencyClient:       accessors.DependencyClients[osvschema.EcosystemMaven],
-				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
-			})
-		}
-	}
 	for _, lockfileElem := range actions.LockfilePaths {
 		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, extractors)
 		if err != nil {
@@ -76,21 +96,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	dirExtractors = append(dirExtractors, extractors...)
 	dirExtractors = append(dirExtractors, sbomExtractors...)
 
-	// todo: see if we can move this into scanner.build
-	if actions.IncludeGitRoot {
-		dirExtractors = append(dirExtractors, gitrepo.Extractor{
-			IncludeRootGit: actions.IncludeGitRoot,
-		})
-	}
-
-	// todo: see if we can move this into scanner.build
-	if accessors.OSVDevClient != nil {
-		dirExtractors = append(dirExtractors, vendored.Extractor{
-			// Only attempt to vendor check git directories if we are not skipping scanning root git directories
-			ScanGitDir: !actions.IncludeGitRoot,
-			OSVClient:  accessors.OSVDevClient,
-		})
-	}
 	for _, dir := range actions.DirectoryPaths {
 		slog.Info("Scanning dir " + dir)
 		pkgs, err := scanners.ScanDir(dir, actions.Recursive, !actions.NoIgnore, dirExtractors)

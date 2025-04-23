@@ -7,9 +7,10 @@ import (
 )
 
 var presets = map[string][]string{
-	"sbom":     scalibrextract.ExtractorsSBOMs,
-	"lockfile": scalibrextract.ExtractorsLockfiles,
-	"artifact": scalibrextract.ExtractorsArtifacts,
+	"sbom":      scalibrextract.ExtractorsSBOMs,
+	"lockfile":  scalibrextract.ExtractorsLockfiles,
+	"directory": scalibrextract.ExtractorsDirectories,
+	"artifact":  scalibrextract.ExtractorsArtifacts,
 }
 
 func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []string) []string {
