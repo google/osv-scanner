@@ -16,8 +16,6 @@ type Extractor struct {
 	actualExtractor packagelockjson.Extractor
 }
 
-var _ filesystem.Extractor = Extractor{}
-
 // Name of the extractor.
 func (e Extractor) Name() string { return "javascript/nodemodules" }
 

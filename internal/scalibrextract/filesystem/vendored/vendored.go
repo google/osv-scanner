@@ -62,8 +62,6 @@ type Extractor struct {
 	OSVClient  *osvdev.OSVClient
 }
 
-var _ filesystem.Extractor = Extractor{}
-
 // Name of the extractor.
 func (e Extractor) Name() string { return "filesystem/vendored" }
 
@@ -191,3 +189,5 @@ func (e Extractor) queryDetermineVersions(ctx context.Context, repoDir string, f
 
 	return result, nil
 }
+
+var _ filesystem.Extractor = Extractor{}

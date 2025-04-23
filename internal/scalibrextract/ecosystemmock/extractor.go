@@ -16,8 +16,6 @@ type Extractor struct {
 	MockEcosystem string
 }
 
-var _ filesystem.Extractor = Extractor{}
-
 func (e Extractor) Name() string { return "ecosystemmock" }
 
 func (e Extractor) Version() int { return 0 }
