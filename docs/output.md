@@ -382,7 +382,7 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 
 ## Call analysis
 
-With the call analysis flag enabled, call information will be included in the output. Use `--call-analysis` in v2 or `--experimental-call-analysis` in v1.
+With `--call-analysis` flag enabled, call information will be included in the output.
 
 ### Table
 
