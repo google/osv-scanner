@@ -5,8 +5,8 @@ go 1.24.0
 toolchain go1.24.2
 
 require (
-	github.com/google/osv-scalibr v0.1.9-0.20250411003828-a50b99d3db30
-	golang.org/x/sync v0.12.0
+	github.com/google/osv-scalibr v0.2.0
+	golang.org/x/sync v0.13.0
 )
 
 require (
@@ -17,6 +17,6 @@ require (
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/package-url/packageurl-go v0.1.2 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/net v0.36.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
