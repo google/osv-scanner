@@ -14,7 +14,7 @@ Most experimental commands have now been stablized, all experimental versions of
   - You can still specify the license allow list after `--licenses` flag like so: `--licenses="MIT,Apache 2.0,..."`
 - `--experimental-offline` => `--offline`
 - `--experimental-offline-vulnerabilities` => `--offline-vulnerabilities`
-- `--experimental-download-offline-databases` => `--offline-download-offline-databases`
+- `--experimental-download-offline-databases` => `--download-offline-databases`
 - `--experimental-no-resolve` => `--no-resolve`
 
 ---
