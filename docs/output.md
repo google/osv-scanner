@@ -382,7 +382,7 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 
 ## Call analysis
 
-With `--experimental-call-analysis` flag enabled, call information will be included in the output.
+With the call analysis flag enabled, call information will be included in the output. Use `--call-analysis` in v2 or `--experimental-call-analysis` in v1.
 
 ### Table
 
@@ -391,7 +391,7 @@ affects code called by your project, and vulnerabilities that only affect code p
 your code.
 
 ```bash
-osv-scanner scan --format table --experimental-call-analysis your/project/dir
+osv-scanner scan --format table --call-analysis your/project/dir
 ```
 
 <details markdown="1">
@@ -420,7 +420,7 @@ osv-scanner scan --format table --experimental-call-analysis your/project/dir
 The JSON output will include analysis results for each vulnerability group.
 
 ```bash
-osv-scanner scan --format json --experimental-call-analysis -L path/to/lockfile > /path/to/file.json
+osv-scanner scan --format json --call-analysis -L path/to/lockfile > /path/to/file.json
 ```
 
 <details markdown="1">
