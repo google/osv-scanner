@@ -87,13 +87,18 @@ type EndElement struct {
 	Empty bool
 }
 
-// A CharData represents XML character data (raw text),
-// in which XML escape sequences have been replaced by
-// the characters they represent.
-type CharData []byte
+// A CharData represents XML character data (raw text).
+// XML escape sequences are replaced by the characters they represent in data.
+// origin holds the original text that escape sequences are not changed.
+type CharData struct {
+	data   []byte
+	origin []byte
+}
 
 // Copy creates a new copy of CharData.
-func (c CharData) Copy() CharData { return CharData(bytes.Clone(c)) }
+func (c CharData) Copy() CharData {
+	return CharData{bytes.Clone(c.data), bytes.Clone(c.origin)}
+}
 
 // A Comment represents an XML comment of the form <!--comment-->.
 // The bytes do not include the <!-- and --> comment markers.
@@ -583,11 +588,11 @@ func (d *Decoder) rawToken() (Token, error) {
 	if b != '<' {
 		// Text section.
 		d.ungetc(b)
-		data := d.text(-1, false)
+		data, origin := d.text(-1, false)
 		if data == nil {
 			return nil, d.err
 		}
-		return CharData(data), nil
+		return CharData{data: data, origin: origin}, nil
 	}
 
 	if b, ok = d.mustgetc(); !ok {
@@ -713,11 +718,11 @@ func (d *Decoder) rawToken() (Token, error) {
 				}
 			}
 			// Have <![CDATA[.  Read text until ]]>.
-			data := d.text(-1, true)
+			data, origin := d.text(-1, true)
 			if data == nil {
 				return nil, d.err
 			}
-			return CharData(data), nil
+			return CharData{data: data, origin: origin}, nil
 		}
 
 		// Probably a directive: <!DOCTYPE ...>, <!ENTITY ...>, etc.
@@ -877,7 +882,8 @@ func (d *Decoder) attrval() []byte {
 	}
 	// Handle quoted attribute values
 	if b == '"' || b == '\'' {
-		return d.text(int(b), false)
+		data, _ := d.text(int(b), false)
+		return data
 	}
 	// Handle unquoted attribute values for strict parsers
 	if d.Strict {
@@ -1007,10 +1013,12 @@ var entity = map[string]rune{
 // If quote >= 0, we are in a quoted string and need to find the matching quote.
 // If cdata == true, we are in a <![CDATA[ section and need to find ]]>.
 // On failure return nil and leave the error in d.err.
-func (d *Decoder) text(quote int, cdata bool) []byte {
+// Both the texts with and without escape sequences replaced are returned.
+func (d *Decoder) text(quote int, cdata bool) ([]byte, []byte) {
 	var b0, b1 byte
 	var trunc int
 	d.buf.Reset()
+	raw := new(bytes.Buffer)
 Input:
 	for {
 		b, ok := d.getc()
@@ -1019,7 +1027,7 @@ Input:
 				if d.err == io.EOF {
 					d.err = d.syntaxError("unexpected EOF in CDATA section")
 				}
-				return nil
+				return nil, nil
 			}
 			break Input
 		}
@@ -1032,14 +1040,14 @@ Input:
 				break Input
 			}
 			d.err = d.syntaxError("unescaped ]]> not in CDATA section")
-			return nil
+			return nil, nil
 		}
 
 		// Stop reading text if we see a <.
 		if b == '<' && !cdata {
 			if quote >= 0 {
 				d.err = d.syntaxError("unescaped < inside quoted string")
-				return nil
+				return nil, nil
 			}
 			d.ungetc('<')
 			break Input
@@ -1055,23 +1063,26 @@ Input:
 			// even if they have not been declared.
 			before := d.buf.Len()
 			d.buf.WriteByte('&')
+			raw.WriteByte('&')
 			var ok bool
 			var text string
 			var haveText bool
 			if b, ok = d.mustgetc(); !ok {
-				return nil
+				return nil, nil
 			}
 			if b == '#' {
 				d.buf.WriteByte(b)
+				raw.WriteByte(b)
 				if b, ok = d.mustgetc(); !ok {
-					return nil
+					return nil, nil
 				}
 				base := 10
 				if b == 'x' {
 					base = 16
 					d.buf.WriteByte(b)
+					raw.WriteByte(b)
 					if b, ok = d.mustgetc(); !ok {
-						return nil
+						return nil, nil
 					}
 				}
 				start := d.buf.Len()
@@ -1079,8 +1090,9 @@ Input:
 					base == 16 && 'a' <= b && b <= 'f' ||
 					base == 16 && 'A' <= b && b <= 'F' {
 					d.buf.WriteByte(b)
+					raw.WriteByte(b)
 					if b, ok = d.mustgetc(); !ok {
-						return nil
+						return nil, nil
 					}
 				}
 				if b != ';' {
@@ -1088,6 +1100,7 @@ Input:
 				} else {
 					s := string(d.buf.Bytes()[start:])
 					d.buf.WriteByte(';')
+					raw.WriteByte(';')
 					n, err := strconv.ParseUint(s, base, 64)
 					if err == nil && n <= unicode.MaxRune {
 						text = string(rune(n))
@@ -1096,19 +1109,20 @@ Input:
 				}
 			} else {
 				d.ungetc(b)
-				if !d.readName() {
+				if !d.readName(raw) {
 					if d.err != nil {
-						return nil
+						return nil, nil
 					}
 				}
 				if b, ok = d.mustgetc(); !ok {
-					return nil
+					return nil, nil
 				}
 				if b != ';' {
 					d.ungetc(b)
 				} else {
 					name := d.buf.Bytes()[before+1:]
 					d.buf.WriteByte(';')
+					raw.WriteByte(';')
 					if isName(name) {
 						s := string(name)
 						if r, ok := entity[s]; ok {
@@ -1136,22 +1150,26 @@ Input:
 				ent += " (no semicolon)"
 			}
 			d.err = d.syntaxError("invalid character entity " + ent)
-			return nil
+			return nil, nil
 		}
 
 		// We must rewrite unescaped \r and \r\n into \n.
 		if b == '\r' {
 			d.buf.WriteByte('\n')
+			raw.WriteByte('\n')
 		} else if b1 == '\r' && b == '\n' {
 			// Skip \r\n--we already wrote \n.
 		} else {
 			d.buf.WriteByte(b)
+			raw.WriteByte(b)
 		}
 
 		b0, b1 = b1, b
 	}
 	data := d.buf.Bytes()
+	origin := raw.Bytes()
 	data = data[0 : len(data)-trunc]
+	origin = origin[0 : len(origin)-trunc]
 
 	// Inspect each rune for being a disallowed character.
 	buf := data
@@ -1159,16 +1177,20 @@ Input:
 		r, size := utf8.DecodeRune(buf)
 		if r == utf8.RuneError && size == 1 {
 			d.err = d.syntaxError("invalid UTF-8")
-			return nil
+			return nil, nil
 		}
 		buf = buf[size:]
 		if !isInCharacterRange(r) {
 			d.err = d.syntaxError(fmt.Sprintf("illegal character code %U", r))
-			return nil
+			return nil, nil
 		}
 	}
 
-	return data
+	if bytes.Equal(data, origin) {
+		// If there is no escape sequences replaced, only return data.
+		return data, nil
+	}
+	return data, origin
 }
 
 // Decide whether the given rune is in the XML Character Range, per
@@ -1206,7 +1228,7 @@ func (d *Decoder) nsname() (name Name, ok bool) {
 // let the caller provide better context.
 func (d *Decoder) name() (s string, ok bool) {
 	d.buf.Reset()
-	if !d.readName() {
+	if !d.readName(nil) {
 		return "", false
 	}
 
@@ -1219,10 +1241,10 @@ func (d *Decoder) name() (s string, ok bool) {
 	return string(b), true
 }
 
-// Read a name and append its bytes to d.buf.
+// Read a name and append its bytes to d.buf, as well as the given buffer.
 // The name is delimited by any single-byte character not valid in names.
 // All multi-byte characters are accepted; the caller must check their validity.
-func (d *Decoder) readName() (ok bool) {
+func (d *Decoder) readName(buf *bytes.Buffer) (ok bool) {
 	var b byte
 	if b, ok = d.mustgetc(); !ok {
 		return
@@ -1232,6 +1254,9 @@ func (d *Decoder) readName() (ok bool) {
 		return false
 	}
 	d.buf.WriteByte(b)
+	if buf != nil {
+		buf.WriteByte(b)
+	}
 
 	for {
 		if b, ok = d.mustgetc(); !ok {
@@ -1242,6 +1267,9 @@ func (d *Decoder) readName() (ok bool) {
 			break
 		}
 		d.buf.WriteByte(b)
+		if buf != nil {
+			buf.WriteByte(b)
+		}
 	}
 	return true
 }

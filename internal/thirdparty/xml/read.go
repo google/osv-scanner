@@ -236,7 +236,7 @@ func (d *Decoder) unmarshalTextInterface(val encoding.TextUnmarshaler) error {
 		switch t := t.(type) {
 		case CharData:
 			if depth == 1 {
-				buf = append(buf, t...)
+				buf = append(buf, t.data...)
 			}
 		case StartElement:
 			depth++
@@ -568,7 +568,7 @@ Loop:
 
 		case CharData:
 			if saveData.IsValid() {
-				data = append(data, t...)
+				data = append(data, t.data...)
 			}
 
 		case Comment:
