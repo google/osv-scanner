@@ -13,7 +13,7 @@
   <name>my-app</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
-  <description>Don't escape</description>
+  <description>Don't escape. Escape &#34;this&#34;.</description>
   <developers />
 
   <configuration>
@@ -167,7 +167,7 @@
   <name>my-app</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
-  <description>Don't escape</description>
+  <description>Don't escape. Escape &#34;this&#34;.</description>
   <developers />
 
   <configuration>
