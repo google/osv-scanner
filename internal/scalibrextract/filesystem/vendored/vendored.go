@@ -50,6 +50,11 @@ var (
 )
 
 const (
+	// Name is the unique name of this extractor.
+	Name = "filesystem/vendored"
+)
+
+const (
 	// This value may need to be tweaked, or be provided as a configurable flag.
 	determineVersionThreshold = 0.15
 	maxDetermineVersionFiles  = 10000
@@ -62,10 +67,8 @@ type Extractor struct {
 	OSVClient  *osvdev.OSVClient
 }
 
-var _ filesystem.Extractor = Extractor{}
-
 // Name of the extractor.
-func (e Extractor) Name() string { return "filesystem/vendored" }
+func (e Extractor) Name() string { return Name }
 
 // Version of the extractor.
 func (e Extractor) Version() int { return 0 }
@@ -191,3 +194,5 @@ func (e Extractor) queryDetermineVersions(ctx context.Context, repoDir string, f
 
 	return result, nil
 }
+
+var _ filesystem.Extractor = Extractor{}

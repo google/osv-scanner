@@ -14,11 +14,16 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
+const (
+	// Name is the unique name of this extractor.
+	Name = "osv/osvscannerjson"
+)
+
 // Extractor extracts osv packages from osv-scanner json output.
 type Extractor struct{}
 
 // Name of the extractor.
-func (e Extractor) Name() string { return "osv/osvscannerjson" }
+func (e Extractor) Name() string { return Name }
 
 // Version of the extractor.
 func (e Extractor) Version() int { return 0 }

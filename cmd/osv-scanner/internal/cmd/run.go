@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/urfave/cli/v2"
@@ -21,9 +23,23 @@ var (
 )
 
 func Run(args []string, stdout, stderr io.Writer) int {
-	logger := cmdlogger.New(stdout, stderr)
+	// --- Setup Logger ---
+	logHandler := cmdlogger.New(stdout, stderr)
 
-	slog.SetDefault(slog.New(&logger))
+	// If in testing mode, set logger via Handler
+	// Otherwise, set default global logger
+	if testing.Testing() {
+		handler, ok := slog.Default().Handler().(*testlogger.Handler)
+		if !ok {
+			panic("Test failed to initialize default logger with Handler")
+		}
+
+		handler.AddInstance(logHandler)
+		defer handler.Delete()
+	} else {
+		slog.SetDefault(slog.New(logHandler))
+	}
+	// ---
 
 	cli.VersionPrinter = func(ctx *cli.Context) {
 		slog.Info("osv-scanner version: " + ctx.App.Version)
@@ -77,7 +93,7 @@ func Run(args []string, stdout, stderr io.Writer) int {
 
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	if logger.HasErrored() {
+	if logHandler.HasErrored() {
 		return 127
 	}
 

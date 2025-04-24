@@ -28,25 +28,25 @@ import (
 )
 
 var sbomExtractors = map[string]struct{}{
-	spdx.Extractor{}.Name(): {},
-	cdx.Extractor{}.Name():  {},
+	spdx.Name: {},
+	cdx.Name:  {},
 }
 
 var gitExtractors = map[string]struct{}{
-	gitrepo.Extractor{}.Name(): {},
+	gitrepo.Name: {},
 }
 
 var osExtractors = map[string]struct{}{
-	dpkg.Extractor{}.Name(): {},
-	apk.Extractor{}.Name():  {},
-	rpm.Extractor{}.Name():  {},
+	dpkg.Name: {},
+	apk.Name:  {},
+	rpm.Name:  {},
 }
 
 var artifactExtractors = map[string]struct{}{
-	nodemodules.Extractor{}.Name(): {},
-	gobinary.Extractor{}.Name():    {},
-	archive.Extractor{}.Name():     {},
-	wheelegg.Extractor{}.Name():    {},
+	nodemodules.Name: {},
+	gobinary.Name:    {},
+	archive.Name:     {},
+	wheelegg.Name:    {},
 }
 
 // PackageInfo provides getter functions for commonly used fields of inventory

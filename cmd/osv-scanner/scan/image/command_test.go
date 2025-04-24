@@ -12,6 +12,8 @@ import (
 )
 
 func TestCommand_Docker(t *testing.T) {
+	t.Parallel()
+
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
 
 	tests := []testcmd.Case{
@@ -43,6 +45,8 @@ func TestCommand_Docker(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
 			// Only test on linux, and mac/windows CI/CD does not come with docker preinstalled
 			if runtime.GOOS != "linux" {
 				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
@@ -54,6 +58,8 @@ func TestCommand_Docker(t *testing.T) {
 }
 
 func TestCommand_OCIImage(t *testing.T) {
+	t.Parallel()
+
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
 	tests := []testcmd.Case{
@@ -125,6 +131,8 @@ func TestCommand_OCIImage(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
 				if strings.HasPrefix(arg, "../../../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
@@ -140,6 +148,8 @@ func TestCommand_OCIImage(t *testing.T) {
 }
 
 func TestCommand_OCIImageAllPackagesJSON(t *testing.T) {
+	t.Parallel()
+
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
 	if runtime.GOOS == "windows" {
@@ -200,6 +210,8 @@ func TestCommand_OCIImageAllPackagesJSON(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
 				if strings.HasPrefix(arg, "../../../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
