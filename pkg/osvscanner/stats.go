@@ -1,48 +1,26 @@
 package osvscanner
 
-//type FileOpenedPrinter struct {}
-//
-//func (f FileOpenedPrinter) AfterInodeVisited(path string) {
-//	//TODO implement me
-//	panic("implement me")
-//}
-//
-//func (f FileOpenedPrinter) AfterExtractorRun(name string, runtime time.Duration, err error) {
-//	//TODO implement me
-//	panic("implement me")
-//}
-//
-//func (f FileOpenedPrinter) AfterDetectorRun(name string, runtime time.Duration, err error) {
-//	//TODO implement me
-//	panic("implement me")
-//}
-//
-//func (f FileOpenedPrinter) AfterScan(runtime time.Duration, status *plugin.ScanStatus) {
-//	//TODO implement me
-//	panic("implement me")
-//}
-//
-//func (f FileOpenedPrinter) AfterResultsExported(destination string, bytes int, err error) {
-//	//TODO implement me
-//	panic("implement me")
-//}
-//
-//func (f FileOpenedPrinter) AfterFileRequired(pluginName string, filestats *stats.FileRequiredStats) {
-//	//TODO implement me
-//	panic("implement me")
-//}
-//
-//func (f FileOpenedPrinter) AfterFileExtracted(pluginName string, filestats *stats.FileExtractedStats) {
-//	slog.Info(fmt.Sprintf(
-//		"Scanned %s file and found %d %s",
-//		filestats.Path,
-//		filestats.Result.,
-//		output.Form(pkgCount, "package", "packages"),
-//	))
-//	slog.Info(fmt.Sprintf("Scanned %s file and found %s package"),
-//}
-//
-//func (f FileOpenedPrinter) MaxRSS(maxRSS int64) {
-//	//TODO implement me
-//	panic("implement me")
-//}
+import (
+	"fmt"
+	"log/slog"
+
+	"github.com/google/osv-scalibr/stats"
+	"github.com/google/osv-scanner/v2/internal/output"
+)
+
+type FileOpenedPrinter struct {
+	stats.NoopCollector
+}
+
+var _ stats.Collector = &FileOpenedPrinter{}
+
+func (c FileOpenedPrinter) AfterExtractorRun(pluginName string, extractorstats *stats.AfterExtractorStats) {
+	pkgsFound := len(extractorstats.Inventory.Packages)
+
+	slog.Info(fmt.Sprintf(
+		"Scanned %s file and found %d %s",
+		extractorstats.Path,
+		pkgsFound,
+		output.Form(pkgsFound, "package", "packages"),
+	))
+}

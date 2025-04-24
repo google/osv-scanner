@@ -67,7 +67,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	)
 
 	scanner := scalibr.New()
-	//pathsToExtract := make([]string, 0, len(actions.DirectoryPaths))
 
 	for _, path := range actions.DirectoryPaths {
 		slog.Info(fmt.Sprintf("Scanning dir %s", path))
@@ -77,24 +76,28 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		}
 		root := getRootDir(absPath)
 
-		var networkCap plugin.Network
+		capabilities := plugin.Capabilities{
+			DirectFS:      true,
+			RunningSystem: true,
+		}
+
 		if actions.CompareOffline {
-			networkCap = plugin.NetworkOffline
+			capabilities.Network = plugin.NetworkOffline
 		} else {
-			networkCap = plugin.NetworkOnline
+			capabilities.Network = plugin.NetworkOnline
+		}
+
+		if runtime.GOOS == "windows" {
+			capabilities.OS = plugin.OSWindows
+		} else {
+			capabilities.OS = plugin.OSUnix
 		}
 
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
-			FilesystemExtractors: dirExtractors,
-			StandaloneExtractors: nil,
-			Detectors:            nil,
-			Capabilities: &plugin.Capabilities{
-				// TODO: Pass though plugin status
-				OS:            plugin.OSLinux,
-				Network:       networkCap,
-				DirectFS:      true,
-				RunningSystem: true,
-			},
+			FilesystemExtractors:  dirExtractors,
+			StandaloneExtractors:  nil,
+			Detectors:             nil,
+			Capabilities:          &capabilities,
 			ScanRoots:             fs.RealFSScanRoots(root),
 			PathsToExtract:        []string{absPath},
 			IgnoreSubDirs:         !actions.Recursive,
@@ -102,7 +105,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 			SkipDirRegex:          nil,
 			SkipDirGlob:           nil,
 			UseGitignore:          !actions.NoIgnore,
-			Stats:                 nil,
+			Stats:                 FileOpenedPrinter{},
 			ReadSymlinks:          false,
 			MaxInodes:             0,
 			StoreAbsolutePath:     true,
