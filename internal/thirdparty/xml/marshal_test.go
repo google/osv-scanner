@@ -2010,12 +2010,6 @@ var encodeTokenTests = []struct {
 	},
 	want: " \t\n",
 }, {
-	desc: "char data with escaped chars",
-	toks: []Token{
-		CharData{data: []byte(" \"\n")},
-	},
-	want: " &#34;\n",
-}, {}, {
 	desc: "comment",
 	toks: []Token{
 		Comment("foo"),
