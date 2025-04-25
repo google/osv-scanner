@@ -134,7 +134,12 @@ func (matcher GemspecFileMatcher) findGemspecs(node *Node) ([]gemspecMetadata, e
 
 func (matcher GemspecFileMatcher) enrichPackagesWithLocation(sourceFile DepFile, gems []gemspecMetadata, packagesByName map[string]*PackageDetails) {
 	for _, gem := range gems {
-		pkg := packagesByName[gem.name]
+		pkg, ok := packagesByName[gem.name]
+		// If packages exist in a .gemspec but not in the Gemfile.lock, we skip the package as we treat the lockfile as
+		// the source of truth
+		if !ok {
+			continue
+		}
 
 		pkg.BlockLocation = models.FilePosition{
 			Line:     gem.blockLine,
