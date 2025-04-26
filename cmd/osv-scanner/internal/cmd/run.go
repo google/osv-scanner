@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io"
@@ -11,7 +12,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
 var (
@@ -40,8 +41,8 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 	}
 	// ---
 
-	cli.VersionPrinter = func(ctx *cli.Context) {
-		slog.Info("osv-scanner version: " + ctx.App.Version)
+	cli.VersionPrinter = func(cmd *cli.Command) {
+		slog.Info("osv-scanner version: " + cmd.Version)
 		slog.Info("commit: " + commit)
 		slog.Info("built at: " + date)
 	}
@@ -51,7 +52,7 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 		cmds = append(cmds, cmd(stdout, stderr))
 	}
 
-	app := &cli.App{
+	app := &cli.Command{
 		Name:           "osv-scanner",
 		Version:        version.OSVVersion,
 		Usage:          "scans various mediums for dependencies and checks them against the OSV database",
@@ -61,7 +62,7 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 		DefaultCommand: "scan",
 		Commands:       cmds,
 
-		CustomAppHelpTemplate: getCustomHelpTemplate(),
+		CustomRootCommandHelpTemplate: getCustomHelpTemplate(),
 	}
 
 	// If ExitErrHandler is not set, cli will use the default cli.HandleExitCoder.
@@ -74,11 +75,11 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 	// early without proper error handling.
 	//
 	// This removes the handler entirely so that behavior will not unexpectedly happen.
-	app.ExitErrHandler = func(_ *cli.Context, _ error) {}
+	app.ExitErrHandler = func(_ context.Context, _ *cli.Command, _ error) {}
 
 	args = insertDefaultCommand(args, app.Commands, app.DefaultCommand, stderr)
 
-	if err := app.Run(args); err != nil {
+	if err := app.Run(context.Background(), args); err != nil {
 		switch {
 		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
