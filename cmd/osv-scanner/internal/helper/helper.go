@@ -48,6 +48,8 @@ func (g *allowedLicencesFlag) Set(value string) error {
 	return nil
 }
 
+// IsBoolFlag indicates that it is valid to use this flag in a boolean context
+// and is what lets us accept both enable/disable and list-of-licenses values
 func (g *allowedLicencesFlag) IsBoolFlag() bool {
 	return true
 }
