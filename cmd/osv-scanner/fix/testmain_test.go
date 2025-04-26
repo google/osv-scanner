@@ -1,4 +1,4 @@
-package fix
+package fix_test
 
 import (
 	"log/slog"
