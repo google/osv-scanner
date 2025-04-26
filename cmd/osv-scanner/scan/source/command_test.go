@@ -584,8 +584,28 @@ func TestCommand_Licenses(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "Licenses with invalid expression",
+			Name: "Licenses with invalid licenses in flag",
+			Args: []string{"", "scan", "source", "--licenses=MIT,something-something", "./fixtures/locks-licenses/package-lock.json"},
+			Exit: 1,
+		},
+		{
+			Name: "Licenses with invalid expression in config",
 			Args: []string{"", "scan", "source", "--config=./fixtures/osv-scanner-invalid-licenses-config.toml", "--licenses=MIT,BSD-3-Clause", "./fixtures/locks-licenses/package-lock.json"},
+			Exit: 1,
+		},
+		{
+			Name: "When offline licenses summary cannot be printed",
+			Args: []string{"", "scan", "source", "--offline", "--licenses", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			Exit: 1,
+		},
+		{
+			Name: "When offline licenses cannot be checked",
+			Args: []string{"", "scan", "source", "--offline", "--licenses=MIT", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
+			Exit: 1,
+		},
+		{
+			Name: "When offline licenses are still validated",
+			Args: []string{"", "scan", "source", "--licenses=MIT,something-something", "./fixtures/locks-many/package-lock.json"},
 			Exit: 1,
 		},
 	}
