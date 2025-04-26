@@ -221,8 +221,7 @@ func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
 
 	allowlist := context.Generic("licenses").(*allowedLicencesFlag).licenses
 
-	if len(allowlist) == 0 ||
-		(len(allowlist) == 1 && allowlist[0] == "") {
+	if len(allowlist) == 0 {
 		return []string{}, nil
 	}
 
