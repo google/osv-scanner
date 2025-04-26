@@ -31,6 +31,9 @@ var (
 	servePort = "8000" // default port
 )
 
+// a "boolean or list" flag whose presence indicates a summary of licenses should
+// be printed, and whose (optional) value will be a comma-delimited list of licenses
+// that should be considered allowed
 type allowedLicencesFlag struct {
 	allowList string
 }
