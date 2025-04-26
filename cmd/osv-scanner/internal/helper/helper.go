@@ -217,11 +217,11 @@ func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns 
 }
 
 func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
-	allowlist := strings.Split(context.Generic("licenses").(*allowedLicencesFlag).String(), ",")
-
 	if !context.IsSet("licenses") {
 		return []string{}, nil
 	}
+
+	allowlist := strings.Split(context.Generic("licenses").(*allowedLicencesFlag).String(), ",")
 
 	if len(allowlist) == 0 ||
 		(len(allowlist) == 1 && allowlist[0] == "") {
