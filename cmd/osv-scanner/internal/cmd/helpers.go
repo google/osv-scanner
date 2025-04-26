@@ -7,7 +7,7 @@ import (
 	"slices"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
 func getCustomHelpTemplate() string {
