@@ -35,14 +35,14 @@ var (
 // be printed, and whose (optional) value will be a comma-delimited list of licenses
 // that should be considered allowed
 type allowedLicencesFlag struct {
-	allowList string
+	licenses []string
 }
 
 func (g *allowedLicencesFlag) Set(value string) error {
 	if value == "" || value == "false" || value == "true" {
-		g.allowList = ""
+		g.licenses = nil
 	} else {
-		g.allowList = value
+		g.licenses = strings.Split(value, ",")
 	}
 
 	return nil
@@ -53,7 +53,7 @@ func (g *allowedLicencesFlag) IsBoolFlag() bool {
 }
 
 func (g *allowedLicencesFlag) String() string {
-	return g.allowList
+	return strings.Join(g.licenses, ",")
 }
 
 func GetScanGlobalFlags() []cli.Flag {
@@ -163,9 +163,7 @@ func GetScanGlobalFlags() []cli.Flag {
 		&cli.GenericFlag{
 			Name:  "licenses",
 			Usage: "report on licenses based on an allowlist",
-			Value: &allowedLicencesFlag{
-				allowList: "",
-			},
+			Value: &allowedLicencesFlag{},
 		},
 	}
 }
@@ -221,7 +219,7 @@ func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
 		return []string{}, nil
 	}
 
-	allowlist := strings.Split(context.Generic("licenses").(*allowedLicencesFlag).String(), ",")
+	allowlist := context.Generic("licenses").(*allowedLicencesFlag).licenses
 
 	if len(allowlist) == 0 ||
 		(len(allowlist) == 1 && allowlist[0] == "") {
