@@ -31,11 +31,11 @@ var (
 	servePort = "8000" // default port
 )
 
-type licenseGenericFlag struct {
+type allowedLicencesFlag struct {
 	allowList string
 }
 
-func (g *licenseGenericFlag) Set(value string) error {
+func (g *allowedLicencesFlag) Set(value string) error {
 	if value == "" || value == "false" || value == "true" {
 		g.allowList = ""
 	} else {
@@ -45,11 +45,11 @@ func (g *licenseGenericFlag) Set(value string) error {
 	return nil
 }
 
-func (g *licenseGenericFlag) IsBoolFlag() bool {
+func (g *allowedLicencesFlag) IsBoolFlag() bool {
 	return true
 }
 
-func (g *licenseGenericFlag) String() string {
+func (g *allowedLicencesFlag) String() string {
 	return g.allowList
 }
 
@@ -160,7 +160,7 @@ func GetScanGlobalFlags() []cli.Flag {
 		&cli.GenericFlag{
 			Name:  "licenses",
 			Usage: "report on licenses based on an allowlist",
-			Value: &licenseGenericFlag{
+			Value: &allowedLicencesFlag{
 				allowList: "",
 			},
 		},
@@ -214,7 +214,7 @@ func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns 
 }
 
 func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
-	allowlist := strings.Split(context.Generic("licenses").(*licenseGenericFlag).String(), ",")
+	allowlist := strings.Split(context.Generic("licenses").(*allowedLicencesFlag).String(), ",")
 
 	if !context.IsSet("licenses") {
 		return []string{}, nil
