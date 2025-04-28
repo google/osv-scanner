@@ -276,8 +276,6 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 		{
 			// this will scan just the package-lock.json file as we've not enabled
 			// extractors for any of the other lockfiles
-			// todo: currently the sbom is too, because their extractors have special
-			//  handling, but in future that should removed in favor of this flag
 			Name: "scanning_directory_with_one_specific_extractor_enabled",
 			Args: []string{
 				"", "source",

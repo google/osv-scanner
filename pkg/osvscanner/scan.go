@@ -44,25 +44,31 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 	}
 }
 
+func getExtractors(defaultExtractorNames [][]string, accessors ExternalAccessors, actions ScannerActions) []filesystem.Extractor {
+	names := actions.ExtractorNames
+
+	if len(names) == 0 {
+		for _, preset := range defaultExtractorNames {
+			names = append(names, preset...)
+		}
+	}
+
+	extractors := scanners.BuildAll(names)
+
+	configureExtractors(extractors, accessors, actions)
+
+	return extractors
+}
+
 // scan essentially converts ScannerActions into PackageScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.PackageScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
 
-	wereWeGivenSomeExtractorNames := len(actions.ExtractorNames) > 0
-
-	// add the default extractors for scanning lockfiles
-	if !wereWeGivenSomeExtractorNames {
-		actions.ExtractorNames = append(actions.ExtractorNames, scalibrextract.ExtractorsLockfiles...)
-	}
-
-	extractors := scanners.BuildAll(actions.ExtractorNames)
-
-	configureExtractors(extractors, accessors, actions)
-
 	// --- Lockfiles ---
+	lockfileExtractors := getExtractors([][]string{scalibrextract.ExtractorsLockfiles}, accessors, actions)
 	for _, lockfileElem := range actions.LockfilePaths {
-		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, extractors)
+		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
 		if err != nil {
 			return nil, err
 		}
@@ -71,6 +77,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	// --- SBOMs ---
+	// none of the SBOM extractors need configuring
 	sbomExtractors := scanners.BuildAll(scalibrextract.ExtractorsSBOMs)
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
@@ -94,17 +101,19 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	// --- Directories ---
-	// add the default extractors for scanning directories
-	if !wereWeGivenSomeExtractorNames {
-		extractors = append(extractors, scanners.BuildAll(scalibrextract.ExtractorsDirectories)...)
-		extractors = append(extractors, sbomExtractors...)
-
-		configureExtractors(extractors, accessors, actions)
-	}
+	dirExtractors := getExtractors(
+		[][]string{
+			scalibrextract.ExtractorsLockfiles,
+			scalibrextract.ExtractorsSBOMs,
+			scalibrextract.ExtractorsDirectories,
+		},
+		accessors,
+		actions,
+	)
 
 	for _, dir := range actions.DirectoryPaths {
 		slog.Info("Scanning dir " + dir)
-		pkgs, err := scanners.ScanDir(dir, actions.Recursive, !actions.NoIgnore, extractors)
+		pkgs, err := scanners.ScanDir(dir, actions.Recursive, !actions.NoIgnore, dirExtractors)
 		if err != nil {
 			return nil, err
 		}
