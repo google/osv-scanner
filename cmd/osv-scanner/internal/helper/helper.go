@@ -31,26 +31,31 @@ var (
 	servePort = "8000" // default port
 )
 
-type licenseGenericFlag struct {
-	allowList string
+// a "boolean or list" flag whose presence indicates a summary of licenses should
+// be printed, and whose (optional) value will be a comma-delimited list of licenses
+// that should be considered allowed
+type allowedLicencesFlag struct {
+	allowlist []string
 }
 
-func (g *licenseGenericFlag) Set(value string) error {
+func (g *allowedLicencesFlag) Set(value string) error {
 	if value == "" || value == "false" || value == "true" {
-		g.allowList = ""
+		g.allowlist = nil
 	} else {
-		g.allowList = value
+		g.allowlist = strings.Split(value, ",")
 	}
 
 	return nil
 }
 
-func (g *licenseGenericFlag) IsBoolFlag() bool {
+// IsBoolFlag indicates that it is valid to use this flag in a boolean context
+// and is what lets us accept both enable/disable and list-of-licenses values
+func (g *allowedLicencesFlag) IsBoolFlag() bool {
 	return true
 }
 
-func (g *licenseGenericFlag) String() string {
-	return g.allowList
+func (g *allowedLicencesFlag) String() string {
+	return strings.Join(g.allowlist, ",")
 }
 
 func GetScanGlobalFlags() []cli.Flag {
@@ -160,9 +165,7 @@ func GetScanGlobalFlags() []cli.Flag {
 		&cli.GenericFlag{
 			Name:  "licenses",
 			Usage: "report on licenses based on an allowlist",
-			Value: &licenseGenericFlag{
-				allowList: "",
-			},
+			Value: &allowedLicencesFlag{},
 		},
 	}
 }
@@ -214,14 +217,13 @@ func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns 
 }
 
 func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
-	allowlist := strings.Split(context.Generic("licenses").(*licenseGenericFlag).String(), ",")
-
 	if !context.IsSet("licenses") {
 		return []string{}, nil
 	}
 
-	if len(allowlist) == 0 ||
-		(len(allowlist) == 1 && allowlist[0] == "") {
+	allowlist := context.Generic("licenses").(*allowedLicencesFlag).allowlist
+
+	if len(allowlist) == 0 {
 		return []string{}, nil
 	}
 
