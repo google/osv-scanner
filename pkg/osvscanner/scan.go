@@ -49,9 +49,11 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
 
-	if len(actions.ExtractorNames) == 0 {
+	wereWeGivenSomeExtractorNames := len(actions.ExtractorNames) > 0
+
+	// add the default extractors for scanning lockfiles
+	if !wereWeGivenSomeExtractorNames {
 		actions.ExtractorNames = append(actions.ExtractorNames, scalibrextract.ExtractorsLockfiles...)
-		actions.ExtractorNames = append(actions.ExtractorNames, scalibrextract.ExtractorsDirectories...)
 	}
 
 	extractors := scanners.BuildAll(actions.ExtractorNames)
@@ -92,13 +94,17 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	// --- Directories ---
-	dirExtractors := make([]filesystem.Extractor, 0, len(extractors)+len(sbomExtractors)+2)
-	dirExtractors = append(dirExtractors, extractors...)
-	dirExtractors = append(dirExtractors, sbomExtractors...)
+	// add the default extractors for scanning directories
+	if !wereWeGivenSomeExtractorNames {
+		extractors = append(extractors, scanners.BuildAll(scalibrextract.ExtractorsDirectories)...)
+		extractors = append(extractors, sbomExtractors...)
+
+		configureExtractors(extractors, accessors, actions)
+	}
 
 	for _, dir := range actions.DirectoryPaths {
 		slog.Info("Scanning dir " + dir)
-		pkgs, err := scanners.ScanDir(dir, actions.Recursive, !actions.NoIgnore, dirExtractors)
+		pkgs, err := scanners.ScanDir(dir, actions.Recursive, !actions.NoIgnore, extractors)
 		if err != nil {
 			return nil, err
 		}
