@@ -18,6 +18,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "./fixtures/locks-many/composer.lock"},
 			Exit: 0,
 		},
+		// one specific supported lockfile, explicitly not offline
+		{
+			Name: "one specific supported lockfile with offline explicitly false",
+			Args: []string{"", "source", "--offline=false", "./fixtures/locks-many/composer.lock"},
+			Exit: 0,
+		},
 		// one specific supported sbom with vulns
 		{
 			Name: "folder of supported sbom with vulns",
