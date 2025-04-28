@@ -933,6 +933,18 @@ No issues found
 
 ---
 
+[TestCommand/one_specific_supported_lockfile_with_offline_explicitly_false - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
+No issues found
+
+---
+
+[TestCommand/one_specific_supported_lockfile_with_offline_explicitly_false - 2]
+
+---
+
 [TestCommand/one_specific_supported_sbom_with_duplicate_PURLs - 1]
 Scanned <rootdir>/osv-scanner/scan/source/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
