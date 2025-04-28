@@ -28,7 +28,7 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "folder of supported sbom with vulns",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/"},
-			Exit: 1,
+			Exit: 128,
 		},
 		// one specific supported sbom with vulns
 		{
@@ -181,12 +181,12 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "PURL SBOM case sensitivity (api)",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
-			Exit: 1,
+			Exit: 128,
 		},
 		{
 			Name: "PURL SBOM case sensitivity (local)",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
-			Exit: 1,
+			Exit: 128,
 		},
 		// Go project with an overridden go version
 		{
@@ -531,7 +531,7 @@ func TestCommand_LocalDatabases(t *testing.T) {
 		{
 			Name: "one specific supported sbom with vulns",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/sbom-insecure/postgres-stretch.cdx.xml"},
-			Exit: 1,
+			Exit: 128,
 		},
 		{
 			Name: "one specific unsupported lockfile",
