@@ -7,9 +7,6 @@ import (
 	"log/slog"
 	"testing"
 
-	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
-	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
-	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
@@ -22,7 +19,9 @@ var (
 	date   = "n/a"
 )
 
-func Run(args []string, stdout, stderr io.Writer) int {
+type CommandBuilder = func(stdout, stderr io.Writer) *cli.Command
+
+func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int {
 	// --- Setup Logger ---
 	logHandler := cmdlogger.New(stdout, stderr)
 
@@ -47,6 +46,11 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		slog.Info("built at: " + date)
 	}
 
+	cmds := make([]*cli.Command, 0, len(commands))
+	for _, cmd := range commands {
+		cmds = append(cmds, cmd(stdout, stderr))
+	}
+
 	app := &cli.App{
 		Name:           "osv-scanner",
 		Version:        version.OSVVersion,
@@ -55,11 +59,8 @@ func Run(args []string, stdout, stderr io.Writer) int {
 		Writer:         stdout,
 		ErrWriter:      stderr,
 		DefaultCommand: "scan",
-		Commands: []*cli.Command{
-			scan.Command(stdout, stderr),
-			fix.Command(stdout, stderr),
-			update.Command(),
-		},
+		Commands:       cmds,
+
 		CustomAppHelpTemplate: getCustomHelpTemplate(),
 	}
 
