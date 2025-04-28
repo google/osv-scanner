@@ -605,7 +605,7 @@ func TestCommand_Licenses(t *testing.T) {
 		},
 		{
 			Name: "When offline licenses are still validated",
-			Args: []string{"", "scan", "source", "--licenses=MIT,something-something", "./fixtures/locks-many/package-lock.json"},
+			Args: []string{"", "scan", "source", "--offline", "--licenses=MIT,something-something", "./fixtures/locks-many/package-lock.json"},
 			Exit: 1,
 		},
 	}
