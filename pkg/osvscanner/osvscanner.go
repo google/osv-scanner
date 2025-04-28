@@ -33,7 +33,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
-	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"osv.dev/bindings/go/osvdev"
 )
@@ -314,14 +313,13 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}()
 
 	// --- Do Scalibr Scan ---
-	if len(actions.ExtractorNames) == 0 {
-		actions.ExtractorNames = scalibrextract.ExtractorsArtifacts
-	}
-
-	extractors := scanners.BuildAll(actions.ExtractorNames)
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
-		FilesystemExtractors: extractors,
+		FilesystemExtractors: getExtractors(
+			[][]string{scalibrextract.ExtractorsArtifacts},
+			accessors,
+			actions,
+		),
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
