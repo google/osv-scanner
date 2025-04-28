@@ -1,0 +1,2 @@
+ignore:
+  - "**/*_test.go"
