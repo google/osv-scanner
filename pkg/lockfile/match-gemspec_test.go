@@ -108,3 +108,27 @@ func TestGemspecFileMatcher_Match(t *testing.T) {
 
 	testutility.NewSnapshot().WithJSONNormalization().MatchJSON(t, packages)
 }
+
+func TestGemspecFileMatcher_NotInLockfile(t *testing.T) {
+	t.Parallel()
+
+	sourceFile, err := lockfile.OpenLocalDepFile("fixtures/bundler/lockfile-not-synced-with-gemspec/test.gemspec")
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	packages := []lockfile.PackageDetails{
+		{
+			Name:           "rake",
+			Version:        "13.0",
+			PackageManager: models.Bundler,
+		},
+	}
+
+	err = gemspecFileMatcher.Match(sourceFile, packages)
+	if err != nil {
+		t.Errorf("Got unexpected error: %v", err)
+	}
+
+	testutility.NewSnapshot().WithJSONNormalization().MatchJSON(t, packages)
+}

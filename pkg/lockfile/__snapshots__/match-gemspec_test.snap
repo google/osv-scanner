@@ -261,3 +261,46 @@
   }
 ]
 ---
+
+[TestGemspecFileMatcher_NotInLockfile - 1]
+[
+  {
+    "name": "rake",
+    "version": "13.0",
+    "blockLocation": {
+      "line": {
+        "start": 9,
+        "end": 9
+      },
+      "column": {
+        "start": 3,
+        "end": 48
+      },
+      "file_name": "<rootdir>/fixtures/bundler/lockfile-not-synced-with-gemspec/test.gemspec"
+    },
+    "versionLocation": {
+      "line": {
+        "start": 9,
+        "end": 9
+      },
+      "column": {
+        "start": 39,
+        "end": 48
+      },
+      "file_name": "<rootdir>/fixtures/bundler/lockfile-not-synced-with-gemspec/test.gemspec"
+    },
+    "nameLocation": {
+      "line": {
+        "start": 9,
+        "end": 9
+      },
+      "column": {
+        "start": 31,
+        "end": 37
+      },
+      "file_name": "<rootdir>/fixtures/bundler/lockfile-not-synced-with-gemspec/test.gemspec"
+    },
+    "packageManager": "Bundler"
+  }
+]
+---
