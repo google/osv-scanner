@@ -255,11 +255,20 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "extractors_cancelled_out",
+			Name: "extractors_cancelled_out_specified_individually",
 			Args: []string{
 				"", "source",
 				"--experimental-extractors=sbom/spdx",
 				"--experimental-extractors=sbom/cdx",
+				"--experimental-no-extractors=sbom",
+			},
+			Exit: 127,
+		},
+		{
+			Name: "extractors_cancelled_out_specified_together",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=sbom/spdx,sbom/cdx",
 				"--experimental-no-extractors=sbom",
 			},
 			Exit: 127,
@@ -280,6 +289,29 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "source",
 				"--experimental-extractors=javascript/packagelockjson",
+				"../../fixtures/locks-many",
+			},
+			Exit: 0,
+		},
+		{
+			// this will scan just the package-lock.json and composer.lock files as
+			// we've not enabled extractors for any of the other lockfiles
+			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_individually",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=javascript/packagelockjson",
+				"--experimental-extractors=php/composerlock",
+				"../../fixtures/locks-many",
+			},
+			Exit: 0,
+		},
+		{
+			// this will scan just the package-lock.json and composer.lock files as
+			// we've not enabled extractors for any of the other lockfiles
+			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=javascript/packagelockjson,php/composerlock",
 				"../../fixtures/locks-many",
 			},
 			Exit: 0,
