@@ -132,6 +132,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 	}
 
 	var vulnResult models.VulnerabilityResults
+	//nolint:contextcheck // passing the context in would be a breaking change
 	vulnResult, err = osvscanner.DoScan(scannerAction)
 
 	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
