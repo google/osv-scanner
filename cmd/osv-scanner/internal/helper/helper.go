@@ -178,7 +178,7 @@ func GetScanGlobalFlags(defaultExtractors []string) []cli.Flag {
 			Value: defaultExtractors,
 		},
 		&cli.StringSliceFlag{
-			Name:  "experimental-no-extractors",
+			Name:  "experimental-disable-extractors",
 			Usage: "list of specific extractors and ExtractorPresets of extractors to not use",
 		},
 	}
@@ -262,7 +262,7 @@ func GetExperimentalScannerActions(cmd *cli.Command, scanLicensesAllowlist []str
 		ScanLicensesAllowlist: scanLicensesAllowlist,
 		ExtractorNames: ResolveEnabledExtractors(
 			cmd.StringSlice("experimental-extractors"),
-			cmd.StringSlice("experimental-no-extractors"),
+			cmd.StringSlice("experimental-disable-extractors"),
 		),
 	}
 }

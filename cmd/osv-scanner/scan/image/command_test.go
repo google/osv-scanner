@@ -21,7 +21,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 				"", "image",
 				"--experimental-extractors=sbom/spdx",
 				"--experimental-extractors=sbom/cdx",
-				"--experimental-no-extractors=sbom",
+				"--experimental-disable-extractors=sbom",
 				"alpine:non-existent-tag",
 			},
 			Exit: 127,
@@ -31,7 +31,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "image",
 				"--experimental-extractors=sbom",
-				"--experimental-no-extractors=sbom",
+				"--experimental-disable-extractors=sbom",
 				"alpine:non-existent-tag",
 			},
 			Exit: 127,
@@ -41,7 +41,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "image",
 				"--experimental-extractors=sbom/spdx,sbom/cdx",
-				"--experimental-no-extractors=sbom",
+				"--experimental-disable-extractors=sbom",
 				"alpine:non-existent-tag",
 			},
 			Exit: 127,
@@ -91,7 +91,7 @@ func TestCommand_Docker(t *testing.T) {
 			// since we've requested the os/apk extractor disabled, and there's nothing else
 			// in the image that we support extracting
 			Name: "real_alpine_image_without_apk_extractor_enabled",
-			Args: []string{"", "image", "--experimental-no-extractors=os/apk", "alpine:3.18.9"},
+			Args: []string{"", "image", "--experimental-disable-extractors=os/apk", "alpine:3.18.9"},
 			Exit: 128,
 		},
 	}

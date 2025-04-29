@@ -260,7 +260,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 				"", "source",
 				"--experimental-extractors=sbom/spdx",
 				"--experimental-extractors=sbom/cdx",
-				"--experimental-no-extractors=sbom",
+				"--experimental-disable-extractors=sbom",
 			},
 			Exit: 127,
 		},
@@ -269,7 +269,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "source",
 				"--experimental-extractors=sbom/spdx,sbom/cdx",
-				"--experimental-no-extractors=sbom",
+				"--experimental-disable-extractors=sbom",
 			},
 			Exit: 127,
 		},
@@ -278,7 +278,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "source",
 				"--experimental-extractors=sbom",
-				"--experimental-no-extractors=sbom",
+				"--experimental-disable-extractors=sbom",
 			},
 			Exit: 127,
 		},
@@ -322,7 +322,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "scanning_directory_with_one_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-no-extractors=javascript/packagelockjson",
+				"--experimental-disable-extractors=javascript/packagelockjson",
 				"../../fixtures/locks-many",
 			},
 			Exit: 0,
@@ -356,7 +356,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "scanning_file_with_parse_as_but_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-no-extractors=javascript/packagelockjson",
+				"--experimental-disable-extractors=javascript/packagelockjson",
 				"-L", "package-lock.json:../../fixtures/locks-many/composer.lock",
 			},
 			Exit: 127,
