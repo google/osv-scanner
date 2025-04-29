@@ -36,6 +36,16 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			},
 			Exit: 127,
 		},
+		{
+			Name: "extractors_cancelled_out",
+			Args: []string{
+				"", "image",
+				"--experimental-extractors=sbom/spdx,sbom/cdx",
+				"--experimental-no-extractors=sbom",
+				"alpine:non-existent-tag",
+			},
+			Exit: 127,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {

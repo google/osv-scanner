@@ -96,6 +96,15 @@ at least one extractor must be enabled
 
 ---
 
+[TestCommand_ExplicitExtractors/extractors_cancelled_out#01 - 1]
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out#01 - 2]
+at least one extractor must be enabled
+
+---
+
 [TestCommand_ExplicitExtractors/extractors_cancelled_out_with_presets - 1]
 
 ---

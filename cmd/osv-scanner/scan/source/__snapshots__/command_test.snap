@@ -1216,11 +1216,20 @@ flag needs an argument: --experimental-extractors=
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out - 1]
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_individually - 1]
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out - 2]
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_individually - 2]
+at least one extractor must be enabled
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_together - 1]
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_together - 2]
 at least one extractor must be enabled
 
 ---
@@ -1231,6 +1240,36 @@ at least one extractor must be enabled
 
 [TestCommand_ExplicitExtractors/extractors_cancelled_out_with_presets - 2]
 at least one extractor must be enabled
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 1]
+Scanning dir ../../fixtures/locks-many
+Scanned <rootdir>/osv-scanner/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 2]
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 1]
+Scanning dir ../../fixtures/locks-many
+Scanned <rootdir>/osv-scanner/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 2]
 
 ---
 
