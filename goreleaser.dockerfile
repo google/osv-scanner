@@ -21,6 +21,8 @@ RUN apk add --no-cache \
 # Allow git to run on mounted directories
 RUN git config --global --add safe.directory '*'
 
+WORKDIR /
+
 COPY osv-scanner ./
 
 ENTRYPOINT ["/osv-scanner"]
