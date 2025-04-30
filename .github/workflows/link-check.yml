@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: gaurav-nelson/github-action-markdown-link-check@3c3b66f1f7d0900e37b71eca45b63ea9eedfce31
+      - uses: gaurav-nelson/github-action-markdown-link-check@0524e79d8d7d1606112722dd7a3b5f5ce367de3e
         with:
           use-quiet-mode: "yes"
 # Documentation available here: https://github.com/marketplace/actions/markdown-link-check

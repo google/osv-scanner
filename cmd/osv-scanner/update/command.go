@@ -3,6 +3,7 @@ package update
 import (
 	"errors"
 	"fmt"
+	"io"
 	"os"
 
 	"deps.dev/util/resolve"
@@ -16,7 +17,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-func Command() *cli.Command {
+func Command(_, _ io.Writer) *cli.Command {
 	return &cli.Command{
 		Hidden: true,
 		Name:   "update",

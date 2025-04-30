@@ -220,7 +220,12 @@ func (enc *Encoder) EncodeToken(t Token) error {
 			return err
 		}
 	case CharData:
-		escapeText(p, t, false)
+		if t.origin != nil {
+			// Write the original text if there are escape sequences replaced.
+			p.Write(t.origin)
+		} else {
+			escapeText(p, t.data, false)
+		}
 	case Comment:
 		if bytes.Contains(t, endComment) {
 			return fmt.Errorf("xml: EncodeToken of Comment containing --> marker")

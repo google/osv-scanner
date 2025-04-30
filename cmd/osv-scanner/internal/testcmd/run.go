@@ -3,11 +3,38 @@ package testcmd
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
+	"io"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
 	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/urfave/cli/v2"
 )
+
+// CommandsUnderTest should be set in TestMain by every cmd package test
+var CommandsUnderTest []cmd.CommandBuilder
+
+// fetchCommandsToTest returns the commands that should be tested, ensuring that
+// the default "scan" command is included to avoid a panic
+func fetchCommandsToTest() []cmd.CommandBuilder {
+	for _, builder := range CommandsUnderTest {
+		command := builder(nil, nil)
+
+		if command.Name == "scan" {
+			return CommandsUnderTest
+		}
+	}
+
+	return append(CommandsUnderTest, func(_, _ io.Writer) *cli.Command {
+		return &cli.Command{
+			Name: "scan",
+			Action: func(_ *cli.Context) error {
+				return errors.New("<this test is unexpectedly calling the default scan command>")
+			},
+		}
+	})
+}
 
 func run(t *testing.T, tc Case) (string, string) {
 	t.Helper()
@@ -15,7 +42,7 @@ func run(t *testing.T, tc Case) (string, string) {
 	stdout := newMuffledWriter()
 	stderr := newMuffledWriter()
 
-	ec := cmd.Run(tc.Args, stdout, stderr)
+	ec := cmd.Run(tc.Args, stdout, stderr, fetchCommandsToTest())
 
 	if ec != tc.Exit {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.Exit)
