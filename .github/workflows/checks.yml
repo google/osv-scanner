@@ -156,10 +156,10 @@ jobs:
           distribution: goreleaser
           version: "~> v2"
           args: release --clean --snapshot
-      - run: echo ${{ steps.run-goreleaser.outputs.artifacts }} > output.json
-      - uses: actions/upload-artifact@v4
-        if: success() || failure()
-        with:
-          name: artifacts-json
-          path: output.json
-          retention-days: 1
+      - run: |
+          echo '${{ steps.run-goreleaser.outputs.artifacts }}' > output.json
+          jq -r '.[] | select(.type == "Docker Image" and .goarch == "amd64" and .goos == "linux" and .extra.DockerConfig.dockerfile == "goreleaser.dockerfile") | .name' output.json | while read -r image; do
+            echo "Testing image $image"
+            docker run $image -h
+            docker run -v ${PWD}:/src $image -L /src/go.mod
+          done
