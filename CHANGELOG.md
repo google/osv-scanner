@@ -1,3 +1,11 @@
+# v2.0.2
+
+### Fixes:
+
+- [Bug #1842](https://github.com/google/osv-scanner/pull/1842) Fix an issue in the GitHub Action where call analysis for Go projects using the `tool` directive (Go 1.24+) in `go.mod` files would fail. The scanner image has been updated to use a newer Go version.
+- [Bug #1806](https://github.com/google/osv-scanner/pull/1806) Fix an issue where license overrides were not correctly reflected in the final scan results and license summary.
+- [Fix #1825](https://github.com/google/osv-scanner/pull/1825), [#1809](https://github.com/google/osv-scanner/pull/1809), [#1805](https://github.com/google/osv-scanner/pull/1805), [#1803](https://github.com/google/osv-scanner/pull/1803), [#1787](https://github.com/google/osv-scanner/pull/1787) Enhance XML output stability and consistency by preserving original spacing and minimizing unnecessary escaping. This helps reduce differences when XML files are processed.
+
 # v2.0.1
 
 ### Features:

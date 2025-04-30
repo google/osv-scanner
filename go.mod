@@ -33,7 +33,7 @@ require (
 	golang.org/x/net v0.39.0
 	golang.org/x/sync v0.13.0
 	golang.org/x/term v0.31.0
-	golang.org/x/vuln v1.1.3
+	golang.org/x/vuln v1.1.4
 	google.golang.org/grpc v1.72.0
 	google.golang.org/protobuf v1.36.6
 	gopkg.in/ini.v1 v1.67.0

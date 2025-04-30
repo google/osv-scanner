@@ -71,7 +71,7 @@ Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-sc
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "2.0.1"
+          "version": "2.0.2"
         }
       },
       "results": []
@@ -244,7 +244,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
               }
             }
           ],
-          "version": "2.0.1"
+          "version": "2.0.2"
         }
       },
       "artifacts": [
@@ -1229,7 +1229,7 @@ Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-insecure/osv-scanner-fl
               }
             }
           ],
-          "version": "2.0.1"
+          "version": "2.0.2"
         }
       },
       "artifacts": [
