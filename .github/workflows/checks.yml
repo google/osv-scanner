@@ -156,7 +156,7 @@ jobs:
           distribution: goreleaser
           version: "~> v2"
           args: release --clean --snapshot
-      - run: echo "${{ toJSON(steps.run-goreleaser.outputs.artifacts) }}" > output.json
+      - run: echo ${{ steps.run-goreleaser.outputs.artifacts }} > output.json
       - uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
