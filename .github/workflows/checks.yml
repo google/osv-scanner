@@ -156,3 +156,4 @@ jobs:
           distribution: goreleaser
           version: "~> v2"
           args: release --clean --snapshot
+      - run: echo "${{ steps.run-goreleaser.outputs.artifacts }}"
