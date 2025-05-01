@@ -1,6 +1,7 @@
 package fix_test
 
 import (
+	"context"
 	"os"
 	"slices"
 	"testing"
@@ -9,7 +10,7 @@ import (
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
 	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
 func matchFile(t *testing.T, file string) {
@@ -103,7 +104,7 @@ func TestCommand(t *testing.T) {
 	}
 }
 
-func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Context, error) {
+func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Command, error) {
 	// This is a bit hacky: make a mock App with only the flags we care about.
 	// Then use app.RunAndMatchSnapshots() to parse the flags into the cli.Context, which is returned.
 	t.Helper()
@@ -113,19 +114,19 @@ func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Context,
 			appFlags = append(appFlags, f)
 		}
 	}
-	var parsedContext *cli.Context
-	app := cli.App{
+	var parsedCmd *cli.Command
+	app := cli.Command{
 		Flags: appFlags,
-		Action: func(ctx *cli.Context) error {
+		Action: func(_ context.Context, cmd *cli.Command) error {
 			t.Helper()
-			parsedContext = ctx
+			parsedCmd = cmd
 
 			return nil
 		},
 	}
-	err := app.Run(append([]string{""}, arguments...))
+	err := app.Run(t.Context(), append([]string{""}, arguments...))
 
-	return parsedContext, err
+	return parsedCmd, err
 }
 
 func Test_parseUpgradeConfig(t *testing.T) {
@@ -204,11 +205,11 @@ func Test_parseUpgradeConfig(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			ctx, err := parseFlags(t, flags, tt.args)
+			cmd, err := parseFlags(t, flags, tt.args)
 			if err != nil {
 				t.Fatalf("error parsing flags: %v", err)
 			}
-			config := upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config"))
+			config := upgrade.ParseUpgradeConfig(cmd.StringSlice("upgrade-config"))
 			for pkg, want := range tt.want {
 				if got := config.Get(pkg); got != want {
 					t.Errorf("Config.Get(%s) got = %v, want %v", pkg, got, want)
