@@ -126,7 +126,7 @@ func ParseGitIgnores(path string, recursive bool) ([]gitignore.Pattern, string, 
 	// Read parent's dirs up to git-root
 	//
 	if pathAbs != repoRootPath {
-		newPs, err = readIgnoreFilesFromParents(fs, pathRel, repoRootPath)
+		newPs, err = readIgnoreFilesFromParents(fs, pathRel, repoRootPath, pathAbs)
 		if err != nil && !os.IsNotExist(err) {
 			return ps, "", err
 		}
@@ -153,13 +153,20 @@ func ParseGitIgnores(path string, recursive bool) ([]gitignore.Pattern, string, 
 
 // Recursively walk up the directory tree processing .gitignore files as we go.
 // Once we reach the git-root dir, process it but don't recurse any further.
-func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot string) ([]gitignore.Pattern, error) {
+// Stop at repository boundaries to prevent reading gitignore files from parent repositories.
+func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot string, currentPath string) ([]gitignore.Pattern, error) {
 	var ps []gitignore.Pattern
 
 	// Recurse up the tree to path's parent
 	pathRel = parentPath(pathRel)
 
 	pathAbs := filepath.Join(pathGitRoot, pathRel)
+
+	// Check if we've crossed into a different repository
+	if isSubRepository(pathAbs, currentPath) {
+		// We've hit a subrepository boundary, stop recursing
+		return ps, nil
+	}
 
 	// read .gitignore
 	newPs, err := readIgnoreFile(fs, toGoGitPath(pathRel), gitignoreFile)
@@ -174,13 +181,46 @@ func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot
 	}
 
 	// continue recursing up tree
-	newPs, err = readIgnoreFilesFromParents(fs, pathRel, pathGitRoot)
+	newPs, err = readIgnoreFilesFromParents(fs, pathRel, pathGitRoot, currentPath)
 	if err != nil {
 		return ps, err
 	}
 	ps = append(ps, newPs...)
 
 	return ps, nil
+}
+
+// isSubRepository checks if the directory at pathAbs is a git repository
+// that is different from the one containing originalPath
+func isSubRepository(pathAbs string, originalPath string) bool {
+	// Check if this directory has a .git subdirectory or file (in case of submodule)
+	dotGitPath := filepath.Join(pathAbs, ".git")
+	if _, err := os.Stat(dotGitPath); err == nil {
+		// Check if this is not the same repository as the original path
+		currentRepo, err := git.PlainOpen(pathAbs)
+		if err != nil {
+			return false
+		}
+
+		originalRepo, err := git.PlainOpenWithOptions(originalPath, &git.PlainOpenOptions{DetectDotGit: true})
+		if err != nil {
+			return false
+		}
+
+		// Compare by repository paths - if they're different, we've crossed a repo boundary
+		currentRoot, err := getRepoRootPath(currentRepo)
+		if err != nil {
+			return false
+		}
+
+		originalRoot, err := getRepoRootPath(originalRepo)
+		if err != nil {
+			return false
+		}
+
+		return currentRoot != originalRoot
+	}
+	return false
 }
 
 // returns the path of the root of this repo (ie with the .git dir in it)
