@@ -22,58 +22,42 @@ import (
 // `path`, or a parent of `path`, or "" if there's no
 // enclosing git repo.
 //
-// Because it detects the root of any enclosing git repo
-// if path doesn't exist the root, it returns this repoPath
-// or "" if there is none.
-//
 // It also returns the path to the root of the git-repo,
 // or "" if this path isn't within a git repo, allowing
 // a caller to know how .gitignore files were parsed.
 //
 // The actual parsing is intended to be similar to how tools
 // like rg work, but means that `path` may not necessarily be
-// the root of a git repo, and can produce these parsing
-// behaviours:
+// the root of a git repo. Parsing respects repository boundaries:
+// .gitignore files from parent repositories or unrelated dirs are ignored.
+//
+// Examples of parsing behaviour:
 //
 // `path` is a plain dir:
-//
 //   - .gitignore files are ignored
 //
 // `path` is a file:
-//
 //   - find the file's dir and then run the following rules...
 //
 // `path` is a dir at the root of a git-repo, with recursive flag:
-//
 //   - read all .gitignore files in repo
 //   - read .git/info/exclude for repo
 //
 // `path` is a dir at the root of a git-repo, without recursive flag:
-//
 //   - only read .gitignore files in repo-root
 //   - read .git/info/exclude for repo
 //
 // `path` is a dir within a git-repo, with recursive flag:
-//
 //   - read .gitignore in start dir
 //   - read all .gitignore files in child-dirs
 //   - read all .gitignore files in parent dirs up to and including repo-root
-//     (but only dirs that are an ancestor)
+//     (but only dirs that are an ancestor and part of the same repo)
 //
-// `path` is a dir within, a git-repo, without recursive flag:
-//
+// `path` is a dir within a git-repo, without recursive flag:
 //   - read .gitignore in start dir
 //   - read all .gitignore files in parent dirs up to and including repo-root
-//     (but only dirs that are an ancestor)
+//     (but only dirs that are an ancestor and part of the same repo)
 //   - read .git/info/exclude for repo
-//
-// NOTE: the dir you're passing in directly could be a dir that is ignored
-// (targeted by a parent's .gitignore or the per-repo exclude file); in this
-// case, the dir's .gitignore file is still processed, but not its sub-dirs.
-//
-// In all cases any dirs matched by a previously read
-// .gitignore are skipped, unless it's the path (ie directly
-// supplied by the user).
 func ParseGitIgnores(path string, recursive bool) ([]gitignore.Pattern, string, error) {
 	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
 	var fs billy.Filesystem
