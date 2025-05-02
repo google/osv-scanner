@@ -30,6 +30,7 @@ import (
 // like rg work, but means that `path` may not necessarily be
 // the root of a git repo. Parsing respects repository boundaries:
 // .gitignore files from parent repositories or unrelated dirs are ignored.
+// Symlinks are also properly handled throughout the process.
 //
 // Examples of parsing behaviour:
 //
@@ -177,16 +178,29 @@ func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot
 // isSubRepository checks if the directory at pathAbs is a git repository
 // that is different from the one containing originalPath
 func isSubRepository(pathAbs string, originalPath string) bool {
+	// Resolve symlinks in both paths before checking
+	resolvedPathAbs, err := filepath.EvalSymlinks(pathAbs)
+	if err != nil {
+		// If we can't resolve symlinks, fall back to original path
+		resolvedPathAbs = pathAbs
+	}
+
+	resolvedOriginalPath, err := filepath.EvalSymlinks(originalPath)
+	if err != nil {
+		// If we can't resolve symlinks, fall back to original path
+		resolvedOriginalPath = originalPath
+	}
+
 	// Check if this directory has a .git subdirectory or file (in case of submodule)
-	dotGitPath := filepath.Join(pathAbs, ".git")
+	dotGitPath := filepath.Join(resolvedPathAbs, ".git")
 	if _, err := os.Stat(dotGitPath); err == nil {
 		// Check if this is not the same repository as the original path
-		currentRepo, err := git.PlainOpen(pathAbs)
+		currentRepo, err := git.PlainOpen(resolvedPathAbs)
 		if err != nil {
 			return false
 		}
 
-		originalRepo, err := git.PlainOpenWithOptions(originalPath, &git.PlainOpenOptions{DetectDotGit: true})
+		originalRepo, err := git.PlainOpenWithOptions(resolvedOriginalPath, &git.PlainOpenOptions{DetectDotGit: true})
 		if err != nil {
 			return false
 		}
@@ -200,6 +214,17 @@ func isSubRepository(pathAbs string, originalPath string) bool {
 		originalRoot, err := getRepoRootPath(originalRepo)
 		if err != nil {
 			return false
+		}
+
+		// Resolve symlinks in repository roots as well
+		resolvedCurrentRoot, cErr := filepath.EvalSymlinks(currentRoot)
+		if cErr == nil {
+			currentRoot = resolvedCurrentRoot
+		}
+
+		resolvedOriginalRoot, oErr := filepath.EvalSymlinks(originalRoot)
+		if oErr == nil {
+			originalRoot = resolvedOriginalRoot
 		}
 
 		return currentRoot != originalRoot
@@ -222,9 +247,16 @@ func getRepoRootPath(repo *git.Repository) (string, error) {
 
 // return path (slice) for the parent of path (arg)
 func parentPath(path string) string {
-	// MAYBE: read and return '..', instead of getting the parent lexically
-	//  so that we handle symlinks, and other FS-complexity
-	return filepath.Dir(path)
+	// Handle symlinks and other filesystem complexities by resolving
+	// the real path before getting the parent directory
+	realPath, err := filepath.EvalSymlinks(path)
+	if err != nil {
+		// Fall back to lexical approach if symlink resolution fails
+		return filepath.Dir(path)
+	}
+
+	parent := filepath.Dir(realPath)
+	return parent
 }
 
 // go-git uses a slice internally to represent paths.
