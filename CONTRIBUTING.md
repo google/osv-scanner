@@ -118,7 +118,7 @@ Please follow these steps to successfully contribute documentation.
 2. Make desired documentation changes.
 3. Preview the changes by spinning up a GitHub page for your fork, building from your working branch.
    - On your fork, go to the settings tab and then the GitHub page settings. Sample URL: https://github.com/{your-github-profile}/osv-scanner/settings/pages
-   - Under "Build and deployment" select "Build from branch"
+   - Under "Build and deployment" select "Deploy from a branch"
    - Set the branch to your working branch
    - Set the github page to build from the "/docs" folder
    - Hit save and wait for your site to build
