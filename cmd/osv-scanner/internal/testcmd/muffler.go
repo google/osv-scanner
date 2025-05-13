@@ -17,6 +17,7 @@ func (m muffledWriter) Write(p []byte) (int, error) {
 		"os-release[ID] not set, fallback to",
 		"VERSION_ID not set in os-release",
 		"osrelease.ParseOsRelease(): file does not exist",
+		"Status: new inodes:",
 	} {
 		if bytes.HasPrefix(p, []byte(prefix)) {
 			return len(p), nil
