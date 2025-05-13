@@ -1,5 +1,8 @@
 // Package testlogger provides a slog handler which can handle t.Parallel() tests while being a global logging handler,
 // redirecting it to the correct underlying logger for each test thread.
+//
+// This pacakge also muffles certain log messages to reduce noise in the snapshots
+// and to keep the snapshots consistent across runs.
 package testlogger
 
 import (
@@ -73,6 +76,21 @@ func (tl *Handler) Enabled(ctx context.Context, level slog.Level) bool {
 }
 
 func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
+	for _, prefix := range []string{
+		"Starting filesystem walk for root:",
+		"End status: ",
+		"Neither CPE nor PURL found for package",
+		"Invalid PURL",
+		"os-release[ID] not set, fallback to",
+		"VERSION_ID not set in os-release",
+		"osrelease.ParseOsRelease(): file does not exist",
+		"Status: new inodes:",
+	} {
+		if strings.HasPrefix(record.Message, prefix) {
+			return nil
+		}
+	}
+
 	return tl.getLogger().Handle(ctx, record)
 }
 
