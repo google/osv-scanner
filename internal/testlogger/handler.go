@@ -1,7 +1,7 @@
 // Package testlogger provides a slog handler which can handle t.Parallel() tests while being a global logging handler,
 // redirecting it to the correct underlying logger for each test thread.
 //
-// This pacakge also muffles certain log messages to reduce noise in the snapshots
+// This package also muffles certain log messages to reduce noise in the snapshots
 // and to keep the snapshots consistent across runs.
 package testlogger
 
