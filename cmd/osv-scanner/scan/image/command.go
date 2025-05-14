@@ -27,7 +27,7 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 		Name:        "image",
 		Usage:       "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
 		Description: "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
-		Flags:       append(imageScanFlags, helper.GetScanGlobalFlags()...),
+		Flags:       append(imageScanFlags, helper.GetScanGlobalFlags([]string{"artifact"})...),
 		ArgsUsage:   "[image imageNameWithTag]",
 		Action: func(c *cli.Context) error {
 			return action(c, stdout, stderr)
@@ -76,6 +76,10 @@ func action(context *cli.Context, stdout, stderr io.Writer) error {
 		IsImageArchive:             context.Bool("archive"),
 		IncludeGitRoot:             context.Bool("include-git-root"),
 		ExperimentalScannerActions: helper.GetExperimentalScannerActions(context, scanLicensesAllowlist),
+	}
+
+	if len(scannerAction.ExtractorNames) == 0 {
+		return errors.New("at least one extractor must be enabled")
 	}
 
 	var vulnResult models.VulnerabilityResults
