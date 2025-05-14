@@ -168,7 +168,7 @@ failed to load image from tarball with path "../../fixtures/locks-manyoci-image/
 Scanning local image tarball "../../../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 15 packages affected by 20 known vulnerabilities (1 Critical, 5 High, 8 Medium, 0 Low, 6 Unknown) from 2 ecosystems.
+Total 15 packages affected by 20 known vulnerabilities (1 Critical, 6 High, 8 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
 20 vulnerabilities can be fixed.
 
 
