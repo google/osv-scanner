@@ -39,8 +39,8 @@ func fetchCommandsToTest() []cmd.CommandBuilder {
 func run(t *testing.T, tc Case) (string, string) {
 	t.Helper()
 
-	stdout := newMuffledWriter()
-	stderr := newMuffledWriter()
+	stdout := &bytes.Buffer{}
+	stderr := &bytes.Buffer{}
 
 	ec := cmd.Run(tc.Args, stdout, stderr, fetchCommandsToTest())
 
