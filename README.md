@@ -83,7 +83,7 @@ $ osv-scanner scan image my-image-name:tag
 
 ![screencast of html output of container scanning](https://github.com/user-attachments/assets/8bb95366-27ec-45d1-86ed-e42890f2fb46)
 
-### [License Scanning](https://google.github.io/osv-scanner/experimental/license-scanning/)
+### [License Scanning](https://google.github.io/osv-scanner/usage/license-scanning/)
 
 Check your dependencies' licenses using deps.dev data. For a summary:
 
@@ -97,7 +97,7 @@ To check against an allowed license list (SPDX format):
 osv-scanner --licenses="MIT,Apache-2.0" path/to/directory
 ```
 
-### [Offline Scanning](https://google.github.io/osv-scanner/experimental/offline-mode/)
+### [Offline Scanning](https://google.github.io/osv-scanner/usage/offline-mode/)
 
 Scan your project against a local OSV database. No network connection is required after the initial database download. The database can also be manually downloaded.
 
