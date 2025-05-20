@@ -174,6 +174,15 @@ func TestResolveEnabledExtractors(t *testing.T) {
 				cargoauditable.Name,
 			},
 		},
+		//
+		{
+			name: "extractor_that_does_not_exist",
+			args: args{
+				enabledExtractors:  []string{"???"},
+				disabledExtractors: nil,
+			},
+			want: []string{"???"},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
