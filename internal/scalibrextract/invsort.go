@@ -15,11 +15,18 @@ func inventorySort(a, b *extractor.Package) int {
 	bLoc := fmt.Sprintf("%v", b.Locations)
 
 	var aExtr, bExtr string
+	var aPURL, bPURL string
 	if a.Extractor != nil {
 		aExtr = a.Extractor.Name()
+		if purl := a.Extractor.ToPURL(a); purl != nil {
+			aPURL = purl.String()
+		}
 	}
 	if b.Extractor != nil {
 		bExtr = b.Extractor.Name()
+		if purl := b.Extractor.ToPURL(b); purl != nil {
+			bPURL = purl.String()
+		}
 	}
 
 	aSourceCode := fmt.Sprintf("%v", a.SourceCode)
@@ -31,5 +38,6 @@ func inventorySort(a, b *extractor.Package) int {
 		cmp.Compare(a.Version, b.Version),
 		cmp.Compare(aSourceCode, bSourceCode),
 		cmp.Compare(aExtr, bExtr),
+		cmp.Compare(aPURL, bPURL),
 	)
 }
