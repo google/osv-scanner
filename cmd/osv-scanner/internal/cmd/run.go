@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -23,6 +24,16 @@ var (
 type CommandBuilder = func(stdout, stderr io.Writer) *cli.Command
 
 func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int {
+	// get rid of the extraneous space in the subcommand help template, as otherwise
+	// our snapshots will fail because it will be trailing and removed by editors
+	//
+	// todo: remove this once https://github.com/urfave/cli/pull/2140 has been released
+	cli.SubcommandHelpTemplate = strings.ReplaceAll(
+		cli.SubcommandHelpTemplate,
+		"{{if .VisibleCommands}} [command [command options]] {{end}}",
+		"{{if .VisibleCommands}} [command [command options]]{{end}}",
+	)
+
 	// --- Setup Logger ---
 	logHandler := cmdlogger.New(stdout, stderr)
 
