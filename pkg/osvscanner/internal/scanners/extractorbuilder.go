@@ -1,6 +1,8 @@
 package scanners
 
 import (
+	"log/slog"
+
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
@@ -156,7 +158,13 @@ func BuildAll(names []string) []filesystem.Extractor {
 	extractors := make([]filesystem.Extractor, 0, len(names))
 
 	for _, name := range names {
-		extractors = append(extractors, build(name))
+		extractor := build(name)
+
+		if extractor == nil {
+			slog.Error("Unknown extractor " + name)
+		} else {
+			extractors = append(extractors, build(name))
+		}
 	}
 
 	return extractors
