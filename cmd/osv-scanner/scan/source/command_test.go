@@ -252,7 +252,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 		{
 			Name: "empty_extractors_flag_does_nothing",
 			Args: []string{"", "source", "--experimental-extractors="},
-			Exit: 128,
+			Exit: 127,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_individually",

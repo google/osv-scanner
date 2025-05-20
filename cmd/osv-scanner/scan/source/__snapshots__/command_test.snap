@@ -1164,9 +1164,7 @@ Filtered 1 vulnerability from output
 ---
 
 [TestCommand_ExplicitExtractors/empty_extractors_flag_does_nothing - 2]
-Unknown extractor 
-Unknown extractor 
-No package sources found, --help for usage information.
+at least one extractor must be enabled
 
 ---
 
