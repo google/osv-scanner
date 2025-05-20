@@ -316,7 +316,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
 		FilesystemExtractors: getExtractors(
-			[][]string{scalibrextract.ExtractorsArtifacts},
+			scalibrextract.ExtractorsArtifacts,
 			accessors,
 			actions,
 		),

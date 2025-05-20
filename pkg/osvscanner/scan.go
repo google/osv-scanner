@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"path/filepath"
+	"slices"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
@@ -44,13 +45,11 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 	}
 }
 
-func getExtractors(defaultExtractorNames [][]string, accessors ExternalAccessors, actions ScannerActions) []filesystem.Extractor {
+func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, actions ScannerActions) []filesystem.Extractor {
 	names := actions.ExtractorNames
 
 	if len(names) == 0 {
-		for _, preset := range defaultExtractorNames {
-			names = append(names, preset...)
-		}
+		names = defaultExtractorNames
 	}
 
 	extractors := scanners.BuildAll(names)
@@ -66,7 +65,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	var scannedInventories []*extractor.Package
 
 	// --- Lockfiles ---
-	lockfileExtractors := getExtractors([][]string{scalibrextract.ExtractorsLockfiles}, accessors, actions)
+	lockfileExtractors := getExtractors(scalibrextract.ExtractorsLockfiles, accessors, actions)
 	for _, lockfileElem := range actions.LockfilePaths {
 		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
 		if err != nil {
@@ -102,11 +101,11 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 
 	// --- Directories ---
 	dirExtractors := getExtractors(
-		[][]string{
+		slices.Concat(
 			scalibrextract.ExtractorsLockfiles,
 			scalibrextract.ExtractorsSBOMs,
 			scalibrextract.ExtractorsDirectories,
-		},
+		),
 		accessors,
 		actions,
 	)
