@@ -38,6 +38,14 @@ func TestResolveEnabledExtractors(t *testing.T) {
 			},
 			want: []string{},
 		},
+		{
+			name: "empty_strings_are_ignored",
+			args: args{
+				enabledExtractors:  []string{""},
+				disabledExtractors: []string{""},
+			},
+			want: []string{},
+		},
 		//
 		{
 			name: "one_extractor_enabled_and_nothing_disabled",
