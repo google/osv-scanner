@@ -1273,6 +1273,21 @@ No issues found
 
 ---
 
+[TestCommand_ExplicitExtractors/scanning_directory_with_an_extractor_that_does_not_exist - 1]
+Scanning dir ../../fixtures/locks-many
+Scanned <rootdir>/osv-scanner/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_an_extractor_that_does_not_exist - 2]
+Unknown extractor custom/extractor
+Unknown extractor custom/extractor
+
+---
+
 [TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_disabled - 1]
 Scanning dir ../../fixtures/locks-many
 Scanned <rootdir>/osv-scanner/fixtures/locks-many/Gemfile.lock file and found 1 package

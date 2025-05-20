@@ -294,6 +294,17 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Exit: 0,
 		},
 		{
+			Name: "scanning_directory_with_an_extractor_that_does_not_exist",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=javascript/packagelockjson",
+				"--experimental-extractors=custom/extractor",
+				"--experimental-disable-extractors=custom/anotherextractor",
+				"../../fixtures/locks-many",
+			},
+			Exit: 127,
+		},
+		{
 			// this will scan just the package-lock.json and composer.lock files as
 			// we've not enabled extractors for any of the other lockfiles
 			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_individually",
