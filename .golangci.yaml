@@ -9,6 +9,7 @@ linters:
     - exhaustruct      # overkill (g-rath)
     - forcetypeassert  # too hard (g-rath)
     - funlen           #
+    - funcorder        #
     - gochecknoglobals # disagree with, for non changing variables (another-rex)
     - gocognit         #
     - goconst          # not everything should be a constant
