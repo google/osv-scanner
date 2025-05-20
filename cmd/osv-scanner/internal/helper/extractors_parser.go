@@ -14,43 +14,33 @@ var presets = map[string][]string{
 }
 
 func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []string) []string {
-	toDisable := make(map[string]bool)
+	extractors := make(map[string]bool)
 
-	for _, disabled := range disabledExtractors {
-		if disabled == "" {
-			continue
-		}
+	for i, exts := range [][]string{enabledExtractors, disabledExtractors} {
+		enabled := i == 0
 
-		for _, name := range presets[disabled] {
-			toDisable[name] = true
-		}
-
-		toDisable[disabled] = true
-	}
-
-	extractors := make([]string, 0, len(enabledExtractors))
-
-	for _, enabled := range enabledExtractors {
-		if enabled == "" {
-			continue
-		}
-
-		if names, ok := presets[enabled]; ok {
-			for _, name := range names {
-				if _, disabled := toDisable[name]; !disabled {
-					extractors = append(extractors, name)
+		for _, extractorOrPreset := range exts {
+			if names, ok := presets[extractorOrPreset]; ok {
+				for _, name := range names {
+					extractors[name] = enabled
 				}
+
+				continue
 			}
 
-			continue
-		}
-
-		if _, disabled := toDisable[enabled]; !disabled {
-			extractors = append(extractors, enabled)
+			extractors[extractorOrPreset] = enabled
 		}
 	}
 
-	slices.Sort(extractors)
+	asSlice := make([]string, 0, len(extractors))
 
-	return extractors
+	for name, value := range extractors {
+		if name != "" && value {
+			asSlice = append(asSlice, name)
+		}
+	}
+
+	slices.Sort(asSlice)
+
+	return asSlice
 }
