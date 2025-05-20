@@ -1,8 +1,8 @@
 package helper
 
 import (
-	"slices"
-
+	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 )
 
@@ -13,7 +13,7 @@ var presets = map[string][]string{
 	"artifact":  scalibrextract.ExtractorsArtifacts,
 }
 
-func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []string) []string {
+func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []string) []filesystem.Extractor {
 	extractors := make(map[string]bool)
 
 	for i, exts := range [][]string{enabledExtractors, disabledExtractors} {
@@ -40,7 +40,5 @@ func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []s
 		}
 	}
 
-	slices.Sort(asSlice)
-
-	return asSlice
+	return builders.BuildExtractors(asSlice)
 }

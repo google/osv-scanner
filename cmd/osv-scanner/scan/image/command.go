@@ -77,7 +77,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 		ExperimentalScannerActions: helper.GetExperimentalScannerActions(cmd, scanLicensesAllowlist),
 	}
 
-	if len(scannerAction.ExtractorNames) == 0 {
+	if len(scannerAction.Extractors) == 0 {
 		return errors.New("at least one extractor must be enabled")
 	}
 
