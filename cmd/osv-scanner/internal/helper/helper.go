@@ -255,7 +255,7 @@ func GetExperimentalScannerActions(context *cli.Context, scanLicensesAllowlist [
 		ShowAllPackages:       context.Bool("all-packages"),
 		ScanLicensesSummary:   context.IsSet("licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,
-		ExtractorNames: ResolveEnabledExtractors(
+		Extractors: ResolveEnabledExtractors(
 			context.StringSlice("experimental-extractors"),
 			context.StringSlice("experimental-disable-extractors"),
 		),

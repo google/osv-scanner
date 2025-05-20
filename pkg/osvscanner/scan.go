@@ -10,6 +10,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
+	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
@@ -46,13 +47,11 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 }
 
 func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, actions ScannerActions) []filesystem.Extractor {
-	names := actions.ExtractorNames
+	extractors := actions.Extractors
 
-	if len(names) == 0 {
-		names = defaultExtractorNames
+	if len(extractors) == 0 {
+		extractors = builders.BuildExtractors(defaultExtractorNames)
 	}
-
-	extractors := scanners.BuildAll(names)
 
 	configureExtractors(extractors, accessors, actions)
 
@@ -77,7 +76,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 
 	// --- SBOMs ---
 	// none of the SBOM extractors need configuring
-	sbomExtractors := scanners.BuildAll(scalibrextract.ExtractorsSBOMs)
+	sbomExtractors := builders.BuildExtractors(scalibrextract.ExtractorsSBOMs)
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
 		if err != nil {
