@@ -1,4 +1,4 @@
-package scanners
+package builders
 
 import (
 	"log/slog"
@@ -154,7 +154,7 @@ func build(name string) filesystem.Extractor {
 	return nil
 }
 
-func BuildAll(names []string) []filesystem.Extractor {
+func BuildExtractors(names []string) []filesystem.Extractor {
 	extractors := make([]filesystem.Extractor, 0, len(names))
 
 	for _, name := range names {

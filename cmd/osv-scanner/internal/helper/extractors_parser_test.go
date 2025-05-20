@@ -189,7 +189,7 @@ func TestResolveEnabledExtractors(t *testing.T) {
 				enabledExtractors:  []string{"???"},
 				disabledExtractors: nil,
 			},
-			want: []string{"???"},
+			want: []string{},
 		},
 	}
 	for _, tt := range tests {
@@ -200,7 +200,14 @@ func TestResolveEnabledExtractors(t *testing.T) {
 
 			slices.Sort(tt.want)
 
-			if diff := cmp.Diff(tt.want, got); diff != "" {
+			gotNames := make([]string, 0, len(got))
+			for _, extractor := range got {
+				gotNames = append(gotNames, extractor.Name())
+			}
+
+			slices.Sort(gotNames)
+
+			if diff := cmp.Diff(tt.want, gotNames); diff != "" {
 				t.Errorf("replaceJSONInput() diff (-want +got): %s", diff)
 			}
 		})
