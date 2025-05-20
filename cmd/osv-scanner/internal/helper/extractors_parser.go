@@ -17,13 +17,8 @@ func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []s
 	toDisable := make(map[string]bool)
 
 	for _, disabled := range disabledExtractors {
-		if names, ok := presets[disabled]; ok {
-			for _, name := range names {
-				toDisable[name] = true
-			}
-
-			// we also want to include the preset itself so that we'll skip
-			// looping over its names entirely when determining what to enable
+		for _, name := range presets[disabled] {
+			toDisable[name] = true
 		}
 
 		toDisable[disabled] = true
