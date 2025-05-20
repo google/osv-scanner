@@ -3892,25 +3892,25 @@ Rewriting <tempdir>/pom.xml...
     <httpclient.version>4.5.13</httpclient.version>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>2.14.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jsoup</groupId>
-        <artifactId>jsoup</artifactId>
-        <version>1.15.3</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>${httpclient.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>2.14.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.jsoup</groupId>
+          <artifactId>jsoup</artifactId>
+          <version>1.15.3</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient</artifactId>
+          <version>${httpclient.version}</version>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
 
   <dependencies>
     <dependency>
@@ -4082,25 +4082,25 @@ Rewriting <tempdir>/pom.xml...
     <httpclient.version>4.5.13</httpclient.version>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>2.14.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.jsoup</groupId>
-        <artifactId>jsoup</artifactId>
-        <version>1.15.3</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>${httpclient.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>2.14.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.jsoup</groupId>
+          <artifactId>jsoup</artifactId>
+          <version>1.15.3</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient</artifactId>
+          <version>${httpclient.version}</version>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
 
   <dependencies>
     <dependency>

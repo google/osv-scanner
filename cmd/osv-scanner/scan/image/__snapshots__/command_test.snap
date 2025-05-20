@@ -106,7 +106,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 17 packages affected by 26 known vulnerabilities (2 Critical, 3 High, 9 Medium, 2 Low, 10 Unknown) from 1 ecosystem.
+Total 17 packages affected by 27 known vulnerabilities (2 Critical, 3 High, 9 Medium, 2 Low, 11 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -118,7 +118,7 @@ Ubuntu:22.04
 +----------------+-------------------------+------------------+------------+-------------------------+------------------+---------------+
 | coreutils      | 8.32-4.1ubuntu1.2       | No fix available |          1 | coreutils               | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04   | No fix available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8         | No fix available |          2 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8         | No fix available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1       | No fix available |          2 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5        | No fix available |          1 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4       | No fix available |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
@@ -215,8 +215,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-empty.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 12 packages affected by 17 known vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
-17 vulnerabilities can be fixed.
+Total 12 packages affected by 18 known vulnerabilities (0 Critical, 3 High, 1 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
+18 vulnerabilities can be fixed.
 
 
 PyPI
@@ -232,7 +232,7 @@ PyPI
 +------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +------------+-------------------+---------------+------------+------------------+---------------+
-| setuptools | 58.1.0            | Fix Available |          2 | # 13 Layer       | python        |
+| setuptools | 58.1.0            | Fix Available |          3 | # 13 Layer       | python        |
 +------------+-------------------+---------------+------------+------------------+---------------+
 Debian:10
 +-----------------------------------------------------------------------------------------------------------------------------------------------+
@@ -265,8 +265,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 17 packages affected by 31 known vulnerabilities (0 Critical, 8 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-31 vulnerabilities can be fixed.
+Total 17 packages affected by 32 known vulnerabilities (0 Critical, 9 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+32 vulnerabilities can be fixed.
 
 
 PyPI
@@ -310,7 +310,7 @@ PyPI
 +------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +------------+-------------------+---------------+------------+------------------+---------------+
-| setuptools | 58.1.0            | Fix Available |          2 | # 13 Layer       | python        |
+| setuptools | 58.1.0            | Fix Available |          3 | # 13 Layer       | python        |
 +------------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:usr/local/lib/python3.9/site-packages/urllib3-1.24.3.dist-info/METADATA     |
@@ -728,11 +728,12 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
+            "GHSA-5rjg-fvgr-3xxf",
             "GHSA-cx63-2mw6-8hw5",
             "GHSA-r9hx-vwmv-q579",
             "PYSEC-2022-43012"
           ],
-          "groups": 2
+          "groups": 3
         }
       ]
     },
@@ -1342,6 +1343,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "alpine-baselayout",
             "version": "3.6.5-r0",
             "ecosystem": "Alpine:v3.20",
+            "commit": "66187892e05b03a41d08e9acabd19b7576a1c875",
             "image_origin_details": {
               "index": 0
             }
@@ -1355,6 +1357,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "alpine-baselayout-data",
             "version": "3.6.5-r0",
             "ecosystem": "Alpine:v3.20",
+            "commit": "66187892e05b03a41d08e9acabd19b7576a1c875",
             "image_origin_details": {
               "index": 0
             }
@@ -1368,6 +1371,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "alpine-keys",
             "version": "2.4-r1",
             "ecosystem": "Alpine:v3.20",
+            "commit": "aab68f8c9ab434a46710de8e12fb3206e2930a59",
             "image_origin_details": {
               "index": 0
             }
@@ -1381,6 +1385,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "apk-tools",
             "version": "2.14.4-r0",
             "ecosystem": "Alpine:v3.20",
+            "commit": "d435c805af8af4171438da3ec3429c094aac4c6e",
             "image_origin_details": {
               "index": 0
             }
@@ -1394,6 +1399,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "busybox",
             "version": "1.36.1-r29",
             "ecosystem": "Alpine:v3.20",
+            "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
             "image_origin_details": {
               "index": 0
             }
@@ -1407,6 +1413,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "busybox-binsh",
             "version": "1.36.1-r29",
             "ecosystem": "Alpine:v3.20",
+            "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
             "image_origin_details": {
               "index": 0
             }
@@ -1420,6 +1427,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "ca-certificates-bundle",
             "version": "20240226-r0",
             "ecosystem": "Alpine:v3.20",
+            "commit": "56fb003da0adcea3b59373ef6a633d0c5bfef3ac",
             "image_origin_details": {
               "index": 0
             }
@@ -1433,6 +1441,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "libcrypto3",
             "version": "3.3.1-r0",
             "ecosystem": "Alpine:v3.20",
+            "commit": "15cc530882e1e6f3dc8a77200ee8bd01cb98f53c",
             "image_origin_details": {
               "index": 0
             }
@@ -1452,6 +1461,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "libssl3",
             "version": "3.3.1-r0",
             "ecosystem": "Alpine:v3.20",
+            "commit": "15cc530882e1e6f3dc8a77200ee8bd01cb98f53c",
             "image_origin_details": {
               "index": 0
             }
@@ -1471,6 +1481,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "musl",
             "version": "1.2.5-r0",
             "ecosystem": "Alpine:v3.20",
+            "commit": "4fe5bdbe47b100daa6380f81c4c8ea3f99b61362",
             "image_origin_details": {
               "index": 0
             }
@@ -1486,6 +1497,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "musl-utils",
             "version": "1.2.5-r0",
             "ecosystem": "Alpine:v3.20",
+            "commit": "4fe5bdbe47b100daa6380f81c4c8ea3f99b61362",
             "image_origin_details": {
               "index": 0
             }
@@ -1501,6 +1513,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "scanelf",
             "version": "1.3.7-r2",
             "ecosystem": "Alpine:v3.20",
+            "commit": "e65a4f2d0470e70d862ef2b5c412ecf2cb9ad0a6",
             "image_origin_details": {
               "index": 0
             }
@@ -1514,6 +1527,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "ssl_client",
             "version": "1.36.1-r29",
             "ecosystem": "Alpine:v3.20",
+            "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
             "image_origin_details": {
               "index": 0
             }
@@ -1527,6 +1541,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "os_package_name": "zlib",
             "version": "1.3.1-r1",
             "ecosystem": "Alpine:v3.20",
+            "commit": "fad2d175bd85eb4c5566765375392a7394dfbcf2",
             "image_origin_details": {
               "index": 0
             }
@@ -1601,6 +1616,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary
             "os_package_name": "busybox",
             "version": "1.36.1-r15",
             "ecosystem": "Alpine:v3.19",
+            "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
             "image_origin_details": {
               "index": 0
             }
@@ -1619,6 +1635,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary
             "os_package_name": "busybox-binsh",
             "version": "1.36.1-r15",
             "ecosystem": "Alpine:v3.19",
+            "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
             "image_origin_details": {
               "index": 0
             }
@@ -1637,6 +1654,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary
             "os_package_name": "libcrypto3",
             "version": "3.1.4-r5",
             "ecosystem": "Alpine:v3.19",
+            "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
             "image_origin_details": {
               "index": 0
             }
@@ -1658,6 +1676,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary
             "os_package_name": "libssl3",
             "version": "3.1.4-r5",
             "ecosystem": "Alpine:v3.19",
+            "commit": "b784a22cad0c452586b438cb7a597d846fc09ff4",
             "image_origin_details": {
               "index": 0
             }
@@ -1679,6 +1698,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary
             "os_package_name": "ssl_client",
             "version": "1.36.1-r15",
             "ecosystem": "Alpine:v3.19",
+            "commit": "d1b6f274f29076967826e0ecf6ebcaa5d360272f",
             "image_origin_details": {
               "index": 0
             }
@@ -1937,9 +1957,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-0577",
+            "UBUNTU-CVE-2025-4802",
             "USN-7259-1"
           ],
-          "groups": 3
+          "groups": 4
         },
         {
           "package": {
@@ -1955,9 +1976,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-0577",
+            "UBUNTU-CVE-2025-4802",
             "USN-7259-1"
           ],
-          "groups": 3
+          "groups": 4
         },
         {
           "package": {

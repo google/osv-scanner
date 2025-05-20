@@ -854,6 +854,32 @@ func writeProject(w io.Writer, enc *internalxml.Encoder, raw, prefix, id string,
 	return enc.Flush()
 }
 
+// indentation returns the indentation of the dependency element.
+// If dependencies or dependency elements are not found, the default
+// indentation (four space) is returned.
+func indentation(raw string) string {
+	i := strings.Index(raw, "<dependencies>")
+	if i < 0 {
+		return "    "
+	}
+
+	raw = raw[i+len("<dependencies>"):]
+	// Find the first dependency element.
+	j := strings.Index(raw, "<dependency>")
+	if j < 0 {
+		return "    "
+	}
+
+	raw = raw[:j]
+	// Find the last new line and get the space between.
+	k := strings.LastIndex(raw, "\n")
+	if k < 0 {
+		return "    "
+	}
+
+	return raw[k+1:]
+}
+
 func writeDependency(w io.Writer, enc *internalxml.Encoder, raw string, patches map[MavenPatch]bool) error {
 	dec := internalxml.NewDecoder(bytes.NewReader([]byte(raw)))
 	for {
@@ -889,7 +915,8 @@ func writeDependency(w io.Writer, enc *internalxml.Encoder, raw string, patches 
 				// Sort dependencies for consistency in testing.
 				slices.SortFunc(deps, compareDependency)
 
-				enc.Indent("      ", "  ")
+				enc.Indent(indentation(raw), "  ")
+
 				// Write a new line to keep the format.
 				if _, err := w.Write([]byte("\n")); err != nil {
 					return err
