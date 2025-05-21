@@ -1391,7 +1391,7 @@ overriding license for package npm/ms/2.1.3 with MIT WITH Bison-exception-2.2
 
 ---
 
-[TestCommand_Licenses/Licenses_with_invalid_expression - 1]
+[TestCommand_Licenses/Licenses_with_invalid_expression_in_config - 1]
 Scanning dir ./fixtures/locks-licenses/package-lock.json
 Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-licenses/package-lock.json file and found 4 packages
 overriding license for package npm/babel/6.23.0 with MIT AND (LGPL-2.1-or-later OR BSD-3-Clause))
@@ -1414,9 +1414,18 @@ overriding license for package npm/ms/2.1.3 with MIT WITH (Bison-exception-2.2 A
 
 ---
 
-[TestCommand_Licenses/Licenses_with_invalid_expression - 2]
+[TestCommand_Licenses/Licenses_with_invalid_expression_in_config - 2]
 license LGPL-2.1-only OR OR BSD-3-Clause for package npm/human-signals/5.0.0 is invalid: unexpected OR after OR
 license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.3 is invalid: unexpected ( after WITH
+
+---
+
+[TestCommand_Licenses/Licenses_with_invalid_licenses_in_flag - 1]
+
+---
+
+[TestCommand_Licenses/Licenses_with_invalid_licenses_in_flag - 2]
+--licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: something-something
 
 ---
 
@@ -1902,6 +1911,33 @@ Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json 
 ---
 
 [TestCommand_Licenses/Vulnerabilities_and_license_violations_with_allowlist - 2]
+
+---
+
+[TestCommand_Licenses/When_offline_licenses_are_still_validated - 1]
+
+---
+
+[TestCommand_Licenses/When_offline_licenses_are_still_validated - 2]
+--licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: something-something
+
+---
+
+[TestCommand_Licenses/When_offline_licenses_cannot_be_checked - 1]
+
+---
+
+[TestCommand_Licenses/When_offline_licenses_cannot_be_checked - 2]
+cannot retrieve licenses locally
+
+---
+
+[TestCommand_Licenses/When_offline_licenses_summary_cannot_be_printed - 1]
+
+---
+
+[TestCommand_Licenses/When_offline_licenses_summary_cannot_be_printed - 2]
+cannot retrieve licenses locally
 
 ---
 
