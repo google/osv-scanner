@@ -71,7 +71,7 @@ Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-sc
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "2.0.1"
+          "version": "2.0.2"
         }
       },
       "results": []
@@ -244,7 +244,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
               }
             }
           ],
-          "version": "2.0.1"
+          "version": "2.0.2"
         }
       },
       "artifacts": [
@@ -679,6 +679,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3878-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4064-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4146-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4661-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -930,6 +931,18 @@ No issues found
 ---
 
 [TestCommand/one_specific_supported_lockfile_with_ignore - 2]
+
+---
+
+[TestCommand/one_specific_supported_lockfile_with_offline_explicitly_false - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
+No issues found
+
+---
+
+[TestCommand/one_specific_supported_lockfile_with_offline_explicitly_false - 2]
 
 ---
 
@@ -1217,7 +1230,7 @@ Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-insecure/osv-scanner-fl
               }
             }
           ],
-          "version": "2.0.1"
+          "version": "2.0.2"
         }
       },
       "artifacts": [
@@ -2160,6 +2173,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3878-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4064-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4146-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4661-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2382,6 +2396,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3878-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4064-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4146-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4661-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |

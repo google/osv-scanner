@@ -13,8 +13,16 @@
   <name>my-app</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
-  <description>Don't escape</description>
-  <developers />
+  <description>Don't escape. Escape &#34;this&#34;.</description>
+  <developers>
+    <developer>
+      <name>Ol' Cap'n Napkins</name>
+    </developer>
+    <developer>
+      <name>Ol&#34; Cap&#34;n Napkins</name>
+    </developer>
+  </developers>
+
 
   <configuration>
     <target>
@@ -167,8 +175,16 @@
   <name>my-app</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
-  <description>Don't escape</description>
-  <developers />
+  <description>Don't escape. Escape &#34;this&#34;.</description>
+  <developers>
+    <developer>
+      <name>Ol' Cap'n Napkins</name>
+    </developer>
+    <developer>
+      <name>Ol&#34; Cap&#34;n Napkins</name>
+    </developer>
+  </developers>
+
 
   <configuration>
     <target>

@@ -321,7 +321,7 @@ var _ Marshaler = (*MyMarshalerTest)(nil)
 
 func (m *MyMarshalerTest) MarshalXML(e *Encoder, start StartElement) error {
 	e.EncodeToken(start)
-	e.EncodeToken(CharData([]byte("hello world")))
+	e.EncodeToken(CharData{data: []byte("hello world")})
 	e.EncodeToken(EndElement{start.Name, false})
 	return nil
 }
@@ -1896,7 +1896,7 @@ func TestMarshalWriteIOErrors(t *testing.T) {
 func TestMarshalFlush(t *testing.T) {
 	var buf strings.Builder
 	enc := NewEncoder(&buf)
-	if err := enc.EncodeToken(CharData("hello world")); err != nil {
+	if err := enc.EncodeToken(CharData{data: []byte("hello world")}); err != nil {
 		t.Fatalf("enc.EncodeToken: %v", err)
 	}
 	if buf.Len() > 0 {
@@ -2000,13 +2000,13 @@ var encodeTokenTests = []struct {
 }, {
 	desc: "char data",
 	toks: []Token{
-		CharData("foo"),
+		CharData{data: []byte("foo")},
 	},
 	want: `foo`,
 }, {
 	desc: "char data with tab and newline characters",
 	toks: []Token{
-		CharData(" \t\n"),
+		CharData{data: []byte(" \t\n")},
 	},
 	want: " \t\n",
 }, {
