@@ -1036,16 +1036,20 @@ unsupported output format "unknown" - must be one of: table, html, vertical, jso
 
 [TestCommand/requirements.txt_can_have_all_kinds_of_names - 1]
 Scanning dir ./fixtures/locks-requirements
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/my-requirements.txt file and found 1 package
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.txt file and found 3 packages
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/my-requirements.txt file and found 2 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements-dev.txt file and found 2 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.prod.txt file and found 2 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.txt file and found 6 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/the_requirements_for_test.txt file and found 2 packages
 +-------------------------------------+------+-----------+------------+---------+---------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | SOURCE                                            |
 +-------------------------------------+------+-----------+------------+---------+---------------------------------------------------+
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | fixtures/locks-requirements/my-requirements.txt   |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |                                                   |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | fixtures/locks-requirements/my-requirements.txt   |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |                                                   |
+| https://osv.dev/PYSEC-2024-48       | 5.3  | PyPI      | black      | 1.0.0   | fixtures/locks-requirements/requirements-dev.txt  |
+| https://osv.dev/GHSA-fj7x-q9j7-g6q6 |      |           |            |         |                                                   |
 | https://osv.dev/PYSEC-2024-48       | 5.3  | PyPI      | black      | 1.0.0   | fixtures/locks-requirements/requirements-dev.txt  |
 | https://osv.dev/GHSA-fj7x-q9j7-g6q6 |      |           |            |         |                                                   |
 | https://osv.dev/PYSEC-2021-439      | 7.3  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
@@ -1066,6 +1070,35 @@ Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/the_requir
 | https://osv.dev/GHSA-jrh2-hc4r-7jwx |      |           |            |         |                                                   |
 | https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/PYSEC-2021-439      | 7.3  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-v6rh-hp5x-86rv |      |           |            |         |                                                   |
+| https://osv.dev/PYSEC-2022-1        | 8.7  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-53qw-q765-4fww |      |           |            |         |                                                   |
+| https://osv.dev/PYSEC-2022-19       | 6.1  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-95rw-fx8r-36v6 |      |           |            |         |                                                   |
+| https://osv.dev/PYSEC-2022-190      | 9.8  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-2gwj-7jmv-h26r |      |           |            |         |                                                   |
+| https://osv.dev/PYSEC-2022-191      | 9.8  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-w24h-v9qh-8gxj |      |           |            |         |                                                   |
+| https://osv.dev/PYSEC-2022-2        | 8.7  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-8c5j-9r9f-c6w8 |      |           |            |         |                                                   |
+| https://osv.dev/PYSEC-2022-20       | 8.7  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-6cw3-g6wv-c2xv |      |           |            |         |                                                   |
+| https://osv.dev/PYSEC-2022-3        | 6.9  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-jrh2-hc4r-7jwx |      |           |            |         |                                                   |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |                                                   |
+| https://osv.dev/PYSEC-2020-43       | 8.7  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-xc3p-ff3m-f46v |      |           |            |         |                                                   |
+| https://osv.dev/PYSEC-2024-71       | 8.7  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-hxwh-jpp2-84pm |      |           |            |         |                                                   |
+| https://osv.dev/GHSA-43qf-4rqw-9q2g | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-7rxf-gvfg-47g4 | 4.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-84pr-m4jr-85g5 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-8vgw-p6qm-5gr7 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/PYSEC-2020-73       |      | PyPI      | pandas     | 0.23.4  | fixtures/locks-requirements/requirements.txt      |
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |                                                   |
 | https://osv.dev/PYSEC-2020-43       | 8.7  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
@@ -2639,11 +2672,11 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 1]
 Scanning dir ./fixtures/locks-requirements
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/my-requirements.txt file and found 1 package
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.txt file and found 3 packages
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/my-requirements.txt file and found 2 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements-dev.txt file and found 2 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.prod.txt file and found 2 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.txt file and found 6 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/the_requirements_for_test.txt file and found 2 packages
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
@@ -2665,11 +2698,11 @@ could not load db for npm ecosystem: unable to fetch OSV database: no offline ve
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 3]
 Scanning dir ./fixtures/locks-requirements
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/my-requirements.txt file and found 1 package
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.txt file and found 3 packages
-Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/my-requirements.txt file and found 2 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements-dev.txt file and found 2 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.prod.txt file and found 2 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/requirements.txt file and found 6 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-requirements/the_requirements_for_test.txt file and found 2 packages
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
