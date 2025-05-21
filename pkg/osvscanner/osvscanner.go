@@ -157,7 +157,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	externalAccessors.MavenRegistryAPIClient, err = datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{
 		URL:             actions.TransitiveScanningActions.MavenRegistry,
 		ReleasesEnabled: true,
-	})
+	}, "")
 
 	if err != nil {
 		return ExternalAccessors{}, err
@@ -166,7 +166,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	if !actions.TransitiveScanningActions.NativeDataSource {
 		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	} else {
-		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(actions.TransitiveScanningActions.MavenRegistry)
+		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(actions.TransitiveScanningActions.MavenRegistry, "")
 	}
 
 	if err != nil {
