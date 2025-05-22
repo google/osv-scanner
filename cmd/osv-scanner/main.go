@@ -2,6 +2,7 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"io"
 	"os"
 	"slices"
@@ -123,7 +124,24 @@ func insertDefaultCommand(args []string, commands []*cli.Command, defaultCommand
 }
 
 func main() {
+	printDeprecationNotice()
 	exitCode := run(os.Args, os.Stdout, os.Stderr)
-
 	os.Exit(exitCode)
+}
+
+func printDeprecationNotice() {
+	//nolint:govet
+	_, _ = fmt.Fprintln(os.Stdout, `
+==========================================
+⚠ DEPRECATION NOTICE ⚠
+
+The osv-scanner CLI and its repository are no longer maintained.
+No further development, bug fixes, or security updates will be provided.
+
+We recommend migrating to our new tool:
+  → https://github.com/DataDog/datadog-sbom-generator
+
+Please update your workflows and tooling accordingly.
+==========================================
+`)
 }
