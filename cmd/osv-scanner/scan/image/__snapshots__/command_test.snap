@@ -1311,19 +1311,19 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
       },
       {
         "diff_id": "sha256:...",
-        "command": "COPY file:53f9677a8b54f67...",
+        "command": "COPY ./python-fixture/req...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "RUN /0pip install --no-ca...",
+        "command": "RUN /bin/sh -c pip instal...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "COPY file:816265ee3bfc719...",
+        "command": "COPY python-fixture/main....",
         "is_empty": false,
         "base_image_index": 0
       },
@@ -1651,7 +1651,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
       },
       {
         "diff_id": "sha256:...",
-        "command": "COPY file:420f79474f8c83dc7ec59abbce117c7fb394afb647a85fe9dec3bd3ad6c6adff in /go/bin/ ",
+        "command": "COPY /work/ptf-1.4.0 /go/bin/ # buildkit",
         "is_empty": false,
         "base_image_index": 0
       }
@@ -1904,31 +1904,31 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary
       },
       {
         "diff_id": "sha256:...",
-        "command": "|1 MANAGER_VERSION=10.2.4...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "|1 MANAGER_VERSION=10.2.4...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "|1 MANAGER_VERSION=10.2.4...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "|1 MANAGER_VERSION=10.2.4...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
         "is_empty": false,
         "base_image_index": 0
       },
       {
         "diff_id": "sha256:...",
-        "command": "|1 MANAGER_VERSION=10.2.4...",
+        "command": "RUN |1 MANAGER_VERSION=10...",
         "is_empty": false,
         "base_image_index": 0
       }
