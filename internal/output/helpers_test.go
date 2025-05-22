@@ -8,6 +8,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
+	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -33,6 +34,19 @@ type pkginfo struct {
 	Extractor     extractor.Extractor
 }
 
+func resolvePURLType(eco string) string {
+	switch eco {
+	case "npm":
+		return purl.TypeNPM
+	case "NuGet":
+		return purl.TypeNuget
+	case "Packagist":
+		return purl.TypeComposer
+	}
+
+	panic("unknown PURL type for ecosystem " + eco)
+}
+
 func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 	info := models.PackageInfo{
 		Name:          pi.Name,
@@ -46,6 +60,7 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 			Version:   pi.Version,
 			Extractor: pi.Extractor,
 			Locations: []string{source},
+			PURLType:  resolvePURLType(pi.Ecosystem),
 		},
 	}
 
