@@ -215,11 +215,25 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-empty.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 12 packages affected by 18 known vulnerabilities (0 Critical, 3 High, 1 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
-18 vulnerabilities can be fixed.
+Total 14 packages affected by 22 known vulnerabilities (0 Critical, 6 High, 2 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
+22 vulnerabilities can be fixed.
 
 
 PyPI
++---------------------------------------------------------------------------------------------+
+| Source:artifact:usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl      |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Fix Available |          1 | # 7 Layer        | python        |
++---------+-------------------+---------------+------------+------------------+---------------+
++------------------------------------------------------------------------------------------------+
+| Source:artifact:usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl  |
++------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++------------+-------------------+---------------+------------+------------------+---------------+
+| setuptools | 58.1.0            | Fix Available |          3 | # 7 Layer        | python        |
++------------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA         |
 +---------+-------------------+---------------+------------+------------------+---------------+
@@ -265,11 +279,25 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 17 packages affected by 32 known vulnerabilities (0 Critical, 9 High, 8 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-32 vulnerabilities can be fixed.
+Total 19 packages affected by 36 known vulnerabilities (0 Critical, 12 High, 9 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+36 vulnerabilities can be fixed.
 
 
 PyPI
++---------------------------------------------------------------------------------------------+
+| Source:artifact:usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl      |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Fix Available |          1 | # 7 Layer        | python        |
++---------+-------------------+---------------+------------+------------------+---------------+
++------------------------------------------------------------------------------------------------+
+| Source:artifact:usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl  |
++------------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++------------+-------------------+---------------+------------+------------------+---------------+
+| setuptools | 58.1.0            | Fix Available |          3 | # 7 Layer        | python        |
++------------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:usr/local/lib/python3.9/site-packages/Django-1.11.29.dist-info/METADATA     |
 +---------+-------------------+---------------+------------+------------------+---------------+
@@ -590,6 +618,54 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 1]
 {
   "results": [
+    {
+      "source": {
+        "path": "usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "pip",
+            "version": "23.0.1",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 7
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-mq26-g339-26xf",
+            "PYSEC-2023-228"
+          ],
+          "groups": 1
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "setuptools",
+            "version": "58.1.0",
+            "ecosystem": "PyPI",
+            "image_origin_details": {
+              "index": 7
+            }
+          },
+          "vulnerabilities": [
+            "GHSA-5rjg-fvgr-3xxf",
+            "GHSA-cx63-2mw6-8hw5",
+            "GHSA-r9hx-vwmv-q579",
+            "PYSEC-2022-43012"
+          ],
+          "groups": 3
+        }
+      ]
+    },
     {
       "source": {
         "path": "usr/local/lib/python3.9/site-packages/Django-1.11.29.dist-info/METADATA",
