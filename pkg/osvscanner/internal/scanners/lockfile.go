@@ -32,6 +32,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/uvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
@@ -55,7 +56,7 @@ var lockfileExtractorMapping = map[string][]string{
 	"poetry.lock":                 {poetrylock.Name},
 	"Pipfile.lock":                {pipfilelock.Name},
 	"pdm.lock":                    {pdmlock.Name},
-	"requirements.txt":            {requirements.Name},
+	"requirements.txt":            {requirements.Name, requirementsnet.Name},
 	"uv.lock":                     {uvlock.Name},
 	"Cargo.lock":                  {cargolock.Name},
 	"composer.lock":               {composerlock.Name},
