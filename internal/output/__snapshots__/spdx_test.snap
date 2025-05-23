@@ -104,7 +104,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -268,7 +268,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -432,7 +432,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -596,7 +596,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -760,7 +760,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -844,7 +844,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
@@ -878,7 +878,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
@@ -912,7 +912,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
@@ -962,7 +962,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1022,7 +1022,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1082,7 +1082,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1142,7 +1142,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1202,7 +1202,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1262,6 +1262,66 @@
   ],
   "relationships": [
     {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
+      "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/one_source_with_one_package_with_both_a_version_and_a_commit_and_one_license_violation - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/<uuid>",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "<timestamp>"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "versionInfo": "1.2.3",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1@1.2.3"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
       "spdxElementId": "SPDXRef-Document",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
@@ -1275,6 +1335,40 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithLicenseViolations/one_source_with_one_package_with_just_a_commit_and_one_license_violation - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/<uuid>",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "<timestamp>"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
+      "relationshipType": "DESCRIBES"
     }
   ]
 }
@@ -1338,7 +1432,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1472,7 +1566,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1636,7 +1730,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1657,6 +1751,144 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine3-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine3-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_vulnerabilities_and_license_violations - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/<uuid>",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "<timestamp>"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "versionInfo": "1.2.3",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1@1.2.3"
+        }
+      ]
+    },
+    {
+      "name": "mine3",
+      "SPDXID": "SPDXRef-Package-mine3-<uuid>",
+      "versionInfo": "0.4.1",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine3@0.4.1"
+        }
+      ]
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "versionInfo": "1.3.5",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1@1.3.5"
+        }
+      ]
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "versionInfo": "1.2.3",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1@1.2.3"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
+      "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
     },
@@ -1736,7 +1968,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1796,7 +2028,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1856,7 +2088,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1932,7 +2164,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -2050,7 +2282,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -2188,7 +2420,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -2342,7 +2574,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -2506,7 +2738,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -2647,14 +2879,14 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/author3%2Fmine3@0.4.1"
+          "referenceLocator": "pkg:composer/author3%2Fmine3@0.4.1"
         }
       ]
     }
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -2792,7 +3024,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -2813,6 +3045,118 @@
     },
     {
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine2-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine2-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-author3-mine3-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-author3-mine3-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems_using_commits_and_version,_and_multiple_vulnerabilities - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/<uuid>",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "<timestamp>"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    },
+    {
+      "name": "author1/mine1",
+      "SPDXID": "SPDXRef-Package-author1-mine1-<uuid>",
+      "versionInfo": "1.2.3",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the php/composerlock extractor from path/to/my/first/lockfile",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:composer/author1%2Fmine1@1.2.3"
+        }
+      ]
+    },
+    {
+      "name": "mine2",
+      "SPDXID": "SPDXRef-Package-mine2-<uuid>",
+      "versionInfo": "3.2.5",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the dotnet/pe extractor from path/to/my/second/lockfile",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:nuget/mine2@3.2.5"
+        }
+      ]
+    },
+    {
+      "name": "author3/mine3",
+      "SPDXID": "SPDXRef-Package-author3-mine3-<uuid>",
+      "versionInfo": "0.4.1",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/author3%2Fmine3@0.4.1"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
+      "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-author1-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-author1-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
     },
@@ -2866,7 +3210,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
@@ -2900,7 +3244,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
@@ -2934,7 +3278,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
@@ -2984,7 +3328,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3044,7 +3388,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3104,7 +3448,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3164,7 +3508,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3224,7 +3568,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3284,7 +3628,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3344,7 +3688,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3404,6 +3748,66 @@
   ],
   "relationships": [
     {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
+      "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-<uuid>",
+      "relatedSpdxElement": "SPDXRef-Package-mine1-<uuid>",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package_with_both_a_version_and_commit_and_one_vulnerability - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/<uuid>",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "<timestamp>"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    },
+    {
+      "name": "mine1",
+      "SPDXID": "SPDXRef-Package-mine1-<uuid>",
+      "versionInfo": "1.2.3",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/mine1@1.2.3"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
       "spdxElementId": "SPDXRef-Document",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
@@ -3417,6 +3821,40 @@
       "spdxElementId": "SPDXRef-Package-mine1-<uuid>",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    }
+  ]
+}
+
+---
+
+[TestPrintSPDXResults_WithVulnerabilities/one_source_with_one_package_with_just_a_commit_and_one_vulnerability - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/<uuid>",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "<timestamp>"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-<uuid>",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-Document",
+      "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
+      "relationshipType": "DESCRIBES"
     }
   ]
 }
@@ -3480,7 +3918,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3566,7 +4004,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3652,7 +4090,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
