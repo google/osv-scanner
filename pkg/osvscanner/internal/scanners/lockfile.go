@@ -56,7 +56,7 @@ var lockfileExtractorMapping = map[string][]string{
 	"poetry.lock":                 {poetrylock.Name},
 	"Pipfile.lock":                {pipfilelock.Name},
 	"pdm.lock":                    {pdmlock.Name},
-	"requirements.txt":            {requirements.Name, requirementsnet.Name},
+	"requirements.txt":            {requirementsnet.Name, requirements.Name},
 	"uv.lock":                     {uvlock.Name},
 	"Cargo.lock":                  {cargolock.Name},
 	"composer.lock":               {composerlock.Name},

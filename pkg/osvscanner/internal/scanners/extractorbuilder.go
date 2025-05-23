@@ -81,7 +81,6 @@ var lockfileExtractors = []filesystem.Extractor{
 	pipfilelock.Extractor{},
 	pdmlock.Extractor{},
 	poetrylock.Extractor{},
-	requirements.Extractor{},
 	uvlock.Extractor{},
 
 	// R
