@@ -546,6 +546,59 @@
 
 ---
 
+[TestPrintCycloneDX14Results_WithLicenseViolations/one_source_with_one_package_with_both_a_version_and_a_commit_and_one_license_violation - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
+[TestPrintCycloneDX14Results_WithLicenseViolations/one_source_with_one_package_with_just_a_commit_and_one_license_violation - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1",
+      "type": "library",
+      "name": "mine1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1"
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
 [TestPrintCycloneDX14Results_WithLicenseViolations/two_sources_with_packages,_one_license_violation - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
@@ -735,6 +788,105 @@
         }
       ],
       "purl": "pkg:npm/mine2@3.2.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine3@0.4.1",
+      "type": "library",
+      "name": "mine3",
+      "version": "0.4.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine3@0.4.1"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something less scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDX14Results_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_vulnerabilities_and_license_violations - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:npm/mine1@1.3.5",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.3.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.3.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine2",
+      "type": "library",
+      "name": "mine2",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine2"
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -1518,6 +1670,111 @@
 
 ---
 
+[TestPrintCycloneDX14Results_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems_using_commits_and_version,_and_multiple_vulnerabilities - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:composer/author1/mine1@1.2.3",
+      "type": "library",
+      "name": "author1/mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:composer/author1/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:composer/author3/mine3@0.4.1",
+      "type": "library",
+      "name": "author3/mine3",
+      "version": "0.4.1",
+      "licenses": [],
+      "purl": "pkg:composer/author3/mine3@0.4.1"
+    },
+    {
+      "bom-ref": "pkg:npm/mine1",
+      "type": "library",
+      "name": "mine1",
+      "licenses": [],
+      "purl": "pkg:npm/mine1"
+    },
+    {
+      "bom-ref": "pkg:nuget/mine2@3.2.5",
+      "type": "library",
+      "name": "mine2",
+      "version": "3.2.5",
+      "licenses": [],
+      "purl": "pkg:nuget/mine2@3.2.5"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something less scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-3",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something mildly scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-5",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scarier!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    }
+  ]
+}
+
+---
+
 [TestPrintCycloneDX14Results_WithVulnerabilities/multiple_sources_with_no_packages - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
@@ -1869,6 +2126,79 @@
       },
       "affects": []
     },
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDX14Results_WithVulnerabilities/one_source_with_one_package_with_both_a_version_and_commit_and_one_vulnerability - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDX14Results_WithVulnerabilities/one_source_with_one_package_with_just_a_commit_and_one_vulnerability - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1",
+      "type": "library",
+      "name": "mine1",
+      "licenses": [],
+      "purl": "pkg:npm/mine1"
+    }
+  ],
+  "vulnerabilities": [
     {
       "id": "OSV-1",
       "references": [],
@@ -2569,6 +2899,59 @@
 
 ---
 
+[TestPrintCycloneDX15Results_WithLicenseViolations/one_source_with_one_package_with_both_a_version_and_a_commit_and_one_license_violation - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
+[TestPrintCycloneDX15Results_WithLicenseViolations/one_source_with_one_package_with_just_a_commit_and_one_license_violation - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1",
+      "type": "library",
+      "name": "mine1",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1"
+    }
+  ],
+  "vulnerabilities": []
+}
+
+---
+
 [TestPrintCycloneDX15Results_WithLicenseViolations/two_sources_with_packages,_one_license_violation - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
@@ -2758,6 +3141,105 @@
         }
       ],
       "purl": "pkg:npm/mine2@3.2.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine3@0.4.1",
+      "type": "library",
+      "name": "mine3",
+      "version": "0.4.1",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine3@0.4.1"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something less scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDX15Results_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_vulnerabilities_and_license_violations - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:npm/mine1@1.3.5",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.3.5",
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine1@1.3.5"
+    },
+    {
+      "bom-ref": "pkg:npm/mine2",
+      "type": "library",
+      "name": "mine2",
+      "licenses": [
+        {
+          "license": {
+            "id": "ISC"
+          }
+        }
+      ],
+      "purl": "pkg:npm/mine2"
     },
     {
       "bom-ref": "pkg:npm/mine3@0.4.1",
@@ -3541,6 +4023,111 @@
 
 ---
 
+[TestPrintCycloneDX15Results_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems_using_commits_and_version,_and_multiple_vulnerabilities - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:composer/author1/mine1@1.2.3",
+      "type": "library",
+      "name": "author1/mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:composer/author1/mine1@1.2.3"
+    },
+    {
+      "bom-ref": "pkg:composer/author3/mine3@0.4.1",
+      "type": "library",
+      "name": "author3/mine3",
+      "version": "0.4.1",
+      "licenses": [],
+      "purl": "pkg:composer/author3/mine3@0.4.1"
+    },
+    {
+      "bom-ref": "pkg:npm/mine1",
+      "type": "library",
+      "name": "mine1",
+      "licenses": [],
+      "purl": "pkg:npm/mine1"
+    },
+    {
+      "bom-ref": "pkg:nuget/mine2@3.2.5",
+      "type": "library",
+      "name": "mine2",
+      "version": "3.2.5",
+      "licenses": [],
+      "purl": "pkg:nuget/mine2@3.2.5"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-2",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something less scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-3",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something mildly scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    },
+    {
+      "id": "OSV-5",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scarier!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    }
+  ]
+}
+
+---
+
 [TestPrintCycloneDX15Results_WithVulnerabilities/multiple_sources_with_no_packages - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
@@ -3892,6 +4479,79 @@
       },
       "affects": []
     },
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDX15Results_WithVulnerabilities/one_source_with_one_package_with_both_a_version_and_commit_and_one_vulnerability - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [
+        {
+          "vector": "1"
+        }
+      ],
+      "description": "Something scary!",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDX15Results_WithVulnerabilities/one_source_with_one_package_with_just_a_commit_and_one_vulnerability - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1",
+      "type": "library",
+      "name": "mine1",
+      "licenses": [],
+      "purl": "pkg:npm/mine1"
+    }
+  ],
+  "vulnerabilities": [
     {
       "id": "OSV-1",
       "references": [],
