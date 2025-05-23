@@ -1322,7 +1322,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -1366,7 +1366,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
@@ -1878,7 +1878,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3139,14 +3139,14 @@
         {
           "referenceCategory": "PACKAGE-MANAGER",
           "referenceType": "purl",
-          "referenceLocator": "pkg:npm/author3%2Fmine3@0.4.1"
+          "referenceLocator": "pkg:composer/author3%2Fmine3@0.4.1"
         }
       ]
     }
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3808,7 +3808,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     },
@@ -3852,7 +3852,7 @@
   ],
   "relationships": [
     {
-      "spdxElementId": "SPDXRef-Document",
+      "spdxElementId": "SPDXRef-DOCUMENT",
       "relatedSpdxElement": "SPDXRef-Package-main-<uuid>",
       "relationshipType": "DESCRIBES"
     }
