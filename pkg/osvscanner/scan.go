@@ -5,13 +5,58 @@ import (
 	"fmt"
 	"log/slog"
 	"path/filepath"
+	"slices"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
+	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
+
+func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAccessors, actions ScannerActions) {
+	for _, tor := range extractors {
+		if accessors.DependencyClients[osvschema.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
+			pomxmlenhanceable.EnhanceIfPossible(tor, pomxmlnet.Config{
+				DependencyClient:       accessors.DependencyClients[osvschema.EcosystemMaven],
+				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
+			})
+		}
+
+		// todo: the "disabled" aspect should probably be worked into the extractor being present in the first place
+		//  since "IncludeRootGit" is always true
+		gitrepo.Configure(tor, gitrepo.Config{
+			IncludeRootGit: actions.IncludeGitRoot,
+			Disabled:       !actions.IncludeGitRoot,
+		})
+
+		vendored.Configure(tor, vendored.Config{
+			// Only attempt to vendor check git directories if we are not skipping scanning root git directories
+			ScanGitDir: !actions.IncludeGitRoot,
+			OSVClient:  accessors.OSVDevClient,
+			Disabled:   accessors.OSVDevClient == nil,
+		})
+	}
+}
+
+func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, actions ScannerActions) []filesystem.Extractor {
+	extractors := actions.Extractors
+
+	if len(extractors) == 0 {
+		extractors = builders.BuildExtractors(defaultExtractorNames)
+	}
+
+	configureExtractors(extractors, accessors, actions)
+
+	return extractors
+}
 
 // scan essentially converts ScannerActions into PackageScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.PackageScanResult, error) {
@@ -19,7 +64,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	var scannedInventories []*extractor.Package
 
 	// --- Lockfiles ---
-	lockfileExtractors := scanners.BuildLockfileExtractors(accessors.DependencyClients, accessors.MavenRegistryAPIClient)
+	lockfileExtractors := getExtractors(scalibrextract.ExtractorsLockfiles, accessors, actions)
 	for _, lockfileElem := range actions.LockfilePaths {
 		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
 		if err != nil {
@@ -30,7 +75,8 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	// --- SBOMs ---
-	sbomExtractors := scanners.BuildSBOMExtractors()
+	// none of the SBOM extractors need configuring
+	sbomExtractors := builders.BuildExtractors(scalibrextract.ExtractorsSBOMs)
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
 		if err != nil {
@@ -53,12 +99,16 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	// --- Directories ---
-	dirExtractors := scanners.BuildWalkerExtractors(
-		actions.IncludeGitRoot,
-		accessors.OSVDevClient,
-		accessors.DependencyClients,
-		accessors.MavenRegistryAPIClient,
+	dirExtractors := getExtractors(
+		slices.Concat(
+			scalibrextract.ExtractorsLockfiles,
+			scalibrextract.ExtractorsSBOMs,
+			scalibrextract.ExtractorsDirectories,
+		),
+		accessors,
+		actions,
 	)
+
 	for _, dir := range actions.DirectoryPaths {
 		slog.Info("Scanning dir " + dir)
 		pkgs, err := scanners.ScanDir(dir, actions.Recursive, !actions.NoIgnore, dirExtractors)
