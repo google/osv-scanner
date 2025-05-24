@@ -31,6 +31,7 @@ jobs:
           TEST_ACCEPTANCE: true
           UPDATE_SNAPSHOTS: true
       - uses: gr2m/create-or-update-pull-request-action@b65137ca591da0b9f43bad7b24df13050ea45d1b # v1.10.1
+        id: create-or-update-pull-request
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -43,6 +44,7 @@ jobs:
           author: "github-actions <41898282+github-actions[bot]@users.noreply.github.com>"
           commit-message: "test: update snapshots"
       - uses: octokit/request-action@dad4362715b7fb2ddedf9772c8670824af564f0d # v2.4.0
+        if: steps.create-or-update-pull-request.outputs.result != 'unchanged'
         with:
           route: |
             POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
