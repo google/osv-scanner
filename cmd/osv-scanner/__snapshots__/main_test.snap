@@ -4,15 +4,14 @@ NAME:
    osv-scanner scan - scans projects and container images for dependencies, and checks them against the OSV database.
 
 USAGE:
-   osv-scanner scan [command options]
+   osv-scanner scan [command [command options]]
 
 DESCRIPTION:
    scans projects and container images for dependencies, and checks them against the OSV database.
 
 COMMANDS:
-   source   scans a source project's dependencies for known vulnerabilities using the OSV database.
-   image    detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally
-   help, h  Shows a list of commands or help for one command
+   source  scans a source project's dependencies for known vulnerabilities using the OSV database.
+   image   detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally
 
 OPTIONS:
    --help, -h  show help

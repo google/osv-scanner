@@ -1,6 +1,7 @@
 package helper
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"log/slog"
@@ -15,7 +16,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/spdx"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 	"golang.org/x/term"
 )
 
@@ -36,6 +37,10 @@ var (
 // that should be considered allowed
 type allowedLicencesFlag struct {
 	allowlist []string
+}
+
+func (g *allowedLicencesFlag) Get() any {
+	return g
 }
 
 func (g *allowedLicencesFlag) Set(value string) error {
@@ -70,7 +75,7 @@ func GetScanGlobalFlags() []cli.Flag {
 			Aliases: []string{"f"},
 			Usage:   "sets the output format; value can be: " + strings.Join(reporter.Format(), ", "),
 			Value:   "table",
-			Action: func(_ *cli.Context, s string) error {
+			Action: func(_ context.Context, _ *cli.Command, s string) error {
 				if slices.Contains(reporter.Format(), s) {
 					if s != "vertical" && s != "table" && s != "markdown" {
 						cmdlogger.SendEverythingToStderr()
@@ -89,7 +94,7 @@ func GetScanGlobalFlags() []cli.Flag {
 		&cli.StringFlag{
 			Name:  "port",
 			Usage: "port number to use when serving HTML report (default: 8000)",
-			Action: func(_ *cli.Context, p string) error {
+			Action: func(_ context.Context, _ *cli.Command, p string) error {
 				servePort = p
 				return nil
 			},
@@ -103,7 +108,7 @@ func GetScanGlobalFlags() []cli.Flag {
 			Name:  "verbosity",
 			Usage: "specify the level of information that should be provided during runtime; value can be: " + strings.Join(cmdlogger.Levels(), ", "),
 			Value: "info",
-			Action: func(_ *cli.Context, s string) error {
+			Action: func(_ context.Context, _ *cli.Command, s string) error {
 				lvl, err := cmdlogger.ParseLevel(s)
 
 				if err != nil {
@@ -118,7 +123,7 @@ func GetScanGlobalFlags() []cli.Flag {
 		&cli.BoolFlag{
 			Name:  "offline",
 			Usage: "run in offline mode, disabling any features requiring network access",
-			Action: func(ctx *cli.Context, b bool) error {
+			Action: func(_ context.Context, cmd *cli.Command, b bool) error {
 				if !b {
 					return nil
 				}
@@ -127,13 +132,13 @@ func GetScanGlobalFlags() []cli.Flag {
 					// TODO(michaelkedar): do something if the flag was already explicitly set.
 
 					// Skip setting the flag if the current command doesn't have it.
-					if !slices.ContainsFunc(ctx.Command.Flags, func(f cli.Flag) bool {
+					if !slices.ContainsFunc(cmd.Flags, func(f cli.Flag) bool {
 						return slices.Contains(f.Names(), flag)
 					}) {
 						continue
 					}
 
-					if err := ctx.Set(flag, value); err != nil {
+					if err := cmd.Set(flag, value); err != nil {
 						panic(fmt.Sprintf("failed setting offline flag %s to %s: %v", flag, value, err))
 					}
 				}
@@ -216,12 +221,12 @@ func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns 
 	return reporter.PrintResult(diffVulns, format, writer, termWidth)
 }
 
-func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
-	if !context.IsSet("licenses") {
+func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
+	if !cmd.IsSet("licenses") {
 		return []string{}, nil
 	}
 
-	allowlist := context.Generic("licenses").(*allowedLicencesFlag).allowlist
+	allowlist := cmd.Generic("licenses").(*allowedLicencesFlag).allowlist
 
 	if len(allowlist) == 0 {
 		return []string{}, nil
@@ -231,20 +236,20 @@ func GetScanLicensesAllowlist(context *cli.Context) ([]string, error) {
 		return nil, fmt.Errorf("--licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
 	}
 
-	if context.Bool("offline") {
+	if cmd.Bool("offline") {
 		allowlist = []string{}
 	}
 
 	return allowlist, nil
 }
 
-func GetExperimentalScannerActions(context *cli.Context, scanLicensesAllowlist []string) osvscanner.ExperimentalScannerActions {
+func GetExperimentalScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
-		LocalDBPath:           context.String("local-db-path"),
-		DownloadDatabases:     context.Bool("download-offline-databases"),
-		CompareOffline:        context.Bool("offline-vulnerabilities"),
-		ShowAllPackages:       context.Bool("all-packages"),
-		ScanLicensesSummary:   context.IsSet("licenses"),
+		LocalDBPath:           cmd.String("local-db-path"),
+		DownloadDatabases:     cmd.Bool("download-offline-databases"),
+		CompareOffline:        cmd.Bool("offline-vulnerabilities"),
+		ShowAllPackages:       cmd.Bool("all-packages"),
+		ScanLicensesSummary:   cmd.IsSet("licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,
 	}
 }
