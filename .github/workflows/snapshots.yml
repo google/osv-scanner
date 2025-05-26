@@ -1,3 +1,5 @@
+name: Snapshots
+
 on:
   schedule:
     - cron: "47 12 * * *"
