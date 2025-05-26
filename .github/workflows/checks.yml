@@ -166,6 +166,14 @@ jobs:
             .extra.DockerConfig.dockerfile == "goreleaser.dockerfile"
           ) | .name' output.json | while read -r image; do
             echo "Testing image $image"
+
             docker run $image -h
-            docker run -v ${PWD}:/src $image -L /src/go.mod
+
+            exit_code=0
+            docker run -v ${PWD}:/src $image -L /src/go.mod || exit_code=$?
+
+            # fail if we get a non-zero exit code other than "vulnerabilities were found"
+            if [[ $exit_code -ne 0 && $exit_code -ne 1  ]]; then
+              exit $exit_code
+            fi
           done
