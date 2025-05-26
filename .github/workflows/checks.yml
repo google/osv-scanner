@@ -20,6 +20,7 @@ on:
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [main, v1]
+  workflow_dispatch:
 
 concurrency:
   # Pushing new changes to a branch will cancel any in-progress CI runs
@@ -64,7 +65,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up Go
-        uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5.4.0
+        uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
         with:
           go-version: stable
           check-latest: true
@@ -80,7 +81,7 @@ jobs:
         with:
           persist-credentials: false
       - name: Set up Go
-        uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5.4.0
+        uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
         with:
           go-version: stable
           check-latest: true
@@ -117,12 +118,12 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
-      - uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:
           name: image-fixtures-${{ github.run_number }}-${{ github.run_attempt }}
           path: internal/image/fixtures/
       - name: Set up Go
-        uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5.4.0
+        uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
         with:
           go-version: stable
           check-latest: true
@@ -143,7 +144,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Set up Go
-        uses: actions/setup-go@0aaccfd150d50ccaeb58ebd88d36e91967a5f35b # v5.4.0
+        uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
         with:
           go-version: stable
           check-latest: true
@@ -165,6 +166,14 @@ jobs:
             .extra.DockerConfig.dockerfile == "goreleaser.dockerfile"
           ) | .name' output.json | while read -r image; do
             echo "Testing image $image"
+
             docker run $image -h
-            docker run -v ${PWD}:/src $image -L /src/go.mod
+
+            exit_code=0
+            docker run -v ${PWD}:/src $image -L /src/go.mod || exit_code=$?
+
+            # fail if we get a non-zero exit code other than "vulnerabilities were found"
+            if [[ $exit_code -ne 0 && $exit_code -ne 1  ]]; then
+              exit $exit_code
+            fi
           done

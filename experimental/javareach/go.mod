@@ -2,11 +2,11 @@ module github.com/google/osv-scanner/experimental/javareach
 
 go 1.24.0
 
-toolchain go1.24.2
+toolchain go1.24.3
 
 require (
-	github.com/google/osv-scalibr v0.2.0
-	golang.org/x/sync v0.13.0
+	github.com/google/osv-scalibr v0.2.1
+	golang.org/x/sync v0.14.0
 )
 
 require (
@@ -17,6 +17,6 @@ require (
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/package-url/packageurl-go v0.1.2 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/net v0.38.0 // indirect
+	golang.org/x/net v0.40.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 )
