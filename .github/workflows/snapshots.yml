@@ -27,7 +27,6 @@ jobs:
         with:
           go-version: stable
           check-latest: true
-      - run: scripts/build_test_images.sh
       - run: ./scripts/run_tests.sh
         env:
           TEST_ACCEPTANCE: true
