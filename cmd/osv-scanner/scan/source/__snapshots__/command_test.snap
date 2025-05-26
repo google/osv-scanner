@@ -732,6 +732,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/DLA-3530-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3942-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3942-2          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4176-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5902-1          |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-12837      | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-12883      | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2260,6 +2261,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/DLA-3530-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3942-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3942-2          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4176-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5902-1          |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-12837      | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-12883      | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2484,6 +2486,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/DLA-3530-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3942-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3942-2          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4176-1          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5902-1          |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-12837      | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-12883      | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
