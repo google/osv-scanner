@@ -1,12 +1,7 @@
 name: Check markdown links
 
 on:
-  push:
-    paths:
-      - "**.md"
   pull_request:
-    paths:
-      - "**.md"
   schedule:
     - cron: "45 22 * * 1,4"
 
@@ -25,4 +20,3 @@ jobs:
         with:
           use-quiet-mode: "yes"
           base-branch: "main"
-          check-modified-files-only: ${{ github.event_name == 'schedule' && 'yes' || 'no'}}
