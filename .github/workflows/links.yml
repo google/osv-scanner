@@ -10,7 +10,7 @@ on:
 permissions: {}
 
 jobs:
-  markdown-link-check:
+  check:
     permissions:
       contents: read # to fetch code (actions/checkout)
     runs-on: ubuntu-latest
