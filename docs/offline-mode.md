@@ -1,6 +1,5 @@
 ---
 layout: page
-title: Offline Mode
 permalink: /usage/offline-mode/
 parent: Usage
 nav_order: 4

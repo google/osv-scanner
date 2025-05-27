@@ -1,6 +1,5 @@
 ---
 layout: page
-title: Contribute
 permalink: /contribute/
 nav_order: 9
 ---

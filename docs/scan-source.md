@@ -1,12 +1,11 @@
 ---
 layout: page
-title: Project Source Scanning
 parent: Usage
 permalink: /usage/scan-source
 nav_order: 2
 ---
 
-# Source Scanning
+# Project Source Scanning
 
 OSV-Scanner can be used to scan your project source and lockfiles to find vulnerabilities in your dependencies.
 

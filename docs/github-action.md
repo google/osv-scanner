@@ -1,6 +1,5 @@
 ---
 layout: page
-title: GitHub Action
 permalink: /github-action/
 nav_order: 7
 ---

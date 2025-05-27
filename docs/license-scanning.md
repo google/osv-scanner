@@ -1,6 +1,5 @@
 ---
 layout: page
-title: License Scanning
 permalink: /usage/license-scanning/
 parent: Usage
 nav_order: 3
