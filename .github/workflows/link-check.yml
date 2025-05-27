@@ -1,6 +1,7 @@
-name: Check markdown links on schedule
+name: Check markdown links
 
 on:
+  push:
   schedule:
     - cron: "45 22 * * 1,4"
 
@@ -18,4 +19,5 @@ jobs:
       - uses: gaurav-nelson/github-action-markdown-link-check@0524e79d8d7d1606112722dd7a3b5f5ce367de3e
         with:
           use-quiet-mode: "yes"
-# Documentation available here: https://github.com/marketplace/actions/markdown-link-check
+          base-branch: "main"
+          check-modified-files-only: ${{ github.event_name == 'schedule' && 'yes' || 'no'}}
