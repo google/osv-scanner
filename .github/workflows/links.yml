@@ -2,6 +2,7 @@ name: Check markdown links
 
 on:
   push:
+  pull_request:
   schedule:
     - cron: "45 22 * * 1,4"
 
