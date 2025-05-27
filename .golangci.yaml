@@ -92,10 +92,8 @@ linters:
           disabled: false
         - name: redefines-builtin-id
           disabled: false
-        # todo: enable once we've upgraded to v2, as the validation schema
-        #    used by the github v1 action does not have this rule yet
-        # - name: redundant-test-main-exit
-        #   disabled: false
+        - name: redundant-test-main-exit
+          disabled: false
         - name: superfluous-else
           disabled: false
         - name: time-naming
