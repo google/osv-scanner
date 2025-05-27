@@ -656,7 +656,7 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "uses native data source by default for requirements.txt",
+			Name: "uses native data source for requirements.txt",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
