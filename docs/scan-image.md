@@ -1,6 +1,5 @@
 ---
 layout: page
-title: Container Image Scanning
 parent: Usage
 permalink: /usage/scan-image
 nav_order: 1

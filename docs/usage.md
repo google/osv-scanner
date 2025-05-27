@@ -1,11 +1,10 @@
 ---
 layout: page
-title: Usage
 permalink: /usage/
 nav_order: 4
 ---
 
-# Usage Guide
+# Usage
 
 {: .note }
 This documentation is for the beta V2 release. For the older, V1 release documentation, check out <https://google.github.io/osv-scanner-v1>.

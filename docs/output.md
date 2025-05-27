@@ -1,6 +1,5 @@
 ---
 layout: page
-title: Output
 permalink: /output/
 nav_order: 6
 ---
