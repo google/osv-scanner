@@ -115,9 +115,6 @@ And additionally for container image scanning:
 - Image layer information
 - Base image identification
 
-{: .note }
-This feature is in beta as part of OSV-Scanner v2, please [share your feedback here](https://github.com/google/osv-scanner/discussions/1529).
-
 <details markdown="1">
 <summary><b>Sample HTML output</b></summary>
 
