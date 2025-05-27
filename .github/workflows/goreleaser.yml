@@ -38,6 +38,17 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Detect stable tag
+        id: detect_stable
+        # Extracts tag name from git ref and check tag is stable
+        # semantic version pattern (MAJOR.MINOR.PATCH, e.g., 1.2.3)
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          if [[ "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "STABLE=true" >> $GITHUB_ENV
+          else
+            echo "STABLE=false" >> $GITHUB_ENV
+          fi
       - name: Run GoReleaser
         id: run-goreleaser
         uses: goreleaser/goreleaser-action@9c156ee8a17a598857849441385a2041ef570552 # v6.3.0
@@ -47,6 +58,7 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          STABLE: ${{ env.STABLE }}
       - name: Generate subject
         id: hash
         env:
