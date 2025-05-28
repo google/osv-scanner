@@ -7,7 +7,7 @@ nav_order: 4
 # Usage
 
 {: .note }
-This documentation is for the beta V2 release. For the older, V1 release documentation, check out <https://google.github.io/osv-scanner-v1>.
+This documentation is for the V2 release. For the older, V1 release documentation, check out <https://google.github.io/osv-scanner-v1>.
 
 {: .no_toc }
 
