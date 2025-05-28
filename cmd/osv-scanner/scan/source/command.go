@@ -15,70 +15,66 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-func projectScanFlags() []cli.Flag {
-	return []cli.Flag{
-		&cli.StringSliceFlag{
-			Name:      "lockfile",
-			Aliases:   []string{"L"},
-			Usage:     "scan package lockfile on this path",
-			TakesFile: true,
-		},
-		&cli.StringSliceFlag{
-			Name:      "sbom",
-			Aliases:   []string{"S"},
-			Usage:     "scan sbom file on this path, the sbom file name must follow the relevant spec",
-			TakesFile: true,
-		},
-		&cli.BoolFlag{
-			Name:    "recursive",
-			Aliases: []string{"r"},
-			Usage:   "check subdirectories",
-			Value:   false,
-		},
-		&cli.BoolFlag{
-			Name:  "no-ignore",
-			Usage: "also scan files that would be ignored by .gitignore",
-			Value: false,
-		},
-		&cli.StringSliceFlag{
-			Name:  "call-analysis",
-			Usage: "attempt call analysis on code to detect only active vulnerabilities",
-		},
-		&cli.StringSliceFlag{
-			Name:  "no-call-analysis",
-			Usage: "disables call graph analysis",
-		},
-		&cli.BoolFlag{
-			Name:  "include-git-root",
-			Usage: "include scanning git root (non-submoduled) repositories",
-			Value: false,
-		},
-		&cli.StringFlag{
-			Name:  "data-source",
-			Usage: "source to fetch package information from; value can be: deps.dev, native",
-			Value: "deps.dev",
-			Action: func(_ context.Context, _ *cli.Command, s string) error {
-				if s != "deps.dev" && s != "native" {
-					return fmt.Errorf("unsupported data-source \"%s\" - must be one of: deps.dev, native", s)
-				}
-
-				return nil
-			},
-		},
-		&cli.StringFlag{
-			Name:  "maven-registry",
-			Usage: "URL of the default registry to fetch Maven metadata",
-		},
-	}
-}
-
 func Command(stdout, stderr io.Writer) *cli.Command {
 	return &cli.Command{
 		Name:        "source",
 		Usage:       "scans a source project's dependencies for known vulnerabilities using the OSV database.",
 		Description: "scans a source project's dependencies for known vulnerabilities using the OSV database.",
-		Flags:       append(projectScanFlags(), helper.GetScanGlobalFlags()...),
-		ArgsUsage:   "[directory1 directory2...]",
+		Flags: append([]cli.Flag{
+			&cli.StringSliceFlag{
+				Name:      "lockfile",
+				Aliases:   []string{"L"},
+				Usage:     "scan package lockfile on this path",
+				TakesFile: true,
+			},
+			&cli.StringSliceFlag{
+				Name:      "sbom",
+				Aliases:   []string{"S"},
+				Usage:     "scan sbom file on this path, the sbom file name must follow the relevant spec",
+				TakesFile: true,
+			},
+			&cli.BoolFlag{
+				Name:    "recursive",
+				Aliases: []string{"r"},
+				Usage:   "check subdirectories",
+				Value:   false,
+			},
+			&cli.BoolFlag{
+				Name:  "no-ignore",
+				Usage: "also scan files that would be ignored by .gitignore",
+				Value: false,
+			},
+			&cli.StringSliceFlag{
+				Name:  "call-analysis",
+				Usage: "attempt call analysis on code to detect only active vulnerabilities",
+			},
+			&cli.StringSliceFlag{
+				Name:  "no-call-analysis",
+				Usage: "disables call graph analysis",
+			},
+			&cli.BoolFlag{
+				Name:  "include-git-root",
+				Usage: "include scanning git root (non-submoduled) repositories",
+				Value: false,
+			},
+			&cli.StringFlag{
+				Name:  "data-source",
+				Usage: "source to fetch package information from; value can be: deps.dev, native",
+				Value: "deps.dev",
+				Action: func(_ context.Context, _ *cli.Command, s string) error {
+					if s != "deps.dev" && s != "native" {
+						return fmt.Errorf("unsupported data-source \"%s\" - must be one of: deps.dev, native", s)
+					}
+
+					return nil
+				},
+			},
+			&cli.StringFlag{
+				Name:  "maven-registry",
+				Usage: "URL of the default registry to fetch Maven metadata",
+			},
+		}, helper.GetScanGlobalFlags()...),
+		ArgsUsage: "[directory1 directory2...]",
 		Action: func(ctx context.Context, cmd *cli.Command) error {
 			return action(ctx, cmd, stdout, stderr)
 		},
