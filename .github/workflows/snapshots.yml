@@ -11,7 +11,10 @@ concurrency:
 
 # Restrict jobs in this workflow to have no permissions by default; permissions
 # should be granted per job as needed using a dedicated `permissions` block
-permissions: {}
+# Need to be able to write changes, and make pull requests with those changes.
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   update:
