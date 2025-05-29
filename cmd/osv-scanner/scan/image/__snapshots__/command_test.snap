@@ -168,8 +168,8 @@ failed to load image from tarball with path "../../fixtures/locks-manyoci-image/
 Scanning local image tarball "../../../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 15 packages affected by 20 known vulnerabilities (1 Critical, 6 High, 8 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
-20 vulnerabilities can be fixed.
+Total 16 packages affected by 21 known vulnerabilities (1 Critical, 7 High, 8 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
+21 vulnerabilities can be fixed.
 
 
 Maven
@@ -180,6 +180,7 @@ Maven
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 | com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available |          1 | # 12 Layer       | --            |
 | com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          1 | # 12 Layer       | --            |
+| commons-beanutils:commons-beanutils       | 1.9.4             | Fix Available |          1 | # 12 Layer       | --            |
 | dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
@@ -2034,7 +2035,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-0577",
             "UBUNTU-CVE-2025-4802",
-            "USN-7259-1"
+            "USN-7259-1",
+            "USN-7541-1"
           ],
           "groups": 4
         },
@@ -2053,7 +2055,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-0577",
             "UBUNTU-CVE-2025-4802",
-            "USN-7259-1"
+            "USN-7259-1",
+            "USN-7541-1"
           ],
           "groups": 4
         },
