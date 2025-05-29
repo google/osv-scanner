@@ -22,10 +22,10 @@ func Test_run(t *testing.T) {
 			Exit: 0,
 		},
 	}
+
+	// No parallel because --version output is not thread safe.
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
-			t.Parallel()
-
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
