@@ -133,8 +133,8 @@ linters:
           - dupl
         path: _test\.go
       - linters:
-         - tparallel
-         - paralleltest
+          - tparallel
+          - paralleltest
         path: cmd/osv-scanner/main_test.go
     paths:
       - internal/thirdparty/
