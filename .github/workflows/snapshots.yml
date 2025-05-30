@@ -32,10 +32,9 @@ jobs:
         env:
           TEST_ACCEPTANCE: true
           UPDATE_SNAPS: always
-      - uses: gr2m/create-or-update-pull-request-action@b65137ca591da0b9f43bad7b24df13050ea45d1b # v1.10.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.PR_TOKEN_BOT }}
+      - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
+          token: ${{ secrets.PR_TOKEN_BOT }}
           title: "test: update snapshots"
           body: >
             The snapshots have changed, probably due to OSV advisories being changed.
