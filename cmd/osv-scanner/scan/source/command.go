@@ -73,7 +73,7 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 				Name:  "maven-registry",
 				Usage: "URL of the default registry to fetch Maven metadata",
 			},
-		}, helper.GetScanGlobalFlags()...),
+		}, helper.GetScanGlobalFlags([]string{"lockfile", "sbom", "directory"})...),
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(ctx context.Context, cmd *cli.Command) error {
 			return action(ctx, cmd, stdout, stderr)
@@ -127,6 +127,10 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 		DirectoryPaths:             cmd.Args().Slice(),
 		CallAnalysisStates:         callAnalysisStates,
 		ExperimentalScannerActions: experimentalScannerActions,
+	}
+
+	if len(experimentalScannerActions.Extractors) == 0 {
+		return errors.New("at least one extractor must be enabled")
 	}
 
 	var vulnResult models.VulnerabilityResults
