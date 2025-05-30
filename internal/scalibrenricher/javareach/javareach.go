@@ -1,0 +1,359 @@
+// Copyright 2025 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package javareach
+
+import (
+	"archive/zip"
+	"bufio"
+	"context"
+	"errors"
+	"fmt"
+	"io"
+	"io/fs"
+	"maps"
+	"os"
+	"path/filepath"
+	"slices"
+	"strings"
+
+	"github.com/google/osv-scalibr/enricher"
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
+	archivemeta "github.com/google/osv-scalibr/extractor/filesystem/language/java/archive/metadata"
+	"github.com/google/osv-scalibr/inventory"
+	"github.com/google/osv-scalibr/log"
+	"github.com/google/osv-scalibr/plugin"
+)
+
+const (
+	// Name is the unique name of this detector.
+	Name        = "javareach"
+	MetaDirPath = "META-INF"
+)
+
+var (
+	ManifestFilePath = filepath.Join(MetaDirPath, "MANIFEST.MF")
+	MavenDepDirPath  = filepath.Join(MetaDirPath, "maven")
+	ServiceDirPath   = filepath.Join(MetaDirPath, "services")
+
+	ErrMavenDependencyNotFound = errors.New(MavenDepDirPath + " directory not found")
+)
+
+type Enricher struct{}
+
+func (Enricher) Name() string {
+	return Name
+}
+
+func (Enricher) Version() int {
+	return 0
+}
+
+func (Enricher) Requirements() *plugin.Capabilities {
+	return &plugin.Capabilities{
+		Network:  plugin.NetworkOnline,
+		DirectFS: false,
+	}
+}
+
+func (Enricher) RequiredPlugins() []string {
+	return []string{archive.Name}
+}
+
+func (Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *inventory.Inventory) error {
+	jars := make(map[string]struct{})
+	for i := range inv.Packages {
+		if inv.Packages[i].Extractor.Name() == archive.Name {
+			jars[inv.Packages[i].Locations[0]] = struct{}{}
+		}
+	}
+
+	for jar := range jars {
+		err := enumerateReachabilityForJar(ctx, jar, input, inv)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func getFullPackageName(i *extractor.Package) string {
+	return fmt.Sprintf("%s:%s", i.Metadata.(*archivemeta.Metadata).GroupID,
+		i.Metadata.(*archivemeta.Metadata).ArtifactID)
+}
+
+func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enricher.ScanInput, inv *inventory.Inventory) error {
+	var allDeps []*extractor.Package
+
+	for i := range inv.Packages {
+		if inv.Packages[i].Locations[0] == jarPath {
+			allDeps = append(allDeps, inv.Packages[i])
+		}
+	}
+
+	slices.SortFunc(allDeps, func(i1 *extractor.Package, i2 *extractor.Package) int {
+		return strings.Compare(getFullPackageName(i1), getFullPackageName(i2))
+	})
+	for _, dep := range allDeps {
+		log.Debug("extracted dep",
+			"group id", dep.Metadata.(*archivemeta.Metadata).GroupID, "artifact id", dep.Name, "version", dep.Version)
+	}
+
+	// Unpack .jar
+	jarDir, err := os.MkdirTemp("", "osv-scalibr-javareach-")
+	if err != nil {
+		return err
+	}
+	defer os.RemoveAll(jarDir)
+
+	log.Debug("Unzipping", "jar", jarPath, "to", jarDir)
+	nestedJARs, err := unzipJAR(jarPath, input, jarDir)
+	if err != nil {
+		return err
+	}
+
+	// Reachability analysis is limited to Maven-built JARs for now.
+	// Check for the existence of the Maven metadata directory.
+	_, err = os.Stat(filepath.Join(jarDir, MavenDepDirPath))
+	if err != nil {
+		log.Error("reachability analysis is only supported for JARs built with Maven.")
+		return ErrMavenDependencyNotFound
+	}
+
+	// Build .class -> Maven group ID:artifact ID mappings.
+	// TODO(#787): Handle BOOT-INF and loading .jar dependencies from there.
+	classFinder, err := NewDefaultPackageFinder(ctx, allDeps, jarDir)
+	if err != nil {
+		return err
+	}
+
+	// Extract the main entrypoint.
+	manifest, err := os.Open(filepath.Join(jarDir, ManifestFilePath))
+	if err != nil {
+		return err
+	}
+
+	mainClasses, err := GetMainClasses(manifest)
+	if err != nil {
+		return err
+	}
+	log.Debug("Found", "main classes", mainClasses)
+
+	classPaths := []string{jarDir}
+	classPaths = append(classPaths, nestedJARs...)
+
+	// Spring Boot applications have classes in BOOT-INF/classes.
+	bootInfClasses := filepath.Join(jarDir, BootInfClasses)
+	if _, err := os.Stat(bootInfClasses); err == nil {
+		classPaths = append(classPaths, bootInfClasses)
+	}
+
+	// Look inside META-INF/services, which is used by
+	// https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html
+	servicesDir := filepath.Join(jarDir, ServiceDirPath)
+	var optionalRootClasses []string
+	if _, err := os.Stat(servicesDir); err == nil {
+		var entries []string
+
+		err := filepath.WalkDir(servicesDir, func(path string, d fs.DirEntry, err error) error {
+			if err != nil {
+				return err
+			}
+
+			if !d.IsDir() {
+				entries = append(entries, path)
+			}
+
+			return nil
+		})
+
+		if err != nil {
+			return err
+		}
+
+		for _, entry := range entries {
+			f, err := os.Open(entry)
+			if err != nil {
+				return err
+			}
+
+			scanner := bufio.NewScanner(f)
+			for scanner.Scan() {
+				provider := scanner.Text()
+				provider = strings.Split(provider, "#")[0] // remove comments
+
+				// Some files specify the class name using the format: "class = foo".
+				if strings.Contains(provider, "=") {
+					provider = strings.Split(provider, "=")[1]
+				}
+
+				provider = strings.TrimSpace(provider)
+
+				if len(provider) == 0 {
+					continue
+				}
+
+				log.Debug("adding META-INF/services provider", "provider", provider, "from", entry)
+				optionalRootClasses = append(optionalRootClasses, strings.ReplaceAll(provider, ".", "/"))
+			}
+			if err := scanner.Err(); err != nil {
+				return err
+			}
+		}
+	}
+
+	// Enumerate reachable classes.
+	// TODO(#787): Look inside more static files (e.g. XML beans configurations).
+	enumerator := NewReachabilityEnumerator(classPaths, classFinder, AssumeAllClassesReachable, AssumeAllClassesReachable)
+	result, err := enumerator.EnumerateReachabilityFromClasses(mainClasses, optionalRootClasses)
+	if err != nil {
+		return err
+	}
+
+	// Map reachable classes back to Maven group ID:artifact ID.
+	reachableDeps := map[string]struct{}{}
+	for _, class := range result.Classes {
+		deps, err := classFinder.Find(class)
+		if err != nil {
+			log.Debug("Failed to find dep mapping", "class", class, "error", err)
+			continue
+		}
+
+		for _, dep := range deps {
+			reachableDeps[dep] = struct{}{}
+		}
+	}
+
+	// Find Maven deps that use dynamic code loading and dependency injection.
+	dynamicLoadingDeps := map[string]struct{}{}
+	injectionDeps := map[string]struct{}{}
+	slices.Sort(result.UsesDynamicCodeLoading)
+	for _, class := range result.UsesDynamicCodeLoading {
+		log.Debug("Found use of dynamic code loading", "class", class)
+		deps, err := classFinder.Find(class)
+		if err != nil {
+			log.Debug("Failed to find dep mapping", "class", class, "error", err)
+			continue
+		}
+		for _, dep := range deps {
+			dynamicLoadingDeps[dep] = struct{}{}
+		}
+	}
+	for _, class := range result.UsesDependencyInjection {
+		log.Debug("Found use of dependency injection", "class", class)
+		deps, err := classFinder.Find(class)
+		if err != nil {
+			log.Debug("Failed to find dep mapping", "class", class, "error", err)
+			continue
+		}
+		for _, dep := range deps {
+			injectionDeps[dep] = struct{}{}
+		}
+	}
+
+	// Print results.
+	for _, dep := range slices.Sorted(maps.Keys(reachableDeps)) {
+		_, dynamicLoading := dynamicLoadingDeps[dep]
+		_, injection := injectionDeps[dep]
+		log.Debug("Reachable", "dep", dep, "dynamic code", dynamicLoading, "dep injection", injection)
+	}
+
+	for _, dep := range allDeps {
+		name := getFullPackageName(dep)
+		if _, ok := reachableDeps[name]; !ok {
+			log.Debug("Not reachable", "dep", name)
+		}
+	}
+
+	log.Debug("finished analysis", "reachable", len(reachableDeps), "unreachable", len(allDeps)-len(reachableDeps), "all", len(allDeps))
+
+	for i := range inv.Packages {
+		if inv.Packages[i].Locations[0] != jarPath {
+			continue
+		}
+		metadata := inv.Packages[i].Metadata.(*archivemeta.Metadata)
+		artifactName := fmt.Sprintf("%s:%s", metadata.GroupID, metadata.ArtifactID)
+		if _, exists := reachableDeps[artifactName]; !exists {
+			// TODO (gongh@): use UNKNOWN annotation for now until we add Unreachable.
+			inv.Packages[i].Annotations = append(inv.Packages[i].Annotations, extractor.Unknown)
+			log.Infof("Annotated unreachable package '%s' with: %v", artifactName, inv.Packages[i].Annotations)
+		}
+	}
+
+	return nil
+}
+
+// unzipJAR unzips a JAR to a target directory. It also returns a list of paths
+// to all the nested JARs found while unzipping.
+func unzipJAR(jarPath string, input *enricher.ScanInput, tmpDir string) (nestedJARs []string, err error) {
+	file, err := input.ScanRoot.FS.Open(filepath.ToSlash(jarPath))
+	if err != nil {
+		return nil, err
+	}
+
+	fileReaderAt, _ := file.(io.ReaderAt)
+
+	defer file.Close()
+
+	info, _ := file.Stat()
+	l := info.Size()
+
+	r, err := zip.NewReader(fileReaderAt, l)
+
+	if err != nil {
+		return nil, err
+	}
+
+	for _, file := range r.File {
+		path := filepath.Join(tmpDir, file.Name)
+		if !strings.HasPrefix(path, filepath.Clean(tmpDir)+string(os.PathSeparator)) {
+			return nil, fmt.Errorf("directory traversal: %s", path)
+		}
+
+		if file.FileInfo().IsDir() {
+			if err := os.MkdirAll(path, 0755); err != nil {
+				return nil, err
+			}
+		} else {
+			if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+				return nil, err
+			}
+
+			if strings.HasSuffix(path, ".jar") {
+				nestedJARs = append(nestedJARs, path)
+			}
+
+			source, err := file.Open()
+			if err != nil {
+				return nil, err
+			}
+
+			f, err := os.Create(path)
+			if err != nil {
+				return nil, err
+			}
+
+			_, err = io.Copy(f, source)
+			if err != nil {
+				f.Close()
+				return nil, err
+			}
+			f.Close()
+		}
+	}
+
+	return nestedJARs, nil
+}
