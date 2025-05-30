@@ -106,7 +106,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 17 packages affected by 27 known vulnerabilities (2 Critical, 3 High, 9 Medium, 2 Low, 11 Unknown) from 1 ecosystem.
+Total 17 packages affected by 29 known vulnerabilities (2 Critical, 3 High, 9 Medium, 2 Low, 13 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -116,7 +116,7 @@ Ubuntu:22.04
 +----------------+-------------------------+------------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION       | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------------+------------------+------------+-------------------------+------------------+---------------+
-| coreutils      | 8.32-4.1ubuntu1.2       | No fix available |          1 | coreutils               | # 4 Layer        | ubuntu        |
+| coreutils      | 8.32-4.1ubuntu1.2       | No fix available |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04   | No fix available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8         | No fix available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1       | No fix available |          2 | gpgv                    | # 4 Layer        | ubuntu        |
@@ -130,7 +130,7 @@ Ubuntu:22.04
 | openssl        | 3.0.2-0ubuntu1.18       | No fix available |          2 | libssl3                 | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5       | No fix available |          1 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1        | No fix available |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3       | No fix available |          2 | perl-base               | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3       | No fix available |          3 | perl-base               | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2      | No fix available |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12      | No fix available |          1 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 +----------------+-------------------------+------------------+------------+-------------------------+------------------+---------------+
@@ -1983,9 +1983,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2016-2781"
+            "UBUNTU-CVE-2016-2781",
+            "UBUNTU-CVE-2025-5278"
           ],
-          "groups": 1
+          "groups": 2
         },
         {
           "package": {
@@ -2140,7 +2141,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
             "USN-7257-1",
-            "USN-7314-1"
+            "USN-7314-1",
+            "USN-7542-1"
           ],
           "groups": 3
         },
@@ -2161,7 +2163,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
             "USN-7257-1",
-            "USN-7314-1"
+            "USN-7314-1",
+            "USN-7542-1"
           ],
           "groups": 3
         },
@@ -2182,7 +2185,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
             "USN-7257-1",
-            "USN-7314-1"
+            "USN-7314-1",
+            "USN-7542-1"
           ],
           "groups": 3
         },
@@ -2203,7 +2207,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576",
             "USN-7257-1",
-            "USN-7314-1"
+            "USN-7314-1",
+            "USN-7542-1"
           ],
           "groups": 3
         },
@@ -2519,9 +2524,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2023-31486",
             "UBUNTU-CVE-2023-47039",
             "UBUNTU-CVE-2024-56406",
+            "UBUNTU-CVE-2025-40909",
             "USN-7434-1"
           ],
-          "groups": 3
+          "groups": 4
         }
       ]
     }
