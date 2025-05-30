@@ -9,8 +9,6 @@ import (
 
 //nolint:tparallel,paralleltest
 func Test_run(t *testing.T) {
-	t.Parallel()
-
 	tests := []testcmd.Case{
 		{
 			Name: "",
