@@ -7,7 +7,7 @@ import (
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
 )
 
-//nolint:tparallel,paralleltest
+//nolint:paralleltest
 func Test_run(t *testing.T) {
 	tests := []testcmd.Case{
 		{
