@@ -33,7 +33,6 @@ jobs:
           TEST_ACCEPTANCE: true
           UPDATE_SNAPS: always
       - uses: gr2m/create-or-update-pull-request-action@b65137ca591da0b9f43bad7b24df13050ea45d1b # v1.10.1
-        id: create-or-update-pull-request
         env:
           GITHUB_TOKEN: ${{ secrets.PR_TOKEN_BOT }}
         with:
