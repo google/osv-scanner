@@ -106,7 +106,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 17 packages affected by 29 known vulnerabilities (2 Critical, 3 High, 9 Medium, 2 Low, 13 Unknown) from 1 ecosystem.
+Total 17 packages affected by 30 known vulnerabilities (2 Critical, 3 High, 9 Medium, 2 Low, 14 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -132,7 +132,7 @@ Ubuntu:22.04
 | pcre2          | 10.39-3ubuntu0.1        | No fix available |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3       | No fix available |          3 | perl-base               | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2      | No fix available |          2 | login, passwd           | # 4 Layer        | ubuntu        |
-| systemd        | 249.11-0ubuntu3.12      | No fix available |          1 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
+| systemd        | 249.11-0ubuntu3.12      | No fix available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 +----------------+-------------------------+------------------+------------+-------------------------+------------------+---------------+
 
 Filtered Vulnerabilities:
@@ -2379,9 +2379,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2023-7008"
+            "UBUNTU-CVE-2023-7008",
+            "UBUNTU-CVE-2025-4598"
           ],
-          "groups": 1
+          "groups": 2
         },
         {
           "package": {
@@ -2427,9 +2428,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2023-7008"
+            "UBUNTU-CVE-2023-7008",
+            "UBUNTU-CVE-2025-4598"
           ],
-          "groups": 1
+          "groups": 2
         },
         {
           "package": {
