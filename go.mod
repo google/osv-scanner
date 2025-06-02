@@ -22,7 +22,7 @@ require (
 	github.com/jedib0t/go-pretty/v6 v6.6.7
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/ossf/osv-schema/bindings/go v0.0.0-20250522062419-21268ba77897
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20250527054414-66246866dc20
 	github.com/owenrumney/go-sarif/v2 v2.3.3
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
@@ -34,11 +34,11 @@ require (
 	golang.org/x/sync v0.14.0
 	golang.org/x/term v0.32.0
 	golang.org/x/vuln v1.1.4
-	google.golang.org/grpc v1.72.1
+	google.golang.org/grpc v1.72.2
 	google.golang.org/protobuf v1.36.6
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
-	osv.dev/bindings/go v0.0.0-20250523054601-1307d22913fc
+	osv.dev/bindings/go v0.0.0-20250602004446-e07508c2781b
 )
 
 require (
