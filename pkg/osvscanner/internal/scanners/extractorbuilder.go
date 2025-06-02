@@ -28,6 +28,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/uvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
@@ -80,7 +81,6 @@ var lockfileExtractors = []filesystem.Extractor{
 	pipfilelock.Extractor{},
 	pdmlock.Extractor{},
 	poetrylock.Extractor{},
-	requirements.Extractor{},
 	uvlock.Extractor{},
 
 	// R
@@ -118,6 +118,15 @@ func BuildLockfileExtractors(dependencyClients map[osvschema.Ecosystem]resolve.C
 		}))
 	} else {
 		extractorsToUse = append(extractorsToUse, pomxml.Extractor{})
+	}
+
+	if dependencyClients[osvschema.EcosystemPyPI] != nil {
+		extractorsToUse = append(extractorsToUse, requirementsnet.New(requirementsnet.Config{
+			Client:    dependencyClients[osvschema.EcosystemPyPI],
+			Extractor: &requirements.Extractor{},
+		}))
+	} else {
+		extractorsToUse = append(extractorsToUse, requirements.Extractor{})
 	}
 
 	return extractorsToUse
@@ -160,6 +169,15 @@ func BuildWalkerExtractors(
 		}))
 	} else {
 		relevantExtractors = append(relevantExtractors, pomxml.Extractor{})
+	}
+
+	if dependencyClients[osvschema.EcosystemPyPI] != nil {
+		relevantExtractors = append(relevantExtractors, requirementsnet.New(requirementsnet.Config{
+			Client:    dependencyClients[osvschema.EcosystemPyPI],
+			Extractor: &requirements.Extractor{},
+		}))
+	} else {
+		relevantExtractors = append(relevantExtractors, requirements.Extractor{})
 	}
 
 	return relevantExtractors

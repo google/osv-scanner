@@ -169,6 +169,9 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(actions.TransitiveScanningActions.MavenRegistry, "")
 	}
 
+	// We only support native registry client for PyPI.
+	externalAccessors.DependencyClients[osvschema.EcosystemPyPI] = resolution.NewPyPIRegistryClient("")
+
 	if err != nil {
 		return ExternalAccessors{}, err
 	}
