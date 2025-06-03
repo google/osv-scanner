@@ -26,12 +26,15 @@ type UniqueQueue[K, V comparable] struct {
 	q    []pair[K, V]
 }
 
+// NewQueue creates a new UniqueQueue.
 func NewQueue[K, V comparable](seen map[K]struct{}) *UniqueQueue[K, V] {
 	return &UniqueQueue[K, V]{
 		seen: seen,
 	}
 }
 
+// Push adds a key and its value to the queue. If the key is already in the queue,
+// it will be ignored. It returns true if the key was added, false otherwise.
 func (q *UniqueQueue[K, V]) Push(key K, value V) bool {
 	if _, ok := q.seen[key]; ok {
 		return false
@@ -41,17 +44,20 @@ func (q *UniqueQueue[K, V]) Push(key K, value V) bool {
 	return true
 }
 
+// Seen returns true if the key is already in the queue.
 func (q *UniqueQueue[K, V]) Seen(key K) bool {
 	_, ok := q.seen[key]
 	return ok
 }
 
+// Pop removes the first key and value from the queue.
 func (q *UniqueQueue[K, V]) Pop() (K, V) {
 	item := q.q[0]
 	q.q = q.q[1:]
 	return item.first, item.second
 }
 
+// Empty returns true if the queue is empty.
 func (q *UniqueQueue[K, V]) Empty() bool {
 	return len(q.q) == 0
 }

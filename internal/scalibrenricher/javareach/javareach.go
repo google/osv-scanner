@@ -39,28 +39,37 @@ import (
 
 const (
 	// Name is the unique name of this detector.
-	Name        = "javareach"
+	Name = "javareach"
+	// MetaDirPath is the path to the META-INF directory.
 	MetaDirPath = "META-INF"
 )
 
 var (
+	// ManifestFilePath is the path to the MANIFEST.MF file.
 	ManifestFilePath = filepath.Join(MetaDirPath, "MANIFEST.MF")
-	MavenDepDirPath  = filepath.Join(MetaDirPath, "maven")
-	ServiceDirPath   = filepath.Join(MetaDirPath, "services")
+	// MavenDepDirPath is the path to the Maven dependency directory.
+	MavenDepDirPath = filepath.Join(MetaDirPath, "maven")
+	// ServiceDirPath is the path to the META-INF/services directory.
+	ServiceDirPath = filepath.Join(MetaDirPath, "services")
 
+	// ErrMavenDependencyNotFound is returned when a JAR is not a Maven dependency.
 	ErrMavenDependencyNotFound = errors.New(MavenDepDirPath + " directory not found")
 )
 
+// Enricher is the Java Reach enricher.
 type Enricher struct{}
 
+// Name returns the name of the enricher.
 func (Enricher) Name() string {
 	return Name
 }
 
+// Version returns the version of the enricher.
 func (Enricher) Version() int {
 	return 0
 }
 
+// Requirements returns the requirements of the enricher.
 func (Enricher) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{
 		Network:  plugin.NetworkOnline,
@@ -68,10 +77,12 @@ func (Enricher) Requirements() *plugin.Capabilities {
 	}
 }
 
+// RequiredPlugins returns the names of the plugins required by the enricher.
 func (Enricher) RequiredPlugins() []string {
 	return []string{archive.Name}
 }
 
+// Enrich enriches the inventory with Java Reach data.
 func (Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *inventory.Inventory) error {
 	jars := make(map[string]struct{})
 	for i := range inv.Packages {
@@ -287,7 +298,6 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 		metadata := inv.Packages[i].Metadata.(*archivemeta.Metadata)
 		artifactName := fmt.Sprintf("%s:%s", metadata.GroupID, metadata.ArtifactID)
 		if _, exists := reachableDeps[artifactName]; !exists {
-			// TODO (gongh@): use UNKNOWN annotation for now until we add Unreachable.
 			inv.Packages[i].Annotations = append(inv.Packages[i].Annotations, extractor.Unknown)
 			log.Infof("Annotated unreachable package '%s' with: %v", artifactName, inv.Packages[i].Annotations)
 		}

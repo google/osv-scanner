@@ -29,30 +29,36 @@ import (
 	"github.com/google/osv-scalibr/log"
 )
 
+// ReachabilityResult contains the result of a reachability enumeration.
 type ReachabilityResult struct {
 	Classes                 []string
 	UsesDynamicCodeLoading  []string
 	UsesDependencyInjection []string
 }
 
+// DynamicCodeStrategy is a strategy for handling dynamic code loading.
 type DynamicCodeStrategy int
 
 const (
-	// Don't do any kind of special handling.
+	// DontHandleDynamicCode doesn't do any kind of special handling.
 	DontHandleDynamicCode DynamicCodeStrategy = 0
-	// Assume that the entirety of all direct dependencies (i.e. all their
+	// AssumeAllDirectDepsReachable assumes that the entirety of all direct dependencies (i.e. all their
 	// classes) are fully reachable.
 	AssumeAllDirectDepsReachable = 1 << 0
-	// Assume that every single class belonging to the current dependency are
+	// AssumeAllClassesReachable assumes that every single class belonging to the current dependency are
 	// fully reachable.
 	AssumeAllClassesReachable = 1 << 1
 )
 
 const (
-	BootInfClasses  = "BOOT-INF/classes"
+	// BootInfClasses contains spring boot specific classes.
+	BootInfClasses = "BOOT-INF/classes"
+	// MetaInfVersions is a directory that contains multi-release JARs.
 	MetaInfVersions = "META-INF/versions"
 )
 
+// ReachabilityEnumerator enumerates the reachable classes from a set of root
+// classes.
 type ReachabilityEnumerator struct {
 	ClassPaths                  []string
 	PackageFinder               MavenPackageFinder
@@ -62,6 +68,7 @@ type ReachabilityEnumerator struct {
 	loadedJARs map[string]*zip.Reader
 }
 
+// NewReachabilityEnumerator creates a new ReachabilityEnumerator.
 func NewReachabilityEnumerator(
 	classPaths []string, packageFinder MavenPackageFinder,
 	codeLoadingStrategy DynamicCodeStrategy, dependencyInjectionStrategy DynamicCodeStrategy) *ReachabilityEnumerator {
@@ -74,6 +81,8 @@ func NewReachabilityEnumerator(
 	}
 }
 
+// EnumerateReachabilityFromClasses enumerates the reachable classes from a set of root
+// classes.
 func (r *ReachabilityEnumerator) EnumerateReachabilityFromClasses(mainClasses []string, optionalRootClasses []string) (*ReachabilityResult, error) {
 	var roots []*ClassFile
 	for _, mainClass := range mainClasses {
@@ -96,12 +105,11 @@ func (r *ReachabilityEnumerator) EnumerateReachabilityFromClasses(mainClasses []
 	return r.EnumerateReachability(roots)
 }
 
+// EnumerateReachability enumerates the reachable classes from a set of root
+// classes.
 // TODO(#787):
 //   - See if we should do a finer grained analysis to only consider referenced
 //     classes where a method is called/referenced.
-//
-// EnumerateReachability enumerates the reachable classes from a set of root
-// classes.
 func (r *ReachabilityEnumerator) EnumerateReachability(roots []*ClassFile) (*ReachabilityResult, error) {
 	seen := map[string]struct{}{}
 	codeLoading := map[string]struct{}{}

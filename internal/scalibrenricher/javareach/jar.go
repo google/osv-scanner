@@ -37,12 +37,13 @@ import (
 
 const (
 	maxGoroutines = 4
-
-	rootArtifact = "<root>"
+	rootArtifact  = "<root>"
 )
 
 var (
-	ErrClassNotFound    = errors.New("class not found")
+	// ErrClassNotFound is returned when a class is not found.
+	ErrClassNotFound = errors.New("class not found")
+	// ErrArtifactNotFound is returned when an artifact is not found.
 	ErrArtifactNotFound = errors.New("artifact not found")
 )
 
@@ -199,7 +200,12 @@ func extractClassMappings(ctx context.Context, inv *extractor.Package, classMap 
 		}
 
 		client := &http.Client{}
-		resp, _ := client.Do(req)
+		resp, err := client.Do(req)
+
+		if err != nil {
+			return err
+		}
+
 		if resp.StatusCode != http.StatusOK {
 			return fmt.Errorf("jar not found: %s", jarURL)
 		}
@@ -301,7 +307,7 @@ func (f *DefaultPackageFinder) Find(classPath string) ([]string, error) {
 	return nil, ErrClassNotFound
 }
 
-// Find returns a list of package names that contain a class path.
+// Classes find returns a list of package names that contain a class path.
 func (f *DefaultPackageFinder) Classes(artifact string) ([]string, error) {
 	if classes, ok := f.artifactMap[artifact]; ok {
 		return classes, nil
@@ -310,7 +316,7 @@ func (f *DefaultPackageFinder) Classes(artifact string) ([]string, error) {
 	return nil, ErrArtifactNotFound
 }
 
-// GetMainClass extracts the main class name from the MANIFEST.MF file in a .jar.
+// GetMainClasses extracts the main class name from the MANIFEST.MF file in a .jar.
 func GetMainClasses(manifest io.Reader) ([]string, error) {
 	// Extract the Main-Class specified in MANIFEST.MF:
 	// https://docs.oracle.com/javase/tutorial/deployment/jar/appman.html

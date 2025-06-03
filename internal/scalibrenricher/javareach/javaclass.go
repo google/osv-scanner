@@ -37,6 +37,7 @@ var (
 		"Z",
 	}
 
+	// StandardLibraryPrefixes defines the prefixes of standard library classes.
 	StandardLibraryPrefixes = []string{
 		"java/",
 		"javax/",
@@ -66,8 +67,10 @@ type ConstantPoolInfo interface {
 	Type() ConstantKind
 }
 
+// ConstantKind is the type of a constant pool entry.
 type ConstantKind uint8
 
+// ConstantKind values are defined in JAR constant pool entries.
 const (
 	ConstantKindUtf8               ConstantKind = 1
 	ConstantKindInteger            ConstantKind = 3
@@ -100,90 +103,142 @@ const (
 	ConstantKindPlaceholder ConstantKind = 255
 )
 
-// ConstantPool entries
 type (
+	// ConstantClass represents a class constant pool entry.
 	ConstantClass struct {
 		NameIndex uint16
 	}
+	// ConstantFieldref represents a field reference constant pool entry.
 	ConstantFieldref struct {
 		ClassIndex       uint16
 		NameAndTypeIndex uint16
 	}
+	// ConstantMethodref represents a method reference constant pool entry.
 	ConstantMethodref struct {
 		ClassIndex       uint16
 		NameAndTypeIndex uint16
 	}
+	// ConstantInterfaceMethodref represents an interface method reference constant pool entry.
 	ConstantInterfaceMethodref struct {
 		ClassIndex       uint16
 		NameAndTypeIndex uint16
 	}
+	// ConstantString represents a string constant pool entry.
 	ConstantString struct {
 		StringIndex uint16
 	}
+	// ConstantInteger represents an integer constant pool entry.
 	ConstantInteger struct {
 		Bytes int32
 	}
+	// ConstantFloat represents a float constant pool entry.
 	ConstantFloat struct {
 		Bytes float32
 	}
+	// ConstantLong represents a long constant pool entry.
 	ConstantLong struct {
 		Bytes int64
 	}
+	// ConstantDouble represents a double constant pool entry.
 	ConstantDouble struct {
 		Bytes float64
 	}
+	// ConstantNameAndType represents a name and type constant pool entry.
 	ConstantNameAndType struct {
 		NameIndex       uint16
 		DescriptorIndex uint16
 	}
+	// ConstantUtf8 represents a UTF-8 string constant pool entry.
 	ConstantUtf8 struct {
 		Length uint16
 		Bytes  []byte
 	}
+	// ConstantMethodHandle represents a method handle constant pool entry.
 	ConstantMethodHandle struct {
 		ReferenceKind  uint8
 		ReferenceIndex uint16
 	}
+	// ConstantMethodType represents a method type constant pool entry.
 	ConstantMethodType struct {
 		DescriptorIndex uint16
 	}
+	// ConstantInvokeDynamic represents an invoke dynamic constant pool entry.
 	ConstantInvokeDynamic struct {
 		BootstrapMethodAttrIndex uint16
 		NameAndTypeIndex         uint16
 	}
+	// ConstantModule represents a module constant pool entry.
 	ConstantModule struct {
 		NameIndex uint16
 	}
+	// ConstantPackage represents a package constant pool entry.
 	ConstantPackage struct {
 		NameIndex uint16
 	}
+	// ConstantDynamic represents a dynamic constant pool entry.
 	ConstantDynamic struct {
 		BootstrapMethodAttrIndex uint16
 		NameAndTypeIndex         uint16
 	}
+	// ConstantPlaceholder is a placeholder constant pool entry.
 	ConstantPlaceholder struct{}
 )
 
-// Type methods for ConstantPoolInfo implementations
-func (c ConstantClass) Type() ConstantKind              { return ConstantKindClass }
-func (c ConstantFieldref) Type() ConstantKind           { return ConstantKindFieldref }
-func (c ConstantMethodref) Type() ConstantKind          { return ConstantKindMethodref }
-func (c ConstantInterfaceMethodref) Type() ConstantKind { return ConstantKindInterfaceMethodref }
-func (c ConstantString) Type() ConstantKind             { return ConstantKindString }
-func (c ConstantInteger) Type() ConstantKind            { return ConstantKindInteger }
-func (c ConstantFloat) Type() ConstantKind              { return ConstantKindFloat }
-func (c ConstantLong) Type() ConstantKind               { return ConstantKindLong }
-func (c ConstantDouble) Type() ConstantKind             { return ConstantKindDouble }
-func (c ConstantNameAndType) Type() ConstantKind        { return ConstantKindNameAndType }
-func (c ConstantUtf8) Type() ConstantKind               { return ConstantKindUtf8 }
-func (c ConstantMethodHandle) Type() ConstantKind       { return ConstantKindMethodHandle }
-func (c ConstantMethodType) Type() ConstantKind         { return ConstantKindMethodType }
-func (c ConstantInvokeDynamic) Type() ConstantKind      { return ConstantKindInvokeDynamic }
-func (c ConstantModule) Type() ConstantKind             { return ConstantKindModule }
-func (c ConstantPackage) Type() ConstantKind            { return ConstantKindPackage }
-func (c ConstantDynamic) Type() ConstantKind            { return ConstantKindDynamic }
-func (c ConstantPlaceholder) Type() ConstantKind        { return ConstantKindPlaceholder }
+// Type returns the ConstantKind for ConstantClass.
+func (c ConstantClass) Type() ConstantKind { return ConstantKindClass }
 
+// Type returns the ConstantKind for ConstantFieldref.
+func (c ConstantFieldref) Type() ConstantKind { return ConstantKindFieldref }
+
+// Type returns the ConstantKind for ConstantMethodref.
+func (c ConstantMethodref) Type() ConstantKind { return ConstantKindMethodref }
+
+// Type returns the ConstantKind for ConstantInterfaceMethodref.
+func (c ConstantInterfaceMethodref) Type() ConstantKind { return ConstantKindInterfaceMethodref }
+
+// Type returns the ConstantKind for ConstantString.
+func (c ConstantString) Type() ConstantKind { return ConstantKindString }
+
+// Type returns the ConstantKind for ConstantInteger.
+func (c ConstantInteger) Type() ConstantKind { return ConstantKindInteger }
+
+// Type returns the ConstantKind for ConstantFloat.
+func (c ConstantFloat) Type() ConstantKind { return ConstantKindFloat }
+
+// Type returns the ConstantKind for ConstantLong.
+func (c ConstantLong) Type() ConstantKind { return ConstantKindLong }
+
+// Type returns the ConstantKind for ConstantDouble.
+func (c ConstantDouble) Type() ConstantKind { return ConstantKindDouble }
+
+// Type returns the ConstantKind for ConstantNameAndType.
+func (c ConstantNameAndType) Type() ConstantKind { return ConstantKindNameAndType }
+
+// Type returns the ConstantKind for ConstantUtf8.
+func (c ConstantUtf8) Type() ConstantKind { return ConstantKindUtf8 }
+
+// Type returns the ConstantKind for ConstantMethodHandle.
+func (c ConstantMethodHandle) Type() ConstantKind { return ConstantKindMethodHandle }
+
+// Type returns the ConstantKind for ConstantMethodType.
+func (c ConstantMethodType) Type() ConstantKind { return ConstantKindMethodType }
+
+// Type returns the ConstantKind for ConstantInvokeDynamic.
+func (c ConstantInvokeDynamic) Type() ConstantKind { return ConstantKindInvokeDynamic }
+
+// Type returns the ConstantKind for ConstantModule.
+func (c ConstantModule) Type() ConstantKind { return ConstantKindModule }
+
+// Type returns the ConstantKind for ConstantPackage.
+func (c ConstantPackage) Type() ConstantKind { return ConstantKindPackage }
+
+// Type returns the ConstantKind for ConstantDynamic.
+func (c ConstantDynamic) Type() ConstantKind { return ConstantKindDynamic }
+
+// Type returns the ConstantKind for ConstantPlaceholder.
+func (c ConstantPlaceholder) Type() ConstantKind { return ConstantKindPlaceholder }
+
+// ParseClass parses a Java class file from a reader.
 func ParseClass(r io.Reader) (*ClassFile, error) {
 	var cf ClassFile
 	err := binary.Read(r, binary.BigEndian, &cf.Magic)
@@ -385,7 +440,7 @@ func ParseClass(r io.Reader) (*ClassFile, error) {
 		if cp.Type() == ConstantKindDouble || cp.Type() == ConstantKindLong {
 			// 8-byte values take up 2 constant pool entries.
 			cf.ConstantPool = append(cf.ConstantPool, &ConstantPlaceholder{})
-			i += 1
+			i++
 		}
 	}
 
@@ -415,6 +470,8 @@ func (cf *ClassFile) checkIndex(idx int) error {
 	return nil
 }
 
+// ConstantPoolMethodref returns the class, method, and descriptor for a method reference at the
+// given index.
 func (cf *ClassFile) ConstantPoolMethodref(idx int) (class string, method string, descriptor string, err error) {
 	err = cf.checkIndex(idx)
 	if err != nil {
@@ -450,6 +507,7 @@ func (cf *ClassFile) ConstantPoolMethodref(idx int) (class string, method string
 	return class, method, descriptor, err
 }
 
+// ConstantPoolClass returns the class name at the given index.
 func (cf *ClassFile) ConstantPoolClass(idx int) (string, error) {
 	if err := cf.checkIndex(idx); err != nil {
 		return "", err
@@ -462,6 +520,7 @@ func (cf *ClassFile) ConstantPoolClass(idx int) (string, error) {
 	return cf.ConstantPoolUtf8(int(classInfo.NameIndex))
 }
 
+// ConstantPoolUtf8 returns the UTF-8 string at the given index.
 func (cf *ClassFile) ConstantPoolUtf8(idx int) (string, error) {
 	if err := cf.checkIndex(idx); err != nil {
 		return "", err
@@ -477,6 +536,7 @@ func (cf *ClassFile) ConstantPoolUtf8(idx int) (string, error) {
 	return string(data.Bytes), nil
 }
 
+// IsStdLib returns true if the class is a standard library class.
 func IsStdLib(class string) bool {
 	for _, prefix := range StandardLibraryPrefixes {
 		if strings.HasPrefix(class, prefix) {
