@@ -28,6 +28,7 @@ type OSVMatcher struct {
 	InitialQueryTimeout time.Duration
 }
 
+// MatchVulnerabilities matches vulnerabilities for a list of packages.
 func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	var batchResp *osvdev.BatchedResponse
 	deadlineExceeded := false
@@ -55,6 +56,11 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 			} else {
 				return nil, err
 			}
+		}
+
+		// No results found - this could be due to a timeout or no vulnerabilities being found
+		if batchResp == nil {
+			return nil, err
 		}
 	}
 
