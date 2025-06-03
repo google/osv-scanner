@@ -32,27 +32,14 @@ jobs:
         env:
           TEST_ACCEPTANCE: true
           UPDATE_SNAPS: always
-      - uses: gr2m/create-or-update-pull-request-action@b65137ca591da0b9f43bad7b24df13050ea45d1b # v1.10.1
-        id: create-or-update-pull-request
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
+      - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
         with:
+          token: ${{ secrets.PR_TOKEN_BOT }}
           title: "test: update snapshots"
           body: >
             The snapshots have changed, probably due to OSV advisories being changed.
 
             Please review the differences to make sure that they're expected!
           branch: "bot/update-snapshots"
-          author: "another-rex <rexpan@google.com>"
+          author: "osv-robot <osv-robot@google.com>"
           commit-message: "test: update snapshots"
-      - uses: octokit/request-action@dad4362715b7fb2ddedf9772c8670824af564f0d # v2.4.0
-        if: steps.create-or-update-pull-request.outputs.result != 'unchanged'
-        with:
-          route: |
-            POST /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches
-          owner: ${{ github.repository_owner }}
-          repo: ${{ github.event.repository.name }}
-          workflow_id: checks.yml
-          ref: bot/update-snapshots
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -608,7 +608,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/CVE-2022-1664       | 9.8  | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4535-1          |      | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2019-5094       | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2019-5094       | 7.5  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-5188       | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2022-1304       | 7.8  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3910-1          |      | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -788,6 +788,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/CVE-2023-31484      | 8.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2023-47038      | 7.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-56406      |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-40909      |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3926-1          |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5135-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3072-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -833,6 +834,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-18276      | 7.8  | Debian    | bash                           | 4.4-5                              | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-18018      | 4.7  | Debian    | coreutils                      | 8.26-3                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-5278       |      | Debian    | coreutils                      | 8.26-3                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2018-6829       | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-2236       |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2018-1000654    | 5.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -1200,6 +1202,153 @@ Filtered 1 vulnerability from output
 ---
 
 [TestCommand_CallAnalysis/Run_with_govulncheck - 2]
+
+---
+
+[TestCommand_ExplicitExtractors/empty_extractors_flag_does_nothing - 1]
+
+---
+
+[TestCommand_ExplicitExtractors/empty_extractors_flag_does_nothing - 2]
+Incorrect Usage: flag needs an argument: --experimental-extractors=
+
+flag needs an argument: --experimental-extractors=
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_individually - 1]
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_individually - 2]
+at least one extractor must be enabled
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_together - 1]
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_together - 2]
+at least one extractor must be enabled
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_with_presets - 1]
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_with_presets - 2]
+at least one extractor must be enabled
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 1]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 2]
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 1]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 2]
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_an_extractor_that_does_not_exist - 1]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_an_extractor_that_does_not_exist - 2]
+Unknown extractor custom/extractor
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_disabled - 1]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/yarn.lock file and found 1 package
+Filtered 1 local/unscannable package/s from the scan.
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_disabled - 2]
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_enabled - 1]
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_enabled - 2]
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_file_with_one_different_extractor_enabled - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_file_with_one_different_extractor_enabled - 2]
+No package sources found, --help for usage information.
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_file_with_one_specific_extractor_enabled - 1]
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_file_with_one_specific_extractor_enabled - 2]
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_file_with_parse_as_but_specific_extractor_disabled - 1]
+
+---
+
+[TestCommand_ExplicitExtractors/scanning_file_with_parse_as_but_specific_extractor_disabled - 2]
+could not determine extractor, requested package-lock.json
 
 ---
 
@@ -2182,7 +2331,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2022-1664       | 9.8  | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4535-1          |      | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2019-5094       | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2019-5094       | 7.5  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-5188       | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2022-1304       | 7.8  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3910-1          |      | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2362,6 +2511,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2023-31484      | 8.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2023-47038      | 7.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-56406      |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-40909      |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3926-1          |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5135-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3072-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2404,6 +2554,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-18276      | 7.8  | Debian    | bash                           | 4.4-5                              | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-18018      | 4.7  | Debian    | coreutils                      | 8.26-3                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-5278       |      | Debian    | coreutils                      | 8.26-3                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2018-6829       | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-2236       |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2018-1000654    | 5.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2449,7 +2600,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2022-1664       | 9.8  | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3022-1          |      | Debian    | dpkg                           | 1.18.25                            | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4535-1          |      | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2019-5094       | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2019-5094       | 7.5  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-5188       | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2022-1304       | 7.8  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3910-1          |      | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2629,6 +2780,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2023-31484      | 8.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2023-47038      | 7.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-56406      |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-40909      |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3926-1          |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5135-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3072-1          |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2671,6 +2823,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2019-18276      | 7.8  | Debian    | bash                           | 4.4-5                              | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-18018      | 4.7  | Debian    | coreutils                      | 8.26-3                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-5278       |      | Debian    | coreutils                      | 8.26-3                             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2018-6829       | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-2236       |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2018-1000654    | 5.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | fixtures/sbom-insecure/postgres-stretch.cdx.xml |

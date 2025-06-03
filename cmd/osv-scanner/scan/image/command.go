@@ -26,7 +26,7 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 				Name:  "archive",
 				Usage: "input a local archive image (e.g. a tar file)",
 			},
-		}, helper.GetScanGlobalFlags()...),
+		}, helper.GetScanGlobalFlags([]string{"artifact"})...),
 		ArgsUsage: "[image imageNameWithTag]",
 		Action: func(ctx context.Context, cmd *cli.Command) error {
 			return action(ctx, cmd, stdout, stderr)
@@ -75,6 +75,10 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 		IsImageArchive:             cmd.Bool("archive"),
 		IncludeGitRoot:             cmd.Bool("include-git-root"),
 		ExperimentalScannerActions: helper.GetExperimentalScannerActions(cmd, scanLicensesAllowlist),
+	}
+
+	if len(scannerAction.Extractors) == 0 {
+		return errors.New("at least one extractor must be enabled")
 	}
 
 	var vulnResult models.VulnerabilityResults

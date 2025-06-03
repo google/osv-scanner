@@ -19,6 +19,7 @@ import (
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
@@ -29,10 +30,10 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
-	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"osv.dev/bindings/go/osvdev"
 )
@@ -62,6 +63,8 @@ type ExperimentalScannerActions struct {
 
 	LocalDBPath string
 	TransitiveScanningActions
+
+	Extractors []filesystem.Extractor
 }
 
 type TransitiveScanningActions struct {
@@ -313,7 +316,11 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
-		FilesystemExtractors: scanners.BuildArtifactExtractors(),
+		FilesystemExtractors: getExtractors(
+			scalibrextract.ExtractorsArtifacts,
+			accessors,
+			actions,
+		),
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
