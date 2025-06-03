@@ -83,7 +83,7 @@ func (m MavenReadWriter) Read(df depfile.DepFile) (Manifest, error) {
 			VersionKey: resolve.VersionKey{
 				PackageKey: resolve.PackageKey{
 					System: resolve.Maven,
-					Name:   project.Parent.ProjectKey.Name(),
+					Name:   project.Parent.Name(),
 				},
 				// Parent version is a concrete version, but we model parent as dependency here.
 				VersionType: resolve.Requirement,
@@ -100,7 +100,7 @@ func (m MavenReadWriter) Read(df depfile.DepFile) (Manifest, error) {
 
 	// TODO: there may be properties in repo.Releases.Enabled and repo.Snapshots.Enabled
 	for _, repo := range project.Repositories {
-		if err := m.MavenRegistryAPIClient.AddRegistry(datasource.MavenRegistry{
+		if err := m.AddRegistry(datasource.MavenRegistry{
 			URL:              string(repo.URL),
 			ID:               string(repo.ID),
 			ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
@@ -243,7 +243,7 @@ func buildOriginalRequirements(project maven.Project, originPrefix string) []Dep
 		for _, d := range plugin.Dependencies {
 			dependencies = append(dependencies, DependencyWithOrigin{
 				Dependency: d,
-				Origin:     mavenOrigin(originPrefix, mavenutil.OriginPlugin, plugin.ProjectKey.Name()),
+				Origin:     mavenOrigin(originPrefix, mavenutil.OriginPlugin, plugin.Name()),
 			})
 		}
 	}
@@ -805,7 +805,7 @@ func writeProject(w io.Writer, enc *internalxml.Encoder, raw, prefix, id string,
 				if err := dec.DecodeElement(&rawPlugin, &tt); err != nil {
 					return err
 				}
-				if err := writeProject(w, enc, "<plugin>"+rawPlugin.InnerXML+"</plugin>", mavenutil.OriginPlugin, rawPlugin.ProjectKey.Name(), patches, properties, updated); err != nil {
+				if err := writeProject(w, enc, "<plugin>"+rawPlugin.InnerXML+"</plugin>", mavenutil.OriginPlugin, rawPlugin.Name(), patches, properties, updated); err != nil {
 					return fmt.Errorf("updating profile: %w", err)
 				}
 
