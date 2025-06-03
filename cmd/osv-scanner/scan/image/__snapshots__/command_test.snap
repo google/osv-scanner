@@ -75,6 +75,45 @@ No package sources found, --help for usage information.
 
 ---
 
+[TestCommand_Docker/real_alpine_image_without_apk_extractor_enabled - 1]
+Checking if docker image ("alpine:3.18.9") exists locally...
+Saving docker image ("alpine:3.18.9") to temporary file...
+Scanning image "alpine:3.18.9"
+
+---
+
+[TestCommand_Docker/real_alpine_image_without_apk_extractor_enabled - 2]
+No package sources found, --help for usage information.
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out - 1]
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out - 2]
+at least one extractor must be enabled
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out#01 - 1]
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out#01 - 2]
+at least one extractor must be enabled
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_with_presets - 1]
+
+---
+
+[TestCommand_ExplicitExtractors/extractors_cancelled_out_with_presets - 2]
+at least one extractor must be enabled
+
+---
+
 [TestCommand_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-alpine.tar"
 
