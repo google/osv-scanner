@@ -289,7 +289,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "source",
 				"--experimental-extractors=javascript/packagelockjson",
-				"../../fixtures/locks-many",
+				"./fixtures/locks-many",
 			},
 			Exit: 0,
 		},
@@ -300,7 +300,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 				"--experimental-extractors=javascript/packagelockjson",
 				"--experimental-extractors=custom/extractor",
 				"--experimental-disable-extractors=custom/anotherextractor",
-				"../../fixtures/locks-many",
+				"./fixtures/locks-many",
 			},
 			Exit: 127,
 		},
@@ -312,7 +312,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 				"", "source",
 				"--experimental-extractors=javascript/packagelockjson",
 				"--experimental-extractors=php/composerlock",
-				"../../fixtures/locks-many",
+				"./fixtures/locks-many",
 			},
 			Exit: 0,
 		},
@@ -323,7 +323,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "source",
 				"--experimental-extractors=javascript/packagelockjson,php/composerlock",
-				"../../fixtures/locks-many",
+				"./fixtures/locks-many",
 			},
 			Exit: 0,
 		},
@@ -334,7 +334,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "source",
 				"--experimental-disable-extractors=javascript/packagelockjson",
-				"../../fixtures/locks-many",
+				"./fixtures/locks-many",
 			},
 			Exit: 0,
 		},
@@ -345,7 +345,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "source",
 				"--experimental-extractors=javascript/packagelockjson",
-				"../../fixtures/locks-many/package-lock.json",
+				"./fixtures/locks-many/package-lock.json",
 			},
 			Exit: 0,
 		},
@@ -356,7 +356,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "source",
 				"--experimental-extractors=javascript/packagelockjson",
-				"../../fixtures/locks-many/composer.lock",
+				"./fixtures/locks-many/composer.lock",
 			},
 			Exit: 128,
 		},
@@ -368,7 +368,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "source",
 				"--experimental-disable-extractors=javascript/packagelockjson",
-				"-L", "package-lock.json:../../fixtures/locks-many/composer.lock",
+				"-L", "package-lock.json:./fixtures/locks-many/composer.lock",
 			},
 			Exit: 127,
 		},
