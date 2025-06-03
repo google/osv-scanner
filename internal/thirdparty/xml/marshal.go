@@ -220,7 +220,12 @@ func (enc *Encoder) EncodeToken(t Token) error {
 			return err
 		}
 	case CharData:
-		escapeText(p, t, false)
+		if t.origin != nil {
+			// Write the original text if there are escape sequences replaced.
+			p.Write(t.origin)
+		} else {
+			escapeText(p, t.data, false)
+		}
 	case Comment:
 		if bytes.Contains(t, endComment) {
 			return fmt.Errorf("xml: EncodeToken of Comment containing --> marker")
@@ -563,7 +568,7 @@ func (p *printer) marshalValue(val reflect.Value, finfo *fieldInfo, startTemplat
 		} else if b != nil {
 			EscapeText(p, b)
 		} else {
-			p.EscapeString(s)
+			p.EscapeString(s, false)
 		}
 	}
 	if err != nil {
@@ -731,7 +736,7 @@ func (p *printer) writeStart(start *StartElement) error {
 
 	if start.Name.Space != "" {
 		p.WriteString(` xmlns="`)
-		p.EscapeString(start.Name.Space)
+		p.EscapeString(start.Name.Space, false)
 		p.WriteByte('"')
 	}
 
@@ -754,7 +759,7 @@ func (p *printer) writeStart(start *StartElement) error {
 		}
 		p.WriteString(name.Local)
 		p.WriteString(`="`)
-		p.EscapeString(attr.Value)
+		p.EscapeString(attr.Value, true)
 		p.WriteByte('"')
 	}
 

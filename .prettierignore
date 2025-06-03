@@ -2,4 +2,5 @@
 **/testdata/**
 **/fixtures-go/**
 /docs/vendor/**
+/docs/_sites/**
 /internal/output/html/*.gohtml

@@ -1,8 +1,10 @@
 package update
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"io"
 	"os"
 
 	"deps.dev/util/resolve"
@@ -13,10 +15,10 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/version"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
-func Command() *cli.Command {
+func Command(_, _ io.Writer) *cli.Command {
 	return &cli.Command{
 		Hidden: true,
 		Name:   "update",
@@ -42,7 +44,7 @@ func Command() *cli.Command {
 				Name:  "data-source",
 				Usage: "source to fetch package information from; value can be: deps.dev, native",
 				Value: "deps.dev",
-				Action: func(_ *cli.Context, s string) error {
+				Action: func(_ context.Context, _ *cli.Command, s string) error {
 					if s != "deps.dev" && s != "native" {
 						return fmt.Errorf("unsupported data-source \"%s\" - must be one of: deps.dev, native", s)
 					}
@@ -64,11 +66,11 @@ type updateOptions struct {
 	ManifestRW manifest.ReadWriter
 }
 
-func action(ctx *cli.Context) error {
+func action(ctx context.Context, cmd *cli.Command) error {
 	options := updateOptions{
-		Manifest:      ctx.String("manifest"),
-		IgnoreDev:     ctx.Bool("ignore-dev"),
-		UpgradeConfig: upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config")),
+		Manifest:      cmd.String("manifest"),
+		IgnoreDev:     cmd.Bool("ignore-dev"),
+		UpgradeConfig: upgrade.ParseUpgradeConfig(cmd.StringSlice("upgrade-config")),
 	}
 
 	if _, err := os.Stat(options.Manifest); errors.Is(err, os.ErrNotExist) {
@@ -79,7 +81,7 @@ func action(ctx *cli.Context) error {
 
 	system := resolve.UnknownSystem
 	if options.Manifest != "" {
-		rw, err := manifest.GetReadWriter(options.Manifest, ctx.String("maven-registry"))
+		rw, err := manifest.GetReadWriter(options.Manifest, cmd.String("maven-registry"))
 		if err != nil {
 			return err
 		}
@@ -88,7 +90,7 @@ func action(ctx *cli.Context) error {
 	}
 
 	var err error
-	switch ctx.String("data-source") {
+	switch cmd.String("data-source") {
 	case "deps.dev":
 		options.Client, err = client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_update/"+version.OSVVersion)
 		if err != nil {
@@ -97,7 +99,7 @@ func action(ctx *cli.Context) error {
 	case "native":
 		switch system {
 		case resolve.Maven:
-			options.Client, err = client.NewMavenRegistryClient(ctx.String("maven-registry"))
+			options.Client, err = client.NewMavenRegistryClient(cmd.String("maven-registry"))
 			if err != nil {
 				return err
 			}
@@ -122,7 +124,7 @@ func action(ctx *cli.Context) error {
 	if err != nil {
 		return err
 	}
-	patch, err := suggester.Suggest(ctx.Context, options.Client, mf, suggest.Options{
+	patch, err := suggester.Suggest(ctx, options.Client, mf, suggest.Options{
 		IgnoreDev:     options.IgnoreDev,
 		UpgradeConfig: options.UpgradeConfig,
 	})

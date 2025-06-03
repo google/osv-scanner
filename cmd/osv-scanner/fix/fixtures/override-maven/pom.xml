@@ -9,20 +9,20 @@
     <httpclient.version>4.0</httpclient.version>
   </properties>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.jsoup</groupId>
-        <artifactId>jsoup</artifactId>
-        <version>1.14.1</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.httpcomponents</groupId>
-        <artifactId>httpclient</artifactId>
-        <version>${httpclient.version}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
+          <groupId>org.jsoup</groupId>
+          <artifactId>jsoup</artifactId>
+          <version>1.14.1</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient</artifactId>
+          <version>${httpclient.version}</version>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
 
   <dependencies>
     <dependency>

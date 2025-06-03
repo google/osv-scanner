@@ -1,6 +1,7 @@
 package fix
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io"
@@ -24,7 +25,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/internal/version"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 	"golang.org/x/term"
 	"osv.dev/bindings/go/osvdev"
 )
@@ -80,7 +81,7 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 				Name:  "data-source",
 				Usage: "source to fetch package information from; value can be: deps.dev, native",
 				Value: "deps.dev",
-				Action: func(_ *cli.Context, s string) error {
+				Action: func(_ context.Context, _ *cli.Command, s string) error {
 					if s != "deps.dev" && s != "native" {
 						return fmt.Errorf("unsupported data-source \"%s\" - must be one of: deps.dev, native", s)
 					}
@@ -101,7 +102,7 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 			&cli.BoolFlag{
 				Name:  "interactive",
 				Usage: "run in the interactive mode",
-				Action: func(_ *cli.Context, b bool) error {
+				Action: func(_ context.Context, _ *cli.Command, b bool) error {
 					if b && !term.IsTerminal(int(os.Stdin.Fd())) {
 						return errors.New("interactive mode only to be run in a terminal")
 					}
@@ -114,7 +115,7 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 				Aliases: []string{"f"},
 				Usage:   "sets the non-interactive output format; value can be: text, json",
 				Value:   "text",
-				Action: func(_ *cli.Context, s string) error {
+				Action: func(_ context.Context, _ *cli.Command, s string) error {
 					if s == "text" || s == "json" {
 						if s == "json" {
 							cmdlogger.SendEverythingToStderr()
@@ -130,20 +131,20 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 				Category: autoModeCategory,
 				Name:     "strategy",
 				Usage:    "remediation approach to use; value can be: " + strings.Join(strategies, ", "),
-				Action: func(ctx *cli.Context, s string) error {
+				Action: func(_ context.Context, cmd *cli.Command, s string) error {
 					switch strategy(s) {
 					case strategyInPlace:
-						if !ctx.IsSet("lockfile") {
+						if !cmd.IsSet("lockfile") {
 							return fmt.Errorf("%s strategy requires lockfile", strategyInPlace)
 						}
 					case strategy("relock"): // renamed
 						fallthrough
 					case strategyRelax:
-						if !ctx.IsSet("manifest") {
+						if !cmd.IsSet("manifest") {
 							return fmt.Errorf("%s strategy requires manifest file", strategyRelax)
 						}
 					case strategyOverride:
-						if !ctx.IsSet("manifest") {
+						if !cmd.IsSet("manifest") {
 							return fmt.Errorf("%s strategy requires manifest file", strategyOverride)
 						}
 					default:
@@ -220,33 +221,33 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 				Hidden: true,
 			},
 		},
-		Action: func(ctx *cli.Context) error {
-			return action(ctx, stdout, stderr)
+		Action: func(ctx context.Context, cmd *cli.Command) error {
+			return action(ctx, cmd, stdout, stderr)
 		},
 	}
 }
 
-func action(ctx *cli.Context, stdout, stderr io.Writer) error {
-	if !ctx.IsSet("manifest") && !ctx.IsSet("lockfile") {
+func action(ctx context.Context, cmd *cli.Command, stdout, stderr io.Writer) error {
+	if !cmd.IsSet("manifest") && !cmd.IsSet("lockfile") {
 		return errors.New("manifest or lockfile is required")
 	}
 
 	opts := osvFixOptions{
 		Options: remediation.Options{
 			ResolveOpts: resolution.ResolveOpts{
-				MavenManagement: ctx.Bool("maven-fix-management"),
+				MavenManagement: cmd.Bool("maven-fix-management"),
 			},
-			IgnoreVulns:   ctx.StringSlice("ignore-vulns"),
-			ExplicitVulns: ctx.StringSlice("vulns"),
-			DevDeps:       !ctx.Bool("ignore-dev"),
-			MinSeverity:   ctx.Float64("min-severity"),
-			MaxDepth:      ctx.Int("max-depth"),
-			UpgradeConfig: upgrade.ParseUpgradeConfig(ctx.StringSlice("upgrade-config")),
+			IgnoreVulns:   cmd.StringSlice("ignore-vulns"),
+			ExplicitVulns: cmd.StringSlice("vulns"),
+			DevDeps:       !cmd.Bool("ignore-dev"),
+			MinSeverity:   cmd.Float64("min-severity"),
+			MaxDepth:      cmd.Int("max-depth"),
+			UpgradeConfig: upgrade.ParseUpgradeConfig(cmd.StringSlice("upgrade-config")),
 		},
-		Manifest:    ctx.String("manifest"),
-		Lockfile:    ctx.String("lockfile"),
-		NoIntroduce: ctx.Bool("no-introduce"),
-		OutputJSON:  ctx.String("format") == "json",
+		Manifest:    cmd.String("manifest"),
+		Lockfile:    cmd.String("lockfile"),
+		NoIntroduce: cmd.Bool("no-introduce"),
+		OutputJSON:  cmd.String("format") == "json",
 		Stdout:      stdout,
 		Stderr:      stderr,
 	}
@@ -262,7 +263,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) error {
 	}
 
 	if opts.Manifest != "" {
-		rw, err := manifest.GetReadWriter(opts.Manifest, ctx.String("maven-registry"))
+		rw, err := manifest.GetReadWriter(opts.Manifest, cmd.String("maven-registry"))
 		if err != nil {
 			return err
 		}
@@ -272,7 +273,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) error {
 		system = rw.System()
 	}
 
-	switch ctx.String("data-source") {
+	switch cmd.String("data-source") {
 	case "deps.dev":
 		cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_fix/"+version.OSVVersion)
 		if err != nil {
@@ -295,7 +296,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) error {
 			}
 			opts.Client.DependencyClient = cl
 		case resolve.Maven:
-			cl, err := client.NewMavenRegistryClient(ctx.String("maven-registry"))
+			cl, err := client.NewMavenRegistryClient(cmd.String("maven-registry"))
 			if err != nil {
 				return err
 			}
@@ -308,11 +309,11 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) error {
 	}
 
 	userAgent := "osv-scanner_fix/" + version.OSVVersion
-	if ctx.Bool("offline-vulnerabilities") {
+	if cmd.Bool("offline-vulnerabilities") {
 		matcher, err := localmatcher.NewLocalMatcher(
-			ctx.String("local-db-path"),
+			cmd.String("local-db-path"),
 			userAgent,
-			ctx.Bool("download-offline-databases"),
+			cmd.Bool("download-offline-databases"),
 		)
 		if err != nil {
 			return err
@@ -323,7 +324,7 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) error {
 			// Something's very wrong if we hit this
 			panic("unhandled resolve.Ecosystem: " + system.String())
 		}
-		if err := matcher.LoadEcosystem(ctx.Context, ecosystem.Parsed{Ecosystem: eco}); err != nil {
+		if err := matcher.LoadEcosystem(ctx, ecosystem.Parsed{Ecosystem: eco}); err != nil {
 			return err
 		}
 
@@ -341,18 +342,18 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) error {
 		}
 	}
 
-	if ctx.Bool("interactive") {
-		return interactiveMode(ctx.Context, opts)
+	if cmd.Bool("interactive") {
+		return interactiveMode(ctx, opts)
 	}
 
-	maxUpgrades := ctx.Int("apply-top")
+	maxUpgrades := cmd.Int("apply-top")
 
-	strategy := strategy(ctx.String("strategy"))
+	strategy := strategy(cmd.String("strategy"))
 	if strategy == "relock" { // renamed
 		strategy = strategyRelax
 	}
 
-	if !ctx.IsSet("strategy") {
+	if !cmd.IsSet("strategy") {
 		// Choose a default strategy based on the manifest/lockfile provided.
 		switch {
 		case remediation.SupportsRelax(opts.ManifestRW):
@@ -368,13 +369,13 @@ func action(ctx *cli.Context, stdout, stderr io.Writer) error {
 
 	switch strategy {
 	case strategyRelax:
-		return autoRelax(ctx.Context, opts, maxUpgrades)
+		return autoRelax(ctx, opts, maxUpgrades)
 	case strategyInPlace:
-		return autoInPlace(ctx.Context, opts, maxUpgrades)
+		return autoInPlace(ctx, opts, maxUpgrades)
 	case strategyOverride:
-		return autoOverride(ctx.Context, opts, maxUpgrades)
+		return autoOverride(ctx, opts, maxUpgrades)
 	default:
 		// The strategy flag should already be validated by this point.
-		panic(fmt.Sprintf("non-interactive mode attempted to run with unhandled strategy: \"%s\"", ctx.String("strategy")))
+		panic(fmt.Sprintf("non-interactive mode attempted to run with unhandled strategy: \"%s\"", cmd.String("strategy")))
 	}
 }

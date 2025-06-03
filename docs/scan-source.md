@@ -1,12 +1,11 @@
 ---
 layout: page
-title: Project Source Scanning
 parent: Usage
 permalink: /usage/scan-source
 nav_order: 2
 ---
 
-# Source Scanning
+# Project Source Scanning
 
 OSV-Scanner can be used to scan your project source and lockfiles to find vulnerabilities in your dependencies.
 
@@ -82,7 +81,7 @@ It is possible to specify more than one lockfile at a time; you can also specify
 osv-scanner scan source --lockfile 'requirements.txt:/path/to/your/extra-requirements.txt'
 ```
 
-The list of supported lockfile formats can be found [here](/osv-scanner/supported-languages-and-lockfiles/).
+The list of supported lockfile formats can be found [here](./supported_languages_and_lockfiles.md).
 
 If the file you are scanning is located in a directory that has a colon in its name,
 you can prefix the path to just a colon to explicitly signal to the scanner that
@@ -94,7 +93,7 @@ osv-scanner scan source --lockfile ':/path/to/my:projects/package-lock.json'
 
 ## Git Repository Scanning
 
-OSV-Scanner will automatically scan git submodules and vendored directories for C/C++ code and try to attribute them to specific dependencies and versions. See [C/C++ Scanning](<supported_languages_and_lockfiles#C/C++ scanning>) for more details.
+OSV-Scanner will automatically scan git submodules and vendored directories for C/C++ code and try to attribute them to specific dependencies and versions. See [C/C++ Scanning](./supported_languages_and_lockfiles.md#cc-scanning) for more details.
 
 By default, root git directories (i.e. git repositories that are not a submodule of a bigger git repo) are skipped. You can include those repositories by setting the `--include-git-root` flag.
 

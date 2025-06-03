@@ -1,11 +1,15 @@
 // Package testlogger provides a slog handler which can handle t.Parallel() tests while being a global logging handler,
 // redirecting it to the correct underlying logger for each test thread.
+//
+// This package also muffles certain log messages to reduce noise in the snapshots
+// and to keep the snapshots consistent across runs.
 package testlogger
 
 import (
 	"bufio"
 	"bytes"
 	"context"
+	"io"
 	"log/slog"
 	"runtime/debug"
 	"strings"
@@ -13,6 +17,8 @@ import (
 
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 )
+
+var voidLogger = cmdlogger.New(io.Discard, io.Discard)
 
 // Handler can be set as the global logging handler before the test starts, and individual test cases can add their
 // own instance/implementation of the cmdlogger.CmdLogger interface.
@@ -22,6 +28,11 @@ type Handler struct {
 
 func (tl *Handler) getLogger() cmdlogger.CmdLogger {
 	key := getCallerInstance()
+
+	if key == "" {
+		return voidLogger
+	}
+
 	val, ok := tl.loggerMap.Load(key)
 	if !ok {
 		panic("logger not found: " + key)
@@ -65,7 +76,29 @@ func (tl *Handler) Enabled(ctx context.Context, level slog.Level) bool {
 }
 
 func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
-	return tl.getLogger().Handle(ctx, record)
+	for _, prefix := range []string{
+		"Starting filesystem walk for root:",
+		"End status: ",
+		"Neither CPE nor PURL found for package",
+		"Invalid PURL",
+		"os-release[ID] not set, fallback to",
+		"VERSION_ID not set in os-release",
+		"osrelease.ParseOsRelease(): file does not exist",
+		"Status: new inodes:",
+	} {
+		if strings.HasPrefix(record.Message, prefix) {
+			return nil
+		}
+	}
+
+	l := tl.getLogger()
+	if l == voidLogger {
+		// This is to be safe as we currently do not have any non muffled goroutine logs
+		// When we do, this makes sure that we are aware and can add exceptions to them.
+		panic("noop logger found when logging non-muffled messages")
+	}
+
+	return l.Handle(ctx, record)
 }
 
 // HasErrored returns true if there have been any calls to Handle with
@@ -100,6 +133,8 @@ func New() *Handler {
 //
 // This uses debug.Stack(), which will create a buffer big enough to fit the entire stack trace.
 // If there is deep recursion, this will have a significant performance cost.
+//
+// Caveat: This cannot get the stack trace if called from a goroutine, and will return ""
 func getCallerInstance() string {
 	stack := debug.Stack()
 	sc := bufio.NewScanner(bytes.NewReader(stack))
@@ -107,7 +142,10 @@ func getCallerInstance() string {
 		if strings.HasPrefix(sc.Text(), "testing.tRunner(") {
 			return sc.Text()
 		}
+		if strings.HasPrefix(sc.Text(), "created by ") && strings.Contains(sc.Text(), " in goroutine ") {
+			return ""
+		}
 	}
 
-	panic("no caller found in stack, recursed too deep?")
+	panic("no caller found in stack, and not in goroutine, recursed too deep?")
 }

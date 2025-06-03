@@ -1,136 +1,155 @@
-output:
-  sort-results: true
+version: "2"
+
 linters:
-  enable-all: true
+  default: all
   # prettier-ignore
   disable:
-    - cyclop
+    - cyclop           #
     - err113           # will re-add later (another-rex)
     - exhaustruct      # overkill (g-rath)
     - forcetypeassert  # too hard (g-rath)
-    - funlen
-    - gci
+    - funlen           #
+    - funcorder        #
     - gochecknoglobals # disagree with, for non changing variables (another-rex)
-    - gocognit
+    - gocognit         #
     - goconst          # not everything should be a constant
-    - gocyclo
+    - gocyclo          #
     - godot            # comments are fine without full stops (g-rath)
     - godox            # to-do comments are fine (g-rath)
-    - gofumpt
     - ireturn          # disagree with, sort of (g-rath)
     - lll              # line length is hard (g-rath)
-    - maintidx
+    - maintidx         #
     - mnd              # not every number is magic (g-rath)
-    - nestif
+    - nestif           #
     - nonamedreturns   # disagree with, for now (another-rex)
     - tagliatelle      # we're parsing data from external sources (g-rath)
-    - tenv             # deprecated
     - testpackage      # will re-add later (another-rex)
     - varnamelen       # maybe later (g-rath)
     - wrapcheck        # too difficult, will re-add later (another-rex)
     - wsl              # disagree with, for now (g-rath)
+    - nilnesserr       # todo: should get enabled
+  settings:
+    depguard:
+      rules:
+        regexp:
+          files:
+            - "!**/internal/cachedregexp/**"
+            - "!**/internal/testutility/normalize.go"
+          deny:
+            - pkg: regexp
+              desc: Use github.com/google/osv-scanner/v2/internal/cachedregexp instead
+    exhaustive:
+      default-signifies-exhaustive: true
+    forbidigo:
+      forbid:
+        - pattern: ^testing.T.Skip
+          pkg: ^testing$
+          msg: go-snaps needs to know the test has been skipped, so use `testutility.Skip` instead
+      analyze-types: true
+    gocritic:
+      disabled-checks:
+        - ifElseChain
+    govet:
+      settings:
+        printf:
+          funcs:
+            - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Errorf
+            - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Warnf
+            - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Infof
+    nlreturn:
+      block-size: 2
+    revive:
+      rules:
+        - name: increment-decrement
+          disabled: true
+        - name: blank-imports
+          disabled: false
+        - name: context-as-argument
+          disabled: false
+        - name: context-keys-type
+          disabled: false
+        - name: dot-imports
+          disabled: false
+        - name: empty-block
+          disabled: false
+        - name: error-naming
+          disabled: false
+        - name: error-return
+          disabled: false
+        - name: error-strings
+          disabled: false
+        - name: errorf
+          disabled: false
+        - name: exported
+          disabled: false
+        - name: indent-error-flow
+          disabled: false
+        - name: package-comments
+          disabled: false
+        - name: range
+          disabled: false
+        - name: receiver-naming
+          disabled: false
+        - name: redefines-builtin-id
+          disabled: false
+        - name: redundant-test-main-exit
+          disabled: false
+        - name: superfluous-else
+          disabled: false
+        - name: time-naming
+          disabled: false
+        - name: unexported-return
+          disabled: false
+        - name: unreachable-code
+          disabled: false
+        - name: unused-parameter
+          disabled: false
+        - name: use-any
+          disabled: false
+        - name: var-declaration
+          disabled: false
+        - name: var-naming
+          disabled: false
+    staticcheck:
+      checks:
+        - all
+        - -QF1001 # apply De Morgan's law
+        - -QF1002 # use tagged switch on base
+        - -QF1003 # use tagged switch on prefix
+        - -QF1006 # lift into loop condition
+        - -QF1008 # remove embedded field from selector
+  exclusions:
+    generated: lax
+    presets:
+      - comments
+      - common-false-positives
+      - legacy
+      - std-error-handling
+    rules:
+      - linters:
+          - dupl
+        path: pkg/reporter
+      - linters:
+          - dupl
+        path: _test\.go
+    paths:
+      - internal/thirdparty/
+      - third_party$
+      - builtin$
+      - examples$
 
-linters-settings:
-  exhaustive:
-    default-signifies-exhaustive: true
-  forbidigo:
-    forbid:
-      - p: ^testing.T.Skip
-        pkg: ^testing$
-        msg: "go-snaps needs to know the test has been skipped, so use `testutility.Skip` instead"
-    analyze-types: true
-  govet:
-    settings:
-      printf:
-        funcs:
-          - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Errorf
-          - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Warnf
-          - (github.com/google/osv-scanner/v2/pkg/reporter.Reporter).Infof
-  depguard:
-    rules:
-      regexp:
-        files:
-          - "!**/internal/cachedregexp/**"
-          - "!**/internal/testutility/normalize.go"
-        deny:
-          - pkg: "regexp"
-            desc: "Use github.com/google/osv-scanner/v2/internal/cachedregexp instead"
-  gocritic:
-    disabled-checks:
-      - ifElseChain
-  revive:
-    # enable-all-rules: true
-    rules:
-      # Overrides ----
-      # This is just here for documentation purposes, as all rules are disabled by default
-      - name: increment-decrement
-        disabled: true
-      # Defaults ----
-      - name: blank-imports
-        disabled: false
-      - name: context-as-argument
-        disabled: false
-      - name: context-keys-type
-        disabled: false
-      - name: dot-imports
-        disabled: false
-      - name: empty-block
-        disabled: false
-      - name: error-naming
-        disabled: false
-      - name: error-return
-        disabled: false
-      - name: error-strings
-        disabled: false
-      - name: errorf
-        disabled: false
-      - name: exported
-        disabled: false
-      - name: indent-error-flow
-        disabled: false
-      - name: package-comments
-        disabled: false
-      - name: range
-        disabled: false
-      - name: receiver-naming
-        disabled: false
-      - name: redefines-builtin-id
-        disabled: false
-      # todo: enable once we've upgraded to v2, as the validation schema
-      #    used by the github v1 action does not have this rule yet
-      # - name: redundant-test-main-exit
-      #   disabled: false
-      - name: superfluous-else
-        disabled: false
-      - name: time-naming
-        disabled: false
-      - name: unexported-return
-        disabled: false
-      - name: unreachable-code
-        disabled: false
-      - name: unused-parameter
-        disabled: false
-      - name: use-any
-        disabled: false
-      - name: var-declaration
-        disabled: false
-      - name: var-naming
-        disabled: false
-  nlreturn:
-    # Size of the block (including return statement that is still "OK")
-    # so no return split required.
-    # Default: 1
-    block-size: 2
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  exclusions:
+    generated: lax
+    paths:
+      - internal/thirdparty/
+      - third_party$
+      - builtin$
+      - examples$
 
 issues:
   max-issues-per-linter: 0
   max-same-issues: 0
-  exclude-rules:
-    - path: pkg/reporter
-      linters:
-        - dupl
-    - path: _test\.go
-      linters:
-        - dupl
-  exclude-dirs:
-    - internal/thirdparty/

@@ -1,6 +1,5 @@
 ---
 layout: page
-title: Output
 permalink: /output/
 nav_order: 6
 ---
@@ -114,9 +113,6 @@ And additionally for container image scanning:
 - Layer filtering
 - Image layer information
 - Base image identification
-
-{: .note }
-This feature is in beta as part of OSV-Scanner v2, please [share your feedback here](https://github.com/google/osv-scanner/discussions/1529).
 
 <details markdown="1">
 <summary><b>Sample HTML output</b></summary>
@@ -382,7 +378,7 @@ Outputs the result in the [SARIF](https://sarifweb.azurewebsites.net/) v2.1.0 fo
 
 ## Call analysis
 
-With `--experimental-call-analysis` flag enabled, call information will be included in the output.
+With `--call-analysis` flag enabled, call information will be included in the output.
 
 ### Table
 
@@ -391,7 +387,7 @@ affects code called by your project, and vulnerabilities that only affect code p
 your code.
 
 ```bash
-osv-scanner scan --format table --experimental-call-analysis your/project/dir
+osv-scanner scan --format table --call-analysis your/project/dir
 ```
 
 <details markdown="1">
@@ -420,7 +416,7 @@ osv-scanner scan --format table --experimental-call-analysis your/project/dir
 The JSON output will include analysis results for each vulnerability group.
 
 ```bash
-osv-scanner scan --format json --experimental-call-analysis -L path/to/lockfile > /path/to/file.json
+osv-scanner scan --format json --call-analysis -L path/to/lockfile > /path/to/file.json
 ```
 
 <details markdown="1">

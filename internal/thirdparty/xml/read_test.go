@@ -640,7 +640,7 @@ func (m *MyCharData) UnmarshalXML(d *Decoder, start StartElement) error {
 			return err
 		}
 		if char, ok := t.(CharData); ok {
-			m.body += string(char)
+			m.body += string(char.data)
 		}
 	}
 	return nil

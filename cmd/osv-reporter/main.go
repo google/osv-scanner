@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"io"
@@ -14,7 +15,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 	"golang.org/x/term"
 )
 
@@ -43,13 +44,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 	// by new lines.
 	args = splitLastArg(args)
 
-	cli.VersionPrinter = func(ctx *cli.Context) {
-		slog.Info("osv-scanner version: " + ctx.App.Version)
+	cli.VersionPrinter = func(cmd *cli.Command) {
+		slog.Info("osv-scanner version: " + cmd.Version)
 		slog.Info("commit: " + commit)
 		slog.Info("built at: " + date)
 	}
 
-	app := &cli.App{
+	app := &cli.Command{
 		Name:        "osv-scanner-action-reporter",
 		Version:     version.OSVVersion,
 		Usage:       "(Experimental) generates github action output",
@@ -86,7 +87,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 				DefaultText: "true",
 			},
 		},
-		Action: func(context *cli.Context) error {
+		Action: func(_ context.Context, cmd *cli.Command) error {
 			var termWidth int
 			var err error
 			if stdoutAsFile, ok := stdout.(*os.File); ok {
@@ -96,8 +97,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 				}
 			}
 
-			oldPath := context.String("old")
-			newPath := context.String("new")
+			oldPath := cmd.String("old")
+			newPath := cmd.String("new")
 
 			oldVulns := models.VulnerabilityResults{}
 			if oldPath != "" {
@@ -140,13 +141,13 @@ func run(args []string, stdout, stderr io.Writer) int {
 				return fmt.Errorf("failed to write output: %w", errPrint)
 			}
 
-			if context.Bool("gh-annotations") {
+			if cmd.Bool("gh-annotations") {
 				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stderr, termWidth); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
 
-			outputPath := context.String("output")
+			outputPath := cmd.String("output")
 			if outputPath != "" {
 				var err error
 				stdout, err = os.Create(outputPath)
@@ -161,7 +162,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			}
 
 			// Default to true, only false when explicitly set to false
-			failOnVuln := !context.IsSet("fail-on-vuln") || context.Bool("fail-on-vuln")
+			failOnVuln := !cmd.IsSet("fail-on-vuln") || cmd.Bool("fail-on-vuln")
 
 			// Check if any is *not* called
 			anyIsCalled := false
@@ -181,7 +182,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		},
 	}
 
-	if err := app.Run(args); err != nil {
+	if err := app.Run(context.Background(), args); err != nil {
 		if errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 			return 1
 		}

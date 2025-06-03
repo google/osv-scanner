@@ -8,9 +8,11 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
+	archivemetadata "github.com/google/osv-scalibr/extractor/filesystem/language/java/archive/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	dpkgmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
@@ -78,7 +80,7 @@ func (pkg *PackageInfo) Name() string {
 	}
 
 	// Patch Maven archive extractor package names
-	if metadata, ok := pkg.Package.Metadata.(*archive.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*archivemetadata.Metadata); ok {
 		// Debian uses source name on osv.dev
 		// (fallback to using the normal name if source name is empty)
 		if metadata.ArtifactID != "" && metadata.GroupID != "" {
@@ -87,7 +89,7 @@ func (pkg *PackageInfo) Name() string {
 	}
 
 	// --- OS metadata ---
-	if metadata, ok := pkg.Package.Metadata.(*dpkg.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*dpkgmetadata.Metadata); ok {
 		// Debian uses source name on osv.dev
 		// (fallback to using the normal name if source name is empty)
 		if metadata.SourceName != "" {
@@ -199,7 +201,7 @@ func (pkg *PackageInfo) OSPackageName() string {
 	if metadata, ok := pkg.Package.Metadata.(*apk.Metadata); ok {
 		return metadata.PackageName
 	}
-	if metadata, ok := pkg.Package.Metadata.(*dpkg.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*dpkgmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
 	if metadata, ok := pkg.Package.Metadata.(*rpm.Metadata); ok {

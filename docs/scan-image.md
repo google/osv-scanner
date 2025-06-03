@@ -1,6 +1,5 @@
 ---
 layout: page
-title: Container Image Scanning
 parent: Usage
 permalink: /usage/scan-image
 nav_order: 1
@@ -18,9 +17,6 @@ nav_order: 1
 - TOC
 {:toc}
 </details>
-
-{: .note }
-This feature is in beta, please share your feedback here: <https://github.com/google/osv-scanner/discussions/1521>
 
 OSV-Scanner analyzes container images by extracting package information and matching it against known vulnerabilities in the OSV.dev database. This helps identify potential security risks in your containerized applications.
 
