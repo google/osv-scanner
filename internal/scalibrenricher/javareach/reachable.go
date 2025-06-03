@@ -107,9 +107,6 @@ func (r *ReachabilityEnumerator) EnumerateReachabilityFromClasses(mainClasses []
 
 // EnumerateReachability enumerates the reachable classes from a set of root
 // classes.
-// TODO(#787):
-//   - See if we should do a finer grained analysis to only consider referenced
-//     classes where a method is called/referenced.
 func (r *ReachabilityEnumerator) EnumerateReachability(roots []*ClassFile) (*ReachabilityResult, error) {
 	seen := map[string]struct{}{}
 	codeLoading := map[string]struct{}{}
@@ -165,7 +162,6 @@ func (r *ReachabilityEnumerator) findClass(classPaths []string, className string
 	// TODO(#787): Support META-INF/versions (multi release JARs) if necessary.
 
 	// Remove generics from the class name.
-	// TODO(#787): Verify that this is correct.
 	genericRE := regexp.MustCompile(`<.*>`)
 	className = genericRE.ReplaceAllString(className, "")
 
@@ -267,6 +263,8 @@ func (r *ReachabilityEnumerator) handleDynamicCode(q *UniqueQueue[string, *Class
 	}
 
 	// Assume all classes that belong to the package are reachable.
+	// TODO(#787): Assume all classes that belong to the direct dependencies of the package
+	// are reachable.
 	if strategy&AssumeAllClassesReachable > 0 {
 		for _, pkg := range pkgs {
 			classes, err := r.PackageFinder.Classes(pkg)
@@ -288,16 +286,10 @@ func (r *ReachabilityEnumerator) handleDynamicCode(q *UniqueQueue[string, *Class
 			}
 		}
 	}
-	// Assume all classes that belong to the direct dependencies of the package
-	// are reachable.
-	// TODO(#787): implement this.
-	// if strategy&AssumeAllDirectDepsReachable > 0 {
-	// }
+
 	return nil
 }
 
-// TODO(#787): retain edges and compute confidence scores based on use of dynamic code
-// loading in the path leading up to a dependency.
 func (r *ReachabilityEnumerator) enumerateReachability(
 	cf *ClassFile, seen map[string]struct{}, codeLoading map[string]struct{}, depInjection map[string]struct{}) error {
 	thisClass, err := cf.ConstantPoolClass(int(cf.ThisClass))

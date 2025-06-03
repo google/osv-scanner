@@ -67,8 +67,6 @@ type DefaultPackageFinder struct {
 
 // loadJARMappings loads class mappings from a JAR archive.
 func loadJARMappings(metadata *archivemeta.Metadata, reader *zip.Reader, classMap map[string][]string, artifactMap map[string][]string, lock *sync.Mutex) {
-	// TODO(#787): Validate that we can rely on the directory structure to mirror the
-	// class package path.
 	lock.Lock()
 	for _, f := range reader.File {
 		if strings.HasSuffix(f.Name, ".class") {

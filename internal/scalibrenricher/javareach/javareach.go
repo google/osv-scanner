@@ -227,7 +227,6 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 	}
 
 	// Enumerate reachable classes.
-	// TODO(#787): Look inside more static files (e.g. XML beans configurations).
 	enumerator := NewReachabilityEnumerator(classPaths, classFinder, AssumeAllClassesReachable, AssumeAllClassesReachable)
 	result, err := enumerator.EnumerateReachabilityFromClasses(mainClasses, optionalRootClasses)
 	if err != nil {
