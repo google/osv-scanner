@@ -27,7 +27,6 @@ linters:
     - varnamelen       # maybe later (g-rath)
     - wrapcheck        # too difficult, will re-add later (another-rex)
     - wsl              # disagree with, for now (g-rath)
-    - nilnesserr       # todo: should get enabled
   settings:
     depguard:
       rules:
