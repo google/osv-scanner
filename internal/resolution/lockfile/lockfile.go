@@ -50,8 +50,8 @@ func Overwrite(rw ReadWriter, filename string, patches []DependencyPatch) error 
 
 func GetReadWriter(pathToLockfile string) (ReadWriter, error) {
 	base := filepath.Base(pathToLockfile)
-	switch {
-	case base == "package-lock.json":
+	switch base {
+	case "package-lock.json":
 		return NpmReadWriter{}, nil
 	default:
 		return nil, fmt.Errorf("unsupported lockfile type: %s", base)
