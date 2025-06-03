@@ -1244,10 +1244,10 @@ at least one extractor must be enabled
 ---
 
 [TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 1]
-Scanning dir ../../fixtures/locks-many
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/package-lock.json file and found 1 package
-Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 1 vulnerability from output
 No issues found
@@ -1259,10 +1259,10 @@ No issues found
 ---
 
 [TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 1]
-Scanning dir ../../fixtures/locks-many
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/package-lock.json file and found 1 package
-Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 1 vulnerability from output
 No issues found
@@ -1274,9 +1274,9 @@ No issues found
 ---
 
 [TestCommand_ExplicitExtractors/scanning_directory_with_an_extractor_that_does_not_exist - 1]
-Scanning dir ../../fixtures/locks-many
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/package-lock.json file and found 1 package
-Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 1 vulnerability from output
 
@@ -1288,13 +1288,13 @@ Unknown extractor custom/extractor
 ---
 
 [TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_disabled - 1]
-Scanning dir ../../fixtures/locks-many
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/yarn.lock file and found 1 package
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
-Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
 CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 Filtered 1 vulnerability from output
 No issues found
@@ -1306,9 +1306,9 @@ No issues found
 ---
 
 [TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_enabled - 1]
-Scanning dir ../../fixtures/locks-many
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/package-lock.json file and found 1 package
-Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+Scanning dir ./fixtures/locks-many
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 1 vulnerability from output
 No issues found
@@ -1320,7 +1320,7 @@ No issues found
 ---
 
 [TestCommand_ExplicitExtractors/scanning_file_with_one_different_extractor_enabled - 1]
-Scanning dir ../../fixtures/locks-many/composer.lock
+Scanning dir ./fixtures/locks-many/composer.lock
 
 ---
 
@@ -1330,9 +1330,9 @@ No package sources found, --help for usage information.
 ---
 
 [TestCommand_ExplicitExtractors/scanning_file_with_one_specific_extractor_enabled - 1]
-Scanning dir ../../fixtures/locks-many/package-lock.json
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/package-lock.json file and found 1 package
-Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+Scanning dir ./fixtures/locks-many/package-lock.json
+Scanned <rootdir>/osv-scanner/scan/source/fixtures/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/osv-scanner/scan/source/fixtures/locks-many/osv-scanner.toml
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
 Filtered 1 vulnerability from output
 No issues found
