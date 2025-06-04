@@ -23,6 +23,7 @@ import (
 	"io"
 	"io/fs"
 	"maps"
+	"net/http"
 	"os"
 	"path/filepath"
 	"slices"
@@ -57,7 +58,9 @@ var (
 )
 
 // Enricher is the Java Reach enricher.
-type Enricher struct{}
+type Enricher struct {
+	Client *http.Client
+}
 
 // Name returns the name of the enricher.
 func (Enricher) Name() string {
@@ -83,7 +86,11 @@ func (Enricher) RequiredPlugins() []string {
 }
 
 // Enrich enriches the inventory with Java Reach data.
-func (Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *inventory.Inventory) error {
+func (enr Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *inventory.Inventory) error {
+	client := enr.Client
+	if client == nil {
+		client = http.DefaultClient
+	}
 	jars := make(map[string]struct{})
 	for i := range inv.Packages {
 		if inv.Packages[i].Extractor.Name() == archive.Name {
@@ -92,7 +99,7 @@ func (Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *inve
 	}
 
 	for jar := range jars {
-		err := enumerateReachabilityForJar(ctx, jar, input, inv)
+		err := EnumerateReachabilityForJar(ctx, jar, input, inv, client)
 		if err != nil {
 			return err
 		}
@@ -106,9 +113,11 @@ func getFullPackageName(i *extractor.Package) string {
 		i.Metadata.(*archivemeta.Metadata).ArtifactID)
 }
 
-func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enricher.ScanInput, inv *inventory.Inventory) error {
+func EnumerateReachabilityForJar(ctx context.Context, jarPath string, input *enricher.ScanInput, inv *inventory.Inventory, client *http.Client) error {
 	var allDeps []*extractor.Package
-
+	if client == nil {
+		client = http.DefaultClient
+	}
 	for i := range inv.Packages {
 		if inv.Packages[i].Locations[0] == jarPath {
 			allDeps = append(allDeps, inv.Packages[i])
@@ -146,7 +155,7 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 
 	// Build .class -> Maven group ID:artifact ID mappings.
 	// TODO(#787): Handle BOOT-INF and loading .jar dependencies from there.
-	classFinder, err := NewDefaultPackageFinder(ctx, allDeps, jarDir)
+	classFinder, err := NewDefaultPackageFinder(ctx, allDeps, jarDir, client)
 	if err != nil {
 		return err
 	}

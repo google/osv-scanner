@@ -40,6 +40,9 @@ const (
 	rootArtifact  = "<root>"
 )
 
+// MavenBaseURL is the base URL for the repository.
+var MavenBaseURL = "https://repo1.maven.org/maven2"
+
 var (
 	// ErrClassNotFound is returned when a class is not found.
 	ErrClassNotFound = errors.New("class not found")
@@ -165,7 +168,7 @@ func checkNestedJARContains(inv *extractor.Package) ([]string, bool) {
 
 // extractClassMappings extracts class mappings from a .jar dependency by
 // downloading and unpacking the .jar from the relevant registry.
-func extractClassMappings(ctx context.Context, inv *extractor.Package, classMap map[string][]string, artifactMap map[string][]string, lock *sync.Mutex) error {
+func extractClassMappings(ctx context.Context, inv *extractor.Package, classMap map[string][]string, artifactMap map[string][]string, client *http.Client, lock *sync.Mutex) error {
 	var reader *zip.Reader
 
 	metadata := inv.Metadata.(*archivemeta.Metadata)
@@ -179,11 +182,10 @@ func extractClassMappings(ctx context.Context, inv *extractor.Package, classMap 
 
 	if reader == nil {
 		// Didn't found a nested JAR containing the artifact.
-		// Try downloading the same package from Maven.
-		// TODO(#787): Handle Non-Maven central repositories.
-		jarURL := fmt.Sprintf("https://repo1.maven.org/maven2/%s/%s/%s/%s-%s.jar",
+		// Try downloading the same package from Maven Central.
+		jarURL := fmt.Sprintf("%s/%s/%s/%s/%s-%s.jar",
+			MavenBaseURL,
 			strings.ReplaceAll(metadata.GroupID, ".", "/"), metadata.ArtifactID, inv.Version, metadata.ArtifactID, inv.Version)
-
 		file, err := os.CreateTemp("", "")
 		if err != nil {
 			return err
@@ -197,7 +199,6 @@ func extractClassMappings(ctx context.Context, inv *extractor.Package, classMap 
 			return err
 		}
 
-		client := &http.Client{}
 		resp, err := client.Do(req)
 
 		if err != nil {
@@ -233,7 +234,7 @@ func extractClassMappings(ctx context.Context, inv *extractor.Package, classMap 
 
 // NewDefaultPackageFinder creates a new DefaultPackageFinder based on a set of
 // inventory.
-func NewDefaultPackageFinder(ctx context.Context, inv []*extractor.Package, jarDir string) (*DefaultPackageFinder, error) {
+func NewDefaultPackageFinder(ctx context.Context, inv []*extractor.Package, jarDir string, client *http.Client) (*DefaultPackageFinder, error) {
 	// Download pkg, unpack, and store class mappings for each detected dependency.
 	classMap := map[string][]string{}
 	artifactMap := map[string][]string{}
@@ -243,7 +244,7 @@ func NewDefaultPackageFinder(ctx context.Context, inv []*extractor.Package, jarD
 
 	for _, i := range inv {
 		group.Go(func() error {
-			return extractClassMappings(ctx, i, classMap, artifactMap, lock)
+			return extractClassMappings(ctx, i, classMap, artifactMap, client, lock)
 		})
 	}
 

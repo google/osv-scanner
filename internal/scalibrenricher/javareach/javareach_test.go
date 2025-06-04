@@ -16,7 +16,11 @@ package javareach_test
 
 import (
 	"context"
+	"fmt"
+	"net/http"
+	"net/http/httptest"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scalibr/enricher"
@@ -29,16 +33,26 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrenricher/javareach"
 )
 
-const testJar = "hello-tester.jar"
-const reachablePkgName = "com.fasterxml.jackson.core:jackson-annotations"
-const unreachablePkgName = "org.eclipse.jetty:jetty-continuation"
+const (
+	testJar               = "javareach-test.jar"
+	reachableJar          = "reachable-dep-test.jar"
+	unreachableJar        = "unreachable-dep-test.jar"
+	reachableGroupID      = "org.apache.commons"
+	reachableArtifactID   = "commons-lang3"
+	unreachableGroupID    = "org.eclipse.jetty"
+	unreachableArtifactID = "jetty-servlets"
+)
 
 func TestScan(t *testing.T) {
-	enr := javareach.Enricher{}
+	jar := filepath.Join("testdata", reachableJar)
+
+	mockClient := mockClient(t)
+	enr := javareach.Enricher{Client: mockClient}
+
 	pkgs := setupPackages([]string{testJar})
 	input := enricher.ScanInput{
 		ScanRoot: &scalibrfs.ScanRoot{
-			Path: filepath.Join("testdata", testJar),
+			Path: jar,
 			FS:   scalibrfs.DirFS("."),
 		},
 	}
@@ -51,15 +65,14 @@ func TestScan(t *testing.T) {
 	}
 
 	for _, pkg := range inv.Packages {
-		if pkg.Name == reachablePkgName {
+		if pkg.Metadata.(*archivemeta.Metadata).ArtifactID == reachableArtifactID {
 			for _, annotation := range pkg.Annotations {
-				// TODO (gongh@): use UNKNOWN annotation for now until we add Unreachable.
 				if annotation == extractor.Unknown {
 					t.Fatalf("Javareach enrich failed, expected %s to be reachable, but marked as unreachable", pkg.Name)
 				}
 			}
 		}
-		if pkg.Name == unreachablePkgName {
+		if pkg.Metadata.(*archivemeta.Metadata).ArtifactID == unreachableArtifactID {
 			hasUnreachableAnnotation := false
 			for _, annotation := range pkg.Annotations {
 				if annotation == extractor.Unknown {
@@ -73,24 +86,49 @@ func TestScan(t *testing.T) {
 	}
 }
 
+func mockClient(t *testing.T) *http.Client {
+	t.Helper()
+	// mock a server to act as Maven Central to avoid network requests.
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requestPath := r.URL.Path
+		if strings.Contains(requestPath, unreachableArtifactID) {
+			http.ServeFile(w, r, filepath.Join("testdata", unreachableJar))
+		} else if strings.Contains(requestPath, reachableArtifactID) {
+			http.ServeFile(w, r, filepath.Join("testdata", reachableJar))
+		}
+	}))
+
+	originalURL := javareach.MavenBaseURL
+	javareach.MavenBaseURL = server.URL
+
+	t.Cleanup(func() {
+		javareach.MavenBaseURL = originalURL
+		server.Close()
+	})
+
+	return server.Client()
+}
+
 func setupPackages(names []string) []*extractor.Package {
 	pkgs := []*extractor.Package{}
+	var reachablePkgName = fmt.Sprintf("%s:%s", reachableGroupID, reachableArtifactID)
+	var unreachablePkgName = fmt.Sprintf("%s:%s", unreachableGroupID, unreachableArtifactID)
 
 	for _, n := range names {
 		reachablePkg := &extractor.Package{
 			Name:      reachablePkgName,
-			Version:   "2.0.0",
+			Version:   "3.12.0",
 			PURLType:  purl.TypeMaven,
-			Metadata:  &archivemeta.Metadata{ArtifactID: "jackson-annotations", GroupID: "com.fasterxml.jackson.core"},
+			Metadata:  &archivemeta.Metadata{ArtifactID: reachableArtifactID, GroupID: reachableGroupID},
 			Locations: []string{filepath.Join("testdata", n)},
 			Extractor: &archive.Extractor{},
 		}
 
 		unreachablePkg := &extractor.Package{
 			Name:      unreachablePkgName,
-			Version:   "9.4.7.RC0",
+			Version:   "9.4.40.v20210413",
 			PURLType:  purl.TypeMaven,
-			Metadata:  &archivemeta.Metadata{ArtifactID: "jetty-continuation", GroupID: "org.eclipse.jetty"},
+			Metadata:  &archivemeta.Metadata{ArtifactID: unreachableArtifactID, GroupID: unreachableGroupID},
 			Locations: []string{filepath.Join("testdata", n)},
 			Extractor: &archive.Extractor{},
 		}
