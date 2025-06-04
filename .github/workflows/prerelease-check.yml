@@ -29,6 +29,16 @@ jobs:
       scan-args: |-
         ./
 
+  links:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - uses: tcort/github-action-markdown-link-check@a800ad5f1c35bf61987946fd31c15726a1c9f2ba # v1.1.0
+        with:
+          use-quiet-mode: "yes"
+          base-branch: "main"
   format:
     permissions:
       contents: read # to fetch code (actions/checkout)
