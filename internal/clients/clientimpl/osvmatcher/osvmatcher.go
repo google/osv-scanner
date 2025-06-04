@@ -58,7 +58,7 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 			}
 		}
 
-		// No results found - this could be due to a timeout or no vulnerabilities being found
+		// No results found - this could be due to a timeout
 		if batchResp == nil {
 			return nil, err
 		}
