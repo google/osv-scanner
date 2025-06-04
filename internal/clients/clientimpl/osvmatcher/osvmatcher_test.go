@@ -15,13 +15,14 @@ import (
 )
 
 func TestOSVMatcher_MatchVulnerabilities(t *testing.T) {
+	t.Parallel()
+
 	type fields struct {
 		Client              osvdev.OSVClient
 		InitialQueryTimeout time.Duration
 	}
 
 	type args struct {
-		ctx  context.Context
 		pkgs []*extractor.Package
 	}
 
@@ -39,7 +40,6 @@ func TestOSVMatcher_MatchVulnerabilities(t *testing.T) {
 				InitialQueryTimeout: 1 * time.Millisecond,
 			},
 			args: args{
-				ctx: context.Background(),
 				pkgs: []*extractor.Package{
 					{
 						Name:    "lib1",
@@ -55,15 +55,18 @@ func TestOSVMatcher_MatchVulnerabilities(t *testing.T) {
 		},
 	}
 
-	for _, tt := range tests {
+	for i := range tests {
+		tt := tests[i]
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
 			matcher := &OSVMatcher{
 				Client:              tt.fields.Client,
 				InitialQueryTimeout: tt.fields.InitialQueryTimeout,
 			}
 
-			got, err := matcher.MatchVulnerabilities(tt.args.ctx, tt.args.pkgs)
-			if err != tt.wantErr && !errors.Is(err, tt.wantErr) {
+			got, err := matcher.MatchVulnerabilities(t.Context(), tt.args.pkgs)
+			if !errors.Is(err, tt.wantErr) {
 				t.Errorf("OSVMatcher.MatchVulnerabilities() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
