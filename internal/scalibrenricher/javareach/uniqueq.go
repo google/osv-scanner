@@ -41,12 +41,14 @@ func (q *UniqueQueue[K, V]) Push(key K, value V) bool {
 	}
 	q.seen[key] = struct{}{}
 	q.q = append(q.q, pair[K, V]{key, value})
+
 	return true
 }
 
 // Seen returns true if the key is already in the queue.
 func (q *UniqueQueue[K, V]) Seen(key K) bool {
 	_, ok := q.seen[key]
+
 	return ok
 }
 
@@ -54,6 +56,7 @@ func (q *UniqueQueue[K, V]) Seen(key K) bool {
 func (q *UniqueQueue[K, V]) Pop() (K, V) {
 	item := q.q[0]
 	q.q = q.q[1:]
+
 	return item.first, item.second
 }
 

@@ -22,9 +22,10 @@ import (
 	"maps"
 	"os"
 	"path/filepath"
-	"regexp"
 	"slices"
 	"strings"
+
+	regexp "github.com/google/osv-scanner/v2/internal/cachedregexp"
 
 	"github.com/google/osv-scalibr/log"
 )
@@ -57,6 +58,8 @@ const (
 	MetaInfVersions = "META-INF/versions"
 )
 
+var errClassNotFound = errors.New("class not found in jar")
+
 // ReachabilityEnumerator enumerates the reachable classes from a set of root
 // classes.
 type ReachabilityEnumerator struct {
@@ -84,7 +87,7 @@ func NewReachabilityEnumerator(
 // EnumerateReachabilityFromClasses enumerates the reachable classes from a set of root
 // classes.
 func (r *ReachabilityEnumerator) EnumerateReachabilityFromClasses(mainClasses []string, optionalRootClasses []string) (*ReachabilityResult, error) {
-	var roots []*ClassFile
+	roots := make([]*ClassFile, 0, len(mainClasses)+len(optionalRootClasses))
 	for _, mainClass := range mainClasses {
 		cf, err := r.findClass(r.ClassPaths, mainClass)
 		if err != nil {
@@ -149,8 +152,9 @@ func (r *ReachabilityEnumerator) findClassInJAR(jarPath string, className string
 	if err != nil {
 		if os.IsNotExist(err) {
 			// class not found in this .jar. not an error.
-			return nil, nil
+			return nil, errClassNotFound
 		}
+
 		return nil, err
 	}
 
@@ -171,14 +175,16 @@ func (r *ReachabilityEnumerator) findClass(classPaths []string, className string
 	for _, classPath := range classPaths {
 		if strings.HasSuffix(classPath, ".jar") {
 			cf, err := r.findClassInJAR(classPath, className)
-			if err != nil {
+			if err != nil && !errors.Is(err, errClassNotFound) {
 				return nil, err
 			}
 
 			if cf != nil {
 				log.Debug("found class in nested .jar", "class", className, "path", classPath)
+
 				return cf, nil
 			}
+
 			continue
 		}
 

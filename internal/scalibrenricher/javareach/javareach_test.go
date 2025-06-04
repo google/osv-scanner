@@ -15,7 +15,6 @@
 package javareach_test
 
 import (
-	"context"
 	"fmt"
 	"net/http"
 	"net/http/httptest"
@@ -44,6 +43,7 @@ const (
 )
 
 func TestScan(t *testing.T) {
+	t.Parallel()
 	jar := filepath.Join("testdata", reachableJar)
 
 	mockClient := mockClient(t)
@@ -59,7 +59,7 @@ func TestScan(t *testing.T) {
 	inv := inventory.Inventory{
 		Packages: pkgs,
 	}
-	err := enr.Enrich(context.Background(), &input, &inv)
+	err := enr.Enrich(t.Context(), &input, &inv)
 	if err != nil {
 		t.Fatalf("enricher.Enrich(%v): Expected an error, got none", pkgs)
 	}

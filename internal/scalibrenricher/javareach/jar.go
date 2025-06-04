@@ -131,6 +131,7 @@ func openNestedJAR(jarPaths []string) (*zip.Reader, error) {
 		}
 		jarPaths = jarPaths[1:]
 	}
+
 	return zipr, nil
 }
 
@@ -160,6 +161,7 @@ func checkNestedJARContains(inv *extractor.Package) ([]string, bool) {
 			log.Debug("nested jar", "paths", jarPaths, "groupId", metadata.GroupID, "artifactId", metadata.ArtifactID)
 			return jarPaths, true
 		}
+
 		break
 	}
 
@@ -274,10 +276,12 @@ func mapRootClasses(jarDir string, classMap map[string][]string, artifactMap map
 		if os.IsNotExist(err) {
 			return nil
 		}
+
 		return err
 	}
 
 	log.Debug("Found Spring Boot classes", "classes", bootInfClasses)
+
 	return filepath.Walk(bootInfClasses, func(path string, info fs.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -290,6 +294,7 @@ func mapRootClasses(jarDir string, classMap map[string][]string, artifactMap map
 			}
 
 			addClassMapping(rootArtifact, name, classMap, artifactMap)
+
 			return nil
 		}
 

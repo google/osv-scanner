@@ -99,7 +99,7 @@ func (enr Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *
 	}
 
 	for jar := range jars {
-		err := EnumerateReachabilityForJar(ctx, jar, input, inv, client)
+		err := enumerateReachabilityForJar(ctx, jar, input, inv, client)
 		if err != nil {
 			return err
 		}
@@ -113,7 +113,7 @@ func getFullPackageName(i *extractor.Package) string {
 		i.Metadata.(*archivemeta.Metadata).ArtifactID)
 }
 
-func EnumerateReachabilityForJar(ctx context.Context, jarPath string, input *enricher.ScanInput, inv *inventory.Inventory, client *http.Client) error {
+func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enricher.ScanInput, inv *inventory.Inventory, client *http.Client) error {
 	var allDeps []*extractor.Package
 	if client == nil {
 		client = http.DefaultClient
@@ -335,10 +335,12 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpDir string) (nestedJ
 		return nil, err
 	}
 
+	maxFileSize := 500 * 1024 * 1024 // 500 MB in bytes
+
 	for _, file := range r.File {
-		path := filepath.Join(tmpDir, file.Name)
-		if !strings.HasPrefix(path, filepath.Clean(tmpDir)+string(os.PathSeparator)) {
-			return nil, fmt.Errorf("directory traversal: %s", path)
+		path, err := sanitizeExtractPath(tmpDir, file.Name)
+		if err != nil {
+			return nil, err
 		}
 
 		if file.FileInfo().IsDir() {
@@ -364,7 +366,8 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpDir string) (nestedJ
 				return nil, err
 			}
 
-			_, err = io.Copy(f, source)
+			limitedSource := &io.LimitedReader{R: source, N: int64(maxFileSize)}
+			_, err = io.Copy(f, limitedSource)
 			if err != nil {
 				f.Close()
 				return nil, err
@@ -374,4 +377,14 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpDir string) (nestedJ
 	}
 
 	return nestedJARs, nil
+}
+
+// see https://github.com/securego/gosec/issues/324#issuecomment-935927967
+func sanitizeExtractPath(zipPath, filePath string) (string, error) {
+	path := filepath.Join(zipPath, filePath)
+	if !strings.HasPrefix(path, filepath.Clean(zipPath)+string(os.PathSeparator)) {
+		return "", fmt.Errorf("directory traversal: %s", path)
+	}
+
+	return path, nil
 }

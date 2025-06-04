@@ -504,6 +504,7 @@ func (cf *ClassFile) ConstantPoolMethodref(idx int) (class string, method string
 		return class, method, descriptor, err
 	}
 	descriptor, err = cf.ConstantPoolUtf8(int(nameAndType.DescriptorIndex))
+
 	return class, method, descriptor, err
 }
 
@@ -517,6 +518,7 @@ func (cf *ClassFile) ConstantPoolClass(idx int) (string, error) {
 	}
 
 	classInfo := cf.ConstantPool[idx].(*ConstantClass)
+
 	return cf.ConstantPoolUtf8(int(classInfo.NameIndex))
 }
 
@@ -533,6 +535,7 @@ func (cf *ClassFile) ConstantPoolUtf8(idx int) (string, error) {
 	if !utf8.Valid(data.Bytes) {
 		return "", errors.New("invalid utf8 bytes")
 	}
+
 	return string(data.Bytes), nil
 }
 
