@@ -112,7 +112,6 @@ linters:
     staticcheck:
       checks:
         - all
-        - -QF1001 # apply De Morgan's law
         - -QF1006 # lift into loop condition
         - -QF1008 # remove embedded field from selector
   exclusions:
