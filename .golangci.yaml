@@ -112,8 +112,6 @@ linters:
     staticcheck:
       checks:
         - all
-        - -QF1002 # use tagged switch on base
-        - -QF1003 # use tagged switch on prefix
         - -QF1006 # lift into loop condition
         - -QF1008 # remove embedded field from selector
   exclusions:

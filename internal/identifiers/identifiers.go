@@ -5,13 +5,14 @@ import (
 )
 
 func prefixOrder(prefix string) int {
-	if prefix == "DSA" || prefix == "USN" {
+	switch prefix {
+	case "DSA", "USN":
 		// Special case: For container scanning, DSA contains multiple CVEs and is more accurate.
 		return 3
-	} else if prefix == "CVE" {
+	case "CVE":
 		// Highest precedence for normal cases
 		return 2
-	} else if prefix == "GHSA" {
+	case "GHSA":
 		// Lowest precedence
 		return 0
 	}
@@ -20,9 +21,10 @@ func prefixOrder(prefix string) int {
 }
 
 func prefixOrderForDescription(prefix string) int {
-	if prefix == "CVE" {
+	switch prefix {
+	case "CVE":
 		return 0
-	} else if prefix == "GHSA" {
+	case "GHSA":
 		return 1
 	}
 
