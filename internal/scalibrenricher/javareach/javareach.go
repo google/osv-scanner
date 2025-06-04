@@ -59,7 +59,7 @@ var (
 
 // Enricher is the Java Reach enricher.
 type Enricher struct {
-	Client *http.Client
+	client *http.Client
 }
 
 // Name returns the name of the enricher.
@@ -85,9 +85,29 @@ func (Enricher) RequiredPlugins() []string {
 	return []string{archive.Name}
 }
 
+// NewEnricher creates a new Enricher.
+// It accepts an http.Client as a dependency. If the provided client is nil,
+// it defaults to the standard http.DefaultClient.
+func NewEnricher(client *http.Client) *Enricher {
+	if client == nil {
+		client = http.DefaultClient
+	}
+
+	return &Enricher{
+		client: client,
+	}
+}
+
+// NewDefault returns a new javareach enricher with the default configuration.
+func NewDefault() enricher.Enricher {
+	return &Enricher{
+		client: http.DefaultClient,
+	}
+}
+
 // Enrich enriches the inventory with Java Reach data.
 func (enr Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *inventory.Inventory) error {
-	client := enr.Client
+	client := enr.client
 	if client == nil {
 		client = http.DefaultClient
 	}

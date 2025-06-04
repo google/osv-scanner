@@ -47,7 +47,7 @@ func TestScan(t *testing.T) {
 	jar := filepath.Join("testdata", reachableJar)
 
 	mockClient := mockClient(t)
-	enr := javareach.Enricher{Client: mockClient}
+	enr := javareach.NewEnricher(mockClient)
 
 	pkgs := setupPackages([]string{testJar})
 	input := enricher.ScanInput{
