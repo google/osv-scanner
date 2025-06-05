@@ -7,16 +7,18 @@ import (
 	"log/slog"
 	"path/filepath"
 	"runtime"
+	"slices"
 	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -32,6 +34,14 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
 			})
 		}
+
+		//if accessors.DependencyClients[osvschema.EcosystemPyPI] != nil && accessors.MavenRegistryAPIClient != nil {
+		//	requirementsenhancable.EnhanceIfPossible(tor, requirementsnet.Config{
+		//			Extractor: tor,
+		//			Client: ,
+		//		},
+		//	))
+		//}
 
 		// todo: the "disabled" aspect should probably be worked into the extractor being present in the first place
 		//  since "IncludeRootGit" is always true
@@ -114,14 +124,21 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 
 	scanner := scalibr.New()
 
+	// Build list of paths for each root
+	// On linux this would return a map with just one entry of /
+	rootMap := map[string][]string{}
 	for _, path := range actions.DirectoryPaths {
 		slog.Info(fmt.Sprintf("Scanning dir %s", path))
+
 		absPath, err := filepath.Abs(path)
 		if err != nil {
 			return nil, err
 		}
 		root := getRootDir(absPath)
+		rootMap[root] = append(rootMap[root], absPath)
+	}
 
+	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
 			DirectFS:      true,
 			RunningSystem: true,
@@ -145,7 +162,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 			Detectors:             nil,
 			Capabilities:          &capabilities,
 			ScanRoots:             fs.RealFSScanRoots(root),
-			PathsToExtract:        []string{absPath},
+			PathsToExtract:        paths,
 			IgnoreSubDirs:         !actions.Recursive,
 			DirsToSkip:            nil,
 			SkipDirRegex:          nil,
@@ -174,7 +191,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	for _, commit := range actions.GitCommits {
 		inv := &extractor.Package{
 			SourceCode: &extractor.SourceCodeIdentifier{Commit: commit},
-			Extractor:  ecosystemmock.Extractor{}, // Empty ecosystem
 		}
 
 		scannedInventories = append(scannedInventories, inv)
