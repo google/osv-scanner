@@ -25,9 +25,11 @@ import (
 	"maps"
 	"net/http"
 	"os"
+	"path"
 	"path/filepath"
 	"slices"
 	"strings"
+	"syscall"
 
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/extractor"
@@ -42,16 +44,17 @@ const (
 	// Name is the unique name of this detector.
 	Name = "javareach"
 	// MetaDirPath is the path to the META-INF directory.
-	MetaDirPath = "META-INF"
+	MetaDirPath   = "META-INF"
+	PathSeparator = '/'
 )
 
 var (
 	// ManifestFilePath is the path to the MANIFEST.MF file.
-	ManifestFilePath = filepath.Join(MetaDirPath, "MANIFEST.MF")
+	ManifestFilePath = path.Join(MetaDirPath, "MANIFEST.MF")
 	// MavenDepDirPath is the path to the Maven dependency directory.
-	MavenDepDirPath = filepath.Join(MetaDirPath, "maven")
+	MavenDepDirPath = path.Join(MetaDirPath, "maven")
 	// ServiceDirPath is the path to the META-INF/services directory.
-	ServiceDirPath = filepath.Join(MetaDirPath, "services")
+	ServiceDirPath = path.Join(MetaDirPath, "services")
 
 	// ErrMavenDependencyNotFound is returned when a JAR is not a Maven dependency.
 	ErrMavenDependencyNotFound = errors.New(MavenDepDirPath + " directory not found")
@@ -158,16 +161,21 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 		return err
 	}
 	defer os.RemoveAll(jarDir)
-
 	log.Debug("Unzipping", "jar", jarPath, "to", jarDir)
-	nestedJARs, err := unzipJAR(jarPath, input, jarDir)
+
+	jarRoot, err := os.OpenRoot(jarDir)
+	if err != nil {
+		return err
+	}
+
+	nestedJARs, err := unzipJAR(jarPath, input, jarRoot)
 	if err != nil {
 		return err
 	}
 
 	// Reachability analysis is limited to Maven-built JARs for now.
 	// Check for the existence of the Maven metadata directory.
-	_, err = os.Stat(filepath.Join(jarDir, MavenDepDirPath))
+	_, err = os.Stat(path.Join(jarRoot.Name(), MavenDepDirPath))
 	if err != nil {
 		log.Error("reachability analysis is only supported for JARs built with Maven.")
 		return ErrMavenDependencyNotFound
@@ -175,13 +183,13 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 
 	// Build .class -> Maven group ID:artifact ID mappings.
 	// TODO(#787): Handle BOOT-INF and loading .jar dependencies from there.
-	classFinder, err := NewDefaultPackageFinder(ctx, allDeps, jarDir, client)
+	classFinder, err := NewDefaultPackageFinder(ctx, allDeps, jarRoot.Name(), client)
 	if err != nil {
 		return err
 	}
 
 	// Extract the main entrypoint.
-	manifest, err := os.Open(filepath.Join(jarDir, ManifestFilePath))
+	manifest, err := jarRoot.Open(ManifestFilePath)
 	if err != nil {
 		return err
 	}
@@ -192,18 +200,18 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 	}
 	log.Debug("Found", "main classes", mainClasses)
 
-	classPaths := []string{jarDir}
+	classPaths := []string{jarRoot.Name()}
 	classPaths = append(classPaths, nestedJARs...)
 
 	// Spring Boot applications have classes in BOOT-INF/classes.
-	bootInfClasses := filepath.Join(jarDir, BootInfClasses)
+	bootInfClasses := path.Join(jarRoot.Name(), BootInfClasses)
 	if _, err := os.Stat(bootInfClasses); err == nil {
 		classPaths = append(classPaths, bootInfClasses)
 	}
 
 	// Look inside META-INF/services, which is used by
 	// https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html
-	servicesDir := filepath.Join(jarDir, ServiceDirPath)
+	servicesDir := path.Join(jarRoot.Name(), ServiceDirPath)
 	var optionalRootClasses []string
 	if _, err := os.Stat(servicesDir); err == nil {
 		var entries []string
@@ -336,7 +344,7 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 
 // unzipJAR unzips a JAR to a target directory. It also returns a list of paths
 // to all the nested JARs found while unzipping.
-func unzipJAR(jarPath string, input *enricher.ScanInput, tmpDir string) (nestedJARs []string, err error) {
+func unzipJAR(jarPath string, input *enricher.ScanInput, tmpRoot *os.Root) (nestedJARs []string, err error) {
 	file, err := input.ScanRoot.FS.Open(filepath.ToSlash(jarPath))
 	if err != nil {
 		return nil, err
@@ -358,22 +366,26 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpDir string) (nestedJ
 	maxFileSize := 500 * 1024 * 1024 // 500 MB in bytes
 
 	for _, file := range r.File {
-		path, err := sanitizeExtractPath(tmpDir, file.Name)
+		relativePath := file.Name
 		if err != nil {
 			return nil, err
 		}
 
 		if file.FileInfo().IsDir() {
-			if err := os.MkdirAll(path, 0755); err != nil {
+			if err := mkdirAll(tmpRoot, relativePath, 0755); err != nil {
 				return nil, err
 			}
 		} else {
-			if err := os.MkdirAll(filepath.Dir(path), 0755); err != nil {
+			if err := mkdirAll(tmpRoot, path.Dir(relativePath), 0755); err != nil {
 				return nil, err
 			}
 
-			if strings.HasSuffix(path, ".jar") {
-				nestedJARs = append(nestedJARs, path)
+			if strings.HasSuffix(relativePath, ".jar") {
+				nestedPath, err := sanitizeExtractPath(tmpRoot.Name(), relativePath)
+				if err != nil {
+					return nil, err
+				}
+				nestedJARs = append(nestedJARs, nestedPath)
 			}
 
 			source, err := file.Open()
@@ -381,7 +393,7 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpDir string) (nestedJ
 				return nil, err
 			}
 
-			f, err := os.Create(path)
+			f, err := tmpRoot.Create(relativePath)
 			if err != nil {
 				return nil, err
 			}
@@ -401,10 +413,62 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpDir string) (nestedJ
 
 // see https://github.com/securego/gosec/issues/324#issuecomment-935927967
 func sanitizeExtractPath(zipPath, filePath string) (string, error) {
-	path := filepath.Join(zipPath, filePath)
+	path := path.Join(zipPath, filePath)
 	if !strings.HasPrefix(path, filepath.Clean(zipPath)+string(os.PathSeparator)) {
 		return "", fmt.Errorf("directory traversal: %s", path)
 	}
 
 	return path, nil
+}
+
+func mkdirAll(root *os.Root, path string, perm os.FileMode) error {
+	// Fast path: if we can tell whether path is a directory or file, stop with success or error.
+	dir, err := root.Stat(path)
+	if err == nil {
+		if dir.IsDir() {
+			return nil
+		}
+
+		return &os.PathError{Op: "mkdir", Path: path, Err: syscall.ENOTDIR}
+	}
+
+	// Slow path: make sure parent exists and then call Mkdir for path.
+
+	// Extract the parent folder from path by first removing any trailing
+	// path separator and then scanning backward until finding a path
+	// separator or reaching the beginning of the string.
+	i := len(path) - 1
+
+	for i >= 0 && path[i] == PathSeparator {
+		i--
+	}
+	for i >= 0 && !os.IsPathSeparator(path[i]) {
+		i--
+	}
+	if i < 0 {
+		i = 0
+	}
+
+	// recurse to ensure parent directory exists.
+	if parent := path[:i]; len(parent) > 0 {
+		err = mkdirAll(root, parent, perm)
+		if err != nil {
+			return err
+		}
+	}
+
+	// Parent now exists; invoke Mkdir and use its result.
+	err = root.Mkdir(path, perm)
+	if err != nil {
+		// Handle arguments like "foo/." by
+		// double-checking that directory doesn't exist.
+		dir, err1 := os.Lstat(path)
+		if err1 == nil && dir.IsDir() {
+			return nil
+		}
+
+		return err
+	}
+
+	return nil
 }

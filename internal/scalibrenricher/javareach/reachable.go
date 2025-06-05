@@ -21,6 +21,7 @@ import (
 	"fmt"
 	"maps"
 	"os"
+	"path"
 	"path/filepath"
 	"slices"
 	"strings"
@@ -189,7 +190,7 @@ func (r *ReachabilityEnumerator) findClass(classPaths []string, className string
 		}
 
 		// Look inside the class directory.
-		classFilepath := filepath.Join(classPath, className)
+		classFilepath := path.Join(classPath, className)
 		if !strings.HasPrefix(classFilepath, filepath.Clean(classPath)+string(os.PathSeparator)) {
 			return nil, fmt.Errorf("directory traversal: %s", classFilepath)
 		}

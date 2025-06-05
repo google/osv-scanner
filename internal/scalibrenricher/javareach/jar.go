@@ -25,6 +25,7 @@ import (
 	"io/fs"
 	"net/http"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -271,7 +272,7 @@ func mapRootClasses(jarDir string, classMap map[string][]string, artifactMap map
 	// TODO(#787): Handle non-Spring Boot applications. We could add heuristic for
 	// detecting root application classes when the class structure is flat based
 	// on the class hierarchy.
-	bootInfClasses := filepath.Join(jarDir, BootInfClasses)
+	bootInfClasses := path.Join(jarDir, BootInfClasses)
 	if _, err := os.Stat(bootInfClasses); err != nil {
 		if os.IsNotExist(err) {
 			return nil
