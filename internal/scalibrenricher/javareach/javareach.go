@@ -367,6 +367,7 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpRoot *os.Root) (nest
 
 	for _, file := range r.File {
 		relativePath := file.Name
+		fullPath, err := sanitizeExtractPath(tmpRoot.Name(), relativePath)
 		if err != nil {
 			return nil, err
 		}
@@ -381,11 +382,7 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpRoot *os.Root) (nest
 			}
 
 			if strings.HasSuffix(relativePath, ".jar") {
-				nestedPath, err := sanitizeExtractPath(tmpRoot.Name(), relativePath)
-				if err != nil {
-					return nil, err
-				}
-				nestedJARs = append(nestedJARs, nestedPath)
+				nestedJARs = append(nestedJARs, fullPath)
 			}
 
 			source, err := file.Open()
@@ -414,7 +411,7 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpRoot *os.Root) (nest
 // see https://github.com/securego/gosec/issues/324#issuecomment-935927967
 func sanitizeExtractPath(zipPath, filePath string) (string, error) {
 	path := path.Join(zipPath, filePath)
-	if !strings.HasPrefix(path, filepath.Clean(zipPath)+string(os.PathSeparator)) {
+	if !strings.HasPrefix(path, filepath.Clean(zipPath)+string(PathSeparator)) {
 		return "", fmt.Errorf("directory traversal: %s", path)
 	}
 
