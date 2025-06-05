@@ -409,9 +409,10 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpRoot *os.Root) (nest
 }
 
 // see https://github.com/securego/gosec/issues/324#issuecomment-935927967
-func sanitizeExtractPath(zipPath, filePath string) (string, error) {
-	path := path.Join(zipPath, filePath)
-	if !strings.HasPrefix(path, filepath.Clean(zipPath)+string(PathSeparator)) {
+func sanitizeExtractPath(zipPath, file string) (string, error) {
+	// In windows, the zipPath still contains back slash
+	path := filepath.Join(zipPath, file)
+	if !strings.HasPrefix(path, filepath.Clean(zipPath)+string(os.PathSeparator)) {
 		return "", fmt.Errorf("directory traversal: %s", path)
 	}
 

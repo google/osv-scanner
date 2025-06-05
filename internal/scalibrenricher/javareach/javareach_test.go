@@ -61,7 +61,7 @@ func TestScan(t *testing.T) {
 	}
 	err := enr.Enrich(t.Context(), &input, &inv)
 	if err != nil {
-		t.Fatalf("enricher.Enrich(%v): Expected an error, got none", pkgs)
+		t.Fatalf("Javareach enrich failed: %s", err)
 	}
 
 	for _, pkg := range inv.Packages {
