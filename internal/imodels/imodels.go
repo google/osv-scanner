@@ -5,15 +5,18 @@ import (
 	"log"
 	"strings"
 
+	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
 	archivemetadata "github.com/google/osv-scalibr/extractor/filesystem/language/java/archive/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
+	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	dpkgmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
+	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
@@ -97,7 +100,7 @@ func (pkg *PackageInfo) Name() string {
 		}
 	}
 
-	if metadata, ok := pkg.Package.Metadata.(*apk.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*apkmetadata.Metadata); ok {
 		if metadata.OriginName != "" {
 			return metadata.OriginName
 		}
@@ -171,19 +174,20 @@ func (pkg *PackageInfo) Commit() string {
 }
 
 func (pkg *PackageInfo) SourceType() models.SourceType {
-	if pkg.Package.Extractor == nil {
+	if len(pkg.Package.Plugins) == 0 {
 		return models.SourceTypeUnknown
 	}
 
-	extractorName := pkg.Package.Extractor.Name()
-	if _, ok := osExtractors[extractorName]; ok {
-		return models.SourceTypeOSPackage
-	} else if _, ok := sbomExtractors[extractorName]; ok {
-		return models.SourceTypeSBOM
-	} else if _, ok := gitExtractors[extractorName]; ok {
-		return models.SourceTypeGit
-	} else if _, ok := artifactExtractors[extractorName]; ok {
-		return models.SourceTypeArtifact
+	for _, extractorName := range pkg.Package.Plugins {
+		if _, ok := osExtractors[extractorName]; ok {
+			return models.SourceTypeOSPackage
+		} else if _, ok := sbomExtractors[extractorName]; ok {
+			return models.SourceTypeSBOM
+		} else if _, ok := gitExtractors[extractorName]; ok {
+			return models.SourceTypeGit
+		} else if _, ok := artifactExtractors[extractorName]; ok {
+			return models.SourceTypeArtifact
+		}
 	}
 
 	return models.SourceTypeProjectPackage
@@ -198,13 +202,13 @@ func (pkg *PackageInfo) DepGroups() []string {
 }
 
 func (pkg *PackageInfo) OSPackageName() string {
-	if metadata, ok := pkg.Package.Metadata.(*apk.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*apkmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
 	if metadata, ok := pkg.Package.Metadata.(*dpkgmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
-	if metadata, ok := pkg.Package.Metadata.(*rpm.Metadata); ok {
+	if metadata, ok := pkg.Package.Metadata.(*rpmmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
 
@@ -215,7 +219,8 @@ func (pkg *PackageInfo) OSPackageName() string {
 func FromInventory(inventory *extractor.Package) PackageInfo {
 	pi := PackageInfo{Package: inventory}
 	if pi.SourceType() == models.SourceTypeSBOM {
-		purlStruct := pi.Package.Extractor.ToPURL(pi.Package)
+
+		purlStruct := converter.ToPURL(pi.Package)
 		if purlStruct != nil {
 			purlCache, _ := purl.ToPackage(purlStruct.String())
 			pi.purlCache = &purlCache

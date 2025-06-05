@@ -1,18 +1,18 @@
-package pomxmlenhanceable
+package requirementsenhancable
 
 import (
 	"context"
 
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 )
 
 const (
 	// Name is the unique name of this extractor.
-	Name = "java/pomxmlenhanceable"
+	Name = "python/requirementsenhanceable"
 )
 
 // Extractor extracts Maven packages from pom.xml files.
@@ -21,7 +21,9 @@ type Extractor struct {
 }
 
 // New returns a new instance of the extractor.
-func New() filesystem.Extractor { return &Extractor{actual: pomxml.New()} }
+func New() filesystem.Extractor {
+	return &Extractor{actual: requirements.New(requirements.DefaultConfig())}
+}
 
 // Name of the extractor
 func (e *Extractor) Name() string { return Name }
@@ -50,20 +52,20 @@ func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (i
 var _ filesystem.Extractor = &Extractor{}
 
 type enhanceable interface {
-	Enhance(config pomxmlnet.Config)
+	Enhance(config requirementsnet.Config)
 }
 
 // Enhance uses the given config to improve the abilities of this extractor,
 // at the cost of additional requirements such as networking and direct fs access
-func (e *Extractor) Enhance(config pomxmlnet.Config) {
-	e.actual = pomxmlnet.New(config)
+func (e *Extractor) Enhance(config requirementsnet.Config) {
+	e.actual = requirementsnet.New(config)
 }
 
 var _ enhanceable = &Extractor{}
 
 // EnhanceIfPossible calls Extractor.Enhance with the given config if the
 // provided extractor is an Extractor
-func EnhanceIfPossible(extractor filesystem.Extractor, config pomxmlnet.Config) {
+func EnhanceIfPossible(extractor filesystem.Extractor, config requirementsnet.Config) {
 	us, ok := extractor.(enhanceable)
 
 	if ok {

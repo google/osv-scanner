@@ -58,7 +58,7 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 		Inventory: &extractor.Package{
 			Name:      pi.Name,
 			Version:   pi.Version,
-			Extractor: pi.Extractor,
+			Plugins:   []string{pi.Extractor.Name()},
 			Locations: []string{source},
 			PURLType:  resolvePURLType(pi.Ecosystem),
 		},
