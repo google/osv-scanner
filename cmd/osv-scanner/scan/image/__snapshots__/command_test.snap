@@ -118,7 +118,7 @@ at least one extractor must be enabled
 Scanning local image tarball "../../../../internal/image/fixtures/test-alpine.tar"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 2 packages affected by 41 known vulnerabilities (2 Critical, 17 High, 14 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
+Total 2 packages affected by 41 known vulnerabilities (2 Critical, 18 High, 14 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
 41 vulnerabilities can be fixed.
 
 
@@ -145,7 +145,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 17 packages affected by 30 known vulnerabilities (2 Critical, 3 High, 9 Medium, 2 Low, 14 Unknown) from 1 ecosystem.
+Total 17 packages affected by 30 known vulnerabilities (2 Critical, 7 High, 15 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -207,8 +207,8 @@ failed to load image from tarball with path "../../fixtures/locks-manyoci-image/
 Scanning local image tarball "../../../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 16 packages affected by 21 known vulnerabilities (1 Critical, 7 High, 8 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
-21 vulnerabilities can be fixed.
+Total 17 packages affected by 22 known vulnerabilities (1 Critical, 7 High, 9 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
+22 vulnerabilities can be fixed.
 
 
 Maven
@@ -217,6 +217,7 @@ Maven
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE                                   | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
+| com.fasterxml.jackson.core:jackson-core   | 2.10.2            | Fix Available |          1 | # 12 Layer       | --            |
 | com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available |          1 | # 12 Layer       | --            |
 | com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          1 | # 12 Layer       | --            |
 | commons-beanutils:commons-beanutils       | 1.9.4             | Fix Available |          1 | # 12 Layer       | --            |
@@ -319,8 +320,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 19 packages affected by 36 known vulnerabilities (0 Critical, 12 High, 9 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-36 vulnerabilities can be fixed.
+Total 19 packages affected by 37 known vulnerabilities (0 Critical, 12 High, 10 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+37 vulnerabilities can be fixed.
 
 
 PyPI
@@ -343,7 +344,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| django  | 1.11.29           | Fix Available |          3 | # 17 Layer       | --            |
+| django  | 1.11.29           | Fix Available |          4 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:usr/local/lib/python3.9/site-packages/Flask-0.12.2.dist-info/METADATA       |
@@ -418,7 +419,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 8 packages affected by 54 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 54 Unknown) from 2 ecosystems.
+Total 8 packages affected by 54 known vulnerabilities (0 Critical, 1 High, 0 Medium, 0 Low, 53 Unknown) from 2 ecosystems.
 54 vulnerabilities can be fixed.
 
 
@@ -488,7 +489,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-npm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 1 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
 
 
@@ -515,7 +516,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-npm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 4 packages affected by 14 known vulnerabilities (2 Critical, 0 High, 5 Medium, 0 Low, 7 Unknown) from 2 ecosystems.
+Total 4 packages affected by 14 known vulnerabilities (2 Critical, 1 High, 5 Medium, 0 Low, 6 Unknown) from 2 ecosystems.
 13 vulnerabilities can be fixed.
 
 
@@ -551,7 +552,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 1 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
 
 
@@ -578,7 +579,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-pnpm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 1 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
 
 
@@ -605,7 +606,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-yarn-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 1 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
 
 
@@ -632,7 +633,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-yarn-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 11 known vulnerabilities (0 Critical, 0 High, 4 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+Total 2 packages affected by 11 known vulnerabilities (0 Critical, 1 High, 4 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
 
 
@@ -723,11 +724,12 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           },
           "vulnerabilities": [
             "GHSA-68w8-qjq3-2gfm",
+            "GHSA-7xr5-9hcq-chf9",
             "GHSA-8x94-hmjh-97hq",
             "GHSA-rrqc-c2jx-6jgv",
             "PYSEC-2021-98"
           ],
-          "groups": 3
+          "groups": 4
         }
       ]
     },

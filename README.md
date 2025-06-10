@@ -1,5 +1,6 @@
 <picture>
     <source srcset="/docs/images/osv-scanner-full-logo-darkmode.svg"  media="(prefers-color-scheme: dark)">
+    <!-- markdown-link-check-disable-next-line -->
     <img src="/docs/images/osv-scanner-full-logo-lightmode.svg">
 </picture>
 

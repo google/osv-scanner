@@ -27,7 +27,6 @@ linters:
     - varnamelen       # maybe later (g-rath)
     - wrapcheck        # too difficult, will re-add later (another-rex)
     - wsl              # disagree with, for now (g-rath)
-    - nilnesserr       # todo: should get enabled
   settings:
     depguard:
       rules:
@@ -113,9 +112,6 @@ linters:
     staticcheck:
       checks:
         - all
-        - -QF1001 # apply De Morgan's law
-        - -QF1002 # use tagged switch on base
-        - -QF1003 # use tagged switch on prefix
         - -QF1006 # lift into loop condition
         - -QF1008 # remove embedded field from selector
   exclusions:

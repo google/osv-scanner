@@ -223,11 +223,12 @@ func (m *MavenRegistryAPIClient) get(ctx context.Context, auth *HTTPAuthenticati
 			return response{}, fmt.Errorf("%w: Maven registry query status: %d", errAPIFailed, resp.StatusCode)
 		}
 
-		if b, err := io.ReadAll(resp.Body); err == nil {
-			return response{StatusCode: resp.StatusCode, Body: b}, nil
+		b, err := io.ReadAll(resp.Body)
+		if err != nil {
+			return response{}, fmt.Errorf("failed to read body: %w", err)
 		}
 
-		return response{}, fmt.Errorf("failed to read body: %w", err)
+		return response{StatusCode: resp.StatusCode, Body: b}, nil
 	})
 	if err != nil {
 		return err
