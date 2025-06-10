@@ -219,7 +219,6 @@ func (pkg *PackageInfo) OSPackageName() string {
 func FromInventory(inventory *extractor.Package) PackageInfo {
 	pi := PackageInfo{Package: inventory}
 	if pi.SourceType() == models.SourceTypeSBOM {
-
 		purlStruct := converter.ToPURL(pi.Package)
 		if purlStruct != nil {
 			purlCache, _ := purl.ToPackage(purlStruct.String())

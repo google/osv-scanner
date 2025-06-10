@@ -14,7 +14,7 @@ type FileOpenedPrinter struct {
 
 var _ stats.Collector = &FileOpenedPrinter{}
 
-func (c FileOpenedPrinter) AfterExtractorRun(pluginName string, extractorstats *stats.AfterExtractorStats) {
+func (c FileOpenedPrinter) AfterExtractorRun(_ string, extractorstats *stats.AfterExtractorStats) {
 	pkgsFound := len(extractorstats.Inventory.Packages)
 
 	slog.Info(fmt.Sprintf(
