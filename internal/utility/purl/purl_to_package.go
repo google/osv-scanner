@@ -9,10 +9,10 @@ import (
 // used like so: purlEcosystems[PkgURL.Type][PkgURL.Namespace]
 // * means it should match any namespace string
 var purlEcosystems = map[string]map[string]osvschema.Ecosystem{
-	"apk":      {"alpine": osvschema.EcosystemAlpine},
-	"cargo":    {"*": osvschema.EcosystemCratesIO},
-	"deb":      {"debian": osvschema.EcosystemDebian,
-		         "ubuntu": osvschema.EcosystemUbuntu},
+	"apk":   {"alpine": osvschema.EcosystemAlpine},
+	"cargo": {"*": osvschema.EcosystemCratesIO},
+	"deb": {"debian": osvschema.EcosystemDebian,
+		"ubuntu": osvschema.EcosystemUbuntu},
 	"hex":      {"*": osvschema.EcosystemHex},
 	"golang":   {"*": osvschema.EcosystemGo},
 	"maven":    {"*": osvschema.EcosystemMaven},
