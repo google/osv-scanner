@@ -152,13 +152,13 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	externalAccessors.OSVDevClient = osvdev.DefaultClient()
 
 	// --- No Transitive Scanning ---
-	if actions.TransitiveScanningActions.Disabled {
+	if actions.Disabled {
 		return externalAccessors, nil
 	}
 
 	// --- Transitive Scanning Clients ---
 	externalAccessors.MavenRegistryAPIClient, err = datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{
-		URL:             actions.TransitiveScanningActions.MavenRegistry,
+		URL:             actions.MavenRegistry,
 		ReleasesEnabled: true,
 	}, "")
 
@@ -166,10 +166,10 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 		return ExternalAccessors{}, err
 	}
 
-	if !actions.TransitiveScanningActions.NativeDataSource {
+	if !actions.NativeDataSource {
 		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	} else {
-		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(actions.TransitiveScanningActions.MavenRegistry, "")
+		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(actions.MavenRegistry, "")
 	}
 
 	if err != nil {
@@ -371,7 +371,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	for _, psr := range scanResult.PackageScanResults {
 		if (strings.HasPrefix(psr.PackageInfo.Location(), "usr/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemGo) ||
 			strings.Contains(psr.PackageInfo.Location(), "dist-packages/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
-			psr.PackageInfo.Package.Annotations = append(psr.PackageInfo.Package.Annotations, extractor.InsideOSPackage)
+			psr.PackageInfo.Annotations = append(psr.PackageInfo.Annotations, extractor.InsideOSPackage)
 		}
 	}
 
