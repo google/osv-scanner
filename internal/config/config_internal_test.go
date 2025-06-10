@@ -11,8 +11,8 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/osv"
+	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/imodels"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
 )
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -412,7 +412,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Package: &extractor.Package{
 					Name:     "lib1",
 					Version:  "1.0.0",
-					PURLType: "go",
+					PURLType: purl.TypeGolang,
 					Metadata: osv.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
@@ -457,7 +457,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
-						Ecosystem:      "Alpine:3.20",
+						Ecosystem:      "Alpine:v3.20",
 						Ignore:         true,
 						EffectiveUntil: time.Time{},
 						Reason:         "abc",
@@ -468,24 +468,17 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Package: &extractor.Package{
 					Name:     "bin1",
 					Version:  "1.0.0",
-					PURLType: "apk",
-					Metadata: apkmetadata.Metadata{
+					PURLType: purl.TypeApk,
+					Metadata: &apkmetadata.Metadata{
 						PackageName: "bin1",
 						OSID:        "Alpine",
 						OSVersionID: "3.20",
 					},
 				},
 			},
-			//args: imodels.PackageInfo{
-			//	Package: &extractor.Package{
-			//		Name:    "bin1",
-			//		Version: "1.0.0",
-			//		Ecosystem: "Alpine:3.20",
-			//	},
-			//},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
-				Ecosystem:      "Alpine:3.20",
+				Ecosystem:      "Alpine:v3.20",
 				Ignore:         true,
 				EffectiveUntil: time.Time{},
 				Reason:         "abc",
@@ -496,7 +489,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
-						Ecosystem:      "Alpine:3.20",
+						Ecosystem:      "Alpine:v3.20",
 						Ignore:         true,
 						EffectiveUntil: time.Time{},
 						Reason:         "abc",
@@ -505,9 +498,14 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 			args: imodels.PackageInfo{
 				Package: &extractor.Package{
-					Name:      "bin2",
-					Version:   "1.0.0",
-					Ecosystem: "Alpine:3.19",
+					Name:     "bin2",
+					Version:  "1.0.0",
+					PURLType: purl.TypeApk,
+					Metadata: &apkmetadata.Metadata{
+						PackageName: "bin1",
+						OSID:        "Alpine",
+						OSVersionID: "3.19",
+					},
 				},
 			},
 			wantOk:    false,
@@ -527,9 +525,14 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 			args: imodels.PackageInfo{
 				Package: &extractor.Package{
-					Name:      "bin1",
-					Version:   "1.0.0",
-					Ecosystem: "Alpine:3.20",
+					Name:     "bin1",
+					Version:  "1.0.0",
+					PURLType: purl.TypeApk,
+					Metadata: &apkmetadata.Metadata{
+						PackageName: "bin1",
+						OSID:        "Alpine",
+						OSVersionID: "3.20",
+					},
 				},
 			},
 			wantOk: true,
@@ -557,7 +560,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Package: &extractor.Package{
 					Name:     "lib1",
 					Version:  "1.0.0",
-					PURLType: "go",
+					PURLType: purl.TypeGolang,
 					Metadata: osv.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
@@ -635,7 +638,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Package: &extractor.Package{
 					Name:     "lib1",
 					Version:  "1.0.0",
-					PURLType: "go",
+					PURLType: purl.TypeGolang,
 					Metadata: osv.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
@@ -665,7 +668,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Package: &extractor.Package{
 					Name:     "lib1",
 					Version:  "1.0.1",
-					PURLType: "go",
+					PURLType: purl.TypeGolang,
 					Metadata: osv.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
@@ -691,7 +694,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Package: &extractor.Package{
 					Name:     "lib1",
 					Version:  "1.0.0",
-					PURLType: "go",
+					PURLType: purl.TypeGolang,
 					Metadata: osv.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
@@ -749,7 +752,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Package: &extractor.Package{
 					Name:     "lib1",
 					Version:  "1.0.0",
-					PURLType: "go",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk: true,
@@ -779,7 +782,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Package: &extractor.Package{
 					Name:     "lib1",
 					Version:  "1.0.0",
-					PURLType: "go",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk: true,
@@ -809,7 +812,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Package: &extractor.Package{
 					Name:     "lib1",
 					Version:  "1.0.0",
-					PURLType: "go",
+					PURLType: purl.TypeGolang,
 					Metadata: osv.DepGroupMetadata{
 						DepGroupVals: []string{"dev"},
 					},
@@ -843,7 +846,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Package: &extractor.Package{
 					Name:     "lib1",
 					Version:  "1.0.0",
-					PURLType: "go",
+					PURLType: purl.TypeGolang,
 					Metadata: osv.DepGroupMetadata{
 						DepGroupVals: []string{"prod"},
 					},
@@ -878,7 +881,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Package: &extractor.Package{
 					Name:     "lib1",
 					Version:  "2.0.0",
-					PURLType: "go",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk:    false,
@@ -927,11 +930,9 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 			},
 			args: imodels.PackageInfo{
 				Package: &extractor.Package{
-					Name:    "lib1",
-					Version: "1.0.0",
-					Extractor: ecosystemmock.Extractor{
-						MockEcosystem: "Go",
-					},
+					Name:     "lib1",
+					Version:  "1.0.0",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk: true,
@@ -953,11 +954,9 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 			},
 			args: imodels.PackageInfo{
 				Package: &extractor.Package{
-					Name:    "lib1",
-					Version: "1.0.1",
-					Extractor: ecosystemmock.Extractor{
-						MockEcosystem: "Go",
-					},
+					Name:     "lib1",
+					Version:  "1.0.1",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk: false,
@@ -978,11 +977,9 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 			},
 			args: imodels.PackageInfo{
 				Package: &extractor.Package{
-					Name:    "lib1",
-					Version: "1.0.1",
-					Extractor: ecosystemmock.Extractor{
-						MockEcosystem: "Go",
-					},
+					Name:     "lib1",
+					Version:  "1.0.1",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk: true,
@@ -1028,11 +1025,9 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			},
 			args: imodels.PackageInfo{
 				Package: &extractor.Package{
-					Name:    "lib1",
-					Version: "1.0.0",
-					Extractor: ecosystemmock.Extractor{
-						MockEcosystem: "Go",
-					},
+					Name:     "lib1",
+					Version:  "1.0.0",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk: true,
@@ -1063,11 +1058,9 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			},
 			args: imodels.PackageInfo{
 				Package: &extractor.Package{
-					Name:    "lib1",
-					Version: "1.0.0",
-					Extractor: ecosystemmock.Extractor{
-						MockEcosystem: "Go",
-					},
+					Name:     "lib1",
+					Version:  "1.0.0",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk: true,
@@ -1098,11 +1091,9 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			},
 			args: imodels.PackageInfo{
 				Package: &extractor.Package{
-					Name:    "lib1",
-					Version: "1.0.1",
-					Extractor: ecosystemmock.Extractor{
-						MockEcosystem: "Go",
-					},
+					Name:     "lib1",
+					Version:  "1.0.1",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk:    false,
@@ -1125,11 +1116,9 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			},
 			args: imodels.PackageInfo{
 				Package: &extractor.Package{
-					Name:    "lib1",
-					Version: "1.0.1",
-					Extractor: ecosystemmock.Extractor{
-						MockEcosystem: "Go",
-					},
+					Name:     "lib1",
+					Version:  "1.0.1",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk:    false,
@@ -1151,11 +1140,9 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			},
 			args: imodels.PackageInfo{
 				Package: &extractor.Package{
-					Name:    "lib1",
-					Version: "1.0.1",
-					Extractor: ecosystemmock.Extractor{
-						MockEcosystem: "Go",
-					},
+					Name:     "lib1",
+					Version:  "1.0.1",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk: true,
@@ -1184,11 +1171,9 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			},
 			args: imodels.PackageInfo{
 				Package: &extractor.Package{
-					Name:    "lib1",
-					Version: "1.0.1",
-					Extractor: ecosystemmock.Extractor{
-						MockEcosystem: "Go",
-					},
+					Name:     "lib1",
+					Version:  "1.0.1",
+					PURLType: purl.TypeGolang,
 				},
 			},
 			wantOk: true,
