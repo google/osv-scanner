@@ -242,12 +242,12 @@
 [TestPrintMarkdownTableResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems_using_commits_and_version,_and_multiple_vulnerabilities - 1]
 | OSV URL | CVSS | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- | --- |
+| https://osv.dev/OSV-2 |  | NuGet | mine2 | 3.2.5 | path/to/my/second/lockfile |
 | https://osv.dev/OSV-1 |  | Packagist | author1/mine1 | 1.2.3 | path/to/my/first/lockfile |
 | https://osv.dev/OSV-5 |  | Packagist | author1/mine1 | 1.2.3 | path/to/my/first/lockfile |
-| https://osv.dev/OSV-1 |  | npm | mine1 |  | path/to/my/first/lockfile |
-| https://osv.dev/OSV-2 |  | NuGet | mine2 | 3.2.5 | path/to/my/second/lockfile |
 | https://osv.dev/OSV-3 |  | Packagist | author3/mine3 | 0.4.1 | path/to/my/second/lockfile |
 | https://osv.dev/OSV-5 |  | Packagist | author3/mine3 | 0.4.1 | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 |  | path/to/my/first/lockfile |
 
 ---
 
