@@ -8,6 +8,11 @@ import (
 	"time"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scalibr/extractor"
+	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
+	"github.com/google/osv-scalibr/extractor/filesystem/osv"
+	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
 )
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -353,885 +358,862 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 	}
 }
 
-//
-//func TestConfig_ShouldIgnorePackage(t *testing.T) {
-//	t.Parallel()
-//
-//	tests := []struct {
-//		name      string
-//		config    Config
-//		args      imodels.PackageInfo
-//		wantOk    bool
-//		wantEntry PackageOverrideEntry
-//	}{
-//		{
-//			name: "Everything-level entry exists",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Metadata: osv.DepGroupMetadata{
-//						DepGroupVals: []string{"dev"},
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Ignore:         true,
-//				EffectiveUntil: time.Time{},
-//				Reason:         "abc",
-//			},
-//		},
-//		// -------------------------------------------------------------------------
-//		{
-//			name: "Ecosystem-level entry exists and does match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Ecosystem:      "Go",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//					Metadata: osv.DepGroupMetadata{
-//						DepGroupVals: []string{"dev"},
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Ecosystem:      "Go",
-//				Ignore:         true,
-//				EffectiveUntil: time.Time{},
-//				Reason:         "abc",
-//			},
-//		},
-//		{
-//			name: "Ecosystem-level entry exists and does not match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Ecosystem:      "Go",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib2",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "npm",
-//					},
-//					Metadata: osv.DepGroupMetadata{
-//						DepGroupVals: []string{"dev"},
-//					},
-//				},
-//			},
-//			wantOk:    false,
-//			wantEntry: PackageOverrideEntry{},
-//		},
-//		// -------------------------------------------------------------------------
-//		{
-//			name: "Ecosystem-level entry with suffix exists and does match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Ecosystem:      "Alpine:3.20",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "bin1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Alpine:3.20",
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Ecosystem:      "Alpine:3.20",
-//				Ignore:         true,
-//				EffectiveUntil: time.Time{},
-//				Reason:         "abc",
-//			},
-//		},
-//		{
-//			name: "Ecosystem-level entry with suffix exists and does not match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Ecosystem:      "Alpine:3.20",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "bin2",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Alpine:3.19",
-//					},
-//				},
-//			},
-//			wantOk:    false,
-//			wantEntry: PackageOverrideEntry{},
-//		},
-//		{
-//			name: "Ecosystem-level entry without suffix exists and does match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Ecosystem:      "Alpine",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "bin1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Alpine:3.20",
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Ecosystem:      "Alpine",
-//				Ignore:         true,
-//				EffectiveUntil: time.Time{},
-//				Reason:         "abc",
-//			},
-//		},
-//		// -------------------------------------------------------------------------
-//		{
-//			name: "Group-level entry exists and does match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Group:          "dev",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//					Metadata: osv.DepGroupMetadata{
-//						DepGroupVals: []string{"dev"},
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Group:          "dev",
-//				Ignore:         true,
-//				EffectiveUntil: time.Time{},
-//				Reason:         "abc",
-//			},
-//		},
-//		{
-//			name: "Group-level entry exists and does not match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Group:          "dev",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib2",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "npm",
-//					},
-//					Metadata: osv.DepGroupMetadata{
-//						DepGroupVals: []string{"optional"},
-//					},
-//				},
-//			},
-//			wantOk:    false,
-//			wantEntry: PackageOverrideEntry{},
-//		},
-//		{
-//			name: "Group-level entry exists and does not match when empty",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Group:          "dev",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib2",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "npm",
-//					},
-//				},
-//			},
-//			wantOk:    false,
-//			wantEntry: PackageOverrideEntry{},
-//		},
-//		// -------------------------------------------------------------------------
-//		{
-//			name: "Version-level entry exists and does match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Version:        "1.0.0",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//					Metadata: osv.DepGroupMetadata{
-//						DepGroupVals: []string{"dev"},
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Version:        "1.0.0",
-//				Ignore:         true,
-//				EffectiveUntil: time.Time{},
-//				Reason:         "abc",
-//			},
-//		},
-//		{
-//			name: "Version-level entry exists and does not match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Version:        "1.0.0",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.1",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//					Metadata: osv.DepGroupMetadata{
-//						DepGroupVals: []string{"dev"},
-//					},
-//				},
-//			},
-//			wantOk:    false,
-//			wantEntry: PackageOverrideEntry{},
-//		},
-//		// -------------------------------------------------------------------------
-//		{
-//			name: "Name-level entry exists and does match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:           "lib1",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//					Metadata: osv.DepGroupMetadata{
-//						DepGroupVals: []string{"dev"},
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Name:           "lib1",
-//				Ignore:         true,
-//				EffectiveUntil: time.Time{},
-//				Reason:         "abc",
-//			},
-//		},
-//		{
-//			name: "Name-level entry exists and does not match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:           "lib1",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib2",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "npm",
-//					},
-//					Metadata: osv.DepGroupMetadata{
-//						DepGroupVals: []string{"dev"},
-//					},
-//				},
-//			},
-//			wantOk:    false,
-//			wantEntry: PackageOverrideEntry{},
-//		},
-//		// -------------------------------------------------------------------------
-//		{
-//			name: "Name, Version, and Ecosystem entry exists",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:           "lib1",
-//						Version:        "1.0.0",
-//						Ecosystem:      "Go",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Name:           "lib1",
-//				Version:        "1.0.0",
-//				Ecosystem:      "Go",
-//				Ignore:         true,
-//				EffectiveUntil: time.Time{},
-//				Reason:         "abc",
-//			},
-//		},
-//		{
-//			name: "Name and Ecosystem entry exists",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:           "lib1",
-//						Ecosystem:      "Go",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Name:           "lib1",
-//				Ecosystem:      "Go",
-//				Ignore:         true,
-//				EffectiveUntil: time.Time{},
-//				Reason:         "abc",
-//			},
-//		},
-//		{
-//			name: "Name, Ecosystem, and Group entry exists and matches",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:           "lib1",
-//						Ecosystem:      "Go",
-//						Group:          "dev",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//					Metadata: osv.DepGroupMetadata{
-//						DepGroupVals: []string{"dev"},
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Name:           "lib1",
-//				Ecosystem:      "Go",
-//				Group:          "dev",
-//				Ignore:         true,
-//				EffectiveUntil: time.Time{},
-//				Reason:         "abc",
-//			},
-//		},
-//		{
-//			name: "Name, Ecosystem, and Group entry exists but does not match",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:           "lib1",
-//						Ecosystem:      "Go",
-//						Group:          "dev",
-//						Ignore:         true,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//					Metadata: osv.DepGroupMetadata{
-//						DepGroupVals: []string{"prod"},
-//					},
-//				},
-//			},
-//			wantOk:    false,
-//			wantEntry: PackageOverrideEntry{},
-//		},
-//		{
-//			name: "Entry doesn't exist",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:           "lib1",
-//						Version:        "2.0.0",
-//						Ecosystem:      "Go",
-//						Ignore:         false,
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//					{
-//						Name:           "lib2",
-//						Version:        "2.0.0",
-//						Ignore:         true,
-//						Ecosystem:      "Go",
-//						EffectiveUntil: time.Time{},
-//						Reason:         "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "2.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk:    false,
-//			wantEntry: PackageOverrideEntry{},
-//		},
-//	}
-//
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			t.Parallel()
-//
-//			gotOk, gotEntry := tt.config.ShouldIgnorePackage(tt.args)
-//			if gotOk != tt.wantOk {
-//				t.Errorf("ShouldIgnorePackage() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
-//			}
-//			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
-//				t.Errorf("ShouldIgnorePackage() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
-//			}
-//		})
-//	}
-//}
-//
-//func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
-//	t.Parallel()
-//
-//	tests := []struct {
-//		name   string
-//		config Config
-//		args   imodels.PackageInfo
-//		wantOk bool
-//	}{
-//		{
-//			name: "Exact version entry exists with ignore",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:      "lib1",
-//						Version:   "1.0.0",
-//						Ecosystem: "Go",
-//						Vulnerability: Vulnerability{
-//							Ignore: true,
-//						},
-//						Reason: "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk: true,
-//		},
-//		{
-//			name: "Version entry doesn't exist with ignore",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:      "lib1",
-//						Version:   "1.0.0",
-//						Ecosystem: "Go",
-//						Vulnerability: Vulnerability{
-//							Ignore: true,
-//						},
-//						Reason: "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.1",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk: false,
-//		},
-//		{
-//			name: "Name matches with ignore",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:      "lib1",
-//						Ecosystem: "Go",
-//						Vulnerability: Vulnerability{
-//							Ignore: true,
-//						},
-//						Reason: "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.1",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk: true,
-//		},
-//	}
-//
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			t.Parallel()
-//
-//			gotOk := tt.config.ShouldIgnorePackageVulnerabilities(tt.args)
-//			if gotOk != tt.wantOk {
-//				t.Errorf("ShouldIgnorePackageVulnerabilities() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
-//			}
-//		})
-//	}
-//}
-//
-//func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
-//	t.Parallel()
-//
-//	tests := []struct {
-//		name      string
-//		config    Config
-//		args      imodels.PackageInfo
-//		wantOk    bool
-//		wantEntry PackageOverrideEntry
-//	}{
-//		{
-//			name: "Exact version entry exists with override",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:      "lib1",
-//						Version:   "1.0.0",
-//						Ecosystem: "Go",
-//						License: License{
-//							Override: []string{"mit"},
-//						},
-//						Reason: "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Name:      "lib1",
-//				Version:   "1.0.0",
-//				Ecosystem: "Go",
-//				License: License{
-//					Override: []string{"mit"},
-//				},
-//				Reason: "abc",
-//			},
-//		},
-//		{
-//			name: "Exact version entry exists with ignore",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:      "lib1",
-//						Version:   "1.0.0",
-//						Ecosystem: "Go",
-//						License: License{
-//							Ignore: true,
-//						},
-//						Reason: "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.0",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Name:      "lib1",
-//				Version:   "1.0.0",
-//				Ecosystem: "Go",
-//				License: License{
-//					Ignore: true,
-//				},
-//				Reason: "abc",
-//			},
-//		},
-//		{
-//			name: "Version entry doesn't exist with override",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:      "lib1",
-//						Version:   "1.0.0",
-//						Ecosystem: "Go",
-//						License: License{
-//							Override: []string{"mit"},
-//						},
-//						Reason: "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.1",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk:    false,
-//			wantEntry: PackageOverrideEntry{},
-//		},
-//		{
-//			name: "Version entry doesn't exist with ignore",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:      "lib1",
-//						Version:   "1.0.0",
-//						Ecosystem: "Go",
-//						License: License{
-//							Ignore: true,
-//						},
-//						Reason: "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.1",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk:    false,
-//			wantEntry: PackageOverrideEntry{},
-//		},
-//		{
-//			name: "Name matches with override",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:      "lib1",
-//						Ecosystem: "Go",
-//						License: License{
-//							Override: []string{"mit"},
-//						},
-//						Reason: "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.1",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Name:      "lib1",
-//				Ecosystem: "Go",
-//				License: License{
-//					Override: []string{"mit"},
-//				},
-//				Reason: "abc",
-//			},
-//		},
-//		{
-//			name: "Name matches with ignore",
-//			config: Config{
-//				PackageOverrides: []PackageOverrideEntry{
-//					{
-//						Name:      "lib1",
-//						Ecosystem: "Go",
-//						License: License{
-//							Ignore: true,
-//						},
-//						Reason: "abc",
-//					},
-//				},
-//			},
-//			args: imodels.PackageInfo{
-//				Package: &extractor.Package{
-//					Name:    "lib1",
-//					Version: "1.0.1",
-//					Extractor: ecosystemmock.Extractor{
-//						MockEcosystem: "Go",
-//					},
-//				},
-//			},
-//			wantOk: true,
-//			wantEntry: PackageOverrideEntry{
-//				Name:      "lib1",
-//				Ecosystem: "Go",
-//				License: License{
-//					Ignore: true,
-//				},
-//				Reason: "abc",
-//			},
-//		},
-//	}
-//
-//	for _, tt := range tests {
-//		t.Run(tt.name, func(t *testing.T) {
-//			t.Parallel()
-//
-//			gotOk, gotEntry := tt.config.ShouldOverridePackageLicense(tt.args)
-//			if gotOk != tt.wantOk {
-//				t.Errorf("ShouldOverridePackageLicense() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
-//			}
-//			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
-//				t.Errorf("ShouldOverridePackageLicense() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
-//			}
-//		})
-//	}
-//}
+func TestConfig_ShouldIgnorePackage(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name      string
+		config    Config
+		args      imodels.PackageInfo
+		wantOk    bool
+		wantEntry PackageOverrideEntry
+	}{
+		{
+			name: "Everything-level entry exists",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Ecosystem-level entry exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Go",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib1",
+					Version:  "1.0.0",
+					PURLType: "go",
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Ecosystem:      "Go",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Ecosystem-level entry exists and does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Go",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib2",
+					Version:  "1.0.0",
+					PURLType: "npm",
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Ecosystem-level entry with suffix exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Alpine:3.20",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "bin1",
+					Version:  "1.0.0",
+					PURLType: "apk",
+					Metadata: apkmetadata.Metadata{
+						PackageName: "bin1",
+						OSID:        "Alpine",
+						OSVersionID: "3.20",
+					},
+				},
+			},
+			//args: imodels.PackageInfo{
+			//	Package: &extractor.Package{
+			//		Name:    "bin1",
+			//		Version: "1.0.0",
+			//		Ecosystem: "Alpine:3.20",
+			//	},
+			//},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Ecosystem:      "Alpine:3.20",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Ecosystem-level entry with suffix exists and does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Alpine:3.20",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:      "bin2",
+					Version:   "1.0.0",
+					Ecosystem: "Alpine:3.19",
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		{
+			name: "Ecosystem-level entry without suffix exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Ecosystem:      "Alpine",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:      "bin1",
+					Version:   "1.0.0",
+					Ecosystem: "Alpine:3.20",
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Ecosystem:      "Alpine",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Group-level entry exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Group:          "dev",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib1",
+					Version:  "1.0.0",
+					PURLType: "go",
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Group:          "dev",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Group-level entry exists and does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Group:          "dev",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib2",
+					Version:  "1.0.0",
+					PURLType: "npm",
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"optional"},
+					},
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		{
+			name: "Group-level entry exists and does not match when empty",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Group:          "dev",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib2",
+					Version:  "1.0.0",
+					PURLType: "npm",
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Version-level entry exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Version:        "1.0.0",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib1",
+					Version:  "1.0.0",
+					PURLType: "go",
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Version:        "1.0.0",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Version-level entry exists and does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Version:        "1.0.0",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib1",
+					Version:  "1.0.1",
+					PURLType: "go",
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Name-level entry exists and does match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib1",
+					Version:  "1.0.0",
+					PURLType: "go",
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:           "lib1",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Name-level entry exists and does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib2",
+					Version:  "1.0.0",
+					PURLType: "npm",
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		// -------------------------------------------------------------------------
+		{
+			name: "Name, Version, and Ecosystem entry exists",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Version:        "1.0.0",
+						Ecosystem:      "Go",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib1",
+					Version:  "1.0.0",
+					PURLType: "go",
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:           "lib1",
+				Version:        "1.0.0",
+				Ecosystem:      "Go",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Name and Ecosystem entry exists",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Ecosystem:      "Go",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib1",
+					Version:  "1.0.0",
+					PURLType: "go",
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:           "lib1",
+				Ecosystem:      "Go",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Name, Ecosystem, and Group entry exists and matches",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Ecosystem:      "Go",
+						Group:          "dev",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib1",
+					Version:  "1.0.0",
+					PURLType: "go",
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"dev"},
+					},
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:           "lib1",
+				Ecosystem:      "Go",
+				Group:          "dev",
+				Ignore:         true,
+				EffectiveUntil: time.Time{},
+				Reason:         "abc",
+			},
+		},
+		{
+			name: "Name, Ecosystem, and Group entry exists but does not match",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Ecosystem:      "Go",
+						Group:          "dev",
+						Ignore:         true,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib1",
+					Version:  "1.0.0",
+					PURLType: "go",
+					Metadata: osv.DepGroupMetadata{
+						DepGroupVals: []string{"prod"},
+					},
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		{
+			name: "Entry doesn't exist",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:           "lib1",
+						Version:        "2.0.0",
+						Ecosystem:      "Go",
+						Ignore:         false,
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+					{
+						Name:           "lib2",
+						Version:        "2.0.0",
+						Ignore:         true,
+						Ecosystem:      "Go",
+						EffectiveUntil: time.Time{},
+						Reason:         "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:     "lib1",
+					Version:  "2.0.0",
+					PURLType: "go",
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			gotOk, gotEntry := tt.config.ShouldIgnorePackage(tt.args)
+			if gotOk != tt.wantOk {
+				t.Errorf("ShouldIgnorePackage() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+			}
+			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
+				t.Errorf("ShouldIgnorePackage() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+			}
+		})
+	}
+}
+
+func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name   string
+		config Config
+		args   imodels.PackageInfo
+		wantOk bool
+	}{
+		{
+			name: "Exact version entry exists with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						Vulnerability: Vulnerability{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
+			},
+			wantOk: true,
+		},
+		{
+			name: "Version entry doesn't exist with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						Vulnerability: Vulnerability{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
+			},
+			wantOk: false,
+		},
+		{
+			name: "Name matches with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Ecosystem: "Go",
+						Vulnerability: Vulnerability{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
+			},
+			wantOk: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			gotOk := tt.config.ShouldIgnorePackageVulnerabilities(tt.args)
+			if gotOk != tt.wantOk {
+				t.Errorf("ShouldIgnorePackageVulnerabilities() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+			}
+		})
+	}
+}
+
+func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name      string
+		config    Config
+		args      imodels.PackageInfo
+		wantOk    bool
+		wantEntry PackageOverrideEntry
+	}{
+		{
+			name: "Exact version entry exists with override",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						License: License{
+							Override: []string{"mit"},
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: "Go",
+				License: License{
+					Override: []string{"mit"},
+				},
+				Reason: "abc",
+			},
+		},
+		{
+			name: "Exact version entry exists with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						License: License{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:    "lib1",
+					Version: "1.0.0",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:      "lib1",
+				Version:   "1.0.0",
+				Ecosystem: "Go",
+				License: License{
+					Ignore: true,
+				},
+				Reason: "abc",
+			},
+		},
+		{
+			name: "Version entry doesn't exist with override",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						License: License{
+							Override: []string{"mit"},
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		{
+			name: "Version entry doesn't exist with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Version:   "1.0.0",
+						Ecosystem: "Go",
+						License: License{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
+			},
+			wantOk:    false,
+			wantEntry: PackageOverrideEntry{},
+		},
+		{
+			name: "Name matches with override",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Ecosystem: "Go",
+						License: License{
+							Override: []string{"mit"},
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:      "lib1",
+				Ecosystem: "Go",
+				License: License{
+					Override: []string{"mit"},
+				},
+				Reason: "abc",
+			},
+		},
+		{
+			name: "Name matches with ignore",
+			config: Config{
+				PackageOverrides: []PackageOverrideEntry{
+					{
+						Name:      "lib1",
+						Ecosystem: "Go",
+						License: License{
+							Ignore: true,
+						},
+						Reason: "abc",
+					},
+				},
+			},
+			args: imodels.PackageInfo{
+				Package: &extractor.Package{
+					Name:    "lib1",
+					Version: "1.0.1",
+					Extractor: ecosystemmock.Extractor{
+						MockEcosystem: "Go",
+					},
+				},
+			},
+			wantOk: true,
+			wantEntry: PackageOverrideEntry{
+				Name:      "lib1",
+				Ecosystem: "Go",
+				License: License{
+					Ignore: true,
+				},
+				Reason: "abc",
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			gotOk, gotEntry := tt.config.ShouldOverridePackageLicense(tt.args)
+			if gotOk != tt.wantOk {
+				t.Errorf("ShouldOverridePackageLicense() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+			}
+			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
+				t.Errorf("ShouldOverridePackageLicense() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+			}
+		})
+	}
+}
