@@ -245,6 +245,142 @@ func TestCommand(t *testing.T) {
 	}
 }
 
+func TestCommand_ExplicitExtractors(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "empty_extractors_flag_does_nothing",
+			Args: []string{"", "source", "--experimental-extractors="},
+			Exit: 127,
+		},
+		{
+			Name: "extractors_cancelled_out_specified_individually",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=sbom/spdx",
+				"--experimental-extractors=sbom/cdx",
+				"--experimental-disable-extractors=sbom",
+			},
+			Exit: 127,
+		},
+		{
+			Name: "extractors_cancelled_out_specified_together",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=sbom/spdx,sbom/cdx",
+				"--experimental-disable-extractors=sbom",
+			},
+			Exit: 127,
+		},
+		{
+			Name: "extractors_cancelled_out_with_presets",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=sbom",
+				"--experimental-disable-extractors=sbom",
+			},
+			Exit: 127,
+		},
+		{
+			// this will scan just the package-lock.json file as we've not enabled
+			// extractors for any of the other lockfiles
+			Name: "scanning_directory_with_one_specific_extractor_enabled",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=javascript/packagelockjson",
+				"./fixtures/locks-many",
+			},
+			Exit: 0,
+		},
+		{
+			Name: "scanning_directory_with_an_extractor_that_does_not_exist",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=javascript/packagelockjson",
+				"--experimental-extractors=custom/extractor",
+				"--experimental-disable-extractors=custom/anotherextractor",
+				"./fixtures/locks-many",
+			},
+			Exit: 127,
+		},
+		{
+			// this will scan just the package-lock.json and composer.lock files as
+			// we've not enabled extractors for any of the other lockfiles
+			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_individually",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=javascript/packagelockjson",
+				"--experimental-extractors=php/composerlock",
+				"./fixtures/locks-many",
+			},
+			Exit: 0,
+		},
+		{
+			// this will scan just the package-lock.json and composer.lock files as
+			// we've not enabled extractors for any of the other lockfiles
+			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=javascript/packagelockjson,php/composerlock",
+				"./fixtures/locks-many",
+			},
+			Exit: 0,
+		},
+		{
+			// this should result in all files within the directory being scanned
+			// except for the package-lock.json
+			Name: "scanning_directory_with_one_specific_extractor_disabled",
+			Args: []string{
+				"", "source",
+				"--experimental-disable-extractors=javascript/packagelockjson",
+				"./fixtures/locks-many",
+			},
+			Exit: 0,
+		},
+		{
+			// this will scan just the package lock, since we're requested that file
+			// specifically and have enabled just that extractor
+			Name: "scanning_file_with_one_specific_extractor_enabled",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=javascript/packagelockjson",
+				"./fixtures/locks-many/package-lock.json",
+			},
+			Exit: 0,
+		},
+		{
+			// this will result in an error about not being able to find any package sources
+			// since we've requested a composer.lock be scanned without the extractor enabled
+			Name: "scanning_file_with_one_different_extractor_enabled",
+			Args: []string{
+				"", "source",
+				"--experimental-extractors=javascript/packagelockjson",
+				"./fixtures/locks-many/composer.lock",
+			},
+			Exit: 128,
+		},
+		{
+			// this will result in an error about not being able to determine the extractor
+			// since we've requested the file to be parsed with a specific extractor
+			// that we've also disabled
+			Name: "scanning_file_with_parse_as_but_specific_extractor_disabled",
+			Args: []string{
+				"", "source",
+				"--experimental-disable-extractors=javascript/packagelockjson",
+				"-L", "package-lock.json:./fixtures/locks-many/composer.lock",
+			},
+			Exit: 127,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
 func TestCommand_CallAnalysis(t *testing.T) {
 	t.Parallel()
 

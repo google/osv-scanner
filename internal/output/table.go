@@ -259,7 +259,7 @@ func tableBuilderInner(vulnResult *models.VulnerabilityResults, calledVulns bool
 
 			// Merge groups into the same row
 			for _, group := range pkg.Groups {
-				if !(group.IsCalled() == calledVulns && group.IsGroupUnimportant() == unimportantVulns) {
+				if group.IsCalled() != calledVulns || group.IsGroupUnimportant() != unimportantVulns {
 					continue
 				}
 
