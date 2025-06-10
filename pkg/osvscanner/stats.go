@@ -15,6 +15,10 @@ type FileOpenedPrinter struct {
 var _ stats.Collector = &FileOpenedPrinter{}
 
 func (c FileOpenedPrinter) AfterExtractorRun(_ string, extractorstats *stats.AfterExtractorStats) {
+	if extractorstats.Error != nil { // Don't log scanned if error occurred
+		return
+	}
+
 	pkgsFound := len(extractorstats.Inventory.Packages)
 
 	slog.Info(fmt.Sprintf(

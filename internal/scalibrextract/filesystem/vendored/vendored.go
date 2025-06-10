@@ -3,16 +3,15 @@ package vendored
 import (
 	"bytes"
 	"context"
-	"io"
-	"slices"
-
 	//nolint:gosec
 	// md5 used to identify files, not for security purposes
 	"crypto/md5"
 	"errors"
 	"fmt"
+	"io"
 	"io/fs"
 	"path/filepath"
+	"slices"
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -84,7 +83,9 @@ func (e *Extractor) Version() int { return 0 }
 
 // Requirements of the extractor.
 func (e *Extractor) Requirements() *plugin.Capabilities {
-	return &plugin.Capabilities{}
+	return &plugin.Capabilities{
+		ExtractFromDirs: true,
+	}
 }
 
 // FileRequired returns true for likely directories to contain vendored c/c++ code

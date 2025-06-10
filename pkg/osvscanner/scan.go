@@ -178,6 +178,11 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		if sr.Status.Status != plugin.ScanStatusSucceeded {
 			return nil, errors.New(sr.Status.FailureReason)
 		}
+		for _, status := range sr.PluginStatus {
+			if status.Status.Status != plugin.ScanStatusSucceeded {
+				slog.Error(fmt.Sprintf("Error during extraction: (extracting as %s) %s", status.Name, status.Status.FailureReason))
+			}
+		}
 
 		for _, pkg := range sr.Inventory.Packages {
 			for i := range pkg.Locations {
