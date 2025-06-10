@@ -320,8 +320,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 19 packages affected by 37 known vulnerabilities (0 Critical, 12 High, 10 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-37 vulnerabilities can be fixed.
+Total 19 packages affected by 38 known vulnerabilities (0 Critical, 12 High, 11 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+38 vulnerabilities can be fixed.
 
 
 PyPI
@@ -372,7 +372,7 @@ PyPI
 +----------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +----------+-------------------+---------------+------------+------------------+---------------+
-| requests | 2.20.0            | Fix Available |          2 | # 17 Layer       | --            |
+| requests | 2.20.0            | Fix Available |          3 | # 17 Layer       | --            |
 +----------+-------------------+---------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA     |
@@ -822,11 +822,12 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
+            "GHSA-9hjg-9r4m-mvj7",
             "GHSA-9wx4-h78v-vm56",
             "GHSA-j8r2-6x86-q33q",
             "PYSEC-2023-74"
           ],
-          "groups": 2
+          "groups": 3
         }
       ]
     },
