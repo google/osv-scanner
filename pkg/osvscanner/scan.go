@@ -34,14 +34,7 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
 			})
 		}
-
-		//if accessors.DependencyClients[osvschema.EcosystemPyPI] != nil && accessors.MavenRegistryAPIClient != nil {
-		//	requirementsenhancable.EnhanceIfPossible(tor, requirementsnet.Config{
-		//			Extractor: tor,
-		//			Client: ,
-		//		},
-		//	))
-		//}
+		// TODO: Enable requirementstxtnet extractor
 
 		// todo: the "disabled" aspect should probably be worked into the extractor being present in the first place
 		//  since "IncludeRootGit" is always true
@@ -128,7 +121,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	// On linux this would return a map with just one entry of /
 	rootMap := map[string][]string{}
 	for _, path := range actions.DirectoryPaths {
-		slog.Info(fmt.Sprintf("Scanning dir %s", path))
+		slog.Info("Scanning dir " + path)
 
 		absPath, err := filepath.Abs(path)
 		if err != nil {
