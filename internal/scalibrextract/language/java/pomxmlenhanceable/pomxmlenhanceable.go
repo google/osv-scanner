@@ -3,13 +3,11 @@ package pomxmlenhanceable
 import (
 	"context"
 
-	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
-	"github.com/google/osv-scalibr/purl"
 )
 
 const (
@@ -33,7 +31,10 @@ func (e *Extractor) Version() int { return 0 }
 
 // Requirements of the extractor
 func (e *Extractor) Requirements() *plugin.Capabilities {
-	return e.actual.Requirements()
+	req := e.actual.Requirements()
+	req.Network = plugin.NetworkAny
+
+	return req
 }
 
 // FileRequired returns true if the specified file matches Maven POM lockfile patterns.
@@ -44,16 +45,6 @@ func (e *Extractor) FileRequired(api filesystem.FileAPI) bool {
 // Extract extracts packages from pom.xml files passed through the scan input.
 func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
 	return e.actual.Extract(ctx, input)
-}
-
-// ToPURL converts a package created by this extractor into a PURL.
-func (e *Extractor) ToPURL(p *extractor.Package) *purl.PackageURL {
-	return e.actual.ToPURL(p)
-}
-
-// Ecosystem returns the OSV ecosystem ('npm') of the software extracted by this extractor.
-func (e *Extractor) Ecosystem(p *extractor.Package) string {
-	return e.actual.Ecosystem(p)
 }
 
 var _ filesystem.Extractor = &Extractor{}
