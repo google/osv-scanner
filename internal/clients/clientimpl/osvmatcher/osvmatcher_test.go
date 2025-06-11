@@ -8,10 +8,9 @@ import (
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/purl"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"osv.dev/bindings/go/osvdev"
-
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
 )
 
 func TestOSVMatcher_MatchVulnerabilities(t *testing.T) {
@@ -42,11 +41,9 @@ func TestOSVMatcher_MatchVulnerabilities(t *testing.T) {
 			args: args{
 				pkgs: []*extractor.Package{
 					{
-						Name:    "lib1",
-						Version: "1.0.1",
-						Extractor: ecosystemmock.Extractor{
-							MockEcosystem: "Go",
-						},
+						Name:     "lib1",
+						Version:  "1.0.1",
+						PURLType: purl.TypeGolang,
 					},
 				},
 			},

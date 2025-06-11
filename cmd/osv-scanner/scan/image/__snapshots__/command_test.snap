@@ -2422,7 +2422,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2023-7008",
-            "UBUNTU-CVE-2025-4598"
+            "UBUNTU-CVE-2025-4598",
+            "USN-7559-1"
           ],
           "groups": 2
         },
@@ -2471,7 +2472,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2023-7008",
-            "UBUNTU-CVE-2025-4598"
+            "UBUNTU-CVE-2025-4598",
+            "USN-7559-1"
           ],
           "groups": 2
         },
