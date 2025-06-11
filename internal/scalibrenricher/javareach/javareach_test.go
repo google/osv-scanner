@@ -121,7 +121,7 @@ func setupPackages(names []string) []*extractor.Package {
 			PURLType:  purl.TypeMaven,
 			Metadata:  &archivemeta.Metadata{ArtifactID: reachableArtifactID, GroupID: reachableGroupID},
 			Locations: []string{filepath.Join("testdata", n)},
-			Extractor: &archive.Extractor{},
+			Plugins:   []string{archive.Name},
 		}
 
 		unreachablePkg := &extractor.Package{
@@ -130,7 +130,7 @@ func setupPackages(names []string) []*extractor.Package {
 			PURLType:  purl.TypeMaven,
 			Metadata:  &archivemeta.Metadata{ArtifactID: unreachableArtifactID, GroupID: unreachableGroupID},
 			Locations: []string{filepath.Join("testdata", n)},
-			Extractor: &archive.Extractor{},
+			Plugins:   []string{archive.Name},
 		}
 
 		pkgs = append(pkgs, reachablePkg, unreachablePkg)

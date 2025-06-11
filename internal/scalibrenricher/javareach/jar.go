@@ -25,7 +25,6 @@ import (
 	"io/fs"
 	"net/http"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -237,7 +236,7 @@ func extractClassMappings(ctx context.Context, inv *extractor.Package, classMap 
 
 // NewDefaultPackageFinder creates a new DefaultPackageFinder based on a set of
 // inventory.
-func NewDefaultPackageFinder(ctx context.Context, inv []*extractor.Package, jarDir string, client *http.Client) (*DefaultPackageFinder, error) {
+func NewDefaultPackageFinder(ctx context.Context, inv []*extractor.Package, jarDir *os.Root, client *http.Client) (*DefaultPackageFinder, error) {
 	// Download pkg, unpack, and store class mappings for each detected dependency.
 	classMap := map[string][]string{}
 	artifactMap := map[string][]string{}
@@ -267,29 +266,27 @@ func NewDefaultPackageFinder(ctx context.Context, inv []*extractor.Package, jarD
 }
 
 // mapRootClasses maps class files to the root application where we can determine that association.
-func mapRootClasses(jarDir string, classMap map[string][]string, artifactMap map[string][]string) error {
+func mapRootClasses(jarDir *os.Root, classMap map[string][]string, artifactMap map[string][]string) error {
 	// Spring Boot.
 	// TODO(#787): Handle non-Spring Boot applications. We could add heuristic for
 	// detecting root application classes when the class structure is flat based
 	// on the class hierarchy.
-	bootInfClasses := path.Join(jarDir, BootInfClasses)
-	if _, err := os.Stat(bootInfClasses); err != nil {
+	if _, err := jarDir.Stat(BootInfClasses); err != nil {
 		if os.IsNotExist(err) {
 			return nil
 		}
 
 		return err
 	}
+	log.Debug("Found Spring Boot classes", "classes", BootInfClasses)
 
-	log.Debug("Found Spring Boot classes", "classes", bootInfClasses)
-
-	return filepath.Walk(bootInfClasses, func(path string, info fs.FileInfo, err error) error {
+	return fs.WalkDir(jarDir.FS(), BootInfClasses, func(path string, info fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}
 
 		if !info.IsDir() && strings.HasSuffix(path, ".class") {
-			name, err := filepath.Rel(bootInfClasses, path)
+			name, err := filepath.Rel(BootInfClasses, path)
 			if err != nil {
 				return err
 			}

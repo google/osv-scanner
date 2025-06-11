@@ -29,7 +29,6 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
-	"syscall"
 
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/extractor"
@@ -78,8 +77,7 @@ func (Enricher) Version() int {
 // Requirements returns the requirements of the enricher.
 func (Enricher) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{
-		Network:  plugin.NetworkOnline,
-		DirectFS: false,
+		Network: plugin.NetworkOnline,
 	}
 }
 
@@ -116,8 +114,11 @@ func (enr Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *
 	}
 	jars := make(map[string]struct{})
 	for i := range inv.Packages {
-		if inv.Packages[i].Extractor.Name() == archive.Name {
-			jars[inv.Packages[i].Locations[0]] = struct{}{}
+		for _, extractorName := range inv.Packages[i].Plugins {
+			if extractorName == archive.Name {
+				jars[inv.Packages[i].Locations[0]] = struct{}{}
+				break
+			}
 		}
 	}
 
@@ -175,7 +176,7 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 
 	// Reachability analysis is limited to Maven-built JARs for now.
 	// Check for the existence of the Maven metadata directory.
-	_, err = os.Stat(path.Join(jarRoot.Name(), MavenDepDirPath))
+	_, err = jarRoot.Stat(MavenDepDirPath)
 	if err != nil {
 		log.Error("reachability analysis is only supported for JARs built with Maven.")
 		return ErrMavenDependencyNotFound
@@ -183,7 +184,7 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 
 	// Build .class -> Maven group ID:artifact ID mappings.
 	// TODO(#787): Handle BOOT-INF and loading .jar dependencies from there.
-	classFinder, err := NewDefaultPackageFinder(ctx, allDeps, jarRoot.Name(), client)
+	classFinder, err := NewDefaultPackageFinder(ctx, allDeps, jarRoot, client)
 	if err != nil {
 		return err
 	}
@@ -200,23 +201,21 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 	}
 	log.Debug("Found", "main classes", mainClasses)
 
-	classPaths := []string{jarRoot.Name()}
+	classPaths := []string{"./"}
 	classPaths = append(classPaths, nestedJARs...)
 
 	// Spring Boot applications have classes in BOOT-INF/classes.
-	bootInfClasses := path.Join(jarRoot.Name(), BootInfClasses)
-	if _, err := os.Stat(bootInfClasses); err == nil {
-		classPaths = append(classPaths, bootInfClasses)
+	if _, err := jarRoot.Stat(BootInfClasses); err == nil {
+		classPaths = append(classPaths, BootInfClasses)
 	}
 
 	// Look inside META-INF/services, which is used by
 	// https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html
-	servicesDir := path.Join(jarRoot.Name(), ServiceDirPath)
 	var optionalRootClasses []string
-	if _, err := os.Stat(servicesDir); err == nil {
-		var entries []string
 
-		err := filepath.WalkDir(servicesDir, func(path string, d fs.DirEntry, err error) error {
+	if _, err := jarRoot.Stat(ServiceDirPath); err == nil {
+		var entries []string
+		err = fs.WalkDir(jarRoot.FS(), ServiceDirPath, func(path string, d fs.DirEntry, err error) error {
 			if err != nil {
 				return err
 			}
@@ -233,7 +232,7 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 		}
 
 		for _, entry := range entries {
-			f, err := os.Open(entry)
+			f, err := jarRoot.Open(entry)
 			if err != nil {
 				return err
 			}
@@ -265,7 +264,7 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 
 	// Enumerate reachable classes.
 	enumerator := NewReachabilityEnumerator(classPaths, classFinder, AssumeAllClassesReachable, AssumeAllClassesReachable)
-	result, err := enumerator.EnumerateReachabilityFromClasses(mainClasses, optionalRootClasses)
+	result, err := enumerator.EnumerateReachabilityFromClasses(jarRoot, mainClasses, optionalRootClasses)
 	if err != nil {
 		return err
 	}
@@ -367,7 +366,6 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpRoot *os.Root) (nest
 
 	for _, file := range r.File {
 		relativePath := file.Name
-		fullPath, err := sanitizeExtractPath(tmpRoot.Name(), relativePath)
 		if err != nil {
 			return nil, err
 		}
@@ -382,7 +380,7 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpRoot *os.Root) (nest
 			}
 
 			if strings.HasSuffix(relativePath, ".jar") {
-				nestedJARs = append(nestedJARs, fullPath)
+				nestedJARs = append(nestedJARs, relativePath)
 			}
 
 			source, err := file.Open()
@@ -406,67 +404,4 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpRoot *os.Root) (nest
 	}
 
 	return nestedJARs, nil
-}
-
-// see https://github.com/securego/gosec/issues/324#issuecomment-935927967
-func sanitizeExtractPath(zipPath, file string) (string, error) {
-	// In windows, the zipPath still contains back slash
-	path := filepath.Join(zipPath, file)
-	if !strings.HasPrefix(path, filepath.Clean(zipPath)+string(os.PathSeparator)) {
-		return "", fmt.Errorf("directory traversal: %s", path)
-	}
-
-	return path, nil
-}
-
-func mkdirAll(root *os.Root, path string, perm os.FileMode) error {
-	// Fast path: if we can tell whether path is a directory or file, stop with success or error.
-	dir, err := root.Stat(path)
-	if err == nil {
-		if dir.IsDir() {
-			return nil
-		}
-
-		return &os.PathError{Op: "mkdir", Path: path, Err: syscall.ENOTDIR}
-	}
-
-	// Slow path: make sure parent exists and then call Mkdir for path.
-
-	// Extract the parent folder from path by first removing any trailing
-	// path separator and then scanning backward until finding a path
-	// separator or reaching the beginning of the string.
-	i := len(path) - 1
-
-	for i >= 0 && path[i] == PathSeparator {
-		i--
-	}
-	for i >= 0 && !os.IsPathSeparator(path[i]) {
-		i--
-	}
-	if i < 0 {
-		i = 0
-	}
-
-	// recurse to ensure parent directory exists.
-	if parent := path[:i]; len(parent) > 0 {
-		err = mkdirAll(root, parent, perm)
-		if err != nil {
-			return err
-		}
-	}
-
-	// Parent now exists; invoke Mkdir and use its result.
-	err = root.Mkdir(path, perm)
-	if err != nil {
-		// Handle arguments like "foo/." by
-		// double-checking that directory doesn't exist.
-		dir, err1 := os.Lstat(path)
-		if err1 == nil && dir.IsDir() {
-			return nil
-		}
-
-		return err
-	}
-
-	return nil
 }
