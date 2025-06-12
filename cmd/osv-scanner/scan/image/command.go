@@ -86,6 +86,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 	vulnResult, err = osvscanner.DoContainerScan(scannerAction)
 
 	if cmd.Bool("allow-no-lockfiles") && errors.Is(err, osvscanner.ErrNoPackagesFound) {
+		slog.Warn("No package sources found")
 		err = nil
 	}
 

@@ -989,6 +989,7 @@ No issues found
 
 [TestCommand/no_lockfiles_without_recursion_but_with_allow_flag_are_fine - 1]
 Scanning dir ./fixtures/locks-none
+No package sources found
 No issues found
 
 ---

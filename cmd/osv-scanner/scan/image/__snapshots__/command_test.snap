@@ -91,6 +91,7 @@ No package sources found, --help for usage information.
 Checking if docker image ("hello-world:linux") exists locally...
 Saving docker image ("hello-world:linux") to temporary file...
 Scanning image "hello-world:linux"
+No package sources found
 No issues found
 
 ---
