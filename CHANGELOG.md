@@ -5,7 +5,6 @@
 - [Feature #1846](https://github.com/google/osv-scanner/pull/1846) Experimental: Add `--experimental-extractors` and `--experimental-disable-extractors` flags to allow for more granular control over which OSV-Scalibr dependency extractors are used.
 - [Feature #1882](https://github.com/google/osv-scanner/pull/1882) Add a `stable` tag to container images for releases that follow semantic versioning.
 
-
 ### Fixes:
 
 - [Bug #1856](https://github.com/google/osv-scanner/pull/1856) Improve XML output by guessing and matching the indentation of existing `<dependency>` elements.
