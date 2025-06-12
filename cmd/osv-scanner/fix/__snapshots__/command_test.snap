@@ -1,11 +1,12 @@
 
 [TestCommand/fix_non-interactive_in-place_package-lock.json - 1]
 Scanning <tempdir>/package-lock.json...
-Found 7 vulnerabilities matching the filter
-Can fix 2/7 matching vulnerabilities by changing 2 dependencies
+Found 8 vulnerabilities matching the filter
+Can fix 3/8 matching vulnerabilities by changing 3 dependencies
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.12
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-g74r-ffvr-5q9f
+FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
 REMAINING-VULNS: 5
 UNFIXABLE-VULNS: 5
 Rewriting <tempdir>/package-lock.json...
@@ -118,9 +119,9 @@ Rewriting <tempdir>/package-lock.json...
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.11",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
-      "integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
+      "version": "1.1.12",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
+      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
       "dependencies": {
         "balanced-match": "^1.0.0",
         "concat-map": "0.0.1"
@@ -1040,9 +1041,9 @@ Rewriting <tempdir>/package-lock.json...
       }
     },
     "brace-expansion": {
-      "version": "1.1.11",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
-      "integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
+      "version": "1.1.12",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
+      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
       "requires": {
         "balanced-match": "^1.0.0",
         "concat-map": "0.0.1"
@@ -1815,9 +1816,39 @@ Rewriting <tempdir>/package-lock.json...
         }
       ],
       "unactionable": true
+    },
+    {
+      "id": "GHSA-v6h2-p8h4-qcjw",
+      "packages": [
+        {
+          "name": "brace-expansion",
+          "version": "1.1.11"
+        }
+      ]
     }
   ],
   "patches": [
+    {
+      "packageUpdates": [
+        {
+          "name": "brace-expansion",
+          "versionFrom": "1.1.11",
+          "versionTo": "1.1.12",
+          "transitive": true
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-v6h2-p8h4-qcjw",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        }
+      ]
+    },
     {
       "packageUpdates": [
         {
@@ -1973,9 +2004,9 @@ Rewriting <tempdir>/package-lock.json...
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.11",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
-      "integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
+      "version": "1.1.12",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
+      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
       "dependencies": {
         "balanced-match": "^1.0.0",
         "concat-map": "0.0.1"
@@ -2895,9 +2926,9 @@ Rewriting <tempdir>/package-lock.json...
       }
     },
     "brace-expansion": {
-      "version": "1.1.11",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz",
-      "integrity": "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==",
+      "version": "1.1.12",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
+      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
       "requires": {
         "balanced-match": "^1.0.0",
         "concat-map": "0.0.1"

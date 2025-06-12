@@ -112,6 +112,9 @@ Scanned <rootdir>/fixtures/go-project/go.mod file and found 1 package
 | https://osv.dev/GO-2025-3420 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 | https://osv.dev/GO-2025-3447 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 | https://osv.dev/GO-2025-3563 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2025-3749 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2025-3750 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2025-3751 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 +------------------------------+------+-----------+---------+---------+----------------------------+
 
 ---
@@ -145,6 +148,9 @@ Scanned <rootdir>/fixtures/go-project/nested/go.mod file and found 1 package
 | https://osv.dev/GO-2025-3420 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
 | https://osv.dev/GO-2025-3447 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
 | https://osv.dev/GO-2025-3563 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
+| https://osv.dev/GO-2025-3749 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
+| https://osv.dev/GO-2025-3750 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
+| https://osv.dev/GO-2025-3751 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
 | https://osv.dev/GO-2024-2598 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2024-2599 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2024-2600 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
@@ -161,6 +167,9 @@ Scanned <rootdir>/fixtures/go-project/nested/go.mod file and found 1 package
 | https://osv.dev/GO-2025-3420 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2025-3447 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2025-3563 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
+| https://osv.dev/GO-2025-3749 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
+| https://osv.dev/GO-2025-3750 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
+| https://osv.dev/GO-2025-3751 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
 +------------------------------+------+-----------+---------+---------+-----------------------------------+
 
 ---
@@ -1173,6 +1182,8 @@ Filtered 1 vulnerability from output
 | https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2025-3563        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2025-3749        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2025-3750        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | Uncalled vulnerabilities            |      |           |                             |         |                                          |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
@@ -1198,6 +1209,7 @@ Filtered 1 vulnerability from output
 | https://osv.dev/GO-2024-3106        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2024-3107        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2025-3420        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2025-3751        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 
 ---
