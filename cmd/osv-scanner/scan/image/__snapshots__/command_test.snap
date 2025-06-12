@@ -87,6 +87,18 @@ No package sources found, --help for usage information.
 
 ---
 
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag - 1]
+Checking if docker image ("hello-world:linux") exists locally...
+Saving docker image ("hello-world:linux") to temporary file...
+Scanning image "hello-world:linux"
+No issues found
+
+---
+
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag - 2]
+
+---
+
 [TestCommand_ExplicitExtractors/extractors_cancelled_out - 1]
 
 ---
