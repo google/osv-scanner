@@ -1,3 +1,22 @@
+# v2.0.3
+
+### Features:
+
+- [Feature \#1846](https://github.com/google/osv-scanner/pull/1846) Experimental: Add `--experimental-extractors` and `--experimental-disable-extractors` flags to allow for more granular control over which OSV-Scalibr dependency extractors are used.
+- [Feature \#1882](https://github.com/google/osv-scanner/pull/1882) Add a `stable` tag to container images for releases that follow semantic versioning.
+
+
+### Fixes:
+
+- [Bug \#1856](https://github.com/google/osv-scanner/pull/1856) Improve XML output by guessing and matching the indentation of existing `<dependency>` elements.
+- [Bug \#1850](https://github.com/google/osv-scanner/pull/1850) Prevent escaping of single quotes in XML attributes for better readability and correctness.
+- [Bug \#1922](https://github.com/google/osv-scanner/pull/1922) Prevent a potential panic in `MatchVulnerabilities` when the API response is nil, particularly on timeout.
+- [Bug \#1916](https://github.com/google/osv-scanner/pull/1916) Add the "ubuntu" namespace to the debian purl type to correctly parse dpkg BOMs generated on Ubuntu.
+- [Bug \#1871](https://github.com/google/osv-scanner/pull/1871) Ensure inventories are sorted by PURL in addition to name and version to prevent incorrect deduplication of packages.
+- [Bug \#1919](https://github.com/google/osv-scanner/pull/1919) Improve error reporting by including the underlying error when the response body from a Maven registry cannot be read.
+- [Bug \#1857](https://github.com/google/osv-scanner/pull/1857) Fix an issue where SPDX output is not correctly outputted because it was getting overwritten.
+- [Bug \#1873](https://github.com/google/osv-scanner/pull/1873) Fix the GitHub Action to not ignore general errors during execution.
+
 # v2.0.2
 
 ### Fixes:
