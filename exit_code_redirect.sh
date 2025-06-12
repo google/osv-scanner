@@ -53,6 +53,10 @@ if [[ $exit_code -eq 128 ]]; then
   done
   if [[ $using_new_flag = "no" ]]; then
     echo "deprecation warning: please use the --allow-no-lockfiles flag if you don't want this action to error when there are no lockfiles"
+
+    if [[ -n "$CI" ]]; then
+      echo "::warning::No lockfiles found. Please use the --allow-no-lockfiles flag to suppress this warning."
+    fi
   fi
 
   exit_code=0
