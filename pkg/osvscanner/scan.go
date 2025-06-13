@@ -178,10 +178,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 				slog.Error(fmt.Sprintf("Error during extraction: (extracting as %s) %s", status.Name, status.Status.FailureReason))
 			}
 		}
-
-		for _, pkg := range sr.Inventory.Packages {
-			scannedInventories = append(scannedInventories, pkg)
-		}
+		scannedInventories = append(scannedInventories, sr.Inventory.Packages...)
 	}
 
 	testlogger.EndDirScanMarker()
