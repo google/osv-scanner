@@ -44,15 +44,15 @@ if [[ $exit_code -eq 128 ]]; then
   # if the "--allow-no-lockfiles" flag has not been used, print a deprecation warning
   using_new_flag="no"
   for value in "${args[@]}"; do
-    if [[ "--allow-no-lockfiles" = "$value" ]] ||
-      [[ "-allow-no-lockfiles" = "$value" ]] ||
-      [[ "-allow-no-lockfiles=true" = "$value" ]] ||
-      [[ "--allow-no-lockfiles=true" = "$value" ]]; then
+    if [[ "$value" = "--allow-no-lockfiles" ]] ||
+      [[ "$value" ="-allow-no-lockfiles" ]] ||
+      [[ "$value" = "-allow-no-lockfiles=true" ]] ||
+      [[ "$value" = "--allow-no-lockfiles=true" ]]; then
       using_new_flag="yes"
     fi
 
-    if [[ "-allow-no-lockfiles=false" = "$value" ]] ||
-      [[ "--allow-no-lockfiles=false" = "$value" ]]; then
+    if [[ "$value" =  "-allow-no-lockfiles=false" ]] ||
+      [[ "$value" = "--allow-no-lockfiles=false" ]]; then
       exit $exit_code
     fi
   done
