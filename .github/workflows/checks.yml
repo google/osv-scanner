@@ -131,6 +131,33 @@ jobs:
         uses: ./.github/workflows/test-action
         with:
           codecov_token: ${{ secrets.CODECOV_TOKEN }}
+
+  tests_windows_no_cache:
+    permissions:
+      contents: read # to fetch code (actions/checkout)
+    needs:
+      - prepare_test_image_fixtures
+    name: Run unit tests (windows-latest, no cache)
+    runs-on: windows-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: image-fixtures-${{ github.run_number }}-${{ github.run_attempt }}
+          path: internal/image/fixtures/
+      - name: Set up Go
+        uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
+        with:
+          go-version: stable
+          check-latest: true
+          cache: false
+      - name: Run test action
+        uses: ./.github/workflows/test-action
+        with:
+          codecov_token: ${{ secrets.CODECOV_TOKEN }}
   docker:
     permissions:
       contents: read # to fetch code (actions/checkout)
