@@ -139,18 +139,16 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		capabilities := plugin.Capabilities{
 			DirectFS:      true,
 			RunningSystem: true,
+			Network:       plugin.NetworkOnline,
+			OS:            plugin.OSUnix,
 		}
 
 		if actions.CompareOffline {
 			capabilities.Network = plugin.NetworkOffline
-		} else {
-			capabilities.Network = plugin.NetworkOnline
 		}
 
 		if runtime.GOOS == "windows" {
 			capabilities.OS = plugin.OSWindows
-		} else {
-			capabilities.OS = plugin.OSUnix
 		}
 
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
