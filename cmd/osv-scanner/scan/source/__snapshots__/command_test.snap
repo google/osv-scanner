@@ -1,8 +1,8 @@
 
 [TestCommand/.gitignored_files - 1]
 Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
 No issues found
 
 ---
@@ -297,11 +297,11 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 
 [TestCommand/Scan_locks-many - 1]
 Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
@@ -317,8 +317,8 @@ No issues found
 
 [TestCommand/all_supported_lockfiles_in_the_directory_should_be_checked - 1]
 Scanning dir ./fixtures/locks-many-with-invalid
-Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 
 ---
 
@@ -332,13 +332,13 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 Scanning dir ./fixtures/locks-many
 Scanning dir ./fixtures/locks-insecure
 Scanning dir ./fixtures/maven-transitive
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
 Filtered 1 local/unscannable package/s from the scan.
 Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
@@ -419,11 +419,11 @@ unknown keys in config file: RustVersionOverride, PackageOverrides.skip, Package
 [TestCommand/config_files_should_not_have_multiple_ignores_with_the_same_id - 1]
 warning: ./fixtures/osv-scanner-duplicate-config.toml has multiple ignores for GO-2022-0274 - only the first will be used!
 Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 CVE-2025-26519 has been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
@@ -592,10 +592,10 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 [TestCommand/folder_of_supported_sbom_with_vulns - 1]
 Scanning dir ./fixtures/sbom-insecure/
-Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
+Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
+Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 9 local/unscannable package/s from the scan.
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | SOURCE                                          |
@@ -694,6 +694,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/CVE-2025-27113      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32414      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32415      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-6021       | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -881,8 +882,8 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 [TestCommand/ignores_without_reason_should_be_explicitly_called_out - 1]
 Scanning dir ./fixtures/locks-many/package-lock.json
 Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Package Packagist/sentry/sdk/2.0.4 has been filtered out because: (no reason given)
 Filtered 1 ignored package/s from the scan.
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
@@ -897,14 +898,14 @@ No issues found
 
 [TestCommand/ignoring_.gitignore - 1]
 Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
 No issues found
 
 ---
@@ -944,8 +945,8 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 [TestCommand/nested_directories_are_checked_when_`--recursive`_is_passed - 1]
 Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 No issues found
 
 ---
@@ -1093,10 +1094,10 @@ unsupported output format "unknown" - must be one of: table, html, vertical, jso
 
 [TestCommand/requirements.txt_can_have_all_kinds_of_names - 1]
 Scanning dir ./fixtures/locks-requirements
-Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
-Scanned <rootdir>/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
 Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
 Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
 +-------------------------------------+------+-----------+------------+---------+---------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | SOURCE                                            |
@@ -1304,10 +1305,10 @@ Unknown extractor custom/extractor
 
 [TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_disabled - 1]
 Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
@@ -1680,11 +1681,11 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 pac
 
 [TestCommand_Licenses/No_vulnerabilities_with_license_summary - 1]
 Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
@@ -1706,11 +1707,11 @@ Filtered 2 vulnerabilities from output
 
 [TestCommand_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 1]
 Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
@@ -1813,13 +1814,13 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 pac
 [TestCommand_Licenses/Some_packages_with_ignored_licenses - 1]
 Scanning dir ./fixtures/locks-many
 Scanning dir ./fixtures/locks-insecure
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
 Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
@@ -2107,8 +2108,8 @@ cannot retrieve licenses locally
 
 [TestCommand_LocalDatabases/.gitignored_files - 1]
 Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 No issues found
@@ -2121,8 +2122,8 @@ No issues found
 
 [TestCommand_LocalDatabases/.gitignored_files - 3]
 Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 No issues found
@@ -2135,11 +2136,11 @@ No issues found
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 1]
 Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
@@ -2159,11 +2160,11 @@ No issues found
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 3]
 Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
@@ -2183,8 +2184,8 @@ No issues found
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 1]
 Scanning dir ./fixtures/locks-many-with-invalid
-Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 
@@ -2197,8 +2198,8 @@ Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/loc
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 3]
 Scanning dir ./fixtures/locks-many-with-invalid
-Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many-with-invalid/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many-with-invalid/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 
@@ -2229,14 +2230,14 @@ databases can only be downloaded when running in offline mode
 
 [TestCommand_LocalDatabases/ignoring_.gitignore - 1]
 Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
@@ -2250,14 +2251,14 @@ No issues found
 
 [TestCommand_LocalDatabases/ignoring_.gitignore - 3]
 Scanning dir ./fixtures/locks-gitignore
-Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/Gemfile.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-gitignore/ignored/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/ignored/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/Gemfile.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/subdir/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-gitignore/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
@@ -2271,8 +2272,8 @@ No issues found
 
 [TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 1]
 Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 No issues found
@@ -2285,8 +2286,8 @@ No issues found
 
 [TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 3]
 Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 No issues found
@@ -2423,6 +2424,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2025-27113      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32414      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32415      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-6021       | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2692,6 +2694,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2025-27113      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32414      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32415      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-6021       | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2976,16 +2979,16 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 1]
 Scanning dir ./fixtures/locks-requirements
 Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
-Scanned <rootdir>/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
+Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 
 ---
@@ -3002,16 +3005,16 @@ could not load db for Packagist ecosystem: unable to fetch OSV database: no offl
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 3]
 Scanning dir ./fixtures/locks-requirements
 Scanning dir ./fixtures/locks-many
-Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
-Scanned <rootdir>/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
+Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 
 ---

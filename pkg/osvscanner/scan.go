@@ -22,6 +22,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -105,6 +106,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	// --- Directories ---
+
 	dirExtractors := getExtractors(
 		slices.Concat(
 			scalibrextract.ExtractorsLockfiles,
@@ -131,6 +133,8 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		rootMap[root] = append(rootMap[root], absPath)
 	}
 
+	testlogger.BeginDirScanMarker()
+	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
 			DirectFS:      true,
@@ -184,6 +188,8 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 			scannedInventories = append(scannedInventories, pkg)
 		}
 	}
+
+	testlogger.EndDirScanMarker()
 
 	// Add on additional direct dependencies passed straight from ScannerActions:
 	for _, commit := range actions.GitCommits {
