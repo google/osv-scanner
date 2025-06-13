@@ -41,6 +41,29 @@ exit_code=$?
 echo "Exit code: ${exit_code}"
 # don't error if there are no lockfiles found
 if [[ $exit_code -eq 128 ]]; then
+  # if the "--allow-no-lockfiles" flag has not been used, print a deprecation warning
+  using_new_flag="no"
+  for value in "${args[@]}"; do
+    if [[ "$value" = "--allow-no-lockfiles" ]] ||
+      [[ "$value" ="-allow-no-lockfiles" ]] ||
+      [[ "$value" = "-allow-no-lockfiles=true" ]] ||
+      [[ "$value" = "--allow-no-lockfiles=true" ]]; then
+      using_new_flag="yes"
+    fi
+
+    if [[ "$value" =  "-allow-no-lockfiles=false" ]] ||
+      [[ "$value" = "--allow-no-lockfiles=false" ]]; then
+      exit $exit_code
+    fi
+  done
+  if [[ $using_new_flag = "no" ]]; then
+    echo "deprecation warning: please use the --allow-no-lockfiles flag if you don't want this action to error when there are no lockfiles"
+
+    if [[ -n "$CI" ]]; then
+      echo "::warning::No lockfiles found. Please use the --allow-no-lockfiles flag to suppress this warning."
+    fi
+  fi
+
   exit_code=0
 fi
 

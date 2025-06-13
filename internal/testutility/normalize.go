@@ -117,6 +117,9 @@ func normalizeErrors(t *testing.T, str string) string {
 	str = strings.ReplaceAll(str, "The filename, directory name, or volume label syntax is incorrect.", "no such file or directory")
 	str = strings.ReplaceAll(str, "The system cannot find the path specified.", "no such file or directory")
 	str = strings.ReplaceAll(str, "The system cannot find the file specified.", "no such file or directory")
+	str = strings.ReplaceAll(str, ": CreateFile ./fixtures/", ": stat ./fixtures/")
+	// str = strings.ReplaceAll(str, ": stat ./fixtures/", ": lstat ./fixtures/")
+	str = strings.ReplaceAll(str, "\nstat ./fixtures/", "\nlstat ./fixtures/")
 
 	return str
 }

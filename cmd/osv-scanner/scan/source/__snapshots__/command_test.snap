@@ -953,6 +953,61 @@ No issues found
 
 ---
 
+[TestCommand/no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine - 1]
+Scanning dir ./fixtures/locks-none-does-not-exist
+Failed to walk ./fixtures/locks-none-does-not-exist: lstat ./fixtures/locks-none-does-not-exist: no such file or directory
+
+---
+
+[TestCommand/no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine - 2]
+Unable to parse git ignores: stat ./fixtures/locks-none-does-not-exist: no such file or directory
+lstat ./fixtures/locks-none-does-not-exist: no such file or directory
+
+---
+
+[TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine - 1]
+Scanning dir ./fixtures/locks-none
+Scanned <rootdir>/fixtures/locks-none/nested/composer.lock file and found 1 package
+No issues found
+
+---
+
+[TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine - 2]
+
+---
+
+[TestCommand/no_lockfiles_with_recursion_but_without_allow_flag_are_fine - 1]
+Scanning dir ./fixtures/locks-none
+Scanned <rootdir>/fixtures/locks-none/nested/composer.lock file and found 1 package
+No issues found
+
+---
+
+[TestCommand/no_lockfiles_with_recursion_but_without_allow_flag_are_fine - 2]
+
+---
+
+[TestCommand/no_lockfiles_without_recursion_but_with_allow_flag_are_fine - 1]
+Scanning dir ./fixtures/locks-none
+No package sources found
+No issues found
+
+---
+
+[TestCommand/no_lockfiles_without_recursion_but_with_allow_flag_are_fine - 2]
+
+---
+
+[TestCommand/no_lockfiles_without_recursion_or_allow_flag_give_an_error - 1]
+Scanning dir ./fixtures/locks-none
+
+---
+
+[TestCommand/no_lockfiles_without_recursion_or_allow_flag_give_an_error - 2]
+No package sources found, --help for usage information.
+
+---
+
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 1]
 Failed to parse SBOM "<rootdir>/fixtures/locks-many/composer.lock" with error: could not determine extractor suitable to this file
 If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.
