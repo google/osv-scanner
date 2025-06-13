@@ -50,6 +50,11 @@ if [[ $exit_code -eq 128 ]]; then
       [[ "--allow-no-lockfiles=true" = "$value" ]]; then
       using_new_flag="yes"
     fi
+
+    if [[ "-allow-no-lockfiles=false" = "$value" ]] ||
+      [[ "--allow-no-lockfiles=false" = "$value" ]]; then
+      exit $exit_code
+    fi
   done
   if [[ $using_new_flag = "no" ]]; then
     echo "deprecation warning: please use the --allow-no-lockfiles flag if you don't want this action to error when there are no lockfiles"
