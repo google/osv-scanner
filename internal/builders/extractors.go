@@ -40,6 +40,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
@@ -122,6 +123,8 @@ func build(name string) filesystem.Extractor {
 		return requirements.NewDefault()
 	case requirementsnet.Name:
 		return requirementsnet.NewDefault()
+	case requirementsenhancable.Name:
+		return requirementsenhancable.New()
 	case uvlock.Name:
 		return uvlock.New()
 	case wheelegg.Name:
