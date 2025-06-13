@@ -85,7 +85,7 @@ func TestCommand(t *testing.T) {
 		},
 		{
 			Name: "no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine",
-			Args: []string{"", "source", "--allow-no-lockfiles", "./fixtures/does-not-exist"},
+			Args: []string{"", "source", "--allow-no-lockfiles", "./fixtures/locks-none-does-not-exist"},
 			Exit: 127,
 		},
 		{
