@@ -982,7 +982,7 @@ No issues found
 Scanning dir ./fixtures/locks-test-ignore/package-lock.json
 Scanned <rootdir>/fixtures/locks-test-ignore/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-test-ignore/osv-scanner.toml
-CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
+CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (package-lock.json)
 Filtered 1 vulnerability from output
 No issues found
 
