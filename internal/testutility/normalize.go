@@ -118,7 +118,7 @@ func normalizeErrors(t *testing.T, str string) string {
 	str = strings.ReplaceAll(str, "The system cannot find the path specified.", "no such file or directory")
 	str = strings.ReplaceAll(str, "The system cannot find the file specified.", "no such file or directory")
 	str = strings.ReplaceAll(str, "CreateFile", "lstat")
-	str = strings.ReplaceAll(str, "\nstat ./fixtures/does-not-exist: no such file or directory", "\nlstat ./fixtures/does-not-exist: no such file or directory")
+	str = strings.ReplaceAll(str, "\nstat ./fixtures/", "\nlstat ./fixtures/")
 
 	return str
 }
