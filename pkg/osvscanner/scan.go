@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"log/slog"
+	"os"
 	"path/filepath"
 	"runtime"
 	"slices"
@@ -124,11 +125,16 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	rootMap := map[string][]string{}
 	for _, path := range actions.DirectoryPaths {
 		slog.Info("Scanning dir " + path)
-
 		absPath, err := filepath.Abs(path)
 		if err != nil {
 			return nil, err
 		}
+
+		_, err = os.Stat(absPath)
+		if err != nil {
+			return nil, fmt.Errorf("failed to scan dir: %w", err)
+		}
+
 		root := getRootDir(absPath)
 		rootMap[root] = append(rootMap[root], absPath)
 	}
