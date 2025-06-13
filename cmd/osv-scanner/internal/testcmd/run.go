@@ -95,22 +95,24 @@ func normalizeJSON(t *testing.T, jsonInput string, jsonReplaceRules ...JSONRepla
 func normalizeDirScanOrder(t *testing.T, input string) string {
 	t.Helper()
 
-	var completeOutput []string
+	inputLines := strings.Split(input, "\n")
+
+	var completeOutput = make([]string, 0, len(inputLines))
 	var dirScanHolder []string
 	printingDirScanLogs := false
 
-	for _, line := range strings.Split(input, "\n") {
+	for _, line := range inputLines {
 		if strings.Contains(line, testlogger.BeginDirectoryScan) {
-			if printingDirScanLogs != false {
+			if printingDirScanLogs {
 				t.Fatalf("directory scan began twice before finishing?")
 			}
-
 			printingDirScanLogs = true
+
 			continue
 		}
 
 		if strings.Contains(line, testlogger.EndDirectoryScan) {
-			if printingDirScanLogs != true {
+			if !printingDirScanLogs {
 				t.Fatalf("directory scan ended before starting?")
 			}
 
@@ -118,11 +120,13 @@ func normalizeDirScanOrder(t *testing.T, input string) string {
 			sort.Strings(dirScanHolder)
 			completeOutput = append(completeOutput, dirScanHolder...)
 			dirScanHolder = nil
+
 			continue
 		}
 
 		if printingDirScanLogs {
 			dirScanHolder = append(dirScanHolder, line)
+
 			continue
 		}
 
