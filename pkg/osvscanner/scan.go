@@ -180,9 +180,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		}
 
 		for _, pkg := range sr.Inventory.Packages {
-			for i := range pkg.Locations {
-				pkg.Locations[i] = filepath.Join(root, pkg.Locations[i])
-			}
 			scannedInventories = append(scannedInventories, pkg)
 		}
 	}
