@@ -701,7 +701,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "GHSA-5rjg-fvgr-3xxf",
             "GHSA-cx63-2mw6-8hw5",
             "GHSA-r9hx-vwmv-q579",
-            "PYSEC-2022-43012"
+            "PYSEC-2022-43012",
+            "PYSEC-2025-49"
           ],
           "groups": 3
         }
@@ -850,7 +851,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "GHSA-5rjg-fvgr-3xxf",
             "GHSA-cx63-2mw6-8hw5",
             "GHSA-r9hx-vwmv-q579",
-            "PYSEC-2022-43012"
+            "PYSEC-2022-43012",
+            "PYSEC-2025-49"
           ],
           "groups": 3
         }
