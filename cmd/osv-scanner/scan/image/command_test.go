@@ -82,6 +82,11 @@ func TestCommand_Docker(t *testing.T) {
 			Exit: 128, // No package found
 		},
 		{
+			Name: "real_empty_image_with_tag_and_allow_no_lockfiles_flag",
+			Args: []string{"", "image", "--allow-no-lockfiles", "hello-world:linux"},
+			Exit: 0,
+		},
+		{
 			Name: "Real Alpine image",
 			Args: []string{"", "image", "alpine:3.18.9"},
 			Exit: 1,
