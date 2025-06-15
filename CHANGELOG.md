@@ -3,7 +3,8 @@
 ### Features:
 
 - [Feature #1846](https://github.com/google/osv-scanner/pull/1846) Experimental: Add `--experimental-extractors` and `--experimental-disable-extractors` flags to allow for more granular control over which OSV-Scalibr dependency extractors are used.
-- [Feature #1882](https://github.com/google/osv-scanner/pull/1882) Add a `stable` tag to container images for releases that follow semantic versioning.
+- [Feature #1943](https://github.com/google/osv-scanner/pull/1943) Added a flag to suppress "no package sources found" error.
+- [Feature #1882](https://github.com/google/osv-scanner/pull/1882) Added a `stable` tag to container images for releases that follow semantic versioning.
 
 ### Fixes:
 
@@ -15,6 +16,9 @@
 - [Bug #1919](https://github.com/google/osv-scanner/pull/1919) Improve error reporting by including the underlying error when the response body from a Maven registry cannot be read.
 - [Bug #1857](https://github.com/google/osv-scanner/pull/1857) Fix an issue where SPDX output is not correctly outputted because it was getting overwritten.
 - [Bug #1873](https://github.com/google/osv-scanner/pull/1873) Fix the GitHub Action to not ignore general errors during execution.
+
+### Misc:
+- Update dependencies and updated golang to 1.24.4
 
 # v2.0.2
 
