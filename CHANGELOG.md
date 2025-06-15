@@ -18,6 +18,7 @@
 - [Bug #1873](https://github.com/google/osv-scanner/pull/1873) Fix the GitHub Action to not ignore general errors during execution.
 
 ### Misc:
+
 - Update dependencies and updated golang to 1.24.4
 
 # v2.0.2
