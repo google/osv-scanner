@@ -108,6 +108,12 @@ func (tl *Handler) HasErrored() bool {
 	return tl.getLogger().HasErrored()
 }
 
+// HasErroredBecauseInvalidConfig returns true if there have been any calls to
+// Handle with a level of [slog.LevelError] due to a config file being invalid
+func (tl *Handler) HasErroredBecauseInvalidConfig() bool {
+	return tl.getLogger().HasErroredBecauseInvalidConfig()
+}
+
 func (tl *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 	return tl.getLogger().WithAttrs(attrs)
 }

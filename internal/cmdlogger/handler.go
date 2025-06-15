@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"strings"
 )
 
 type Handler struct {
@@ -13,6 +14,8 @@ type Handler struct {
 	hasErrored         bool
 	everythingToStderr bool
 	Level              slog.Leveler
+
+	hasErroredBecauseInvalidConfig bool
 }
 
 // SendEverythingToStderr tells the logger to send all logs to stderr regardless
@@ -47,6 +50,10 @@ func (c *Handler) Enabled(_ context.Context, level slog.Level) bool {
 func (c *Handler) Handle(_ context.Context, record slog.Record) error {
 	if record.Level == slog.LevelError {
 		c.hasErrored = true
+
+		if strings.HasPrefix(record.Message, "Ignored invalid config file") {
+			c.hasErroredBecauseInvalidConfig = true
+		}
 	}
 
 	_, err := fmt.Fprint(c.writer(record.Level), record.Message+"\n")
@@ -58,6 +65,12 @@ func (c *Handler) Handle(_ context.Context, record slog.Record) error {
 // a level of [slog.LevelError]
 func (c *Handler) HasErrored() bool {
 	return c.hasErrored
+}
+
+// HasErroredBecauseInvalidConfig returns true if there have been any calls to
+// Handle with a level of [slog.LevelError] due to a config file being invalid
+func (c *Handler) HasErroredBecauseInvalidConfig() bool {
+	return c.hasErroredBecauseInvalidConfig
 }
 
 func (c *Handler) WithAttrs(_ []slog.Attr) slog.Handler {
