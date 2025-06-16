@@ -1022,12 +1022,11 @@ could not determine extractor suitable to this file
 ---
 
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 1]
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-No issues found
 
 ---
 
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 2]
+could not determine extractor, requested spdx
 
 ---
 

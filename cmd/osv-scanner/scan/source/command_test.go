@@ -72,7 +72,7 @@ func TestCommand(t *testing.T) {
 		},
 		{
 			Name: "one file that does not match the supported sbom file names using -L flag",
-			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "./fixtures/locks-many/composer.lock"},
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "spdx:./fixtures/locks-many/composer.lock"},
 			Exit: 127,
 		},
 		// one specific unsupported lockfile
