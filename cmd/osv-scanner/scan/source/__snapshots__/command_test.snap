@@ -1220,7 +1220,6 @@ No issues found
 
 [TestCommandNonGit/one_specific_supported_lockfile - 1]
 Scanning dir <tempdir>/composer.lock
-Not in a Git repository, ignoring .gitignores
 Scanned <tempdir>/composer.lock file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner.toml
 No issues found
