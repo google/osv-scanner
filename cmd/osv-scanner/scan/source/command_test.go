@@ -1,6 +1,7 @@
 package source_test
 
 import (
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -890,6 +891,31 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 		*/
 	}
 
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
+func TestCommandNonGit(t *testing.T) {
+	t.Parallel()
+
+	testDir := testutility.CreateTestDir(t)
+	err := os.CopyFS(testDir, os.DirFS("./fixtures/locks-many"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []testcmd.Case{
+		// one specific supported lockfile
+		{
+			Name: "one specific supported lockfile",
+			Args: []string{"", "source", filepath.Join(testDir, "composer.lock")},
+			Exit: 0,
+		},
+	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
