@@ -38,7 +38,7 @@ require (
 	google.golang.org/protobuf v1.36.6
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
-	osv.dev/bindings/go v0.0.0-20250615230411-d40a160ff9ce
+	osv.dev/bindings/go v0.0.0-20250616005003-d895bc431dc7
 )
 
 require (
