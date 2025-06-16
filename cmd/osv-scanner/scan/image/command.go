@@ -85,6 +85,11 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 	//nolint:contextcheck // passing the context in would be a breaking change
 	vulnResult, err = osvscanner.DoContainerScan(scannerAction)
 
+	if cmd.Bool("allow-no-lockfiles") && errors.Is(err, osvscanner.ErrNoPackagesFound) {
+		slog.Warn("No package sources found")
+		err = nil
+	}
+
 	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 		return err
 	}

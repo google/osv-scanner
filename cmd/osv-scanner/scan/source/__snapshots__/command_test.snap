@@ -71,7 +71,7 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
           "informationUri": "https://github.com/google/osv-scanner",
           "name": "osv-scanner",
           "rules": [],
-          "version": "2.0.2"
+          "version": "2.0.3"
         }
       },
       "results": []
@@ -112,6 +112,9 @@ Scanned <rootdir>/fixtures/go-project/go.mod file and found 1 package
 | https://osv.dev/GO-2025-3420 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 | https://osv.dev/GO-2025-3447 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 | https://osv.dev/GO-2025-3563 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2025-3749 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2025-3750 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
+| https://osv.dev/GO-2025-3751 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod |
 +------------------------------+------+-----------+---------+---------+----------------------------+
 
 ---
@@ -145,6 +148,9 @@ Scanned <rootdir>/fixtures/go-project/nested/go.mod file and found 1 package
 | https://osv.dev/GO-2025-3420 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
 | https://osv.dev/GO-2025-3447 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
 | https://osv.dev/GO-2025-3563 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
+| https://osv.dev/GO-2025-3749 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
+| https://osv.dev/GO-2025-3750 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
+| https://osv.dev/GO-2025-3751 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/go.mod        |
 | https://osv.dev/GO-2024-2598 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2024-2599 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2024-2600 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
@@ -161,6 +167,9 @@ Scanned <rootdir>/fixtures/go-project/nested/go.mod file and found 1 package
 | https://osv.dev/GO-2025-3420 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2025-3447 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
 | https://osv.dev/GO-2025-3563 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
+| https://osv.dev/GO-2025-3749 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
+| https://osv.dev/GO-2025-3750 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
+| https://osv.dev/GO-2025-3751 |      | Go        | stdlib  | 1.21.7  | fixtures/go-project/nested/go.mod |
 +------------------------------+------+-----------+---------+---------+-----------------------------------+
 
 ---
@@ -244,7 +253,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
               }
             }
           ],
-          "version": "2.0.2"
+          "version": "2.0.3"
         }
       },
       "artifacts": [
@@ -685,6 +694,7 @@ Filtered 9 local/unscannable package/s from the scan.
 | https://osv.dev/CVE-2025-27113      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32414      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32415      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-6021       | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -943,6 +953,61 @@ No issues found
 
 ---
 
+[TestCommand/no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine - 1]
+Scanning dir ./fixtures/locks-none-does-not-exist
+Failed to walk ./fixtures/locks-none-does-not-exist: lstat ./fixtures/locks-none-does-not-exist: no such file or directory
+
+---
+
+[TestCommand/no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine - 2]
+Unable to parse git ignores: stat ./fixtures/locks-none-does-not-exist: no such file or directory
+lstat ./fixtures/locks-none-does-not-exist: no such file or directory
+
+---
+
+[TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine - 1]
+Scanning dir ./fixtures/locks-none
+Scanned <rootdir>/fixtures/locks-none/nested/composer.lock file and found 1 package
+No issues found
+
+---
+
+[TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine - 2]
+
+---
+
+[TestCommand/no_lockfiles_with_recursion_but_without_allow_flag_are_fine - 1]
+Scanning dir ./fixtures/locks-none
+Scanned <rootdir>/fixtures/locks-none/nested/composer.lock file and found 1 package
+No issues found
+
+---
+
+[TestCommand/no_lockfiles_with_recursion_but_without_allow_flag_are_fine - 2]
+
+---
+
+[TestCommand/no_lockfiles_without_recursion_but_with_allow_flag_are_fine - 1]
+Scanning dir ./fixtures/locks-none
+No package sources found
+No issues found
+
+---
+
+[TestCommand/no_lockfiles_without_recursion_but_with_allow_flag_are_fine - 2]
+
+---
+
+[TestCommand/no_lockfiles_without_recursion_or_allow_flag_give_an_error - 1]
+Scanning dir ./fixtures/locks-none
+
+---
+
+[TestCommand/no_lockfiles_without_recursion_or_allow_flag_give_an_error - 2]
+No package sources found, --help for usage information.
+
+---
+
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 1]
 Failed to parse SBOM "<rootdir>/fixtures/locks-many/composer.lock" with error: could not determine extractor suitable to this file
 If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.
@@ -1110,6 +1175,7 @@ Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file
 | https://osv.dev/GHSA-6cw3-g6wv-c2xv |      |           |            |         |                                                   |
 | https://osv.dev/PYSEC-2022-3        | 6.9  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
 | https://osv.dev/GHSA-jrh2-hc4r-7jwx |      |           |            |         |                                                   |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
 | https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
@@ -1172,6 +1238,8 @@ Filtered 1 vulnerability from output
 | https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2025-3563        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2025-3749        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2025-3750        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | Uncalled vulnerabilities            |      |           |                             |         |                                          |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
@@ -1197,6 +1265,7 @@ Filtered 1 vulnerability from output
 | https://osv.dev/GO-2024-3106        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2024-3107        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GO-2025-3420        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
+| https://osv.dev/GO-2025-3751        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 
 ---
@@ -1423,7 +1492,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               }
             }
           ],
-          "version": "2.0.2"
+          "version": "2.0.3"
         }
       },
       "artifacts": [
@@ -2408,6 +2477,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2025-27113      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32414      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32415      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-6021       | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2677,6 +2747,7 @@ Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 | https://osv.dev/CVE-2025-27113      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32414      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-32415      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-6021       | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3012-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3172-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3405-1          |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | fixtures/sbom-insecure/postgres-stretch.cdx.xml |

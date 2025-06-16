@@ -164,6 +164,10 @@ func GetScanGlobalFlags(defaultExtractors []string) []cli.Flag {
 			Usage: "disable transitive dependency resolution of manifest files",
 		},
 		&cli.BoolFlag{
+			Name:  "allow-no-lockfiles",
+			Usage: "has the scanner consider no lockfiles being found as ok",
+		},
+		&cli.BoolFlag{
 			Name:  "all-packages",
 			Usage: "when json output is selected, prints all packages",
 		},

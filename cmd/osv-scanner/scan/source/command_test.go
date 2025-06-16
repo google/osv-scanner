@@ -72,6 +72,32 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "./fixtures/locks-many-with-invalid"},
 			Exit: 127,
 		},
+		// no lockfiles present in a directory
+		{
+			Name: "no_lockfiles_without_recursion_or_allow_flag_give_an_error",
+			Args: []string{"", "source", "./fixtures/locks-none"},
+			Exit: 128,
+		},
+		{
+			Name: "no_lockfiles_without_recursion_but_with_allow_flag_are_fine",
+			Args: []string{"", "source", "--allow-no-lockfiles", "./fixtures/locks-none"},
+			Exit: 0,
+		},
+		{
+			Name: "no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine",
+			Args: []string{"", "source", "--allow-no-lockfiles", "./fixtures/locks-none-does-not-exist"},
+			Exit: 127,
+		},
+		{
+			Name: "no_lockfiles_with_recursion_but_without_allow_flag_are_fine",
+			Args: []string{"", "source", "--recursive", "./fixtures/locks-none"},
+			Exit: 0,
+		},
+		{
+			Name: "no_lockfiles_with_recursion_and_with_allow_flag_are_fine",
+			Args: []string{"", "source", "--recursive", "--allow-no-lockfiles", "./fixtures/locks-none"},
+			Exit: 0,
+		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
 			Name: "only the files in the given directories are checked by default (no recursion)",

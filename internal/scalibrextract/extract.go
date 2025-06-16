@@ -99,7 +99,7 @@ func extractWithExtractor(ctx context.Context, localPath string, info fs.FileInf
 
 	for i := range invs.Packages {
 		// Set parent extractor
-		invs.Packages[i].Extractor = ext
+		invs.Packages[i].Plugins = append(invs.Packages[i].Plugins, ext.Name())
 
 		// Make Location relative to the scan root as we are performing local scanning
 		for i2 := range invs.Packages[i].Locations {

@@ -85,6 +85,7 @@ func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 		"VERSION_ID not set in os-release",
 		"osrelease.ParseOsRelease(): file does not exist",
 		"Status: new inodes:",
+		"Created image content file:",
 	} {
 		if strings.HasPrefix(record.Message, prefix) {
 			return nil

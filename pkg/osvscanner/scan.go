@@ -13,7 +13,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/ecosystemmock"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -122,7 +121,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	for _, commit := range actions.GitCommits {
 		inv := &extractor.Package{
 			SourceCode: &extractor.SourceCodeIdentifier{Commit: commit},
-			Extractor:  ecosystemmock.Extractor{}, // Empty ecosystem
 		}
 
 		scannedInventories = append(scannedInventories, inv)
