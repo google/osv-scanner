@@ -1010,6 +1010,7 @@ No package sources found, --help for usage information.
 ---
 
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 1]
+Warning: --sbom has been deprecated in favor of -L
 Failed to parse SBOM "<rootdir>/fixtures/locks-many/composer.lock" with error: could not determine extractor suitable to this file
 If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.
 
@@ -1017,6 +1018,16 @@ If you believe this is a valid SBOM, make sure the filename follows format per y
 
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 2]
 could not determine extractor suitable to this file
+
+---
+
+[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 1]
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+No issues found
+
+---
+
+[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 2]
 
 ---
 
@@ -1059,6 +1070,7 @@ No issues found
 ---
 
 [TestCommand/one_specific_supported_sbom_with_duplicate_PURLs - 1]
+Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
@@ -1075,7 +1087,25 @@ Filtered 1 local/unscannable package/s from the scan.
 
 ---
 
+[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 1]
+Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
+Filtered 1 local/unscannable package/s from the scan.
++--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                         |
++--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
+| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4  | fixtures/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/with-duplicates.cdx.xml |
++--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
+
+---
+
+[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 2]
+
+---
+
 [TestCommand/one_specific_supported_sbom_with_invalid_PURLs - 1]
+Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
 Filtered 7 local/unscannable package/s from the scan.
 No issues found
@@ -1086,7 +1116,19 @@ No issues found
 
 ---
 
+[TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag - 1]
+Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
+Filtered 7 local/unscannable package/s from the scan.
+No issues found
+
+---
+
+[TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag - 2]
+
+---
+
 [TestCommand/one_specific_supported_sbom_with_vulns - 1]
+Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
@@ -1100,6 +1142,23 @@ Filtered 1 local/unscannable package/s from the scan.
 ---
 
 [TestCommand/one_specific_supported_sbom_with_vulns - 2]
+
+---
+
+[TestCommand/one_specific_supported_sbom_with_vulns_using_-L_flag - 1]
+Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
+Filtered 1 local/unscannable package/s from the scan.
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4  | fixtures/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+
+---
+
+[TestCommand/one_specific_supported_sbom_with_vulns_using_-L_flag - 2]
 
 ---
 
