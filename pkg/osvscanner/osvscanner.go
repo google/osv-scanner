@@ -50,18 +50,21 @@ type ScannerActions struct {
 	IsImageArchive     bool
 	ConfigOverridePath string
 	CallAnalysisStates map[string]bool
+	ShowAllPackages    bool
+
+	// local databases
+	CompareOffline    bool
+	DownloadDatabases bool
+	LocalDBPath       string
+
+	// license scanning
+	ScanLicensesSummary   bool
+	ScanLicensesAllowlist []string
 
 	ExperimentalScannerActions
 }
 
 type ExperimentalScannerActions struct {
-	CompareOffline        bool
-	DownloadDatabases     bool
-	ShowAllPackages       bool
-	ScanLicensesSummary   bool
-	ScanLicensesAllowlist []string
-
-	LocalDBPath string
 	TransitiveScanningActions
 
 	Extractors []filesystem.Extractor
