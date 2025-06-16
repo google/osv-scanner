@@ -109,7 +109,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 
 	callAnalysisStates := helper.CreateCallAnalysisStates(cmd.StringSlice("call-analysis"), cmd.StringSlice("no-call-analysis"))
 
-	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd, scanLicensesAllowlist)
+	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd)
 	// Add `source` specific experimental configs
 	experimentalScannerActions.TransitiveScanningActions = osvscanner.TransitiveScanningActions{
 		Disabled:         cmd.Bool("no-resolve"),
@@ -117,17 +117,15 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 		MavenRegistry:    cmd.String("maven-registry"),
 	}
 
-	scannerAction := osvscanner.ScannerActions{
-		LockfilePaths:              cmd.StringSlice("lockfile"),
-		SBOMPaths:                  cmd.StringSlice("sbom"),
-		Recursive:                  cmd.Bool("recursive"),
-		IncludeGitRoot:             cmd.Bool("include-git-root"),
-		NoIgnore:                   cmd.Bool("no-ignore"),
-		ConfigOverridePath:         cmd.String("config"),
-		DirectoryPaths:             cmd.Args().Slice(),
-		CallAnalysisStates:         callAnalysisStates,
-		ExperimentalScannerActions: experimentalScannerActions,
-	}
+	scannerAction := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
+
+	scannerAction.LockfilePaths = cmd.StringSlice("lockfile")
+	scannerAction.SBOMPaths = cmd.StringSlice("sbom")
+	scannerAction.Recursive = cmd.Bool("recursive")
+	scannerAction.NoIgnore = cmd.Bool("no-ignore")
+	scannerAction.DirectoryPaths = cmd.Args().Slice()
+	scannerAction.CallAnalysisStates = callAnalysisStates
+	scannerAction.ExperimentalScannerActions = experimentalScannerActions
 
 	if len(experimentalScannerActions.Extractors) == 0 {
 		return errors.New("at least one extractor must be enabled")
