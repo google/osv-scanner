@@ -1,7 +1,6 @@
 package customgitignore
 
 import (
-	"errors"
 	"os"
 	"path/filepath"
 	"strings"
@@ -86,14 +85,9 @@ func ParseGitIgnores(path string, recursive bool) ([]gitignore.Pattern, string, 
 	}
 
 	repo, err := git.PlainOpenWithOptions(path, &git.PlainOpenOptions{DetectDotGit: true})
-	if err != nil && !errors.Is(err, git.ErrRepositoryNotExists) {
+	// Errors could be git.ErrRepositoryNotExists if there is no git directory
+	if err != nil {
 		return ps, "", err
-	}
-
-	// not in a git repo; do not read .gitignore files
-	// (and ignore recursive setting)
-	if errors.Is(err, git.ErrRepositoryNotExists) {
-		return ps, "", nil
 	}
 
 	// inside a git repo

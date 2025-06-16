@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/format/gitignore"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
@@ -30,7 +31,11 @@ func ScanDir(dir string, recursive bool, useGitIgnore bool, extractorsToUse []fi
 		var err error
 		ignoreMatcher, err = parseGitIgnores(dir, recursive)
 		if err != nil {
-			slog.Error(fmt.Sprintf("Unable to parse git ignores: %v", err))
+			if errors.Is(err, git.ErrRepositoryNotExists) {
+				slog.Info("Not in a Git repository, ignoring .gitignores")
+			} else {
+				slog.Error(fmt.Sprintf("Unable to parse git ignores: %v", err))
+			}
 			useGitIgnore = false
 		}
 	}
@@ -109,6 +114,8 @@ type gitIgnoreMatcher struct {
 	repoPath string
 }
 
+// parseGitIgnores creates a gitIgnoreMatcher for the given directory.
+// If no git repository exists, then git.ErrRepositoryNotExists is returned.
 func parseGitIgnores(path string, recursive bool) (*gitIgnoreMatcher, error) {
 	patterns, repoRootPath, err := customgitignore.ParseGitIgnores(path, recursive)
 	if err != nil {
