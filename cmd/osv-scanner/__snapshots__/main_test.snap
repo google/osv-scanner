@@ -4,15 +4,14 @@ NAME:
    osv-scanner scan - scans projects and container images for dependencies, and checks them against the OSV database.
 
 USAGE:
-   osv-scanner scan [command options]
+   osv-scanner scan [command [command options]]
 
 DESCRIPTION:
    scans projects and container images for dependencies, and checks them against the OSV database.
 
 COMMANDS:
-   source   scans a source project's dependencies for known vulnerabilities using the OSV database.
-   image    detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally
-   help, h  Shows a list of commands or help for one command
+   source  scans a source project's dependencies for known vulnerabilities using the OSV database.
+   image   detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally
 
 OPTIONS:
    --help, -h  show help
@@ -36,8 +35,8 @@ built at: n/a
 
 [Test_run_SubCommands/scan_with_a_flag - 1]
 Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/osv-scanner/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/osv-scanner/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 No issues found
 
 ---
@@ -49,8 +48,8 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 
 [Test_run_SubCommands/with_no_subcommand - 1]
 Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -61,8 +60,8 @@ No issues found
 
 [Test_run_SubCommands/with_scan_subcommand - 1]
 Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---

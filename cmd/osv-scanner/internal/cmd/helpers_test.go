@@ -8,7 +8,7 @@ import (
 
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
 func Test_insertDefaultCommand(t *testing.T) {

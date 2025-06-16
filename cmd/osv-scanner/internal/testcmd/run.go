@@ -2,6 +2,7 @@ package testcmd
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"errors"
 	"io"
@@ -9,7 +10,7 @@ import (
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
 	"github.com/google/osv-scanner/v2/internal/testutility"
-	"github.com/urfave/cli/v2"
+	"github.com/urfave/cli/v3"
 )
 
 // CommandsUnderTest should be set in TestMain by every cmd package test
@@ -29,7 +30,7 @@ func fetchCommandsToTest() []cmd.CommandBuilder {
 	return append(CommandsUnderTest, func(_, _ io.Writer) *cli.Command {
 		return &cli.Command{
 			Name: "scan",
-			Action: func(_ *cli.Context) error {
+			Action: func(_ context.Context, _ *cli.Command) error {
 				return errors.New("<this test is unexpectedly calling the default scan command>")
 			},
 		}

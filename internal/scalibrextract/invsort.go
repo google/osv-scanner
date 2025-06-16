@@ -4,6 +4,7 @@ import (
 	"cmp"
 	"fmt"
 
+	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/extractor"
 )
 
@@ -16,17 +17,16 @@ func inventorySort(a, b *extractor.Package) int {
 
 	var aExtr, bExtr string
 	var aPURL, bPURL string
-	if a.Extractor != nil {
-		aExtr = a.Extractor.Name()
-		if purl := a.Extractor.ToPURL(a); purl != nil {
-			aPURL = purl.String()
-		}
+
+	aPURLStruct := converter.ToPURL(a)
+	bPURLStruct := converter.ToPURL(b)
+
+	if aPURLStruct != nil {
+		aPURL = aPURLStruct.String()
 	}
-	if b.Extractor != nil {
-		bExtr = b.Extractor.Name()
-		if purl := b.Extractor.ToPURL(b); purl != nil {
-			bPURL = purl.String()
-		}
+
+	if bPURLStruct != nil {
+		bPURL = bPURLStruct.String()
 	}
 
 	aSourceCode := fmt.Sprintf("%v", a.SourceCode)

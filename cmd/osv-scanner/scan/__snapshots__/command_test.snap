@@ -1,8 +1,8 @@
 
 [TestCommand_SubCommands/scan_with_a_flag - 1]
-Scanning dir ../fixtures/locks-one-with-nested
-Scanned <rootdir>/osv-scanner/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/osv-scanner/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+Scanning dir ./fixtures/locks-one-with-nested
+Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
 No issues found
 
 ---
@@ -12,9 +12,9 @@ No issues found
 ---
 
 [TestCommand_SubCommands/with_no_subcommand - 1]
-Scanning dir ../fixtures/locks-many/composer.lock
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -24,9 +24,9 @@ No issues found
 ---
 
 [TestCommand_SubCommands/with_scan_subcommand - 1]
-Scanning dir ../fixtures/locks-many/composer.lock
-Scanned <rootdir>/osv-scanner/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/osv-scanner/fixtures/locks-many/osv-scanner.toml
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 No issues found
 
 ---

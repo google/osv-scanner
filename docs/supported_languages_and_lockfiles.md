@@ -1,6 +1,5 @@
 ---
 layout: page
-title: Supported Artifacts and Manifests
 permalink: /supported-languages-and-lockfiles/
 nav_order: 2
 ---

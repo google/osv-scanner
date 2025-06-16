@@ -1,11 +1,10 @@
 ---
 layout: page
-title: Configuration
 permalink: /configuration/
 nav_order: 5
 ---
 
-# Configure OSV-Scanner
+# Configuration
 
 To configure scanning, place an osv-scanner.toml file in the scanned file's directory. This does not propagate to child directories.
 
