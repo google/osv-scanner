@@ -2,9 +2,10 @@
 
 ### Features:
 
-- [Feature #1846](https://github.com/google/osv-scanner/pull/1846) Experimental: Add `--experimental-extractors` and `--experimental-disable-extractors` flags to allow for more granular control over which OSV-Scalibr dependency extractors are used.
 - [Feature #1943](https://github.com/google/osv-scanner/pull/1943) Added a flag to suppress "no package sources found" error.
+- [Feature #1844](https://github.com/google/osv-scanner/pull/1844) Allow flags to be passed after scan targets, e.g. `osv-scanner ./scan-this-dir --format=vertical`, by updating to cli/v3
 - [Feature #1882](https://github.com/google/osv-scanner/pull/1882) Added a `stable` tag to container images for releases that follow semantic versioning.
+- [Feature #1846](https://github.com/google/osv-scanner/pull/1846) Experimental: Add `--experimental-extractors` and `--experimental-disable-extractors` flags to allow for more granular control over which OSV-Scalibr dependency extractors are used.
 
 ### Fixes:
 
