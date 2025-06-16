@@ -33,16 +33,36 @@ func TestOSVMatcher_MatchVulnerabilities(t *testing.T) {
 		wantErr error
 	}{
 		{
-			name: "Timeout returns deadline exceeded error",
+			name: "Timeout returns deadline exceeded error (http.Client code)",
 			fields: fields{
-				Client:              *osvdev.DefaultClient(),
+				Client: *osvdev.DefaultClient(),
+				// Long enough to not timeout until we enter the http client code
 				InitialQueryTimeout: 1 * time.Millisecond,
 			},
 			args: args{
 				pkgs: []*extractor.Package{
 					{
-						Name:     "lib1",
-						Version:  "1.0.1",
+						Name:     "stdlib",
+						Version:  "1.22.0",
+						PURLType: purl.TypeGolang,
+					},
+				},
+			},
+			want:    nil,
+			wantErr: context.DeadlineExceeded,
+		},
+		{
+			name: "Timeout returns deadline exceeded error (osv.dev code)",
+			fields: fields{
+				Client: *osvdev.DefaultClient(),
+				// Short enough to test timeouts before reaching the http client
+				InitialQueryTimeout: 100 * time.Nanosecond,
+			},
+			args: args{
+				pkgs: []*extractor.Package{
+					{
+						Name:     "stdlib",
+						Version:  "1.22.0",
 						PURLType: purl.TypeGolang,
 					},
 				},
@@ -65,7 +85,6 @@ func TestOSVMatcher_MatchVulnerabilities(t *testing.T) {
 			got, err := matcher.MatchVulnerabilities(t.Context(), tt.args.pkgs)
 			if !errors.Is(err, tt.wantErr) {
 				t.Errorf("OSVMatcher.MatchVulnerabilities() error = %v, wantErr %v", err, tt.wantErr)
-				return
 			}
 
 			if !reflect.DeepEqual(got, tt.want) {

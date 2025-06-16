@@ -1218,6 +1218,19 @@ No issues found
 
 ---
 
+[TestCommandNonGit/one_specific_supported_lockfile - 1]
+Scanning dir <tempdir>/composer.lock
+Not in a Git repository, ignoring .gitignores
+Scanned <tempdir>/composer.lock file and found 1 package
+Loaded filter from: <tempdir>/osv-scanner.toml
+No issues found
+
+---
+
+[TestCommandNonGit/one_specific_supported_lockfile - 2]
+
+---
+
 [TestCommand_CallAnalysis/Run_with_govulncheck - 1]
 Scanning dir ./fixtures/call-analysis-go-project
 Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 packages
