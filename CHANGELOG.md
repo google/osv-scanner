@@ -17,6 +17,8 @@
 - [Bug #1919](https://github.com/google/osv-scanner/pull/1919) Improve error reporting by including the underlying error when the response body from a Maven registry cannot be read.
 - [Bug #1857](https://github.com/google/osv-scanner/pull/1857) Fix an issue where SPDX output is not correctly outputted because it was getting overwritten.
 - [Bug #1873](https://github.com/google/osv-scanner/pull/1873) Fix the GitHub Action to not ignore general errors during execution.
+- [Bug #1955](https://github.com/google/osv-scanner/pull/1955) Fix issue causing error messages to be spammed when not running in a git repository.
+- [Bug #1930](https://github.com/google/osv-scanner/pull/1930) Fix issue where Maven client loses auth data during extraction.
 
 ### Misc:
 
