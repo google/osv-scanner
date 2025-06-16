@@ -6,9 +6,12 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"sort"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
+	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/urfave/cli/v3"
 )
@@ -57,6 +60,9 @@ func RunAndMatchSnapshots(t *testing.T, tc Case) {
 
 	stdout, stderr := run(t, tc)
 
+	stdout = normalizeDirScanOrder(t, stdout)
+	stderr = normalizeDirScanOrder(t, stderr)
+
 	if tc.isOutputtingJSON() {
 		stdout = normalizeJSON(t, stdout, tc.ReplaceRules...)
 	}
@@ -83,4 +89,49 @@ func normalizeJSON(t *testing.T, jsonInput string, jsonReplaceRules ...JSONRepla
 	}
 
 	return jsonFormatted.String()
+}
+
+// Sorts the output between directory scan markers to allow for consistent test results when doing unsorted dir walks
+func normalizeDirScanOrder(t *testing.T, input string) string {
+	t.Helper()
+
+	inputLines := strings.Split(input, "\n")
+
+	var completeOutput = make([]string, 0, len(inputLines))
+	var dirScanHolder []string
+	printingDirScanLogs := false
+
+	for _, line := range inputLines {
+		if strings.Contains(line, testlogger.BeginDirectoryScan) {
+			if printingDirScanLogs {
+				t.Fatalf("directory scan began twice before finishing?")
+			}
+			printingDirScanLogs = true
+
+			continue
+		}
+
+		if strings.Contains(line, testlogger.EndDirectoryScan) {
+			if !printingDirScanLogs {
+				t.Fatalf("directory scan ended before starting?")
+			}
+
+			printingDirScanLogs = false
+			sort.Strings(dirScanHolder)
+			completeOutput = append(completeOutput, dirScanHolder...)
+			dirScanHolder = nil
+
+			continue
+		}
+
+		if printingDirScanLogs {
+			dirScanHolder = append(dirScanHolder, line)
+
+			continue
+		}
+
+		completeOutput = append(completeOutput, line)
+	}
+
+	return strings.Join(completeOutput, "\n")
 }
