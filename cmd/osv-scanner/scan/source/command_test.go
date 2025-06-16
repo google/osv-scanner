@@ -37,10 +37,20 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
+		{
+			Name: "one specific supported sbom with vulns using -L flag",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			Exit: 1,
+		},
 		// one specific supported sbom with vulns and invalid PURLs
 		{
 			Name: "one specific supported sbom with invalid PURLs",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
+			Exit: 0,
+		},
+		{
+			Name: "one specific supported sbom with invalid PURLs using -L flag",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
 			Exit: 0,
 		},
 		// one specific supported sbom with duplicate PURLs
@@ -49,10 +59,20 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
 		},
+		{
+			Name: "one specific supported sbom with duplicate PURLs using -L flag",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "./fixtures/sbom-insecure/with-duplicates.cdx.xml"},
+			Exit: 1,
+		},
 		// one file that does not match the supported sbom file names
 		{
 			Name: "one file that does not match the supported sbom file names",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/locks-many/composer.lock"},
+			Exit: 127,
+		},
+		{
+			Name: "one file that does not match the supported sbom file names using -L flag",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "spdx:./fixtures/locks-many/composer.lock"},
 			Exit: 127,
 		},
 		// one specific unsupported lockfile

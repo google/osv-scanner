@@ -28,9 +28,14 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 				TakesFile: true,
 			},
 			&cli.StringSliceFlag{
-				Name:      "sbom",
-				Aliases:   []string{"S"},
-				Usage:     "scan sbom file on this path, the sbom file name must follow the relevant spec",
+				Name:    "sbom",
+				Aliases: []string{"S"},
+				Usage:   "[DEPRECATED] scan sbom file on this path, the sbom file name must follow the relevant spec",
+				Action: func(_ context.Context, _ *cli.Command, _ []string) error {
+					slog.Warn("Warning: --sbom has been deprecated in favor of -L")
+
+					return nil
+				},
 				TakesFile: true,
 			},
 			&cli.BoolFlag{
