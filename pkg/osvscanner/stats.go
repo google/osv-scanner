@@ -3,6 +3,7 @@ package osvscanner
 import (
 	"fmt"
 	"log/slog"
+	"path/filepath"
 
 	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/output"
@@ -23,7 +24,7 @@ func (c FileOpenedPrinter) AfterExtractorRun(_ string, extractorstats *stats.Aft
 
 	slog.Info(fmt.Sprintf(
 		"Scanned %s file and found %d %s",
-		extractorstats.Path,
+		filepath.Join(extractorstats.Root, extractorstats.Path),
 		pkgsFound,
 		output.Form(pkgsFound, "package", "packages"),
 	))
