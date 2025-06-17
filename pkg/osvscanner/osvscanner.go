@@ -40,7 +40,6 @@ import (
 
 type ScannerActions struct {
 	LockfilePaths      []string
-	SBOMPaths          []string
 	DirectoryPaths     []string
 	GitCommits         []string
 	Recursive          bool
@@ -50,6 +49,9 @@ type ScannerActions struct {
 	IsImageArchive     bool
 	ConfigOverridePath string
 	CallAnalysisStates map[string]bool
+
+	// Deprecated: in favor of LockfilePaths
+	SBOMPaths []string
 
 	ExperimentalScannerActions
 }
