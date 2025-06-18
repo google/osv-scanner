@@ -295,7 +295,7 @@ func autoOverride(ctx context.Context, opts osvFixOptions, maxUpgrades int) erro
 					SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
 				}
 			}
-			if err := opts.Client.DependencyClient.AddRegistries(registries); err != nil {
+			if err := opts.Client.AddRegistries(registries); err != nil {
 				return err
 			}
 		}

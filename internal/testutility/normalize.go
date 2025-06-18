@@ -66,15 +66,7 @@ func normalizeRootDirectory(t *testing.T, str string) string {
 	str = strings.ReplaceAll(str, cwd, "<rootdir>")
 
 	// Replace versions without the root as well
-	var root string
-	if runtime.GOOS == "windows" {
-		root = filepath.VolumeName(cwd) + "\\"
-	}
-
-	if strings.HasPrefix(cwd, "/") {
-		root = "/"
-	}
-	str = strings.ReplaceAll(str, cwd[len(root):], "<rootdir>")
+	str = strings.ReplaceAll(str, pathWithoutRoot(t, cwd), "<rootdir>")
 
 	return str
 }
@@ -105,6 +97,10 @@ func normalizeTempDirectory(t *testing.T, str string) string {
 	//nolint:gocritic // ensure that the directory doesn't end with a trailing slash
 	tempDir := normalizeFilePaths(t, filepath.Join(os.TempDir()))
 	re := cachedregexp.MustCompile(regexp.QuoteMeta(tempDir+`/osv-scanner-test-`) + `\d+`)
+	str = re.ReplaceAllString(str, "<tempdir>")
+
+	// Replace versions without the root as well
+	re = cachedregexp.MustCompile(regexp.QuoteMeta(pathWithoutRoot(t, tempDir)+`/osv-scanner-test-`) + `\d+`)
 
 	return re.ReplaceAllString(str, "<tempdir>")
 }
@@ -117,6 +113,8 @@ func normalizeErrors(t *testing.T, str string) string {
 	str = strings.ReplaceAll(str, "The filename, directory name, or volume label syntax is incorrect.", "no such file or directory")
 	str = strings.ReplaceAll(str, "The system cannot find the path specified.", "no such file or directory")
 	str = strings.ReplaceAll(str, "The system cannot find the file specified.", "no such file or directory")
+	str = strings.ReplaceAll(str, "CreateFile", "lstat")
+	str = strings.ReplaceAll(str, "\nstat ./fixtures/", "\nlstat ./fixtures/")
 
 	return str
 }
@@ -147,4 +145,20 @@ func normalizeSnapshot(t *testing.T, str string) string {
 	}
 
 	return str
+}
+
+func pathWithoutRoot(t *testing.T, str string) string {
+	t.Helper()
+
+	// Replace versions without the root as well
+	var root string
+	if runtime.GOOS == "windows" {
+		root = filepath.VolumeName(str) + "\\"
+	}
+
+	if strings.HasPrefix(str, "/") {
+		root = "/"
+	}
+
+	return str[len(root):]
 }

@@ -65,6 +65,17 @@ func TestPURLToPackage(t *testing.T) {
 			},
 		},
 		{
+			name: "valid PURL Ubuntu",
+			args: args{
+				purl: "pkg:deb/ubuntu/docker.io@20.10.12-0ubuntu2",
+			},
+			want: models.PackageInfo{
+				Name:      "docker.io",
+				Version:   "20.10.12-0ubuntu2",
+				Ecosystem: string(osvschema.EcosystemUbuntu),
+			},
+		},
+		{
 			name: "valid PURL alpine",
 			args: args{
 				purl: "pkg:apk/alpine/zlib@1.2.13-r0?arch=x86_64upstream=zlib&distro=alpine-3.17.2",

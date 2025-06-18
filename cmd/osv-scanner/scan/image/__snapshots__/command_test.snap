@@ -87,6 +87,19 @@ No package sources found, --help for usage information.
 
 ---
 
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag - 1]
+Checking if docker image ("hello-world:linux") exists locally...
+Saving docker image ("hello-world:linux") to temporary file...
+Scanning image "hello-world:linux"
+No package sources found
+No issues found
+
+---
+
+[TestCommand_Docker/real_empty_image_with_tag_and_allow_no_lockfiles_flag - 2]
+
+---
+
 [TestCommand_ExplicitExtractors/extractors_cancelled_out - 1]
 
 ---
@@ -419,8 +432,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 8 packages affected by 54 known vulnerabilities (0 Critical, 1 High, 0 Medium, 0 Low, 53 Unknown) from 2 ecosystems.
-54 vulnerabilities can be fixed.
+Total 8 packages affected by 66 known vulnerabilities (0 Critical, 1 High, 0 Medium, 0 Low, 65 Unknown) from 2 ecosystems.
+66 vulnerabilities can be fixed.
 
 
 Go
@@ -429,42 +442,42 @@ Go
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          8 | # 9 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         10 | # 9 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:go/bin/ptf-1.2.0                                                            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          8 | # 2 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         10 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:go/bin/ptf-1.3.0                                                            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          8 | # 4 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         10 | # 4 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:go/bin/ptf-1.3.0-moved                                                      |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          8 | # 3 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         10 | # 3 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:go/bin/ptf-1.4.0                                                            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          8 | # 2 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         10 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:go/bin/ptf-vulnerable                                                       |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |          8 | # 7 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         10 | # 7 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.20
 +------------------------------------------------------------------------------------------------------------------------------+
@@ -701,7 +714,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "GHSA-5rjg-fvgr-3xxf",
             "GHSA-cx63-2mw6-8hw5",
             "GHSA-r9hx-vwmv-q579",
-            "PYSEC-2022-43012"
+            "PYSEC-2022-43012",
+            "PYSEC-2025-49"
           ],
           "groups": 3
         }
@@ -850,7 +864,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "GHSA-5rjg-fvgr-3xxf",
             "GHSA-cx63-2mw6-8hw5",
             "GHSA-r9hx-vwmv-q579",
-            "PYSEC-2022-43012"
+            "PYSEC-2022-43012",
+            "PYSEC-2025-49"
           ],
           "groups": 3
         }
@@ -1432,9 +1447,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
             "GO-2025-3373",
             "GO-2025-3420",
             "GO-2025-3447",
-            "GO-2025-3563"
+            "GO-2025-3563",
+            "GO-2025-3750",
+            "GO-2025-3751"
           ],
-          "groups": 8
+          "groups": 10
         },
         {
           "package": {
@@ -2422,7 +2439,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2023-7008",
-            "UBUNTU-CVE-2025-4598"
+            "UBUNTU-CVE-2025-4598",
+            "USN-7559-1"
           ],
           "groups": 2
         },
@@ -2471,7 +2489,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2023-7008",
-            "UBUNTU-CVE-2025-4598"
+            "UBUNTU-CVE-2025-4598",
+            "USN-7559-1"
           ],
           "groups": 2
         },

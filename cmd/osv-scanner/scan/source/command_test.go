@@ -1,6 +1,7 @@
 package source_test
 
 import (
+	"os"
 	"path/filepath"
 	"testing"
 
@@ -71,6 +72,32 @@ func TestCommand(t *testing.T) {
 			Name: "all supported lockfiles in the directory should be checked",
 			Args: []string{"", "source", "./fixtures/locks-many-with-invalid"},
 			Exit: 127,
+		},
+		// no lockfiles present in a directory
+		{
+			Name: "no_lockfiles_without_recursion_or_allow_flag_give_an_error",
+			Args: []string{"", "source", "./fixtures/locks-none"},
+			Exit: 128,
+		},
+		{
+			Name: "no_lockfiles_without_recursion_but_with_allow_flag_are_fine",
+			Args: []string{"", "source", "--allow-no-lockfiles", "./fixtures/locks-none"},
+			Exit: 0,
+		},
+		{
+			Name: "no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine",
+			Args: []string{"", "source", "--allow-no-lockfiles", "./fixtures/locks-none-does-not-exist"},
+			Exit: 127,
+		},
+		{
+			Name: "no_lockfiles_with_recursion_but_without_allow_flag_are_fine",
+			Args: []string{"", "source", "--recursive", "./fixtures/locks-none"},
+			Exit: 0,
+		},
+		{
+			Name: "no_lockfiles_with_recursion_and_with_allow_flag_are_fine",
+			Args: []string{"", "source", "--recursive", "--allow-no-lockfiles", "./fixtures/locks-none"},
+			Exit: 0,
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
@@ -216,7 +243,7 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "config file is invalid",
 			Args: []string{"", "source", "./fixtures/config-invalid"},
-			Exit: 127,
+			Exit: 130,
 		},
 		// config file with unknown keys
 		{
@@ -828,7 +855,7 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 		{
 			Name: "uv.lock",
 			Args: []string{"", "source", "-L", "./fixtures/locks-scalibr/uv.lock"},
-			Exit: 0,
+			Exit: 1,
 		},
 		{
 			Name: "depsjson",
@@ -864,6 +891,31 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 		*/
 	}
 
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
+func TestCommandNonGit(t *testing.T) {
+	t.Parallel()
+
+	testDir := testutility.CreateTestDir(t)
+	err := os.CopyFS(testDir, os.DirFS("./fixtures/locks-many"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []testcmd.Case{
+		// one specific supported lockfile
+		{
+			Name: "one specific supported lockfile",
+			Args: []string{"", "source", filepath.Join(testDir, "composer.lock")},
+			Exit: 0,
+		},
+	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
