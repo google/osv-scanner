@@ -855,7 +855,7 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 		{
 			Name: "uv.lock",
 			Args: []string{"", "source", "-L", "./fixtures/locks-scalibr/uv.lock"},
-			Exit: 0,
+			Exit: 1,
 		},
 		{
 			Name: "depsjson",
