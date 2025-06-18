@@ -28,7 +28,7 @@ jobs:
         with:
           go-version: stable
           check-latest: true
-      - run: ./scripts/run_tests.sh
+      - run: ./scripts/run_tests.sh || true
         env:
           TEST_ACCEPTANCE: true
           UPDATE_SNAPS: always

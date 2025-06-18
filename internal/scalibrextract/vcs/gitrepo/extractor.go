@@ -76,7 +76,9 @@ func (e *Extractor) Version() int { return 0 }
 
 // Requirements of the extractor.
 func (e *Extractor) Requirements() *plugin.Capabilities {
-	return &plugin.Capabilities{}
+	return &plugin.Capabilities{
+		ExtractFromDirs: true,
+	}
 }
 
 // FileRequired returns true for git repositories .git dirs
