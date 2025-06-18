@@ -243,7 +243,7 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "config file is invalid",
 			Args: []string{"", "source", "./fixtures/config-invalid"},
-			Exit: 127,
+			Exit: 130,
 		},
 		// config file with unknown keys
 		{

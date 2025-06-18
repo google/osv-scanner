@@ -182,7 +182,15 @@ func run(args []string, stdout, stderr io.Writer) int {
 		},
 	}
 
-	if err := app.Run(context.Background(), args); err != nil {
+	err := app.Run(context.Background(), args)
+
+	// if the config is invalid, it's possible that is why any other errors
+	// happened so that exit code takes priority
+	if logger.HasErroredBecauseInvalidConfig() {
+		return 130
+	}
+
+	if err != nil {
 		if errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 			return 1
 		}

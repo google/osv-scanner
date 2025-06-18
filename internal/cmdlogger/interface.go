@@ -6,6 +6,7 @@ type CmdLogger interface {
 	slog.Handler
 	SendEverythingToStderr()
 	HasErrored() bool
+	HasErroredBecauseInvalidConfig() bool
 	SetLevel(level slog.Leveler)
 }
 
