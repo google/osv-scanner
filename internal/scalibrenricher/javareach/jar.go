@@ -17,7 +17,6 @@ package javareach
 import (
 	"archive/zip"
 	"bufio"
-	"bytes"
 	"context"
 	"errors"
 	"fmt"
@@ -93,141 +92,55 @@ func addClassMapping(artifactName, class string, classMap map[string][]string, a
 	log.Debug("mapping", "name", name, "to", classMap[name])
 }
 
-// openNestedJAR opens a nested JAR given by `jarPaths` containing progressively
-// deeper relative paths of JARs.
-func openNestedJAR(jarPaths []string) (*zip.Reader, error) {
-	var zipr *zip.Reader
-	var nbytes int64
-
-	for len(jarPaths) > 0 {
-		var file fs.File
-
-		if zipr == nil {
-			// Path the first JAR, which lives on the filesystem.
-			var err error
-			file, err = os.Open(jarPaths[0])
-			if err != nil {
-				return nil, err
-			}
-		} else {
-			// Nested JAR, which must be opened from the current JAR archive.
-			var err error
-			file, err = zipr.Open(jarPaths[0])
-			if err != nil {
-				return nil, err
-			}
-		}
-
-		data, err := io.ReadAll(file)
-		if err != nil {
-			file.Close()
-			return nil, err
-		}
-		file.Close()
-		nbytes = int64(len(data))
-		zipr, err = zip.NewReader(bytes.NewReader(data), nbytes)
-		if err != nil {
-			return nil, err
-		}
-		jarPaths = jarPaths[1:]
-	}
-
-	return zipr, nil
-}
-
-// TODO(gongh): add tests for nested JARs
-func checkNestedJARContains(inv *extractor.Package) ([]string, bool) {
-	metadata := inv.Metadata.(*archivemeta.Metadata)
-	for i := len(inv.Locations) - 1; i >= 0; i-- {
-		// Find /path/root.jar/path/to/nested.jar
-		const jarBoundary = ".jar/"
-		loc := inv.Locations[i]
-		if !strings.HasSuffix(loc, ".jar") || !strings.Contains(loc, jarBoundary) {
-			continue
-		}
-
-		// Nested .jar found.
-		// Separate the path components into /path/root.jar, path/to/nested.jar
-		var jarPaths []string
-		for strings.Contains(loc, jarBoundary) {
-			idx := strings.Index(loc, jarBoundary) + len(jarBoundary)
-			path := loc[:idx-1]
-			jarPaths = append(jarPaths, path)
-			loc = loc[idx:]
-		}
-		jarPaths = append(jarPaths, loc)
-
-		// Check if the artifact ID is in the jar name to make sure the jar is for the artifact.
-		if strings.Contains(jarPaths[len(jarPaths)-1], metadata.ArtifactID) {
-			log.Debug("nested jar", "paths", jarPaths, "groupId", metadata.GroupID, "artifactId", metadata.ArtifactID)
-			return jarPaths, true
-		}
-
-		break
-	}
-
-	return nil, false
-}
-
 // extractClassMappings extracts class mappings from a .jar dependency by
 // downloading and unpacking the .jar from the relevant registry.
 func extractClassMappings(ctx context.Context, inv *extractor.Package, classMap map[string][]string, artifactMap map[string][]string, client *http.Client, lock *sync.Mutex) error {
-	var reader *zip.Reader
-
 	metadata := inv.Metadata.(*archivemeta.Metadata)
-	if jarPaths, ok := checkNestedJARContains(inv); ok {
-		var err error
-		reader, err = openNestedJAR(jarPaths)
-		if err != nil {
-			return err
-		}
+	// TODO: Handle when a class file contains in a nested JAR.
+
+	// Try downloading the same package from Maven Central.
+	jarURL := fmt.Sprintf("%s/%s/%s/%s/%s-%s.jar",
+		MavenBaseURL,
+		strings.ReplaceAll(metadata.GroupID, ".", "/"), metadata.ArtifactID, inv.Version, metadata.ArtifactID, inv.Version)
+	file, err := os.CreateTemp("", "")
+	if err != nil {
+		return err
+	}
+	defer os.Remove(file.Name())
+	defer file.Close()
+
+	log.Debug("downloading", "jar", jarURL)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, jarURL, nil)
+	if err != nil {
+		return err
 	}
 
-	if reader == nil {
-		// Didn't found a nested JAR containing the artifact.
-		// Try downloading the same package from Maven Central.
-		jarURL := fmt.Sprintf("%s/%s/%s/%s/%s-%s.jar",
-			MavenBaseURL,
-			strings.ReplaceAll(metadata.GroupID, ".", "/"), metadata.ArtifactID, inv.Version, metadata.ArtifactID, inv.Version)
-		file, err := os.CreateTemp("", "")
-		if err != nil {
-			return err
-		}
-		defer os.Remove(file.Name())
-		defer file.Close()
+	resp, err := client.Do(req)
 
-		log.Debug("downloading", "jar", jarURL)
-		req, err := http.NewRequestWithContext(ctx, http.MethodGet, jarURL, nil)
-		if err != nil {
-			return err
-		}
+	if err != nil {
+		return err
+	}
 
-		resp, err := client.Do(req)
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("jar not found: %s", jarURL)
+	}
 
-		if err != nil {
-			return err
-		}
-
-		if resp.StatusCode != http.StatusOK {
-			return fmt.Errorf("jar not found: %s", jarURL)
-		}
-
-		nbytes, err := io.Copy(file, resp.Body)
-		if err != nil {
-			resp.Body.Close()
-			return err
-		}
+	nbytes, err := io.Copy(file, resp.Body)
+	if err != nil {
 		resp.Body.Close()
+		return err
+	}
+	resp.Body.Close()
 
-		_, err = file.Seek(0, io.SeekStart)
-		if err != nil {
-			return err
-		}
+	_, err = file.Seek(0, io.SeekStart)
+	if err != nil {
+		return err
+	}
 
-		reader, err = zip.NewReader(file, nbytes)
-		if err != nil {
-			return err
-		}
+	var reader *zip.Reader
+	reader, err = zip.NewReader(file, nbytes)
+	if err != nil {
+		return err
 	}
 
 	loadJARMappings(metadata, reader, classMap, artifactMap, lock)
