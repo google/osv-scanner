@@ -850,3 +850,15 @@ func containsOSResult(result Result) bool {
 
 	return false
 }
+
+func getEcosysRegVulnCount(ecosystem EcosystemResult) int {
+	var count int
+
+	for _, source := range ecosystem.Sources {
+		if source.PackageTypeCount.Regular > 0 {
+			count++
+		}
+	}
+
+	return count
+}
