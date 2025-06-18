@@ -123,12 +123,12 @@ No issues found
 
 ---
 
-[TestCommand/Go_project_with_show_all_vulns#01 - 1]
+[TestCommand/Go_project_with_show_all_vulns_(vertical) - 1]
 Scanning dir format=vertical
 
 ---
 
-[TestCommand/Go_project_with_show_all_vulns#01 - 2]
+[TestCommand/Go_project_with_show_all_vulns_(vertical) - 2]
 failed to scan dir: stat <rootdir>/format=vertical: no such file or directory
 
 ---

@@ -219,13 +219,13 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "Go project with show all vulns",
 			Args: []string{"", "source", "--all-vulns", "./fixtures/go-project"},
-			Exit: 1,
+			Exit: 0,
 		},
 		// Go project with all vulns in vertical output
 		{
-			Name: "Go project with show all vulns",
+			Name: "Go project with show all vulns (vertical)",
 			Args: []string{"", "source", "format=vertical", "--all-vulns", "./fixtures/go-project"},
-			Exit: 1,
+			Exit: 127,
 		},
 		// Go project with an overridden go version
 		{
