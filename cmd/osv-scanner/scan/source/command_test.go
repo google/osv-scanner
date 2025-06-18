@@ -215,6 +215,18 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
+		// Go project with all vulns
+		{
+			Name: "Go project with show all vulns",
+			Args: []string{"", "source", "--all-vulns", "./fixtures/go-project"},
+			Exit: 1,
+		},
+		// Go project with all vulns in vertical output
+		{
+			Name: "Go project with show all vulns",
+			Args: []string{"", "source", "format=vertical", "--all-vulns", "./fixtures/go-project"},
+			Exit: 1,
+		},
 		// Go project with an overridden go version
 		{
 			Name: "Go project with an overridden go version",

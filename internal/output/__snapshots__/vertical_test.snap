@@ -358,11 +358,6 @@ npm
 
 :path/to/my/first/lockfile: found 0 packages with issues
 
-  mine1@1.2.3 has the following uncalled vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-
-  1 uncalled/unimportant vulnerability found in :path/to/my/first/lockfile (filtered out)
-
   license violations found:
     mine1@1.2.3 (MIT)
 
@@ -377,11 +372,6 @@ npm
   no license violations found
 
 :path/to/my/third/lockfile: found 0 packages with issues
-
-  mine1@1.2.3 has the following uncalled vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-
-  1 uncalled/unimportant vulnerability found in :path/to/my/third/lockfile (filtered out)
 
   license violations found:
     mine1@1.2.3 (Apache-2.0)
@@ -508,11 +498,6 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 npm
 
 :path/to/my/first/lockfile: found 0 packages with issues
-
-  mine1@1.2.3 has the following uncalled vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-
-  1 uncalled/unimportant vulnerability found in :path/to/my/first/lockfile (filtered out)
 
   license violations found:
     mine1@1.2.3 (MIT)

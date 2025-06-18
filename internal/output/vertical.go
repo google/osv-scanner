@@ -11,7 +11,7 @@ import (
 	"github.com/jedib0t/go-pretty/v6/text"
 )
 
-func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) {
+func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, showAllVulns bool) {
 	// Add a newline to separate results from logs.
 	fmt.Fprintln(outputWriter)
 	outputResult := BuildResults(vulnResult)
@@ -28,7 +28,7 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 		fmt.Fprintf(outputWriter, "%s", text.FgGreen.Sprintf("%s\n\n", ecosystem.Name))
 		for j, source := range ecosystem.Sources {
 			printVerticalHeader(source, outputWriter)
-			printVerticalVulnerabilities(source, outputResult.IsContainerScanning, outputWriter)
+			printVerticalVulnerabilities(source, outputResult.IsContainerScanning, outputWriter, showAllVulns)
 			if outputResult.LicenseSummary.ShowViolations {
 				printVerticalLicenseViolations(source, outputWriter)
 			}
@@ -217,7 +217,7 @@ func printVerticalVulnerabilitiesForPackages(packages []PackageResult, out io.Wr
 	}
 }
 
-func printVerticalVulnerabilities(sourceResult SourceResult, isContainerScanning bool, out io.Writer) {
+func printVerticalVulnerabilities(sourceResult SourceResult, isContainerScanning bool, out io.Writer, showAllVulns bool) {
 	countCalled := sourceResult.VulnCount.AnalysisCount.Regular
 	countUncalled := sourceResult.VulnCount.AnalysisCount.Hidden
 
@@ -238,7 +238,7 @@ func printVerticalVulnerabilities(sourceResult SourceResult, isContainerScanning
 		printVerticalVulnerabilitiesCountSummary(countCalled, true, sourceResult.Name, out)
 	}
 
-	if countUncalled > 0 {
+	if showAllVulns && countUncalled > 0 {
 		fmt.Fprintln(out)
 
 		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, false, isContainerScanning, isOSResult(sourceResult.Type))

@@ -104,9 +104,6 @@
 | OSV URL | CVSS | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- | --- |
 | https://osv.dev/OSV-2 |  | npm | mine2 | 3.2.5 | path/to/my/second/lockfile |
-| Uncalled vulnerabilities |  |  |  |  |  |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | path/to/my/third/lockfile |
 | License Violation | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- |
 | MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
@@ -154,10 +151,6 @@
 ---
 
 [TestPrintMarkdownTableResults_WithMixedIssues/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation - 1]
-| OSV URL | CVSS | Ecosystem | Package | Version | Source |
-| --- | --- | --- | --- | --- | --- |
-| Uncalled vulnerabilities |  |  |  |  |  |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
 | License Violation | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- |
 | MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |

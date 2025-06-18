@@ -187,16 +187,6 @@ Ubuntu:22.04
 | systemd        | 249.11-0ubuntu3.12      | No fix available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 +----------------+-------------------------+------------------+------------+-------------------------+------------------+---------------+
 
-Filtered Vulnerabilities:
-+---------+--------------+--------------------------+---------------------+----------------+
-| PACKAGE | ECOSYSTEM    | INSTALLED VERSION        | FILTERED VULN COUNT | FILTER REASONS |
-+---------+--------------+--------------------------+---------------------+----------------+
-| glibc   | Ubuntu:22.04 | 2.35-0ubuntu3.8          |                   1 | Unimportant    |
-| krb5    | Ubuntu:22.04 | 1.19.2-2ubuntu0.4        |                   1 | Unimportant    |
-| pcre3   | Ubuntu:22.04 | 2:8.39-13ubuntu0.22.04.1 |                   1 | Unimportant    |
-| perl    | Ubuntu:22.04 | 5.34.0-3ubuntu1.3        |                   1 | Unimportant    |
-+---------+--------------+--------------------------+---------------------+----------------+
-
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
 
@@ -2655,5 +2645,57 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
 
 [TestCommand_OCIImageAllPackagesJSON/scanning_ubuntu_image_in_json_format - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
+
+---
+
+[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns - 1]
+Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
+
+Container Scanning Result (Ubuntu 22.04.5 LTS):
+Total 17 packages affected by 30 known vulnerabilities (2 Critical, 7 High, 15 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+Ubuntu:22.04
++---------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:var/lib/dpkg/status                                                                                                         |
++----------------+-------------------------+------------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION       | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------------+------------------+------------+-------------------------+------------------+---------------+
+| coreutils      | 8.32-4.1ubuntu1.2       | No fix available |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| gcc-12         | 12.3.0-1ubuntu1~22.04   | No fix available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8         | No fix available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1       | No fix available |          2 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5        | No fix available |          1 | libgnutls30             | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4       | No fix available |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| libcap2        | 1:2.44-1ubuntu0.22.04.1 | No fix available |          1 | libcap2                 | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3          | No fix available |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libtasn1-6     | 4.18.0-4build1          | No fix available |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
+| libzstd        | 1.4.8+dfsg-3build1      | No fix available |          1 | libzstd1                | # 4 Layer        | ubuntu        |
+| ncurses        | 6.3-2ubuntu0.1          | No fix available |          2 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18       | No fix available |          2 | libssl3                 | # 4 Layer        | ubuntu        |
+| pam            | 1.4.0-11ubuntu2.5       | No fix available |          1 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
+| pcre2          | 10.39-3ubuntu0.1        | No fix available |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3       | No fix available |          3 | perl-base               | # 4 Layer        | ubuntu        |
+| shadow         | 1:4.8.1-2ubuntu2.2      | No fix available |          2 | login, passwd           | # 4 Layer        | ubuntu        |
+| systemd        | 249.11-0ubuntu3.12      | No fix available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
++----------------+-------------------------+------------------+------------+-------------------------+------------------+---------------+
+
+Filtered Vulnerabilities:
++---------+--------------+--------------------------+---------------------+----------------+
+| PACKAGE | ECOSYSTEM    | INSTALLED VERSION        | FILTERED VULN COUNT | FILTER REASONS |
++---------+--------------+--------------------------+---------------------+----------------+
+| glibc   | Ubuntu:22.04 | 2.35-0ubuntu3.8          |                   1 | Unimportant    |
+| krb5    | Ubuntu:22.04 | 1.19.2-2ubuntu0.4        |                   1 | Unimportant    |
+| pcre3   | Ubuntu:22.04 | 2:8.39-13ubuntu0.22.04.1 |                   1 | Unimportant    |
+| perl    | Ubuntu:22.04 | 5.34.0-3ubuntu1.3        |                   1 | Unimportant    |
++---------+--------------+--------------------------+---------------------+----------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns - 2]
 
 ---
