@@ -215,18 +215,6 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "--format", "table", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
-		// Go project with all vulns
-		{
-			Name: "Go project with show all vulns",
-			Args: []string{"", "source", "--all-vulns", "./fixtures/go-project"},
-			Exit: 0,
-		},
-		// Go project with all vulns in vertical output
-		{
-			Name: "Go project with show all vulns (vertical)",
-			Args: []string{"", "source", "format=vertical", "--all-vulns", "./fixtures/go-project"},
-			Exit: 127,
-		},
 		// Go project with an overridden go version
 		{
 			Name: "Go project with an overridden go version",
@@ -431,6 +419,25 @@ func TestCommand_CallAnalysis(t *testing.T) {
 			Name: "Run with govulncheck",
 			Args: []string{"", "source",
 				"--call-analysis=go",
+				"--config=./fixtures/osv-scanner-call-analysis-config.toml",
+				"./fixtures/call-analysis-go-project"},
+			Exit: 1,
+		},
+		{
+			Name: "Run with govulncheck",
+			Args: []string{"", "source",
+				"--call-analysis=go",
+				"--all-vulns",
+				"--config=./fixtures/osv-scanner-call-analysis-config.toml",
+				"./fixtures/call-analysis-go-project"},
+			Exit: 1,
+		},
+		{
+			Name: "Run with govulncheck",
+			Args: []string{"", "source",
+				"--call-analysis=go",
+				"--all-vulns",
+				"--format=vertical",
 				"--config=./fixtures/osv-scanner-call-analysis-config.toml",
 				"./fixtures/call-analysis-go-project"},
 			Exit: 1,
