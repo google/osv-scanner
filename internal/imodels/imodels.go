@@ -83,7 +83,7 @@ func (pkg *PackageInfo) Name() string {
 	}
 
 	// Patch Maven archive extractor package names
-	if metadata, ok := pkg.Package.Metadata.(*archivemetadata.Metadata); ok {
+	if metadata, ok := pkg.Metadata.(*archivemetadata.Metadata); ok {
 		// Debian uses source name on osv.dev
 		// (fallback to using the normal name if source name is empty)
 		if metadata.ArtifactID != "" && metadata.GroupID != "" {
@@ -92,7 +92,7 @@ func (pkg *PackageInfo) Name() string {
 	}
 
 	// --- OS metadata ---
-	if metadata, ok := pkg.Package.Metadata.(*dpkgmetadata.Metadata); ok {
+	if metadata, ok := pkg.Metadata.(*dpkgmetadata.Metadata); ok {
 		// Debian uses source name on osv.dev
 		// (fallback to using the normal name if source name is empty)
 		if metadata.SourceName != "" {
@@ -100,7 +100,7 @@ func (pkg *PackageInfo) Name() string {
 		}
 	}
 
-	if metadata, ok := pkg.Package.Metadata.(*apkmetadata.Metadata); ok {
+	if metadata, ok := pkg.Metadata.(*apkmetadata.Metadata); ok {
 		if metadata.OriginName != "" {
 			return metadata.OriginName
 		}
@@ -158,27 +158,27 @@ func (pkg *PackageInfo) Version() string {
 }
 
 func (pkg *PackageInfo) Location() string {
-	if len(pkg.Package.Locations) > 0 {
-		return pkg.Package.Locations[0]
+	if len(pkg.Locations) > 0 {
+		return pkg.Locations[0]
 	}
 
 	return ""
 }
 
 func (pkg *PackageInfo) Commit() string {
-	if pkg.Package.SourceCode != nil {
-		return pkg.Package.SourceCode.Commit
+	if pkg.SourceCode != nil {
+		return pkg.SourceCode.Commit
 	}
 
 	return ""
 }
 
 func (pkg *PackageInfo) SourceType() models.SourceType {
-	if len(pkg.Package.Plugins) == 0 {
+	if len(pkg.Plugins) == 0 {
 		return models.SourceTypeUnknown
 	}
 
-	for _, extractorName := range pkg.Package.Plugins {
+	for _, extractorName := range pkg.Plugins {
 		if _, ok := osExtractors[extractorName]; ok {
 			return models.SourceTypeOSPackage
 		} else if _, ok := sbomExtractors[extractorName]; ok {
@@ -194,7 +194,7 @@ func (pkg *PackageInfo) SourceType() models.SourceType {
 }
 
 func (pkg *PackageInfo) DepGroups() []string {
-	if dg, ok := pkg.Package.Metadata.(scalibrosv.DepGroups); ok {
+	if dg, ok := pkg.Metadata.(scalibrosv.DepGroups); ok {
 		return dg.DepGroups()
 	}
 
@@ -202,13 +202,13 @@ func (pkg *PackageInfo) DepGroups() []string {
 }
 
 func (pkg *PackageInfo) OSPackageName() string {
-	if metadata, ok := pkg.Package.Metadata.(*apkmetadata.Metadata); ok {
+	if metadata, ok := pkg.Metadata.(*apkmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
-	if metadata, ok := pkg.Package.Metadata.(*dpkgmetadata.Metadata); ok {
+	if metadata, ok := pkg.Metadata.(*dpkgmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
-	if metadata, ok := pkg.Package.Metadata.(*rpmmetadata.Metadata); ok {
+	if metadata, ok := pkg.Metadata.(*rpmmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
 

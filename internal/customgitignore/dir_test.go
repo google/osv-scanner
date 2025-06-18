@@ -1,6 +1,7 @@
 package customgitignore_test
 
 import (
+	"errors"
 	"fmt"
 	"io/fs"
 	"os"
@@ -557,7 +558,7 @@ func TestRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
 
 	// Read this dir-tree using customgitignore
 	patterns, _, err := customgitignore.ParseGitIgnores(plainDir, true)
-	if err != nil {
+	if !errors.Is(err, git.ErrRepositoryNotExists) {
 		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 
@@ -575,7 +576,7 @@ func TestNonRecursivelyParsingGitignoreFilesFromPlainDir(t *testing.T) {
 
 	// Read this dir-tree using customgitignore
 	patterns, _, err := customgitignore.ParseGitIgnores(plainDir, false)
-	if err != nil {
+	if !errors.Is(err, git.ErrRepositoryNotExists) {
 		t.Fatalf("could not read gitignore patterns for test: %v", err)
 	}
 

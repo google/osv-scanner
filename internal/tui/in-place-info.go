@@ -120,7 +120,7 @@ func (ip *inPlaceInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 		case key.Matches(msg, Keys.Quit):
 			return ip, CloseViewModel
 		case key.Matches(msg, Keys.Select):
-			vuln := ip.vulns[ip.Model.Cursor()]
+			vuln := ip.vulns[ip.Cursor()]
 			ip.currVulnInfo = NewVulnInfo(vuln)
 			ip.currVulnInfo.Resize(ip.Width(), ip.Height())
 
