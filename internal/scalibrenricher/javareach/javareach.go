@@ -343,7 +343,7 @@ func enumerateReachabilityForJar(ctx context.Context, jarPath string, input *enr
 
 // unzipJAR unzips a JAR to a target directory. It also returns a list of paths
 // to all the nested JARs found while unzipping.
-func unzipJAR(jarPath string, input *enricher.ScanInput, tmpRoot *os.Root) (nestedJARs []string, err error) {
+func unzipJAR(jarPath string, input *enricher.ScanInput, jarRoot *os.Root) (nestedJARs []string, err error) {
 	file, err := input.ScanRoot.FS.Open(filepath.ToSlash(jarPath))
 	if err != nil {
 		return nil, err
@@ -371,11 +371,11 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpRoot *os.Root) (nest
 		}
 
 		if file.FileInfo().IsDir() {
-			if err := mkdirAll(tmpRoot, relativePath, 0755); err != nil {
+			if err := mkdirAll(jarRoot, relativePath, 0755); err != nil {
 				return nil, err
 			}
 		} else {
-			if err := mkdirAll(tmpRoot, path.Dir(relativePath), 0755); err != nil {
+			if err := mkdirAll(jarRoot, path.Dir(relativePath), 0755); err != nil {
 				return nil, err
 			}
 
@@ -388,7 +388,7 @@ func unzipJAR(jarPath string, input *enricher.ScanInput, tmpRoot *os.Root) (nest
 				return nil, err
 			}
 
-			f, err := tmpRoot.Create(relativePath)
+			f, err := jarRoot.Create(relativePath)
 			if err != nil {
 				return nil, err
 			}

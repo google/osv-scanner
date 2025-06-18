@@ -19,6 +19,7 @@ import (
 	"archive/zip"
 	"errors"
 	"fmt"
+	"io/fs"
 	"maps"
 	"os"
 	"path"
@@ -128,10 +129,10 @@ func (r *ReachabilityEnumerator) EnumerateReachability(jarRoot *os.Root, roots [
 }
 
 // findClassInJAR finds the relevant parsed .class file from a .jar.
-func (r *ReachabilityEnumerator) findClassInJAR(root *os.Root, jarPath string, className string) (*ClassFile, error) {
+func (r *ReachabilityEnumerator) findClassInJAR(jarRoot *os.Root, jarPath string, className string) (*ClassFile, error) {
 	if _, ok := r.loadedJARs[jarPath]; !ok {
 		// Repeatedly opening zip files is very slow, so cache the opened JARs.
-		f, err := root.Open(jarPath)
+		f, err := jarRoot.Open(jarPath)
 		if err != nil {
 			return nil, err
 		}
@@ -150,7 +151,7 @@ func (r *ReachabilityEnumerator) findClassInJAR(root *os.Root, jarPath string, c
 	zipr := r.loadedJARs[jarPath]
 	class, err := zipr.Open(className + ".class")
 	if err != nil {
-		if os.IsNotExist(err) {
+		if errors.Is(err, fs.ErrNotExist) {
 			// class not found in this .jar. not an error.
 			return nil, errClassNotFound
 		}
@@ -195,7 +196,7 @@ func (r *ReachabilityEnumerator) findClass(jarRoot *os.Root, classPaths []string
 			classFilepath += ".class"
 		}
 
-		if _, err := jarRoot.Stat(classFilepath); os.IsNotExist(err) {
+		if _, err := jarRoot.Stat(classFilepath); errors.Is(err, fs.ErrNotExist) {
 			// Class not found in this directory. Move onto the next classpath.
 			continue
 		}

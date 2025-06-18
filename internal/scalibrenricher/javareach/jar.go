@@ -135,6 +135,7 @@ func openNestedJAR(jarPaths []string) (*zip.Reader, error) {
 	return zipr, nil
 }
 
+// TODO(gongh): add tests for nested JARs
 func checkNestedJARContains(inv *extractor.Package) ([]string, bool) {
 	metadata := inv.Metadata.(*archivemeta.Metadata)
 	for i := len(inv.Locations) - 1; i >= 0; i-- {
@@ -236,7 +237,7 @@ func extractClassMappings(ctx context.Context, inv *extractor.Package, classMap 
 
 // NewDefaultPackageFinder creates a new DefaultPackageFinder based on a set of
 // inventory.
-func NewDefaultPackageFinder(ctx context.Context, inv []*extractor.Package, jarDir *os.Root, client *http.Client) (*DefaultPackageFinder, error) {
+func NewDefaultPackageFinder(ctx context.Context, inv []*extractor.Package, jarRoot *os.Root, client *http.Client) (*DefaultPackageFinder, error) {
 	// Download pkg, unpack, and store class mappings for each detected dependency.
 	classMap := map[string][]string{}
 	artifactMap := map[string][]string{}
@@ -255,7 +256,7 @@ func NewDefaultPackageFinder(ctx context.Context, inv []*extractor.Package, jarD
 		log.Error("failed to download package", "err", err)
 	}
 
-	if err := mapRootClasses(jarDir, classMap, artifactMap); err != nil {
+	if err := mapRootClasses(jarRoot, classMap, artifactMap); err != nil {
 		return nil, err
 	}
 
@@ -266,13 +267,13 @@ func NewDefaultPackageFinder(ctx context.Context, inv []*extractor.Package, jarD
 }
 
 // mapRootClasses maps class files to the root application where we can determine that association.
-func mapRootClasses(jarDir *os.Root, classMap map[string][]string, artifactMap map[string][]string) error {
+func mapRootClasses(jarRoot *os.Root, classMap map[string][]string, artifactMap map[string][]string) error {
 	// Spring Boot.
 	// TODO(#787): Handle non-Spring Boot applications. We could add heuristic for
 	// detecting root application classes when the class structure is flat based
 	// on the class hierarchy.
-	if _, err := jarDir.Stat(BootInfClasses); err != nil {
-		if os.IsNotExist(err) {
+	if _, err := jarRoot.Stat(BootInfClasses); err != nil {
+		if errors.Is(err, fs.ErrNotExist) {
 			return nil
 		}
 
@@ -280,7 +281,7 @@ func mapRootClasses(jarDir *os.Root, classMap map[string][]string, artifactMap m
 	}
 	log.Debug("Found Spring Boot classes", "classes", BootInfClasses)
 
-	return fs.WalkDir(jarDir.FS(), BootInfClasses, func(path string, info fs.DirEntry, err error) error {
+	return fs.WalkDir(jarRoot.FS(), BootInfClasses, func(path string, info fs.DirEntry, err error) error {
 		if err != nil {
 			return err
 		}

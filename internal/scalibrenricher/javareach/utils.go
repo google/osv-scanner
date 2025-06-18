@@ -21,9 +21,9 @@ import (
 
 // mkdirAll simulates the same logic as os.MkdirAll but uses os.Root as input.
 // Code logic copied from https://cs.opensource.google/go/go/+/refs/tags/go1.24.4:src/os/path.go;l=19
-func mkdirAll(root *os.Root, path string, perm os.FileMode) error {
+func mkdirAll(jarRoot *os.Root, path string, perm os.FileMode) error {
 	// Fast path: if we can tell whether path is a directory or file, stop with success or error.
-	dir, err := root.Stat(path)
+	dir, err := jarRoot.Stat(path)
 	if err == nil {
 		if dir.IsDir() {
 			return nil
@@ -51,18 +51,18 @@ func mkdirAll(root *os.Root, path string, perm os.FileMode) error {
 
 	// recurse to ensure parent directory exists.
 	if parent := path[:i]; len(parent) > 0 {
-		err = mkdirAll(root, parent, perm)
+		err = mkdirAll(jarRoot, parent, perm)
 		if err != nil {
 			return err
 		}
 	}
 
 	// Parent now exists; invoke Mkdir and use its result.
-	err = root.Mkdir(path, perm)
+	err = jarRoot.Mkdir(path, perm)
 	if err != nil {
 		// Handle arguments like "foo/." by
 		// double-checking that directory doesn't exist.
-		dir, err1 := root.Lstat(path)
+		dir, err1 := jarRoot.Lstat(path)
 		if err1 == nil && dir.IsDir() {
 			return nil
 		}
