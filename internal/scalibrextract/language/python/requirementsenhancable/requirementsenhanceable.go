@@ -15,7 +15,7 @@ const (
 	Name = "python/requirementsenhanceable"
 )
 
-// Extractor extracts Maven packages from pom.xml files.
+// Extractor extracts python packages from requirements.txt files.
 type Extractor struct {
 	actual filesystem.Extractor
 }
@@ -39,12 +39,12 @@ func (e *Extractor) Requirements() *plugin.Capabilities {
 	return req
 }
 
-// FileRequired returns true if the specified file matches Maven POM lockfile patterns.
+// FileRequired returns true if the specified file matches using the underlying requirements extractor
 func (e *Extractor) FileRequired(api filesystem.FileAPI) bool {
 	return e.actual.FileRequired(api)
 }
 
-// Extract extracts packages from pom.xml files passed through the scan input.
+// Extract extracts packages using the internal extractor
 func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
 	return e.actual.Extract(ctx, input)
 }
