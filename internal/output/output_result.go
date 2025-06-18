@@ -851,14 +851,12 @@ func containsOSResult(result Result) bool {
 	return false
 }
 
-func getEcosysRegVulnCount(ecosystem EcosystemResult) int {
-	var count int
-
+func ecosystemHasRegVuln(ecosystem EcosystemResult) bool {
 	for _, source := range ecosystem.Sources {
 		if source.PackageTypeCount.Regular > 0 {
-			count++
+			return true
 		}
 	}
 
-	return count
+	return false
 }

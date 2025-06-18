@@ -118,7 +118,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 	}
 
 	for _, ecosystem := range result.Ecosystems {
-		if getEcosysRegVulnCount(ecosystem) != 0 {
+		if ecosystemHasRegVuln(ecosystem) {
 			fmt.Fprintln(outputWriter, ecosystem.Name)
 		}
 
