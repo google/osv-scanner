@@ -118,9 +118,14 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 	}
 
 	for _, ecosystem := range result.Ecosystems {
-		fmt.Fprintln(outputWriter, ecosystem.Name)
+		if ecosystemHasRegVuln(ecosystem) {
+			fmt.Fprintln(outputWriter, ecosystem.Name)
+		}
 
 		for _, source := range ecosystem.Sources {
+			if source.PackageTypeCount.Regular == 0 {
+				continue
+			}
 			outputTable := newTable(outputWriter, terminalWidth)
 			outputTable.SetTitle("Source:" + source.Name)
 			sourcePackageHeader := "Package"
