@@ -237,9 +237,9 @@
 ╭───────────────────────┬──────┬───────────┬─────────────┬─────────┬────────────────────────────╮
 │ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE     │ VERSION │ SOURCE                     │
 ├───────────────────────┼──────┼───────────┼─────────────┼─────────┼────────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1       │ 1.2.2   │ path/to/my/first/lockfile  │
 │ https://osv.dev/OSV-1 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/my/first/lockfile  │
 │ https://osv.dev/OSV-5 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/my/first/lockfile  │
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1       │ 1.2.2   │ path/to/my/first/lockfile  │
 │ https://osv.dev/OSV-2 │      │ npm       │ mine2 (dev) │ 3.2.5   │ path/to/my/second/lockfile │
 │ https://osv.dev/OSV-3 │      │ npm       │ mine3       │ 0.4.1   │ path/to/my/second/lockfile │
 │ https://osv.dev/OSV-5 │      │ npm       │ mine3       │ 0.4.1   │ path/to/my/second/lockfile │
@@ -251,9 +251,9 @@
 ╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────────────────────╮
 │ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE                     │
 ├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.2   │ path/to/my/first/lockfile  │
 │ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile  │
 │ https://osv.dev/OSV-5 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfile  │
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.2   │ path/to/my/first/lockfile  │
 │ https://osv.dev/OSV-2 │      │ npm       │ mine2   │ 3.2.5   │ path/to/my/second/lockfile │
 │ https://osv.dev/OSV-3 │      │ npm       │ mine3   │ 0.4.1   │ path/to/my/second/lockfile │
 │ https://osv.dev/OSV-5 │      │ npm       │ mine3   │ 0.4.1   │ path/to/my/second/lockfile │
@@ -280,12 +280,12 @@
 ╭───────────────────────┬──────┬───────────┬───────────────┬─────────┬────────────────────────────╮
 │ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE       │ VERSION │ SOURCE                     │
 ├───────────────────────┼──────┼───────────┼───────────────┼─────────┼────────────────────────────┤
+│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2         │ 3.2.5   │ path/to/my/second/lockfile │
 │ https://osv.dev/OSV-1 │      │ Packagist │ author1/mine1 │ 1.2.3   │ path/to/my/first/lockfile  │
 │ https://osv.dev/OSV-5 │      │ Packagist │ author1/mine1 │ 1.2.3   │ path/to/my/first/lockfile  │
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1         │ 1.2.2   │ path/to/my/first/lockfile  │
-│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2         │ 3.2.5   │ path/to/my/second/lockfile │
 │ https://osv.dev/OSV-3 │      │ Packagist │ author3/mine3 │ 0.4.1   │ path/to/my/second/lockfile │
 │ https://osv.dev/OSV-5 │      │ Packagist │ author3/mine3 │ 0.4.1   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1         │ 1.2.2   │ path/to/my/first/lockfile  │
 ╰───────────────────────┴──────┴───────────┴───────────────┴─────────┴────────────────────────────╯
 
 ---
@@ -294,11 +294,11 @@
 ╭──────────────────────────┬──────┬───────────┬───────────────┬─────────┬────────────────────────────╮
 │ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE       │ VERSION │ SOURCE                     │
 ├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼────────────────────────────┤
-│ https://osv.dev/OSV-5    │      │ Packagist │ author1/mine1 │ 1.2.3   │ path/to/my/first/lockfile  │
-│ https://osv.dev/OSV-1    │      │ npm       │ mine1         │ 1.2.2   │ path/to/my/first/lockfile  │
 │ https://osv.dev/OSV-2    │      │ NuGet     │ mine2         │ 3.2.5   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-5    │      │ Packagist │ author1/mine1 │ 1.2.3   │ path/to/my/first/lockfile  │
 │ https://osv.dev/OSV-3    │      │ Packagist │ author3/mine3 │ 0.4.1   │ path/to/my/second/lockfile │
 │ https://osv.dev/OSV-5    │      │ Packagist │ author3/mine3 │ 0.4.1   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1         │ 1.2.2   │ path/to/my/first/lockfile  │
 ├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼────────────────────────────┤
 │ Uncalled vulnerabilities │      │           │               │         │                            │
 ├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼────────────────────────────┤
@@ -311,12 +311,12 @@
 ╭───────────────────────┬──────┬───────────┬───────────────┬─────────┬────────────────────────────╮
 │ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE       │ VERSION │ SOURCE                     │
 ├───────────────────────┼──────┼───────────┼───────────────┼─────────┼────────────────────────────┤
+│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2         │ 3.2.5   │ path/to/my/second/lockfile │
 │ https://osv.dev/OSV-1 │      │ Packagist │ author1/mine1 │ 1.2.3   │ path/to/my/first/lockfile  │
 │ https://osv.dev/OSV-5 │      │ Packagist │ author1/mine1 │ 1.2.3   │ path/to/my/first/lockfile  │
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1         │         │ path/to/my/first/lockfile  │
-│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2         │ 3.2.5   │ path/to/my/second/lockfile │
 │ https://osv.dev/OSV-3 │      │ Packagist │ author3/mine3 │ 0.4.1   │ path/to/my/second/lockfile │
 │ https://osv.dev/OSV-5 │      │ Packagist │ author3/mine3 │ 0.4.1   │ path/to/my/second/lockfile │
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1         │         │ path/to/my/first/lockfile  │
 ╰───────────────────────┴──────┴───────────┴───────────────┴─────────┴────────────────────────────╯
 
 ---
@@ -695,9 +695,9 @@
 +-----------------------+------+-----------+-------------+---------+----------------------------+
 | OSV URL               | CVSS | ECOSYSTEM | PACKAGE     | VERSION | SOURCE                     |
 +-----------------------+------+-----------+-------------+---------+----------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1       | 1.2.2   | path/to/my/first/lockfile  |
 | https://osv.dev/OSV-1 |      | npm       | mine1 (dev) | 1.2.3   | path/to/my/first/lockfile  |
 | https://osv.dev/OSV-5 |      | npm       | mine1 (dev) | 1.2.3   | path/to/my/first/lockfile  |
-| https://osv.dev/OSV-1 |      | npm       | mine1       | 1.2.2   | path/to/my/first/lockfile  |
 | https://osv.dev/OSV-2 |      | npm       | mine2 (dev) | 3.2.5   | path/to/my/second/lockfile |
 | https://osv.dev/OSV-3 |      | npm       | mine3       | 0.4.1   | path/to/my/second/lockfile |
 | https://osv.dev/OSV-5 |      | npm       | mine3       | 0.4.1   | path/to/my/second/lockfile |
@@ -709,9 +709,9 @@
 +-----------------------+------+-----------+---------+---------+----------------------------+
 | OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | SOURCE                     |
 +-----------------------+------+-----------+---------+---------+----------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.2   | path/to/my/first/lockfile  |
 | https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile  |
 | https://osv.dev/OSV-5 |      | npm       | mine1   | 1.2.3   | path/to/my/first/lockfile  |
-| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.2   | path/to/my/first/lockfile  |
 | https://osv.dev/OSV-2 |      | npm       | mine2   | 3.2.5   | path/to/my/second/lockfile |
 | https://osv.dev/OSV-3 |      | npm       | mine3   | 0.4.1   | path/to/my/second/lockfile |
 | https://osv.dev/OSV-5 |      | npm       | mine3   | 0.4.1   | path/to/my/second/lockfile |
@@ -738,12 +738,12 @@
 +-----------------------+------+-----------+---------------+---------+----------------------------+
 | OSV URL               | CVSS | ECOSYSTEM | PACKAGE       | VERSION | SOURCE                     |
 +-----------------------+------+-----------+---------------+---------+----------------------------+
+| https://osv.dev/OSV-2 |      | NuGet     | mine2         | 3.2.5   | path/to/my/second/lockfile |
 | https://osv.dev/OSV-1 |      | Packagist | author1/mine1 | 1.2.3   | path/to/my/first/lockfile  |
 | https://osv.dev/OSV-5 |      | Packagist | author1/mine1 | 1.2.3   | path/to/my/first/lockfile  |
-| https://osv.dev/OSV-1 |      | npm       | mine1         | 1.2.2   | path/to/my/first/lockfile  |
-| https://osv.dev/OSV-2 |      | NuGet     | mine2         | 3.2.5   | path/to/my/second/lockfile |
 | https://osv.dev/OSV-3 |      | Packagist | author3/mine3 | 0.4.1   | path/to/my/second/lockfile |
 | https://osv.dev/OSV-5 |      | Packagist | author3/mine3 | 0.4.1   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |      | npm       | mine1         | 1.2.2   | path/to/my/first/lockfile  |
 +-----------------------+------+-----------+---------------+---------+----------------------------+
 
 ---
@@ -752,11 +752,11 @@
 +--------------------------+------+-----------+---------------+---------+----------------------------+
 | OSV URL                  | CVSS | ECOSYSTEM | PACKAGE       | VERSION | SOURCE                     |
 +--------------------------+------+-----------+---------------+---------+----------------------------+
-| https://osv.dev/OSV-5    |      | Packagist | author1/mine1 | 1.2.3   | path/to/my/first/lockfile  |
-| https://osv.dev/OSV-1    |      | npm       | mine1         | 1.2.2   | path/to/my/first/lockfile  |
 | https://osv.dev/OSV-2    |      | NuGet     | mine2         | 3.2.5   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5    |      | Packagist | author1/mine1 | 1.2.3   | path/to/my/first/lockfile  |
 | https://osv.dev/OSV-3    |      | Packagist | author3/mine3 | 0.4.1   | path/to/my/second/lockfile |
 | https://osv.dev/OSV-5    |      | Packagist | author3/mine3 | 0.4.1   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1    |      | npm       | mine1         | 1.2.2   | path/to/my/first/lockfile  |
 +--------------------------+------+-----------+---------------+---------+----------------------------+
 | Uncalled vulnerabilities |      |           |               |         |                            |
 +--------------------------+------+-----------+---------------+---------+----------------------------+
@@ -769,12 +769,12 @@
 +-----------------------+------+-----------+---------------+---------+----------------------------+
 | OSV URL               | CVSS | ECOSYSTEM | PACKAGE       | VERSION | SOURCE                     |
 +-----------------------+------+-----------+---------------+---------+----------------------------+
+| https://osv.dev/OSV-2 |      | NuGet     | mine2         | 3.2.5   | path/to/my/second/lockfile |
 | https://osv.dev/OSV-1 |      | Packagist | author1/mine1 | 1.2.3   | path/to/my/first/lockfile  |
 | https://osv.dev/OSV-5 |      | Packagist | author1/mine1 | 1.2.3   | path/to/my/first/lockfile  |
-| https://osv.dev/OSV-1 |      | npm       | mine1         |         | path/to/my/first/lockfile  |
-| https://osv.dev/OSV-2 |      | NuGet     | mine2         | 3.2.5   | path/to/my/second/lockfile |
 | https://osv.dev/OSV-3 |      | Packagist | author3/mine3 | 0.4.1   | path/to/my/second/lockfile |
 | https://osv.dev/OSV-5 |      | Packagist | author3/mine3 | 0.4.1   | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |      | npm       | mine1         |         | path/to/my/first/lockfile  |
 +-----------------------+------+-----------+---------------+---------+----------------------------+
 
 ---
@@ -1153,9 +1153,9 @@
 ╭───────────────────────┬──────┬───────────┬─────────────┬─────────┬────────── ≈
 │ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE     │ VERSION │ SOURCE    ≈
 ├───────────────────────┼──────┼───────────┼─────────────┼─────────┼────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1       │ 1.2.2   │ path/to/m ≈
 │ https://osv.dev/OSV-1 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/m ≈
 │ https://osv.dev/OSV-5 │      │ npm       │ mine1 (dev) │ 1.2.3   │ path/to/m ≈
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1       │ 1.2.2   │ path/to/m ≈
 │ https://osv.dev/OSV-2 │      │ npm       │ mine2 (dev) │ 3.2.5   │ path/to/m ≈
 │ https://osv.dev/OSV-3 │      │ npm       │ mine3       │ 0.4.1   │ path/to/m ≈
 │ https://osv.dev/OSV-5 │      │ npm       │ mine3       │ 0.4.1   │ path/to/m ≈
@@ -1167,9 +1167,9 @@
 ╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
 │ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ SOURCE        ≈
 ├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.2   │ path/to/my/fi ≈
 │ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/fi ≈
 │ https://osv.dev/OSV-5 │      │ npm       │ mine1   │ 1.2.3   │ path/to/my/fi ≈
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.2   │ path/to/my/fi ≈
 │ https://osv.dev/OSV-2 │      │ npm       │ mine2   │ 3.2.5   │ path/to/my/se ≈
 │ https://osv.dev/OSV-3 │      │ npm       │ mine3   │ 0.4.1   │ path/to/my/se ≈
 │ https://osv.dev/OSV-5 │      │ npm       │ mine3   │ 0.4.1   │ path/to/my/se ≈
@@ -1196,12 +1196,12 @@
 ╭───────────────────────┬──────┬───────────┬───────────────┬─────────┬──────── ≈
 │ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE       │ VERSION │ SOURCE  ≈
 ├───────────────────────┼──────┼───────────┼───────────────┼─────────┼──────── ≈
+│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2         │ 3.2.5   │ path/to ≈
 │ https://osv.dev/OSV-1 │      │ Packagist │ author1/mine1 │ 1.2.3   │ path/to ≈
 │ https://osv.dev/OSV-5 │      │ Packagist │ author1/mine1 │ 1.2.3   │ path/to ≈
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1         │ 1.2.2   │ path/to ≈
-│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2         │ 3.2.5   │ path/to ≈
 │ https://osv.dev/OSV-3 │      │ Packagist │ author3/mine3 │ 0.4.1   │ path/to ≈
 │ https://osv.dev/OSV-5 │      │ Packagist │ author3/mine3 │ 0.4.1   │ path/to ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1         │ 1.2.2   │ path/to ≈
 ╰───────────────────────┴──────┴───────────┴───────────────┴─────────┴──────── ≈
 
 ---
@@ -1210,11 +1210,11 @@
 ╭──────────────────────────┬──────┬───────────┬───────────────┬─────────┬───── ≈
 │ OSV URL                  │ CVSS │ ECOSYSTEM │ PACKAGE       │ VERSION │ SOUR ≈
 ├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼───── ≈
-│ https://osv.dev/OSV-5    │      │ Packagist │ author1/mine1 │ 1.2.3   │ path ≈
-│ https://osv.dev/OSV-1    │      │ npm       │ mine1         │ 1.2.2   │ path ≈
 │ https://osv.dev/OSV-2    │      │ NuGet     │ mine2         │ 3.2.5   │ path ≈
+│ https://osv.dev/OSV-5    │      │ Packagist │ author1/mine1 │ 1.2.3   │ path ≈
 │ https://osv.dev/OSV-3    │      │ Packagist │ author3/mine3 │ 0.4.1   │ path ≈
 │ https://osv.dev/OSV-5    │      │ Packagist │ author3/mine3 │ 0.4.1   │ path ≈
+│ https://osv.dev/OSV-1    │      │ npm       │ mine1         │ 1.2.2   │ path ≈
 ├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼───── ≈
 │ Uncalled vulnerabilities │      │           │               │         │      ≈
 ├──────────────────────────┼──────┼───────────┼───────────────┼─────────┼───── ≈
@@ -1227,12 +1227,12 @@
 ╭───────────────────────┬──────┬───────────┬───────────────┬─────────┬──────── ≈
 │ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE       │ VERSION │ SOURCE  ≈
 ├───────────────────────┼──────┼───────────┼───────────────┼─────────┼──────── ≈
+│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2         │ 3.2.5   │ path/to ≈
 │ https://osv.dev/OSV-1 │      │ Packagist │ author1/mine1 │ 1.2.3   │ path/to ≈
 │ https://osv.dev/OSV-5 │      │ Packagist │ author1/mine1 │ 1.2.3   │ path/to ≈
-│ https://osv.dev/OSV-1 │      │ npm       │ mine1         │         │ path/to ≈
-│ https://osv.dev/OSV-2 │      │ NuGet     │ mine2         │ 3.2.5   │ path/to ≈
 │ https://osv.dev/OSV-3 │      │ Packagist │ author3/mine3 │ 0.4.1   │ path/to ≈
 │ https://osv.dev/OSV-5 │      │ Packagist │ author3/mine3 │ 0.4.1   │ path/to ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1         │         │ path/to ≈
 ╰───────────────────────┴──────┴───────────┴───────────────┴─────────┴──────── ≈
 
 ---

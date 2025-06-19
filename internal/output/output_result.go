@@ -67,6 +67,7 @@ type PackageResult struct {
 	VulnCount         VulnCount
 	Licenses          []models.License
 	LicenseViolations []models.License
+	DepGroups         []string `json:"-"`
 }
 
 // VulnResult represents a single vulnerability.
@@ -473,6 +474,7 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 		VulnCount:         count,
 		Licenses:          vulnPkg.Licenses,
 		LicenseViolations: vulnPkg.LicenseViolations,
+		DepGroups:         vulnPkg.DepGroups,
 	}
 
 	return packageResult
