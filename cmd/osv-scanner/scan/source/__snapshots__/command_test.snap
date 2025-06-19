@@ -1234,24 +1234,13 @@ No issues found
 [TestCommand_CallAnalysis/Run_with_govulncheck - 1]
 Scanning dir ./fixtures/call-analysis-go-project
 Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 packages
-GO-2025-3447 and 2 aliases have been filtered out because: This is called in Go v1.23, but not in v1.24
-Filtered 1 vulnerability from output
+Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
+Filtered 1 ignored package/s from the scan.
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                     | VERSION | SOURCE                                   |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | https://osv.dev/GO-2023-1558        | 5.9  | Go        | github.com/ipfs/go-bitfield | 1.0.0   | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GHSA-2h6c-j3gf-xp9r |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-2102        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2185        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2375        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2382        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2598        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2599        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2687        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3563        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3750        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | Uncalled vulnerabilities            |      |           |                             |         |                                          |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
@@ -1265,24 +1254,31 @@ Filtered 1 vulnerability from output
 | https://osv.dev/GHSA-j3p8-6mrq-6g7h |      |           |                             |         |                                          |
 | https://osv.dev/GO-2024-2937        | 8.7  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GHSA-9phm-fm57-rhg8 |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-2041        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2043        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2186        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2600        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2609        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2610        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2888        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2963        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3105        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3106        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3107        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3420        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3751        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 
 ---
 
 [TestCommand_CallAnalysis/Run_with_govulncheck - 2]
+
+---
+
+[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 1]
+Scanning dir ./fixtures/call-analysis-go-project-all-uncalled
+Scanned <rootdir>/fixtures/call-analysis-go-project-all-uncalled/go.mod file and found 2 packages
+Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
+Filtered 1 ignored package/s from the scan.
++-------------------------------------+------+-----------+--------------------------+---------+-------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                  | VERSION | SOURCE                                                |
++-------------------------------------+------+-----------+--------------------------+---------+-------------------------------------------------------+
+| Uncalled vulnerabilities            |      |           |                          |         |                                                       |
++-------------------------------------+------+-----------+--------------------------+---------+-------------------------------------------------------+
+| https://osv.dev/GO-2021-0053        | 8.6  | Go        | github.com/gogo/protobuf | 1.3.1   | fixtures/call-analysis-go-project-all-uncalled/go.mod |
+| https://osv.dev/GHSA-c3h9-896r-86jm |      |           |                          |         |                                                       |
++-------------------------------------+------+-----------+--------------------------+---------+-------------------------------------------------------+
+
+---
+
+[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 2]
 
 ---
 

@@ -158,7 +158,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 17 packages affected by 30 known vulnerabilities (2 Critical, 7 High, 15 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
+Total 17 packages affected by 33 known vulnerabilities (2 Critical, 7 High, 15 Medium, 5 Low, 4 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -178,9 +178,9 @@ Ubuntu:22.04
 | libgcrypt20    | 1.9.4-3ubuntu3          | No fix available |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1          | No fix available |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1      | No fix available |          1 | libzstd1                | # 4 Layer        | ubuntu        |
-| ncurses        | 6.3-2ubuntu0.1          | No fix available |          2 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
-| openssl        | 3.0.2-0ubuntu1.18       | No fix available |          2 | libssl3                 | # 4 Layer        | ubuntu        |
-| pam            | 1.4.0-11ubuntu2.5       | No fix available |          1 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
+| ncurses        | 6.3-2ubuntu0.1          | No fix available |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18       | No fix available |          3 | libssl3                 | # 4 Layer        | ubuntu        |
+| pam            | 1.4.0-11ubuntu2.5       | No fix available |          2 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1        | No fix available |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3       | No fix available |          3 | perl-base               | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2      | No fix available |          2 | login, passwd           | # 4 Layer        | ubuntu        |
@@ -333,8 +333,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 19 packages affected by 38 known vulnerabilities (0 Critical, 12 High, 11 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-38 vulnerabilities can be fixed.
+Total 19 packages affected by 40 known vulnerabilities (0 Critical, 12 High, 13 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+40 vulnerabilities can be fixed.
 
 
 PyPI
@@ -399,7 +399,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| urllib3 | 1.24.3            | Fix Available |          5 | # 17 Layer       | --            |
+| urllib3 | 1.24.3            | Fix Available |          7 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Debian:10
 +-----------------------------------------------------------------------------------------------------------------------------------------------+
@@ -888,7 +888,9 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           },
           "vulnerabilities": [
             "GHSA-34jh-p97f-mpxf",
+            "GHSA-48p4-8xcf-vxj5",
             "GHSA-g4mx-q9vg-27p4",
+            "GHSA-pq67-6m6q-mj2v",
             "GHSA-v845-jxx5-vc9f",
             "GHSA-wqvq-5m8c-6g24",
             "PYSEC-2020-148",
@@ -896,7 +898,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "PYSEC-2023-192",
             "PYSEC-2023-212"
           ],
-          "groups": 5
+          "groups": 7
         }
       ]
     },
@@ -2283,9 +2285,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2023-45918",
-            "UBUNTU-CVE-2023-50495"
+            "UBUNTU-CVE-2023-50495",
+            "UBUNTU-CVE-2025-6141"
           ],
-          "groups": 2
+          "groups": 3
         },
         {
           "package": {
@@ -2299,9 +2302,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2023-45918",
-            "UBUNTU-CVE-2023-50495"
+            "UBUNTU-CVE-2023-50495",
+            "UBUNTU-CVE-2025-6141"
           ],
-          "groups": 2
+          "groups": 3
         },
         {
           "package": {
@@ -2314,9 +2318,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2024-10041"
+            "UBUNTU-CVE-2024-10041",
+            "UBUNTU-CVE-2025-6020"
           ],
-          "groups": 1
+          "groups": 2
         },
         {
           "package": {
@@ -2329,9 +2334,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2024-10041"
+            "UBUNTU-CVE-2024-10041",
+            "UBUNTU-CVE-2025-6020"
           ],
-          "groups": 1
+          "groups": 2
         },
         {
           "package": {
@@ -2344,9 +2350,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2024-10041"
+            "UBUNTU-CVE-2024-10041",
+            "UBUNTU-CVE-2025-6020"
           ],
-          "groups": 1
+          "groups": 2
         },
         {
           "package": {
@@ -2359,9 +2366,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2024-10041"
+            "UBUNTU-CVE-2024-10041",
+            "UBUNTU-CVE-2025-6020"
           ],
-          "groups": 1
+          "groups": 2
         },
         {
           "package": {
@@ -2407,9 +2415,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2024-13176",
             "UBUNTU-CVE-2024-41996",
             "UBUNTU-CVE-2024-9143",
+            "UBUNTU-CVE-2025-27587",
             "USN-7278-1"
           ],
-          "groups": 2
+          "groups": 3
         },
         {
           "package": {
@@ -2473,9 +2482,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2023-45918",
-            "UBUNTU-CVE-2023-50495"
+            "UBUNTU-CVE-2023-50495",
+            "UBUNTU-CVE-2025-6141"
           ],
-          "groups": 2
+          "groups": 3
         },
         {
           "package": {
@@ -2537,9 +2547,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2023-45918",
-            "UBUNTU-CVE-2023-50495"
+            "UBUNTU-CVE-2023-50495",
+            "UBUNTU-CVE-2025-6141"
           ],
-          "groups": 2
+          "groups": 3
         },
         {
           "package": {
@@ -2553,9 +2564,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2023-45918",
-            "UBUNTU-CVE-2023-50495"
+            "UBUNTU-CVE-2023-50495",
+            "UBUNTU-CVE-2025-6141"
           ],
-          "groups": 2
+          "groups": 3
         },
         {
           "package": {
