@@ -14,6 +14,7 @@ type verticalReporter struct {
 	writer io.Writer
 	// 0 indicates not a terminal output
 	terminalWidth int
+	showAllVulns  bool
 }
 
 func (r *verticalReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
@@ -26,7 +27,7 @@ func (r *verticalReporter) PrintResult(vulnResult *models.VulnerabilityResults) 
 		text.DisableColors()
 	}
 
-	output.PrintVerticalResults(vulnResult, r.writer)
+	output.PrintVerticalResults(vulnResult, r.writer, r.showAllVulns)
 
 	return nil
 }

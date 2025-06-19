@@ -24,7 +24,7 @@ import (
 const OSVBaseVulnerabilityURL = "https://osv.dev/"
 
 // PrintTableResults prints the osv scan results into a human friendly table.
-func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, terminalWidth int) {
+func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, terminalWidth int, showAllVulns bool) {
 	if terminalWidth <= 0 {
 		text.DisableColors()
 	}
@@ -33,10 +33,10 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 
 	// Render the vulnerabilities.
 	if containsOSResult(outputResult) {
-		printSummaryResult(outputResult, outputWriter, terminalWidth)
+		printSummaryResult(outputResult, outputWriter, terminalWidth, showAllVulns)
 	} else {
 		outputTable := newTable(outputWriter, terminalWidth)
-		outputTable = tableBuilder(outputTable, vulnResult)
+		outputTable = tableBuilder(outputTable, vulnResult, showAllVulns)
 		if outputTable.Length() != 0 {
 			outputTable.Render()
 		}
@@ -69,7 +69,7 @@ func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
 	return outputTable
 }
 
-func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
+func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults, showAllVulns bool) table.Writer {
 	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
 	rows := tableBuilderInner(vulnResult, true, false)
 	for _, elem := range rows {
@@ -77,7 +77,7 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 	}
 
 	uncalledRows := tableBuilderInner(vulnResult, false, false)
-	if len(uncalledRows) != 0 {
+	if showAllVulns && len(uncalledRows) != 0 {
 		outputTable.AppendSeparator()
 		outputTable.AppendRow(table.Row{"Uncalled vulnerabilities"})
 		outputTable.AppendSeparator()
@@ -101,7 +101,7 @@ func tableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResu
 	return outputTable
 }
 
-func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int) {
+func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int, showAllVulns bool) {
 	// Add a newline to separate results from logs.
 	fmt.Fprintln(outputWriter)
 	if result.IsContainerScanning {
@@ -190,7 +190,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 		}
 	}
 
-	if result.VulnTypeSummary.Hidden != 0 {
+	if showAllVulns && result.VulnTypeSummary.Hidden != 0 {
 		// Add a newline
 		fmt.Fprintln(outputWriter)
 		fmt.Fprintln(outputWriter, "Filtered Vulnerabilities:")

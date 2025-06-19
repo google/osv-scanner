@@ -423,6 +423,25 @@ func TestCommand_CallAnalysis(t *testing.T) {
 				"./fixtures/call-analysis-go-project"},
 			Exit: 1,
 		},
+		{
+			Name: "Run with govulncheck",
+			Args: []string{"", "source",
+				"--call-analysis=go",
+				"--all-vulns",
+				"--config=./fixtures/osv-scanner-call-analysis-config.toml",
+				"./fixtures/call-analysis-go-project"},
+			Exit: 1,
+		},
+		{
+			Name: "Run with govulncheck",
+			Args: []string{"", "source",
+				"--call-analysis=go",
+				"--all-vulns",
+				"--format=vertical",
+				"--config=./fixtures/osv-scanner-call-analysis-config.toml",
+				"./fixtures/call-analysis-go-project"},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
