@@ -3248,114 +3248,6 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
-[TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 1]
-Scanning dir ./fixtures/maven-transitive/pom.xml
-Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
-No issues found
-
----
-
-[TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 2]
-
----
-
-[TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 1]
-Scanning dir ./fixtures/maven-transitive/pom.xml
-Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
-Loaded Maven local db from <tempdir>/osv-scanner/Maven/all.zip
-No issues found
-
----
-
-[TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 2]
-
----
-
-[TestCommand_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 1]
-Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-
----
-
-[TestCommand_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 2]
-
----
-
-[TestCommand_MavenTransitive/scans_dependencies_from_multiple_registries - 1]
-Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-
----
-
-[TestCommand_MavenTransitive/scans_dependencies_from_multiple_registries - 2]
-
----
-
-[TestCommand_MavenTransitive/scans_pom.xml_with_non_UTF-8_encoding - 1]
-Scanned <rootdir>/fixtures/maven-transitive/encoding.xml file as a pom.xml and found 2 packages
-+-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE     | VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
-| https://osv.dev/GHSA-269g-pwp5-87pp | 4.4  | Maven     | junit:junit | 4.12    | fixtures/maven-transitive/encoding.xml |
-+-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
-
----
-
-[TestCommand_MavenTransitive/scans_pom.xml_with_non_UTF-8_encoding - 2]
-
----
-
-[TestCommand_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
-Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 3 packages
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-
----
-
-[TestCommand_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 2]
-
----
-
-[TestCommand_MavenTransitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
-Scanning dir ./fixtures/maven-transitive/pom.xml
-Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-
----
-
-[TestCommand_MavenTransitive/scans_transitive_dependencies_for_pom.xml_by_default - 2]
-
----
-
 [TestCommand_MoreLockfiles/cabal.project.freeze - 1]
 Scanned <rootdir>/fixtures/locks-scalibr/cabal.project.freeze file and found 6 packages
 +--------------------------------+------+-----------+-----------------+---------+---------------------------------------------+
@@ -3425,5 +3317,197 @@ Scanned <rootdir>/fixtures/locks-scalibr/uv.lock file and found 2 packages
 ---
 
 [TestCommand_MoreLockfiles/uv.lock - 2]
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 1]
+Scanning dir ./fixtures/maven-transitive/pom.xml
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
+No issues found
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 2]
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 1]
+Scanning dir ./fixtures/maven-transitive/pom.xml
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
+Loaded Maven local db from <tempdir>/osv-scanner/Maven/all.zip
+No issues found
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 2]
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 1]
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |                                              |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0.0   | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |                                              |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |                                              |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 2]
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode - 1]
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
+Loaded PyPI local db from <tempdir>/osv-scanner/PyPI/all.zip
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |                                              |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq | 8.7  | PyPI      | flask    | 1.0.0   | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |                                              |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode - 2]
+
+---
+
+[TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 1]
+Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+
+---
+
+[TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 2]
+
+---
+
+[TestCommand_Transitive/scans_dependencies_from_multiple_registries - 1]
+Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+
+---
+
+[TestCommand_Transitive/scans_dependencies_from_multiple_registries - 2]
+
+---
+
+[TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 1]
+Scanned <rootdir>/fixtures/maven-transitive/encoding.xml file as a pom.xml and found 2 packages
++-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE     | VERSION | SOURCE                                 |
++-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
+| https://osv.dev/GHSA-269g-pwp5-87pp | 4.4  | Maven     | junit:junit | 4.12    | fixtures/maven-transitive/encoding.xml |
++-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
+
+---
+
+[TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 2]
+
+---
+
+[TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
+Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 3 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+
+---
+
+[TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 2]
+
+---
+
+[TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
+Scanning dir ./fixtures/maven-transitive/pom.xml
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+
+---
+
+[TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 2]
+
+---
+
+[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1]
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 13 packages
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |                                              |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0     | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |                                              |
+| https://osv.dev/PYSEC-2024-60       | 7.5  | PyPI      | idna     | 2.7     | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-jjg7-2v4v-x38h |      |           |          |         |                                              |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |                                              |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2020-148      | 6.9  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-wqvq-5m8c-6g24 |      |           |          |         |                                              |
+| https://osv.dev/PYSEC-2021-108      |      | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-192      | 8.1  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-v845-jxx5-vc9f |      |           |          |         |                                              |
+| https://osv.dev/PYSEC-2023-212      | 5.7  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-g4mx-q9vg-27p4 |      |           |          |         |                                              |
+| https://osv.dev/GHSA-34jh-p97f-mpxf | 4.4  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-48p4-8xcf-vxj5 | 5.3  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+
+---
+
+[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
 
 ---

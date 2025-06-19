@@ -797,7 +797,7 @@ func TestCommand_Licenses(t *testing.T) {
 	}
 }
 
-func TestCommand_MavenTransitive(t *testing.T) {
+func TestCommand_Transitive(t *testing.T) {
 	t.Parallel()
 
 	tests := []testcmd.Case{
@@ -834,8 +834,23 @@ func TestCommand_MavenTransitive(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "resolve transitive dependencies with native data source",
+			Name: "resolves transitive dependencies with native data source",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--data-source=native", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
+			Exit: 1,
+		},
+		{
+			Name: "uses native data source for requirements.txt",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-requirements/requirements.txt"},
+			Exit: 1,
+		},
+		{
+			Name: "does not scan transitive dependencies for requirements.txt with no-resolve",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--no-resolve", "./fixtures/locks-requirements/requirements.txt"},
+			Exit: 1,
+		},
+		{
+			Name: "does not scan transitive dependencies for requirements.txt with offline mode",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "./fixtures/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 	}
