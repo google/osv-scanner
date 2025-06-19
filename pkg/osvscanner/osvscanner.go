@@ -40,7 +40,6 @@ import (
 
 type ScannerActions struct {
 	LockfilePaths      []string
-	SBOMPaths          []string
 	DirectoryPaths     []string
 	GitCommits         []string
 	Recursive          bool
@@ -60,6 +59,9 @@ type ScannerActions struct {
 	// license scanning
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
+
+	// Deprecated: in favor of LockfilePaths
+	SBOMPaths []string
 
 	ExperimentalScannerActions
 }

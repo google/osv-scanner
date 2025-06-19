@@ -37,17 +37,9 @@ There is a [known issue](https://github.com/google/osv-scanner/issues/209) that 
 
 The `--no-ignore` flag can be used to force the scanner to scan ignored files.
 
-## Specify SBOM
+## SBOM scanning
 
-If you want to check for known vulnerabilities only in dependencies in your SBOM, you can use the following command:
-
-```bash
-osv-scanner scan source --sbom=/path/to/your/sbom.spdx.json
-```
-
-[SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported.
-
-To identify the correct SBOM format, the file name must follow the SBOM specifications for each format:
+SBOMs will be automatically identified so long as their name follows the specification for the particular format:
 
 - [SPDX Filenames]:
   - `*.spdx.json`
@@ -60,6 +52,12 @@ To identify the correct SBOM format, the file name must follow the SBOM specific
   - `*.cdx.json`
   - `bom.xml`
   - `*.cdx.xml`
+
+```bash
+osv-scanner scan source -L /path/to/your/sbom.spdx.json
+```
+
+[SPDX] and [CycloneDX] SBOMs using [Package URLs] are supported.
 
 [SPDX]: https://spdx.dev/
 [SPDX Filenames]: https://spdx.github.io/spdx-spec/v2.3/conformance/
