@@ -44,7 +44,7 @@ jobs:
         # semantic version pattern (MAJOR.MINOR.PATCH, e.g., 1.2.3)
         run: |
           TAG="${GITHUB_REF_NAME}"
-          if [[ "$TAG" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "STABLE=true" >> $GITHUB_ENV
           else
             echo "STABLE=false" >> $GITHUB_ENV
