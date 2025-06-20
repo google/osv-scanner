@@ -25,8 +25,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pdmlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/uvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
@@ -119,10 +117,6 @@ func build(name string) filesystem.Extractor {
 		return pdmlock.New()
 	case poetrylock.Name:
 		return poetrylock.New()
-	case requirements.Name:
-		return requirements.NewDefault()
-	case requirementsnet.Name:
-		return requirementsnet.NewDefault()
 	case requirementsenhancable.Name:
 		return requirementsenhancable.New()
 	case uvlock.Name:
