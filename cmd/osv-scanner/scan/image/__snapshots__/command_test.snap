@@ -158,7 +158,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 17 packages affected by 33 known vulnerabilities (2 Critical, 7 High, 15 Medium, 5 Low, 4 Unknown) from 1 ecosystem.
+Total 17 packages affected by 33 known vulnerabilities (2 Critical, 8 High, 15 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -2319,7 +2319,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "USN-7580-1"
           ],
           "groups": 2
         },
@@ -2335,7 +2336,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "USN-7580-1"
           ],
           "groups": 2
         },
@@ -2351,7 +2353,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "USN-7580-1"
           ],
           "groups": 2
         },
@@ -2367,7 +2370,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020"
+            "UBUNTU-CVE-2025-6020",
+            "USN-7580-1"
           ],
           "groups": 2
         },
