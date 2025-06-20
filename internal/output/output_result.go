@@ -566,7 +566,7 @@ func getNextFixVersion(allAffected []osvschema.Affected, installedVersion string
 
 	minFixVersion := UnfixedDescription
 	for _, affected := range allAffected {
-		if affected.Package.Name != installedPackage || affected.Package.Ecosystem != ecosystem {
+		if affected.Package.Name != installedPackage || removeVariants(affected.Package.Ecosystem) != ecosystem {
 			continue
 		}
 		for _, affectedRange := range affected.Ranges {
@@ -859,4 +859,13 @@ func ecosystemHasRegVuln(ecosystem EcosystemResult) bool {
 	}
 
 	return false
+}
+
+func removeVariants(ecosystem string) string {
+	if strings.Contains(ecosystem, "Ubuntu") {
+		ecosystem := strings.ReplaceAll(strings.ReplaceAll(ecosystem, ":Pro", ""), ":LTS", "")
+		return ecosystem
+	}
+
+	return ecosystem
 }
