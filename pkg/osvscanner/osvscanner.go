@@ -440,22 +440,22 @@ func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount 
 func determineReturnErr(results models.VulnerabilityResults) error {
 	if len(results.Results) > 0 {
 		var vuln bool
-		onlyUncalledVuln := true
+		onlyUncalledUnimportantVuln := true
 		var licenseViolation bool
 		for _, vf := range results.Flatten() {
 			if vf.Vulnerability.ID != "" {
 				vuln = true
-				if vf.GroupInfo.IsCalled() {
-					onlyUncalledVuln = false
+				if vf.GroupInfo.IsCalled() && !vf.GroupInfo.IsGroupUnimportant() {
+					onlyUncalledUnimportantVuln = false
 				}
 			}
 			if len(vf.LicenseViolations) > 0 {
 				licenseViolation = true
 			}
 		}
-		onlyUncalledVuln = onlyUncalledVuln && vuln
+		onlyUncalledUnimportantVuln = onlyUncalledUnimportantVuln && vuln
 
-		if (!vuln || onlyUncalledVuln) && !licenseViolation {
+		if (!vuln || onlyUncalledUnimportantVuln) && !licenseViolation {
 			// There is no error.
 			return nil
 		}
