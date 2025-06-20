@@ -67,6 +67,7 @@ var lockfileExtractorMapping = map[string][]string{
 	"go.mod":                      {gomod.Name},
 	"bun.lock":                    {bunlock.Name},
 	"Gemfile.lock":                {gemfilelock.Name},
+	"gems.locked":                 {gemfilelock.Name},
 	"cabal.project.freeze":        {cabal.Name},
 	"stack.yaml.lock":             {stacklock.Name},
 	// "Package.resolved":            {packageresolved.Name},

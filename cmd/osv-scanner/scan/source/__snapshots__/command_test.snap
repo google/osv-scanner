@@ -3340,6 +3340,23 @@ Scanned <rootdir>/fixtures/locks-scalibr/depsjson file as a deps.json and found 
 
 ---
 
+[TestCommand_MoreLockfiles/gems.locked - 1]
+Scanned <rootdir>/fixtures/locks-scalibr/gems.locked file and found 25 packages
++-------------------------------------+------+-----------+----------+---------+------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | SOURCE                             |
++-------------------------------------+------+-----------+----------+---------+------------------------------------+
+| https://osv.dev/GHSA-9m3q-rhmv-5q44 | 7.5  | RubyGems  | json     | 2.10.1  | fixtures/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-5w6v-399v-w3cc |      | RubyGems  | nokogiri | 1.18.2  | fixtures/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-mrxw-mxhj-p664 | 7.8  | RubyGems  | nokogiri | 1.18.2  | fixtures/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-vvfq-8hwr-qm4m |      | RubyGems  | nokogiri | 1.18.2  | fixtures/locks-scalibr/gems.locked |
++-------------------------------------+------+-----------+----------+---------+------------------------------------+
+
+---
+
+[TestCommand_MoreLockfiles/gems.locked - 2]
+
+---
+
 [TestCommand_MoreLockfiles/packages.config - 1]
 Scanned <rootdir>/fixtures/locks-scalibr/packages.config file and found 2 packages
 No issues found

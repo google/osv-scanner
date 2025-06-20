@@ -57,7 +57,7 @@ When scanning source code (`osv-scanner scan source ...`), OSV-Scanner automatic
 | PHP        | `composer.lock`                                                                                                                            |
 | Python     | `Pipfile.lock`<br>`poetry.lock`<br>`requirements.txt`[\*](https://github.com/google/osv-scanner/issues/34)<br>`pdm.lock`<br>`uv.lock`      |
 | R          | `renv.lock`                                                                                                                                |
-| Ruby       | `Gemfile.lock`                                                                                                                             |
+| Ruby       | `Gemfile.lock`<br>`gems.locked`                                                                                                            |
 | Rust       | `Cargo.lock`                                                                                                                               |
 
 ## C/C++ scanning
