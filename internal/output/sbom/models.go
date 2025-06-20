@@ -10,6 +10,7 @@ import (
 var SpecVersionToBomCreator = map[models.CycloneDXVersion]CycloneDXBomCreator{
 	models.CycloneDXVersion14: ToCycloneDX14Bom,
 	models.CycloneDXVersion15: ToCycloneDX15Bom,
+	models.CycloneDXVersion16: ToCycloneDX16Bom,
 }
 
 type CycloneDXBomCreator func(packageSources map[string]models.PackageVulns) *cyclonedx.BOM
@@ -17,6 +18,7 @@ type CycloneDXBomCreator func(packageSources map[string]models.PackageVulns) *cy
 const (
 	cycloneDx14Schema = "http://cyclonedx.org/schema/bom-1.4.schema.json"
 	cycloneDx15Schema = "http://cyclonedx.org/schema/bom-1.5.schema.json"
+	cycloneDx16Schema = "http://cyclonedx.org/schema/bom-1.6.schema.json"
 )
 
 const libraryComponentType = "library"
