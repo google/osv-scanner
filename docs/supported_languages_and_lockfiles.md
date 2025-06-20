@@ -67,7 +67,7 @@ With the addition of [vulnerable commit ranges](https://osv.dev/blog/posts/intro
 Because the C/C++ ecosystem does not have a centralized package manager, C/C++ dependencies tend to be bundled with the project. Dependencies are either [submoduled](#submoduled-dependencies) or [vendored](#vendored-dependencies). In either case, OSV-Scanner is able to find known vulnerabilities in your project dependencies.
 
 OSV-Scanner's C/C++ support is based on commit-level data. OSV's commit-level data covers the majority of C/C++ vulnerabilities within the OSV database, but users should be aware that there may be vulnerabilities in their dependencies that could be excluded from OSV-Scanner results. Adding more commit-level data to the database is an ongoing project.
-ééééééééééééééé
+
 ### Submoduled dependencies
 
 Submoduled dependencies are included in the project folder retain their Git histories. To scan a C/C++ project with submoduled dependencies:
