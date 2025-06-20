@@ -13,29 +13,42 @@
 [TestPrintSARIFReport/#00 - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "file:///path/to/sub-rust-project/Cargo.lock"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "file:///path/to/go.mod"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "file:///path/to/sub-rust-project/Cargo.lock"
                 }
               }
@@ -44,15 +57,19 @@
           "message": {
             "text": "Package 'regex@1.5.1' is vulnerable to 'CVE-2022-24713' (also known as 'RUSTSEC-2022-0013', 'GHSA-m5pq-gvj9-9vr8')."
           },
+          "rank": -1,
           "ruleId": "CVE-2022-24713",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "file:///path/to/go.mod"
                 }
               }
@@ -61,15 +78,19 @@
           "message": {
             "text": "Package 'github.com/gogo/protobuf@1.3.1' is vulnerable to 'CVE-2021-3121' (also known as 'GO-2021-0053', 'GHSA-c3h9-896r-86jm')."
           },
+          "rank": -1,
           "ruleId": "CVE-2021-3121",
-          "ruleIndex": 1
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "file:///path/to/sub-rust-project/Cargo.lock"
                 }
               }
@@ -78,13 +99,19 @@
           "message": {
             "text": "Package 'regex@1.5.1' is vulnerable to 'CVE-2022-24713' (also known as 'RUSTSEC-2022-0013', 'GHSA-m5pq-gvj9-9vr8')."
           },
+          "rank": -1,
           "ruleId": "CVE-2022-24713",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -94,8 +121,7 @@
                 "GHSA-m5pq-gvj9-9vr8"
               ],
               "fullDescription": {
-                "markdown": "The Rust Security Response WG was notified that the `regex` crate did not\nproperly limit the complexity of the regular expressions (regex) it parses. An\nattacker could use this security issue to perform a denial of service, by\nsending a specially crafted regex to a service accepting untrusted regexes. No\nknown vulnerability is present when parsing untrusted input with trusted\nregexes.\n\nThis issue has been assigned CVE-2022-24713. The severity of this vulnerability\nis \"high\" when the `regex` crate is used to parse untrusted regexes. Other uses\nof the `regex` crate are not affected by this vulnerability.\n\n## Overview\n\nThe `regex` crate features built-in mitigations to prevent denial of service\nattacks caused by untrusted regexes, or untrusted input matched by trusted\nregexes. Those (tunable) mitigations already provide sane defaults to prevent\nattacks. This guarantee is documented and it's considered part of the crate's\nAPI.\n\nUnfortunately a bug was discovered in the mitigations designed to prevent\nuntrusted regexes to take an arbitrary amount of time during parsing, and it's\npossible to craft regexes that bypass such mitigations. This makes it possible\nto perform denial of service attacks by sending specially crafted regexes to\nservices accepting user-controlled, untrusted regexes.\n\n## Affected versions\n\nAll versions of the `regex` crate before or equal to 1.5.4 are affected by this\nissue. The fix is include starting from  `regex` 1.5.5.\n\n## Mitigations\n\nWe recommend everyone accepting user-controlled regexes to upgrade immediately\nto the latest version of the `regex` crate.\n\nUnfortunately there is no fixed set of problematic regexes, as there are\npractically infinite regexes that could be crafted to exploit this\nvulnerability. Because of this, we do not recommend denying known problematic\nregexes.\n\n## Acknowledgements\n\nWe want to thank Addison Crump for responsibly disclosing this to us according\nto the [Rust security policy][1], and for helping review the fix.\n\nWe also want to thank Andrew Gallant for developing the fix, and Pietro Albini\nfor coordinating the disclosure and writing this advisory.\n\n[1]: https://www.rust-lang.org/policies/security",
-                "text": "The Rust Security Response WG was notified that the `regex` crate did not\nproperly limit the complexity of the regular expressions (regex) it parses. An\nattacker could use this security issue to perform a denial of service, by\nsending a specially crafted regex to a service accepting untrusted regexes. No\nknown vulnerability is present when parsing untrusted input with trusted\nregexes.\n\nThis issue has been assigned CVE-2022-24713. The severity of this vulnerability\nis \"high\" when the `regex` crate is used to parse untrusted regexes. Other uses\nof the `regex` crate are not affected by this vulnerability.\n\n## Overview\n\nThe `regex` crate features built-in mitigations to prevent denial of service\nattacks caused by untrusted regexes, or untrusted input matched by trusted\nregexes. Those (tunable) mitigations already provide sane defaults to prevent\nattacks. This guarantee is documented and it's considered part of the crate's\nAPI.\n\nUnfortunately a bug was discovered in the mitigations designed to prevent\nuntrusted regexes to take an arbitrary amount of time during parsing, and it's\npossible to craft regexes that bypass such mitigations. This makes it possible\nto perform denial of service attacks by sending specially crafted regexes to\nservices accepting user-controlled, untrusted regexes.\n\n## Affected versions\n\nAll versions of the `regex` crate before or equal to 1.5.4 are affected by this\nissue. The fix is include starting from  `regex` 1.5.5.\n\n## Mitigations\n\nWe recommend everyone accepting user-controlled regexes to upgrade immediately\nto the latest version of the `regex` crate.\n\nUnfortunately there is no fixed set of problematic regexes, as there are\npractically infinite regexes that could be crafted to exploit this\nvulnerability. Because of this, we do not recommend denying known problematic\nregexes.\n\n## Acknowledgements\n\nWe want to thank Addison Crump for responsibly disclosing this to us according\nto the [Rust security policy][1], and for helping review the fix.\n\nWe also want to thank Andrew Gallant for developing the fix, and Pietro Albini\nfor coordinating the disclosure and writing this advisory.\n\n[1]: https://www.rust-lang.org/policies/security"
+                "markdown": "The Rust Security Response WG was notified that the `regex` crate did not\nproperly limit the complexity of the regular expressions (regex) it parses. An\nattacker could use this security issue to perform a denial of service, by\nsending a specially crafted regex to a service accepting untrusted regexes. No\nknown vulnerability is present when parsing untrusted input with trusted\nregexes.\n\nThis issue has been assigned CVE-2022-24713. The severity of this vulnerability\nis \"high\" when the `regex` crate is used to parse untrusted regexes. Other uses\nof the `regex` crate are not affected by this vulnerability.\n\n## Overview\n\nThe `regex` crate features built-in mitigations to prevent denial of service\nattacks caused by untrusted regexes, or untrusted input matched by trusted\nregexes. Those (tunable) mitigations already provide sane defaults to prevent\nattacks. This guarantee is documented and it's considered part of the crate's\nAPI.\n\nUnfortunately a bug was discovered in the mitigations designed to prevent\nuntrusted regexes to take an arbitrary amount of time during parsing, and it's\npossible to craft regexes that bypass such mitigations. This makes it possible\nto perform denial of service attacks by sending specially crafted regexes to\nservices accepting user-controlled, untrusted regexes.\n\n## Affected versions\n\nAll versions of the `regex` crate before or equal to 1.5.4 are affected by this\nissue. The fix is include starting from  `regex` 1.5.5.\n\n## Mitigations\n\nWe recommend everyone accepting user-controlled regexes to upgrade immediately\nto the latest version of the `regex` crate.\n\nUnfortunately there is no fixed set of problematic regexes, as there are\npractically infinite regexes that could be crafted to exploit this\nvulnerability. Because of this, we do not recommend denying known problematic\nregexes.\n\n## Acknowledgements\n\nWe want to thank Addison Crump for responsibly disclosing this to us according\nto the [Rust security policy][1], and for helping review the fix.\n\nWe also want to thank Andrew Gallant for developing the fix, and Pietro Albini\nfor coordinating the disclosure and writing this advisory.\n\n[1]: https://www.rust-lang.org/policies/security"
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [CVE-2022-24713](https://osv.dev/list?q=CVE-2022-24713)**\n(Also published as: [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013), [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8), ).\n\n## [RUSTSEC-2022-0013](https://osv.dev/vulnerability/RUSTSEC-2022-0013)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e The Rust Security Response WG was notified that the `regex` crate did not\n\u003e properly limit the complexity of the regular expressions (regex) it parses. An\n\u003e attacker could use this security issue to perform a denial of service, by\n\u003e sending a specially crafted regex to a service accepting untrusted regexes. No\n\u003e known vulnerability is present when parsing untrusted input with trusted\n\u003e regexes.\n\u003e \n\u003e This issue has been assigned CVE-2022-24713. The severity of this vulnerability\n\u003e is \"high\" when the `regex` crate is used to parse untrusted regexes. Other uses\n\u003e of the `regex` crate are not affected by this vulnerability.\n\u003e \n\u003e ## Overview\n\u003e \n\u003e The `regex` crate features built-in mitigations to prevent denial of service\n\u003e attacks caused by untrusted regexes, or untrusted input matched by trusted\n\u003e regexes. Those (tunable) mitigations already provide sane defaults to prevent\n\u003e attacks. This guarantee is documented and it's considered part of the crate's\n\u003e API.\n\u003e \n\u003e Unfortunately a bug was discovered in the mitigations designed to prevent\n\u003e untrusted regexes to take an arbitrary amount of time during parsing, and it's\n\u003e possible to craft regexes that bypass such mitigations. This makes it possible\n\u003e to perform denial of service attacks by sending specially crafted regexes to\n\u003e services accepting user-controlled, untrusted regexes.\n\u003e \n\u003e ## Affected versions\n\u003e \n\u003e All versions of the `regex` crate before or equal to 1.5.4 are affected by this\n\u003e issue. The fix is include starting from  `regex` 1.5.5.\n\u003e \n\u003e ## Mitigations\n\u003e \n\u003e We recommend everyone accepting user-controlled regexes to upgrade immediately\n\u003e to the latest version of the `regex` crate.\n\u003e \n\u003e Unfortunately there is no fixed set of problematic regexes, as there are\n\u003e practically infinite regexes that could be crafted to exploit this\n\u003e vulnerability. Because of this, we do not recommend denying known problematic\n\u003e regexes.\n\u003e \n\u003e ## Acknowledgements\n\u003e \n\u003e We want to thank Addison Crump for responsibly disclosing this to us according\n\u003e to the [Rust security policy][1], and for helping review the fix.\n\u003e \n\u003e We also want to thank Andrew Gallant for developing the fix, and Pietro Albini\n\u003e for coordinating the disclosure and writing this advisory.\n\u003e \n\u003e [1]: https://www.rust-lang.org/policies/security\n\n\u003c/details\u003e\n\n## [GHSA-m5pq-gvj9-9vr8](https://osv.dev/vulnerability/GHSA-m5pq-gvj9-9vr8)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \u003e This is a cross-post of [the official security advisory][advisory]. The official advisory contains a signed version with our PGP key, as well.\n\u003e \n\u003e [advisory]: https://groups.google.com/g/rustlang-security-announcements/c/NcNNL1Jq7Yw\n\u003e \n\u003e The Rust Security Response WG was notified that the `regex` crate did not properly limit the complexity of the regular expressions (regex) it parses. An attacker could use this security issue to perform a denial of service, by sending a specially crafted regex to a service accepting untrusted regexes. No known vulnerability is present when parsing untrusted input with trusted regexes.\n\u003e \n\u003e This issue has been assigned CVE-2022-24713. The severity of this vulnerability is \"high\" when the `regex` crate is used to parse untrusted regexes. Other uses of the `regex` crate are not affected by this vulnerability.\n\u003e \n\u003e ## Overview\n\u003e \n\u003e The `regex` crate features built-in mitigations to prevent denial of service attacks caused by untrusted regexes, or untrusted input matched by trusted regexes. Those (tunable) mitigations already provide sane defaults to prevent attacks. This guarantee is documented and it's considered part of the crate's API.\n\u003e \n\u003e Unfortunately a bug was discovered in the mitigations designed to prevent untrusted regexes to take an arbitrary amount of time during parsing, and it's possible to craft regexes that bypass such mitigations. This makes it possible to perform denial of service attacks by sending specially crafted regexes to services accepting user-controlled, untrusted regexes.\n\u003e \n\u003e ## Affected versions\n\u003e \n\u003e All versions of the `regex` crate before or equal to 1.5.4 are affected by this issue. The fix is include starting from  `regex` 1.5.5.\n\u003e \n\u003e ## Mitigations\n\u003e \n\u003e We recommend everyone accepting user-controlled regexes to upgrade immediately to the latest version of the `regex` crate.\n\u003e \n\u003e Unfortunately there is no fixed set of problematic regexes, as there are practically infinite regexes that could be crafted to exploit this vulnerability. Because of this, we do not recommend denying known problematic regexes.\n\u003e \n\u003e ## Acknowledgements\n\u003e \n\u003e We want to thank Addison Crump for responsibly disclosing this to us according to the [Rust security policy](https://www.rust-lang.org/policies/security), and for helping review the fix.\n\u003e \n\u003e We also want to thank Andrew Gallant for developing the fix, and Pietro Albini for coordinating the disclosure and writing this advisory.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:/path/to/sub-rust-project/Cargo.lock | regex | 1.5.1 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-m5pq-gvj9-9vr8 | regex | 1.5.5 |\n| RUSTSEC-2022-0013 | regex | 1.5.5 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`/path/to/sub-rust-project/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2022-24713\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -107,7 +133,7 @@
                 "security-severity": "7.5"
               },
               "shortDescription": {
-                "text": "CVE-2022-24713: Regexes with large repetitions on empty sub-expressions take a very long time to parse"
+                "markdown": "CVE-2022-24713: Regexes with large repetitions on empty sub-expressions take a very long time to parse"
               }
             },
             {
@@ -117,8 +143,7 @@
                 "GHSA-c3h9-896r-86jm"
               ],
               "fullDescription": {
-                "markdown": "Due to improper bounds checking, maliciously crafted input to generated Unmarshal methods can cause an out-of-bounds panic. If parsing messages from untrusted parties, this may be used as a denial of service vector.",
-                "text": "Due to improper bounds checking, maliciously crafted input to generated Unmarshal methods can cause an out-of-bounds panic. If parsing messages from untrusted parties, this may be used as a denial of service vector."
+                "markdown": "Due to improper bounds checking, maliciously crafted input to generated Unmarshal methods can cause an out-of-bounds panic. If parsing messages from untrusted parties, this may be used as a denial of service vector."
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [CVE-2021-3121](https://osv.dev/list?q=CVE-2021-3121)**.\n\n## [GO-2021-0053](https://osv.dev/vulnerability/GO-2021-0053)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e Due to improper bounds checking, maliciously crafted input to generated Unmarshal methods can cause an out-of-bounds panic. If parsing messages from untrusted parties, this may be used as a denial of service vector.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:/path/to/go.mod | github.com/gogo/protobuf | 1.3.1 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GO-2021-0053 | github.com/gogo/protobuf | 1.3.2 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`/path/to/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2021-3121\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -127,7 +152,7 @@
               "id": "CVE-2021-3121",
               "name": "CVE-2021-3121",
               "shortDescription": {
-                "text": "CVE-2021-3121: Panic due to improper input validation in github.com/gogo/protobuf"
+                "markdown": "CVE-2021-3121: Panic due to improper input validation in github.com/gogo/protobuf"
               }
             }
           ],
@@ -143,14 +168,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_no_license_violations - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -163,14 +197,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -183,14 +226,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -203,14 +255,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -223,14 +284,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -243,14 +313,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/multiple_sources_with_no_packages - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -263,14 +342,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/no_sources - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -283,14 +371,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_no_packages - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -303,14 +400,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package,_no_license_violations - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -323,14 +429,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package,_no_licenses - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -343,14 +458,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package_and_an_unknown_license - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -363,14 +487,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package_and_multiple_license_violations - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -383,14 +516,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package_and_one_license_violation - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -403,14 +545,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package_and_one_license_violation_(dev) - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -423,14 +574,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package_with_both_a_version_and_a_commit_and_one_license_violation - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -443,14 +603,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/one_source_with_one_package_with_just_a_commit_and_one_license_violation - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -463,14 +632,23 @@
 [TestPrintSARIFReport_WithLicenseViolations/two_sources_with_packages,_one_license_violation - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -483,35 +661,50 @@
 [TestPrintSARIFReport_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_called_vulnerabilities_and_license_violations - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/third/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/second/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -520,15 +713,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/third/lockfile"
                 }
               }
@@ -537,15 +734,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -554,13 +755,19 @@
           "message": {
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
+          "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -568,8 +775,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n| :path/to/my/third/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n`path/to/my/third/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -578,7 +784,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             },
             {
@@ -586,8 +792,7 @@
                 "OSV-2"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/list?q=OSV-2)**.\n\n## [OSV-2](https://osv.dev/vulnerability/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | mine2 | 3.2.5 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -596,7 +801,7 @@
               "id": "OSV-2",
               "name": "OSV-2",
               "shortDescription": {
-                "text": "OSV-2: Something less scary!"
+                "markdown": "OSV-2: Something less scary!"
               }
             }
           ],
@@ -612,35 +817,50 @@
 [TestPrintSARIFReport_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities_and_license_violations - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/third/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/second/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -649,15 +869,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/third/lockfile"
                 }
               }
@@ -666,15 +890,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -683,13 +911,19 @@
           "message": {
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
+          "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -697,8 +931,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n| :path/to/my/third/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n`path/to/my/third/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -707,7 +940,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             },
             {
@@ -715,8 +948,7 @@
                 "OSV-2"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/list?q=OSV-2)**.\n\n## [OSV-2](https://osv.dev/vulnerability/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | mine2 | 3.2.5 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -725,7 +957,7 @@
               "id": "OSV-2",
               "name": "OSV-2",
               "shortDescription": {
-                "text": "OSV-2: Something less scary!"
+                "markdown": "OSV-2: Something less scary!"
               }
             }
           ],
@@ -741,35 +973,50 @@
 [TestPrintSARIFReport_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_vulnerabilities_and_license_violations - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/third/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/second/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -778,15 +1025,19 @@
           "message": {
             "text": "Package 'mine1@abcxzy' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/third/lockfile"
                 }
               }
@@ -795,15 +1046,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -812,13 +1067,19 @@
           "message": {
             "text": "Package 'mine2@abc123' is vulnerable to 'OSV-2'."
           },
+          "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -826,8 +1087,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | abcxzy |\n| :path/to/my/third/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n`path/to/my/third/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -836,7 +1096,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             },
             {
@@ -844,8 +1104,7 @@
                 "OSV-2"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/list?q=OSV-2)**.\n\n## [OSV-2](https://osv.dev/vulnerability/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | mine2 | abc123 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -854,7 +1113,7 @@
               "id": "OSV-2",
               "name": "OSV-2",
               "shortDescription": {
-                "text": "OSV-2: Something less scary!"
+                "markdown": "OSV-2: Something less scary!"
               }
             }
           ],
@@ -870,23 +1129,34 @@
 [TestPrintSARIFReport_WithMixedIssues/one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -895,13 +1165,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -909,8 +1185,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -919,7 +1194,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -935,23 +1210,34 @@
 [TestPrintSARIFReport_WithMixedIssues/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -960,13 +1246,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -974,8 +1266,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -984,7 +1275,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -1000,23 +1291,34 @@
 [TestPrintSARIFReport_WithMixedIssues/one_source_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1025,13 +1327,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -1039,8 +1347,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1049,7 +1356,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -1065,23 +1372,34 @@
 [TestPrintSARIFReport_WithMixedIssues/two_sources_with_packages,_one_vulnerability,_one_license_violation - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1090,13 +1408,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -1104,8 +1428,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1114,7 +1437,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -1130,29 +1453,42 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_grouped_packages,_and_multiple_vulnerabilities - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/second/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1161,15 +1497,19 @@
           "message": {
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1178,15 +1518,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1195,15 +1539,19 @@
           "message": {
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
+          "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1212,15 +1560,19 @@
           "message": {
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
+          "rank": -1,
           "ruleId": "OSV-3",
-          "ruleIndex": 2
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1229,15 +1581,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
+          "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1246,13 +1602,19 @@
           "message": {
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
+          "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -1260,8 +1622,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.2 |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1270,7 +1631,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             },
             {
@@ -1278,8 +1639,7 @@
                 "OSV-2"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/list?q=OSV-2)**.\n\n## [OSV-2](https://osv.dev/vulnerability/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | mine2 | 3.2.5 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1288,7 +1648,7 @@
               "id": "OSV-2",
               "name": "OSV-2",
               "shortDescription": {
-                "text": "OSV-2: Something less scary!"
+                "markdown": "OSV-2: Something less scary!"
               }
             },
             {
@@ -1296,8 +1656,7 @@
                 "OSV-3"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-3](https://osv.dev/list?q=OSV-3)**.\n\n## [OSV-3](https://osv.dev/vulnerability/OSV-3)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | mine3 | 0.4.1 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-3\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1306,7 +1665,7 @@
               "id": "OSV-3",
               "name": "OSV-3",
               "shortDescription": {
-                "text": "OSV-3: Something mildly scary!"
+                "markdown": "OSV-3: Something mildly scary!"
               }
             },
             {
@@ -1314,8 +1673,7 @@
                 "OSV-5"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-5](https://osv.dev/list?q=OSV-5)**.\n\n## [OSV-5](https://osv.dev/vulnerability/OSV-5)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n| :path/to/my/second/lockfile | mine3 | 0.4.1 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-5\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-5\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1324,7 +1682,7 @@
               "id": "OSV-5",
               "name": "OSV-5",
               "shortDescription": {
-                "text": "OSV-5: Something scarier!"
+                "markdown": "OSV-5: Something scarier!"
               }
             }
           ],
@@ -1340,29 +1698,42 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_and_multiple_vulnerabilities - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/second/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1371,15 +1742,19 @@
           "message": {
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1388,15 +1763,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1405,15 +1784,19 @@
           "message": {
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
+          "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1422,15 +1805,19 @@
           "message": {
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
+          "rank": -1,
           "ruleId": "OSV-3",
-          "ruleIndex": 2
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1439,15 +1826,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
+          "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1456,13 +1847,19 @@
           "message": {
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
+          "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -1470,8 +1867,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.2 |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1480,7 +1876,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             },
             {
@@ -1488,8 +1884,7 @@
                 "OSV-2"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/list?q=OSV-2)**.\n\n## [OSV-2](https://osv.dev/vulnerability/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | mine2 | 3.2.5 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1498,7 +1893,7 @@
               "id": "OSV-2",
               "name": "OSV-2",
               "shortDescription": {
-                "text": "OSV-2: Something less scary!"
+                "markdown": "OSV-2: Something less scary!"
               }
             },
             {
@@ -1506,8 +1901,7 @@
                 "OSV-3"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-3](https://osv.dev/list?q=OSV-3)**.\n\n## [OSV-3](https://osv.dev/vulnerability/OSV-3)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | mine3 | 0.4.1 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-3\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1516,7 +1910,7 @@
               "id": "OSV-3",
               "name": "OSV-3",
               "shortDescription": {
-                "text": "OSV-3: Something mildly scary!"
+                "markdown": "OSV-3: Something mildly scary!"
               }
             },
             {
@@ -1524,8 +1918,7 @@
                 "OSV-5"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-5](https://osv.dev/list?q=OSV-5)**.\n\n## [OSV-5](https://osv.dev/vulnerability/OSV-5)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n| :path/to/my/second/lockfile | mine3 | 0.4.1 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-5\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-5\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1534,7 +1927,7 @@
               "id": "OSV-5",
               "name": "OSV-5",
               "shortDescription": {
-                "text": "OSV-5: Something scarier!"
+                "markdown": "OSV-5: Something scarier!"
               }
             }
           ],
@@ -1550,14 +1943,23 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_no_vulnerabilities - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -1570,35 +1972,50 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/third/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/second/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1607,15 +2024,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/third/lockfile"
                 }
               }
@@ -1624,15 +2045,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1641,13 +2066,19 @@
           "message": {
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
+          "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -1655,8 +2086,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n| :path/to/my/third/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n`path/to/my/third/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1665,7 +2095,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             },
             {
@@ -1673,8 +2103,7 @@
                 "OSV-2"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/list?q=OSV-2)**.\n\n## [OSV-2](https://osv.dev/vulnerability/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | mine2 | 3.2.5 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1683,7 +2112,7 @@
               "id": "OSV-2",
               "name": "OSV-2",
               "shortDescription": {
-                "text": "OSV-2: Something less scary!"
+                "markdown": "OSV-2: Something less scary!"
               }
             }
           ],
@@ -1699,29 +2128,42 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/second/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1730,15 +2172,19 @@
           "message": {
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1747,15 +2193,19 @@
           "message": {
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1764,15 +2214,19 @@
           "message": {
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
+          "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1781,15 +2235,19 @@
           "message": {
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
+          "rank": -1,
           "ruleId": "OSV-3",
-          "ruleIndex": 2
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1798,15 +2256,19 @@
           "message": {
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
+          "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1815,13 +2277,19 @@
           "message": {
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
+          "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -1829,8 +2297,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | author1/mine1 | 1.2.3 |\n| :path/to/my/first/lockfile | mine1 | 1.2.2 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1839,7 +2306,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             },
             {
@@ -1847,8 +2314,7 @@
                 "OSV-2"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/list?q=OSV-2)**.\n\n## [OSV-2](https://osv.dev/vulnerability/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | mine2 | 3.2.5 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1857,7 +2323,7 @@
               "id": "OSV-2",
               "name": "OSV-2",
               "shortDescription": {
-                "text": "OSV-2: Something less scary!"
+                "markdown": "OSV-2: Something less scary!"
               }
             },
             {
@@ -1865,8 +2331,7 @@
                 "OSV-3"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-3](https://osv.dev/list?q=OSV-3)**.\n\n## [OSV-3](https://osv.dev/vulnerability/OSV-3)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | author3/mine3 | 0.4.1 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-3\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1875,7 +2340,7 @@
               "id": "OSV-3",
               "name": "OSV-3",
               "shortDescription": {
-                "text": "OSV-3: Something mildly scary!"
+                "markdown": "OSV-3: Something mildly scary!"
               }
             },
             {
@@ -1883,8 +2348,7 @@
                 "OSV-5"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-5](https://osv.dev/list?q=OSV-5)**.\n\n## [OSV-5](https://osv.dev/vulnerability/OSV-5)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | author1/mine1 | 1.2.3 |\n| :path/to/my/second/lockfile | author3/mine3 | 0.4.1 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-5\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-5\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -1893,7 +2357,7 @@
               "id": "OSV-5",
               "name": "OSV-5",
               "shortDescription": {
-                "text": "OSV-5: Something scarier!"
+                "markdown": "OSV-5: Something scarier!"
               }
             }
           ],
@@ -1909,29 +2373,42 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities,_but_some_uncalled - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/second/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1940,15 +2417,19 @@
           "message": {
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -1957,15 +2438,19 @@
           "message": {
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1974,15 +2459,19 @@
           "message": {
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
+          "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -1991,15 +2480,19 @@
           "message": {
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
+          "rank": -1,
           "ruleId": "OSV-3",
-          "ruleIndex": 2
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2008,15 +2501,19 @@
           "message": {
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
+          "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -2025,13 +2522,19 @@
           "message": {
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
+          "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -2039,8 +2542,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | author1/mine1 | 1.2.3 |\n| :path/to/my/first/lockfile | mine1 | 1.2.2 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2049,7 +2551,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             },
             {
@@ -2057,8 +2559,7 @@
                 "OSV-2"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/list?q=OSV-2)**.\n\n## [OSV-2](https://osv.dev/vulnerability/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | mine2 | 3.2.5 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2067,7 +2568,7 @@
               "id": "OSV-2",
               "name": "OSV-2",
               "shortDescription": {
-                "text": "OSV-2: Something less scary!"
+                "markdown": "OSV-2: Something less scary!"
               }
             },
             {
@@ -2075,8 +2576,7 @@
                 "OSV-3"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-3](https://osv.dev/list?q=OSV-3)**.\n\n## [OSV-3](https://osv.dev/vulnerability/OSV-3)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | author3/mine3 | 0.4.1 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-3\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2085,7 +2585,7 @@
               "id": "OSV-3",
               "name": "OSV-3",
               "shortDescription": {
-                "text": "OSV-3: Something mildly scary!"
+                "markdown": "OSV-3: Something mildly scary!"
               }
             },
             {
@@ -2093,8 +2593,7 @@
                 "OSV-5"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-5](https://osv.dev/list?q=OSV-5)**.\n\n## [OSV-5](https://osv.dev/vulnerability/OSV-5)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | author1/mine1 | 1.2.3 |\n| :path/to/my/second/lockfile | author3/mine3 | 0.4.1 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-5\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-5\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2103,7 +2602,7 @@
               "id": "OSV-5",
               "name": "OSV-5",
               "shortDescription": {
-                "text": "OSV-5: Something scarier!"
+                "markdown": "OSV-5: Something scarier!"
               }
             }
           ],
@@ -2119,29 +2618,42 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems_using_commits_and_version,_and_multiple_vulnerabilities - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/second/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2150,15 +2662,19 @@
           "message": {
             "text": "Package 'author1/mine1@123abc' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2167,15 +2683,19 @@
           "message": {
             "text": "Package 'mine1@abcxyz' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -2184,15 +2704,19 @@
           "message": {
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
+          "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -2201,15 +2725,19 @@
           "message": {
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
+          "rank": -1,
           "ruleId": "OSV-3",
-          "ruleIndex": 2
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2218,15 +2746,19 @@
           "message": {
             "text": "Package 'author1/mine1@123abc' is vulnerable to 'OSV-5'."
           },
+          "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -2235,13 +2767,19 @@
           "message": {
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
+          "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -2249,8 +2787,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | author1/mine1 | 123abc |\n| :path/to/my/first/lockfile | mine1 | abcxyz |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2259,7 +2796,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             },
             {
@@ -2267,8 +2804,7 @@
                 "OSV-2"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/list?q=OSV-2)**.\n\n## [OSV-2](https://osv.dev/vulnerability/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | mine2 | 3.2.5 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2277,7 +2813,7 @@
               "id": "OSV-2",
               "name": "OSV-2",
               "shortDescription": {
-                "text": "OSV-2: Something less scary!"
+                "markdown": "OSV-2: Something less scary!"
               }
             },
             {
@@ -2285,8 +2821,7 @@
                 "OSV-3"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-3](https://osv.dev/list?q=OSV-3)**.\n\n## [OSV-3](https://osv.dev/vulnerability/OSV-3)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/second/lockfile | author3/mine3 | 0.4.1 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-3\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2295,7 +2830,7 @@
               "id": "OSV-3",
               "name": "OSV-3",
               "shortDescription": {
-                "text": "OSV-3: Something mildly scary!"
+                "markdown": "OSV-3: Something mildly scary!"
               }
             },
             {
@@ -2303,8 +2838,7 @@
                 "OSV-5"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-5](https://osv.dev/list?q=OSV-5)**.\n\n## [OSV-5](https://osv.dev/vulnerability/OSV-5)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | author1/mine1 | 123abc |\n| :path/to/my/second/lockfile | author3/mine3 | 0.4.1 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-5\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-5\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2313,7 +2847,7 @@
               "id": "OSV-5",
               "name": "OSV-5",
               "shortDescription": {
-                "text": "OSV-5: Something scarier!"
+                "markdown": "OSV-5: Something scarier!"
               }
             }
           ],
@@ -2329,14 +2863,23 @@
 [TestPrintSARIFReport_WithVulnerabilities/multiple_sources_with_no_packages - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -2349,14 +2892,23 @@
 [TestPrintSARIFReport_WithVulnerabilities/no_sources - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -2369,14 +2921,23 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_no_packages - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -2389,14 +2950,23 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package,_no_vulnerabilities - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
-      "results": [],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
-          "rules": [],
           "version": "2.0.3"
         }
       }
@@ -2409,23 +2979,34 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_called_vulnerability - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2434,15 +3015,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'GHSA-123'."
           },
+          "rank": -1,
           "ruleId": "GHSA-123",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2451,13 +3036,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 1
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -2465,8 +3056,7 @@
                 "GHSA-123"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [GHSA-123](https://osv.dev/list?q=GHSA-123)**.\n\n## [GHSA-123](https://osv.dev/vulnerability/GHSA-123)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"GHSA-123\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2475,7 +3065,7 @@
               "id": "GHSA-123",
               "name": "GHSA-123",
               "shortDescription": {
-                "text": "GHSA-123: Something scarier!"
+                "markdown": "GHSA-123: Something scarier!"
               }
             },
             {
@@ -2483,8 +3073,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2493,7 +3082,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -2509,23 +3098,34 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_one_called_vulnerability - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2534,13 +3134,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -2548,8 +3154,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2558,7 +3163,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -2574,23 +3179,34 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_one_uncalled_vulnerability - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2599,13 +3215,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -2613,8 +3235,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2623,7 +3244,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -2639,23 +3260,34 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2664,13 +3296,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -2678,8 +3316,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2688,7 +3325,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -2704,23 +3341,34 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2729,13 +3377,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -2743,8 +3397,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2753,7 +3406,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -2769,23 +3422,34 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2794,15 +3458,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2811,13 +3479,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -2826,8 +3500,7 @@
                 "GHSA-123"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**\n(Also published as: [GHSA-123](https://osv.dev/vulnerability/GHSA-123), ).\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n## [GHSA-123](https://osv.dev/vulnerability/GHSA-123)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2836,7 +3509,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -2852,23 +3525,34 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2877,15 +3561,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2894,13 +3582,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -2909,8 +3603,7 @@
                 "GHSA-123"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**\n(Also published as: [GHSA-123](https://osv.dev/vulnerability/GHSA-123), ).\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n## [GHSA-123](https://osv.dev/vulnerability/GHSA-123)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2919,7 +3612,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -2935,23 +3628,34 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_with_both_a_version_and_commit_and_one_vulnerability - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -2960,13 +3664,19 @@
           "message": {
             "text": "Package 'mine1@abc123' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -2974,8 +3684,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | abc123 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -2984,7 +3693,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -3000,23 +3709,34 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_one_package_with_just_a_commit_and_one_vulnerability - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -3025,13 +3745,19 @@
           "message": {
             "text": "Package 'mine1@abc123' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -3039,8 +3765,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | abc123 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -3049,7 +3774,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -3065,23 +3790,34 @@
 [TestPrintSARIFReport_WithVulnerabilities/one_source_with_vulnerabilities,_some_missing_content - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -3090,15 +3826,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -3107,13 +3847,19 @@
           "message": {
             "text": "Package 'mine3@0.10.2-rc' is vulnerable to 'OSV-2'."
           },
+          "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -3121,8 +3867,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
-                "text": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!"
+                "markdown": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!"
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -3131,7 +3876,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1"
+                "markdown": "OSV-1"
               }
             },
             {
@@ -3139,8 +3884,7 @@
                 "OSV-2"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-2](https://osv.dev/list?q=OSV-2)**.\n\n## [OSV-2](https://osv.dev/vulnerability/OSV-2)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine3 | 0.10.2-rc |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-2\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -3149,7 +3893,7 @@
               "id": "OSV-2",
               "name": "OSV-2",
               "shortDescription": {
-                "text": "OSV-2"
+                "markdown": "OSV-2"
               }
             }
           ],
@@ -3165,23 +3909,34 @@
 [TestPrintSARIFReport_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -3190,13 +3945,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -3204,8 +3965,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -3214,7 +3974,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
@@ -3230,29 +3990,42 @@
 [TestPrintSARIFReport_WithVulnerabilities/two_sources_with_the_same_vulnerable_package - 1]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
+  "properties": {},
   "runs": [
     {
       "artifacts": [
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/first/lockfile"
-          }
+          },
+          "parentIndex": -1
         },
         {
           "length": -1,
           "location": {
+            "index": -1,
             "uri": "path/to/my/second/lockfile"
-          }
+          },
+          "parentIndex": -1
         }
+      ],
+      "language": "en-US",
+      "newlineSequences": [
+        "\r\n",
+        "\n"
       ],
       "results": [
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
               }
@@ -3261,15 +4034,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         },
         {
+          "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "id": -1,
               "physicalLocation": {
                 "artifactLocation": {
+                  "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
               }
@@ -3278,13 +4055,19 @@
           "message": {
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
+          "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": -1
         }
       ],
       "tool": {
         "driver": {
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
@@ -3292,8 +4075,7 @@
                 "OSV-1"
               ],
               "fullDescription": {
-                "markdown": "",
-                "text": ""
+                "markdown": ""
               },
               "help": {
                 "markdown": "**Your dependency is vulnerable to [OSV-1](https://osv.dev/list?q=OSV-1)**.\n\n## [OSV-1](https://osv.dev/vulnerability/OSV-1)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e \n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| :path/to/my/first/lockfile | mine1 | 1.2.3 |\n| :path/to/my/second/lockfile | mine1 | 1.2.3 |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`path/to/my/first/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n`path/to/my/second/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"OSV-1\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
@@ -3302,7 +4084,7 @@
               "id": "OSV-1",
               "name": "OSV-1",
               "shortDescription": {
-                "text": "OSV-1: Something scary!"
+                "markdown": "OSV-1: Something scary!"
               }
             }
           ],
