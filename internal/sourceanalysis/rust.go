@@ -236,8 +236,8 @@ func rustBuildSource(source models.SourceInfo) ([]string, error) {
 	cmdlogger.Infof("Begin building rust/cargo project")
 
 	if err := cmd.Run(); err != nil {
-		cmdlogger.Errorf("cargo stdout:\n" + stdoutBuffer.String())
-		cmdlogger.Errorf("cargo stderr:\n" + stderrBuffer.String())
+		cmdlogger.Errorf("cargo stdout:\n%s", stdoutBuffer.String())
+		cmdlogger.Errorf("cargo stderr:\n%s", stderrBuffer.String())
 
 		return nil, fmt.Errorf("failed to run `%v`: %w", cmd.String(), err)
 	}

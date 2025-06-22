@@ -131,7 +131,7 @@ func runCommandLogError(name string, args ...string) error {
 	if err != nil {
 		cmdlogger.Errorf("Docker command exited with code (%q): %d\nSTDERR:", cmd.String(), cmd.ProcessState.ExitCode())
 		for _, line := range stderrLines {
-			cmdlogger.Errorf("> " + line)
+			cmdlogger.Errorf("> %s", line)
 		}
 
 		return errors.New("failed to run docker command")

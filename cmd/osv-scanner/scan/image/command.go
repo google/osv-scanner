@@ -101,7 +101,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 		if serve {
 			helper.ServeHTML(outputPath)
 		} else if format == "html" {
-			cmdlogger.Infof("HTML output available at: " + outputPath)
+			cmdlogger.Infof("HTML output available at: %s", outputPath)
 		}
 	}
 

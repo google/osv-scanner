@@ -78,7 +78,7 @@ func outputText(_ io.Writer, out fixOutput) error {
 				// this will be the case with unsupported npm requirements e.g. `file:...`, `git+https://...`
 				// TODO: don't rely on resolution to propagate these errors
 				// No easy access to the `knownAs` field to find which package this corresponds to
-				cmdlogger.Errorf("\tSkipped resolving unsupported version specification: " + err.Requirement.Version)
+				cmdlogger.Errorf("\tSkipped resolving unsupported version specification: %s", err.Requirement.Version)
 			} else {
 				cmdlogger.Errorf("\t%v: %s@%s", err.Error, err.Requirement.Name, err.Requirement.Version)
 			}
@@ -122,7 +122,7 @@ func outputText(_ io.Writer, out fixOutput) error {
 		}
 	}
 	slices.Sort(fixedVulns)
-	cmdlogger.Infof("FIXED-VULN-IDS: " + strings.Join(fixedVulns, ","))
+	cmdlogger.Infof("FIXED-VULN-IDS: %s", strings.Join(fixedVulns, ","))
 	cmdlogger.Infof("REMAINING-VULNS: %d", nVulns-len(fixedVulns))
 
 	nUnfixable := 0

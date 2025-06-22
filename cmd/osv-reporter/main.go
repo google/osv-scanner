@@ -45,9 +45,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 	args = splitLastArg(args)
 
 	cli.VersionPrinter = func(cmd *cli.Command) {
-		cmdlogger.Infof("osv-scanner version: " + cmd.Version)
-		cmdlogger.Infof("commit: " + commit)
-		cmdlogger.Infof("built at: " + date)
+		cmdlogger.Infof("osv-scanner version: %s", cmd.Version)
+		cmdlogger.Infof("commit: %s", commit)
+		cmdlogger.Infof("built at: %s", date)
 	}
 
 	app := &cli.Command{

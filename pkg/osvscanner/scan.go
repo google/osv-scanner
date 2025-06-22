@@ -132,7 +132,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	// On linux this would return a map with just one entry of /
 	rootMap := map[string][]string{}
 	for _, path := range actions.DirectoryPaths {
-		cmdlogger.Infof("Scanning dir " + path)
+		cmdlogger.Infof("Scanning dir %s", path)
 		absPath, err := filepath.Abs(path)
 		if err != nil {
 			return nil, err

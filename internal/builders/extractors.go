@@ -160,7 +160,7 @@ func BuildExtractors(names []string) []filesystem.Extractor {
 		extractor := build(name)
 
 		if extractor == nil {
-			cmdlogger.Errorf("Unknown extractor " + name)
+			cmdlogger.Errorf("Unknown extractor %s", name)
 		} else {
 			extractors = append(extractors, build(name))
 		}

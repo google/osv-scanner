@@ -52,9 +52,9 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 	// ---
 
 	cli.VersionPrinter = func(cmd *cli.Command) {
-		cmdlogger.Infof("osv-scanner version: " + cmd.Version)
-		cmdlogger.Infof("commit: " + commit)
-		cmdlogger.Infof("built at: " + date)
+		cmdlogger.Infof("osv-scanner version: %s", cmd.Version)
+		cmdlogger.Infof("commit: %s", commit)
+		cmdlogger.Infof("built at: %s", date)
 	}
 
 	cmds := make([]*cli.Command, 0, len(commands))

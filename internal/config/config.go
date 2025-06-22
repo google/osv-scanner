@@ -170,7 +170,7 @@ func (c *Manager) Get(targetPath string) Config {
 
 	config, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
-		cmdlogger.Infof("Loaded filter from: " + config.LoadPath)
+		cmdlogger.Infof("Loaded filter from: %s", config.LoadPath)
 	} else {
 		// anything other than the config file not existing is most likely due to an invalid config file
 		if !errors.Is(configErr, os.ErrNotExist) {
