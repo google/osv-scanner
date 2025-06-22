@@ -4,11 +4,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log/slog"
 	"os"
 	"path"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -62,7 +62,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 			// Is a commit based query, skip local scanning
 			results = append(results, []*osvschema.Vulnerability{})
 			// TODO (V2 logging):
-			slog.Info("Skipping commit scanning for: " + pkg.Commit())
+			cmdlogger.Infof("Skipping commit scanning for: " + pkg.Commit())
 
 			continue
 		}
@@ -100,13 +100,13 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecos
 
 	if err != nil {
 		matcher.failedDBs[ecosystem.Ecosystem] = err
-		slog.Error(fmt.Sprintf("could not load db for %s ecosystem: %v", ecosystem.Ecosystem, err))
+		cmdlogger.Errorf("could not load db for %s ecosystem: %v", ecosystem.Ecosystem, err)
 
 		return nil, err
 	}
 
 	// TODO(v2 logging): Replace with slog / another logger
-	slog.Info(fmt.Sprintf("Loaded %s local db from %s", db.Name, db.StoredAt))
+	cmdlogger.Infof("Loaded %s local db from %s", db.Name, db.StoredAt)
 
 	matcher.dbs[ecosystem.Ecosystem] = db
 

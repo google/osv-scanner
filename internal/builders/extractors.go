@@ -1,8 +1,6 @@
 package builders
 
 import (
-	"log/slog"
-
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
@@ -35,6 +33,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
@@ -161,7 +160,7 @@ func BuildExtractors(names []string) []filesystem.Extractor {
 		extractor := build(name)
 
 		if extractor == nil {
-			slog.Error("Unknown extractor " + name)
+			cmdlogger.Errorf("Unknown extractor " + name)
 		} else {
 			extractors = append(extractors, build(name))
 		}

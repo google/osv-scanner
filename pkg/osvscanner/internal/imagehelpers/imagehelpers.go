@@ -5,13 +5,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log/slog"
 	"os"
 	"os/exec"
 
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/osrelease"
 	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
@@ -69,7 +69,7 @@ func BuildImageMetadata(img *image.Image, baseImageMatcher clientinterfaces.Base
 func ExportDockerImage(dockerImageName string) (string, error) {
 	tempImageFile, err := os.CreateTemp("", "docker-image-*.tar")
 	if err != nil {
-		slog.Error(fmt.Sprintf("Failed to create temporary file: %s", err))
+		cmdlogger.Errorf("Failed to create temporary file: %s", err)
 		return "", err
 	}
 
@@ -81,11 +81,11 @@ func ExportDockerImage(dockerImageName string) (string, error) {
 	}
 
 	// Check if image exists locally, if not, pull from the cloud.
-	slog.Info(fmt.Sprintf("Checking if docker image (%q) exists locally...", dockerImageName))
+	cmdlogger.Infof("Checking if docker image (%q) exists locally...", dockerImageName)
 	cmd := exec.Command("docker", "images", "-q", dockerImageName)
 	output, err := cmd.Output()
 	if err != nil || string(output) == "" {
-		slog.Info(fmt.Sprintf("Image not found locally, pulling docker image (%q)...", dockerImageName))
+		cmdlogger.Infof("Image not found locally, pulling docker image (%q)...", dockerImageName)
 		err = runCommandLogError("docker", "pull", "-q", dockerImageName)
 		if err != nil {
 			_ = os.RemoveAll(tempImageFile.Name())
@@ -94,7 +94,7 @@ func ExportDockerImage(dockerImageName string) (string, error) {
 		}
 	}
 
-	slog.Info(fmt.Sprintf("Saving docker image (%q) to temporary file...", dockerImageName))
+	cmdlogger.Infof("Saving docker image (%q) to temporary file...", dockerImageName)
 	err = runCommandLogError("docker", "save", "-o", tempImageFile.Name(), dockerImageName)
 	if err != nil {
 		_ = os.RemoveAll(tempImageFile.Name())
@@ -111,13 +111,13 @@ func runCommandLogError(name string, args ...string) error {
 	// Get stderr for debugging when docker fails
 	stderr, err := cmd.StderrPipe()
 	if err != nil {
-		slog.Error(fmt.Sprintf("Failed to get stderr: %s", err))
+		cmdlogger.Errorf("Failed to get stderr: %s", err)
 		return err
 	}
 
 	err = cmd.Start()
 	if err != nil {
-		slog.Error(fmt.Sprintf("Failed to run docker command (%q): %s", cmd.String(), err))
+		cmdlogger.Errorf("Failed to run docker command (%q): %s", cmd.String(), err)
 		return err
 	}
 	// This has to be captured before cmd.Wait() is called, as cmd.Wait() closes the stderr pipe.
@@ -129,9 +129,9 @@ func runCommandLogError(name string, args ...string) error {
 
 	err = cmd.Wait()
 	if err != nil {
-		slog.Error(fmt.Sprintf("Docker command exited with code (%q): %d\nSTDERR:", cmd.String(), cmd.ProcessState.ExitCode()))
+		cmdlogger.Errorf("Docker command exited with code (%q): %d\nSTDERR:", cmd.String(), cmd.ProcessState.ExitCode())
 		for _, line := range stderrLines {
-			slog.Error("> " + line)
+			cmdlogger.Errorf("> " + line)
 		}
 
 		return errors.New("failed to run docker command")

@@ -45,9 +45,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 	args = splitLastArg(args)
 
 	cli.VersionPrinter = func(cmd *cli.Command) {
-		slog.Info("osv-scanner version: " + cmd.Version)
-		slog.Info("commit: " + commit)
-		slog.Info("built at: " + date)
+		cmdlogger.Infof("osv-scanner version: " + cmd.Version)
+		cmdlogger.Infof("commit: " + commit)
+		cmdlogger.Infof("built at: " + date)
 	}
 
 	app := &cli.Command{
@@ -104,7 +104,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			if oldPath != "" {
 				oldVulns, err = ci.LoadVulnResults(oldPath)
 				if err != nil {
-					slog.Warn(fmt.Sprintf("failed to open old results at %s: %v - likely because target branch has no lockfiles.", oldPath, err))
+					cmdlogger.Warnf("failed to open old results at %s: %v - likely because target branch has no lockfiles.", oldPath, err)
 					// Do not return, assume there is no oldVulns (which will display all new vulns).
 					oldVulns = models.VulnerabilityResults{}
 				}
@@ -112,7 +112,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			newVulns, err := ci.LoadVulnResults(newPath)
 			if err != nil {
-				slog.Warn(fmt.Sprintf("failed to open new results at %s: %v - likely because previous step failed.", newPath, err))
+				cmdlogger.Warnf("failed to open new results at %s: %v - likely because previous step failed.", newPath, err)
 				newVulns = models.VulnerabilityResults{}
 				// Do not return a non zero error code.
 			}
@@ -196,11 +196,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 
 		if errors.Is(err, osvscanner.ErrNoPackagesFound) {
-			slog.Error("No package sources found, --help for usage information.")
+			cmdlogger.Errorf("No package sources found, --help for usage information.")
 			return 128
 		}
 
-		slog.Error(fmt.Sprintf("%v", err))
+		cmdlogger.Errorf("%v", err)
 	}
 
 	// if we've been told to print an error, and not already exited with
