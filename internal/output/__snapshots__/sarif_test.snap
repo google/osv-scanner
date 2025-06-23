@@ -59,7 +59,7 @@
           },
           "rank": -1,
           "ruleId": "CVE-2022-24713",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -80,7 +80,7 @@
           },
           "rank": -1,
           "ruleId": "CVE-2021-3121",
-          "ruleIndex": -1
+          "ruleIndex": 1
         },
         {
           "kind": "fail",
@@ -101,7 +101,7 @@
           },
           "rank": -1,
           "ruleId": "CVE-2022-24713",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -715,7 +715,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -736,7 +736,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -757,7 +757,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": -1
+          "ruleIndex": 1
         }
       ],
       "tool": {
@@ -871,7 +871,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -892,7 +892,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -913,7 +913,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": -1
+          "ruleIndex": 1
         }
       ],
       "tool": {
@@ -1027,7 +1027,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -1048,7 +1048,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -1069,7 +1069,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": -1
+          "ruleIndex": 1
         }
       ],
       "tool": {
@@ -1167,7 +1167,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -1248,7 +1248,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -1329,7 +1329,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -1410,7 +1410,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -1499,7 +1499,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -1520,7 +1520,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -1541,7 +1541,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": -1
+          "ruleIndex": 1
         },
         {
           "kind": "fail",
@@ -1562,7 +1562,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-3",
-          "ruleIndex": -1
+          "ruleIndex": 2
         },
         {
           "kind": "fail",
@@ -1583,7 +1583,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": -1
+          "ruleIndex": 3
         },
         {
           "kind": "fail",
@@ -1604,7 +1604,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": -1
+          "ruleIndex": 3
         }
       ],
       "tool": {
@@ -1744,7 +1744,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -1765,7 +1765,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -1786,7 +1786,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": -1
+          "ruleIndex": 1
         },
         {
           "kind": "fail",
@@ -1807,7 +1807,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-3",
-          "ruleIndex": -1
+          "ruleIndex": 2
         },
         {
           "kind": "fail",
@@ -1828,7 +1828,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": -1
+          "ruleIndex": 3
         },
         {
           "kind": "fail",
@@ -1849,7 +1849,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": -1
+          "ruleIndex": 3
         }
       ],
       "tool": {
@@ -2026,7 +2026,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -2047,7 +2047,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -2068,7 +2068,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": -1
+          "ruleIndex": 1
         }
       ],
       "tool": {
@@ -2174,7 +2174,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -2195,7 +2195,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -2216,7 +2216,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": -1
+          "ruleIndex": 1
         },
         {
           "kind": "fail",
@@ -2237,7 +2237,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-3",
-          "ruleIndex": -1
+          "ruleIndex": 2
         },
         {
           "kind": "fail",
@@ -2258,7 +2258,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": -1
+          "ruleIndex": 3
         },
         {
           "kind": "fail",
@@ -2279,7 +2279,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": -1
+          "ruleIndex": 3
         }
       ],
       "tool": {
@@ -2419,7 +2419,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -2440,7 +2440,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -2461,7 +2461,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": -1
+          "ruleIndex": 1
         },
         {
           "kind": "fail",
@@ -2482,7 +2482,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-3",
-          "ruleIndex": -1
+          "ruleIndex": 2
         },
         {
           "kind": "fail",
@@ -2503,7 +2503,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": -1
+          "ruleIndex": 3
         },
         {
           "kind": "fail",
@@ -2524,7 +2524,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": -1
+          "ruleIndex": 3
         }
       ],
       "tool": {
@@ -2664,7 +2664,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -2685,7 +2685,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -2706,7 +2706,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": -1
+          "ruleIndex": 1
         },
         {
           "kind": "fail",
@@ -2727,7 +2727,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-3",
-          "ruleIndex": -1
+          "ruleIndex": 2
         },
         {
           "kind": "fail",
@@ -2748,7 +2748,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": -1
+          "ruleIndex": 3
         },
         {
           "kind": "fail",
@@ -2769,7 +2769,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-5",
-          "ruleIndex": -1
+          "ruleIndex": 3
         }
       ],
       "tool": {
@@ -3017,7 +3017,7 @@
           },
           "rank": -1,
           "ruleId": "GHSA-123",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -3038,7 +3038,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 1
         }
       ],
       "tool": {
@@ -3136,7 +3136,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -3217,7 +3217,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -3298,7 +3298,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -3379,7 +3379,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -3460,7 +3460,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -3481,7 +3481,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -3563,7 +3563,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -3584,7 +3584,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -3666,7 +3666,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -3747,7 +3747,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -3828,7 +3828,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -3849,7 +3849,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-2",
-          "ruleIndex": -1
+          "ruleIndex": 1
         }
       ],
       "tool": {
@@ -3947,7 +3947,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -4036,7 +4036,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -4057,7 +4057,7 @@
           },
           "rank": -1,
           "ruleId": "OSV-1",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {

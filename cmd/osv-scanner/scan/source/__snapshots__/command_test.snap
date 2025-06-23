@@ -266,7 +266,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
           },
           "rank": -1,
           "ruleId": "CVE-2021-23424",
-          "ruleIndex": -1
+          "ruleIndex": 0
         }
       ],
       "tool": {
@@ -1514,7 +1514,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
           },
           "rank": -1,
           "ruleId": "CVE-2023-39137",
-          "ruleIndex": -1
+          "ruleIndex": 0
         },
         {
           "kind": "fail",
@@ -1535,7 +1535,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
           },
           "rank": -1,
           "ruleId": "CVE-2023-39139",
-          "ruleIndex": -1
+          "ruleIndex": 1
         }
       ],
       "tool": {
