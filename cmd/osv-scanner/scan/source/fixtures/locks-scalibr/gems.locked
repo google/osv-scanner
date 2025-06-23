@@ -1,0 +1,76 @@
+PATH
+  remote: ..
+  specs:
+    rubydns (2.0.2)
+      async-dns (~> 1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    async (2.23.0)
+      console (~> 1.29)
+      fiber-annotation
+      io-event (~> 1.9)
+      metrics (~> 0.12)
+      traces (~> 0.15)
+    async-dns (1.4.1)
+      async
+      io-endpoint
+    async-http (0.87.0)
+      async (>= 2.10.2)
+      async-pool (~> 0.9)
+      io-endpoint (~> 0.14)
+      io-stream (~> 0.6)
+      metrics (~> 0.12)
+      protocol-http (~> 0.49)
+      protocol-http1 (~> 0.30)
+      protocol-http2 (~> 0.22)
+      traces (~> 0.10)
+    async-pool (0.10.3)
+      async (>= 1.25)
+    console (1.29.2)
+      fiber-annotation
+      fiber-local (~> 1.1)
+      json
+    fiber-annotation (0.2.0)
+    fiber-local (1.1.0)
+      fiber-storage
+    fiber-storage (1.0.0)
+    geoip (1.6.4)
+    io-endpoint (0.15.1)
+    io-event (1.9.0)
+    io-stream (0.6.1)
+    json (2.10.1)
+    metrics (0.12.1)
+    nokogiri (1.18.2-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.18.2-x86_64-linux-gnu)
+      racc (~> 1.4)
+    process-daemon (1.0.1)
+      rainbow (~> 2.0)
+    protocol-hpack (1.5.1)
+    protocol-http (0.49.0)
+    protocol-http1 (0.30.0)
+      protocol-http (~> 0.22)
+    protocol-http2 (0.22.1)
+      protocol-hpack (~> 1.4)
+      protocol-http (~> 0.47)
+    racc (1.8.1)
+    rainbow (2.2.2)
+      rake
+    rake (13.2.1)
+    traces (0.15.2)
+
+PLATFORMS
+  arm64-darwin-21
+  x86_64-linux
+
+DEPENDENCIES
+  async-http
+  geoip
+  nokogiri
+  process-daemon
+  rubydns!
+
+BUNDLED WITH
+   2.6.2

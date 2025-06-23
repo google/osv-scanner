@@ -37,10 +37,20 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
+		{
+			Name: "one specific supported sbom with vulns using -L flag",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "./fixtures/sbom-insecure/alpine.cdx.xml"},
+			Exit: 1,
+		},
 		// one specific supported sbom with vulns and invalid PURLs
 		{
 			Name: "one specific supported sbom with invalid PURLs",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
+			Exit: 0,
+		},
+		{
+			Name: "one specific supported sbom with invalid PURLs using -L flag",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "./fixtures/sbom-insecure/bad-purls.cdx.xml"},
 			Exit: 0,
 		},
 		// one specific supported sbom with duplicate PURLs
@@ -49,10 +59,20 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
 		},
+		{
+			Name: "one specific supported sbom with duplicate PURLs using -L flag",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "./fixtures/sbom-insecure/with-duplicates.cdx.xml"},
+			Exit: 1,
+		},
 		// one file that does not match the supported sbom file names
 		{
 			Name: "one file that does not match the supported sbom file names",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--sbom", "./fixtures/locks-many/composer.lock"},
+			Exit: 127,
+		},
+		{
+			Name: "one file that does not match the supported sbom file names using -L flag",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "-L", "spdx:./fixtures/locks-many/composer.lock"},
 			Exit: 127,
 		},
 		// one specific unsupported lockfile
@@ -805,7 +825,7 @@ func TestCommand_Licenses(t *testing.T) {
 	}
 }
 
-func TestCommand_MavenTransitive(t *testing.T) {
+func TestCommand_Transitive(t *testing.T) {
 	t.Parallel()
 
 	tests := []testcmd.Case{
@@ -842,8 +862,23 @@ func TestCommand_MavenTransitive(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "resolve transitive dependencies with native data source",
+			Name: "resolves transitive dependencies with native data source",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--data-source=native", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
+			Exit: 1,
+		},
+		{
+			Name: "uses native data source for requirements.txt",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-requirements/requirements.txt"},
+			Exit: 1,
+		},
+		{
+			Name: "does not scan transitive dependencies for requirements.txt with no-resolve",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--no-resolve", "./fixtures/locks-requirements/requirements.txt"},
+			Exit: 1,
+		},
+		{
+			Name: "does not scan transitive dependencies for requirements.txt with offline mode",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "./fixtures/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 	}
@@ -889,6 +924,11 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Name: "packages.lock.json",
 			Args: []string{"", "source", "-L", "./fixtures/locks-scalibr/packages.lock.json"},
 			Exit: 0,
+		},
+		{
+			Name: "gems.locked",
+			Args: []string{"", "source", "-L", "./fixtures/locks-scalibr/gems.locked"},
+			Exit: 1,
 		},
 		/*
 			{

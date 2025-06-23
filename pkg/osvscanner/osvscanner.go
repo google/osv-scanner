@@ -40,7 +40,6 @@ import (
 
 type ScannerActions struct {
 	LockfilePaths      []string
-	SBOMPaths          []string
 	DirectoryPaths     []string
 	GitCommits         []string
 	Recursive          bool
@@ -50,18 +49,24 @@ type ScannerActions struct {
 	IsImageArchive     bool
 	ConfigOverridePath string
 	CallAnalysisStates map[string]bool
+	ShowAllPackages    bool
+
+	// local databases
+	CompareOffline    bool
+	DownloadDatabases bool
+	LocalDBPath       string
+
+	// license scanning
+	ScanLicensesSummary   bool
+	ScanLicensesAllowlist []string
+
+	// Deprecated: in favor of LockfilePaths
+	SBOMPaths []string
 
 	ExperimentalScannerActions
 }
 
 type ExperimentalScannerActions struct {
-	CompareOffline        bool
-	DownloadDatabases     bool
-	ShowAllPackages       bool
-	ScanLicensesSummary   bool
-	ScanLicensesAllowlist []string
-
-	LocalDBPath string
 	TransitiveScanningActions
 
 	Extractors []filesystem.Extractor
@@ -171,6 +176,9 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	} else {
 		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(actions.MavenRegistry, "")
 	}
+
+	// We only support native registry client for PyPI.
+	externalAccessors.DependencyClients[osvschema.EcosystemPyPI] = resolution.NewPyPIRegistryClient("")
 
 	if err != nil {
 		return ExternalAccessors{}, err

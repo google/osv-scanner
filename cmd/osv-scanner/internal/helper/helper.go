@@ -256,14 +256,21 @@ func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
 	return allowlist, nil
 }
 
-func GetExperimentalScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) osvscanner.ExperimentalScannerActions {
-	return osvscanner.ExperimentalScannerActions{
-		LocalDBPath:           cmd.String("local-db-path"),
-		DownloadDatabases:     cmd.Bool("download-offline-databases"),
-		CompareOffline:        cmd.Bool("offline-vulnerabilities"),
+func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) osvscanner.ScannerActions {
+	return osvscanner.ScannerActions{
+		IncludeGitRoot:        cmd.Bool("include-git-root"),
+		ConfigOverridePath:    cmd.String("config"),
 		ShowAllPackages:       cmd.Bool("all-packages"),
+		CompareOffline:        cmd.Bool("offline-vulnerabilities"),
+		DownloadDatabases:     cmd.Bool("download-offline-databases"),
+		LocalDBPath:           cmd.String("local-db-path"),
 		ScanLicensesSummary:   cmd.IsSet("licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,
+	}
+}
+
+func GetExperimentalScannerActions(cmd *cli.Command) osvscanner.ExperimentalScannerActions {
+	return osvscanner.ExperimentalScannerActions{
 		Extractors: ResolveEnabledExtractors(
 			cmd.StringSlice("experimental-extractors"),
 			cmd.StringSlice("experimental-disable-extractors"),
