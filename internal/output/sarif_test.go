@@ -135,6 +135,8 @@ func TestPrintSARIFReport_WithMixedIssues(t *testing.T) {
 }
 
 func buildJSONSarifReport(t *testing.T, res *models.VulnerabilityResults) map[string]any {
+	t.Helper()
+
 	outputWriter := &bytes.Buffer{}
 	err := output.PrintSARIFReport(res, outputWriter)
 
