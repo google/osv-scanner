@@ -15,6 +15,8 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/builders"
@@ -22,6 +24,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
@@ -36,7 +39,12 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
 			})
 		}
-		// TODO: Enable requirementstxtnet extractor
+		if accessors.DependencyClients[osvschema.EcosystemPyPI] != nil {
+			requirementsenhancable.EnhanceIfPossible(tor, requirementsnet.Config{
+				Extractor: &requirements.Extractor{},
+				Client:    accessors.DependencyClients[osvschema.EcosystemPyPI],
+			})
+		}
 
 		// todo: the "disabled" aspect should probably be worked into the extractor being present in the first place
 		//  since "IncludeRootGit" is always true

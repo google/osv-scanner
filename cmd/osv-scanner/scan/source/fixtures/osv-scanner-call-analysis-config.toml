@@ -1,3 +1,4 @@
-[[IgnoredVulns]]
-id = "GO-2025-3447"
-reason = "This is called in Go v1.23, but not in v1.24"
+[[PackageOverrides]]
+name = "stdlib"
+reason = "Just want to test actual packages"
+ignore = true

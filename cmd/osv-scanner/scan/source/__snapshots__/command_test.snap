@@ -944,6 +944,7 @@ No package sources found, --help for usage information.
 ---
 
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 1]
+Warning: --sbom has been deprecated in favor of -L
 Failed to parse SBOM "<rootdir>/fixtures/locks-many/composer.lock" with error: could not determine extractor suitable to this file
 If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.
 
@@ -951,6 +952,15 @@ If you believe this is a valid SBOM, make sure the filename follows format per y
 
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 2]
 could not determine extractor suitable to this file
+
+---
+
+[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 1]
+
+---
+
+[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 2]
+could not determine extractor, requested spdx
 
 ---
 
@@ -993,6 +1003,7 @@ No issues found
 ---
 
 [TestCommand/one_specific_supported_sbom_with_duplicate_PURLs - 1]
+Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
@@ -1009,7 +1020,25 @@ Filtered 1 local/unscannable package/s from the scan.
 
 ---
 
+[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 1]
+Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
+Filtered 1 local/unscannable package/s from the scan.
++--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                         |
++--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
+| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4  | fixtures/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/with-duplicates.cdx.xml |
++--------------------------------+------+-----------+---------+-----------+------------------------------------------------+
+
+---
+
+[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 2]
+
+---
+
 [TestCommand/one_specific_supported_sbom_with_invalid_PURLs - 1]
+Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
 Filtered 7 local/unscannable package/s from the scan.
 No issues found
@@ -1020,7 +1049,19 @@ No issues found
 
 ---
 
+[TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag - 1]
+Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
+Filtered 7 local/unscannable package/s from the scan.
+No issues found
+
+---
+
+[TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag - 2]
+
+---
+
 [TestCommand/one_specific_supported_sbom_with_vulns - 1]
+Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 +--------------------------------+------+-----------+---------+-----------+---------------------------------------+
@@ -1034,6 +1075,23 @@ Filtered 1 local/unscannable package/s from the scan.
 ---
 
 [TestCommand/one_specific_supported_sbom_with_vulns - 2]
+
+---
+
+[TestCommand/one_specific_supported_sbom_with_vulns_using_-L_flag - 1]
+Scanned <rootdir>/fixtures/sbom-insecure/alpine.cdx.xml file and found 15 packages
+Filtered 1 local/unscannable package/s from the scan.
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE | VERSION   | SOURCE                                |
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+| https://osv.dev/CVE-2025-26519 |      | Alpine    | musl    | 1.2.3-r4  | fixtures/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | fixtures/sbom-insecure/alpine.cdx.xml |
++--------------------------------+------+-----------+---------+-----------+---------------------------------------+
+
+---
+
+[TestCommand/one_specific_supported_sbom_with_vulns_using_-L_flag - 2]
 
 ---
 
@@ -1082,49 +1140,59 @@ unsupported output format "unknown" - must be one of: table, html, vertical, jso
 
 [TestCommand/requirements.txt_can_have_all_kinds_of_names - 1]
 Scanning dir ./fixtures/locks-requirements
-Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-requirements/requirements.prod.txt file and found 1 package
-Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
+Scanned <rootdir>/fixtures/locks-requirements/my-requirements.txt file and found 6 packages
+Scanned <rootdir>/fixtures/locks-requirements/requirements-dev.txt file and found 8 packages
+Scanned <rootdir>/fixtures/locks-requirements/requirements.prod.txt file and found 3 packages
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 13 packages
 Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file and found 1 package
-+-------------------------------------+------+-----------+------------+---------+---------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | SOURCE                                            |
-+-------------------------------------+------+-----------+------------+---------+---------------------------------------------------+
-| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | fixtures/locks-requirements/my-requirements.txt   |
-| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |                                                   |
-| https://osv.dev/PYSEC-2024-48       | 5.3  | PyPI      | black      | 1.0.0   | fixtures/locks-requirements/requirements-dev.txt  |
-| https://osv.dev/GHSA-fj7x-q9j7-g6q6 |      |           |            |         |                                                   |
-| https://osv.dev/PYSEC-2021-439      | 7.3  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
-| https://osv.dev/GHSA-v6rh-hp5x-86rv |      |           |            |         |                                                   |
-| https://osv.dev/PYSEC-2022-1        | 8.7  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
-| https://osv.dev/GHSA-53qw-q765-4fww |      |           |            |         |                                                   |
-| https://osv.dev/PYSEC-2022-19       | 6.1  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
-| https://osv.dev/GHSA-95rw-fx8r-36v6 |      |           |            |         |                                                   |
-| https://osv.dev/PYSEC-2022-190      | 9.8  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
-| https://osv.dev/GHSA-2gwj-7jmv-h26r |      |           |            |         |                                                   |
-| https://osv.dev/PYSEC-2022-191      | 9.8  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
-| https://osv.dev/GHSA-w24h-v9qh-8gxj |      |           |            |         |                                                   |
-| https://osv.dev/PYSEC-2022-2        | 8.7  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
-| https://osv.dev/GHSA-8c5j-9r9f-c6w8 |      |           |            |         |                                                   |
-| https://osv.dev/PYSEC-2022-20       | 8.7  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
-| https://osv.dev/GHSA-6cw3-g6wv-c2xv |      |           |            |         |                                                   |
-| https://osv.dev/PYSEC-2022-3        | 6.9  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
-| https://osv.dev/GHSA-jrh2-hc4r-7jwx |      |           |            |         |                                                   |
-| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
-| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
-| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
-| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
-| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |                                                   |
-| https://osv.dev/PYSEC-2020-43       | 8.7  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
-| https://osv.dev/GHSA-xc3p-ff3m-f46v |      |           |            |         |                                                   |
-| https://osv.dev/PYSEC-2024-71       | 8.7  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
-| https://osv.dev/GHSA-hxwh-jpp2-84pm |      |           |            |         |                                                   |
-| https://osv.dev/GHSA-43qf-4rqw-9q2g | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
-| https://osv.dev/GHSA-7rxf-gvfg-47g4 | 4.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
-| https://osv.dev/GHSA-84pr-m4jr-85g5 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
-| https://osv.dev/GHSA-8vgw-p6qm-5gr7 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/requirements.txt      |
-| https://osv.dev/PYSEC-2020-73       |      | PyPI      | pandas     | 0.23.4  | fixtures/locks-requirements/requirements.txt      |
-+-------------------------------------+------+-----------+------------+---------+---------------------------------------------------+
++-------------------------------------+------+-----------+----------+---------+---------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | SOURCE                                            |
++-------------------------------------+------+-----------+----------+---------+---------------------------------------------------+
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0     | fixtures/locks-requirements/my-requirements.txt   |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2021-439      | 7.3  | PyPI      | django   | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-v6rh-hp5x-86rv |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2022-1        | 8.7  | PyPI      | django   | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-53qw-q765-4fww |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2022-19       | 6.1  | PyPI      | django   | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-95rw-fx8r-36v6 |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2022-190      | 9.8  | PyPI      | django   | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-2gwj-7jmv-h26r |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2022-191      | 9.8  | PyPI      | django   | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-w24h-v9qh-8gxj |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2022-2        | 8.7  | PyPI      | django   | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-8c5j-9r9f-c6w8 |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2022-20       | 8.7  | PyPI      | django   | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-6cw3-g6wv-c2xv |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2022-3        | 6.9  | PyPI      | django   | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-jrh2-hc4r-7jwx |      |           |          |         |                                                   |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 2.2.24  | fixtures/locks-requirements/requirements.prod.txt |
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |                                                   |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0     | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2024-60       | 7.5  | PyPI      | idna     | 2.7     | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-jjg7-2v4v-x38h |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |                                                   |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/PYSEC-2020-148      | 6.9  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-wqvq-5m8c-6g24 |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2021-108      |      | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/PYSEC-2023-192      | 8.1  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-v845-jxx5-vc9f |      |           |          |         |                                                   |
+| https://osv.dev/PYSEC-2023-212      | 5.7  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-g4mx-q9vg-27p4 |      |           |          |         |                                                   |
+| https://osv.dev/GHSA-34jh-p97f-mpxf | 4.4  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-48p4-8xcf-vxj5 | 5.3  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt      |
+| https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt      |
++-------------------------------------+------+-----------+----------+---------+---------------------------------------------------+
 
 ---
 
@@ -1168,24 +1236,13 @@ No issues found
 [TestCommand_CallAnalysis/Run_with_govulncheck - 1]
 Scanning dir ./fixtures/call-analysis-go-project
 Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 packages
-GO-2025-3447 and 2 aliases have been filtered out because: This is called in Go v1.23, but not in v1.24
-Filtered 1 vulnerability from output
+Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
+Filtered 1 ignored package/s from the scan.
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                     | VERSION | SOURCE                                   |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 | https://osv.dev/GO-2023-1558        | 5.9  | Go        | github.com/ipfs/go-bitfield | 1.0.0   | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GHSA-2h6c-j3gf-xp9r |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-2102        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2185        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2375        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2382        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2598        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2599        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2687        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3563        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3750        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 
 ---
@@ -1228,19 +1285,6 @@ Filtered 1 vulnerability from output
 | https://osv.dev/GHSA-j3p8-6mrq-6g7h |      |           |                             |         |                                          |
 | https://osv.dev/GO-2024-2937        | 8.7  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
 | https://osv.dev/GHSA-9phm-fm57-rhg8 |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-2041        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2043        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2186        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2600        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2609        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2610        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2888        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2963        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3105        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3106        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-3107        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3420        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3751        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
 +-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
 
 ---
@@ -1307,6 +1351,26 @@ lockfile:<rootdir>/fixtures/call-analysis-go-project/go.mod: found 2 packages wi
 ---
 
 [TestCommand_CallAnalysis/Run_with_govulncheck#02 - 2]
+
+---
+
+[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 1]
+Scanning dir ./fixtures/call-analysis-go-project-all-uncalled
+Scanned <rootdir>/fixtures/call-analysis-go-project-all-uncalled/go.mod file and found 2 packages
+Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
+Filtered 1 ignored package/s from the scan.
++-------------------------------------+------+-----------+--------------------------+---------+-------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                  | VERSION | SOURCE                                                |
++-------------------------------------+------+-----------+--------------------------+---------+-------------------------------------------------------+
+| Uncalled vulnerabilities            |      |           |                          |         |                                                       |
++-------------------------------------+------+-----------+--------------------------+---------+-------------------------------------------------------+
+| https://osv.dev/GO-2021-0053        | 8.6  | Go        | github.com/gogo/protobuf | 1.3.1   | fixtures/call-analysis-go-project-all-uncalled/go.mod |
+| https://osv.dev/GHSA-c3h9-896r-86jm |      |           |                          |         |                                                       |
++-------------------------------------+------+-----------+--------------------------+---------+-------------------------------------------------------+
+
+---
+
+[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 2]
 
 ---
 
@@ -3272,114 +3336,6 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
-[TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 1]
-Scanning dir ./fixtures/maven-transitive/pom.xml
-Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
-No issues found
-
----
-
-[TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 2]
-
----
-
-[TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 1]
-Scanning dir ./fixtures/maven-transitive/pom.xml
-Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
-Loaded Maven local db from <tempdir>/osv-scanner/Maven/all.zip
-No issues found
-
----
-
-[TestCommand_MavenTransitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 2]
-
----
-
-[TestCommand_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 1]
-Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-
----
-
-[TestCommand_MavenTransitive/resolve_transitive_dependencies_with_native_data_source - 2]
-
----
-
-[TestCommand_MavenTransitive/scans_dependencies_from_multiple_registries - 1]
-Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
-
----
-
-[TestCommand_MavenTransitive/scans_dependencies_from_multiple_registries - 2]
-
----
-
-[TestCommand_MavenTransitive/scans_pom.xml_with_non_UTF-8_encoding - 1]
-Scanned <rootdir>/fixtures/maven-transitive/encoding.xml file as a pom.xml and found 2 packages
-+-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE     | VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
-| https://osv.dev/GHSA-269g-pwp5-87pp | 4.4  | Maven     | junit:junit | 4.12    | fixtures/maven-transitive/encoding.xml |
-+-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
-
----
-
-[TestCommand_MavenTransitive/scans_pom.xml_with_non_UTF-8_encoding - 2]
-
----
-
-[TestCommand_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
-Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 3 packages
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-
----
-
-[TestCommand_MavenTransitive/scans_transitive_dependencies_by_specifying_pom.xml - 2]
-
----
-
-[TestCommand_MavenTransitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
-Scanning dir ./fixtures/maven-transitive/pom.xml
-Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
-+-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
-
----
-
-[TestCommand_MavenTransitive/scans_transitive_dependencies_for_pom.xml_by_default - 2]
-
----
-
 [TestCommand_MoreLockfiles/cabal.project.freeze - 1]
 Scanned <rootdir>/fixtures/locks-scalibr/cabal.project.freeze file and found 6 packages
 +--------------------------------+------+-----------+-----------------+---------+---------------------------------------------+
@@ -3405,6 +3361,23 @@ Scanned <rootdir>/fixtures/locks-scalibr/depsjson file as a deps.json and found 
 ---
 
 [TestCommand_MoreLockfiles/depsjson - 2]
+
+---
+
+[TestCommand_MoreLockfiles/gems.locked - 1]
+Scanned <rootdir>/fixtures/locks-scalibr/gems.locked file and found 25 packages
++-------------------------------------+------+-----------+----------+---------+------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | SOURCE                             |
++-------------------------------------+------+-----------+----------+---------+------------------------------------+
+| https://osv.dev/GHSA-9m3q-rhmv-5q44 | 7.5  | RubyGems  | json     | 2.10.1  | fixtures/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-5w6v-399v-w3cc |      | RubyGems  | nokogiri | 1.18.2  | fixtures/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-mrxw-mxhj-p664 | 7.8  | RubyGems  | nokogiri | 1.18.2  | fixtures/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-vvfq-8hwr-qm4m |      | RubyGems  | nokogiri | 1.18.2  | fixtures/locks-scalibr/gems.locked |
++-------------------------------------+------+-----------+----------+---------+------------------------------------+
+
+---
+
+[TestCommand_MoreLockfiles/gems.locked - 2]
 
 ---
 
@@ -3449,5 +3422,200 @@ Scanned <rootdir>/fixtures/locks-scalibr/uv.lock file and found 2 packages
 ---
 
 [TestCommand_MoreLockfiles/uv.lock - 2]
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 1]
+Scanning dir ./fixtures/maven-transitive/pom.xml
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
+No issues found
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 2]
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 1]
+Scanning dir ./fixtures/maven-transitive/pom.xml
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 1 package
+Loaded Maven local db from <tempdir>/osv-scanner/Maven/all.zip
+No issues found
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 2]
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 1]
+Scanning dir ./fixtures/locks-requirements/requirements.txt
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |                                              |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0.0   | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |                                              |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |                                              |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 2]
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode - 1]
+Scanning dir ./fixtures/locks-requirements/requirements.txt
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 3 packages
+Loaded PyPI local db from <tempdir>/osv-scanner/PyPI/all.zip
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |                                              |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq | 8.7  | PyPI      | flask    | 1.0.0   | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |                                              |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+
+---
+
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode - 2]
+
+---
+
+[TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 1]
+Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+
+---
+
+[TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 2]
+
+---
+
+[TestCommand_Transitive/scans_dependencies_from_multiple_registries - 1]
+Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | SOURCE                                 |
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | fixtures/maven-transitive/registry.xml |
++-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
+
+---
+
+[TestCommand_Transitive/scans_dependencies_from_multiple_registries - 2]
+
+---
+
+[TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 1]
+Scanned <rootdir>/fixtures/maven-transitive/encoding.xml file as a pom.xml and found 2 packages
++-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE     | VERSION | SOURCE                                 |
++-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
+| https://osv.dev/GHSA-269g-pwp5-87pp | 4.4  | Maven     | junit:junit | 4.12    | fixtures/maven-transitive/encoding.xml |
++-------------------------------------+------+-----------+-------------+---------+----------------------------------------+
+
+---
+
+[TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 2]
+
+---
+
+[TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
+Scanned <rootdir>/fixtures/maven-transitive/abc.xml file as a pom.xml and found 3 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/abc.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+
+---
+
+[TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 2]
+
+---
+
+[TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
+Scanning dir ./fixtures/maven-transitive/pom.xml
+Scanned <rootdir>/fixtures/maven-transitive/pom.xml file and found 3 packages
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | fixtures/maven-transitive/pom.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+-----------------------------------+
+
+---
+
+[TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 2]
+
+---
+
+[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1]
+Scanning dir ./fixtures/locks-requirements/requirements.txt
+Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 13 packages
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |                                              |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0     | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |                                              |
+| https://osv.dev/PYSEC-2024-60       | 7.5  | PyPI      | idna     | 2.7     | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-jjg7-2v4v-x38h |      |           |          |         |                                              |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |                                              |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2020-148      | 6.9  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-wqvq-5m8c-6g24 |      |           |          |         |                                              |
+| https://osv.dev/PYSEC-2021-108      |      | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-192      | 8.1  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-v845-jxx5-vc9f |      |           |          |         |                                              |
+| https://osv.dev/PYSEC-2023-212      | 5.7  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-g4mx-q9vg-27p4 |      |           |          |         |                                              |
+| https://osv.dev/GHSA-34jh-p97f-mpxf | 4.4  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-48p4-8xcf-vxj5 | 5.3  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
++-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
+
+---
+
+[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
 
 ---
