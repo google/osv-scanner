@@ -23,6 +23,7 @@ func testCycloneDXResults(t *testing.T, version models.CycloneDXVersion, testFun
 }
 
 func TestPrintCycloneDXResults(t *testing.T) {
+  t.Parallel()
 	tests := []struct {
 		name    string
 		version models.CycloneDXVersion
