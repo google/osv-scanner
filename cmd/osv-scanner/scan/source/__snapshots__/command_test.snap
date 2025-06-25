@@ -1251,110 +1251,19 @@ Filtered 1 ignored package/s from the scan.
 
 ---
 
-[TestCommand_CallAnalysis/Run_with_govulncheck#01 - 1]
-Scanning dir ./fixtures/call-analysis-go-project
-Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 packages
-GO-2025-3447 and 2 aliases have been filtered out because: This is called in Go v1.23, but not in v1.24
-Filtered 1 vulnerability from output
-+-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                     | VERSION | SOURCE                                   |
-+-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
-| https://osv.dev/GO-2023-1558        | 5.9  | Go        | github.com/ipfs/go-bitfield | 1.0.0   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-2h6c-j3gf-xp9r |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-2102        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2185        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2375        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2023-2382        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2598        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2599        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2687        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2024-2887        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3373        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3563        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GO-2025-3750        |      | Go        | stdlib                      | 1.19.99 | fixtures/call-analysis-go-project/go.mod |
-+-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
-| Uncalled vulnerabilities            |      |           |                             |         |                                          |
-+-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
-| https://osv.dev/GO-2021-0053        | 8.6  | Go        | github.com/gogo/protobuf    | 1.3.1   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-c3h9-896r-86jm |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-1572        | 5.5  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-qgc7-mgm3-q253 |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-1989        | 6.5  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-x92r-3vfx-4cv3 |      |           |                             |         |                                          |
-| https://osv.dev/GO-2023-1990        | 6.5  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-j3p8-6mrq-6g7h |      |           |                             |         |                                          |
-| https://osv.dev/GO-2024-2937        | 8.7  | Go        | golang.org/x/image          | 0.4.0   | fixtures/call-analysis-go-project/go.mod |
-| https://osv.dev/GHSA-9phm-fm57-rhg8 |      |           |                             |         |                                          |
-+-------------------------------------+------+-----------+-----------------------------+---------+------------------------------------------+
-
----
-
-[TestCommand_CallAnalysis/Run_with_govulncheck#01 - 2]
-
----
-
-[TestCommand_CallAnalysis/Run_with_govulncheck#02 - 1]
-Scanning dir ./fixtures/call-analysis-go-project
-Scanned <rootdir>/fixtures/call-analysis-go-project/go.mod file and found 4 packages
-GO-2025-3447 and 2 aliases have been filtered out because: This is called in Go v1.23, but not in v1.24
-Filtered 1 vulnerability from output
-
-Total 2 packages affected by 12 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 11 Unknown) from 1 ecosystem.
-12 vulnerabilities can be fixed.
-
-Go
-
-lockfile:<rootdir>/fixtures/call-analysis-go-project/go.mod: found 2 packages with issues
-
-  github.com/ipfs/go-bitfield@1.0.0 has the following known vulnerabilities:
-    GO-2023-1558: Denial of service via malformed size parameters in github.com/ipfs/go-bitfield (https://osv.dev/GO-2023-1558)
-  stdlib@1.19.99 has the following known vulnerabilities:
-    GO-2023-2102: HTTP/2 rapid reset can cause excessive work in net/http (https://osv.dev/GO-2023-2102)
-    GO-2023-2185: Insecure parsing of Windows paths with a /??/ prefix in path/filepath (https://osv.dev/GO-2023-2185)
-    GO-2023-2375: Before Go 1.20, the RSA based key exchange methods in crypto/tls may exhibit a... (https://osv.dev/GO-2023-2375)
-    GO-2023-2382: Denial of service via chunk extensions in net/http (https://osv.dev/GO-2023-2382)
-    GO-2024-2598: Verify panics on certificates with an unknown public key algorithm in... (https://osv.dev/GO-2024-2598)
-    GO-2024-2599: Memory exhaustion in multipart form parsing in net/textproto and net/http (https://osv.dev/GO-2024-2599)
-    GO-2024-2687: HTTP/2 CONTINUATION flood in net/http (https://osv.dev/GO-2024-2687)
-    GO-2024-2887: Unexpected behavior from Is methods for IPv4-mapped IPv6 addresses in net/netip (https://osv.dev/GO-2024-2887)
-    GO-2025-3373: Usage of IPv6 zone IDs can bypass URI name constraints in crypto/x509 (https://osv.dev/GO-2025-3373)
-    GO-2025-3563: Request smuggling due to acceptance of invalid chunked data in net/http (https://osv.dev/GO-2025-3563)
-    GO-2025-3750: Inconsistent handling of O_CREATE|O_EXCL on Unix and Windows in os in syscall (https://osv.dev/GO-2025-3750)
-
-  12 known vulnerabilities found in lockfile:<rootdir>/fixtures/call-analysis-go-project/go.mod
-
-  github.com/gogo/protobuf@1.3.1 has the following uncalled vulnerabilities:
-    GO-2021-0053: Panic due to improper input validation in github.com/gogo/protobuf (https://osv.dev/GO-2021-0053)
-  golang.org/x/image@0.4.0 has the following uncalled vulnerabilities:
-    GO-2023-1572: Denial of service via crafted TIFF image in golang.org/x/image/tiff (https://osv.dev/GO-2023-1572)
-    GO-2023-1989: Excessive resource consumption in golang.org/x/image/tiff (https://osv.dev/GO-2023-1989)
-    GO-2023-1990: Excessive CPU consumption when decoding 0-height images in... (https://osv.dev/GO-2023-1990)
-    GO-2024-2937: Panic when parsing invalid palette-color images in golang.org/x/image (https://osv.dev/GO-2024-2937)
-  stdlib@1.19.99 has the following uncalled vulnerabilities:
-    GO-2023-2041: Improper handling of HTML-like comments in script contexts in html/template (https://osv.dev/GO-2023-2041)
-    GO-2023-2043: Improper handling of special tags within script contexts in html/template (https://osv.dev/GO-2023-2043)
-    GO-2023-2186: Incorrect detection of reserved device names on Windows in path/filepath (https://osv.dev/GO-2023-2186)
-    GO-2024-2600: Incorrect forwarding of sensitive headers and cookies on HTTP redirect in... (https://osv.dev/GO-2024-2600)
-    GO-2024-2609: Comments in display names are incorrectly handled in net/mail (https://osv.dev/GO-2024-2609)
-    GO-2024-2610: Errors returned from JSON marshaling may break template escaping in... (https://osv.dev/GO-2024-2610)
-    GO-2024-2888: Mishandling of corrupt central directory record in archive/zip (https://osv.dev/GO-2024-2888)
-    GO-2024-2963: Denial of service due to improper 100-continue handling in net/http (https://osv.dev/GO-2024-2963)
-    GO-2024-3105: Stack exhaustion in all Parse functions in go/parser (https://osv.dev/GO-2024-3105)
-    GO-2024-3106: Stack exhaustion in Decoder.Decode in encoding/gob (https://osv.dev/GO-2024-3106)
-    GO-2024-3107: Stack exhaustion in Parse in go/build/constraint (https://osv.dev/GO-2024-3107)
-    GO-2025-3420: Sensitive headers incorrectly sent after cross-domain redirect in net/http (https://osv.dev/GO-2025-3420)
-    GO-2025-3751: Sensitive headers not cleared on cross-origin redirect in net/http (https://osv.dev/GO-2025-3751)
-
-  18 uncalled/unimportant vulnerabilities found in lockfile:<rootdir>/fixtures/call-analysis-go-project/go.mod (filtered out)
-
-
----
-
-[TestCommand_CallAnalysis/Run_with_govulncheck#02 - 2]
-
----
-
 [TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 1]
+Scanning dir ./fixtures/call-analysis-go-project-all-uncalled
+Scanned <rootdir>/fixtures/call-analysis-go-project-all-uncalled/go.mod file and found 2 packages
+Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
+Filtered 1 ignored package/s from the scan.
+
+---
+
+[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 2]
+
+---
+
+[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled_but_enabled_all-vulns_flag - 1]
 Scanning dir ./fixtures/call-analysis-go-project-all-uncalled
 Scanned <rootdir>/fixtures/call-analysis-go-project-all-uncalled/go.mod file and found 2 packages
 Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
@@ -1370,7 +1279,7 @@ Filtered 1 ignored package/s from the scan.
 
 ---
 
-[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 2]
+[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled_but_enabled_all-vulns_flag - 2]
 
 ---
 

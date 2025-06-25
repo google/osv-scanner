@@ -50,6 +50,7 @@ type ScannerActions struct {
 	ConfigOverridePath string
 	CallAnalysisStates map[string]bool
 	ShowAllPackages    bool
+	ShowAllVulns       bool
 
 	// local databases
 	CompareOffline    bool
@@ -269,7 +270,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		))
 	}
 
-	return results, determineReturnErr(results)
+	return results, determineReturnErr(results, actions.ShowAllVulns, false)
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
@@ -353,6 +354,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	// ----- Filtering -----
 	filterUnscannablePackages(&scanResult)
+	filterIgnoredPackages(&scanResult)
 
 	filterNonContainerRelevantPackages(&scanResult)
 
@@ -398,7 +400,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		))
 	}
 
-	return vulnerabilityResults, determineReturnErr(vulnerabilityResults)
+	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns, true)
 }
 
 func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount {
@@ -445,25 +447,35 @@ func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount 
 
 // determineReturnErr determines whether we found a "vulnerability" or not,
 // and therefore whether we should return a ErrVulnerabilityFound error.
-func determineReturnErr(results models.VulnerabilityResults) error {
+func determineReturnErr(results models.VulnerabilityResults, showAllVulns bool, isContainerScanning bool) error {
 	if len(results.Results) > 0 {
 		var vuln bool
-		onlyUncalledVuln := true
+		onlyUnimportantVuln := true
 		var licenseViolation bool
 		for _, vf := range results.Flatten() {
 			if vf.Vulnerability.ID != "" {
 				vuln = true
-				if vf.GroupInfo.IsCalled() {
-					onlyUncalledVuln = false
+				// TODO(gongh): rewrite the logic once we support reachability analysis for container scanning.
+				if !isContainerScanning && vf.GroupInfo.IsCalled() {
+					onlyUnimportantVuln = false
+				} else if isContainerScanning && !vf.GroupInfo.IsGroupUnimportant() {
+					onlyUnimportantVuln = false
 				}
 			}
 			if len(vf.LicenseViolations) > 0 {
 				licenseViolation = true
 			}
 		}
-		onlyUncalledVuln = onlyUncalledVuln && vuln
 
-		if (!vuln || onlyUncalledVuln) && !licenseViolation {
+		if !vuln && !licenseViolation {
+			return nil
+		}
+
+		onlyUnimportantVuln = onlyUnimportantVuln && vuln && !licenseViolation
+
+		// If the user didn't enable showing all vulns and we only found unimportant ones,
+		// we should return without error.
+		if !showAllVulns && onlyUnimportantVuln {
 			// There is no error.
 			return nil
 		}
