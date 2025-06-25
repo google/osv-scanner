@@ -925,6 +925,11 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Args: []string{"", "source", "-L", "./fixtures/locks-scalibr/packages.lock.json"},
 			Exit: 0,
 		},
+		{
+			Name: "gems.locked",
+			Args: []string{"", "source", "-L", "./fixtures/locks-scalibr/gems.locked"},
+			Exit: 1,
+		},
 		/*
 			{
 				name: "Package.resolved",
