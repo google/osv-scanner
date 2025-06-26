@@ -16,15 +16,15 @@ name: OSV-Scanner Scheduled Scan
 
 on:
   pull_request:
-    branches: ["main", "v1"]
+    branches: [ "main", "v1" ]
   schedule:
     - cron: "12 12 * * 1"
   push:
-    branches: ["main", "v1"]
+    branches: [ "main", "v1" ]
 
 # Restrict jobs in this workflow to have no permissions by default; permissions
 # should be granted per job as needed using a dedicated `permissions` block
-permissions: {}
+permissions: { }
 
 jobs:
   scan-scheduled:
@@ -33,8 +33,8 @@ jobs:
       security-events: write # for uploading SARIF files
       actions: read
     if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
-    # If you want to copy this config, highly suggest pinning this version to a release rather than tracking the main branch
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@main"
+    # If you want to copy this config, highly suggest pinning this to a release rather than tracking the nightly branch.
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@nightly"
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
@@ -46,8 +46,8 @@ jobs:
       security-events: write # for uploading SARIF files
       actions: read
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
-    # If you want to copy this config, highly suggest pinning this version to a release rather than tracking the main branch
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@main"
+    # If you want to copy this config, highly suggest pinning this to a release rather than tracking the nightly branch.
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@nightly"
     with:
       # Just scan the root directory and docs, since everything else is fixtures
       scan-args: |-
