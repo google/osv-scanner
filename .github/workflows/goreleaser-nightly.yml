@@ -1,9 +1,9 @@
-name: Release new version
+name: Release nightly github action image
 
 on:
-  push:
-    tags:
-      - "*" # triggers only if push new tag version, like `v0.8.4`
+  schedule:
+    # we want the nightly builds only on work days
+    - cron: "0 0 * * 2-6"
 
 # Restrict jobs in this workflow to have no permissions by default; permissions
 # should be granted per job as needed using a dedicated `permissions` block
@@ -14,7 +14,6 @@ jobs:
     outputs:
       hashes: ${{ steps.hash.outputs.hashes }}
     permissions:
-      contents: write # for goreleaser/goreleaser-action to create a GitHub release
       packages: write # for goreleaser/goreleaser-action to publish docker images
     runs-on: ubuntu-latest
     env:
@@ -38,17 +37,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Detect stable tag
-        id: detect_stable
-        # Extracts tag name from git ref and check tag is stable
-        # semantic version pattern (vMAJOR.MINOR.PATCH, e.g., v1.2.3)
-        run: |
-          TAG="${GITHUB_REF_NAME}"
-          if [[ "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "STABLE=true" >> $GITHUB_ENV
-          else
-            echo "STABLE=false" >> $GITHUB_ENV
-          fi
       - name: Run GoReleaser
         id: run-goreleaser
         uses: goreleaser/goreleaser-action@9c156ee8a17a598857849441385a2041ef570552 # v6.3.0
@@ -58,23 +46,3 @@ jobs:
           args: release --clean
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          STABLE: ${{ env.STABLE }}
-      - name: Generate subject
-        id: hash
-        env:
-          ARTIFACTS: "${{ steps.run-goreleaser.outputs.artifacts }}"
-        run: |
-          set -euo pipefail
-          checksum_file=$(echo "$ARTIFACTS" | jq -r '.[] | select (.type=="Checksum") | .path')
-          echo "hashes=$(cat $checksum_file | base64 -w0)" >> "$GITHUB_OUTPUT"
-  provenance:
-    needs: [goreleaser]
-    permissions:
-      actions: read # To read the workflow path.
-      id-token: write # To sign the provenance.
-      contents: write # To add assets to a release.
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_generic_slsa3.yml@v2.1.0
-    with:
-      base64-subjects: "${{ needs.goreleaser.outputs.hashes }}"
-      upload-assets: true # upload to a new release
-      draft-release: true # upload to a new draft release
