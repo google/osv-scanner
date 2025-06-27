@@ -3,7 +3,6 @@ package cmd
 import (
 	"context"
 	"errors"
-	"fmt"
 	"io"
 	"log/slog"
 	"strings"
@@ -53,9 +52,9 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 	// ---
 
 	cli.VersionPrinter = func(cmd *cli.Command) {
-		slog.Info("osv-scanner version: " + cmd.Version)
-		slog.Info("commit: " + commit)
-		slog.Info("built at: " + date)
+		cmdlogger.Infof("osv-scanner version: %s", cmd.Version)
+		cmdlogger.Infof("commit: %s", commit)
+		cmdlogger.Infof("built at: %s", date)
 	}
 
 	cmds := make([]*cli.Command, 0, len(commands))
@@ -103,13 +102,13 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 		case errors.Is(err, osvscanner.ErrVulnerabilitiesFound):
 			return 1
 		case errors.Is(err, osvscanner.ErrNoPackagesFound):
-			slog.Error("No package sources found, --help for usage information.")
+			cmdlogger.Errorf("No package sources found, --help for usage information.")
 			return 128
 		case errors.Is(err, osvscanner.ErrAPIFailed):
-			slog.Error(fmt.Sprintf("%v", err))
+			cmdlogger.Errorf("%v", err)
 			return 129
 		}
-		slog.Error(fmt.Sprintf("%v", err))
+		cmdlogger.Errorf("%v", err)
 	}
 
 	// if we've been told to print an error, and not already exited with
