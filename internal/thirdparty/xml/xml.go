@@ -90,14 +90,16 @@ type EndElement struct {
 // A CharData represents XML character data (raw text).
 // XML escape sequences are replaced by the characters they represent in data.
 // origin holds the original text that escape sequences are not changed.
+// cdata indicates whether text 'CDATA' is in the raw text.
 type CharData struct {
 	data   []byte
 	origin []byte
+	cdata  bool
 }
 
 // Copy creates a new copy of CharData.
 func (c CharData) Copy() CharData {
-	return CharData{bytes.Clone(c.data), bytes.Clone(c.origin)}
+	return CharData{bytes.Clone(c.data), bytes.Clone(c.origin), c.cdata}
 }
 
 // A Comment represents an XML comment of the form <!--comment-->.
@@ -722,7 +724,7 @@ func (d *Decoder) rawToken() (Token, error) {
 			if data == nil {
 				return nil, d.err
 			}
-			return CharData{data: data, origin: origin}, nil
+			return CharData{data: data, origin: origin, cdata: true}, nil
 		}
 
 		// Probably a directive: <!DOCTYPE ...>, <!ENTITY ...>, etc.

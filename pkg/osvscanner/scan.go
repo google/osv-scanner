@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log/slog"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -20,6 +19,7 @@ import (
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/builders"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -96,16 +96,16 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
 		if err != nil {
-			slog.Error(fmt.Sprintf("Failed to resolved path %q with error: %s", path, err))
+			cmdlogger.Errorf("Failed to resolved path %q with error: %s", path, err)
 			return nil, err
 		}
 
 		invs, err := scanners.ScanSingleFile(path, sbomExtractors)
 		if err != nil {
-			slog.Info(fmt.Sprintf("Failed to parse SBOM %q with error: %s", path, err))
+			cmdlogger.Infof("Failed to parse SBOM %q with error: %s", path, err)
 
 			if errors.Is(err, scalibrextract.ErrExtractorNotFound) {
-				slog.Info("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
+				cmdlogger.Infof("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
 			}
 
 			return nil, err
@@ -132,7 +132,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	// On linux this would return a map with just one entry of /
 	rootMap := map[string][]string{}
 	for _, path := range actions.DirectoryPaths {
-		slog.Info("Scanning dir " + path)
+		cmdlogger.Infof("Scanning dir %s", path)
 		absPath, err := filepath.Abs(path)
 		if err != nil {
 			return nil, err
@@ -189,7 +189,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		}
 		for _, status := range sr.PluginStatus {
 			if status.Status.Status != plugin.ScanStatusSucceeded {
-				slog.Error(fmt.Sprintf("Error during extraction: (extracting as %s) %s", status.Name, status.Status.FailureReason))
+				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, status.Status.FailureReason)
 			}
 		}
 		scannedInventories = append(scannedInventories, sr.Inventory.Packages...)

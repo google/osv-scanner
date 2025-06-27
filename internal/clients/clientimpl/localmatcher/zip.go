@@ -11,12 +11,12 @@ import (
 	"fmt"
 	"hash/crc32"
 	"io"
-	"log/slog"
 	"net/http"
 	"os"
 	"path"
 	"strings"
 
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -137,7 +137,7 @@ func (db *ZipDB) fetchZip(ctx context.Context) ([]byte, error) {
 	}
 
 	if err != nil {
-		slog.Warn(fmt.Sprintf("Failed to save database to %s: %v", db.StoredAt, err))
+		cmdlogger.Warnf("Failed to save database to %s: %v", db.StoredAt, err)
 	}
 
 	return body, nil
@@ -148,7 +148,7 @@ func (db *ZipDB) fetchZip(ctx context.Context) ([]byte, error) {
 func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 	file, err := zipFile.Open()
 	if err != nil {
-		slog.Warn(fmt.Sprintf("Could not read %s: %v", zipFile.Name, err))
+		cmdlogger.Warnf("Could not read %s: %v", zipFile.Name, err)
 
 		return
 	}
@@ -156,7 +156,7 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 
 	content, err := io.ReadAll(file)
 	if err != nil {
-		slog.Warn(fmt.Sprintf("Could not read %s: %v", zipFile.Name, err))
+		cmdlogger.Warnf("Could not read %s: %v", zipFile.Name, err)
 
 		return
 	}
@@ -164,7 +164,7 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 	var vulnerability osvschema.Vulnerability
 
 	if err := json.Unmarshal(content, &vulnerability); err != nil {
-		slog.Warn(fmt.Sprintf("%s is not a valid JSON file: %v", zipFile.Name, err))
+		cmdlogger.Warnf("%s is not a valid JSON file: %v", zipFile.Name, err)
 
 		return
 	}

@@ -45,13 +45,13 @@ if [[ $exit_code -eq 128 ]]; then
   using_new_flag="no"
   for value in "${args[@]}"; do
     if [[ "$value" = "--allow-no-lockfiles" ]] ||
-      [[ "$value" ="-allow-no-lockfiles" ]] ||
+      [[ "$value" = "-allow-no-lockfiles" ]] ||
       [[ "$value" = "-allow-no-lockfiles=true" ]] ||
       [[ "$value" = "--allow-no-lockfiles=true" ]]; then
       using_new_flag="yes"
     fi
 
-    if [[ "$value" =  "-allow-no-lockfiles=false" ]] ||
+    if [[ "$value" = "-allow-no-lockfiles=false" ]] ||
       [[ "$value" = "--allow-no-lockfiles=false" ]]; then
       exit $exit_code
     fi

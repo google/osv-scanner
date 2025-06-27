@@ -1,11 +1,10 @@
 package reporter
 
 import (
-	"fmt"
 	"io"
-	"log/slog"
 	"strings"
 
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
@@ -19,7 +18,7 @@ func (r *cycloneDXReporter) PrintResult(vulnerabilityResults *models.Vulnerabili
 	errs := output.PrintCycloneDXResults(vulnerabilityResults, r.version, r.writer)
 	if errs != nil {
 		for _, err := range strings.Split(errs.Error(), "\n") {
-			slog.Warn(fmt.Sprintf("Failed to parse package URL: %v", err))
+			cmdlogger.Warnf("Failed to parse package URL: %v", err)
 		}
 	}
 
