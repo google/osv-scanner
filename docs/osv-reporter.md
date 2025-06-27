@@ -31,6 +31,7 @@ $ osv-reporter --new osv-scanner.json --output=[format]:[output-path],[format2]:
 We don't provide prebuilt binaries for osv-reporter as it is very experimental and can change at any point.
 
 Currently you can install it from source via `go install`:
+
 ```bash
 $ go install github.com/google/osv-scanner/v2/cmd/osv-reporter@latest
 # Or @main for the latest commit
