@@ -72,14 +72,16 @@ func run(args []string, stdout, stderr io.Writer) int {
 				TakesFile: true,
 				Required:  true,
 			},
-			&cli.StringFlag{
-				Name:      "output",
-				Usage:     "saves the SARIF result to the given file path",
+			&cli.StringSliceFlag{
+				Name: "output",
+				Usage: "used to save files to various formats (--output=[format]:[path],[format]:[path]...).\n" +
+					"See available formats in osv-scanner (default output 'sarif').\n" +
+					"In output paths, there are two special options to output to terminal - '#stdout' and '#stderr'.",
 				TakesFile: true,
 			},
 			&cli.BoolFlag{
 				Name:  "gh-annotations",
-				Usage: "prints github action annotations",
+				Usage: "[Deprecated] (Use `--output=gh-annotations:#stderr`) prints github action annotations",
 			},
 			&cli.BoolFlag{
 				Name:        "fail-on-vuln",
@@ -137,26 +139,51 @@ func run(args []string, stdout, stderr io.Writer) int {
 				diffVulns = ci.DiffVulnerabilityResults(oldVulns, newVulns)
 			}
 
-			if errPrint := reporter.PrintResult(&diffVulns, "table", stdout, termWidth); errPrint != nil {
-				return fmt.Errorf("failed to write output: %w", errPrint)
+			stdoutTaken := false
+			outputPaths := cmd.StringSlice("output")
+			if len(outputPaths) != 0 {
+				for _, outputPath := range outputPaths {
+					format := "sarif"
+					// Parses strings like: "markdown:./output-path.md
+					preColon, postColon, found := strings.Cut(outputPath, ":")
+					if found {
+						outputPath = postColon
+						format = preColon
+					}
+
+					var writer io.Writer
+					var err error
+
+					switch outputPath {
+					case "#stdout":
+						writer = stdout
+						stdoutTaken = true
+					case "#stderr":
+						writer = stderr
+						stdoutTaken = true
+					default:
+						writer, err = os.Create(outputPath)
+					}
+
+					if err != nil {
+						return fmt.Errorf("failed to create output file: %w", err)
+					}
+					termWidth = 0
+
+					if errPrint := reporter.PrintResult(&diffVulns, format, writer, termWidth); errPrint != nil {
+						return fmt.Errorf("failed to write output: %w", errPrint)
+					}
+				}
 			}
 
-			if cmd.Bool("gh-annotations") {
-				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stderr, termWidth); errPrint != nil {
+			if !stdoutTaken {
+				if errPrint := reporter.PrintResult(&diffVulns, "table", stdout, termWidth); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
 
-			outputPath := cmd.String("output")
-			if outputPath != "" {
-				var err error
-				stdout, err = os.Create(outputPath)
-				if err != nil {
-					return fmt.Errorf("failed to create output file: %w", err)
-				}
-				termWidth = 0
-
-				if errPrint := reporter.PrintResult(&diffVulns, "sarif", stdout, termWidth); errPrint != nil {
+			if cmd.Bool("gh-annotations") {
+				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stderr, termWidth); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
