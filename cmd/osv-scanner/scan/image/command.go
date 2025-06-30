@@ -92,7 +92,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 		return err
 	}
 
-	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult); errPrint != nil {
+	if errPrint := helper.PrintResult(stdout, stderr, outputPath, format, &vulnResult, scannerAction.ShowAllVulns); errPrint != nil {
 		return fmt.Errorf("failed to write output: %w", errPrint)
 	}
 

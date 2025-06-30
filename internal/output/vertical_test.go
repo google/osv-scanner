@@ -16,7 +16,7 @@ func TestPrintVerticalResults_WithVulnerabilities(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintVerticalResults(args.vulnResult, outputWriter)
+		output.PrintVerticalResults(args.vulnResult, outputWriter, true)
 
 		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
@@ -29,7 +29,7 @@ func TestPrintVerticalResults_WithLicenseViolations(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintVerticalResults(args.vulnResult, outputWriter)
+		output.PrintVerticalResults(args.vulnResult, outputWriter, false)
 
 		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
@@ -42,7 +42,7 @@ func TestPrintVerticalResults_WithMixedIssues(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintVerticalResults(args.vulnResult, outputWriter)
+		output.PrintVerticalResults(args.vulnResult, outputWriter, false)
 
 		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})

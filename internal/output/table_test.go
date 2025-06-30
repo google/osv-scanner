@@ -16,7 +16,7 @@ func TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities(t *testing.
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintTableResults(args.vulnResult, outputWriter, 80)
+		output.PrintTableResults(args.vulnResult, outputWriter, 80, true)
 
 		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
@@ -29,7 +29,7 @@ func TestPrintTableResults_StandardTerminalWidth_WithLicenseViolations(t *testin
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintTableResults(args.vulnResult, outputWriter, 80)
+		output.PrintTableResults(args.vulnResult, outputWriter, 80, false)
 
 		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
@@ -42,7 +42,7 @@ func TestPrintTableResults_StandardTerminalWidth_WithMixedIssues(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintTableResults(args.vulnResult, outputWriter, 80)
+		output.PrintTableResults(args.vulnResult, outputWriter, 80, true)
 
 		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
@@ -55,7 +55,7 @@ func TestPrintTableResults_LongTerminalWidth_WithVulnerabilities(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintTableResults(args.vulnResult, outputWriter, 800)
+		output.PrintTableResults(args.vulnResult, outputWriter, 800, true)
 
 		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
@@ -68,7 +68,7 @@ func TestPrintTableResults_LongTerminalWidth_WithLicenseViolations(t *testing.T)
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintTableResults(args.vulnResult, outputWriter, 800)
+		output.PrintTableResults(args.vulnResult, outputWriter, 800, false)
 
 		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
@@ -81,7 +81,7 @@ func TestPrintTableResults_LongTerminalWidth_WithMixedIssues(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintTableResults(args.vulnResult, outputWriter, 800)
+		output.PrintTableResults(args.vulnResult, outputWriter, 800, true)
 
 		testutility.NewSnapshot().MatchText(t, text.StripEscape(outputWriter.String()))
 	})
@@ -94,7 +94,7 @@ func TestPrintTableResults_NoTerminalWidth_WithVulnerabilities(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintTableResults(args.vulnResult, outputWriter, -1)
+		output.PrintTableResults(args.vulnResult, outputWriter, -1, true)
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
@@ -107,7 +107,7 @@ func TestPrintTableResults_NoTerminalWidth_WithLicenseViolations(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintTableResults(args.vulnResult, outputWriter, -1)
+		output.PrintTableResults(args.vulnResult, outputWriter, -1, false)
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
@@ -120,7 +120,7 @@ func TestPrintTableResults_NoTerminalWidth_WithMixedIssues(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintTableResults(args.vulnResult, outputWriter, -1)
+		output.PrintTableResults(args.vulnResult, outputWriter, -1, true)
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
