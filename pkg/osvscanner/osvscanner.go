@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log/slog"
 	"maps"
 	"net/http"
 	"os"
@@ -25,6 +24,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/imodels"
@@ -213,7 +213,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	if actions.ConfigOverridePath != "" {
 		err := scanResult.ConfigManager.UseOverride(actions.ConfigOverridePath)
 		if err != nil {
-			slog.Error(fmt.Sprintf("Failed to read config file: %s", err))
+			cmdlogger.Errorf("Failed to read config file: %s", err)
 			return models.VulnerabilityResults{}, err
 		}
 	}
@@ -263,11 +263,11 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 
 	filtered := filterResults(&results, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
-		slog.Info(fmt.Sprintf(
+		cmdlogger.Infof(
 			"Filtered %d %s from output",
 			filtered,
 			output.Form(filtered, "vulnerability", "vulnerabilities"),
-		))
+		)
 	}
 
 	return results, determineReturnErr(results, actions.ShowAllVulns, false)
@@ -284,7 +284,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	if actions.ConfigOverridePath != "" {
 		err := scanResult.ConfigManager.UseOverride(actions.ConfigOverridePath)
 		if err != nil {
-			slog.Error(fmt.Sprintf("Failed to read config file: %s", err))
+			cmdlogger.Errorf("Failed to read config file: %s", err)
 			return models.VulnerabilityResults{}, err
 		}
 	}
@@ -299,7 +299,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	var img *image.Image
 	if actions.IsImageArchive {
-		slog.Info(fmt.Sprintf("Scanning local image tarball %q", actions.Image))
+		cmdlogger.Infof("Scanning local image tarball %q", actions.Image)
 		img, err = image.FromTarball(actions.Image, image.DefaultConfig())
 	} else if actions.Image != "" {
 		path, exportErr := imagehelpers.ExportDockerImage(actions.Image)
@@ -309,7 +309,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		defer os.Remove(path)
 
 		img, err = image.FromTarball(path, image.DefaultConfig())
-		slog.Info(fmt.Sprintf("Scanning image %q", actions.Image))
+		cmdlogger.Infof("Scanning image %q", actions.Image)
 	}
 	if err != nil {
 		return models.VulnerabilityResults{}, err
@@ -318,7 +318,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	defer func() {
 		err := img.CleanUp()
 		if err != nil {
-			slog.Error(fmt.Sprintf("Failed to clean up image: %s", err))
+			cmdlogger.Errorf("Failed to clean up image: %s", err)
 		}
 	}()
 
@@ -349,7 +349,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	// --- Fill Image Metadata ---
 	scanResult.ImageMetadata, err = imagehelpers.BuildImageMetadata(img, accessors.BaseImageMatcher)
 	if err != nil { // Not getting image metadata is not fatal
-		slog.Error(fmt.Sprintf("Failed to fully get image metadata: %v", err))
+		cmdlogger.Errorf("Failed to fully get image metadata: %v", err)
 	}
 
 	// ----- Filtering -----
@@ -393,11 +393,11 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
-		slog.Info(fmt.Sprintf(
+		cmdlogger.Infof(
 			"Filtered %d %s from output",
 			filtered,
 			output.Form(filtered, "vulnerability", "vulnerabilities"),
-		))
+		)
 	}
 
 	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns, true)
@@ -497,7 +497,7 @@ func makeVulnRequestWithMatcher(
 
 	res, err := matcher.MatchVulnerabilities(context.Background(), invs)
 	if err != nil {
-		slog.Error(fmt.Sprintf("error when retrieving vulns: %v", err))
+		cmdlogger.Errorf("error when retrieving vulns: %v", err)
 		if res == nil {
 			return err
 		}

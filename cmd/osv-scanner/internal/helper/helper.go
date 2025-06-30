@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"io"
-	"log/slog"
 	"net/http"
 	"os"
 	"slices"
@@ -197,9 +196,9 @@ func GetScanGlobalFlags(defaultExtractors []string) []cli.Flag {
 // until the user manually terminates it (e.g. using Ctrl+C).
 func ServeHTML(outputPath string) {
 	localhostURL := fmt.Sprintf("http://localhost:%s/", servePort)
-	slog.Info("Serving HTML report at " + localhostURL)
-	slog.Info("If you are accessing remotely, use the following SSH command:")
-	slog.Info(fmt.Sprintf("`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`", servePort))
+	cmdlogger.Infof("Serving HTML report at %s", localhostURL)
+	cmdlogger.Infof("If you are accessing remotely, use the following SSH command:")
+	cmdlogger.Infof("`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`", servePort)
 	server := &http.Server{
 		Addr: ":" + servePort,
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -208,7 +207,7 @@ func ServeHTML(outputPath string) {
 		ReadHeaderTimeout: 3 * time.Second,
 	}
 	if err := server.ListenAndServe(); err != nil {
-		slog.Error(fmt.Sprintf("Failed to start server: %v", err))
+		cmdlogger.Errorf("Failed to start server: %v", err)
 	}
 }
 

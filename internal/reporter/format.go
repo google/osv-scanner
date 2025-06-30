@@ -33,6 +33,8 @@ func newResultPrinter(format string, writer io.Writer, terminalWidth int, showAl
 		return &cycloneDXReporter{writer, models.CycloneDXVersion14}, nil
 	case "cyclonedx-1-5":
 		return &cycloneDXReporter{writer, models.CycloneDXVersion15}, nil
+	case "cyclonedx-1-6":
+		return &cycloneDXReporter{writer, models.CycloneDXVersion16}, nil
 	case "spdx-2-3":
 		return &spdxReporter{writer}, nil
 	default:

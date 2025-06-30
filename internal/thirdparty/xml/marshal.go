@@ -220,11 +220,17 @@ func (enc *Encoder) EncodeToken(t Token) error {
 			return err
 		}
 	case CharData:
+		if t.cdata {
+			p.Write(cdataStart)
+		}
 		if t.origin != nil {
 			// Write the original text if there are escape sequences replaced.
 			p.Write(t.origin)
 		} else {
 			escapeText(p, t.data, false)
+		}
+		if t.cdata {
+			p.Write(cdataEnd)
 		}
 	case Comment:
 		if bytes.Contains(t, endComment) {

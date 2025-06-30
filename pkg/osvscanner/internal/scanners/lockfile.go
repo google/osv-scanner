@@ -3,7 +3,6 @@ package scanners
 import (
 	"context"
 	"fmt"
-	"log/slog"
 	"path/filepath"
 	"slices"
 	"strings"
@@ -35,6 +34,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
@@ -82,12 +82,12 @@ func ScanSingleFile(path string, extractorsToUse []filesystem.Extractor) ([]*ext
 
 	pkgCount := len(invs)
 	if pkgCount > 0 {
-		slog.Info(fmt.Sprintf(
+		cmdlogger.Infof(
 			"Scanned %s file and found %d %s",
 			path,
 			pkgCount,
 			output.Form(pkgCount, "package", "packages"),
-		))
+		)
 	}
 
 	return invs, nil
@@ -103,7 +103,7 @@ func ScanSingleFileWithMapping(scanPath string, extractorsToUse []filesystem.Ext
 
 	path, err = filepath.Abs(path)
 	if err != nil {
-		slog.Error(fmt.Sprintf("Failed to resolved path %q with error: %s", path, err))
+		cmdlogger.Errorf("Failed to resolved path %q with error: %s", path, err)
 		return nil, err
 	}
 
@@ -146,13 +146,13 @@ func ScanSingleFileWithMapping(scanPath string, extractorsToUse []filesystem.Ext
 
 	pkgCount := len(inventories)
 
-	slog.Info(fmt.Sprintf(
+	cmdlogger.Infof(
 		"Scanned %s file %sand found %d %s",
 		path,
 		parsedAsComment,
 		pkgCount,
 		output.Form(pkgCount, "package", "packages"),
-	))
+	)
 
 	return inventories, nil
 }

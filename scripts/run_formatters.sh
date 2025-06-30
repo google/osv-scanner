@@ -1,10 +1,10 @@
-#/!usr/bin/env bash
+#!/usr/bin/env bash
 
 set -ex
 
 # use write unless we're in CI, since Prettier should always be safe to apply
 if [ -z "$CI" ]; then
-  npx prettier --write .
+  npx prettier@latest --write .
 else
-  npx prettier --check .
+  npx prettier@latest --check .
 fi

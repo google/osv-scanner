@@ -45,9 +45,9 @@ func run(args []string, stdout, stderr io.Writer) int {
 	args = splitLastArg(args)
 
 	cli.VersionPrinter = func(cmd *cli.Command) {
-		slog.Info("osv-scanner version: " + cmd.Version)
-		slog.Info("commit: " + commit)
-		slog.Info("built at: " + date)
+		cmdlogger.Infof("osv-scanner version: %s", cmd.Version)
+		cmdlogger.Infof("commit: %s", commit)
+		cmdlogger.Infof("built at: %s", date)
 	}
 
 	app := &cli.Command{
@@ -72,14 +72,16 @@ func run(args []string, stdout, stderr io.Writer) int {
 				TakesFile: true,
 				Required:  true,
 			},
-			&cli.StringFlag{
-				Name:      "output",
-				Usage:     "saves the SARIF result to the given file path",
+			&cli.StringSliceFlag{
+				Name: "output",
+				Usage: "used to save files to various formats (--output=[format]:[path],[format]:[path]...).\n" +
+					"See available formats in osv-scanner (default output 'sarif').\n" +
+					"In output paths, there are two special options to output to terminal - '#stdout' and '#stderr'.",
 				TakesFile: true,
 			},
 			&cli.BoolFlag{
 				Name:  "gh-annotations",
-				Usage: "prints github action annotations",
+				Usage: "[Deprecated] (Use `--output=gh-annotations:#stderr`) prints github action annotations",
 			},
 			&cli.BoolFlag{
 				Name:        "fail-on-vuln",
@@ -104,7 +106,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 			if oldPath != "" {
 				oldVulns, err = ci.LoadVulnResults(oldPath)
 				if err != nil {
-					slog.Warn(fmt.Sprintf("failed to open old results at %s: %v - likely because target branch has no lockfiles.", oldPath, err))
+					cmdlogger.Warnf("failed to open old results at %s: %v - likely because target branch has no lockfiles.", oldPath, err)
 					// Do not return, assume there is no oldVulns (which will display all new vulns).
 					oldVulns = models.VulnerabilityResults{}
 				}
@@ -112,7 +114,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 
 			newVulns, err := ci.LoadVulnResults(newPath)
 			if err != nil {
-				slog.Warn(fmt.Sprintf("failed to open new results at %s: %v - likely because previous step failed.", newPath, err))
+				cmdlogger.Warnf("failed to open new results at %s: %v - likely because previous step failed.", newPath, err)
 				newVulns = models.VulnerabilityResults{}
 				// Do not return a non zero error code.
 			}
@@ -137,26 +139,51 @@ func run(args []string, stdout, stderr io.Writer) int {
 				diffVulns = ci.DiffVulnerabilityResults(oldVulns, newVulns)
 			}
 
-			if errPrint := reporter.PrintResult(&diffVulns, "table", stdout, termWidth, false); errPrint != nil {
-				return fmt.Errorf("failed to write output: %w", errPrint)
+			stdoutTaken := false
+			outputPaths := cmd.StringSlice("output")
+			if len(outputPaths) != 0 {
+				for _, outputPath := range outputPaths {
+					format := "sarif"
+					// Parses strings like: "markdown:./output-path.md
+					preColon, postColon, found := strings.Cut(outputPath, ":")
+					if found {
+						outputPath = postColon
+						format = preColon
+					}
+
+					var writer io.Writer
+					var err error
+
+					switch outputPath {
+					case "#stdout":
+						writer = stdout
+						stdoutTaken = true
+					case "#stderr":
+						writer = stderr
+						stdoutTaken = true
+					default:
+						writer, err = os.Create(outputPath)
+					}
+
+					if err != nil {
+						return fmt.Errorf("failed to create output file: %w", err)
+					}
+					termWidth = 0
+
+					if errPrint := reporter.PrintResult(&diffVulns, format, writer, termWidth, false); errPrint != nil {
+						return fmt.Errorf("failed to write output: %w", errPrint)
+					}
+				}
 			}
 
-			if cmd.Bool("gh-annotations") {
-				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stderr, termWidth, false); errPrint != nil {
+			if !stdoutTaken {
+				if errPrint := reporter.PrintResult(&diffVulns, "table", stdout, termWidth, false); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
 
-			outputPath := cmd.String("output")
-			if outputPath != "" {
-				var err error
-				stdout, err = os.Create(outputPath)
-				if err != nil {
-					return fmt.Errorf("failed to create output file: %w", err)
-				}
-				termWidth = 0
-
-				if errPrint := reporter.PrintResult(&diffVulns, "sarif", stdout, termWidth, false); errPrint != nil {
+			if cmd.Bool("gh-annotations") {
+				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stderr, termWidth, false); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
@@ -196,11 +223,11 @@ func run(args []string, stdout, stderr io.Writer) int {
 		}
 
 		if errors.Is(err, osvscanner.ErrNoPackagesFound) {
-			slog.Error("No package sources found, --help for usage information.")
+			cmdlogger.Errorf("No package sources found, --help for usage information.")
 			return 128
 		}
 
-		slog.Error(fmt.Sprintf("%v", err))
+		cmdlogger.Errorf("%v", err)
 	}
 
 	// if we've been told to print an error, and not already exited with

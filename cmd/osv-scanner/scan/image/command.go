@@ -5,12 +5,12 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log/slog"
 	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/urfave/cli/v3"
@@ -84,7 +84,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 	vulnResult, err = osvscanner.DoContainerScan(scannerAction)
 
 	if cmd.Bool("allow-no-lockfiles") && errors.Is(err, osvscanner.ErrNoPackagesFound) {
-		slog.Warn("No package sources found")
+		cmdlogger.Warnf("No package sources found")
 		err = nil
 	}
 
@@ -101,7 +101,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 		if serve {
 			helper.ServeHTML(outputPath)
 		} else if format == "html" {
-			slog.Info("HTML output available at: " + outputPath)
+			cmdlogger.Infof("HTML output available at: %s", outputPath)
 		}
 	}
 
