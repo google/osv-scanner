@@ -88,6 +88,10 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Usage:       "whether to return 1 when vulnerabilities are found",
 				DefaultText: "true",
 			},
+			&cli.BoolFlag{
+				Name:  "all-vulns",
+				Usage: "show all vulnerabilities including unimportant and uncalled ones",
+			},
 		},
 		Action: func(_ context.Context, cmd *cli.Command) error {
 			var termWidth int
@@ -139,6 +143,8 @@ func run(args []string, stdout, stderr io.Writer) int {
 				diffVulns = ci.DiffVulnerabilityResults(oldVulns, newVulns)
 			}
 
+			showAllVulns := cmd.Bool("all-vulns")
+
 			stdoutTaken := false
 			outputPaths := cmd.StringSlice("output")
 			if len(outputPaths) != 0 {
@@ -170,20 +176,20 @@ func run(args []string, stdout, stderr io.Writer) int {
 					}
 					termWidth = 0
 
-					if errPrint := reporter.PrintResult(&diffVulns, format, writer, termWidth, false); errPrint != nil {
+					if errPrint := reporter.PrintResult(&diffVulns, format, writer, termWidth, showAllVulns); errPrint != nil {
 						return fmt.Errorf("failed to write output: %w", errPrint)
 					}
 				}
 			}
 
 			if !stdoutTaken {
-				if errPrint := reporter.PrintResult(&diffVulns, "table", stdout, termWidth, false); errPrint != nil {
+				if errPrint := reporter.PrintResult(&diffVulns, "table", stdout, termWidth, showAllVulns); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
 
 			if cmd.Bool("gh-annotations") {
-				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stderr, termWidth, false); errPrint != nil {
+				if errPrint := reporter.PrintResult(&diffVulns, "gh-annotations", stderr, termWidth, showAllVulns); errPrint != nil {
 					return fmt.Errorf("failed to write output: %w", errPrint)
 				}
 			}
