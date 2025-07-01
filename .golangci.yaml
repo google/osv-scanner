@@ -21,12 +21,14 @@ linters:
     - maintidx         #
     - mnd              # not every number is magic (g-rath)
     - nestif           #
+    - noinlineerr      #
     - nonamedreturns   # disagree with, for now (another-rex)
     - tagliatelle      # we're parsing data from external sources (g-rath)
     - testpackage      # will re-add later (another-rex)
     - varnamelen       # maybe later (g-rath)
     - wrapcheck        # too difficult, will re-add later (another-rex)
     - wsl              # disagree with, for now (g-rath)
+    - wsl_v5           # disagree with, for now (g-rath)
   settings:
     depguard:
       rules:
