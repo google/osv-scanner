@@ -57,3 +57,8 @@ ignore = true
 name = "systemd"
 reason = "Just want to test only unimportant vulns"
 ignore = true
+
+[[PackageOverrides]]
+name = "dpkg"
+reason = "Just want to test only unimportant vulns"
+ignore = true

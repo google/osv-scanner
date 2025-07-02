@@ -357,6 +357,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 npm
 
 :path/to/my/first/lockfile: found 0 packages with issues
+Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
 
   license violations found:
     mine1@1.2.3 (MIT)
@@ -372,6 +373,7 @@ npm
   no license violations found
 
 :path/to/my/third/lockfile: found 0 packages with issues
+Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
 
   license violations found:
     mine1@1.2.3 (Apache-2.0)
@@ -498,6 +500,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 npm
 
 :path/to/my/first/lockfile: found 0 packages with issues
+Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
 
   license violations found:
     mine1@1.2.3 (MIT)

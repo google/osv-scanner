@@ -244,6 +244,10 @@ func printVerticalVulnerabilities(sourceResult SourceResult, isContainerScanning
 		printVerticalVulnerabilitiesForPackages(sourceResult.Packages, out, false, isContainerScanning, isOSResult(sourceResult.Type))
 		printVerticalVulnerabilitiesCountSummary(countUncalled, false, sourceResult.Name, out)
 	}
+
+	if !showAllVulns && countUncalled > 0 {
+		fmt.Fprintln(out, formatHiddenVulnsPrompt(countUncalled))
+	}
 }
 
 // truncate ensures that the given string is shorter than the provided limit.

@@ -221,6 +221,11 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 	// Add a newline
 	fmt.Fprintln(outputWriter)
 
+	if !showAllVulns && result.VulnCount.AnalysisCount.Hidden != 0 {
+		promptUnimportant := formatHiddenVulnsPrompt(result.VulnCount.AnalysisCount.Hidden)
+		fmt.Fprintln(outputWriter, promptUnimportant)
+	}
+
 	const promptMessage = "For the most comprehensive scan results, we recommend using the HTML output: " +
 		"`osv-scanner scan image --serve <image_name>`.\n" +
 		"You can also view the full vulnerability list in your terminal with: " +
