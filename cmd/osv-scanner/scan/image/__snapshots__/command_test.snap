@@ -251,7 +251,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 17 packages affected by 33 known vulnerabilities (2 Critical, 8 High, 16 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
+Total 18 packages affected by 34 known vulnerabilities (2 Critical, 8 High, 16 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
 12 vulnerabilities can be fixed.
 
 
@@ -262,6 +262,7 @@ Ubuntu:22.04
 | SOURCE PACKAGE | INSTALLED VERSION       | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 | coreutils      | 8.32-4.1ubuntu1.2       | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| dpkg           | 1.21.1ubuntu2.3         | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04   | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8         | Partial fixes Available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1       | Partial fixes Available |          2 | gpgv                    | # 4 Layer        | ubuntu        |
@@ -468,8 +469,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 19 packages affected by 40 known vulnerabilities (0 Critical, 12 High, 13 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-40 vulnerabilities can be fixed.
+Total 19 packages affected by 39 known vulnerabilities (0 Critical, 12 High, 12 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+39 vulnerabilities can be fixed.
 
 
 PyPI
@@ -534,7 +535,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| urllib3 | 1.24.3            | Fix Available |          7 | # 17 Layer       | --            |
+| urllib3 | 1.24.3            | Fix Available |          6 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Debian:10
 +-----------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1023,7 +1024,6 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           },
           "vulnerabilities": [
             "GHSA-34jh-p97f-mpxf",
-            "GHSA-48p4-8xcf-vxj5",
             "GHSA-g4mx-q9vg-27p4",
             "GHSA-pq67-6m6q-mj2v",
             "GHSA-v845-jxx5-vc9f",
@@ -1033,7 +1033,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             "PYSEC-2023-192",
             "PYSEC-2023-212"
           ],
-          "groups": 7
+          "groups": 6
         }
       ]
     },
@@ -2183,6 +2183,21 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "UBUNTU-CVE-2025-5278"
           ],
           "groups": 2
+        },
+        {
+          "package": {
+            "name": "dpkg",
+            "os_package_name": "dpkg",
+            "version": "1.21.1ubuntu2.3",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "vulnerabilities": [
+            "UBUNTU-CVE-2025-6297"
+          ],
+          "groups": 1
         },
         {
           "package": {

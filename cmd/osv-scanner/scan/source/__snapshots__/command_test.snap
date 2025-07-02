@@ -1216,7 +1216,6 @@ Scanned <rootdir>/fixtures/locks-requirements/the_requirements_for_test.txt file
 | https://osv.dev/PYSEC-2023-212      | 5.7  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt      |
 | https://osv.dev/GHSA-g4mx-q9vg-27p4 |      |           |          |         |                                                   |
 | https://osv.dev/GHSA-34jh-p97f-mpxf | 4.4  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt      |
-| https://osv.dev/GHSA-48p4-8xcf-vxj5 | 5.3  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt      |
 | https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt      |
 +-------------------------------------+------+-----------+----------+---------+---------------------------------------------------+
 
@@ -3566,7 +3565,6 @@ Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 13
 | https://osv.dev/PYSEC-2023-212      | 5.7  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-g4mx-q9vg-27p4 |      |           |          |         |                                              |
 | https://osv.dev/GHSA-34jh-p97f-mpxf | 4.4  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-48p4-8xcf-vxj5 | 5.3  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3  | 1.24.3  | fixtures/locks-requirements/requirements.txt |
 +-------------------------------------+------+-----------+----------+---------+----------------------------------------------+
 
