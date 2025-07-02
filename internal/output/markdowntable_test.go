@@ -15,7 +15,7 @@ func TestPrintMarkdownTableResults_WithVulnerabilities(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintMarkdownTableResults(args.vulnResult, outputWriter)
+		output.PrintMarkdownTableResults(args.vulnResult, outputWriter, true)
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
@@ -28,7 +28,7 @@ func TestPrintMarkdownTableResults_WithLicenseViolations(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintMarkdownTableResults(args.vulnResult, outputWriter)
+		output.PrintMarkdownTableResults(args.vulnResult, outputWriter, false)
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})
@@ -41,7 +41,7 @@ func TestPrintMarkdownTableResults_WithMixedIssues(t *testing.T) {
 		t.Helper()
 
 		outputWriter := &bytes.Buffer{}
-		output.PrintMarkdownTableResults(args.vulnResult, outputWriter)
+		output.PrintMarkdownTableResults(args.vulnResult, outputWriter, false)
 
 		testutility.NewSnapshot().MatchText(t, outputWriter.String())
 	})

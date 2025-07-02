@@ -154,7 +154,147 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_no_vulns_shown - 1]
+Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu-20-04.tar"
+Package Ubuntu:20.04/coreutils/8.30-3ubuntu2 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/dpkg/1.19.7ubuntu3.2 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gnupg2/2.2.19-3ubuntu2.4 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libgcrypt20/1.8.5-5ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/pcre2/10.34-7ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libtasn1-6/4.16.0-2ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/perl/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
+Filtered 25 ignored package/s from the scan.
+
+Container Scanning Result (Ubuntu 20.04.6 LTS):
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+
+Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_no_vulns_shown - 2]
+
+---
+
+[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown - 1]
+Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu-20-04.tar"
+Package Ubuntu:20.04/coreutils/8.30-3ubuntu2 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/dpkg/1.19.7ubuntu3.2 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gnupg2/2.2.19-3ubuntu2.4 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libgcrypt20/1.8.5-5ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/pcre2/10.34-7ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/libtasn1-6/4.16.0-2ubuntu0.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/systemd/245.4-4ubuntu3.24 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/perl/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
+Filtered 25 ignored package/s from the scan.
+
+Container Scanning Result (Ubuntu 20.04.6 LTS):
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+
+Filtered Vulnerabilities:
++---------+--------------+--------------------+---------------------+----------------+
+| PACKAGE | ECOSYSTEM    | INSTALLED VERSION  | FILTERED VULN COUNT | FILTER REASONS |
++---------+--------------+--------------------+---------------------+----------------+
+| pcre3   | Ubuntu:20.04 | 2:8.39-12ubuntu0.1 |                   1 | Unimportant    |
++---------+--------------+--------------------+---------------------+----------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown - 2]
+
+---
+
 [TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar - 1]
+Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
+
+Container Scanning Result (Ubuntu 22.04.5 LTS):
+Total 18 packages affected by 34 known vulnerabilities (2 Critical, 8 High, 16 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+12 vulnerabilities can be fixed.
+
+
+Ubuntu:22.04
++----------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:var/lib/dpkg/status                                                                                                                |
++----------------+-------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION       | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+| coreutils      | 8.32-4.1ubuntu1.2       | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| dpkg           | 1.21.1ubuntu2.3         | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
+| gcc-12         | 12.3.0-1ubuntu1~22.04   | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8         | Partial fixes Available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1       | Partial fixes Available |          2 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5        | Fix Available           |          1 | libgnutls30             | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4       | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| libcap2        | 1:2.44-1ubuntu0.22.04.1 | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3          | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libtasn1-6     | 4.18.0-4build1          | Partial fixes Available |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
+| libzstd        | 1.4.8+dfsg-3build1      | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
+| ncurses        | 6.3-2ubuntu0.1          | No fix available        |          3 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18       | Partial fixes Available |          3 | libssl3                 | # 4 Layer        | ubuntu        |
+| pam            | 1.4.0-11ubuntu2.5       | Partial fixes Available |          2 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
+| pcre2          | 10.39-3ubuntu0.1        | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3       | Partial fixes Available |          3 | perl-base               | # 4 Layer        | ubuntu        |
+| shadow         | 1:4.8.1-2ubuntu2.2      | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
+| systemd        | 249.11-0ubuntu3.12      | Partial fixes Available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
++----------------+-------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+
+Hiding 4 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar - 2]
+
+---
+
+[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
@@ -203,7 +343,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar - 2]
+[TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns - 2]
 
 ---
 

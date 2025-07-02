@@ -170,6 +170,10 @@ func GetScanGlobalFlags(defaultExtractors []string) []cli.Flag {
 			Name:  "all-packages",
 			Usage: "when json output is selected, prints all packages",
 		},
+		&cli.BoolFlag{
+			Name:  "all-vulns",
+			Usage: "show all vulnerabilities including unimportant and uncalled ones",
+		},
 		&cli.GenericFlag{
 			Name:  "licenses",
 			Usage: "report on licenses based on an allowlist",
@@ -207,7 +211,7 @@ func ServeHTML(outputPath string) {
 	}
 }
 
-func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns *models.VulnerabilityResults) error {
+func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns *models.VulnerabilityResults, showAllVulns bool) error {
 	termWidth := 0
 	var err error
 	if outputPath != "" { // Output is definitely a file
@@ -230,7 +234,7 @@ func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns 
 		writer = stderr
 	}
 
-	return reporter.PrintResult(diffVulns, format, writer, termWidth)
+	return reporter.PrintResult(diffVulns, format, writer, termWidth, showAllVulns)
 }
 
 func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
@@ -257,9 +261,11 @@ func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
 
 func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) osvscanner.ScannerActions {
 	return osvscanner.ScannerActions{
-		IncludeGitRoot:        cmd.Bool("include-git-root"),
-		ConfigOverridePath:    cmd.String("config"),
-		ShowAllPackages:       cmd.Bool("all-packages"),
+		IncludeGitRoot:     cmd.Bool("include-git-root"),
+		ConfigOverridePath: cmd.String("config"),
+		ShowAllPackages:    cmd.Bool("all-packages"),
+		ShowAllVulns:       cmd.Bool("all-vulns"),
+
 		CompareOffline:        cmd.Bool("offline-vulnerabilities"),
 		DownloadDatabases:     cmd.Bool("download-offline-databases"),
 		LocalDBPath:           cmd.String("local-db-path"),

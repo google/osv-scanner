@@ -869,3 +869,7 @@ func removeVariants(ecosystem string) string {
 
 	return ecosystem
 }
+
+func formatHiddenVulnsPrompt(hiddenVulns int) string {
+	return fmt.Sprintf("Hiding %d number of vulnerabilities deemed unimportant, use --all-vulns to show them.", hiddenVulns)
+}
