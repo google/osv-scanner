@@ -136,6 +136,25 @@ func TestCommand_OCIImage(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "Empty Ubuntu 22.04 image tar with unimportant vulns",
+			Args: []string{"", "image", "--all-vulns", "--archive", "../../../../internal/image/fixtures/test-ubuntu.tar"},
+			Exit: 1,
+		},
+		{
+			Name: "Empty Ubuntu 20.04 image tar with only unimportant vulns shown",
+			Args: []string{"", "image", "--archive", "--all-vulns",
+				"--config=../../../../internal/image/fixtures/ubuntu20-04-unimportant-config.toml",
+				"--all-vulns", "../../../../internal/image/fixtures/test-ubuntu-20-04.tar"},
+			Exit: 1,
+		},
+		{
+			Name: "Empty Ubuntu 20.04 image tar with no vulns shown",
+			Args: []string{"", "image", "--archive",
+				"--config=../../../../internal/image/fixtures/ubuntu20-04-unimportant-config.toml",
+				"../../../../internal/image/fixtures/test-ubuntu-20-04.tar"},
+			Exit: 0,
+		},
+		{
 			Name: "Scanning python image with some packages",
 			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-python-full.tar"},
 			Exit: 1,
