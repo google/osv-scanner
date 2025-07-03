@@ -254,7 +254,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 18 packages affected by 33 known vulnerabilities (2 Critical, 8 High, 16 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
+Total 18 packages affected by 33 known vulnerabilities (2 Critical, 9 High, 17 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
 12 vulnerabilities can be fixed.
 
 
@@ -298,7 +298,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 18 packages affected by 33 known vulnerabilities (2 Critical, 8 High, 16 Medium, 5 Low, 2 Unknown) from 1 ecosystem.
+Total 18 packages affected by 33 known vulnerabilities (2 Critical, 9 High, 17 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
 12 vulnerabilities can be fixed.
 
 
