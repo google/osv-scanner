@@ -3,9 +3,9 @@ module github.com/google/osv-scanner/v2
 go 1.24.4
 
 require (
-	deps.dev/api/v3 v3.0.0-20250610062038-1c74ed268106
-	deps.dev/util/maven v0.0.0-20250610062038-1c74ed268106
-	deps.dev/util/resolve v0.0.0-20250610062038-1c74ed268106
+	deps.dev/api/v3 v3.0.0-20250616031631-419a06b41f9b
+	deps.dev/util/maven v0.0.0-20250616031631-419a06b41f9b
+	deps.dev/util/resolve v0.0.0-20250616031631-419a06b41f9b
 	deps.dev/util/semver v0.0.0-20250610062038-1c74ed268106
 	github.com/BurntSushi/toml v1.5.0
 	github.com/CycloneDX/cyclonedx-go v0.9.2
@@ -17,7 +17,7 @@ require (
 	github.com/go-git/go-billy/v5 v5.6.2
 	github.com/go-git/go-git/v5 v5.16.2
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.3.1-0.20250616234014-7c5d5043c0c2
+	github.com/google/osv-scalibr v0.3.1-0.20250702210623-50e3de48d73f
 	github.com/ianlancetaylor/demangle v0.0.0-20250417193237-f615e6bd150b
 	github.com/jedib0t/go-pretty/v6 v6.6.7
 	github.com/muesli/reflow v0.3.0
@@ -43,7 +43,7 @@ require (
 
 require (
 	dario.cat/mergo v1.0.1 // indirect
-	deps.dev/util/pypi v0.0.0-20250610062038-1c74ed268106 // indirect
+	deps.dev/util/pypi v0.0.0-20250616031631-419a06b41f9b // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/Microsoft/hcsshim v0.13.0 // indirect
 	github.com/ProtonMail/go-crypto v1.1.6 // indirect
