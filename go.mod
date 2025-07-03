@@ -3,10 +3,10 @@ module github.com/google/osv-scanner/v2
 go 1.24.4
 
 require (
-	deps.dev/api/v3 v3.0.0-20250616031631-419a06b41f9b
-	deps.dev/util/maven v0.0.0-20250616031631-419a06b41f9b
-	deps.dev/util/resolve v0.0.0-20250616031631-419a06b41f9b
-	deps.dev/util/semver v0.0.0-20250610062038-1c74ed268106
+	deps.dev/api/v3 v3.0.0-20250630145910-0bba51f925b0
+	deps.dev/util/maven v0.0.0-20250630145910-0bba51f925b0
+	deps.dev/util/resolve v0.0.0-20250630145910-0bba51f925b0
+	deps.dev/util/semver v0.0.0-20250630145910-0bba51f925b0
 	github.com/BurntSushi/toml v1.5.0
 	github.com/CycloneDX/cyclonedx-go v0.9.2
 	github.com/charmbracelet/bubbles v0.21.0
@@ -18,11 +18,11 @@ require (
 	github.com/go-git/go-git/v5 v5.16.2
 	github.com/google/go-cmp v0.7.0
 	github.com/google/osv-scalibr v0.3.1-0.20250702210623-50e3de48d73f
-	github.com/ianlancetaylor/demangle v0.0.0-20250417193237-f615e6bd150b
+	github.com/ianlancetaylor/demangle v0.0.0-20250628045327-2d64ad6b7ec5
 	github.com/jedib0t/go-pretty/v6 v6.6.7
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/ossf/osv-schema/bindings/go v0.0.0-20250527054414-66246866dc20
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20250701001340-180f03cc6901
 	github.com/owenrumney/go-sarif/v3 v3.2.0
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
@@ -38,7 +38,7 @@ require (
 	google.golang.org/protobuf v1.36.6
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
-	osv.dev/bindings/go v0.0.0-20250616005003-d895bc431dc7
+	osv.dev/bindings/go v0.0.0-20250703002655-86a45a84b008
 )
 
 require (
