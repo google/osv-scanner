@@ -163,9 +163,13 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		plugins := make([]plugin.Plugin, len(dirExtractors))
+		plugins := make([]plugin.Plugin, len(dirExtractors)+len(actions.Detectors))
 		for i, ext := range dirExtractors {
 			plugins[i] = ext.(plugin.Plugin)
+		}
+
+		for i, det := range actions.Detectors {
+			plugins[i+len(dirExtractors)] = det.(plugin.Plugin)
 		}
 
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
