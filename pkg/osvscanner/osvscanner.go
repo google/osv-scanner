@@ -39,6 +39,8 @@ import (
 )
 
 type ScannerActions struct {
+	ExperimentalScannerActions
+
 	LockfilePaths      []string
 	DirectoryPaths     []string
 	GitCommits         []string
@@ -63,8 +65,6 @@ type ScannerActions struct {
 
 	// Deprecated: in favor of LockfilePaths
 	SBOMPaths []string
-
-	ExperimentalScannerActions
 }
 
 type ExperimentalScannerActions struct {

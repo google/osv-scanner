@@ -21,6 +21,7 @@ import (
 
 type overridePatch struct {
 	resolve.PackageKey
+
 	OrigVersion string
 	NewVersion  string
 }
