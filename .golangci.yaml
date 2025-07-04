@@ -111,6 +111,10 @@ linters:
           disabled: false
         - name: var-naming
           disabled: false
+          arguments:
+            - [] # AllowList
+            - [] # DenyList
+            - - skip-package-name-checks: true
     staticcheck:
       checks:
         - all
