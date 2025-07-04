@@ -6,6 +6,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 )
 
+// todo: rename this to be clearer now we've got `detectorPresets`
 var presets = map[string][]string{
 	"sbom":      scalibrextract.ExtractorsSBOMs,
 	"lockfile":  scalibrextract.ExtractorsLockfiles,
