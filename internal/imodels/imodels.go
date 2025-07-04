@@ -57,10 +57,11 @@ var artifactExtractors = map[string]struct{}{
 // PackageInfo provides getter functions for commonly used fields of inventory
 // and applies transformations when required for use in osv-scanner
 type PackageInfo struct {
+	*extractor.Package
+
 	// purlCache is used to cache the special case for SBOMs where we convert Name, Version, and Ecosystem from purls
 	// extracted from the SBOM
 	purlCache *models.PackageInfo
-	*extractor.Package
 }
 
 func (pkg *PackageInfo) Name() string {
