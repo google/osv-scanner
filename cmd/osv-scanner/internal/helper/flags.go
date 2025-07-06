@@ -49,7 +49,8 @@ func (g *allowedLicencesFlag) String() string {
 	return strings.Join(g.allowlist, ",")
 }
 
-func GetScanGlobalFlags(defaultExtractors []string) []cli.Flag {
+// BuildCommonScanFlags returns a slice of flags which are common to all scan (sub)commands
+func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 	return []cli.Flag{
 		&cli.StringFlag{
 			Name:      "config",
