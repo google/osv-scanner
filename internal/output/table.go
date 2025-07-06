@@ -8,6 +8,7 @@ import (
 
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	depgroups "github.com/google/osv-scanner/v2/internal/utility/depgroup"
+	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -287,16 +288,26 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 						outputRow = append(outputRow, vuln.SeverityScore)
 					}
 
-					outputRow = append(outputRow, eco.Name)
+					if eco.Name == "" && pkg.Commit != "" {
+						pkgCommitStr := results.PkgToString(models.PackageInfo{
+							Name:    pkg.Name,
+							Commit:  pkg.Commit,
+							Version: pkg.InstalledVersion,
+						})
+						outputRow = append(outputRow, "GIT", pkgCommitStr, pkgCommitStr)
+						shouldMerge = true
+					} else {
+						outputRow = append(outputRow, eco.Name)
 
-					name := pkg.Name
+						name := pkg.Name
 
-					// TODO(#1646): Migrate this earlier to the result struct directly
-					if depgroups.IsDevGroup(ecosystem.MustParse(eco.Name).Ecosystem, pkg.DepGroups) {
-						name += " (dev)"
+						// TODO(#1646): Migrate this earlier to the result struct directly
+						if depgroups.IsDevGroup(ecosystem.MustParse(eco.Name).Ecosystem, pkg.DepGroups) {
+							name += " (dev)"
+						}
+						outputRow = append(outputRow, name)
+						outputRow = append(outputRow, pkg.InstalledVersion)
 					}
-					outputRow = append(outputRow, name)
-					outputRow = append(outputRow, pkg.InstalledVersion)
 
 					// todo: see if we want to start including any of this information
 					p := strings.TrimPrefix(source.Name, ":")
