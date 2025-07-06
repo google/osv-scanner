@@ -312,6 +312,10 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 					// todo: see if we want to start including any of this information
 					p := strings.TrimPrefix(source.Name, ":")
 					p = strings.TrimPrefix(p, string(source.Type))
+
+					if !strings.HasPrefix(p, workingDir) {
+						panic(fmt.Sprintf("%s does not start with working dir %s", p, workingDir))
+					}
 					p = strings.TrimPrefix(p, ":")
 					p = strings.TrimPrefix(p, workingDir)
 					p = strings.TrimPrefix(p, "/")
