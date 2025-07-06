@@ -11,9 +11,9 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-// OfflineFlags is a map of flags which require network access to operate,
+// offlineFlags is a map of flags which require network access to operate,
 // with the values to set them to in order to disable them
-var OfflineFlags = map[string]string{
+var offlineFlags = map[string]string{
 	"offline-vulnerabilities": "true",
 	"no-resolve":              "true",
 }
@@ -115,7 +115,7 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 					return nil
 				}
 				// Disable the features requiring network access.
-				for flag, value := range OfflineFlags {
+				for flag, value := range offlineFlags {
 					// TODO(michaelkedar): do something if the flag was already explicitly set.
 
 					// Skip setting the flag if the current command doesn't have it.
