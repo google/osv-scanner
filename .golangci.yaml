@@ -83,6 +83,8 @@ linters:
           disabled: false
         - name: exported
           disabled: false
+        - name: import-alias-naming
+          disabled: false
         - name: indent-error-flow
           disabled: false
         - name: package-comments
