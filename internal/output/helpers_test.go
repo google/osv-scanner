@@ -1,6 +1,7 @@
 package output_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -1966,6 +1967,11 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 	t.Helper()
 
+	cwd, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("failed to get current directory: %v", err)
+	}
+
 	experimentalAnalysisConfig := models.ExperimentalAnalysisConfig{
 		Licenses: models.ExperimentalLicenseConfig{Summary: false, Allowlist: []models.License{"ISC"}},
 	}
@@ -1982,6 +1988,39 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+										Extractor: packagelockjson.Extractor{},
+									}),
+									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
+									Vulnerabilities: []osvschema.Vulnerability{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []osvschema.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+									Licenses:          []models.License{"MIT"},
+									LicenseViolations: []models.License{"MIT"},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "one source in working directory with one package, one vulnerability, and one license violation",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",

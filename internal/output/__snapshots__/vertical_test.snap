@@ -470,6 +470,28 @@ unknown:path/to/my/third/lockfile: found 1 package with issues
 
 ---
 
+[TestPrintVerticalResults_WithMixedIssues/one_source_in_working_directory_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+npm
+
+lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
+
+  mine1@1.2.3 has the following known vulnerabilities:
+    OSV-1: Something scary! (https://osv.dev/OSV-1)
+
+  1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+  license violations found:
+    mine1@1.2.3 (MIT)
+
+  1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
+
+
+---
+
 [TestPrintVerticalResults_WithMixedIssues/one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation - 1]
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
