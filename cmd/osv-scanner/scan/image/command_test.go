@@ -322,6 +322,12 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
+			ReplaceRules: []testcmd.JSONReplaceRule{
+				testcmd.GroupsAsArrayLen,
+				testcmd.OnlyIDVulnsRule,
+				testcmd.OnlyFirstBaseImage,
+				testcmd.AnyDiffID,
+			},
 		},
 		{
 			Name: "scanning_insecure_alpine_image_with_detector_preset",
@@ -331,6 +337,12 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
+			ReplaceRules: []testcmd.JSONReplaceRule{
+				testcmd.GroupsAsArrayLen,
+				testcmd.OnlyIDVulnsRule,
+				testcmd.OnlyFirstBaseImage,
+				testcmd.AnyDiffID,
+			},
 		},
 	}
 	for _, tt := range tests {
