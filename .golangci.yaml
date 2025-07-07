@@ -120,10 +120,6 @@ linters:
             - [] # AllowList
             - [] # DenyList
             - - skip-package-name-checks: true
-    staticcheck:
-      checks:
-        - all
-        - -QF1006 # lift into loop condition
   exclusions:
     generated: lax
     presets:
