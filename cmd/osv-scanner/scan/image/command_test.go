@@ -228,11 +228,6 @@ func TestCommand_OCIImageAllPackagesJSON(t *testing.T) {
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
-	if runtime.GOOS == "windows" {
-		// Windows messes with the file paths to break the output
-		testutility.Skip(t)
-	}
-
 	tests := []testcmd.Case{
 		{
 			Name: "Scanning python image with some packages",
