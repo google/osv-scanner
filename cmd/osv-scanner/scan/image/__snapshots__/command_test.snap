@@ -810,7 +810,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 1]
+[TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 1]
 {
   "results": [
     {
@@ -1546,12 +1546,12 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 2]
+[TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-full.tar"
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_image_with_go_binary - 1]
 {
   "results": [
     {
@@ -1874,12 +1874,12 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_image_with_go_binary - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary.tar"
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_node_modules_using_npm_with_some_packages - 1]
 {
   "results": [
     {
@@ -2159,12 +2159,12 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_node_modules_using_npm_with_some_packages - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-npm-full.tar"
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_ubuntu_image_in_json_format - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_ubuntu_image - 1]
 {
   "results": [
     {
@@ -2822,7 +2822,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_ubuntu_image_in_json_format - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_ubuntu_image - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 ---

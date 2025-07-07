@@ -223,7 +223,7 @@ func TestCommand_OCIImage(t *testing.T) {
 	}
 }
 
-func TestCommand_OCIImageAllPackagesJSON(t *testing.T) {
+func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
@@ -268,7 +268,7 @@ func TestCommand_OCIImageAllPackagesJSON(t *testing.T) {
 			},
 		},
 		{
-			Name: "scanning ubuntu image in json format",
+			Name: "scanning ubuntu image",
 			Args: []string{"", "image", "--archive", "--format=json", "../../../../internal/image/fixtures/test-ubuntu.tar"},
 			Exit: 1,
 			ReplaceRules: []testcmd.JSONReplaceRule{
