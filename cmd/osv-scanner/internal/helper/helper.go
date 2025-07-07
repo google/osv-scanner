@@ -181,12 +181,12 @@ func GetScanGlobalFlags(defaultExtractors []string) []cli.Flag {
 		},
 		&cli.StringSliceFlag{
 			Name:  "experimental-extractors",
-			Usage: "list of specific extractors and ExtractorPresets of extractors to use",
+			Usage: "list of specific extractors and presets of extractors to use",
 			Value: defaultExtractors,
 		},
 		&cli.StringSliceFlag{
 			Name:  "experimental-disable-extractors",
-			Usage: "list of specific extractors and ExtractorPresets of extractors to not use",
+			Usage: "list of specific extractors and presets of extractors to not use",
 		},
 	}
 }
