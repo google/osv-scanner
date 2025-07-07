@@ -90,10 +90,10 @@ func filterIgnoredPackages(scanResults *results.ScanResults) {
 }
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
-func filterResults(results *models.VulnerabilityResults, configManager *config.Manager, allPackages bool) int {
+func filterResults(vulnResults *models.VulnerabilityResults, configManager *config.Manager, allPackages bool) int {
 	removedCount := 0
 	newResults := []models.PackageSource{} // Want 0 vulnerabilities to show in JSON as an empty list, not null.
-	for _, pkgSrc := range results.Results {
+	for _, pkgSrc := range vulnResults.Results {
 		configToUse := configManager.Get(pkgSrc.Source.Path)
 		var newPackages []models.PackageVulns
 		for _, pkgVulns := range pkgSrc.Packages {
@@ -109,7 +109,7 @@ func filterResults(results *models.VulnerabilityResults, configManager *config.M
 			newResults = append(newResults, pkgSrc)
 		}
 	}
-	results.Results = newResults
+	vulnResults.Results = newResults
 
 	return removedCount
 }

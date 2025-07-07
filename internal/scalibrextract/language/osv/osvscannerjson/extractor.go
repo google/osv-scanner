@@ -50,7 +50,7 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inve
 	packages := []*extractor.Package{}
 	for _, res := range parsedResults.Results {
 		for _, pkg := range res.Packages {
-			inventory := extractor.Package{
+			inv := extractor.Package{
 				Name:    pkg.Package.Name,
 				Version: pkg.Package.Version,
 				Metadata: Metadata{
@@ -60,12 +60,12 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inve
 				Locations: []string{input.Path},
 			}
 			if pkg.Package.Commit != "" {
-				inventory.SourceCode = &extractor.SourceCodeIdentifier{
+				inv.SourceCode = &extractor.SourceCodeIdentifier{
 					Commit: pkg.Package.Commit,
 				}
 			}
 
-			packages = append(packages, &inventory)
+			packages = append(packages, &inv)
 		}
 	}
 

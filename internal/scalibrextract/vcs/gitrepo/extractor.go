@@ -59,12 +59,12 @@ func getSubmodules(repo *git.Repository) (submodules []*git.SubmoduleStatus, err
 	return submodules, nil
 }
 
-func createCommitQueryInventory(commit string, path string) *extractor.Package {
+func createCommitQueryInventory(commit string, location string) *extractor.Package {
 	return &extractor.Package{
 		SourceCode: &extractor.SourceCodeIdentifier{
 			Commit: commit,
 		},
-		Locations: []string{path},
+		Locations: []string{location},
 	}
 }
 
@@ -116,7 +116,7 @@ func (e *Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inv
 		return inventory.Inventory{}, err
 	}
 
-	var inventory inventory.Inventory
+	var inv inventory.Inventory
 
 	if e.IncludeRootGit {
 		commitSHA, err := getCommitSHA(repo)
@@ -124,22 +124,22 @@ func (e *Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inv
 		// If error is not nil, then ignore this and continue, as it is not fatal.
 		// The error could be because there are no commits in the repository
 		if err == nil {
-			inventory.Packages = append(inventory.Packages, createCommitQueryInventory(commitSHA, input.Path))
+			inv.Packages = append(inv.Packages, createCommitQueryInventory(commitSHA, input.Path))
 		}
 	}
 
 	// If we can't get submodules, just return with what we have.
 	submodules, err := getSubmodules(repo)
 	if err != nil {
-		return inventory, err
+		return inv, err
 	}
 
 	for _, s := range submodules {
 		// r.Infof("Scanning submodule %s at commit %s\n", s.Path, s.Expected.String())
-		inventory.Packages = append(inventory.Packages, createCommitQueryInventory(s.Expected.String(), path.Join(input.Path, s.Path)))
+		inv.Packages = append(inv.Packages, createCommitQueryInventory(s.Expected.String(), path.Join(input.Path, s.Path)))
 	}
 
-	return inventory, nil
+	return inv, nil
 }
 
 // ToPURL converts an inventory created by this extractor into a PURL.
@@ -165,8 +165,8 @@ func (e *Extractor) Configure(config Config) {
 
 var _ configurable = &Extractor{}
 
-func Configure(extractor extractor.Extractor, config Config) {
-	us, ok := extractor.(configurable)
+func Configure(extrac extractor.Extractor, config Config) {
+	us, ok := extrac.(configurable)
 
 	if ok {
 		us.Configure(config)
