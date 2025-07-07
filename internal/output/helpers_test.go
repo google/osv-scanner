@@ -71,6 +71,11 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 	t.Helper()
 
+	cwd, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("failed to get current directory: %v", err)
+	}
+
 	tests := []outputTestCase{
 		{
 			name: "no sources",
@@ -86,7 +91,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source:   models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{},
 						},
 					},
@@ -99,15 +104,15 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source:   models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{},
 						},
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source:   models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{},
 						},
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source:   models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{},
 						},
 					},
@@ -120,10 +125,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -143,10 +148,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -157,10 +162,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
@@ -169,7 +174,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -180,10 +185,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
@@ -192,7 +197,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -212,10 +217,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -242,10 +247,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -273,10 +278,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Ecosystem: "npm",
 										Commit:    "abc123",
@@ -303,10 +308,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -338,10 +343,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -373,10 +378,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -421,10 +426,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -452,10 +457,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -473,10 +478,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -504,10 +509,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -543,10 +548,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -585,10 +590,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -606,10 +611,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "5.9.0",
 										Ecosystem: "npm",
@@ -629,10 +634,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -650,10 +655,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
@@ -669,7 +674,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -680,10 +685,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
@@ -692,7 +697,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Vulnerabilities: []osvschema.Vulnerability{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -719,10 +724,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -746,7 +751,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.2",
 										Ecosystem: "npm",
@@ -764,10 +769,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
@@ -783,7 +788,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -818,10 +823,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -846,7 +851,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.2",
 										Ecosystem: "npm",
@@ -864,10 +869,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
@@ -884,7 +889,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -920,10 +925,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
@@ -947,7 +952,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.2",
 										Ecosystem: "npm",
@@ -965,10 +970,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "NuGet",
@@ -985,7 +990,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "author3/mine3",
 										Version:   "0.4.1",
 										Ecosystem: "Packagist",
@@ -1021,10 +1026,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
@@ -1049,7 +1054,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Ecosystem: "npm",
 										Commit:    "abcxyz",
@@ -1067,10 +1072,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "NuGet",
@@ -1087,7 +1092,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "author3/mine3",
 										Version:   "0.4.1",
 										Ecosystem: "Packagist",
@@ -1123,10 +1128,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
@@ -1160,7 +1165,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.2",
 										Ecosystem: "npm",
@@ -1178,10 +1183,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "NuGet",
@@ -1198,7 +1203,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "author3/mine3",
 										Version:   "0.4.1",
 										Ecosystem: "Packagist",
@@ -1239,10 +1244,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1254,7 +1259,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									},
 								},
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.10.2-rc",
 										Ecosystem: "npm",
@@ -1284,6 +1289,11 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 	t.Helper()
 
+	cwd, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("failed to get current directory: %v", err)
+	}
+
 	experimentalAnalysisConfig := models.ExperimentalAnalysisConfig{
 		Licenses: models.ExperimentalLicenseConfig{Summary: false, Allowlist: []models.License{"ISC"}},
 	}
@@ -1305,7 +1315,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source:   models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{},
 						},
 					},
@@ -1319,15 +1329,15 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source:   models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{},
 						},
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source:   models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{},
 						},
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source:   models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{},
 						},
 					},
@@ -1341,10 +1351,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1366,10 +1376,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1391,10 +1401,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1416,10 +1426,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1431,10 +1441,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
@@ -1444,7 +1454,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -1456,10 +1466,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
@@ -1469,7 +1479,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1491,10 +1501,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1516,10 +1526,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1542,10 +1552,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Ecosystem: "npm",
 										Commit:    "abc123",
@@ -1567,10 +1577,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1593,10 +1603,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1608,10 +1618,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "5.9.0",
 										Ecosystem: "npm",
@@ -1633,10 +1643,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1648,10 +1658,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
@@ -1661,7 +1671,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{"Apache-2.0"},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -1673,10 +1683,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
@@ -1686,7 +1696,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1708,10 +1718,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1724,10 +1734,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
@@ -1738,7 +1748,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{"Apache-2.0"},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -1750,10 +1760,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
@@ -1763,7 +1773,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1786,10 +1796,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
@@ -1801,10 +1811,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
@@ -1814,7 +1824,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{"Apache-2.0"},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -1826,10 +1836,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "NuGet",
@@ -1839,7 +1849,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "author1/mine1",
 										Version:   "1.2.3",
 										Ecosystem: "Packagist",
@@ -1862,10 +1872,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1886,10 +1896,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1901,10 +1911,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
@@ -1914,7 +1924,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{"UNKNOWN"},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -1926,10 +1936,10 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
@@ -1939,7 +1949,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -1984,10 +1994,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -2050,10 +2060,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -2088,10 +2098,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -2126,10 +2136,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -2149,10 +2159,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "5.9.0",
 										Ecosystem: "npm",
@@ -2176,10 +2186,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -2199,10 +2209,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
@@ -2220,7 +2230,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -2233,10 +2243,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
@@ -2247,7 +2257,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{"MIT"},
 								},
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -2277,10 +2287,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -2301,10 +2311,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Ecosystem: "npm",
 										Commit:    "abc123",
@@ -2322,7 +2332,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -2335,10 +2345,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
@@ -2349,7 +2359,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{"MIT"},
 								},
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -2379,10 +2389,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
@@ -2407,10 +2417,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine2",
 										Version:   "3.2.5",
 										Ecosystem: "npm",
@@ -2433,7 +2443,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{},
 								},
 								{
-									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/second/lockfile", pkginfo{
 										Name:      "mine3",
 										Version:   "0.4.1",
 										Ecosystem: "npm",
@@ -2446,10 +2456,10 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.3.5",
 										Ecosystem: "npm",
@@ -2460,7 +2470,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 									LicenseViolations: []models.License{"MIT"},
 								},
 								{
-									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
+									Package: newPackageInfo(cwd+"/path/to/my/third/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",

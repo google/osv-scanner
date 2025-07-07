@@ -28,7 +28,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -44,7 +44,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -60,7 +60,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -76,7 +76,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -92,7 +92,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -192,7 +192,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -208,7 +208,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -224,7 +224,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -240,7 +240,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -256,7 +256,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -356,7 +356,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -372,7 +372,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -388,7 +388,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -404,7 +404,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -420,7 +420,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -520,7 +520,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the php/composerlock extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the php/composerlock extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -536,7 +536,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -552,7 +552,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -568,7 +568,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the dotnet/packageslockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the dotnet/packageslockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -584,7 +584,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the php/composerlock extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the php/composerlock extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -684,7 +684,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -700,7 +700,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -716,7 +716,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -732,7 +732,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -748,7 +748,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -950,7 +950,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1010,7 +1010,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1070,7 +1070,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1130,7 +1130,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1190,7 +1190,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1250,7 +1250,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1310,7 +1310,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1404,7 +1404,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1420,7 +1420,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1490,7 +1490,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1506,7 +1506,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1522,7 +1522,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1538,7 +1538,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1554,7 +1554,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1654,7 +1654,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1670,7 +1670,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1686,7 +1686,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1702,7 +1702,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1718,7 +1718,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1818,7 +1818,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1834,7 +1834,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1850,7 +1850,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1866,7 +1866,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2016,7 +2016,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2076,7 +2076,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2136,7 +2136,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2196,7 +2196,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2212,7 +2212,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2282,7 +2282,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2298,7 +2298,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2314,7 +2314,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2330,7 +2330,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2420,7 +2420,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2436,7 +2436,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2452,7 +2452,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2468,7 +2468,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2558,7 +2558,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2574,7 +2574,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2590,7 +2590,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2606,7 +2606,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2622,7 +2622,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2722,7 +2722,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2738,7 +2738,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2754,7 +2754,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2770,7 +2770,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2786,7 +2786,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/third/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/third/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2886,7 +2886,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the php/composerlock extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the php/composerlock extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2902,7 +2902,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2918,7 +2918,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the dotnet/pe extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the dotnet/pe extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -2934,7 +2934,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3024,7 +3024,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the php/composerlock extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the php/composerlock extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3040,7 +3040,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3056,7 +3056,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the dotnet/pe extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the dotnet/pe extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3072,7 +3072,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the php/composerlock extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the php/composerlock extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3162,7 +3162,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the php/composerlock extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the php/composerlock extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3178,7 +3178,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the dotnet/pe extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the dotnet/pe extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3194,7 +3194,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3376,7 +3376,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3436,7 +3436,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3496,7 +3496,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3556,7 +3556,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3616,7 +3616,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3676,7 +3676,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3736,7 +3736,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3796,7 +3796,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3856,7 +3856,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3950,7 +3950,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -3966,7 +3966,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -4036,7 +4036,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -4052,7 +4052,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -4122,7 +4122,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/first/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/first/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -4138,7 +4138,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from path/to/my/second/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/path/to/my/second/lockfile",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
