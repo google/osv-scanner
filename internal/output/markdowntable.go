@@ -12,9 +12,11 @@ import (
 func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, showAllVulns bool) {
 	text.DisableColors()
 
+	outputResult := BuildResults(vulnResult)
+
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
-	outputTable = tableBuilder(outputTable, vulnResult, showAllVulns)
+	outputTable = tableBuilder(outputTable, outputResult, showAllVulns)
 
 	if outputTable.Length() != 0 {
 		outputTable.RenderMarkdown()
