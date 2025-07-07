@@ -250,7 +250,6 @@ type tbInnerResponse struct {
 
 func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInnerResponse {
 	allOutputRows := []tbInnerResponse{}
-	workingDir := mustGetWorkingDirectory()
 
 	for _, eco := range result.Ecosystems {
 		for _, source := range eco.Sources {
@@ -309,14 +308,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 						outputRow = append(outputRow, pkg.InstalledVersion)
 					}
 
-					// todo: see if we want to start including any of this information
-					p := strings.TrimPrefix(source.Name, ":")
-					p = strings.TrimPrefix(p, string(source.Type))
-					p = strings.TrimPrefix(p, ":")
-					p = strings.TrimPrefix(p, filepath.ToSlash(workingDir))
-					p = strings.TrimPrefix(p, "/")
-
-					outputRow = append(outputRow, p)
+					outputRow = append(outputRow, source.Name)
 
 					allOutputRows = append(allOutputRows, tbInnerResponse{
 						row:         outputRow,
