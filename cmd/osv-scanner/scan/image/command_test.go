@@ -209,6 +209,42 @@ func TestCommand_OCIImage(t *testing.T) {
 			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-package-tracing.tar"},
 			Exit: 1,
 		},
+		{
+			Name: "scanning_insecure_alpine_image_without_detectors",
+			Args: []string{
+				"", "image",
+				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "scanning_insecure_alpine_image_with_specific_detector_enabled",
+			Args: []string{
+				"", "image",
+				"--experimental-detectors", "weakcredentials/etcshadow",
+				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "scanning_insecure_alpine_image_with_specific_detector_disabled",
+			Args: []string{
+				"", "image",
+				"--experimental-detectors", "weakcreds",
+				"--experimental-disable-detectors", "weakcredentials/etcshadow",
+				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "scanning_insecure_alpine_image_with_detector_preset",
+			Args: []string{
+				"", "image",
+				"--experimental-detectors", "weakcreds",
+				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+			},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -282,6 +318,24 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				testcmd.OnlyFirstBaseImage,
 				testcmd.AnyDiffID,
 			},
+		},
+		{
+			Name: "scanning_insecure_alpine_image_with_specific_detector_enabled",
+			Args: []string{
+				"", "image", "--format=json",
+				"--experimental-detectors", "weakcredentials/etcshadow",
+				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "scanning_insecure_alpine_image_with_detector_preset",
+			Args: []string{
+				"", "image", "--format=json",
+				"--experimental-detectors", "weakcreds",
+				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+			},
+			Exit: 1,
 		},
 	}
 	for _, tt := range tests {
