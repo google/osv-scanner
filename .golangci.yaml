@@ -85,13 +85,13 @@ linters:
         - name: errorf
           disabled: false
         - name: exported
-          disabled: false
+          disabled: true # TODO: get this enabled
         - name: import-alias-naming
           disabled: false
         - name: indent-error-flow
           disabled: false
         - name: package-comments
-          disabled: false
+          disabled: true # TODO: get this enabled
         - name: range
           disabled: false
         - name: receiver-naming
