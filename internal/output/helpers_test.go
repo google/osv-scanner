@@ -85,7 +85,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{},
 						},
 					},
@@ -98,15 +98,15 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{},
 						},
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source:   models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{},
 						},
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source:   models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{},
 						},
 					},
@@ -119,7 +119,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -142,7 +142,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -156,7 +156,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -179,7 +179,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
@@ -211,7 +211,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -241,7 +241,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -272,7 +272,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -302,7 +302,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -337,7 +337,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -372,7 +372,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -420,7 +420,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -451,7 +451,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -472,7 +472,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -503,7 +503,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -542,7 +542,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -584,7 +584,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -605,7 +605,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -628,7 +628,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -649,7 +649,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -679,7 +679,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
@@ -718,7 +718,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -763,7 +763,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -817,7 +817,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -863,7 +863,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -919,7 +919,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -964,7 +964,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -1020,7 +1020,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1066,7 +1066,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -1122,7 +1122,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1177,7 +1177,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -1238,7 +1238,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1304,7 +1304,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{},
 						},
 					},
@@ -1318,15 +1318,15 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source:   models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{},
 						},
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source:   models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{},
 						},
 						{
-							Source:   models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source:   models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{},
 						},
 					},
@@ -1340,7 +1340,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1365,7 +1365,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1390,7 +1390,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1415,7 +1415,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1430,7 +1430,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -1455,7 +1455,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
@@ -1490,7 +1490,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1515,7 +1515,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1541,7 +1541,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1566,7 +1566,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1592,7 +1592,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1607,7 +1607,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -1632,7 +1632,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1647,7 +1647,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -1672,7 +1672,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
@@ -1707,7 +1707,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1723,7 +1723,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -1749,7 +1749,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
@@ -1785,7 +1785,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1800,7 +1800,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -1825,7 +1825,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
@@ -1861,7 +1861,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1885,7 +1885,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -1900,7 +1900,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -1925,7 +1925,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
@@ -1978,7 +1978,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -2011,7 +2011,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -2049,7 +2049,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -2087,7 +2087,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -2110,7 +2110,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -2137,7 +2137,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -2160,7 +2160,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -2194,7 +2194,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
@@ -2238,7 +2238,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -2262,7 +2262,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -2296,7 +2296,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{
@@ -2340,7 +2340,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: "path/to/my/first/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/first/lockfile", pkginfo{
@@ -2368,7 +2368,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/second/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/second/lockfile", Type: models.SourceTypeSBOM},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/second/lockfile", pkginfo{
@@ -2407,7 +2407,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 							},
 						},
 						{
-							Source: models.SourceInfo{Path: "path/to/my/third/lockfile"},
+							Source: models.SourceInfo{Path: "path/to/my/third/lockfile", Type: models.SourceTypeUnknown},
 							Packages: []models.PackageVulns{
 								{
 									Package: newPackageInfo("path/to/my/third/lockfile", pkginfo{

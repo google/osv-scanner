@@ -6,8 +6,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 2,
@@ -238,8 +238,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 2,
@@ -522,8 +522,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 2,
@@ -754,8 +754,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 2,
@@ -1038,8 +1038,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -1148,8 +1148,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -1339,8 +1339,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/third/lockfile",
-          "Type": "",
+          "Name": "unknown:path/to/my/third/lockfile",
+          "Type": "unknown",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -1582,8 +1582,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -1706,8 +1706,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -1911,8 +1911,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/third/lockfile",
-          "Type": "",
+          "Name": "unknown:path/to/my/third/lockfile",
+          "Type": "unknown",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2168,8 +2168,8 @@
       "Name": "NuGet",
       "Sources": [
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "NuGet",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2298,8 +2298,8 @@
       "Name": "Packagist",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2435,8 +2435,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2578,8 +2578,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2754,8 +2754,8 @@
       "Name": "NuGet",
       "Sources": [
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "NuGet",
           "PackageTypeCount": {
             "Regular": 1,
@@ -2884,8 +2884,8 @@
       "Name": "Packagist",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Regular": 1,
@@ -3022,8 +3022,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Regular": 1,
@@ -3165,8 +3165,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -3341,8 +3341,8 @@
       "Name": "NuGet",
       "Sources": [
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "NuGet",
           "PackageTypeCount": {
             "Regular": 1,
@@ -3471,8 +3471,8 @@
       "Name": "Packagist",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Regular": 1,
@@ -3608,8 +3608,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "Packagist",
           "PackageTypeCount": {
             "Regular": 1,
@@ -3751,8 +3751,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -3927,8 +3927,8 @@
       "Name": "",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "",
           "PackageTypeCount": {
             "Regular": 0,
@@ -3955,8 +3955,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "",
           "PackageTypeCount": {
             "Regular": 0,
@@ -3983,8 +3983,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/third/lockfile",
-          "Type": "",
+          "Name": "unknown:path/to/my/third/lockfile",
+          "Type": "unknown",
           "Ecosystem": "",
           "PackageTypeCount": {
             "Regular": 0,
@@ -4108,8 +4108,8 @@
       "Name": "",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "",
           "PackageTypeCount": {
             "Regular": 0,
@@ -4188,8 +4188,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -4350,8 +4350,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -4540,8 +4540,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -4716,8 +4716,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -4892,8 +4892,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -5068,8 +5068,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -5244,8 +5244,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -5423,8 +5423,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -5602,8 +5602,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -5778,8 +5778,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -5954,8 +5954,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 2,
@@ -6225,8 +6225,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -6349,8 +6349,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 0,
@@ -6511,8 +6511,8 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": ":path/to/my/first/lockfile",
-          "Type": "",
+          "Name": "lockfile:path/to/my/first/lockfile",
+          "Type": "lockfile",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
@@ -6635,8 +6635,8 @@
           "LicenseViolationsCount": 0
         },
         {
-          "Name": ":path/to/my/second/lockfile",
-          "Type": "",
+          "Name": "sbom:path/to/my/second/lockfile",
+          "Type": "sbom",
           "Ecosystem": "npm",
           "PackageTypeCount": {
             "Regular": 1,
