@@ -138,9 +138,6 @@ linters:
     rules:
       - linters:
           - dupl
-        path: pkg/reporter
-      - linters:
-          - dupl
         path: _test\.go
       - path-except: _test\.go
         text: use `testutility.GetCurrentWorkingDirectory`
