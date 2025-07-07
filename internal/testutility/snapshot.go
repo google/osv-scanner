@@ -43,7 +43,7 @@ func (s Snapshot) MatchJSON(t *testing.T, got any) {
 		t.Fatalf("Failed to marshal JSON: %s", err)
 	}
 
-	snaps.MatchSnapshot(t, applyWindowsReplacements(string(j), s.windowsReplacements))
+	snaps.MatchSnapshot(t, normalizeSnapshot(t, applyWindowsReplacements(string(j), s.windowsReplacements)))
 }
 
 // MatchText asserts the existing snapshot matches what was gotten in the test
