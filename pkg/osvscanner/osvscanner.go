@@ -398,6 +398,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}
 	}
 
+	scanResult.GenericFindings = scalibrSR.Inventory.GenericFindings
+
 	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
 
 	if actions.ScanLicensesSummary {
