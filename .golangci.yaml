@@ -85,7 +85,16 @@ linters:
         - name: errorf
           disabled: false
         - name: exported
-          disabled: true # TODO: get this enabled
+          disabled: false
+          arguments:
+            # TODO: get these all enabled
+            - "check-private-receivers"
+            # - "check-public-interface"
+            - "disable-checks-on-constants"
+            - "disable-checks-on-functions"
+            - "disable-checks-on-methods"
+            - "disable-checks-on-types"
+            - "disable-checks-on-variables"
         - name: import-alias-naming
           disabled: false
         - name: indent-error-flow
