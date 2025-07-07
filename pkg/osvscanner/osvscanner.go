@@ -255,13 +255,13 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		}
 	}
 
-	results := buildVulnerabilityResults(actions, &scanResult)
+	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
 
 	if actions.ScanLicensesSummary {
-		results.LicenseSummary = buildLicenseSummary(&scanResult)
+		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
-	filtered := filterResults(&results, &scanResult.ConfigManager, actions.ShowAllPackages)
+	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		cmdlogger.Infof(
 			"Filtered %d %s from output",
@@ -270,7 +270,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		)
 	}
 
-	return results, determineReturnErr(results, actions.ShowAllVulns, false)
+	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns, false)
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
