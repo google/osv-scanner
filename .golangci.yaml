@@ -136,9 +136,9 @@ linters:
       - legacy
       - std-error-handling
     rules:
-      - linters:
+      - path: _test\.go
+        linters:
           - dupl
-        path: _test\.go
       - path-except: _test\.go
         text: use `testutility.GetCurrentWorkingDirectory`
     paths:
