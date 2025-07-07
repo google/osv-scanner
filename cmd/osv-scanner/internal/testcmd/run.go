@@ -34,7 +34,8 @@ func fetchCommandsToTest() []cmd.CommandBuilder {
 
 	return append(CommandsUnderTest, func(_, _ io.Writer) *cli.Command {
 		return &cli.Command{
-			Name: "scan",
+			Name:     "scan",
+			HideHelp: true,
 			Action: func(_ context.Context, _ *cli.Command) error {
 				return errors.New("<this test is unexpectedly calling the default scan command>")
 			},

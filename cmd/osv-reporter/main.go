@@ -60,6 +60,7 @@ func run(args []string, stdout, stderr io.Writer) int {
 		Suggest:     true,
 		Writer:      stdout,
 		ErrWriter:   stderr,
+		HideHelp:    true,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:        "old",

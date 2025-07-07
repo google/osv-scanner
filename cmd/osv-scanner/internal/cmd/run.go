@@ -60,6 +60,7 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 		Suggest:        true,
 		Writer:         stdout,
 		ErrWriter:      stderr,
+		HideHelp:       true,
 		DefaultCommand: "scan",
 		Commands:       cmds,
 
