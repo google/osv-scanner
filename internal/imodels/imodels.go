@@ -19,6 +19,7 @@ import (
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
@@ -217,8 +218,8 @@ func (pkg *PackageInfo) OSPackageName() string {
 }
 
 // FromInventory converts an extractor.Package into a PackageInfo.
-func FromInventory(inventory *extractor.Package) PackageInfo {
-	pi := PackageInfo{Package: inventory}
+func FromInventory(inv *extractor.Package) PackageInfo {
+	pi := PackageInfo{Package: inv}
 	if pi.SourceType() == models.SourceTypeSBOM {
 		purlStruct := converter.ToPURL(pi.Package)
 		if purlStruct != nil {
@@ -242,4 +243,11 @@ type PackageScanResult struct {
 	// TODO(v2):
 	// SourceAnalysis *SourceAnalysis
 	// Any additional scan enrichment steps
+}
+
+// ScanResult represents the result of a scan, which will generally have packages
+// but can also have more generic findings that are not related to packages
+type ScanResult struct {
+	PackageResults  []PackageScanResult
+	GenericFindings []*inventory.GenericFinding
 }

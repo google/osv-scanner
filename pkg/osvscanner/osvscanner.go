@@ -227,12 +227,13 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	// ----- Perform Scanning -----
-	packages, err := scan(accessors, actions)
+	packagesAndFindings, err := scan(accessors, actions)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
-	scanResult.PackageScanResults = packages
+	scanResult.PackageScanResults = packagesAndFindings.PackageResults
+	scanResult.GenericFindings = packagesAndFindings.GenericFindings
 
 	// ----- Filtering -----
 	filterUnscannablePackages(&scanResult)
