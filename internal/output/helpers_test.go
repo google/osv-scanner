@@ -1,7 +1,6 @@
 package output_test
 
 import (
-	"os"
 	"testing"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -10,6 +9,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagelockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
 	"github.com/google/osv-scalibr/purl"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -71,10 +71,7 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 	t.Helper()
 
-	cwd, err := os.Getwd()
-	if err != nil {
-		t.Fatalf("failed to get current directory: %v", err)
-	}
+	cwd := testutility.GetCurrentWorkingDirectory(t)
 
 	tests := []outputTestCase{
 		{
@@ -1289,10 +1286,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 	t.Helper()
 
-	cwd, err := os.Getwd()
-	if err != nil {
-		t.Fatalf("failed to get current directory: %v", err)
-	}
+	cwd := testutility.GetCurrentWorkingDirectory(t)
 
 	experimentalAnalysisConfig := models.ExperimentalAnalysisConfig{
 		Licenses: models.ExperimentalLicenseConfig{Summary: false, Allowlist: []models.License{"ISC"}},
@@ -1977,10 +1971,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 	t.Helper()
 
-	cwd, err := os.Getwd()
-	if err != nil {
-		t.Fatalf("failed to get current directory: %v", err)
-	}
+	cwd := testutility.GetCurrentWorkingDirectory(t)
 
 	experimentalAnalysisConfig := models.ExperimentalAnalysisConfig{
 		Licenses: models.ExperimentalLicenseConfig{Summary: false, Allowlist: []models.License{"ISC"}},
