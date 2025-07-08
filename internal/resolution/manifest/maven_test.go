@@ -2,7 +2,6 @@ package manifest
 
 import (
 	"bytes"
-	"os"
 	"path/filepath"
 	"reflect"
 	"strings"
@@ -99,11 +98,8 @@ func TestMavenReadWrite(t *testing.T) {
 	</project>
 	`))
 
-	dir, err := os.Getwd()
-	if err != nil {
-		t.Fatalf("failed to get current directory: %v", err)
-	}
-	df, err := depfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
+	cwd := testutility.GetCurrentWorkingDirectory(t)
+	df, err := depfile.OpenLocalDepFile(filepath.Join(cwd, "fixtures", "maven", "my-app", "pom.xml"))
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -412,7 +408,7 @@ func TestMavenReadWrite(t *testing.T) {
 	}
 
 	// Re-open the file for writing.
-	df, err = depfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
+	df, err = depfile.OpenLocalDepFile(filepath.Join(cwd, "fixtures", "maven", "my-app", "pom.xml"))
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -429,11 +425,8 @@ func TestMavenReadWrite(t *testing.T) {
 func TestMavenWrite(t *testing.T) {
 	t.Parallel()
 
-	dir, err := os.Getwd()
-	if err != nil {
-		t.Fatalf("failed to get current directory: %v", err)
-	}
-	df, err := depfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "my-app", "pom.xml"))
+	cwd := testutility.GetCurrentWorkingDirectory(t)
+	df, err := depfile.OpenLocalDepFile(filepath.Join(cwd, "fixtures", "maven", "my-app", "pom.xml"))
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}
@@ -541,11 +534,8 @@ func TestMavenWrite(t *testing.T) {
 func TestMavenWriteDM(t *testing.T) {
 	t.Parallel()
 
-	dir, err := os.Getwd()
-	if err != nil {
-		t.Fatalf("failed to get current directory: %v", err)
-	}
-	df, err := depfile.OpenLocalDepFile(filepath.Join(dir, "fixtures", "maven", "no-dependency-management.xml"))
+	cwd := testutility.GetCurrentWorkingDirectory(t)
+	df, err := depfile.OpenLocalDepFile(filepath.Join(cwd, "fixtures", "maven", "no-dependency-management.xml"))
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}
@@ -609,11 +599,8 @@ func TestMavenWriteDM(t *testing.T) {
 func Test_buildPatches(t *testing.T) {
 	t.Parallel()
 
-	dir, err := os.Getwd()
-	if err != nil {
-		t.Fatalf("failed to get current directory: %v", err)
-	}
-	parentPath := filepath.Join(dir, "fixtures", "maven", "parent", "pom.xml")
+	cwd := testutility.GetCurrentWorkingDirectory(t)
+	parentPath := filepath.Join(cwd, "fixtures", "maven", "parent", "pom.xml")
 
 	depProfileTwoMgmt.AddAttr(dep.MavenArtifactType, "pom")
 	depProfileTwoMgmt.AddAttr(dep.Scope, "import")

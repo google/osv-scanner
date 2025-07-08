@@ -54,12 +54,7 @@ func normalizeFilePaths(t *testing.T, output string) string {
 func normalizeRootDirectory(t *testing.T, str string) string {
 	t.Helper()
 
-	cwd, err := os.Getwd()
-	if err != nil {
-		t.Errorf("could not get cwd (%v) - results and diff might be inaccurate!", err)
-	}
-
-	cwd = normalizeFilePaths(t, cwd)
+	cwd := normalizeFilePaths(t, GetCurrentWorkingDirectory(t))
 
 	// file uris with Windows end up with three slashes, so we normalize that too
 	str = strings.ReplaceAll(str, "file:///"+cwd, "file://<rootdir>")
