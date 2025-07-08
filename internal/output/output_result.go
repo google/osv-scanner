@@ -492,9 +492,13 @@ func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[
 
 	for _, group := range vulnPkg.Groups {
 		representID := group.IDs[0]
-		aliases := group.Aliases
-		if len(group.Aliases) > 0 && group.Aliases[0] == representID {
-			aliases = aliases[1:]
+		var aliases []string
+		if len(group.Aliases) > 0 && slices.Contains(group.Aliases, representID) {
+			for _, val := range group.Aliases {
+				if val != representID {
+					aliases = append(aliases, val)
+				}
+			}
 		}
 
 		vuln := VulnResult{
