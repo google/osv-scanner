@@ -134,7 +134,7 @@ func normalizeSnapshot(t *testing.T, str string) string {
 	t.Helper()
 
 	for _, normalizer := range []func(t *testing.T, str string) string{
-		normalizeFilePathsOnOutput,
+		// normalizeFilePathsOnOutput,
 		normalizeRootDirectory,
 		normalizeTempDirectory,
 		normalizeUserCacheDirectory,
