@@ -21,7 +21,7 @@ nav_order: 6
 
 For every vulnerability found, OSV-Scanner will display the following information:
 
-- OSV URL: Link to the osv.dev entry for the vulnerability
+- OSV URL: Link to the osv.dev entry for the vulnerability (advisories without a fix are marked with a '*')
 - CVSS: CVSS v2 or v3, calculated from the [severity[].score](https://ossf.github.io/osv-schema/#severity-field) field.
 - Ecosystem: Ecosystem associated with the package
 - Package: Package name
@@ -51,13 +51,18 @@ osv-scanner scan --format table your/project/dir
 <summary><b>Sample table output</b></summary>
 
 ```bash
+Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+1 vulnerability can be fixed.
+
 ╭─────────────────────────────────────┬──────┬───────────┬──────────────────────────┬─────────┬────────────────────╮
-│ OSV URL                             │ CVSS │ ECOSYSTEM │  PACKAGE                 │ VERSION │ SOURCE             │
+│ OSV URL*                            │ CVSS │ ECOSYSTEM │  PACKAGE                 │ VERSION │ SOURCE             │
 ├─────────────────────────────────────┼──────┼───────────┼──────────────────────────┼─────────┼────────────────────┤
-│ https://osv.dev/GHSA-c3h9-896r-86jm | 8.6  │ Go        │ github.com/gogo/protobuf │ 1.3.1   │ path/to/go.mod     │
-│ https://osv.dev/GHSA-m5pq-gvj9-9vr8 | 7.5  │ crates.io │ regex                    │ 1.3.1   │ path/to/Cargo.lock │
+│ https://osv.dev/GHSA-c3h9-896r-86jm*│ 8.6  │ Go        │ github.com/gogo/protobuf │ 1.3.1   │ path/to/go.mod     │
+│ https://osv.dev/GHSA-m5pq-gvj9-9vr8 │ 7.5  │ crates.io │ regex                    │ 1.3.1   │ path/to/Cargo.lock │
 ╰─────────────────────────────────────┴──────┴───────────┴──────────────────────────┴─────────┴────────────────────╯
 ```
+
+*Advisories without a fix are marked with a '*' in the OSV URL column.
 
 </details>
 
@@ -75,18 +80,25 @@ osv-scanner scan --format markdown your/project/dir
 **Raw output:**
 
 ```
-| OSV URL                                                                   | CVSS | Ecosystem | Package                  | Version | Source                                                 |
-| ------------------------------------------------------------------------- | ---- | --------- | ------------------------ | ------- | ------------------------------------------------------ |
-| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053      | 8.6  | Go        | github.com/gogo/protobuf | 1.3.1   | ../scorecard-check-osv-e2e/go.mod                      |
-| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5  | crates.io | regex                    | 1.5.1   | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
+Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+1 vulnerability can be fixed.
+
+| OSV URL*                            | CVSS | Ecosystem | Package                  | Version | Source                                                 |
+| ----------------------------------- | ---- | --------- | ------------------------ | ------- | ------------------------------------------------------ |
+| https://osv.dev/GHSA-c3h9-896r-86jm*| 8.6  | Go        | github.com/gogo/protobuf | 1.3.1   | ../scorecard-check-osv-e2e/go.mod                      |
+| https://osv.dev/GHSA-m5pq-gvj9-9vr8 | 7.5  | crates.io | regex                    | 1.5.1   | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
 ```
+
+*Advisories without a fix are marked with a '*' in the OSV URL column.
 
 **Rendered:**
 
-| OSV URL                                                                   | CVSS | Ecosystem | Package                  | Version | Source                                                 |
-| ------------------------------------------------------------------------- | ---- | --------- | ------------------------ | ------- | ------------------------------------------------------ |
-| https://osv.dev/GHSA-c3h9-896r-86jm<br/>https://osv.dev/GO-2021-0053      | 8.6  | Go        | github.com/gogo/protobuf | 1.3.1   | ../scorecard-check-osv-e2e/go.mod                      |
-| https://osv.dev/GHSA-m5pq-gvj9-9vr8<br/>https://osv.dev/RUSTSEC-2022-0013 | 7.5  | crates.io | regex                    | 1.5.1   | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
+| OSV URL*                            | CVSS | Ecosystem | Package                  | Version | Source                                                 |
+| ----------------------------------- | ---- | --------- | ------------------------ | ------- | ------------------------------------------------------ |
+| https://osv.dev/GHSA-c3h9-896r-86jm*| 8.6  | Go        | github.com/gogo/protobuf | 1.3.1   | ../scorecard-check-osv-e2e/go.mod                      |
+| https://osv.dev/GHSA-m5pq-gvj9-9vr8 | 7.5  | crates.io | regex                    | 1.5.1   | ../scorecard-check-osv-e2e/sub-rust-project/Cargo.lock |
+
+*Advisories without a fix are marked with a '*' in the OSV URL column.
 
 </details>
 
