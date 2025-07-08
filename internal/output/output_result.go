@@ -491,9 +491,6 @@ func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[
 	hiddenVulnMap := make(map[string]VulnResult)
 
 	for _, group := range vulnPkg.Groups {
-		slices.SortFunc(group.IDs, identifiers.IDSortFunc)
-		slices.SortFunc(group.Aliases, identifiers.IDSortFunc)
-
 		representID := group.IDs[0]
 		aliases := group.Aliases
 		if len(group.Aliases) > 0 && group.Aliases[0] == representID {

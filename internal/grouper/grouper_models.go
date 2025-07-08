@@ -1,8 +1,10 @@
 package grouper
 
 import (
+	"slices"
 	"strings"
 
+	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -13,6 +15,9 @@ type IDAliases struct {
 
 func ConvertVulnerabilityToIDAliases(c []osvschema.Vulnerability) []IDAliases {
 	output := []IDAliases{}
+
+	slices.SortFunc(c, identifiers.MostUpstreamsOrder)
+
 	for _, v := range c {
 		idAliases := IDAliases{
 			ID:      v.ID,
@@ -23,12 +28,14 @@ func ConvertVulnerabilityToIDAliases(c []osvschema.Vulnerability) []IDAliases {
 		// all related CVEs should be bundled together, as they are part of this DSA.
 		// TODO(gongh@): Revisit and provide a universal way to handle all Linux distro advisories.
 		if strings.Split(v.ID, "-")[0] == "DSA" {
+			idAliases.Aliases = append(idAliases.Aliases, v.Upstream...)
 			idAliases.Aliases = append(idAliases.Aliases, v.Related...)
 		}
 
 		// For Ubuntu Security Advisory data,
 		// all related CVEs should be bundled together, as they are part of this USN.
 		if strings.Split(v.ID, "-")[0] == "USN" {
+			idAliases.Aliases = append(idAliases.Aliases, v.Upstream...)
 			idAliases.Aliases = append(idAliases.Aliases, v.Related...)
 		}
 
