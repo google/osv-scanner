@@ -10,6 +10,7 @@ import (
 // OverrideClient wraps a DependencyClient, allowing for custom packages & versions to be added
 type OverrideClient struct {
 	DependencyClient
+
 	// Can't quite reuse resolve.LocalClient because it automatically creates dependencies
 	pkgVers map[resolve.PackageKey][]resolve.Version            // versions of a package
 	verDeps map[resolve.VersionKey][]resolve.RequirementVersion // dependencies of a version

@@ -39,6 +39,8 @@ import (
 )
 
 type ScannerActions struct {
+	ExperimentalScannerActions
+
 	LockfilePaths      []string
 	DirectoryPaths     []string
 	GitCommits         []string
@@ -63,8 +65,6 @@ type ScannerActions struct {
 
 	// Deprecated: in favor of LockfilePaths
 	SBOMPaths []string
-
-	ExperimentalScannerActions
 }
 
 type ExperimentalScannerActions struct {
@@ -255,13 +255,13 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		}
 	}
 
-	results := buildVulnerabilityResults(actions, &scanResult)
+	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
 
 	if actions.ScanLicensesSummary {
-		results.LicenseSummary = buildLicenseSummary(&scanResult)
+		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
-	filtered := filterResults(&results, &scanResult.ConfigManager, actions.ShowAllPackages)
+	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		cmdlogger.Infof(
 			"Filtered %d %s from output",
@@ -270,7 +270,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		)
 	}
 
-	return results, determineReturnErr(results, actions.ShowAllVulns, false)
+	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns, false)
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
@@ -381,7 +381,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	for _, psr := range scanResult.PackageScanResults {
 		if (strings.HasPrefix(psr.PackageInfo.Location(), "usr/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemGo) ||
 			strings.Contains(psr.PackageInfo.Location(), "dist-packages/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
-			psr.PackageInfo.Annotations = append(psr.PackageInfo.Annotations, extractor.InsideOSPackage)
+			psr.PackageInfo.AnnotationsDeprecated = append(psr.PackageInfo.AnnotationsDeprecated, extractor.InsideOSPackage)
 		}
 	}
 

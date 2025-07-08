@@ -254,7 +254,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 18 packages affected by 34 known vulnerabilities (2 Critical, 8 High, 16 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+Total 18 packages affected by 33 known vulnerabilities (2 Critical, 9 High, 17 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
 12 vulnerabilities can be fixed.
 
 
@@ -267,7 +267,7 @@ Ubuntu:22.04
 | coreutils      | 8.32-4.1ubuntu1.2       | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3         | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04   | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8         | Partial fixes Available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8         | Fix Available           |          2 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1       | Partial fixes Available |          2 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5        | Fix Available           |          1 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4       | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
@@ -298,7 +298,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 18 packages affected by 34 known vulnerabilities (2 Critical, 8 High, 16 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+Total 18 packages affected by 33 known vulnerabilities (2 Critical, 9 High, 17 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
 12 vulnerabilities can be fixed.
 
 
@@ -311,7 +311,7 @@ Ubuntu:22.04
 | coreutils      | 8.32-4.1ubuntu1.2       | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3         | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04   | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8         | Partial fixes Available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8         | Fix Available           |          2 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1       | Partial fixes Available |          2 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5        | Fix Available           |          1 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4       | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
@@ -810,7 +810,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 1]
+[TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 1]
 {
   "results": [
     {
@@ -1546,12 +1546,12 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/Scanning_python_image_with_some_packages - 2]
+[TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-python-full.tar"
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_image_with_go_binary - 1]
 {
   "results": [
     {
@@ -1874,12 +1874,12 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_image_with_go_binary - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_image_with_go_binary - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary.tar"
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_node_modules_using_npm_with_some_packages - 1]
 {
   "results": [
     {
@@ -2159,12 +2159,12 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_node_modules_using_npm_with_some_packages - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_node_modules_using_npm_with_some_packages - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-npm-full.tar"
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_ubuntu_image_in_json_format - 1]
+[TestCommand_OCIImage_JSONFormat/scanning_ubuntu_image - 1]
 {
   "results": [
     {
@@ -2250,12 +2250,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           "vulnerabilities": [
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
-            "UBUNTU-CVE-2025-0577",
             "UBUNTU-CVE-2025-4802",
             "USN-7259-1",
             "USN-7541-1"
           ],
-          "groups": 4
+          "groups": 3
         },
         {
           "package": {
@@ -2270,12 +2269,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           "vulnerabilities": [
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
-            "UBUNTU-CVE-2025-0577",
             "UBUNTU-CVE-2025-4802",
             "USN-7259-1",
             "USN-7541-1"
           ],
-          "groups": 4
+          "groups": 3
         },
         {
           "package": {
@@ -2824,7 +2822,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
 
 ---
 
-[TestCommand_OCIImageAllPackagesJSON/scanning_ubuntu_image_in_json_format - 2]
+[TestCommand_OCIImage_JSONFormat/scanning_ubuntu_image - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 ---

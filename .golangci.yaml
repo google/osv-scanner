@@ -21,12 +21,14 @@ linters:
     - maintidx         #
     - mnd              # not every number is magic (g-rath)
     - nestif           #
+    - noinlineerr      #
     - nonamedreturns   # disagree with, for now (another-rex)
     - tagliatelle      # we're parsing data from external sources (g-rath)
     - testpackage      # will re-add later (another-rex)
     - varnamelen       # maybe later (g-rath)
     - wrapcheck        # too difficult, will re-add later (another-rex)
     - wsl              # disagree with, for now (g-rath)
+    - wsl_v5           # disagree with, for now (g-rath)
   settings:
     depguard:
       rules:
@@ -44,6 +46,9 @@ linters:
         - pattern: ^testing.T.Skip
           pkg: ^testing$
           msg: go-snaps needs to know the test has been skipped, so use `testutility.Skip` instead
+        - pattern: ^os.Getwd
+          pkg: ^os$
+          msg: use `testutility.GetCurrentWorkingDirectory`
       analyze-types: true
     gocritic:
       disabled-checks:
@@ -81,6 +86,8 @@ linters:
           disabled: false
         - name: exported
           disabled: false
+        - name: import-alias-naming
+          disabled: false
         - name: indent-error-flow
           disabled: false
         - name: package-comments
@@ -109,6 +116,10 @@ linters:
           disabled: false
         - name: var-naming
           disabled: false
+          arguments:
+            - [] # AllowList
+            - [] # DenyList
+            - - skip-package-name-checks: true
     staticcheck:
       checks:
         - all
@@ -127,6 +138,8 @@ linters:
       - linters:
           - dupl
         path: _test\.go
+      - path-except: _test\.go
+        text: use `testutility.GetCurrentWorkingDirectory`
     paths:
       - internal/thirdparty/
       - third_party$

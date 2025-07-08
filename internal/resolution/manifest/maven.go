@@ -59,11 +59,13 @@ type MavenManifestSpecific struct {
 
 type PropertyWithOrigin struct {
 	maven.Property
+
 	Origin string // Origin indicates where the property comes from
 }
 
 type DependencyWithOrigin struct {
 	maven.Dependency
+
 	Origin string // Origin indicates where the dependency comes from
 }
 
@@ -386,6 +388,7 @@ type MavenPatches struct {
 
 type MavenPatch struct {
 	maven.DependencyKey
+
 	NewRequire string
 }
 
@@ -740,6 +743,7 @@ func writeProject(w io.Writer, enc *internalxml.Encoder, raw, prefix, id string,
 				updated["parent"] = true
 				type RawParent struct {
 					maven.ProjectKey
+
 					InnerXML string `xml:",innerxml"`
 				}
 				var rawParent RawParent
@@ -781,6 +785,7 @@ func writeProject(w io.Writer, enc *internalxml.Encoder, raw, prefix, id string,
 				}
 				type RawProfile struct {
 					maven.Profile
+
 					InnerXML string `xml:",innerxml"`
 				}
 				var rawProfile RawProfile
@@ -799,6 +804,7 @@ func writeProject(w io.Writer, enc *internalxml.Encoder, raw, prefix, id string,
 				}
 				type RawPlugin struct {
 					maven.Plugin
+
 					InnerXML string `xml:",innerxml"`
 				}
 				var rawPlugin RawPlugin
@@ -813,6 +819,7 @@ func writeProject(w io.Writer, enc *internalxml.Encoder, raw, prefix, id string,
 			case "dependencyManagement":
 				type RawDependencyManagement struct {
 					maven.DependencyManagement
+
 					InnerXML string `xml:",innerxml"`
 				}
 				var rawDepMgmt RawDependencyManagement
@@ -933,6 +940,7 @@ func writeDependency(w io.Writer, enc *internalxml.Encoder, raw string, patches 
 			if tt.Name.Local == "dependency" {
 				type RawDependency struct {
 					maven.Dependency
+
 					InnerXML string `xml:",innerxml"`
 				}
 				var rawDep RawDependency

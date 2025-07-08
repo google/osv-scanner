@@ -8,7 +8,7 @@ import (
 	"deps.dev/util/resolve/dep"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
-	vulnUtil "github.com/google/osv-scanner/v2/internal/utility/vulns"
+	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -173,7 +173,7 @@ func (ds *DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resol
 		}
 		bestVK := vers[len(vers)-1] // This should be the highest version for npm
 
-		if vulnUtil.IsAffected(*vuln, util.VKToPackageInfo(bestVK.VersionKey)) {
+		if vulns.IsAffected(*vuln, util.VKToPackageInfo(bestVK.VersionKey)) {
 			newParents = append(newParents, pEdge)
 		}
 	}

@@ -5,7 +5,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -23,7 +23,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -51,7 +51,7 @@
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": [
         {
@@ -95,7 +95,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -116,7 +116,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -147,7 +147,7 @@
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": [
         {
@@ -194,7 +194,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -216,7 +216,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -247,7 +247,7 @@
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": [
         {
@@ -292,7 +292,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -313,7 +313,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -344,7 +344,7 @@
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": [
         {
@@ -394,7 +394,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -419,7 +419,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -454,7 +454,7 @@
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": [
         {
@@ -504,21 +504,21 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": []
     },
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": []
     },
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": []
     }
@@ -556,7 +556,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": []
     }
@@ -579,7 +579,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -613,7 +613,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -644,7 +644,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -678,7 +678,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -717,7 +717,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -754,7 +754,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -794,7 +794,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -832,7 +832,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -870,7 +870,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -891,7 +891,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -925,7 +925,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -974,7 +974,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -1030,7 +1030,7 @@
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": [
         {
@@ -1108,7 +1108,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -1151,7 +1151,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -1201,7 +1201,7 @@
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": [
         {
@@ -1273,7 +1273,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -1317,7 +1317,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -1368,7 +1368,7 @@
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": [
         {
@@ -1440,7 +1440,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -1505,7 +1505,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -1570,7 +1570,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -1629,7 +1629,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -1669,7 +1669,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -1706,7 +1706,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -1794,7 +1794,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -1898,7 +1898,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -1982,7 +1982,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -2080,7 +2080,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -2095,7 +2095,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -2117,7 +2117,7 @@
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": [
         {
@@ -2153,7 +2153,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -2190,7 +2190,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -2234,7 +2234,7 @@
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": [
         {
@@ -2292,7 +2292,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -2376,7 +2376,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -2480,7 +2480,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -2576,7 +2576,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -2686,7 +2686,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -2772,7 +2772,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -2876,21 +2876,21 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": []
     },
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": []
     },
     {
       "source": {
         "path": "path/to/my/third/lockfile",
-        "type": ""
+        "type": "unknown"
       },
       "packages": []
     }
@@ -2924,7 +2924,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": []
     }
@@ -2945,7 +2945,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -2974,7 +2974,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3055,7 +3055,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3112,7 +3112,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3169,7 +3169,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3220,7 +3220,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3274,7 +3274,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3349,7 +3349,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3418,7 +3418,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3470,7 +3470,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3522,7 +3522,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3589,7 +3589,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3626,7 +3626,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
@@ -3655,7 +3655,7 @@
     {
       "source": {
         "path": "path/to/my/first/lockfile",
-        "type": ""
+        "type": "lockfile"
       },
       "packages": [
         {
@@ -3692,7 +3692,7 @@
     {
       "source": {
         "path": "path/to/my/second/lockfile",
-        "type": ""
+        "type": "sbom"
       },
       "packages": [
         {
