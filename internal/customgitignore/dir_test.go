@@ -628,6 +628,153 @@ func TestParsingGitRepoWithoutGitignoreFiles(t *testing.T) {
 	}
 }
 
+func TestParsingGitignoreFilesWithSubrepository(t *testing.T) {
+	t.Parallel()
+
+	// Create a main git repo
+	mainRepo := setupGitRepo(t)
+
+	// Create a subdirectory that will be a subrepository
+	subRepoPath := filepath.Join(mainRepo, "subrepo")
+	if err := os.MkdirAll(subRepoPath, 0755); err != nil {
+		t.Fatalf("could not create subrepo directory: %v", err)
+	}
+
+	// Initialize the subrepository
+	if _, err := git.PlainInit(subRepoPath, false); err != nil {
+		t.Fatalf("could not initialize git subrepo: %v", err)
+	}
+
+	// Add gitignore files to both repositories
+	writeGitignore(t, mainRepo, ".gitignore", "MAIN_REPO_GITIGNORE")
+	writeGitignore(t, subRepoPath, ".gitignore", "SUBREPO_GITIGNORE")
+
+	// Test 1: Starting from subrepository, check that parent repo's gitignore is not applied
+	patterns, repoRootPath, err := customgitignore.ParseGitIgnores(subRepoPath, true)
+	if err != nil {
+		t.Fatalf("could not read gitignore patterns for test: %v", err)
+	}
+
+	// Verify we got the subrepository root path, not the parent
+	if filepath.Clean(repoRootPath) != filepath.Clean(subRepoPath) {
+		t.Errorf("Expected repo root path to be %s, got %s", subRepoPath, repoRootPath)
+	}
+
+	// Verify the subrepository gitignore is found
+	hasSubrepoMatch := slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "SUBREPO_GITIGNORE"}, false) == gitignore.Exclude
+	})
+	if !hasSubrepoMatch {
+		t.Errorf("Expected to find a pattern matching SUBREPO_GITIGNORE from the subrepository")
+	}
+
+	// Verify the main repository gitignore is NOT found
+	hasMainRepoMatch := slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "MAIN_REPO_GITIGNORE"}, false) == gitignore.Exclude
+	})
+	if hasMainRepoMatch {
+		t.Errorf("Expected NOT to find a pattern matching MAIN_REPO_GITIGNORE from the parent repository")
+	}
+
+	// Test 2: Create a file in the subrepository and test from there
+	subRepoFilePath := filepath.Join(subRepoPath, "test_file")
+	if err := os.WriteFile(subRepoFilePath, []byte("test"), 0600); err != nil {
+		t.Fatalf("could not create file in subrepository: %v", err)
+	}
+
+	patterns, _, err = customgitignore.ParseGitIgnores(subRepoFilePath, true)
+	if err != nil {
+		t.Fatalf("could not read gitignore patterns for file in subrepository: %v", err)
+	}
+
+	// Verify the same behavior when starting with a file in the subrepository
+	hasSubrepoMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "SUBREPO_GITIGNORE"}, false) == gitignore.Exclude
+	})
+	if !hasSubrepoMatch {
+		t.Errorf("Expected to find a pattern matching SUBREPO_GITIGNORE from the subrepository")
+	}
+
+	hasMainRepoMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "MAIN_REPO_GITIGNORE"}, false) == gitignore.Exclude
+	})
+	if hasMainRepoMatch {
+		t.Errorf("Expected NOT to find a pattern matching MAIN_REPO_GITIGNORE from the parent repository")
+	}
+}
+
+func TestGitignoreFilesOutsideRepoAreNotParsed(t *testing.T) {
+	t.Parallel()
+
+	// Create a temp directory that is NOT a git repo
+	nonRepoDir := testutility.CreateTestDir(t)
+
+	// Create a gitignore file in the non-repo directory
+	writeGitignore(t, nonRepoDir, ".gitignore", "OUTSIDE_REPO_GITIGNORE")
+
+	// Now create a subdirectory with a git repo
+	repoSubdirPath := filepath.Join(nonRepoDir, "repo")
+	if err := os.MkdirAll(repoSubdirPath, 0755); err != nil {
+		t.Fatalf("could not create repo subdirectory: %v", err)
+	}
+
+	// Initialize the git repo in the subdirectory
+	if _, err := git.PlainInit(repoSubdirPath, false); err != nil {
+		t.Fatalf("could not initialize git repo: %v", err)
+	}
+
+	// Add a gitignore file in the repo
+	writeGitignore(t, repoSubdirPath, ".gitignore", "INSIDE_REPO_GITIGNORE")
+
+	// Test: Parse gitignore patterns from the repo directory
+	patterns, _, err := customgitignore.ParseGitIgnores(repoSubdirPath, true)
+	if err != nil {
+		t.Fatalf("could not read gitignore patterns: %v", err)
+	}
+
+	// Verify only the .gitignore from inside the repo is found
+	hasInsideMatch := slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "INSIDE_REPO_GITIGNORE"}, false) == gitignore.Exclude
+	})
+	if !hasInsideMatch {
+		t.Errorf("Expected to find a pattern matching INSIDE_REPO_GITIGNORE from inside the repository")
+	}
+
+	// Verify the .gitignore from outside the repo is NOT found
+	hasOutsideMatch := slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "OUTSIDE_REPO_GITIGNORE"}, false) == gitignore.Exclude
+	})
+	if hasOutsideMatch {
+		t.Errorf("Expected NOT to find a pattern matching OUTSIDE_REPO_GITIGNORE from outside the repository")
+	}
+
+	// Test with a file inside the repository too
+	repoFilePath := filepath.Join(repoSubdirPath, "test_file")
+	if err := os.WriteFile(repoFilePath, []byte("test"), 0600); err != nil {
+		t.Fatalf("could not create file in repository: %v", err)
+	}
+
+	patterns, _, err = customgitignore.ParseGitIgnores(repoFilePath, true)
+	if err != nil {
+		t.Fatalf("could not read gitignore patterns for file in repository: %v", err)
+	}
+
+	// Verify the same behavior when starting with a file
+	hasInsideMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "INSIDE_REPO_GITIGNORE"}, false) == gitignore.Exclude
+	})
+	if !hasInsideMatch {
+		t.Errorf("Expected to find a pattern matching INSIDE_REPO_GITIGNORE from inside the repository")
+	}
+
+	hasOutsideMatch = slices.ContainsFunc(patterns, func(p gitignore.Pattern) bool {
+		return p.Match([]string{".", "OUTSIDE_REPO_GITIGNORE"}, false) == gitignore.Exclude
+	})
+	if hasOutsideMatch {
+		t.Errorf("Expected NOT to find a pattern matching OUTSIDE_REPO_GITIGNORE from outside the repository")
+	}
+}
+
 func setupGitRepo(t *testing.T) string {
 	t.Helper()
 

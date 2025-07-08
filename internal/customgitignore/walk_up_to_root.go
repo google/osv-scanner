@@ -21,58 +21,43 @@ import (
 // `path`, or a parent of `path`, or "" if there's no
 // enclosing git repo.
 //
-// Because it detects the root of any enclosing git repo
-// if path doesn't exist the root, it returns this repoPath
-// or "" if there is none.
-//
 // It also returns the path to the root of the git-repo,
 // or "" if this path isn't within a git repo, allowing
 // a caller to know how .gitignore files were parsed.
 //
 // The actual parsing is intended to be similar to how tools
 // like rg work, but means that `path` may not necessarily be
-// the root of a git repo, and can produce these parsing
-// behaviours:
+// the root of a git repo. Parsing respects repository boundaries:
+// .gitignore files from parent repositories or unrelated dirs are ignored.
+// Symlinks are also properly handled throughout the process.
+//
+// Examples of parsing behaviour:
 //
 // `path` is a plain dir:
-//
 //   - .gitignore files are ignored
 //
 // `path` is a file:
-//
 //   - find the file's dir and then run the following rules...
 //
 // `path` is a dir at the root of a git-repo, with recursive flag:
-//
 //   - read all .gitignore files in repo
 //   - read .git/info/exclude for repo
 //
 // `path` is a dir at the root of a git-repo, without recursive flag:
-//
 //   - only read .gitignore files in repo-root
 //   - read .git/info/exclude for repo
 //
 // `path` is a dir within a git-repo, with recursive flag:
-//
 //   - read .gitignore in start dir
 //   - read all .gitignore files in child-dirs
 //   - read all .gitignore files in parent dirs up to and including repo-root
-//     (but only dirs that are an ancestor)
+//     (but only dirs that are an ancestor and part of the same repo)
 //
-// `path` is a dir within, a git-repo, without recursive flag:
-//
+// `path` is a dir within a git-repo, without recursive flag:
 //   - read .gitignore in start dir
 //   - read all .gitignore files in parent dirs up to and including repo-root
-//     (but only dirs that are an ancestor)
+//     (but only dirs that are an ancestor and part of the same repo)
 //   - read .git/info/exclude for repo
-//
-// NOTE: the dir you're passing in directly could be a dir that is ignored
-// (targeted by a parent's .gitignore or the per-repo exclude file); in this
-// case, the dir's .gitignore file is still processed, but not its sub-dirs.
-//
-// In all cases any dirs matched by a previously read
-// .gitignore are skipped, unless it's the path (ie directly
-// supplied by the user).
 func ParseGitIgnores(path string, recursive bool) ([]gitignore.Pattern, string, error) {
 	// We need to parse .gitignore files from the root of the git repo to correctly identify ignored files
 	var fs billy.Filesystem
@@ -120,7 +105,7 @@ func ParseGitIgnores(path string, recursive bool) ([]gitignore.Pattern, string, 
 	// Read parent's dirs up to git-root
 	//
 	if pathAbs != repoRootPath {
-		newPs, err = readIgnoreFilesFromParents(fs, pathRel, repoRootPath)
+		newPs, err = readIgnoreFilesFromParents(fs, pathRel, repoRootPath, pathAbs)
 		if err != nil && !os.IsNotExist(err) {
 			return ps, "", err
 		}
@@ -147,13 +132,20 @@ func ParseGitIgnores(path string, recursive bool) ([]gitignore.Pattern, string, 
 
 // Recursively walk up the directory tree processing .gitignore files as we go.
 // Once we reach the git-root dir, process it but don't recurse any further.
-func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot string) ([]gitignore.Pattern, error) {
+// Stop at repository boundaries to prevent reading gitignore files from parent repositories.
+func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot string, currentPath string) ([]gitignore.Pattern, error) {
 	var ps []gitignore.Pattern
 
 	// Recurse up the tree to path's parent
 	pathRel = parentPath(pathRel)
 
 	pathAbs := filepath.Join(pathGitRoot, pathRel)
+
+	// Check if we've crossed into a different repository
+	if isSubRepository(pathAbs, currentPath) {
+		// We've hit a subrepository boundary, stop recursing
+		return ps, nil
+	}
 
 	// read .gitignore
 	newPs, err := readIgnoreFile(fs, toGoGitPath(pathRel), gitignoreFile)
@@ -168,13 +160,70 @@ func readIgnoreFilesFromParents(fs billy.Filesystem, pathRel string, pathGitRoot
 	}
 
 	// continue recursing up tree
-	newPs, err = readIgnoreFilesFromParents(fs, pathRel, pathGitRoot)
+	newPs, err = readIgnoreFilesFromParents(fs, pathRel, pathGitRoot, currentPath)
 	if err != nil {
 		return ps, err
 	}
 	ps = append(ps, newPs...)
 
 	return ps, nil
+}
+
+// isSubRepository checks if the directory at pathAbs is a git repository
+// that is different from the one containing originalPath
+func isSubRepository(pathAbs string, originalPath string) bool {
+	// Resolve symlinks in both paths before checking
+	resolvedPathAbs, err := filepath.EvalSymlinks(pathAbs)
+	if err != nil {
+		// If we can't resolve symlinks, fall back to original path
+		resolvedPathAbs = pathAbs
+	}
+
+	resolvedOriginalPath, err := filepath.EvalSymlinks(originalPath)
+	if err != nil {
+		// If we can't resolve symlinks, fall back to original path
+		resolvedOriginalPath = originalPath
+	}
+
+	// Check if this directory has a .git subdirectory or file (in case of submodule)
+	dotGitPath := filepath.Join(resolvedPathAbs, ".git")
+	if _, err := os.Stat(dotGitPath); err == nil {
+		// Check if this is not the same repository as the original path
+		currentRepo, err := git.PlainOpen(resolvedPathAbs)
+		if err != nil {
+			return false
+		}
+
+		originalRepo, err := git.PlainOpenWithOptions(resolvedOriginalPath, &git.PlainOpenOptions{DetectDotGit: true})
+		if err != nil {
+			return false
+		}
+
+		// Compare by repository paths - if they're different, we've crossed a repo boundary
+		currentRoot, err := getRepoRootPath(currentRepo)
+		if err != nil {
+			return false
+		}
+
+		originalRoot, err := getRepoRootPath(originalRepo)
+		if err != nil {
+			return false
+		}
+
+		// Resolve symlinks in repository roots as well
+		resolvedCurrentRoot, cErr := filepath.EvalSymlinks(currentRoot)
+		if cErr == nil {
+			currentRoot = resolvedCurrentRoot
+		}
+
+		resolvedOriginalRoot, oErr := filepath.EvalSymlinks(originalRoot)
+		if oErr == nil {
+			originalRoot = resolvedOriginalRoot
+		}
+
+		return currentRoot != originalRoot
+	}
+	return false
 }
 
 // returns the path of the root of this repo (ie with the .git dir in it)
@@ -192,9 +241,16 @@ func getRepoRootPath(repo *git.Repository) (string, error) {
 
 // return path (slice) for the parent of path (arg)
 func parentPath(path string) string {
-	// MAYBE: read and return '..', instead of getting the parent lexically
-	//  so that we handle symlinks, and other FS-complexity
-	return filepath.Dir(path)
+	// Handle symlinks and other filesystem complexities by resolving
+	// the real path before getting the parent directory
+	realPath, err := filepath.EvalSymlinks(path)
+	if err != nil {
+		// Fall back to lexical approach if symlink resolution fails
+		return filepath.Dir(path)
+	}
+
+	parent := filepath.Dir(realPath)
+	return parent
 }
 
 // go-git uses a slice internally to represent paths.
