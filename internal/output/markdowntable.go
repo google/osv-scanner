@@ -1,6 +1,7 @@
 package output
 
 import (
+	"fmt"
 	"io"
 
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -13,6 +14,9 @@ func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWr
 	text.DisableColors()
 
 	outputResult := BuildResults(vulnResult)
+
+	printSummary(outputResult, outputWriter)
+	fmt.Fprintln(outputWriter)
 
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)

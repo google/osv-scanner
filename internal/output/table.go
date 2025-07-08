@@ -33,6 +33,10 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	if containsOSResult(outputResult) {
 		printSummaryResult(outputResult, outputWriter, terminalWidth, showAllVulns)
 	} else {
+		// Print summary at the top
+		printSummary(outputResult, outputWriter)
+		fmt.Fprintln(outputWriter)
+
 		outputTable := newTable(outputWriter, terminalWidth)
 		outputTable = tableBuilder(outputTable, outputResult, showAllVulns)
 		if outputTable.Length() != 0 {
@@ -271,7 +275,12 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 					}
 
 					for _, id := range vuln.GroupIDs {
-						links = append(links, OSVBaseVulnerabilityURL+text.Bold.Sprintf("%s", id))
+						// Mark advisories without a fix with a *
+						link := OSVBaseVulnerabilityURL + text.Bold.Sprintf("%s", id)
+						if vuln.FixedVersion == "" || vuln.FixedVersion == UnfixedDescription {
+							link += "*"
+						}
+						links = append(links, link)
 
 						// For container scanning results, if there is a DSA, then skip printing its sub-CVEs.
 						if strings.Split(id, "-")[0] == "DSA" {
