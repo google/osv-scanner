@@ -254,8 +254,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 18 packages affected by 33 known vulnerabilities (2 Critical, 9 High, 17 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
-12 vulnerabilities can be fixed.
+Total 18 packages affected by 34 known vulnerabilities (2 Critical, 9 High, 17 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
+13 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -268,7 +268,7 @@ Ubuntu:22.04
 | dpkg           | 1.21.1ubuntu2.3         | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04   | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8         | Fix Available           |          2 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
-| gnupg2         | 2.2.27-3ubuntu2.1       | Partial fixes Available |          2 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1       | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5        | Fix Available           |          1 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4       | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1 | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
@@ -298,8 +298,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 18 packages affected by 33 known vulnerabilities (2 Critical, 9 High, 17 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
-12 vulnerabilities can be fixed.
+Total 18 packages affected by 34 known vulnerabilities (2 Critical, 9 High, 17 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
+13 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -312,7 +312,7 @@ Ubuntu:22.04
 | dpkg           | 1.21.1ubuntu2.3         | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04   | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8         | Fix Available           |          2 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
-| gnupg2         | 2.2.27-3ubuntu2.1       | Partial fixes Available |          2 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1       | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5        | Fix Available           |          1 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4       | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1 | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
@@ -2232,10 +2232,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "USN-7412-1",
+            "USN-7412-2",
             "UBUNTU-CVE-2022-3219",
             "UBUNTU-CVE-2025-30258"
           ],
-          "groups": 2
+          "groups": 3
         },
         {
           "package": {
