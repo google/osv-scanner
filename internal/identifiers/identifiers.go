@@ -14,6 +14,7 @@ func MostUpstreamsOrder(a, b osvschema.Vulnerability) int {
 	} else if len(a.Upstream) < len(b.Upstream) {
 		return 1
 	}
+
 	return IDSortFunc(a.ID, b.ID)
 }
 
