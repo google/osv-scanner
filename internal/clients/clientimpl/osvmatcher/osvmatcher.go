@@ -28,6 +28,16 @@ type OSVMatcher struct {
 	InitialQueryTimeout time.Duration
 }
 
+func New(initialQueryTimeout time.Duration, userAgent string) *OSVMatcher {
+	client := *osvdev.DefaultClient()
+	client.Config.UserAgent = userAgent
+
+	return &OSVMatcher{
+		Client:              client,
+		InitialQueryTimeout: initialQueryTimeout,
+	}
+}
+
 // MatchVulnerabilities matches vulnerabilities for a list of packages.
 func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	var batchResp *osvdev.BatchedResponse
