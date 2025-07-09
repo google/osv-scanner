@@ -275,13 +275,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 					}
 
 					for _, id := range vuln.GroupIDs {
-						// Mark advisories without a fix with a *
-						link := OSVBaseVulnerabilityURL + text.Bold.Sprintf("%s", id)
-						if vuln.FixedVersion == "" || vuln.FixedVersion == UnfixedDescription {
-							link += "*"
-						}
-						links = append(links, link)
-
+						links = append(links, OSVBaseVulnerabilityURL+text.Bold.Sprintf("%s", id))
 						// For container scanning results, if there is a DSA, then skip printing its sub-CVEs.
 						if strings.Split(id, "-")[0] == "DSA" {
 							break
@@ -317,7 +311,6 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 						outputRow = append(outputRow, name)
 						outputRow = append(outputRow, pkg.InstalledVersion)
 					}
-
 
 					outputRow = append(outputRow, vuln.FixedVersion)
 
