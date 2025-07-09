@@ -72,7 +72,7 @@ func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
 }
 
 func tableBuilder(outputTable table.Writer, result Result, showAllVulns bool) table.Writer {
-	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
+	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Fixed Version", "Source"})
 	rows := tableBuilderInner(result, VulnTypeRegular)
 	for _, elem := range rows {
 		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
@@ -317,6 +317,9 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 						outputRow = append(outputRow, name)
 						outputRow = append(outputRow, pkg.InstalledVersion)
 					}
+
+
+					outputRow = append(outputRow, vuln.FixedVersion)
 
 					// todo: see if we want to start including any of this information
 					p := strings.TrimPrefix(source.Name, ":")
