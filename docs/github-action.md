@@ -279,7 +279,6 @@ jobs:
       scan-args: |-
         --lockfile=osv-scanner:osv-scanner-deps.json
         --recursive
-        --skip-git
         ./
     permissions:
       security-events: write

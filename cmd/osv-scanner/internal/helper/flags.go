@@ -3,33 +3,20 @@ package helper
 import (
 	"context"
 	"fmt"
-	"io"
-	"net/http"
-	"os"
 	"slices"
 	"strings"
-	"time"
 
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/reporter"
-	"github.com/google/osv-scanner/v2/internal/spdx"
-	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/urfave/cli/v3"
-	"golang.org/x/term"
 )
 
-// OfflineFlags is a map of flags which require network access to operate,
+// offlineFlags is a map of flags which require network access to operate,
 // with the values to set them to in order to disable them
-var OfflineFlags = map[string]string{
+var offlineFlags = map[string]string{
 	"offline-vulnerabilities": "true",
 	"no-resolve":              "true",
 }
-
-// sets default port(8000) as a global variable
-var (
-	servePort = "8000" // default port
-)
 
 // a "boolean or list" flag whose presence indicates a summary of licenses should
 // be printed, and whose (optional) value will be a comma-delimited list of licenses
@@ -62,7 +49,8 @@ func (g *allowedLicencesFlag) String() string {
 	return strings.Join(g.allowlist, ",")
 }
 
-func GetScanGlobalFlags(defaultExtractors []string) []cli.Flag {
+// BuildCommonScanFlags returns a slice of flags which are common to all scan (sub)commands
+func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 	return []cli.Flag{
 		&cli.StringFlag{
 			Name:      "config",
@@ -127,7 +115,7 @@ func GetScanGlobalFlags(defaultExtractors []string) []cli.Flag {
 					return nil
 				}
 				// Disable the features requiring network access.
-				for flag, value := range OfflineFlags {
+				for flag, value := range offlineFlags {
 					// TODO(michaelkedar): do something if the flag was already explicitly set.
 
 					// Skip setting the flag if the current command doesn't have it.
@@ -181,104 +169,12 @@ func GetScanGlobalFlags(defaultExtractors []string) []cli.Flag {
 		},
 		&cli.StringSliceFlag{
 			Name:  "experimental-extractors",
-			Usage: "list of specific extractors and ExtractorPresets of extractors to use",
+			Usage: "list of specific extractors and presets of extractors to use",
 			Value: defaultExtractors,
 		},
 		&cli.StringSliceFlag{
 			Name:  "experimental-disable-extractors",
-			Usage: "list of specific extractors and ExtractorPresets of extractors to not use",
+			Usage: "list of specific extractors and presets of extractors to not use",
 		},
-	}
-}
-
-// ServeHTML serves the single HTML file for remote accessing.
-// The program will keep running to serve the HTML report on localhost
-// until the user manually terminates it (e.g. using Ctrl+C).
-func ServeHTML(outputPath string) {
-	localhostURL := fmt.Sprintf("http://localhost:%s/", servePort)
-	cmdlogger.Infof("Serving HTML report at %s", localhostURL)
-	cmdlogger.Infof("If you are accessing remotely, use the following SSH command:")
-	cmdlogger.Infof("`ssh -L local_port:destination_server_ip:%s ssh_server_hostname`", servePort)
-	server := &http.Server{
-		Addr: ":" + servePort,
-		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			http.ServeFile(w, r, outputPath)
-		}),
-		ReadHeaderTimeout: 3 * time.Second,
-	}
-	if err := server.ListenAndServe(); err != nil {
-		cmdlogger.Errorf("Failed to start server: %v", err)
-	}
-}
-
-func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns *models.VulnerabilityResults, showAllVulns bool) error {
-	termWidth := 0
-	var err error
-	if outputPath != "" { // Output is definitely a file
-		stdout, err = os.Create(outputPath)
-		if err != nil {
-			return fmt.Errorf("failed to create output file: %w", err)
-		}
-	} else { // Output might be a terminal
-		if stdoutAsFile, ok := stdout.(*os.File); ok {
-			termWidth, _, err = term.GetSize(int(stdoutAsFile.Fd()))
-			if err != nil { // If output is not a terminal,
-				termWidth = 0
-			}
-		}
-	}
-
-	writer := stdout
-
-	if format == "gh-annotations" {
-		writer = stderr
-	}
-
-	return reporter.PrintResult(diffVulns, format, writer, termWidth, showAllVulns)
-}
-
-func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
-	if !cmd.IsSet("licenses") {
-		return []string{}, nil
-	}
-
-	allowlist := cmd.Generic("licenses").(*allowedLicencesFlag).allowlist
-
-	if len(allowlist) == 0 {
-		return []string{}, nil
-	}
-
-	if unrecognized := spdx.Unrecognized(allowlist); len(unrecognized) > 0 {
-		return nil, fmt.Errorf("--licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: %s", strings.Join(unrecognized, ","))
-	}
-
-	if cmd.Bool("offline") {
-		allowlist = []string{}
-	}
-
-	return allowlist, nil
-}
-
-func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) osvscanner.ScannerActions {
-	return osvscanner.ScannerActions{
-		IncludeGitRoot:     cmd.Bool("include-git-root"),
-		ConfigOverridePath: cmd.String("config"),
-		ShowAllPackages:    cmd.Bool("all-packages"),
-		ShowAllVulns:       cmd.Bool("all-vulns"),
-
-		CompareOffline:        cmd.Bool("offline-vulnerabilities"),
-		DownloadDatabases:     cmd.Bool("download-offline-databases"),
-		LocalDBPath:           cmd.String("local-db-path"),
-		ScanLicensesSummary:   cmd.IsSet("licenses"),
-		ScanLicensesAllowlist: scanLicensesAllowlist,
-	}
-}
-
-func GetExperimentalScannerActions(cmd *cli.Command) osvscanner.ExperimentalScannerActions {
-	return osvscanner.ExperimentalScannerActions{
-		Extractors: ResolveEnabledExtractors(
-			cmd.StringSlice("experimental-extractors"),
-			cmd.StringSlice("experimental-disable-extractors"),
-		),
 	}
 }

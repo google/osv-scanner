@@ -46,6 +46,9 @@ linters:
         - pattern: ^testing.T.Skip
           pkg: ^testing$
           msg: go-snaps needs to know the test has been skipped, so use `testutility.Skip` instead
+        - pattern: ^os.Getwd
+          pkg: ^os$
+          msg: use `testutility.GetCurrentWorkingDirectory`
       analyze-types: true
     gocritic:
       disabled-checks:
@@ -82,6 +85,8 @@ linters:
         - name: errorf
           disabled: false
         - name: exported
+          disabled: false
+        - name: import-alias-naming
           disabled: false
         - name: indent-error-flow
           disabled: false
@@ -133,6 +138,8 @@ linters:
       - linters:
           - dupl
         path: _test\.go
+      - path-except: _test\.go
+        text: use `testutility.GetCurrentWorkingDirectory`
     paths:
       - internal/thirdparty/
       - third_party$

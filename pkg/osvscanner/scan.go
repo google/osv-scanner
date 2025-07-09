@@ -165,10 +165,13 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 			capabilities.OS = plugin.OSWindows
 		}
 
+		plugins := make([]plugin.Plugin, len(dirExtractors))
+		for i, ext := range dirExtractors {
+			plugins[i] = ext.(plugin.Plugin)
+		}
+
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
-			FilesystemExtractors:  dirExtractors,
-			StandaloneExtractors:  nil,
-			Detectors:             nil,
+			Plugins:               plugins,
 			Capabilities:          &capabilities,
 			ScanRoots:             fs.RealFSScanRoots(root),
 			PathsToExtract:        paths,

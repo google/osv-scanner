@@ -19,6 +19,7 @@ import (
 	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
@@ -255,13 +256,13 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		}
 	}
 
-	results := buildVulnerabilityResults(actions, &scanResult)
+	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
 
 	if actions.ScanLicensesSummary {
-		results.LicenseSummary = buildLicenseSummary(&scanResult)
+		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
-	filtered := filterResults(&results, &scanResult.ConfigManager, actions.ShowAllPackages)
+	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		cmdlogger.Infof(
 			"Filtered %d %s from output",
@@ -270,7 +271,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		)
 	}
 
-	return results, determineReturnErr(results, actions.ShowAllVulns, false)
+	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns, false)
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
@@ -322,14 +323,21 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}
 	}()
 
+	filesystemExtractors := getExtractors(
+		scalibrextract.ExtractorsArtifacts,
+		accessors,
+		actions,
+	)
+
+	plugins := make([]plugin.Plugin, len(filesystemExtractors))
+	for i, ext := range filesystemExtractors {
+		plugins[i] = ext.(plugin.Plugin)
+	}
+
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
-		FilesystemExtractors: getExtractors(
-			scalibrextract.ExtractorsArtifacts,
-			accessors,
-			actions,
-		),
+		Plugins: plugins,
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)

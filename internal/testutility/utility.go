@@ -10,10 +10,22 @@ import (
 	"github.com/gkampitakis/go-snaps/snaps"
 )
 
+// GetCurrentWorkingDirectory returns the current working directory, raising
+// a fatal error if it cannot be retrieved for some reason
+func GetCurrentWorkingDirectory(t *testing.T) string {
+	t.Helper()
+
+	dir, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("failed to get current directory: %v", err)
+	}
+
+	return dir
+}
+
 // applyWindowsReplacements will replace any matching strings if on Windows
 func applyWindowsReplacements(content string, replacements map[string]string) string {
-	if //goland:noinspection GoBoolExpressions
-	runtime.GOOS == "windows" {
+	if runtime.GOOS == "windows" {
 		for match, replacement := range replacements {
 			content = strings.ReplaceAll(content, match, replacement)
 		}
@@ -65,8 +77,7 @@ func SkipIfNotAcceptanceTesting(t *testing.T, reason string) {
 }
 
 func ValueIfOnWindows(win, or string) string {
-	if //goland:noinspection GoBoolExpressions
-	runtime.GOOS == "windows" {
+	if runtime.GOOS == "windows" {
 		return win
 	}
 

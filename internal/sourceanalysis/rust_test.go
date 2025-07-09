@@ -67,10 +67,7 @@ func Test_rustBuildSource(t *testing.T) {
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires rust toolchain to be installed")
 	t.Parallel()
 
-	workingDir, err := os.Getwd()
-	if err != nil {
-		t.Error(err)
-	}
+	cwd := testutility.GetCurrentWorkingDirectory(t)
 
 	type args struct {
 		source models.SourceInfo
@@ -89,7 +86,7 @@ func Test_rustBuildSource(t *testing.T) {
 				},
 			},
 			want: []string{
-				workingDir + filepath.FromSlash("/fixtures-rust/rust-project/target/release/test-project") + testutility.ValueIfOnWindows(".exe", ""),
+				cwd + filepath.FromSlash("/fixtures-rust/rust-project/target/release/test-project") + testutility.ValueIfOnWindows(".exe", ""),
 			},
 		},
 	}

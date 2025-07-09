@@ -2,7 +2,6 @@ package vendored_test
 
 import (
 	"io/fs"
-	"os"
 	"path/filepath"
 	"runtime"
 	"testing"
@@ -101,10 +100,7 @@ func TestExtractor_Extract(t *testing.T) {
 		// TODO: Reenable when #657 is resolved.
 		testutility.Skip(t, "Temporarily disabled until #657 is resolved")
 	}
-	cwd, err := os.Getwd()
-	if err != nil {
-		t.Fatal(err)
-	}
+	cwd := testutility.GetCurrentWorkingDirectory(t)
 
 	tests := []extracttest.TestTableEntry{
 		{
