@@ -117,7 +117,9 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// ------------
 	if actions.CompareOffline {
 		// --- Vulnerability Matcher ---
-		externalAccessors.VulnMatcher, err = localmatcher.NewLocalMatcher(actions.LocalDBPath, "osv-scanner_scan/"+version.OSVVersion, actions.DownloadDatabases)
+		externalAccessors.VulnMatcher, err =
+			localmatcher.NewLocalMatcher(actions.LocalDBPath,
+				"osv-scanner_scan/"+version.OSVVersion, actions.DownloadDatabases)
 		if err != nil {
 			return ExternalAccessors{}, err
 		}
@@ -128,10 +130,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// Online Mode
 	// -----------
 	// --- Vulnerability Matcher ---
-	externalAccessors.VulnMatcher = &osvmatcher.OSVMatcher{
-		Client:              *osvdev.DefaultClient(),
-		InitialQueryTimeout: 5 * time.Minute,
-	}
+	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, "osv-scanner_scan/"+version.OSVVersion)
 
 	// --- License Matcher ---
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
