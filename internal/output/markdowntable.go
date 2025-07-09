@@ -10,6 +10,7 @@ import (
 )
 
 // PrintMarkdownTableResults prints the osv scan results into a human friendly table.
+// The output includes a 'Fixed Version' column, showing the version where the vulnerability is fixed, if available.
 func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, showAllVulns bool) {
 	text.DisableColors()
 
