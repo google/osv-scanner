@@ -11,13 +11,13 @@ import (
 )
 
 // createSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
-func createSourceRemediationTable(source models.PackageSource, groupFixedVersions map[string][]string) table.Writer {
+func createSourceRemediationTable(source models.PackageSource, groupedFixedVersions map[string][]string) table.Writer {
 	remediationTable := table.NewWriter()
 	remediationTable.AppendHeader(table.Row{"Package", "Vulnerability ID", "CVSS", "Current Version", "Fixed Version"})
 
 	for _, pv := range source.Packages {
 		for _, group := range pv.Groups {
-			fixedVersions := groupFixedVersions[source.Source.String()+":"+group.IndexString()]
+			fixedVersions := groupedFixedVersions[source.Source.String()+":"+group.IndexString()]
 
 			vulnIDs := []string{}
 			for _, id := range group.IDs {
@@ -40,7 +40,7 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 	flattened := vulnResult.Flatten()
 
 	// TODO: Also support last affected
-	groupFixedVersions := groupFixedVersions(flattened)
+	groupedFixedVersions := groupFixedVersions(flattened)
 	workingDir := mustGetWorkingDirectory()
 
 	for _, source := range vulnResult.Results {
@@ -55,7 +55,7 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 
 		artifactPath = filepath.ToSlash(artifactPath)
 
-		remediationTable := createSourceRemediationTable(source, groupFixedVersions)
+		remediationTable := createSourceRemediationTable(source, groupedFixedVersions)
 
 		renderedTable := remediationTable.Render()
 		// This is required as github action annotations must be on the same terminal line
