@@ -40,7 +40,7 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 	flattened := vulnResult.Flatten()
 
 	// TODO: Also support last affected
-	groupFixedVersions := GroupFixedVersions(flattened)
+	groupFixedVersions := groupFixedVersions(flattened)
 	workingDir := mustGetWorkingDirectory()
 
 	for _, source := range vulnResult.Results {

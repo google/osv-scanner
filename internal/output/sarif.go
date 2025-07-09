@@ -18,7 +18,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"github.com/owenrumney/go-sarif/v3/pkg/report/v210/sarif"
 )
 
@@ -95,34 +94,6 @@ reason = "Your reason for ignoring this vulnerability"
 """"""
 {{end}}
 `
-
-// GroupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
-// `Source:ID`
-func GroupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]string {
-	groupFixedVersions := map[string][]string{}
-
-	// Get the fixed versions indexed by each group of vulnerabilities
-	// Prepend source path as same vulnerability in two projects should be counted twice
-	// Remember to sort and compact before displaying later
-	for _, vf := range flattened {
-		groupIdx := vf.Source.String() + ":" + vf.GroupInfo.IndexString()
-		pkg := osvschema.Package{
-			Ecosystem: vf.Package.Ecosystem,
-			Name:      vf.Package.Name,
-		}
-		groupFixedVersions[groupIdx] =
-			append(groupFixedVersions[groupIdx], vulns.GetFixedVersions(vf.Vulnerability)[pkg]...)
-	}
-
-	// Remove duplicates
-	for k := range groupFixedVersions {
-		fixedVersions := groupFixedVersions[k]
-		slices.Sort(fixedVersions)
-		groupFixedVersions[k] = slices.Compact(fixedVersions)
-	}
-
-	return groupFixedVersions
-}
 
 // createSARIFAffectedPkgTable creates a vulnerability table which includes the affected versions for a specific source file
 func createSARIFAffectedPkgTable(pkgWithSrc []pkgWithSource) table.Writer {
