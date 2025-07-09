@@ -2,7 +2,21 @@ package identifiers
 
 import (
 	"strings"
+
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
+
+// MostUpstreamsOrder orders by which vuln has the most upstreams,
+// thereby finding the furthest downstream vuln identifier.
+func MostUpstreamsOrder(a, b osvschema.Vulnerability) int {
+	if len(a.Upstream) > len(b.Upstream) {
+		return -1
+	} else if len(a.Upstream) < len(b.Upstream) {
+		return 1
+	}
+
+	return IDSortFunc(a.ID, b.ID)
+}
 
 func prefixOrder(prefix string) int {
 	switch prefix {

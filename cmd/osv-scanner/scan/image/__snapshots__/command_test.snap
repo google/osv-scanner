@@ -829,8 +829,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
-            "GHSA-mq26-g339-26xf",
-            "PYSEC-2023-228"
+            "PYSEC-2023-228",
+            "GHSA-mq26-g339-26xf"
           ],
           "groups": 1
         }
@@ -852,11 +852,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
+            "PYSEC-2022-43012",
+            "PYSEC-2025-49",
             "GHSA-5rjg-fvgr-3xxf",
             "GHSA-cx63-2mw6-8hw5",
-            "GHSA-r9hx-vwmv-q579",
-            "PYSEC-2022-43012",
-            "PYSEC-2025-49"
+            "GHSA-r9hx-vwmv-q579"
           ],
           "groups": 3
         }
@@ -878,11 +878,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
+            "PYSEC-2021-98",
             "GHSA-68w8-qjq3-2gfm",
             "GHSA-7xr5-9hcq-chf9",
             "GHSA-8x94-hmjh-97hq",
-            "GHSA-rrqc-c2jx-6jgv",
-            "PYSEC-2021-98"
+            "GHSA-rrqc-c2jx-6jgv"
           ],
           "groups": 4
         }
@@ -904,12 +904,12 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
-            "GHSA-562c-5r94-xh97",
-            "GHSA-5wv5-4vpf-pj6m",
-            "GHSA-m2qf-hxjv-5gpq",
             "PYSEC-2018-66",
             "PYSEC-2019-179",
-            "PYSEC-2023-62"
+            "PYSEC-2023-62",
+            "GHSA-562c-5r94-xh97",
+            "GHSA-5wv5-4vpf-pj6m",
+            "GHSA-m2qf-hxjv-5gpq"
           ],
           "groups": 3
         }
@@ -931,8 +931,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
-            "GHSA-jjg7-2v4v-x38h",
-            "PYSEC-2024-60"
+            "PYSEC-2024-60",
+            "GHSA-jjg7-2v4v-x38h"
           ],
           "groups": 1
         }
@@ -954,8 +954,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
-            "GHSA-mq26-g339-26xf",
-            "PYSEC-2023-228"
+            "PYSEC-2023-228",
+            "GHSA-mq26-g339-26xf"
           ],
           "groups": 1
         }
@@ -977,10 +977,10 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
+            "PYSEC-2023-74",
             "GHSA-9hjg-9r4m-mvj7",
             "GHSA-9wx4-h78v-vm56",
-            "GHSA-j8r2-6x86-q33q",
-            "PYSEC-2023-74"
+            "GHSA-j8r2-6x86-q33q"
           ],
           "groups": 3
         }
@@ -1002,11 +1002,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
+            "PYSEC-2022-43012",
+            "PYSEC-2025-49",
             "GHSA-5rjg-fvgr-3xxf",
             "GHSA-cx63-2mw6-8hw5",
-            "GHSA-r9hx-vwmv-q579",
-            "PYSEC-2022-43012",
-            "PYSEC-2025-49"
+            "GHSA-r9hx-vwmv-q579"
           ],
           "groups": 3
         }
@@ -1028,15 +1028,15 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
+            "PYSEC-2020-148",
+            "PYSEC-2021-108",
+            "PYSEC-2023-192",
+            "PYSEC-2023-212",
             "GHSA-34jh-p97f-mpxf",
             "GHSA-g4mx-q9vg-27p4",
             "GHSA-pq67-6m6q-mj2v",
             "GHSA-v845-jxx5-vc9f",
-            "GHSA-wqvq-5m8c-6g24",
-            "PYSEC-2020-148",
-            "PYSEC-2021-108",
-            "PYSEC-2023-192",
-            "PYSEC-2023-212"
+            "GHSA-wqvq-5m8c-6g24"
           ],
           "groups": 6
         }
@@ -1104,8 +1104,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
-            "DLA-3807-1",
-            "DLA-3850-1"
+            "DLA-3850-1",
+            "DLA-3807-1"
           ],
           "groups": 2
         },
@@ -1120,8 +1120,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
-            "DLA-3807-1",
-            "DLA-3850-1"
+            "DLA-3850-1",
+            "DLA-3807-1"
           ],
           "groups": 2
         },
@@ -1197,8 +1197,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
-            "DLA-3586-1",
-            "DLA-3682-1"
+            "DLA-3682-1",
+            "DLA-3586-1"
           ],
           "groups": 2
         },
@@ -1258,8 +1258,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
-            "DLA-3586-1",
-            "DLA-3682-1"
+            "DLA-3682-1",
+            "DLA-3586-1"
           ],
           "groups": 2
         },
@@ -1319,8 +1319,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
-            "DLA-3586-1",
-            "DLA-3682-1"
+            "DLA-3682-1",
+            "DLA-3586-1"
           ],
           "groups": 2
         },
@@ -1335,8 +1335,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
             }
           },
           "vulnerabilities": [
-            "DLA-3586-1",
-            "DLA-3682-1"
+            "DLA-3682-1",
+            "DLA-3586-1"
           ],
           "groups": 2
         },
@@ -2231,10 +2231,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2022-3219",
-            "UBUNTU-CVE-2025-30258",
             "USN-7412-1",
-            "USN-7412-2"
+            "USN-7412-2",
+            "UBUNTU-CVE-2022-3219",
+            "UBUNTU-CVE-2025-30258"
           ],
           "groups": 3
         },
@@ -2249,11 +2249,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7259-1",
+            "USN-7541-1",
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
-            "UBUNTU-CVE-2025-4802",
-            "USN-7259-1",
-            "USN-7541-1"
+            "UBUNTU-CVE-2025-4802"
           ],
           "groups": 3
         },
@@ -2268,11 +2268,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7259-1",
+            "USN-7541-1",
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
-            "UBUNTU-CVE-2025-4802",
-            "USN-7259-1",
-            "USN-7541-1"
+            "UBUNTU-CVE-2025-4802"
           ],
           "groups": 3
         },
@@ -2287,8 +2287,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2025-1390",
-            "USN-7287-1"
+            "USN-7287-1",
+            "UBUNTU-CVE-2025-1390"
           ],
           "groups": 1
         },
@@ -2334,8 +2334,8 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2024-12243",
-            "USN-7281-1"
+            "USN-7281-1",
+            "UBUNTU-CVE-2024-12243"
           ],
           "groups": 1
         },
@@ -2350,14 +2350,14 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7257-1",
+            "USN-7314-1",
+            "USN-7542-1",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
-            "UBUNTU-CVE-2025-3576",
-            "USN-7257-1",
-            "USN-7314-1",
-            "USN-7542-1"
+            "UBUNTU-CVE-2025-3576"
           ],
           "groups": 3
         },
@@ -2372,14 +2372,14 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7257-1",
+            "USN-7314-1",
+            "USN-7542-1",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
-            "UBUNTU-CVE-2025-3576",
-            "USN-7257-1",
-            "USN-7314-1",
-            "USN-7542-1"
+            "UBUNTU-CVE-2025-3576"
           ],
           "groups": 3
         },
@@ -2394,14 +2394,14 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7257-1",
+            "USN-7314-1",
+            "USN-7542-1",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
-            "UBUNTU-CVE-2025-3576",
-            "USN-7257-1",
-            "USN-7314-1",
-            "USN-7542-1"
+            "UBUNTU-CVE-2025-3576"
           ],
           "groups": 3
         },
@@ -2416,14 +2416,14 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7257-1",
+            "USN-7314-1",
+            "USN-7542-1",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
-            "UBUNTU-CVE-2025-3576",
-            "USN-7257-1",
-            "USN-7314-1",
-            "USN-7542-1"
+            "UBUNTU-CVE-2025-3576"
           ],
           "groups": 3
         },
@@ -2438,9 +2438,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "UBUNTU-CVE-2025-6141",
             "UBUNTU-CVE-2023-45918",
-            "UBUNTU-CVE-2023-50495",
-            "UBUNTU-CVE-2025-6141"
+            "UBUNTU-CVE-2023-50495"
           ],
           "groups": 3
         },
@@ -2455,9 +2455,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "UBUNTU-CVE-2025-6141",
             "UBUNTU-CVE-2023-45918",
-            "UBUNTU-CVE-2023-50495",
-            "UBUNTU-CVE-2025-6141"
+            "UBUNTU-CVE-2023-50495"
           ],
           "groups": 3
         },
@@ -2472,9 +2472,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020",
-            "USN-7580-1"
+            "UBUNTU-CVE-2025-6020"
           ],
           "groups": 2
         },
@@ -2489,9 +2489,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020",
-            "USN-7580-1"
+            "UBUNTU-CVE-2025-6020"
           ],
           "groups": 2
         },
@@ -2506,9 +2506,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020",
-            "USN-7580-1"
+            "UBUNTU-CVE-2025-6020"
           ],
           "groups": 2
         },
@@ -2523,9 +2523,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7580-1",
             "UBUNTU-CVE-2024-10041",
-            "UBUNTU-CVE-2025-6020",
-            "USN-7580-1"
+            "UBUNTU-CVE-2025-6020"
           ],
           "groups": 2
         },
@@ -2570,11 +2570,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7278-1",
             "UBUNTU-CVE-2024-13176",
             "UBUNTU-CVE-2024-41996",
             "UBUNTU-CVE-2024-9143",
-            "UBUNTU-CVE-2025-27587",
-            "USN-7278-1"
+            "UBUNTU-CVE-2025-27587"
           ],
           "groups": 3
         },
@@ -2605,9 +2605,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2023-7008",
             "UBUNTU-CVE-2025-4598",
-            "USN-7559-1"
+            "USN-7559-1",
+            "UBUNTU-CVE-2023-7008"
           ],
           "groups": 2
         },
@@ -2622,9 +2622,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7275-1",
             "UBUNTU-CVE-2021-46848",
-            "UBUNTU-CVE-2024-12133",
-            "USN-7275-1"
+            "UBUNTU-CVE-2024-12133"
           ],
           "groups": 2
         },
@@ -2639,9 +2639,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "UBUNTU-CVE-2025-6141",
             "UBUNTU-CVE-2023-45918",
-            "UBUNTU-CVE-2023-50495",
-            "UBUNTU-CVE-2025-6141"
+            "UBUNTU-CVE-2023-50495"
           ],
           "groups": 3
         },
@@ -2656,9 +2656,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2023-7008",
             "UBUNTU-CVE-2025-4598",
-            "USN-7559-1"
+            "USN-7559-1",
+            "UBUNTU-CVE-2023-7008"
           ],
           "groups": 2
         },
@@ -2704,9 +2704,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "UBUNTU-CVE-2025-6141",
             "UBUNTU-CVE-2023-45918",
-            "UBUNTU-CVE-2023-50495",
-            "UBUNTU-CVE-2025-6141"
+            "UBUNTU-CVE-2023-50495"
           ],
           "groups": 3
         },
@@ -2721,9 +2721,9 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "UBUNTU-CVE-2025-6141",
             "UBUNTU-CVE-2023-45918",
-            "UBUNTU-CVE-2023-50495",
-            "UBUNTU-CVE-2025-6141"
+            "UBUNTU-CVE-2023-50495"
           ],
           "groups": 3
         },
@@ -2754,11 +2754,11 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "USN-7434-1",
             "UBUNTU-CVE-2023-31486",
             "UBUNTU-CVE-2023-47039",
             "UBUNTU-CVE-2024-56406",
-            "UBUNTU-CVE-2025-40909",
-            "USN-7434-1"
+            "UBUNTU-CVE-2025-40909"
           ],
           "groups": 4
         }
