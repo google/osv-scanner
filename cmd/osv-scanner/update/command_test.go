@@ -25,7 +25,7 @@ func TestCommand(t *testing.T) {
 			exit:     0,
 		},
 		{
-			name:     "invalid_data_source",
+			name:     "errors_with_invalid_data_source",
 			args:     []string{"", "update", "--data-source", "github"},
 			manifest: "./fixtures/pom.xml",
 			exit:     127,

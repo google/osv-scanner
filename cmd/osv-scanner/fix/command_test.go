@@ -68,6 +68,11 @@ func TestCommand(t *testing.T) {
 			exit:     0,
 			manifest: "./fixtures/override-maven/pom.xml",
 		},
+		{
+			name: "errors_with_invalid_data_source",
+			args: []string{"", "fix", "--data-source=github"},
+			exit: 127,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

@@ -890,6 +890,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "./fixtures/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
+		{
+			Name: "errors_with_invalid_data_source",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--data-source=github", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
+			Exit: 127,
+		},
 	}
 
 	for _, tt := range tests {
