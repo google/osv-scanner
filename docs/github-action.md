@@ -54,7 +54,7 @@ permissions:
 
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.0.3"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.1.0"
 ```
 
 ### View results
@@ -97,7 +97,7 @@ permissions:
 
 jobs:
   scan-scheduled:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.0.3"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.1.0"
 ```
 
 As written, the scanner will run on 12:30 pm UTC every Monday, and also on every push to the main branch. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
@@ -132,7 +132,7 @@ permissions:
 
 jobs:
   osv-scan:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.0.3"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.1.0"
     with:
       # Only scan the top level go.mod file without recursively scanning directories since
       # this is pipeline is about releasing the go module and binary
@@ -184,7 +184,7 @@ Examples
 ```yml
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.0.3"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.1.0"
     with:
       scan-args: |-
         --lockfile=./path/to/lockfile1
@@ -196,7 +196,7 @@ jobs:
 ```yml
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.0.3"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.1.0"
     with:
       scan-args: |-
         --recursive
@@ -222,7 +222,7 @@ jobs:
     name: Vulnerability scanning
     # makes sure the extraction step is completed before running the scanner
     needs: extract-deps
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.0.3"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.1.0"
     with:
       # Download the artifact uploaded in extract-deps step
       download-artifact: converted-OSV-Scanner-deps
