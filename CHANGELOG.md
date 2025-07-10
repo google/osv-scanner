@@ -12,7 +12,6 @@
 - [Feature #1961](https://github.com/google/osv-scanner/pull/1961) Deprecate the `--sbom` flag in favor of the existing `-L/--lockfile` flag for scanning SBOMs.
 - [Feature #1963](https://github.com/google/osv-scanner/pull/1963) Stabilize various experimental fields in the output by moving them out of the experimental struct.
 - [Feature #1957](https://github.com/google/osv-scanner/pull/1957) Use a dedicated exit code for invalid configuration files.
-- [Feature #1609](https://github.com/google/osv-scanner/pull/1609) Overhauled internal data structures for improved performance and extensibility.
 
 ### Fixes:
 
@@ -21,10 +20,6 @@
 - [Bug #1982](https://github.com/google/osv-scanner/pull/1982) Correctly parse Ubuntu package information with suffixes (e.g. `:Pro`, `:LTS`).
 - [Bug #2000](https://github.com/google/osv-scanner/pull/2000) Ensure CDATA content in XML is correctly outputted in guided remediation.
 - [Bug #1949](https://github.com/google/osv-scanner/pull/1949) Fix filtering of package types in vulnerability counts.
-
-### Misc:
-
-- [#2001](https://github.com/google/osv-scanner/pull/2001) Add a `v` prefix to stable container image tags (e.g., `v2.0.3`).
 
 # v2.0.3
 
