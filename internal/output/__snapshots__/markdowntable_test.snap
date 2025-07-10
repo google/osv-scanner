@@ -175,7 +175,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-2 |  | npm | mine2 | 3.2.5 | No fix available | path/to/my/second/lockfile |
+| https://osv.dev/OSV-2 |  | npm | mine2 | 3.2.5 | -- | path/to/my/second/lockfile |
 | License Violation | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- |
 | MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
@@ -191,9 +191,9 @@ Total 3 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-2 |  | npm | mine2 | 3.2.5 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/third/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |  | npm | mine2 | 3.2.5 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/third/lockfile |
 | License Violation | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- |
 | MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
@@ -209,9 +209,9 @@ Total 3 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-2 |  | npm | mine2 |  | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/third/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |  | npm | mine2 |  | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/third/lockfile |
 | License Violation | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- |
 | MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
@@ -237,7 +237,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 | License Violation | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- |
 | MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
@@ -262,7 +262,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 | License Violation | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- |
 | MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
@@ -276,7 +276,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 | License Violation | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- |
 | MIT | npm | mine2 | 5.9.0 | path/to/my/second/lockfile |
@@ -290,12 +290,12 @@ Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.2 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-1 |  | npm | mine1 (dev) | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-5 |  | npm | mine1 (dev) | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-2 |  | npm | mine2 (dev) | 3.2.5 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-3 |  | npm | mine3 | 0.4.1 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-5 |  | npm | mine3 | 0.4.1 | No fix available | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.2 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 (dev) | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-5 |  | npm | mine1 (dev) | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |  | npm | mine2 (dev) | 3.2.5 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-3 |  | npm | mine3 | 0.4.1 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5 |  | npm | mine3 | 0.4.1 | -- | path/to/my/second/lockfile |
 
 ---
 
@@ -306,12 +306,12 @@ Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.2 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-5 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-2 |  | npm | mine2 | 3.2.5 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-3 |  | npm | mine3 | 0.4.1 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-5 |  | npm | mine3 | 0.4.1 | No fix available | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.2 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-5 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |  | npm | mine2 | 3.2.5 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-3 |  | npm | mine3 | 0.4.1 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5 |  | npm | mine3 | 0.4.1 | -- | path/to/my/second/lockfile |
 
 ---
 
@@ -330,9 +330,9 @@ Total 3 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-2 |  | npm | mine2 | 3.2.5 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/third/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |  | npm | mine2 | 3.2.5 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/third/lockfile |
 
 ---
 
@@ -343,12 +343,12 @@ Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-2 |  | NuGet | mine2 | 3.2.5 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-1 |  | Packagist | author1/mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-5 |  | Packagist | author1/mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-3 |  | Packagist | author3/mine3 | 0.4.1 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-5 |  | Packagist | author3/mine3 | 0.4.1 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.2 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |  | NuGet | mine2 | 3.2.5 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | Packagist | author1/mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-5 |  | Packagist | author1/mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-3 |  | Packagist | author3/mine3 | 0.4.1 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5 |  | Packagist | author3/mine3 | 0.4.1 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.2 | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -359,13 +359,13 @@ Total 4 packages affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-2 |  | NuGet | mine2 | 3.2.5 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-5 |  | Packagist | author1/mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-3 |  | Packagist | author3/mine3 | 0.4.1 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-5 |  | Packagist | author3/mine3 | 0.4.1 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.2 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |  | NuGet | mine2 | 3.2.5 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5 |  | Packagist | author1/mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-3 |  | Packagist | author3/mine3 | 0.4.1 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5 |  | Packagist | author3/mine3 | 0.4.1 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.2 | -- | path/to/my/first/lockfile |
 | Uncalled vulnerabilities |  |  |  |  |  |  |
-| https://osv.dev/OSV-1 |  | Packagist | author1/mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | Packagist | author1/mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -376,12 +376,12 @@ Total 4 packages affected by 6 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-2 |  | NuGet | mine2 | 3.2.5 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-1 |  | Packagist | author1/mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-5 |  | Packagist | author1/mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-3 |  | Packagist | author3/mine3 | 0.4.1 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-5 |  | Packagist | author3/mine3 | 0.4.1 | No fix available | path/to/my/second/lockfile |
-| https://osv.dev/OSV-1 |  | npm | mine1 |  | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |  | NuGet | mine2 | 3.2.5 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | Packagist | author1/mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-5 |  | Packagist | author1/mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-3 |  | Packagist | author3/mine3 | 0.4.1 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-5 |  | Packagist | author3/mine3 | 0.4.1 | -- | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 |  | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -424,9 +424,9 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 | Uncalled vulnerabilities |  |  |  |  |  |  |
-| https://osv.dev/GHSA-123 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/GHSA-123 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -437,7 +437,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -449,7 +449,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | Uncalled vulnerabilities |  |  |  |  |  |  |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -460,7 +460,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -471,7 +471,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 (dev) | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 (dev) | 1.2.3 | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -483,7 +483,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
 | Uncalled vulnerabilities |  |  |  |  |  |  |
-| https://osv.dev/OSV-1<br/>https://osv.dev/GHSA-123 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1<br/>https://osv.dev/GHSA-123 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -494,7 +494,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1<br/>https://osv.dev/GHSA-123 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1<br/>https://osv.dev/GHSA-123 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -505,7 +505,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -516,7 +516,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 |  | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 |  | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -527,8 +527,8 @@ Total 2 packages affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-2 |  | npm | mine3 | 0.10.2-rc | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-2 |  | npm | mine3 | 0.10.2-rc | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -539,7 +539,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 
 ---
 
@@ -550,7 +550,7 @@ Total 2 packages affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | No fix available | path/to/my/first/lockfile |
-| https://osv.dev/OSV-1 |  | npm | mine1 (dev) | 1.2.3 | No fix available | path/to/my/second/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
+| https://osv.dev/OSV-1 |  | npm | mine1 (dev) | 1.2.3 | -- | path/to/my/second/lockfile |
 
 ---
