@@ -162,7 +162,7 @@ const (
 	VulnTypeUnimportant                         // 2
 )
 
-const UnfixedDescription = "No fix available"
+const UnfixedDescription = "--"
 const VersionUnsupported = "N/A"
 
 // osEcosystems is a list of OS images.
