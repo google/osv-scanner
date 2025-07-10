@@ -23,10 +23,12 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"slices"
 
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	"github.com/google/osv-scalibr/inventory"
+	"github.com/google/osv-scalibr/inventory/vex"
 	"github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
 	"golang.org/x/vuln/scan"
@@ -81,37 +83,55 @@ func (e *Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *i
 		}
 	}
 
-	goProjects := make(map[string]struct{})
-
+	scanned := make(map[string]bool)
 	for _, p := range inv.Packages {
-		for _, extractorName := range p.Plugins {
-			if extractorName == gomod.Name {
-				goProjects[p.Locations[0]] = struct{}{}
+		if !slices.Contains(p.Plugins, gomod.Name) {
+			continue
+		}
+
+		for _, l := range p.Locations {
+			if scanned[l] {
+				continue
 			}
-		}
-	}
+			scanned[l] = true
+			modDir := filepath.Dir(l)
+			absModDir := filepath.Join(string(input.ScanRoot.Path), modDir)
+			findings, err := e.runGovulncheck(ctx, absModDir, goVersion)
+			if err != nil {
+				log.Errorf("govulncheck on %s: %v", modDir, err)
+				continue
+			}
 
-	for project := range goProjects {
-		modDir := filepath.Dir(project)
-		absModDir := filepath.Join(string(input.ScanRoot.Path), modDir)
-		findings, err := e.runGovulncheck(ctx, absModDir, goVersion)
-		if err != nil {
-			log.Errorf("govulncheck on %s: %v", modDir, err)
-			continue
-		}
+			if len(findings) == 0 {
+				continue
+			}
 
-		if len(findings) == 0 {
-			continue
+			e.addSignals(inv, findings)
 		}
-
-		e.addSignals(inv, findings)
 	}
 
 	return nil
 }
 
-func (e *Enricher) addSignals(inv *inventory.Inventory, findings map[string][]*Finding) {
-	// TODO
+func (e *Enricher) addSignals(inv *inventory.Inventory, idToFindings map[string][]*Finding) {
+	idToModuleToCalled := map[string]map[string]bool{}
+	for id, findings := range idToFindings {
+		idToModuleToCalled[id] = map[string]bool{}
+		for _, f := range findings {
+			modulePath := f.Trace[0].Module
+			called := f.Trace[0].Function != ""
+			idToModuleToCalled[f.OSV][modulePath] = called
+		}
+	}
+
+	for _, pv := range inv.PackageVulns {
+		if idToModuleToCalled[pv.ID] != nil && !idToModuleToCalled[pv.ID]["PLACEHOLDER"] {
+			pv.ExploitabilitySignals = append(pv.ExploitabilitySignals, &vex.FindingExploitabilitySignal{
+				Plugin:        Name,
+				Justification: vex.VulnerableCodeNotInExecutePath,
+			})
+		}
+	}
 }
 
 func (e *Enricher) runGovulncheck(ctx context.Context, absModDir string, goVersion string) (map[string][]*Finding, error) {
