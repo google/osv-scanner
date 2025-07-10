@@ -148,21 +148,19 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	testlogger.BeginDirScanMarker()
+	osCapability := determineOS()
+
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
 			DirectFS:      true,
 			RunningSystem: true,
 			Network:       plugin.NetworkOnline,
-			OS:            plugin.OSUnix,
+			OS:            osCapability,
 		}
 
 		if actions.CompareOffline {
 			capabilities.Network = plugin.NetworkOffline
-		}
-
-		if runtime.GOOS == "windows" {
-			capabilities.OS = plugin.OSWindows
 		}
 
 		plugins := make([]plugin.Plugin, len(dirExtractors))
@@ -239,4 +237,17 @@ func getRootDir(path string) string {
 	}
 
 	return ""
+}
+
+func determineOS() plugin.OS {
+	switch runtime.GOOS {
+	case "windows":
+		return plugin.OSWindows
+	case "darwin":
+		return plugin.OSMac
+	case "linux":
+		return plugin.OSLinux
+	default:
+		return plugin.OSAny
+	}
 }
