@@ -1,0 +1,47 @@
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-07-08T05:23:38Z",
+    "tools": {
+      "components": [
+        {
+          "type": "application",
+          "name": "SCALIBR",
+          "externalReferences": [
+            {
+              "url": "https://github.com/google/osv-scalibr",
+              "type": "website"
+            }
+          ]
+        }
+      ]
+    },
+    "authors": [
+      {}
+    ],
+    "component": {
+      "bom-ref": "a5add6de-55de-40a9-aa0d-1f03de5ab308",
+      "type": "",
+      "name": ""
+    }
+  },
+  "components": [
+    {
+      "bom-ref": "6756e583-83d8-4a08-a573-d2e9506cbd93",
+      "type": "library",
+      "name": "zlib",
+      "version": "1.2.12-r1",
+      "purl": "pkg:apk/alpine/zlib@1.2.12-r1?arch=x86_64\u0026distro=3.22.0\u0026origin=zlib",
+      "evidence": {
+        "occurrences": [
+          {
+            "location": "lib/apk/db/installed"
+          }
+        ]
+      }
+    }
+  ]
+}
