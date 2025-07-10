@@ -23,8 +23,8 @@
 - [Bug #1949](https://github.com/google/osv-scanner/pull/1949) Fix filtering of package types in vulnerability counts.
 
 ### Misc:
-- [#2001](https://github.com/google/osv-scanner/pull/2001) Add a `v` prefix to stable container image tags (e.g., `v2.0.3`).
 
+- [#2001](https://github.com/google/osv-scanner/pull/2001) Add a `v` prefix to stable container image tags (e.g., `v2.0.3`).
 
 # v2.0.3
 
