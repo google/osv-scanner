@@ -3,6 +3,7 @@ package source_test
 import (
 	"os"
 	"path/filepath"
+	"runtime"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
@@ -1005,5 +1006,143 @@ func TestCommand_HtmlFile(t *testing.T) {
 
 	if err != nil {
 		t.Errorf("Unexpected %v", err)
+	}
+}
+
+func TestCommand_WithDetector_OnLinux(t *testing.T) {
+	if runtime.GOOS != "linux" {
+		testutility.Skip(t, "The detector in this test only works on Linux")
+	}
+
+	testDir := testutility.CreateTestDir(t)
+	err := os.CopyFS(testDir, os.DirFS("./fixtures/locks-many"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = os.CopyFS(testDir+"/bin", os.DirFS("./fixtures/bin"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []struct {
+		Name string
+		Args []string
+		Exit int
+		SSHV string
+	}{
+		{
+			Name: "ssh_version_is_before_first_vuln_version",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 0,
+			SSHV: "OpenSSH_5.4 Ubuntu-3ubuntu0.13, OpenSSL 3.0.2 15 Mar 2022",
+		},
+		{
+			Name: "ssh_version_is_after_last_vuln_version",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 0,
+			SSHV: "OpenSSH_9.3p2 Ubuntu-3ubuntu0.13, OpenSSL 3.0.2 15 Mar 2022",
+		},
+		{
+			Name: "ssh_version_errors",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 0,
+			SSHV: "",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			// append our bin directory to the start of the PATH variable
+			// so that our fake ssh script will be invoked by the detector
+			t.Setenv("PATH", (testDir+"/bin/:")+os.Getenv("PATH"))
+			t.Setenv("OSV_SCANNER_TEST_SSH_VERSION_OUTPUT", tt.SSHV)
+
+			testcmd.RunAndMatchSnapshots(t, testcmd.Case{
+				Name: tt.Name,
+				Args: tt.Args,
+				Exit: tt.Exit,
+			})
+		})
+	}
+}
+
+func TestCommand_WithDetector_OffLinux(t *testing.T) {
+	if runtime.GOOS == "linux" {
+		testutility.Skip(t, "The detector in this test only works on Linux")
+	}
+
+	testDir := testutility.CreateTestDir(t)
+	err := os.CopyFS(testDir, os.DirFS("./fixtures/locks-many"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = os.CopyFS(testDir+"/bin", os.DirFS("./fixtures/bin"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []struct {
+		Name string
+		Args []string
+		Exit int
+		SSHV string
+	}{
+		{
+			Name: "ssh_version_is_before_first_vuln_version",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 127,
+			SSHV: "OpenSSH_5.4 Ubuntu-3ubuntu0.13, OpenSSL 3.0.2 15 Mar 2022",
+		},
+		{
+			Name: "ssh_version_is_after_last_vuln_version",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 127,
+			SSHV: "OpenSSH_9.3p2 Ubuntu-3ubuntu0.13, OpenSSL 3.0.2 15 Mar 2022",
+		},
+		{
+			Name: "ssh_version_errors",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 127,
+			SSHV: "",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			// append our bin directory to the start of the PATH variable
+			// so that our fake ssh script will be invoked by the detector
+			t.Setenv("PATH", (testDir+"/bin/:")+os.Getenv("PATH"))
+			t.Setenv("OSV_SCANNER_TEST_SSH_VERSION_OUTPUT", tt.SSHV)
+
+			testcmd.RunAndMatchSnapshots(t, testcmd.Case{
+				Name: tt.Name,
+				Args: tt.Args,
+				Exit: tt.Exit,
+			})
+		})
 	}
 }
