@@ -36,8 +36,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -173,8 +173,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -202,8 +202,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -231,8 +231,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -260,8 +260,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -289,8 +289,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -318,8 +318,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -347,8 +347,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -376,8 +376,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -405,8 +405,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -434,8 +434,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -463,8 +463,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -492,8 +492,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -521,8 +521,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -550,8 +550,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -579,8 +579,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -608,8 +608,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -637,8 +637,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -692,8 +692,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -848,8 +848,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -1004,8 +1004,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -1144,8 +1144,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -1225,8 +1225,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -1306,8 +1306,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -1387,8 +1387,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -1476,8 +1476,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -1721,8 +1721,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -1948,8 +1948,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -2003,8 +2003,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -2151,8 +2151,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -2396,8 +2396,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -2641,8 +2641,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -2868,8 +2868,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -2897,8 +2897,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -2926,8 +2926,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -2955,8 +2955,8 @@
     {
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "tool": {
         "driver": {
@@ -2994,8 +2994,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -3113,8 +3113,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -3194,8 +3194,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -3275,8 +3275,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -3356,8 +3356,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -3437,8 +3437,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -3540,8 +3540,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -3643,8 +3643,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -3724,8 +3724,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -3805,8 +3805,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -3924,8 +3924,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
@@ -4013,8 +4013,8 @@
       ],
       "language": "en-US",
       "newlineSequences": [
-        "\r\n",
-        "\n"
+        "/r/n",
+        "/n"
       ],
       "results": [
         {
