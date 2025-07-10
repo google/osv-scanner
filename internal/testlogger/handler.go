@@ -9,8 +9,8 @@ import (
 	"bufio"
 	"bytes"
 	"context"
-	"io"
 	"log/slog"
+	"os"
 	"runtime/debug"
 	"strings"
 	"sync"
@@ -18,7 +18,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 )
 
-var voidLogger = cmdlogger.New(io.Discard, io.Discard)
+var stdLogger = cmdlogger.New(os.Stdin, os.Stdout)
 
 // Handler can be set as the global logging handler before the test starts, and individual test cases can add their
 // own instance/implementation of the cmdlogger.CmdLogger interface.
@@ -30,7 +30,7 @@ func (tl *Handler) getLogger() cmdlogger.CmdLogger {
 	key := getCallerInstance()
 
 	if key == "" {
-		return voidLogger
+		return stdLogger
 	}
 
 	val, ok := tl.loggerMap.Load(key)
@@ -93,7 +93,7 @@ func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 	}
 
 	l := tl.getLogger()
-	if l == voidLogger {
+	if l == stdLogger {
 		// This is to be safe as we currently do not have any non muffled goroutine logs
 		// When we do, this makes sure that we are aware and can add exceptions to them.
 		panic("noop logger found when logging non-muffled messages")
@@ -154,5 +154,5 @@ func getCallerInstance() string {
 		}
 	}
 
-	panic("no caller found in stack, and not in goroutine, recursed too deep?")
+	return ""
 }
