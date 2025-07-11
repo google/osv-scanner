@@ -19,7 +19,7 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
-	"github.com/owenrumney/go-sarif/v3/pkg/report/v210/sarif"
+	"github.com/owenrumney/go-sarif/v2/sarif"
 )
 
 type HelpTemplateData struct {
@@ -230,7 +230,10 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 
 // PrintSARIFReport prints SARIF output to outputWriter
 func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
-	report := sarif.NewReport()
+	report, err := sarif.New(sarif.Version210)
+	if err != nil {
+		return err
+	}
 
 	run := sarif.NewRunWithInformationURI("osv-scanner", "https://github.com/google/osv-scanner")
 	run.Tool.Driver.WithVersion(version.OSVVersion)
@@ -273,9 +276,10 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 		rule := run.AddRule(gv.DisplayID).
 			WithName(gv.DisplayID).
-			WithShortDescription(sarif.NewMultiformatMessageString().WithMarkdown(shortDescription)).
-			WithFullDescription(sarif.NewMultiformatMessageString().WithMarkdown(longDescription)).
-			WithMarkdownHelp(helpText)
+			WithShortDescription(sarif.NewMultiformatMessageString(shortDescription)).
+			WithFullDescription(sarif.NewMultiformatMessageString(longDescription).WithMarkdown(longDescription)).
+			WithMarkdownHelp(helpText).
+			WithTextHelp(helpText)
 
 		// Find the worst severity score
 		var worstScore float64 = -1
@@ -288,8 +292,8 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 		if worstScore >= 0 {
 			var bag = sarif.NewPropertyBag()
-			bag.Add("security-severity", strconv.FormatFloat(worstScore, 'f', -1, 64))
-			rule.WithProperties(bag)
+			bag.AddString("security-severity", strconv.FormatFloat(worstScore, 'f', -1, 64))
+			rule.WithProperties(bag.Properties)
 		}
 
 		rule.DeprecatedIds = gv.AliasedIDList
@@ -331,7 +335,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	report.AddRun(run)
 
-	err := report.PrettyWrite(outputWriter)
+	err = report.PrettyWrite(outputWriter)
 	if err != nil {
 		return err
 	}
