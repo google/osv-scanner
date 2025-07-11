@@ -120,9 +120,9 @@ func (m MavenReadWriter) Read(df depfile.DepFile) (Manifest, error) {
 	// For dependency management imports, the dependencies that imports
 	// dependencies from other projects will be replaced by the imported
 	// dependencies, so add them to requirements first.
-	for _, dep := range project.DependencyManagement.Dependencies {
-		if dep.Scope == "import" && dep.Type == "pom" {
-			reqsForUpdates = append(reqsForUpdates, makeRequirementVersion(dep, mavenutil.OriginManagement))
+	for _, dmDep := range project.DependencyManagement.Dependencies {
+		if dmDep.Scope == "import" && dmDep.Type == "pom" {
+			reqsForUpdates = append(reqsForUpdates, makeRequirementVersion(dmDep, mavenutil.OriginManagement))
 		}
 	}
 
@@ -258,23 +258,23 @@ func buildOriginalRequirements(project maven.Project, originPrefix string) []Dep
 //   - prefix indicates it is from profile or plugin
 //   - identifier to locate the profile/plugin which is profile ID or plugin name
 //   - (optional) suffix indicates if this is a dependency management
-func makeRequirementVersion(dep maven.Dependency, origin string) resolve.RequirementVersion {
+func makeRequirementVersion(dependency maven.Dependency, origin string) resolve.RequirementVersion {
 	// Treat test & optional dependencies as regular dependencies to force the resolver to resolve them.
-	if dep.Scope == "test" {
-		dep.Scope = ""
+	if dependency.Scope == "test" {
+		dependency.Scope = ""
 	}
-	dep.Optional = ""
+	dependency.Optional = ""
 
 	return resolve.RequirementVersion{
 		VersionKey: resolve.VersionKey{
 			PackageKey: resolve.PackageKey{
 				System: resolve.Maven,
-				Name:   dep.Name(),
+				Name:   dependency.Name(),
 			},
 			VersionType: resolve.Requirement,
-			Version:     string(dep.Version),
+			Version:     string(dependency.Version),
 		},
-		Type: resolve.MavenDepType(dep, origin),
+		Type: resolve.MavenDepType(dependency, origin),
 	}
 }
 

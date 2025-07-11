@@ -81,26 +81,26 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 
 // LoadEcosystem tries to preload the ecosystem into the cache, and returns an error if the ecosystem
 // cannot be loaded.
-func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, ecosystem ecosystem.Parsed) error {
-	_, err := matcher.loadDBFromCache(ctx, ecosystem)
+func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, eco ecosystem.Parsed) error {
+	_, err := matcher.loadDBFromCache(ctx, eco)
 
 	return err
 }
 
-func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecosystem.Parsed) (*ZipDB, error) {
-	if db, ok := matcher.dbs[ecosystem.Ecosystem]; ok {
+func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco ecosystem.Parsed) (*ZipDB, error) {
+	if db, ok := matcher.dbs[eco.Ecosystem]; ok {
 		return db, nil
 	}
 
-	if matcher.failedDBs[ecosystem.Ecosystem] != nil {
-		return nil, matcher.failedDBs[ecosystem.Ecosystem]
+	if matcher.failedDBs[eco.Ecosystem] != nil {
+		return nil, matcher.failedDBs[eco.Ecosystem]
 	}
 
-	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(ecosystem.Ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, ecosystem.Ecosystem), matcher.userAgent, !matcher.downloadDB)
+	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(eco.Ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, eco.Ecosystem), matcher.userAgent, !matcher.downloadDB)
 
 	if err != nil {
-		matcher.failedDBs[ecosystem.Ecosystem] = err
-		cmdlogger.Errorf("could not load db for %s ecosystem: %v", ecosystem.Ecosystem, err)
+		matcher.failedDBs[eco.Ecosystem] = err
+		cmdlogger.Errorf("could not load db for %s ecosystem: %v", eco.Ecosystem, err)
 
 		return nil, err
 	}
@@ -108,7 +108,7 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, ecosystem ecos
 	// TODO(v2 logging): Replace with slog / another logger
 	cmdlogger.Infof("Loaded %s local db from %s", db.Name, db.StoredAt)
 
-	matcher.dbs[ecosystem.Ecosystem] = db
+	matcher.dbs[eco.Ecosystem] = db
 
 	return db, nil
 }

@@ -88,6 +88,8 @@ linters:
           disabled: false
         - name: import-alias-naming
           disabled: false
+        - name: import-shadowing
+          disabled: false
         - name: indent-error-flow
           disabled: false
         - name: package-comments

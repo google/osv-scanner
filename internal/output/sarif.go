@@ -130,14 +130,14 @@ func createSARIFAffectedPkgTable(pkgWithSrc []pkgWithSource) table.Writer {
 	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
 
 	for _, ps := range pkgWithSrc {
-		version := ps.Package.Version
+		ver := ps.Package.Version
 		if ps.Package.Commit != "" {
-			version = ps.Package.Commit
+			ver = ps.Package.Commit
 		}
 		helpTable.AppendRow(table.Row{
 			ps.Source.String(),
 			ps.Package.Name,
-			version,
+			ver,
 		})
 	}
 

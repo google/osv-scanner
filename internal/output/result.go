@@ -119,11 +119,11 @@ type groupedSARIFFinding struct {
 
 // mapIDsToGroupedSARIFFinding creates a map over all vulnerability IDs, with aliased vuln IDs
 // pointing to the same groupedSARIFFinding object
-func mapIDsToGroupedSARIFFinding(vulns *models.VulnerabilityResults) map[string]*groupedSARIFFinding {
+func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[string]*groupedSARIFFinding {
 	// Map of vuln IDs to their respective groupedSARIFFinding
 	results := map[string]*groupedSARIFFinding{}
 
-	for _, res := range vulns.Results {
+	for _, res := range vulnResults.Results {
 		for _, pkg := range res.Packages {
 			for _, gi := range pkg.Groups {
 				var data *groupedSARIFFinding
