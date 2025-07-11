@@ -638,7 +638,7 @@ Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 pac
 Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 9 local/unscannable package/s from the scan.
-Total 26 packages affected by 158 known vulnerabilities (21 Critical, 60 High, 37 Medium, 1 Low, 39 Unknown) from 3 ecosystems.
+Total 26 packages affected by 157 known vulnerabilities (21 Critical, 60 High, 37 Medium, 1 Low, 38 Unknown) from 3 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -726,7 +726,6 @@ Total 26 packages affected by 158 known vulnerabilities (21 Critical, 60 High, 3
 | https://osv.dev/CVE-2021-3541       | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                      |
 | https://osv.dev/CVE-2022-23308      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                      |
 | https://osv.dev/CVE-2025-49794      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                      |
-| https://osv.dev/CVE-2025-49795      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                      |
 | https://osv.dev/CVE-2025-49796      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                      |
 | https://osv.dev/CVE-2025-6021       |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                      |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                      |
@@ -1532,8 +1531,8 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
 +--------------------------------+------+-----------+----------------------------+-----------------------------+---------------+-------------------------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE                    | VERSION                     | FIXED VERSION | SOURCE                                                |
 +--------------------------------+------+-----------+----------------------------+-----------------------------+---------------+-------------------------------------------------------+
-| https://osv.dev/CVE-2023-39137 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054  | N/A           | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
-| https://osv.dev/CVE-2023-39139 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054  | N/A           | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| https://osv.dev/CVE-2023-39137 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054  | --            | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
+| https://osv.dev/CVE-2023-39139 | 7.8  | GIT       |  https://github.com/brendan-duncan/archive.git@9de7a054  | --            | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 +--------------------------------+------+-----------+----------------------------------------------------------+---------------+-------------------------------------------------------+
 
 ---
@@ -2606,7 +2605,7 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-Total 21 packages affected by 151 known vulnerabilities (18 Critical, 58 High, 37 Medium, 1 Low, 37 Unknown) from 2 ecosystems.
+Total 21 packages affected by 150 known vulnerabilities (18 Critical, 58 High, 37 Medium, 1 Low, 36 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -2687,7 +2686,6 @@ Total 21 packages affected by 151 known vulnerabilities (18 Critical, 58 High, 3
 | https://osv.dev/CVE-2021-3541       | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2022-23308      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-49794      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2025-49795      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-49796      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-6021       |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2825,7 +2823,7 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-Total 21 packages affected by 151 known vulnerabilities (18 Critical, 58 High, 37 Medium, 1 Low, 37 Unknown) from 2 ecosystems.
+Total 21 packages affected by 150 known vulnerabilities (18 Critical, 58 High, 37 Medium, 1 Low, 36 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -2906,7 +2904,6 @@ Total 21 packages affected by 151 known vulnerabilities (18 Critical, 58 High, 3
 | https://osv.dev/CVE-2021-3541       | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2022-23308      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-49794      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2025-49795      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-49796      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2025-6021       |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3378,7 +3375,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 +--------------------------------+------+-----------+-----------------+---------+---------------+---------------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE         | VERSION | FIXED VERSION | SOURCE                                      |
 +--------------------------------+------+-----------+-----------------+---------+---------------+---------------------------------------------+
-| https://osv.dev/HSEC-2024-0009 |      | Hackage   | biscuit-haskell | 0.3.0.0 | N/A           | fixtures/locks-scalibr/cabal.project.freeze |
+| https://osv.dev/HSEC-2024-0009 |      | Hackage   | biscuit-haskell | 0.3.0.0 | --            | fixtures/locks-scalibr/cabal.project.freeze |
 +--------------------------------+------+-----------+-----------------+---------+---------------+---------------------------------------------+
 
 ---
