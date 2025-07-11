@@ -3270,6 +3270,15 @@ Loaded PyPI local db from <tempdir>/osv-scanner/PyPI/all.zip
 
 ---
 
+[TestCommand_Transitive/errors_with_invalid_data_source - 1]
+
+---
+
+[TestCommand_Transitive/errors_with_invalid_data_source - 2]
+unsupported data-source "github" - must be one of: deps.dev, native
+
+---
+
 [TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 1]
 Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
