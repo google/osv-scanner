@@ -2,7 +2,6 @@ package output_test
 
 import (
 	"bytes"
-	"encoding/json"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/output"
@@ -76,9 +75,12 @@ func TestPrintSARIFReport(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			jsonStructure := buildJSONSarifReport(t, &tt.args)
-
-			tt.want.MatchJSON(t, jsonStructure)
+			bufOut := bytes.Buffer{}
+			err := output.PrintSARIFReport(&tt.args, &bufOut)
+			if err != nil {
+				t.Errorf("Error writing SARIF output: %s", err)
+			}
+			tt.want.MatchText(t, bufOut.String())
 		})
 	}
 }
@@ -89,14 +91,19 @@ func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
 	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
 
-		jsonStructure := buildJSONSarifReport(t, args.vulnResult)
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintSARIFReport(args.vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing SARIF output: %s", err)
+		}
 
 		testutility.NewSnapshot().WithWindowsReplacements(
 			map[string]string{
 				"path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
 				"path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
 				"path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
-			}).MatchJSON(t, jsonStructure)
+			}).MatchText(t, outputWriter.String())
 	})
 }
 
@@ -106,14 +113,19 @@ func TestPrintSARIFReport_WithLicenseViolations(t *testing.T) {
 	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
 
-		jsonStructure := buildJSONSarifReport(t, args.vulnResult)
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintSARIFReport(args.vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing SARIF output: %s", err)
+		}
 
 		testutility.NewSnapshot().WithWindowsReplacements(
 			map[string]string{
 				"path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
 				"path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
 				"path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
-			}).MatchJSON(t, jsonStructure)
+			}).MatchText(t, outputWriter.String())
 	})
 }
 
@@ -123,32 +135,18 @@ func TestPrintSARIFReport_WithMixedIssues(t *testing.T) {
 	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
 
-		jsonStructure := buildJSONSarifReport(t, args.vulnResult)
+		outputWriter := &bytes.Buffer{}
+		err := output.PrintSARIFReport(args.vulnResult, outputWriter)
+
+		if err != nil {
+			t.Errorf("Error writing SARIF output: %s", err)
+		}
 
 		testutility.NewSnapshot().WithWindowsReplacements(
 			map[string]string{
 				"path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
 				"path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
 				"path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
-			}).MatchJSON(t, jsonStructure)
+			}).MatchText(t, outputWriter.String())
 	})
-}
-
-func buildJSONSarifReport(t *testing.T, res *models.VulnerabilityResults) map[string]any {
-	t.Helper()
-
-	outputWriter := &bytes.Buffer{}
-	err := output.PrintSARIFReport(res, outputWriter)
-
-	if err != nil {
-		t.Errorf("Error writing SARIF output: %s", err)
-	}
-
-	jsonStructure := map[string]any{}
-	err = json.NewDecoder(outputWriter).Decode(&jsonStructure)
-	if err != nil {
-		t.Errorf("Error decoding SARIF output: %s", err)
-	}
-
-	return jsonStructure
 }

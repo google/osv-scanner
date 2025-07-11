@@ -62,30 +62,21 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 [TestCommand/Empty_sarif_output - 1]
 {
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
-      "language": "en-US",
-      "newlineSequences": [
-        "/r/n",
-        "/n"
-      ],
       "tool": {
         "driver": {
-          "contents": [
-            "localizedData",
-            "nonLocalizedData"
-          ],
           "informationUri": "https://github.com/google/osv-scanner",
-          "language": "en-US",
           "name": "osv-scanner",
+          "rules": [],
           "version": "2.1.0"
         }
-      }
+      },
+      "results": []
     }
-  ],
-  "properties": {}
+  ]
 }
 
 ---
@@ -161,86 +152,70 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 
 [TestCommand/Sarif_with_vulns - 1]
 {
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
-      "artifacts": [
-        {
-          "length": -1,
-          "location": {
-            "index": -1,
-            "uri": "file://<rootdir>/fixtures/locks-many/package-lock.json"
-          },
-          "parentIndex": -1
-        }
-      ],
-      "language": "en-US",
-      "newlineSequences": [
-        "/r/n",
-        "/n"
-      ],
-      "results": [
-        {
-          "kind": "fail",
-          "level": "warning",
-          "locations": [
-            {
-              "id": -1,
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": -1,
-                  "uri": "file://<rootdir>/fixtures/locks-many/package-lock.json"
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Package 'ansi-html@0.0.1' is vulnerable to 'CVE-2021-23424' (also known as 'GHSA-whgm-jr23-g3j9')."
-          },
-          "rank": -1,
-          "ruleId": "CVE-2021-23424",
-          "ruleIndex": 0
-        }
-      ],
       "tool": {
         "driver": {
-          "contents": [
-            "localizedData",
-            "nonLocalizedData"
-          ],
           "informationUri": "https://github.com/google/osv-scanner",
-          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
+              "id": "CVE-2021-23424",
+              "name": "CVE-2021-23424",
+              "shortDescription": {
+                "text": "CVE-2021-23424: Uncontrolled Resource Consumption in ansi-html"
+              },
+              "fullDescription": {
+                "text": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.",
+                "markdown": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time."
+              },
               "deprecatedIds": [
                 "CVE-2021-23424",
                 "GHSA-whgm-jr23-g3j9"
               ],
-              "fullDescription": {
-                "markdown": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time."
-              },
               "help": {
-                "markdown": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/list?q=CVE-2021-23424)**.\n\n## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-many/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2021-23424\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
-                "text": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/list?q=CVE-2021-23424)**.\n\n## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-many/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2021-23424\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+                "text": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/list?q=CVE-2021-23424)**.\n\n## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-many/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2021-23424\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "markdown": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/list?q=CVE-2021-23424)**.\n\n## [GHSA-whgm-jr23-g3j9](https://osv.dev/vulnerability/GHSA-whgm-jr23-g3j9)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-many/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2021-23424\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
               },
-              "id": "CVE-2021-23424",
-              "name": "CVE-2021-23424",
               "properties": {
                 "security-severity": "7.5"
-              },
-              "shortDescription": {
-                "markdown": "CVE-2021-23424: Uncontrolled Resource Consumption in ansi-html"
               }
             }
           ],
           "version": "2.1.0"
         }
-      }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file://<rootdir>/fixtures/locks-many/package-lock.json"
+          },
+          "length": -1
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "CVE-2021-23424",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Package 'ansi-html@0.0.1' is vulnerable to 'CVE-2021-23424' (also known as 'GHSA-whgm-jr23-g3j9')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file://<rootdir>/fixtures/locks-many/package-lock.json"
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
-  ],
-  "properties": {}
+  ]
 }
 
 ---
@@ -1411,128 +1386,109 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 
 [TestCommand_GithubActions/scanning_osv-scanner_custom_format_output_json - 1]
 {
-  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "version": "2.1.0",
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "runs": [
     {
-      "artifacts": [
-        {
-          "length": -1,
-          "location": {
-            "index": -1,
-            "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
-          },
-          "parentIndex": -1
-        }
-      ],
-      "language": "en-US",
-      "newlineSequences": [
-        "/r/n",
-        "/n"
-      ],
-      "results": [
-        {
-          "kind": "fail",
-          "level": "warning",
-          "locations": [
-            {
-              "id": -1,
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": -1,
-                  "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39137' (also known as 'GHSA-r285-q736-9v95')."
-          },
-          "rank": -1,
-          "ruleId": "CVE-2023-39137",
-          "ruleIndex": 0
-        },
-        {
-          "kind": "fail",
-          "level": "warning",
-          "locations": [
-            {
-              "id": -1,
-              "physicalLocation": {
-                "artifactLocation": {
-                  "index": -1,
-                  "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39139' (also known as 'GHSA-9v85-q87q-g4vg')."
-          },
-          "rank": -1,
-          "ruleId": "CVE-2023-39139",
-          "ruleIndex": 1
-        }
-      ],
       "tool": {
         "driver": {
-          "contents": [
-            "localizedData",
-            "nonLocalizedData"
-          ],
           "informationUri": "https://github.com/google/osv-scanner",
-          "language": "en-US",
           "name": "osv-scanner",
           "rules": [
             {
+              "id": "CVE-2023-39137",
+              "name": "CVE-2023-39137",
+              "shortDescription": {
+                "text": "CVE-2023-39137"
+              },
+              "fullDescription": {
+                "text": "An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.",
+                "markdown": "An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing."
+              },
               "deprecatedIds": [
                 "CVE-2023-39137",
                 "GHSA-r285-q736-9v95"
               ],
-              "fullDescription": {
-                "markdown": "An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing."
-              },
               "help": {
-                "markdown": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/list?q=CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/vulnerability/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
-                "text": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/list?q=CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/vulnerability/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+                "text": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/list?q=CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/vulnerability/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "markdown": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/list?q=CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/vulnerability/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
               },
-              "id": "CVE-2023-39137",
-              "name": "CVE-2023-39137",
               "properties": {
                 "security-severity": "7.8"
-              },
-              "shortDescription": {
-                "markdown": "CVE-2023-39137"
               }
             },
             {
+              "id": "CVE-2023-39139",
+              "name": "CVE-2023-39139",
+              "shortDescription": {
+                "text": "CVE-2023-39139"
+              },
+              "fullDescription": {
+                "text": "An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.",
+                "markdown": "An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file."
+              },
               "deprecatedIds": [
                 "CVE-2023-39139",
                 "GHSA-9v85-q87q-g4vg"
               ],
-              "fullDescription": {
-                "markdown": "An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file."
-              },
               "help": {
-                "markdown": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/list?q=CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/vulnerability/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
-                "text": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/list?q=CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/vulnerability/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+                "text": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/list?q=CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/vulnerability/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "markdown": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/list?q=CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/vulnerability/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
               },
-              "id": "CVE-2023-39139",
-              "name": "CVE-2023-39139",
               "properties": {
                 "security-severity": "7.8"
-              },
-              "shortDescription": {
-                "markdown": "CVE-2023-39139"
               }
             }
           ],
           "version": "2.1.0"
         }
-      }
+      },
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
+          },
+          "length": -1
+        }
+      ],
+      "results": [
+        {
+          "ruleId": "CVE-2023-39137",
+          "ruleIndex": 0,
+          "level": "warning",
+          "message": {
+            "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39137' (also known as 'GHSA-r285-q736-9v95')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "ruleId": "CVE-2023-39139",
+          "ruleIndex": 1,
+          "level": "warning",
+          "message": {
+            "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39139' (also known as 'GHSA-9v85-q87q-g4vg')."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
-  ],
-  "properties": {}
+  ]
 }
 
 ---

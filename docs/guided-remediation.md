@@ -738,6 +738,7 @@ The following flag may be used to limit the patches allowed for your dependencie
 - `--upgrade-config=<[package-name:]level>` Sets the maximum upgrade level allowed for a package. Can be repeated for multiple packages.
 
   `level` is the SemVer component to allow updates to, can be one of `major`, `minor`, `patch`, or `none`. e.g. If a package was at version `1.2.3`
+
   - `major` allows for updates to any version `>=1.2.3`
   - `minor` allows for updates `>=1.2.3, <2.0.0`
   - `patch` allows for updates `>=1.2.3, <1.3.0`
@@ -748,6 +749,7 @@ The following flag may be used to limit the patches allowed for your dependencie
   Default behaviour is `--upgrade-config=major`.
 
   Example usage:
+
   - `--upgrade-config=minor` - disallow any patches that would bump a major version of any package.
   - `--upgrade-config=foo:minor` - disallow any patches that bumps package `foo` by a major version. Other packages may receive major version-updating patches.
   - `--upgrade-config=none --upgrade-config=foo:patch` - only allow patches to package `foo`, and only allow changes to `foo`'s SemVer patch level.
