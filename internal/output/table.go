@@ -312,7 +312,11 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 						outputRow = append(outputRow, pkg.InstalledVersion)
 					}
 
-					outputRow = append(outputRow, vuln.FixedVersion)
+					if vuln.IsFixable {
+						outputRow = append(outputRow, vuln.FixedVersion)
+					} else {
+						outputRow = append(outputRow, "--")
+					}
 
 					// todo: see if we want to start including any of this information
 					p := strings.TrimPrefix(source.Name, ":")
