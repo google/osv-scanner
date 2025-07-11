@@ -3390,3 +3390,30 @@ Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 13
 [TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
 
 ---
+
+[TestCommand_WithDetector/ssh_version_errors - 1]
+Scanning dir <tempdir>/composer.lock
+---
+
+[TestCommand_WithDetector/ssh_version_errors - 2]
+plugin cve/cve-2023-38408 can't be enabled: needs to run on a different OS than that of the scan environment
+
+---
+
+[TestCommand_WithDetector/ssh_version_is_after_last_vuln_version - 1]
+Scanning dir <tempdir>/composer.lock
+---
+
+[TestCommand_WithDetector/ssh_version_is_after_last_vuln_version - 2]
+plugin cve/cve-2023-38408 can't be enabled: needs to run on a different OS than that of the scan environment
+
+---
+
+[TestCommand_WithDetector/ssh_version_is_before_first_vuln_version - 1]
+Scanning dir <tempdir>/composer.lock
+---
+
+[TestCommand_WithDetector/ssh_version_is_before_first_vuln_version - 2]
+plugin cve/cve-2023-38408 can't be enabled: needs to run on a different OS than that of the scan environment
+
+---
