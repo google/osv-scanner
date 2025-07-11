@@ -33,6 +33,10 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 	if containsOSResult(outputResult) {
 		printSummaryResult(outputResult, outputWriter, terminalWidth, showAllVulns)
 	} else {
+		// Print summary at the top
+		printSummary(outputResult, outputWriter)
+		fmt.Fprintln(outputWriter)
+
 		outputTable := newTable(outputWriter, terminalWidth)
 		outputTable = tableBuilder(outputTable, outputResult, showAllVulns)
 		if outputTable.Length() != 0 {
@@ -68,7 +72,7 @@ func newTable(outputWriter io.Writer, terminalWidth int) table.Writer {
 }
 
 func tableBuilder(outputTable table.Writer, result Result, showAllVulns bool) table.Writer {
-	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Source"})
+	outputTable.AppendHeader(table.Row{"OSV URL", "CVSS", "Ecosystem", "Package", "Version", "Fixed Version", "Source"})
 	rows := tableBuilderInner(result, VulnTypeRegular)
 	for _, elem := range rows {
 		outputTable.AppendRow(elem.row, table.RowConfig{AutoMerge: elem.shouldMerge})
@@ -272,7 +276,6 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 
 					for _, id := range vuln.GroupIDs {
 						links = append(links, OSVBaseVulnerabilityURL+text.Bold.Sprintf("%s", id))
-
 						// For container scanning results, if there is a DSA, then skip printing its sub-CVEs.
 						if strings.Split(id, "-")[0] == "DSA" {
 							break
@@ -307,6 +310,12 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 						}
 						outputRow = append(outputRow, name)
 						outputRow = append(outputRow, pkg.InstalledVersion)
+					}
+
+					if vuln.IsFixable {
+						outputRow = append(outputRow, vuln.FixedVersion)
+					} else {
+						outputRow = append(outputRow, "--")
 					}
 
 					// todo: see if we want to start including any of this information
