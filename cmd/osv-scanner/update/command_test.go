@@ -2,7 +2,6 @@ package update_test
 
 import (
 	"os"
-	"slices"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
@@ -12,53 +11,35 @@ import (
 func TestCommand(t *testing.T) {
 	t.Parallel()
 
-	tests := []struct {
-		name     string
-		args     []string
-		manifest string
-		exit     int
-	}{
+	tests := []testcmd.Case{
 		{
-			name:     "update pom.xml with in-place changes",
-			args:     []string{"", "update"},
-			manifest: "./fixtures/pom.xml",
-			exit:     0,
+			Name: "update pom.xml with in-place changes",
+			Args: []string{"", "update", "-M=./fixtures/pom.xml"},
+			Exit: 0,
 		},
 		{
-			name:     "errors_with_invalid_data_source",
-			args:     []string{"", "update", "--data-source", "github"},
-			manifest: "./fixtures/pom.xml",
-			exit:     127,
+			Name: "errors_with_invalid_data_source",
+			Args: []string{"", "update", "--data-source", "github", "-M", "./fixtures/pom.xml"},
+			Exit: 127,
 		},
 		{
-			name:     "file_does_not_exist",
-			args:     []string{"", "update", "-M", "./fixtures/does_not_exist.xml"},
-			manifest: "",
-			exit:     127,
+			Name: "file_does_not_exist",
+			Args: []string{"", "update", "-M", "./fixtures/does_not_exist.xml"},
+			Exit: 127,
 		},
 		// TODO: add other test cases.
 	}
 
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tc := testcmd.Case{
-				Name: tt.name,
-				Args: slices.Clone(tt.args),
-				Exit: tt.exit,
-			}
 
 			// Update action overwrites files, copy them to a temporary directory.
 			testDir := testutility.CreateTestDir(t)
 
-			var manifest string
-			if tt.manifest != "" {
-				manifest = testcmd.CopyFileTo(t, tt.manifest, testDir)
-				tc.Args = append(tc.Args, "-M", manifest)
-			}
+			manifest := testcmd.CopyFileFlagTo(t, tt, "-M", testDir)
 
-			testcmd.RunAndMatchSnapshots(t, tc)
+			testcmd.RunAndMatchSnapshots(t, tt)
 
 			if manifest != "" {
 				b, err := os.ReadFile(manifest)
