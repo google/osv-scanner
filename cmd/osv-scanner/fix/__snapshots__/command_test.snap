@@ -1,4 +1,13 @@
 
+[TestCommand/errors_with_invalid_data_source - 1]
+
+---
+
+[TestCommand/errors_with_invalid_data_source - 2]
+unsupported data-source "github" - must be one of: deps.dev, native
+
+---
+
 [TestCommand/fix_non-interactive_in-place_package-lock.json - 1]
 Scanning <tempdir>/package-lock.json...
 Found 8 vulnerabilities matching the filter
