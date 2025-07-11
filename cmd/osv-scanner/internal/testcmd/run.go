@@ -63,7 +63,7 @@ func RunAndMatchSnapshots(t *testing.T, tc Case) {
 	stdout = normalizeDirScanOrder(t, stdout)
 	stderr = normalizeDirScanOrder(t, stderr)
 
-	if tc.isOutputtingJSON() {
+	if tc.findFirstValueOfFlag("--format") == "json" {
 		stdout = normalizeJSON(t, stdout, tc.ReplaceRules...)
 	}
 
