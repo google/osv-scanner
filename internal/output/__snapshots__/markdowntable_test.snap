@@ -140,6 +140,16 @@
 
 ---
 
+[TestPrintMarkdownTableResults_WithMixedIssues/one_source_in_working_directory_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
+| OSV URL | CVSS | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- | --- |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+| License Violation | Ecosystem | Package | Version | Source |
+| --- | --- | --- | --- | --- |
+| MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+
+---
+
 [TestPrintMarkdownTableResults_WithMixedIssues/one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation - 1]
 | OSV URL | CVSS | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- | --- |
