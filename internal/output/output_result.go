@@ -372,7 +372,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 	// If no packages with issues are found, mark the ecosystem as empty.
 	if len(packageSource.Packages) == 0 {
 		sourceResults[""] = SourceResult{
-			Name:      packageSource.Source.String(),
+			Name:      packageSource.Source.Path,
 			Type:      packageSource.Source.Type,
 			Ecosystem: "",
 			Packages:  []PackageResult{},
@@ -384,7 +384,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 	for _, vulnPkg := range packageSource.Packages {
 		if _, exists := sourceResults[vulnPkg.Package.Ecosystem]; !exists {
 			sourceResults[vulnPkg.Package.Ecosystem] = SourceResult{
-				Name:      packageSource.Source.String(),
+				Name:      packageSource.Source.Path,
 				Type:      packageSource.Source.Type,
 				Ecosystem: vulnPkg.Package.Ecosystem,
 			}
