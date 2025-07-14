@@ -24,6 +24,18 @@ func TestCommand(t *testing.T) {
 			manifest: "./fixtures/pom.xml",
 			exit:     0,
 		},
+		{
+			name:     "errors_with_invalid_data_source",
+			args:     []string{"", "update", "--data-source", "github"},
+			manifest: "./fixtures/pom.xml",
+			exit:     127,
+		},
+		{
+			name:     "file_does_not_exist",
+			args:     []string{"", "update", "-M", "./fixtures/does_not_exist.xml"},
+			manifest: "",
+			exit:     127,
+		},
 		// TODO: add other test cases.
 	}
 

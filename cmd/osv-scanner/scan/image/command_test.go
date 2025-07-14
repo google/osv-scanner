@@ -62,6 +62,11 @@ func TestCommand_Docker(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
+			Name: "no_image_argument",
+			Args: []string{"", "image"},
+			Exit: 127,
+		},
+		{
 			Name: "Fake alpine image",
 			Args: []string{"", "image", "alpine:non-existent-tag"},
 			Exit: 127,
