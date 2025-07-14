@@ -45,6 +45,8 @@ jobs:
         with:
           distribution: goreleaser
           version: "~> v2"
-          args: release --clean --config .goreleaser-nightly.yml
+          # Essentially do a snapshot release, but still push the docker images
+          # Skipping validate skips checks that the current commit has a tag
+          args: release --clean --config .goreleaser-nightly.yml --skip validate,announce
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
