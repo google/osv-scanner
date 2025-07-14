@@ -66,11 +66,21 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
   "version": "2.1.0",
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "/r/n",
         "/n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -78,11 +88,22 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "properties": {}
@@ -165,6 +186,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
   "version": "2.1.0",
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -172,37 +194,58 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
             "index": -1,
             "uri": "file://<rootdir>/fixtures/locks-many/package-lock.json"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "/r/n",
         "/n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "file://<rootdir>/fixtures/locks-many/package-lock.json"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'ansi-html@0.0.1' is vulnerable to 'CVE-2021-23424' (also known as 'GHSA-whgm-jr23-g3j9')."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "CVE-2021-23424",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -210,8 +253,11 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -230,14 +276,22 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
               "properties": {
                 "security-severity": "7.5"
               },
+              "relationships": [],
               "shortDescription": {
                 "markdown": "CVE-2021-23424: Uncontrolled Resource Consumption in ansi-html"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "properties": {}
@@ -1416,6 +1470,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
   "version": "2.1.0",
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -1423,58 +1478,91 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
             "index": -1,
             "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "/r/n",
         "/n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39137' (also known as 'GHSA-r285-q736-9v95')."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "CVE-2023-39137",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "file://<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'https://github.com/brendan-duncan/archive.git@9de7a054' is vulnerable to 'CVE-2023-39139' (also known as 'GHSA-9v85-q87q-g4vg')."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "CVE-2023-39139",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -1482,8 +1570,11 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -1502,6 +1593,7 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               "properties": {
                 "security-severity": "7.8"
               },
+              "relationships": [],
               "shortDescription": {
                 "markdown": "CVE-2023-39137"
               }
@@ -1523,14 +1615,22 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
               "properties": {
                 "security-severity": "7.8"
               },
+              "relationships": [],
               "shortDescription": {
                 "markdown": "CVE-2023-39139"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "properties": {}

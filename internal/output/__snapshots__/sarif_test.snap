@@ -16,6 +16,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -23,7 +24,8 @@
             "index": -1,
             "uri": "file:///path/to/sub-rust-project/Cargo.lock"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -31,79 +33,124 @@
             "index": -1,
             "uri": "file:///path/to/go.mod"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "file:///path/to/sub-rust-project/Cargo.lock"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'regex@1.5.1' is vulnerable to 'CVE-2022-24713' (also known as 'RUSTSEC-2022-0013', 'GHSA-m5pq-gvj9-9vr8')."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "CVE-2022-24713",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "file:///path/to/go.mod"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'github.com/gogo/protobuf@1.3.1' is vulnerable to 'CVE-2021-3121' (also known as 'GO-2021-0053', 'GHSA-c3h9-896r-86jm')."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "CVE-2021-3121",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "file:///path/to/sub-rust-project/Cargo.lock"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'regex@1.5.1' is vulnerable to 'CVE-2022-24713' (also known as 'RUSTSEC-2022-0013', 'GHSA-m5pq-gvj9-9vr8')."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "CVE-2022-24713",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -111,8 +158,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -132,6 +182,7 @@
               "properties": {
                 "security-severity": "7.5"
               },
+              "relationships": [],
               "shortDescription": {
                 "markdown": "CVE-2022-24713: Regexes with large repetitions on empty sub-expressions take a very long time to parse"
               }
@@ -151,14 +202,22 @@
               },
               "id": "CVE-2021-3121",
               "name": "CVE-2021-3121",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "CVE-2021-3121: Panic due to improper input validation in github.com/gogo/protobuf"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -171,11 +230,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -183,11 +252,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -200,11 +280,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -212,11 +302,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -229,11 +330,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -241,11 +352,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -258,11 +380,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -270,11 +402,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -287,11 +430,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -299,11 +452,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -316,11 +480,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -328,11 +502,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -345,11 +530,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -357,11 +552,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -374,11 +580,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -386,11 +602,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -403,11 +630,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -415,11 +652,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -432,11 +680,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -444,11 +702,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -461,11 +730,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -473,11 +752,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -490,11 +780,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -502,11 +802,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -519,11 +830,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -531,11 +852,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -548,11 +880,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -560,11 +902,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -577,11 +930,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -589,11 +952,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -606,11 +980,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -618,11 +1002,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -635,11 +1030,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -647,11 +1052,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -664,6 +1080,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -671,7 +1088,8 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -679,7 +1097,8 @@
             "index": -1,
             "uri": "path/to/my/third/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -687,79 +1106,124 @@
             "index": -1,
             "uri": "path/to/my/second/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/third/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -767,8 +1231,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -783,6 +1250,7 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
@@ -800,14 +1268,22 @@
               },
               "id": "OSV-2",
               "name": "OSV-2",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-2: Something less scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -820,6 +1296,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -827,7 +1304,8 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -835,7 +1313,8 @@
             "index": -1,
             "uri": "path/to/my/third/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -843,79 +1322,124 @@
             "index": -1,
             "uri": "path/to/my/second/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/third/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -923,8 +1447,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -939,6 +1466,7 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
@@ -956,14 +1484,22 @@
               },
               "id": "OSV-2",
               "name": "OSV-2",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-2: Something less scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -976,6 +1512,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -983,7 +1520,8 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -991,7 +1529,8 @@
             "index": -1,
             "uri": "path/to/my/third/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -999,79 +1538,124 @@
             "index": -1,
             "uri": "path/to/my/second/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@abcxzy' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/third/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine2@abc123' is vulnerable to 'OSV-2'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -1079,8 +1663,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -1095,6 +1682,7 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
@@ -1112,14 +1700,22 @@
               },
               "id": "OSV-2",
               "name": "OSV-2",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-2: Something less scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -1132,6 +1728,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -1139,37 +1736,58 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -1177,8 +1795,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -1193,14 +1814,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -1213,6 +1842,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -1220,37 +1850,58 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -1258,8 +1909,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -1274,14 +1928,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -1294,6 +1956,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -1301,37 +1964,58 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -1339,8 +2023,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -1355,14 +2042,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -1375,6 +2070,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -1382,37 +2078,58 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -1420,8 +2137,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -1436,14 +2156,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -1456,6 +2184,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -1463,7 +2192,8 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -1471,142 +2201,223 @@
             "index": -1,
             "uri": "path/to/my/second/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-3",
-          "ruleIndex": 2
+          "ruleIndex": 2,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -1614,8 +2425,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -1630,6 +2444,7 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
@@ -1647,6 +2462,7 @@
               },
               "id": "OSV-2",
               "name": "OSV-2",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-2: Something less scary!"
               }
@@ -1664,6 +2480,7 @@
               },
               "id": "OSV-3",
               "name": "OSV-3",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-3: Something mildly scary!"
               }
@@ -1681,14 +2498,22 @@
               },
               "id": "OSV-5",
               "name": "OSV-5",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-5: Something scarier!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -1701,6 +2526,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -1708,7 +2534,8 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -1716,142 +2543,223 @@
             "index": -1,
             "uri": "path/to/my/second/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-3",
-          "ruleIndex": 2
+          "ruleIndex": 2,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -1859,8 +2767,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -1875,6 +2786,7 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
@@ -1892,6 +2804,7 @@
               },
               "id": "OSV-2",
               "name": "OSV-2",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-2: Something less scary!"
               }
@@ -1909,6 +2822,7 @@
               },
               "id": "OSV-3",
               "name": "OSV-3",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-3: Something mildly scary!"
               }
@@ -1926,14 +2840,22 @@
               },
               "id": "OSV-5",
               "name": "OSV-5",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-5: Something scarier!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -1946,11 +2868,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -1958,11 +2890,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -1975,6 +2918,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -1982,7 +2926,8 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -1990,7 +2935,8 @@
             "index": -1,
             "uri": "path/to/my/third/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -1998,79 +2944,124 @@
             "index": -1,
             "uri": "path/to/my/second/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/third/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -2078,8 +3069,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -2094,6 +3088,7 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
@@ -2111,14 +3106,22 @@
               },
               "id": "OSV-2",
               "name": "OSV-2",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-2: Something less scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -2131,6 +3134,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -2138,7 +3142,8 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -2146,142 +3151,223 @@
             "index": -1,
             "uri": "path/to/my/second/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-3",
-          "ruleIndex": 2
+          "ruleIndex": 2,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -2289,8 +3375,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -2305,6 +3394,7 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
@@ -2322,6 +3412,7 @@
               },
               "id": "OSV-2",
               "name": "OSV-2",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-2: Something less scary!"
               }
@@ -2339,6 +3430,7 @@
               },
               "id": "OSV-3",
               "name": "OSV-3",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-3: Something mildly scary!"
               }
@@ -2356,14 +3448,22 @@
               },
               "id": "OSV-5",
               "name": "OSV-5",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-5: Something scarier!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -2376,6 +3476,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -2383,7 +3484,8 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -2391,142 +3493,223 @@
             "index": -1,
             "uri": "path/to/my/second/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-3",
-          "ruleIndex": 2
+          "ruleIndex": 2,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -2534,8 +3717,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -2550,6 +3736,7 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
@@ -2567,6 +3754,7 @@
               },
               "id": "OSV-2",
               "name": "OSV-2",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-2: Something less scary!"
               }
@@ -2584,6 +3772,7 @@
               },
               "id": "OSV-3",
               "name": "OSV-3",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-3: Something mildly scary!"
               }
@@ -2601,14 +3790,22 @@
               },
               "id": "OSV-5",
               "name": "OSV-5",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-5: Something scarier!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -2621,6 +3818,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -2628,7 +3826,8 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -2636,142 +3835,223 @@
             "index": -1,
             "uri": "path/to/my/second/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author1/mine1@123abc' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@abcxyz' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-3",
-          "ruleIndex": 2
+          "ruleIndex": 2,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author1/mine1@123abc' is vulnerable to 'OSV-5'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-5",
-          "ruleIndex": 3
+          "ruleIndex": 3,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -2779,8 +4059,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -2795,6 +4078,7 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
@@ -2812,6 +4096,7 @@
               },
               "id": "OSV-2",
               "name": "OSV-2",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-2: Something less scary!"
               }
@@ -2829,6 +4114,7 @@
               },
               "id": "OSV-3",
               "name": "OSV-3",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-3: Something mildly scary!"
               }
@@ -2846,14 +4132,22 @@
               },
               "id": "OSV-5",
               "name": "OSV-5",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-5: Something scarier!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -2866,11 +4160,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -2878,11 +4182,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -2895,11 +4210,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -2907,11 +4232,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -2924,11 +4260,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -2936,11 +4282,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -2953,11 +4310,21 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
+      "results": [],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -2965,11 +4332,22 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
+          "rules": [],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -2982,6 +4360,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -2989,58 +4368,91 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'GHSA-123'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "GHSA-123",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -3048,8 +4460,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -3064,6 +4479,7 @@
               },
               "id": "GHSA-123",
               "name": "GHSA-123",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "GHSA-123: Something scarier!"
               }
@@ -3081,14 +4497,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -3101,6 +4525,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -3108,37 +4533,58 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -3146,8 +4592,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -3162,14 +4611,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -3182,6 +4639,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -3189,37 +4647,58 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -3227,8 +4706,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -3243,14 +4725,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -3263,6 +4753,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -3270,37 +4761,58 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -3308,8 +4820,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -3324,14 +4839,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -3344,6 +4867,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -3351,37 +4875,58 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -3389,8 +4934,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -3405,14 +4953,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -3425,6 +4981,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -3432,58 +4989,91 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -3491,8 +5081,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -3508,14 +5101,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -3528,6 +5129,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -3535,58 +5137,91 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -3594,8 +5229,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -3611,14 +5249,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -3631,6 +5277,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -3638,37 +5285,58 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@abc123' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -3676,8 +5344,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -3692,14 +5363,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -3712,6 +5391,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -3719,37 +5399,58 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@abc123' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -3757,8 +5458,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -3773,14 +5477,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -3793,6 +5505,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -3800,58 +5513,91 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine3@0.10.2-rc' is vulnerable to 'OSV-2'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-2",
-          "ruleIndex": 1
+          "ruleIndex": 1,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -3859,8 +5605,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -3875,6 +5624,7 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1"
               }
@@ -3892,14 +5642,22 @@
               },
               "id": "OSV-2",
               "name": "OSV-2",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-2"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -3912,6 +5670,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -3919,37 +5678,58 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -3957,8 +5737,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -3973,14 +5756,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
@@ -3993,6 +5784,7 @@
   "properties": {},
   "runs": [
     {
+      "addresses": [],
       "artifacts": [
         {
           "length": -1,
@@ -4000,7 +5792,8 @@
             "index": -1,
             "uri": "path/to/my/first/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         },
         {
           "length": -1,
@@ -4008,58 +5801,91 @@
             "index": -1,
             "uri": "path/to/my/second/lockfile"
           },
-          "parentIndex": -1
+          "parentIndex": -1,
+          "roles": []
         }
       ],
+      "graphs": [],
+      "invocations": [],
       "language": "en-US",
+      "logicalLocations": [],
       "newlineSequences": [
         "\r\n",
         "\n"
       ],
+      "policies": [],
+      "redactionTokens": [],
       "results": [
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/first/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         },
         {
+          "attachments": [],
+          "codeFlows": [],
+          "fixes": [],
+          "graphTraversals": [],
+          "graphs": [],
           "kind": "fail",
           "level": "warning",
           "locations": [
             {
+              "annotations": [],
               "id": -1,
+              "logicalLocations": [],
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
                   "uri": "path/to/my/second/lockfile"
                 }
-              }
+              },
+              "relationships": []
             }
           ],
           "message": {
+            "arguments": [],
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "rank": -1,
+          "relatedLocations": [],
           "ruleId": "OSV-1",
-          "ruleIndex": 0
+          "ruleIndex": 0,
+          "stacks": [],
+          "taxa": []
         }
       ],
+      "runAggregates": [],
+      "taxonomies": [],
+      "threadFlowLocations": [],
       "tool": {
         "driver": {
           "contents": [
@@ -4067,8 +5893,11 @@
             "nonLocalizedData"
           ],
           "informationUri": "https://github.com/google/osv-scanner",
+          "isComprehensive": false,
           "language": "en-US",
+          "locations": [],
           "name": "osv-scanner",
+          "notifications": [],
           "rules": [
             {
               "deprecatedIds": [
@@ -4083,14 +5912,22 @@
               },
               "id": "OSV-1",
               "name": "OSV-1",
+              "relationships": [],
               "shortDescription": {
                 "markdown": "OSV-1: Something scary!"
               }
             }
           ],
+          "supportedTaxonomies": [],
+          "taxa": [],
           "version": "2.1.0"
-        }
-      }
+        },
+        "extensions": []
+      },
+      "translations": [],
+      "versionControlProvenance": [],
+      "webRequests": [],
+      "webResponses": []
     }
   ],
   "version": "2.1.0"
