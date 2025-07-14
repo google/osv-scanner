@@ -86,12 +86,21 @@ linters:
           disabled: false
         - name: exported
           disabled: false
+          arguments:
+            # TODO: get these all enabled
+            - "check-private-receivers"
+            # - "check-public-interface"
+            - "disable-checks-on-constants"
+            - "disable-checks-on-functions"
+            - "disable-checks-on-methods"
+            - "disable-checks-on-types"
+            - "disable-checks-on-variables"
         - name: import-alias-naming
           disabled: false
         - name: indent-error-flow
           disabled: false
         - name: package-comments
-          disabled: false
+          disabled: true # TODO: get this enabled
         - name: range
           disabled: false
         - name: receiver-naming
@@ -120,24 +129,16 @@ linters:
             - [] # AllowList
             - [] # DenyList
             - - skip-package-name-checks: true
-    staticcheck:
-      checks:
-        - all
-        - -QF1006 # lift into loop condition
   exclusions:
     generated: lax
     presets:
-      - comments
       - common-false-positives
       - legacy
       - std-error-handling
     rules:
-      - linters:
+      - path: _test\.go
+        linters:
           - dupl
-        path: pkg/reporter
-      - linters:
-          - dupl
-        path: _test\.go
       - path-except: _test\.go
         text: use `testutility.GetCurrentWorkingDirectory`
     paths:
