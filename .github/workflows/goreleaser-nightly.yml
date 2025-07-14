@@ -4,6 +4,7 @@ on:
   schedule:
     # we want the nightly builds only on work days
     - cron: "0 0 * * 2-6"
+  workflow_dispatch:
 
 # Restrict jobs in this workflow to have no permissions by default; permissions
 # should be granted per job as needed using a dedicated `permissions` block
@@ -43,6 +44,6 @@ jobs:
         with:
           distribution: goreleaser
           version: "~> v2"
-          args: release --clean
+          args: release --clean --config .goreleaser-nightly.yml
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
