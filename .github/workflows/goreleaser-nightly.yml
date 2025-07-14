@@ -4,6 +4,7 @@ on:
   schedule:
     # we want the nightly builds only on work days
     - cron: "0 0 * * 2-6"
+  # Allow us to manually call the workflow
   workflow_dispatch:
 
 # Restrict jobs in this workflow to have no permissions by default; permissions
