@@ -1380,7 +1380,7 @@ Filtered 1 vulnerability from output
 ---
 
 [TestCommand_ExplicitExtractors/scanning_directory_with_an_extractor_that_does_not_exist - 2]
-Unknown extractor custom/extractor
+unknown extractor "custom/extractor"
 
 ---
 
