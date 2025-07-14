@@ -164,6 +164,7 @@ Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just 
 Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/libgcrypt20/1.8.5-5ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gnutls28/3.6.13-2ubuntu1.12 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
@@ -181,7 +182,7 @@ Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just 
 Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/perl/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
-Filtered 25 ignored package/s from the scan.
+Filtered 26 ignored package/s from the scan.
 
 Container Scanning Result (Ubuntu 20.04.6 LTS):
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -209,6 +210,7 @@ Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just 
 Package Ubuntu:20.04/glibc/2.31-0ubuntu9.17 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/gcc-10/10.5.0-1ubuntu1~20.04 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/libgcrypt20/1.8.5-5ubuntu1.1 has been filtered out because: Just want to test only unimportant vulns
+Package Ubuntu:20.04/gnutls28/3.6.13-2ubuntu1.12 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/pam/1.3.1-5ubuntu4.7 has been filtered out because: Just want to test only unimportant vulns
@@ -226,7 +228,7 @@ Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just 
 Package Ubuntu:20.04/ncurses/6.2-0ubuntu2.1 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/perl/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
-Filtered 25 ignored package/s from the scan.
+Filtered 26 ignored package/s from the scan.
 
 Container Scanning Result (Ubuntu 20.04.6 LTS):
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -254,7 +256,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 18 packages affected by 34 known vulnerabilities (2 Critical, 9 High, 17 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
+Total 18 packages affected by 38 known vulnerabilities (2 Critical, 9 High, 21 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
 13 vulnerabilities can be fixed.
 
 
@@ -269,7 +271,7 @@ Ubuntu:22.04
 | gcc-12         | 12.3.0-1ubuntu1~22.04   | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8         | Fix Available           |          2 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1       | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5        | Fix Available           |          1 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5        | Partial fixes Available |          5 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4       | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1 | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3          | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
@@ -298,7 +300,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 18 packages affected by 34 known vulnerabilities (2 Critical, 9 High, 17 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
+Total 18 packages affected by 38 known vulnerabilities (2 Critical, 9 High, 21 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
 13 vulnerabilities can be fixed.
 
 
@@ -313,7 +315,7 @@ Ubuntu:22.04
 | gcc-12         | 12.3.0-1ubuntu1~22.04   | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8         | Fix Available           |          2 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1       | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5        | Fix Available           |          1 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5        | Partial fixes Available |          5 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4       | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1 | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3          | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
@@ -361,8 +363,8 @@ failed to load image from tarball with path "../../fixtures/locks-manyoci-image/
 Scanning local image tarball "../../../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 17 packages affected by 23 known vulnerabilities (1 Critical, 8 High, 9 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
-23 vulnerabilities can be fixed.
+Total 18 packages affected by 25 known vulnerabilities (1 Critical, 8 High, 11 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
+25 vulnerabilities can be fixed.
 
 
 Maven
@@ -373,7 +375,7 @@ Maven
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 | com.fasterxml.jackson.core:jackson-core   | 2.10.2            | Fix Available |          2 | # 12 Layer       | --            |
 | com.google.protobuf:protobuf-java         | 3.21.12           | Fix Available |          1 | # 12 Layer       | --            |
-| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          1 | # 12 Layer       | --            |
+| com.nimbusds:nimbus-jose-jwt              | 9.31              | Fix Available |          2 | # 12 Layer       | --            |
 | commons-beanutils:commons-beanutils       | 1.9.4             | Fix Available |          1 | # 12 Layer       | --            |
 | dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
@@ -382,6 +384,7 @@ Maven
 | org.apache.avro:avro                      | 1.9.2             | Fix Available |          2 | # 12 Layer       | --            |
 | org.apache.commons:commons-compress       | 1.21              | Fix Available |          2 | # 12 Layer       | --            |
 | org.apache.commons:commons-configuration2 | 2.8.0             | Fix Available |          2 | # 12 Layer       | --            |
+| org.apache.commons:commons-lang3          | 3.12.0            | Fix Available |          1 | # 12 Layer       | --            |
 | org.eclipse.jetty:jetty-http              | 9.4.53.v20231009  | Fix Available |          1 | # 12 Layer       | --            |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.21
@@ -2334,10 +2337,14 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             }
           },
           "vulnerabilities": [
+            "UBUNTU-CVE-2025-32988",
+            "UBUNTU-CVE-2025-32989",
+            "UBUNTU-CVE-2025-32990",
+            "UBUNTU-CVE-2025-6395",
             "USN-7281-1",
             "UBUNTU-CVE-2024-12243"
           ],
-          "groups": 1
+          "groups": 5
         },
         {
           "package": {
