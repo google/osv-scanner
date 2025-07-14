@@ -136,6 +136,12 @@ at least one extractor must be enabled
 
 ---
 
+[TestCommand_HtmlFile - 1]
+Scanning local image tarball "../../../../internal/image/fixtures/test-alpine.tar"
+HTML output available at: <tempdir>/report.html
+
+---
+
 [TestCommand_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-alpine.tar"
 

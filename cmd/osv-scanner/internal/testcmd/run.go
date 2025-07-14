@@ -55,7 +55,7 @@ func run(t *testing.T, tc Case) (string, string) {
 	return stdout.String(), stderr.String()
 }
 
-func RunAndMatchSnapshots(t *testing.T, tc Case) {
+func RunAndNormalize(t *testing.T, tc Case) (string, string) {
 	t.Helper()
 
 	stdout, stderr := run(t, tc)
@@ -66,6 +66,14 @@ func RunAndMatchSnapshots(t *testing.T, tc Case) {
 	if tc.findFirstValueOfFlag("--format") == "json" {
 		stdout = normalizeJSON(t, stdout, tc.ReplaceRules...)
 	}
+
+	return stdout, stderr
+}
+
+func RunAndMatchSnapshots(t *testing.T, tc Case) {
+	t.Helper()
+
+	stdout, stderr := RunAndNormalize(t, tc)
 
 	testutility.NewSnapshot().MatchText(t, stdout)
 	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
