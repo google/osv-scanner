@@ -1,0 +1,12 @@
+{
+  "results": [],
+  "experimental_config": {
+    "call_analysis": {
+      "enabled": false
+    },
+    "licenses": {
+      "enabled": false,
+      "allowlist": null
+    }
+  }
+}
