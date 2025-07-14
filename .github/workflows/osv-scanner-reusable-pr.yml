@@ -16,9 +16,12 @@
 
 name: OSV-Scanner PR scanning reusable
 
-# Restrict jobs in this workflow to have no permissions by default; permissions
-# should be granted per job as needed using a dedicated `permissions` block
-permissions: {}
+# These are the permissions required by this reusable workflow to function.
+#
+# You should include a copy of this block next to any `uses:` of this workflow
+permissions:
+  contents: read # to fetch code (actions/checkout)
+  security-events: write # for uploading SARIF files (github/codeql-action/upload-sarif)
 
 on:
   workflow_call:
@@ -45,9 +48,6 @@ on:
 
 jobs:
   scan-pr:
-    permissions:
-      contents: read # to fetch code (actions/checkout)
-      security-events: write # for uploading SARIF files
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
