@@ -115,9 +115,9 @@ func ComputeInPlacePatches(ctx context.Context, cl client.ResolutionClient, grap
 
 	// Compute the overall constraints imposed by the dependent packages on the vulnerable nodes
 	vkDependentConstraint := make(map[resolve.VersionKey]semver.Set)
-	for vk, vulns := range res.vkVulns {
+	for vk, vkVulns := range res.vkVulns {
 		reqVers := make(map[string]struct{})
-		for _, vuln := range vulns {
+		for _, vuln := range vkVulns {
 			for _, sg := range vuln.Subgraphs {
 				for _, e := range sg.Nodes[sg.Dependency].Parents {
 					reqVers[e.Requirement] = struct{}{}
@@ -265,8 +265,8 @@ func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatc
 	// Construct resolution.Vulnerability for all vulnerable packages
 	// combining nodes with the same package & versions number
 	var nodeIDs []resolve.NodeID
-	for nID, vulns := range nodeVulns {
-		if len(vulns) > 0 {
+	for nID, nVulns := range nodeVulns {
+		if len(nVulns) > 0 {
 			nodeIDs = append(nodeIDs, resolve.NodeID(nID))
 		}
 	}

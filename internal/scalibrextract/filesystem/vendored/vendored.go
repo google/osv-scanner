@@ -228,8 +228,8 @@ func (e *Extractor) Configure(config Config) {
 
 var _ configurable = &Extractor{}
 
-func Configure(extractor extractor.Extractor, config Config) {
-	us, ok := extractor.(configurable)
+func Configure(extrac extractor.Extractor, config Config) {
+	us, ok := extrac.(configurable)
 
 	if ok {
 		us.Configure(config)
