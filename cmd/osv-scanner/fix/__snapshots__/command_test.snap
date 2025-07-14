@@ -4191,3 +4191,12 @@ Rewriting <tempdir>/package.json...
 }
 
 ---
+
+[TestCommand/no_args_provided - 1]
+
+---
+
+[TestCommand/no_args_provided - 2]
+manifest or lockfile is required
+
+---

@@ -27,6 +27,11 @@ func TestCommand(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
+			Name: "no_args_provided",
+			Args: []string{"", "fix"},
+			Exit: 127,
+		},
+		{
 			Name: "fix non-interactive in-place package-lock.json",
 			Args: []string{"", "fix", "--strategy=in-place", "-L", "./fixtures/in-place-npm/package-lock.json"},
 			Exit: 0,
