@@ -18,6 +18,16 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		{
+			Name: "update_pom_with_in_place_changes_using_deps_dev_data_source",
+			Args: []string{"", "update", "--data-source", "deps.dev", "-M", "./fixtures/pom.xml"},
+			Exit: 0,
+		},
+		{
+			Name: "update_pom_with_in_place_changes_using_native_data_source",
+			Args: []string{"", "update", "--data-source", "native", "-M", "./fixtures/pom.xml"},
+			Exit: 0,
+		},
+		{
 			Name: "errors_with_invalid_data_source",
 			Args: []string{"", "update", "--data-source", "github", "-M", "./fixtures/pom.xml"},
 			Exit: 127,
