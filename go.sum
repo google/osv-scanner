@@ -306,8 +306,8 @@ github.com/opencontainers/runtime-spec v1.2.1 h1:S4k4ryNgEpxW1dzyqffOmhI1BHYcjzU
 github.com/opencontainers/runtime-spec v1.2.1/go.mod h1:jwyrGlmzljRJv/Fgzds9SsS/C5hL+LL3ko9hs6T5lQ0=
 github.com/opencontainers/selinux v1.12.0 h1:6n5JV4Cf+4y0KNXW48TLj5DwfXpvWlxXplUkdTrmPb8=
 github.com/opencontainers/selinux v1.12.0/go.mod h1:BTPX+bjVbWGXw7ZZWUbdENt8w0htPSrlgOOysQaU62U=
-github.com/ossf/osv-schema/bindings/go v0.0.0-20250701001340-180f03cc6901 h1:WqiL5LXnCYjEgibZc+M8+jamka8gi1ySjNiuqFWWKEE=
-github.com/ossf/osv-schema/bindings/go v0.0.0-20250701001340-180f03cc6901/go.mod h1:lILztSxHU7VsdlYqCnwgxSDBhbXMf7iEQWtldJCDXPo=
+github.com/ossf/osv-schema/bindings/go v0.0.0-20250715064423-7310c9ec4b2a h1:eff71rMluaulxKV/PaG70M0DWvw79AuEXa4K8mHJkuk=
+github.com/ossf/osv-schema/bindings/go v0.0.0-20250715064423-7310c9ec4b2a/go.mod h1:lILztSxHU7VsdlYqCnwgxSDBhbXMf7iEQWtldJCDXPo=
 github.com/owenrumney/go-sarif/v3 v3.2.1 h1:Dogf2wkOxxRkG3O/B9T6dokyDSl36q19tlMYtXOTThE=
 github.com/owenrumney/go-sarif/v3 v3.2.1/go.mod h1:S2sdyDnv0sxN5x+M8iFZIzZE2+uTX/1uXlwTRx0efT0=
 github.com/package-url/packageurl-go v0.1.3 h1:4juMED3hHiz0set3Vq3KeQ75KD1avthoXLtmE3I0PLs=
