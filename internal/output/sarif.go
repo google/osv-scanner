@@ -273,8 +273,10 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 		rule := run.AddRule(gv.DisplayID).
 			WithName(gv.DisplayID).
-			WithShortDescription(sarif.NewMultiformatMessageString().WithMarkdown(shortDescription)).
-			WithFullDescription(sarif.NewMultiformatMessageString().WithMarkdown(longDescription)).
+			WithShortDescription(
+				sarif.NewMultiformatMessageString().WithMarkdown(shortDescription).WithText(shortDescription)).
+			WithFullDescription(
+				sarif.NewMultiformatMessageString().WithMarkdown(longDescription).WithText(longDescription)).
 			WithMarkdownHelp(helpText)
 
 		// Find the worst severity score
