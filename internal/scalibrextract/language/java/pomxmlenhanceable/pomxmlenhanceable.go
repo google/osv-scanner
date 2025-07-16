@@ -2,7 +2,6 @@ package pomxmlenhanceable
 
 import (
 	"context"
-
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
@@ -51,6 +50,11 @@ func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (i
 	inv, err := e.enhanced.Extract(ctx, input)
 	if err == nil {
 		return inv, nil
+	}
+
+	if e.enhanced.Name() == pomxml.Name {
+		// enhanced is the same as base so we don't need to run extraction again.
+		return inv, err
 	}
 
 	// Fallback to the base extractor if the enhanced extraction failed.

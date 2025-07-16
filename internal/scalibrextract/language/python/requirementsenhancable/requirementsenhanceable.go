@@ -2,7 +2,6 @@ package requirementsenhancable
 
 import (
 	"context"
-
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
@@ -51,6 +50,11 @@ func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (i
 	inv, err := e.enhanced.Extract(ctx, input)
 	if err == nil {
 		return inv, nil
+	}
+
+	if e.enhanced.Name() == requirements.Name {
+		// enhanced is the same as base so we don't need to run extraction again.
+		return inv, err
 	}
 
 	// Fallback to the base extractor if the enhanced extraction failed.
