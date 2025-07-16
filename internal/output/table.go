@@ -310,9 +310,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 					}
 
 					// todo: see if we want to start including any of this information
-					p := strings.TrimPrefix(source.Name, ":")
-					p = strings.TrimPrefix(p, string(source.Type))
-					p = strings.TrimPrefix(p, ":")
+					p := source.Name
 					p = strings.TrimPrefix(p, filepath.ToSlash(workingDir))
 					p = strings.TrimPrefix(p, "/")
 
