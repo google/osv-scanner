@@ -221,9 +221,13 @@ Total 3 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestPrintMarkdownTableResults_WithMixedIssues/one_source_in_working_directory_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
-| OSV URL | CVSS | Ecosystem | Package | Version | Source |
-| --- | --- | --- | --- | --- | --- |
-| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+| OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
+| --- | --- | --- | --- | --- | --- | --- |
+| https://osv.dev/OSV-1 |  | npm | mine1 | 1.2.3 | -- | path/to/my/first/lockfile |
 | License Violation | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- | --- |
 | MIT | npm | mine1 | 1.2.3 | path/to/my/first/lockfile |
