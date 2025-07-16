@@ -59,6 +59,8 @@ func CalculateScore(severity osvschema.Severity) (float64, string, error) {
 			score = vec.Score()
 			rating, err = gocvss40.Rating(score)
 		}
+	case osvschema.SeverityUbuntu:
+		rating = severity.Score
 	}
 
 	return score, rating, err
