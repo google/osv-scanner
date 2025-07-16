@@ -25,79 +25,69 @@ func matchFile(t *testing.T, file string) {
 func TestCommand(t *testing.T) {
 	t.Parallel()
 
-	tests := []struct {
-		name     string
-		args     []string
-		exit     int
-		manifest string
-		lockfile string
-	}{
+	tests := []testcmd.Case{
 		{
-			name:     "fix non-interactive in-place package-lock.json",
-			args:     []string{"", "fix", "--strategy=in-place"},
-			exit:     0,
-			lockfile: "./fixtures/in-place-npm/package-lock.json",
+			Name: "no_args_provided",
+			Args: []string{"", "fix"},
+			Exit: 127,
 		},
 		{
-			name:     "fix non-interactive relax package.json",
-			args:     []string{"", "fix", "--strategy=relax"},
-			exit:     0,
-			manifest: "./fixtures/relax-npm/package.json",
+			Name: "fix non-interactive in-place package-lock.json",
+			Args: []string{"", "fix", "--strategy=in-place", "-L", "./fixtures/in-place-npm/package-lock.json"},
+			Exit: 0,
 		},
 		{
-			name:     "fix non-interactive override pom.xml",
-			args:     []string{"", "fix", "--strategy=override"},
-			exit:     0,
-			manifest: "./fixtures/override-maven/pom.xml",
+			Name: "fix_non_interactive_in_place_package_lock_json_with_native_data_source",
+			Args: []string{"", "fix", "--strategy=in-place", "--data-source", "native", "-L", "./fixtures/in-place-npm/package-lock.json"},
+			Exit: 0,
 		},
 		{
-			name:     "fix non-interactive json in-place package-lock.json",
-			args:     []string{"", "fix", "--strategy=in-place", "--format=json"},
-			exit:     0,
-			lockfile: "./fixtures/in-place-npm/package-lock.json",
+			Name: "fix non-interactive relax package.json",
+			Args: []string{"", "fix", "--strategy=relax", "-M", "./fixtures/relax-npm/package.json"},
+			Exit: 0,
 		},
 		{
-			name:     "fix non-interactive json relax package.json",
-			args:     []string{"", "fix", "--strategy=relax", "--format=json"},
-			exit:     0,
-			manifest: "./fixtures/relax-npm/package.json",
+			Name: "fix non-interactive override pom.xml",
+			Args: []string{"", "fix", "--strategy=override", "-M", "./fixtures/override-maven/pom.xml"},
+			Exit: 0,
 		},
 		{
-			name:     "fix non-interactive json override pom.xml",
-			args:     []string{"", "fix", "--strategy=override", "--format=json"},
-			exit:     0,
-			manifest: "./fixtures/override-maven/pom.xml",
+			Name: "fix_non_interactive_override_pom_xml_with_native_data_source",
+			Args: []string{"", "fix", "--strategy=override", "--data-source", "native", "-M", "./fixtures/override-maven/pom.xml"},
+			Exit: 0,
 		},
 		{
-			name: "errors_with_invalid_data_source",
-			args: []string{"", "fix", "--data-source=github"},
-			exit: 127,
+			Name: "fix non-interactive json in-place package-lock.json",
+			Args: []string{"", "fix", "--strategy=in-place", "--format=json", "-L", "./fixtures/in-place-npm/package-lock.json"},
+			Exit: 0,
+		},
+		{
+			Name: "fix non-interactive json relax package.json",
+			Args: []string{"", "fix", "--strategy=relax", "--format=json", "-M", "./fixtures/relax-npm/package.json"},
+			Exit: 0,
+		},
+		{
+			Name: "fix non-interactive json override pom.xml",
+			Args: []string{"", "fix", "--strategy=override", "--format=json", "-M", "./fixtures/override-maven/pom.xml"},
+			Exit: 0,
+		},
+		{
+			Name: "errors_with_invalid_data_source",
+			Args: []string{"", "fix", "--data-source=github"},
+			Exit: 127,
 		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
+		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			tc := testcmd.Case{
-				Name: tt.name,
-				Args: slices.Clone(tt.args),
-				Exit: tt.exit,
-			}
 
 			// fix action overwrites files, copy them to a temporary directory
 			testDir := testutility.CreateTestDir(t)
 
-			var lockfile, manifest string
-			if tt.lockfile != "" {
-				lockfile = testcmd.CopyFileTo(t, tt.lockfile, testDir)
-				tc.Args = append(tc.Args, "-L", lockfile)
-			}
-			if tt.manifest != "" {
-				manifest = testcmd.CopyFileTo(t, tt.manifest, testDir)
-				tc.Args = append(tc.Args, "-M", manifest)
-			}
+			lockfile := testcmd.CopyFileFlagTo(t, tt, "-L", testDir)
+			manifest := testcmd.CopyFileFlagTo(t, tt, "-M", testDir)
 
-			testcmd.RunAndMatchSnapshots(t, tc)
+			testcmd.RunAndMatchSnapshots(t, tt)
 
 			if lockfile != "" {
 				matchFile(t, lockfile)

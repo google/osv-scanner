@@ -3,6 +3,7 @@ package output_test
 import (
 	"bytes"
 	"encoding/json"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/output"
@@ -52,6 +53,8 @@ func TestPrintSARIFReport(t *testing.T) {
 func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
 	t.Parallel()
 
+	cwd := testutility.GetCurrentWorkingDirectory(t)
+
 	testOutputWithVulnerabilities(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
 
@@ -59,15 +62,19 @@ func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
 
 		testutility.NewSnapshot().WithWindowsReplacements(
 			map[string]string{
-				"path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+				strings.ReplaceAll(cwd, "\\", "\\\\"): strings.ReplaceAll(cwd, "\\", "/"),
+
+				"\\\\path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "/path/to/my/first/osv-scanner.toml",
+				"\\\\path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "/path/to/my/second/osv-scanner.toml",
+				"\\\\path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "/path/to/my/third/osv-scanner.toml",
 			}).MatchJSON(t, jsonStructure)
 	})
 }
 
 func TestPrintSARIFReport_WithLicenseViolations(t *testing.T) {
 	t.Parallel()
+
+	cwd := testutility.GetCurrentWorkingDirectory(t)
 
 	testOutputWithLicenseViolations(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -76,15 +83,19 @@ func TestPrintSARIFReport_WithLicenseViolations(t *testing.T) {
 
 		testutility.NewSnapshot().WithWindowsReplacements(
 			map[string]string{
-				"path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+				strings.ReplaceAll(cwd, "\\", "\\\\"): strings.ReplaceAll(cwd, "\\", "/"),
+
+				"\\\\path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "/path/to/my/first/osv-scanner.toml",
+				"\\\\path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "/path/to/my/second/osv-scanner.toml",
+				"\\\\path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "/path/to/my/third/osv-scanner.toml",
 			}).MatchJSON(t, jsonStructure)
 	})
 }
 
 func TestPrintSARIFReport_WithMixedIssues(t *testing.T) {
 	t.Parallel()
+
+	cwd := testutility.GetCurrentWorkingDirectory(t)
 
 	testOutputWithMixedIssues(t, func(t *testing.T, args outputTestCaseArgs) {
 		t.Helper()
@@ -93,9 +104,11 @@ func TestPrintSARIFReport_WithMixedIssues(t *testing.T) {
 
 		testutility.NewSnapshot().WithWindowsReplacements(
 			map[string]string{
-				"path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "path/to/my/first/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "path/to/my/second/osv-scanner.toml",
-				"path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "path/to/my/third/osv-scanner.toml",
+				strings.ReplaceAll(cwd, "\\", "\\\\"): strings.ReplaceAll(cwd, "\\", "/"),
+
+				"\\\\path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "/path/to/my/first/osv-scanner.toml",
+				"\\\\path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "/path/to/my/second/osv-scanner.toml",
+				"\\\\path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "/path/to/my/third/osv-scanner.toml",
 			}).MatchJSON(t, jsonStructure)
 	})
 }
