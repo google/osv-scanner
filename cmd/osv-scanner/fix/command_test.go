@@ -27,8 +27,18 @@ func TestCommand(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
+			Name: "no_args_provided",
+			Args: []string{"", "fix"},
+			Exit: 127,
+		},
+		{
 			Name: "fix non-interactive in-place package-lock.json",
 			Args: []string{"", "fix", "--strategy=in-place", "-L", "./fixtures/in-place-npm/package-lock.json"},
+			Exit: 0,
+		},
+		{
+			Name: "fix_non_interactive_in_place_package_lock_json_with_native_data_source",
+			Args: []string{"", "fix", "--strategy=in-place", "--data-source", "native", "-L", "./fixtures/in-place-npm/package-lock.json"},
 			Exit: 0,
 		},
 		{
@@ -39,6 +49,11 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "fix non-interactive override pom.xml",
 			Args: []string{"", "fix", "--strategy=override", "-M", "./fixtures/override-maven/pom.xml"},
+			Exit: 0,
+		},
+		{
+			Name: "fix_non_interactive_override_pom_xml_with_native_data_source",
+			Args: []string{"", "fix", "--strategy=override", "--data-source", "native", "-M", "./fixtures/override-maven/pom.xml"},
 			Exit: 0,
 		},
 		{

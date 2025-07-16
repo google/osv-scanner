@@ -985,3 +985,25 @@ func TestCommandNonGit(t *testing.T) {
 		})
 	}
 }
+
+func TestCommand_HtmlFile(t *testing.T) {
+	t.Parallel()
+
+	testDir := testutility.CreateTestDir(t)
+
+	_, stderr := testcmd.RunAndNormalize(t, testcmd.Case{
+		Name: "one specific supported lockfile",
+		Args: []string{"", "source", "--format=html", "--output", testDir + "/report.html", "./fixtures/locks-many/composer.lock"},
+		Exit: 0,
+	})
+
+	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
+		"CreateFile": "stat",
+	}).MatchText(t, stderr)
+
+	_, err := os.Stat(testDir + "/report.html")
+
+	if err != nil {
+		t.Errorf("Unexpected %v", err)
+	}
+}

@@ -1649,6 +1649,14 @@ Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json file as 
 
 ---
 
+[TestCommand_HtmlFile - 1]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+HTML output available at: <tempdir>/report.html
+
+---
+
 [TestCommand_Licenses/Licenses_in_summary_mode_json - 1]
 {
   "results": [],
