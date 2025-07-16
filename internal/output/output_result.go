@@ -44,7 +44,6 @@ type EcosystemResult struct {
 type SourceResult struct {
 	Name                   string
 	Type                   models.SourceType
-	Ecosystem              string
 	PackageTypeCount       AnalysisCount
 	Packages               []PackageResult
 	VulnCount              VulnCount
@@ -372,10 +371,9 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 	// If no packages with issues are found, mark the ecosystem as empty.
 	if len(packageSource.Packages) == 0 {
 		sourceResults[""] = SourceResult{
-			Name:      packageSource.Source.String(),
-			Type:      packageSource.Source.Type,
-			Ecosystem: "",
-			Packages:  []PackageResult{},
+			Name:     packageSource.Source.String(),
+			Type:     packageSource.Source.Type,
+			Packages: []PackageResult{},
 		}
 
 		return sourceResults
@@ -384,9 +382,8 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 	for _, vulnPkg := range packageSource.Packages {
 		if _, exists := sourceResults[vulnPkg.Package.Ecosystem]; !exists {
 			sourceResults[vulnPkg.Package.Ecosystem] = SourceResult{
-				Name:      packageSource.Source.String(),
-				Type:      packageSource.Source.Type,
-				Ecosystem: vulnPkg.Package.Ecosystem,
+				Name: packageSource.Source.String(),
+				Type: packageSource.Source.Type,
 			}
 		}
 
