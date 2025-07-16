@@ -248,6 +248,8 @@ func determineOS() plugin.OS {
 	case "linux":
 		return plugin.OSLinux
 	default:
+		cmdlogger.Warnf("Unknown OS \"%s\" - results might be inaccurate", runtime.GOOS)
+
 		return plugin.OSAny
 	}
 }
