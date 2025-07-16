@@ -2,6 +2,7 @@ package pomxmlenhanceable
 
 import (
 	"context"
+	
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
