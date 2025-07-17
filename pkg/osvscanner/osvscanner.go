@@ -17,6 +17,7 @@ import (
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
+	"github.com/google/osv-scalibr/detector"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/plugin"
@@ -72,6 +73,7 @@ type ExperimentalScannerActions struct {
 	TransitiveScanningActions
 
 	Extractors []filesystem.Extractor
+	Detectors  []detector.Detector
 }
 
 type TransitiveScanningActions struct {
@@ -225,12 +227,13 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	// ----- Perform Scanning -----
-	packages, err := scan(accessors, actions)
+	packagesAndFindings, err := scan(accessors, actions)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
-	scanResult.PackageScanResults = packages
+	scanResult.PackageScanResults = packagesAndFindings.PackageResults
+	scanResult.GenericFindings = packagesAndFindings.GenericFindings
 
 	// ----- Filtering -----
 	filterUnscannablePackages(&scanResult)
@@ -328,10 +331,20 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		actions,
 	)
 
-	plugins := make([]plugin.Plugin, len(filesystemExtractors))
+	plugins := make([]plugin.Plugin, len(filesystemExtractors)+len(actions.Detectors))
 	for i, ext := range filesystemExtractors {
 		plugins[i] = ext.(plugin.Plugin)
 	}
+
+	for i, det := range actions.Detectors {
+		plugins[i+len(filesystemExtractors)] = det.(plugin.Plugin)
+	}
+
+	plugins = plugin.FilterByCapabilities(plugins, &plugin.Capabilities{
+		DirectFS:      true,
+		RunningSystem: false,
+		OS:            plugin.OSLinux,
+	})
 
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
@@ -391,6 +404,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 			psr.PackageInfo.AnnotationsDeprecated = append(psr.PackageInfo.AnnotationsDeprecated, extractor.InsideOSPackage)
 		}
 	}
+
+	scanResult.GenericFindings = scalibrSR.Inventory.GenericFindings
 
 	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
 

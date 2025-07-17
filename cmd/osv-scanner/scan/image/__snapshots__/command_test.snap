@@ -658,6 +658,110 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_detector_preset - 1]
+Scanning local image tarball "../../../../internal/image/fixtures/test-alpine-etcshadow.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:lib/apk/db/installed                                                                                               |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_detector_preset - 2]
+
+---
+
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_disabled - 1]
+Scanning local image tarball "../../../../internal/image/fixtures/test-alpine-etcshadow.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:lib/apk/db/installed                                                                                               |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_disabled - 2]
+
+---
+
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_enabled - 1]
+Scanning local image tarball "../../../../internal/image/fixtures/test-alpine-etcshadow.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:lib/apk/db/installed                                                                                               |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_enabled - 2]
+
+---
+
+[TestCommand_OCIImage/scanning_insecure_alpine_image_without_detectors - 1]
+Scanning local image tarball "../../../../internal/image/fixtures/test-alpine-etcshadow.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:lib/apk/db/installed                                                                                               |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/scanning_insecure_alpine_image_without_detectors - 2]
+
+---
+
 [TestCommand_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
 Scanning local image tarball "../../../../internal/image/fixtures/test-node_modules-npm-empty.tar"
 
@@ -1895,6 +1999,206 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
 
 [TestCommand_OCIImage_JSONFormat/scanning_image_with_go_binary - 2]
 Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary.tar"
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_detector_preset - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "lib/apk/db/installed",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "apk-tools",
+            "os_package_name": "apk-tools",
+            "version": "2.10.6-r0",
+            "ecosystem": "Alpine:v3.10",
+            "commit": "ee458ccae264321745e9622c759baf110130eb2f",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "CVE-2021-36159"
+          ],
+          "groups": 1
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "experimental_generic_findings": [
+    {
+      "Adv": {
+        "ID": {
+          "Publisher": "SCALIBR",
+          "Reference": "etc-shadow-weakcredentials"
+        },
+        "Title": "Ensure all users have strong passwords configured",
+        "Description": "The /etc/shadow file contains user account password hashes. These passwords must be strong and not easily guessable.",
+        "Recommendation": "Run the following command to reset password for the reported users:/n# change password for USER: sudo passwd USER",
+        "Sev": 5
+      },
+      "Target": {
+        "Extra": "/etc/shadow: The following users have weak passwords:/nuser-bcrypt/n"
+      },
+      "Plugins": [
+        "weakcredentials/etcshadow"
+      ],
+      "ExploitabilitySignals": null
+    }
+  ],
+  "image_metadata": {
+    "os": "Alpine Linux v3.10",
+    "layer_metadata": [
+      {
+        "diff_id": "sha256:...",
+        "command": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  CMD [/"/bin/sh/"]",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN /bin/sh -c echo 'user-bcrypt:$2b$05$IYDlXvHmeORyyiUwu8KKuek2LE8VrxIYZ2skPvRDDNngpXJHRq7sG' /u003e/u003e /etc/shadow # buildkit",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN /bin/sh -c echo 'user-descrypt:chERDiI95PGCQ' /u003e/u003e /etc/shadow # buildkit",
+        "is_empty": false,
+        "base_image_index": 0
+      }
+    ],
+    "base_images": [
+      {},
+      {
+        "name": "alpine",
+        "tags": null
+      }
+    ]
+  }
+}
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_detector_preset - 2]
+Scanning local image tarball "../../../../internal/image/fixtures/test-alpine-etcshadow.tar"
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_specific_detector_enabled - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "lib/apk/db/installed",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "apk-tools",
+            "os_package_name": "apk-tools",
+            "version": "2.10.6-r0",
+            "ecosystem": "Alpine:v3.10",
+            "commit": "ee458ccae264321745e9622c759baf110130eb2f",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "vulnerabilities": [
+            "CVE-2021-36159"
+          ],
+          "groups": 1
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "experimental_generic_findings": [
+    {
+      "Adv": {
+        "ID": {
+          "Publisher": "SCALIBR",
+          "Reference": "etc-shadow-weakcredentials"
+        },
+        "Title": "Ensure all users have strong passwords configured",
+        "Description": "The /etc/shadow file contains user account password hashes. These passwords must be strong and not easily guessable.",
+        "Recommendation": "Run the following command to reset password for the reported users:/n# change password for USER: sudo passwd USER",
+        "Sev": 5
+      },
+      "Target": {
+        "Extra": "/etc/shadow: The following users have weak passwords:/nuser-bcrypt/n"
+      },
+      "Plugins": [
+        "weakcredentials/etcshadow"
+      ],
+      "ExploitabilitySignals": null
+    }
+  ],
+  "image_metadata": {
+    "os": "Alpine Linux v3.10",
+    "layer_metadata": [
+      {
+        "diff_id": "sha256:...",
+        "command": "/bin/sh -c #(nop) ADD file:c5377eaa926bf412dd8d4a08b0a1f2399cfd708743533b0aa03b53d14cb4bb4e in / ",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  CMD [/"/bin/sh/"]",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN /bin/sh -c echo 'user-bcrypt:$2b$05$IYDlXvHmeORyyiUwu8KKuek2LE8VrxIYZ2skPvRDDNngpXJHRq7sG' /u003e/u003e /etc/shadow # buildkit",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN /bin/sh -c echo 'user-descrypt:chERDiI95PGCQ' /u003e/u003e /etc/shadow # buildkit",
+        "is_empty": false,
+        "base_image_index": 0
+      }
+    ],
+    "base_images": [
+      {},
+      {
+        "name": "alpine",
+        "tags": null
+      }
+    ]
+  }
+}
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_specific_detector_enabled - 2]
+Scanning local image tarball "../../../../internal/image/fixtures/test-alpine-etcshadow.tar"
 
 ---
 
