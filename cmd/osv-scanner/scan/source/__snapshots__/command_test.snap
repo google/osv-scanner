@@ -3709,6 +3709,46 @@ Total 5 packages affected by 15 known vulnerabilities (0 Critical, 4 High, 10 Me
 
 ---
 
+[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
+
+---
+
+[TestCommand_WithDetector_OffLinux/ssh_version_errors - 1]
+Scanning dir <tempdir>/composer.lock
+Scanned <tempdir>/composer.lock file and found 1 package
+Loaded filter from: <tempdir>/osv-scanner.toml
+No issues found
+
+---
+
+[TestCommand_WithDetector_OffLinux/ssh_version_errors - 2]
+
+---
+
+[TestCommand_WithDetector_OffLinux/ssh_version_is_after_last_vuln_version - 1]
+Scanning dir <tempdir>/composer.lock
+Scanned <tempdir>/composer.lock file and found 1 package
+Loaded filter from: <tempdir>/osv-scanner.toml
+No issues found
+
+---
+
+[TestCommand_WithDetector_OffLinux/ssh_version_is_after_last_vuln_version - 2]
+
+---
+
+[TestCommand_WithDetector_OffLinux/ssh_version_is_before_first_vuln_version - 1]
+Scanning dir <tempdir>/composer.lock
+Scanned <tempdir>/composer.lock file and found 1 package
+Loaded filter from: <tempdir>/osv-scanner.toml
+No issues found
+
+---
+
+[TestCommand_WithDetector_OffLinux/ssh_version_is_before_first_vuln_version - 2]
+
+---
+
 [TestCommand_WithDetector_OnLinux/ssh_version_errors - 1]
 Scanning dir <tempdir>/composer.lock
 Command "ssh -V": exit status 1
@@ -3743,36 +3783,5 @@ No issues found
 ---
 
 [TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2]
-
----
-
-[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
-
----
-
-[TestCommand_WithDetector_OffLinux/ssh_version_errors - 1]
-Scanning dir <tempdir>/composer.lock
----
-
-[TestCommand_WithDetector_OffLinux/ssh_version_errors - 2]
-plugin cve/cve-2023-38408 can't be enabled: needs to run on a different OS than that of the scan environment
-
----
-
-[TestCommand_WithDetector_OffLinux/ssh_version_is_after_last_vuln_version - 1]
-Scanning dir <tempdir>/composer.lock
----
-
-[TestCommand_WithDetector_OffLinux/ssh_version_is_after_last_vuln_version - 2]
-plugin cve/cve-2023-38408 can't be enabled: needs to run on a different OS than that of the scan environment
-
----
-
-[TestCommand_WithDetector_OffLinux/ssh_version_is_before_first_vuln_version - 1]
-Scanning dir <tempdir>/composer.lock
----
-
-[TestCommand_WithDetector_OffLinux/ssh_version_is_before_first_vuln_version - 2]
-plugin cve/cve-2023-38408 can't be enabled: needs to run on a different OS than that of the scan environment
 
 ---

@@ -179,7 +179,6 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 		&cli.StringSliceFlag{
 			Name:  "experimental-detectors",
 			Usage: "list of specific detectors and presets of detectors to use",
-			Value: defaultExtractors,
 		},
 		&cli.StringSliceFlag{
 			Name:  "experimental-disable-detectors",

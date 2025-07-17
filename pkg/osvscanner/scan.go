@@ -174,6 +174,8 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			plugins[i+len(dirExtractors)] = det.(plugin.Plugin)
 		}
 
+		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
+
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
 			Plugins:               plugins,
 			Capabilities:          &capabilities,

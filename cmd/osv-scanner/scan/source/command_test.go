@@ -1107,7 +1107,7 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 				"--experimental-detectors", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
-			Exit: 127,
+			Exit: 0,
 			SSHV: "OpenSSH_5.4 Ubuntu-3ubuntu0.13, OpenSSL 3.0.2 15 Mar 2022",
 		},
 		{
@@ -1117,7 +1117,7 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 				"--experimental-detectors", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
-			Exit: 127,
+			Exit: 0,
 			SSHV: "OpenSSH_9.3p2 Ubuntu-3ubuntu0.13, OpenSSL 3.0.2 15 Mar 2022",
 		},
 		{
@@ -1127,7 +1127,7 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 				"--experimental-detectors", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
-			Exit: 127,
+			Exit: 0,
 			SSHV: "",
 		},
 	}
