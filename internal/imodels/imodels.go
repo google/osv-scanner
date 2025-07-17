@@ -1,3 +1,4 @@
+// Package imodels defines internal models for osv-scanner.
 package imodels
 
 import (

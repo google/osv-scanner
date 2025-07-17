@@ -1,3 +1,4 @@
+// Package clienttest provides a mock resolution client for testing.
 package clienttest
 
 import (

@@ -1,3 +1,4 @@
+// Package source implements the `source` subcommand of the `scan` command.
 package source
 
 import (

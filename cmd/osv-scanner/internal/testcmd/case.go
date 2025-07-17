@@ -1,3 +1,4 @@
+// Package testcmd provides utilities for testing osv-scanner CLI commands.
 package testcmd
 
 import (

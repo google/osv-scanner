@@ -1,3 +1,4 @@
+// Package builders provides functions to convert extractors from name.
 package builders
 
 import (

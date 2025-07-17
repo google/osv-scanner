@@ -1,3 +1,4 @@
+// Package vendored provides an extractor for vendored C/C++ code.
 package vendored
 
 import (

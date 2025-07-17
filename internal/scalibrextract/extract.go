@@ -1,3 +1,4 @@
+// Package scalibrextract provides functions to easily use scalibr extractors within osv-scanner.
 package scalibrextract
 
 import (

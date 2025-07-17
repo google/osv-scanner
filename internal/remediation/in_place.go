@@ -1,3 +1,4 @@
+// Package remediation provides logic for Guided Remediation.
 package remediation
 
 import (

@@ -1,3 +1,4 @@
+// Package suggest provides functionality for suggesting remediation for vulnerabilities.
 package suggest
 
 import (

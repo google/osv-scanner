@@ -1,3 +1,4 @@
+// Package identifiers provides functions for sorting vulnerability identifiers.
 package identifiers
 
 import (

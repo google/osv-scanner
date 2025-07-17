@@ -1,3 +1,4 @@
+// Package client defines the clients for resolving dependencies for various ecosystems.
 package client
 
 import (

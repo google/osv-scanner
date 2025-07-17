@@ -1,3 +1,4 @@
+// Package output provides functionality for printing scan results in various formats.
 package output
 
 import (
