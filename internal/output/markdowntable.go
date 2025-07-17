@@ -1,6 +1,7 @@
 package output
 
 import (
+	"fmt"
 	"io"
 
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -8,11 +9,15 @@ import (
 	"github.com/jedib0t/go-pretty/v6/text"
 )
 
-// PrintMarkdownTableResults prints the osv scan results into a human friendly table.
+// PrintMarkdownTableResults prints the osv scan results into a human friendly Markdown table.
+// The Markdown table uses the same format and columns as the standard table output.
 func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.Writer, showAllVulns bool) {
 	text.DisableColors()
 
 	outputResult := BuildResults(vulnResult)
+
+	printSummary(outputResult, outputWriter)
+	fmt.Fprintln(outputWriter)
 
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
