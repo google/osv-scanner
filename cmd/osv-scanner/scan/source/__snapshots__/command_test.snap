@@ -3410,6 +3410,31 @@ unsupported data-source "github" - must be one of: deps.dev, native
 
 ---
 
+[TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed - 1]
+Scanning dir ./fixtures/locks-requirements/unresolvable-requirements.txt
+Scanned <rootdir>/fixtures/locks-requirements/unresolvable-requirements.txt file and found 3 packages
++-------------------------------------+------+-----------+------------+---------+-----------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | SOURCE                                                    |
++-------------------------------------+------+-----------+------------+---------+-----------------------------------------------------------+
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |                                                           |
+| https://osv.dev/PYSEC-2020-43       | 8.7  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-xc3p-ff3m-f46v |      |           |            |         |                                                           |
+| https://osv.dev/PYSEC-2024-71       | 8.7  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-hxwh-jpp2-84pm |      |           |            |         |                                                           |
+| https://osv.dev/GHSA-43qf-4rqw-9q2g | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-7rxf-gvfg-47g4 | 4.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-84pr-m4jr-85g5 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-8vgw-p6qm-5gr7 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/PYSEC-2020-73       |      | PyPI      | pandas     | 0.23.4  | fixtures/locks-requirements/unresolvable-requirements.txt |
++-------------------------------------+------+-----------+------------+---------+-----------------------------------------------------------+
+
+---
+
+[TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed - 2]
+
+---
+
 [TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 1]
 Scanned <rootdir>/fixtures/maven-transitive/registry.xml file as a pom.xml and found 59 packages
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+----------------------------------------+
@@ -3528,30 +3553,5 @@ Scanned <rootdir>/fixtures/locks-requirements/requirements.txt file and found 13
 ---
 
 [TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
-
----
-
-[TestCommand_Transitive/uses_native_data_source_for_requirements.txt#01 - 1]
-Scanning dir ./fixtures/locks-requirements/unresolvable-requirements.txt
-Scanned <rootdir>/fixtures/locks-requirements/unresolvable-requirements.txt file and found 3 packages
-+-------------------------------------+------+-----------+------------+---------+-----------------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | SOURCE                                                    |
-+-------------------------------------+------+-----------+------------+---------+-----------------------------------------------------------+
-| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |                                                           |
-| https://osv.dev/PYSEC-2020-43       | 8.7  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-xc3p-ff3m-f46v |      |           |            |         |                                                           |
-| https://osv.dev/PYSEC-2024-71       | 8.7  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-hxwh-jpp2-84pm |      |           |            |         |                                                           |
-| https://osv.dev/GHSA-43qf-4rqw-9q2g | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-7rxf-gvfg-47g4 | 4.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-84pr-m4jr-85g5 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-8vgw-p6qm-5gr7 | 5.3  | PyPI      | flask-cors | 1.0.0   | fixtures/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/PYSEC-2020-73       |      | PyPI      | pandas     | 0.23.4  | fixtures/locks-requirements/unresolvable-requirements.txt |
-+-------------------------------------+------+-----------+------------+---------+-----------------------------------------------------------+
-
----
-
-[TestCommand_Transitive/uses_native_data_source_for_requirements.txt#01 - 2]
 
 ---

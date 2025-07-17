@@ -881,7 +881,7 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "uses native data source for requirements.txt",
+			Name: "fall back to the offline extractor if resolution failed",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-requirements/unresolvable-requirements.txt"},
 			Exit: 1,
 		},
