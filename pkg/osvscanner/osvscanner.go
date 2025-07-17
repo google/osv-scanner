@@ -336,7 +336,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
-		Plugins: plugins,
+		Plugins:           plugins,
+		StoreAbsolutePath: true,
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
