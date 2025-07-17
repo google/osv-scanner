@@ -34,11 +34,11 @@ require (
 	golang.org/x/sync v0.16.0
 	golang.org/x/term v0.33.0
 	golang.org/x/vuln v1.1.4
-	google.golang.org/grpc v1.73.0
+	google.golang.org/grpc v1.74.0
 	google.golang.org/protobuf v1.36.6
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
-	osv.dev/bindings/go v0.0.0-20250711005142-008c9112d045
+	osv.dev/bindings/go v0.0.0-20250716051240-efc8ec45c9b0
 )
 
 require (
