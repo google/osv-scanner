@@ -3,6 +3,7 @@ package helper
 import (
 	"github.com/google/osv-scalibr/detector"
 	"github.com/google/osv-scalibr/detector/list"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 )
 
 var detectorPresets = map[string]list.InitMap{
@@ -33,18 +34,17 @@ func ResolveEnabledDetectors(enabledDetectors []string, disabledDetectors []stri
 
 	asSlice := make([]detector.Detector, 0, len(detectors))
 
-	// todo: rethink this life choice...
 	for name, enabled := range detectors {
-		if name != "" && enabled {
-			for _, detectorsInPreset := range detectorPresets {
-				for detectorName, detectorInits := range detectorsInPreset {
-					if name == detectorName {
-						for _, detectorInit := range detectorInits {
-							asSlice = append(asSlice, detectorInit())
-						}
-					}
-				}
+		if enabled && name != "" {
+			loaded, err := list.DetectorsFromName(name)
+
+			if err != nil {
+				cmdlogger.Errorf("%s", err)
+
+				continue
 			}
+
+			asSlice = append(asSlice, loaded...)
 		}
 	}
 
