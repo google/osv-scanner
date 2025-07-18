@@ -1,3 +1,4 @@
+// Package cmdlogger provides wrapper for slog logging commands.
 package cmdlogger
 
 import (

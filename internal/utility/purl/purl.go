@@ -1,3 +1,4 @@
+// Package purl provides functionality for working with PURLs.
 package purl
 
 import (

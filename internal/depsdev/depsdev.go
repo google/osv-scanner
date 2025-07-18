@@ -1,3 +1,4 @@
+// Package depsdev contains constants and mappings for the deps.dev API.
 package depsdev
 
 import (

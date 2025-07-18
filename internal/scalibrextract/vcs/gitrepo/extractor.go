@@ -1,3 +1,4 @@
+// Package gitrepo provides an extractor for git repositories and submodules.
 package gitrepo
 
 import (

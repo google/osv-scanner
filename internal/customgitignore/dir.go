@@ -1,6 +1,6 @@
-// based on https://github.com/go-git/go-git/blob/v5.7.0/plumbing/format/gitignore/dir.go
-// but modified so that it skips ignored directories while traversing for gitignore files
-
+// Package customgitignore provides a custom gitignore parser that skips ignored directories.
+// It is based on the go-git implementation.
+// https://github.com/go-git/go-git/blob/v5.7.0/plumbing/format/gitignore/dir.go
 package customgitignore
 
 import (

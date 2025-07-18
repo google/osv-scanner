@@ -1,3 +1,4 @@
+// Package pomxmlenhanceable provides an extractor for pom.xml files that can both do offline and transitive scanning.
 package pomxmlenhanceable
 
 import (

@@ -1,3 +1,5 @@
+// Package localmatcher implements a vulnerability matcher
+// that uses a local database downloaded from osv.dev's export bucket.
 package localmatcher
 
 import (

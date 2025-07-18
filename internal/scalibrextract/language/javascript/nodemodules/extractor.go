@@ -1,3 +1,4 @@
+// Package nodemodules provides an extractor for node_modules directories by reading the .package-lock.json file.
 package nodemodules
 
 import (

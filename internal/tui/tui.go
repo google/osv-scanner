@@ -1,3 +1,4 @@
+// Package tui provides a terminal user interface for guided remediation.
 package tui
 
 import (

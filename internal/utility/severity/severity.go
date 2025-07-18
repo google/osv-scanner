@@ -1,3 +1,4 @@
+// Package severity provides functionality for calculating vulnerability severity.
 package severity
 
 import (

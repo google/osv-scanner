@@ -1,3 +1,5 @@
+// Package main implements the osv-reporter command, which generates GitHub Action
+// output for OSV scanner results.
 package main
 
 import (

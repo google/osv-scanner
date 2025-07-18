@@ -1,3 +1,4 @@
+// Package vulns provides utility functions for working with vulnerabilities.
 package vulns
 
 import "github.com/ossf/osv-schema/bindings/go/osvschema"

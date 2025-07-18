@@ -1,3 +1,5 @@
+// Package requirementsenhancable provides an extractor for requirements.txt
+// that can both do offline and transitive scanning.
 package requirementsenhancable
 
 import (

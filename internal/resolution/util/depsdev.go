@@ -1,3 +1,4 @@
+// Package util provides utility functions for dependency resolution.
 package util
 
 import (

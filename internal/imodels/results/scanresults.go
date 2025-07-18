@@ -1,3 +1,4 @@
+// Package results defines the data structures for scan results.
 package results
 
 import (

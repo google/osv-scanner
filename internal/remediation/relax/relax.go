@@ -1,3 +1,4 @@
+// Package relax provides functionality for relaxing version constraints for guided remediation.
 package relax
 
 import (
