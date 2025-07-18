@@ -1,4 +1,4 @@
-// Package datasource provides data sources for Guided Remediation
+// Package datasource provides data sources for dependency resolution used by transitive scanning and guided remediation.
 package datasource
 
 import (
