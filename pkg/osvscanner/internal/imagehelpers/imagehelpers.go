@@ -1,3 +1,4 @@
+// Package imagehelpers provides helper functions for working with container images.
 package imagehelpers
 
 import (

@@ -1,3 +1,4 @@
+// Package sourceanalysis provides functionality for performing source analysis on code.
 package sourceanalysis
 
 import (

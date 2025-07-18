@@ -1,3 +1,4 @@
+// Package spdx provides functionality for parsing and evaluating SPDX license expressions.
 package spdx
 
 import (

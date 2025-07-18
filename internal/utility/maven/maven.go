@@ -1,3 +1,4 @@
+// Package maven provides utility functions for working with Maven projects.
 package maven
 
 import (

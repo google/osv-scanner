@@ -1,3 +1,4 @@
+// Package main generates a mock resolution universe file for testing.
 package main
 
 // Generate a MockResolutionClient universe file based on real packages encountered during in-place and/or relock updates.
