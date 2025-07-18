@@ -1,4 +1,4 @@
-// Package suggest provides functionality for suggesting remediation for vulnerabilities.
+// Package suggest provides functionality for suggesting version updates.
 package suggest
 
 import (
