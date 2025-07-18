@@ -881,6 +881,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "fall back to the offline extractor if resolution failed",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-requirements/unresolvable-requirements.txt"},
+			Exit: 1,
+		},
+		{
 			Name: "does not scan transitive dependencies for requirements.txt with no-resolve",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--no-resolve", "./fixtures/locks-requirements/requirements.txt"},
 			Exit: 1,

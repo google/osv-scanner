@@ -17,12 +17,14 @@ const (
 
 // Extractor extracts python packages from requirements.txt files.
 type Extractor struct {
-	actual filesystem.Extractor
+	offline filesystem.Extractor
+	online  filesystem.Extractor
 }
 
 // New returns a new instance of the extractor.
 func New() filesystem.Extractor {
-	return &Extractor{actual: requirements.New(requirements.DefaultConfig())}
+	base := requirements.New(requirements.DefaultConfig())
+	return &Extractor{offline: base, online: base}
 }
 
 // Name of the extractor
@@ -33,7 +35,7 @@ func (e *Extractor) Version() int { return 0 }
 
 // Requirements of the extractor
 func (e *Extractor) Requirements() *plugin.Capabilities {
-	req := e.actual.Requirements()
+	req := e.online.Requirements()
 	req.Network = plugin.NetworkAny
 
 	return req
@@ -41,12 +43,30 @@ func (e *Extractor) Requirements() *plugin.Capabilities {
 
 // FileRequired returns true if the specified file matches using the underlying requirements extractor
 func (e *Extractor) FileRequired(api filesystem.FileAPI) bool {
-	return e.actual.FileRequired(api)
+	return e.online.FileRequired(api)
 }
 
 // Extract extracts packages using the internal extractor
 func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
-	return e.actual.Extract(ctx, input)
+	inv, err := e.online.Extract(ctx, input)
+	if err == nil {
+		return inv, nil
+	}
+
+	if e.online.Name() == e.offline.Name() {
+		// online is the same as offline so we don't need to run extraction again.
+		return inv, err
+	}
+
+	// Fallback to the base extractor if the enhanced extraction failed.
+	f, err := input.FS.Open(input.Path)
+	if err != nil {
+		return inventory.Inventory{}, err
+	}
+	input.Reader = f
+	defer f.Close()
+
+	return e.offline.Extract(ctx, input)
 }
 
 var _ filesystem.Extractor = &Extractor{}
@@ -58,7 +78,7 @@ type enhanceable interface {
 // Enhance uses the given config to improve the abilities of this extractor,
 // at the cost of additional requirements such as networking and direct fs access
 func (e *Extractor) Enhance(config requirementsnet.Config) {
-	e.actual = requirementsnet.New(config)
+	e.online = requirementsnet.New(config)
 }
 
 var _ enhanceable = &Extractor{}
