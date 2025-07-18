@@ -4,7 +4,8 @@
 
 // Package url provides functionality for converting file paths to file URLs.
 //
-// Code copied from https://github.com/golang/go/blob/7c2b69080a0b9e35174cc9c93497b6e7176f8275/src/cmd/go/internal/web/url.go
+// Code copied from
+// https://github.com/golang/go/blob/7c2b69080a0b9e35174cc9c93497b6e7176f8275/src/cmd/go/internal/web/url.go
 // TODO(golang.org/issue/32456): If accepted, move these functions into the
 // net/url package.
 package url
@@ -15,8 +16,6 @@ import (
 	"path/filepath"
 	"strings"
 )
-
-
 
 var errNotAbsolute = errors.New("path is not absolute")
 
