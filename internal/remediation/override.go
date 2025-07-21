@@ -4,12 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"slices"
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
 	"deps.dev/util/semver"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
@@ -262,7 +262,7 @@ func getVersionsGreater(ctx context.Context, cl client.DependencyClient, vk reso
 	for _, ver := range versions {
 		parsed, err := semver.Maven.Parse(ver.Version)
 		if err != nil {
-			log.Printf("parsing Maven version %s: %v", parsed, err)
+			cmdlogger.Warnf("parsing Maven version %s: %v", parsed, err)
 			continue
 		}
 		semvers[ver.VersionKey] = parsed

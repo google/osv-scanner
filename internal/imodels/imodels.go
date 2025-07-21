@@ -3,7 +3,6 @@ package imodels
 
 import (
 	"fmt"
-	"log"
 	"strings"
 
 	"github.com/google/osv-scalibr/converter"
@@ -22,6 +21,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -124,8 +124,7 @@ func (pkg *PackageInfo) Ecosystem() ecosystem.Parsed {
 	eco, err := ecosystem.Parse(ecosystemStr)
 	if err != nil {
 		// Ignore this error for now as we can't do too much about an unknown ecosystem
-		// TODO(v2): Replace with slog
-		log.Printf("Warning: %s\n", err.Error())
+		cmdlogger.Warnf("Warning: %s", err.Error())
 	}
 
 	return eco

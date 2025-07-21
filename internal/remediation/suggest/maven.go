@@ -4,12 +4,12 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"slices"
 	"strings"
 
 	"deps.dev/util/resolve"
 	"deps.dev/util/semver"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
 	"github.com/google/osv-scanner/v2/internal/utility/maven"
@@ -81,7 +81,7 @@ func suggestMavenVersion(ctx context.Context, cl resolve.Client, req resolve.Req
 	for _, ver := range versions {
 		parsed, err := semver.Maven.Parse(ver.Version)
 		if err != nil {
-			log.Printf("parsing Maven version %s: %v", parsed, err)
+			cmdlogger.Warnf("parsing Maven version %s: %v", parsed, err)
 			continue
 		}
 		semvers = append(semvers, parsed)
