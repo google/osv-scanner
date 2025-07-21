@@ -340,16 +340,18 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		plugins[i+len(filesystemExtractors)] = det.(plugin.Plugin)
 	}
 
-	plugins = plugin.FilterByCapabilities(plugins, &plugin.Capabilities{
+	capabilities := &plugin.Capabilities{
 		DirectFS:      true,
 		RunningSystem: false,
 		OS:            plugin.OSLinux,
-	})
+	}
+	plugins = plugin.FilterByCapabilities(plugins, capabilities)
 
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
-		Plugins: plugins,
+		Plugins:      plugins,
+		Capabilities: capabilities,
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
