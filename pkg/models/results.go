@@ -144,12 +144,6 @@ type GroupInfo struct {
 // IsCalled returns true if any analysis performed determines that the vulnerability is being called
 // Also returns true if no analysis is performed
 func (groupInfo *GroupInfo) IsCalled() bool {
-	if len(groupInfo.IDs) == 0 {
-		// This PackageVulns may be a license violation, not a
-		// vulnerability.
-		return false
-	}
-
 	if len(groupInfo.ExperimentalAnalysis) == 0 {
 		return true
 	}
@@ -164,10 +158,6 @@ func (groupInfo *GroupInfo) IsCalled() bool {
 }
 
 func (groupInfo *GroupInfo) IsGroupUnimportant() bool {
-	if len(groupInfo.IDs) == 0 {
-		return false
-	}
-
 	if len(groupInfo.ExperimentalAnalysis) == 0 {
 		return false
 	}
