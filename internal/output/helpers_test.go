@@ -240,6 +240,36 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
+			name: "one source with one package, one vulnerability, and a max severity",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+										Extractor: packagelockjson.Extractor{},
+									}),
+									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}, MaxSeverity: "9"}},
+									Vulnerabilities: []osvschema.Vulnerability{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []osvschema.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
 			name: "one source with one package with both a version and commit and one vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
@@ -502,7 +532,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and two aliases of a single vulnerability",
+			name: "one source with one package and two aliases of a single vulnerability without a max severity",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -519,6 +549,46 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									Groups: []models.GroupInfo{{
 										IDs:     []string{"OSV-1", "GHSA-123"},
 										Aliases: []string{"OSV-1", "GHSA-123"},
+									}},
+									Vulnerabilities: []osvschema.Vulnerability{
+										{
+											ID:       "OSV-1",
+											Summary:  "Something scary!",
+											Severity: []osvschema.Severity{{Type: "high", Score: "1"}},
+										},
+										{
+											ID:       "GHSA-123",
+											Summary:  "Something scary!",
+											Aliases:  []string{"OSV-1"},
+											Severity: []osvschema.Severity{{Type: "high", Score: "1"}},
+										},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "one source with one package and two aliases of a single vulnerability with a max severity",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/path/to/my/first/lockfile", Type: models.SourceTypeProjectPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/path/to/my/first/lockfile", pkginfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+										Extractor: packagelockjson.Extractor{},
+									}),
+									Groups: []models.GroupInfo{{
+										IDs:         []string{"OSV-1", "GHSA-123"},
+										Aliases:     []string{"OSV-1", "GHSA-123"},
+										MaxSeverity: "8.3",
 									}},
 									Vulnerabilities: []osvschema.Vulnerability{
 										{
@@ -996,7 +1066,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 									}),
 									DepGroups: []string{"build"},
 									Groups: []models.GroupInfo{
-										{IDs: []string{"OSV-3"}},
+										{IDs: []string{"OSV-3"}, MaxSeverity: "4.3"},
 										{IDs: []string{"OSV-5"}},
 									},
 									Vulnerabilities: []osvschema.Vulnerability{
@@ -2391,7 +2461,8 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 										Extractor: packagelockjson.Extractor{},
 									}),
 									Groups: []models.GroupInfo{{
-										IDs: []string{"OSV-1"},
+										IDs:         []string{"OSV-1"},
+										MaxSeverity: "7.8",
 										ExperimentalAnalysis: map[string]models.AnalysisInfo{
 											"OSV-1": {Called: false},
 										},
