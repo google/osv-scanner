@@ -107,7 +107,6 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco ecosystem.
 		return nil, err
 	}
 
-	// TODO(v2 logging): Replace with slog / another logger
 	cmdlogger.Infof("Loaded %s local db from %s", db.Name, db.StoredAt)
 
 	matcher.dbs[eco.Ecosystem] = db
