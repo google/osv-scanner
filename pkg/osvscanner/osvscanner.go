@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"maps"
 	"net/http"
 	"os"
@@ -545,4 +546,9 @@ func overrideGoVersion(scanResults *results.ScanResults) {
 			continue
 		}
 	}
+}
+
+// SetCmdLogger sets the global slog handler for the cmdlogger.
+func SetCmdLogger(handler slog.Handler) {
+	cmdlogger.GlobalHandler = handler
 }
