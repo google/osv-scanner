@@ -761,6 +761,11 @@ func TestCommand_Licenses(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "No vulnerabilities but license violations with allowlist",
+			Args: []string{"", "source", "--licenses=Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/yarn.lock"},
+			Exit: 1,
+		},
+		{
 			Name: "Vulnerabilities and all license violations allowlisted",
 			Args: []string{"", "source", "--licenses=Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			Exit: 1,

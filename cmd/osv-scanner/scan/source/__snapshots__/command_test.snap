@@ -1935,6 +1935,30 @@ Scanned <rootdir>/fixtures/locks-licenses/package-lock.json file and found 4 pac
 
 ---
 
+[TestCommand_Licenses/No_vulnerabilities_but_license_violations_with_allowlist - 1]
+Scanning dir ./fixtures/locks-many/yarn.lock
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
++---------+-------------------------+
+| LICENSE | NO. OF PACKAGE VERSIONS |
++---------+-------------------------+
+| MIT     |                       1 |
++---------+-------------------------+
++-------------------+-----------+----------------+---------+-------------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE        | VERSION | SOURCE                        |
++-------------------+-----------+----------------+---------+-------------------------------+
+| MIT               | npm       | balanced-match | 1.0.2   | fixtures/locks-many/yarn.lock |
++-------------------+-----------+----------------+---------+-------------------------------+
+
+---
+
+[TestCommand_Licenses/No_vulnerabilities_but_license_violations_with_allowlist - 2]
+
+---
+
 [TestCommand_Licenses/No_vulnerabilities_with_license_summary - 1]
 Scanning dir ./fixtures/locks-many
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
