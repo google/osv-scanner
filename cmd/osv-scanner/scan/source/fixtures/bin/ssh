@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+# this is a fake ssh used in some tests, which outputs the value of the
+# $OSV_SCANNER_TEST_SSH_VERSION_OUTPUT environment variable, unless it
+# is empty in which case the script exits with code 1 as if it errored
+
+if [ -z $OSV_SCANNER_TEST_SSH_VERSION_OUTPUT ]; then
+  exit 1
+fi
+
+echo "$OSV_SCANNER_TEST_SSH_VERSION_OUTPUT"

@@ -2,6 +2,7 @@
 package results
 
 import (
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -22,4 +23,6 @@ type ScanResults struct {
 
 	// For container scanning, metadata including layer information
 	ImageMetadata *models.ImageMetadata
+
+	GenericFindings []*inventory.GenericFinding
 }

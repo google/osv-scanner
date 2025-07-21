@@ -17,6 +17,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/fs"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -75,9 +76,10 @@ func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, 
 }
 
 // scan essentially converts ScannerActions into PackageScanResult by performing the extractions
-func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.PackageScanResult, error) {
+func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
+	var genericFindings []*inventory.GenericFinding
 
 	// --- Lockfiles ---
 	lockfileExtractors := getExtractors(scalibrextract.ExtractorsLockfiles, accessors, actions)
@@ -163,10 +165,16 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		plugins := make([]plugin.Plugin, len(dirExtractors))
+		plugins := make([]plugin.Plugin, len(dirExtractors)+len(actions.Detectors))
 		for i, ext := range dirExtractors {
 			plugins[i] = ext.(plugin.Plugin)
 		}
+
+		for i, det := range actions.Detectors {
+			plugins[i+len(dirExtractors)] = det.(plugin.Plugin)
+		}
+
+		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
 
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
 			Plugins:               plugins,
@@ -193,6 +201,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, status.Status.FailureReason)
 			}
 		}
+		genericFindings = append(genericFindings, sr.Inventory.GenericFindings...)
 		scannedInventories = append(scannedInventories, sr.Inventory.Packages...)
 	}
 
@@ -211,17 +220,19 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		return nil, ErrNoPackagesFound
 	}
 
+	scanResult := imodels.ScanResult{GenericFindings: genericFindings}
+
 	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
-	packages := []imodels.PackageScanResult{}
 	for _, inv := range scannedInventories {
 		pi := imodels.FromInventory(inv)
 
-		packages = append(packages, imodels.PackageScanResult{
-			PackageInfo: pi,
-		})
+		scanResult.PackageResults = append(
+			scanResult.PackageResults,
+			imodels.PackageScanResult{PackageInfo: pi},
+		)
 	}
 
-	return packages, nil
+	return &scanResult, nil
 }
 
 // getRootDir returns the root directory on each system.
