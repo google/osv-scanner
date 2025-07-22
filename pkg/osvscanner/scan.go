@@ -84,6 +84,11 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	// --- Lockfiles ---
 	lockfileExtractors := getExtractors(scalibrextract.ExtractorsLockfiles, accessors, actions)
+
+	if len(lockfileExtractors) == 0 {
+		return nil, errors.New("at least one extractor must be enabled")
+	}
+
 	for _, lockfileElem := range actions.LockfilePaths {
 		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
 		if err != nil {
@@ -128,6 +133,10 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 		accessors,
 		actions,
 	)
+
+	if len(dirExtractors) == 0 {
+		return nil, errors.New("at least one extractor must be enabled")
+	}
 
 	scanner := scalibr.New()
 

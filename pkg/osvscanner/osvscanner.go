@@ -298,6 +298,16 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
+	filesystemExtractors := getExtractors(
+		scalibrextract.ExtractorsArtifacts,
+		accessors,
+		actions,
+	)
+
+	if len(filesystemExtractors) == 0 {
+		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
+	}
+
 	// --- Initialize Image To Scan ---'
 
 	var img *image.Image
@@ -324,12 +334,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 			cmdlogger.Errorf("Failed to clean up image: %s", err)
 		}
 	}()
-
-	filesystemExtractors := getExtractors(
-		scalibrextract.ExtractorsArtifacts,
-		accessors,
-		actions,
-	)
 
 	plugins := make([]plugin.Plugin, len(filesystemExtractors)+len(actions.Detectors))
 	for i, ext := range filesystemExtractors {
