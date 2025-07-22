@@ -75,14 +75,38 @@ func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, 
 	return extractors
 }
 
+func omitDirExtractors(extractors []filesystem.Extractor) []filesystem.Extractor {
+	filtered := make([]filesystem.Extractor, 0, len(extractors))
+
+	for _, ext := range extractors {
+		if ext.Requirements().ExtractFromDirs {
+			continue
+		}
+
+		filtered = append(filtered, ext)
+	}
+
+	return filtered
+}
+
 // scan essentially converts ScannerActions into PackageScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
 	var genericFindings []*inventory.GenericFinding
 
+	extractors := getExtractors(
+		slices.Concat(
+			scalibrextract.ExtractorsLockfiles,
+			scalibrextract.ExtractorsSBOMs,
+			scalibrextract.ExtractorsDirectories,
+		),
+		accessors,
+		actions,
+	)
+
 	// --- Lockfiles ---
-	lockfileExtractors := getExtractors(scalibrextract.ExtractorsLockfiles, accessors, actions)
+	lockfileExtractors := omitDirExtractors(extractors)
 	for _, lockfileElem := range actions.LockfilePaths {
 		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
 		if err != nil {
@@ -117,16 +141,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	}
 
 	// --- Directories ---
-
-	dirExtractors := getExtractors(
-		slices.Concat(
-			scalibrextract.ExtractorsLockfiles,
-			scalibrextract.ExtractorsSBOMs,
-			scalibrextract.ExtractorsDirectories,
-		),
-		accessors,
-		actions,
-	)
 
 	scanner := scalibr.New()
 
@@ -165,13 +179,13 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		plugins := make([]plugin.Plugin, len(dirExtractors)+len(actions.Detectors))
-		for i, ext := range dirExtractors {
+		plugins := make([]plugin.Plugin, len(extractors)+len(actions.Detectors))
+		for i, ext := range extractors {
 			plugins[i] = ext.(plugin.Plugin)
 		}
 
 		for i, det := range actions.Detectors {
-			plugins[i+len(dirExtractors)] = det.(plugin.Plugin)
+			plugins[i+len(extractors)] = det.(plugin.Plugin)
 		}
 
 		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
