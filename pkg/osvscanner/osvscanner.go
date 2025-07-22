@@ -19,7 +19,6 @@ import (
 	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/detector"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
@@ -72,8 +71,9 @@ type ScannerActions struct {
 type ExperimentalScannerActions struct {
 	TransitiveScanningActions
 
-	Extractors []filesystem.Extractor
-	Detectors  []detector.Detector
+	ExtractorsEnabled  []string
+	ExtractorsDisabled []string
+	Detectors          []detector.Detector
 }
 
 type TransitiveScanningActions struct {

@@ -1467,6 +1467,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 [TestCommand_ExplicitExtractors/scanning_directory_with_an_extractor_that_does_not_exist - 2]
 unknown extractor "custom/extractor"
+unknown extractor "custom/extractor"
 
 ---
 

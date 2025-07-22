@@ -1,4 +1,4 @@
-package helper
+package scalibrplugin
 
 import (
 	"slices"

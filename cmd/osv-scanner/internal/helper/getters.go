@@ -48,10 +48,8 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 
 func GetExperimentalScannerActions(cmd *cli.Command) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
-		Extractors: ResolveEnabledExtractors(
-			cmd.StringSlice("experimental-extractors"),
-			cmd.StringSlice("experimental-disable-extractors"),
-		),
+		ExtractorsEnabled:  cmd.StringSlice("experimental-extractors"),
+		ExtractorsDisabled: cmd.StringSlice("experimental-disable-extractors"),
 		Detectors: ResolveEnabledDetectors(
 			cmd.StringSlice("experimental-detectors"),
 			cmd.StringSlice("experimental-disable-detectors"),

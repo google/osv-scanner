@@ -27,6 +27,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -64,11 +65,11 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 }
 
 func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, actions ScannerActions) []filesystem.Extractor {
-	extractors := actions.Extractors
-
-	if len(extractors) == 0 {
-		extractors = builders.BuildExtractors(defaultExtractorNames)
+	if len(actions.ExtractorsEnabled) == 0 {
+		actions.ExtractorsEnabled = defaultExtractorNames
 	}
+
+	extractors := scalibrplugin.ResolveEnabledExtractors(actions.ExtractorsEnabled, actions.ExtractorsDisabled)
 
 	configureExtractors(extractors, accessors, actions)
 
