@@ -76,18 +76,42 @@ func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, 
 	return extractors
 }
 
+func omitDirExtractors(extractors []filesystem.Extractor) []filesystem.Extractor {
+	filtered := make([]filesystem.Extractor, 0, len(extractors))
+
+	for _, ext := range extractors {
+		if ext.Requirements().ExtractFromDirs {
+			continue
+		}
+
+		filtered = append(filtered, ext)
+	}
+
+	return filtered
+}
+
 // scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
 	var genericFindings []*inventory.GenericFinding
 
-	// --- Lockfiles ---
-	lockfileExtractors := getExtractors(scalibrextract.ExtractorsLockfiles, accessors, actions)
+	extractors := getExtractors(
+		slices.Concat(
+			scalibrextract.ExtractorsLockfiles,
+			scalibrextract.ExtractorsSBOMs,
+			scalibrextract.ExtractorsDirectories,
+		),
+		accessors,
+		actions,
+	)
 
-	if len(lockfileExtractors) == 0 {
+	if len(extractors) == 0 {
 		return nil, errors.New("at least one extractor must be enabled")
 	}
+
+	// --- Lockfiles ---
+	lockfileExtractors := omitDirExtractors(extractors)
 
 	for _, lockfileElem := range actions.LockfilePaths {
 		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
@@ -123,20 +147,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	}
 
 	// --- Directories ---
-
-	dirExtractors := getExtractors(
-		slices.Concat(
-			scalibrextract.ExtractorsLockfiles,
-			scalibrextract.ExtractorsSBOMs,
-			scalibrextract.ExtractorsDirectories,
-		),
-		accessors,
-		actions,
-	)
-
-	if len(dirExtractors) == 0 {
-		return nil, errors.New("at least one extractor must be enabled")
-	}
 
 	scanner := scalibr.New()
 
@@ -177,13 +187,13 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		plugins := make([]plugin.Plugin, len(dirExtractors)+len(detectors))
-		for i, ext := range dirExtractors {
+		plugins := make([]plugin.Plugin, len(extractors)+len(detectors))
+		for i, ext := range extractors {
 			plugins[i] = ext.(plugin.Plugin)
 		}
 
 		for i, det := range detectors {
-			plugins[i+len(dirExtractors)] = det.(plugin.Plugin)
+			plugins[i+len(extractors)] = det.(plugin.Plugin)
 		}
 
 		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
