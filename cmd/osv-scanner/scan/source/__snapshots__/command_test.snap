@@ -3445,14 +3445,15 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 [TestCommand_MoreLockfiles/gems.locked - 1]
 Scanned <rootdir>/fixtures/locks-scalibr/gems.locked file and found 25 packages
-Total 2 packages affected by 4 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
-4 vulnerabilities can be fixed.
+Total 2 packages affected by 5 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+5 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+----------+---------+---------------+------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                             |
 +-------------------------------------+------+-----------+----------+---------+---------------+------------------------------------+
 | https://osv.dev/GHSA-9m3q-rhmv-5q44 | 7.5  | RubyGems  | json     | 2.10.1  | 2.10.2        | fixtures/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-353f-x4gh-cqq8 |      | RubyGems  | nokogiri | 1.18.2  | 1.18.9        | fixtures/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-5w6v-399v-w3cc |      | RubyGems  | nokogiri | 1.18.2  | 1.18.8        | fixtures/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-mrxw-mxhj-p664 | 7.8  | RubyGems  | nokogiri | 1.18.2  | 1.18.4        | fixtures/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-vvfq-8hwr-qm4m |      | RubyGems  | nokogiri | 1.18.2  | 1.18.3        | fixtures/locks-scalibr/gems.locked |
