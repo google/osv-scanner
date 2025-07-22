@@ -162,6 +162,8 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
 
+	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
+
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
@@ -175,12 +177,12 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		plugins := make([]plugin.Plugin, len(dirExtractors)+len(actions.Detectors))
+		plugins := make([]plugin.Plugin, len(dirExtractors)+len(detectors))
 		for i, ext := range dirExtractors {
 			plugins[i] = ext.(plugin.Plugin)
 		}
 
-		for i, det := range actions.Detectors {
+		for i, det := range detectors {
 			plugins[i+len(dirExtractors)] = det.(plugin.Plugin)
 		}
 

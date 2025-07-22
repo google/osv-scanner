@@ -50,9 +50,8 @@ func GetExperimentalScannerActions(cmd *cli.Command) osvscanner.ExperimentalScan
 	return osvscanner.ExperimentalScannerActions{
 		ExtractorsEnabled:  cmd.StringSlice("experimental-extractors"),
 		ExtractorsDisabled: cmd.StringSlice("experimental-disable-extractors"),
-		Detectors: ResolveEnabledDetectors(
-			cmd.StringSlice("experimental-detectors"),
-			cmd.StringSlice("experimental-disable-detectors"),
-		),
+
+		DetectorsEnabled:  cmd.StringSlice("experimental-detectors"),
+		DetectorsDisabled: cmd.StringSlice("experimental-disable-detectors"),
 	}
 }

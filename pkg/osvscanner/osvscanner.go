@@ -17,7 +17,6 @@ import (
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
-	"github.com/google/osv-scalibr/detector"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
@@ -32,6 +31,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
+	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
@@ -73,7 +73,9 @@ type ExperimentalScannerActions struct {
 
 	ExtractorsEnabled  []string
 	ExtractorsDisabled []string
-	Detectors          []detector.Detector
+
+	DetectorsEnabled  []string
+	DetectorsDisabled []string
 }
 
 type TransitiveScanningActions struct {
@@ -335,12 +337,14 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}
 	}()
 
-	plugins := make([]plugin.Plugin, len(filesystemExtractors)+len(actions.Detectors))
+	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
+
+	plugins := make([]plugin.Plugin, len(filesystemExtractors)+len(detectors))
 	for i, ext := range filesystemExtractors {
 		plugins[i] = ext.(plugin.Plugin)
 	}
 
-	for i, det := range actions.Detectors {
+	for i, det := range detectors {
 		plugins[i+len(filesystemExtractors)] = det.(plugin.Plugin)
 	}
 
