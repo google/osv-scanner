@@ -1,4 +1,4 @@
-package scalibrplugin
+package scalibrplugin_test
 
 import (
 	"slices"
@@ -11,6 +11,7 @@ import (
 	"github.com/google/osv-scalibr/detector/weakcredentials/etcshadow"
 	"github.com/google/osv-scalibr/detector/weakcredentials/filebrowser"
 	"github.com/google/osv-scalibr/detector/weakcredentials/winlocal"
+	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 )
 
 func TestResolveEnabledDetectors(t *testing.T) {
@@ -175,7 +176,10 @@ func TestResolveEnabledDetectors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := ResolveEnabledDetectors(tt.args.enabledDetectors, tt.args.disabledDetectors)
+			got := scalibrplugin.ResolveEnabledDetectors(
+				tt.args.enabledDetectors,
+				tt.args.disabledDetectors,
+			)
 
 			slices.Sort(tt.want)
 

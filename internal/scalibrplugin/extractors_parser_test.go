@@ -1,4 +1,4 @@
-package scalibrplugin
+package scalibrplugin_test
 
 import (
 	"slices"
@@ -37,6 +37,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
@@ -298,7 +299,10 @@ func TestResolveEnabledExtractors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := ResolveEnabledExtractors(tt.args.enabledExtractors, tt.args.disabledExtractors)
+			got := scalibrplugin.ResolveEnabledExtractors(
+				tt.args.enabledExtractors,
+				tt.args.disabledExtractors,
+			)
 
 			slices.Sort(tt.want)
 
@@ -323,7 +327,7 @@ func TestResolveEnabledExtractors_Presets(t *testing.T) {
 		t.Run(preset, func(t *testing.T) {
 			t.Parallel()
 
-			got := ResolveEnabledExtractors([]string{preset}, []string{})
+			got := scalibrplugin.ResolveEnabledExtractors([]string{preset}, []string{})
 
 			gotNames := make([]string, 0, len(got))
 			for _, extractor := range got {
