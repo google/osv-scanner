@@ -10,14 +10,14 @@ unsupported data-source "github" - must be one of: deps.dev, native
 
 [TestCommand/fix_non-interactive_in-place_package-lock.json - 1]
 Scanning <tempdir>/package-lock.json...
-Found 8 vulnerabilities matching the filter
-Can fix 3/8 matching vulnerabilities by changing 3 dependencies
+Found 9 vulnerabilities matching the filter
+Can fix 3/9 matching vulnerabilities by changing 3 dependencies
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.12
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
 FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
-REMAINING-VULNS: 5
-UNFIXABLE-VULNS: 5
+REMAINING-VULNS: 6
+UNFIXABLE-VULNS: 6
 Rewriting <tempdir>/package-lock.json...
 
 ---
@@ -1803,6 +1803,16 @@ Rewriting <tempdir>/package-lock.json...
         {
           "name": "chownr",
           "version": "0.0.2"
+        }
+      ],
+      "unactionable": true
+    },
+    {
+      "id": "GHSA-fjxv-7rqg-78g4",
+      "packages": [
+        {
+          "name": "form-data",
+          "version": "2.3.3"
         }
       ],
       "unactionable": true
@@ -4012,6 +4022,16 @@ Rewriting <tempdir>/pom.xml...
       ]
     },
     {
+      "id": "GHSA-fjxv-7rqg-78g4",
+      "packages": [
+        {
+          "name": "form-data",
+          "version": "2.3.3"
+        }
+      ],
+      "unactionable": true
+    },
+    {
       "id": "GHSA-p8p7-x288-28g6",
       "packages": [
         {
@@ -4160,12 +4180,12 @@ Rewriting <tempdir>/pom.xml...
 
 [TestCommand/fix_non-interactive_relax_package.json - 1]
 Resolving <tempdir>/package.json...
-Found 5 vulnerabilities matching the filter
-Can fix 3/5 matching vulnerabilities by changing 1 dependencies
+Found 6 vulnerabilities matching the filter
+Can fix 3/6 matching vulnerabilities by changing 1 dependencies
 UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
 FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-c2qf-rxjj-qqgw,GHSA-c6rq-rjc2-86v2
-REMAINING-VULNS: 2
-UNFIXABLE-VULNS: 2
+REMAINING-VULNS: 3
+UNFIXABLE-VULNS: 3
 Rewriting <tempdir>/package.json...
 
 ---
@@ -4194,14 +4214,14 @@ Rewriting <tempdir>/package.json...
 
 [TestCommand/fix_non_interactive_in_place_package_lock_json_with_native_data_source - 1]
 Scanning <tempdir>/package-lock.json...
-Found 8 vulnerabilities matching the filter
-Can fix 3/8 matching vulnerabilities by changing 3 dependencies
+Found 9 vulnerabilities matching the filter
+Can fix 3/9 matching vulnerabilities by changing 3 dependencies
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.12
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
 FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
-REMAINING-VULNS: 5
-UNFIXABLE-VULNS: 5
+REMAINING-VULNS: 6
+UNFIXABLE-VULNS: 6
 Rewriting <tempdir>/package-lock.json...
 
 ---
