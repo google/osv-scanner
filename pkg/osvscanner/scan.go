@@ -4,11 +4,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"maps"
 	"os"
 	"path/filepath"
 	"runtime"
-	"slices"
 	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
@@ -98,11 +96,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	var genericFindings []*inventory.GenericFinding
 
 	extractors := getExtractors(
-		slices.Concat(
-			slices.Collect(maps.Keys(scalibrextract.ExtractorsLockfiles)),
-			slices.Collect(maps.Keys(scalibrextract.ExtractorsSBOMs)),
-			slices.Collect(maps.Keys(scalibrextract.ExtractorsDirectories)),
-		),
+		[]string{"lockfile", "sbom", "directory"},
 		accessors,
 		actions,
 	)
