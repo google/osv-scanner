@@ -41,6 +41,7 @@ dart/pubspec
 dotnet/depsjson
 dotnet/packagesconfig
 dotnet/packageslockjson
+elixir/mixlock
 erlang/mixlock
 go/gomod
 haskell/cabal
@@ -49,18 +50,25 @@ java/gradlelockfile
 java/gradleverificationmetadataxml
 java/pomxmlenhanceable
 javascript/bunlock
+javascript/packagejson
 javascript/packagelockjson
 javascript/pnpmlock
 javascript/yarnlock
 php/composerlock
+python/condameta
 python/pdmlock
 python/pipfilelock
 python/poetrylock
 python/requirementsenhanceable
+python/setup
 python/uvlock
 r/renvlock
 ruby/gemfilelock
+ruby/gemspec
 rust/cargolock
+rust/cargotoml
+swift/packageresolved
+swift/podfilelock
 ---
 
 [TestResolveEnabledExtractors_Presets/sbom - 1]
