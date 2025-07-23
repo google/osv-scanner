@@ -2,6 +2,7 @@ package scalibrplugin
 
 import (
 	"slices"
+	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
@@ -16,6 +17,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
+	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 func TestResolveEnabledExtractors(t *testing.T) {
@@ -210,6 +212,27 @@ func TestResolveEnabledExtractors(t *testing.T) {
 			if diff := cmp.Diff(tt.want, gotNames); diff != "" {
 				t.Errorf("replaceJSONInput() diff (-want +got): %s", diff)
 			}
+		})
+	}
+}
+
+func TestResolveEnabledExtractors_Presets(t *testing.T) {
+	t.Parallel()
+
+	for _, preset := range []string{"sbom", "lockfile", "directory", "artifact"} {
+		t.Run(preset, func(t *testing.T) {
+			t.Parallel()
+
+			got := ResolveEnabledExtractors([]string{preset}, []string{})
+
+			gotNames := make([]string, 0, len(got))
+			for _, extractor := range got {
+				gotNames = append(gotNames, extractor.Name())
+			}
+
+			slices.Sort(gotNames)
+
+			testutility.NewSnapshot().MatchText(t, strings.Join(gotNames, "\n"))
 		})
 	}
 }
