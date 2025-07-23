@@ -75,7 +75,7 @@ func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, 
 	return extractors
 }
 
-// scan essentially converts ScannerActions into PackageScanResult by performing the extractions
+// scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
