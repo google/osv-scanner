@@ -3,7 +3,6 @@ package imodels
 
 import (
 	"fmt"
-	"slices"
 	"strings"
 
 	"github.com/google/osv-scalibr/converter"
@@ -163,13 +162,13 @@ func (pkg *PackageInfo) SourceType() models.SourceType {
 	for _, extractorName := range pkg.Plugins {
 		if _, ok := osExtractors[extractorName]; ok {
 			return models.SourceTypeOSPackage
-		} else if slices.Contains(scalibrextract.ExtractorsSBOMs, extractorName) {
+		} else if _, ok := scalibrextract.ExtractorsSBOMs[extractorName]; ok {
 			return models.SourceTypeSBOM
 		} else if _, ok := gitExtractors[extractorName]; ok {
 			return models.SourceTypeGit
-		} else if slices.Contains(scalibrextract.ExtractorsArtifacts, extractorName) {
+		} else if _, ok := scalibrextract.ExtractorsArtifacts[extractorName]; ok {
 			return models.SourceTypeArtifact
-		} else if slices.Contains(scalibrextract.ExtractorsLockfiles, extractorName) {
+		} else if _, ok := scalibrextract.ExtractorsLockfiles[extractorName]; ok {
 			return models.SourceTypeProjectPackage
 		}
 	}

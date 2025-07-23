@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"maps"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -98,9 +99,9 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	extractors := getExtractors(
 		slices.Concat(
-			scalibrextract.ExtractorsLockfiles,
-			scalibrextract.ExtractorsSBOMs,
-			scalibrextract.ExtractorsDirectories,
+			slices.Collect(maps.Keys(scalibrextract.ExtractorsLockfiles)),
+			slices.Collect(maps.Keys(scalibrextract.ExtractorsSBOMs)),
+			slices.Collect(maps.Keys(scalibrextract.ExtractorsDirectories)),
 		),
 		accessors,
 		actions,
@@ -124,7 +125,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	// --- SBOMs ---
 	// none of the SBOM extractors need configuring
-	sbomExtractors := builders.BuildExtractors(scalibrextract.ExtractorsSBOMs)
+	sbomExtractors := builders.BuildExtractors([]string{"sbom"})
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
 		if err != nil {
