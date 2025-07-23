@@ -14,7 +14,7 @@ $sidebar-color: $new-body-background-color; //Replacing default $grey-dk-300
 $base-button-color: $grey-dk-250;
 $btn-primary-color: $blue-200;
 $code-background-color: #202020; // Important to match with .highlight background and .highlight.err background-color
-$code-linenumber-color: #447fcf; // Important to match with .highlight.nf color
+$code-linenumber-color: #f5f6fa; // Important to match with .highlight.nf color
 $feedback-color: darken($sidebar-color, 3%);
 $table-background-color: lighten(
   $new-body-background-color,
