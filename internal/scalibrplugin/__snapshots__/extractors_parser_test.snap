@@ -1,0 +1,48 @@
+
+[TestResolveEnabledExtractors_Presets/artifact - 1]
+go/binary
+java/archive
+javascript/nodemodules
+os/apk
+os/dpkg
+python/wheelegg
+rust/cargoauditable
+---
+
+[TestResolveEnabledExtractors_Presets/directory - 1]
+filesystem/vendored
+vcs/gitrepo
+---
+
+[TestResolveEnabledExtractors_Presets/lockfile - 1]
+cpp/conanlock
+dart/pubspec
+dotnet/depsjson
+dotnet/packagesconfig
+dotnet/packageslockjson
+erlang/mixlock
+go/gomod
+haskell/cabal
+haskell/stacklock
+java/gradlelockfile
+java/gradleverificationmetadataxml
+java/pomxmlenhanceable
+javascript/bunlock
+javascript/packagelockjson
+javascript/pnpmlock
+javascript/yarnlock
+php/composerlock
+python/pdmlock
+python/pipfilelock
+python/poetrylock
+python/requirementsenhanceable
+python/uvlock
+r/renvlock
+ruby/gemfilelock
+rust/cargolock
+---
+
+[TestResolveEnabledExtractors_Presets/sbom - 1]
+sbom/cdx
+sbom/spdx
+---
