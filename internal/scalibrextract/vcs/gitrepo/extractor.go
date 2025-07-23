@@ -69,6 +69,11 @@ func createCommitQueryInventory(commit string, location string) *extractor.Packa
 	}
 }
 
+// New returns a new instance of the extractor.
+func New() filesystem.Extractor {
+	return &Extractor{}
+}
+
 // Name of the extractor.
 func (e *Extractor) Name() string { return Name }
 
