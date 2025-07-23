@@ -33,8 +33,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
-	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
-	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
@@ -44,10 +42,7 @@ import (
 )
 
 var ExtractorPresets = map[string]list.InitMap{
-	"sbom": {
-		spdx.Name: {spdx.New},
-		cdx.Name:  {cdx.New},
-	},
+	"sbom": list.SBOM,
 	"lockfile": {
 		// C
 		conanlock.Name: {conanlock.New},
