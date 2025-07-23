@@ -1,12 +1,33 @@
 
 [TestResolveEnabledExtractors_Presets/artifact - 1]
+chrome/extensions
+containers/containerd
+containers/dockerbaseimage
+containers/podman
+dotnet/pe
 go/binary
 java/archive
 javascript/nodemodules
+javascript/packagejson
 os/apk
+os/cos
 os/dpkg
+os/flatpak
+os/homebrew
+os/kernel/module
+os/kernel/vmlinuz
+os/macapps
+os/nix
+os/pacman
+os/portage
+os/rpm
+os/snap
 python/wheelegg
 rust/cargoauditable
+sbom/cdx
+sbom/spdx
+vscode/extensions
+wordpress/plugins
 ---
 
 [TestResolveEnabledExtractors_Presets/directory - 1]

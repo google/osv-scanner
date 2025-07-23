@@ -2,6 +2,9 @@
 package scalibrplugin
 
 import (
+	"maps"
+	"slices"
+
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
@@ -9,11 +12,9 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packagesconfig"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/erlang/mixlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/cabal"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/haskell/stacklock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradlelockfile"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/gradleverificationmetadataxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/bunlock"
@@ -25,14 +26,11 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/uvlock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	"github.com/google/osv-scalibr/extractor/filesystem/list"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scalibr/extractor/filesystem/secrets"
 	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
@@ -99,25 +97,33 @@ var ExtractorPresets = map[string]list.InitMap{
 		gitrepo.Name:  {gitrepo.New},
 		vendored.Name: {vendored.New},
 	},
-	"artifact": {
-		// --- Project artifacts ---
-		// Python
-		wheelegg.Name: {wheelegg.NewDefault},
-		// Java
-		archive.Name: {archive.NewDefault},
-		// Go
-		gobinary.Name: {gobinary.NewDefault},
-		// Javascript
-		nodemodules.Name: {nodemodules.New},
-		// Rust
-		cargoauditable.Name: {cargoauditable.NewDefault},
+	"artifact": concat(
+		without(list.Artifact, []string{secrets.Name}),
+		list.InitMap{
+			nodemodules.Name: {nodemodules.New},
+		},
+	),
+}
 
-		// --- OS packages ---
-		// Alpine
-		apk.Name: {apk.NewDefault},
-		// Debian
-		dpkg.Name: {dpkg.NewDefault},
-	},
+func without(initMap list.InitMap, omit []string) list.InitMap {
+	result := list.InitMap{}
+
+	for name := range initMap {
+		if !slices.Contains(omit, name) {
+			result[name] = initMap[name]
+		}
+	}
+
+	return result
+}
+
+func concat(initMaps ...list.InitMap) list.InitMap {
+	result := list.InitMap{}
+	for _, m := range initMaps {
+		maps.Copy(result, m)
+	}
+
+	return result
 }
 
 func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []string) []filesystem.Extractor {
