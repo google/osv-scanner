@@ -1,3 +1,4 @@
+// Package lockfile provides functionality for reading and writing lockfiles.
 package lockfile
 
 import (

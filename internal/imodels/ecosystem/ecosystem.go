@@ -1,3 +1,4 @@
+// Package ecosystem provides a parser and mappings for ecosystem strings.
 package ecosystem
 
 import (

@@ -1,3 +1,4 @@
+// Package config manages the configuration for osv-scanner.
 package config
 
 import (

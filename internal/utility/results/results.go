@@ -1,3 +1,4 @@
+// Package results provides utility functions for working with scan results.
 package results
 
 import (

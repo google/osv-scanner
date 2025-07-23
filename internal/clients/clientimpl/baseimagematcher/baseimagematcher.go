@@ -1,3 +1,4 @@
+// Package baseimagematcher implements a client for matching base images using the deps.dev API.
 package baseimagematcher
 
 import (

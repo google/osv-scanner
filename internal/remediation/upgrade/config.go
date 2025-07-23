@@ -1,3 +1,4 @@
+// Package upgrade provides functionality for parsing upgrade configurations for remediation.
 package upgrade
 
 import (

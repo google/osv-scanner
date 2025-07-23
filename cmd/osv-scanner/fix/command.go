@@ -1,3 +1,5 @@
+// Package fix implements the `fix` command for osv-scanner.
+// It scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them.
 package fix
 
 import (

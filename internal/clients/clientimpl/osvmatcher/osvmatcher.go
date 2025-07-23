@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scalibr/log"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
@@ -26,6 +26,16 @@ type OSVMatcher struct {
 	// If timeout runs out, whatever pages that has been successfully queried within the timeout will
 	// still return fully hydrated.
 	InitialQueryTimeout time.Duration
+}
+
+func New(initialQueryTimeout time.Duration, userAgent string) *OSVMatcher {
+	client := *osvdev.DefaultClient()
+	client.Config.UserAgent = userAgent
+
+	return &OSVMatcher{
+		Client:              client,
+		InitialQueryTimeout: initialQueryTimeout,
+	}
 }
 
 // MatchVulnerabilities matches vulnerabilities for a list of packages.
@@ -117,7 +127,7 @@ func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {
 	}
 
 	// This should have be filtered out before reaching this point
-	log.Errorf("invalid query element: %#v", pkg)
+	cmdlogger.Errorf("invalid query element: %#v", pkg)
 
 	return nil
 }

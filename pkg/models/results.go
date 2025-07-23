@@ -5,15 +5,17 @@ import (
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // VulnerabilityResults is the top-level struct for the results of a scan
 type VulnerabilityResults struct {
-	Results                    []PackageSource            `json:"results"`
-	ExperimentalAnalysisConfig ExperimentalAnalysisConfig `json:"experimental_config"`
-	ImageMetadata              *ImageMetadata             `json:"image_metadata,omitempty"`
-	LicenseSummary             []LicenseCount             `json:"license_summary,omitempty"`
+	Results                     []PackageSource             `json:"results"`
+	ExperimentalAnalysisConfig  ExperimentalAnalysisConfig  `json:"experimental_config"`
+	ExperimentalGenericFindings []*inventory.GenericFinding `json:"experimental_generic_findings,omitempty"`
+	ImageMetadata               *ImageMetadata              `json:"image_metadata,omitempty"`
+	LicenseSummary              []LicenseCount              `json:"license_summary,omitempty"`
 }
 
 type LicenseCount struct {
@@ -142,12 +144,6 @@ type GroupInfo struct {
 // IsCalled returns true if any analysis performed determines that the vulnerability is being called
 // Also returns true if no analysis is performed
 func (groupInfo *GroupInfo) IsCalled() bool {
-	if len(groupInfo.IDs) == 0 {
-		// This PackageVulns may be a license violation, not a
-		// vulnerability.
-		return false
-	}
-
 	if len(groupInfo.ExperimentalAnalysis) == 0 {
 		return true
 	}
@@ -162,10 +158,6 @@ func (groupInfo *GroupInfo) IsCalled() bool {
 }
 
 func (groupInfo *GroupInfo) IsGroupUnimportant() bool {
-	if len(groupInfo.IDs) == 0 {
-		return false
-	}
-
 	if len(groupInfo.ExperimentalAnalysis) == 0 {
 		return false
 	}

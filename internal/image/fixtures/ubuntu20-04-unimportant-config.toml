@@ -62,3 +62,13 @@ ignore = true
 name = "dpkg"
 reason = "Just want to test only unimportant vulns"
 ignore = true
+
+[[PackageOverrides]]
+name = "gnutls28"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "tar"
+reason = "Just want to test only unimportant vulns"
+ignore = true

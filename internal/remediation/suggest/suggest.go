@@ -1,3 +1,4 @@
+// Package suggest provides functionality for suggesting version updates.
 package suggest
 
 import (

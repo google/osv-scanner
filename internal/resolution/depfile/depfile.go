@@ -1,7 +1,5 @@
-// TODO(michaelkedar):
-// Temporarily retaining the deprecated DepFile interface internally for guided remediation,
-// so it be removed from the OSV-Scanner v2 library.
-// This will be removed when the migration of guided remediation to OSV-Scalibr is completed.
+// Package depfile provides a temporary abstraction for files that have been opened for extraction.
+// TODO(michaelkedar): This is used for guided remediation, and will be removed after the migration to OSV-Scalibr is complete.
 package depfile
 
 import (

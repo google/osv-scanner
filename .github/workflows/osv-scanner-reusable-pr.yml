@@ -16,9 +16,12 @@
 
 name: OSV-Scanner PR scanning reusable
 
-# Restrict jobs in this workflow to have no permissions by default; permissions
-# should be granted per job as needed using a dedicated `permissions` block
-permissions: {}
+# These are the permissions required by this reusable workflow to function.
+#
+# You should include a copy of this block next to any `uses:` of this workflow
+permissions:
+  contents: read # to fetch code (actions/checkout)
+  security-events: write # for uploading SARIF files (github/codeql-action/upload-sarif)
 
 on:
   workflow_call:
@@ -45,70 +48,9 @@ on:
 
 jobs:
   scan-pr:
-    permissions:
-      contents: read # to fetch code (actions/checkout)
-      security-events: write # for uploading SARIF files
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          fetch-depth: 0
-          # Do persist credentials, as we need it for the git checkout later
-      - name: "Checkout target branch"
-        run: git checkout $GITHUB_BASE_REF
-      - name: "Run scanner on existing code"
-        uses: google/osv-scanner/actions/scanner@main
-        continue-on-error: true
-        with:
-          scan-args: |-
-            --format=json
-            --output=old-results.json
-            ${{ inputs.scan-args }}
-      - name: "Checkout current branch"
-        run: git checkout $GITHUB_SHA
-      - name: "Run scanner on new code"
-        uses: google/osv-scanner/actions/scanner@main
-        with:
-          scan-args: |-
-            --format=json
-            --output=new-results.json
-            ${{ inputs.scan-args }}
-        continue-on-error: true
-      - name: "Run osv-scanner-reporter"
-        uses: google/osv-scanner/actions/reporter@main
-        with:
-          scan-args: |-
-            --output=${{ inputs.results-file-name }}
-            --old=old-results.json
-            --new=new-results.json
-            --gh-annotations=true
-            --fail-on-vuln=${{ inputs.fail-on-vuln }}
-      # Upload the results as artifacts (optional). Commenting out will disable uploads of run results in SARIF
-      # format to the repository Actions tab.
-      - name: "Upload artifact"
-        if: "!cancelled()"
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: SARIF file
-          path: ${{ inputs.results-file-name }}
-          retention-days: 5
-      - name: "Upload old scan json results"
-        if: "!cancelled()"
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: old-json-results
-          path: old-results.json
-          retention-days: 5
-      - name: "Upload new scan json results"
-        if: "!cancelled()"
-        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: new-json-results
-          path: new-results.json
-          retention-days: 5
-      # Upload the results to GitHub's code scanning dashboard.
-      - name: "Upload to code-scanning"
-        if: ${{ !cancelled() && inputs.upload-sarif == true }}
-        uses: github/codeql-action/upload-sarif@39edc492dbe16b1465b0cafca41432d857bdb31a # v3.29.1
-        with:
-          sarif_file: ${{ inputs.results-file-name }}
+      - run: |
+          echo "### This action is deprecated" >> $GITHUB_STEP_SUMMARY
+          echo "Please use https://github.com/google/osv-scanner-action instead" >> $GITHUB_STEP_SUMMARY
+          false

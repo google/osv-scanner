@@ -3,6 +3,7 @@ package source_test
 import (
 	"os"
 	"path/filepath"
+	"runtime"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
@@ -760,6 +761,11 @@ func TestCommand_Licenses(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "No vulnerabilities but license violations with allowlist",
+			Args: []string{"", "source", "--licenses=Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/yarn.lock"},
+			Exit: 1,
+		},
+		{
 			Name: "Vulnerabilities and all license violations allowlisted",
 			Args: []string{"", "source", "--licenses=Apache-2.0", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-many/package-lock.json"},
 			Exit: 1,
@@ -881,6 +887,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "fall back to the offline extractor if resolution failed",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "./fixtures/locks-requirements/unresolvable-requirements.txt"},
+			Exit: 1,
+		},
+		{
 			Name: "does not scan transitive dependencies for requirements.txt with no-resolve",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--no-resolve", "./fixtures/locks-requirements/requirements.txt"},
 			Exit: 1,
@@ -889,6 +900,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Name: "does not scan transitive dependencies for requirements.txt with offline mode",
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "./fixtures/locks-requirements/requirements.txt"},
 			Exit: 1,
+		},
+		{
+			Name: "errors_with_invalid_data_source",
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--data-source=github", "-L", "pom.xml:./fixtures/maven-transitive/registry.xml"},
+			Exit: 127,
 		},
 	}
 
@@ -977,6 +993,166 @@ func TestCommandNonGit(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
+func TestCommand_HtmlFile(t *testing.T) {
+	t.Parallel()
+
+	testDir := testutility.CreateTestDir(t)
+
+	_, stderr := testcmd.RunAndNormalize(t, testcmd.Case{
+		Name: "one specific supported lockfile",
+		Args: []string{"", "source", "--format=html", "--output", testDir + "/report.html", "./fixtures/locks-many/composer.lock"},
+		Exit: 0,
+	})
+
+	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
+		"CreateFile": "stat",
+	}).MatchText(t, stderr)
+
+	_, err := os.Stat(testDir + "/report.html")
+
+	if err != nil {
+		t.Errorf("Unexpected %v", err)
+	}
+}
+
+func TestCommand_WithDetector_OnLinux(t *testing.T) {
+	if runtime.GOOS != "linux" {
+		testutility.Skip(t, "The detector in this test only works on Linux")
+	}
+
+	testDir := testutility.CreateTestDir(t)
+	err := os.CopyFS(testDir, os.DirFS("./fixtures/locks-many"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = os.CopyFS(testDir+"/bin", os.DirFS("./fixtures/bin"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []struct {
+		Name string
+		Args []string
+		Exit int
+		SSHV string
+	}{
+		{
+			Name: "ssh_version_is_before_first_vuln_version",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 0,
+			SSHV: "OpenSSH_5.4 Ubuntu-3ubuntu0.13, OpenSSL 3.0.2 15 Mar 2022",
+		},
+		{
+			Name: "ssh_version_is_after_last_vuln_version",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 0,
+			SSHV: "OpenSSH_9.3p2 Ubuntu-3ubuntu0.13, OpenSSL 3.0.2 15 Mar 2022",
+		},
+		{
+			Name: "ssh_version_errors",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 0,
+			SSHV: "",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			// append our bin directory to the start of the PATH variable
+			// so that our fake ssh script will be invoked by the detector
+			t.Setenv("PATH", (testDir+"/bin/:")+os.Getenv("PATH"))
+			t.Setenv("OSV_SCANNER_TEST_SSH_VERSION_OUTPUT", tt.SSHV)
+
+			testcmd.RunAndMatchSnapshots(t, testcmd.Case{
+				Name: tt.Name,
+				Args: tt.Args,
+				Exit: tt.Exit,
+			})
+		})
+	}
+}
+
+func TestCommand_WithDetector_OffLinux(t *testing.T) {
+	if runtime.GOOS == "linux" {
+		testutility.Skip(t, "The detector in this test only works on Linux")
+	}
+
+	testDir := testutility.CreateTestDir(t)
+	err := os.CopyFS(testDir, os.DirFS("./fixtures/locks-many"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	err = os.CopyFS(testDir+"/bin", os.DirFS("./fixtures/bin"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	tests := []struct {
+		Name string
+		Args []string
+		Exit int
+		SSHV string
+	}{
+		{
+			Name: "ssh_version_is_before_first_vuln_version",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 0,
+			SSHV: "OpenSSH_5.4 Ubuntu-3ubuntu0.13, OpenSSL 3.0.2 15 Mar 2022",
+		},
+		{
+			Name: "ssh_version_is_after_last_vuln_version",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 0,
+			SSHV: "OpenSSH_9.3p2 Ubuntu-3ubuntu0.13, OpenSSL 3.0.2 15 Mar 2022",
+		},
+		{
+			Name: "ssh_version_errors",
+			Args: []string{
+				"", "source",
+				"--experimental-detectors", "cve/cve-2023-38408",
+				filepath.Join(testDir, "composer.lock"),
+			},
+			Exit: 0,
+			SSHV: "",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			// append our bin directory to the start of the PATH variable
+			// so that our fake ssh script will be invoked by the detector
+			t.Setenv("PATH", (testDir+"/bin/:")+os.Getenv("PATH"))
+			t.Setenv("OSV_SCANNER_TEST_SSH_VERSION_OUTPUT", tt.SSHV)
+
+			testcmd.RunAndMatchSnapshots(t, testcmd.Case{
+				Name: tt.Name,
+				Args: tt.Args,
+				Exit: tt.Exit,
+			})
 		})
 	}
 }

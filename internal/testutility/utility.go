@@ -25,8 +25,7 @@ func GetCurrentWorkingDirectory(t *testing.T) string {
 
 // applyWindowsReplacements will replace any matching strings if on Windows
 func applyWindowsReplacements(content string, replacements map[string]string) string {
-	if //goland:noinspection GoBoolExpressions
-	runtime.GOOS == "windows" {
+	if runtime.GOOS == "windows" {
 		for match, replacement := range replacements {
 			content = strings.ReplaceAll(content, match, replacement)
 		}
@@ -78,8 +77,7 @@ func SkipIfNotAcceptanceTesting(t *testing.T, reason string) {
 }
 
 func ValueIfOnWindows(win, or string) string {
-	if //goland:noinspection GoBoolExpressions
-	runtime.GOOS == "windows" {
+	if runtime.GOOS == "windows" {
 		return win
 	}
 

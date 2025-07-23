@@ -1,3 +1,4 @@
+// Package cachedregexp provides a cached version of regexp.MustCompile.
 package cachedregexp
 
 import (

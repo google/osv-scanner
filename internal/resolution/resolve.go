@@ -1,3 +1,4 @@
+// Package resolution provides functionality for resolving dependencies and vulnerabilities.
 package resolution
 
 import (

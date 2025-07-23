@@ -1,7 +1,7 @@
+// Package govulncheck provides data structures for govulncheck results.
 // Copied from
 // https://github.com/golang/vuln/blob/267a472bf377fa105988693c2a597d2b8de36ad8/internal/govulncheck/result.go
 // and modified.
-
 package govulncheck
 
 // Message is an entry in the output stream. It will always have exactly one

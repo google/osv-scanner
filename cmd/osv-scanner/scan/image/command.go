@@ -1,3 +1,4 @@
+// Package image implements the `image` subcommand of the `scan` command.
 package image
 
 import (

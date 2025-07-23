@@ -17,8 +17,10 @@ import (
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
+	"github.com/google/osv-scalibr/detector"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
@@ -71,6 +73,7 @@ type ExperimentalScannerActions struct {
 	TransitiveScanningActions
 
 	Extractors []filesystem.Extractor
+	Detectors  []detector.Detector
 }
 
 type TransitiveScanningActions struct {
@@ -117,7 +120,9 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// ------------
 	if actions.CompareOffline {
 		// --- Vulnerability Matcher ---
-		externalAccessors.VulnMatcher, err = localmatcher.NewLocalMatcher(actions.LocalDBPath, "osv-scanner_scan/"+version.OSVVersion, actions.DownloadDatabases)
+		externalAccessors.VulnMatcher, err =
+			localmatcher.NewLocalMatcher(actions.LocalDBPath,
+				"osv-scanner_scan/"+version.OSVVersion, actions.DownloadDatabases)
 		if err != nil {
 			return ExternalAccessors{}, err
 		}
@@ -128,10 +133,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// Online Mode
 	// -----------
 	// --- Vulnerability Matcher ---
-	externalAccessors.VulnMatcher = &osvmatcher.OSVMatcher{
-		Client:              *osvdev.DefaultClient(),
-		InitialQueryTimeout: 5 * time.Minute,
-	}
+	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, "osv-scanner_scan/"+version.OSVVersion)
 
 	// --- License Matcher ---
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
@@ -225,12 +227,13 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	// ----- Perform Scanning -----
-	packages, err := scan(accessors, actions)
+	packagesAndFindings, err := scan(accessors, actions)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
-	scanResult.PackageScanResults = packages
+	scanResult.PackageScanResults = packagesAndFindings.PackageResults
+	scanResult.GenericFindings = packagesAndFindings.GenericFindings
 
 	// ----- Filtering -----
 	filterUnscannablePackages(&scanResult)
@@ -322,14 +325,33 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}
 	}()
 
+	filesystemExtractors := getExtractors(
+		scalibrextract.ExtractorsArtifacts,
+		accessors,
+		actions,
+	)
+
+	plugins := make([]plugin.Plugin, len(filesystemExtractors)+len(actions.Detectors))
+	for i, ext := range filesystemExtractors {
+		plugins[i] = ext.(plugin.Plugin)
+	}
+
+	for i, det := range actions.Detectors {
+		plugins[i+len(filesystemExtractors)] = det.(plugin.Plugin)
+	}
+
+	capabilities := &plugin.Capabilities{
+		DirectFS:      true,
+		RunningSystem: false,
+		OS:            plugin.OSLinux,
+	}
+	plugins = plugin.FilterByCapabilities(plugins, capabilities)
+
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
-		FilesystemExtractors: getExtractors(
-			scalibrextract.ExtractorsArtifacts,
-			accessors,
-			actions,
-		),
+		Plugins:      plugins,
+		Capabilities: capabilities,
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
@@ -384,6 +406,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 			psr.PackageInfo.AnnotationsDeprecated = append(psr.PackageInfo.AnnotationsDeprecated, extractor.InsideOSPackage)
 		}
 	}
+
+	scanResult.GenericFindings = scalibrSR.Inventory.GenericFindings
 
 	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
 
@@ -447,12 +471,12 @@ func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount 
 
 // determineReturnErr determines whether we found a "vulnerability" or not,
 // and therefore whether we should return a ErrVulnerabilityFound error.
-func determineReturnErr(results models.VulnerabilityResults, showAllVulns bool, isContainerScanning bool) error {
-	if len(results.Results) > 0 {
+func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bool, isContainerScanning bool) error {
+	if len(vulnResults.Results) > 0 {
 		var vuln bool
 		onlyUnimportantVuln := true
 		var licenseViolation bool
-		for _, vf := range results.Flatten() {
+		for _, vf := range vulnResults.Flatten() {
 			if vf.Vulnerability.ID != "" {
 				vuln = true
 				// TODO(gongh): rewrite the logic once we support reachability analysis for container scanning.

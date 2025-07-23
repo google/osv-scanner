@@ -17,6 +17,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/fs"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -74,10 +75,11 @@ func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, 
 	return extractors
 }
 
-// scan essentially converts ScannerActions into PackageScanResult by performing the extractions
-func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.PackageScanResult, error) {
+// scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
+func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
+	var genericFindings []*inventory.GenericFinding
 
 	// --- Lockfiles ---
 	lockfileExtractors := getExtractors(scalibrextract.ExtractorsLockfiles, accessors, actions)
@@ -148,27 +150,34 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	testlogger.BeginDirScanMarker()
+	osCapability := determineOS()
+
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
 			DirectFS:      true,
 			RunningSystem: true,
 			Network:       plugin.NetworkOnline,
-			OS:            plugin.OSUnix,
+			OS:            osCapability,
 		}
 
 		if actions.CompareOffline {
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		if runtime.GOOS == "windows" {
-			capabilities.OS = plugin.OSWindows
+		plugins := make([]plugin.Plugin, len(dirExtractors)+len(actions.Detectors))
+		for i, ext := range dirExtractors {
+			plugins[i] = ext.(plugin.Plugin)
 		}
 
+		for i, det := range actions.Detectors {
+			plugins[i+len(dirExtractors)] = det.(plugin.Plugin)
+		}
+
+		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
+
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
-			FilesystemExtractors:  dirExtractors,
-			StandaloneExtractors:  nil,
-			Detectors:             nil,
+			Plugins:               plugins,
 			Capabilities:          &capabilities,
 			ScanRoots:             fs.RealFSScanRoots(root),
 			PathsToExtract:        paths,
@@ -192,6 +201,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, status.Status.FailureReason)
 			}
 		}
+		genericFindings = append(genericFindings, sr.Inventory.GenericFindings...)
 		scannedInventories = append(scannedInventories, sr.Inventory.Packages...)
 	}
 
@@ -210,17 +220,19 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		return nil, ErrNoPackagesFound
 	}
 
+	scanResult := imodels.ScanResult{GenericFindings: genericFindings}
+
 	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
-	packages := []imodels.PackageScanResult{}
 	for _, inv := range scannedInventories {
 		pi := imodels.FromInventory(inv)
 
-		packages = append(packages, imodels.PackageScanResult{
-			PackageInfo: pi,
-		})
+		scanResult.PackageResults = append(
+			scanResult.PackageResults,
+			imodels.PackageScanResult{PackageInfo: pi},
+		)
 	}
 
-	return packages, nil
+	return &scanResult, nil
 }
 
 // getRootDir returns the root directory on each system.
@@ -236,4 +248,19 @@ func getRootDir(path string) string {
 	}
 
 	return ""
+}
+
+func determineOS() plugin.OS {
+	switch runtime.GOOS {
+	case "windows":
+		return plugin.OSWindows
+	case "darwin":
+		return plugin.OSMac
+	case "linux":
+		return plugin.OSLinux
+	default:
+		cmdlogger.Warnf("Unknown OS \"%s\" - results might be inaccurate", runtime.GOOS)
+
+		return plugin.OSAny
+	}
 }

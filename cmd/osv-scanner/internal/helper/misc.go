@@ -1,3 +1,4 @@
+// Package helper provides helper functions for the osv-scanner CLI.
 package helper
 
 import (

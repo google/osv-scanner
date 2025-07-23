@@ -1,3 +1,4 @@
+// Package ci provides utility functions for CI integration.
 package ci
 
 import (

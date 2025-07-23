@@ -1,3 +1,4 @@
+// Package grouper groups vulnerabilities by aliases, then sorts them.
 package grouper
 
 import (

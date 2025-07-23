@@ -1,3 +1,4 @@
+// Package cmd provides helper functions for the osv-scanner CLI commands.
 package cmd
 
 import (

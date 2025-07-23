@@ -1,3 +1,4 @@
+// Package testutility provides utility functions for tests.
 package testutility
 
 import (
