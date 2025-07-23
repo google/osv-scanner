@@ -370,6 +370,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 
 func TestCommand_HtmlFile(t *testing.T) {
 	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Needs container image")
 
 	testDir := testutility.CreateTestDir(t)
 

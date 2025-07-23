@@ -8,6 +8,8 @@ import (
 	"strings"
 )
 
+var GlobalHandler slog.Handler
+
 type Handler struct {
 	stdout             io.Writer
 	stderr             io.Writer
@@ -39,21 +41,29 @@ func (c *Handler) writer(level slog.Level) io.Writer {
 	return c.stdout
 }
 
-func (c *Handler) Enabled(_ context.Context, level slog.Level) bool {
+func (c *Handler) Enabled(ctx context.Context, level slog.Level) bool {
 	if level == slog.LevelError {
 		c.hasErrored = true
+	}
+
+	if GlobalHandler != nil {
+		return GlobalHandler.Enabled(ctx, level)
 	}
 
 	return level >= c.Level.Level()
 }
 
-func (c *Handler) Handle(_ context.Context, record slog.Record) error {
+func (c *Handler) Handle(ctx context.Context, record slog.Record) error {
 	if record.Level == slog.LevelError {
 		c.hasErrored = true
 
 		if strings.HasPrefix(record.Message, "Ignored invalid config file") {
 			c.hasErroredBecauseInvalidConfig = true
 		}
+	}
+
+	if GlobalHandler != nil {
+		return GlobalHandler.Handle(ctx, record)
 	}
 
 	_, err := fmt.Fprint(c.writer(record.Level), record.Message+"\n")
@@ -73,11 +83,17 @@ func (c *Handler) HasErroredBecauseInvalidConfig() bool {
 	return c.hasErroredBecauseInvalidConfig
 }
 
-func (c *Handler) WithAttrs(_ []slog.Attr) slog.Handler {
+func (c *Handler) WithAttrs(a []slog.Attr) slog.Handler {
+	if GlobalHandler != nil {
+		return GlobalHandler.WithAttrs(a)
+	}
 	panic("not supported")
 }
 
-func (c *Handler) WithGroup(_ string) slog.Handler {
+func (c *Handler) WithGroup(g string) slog.Handler {
+	if GlobalHandler != nil {
+		return GlobalHandler.WithGroup(g)
+	}
 	panic("not supported")
 }
 
