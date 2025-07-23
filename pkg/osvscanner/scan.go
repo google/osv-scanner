@@ -7,7 +7,6 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
-	"slices"
 	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
@@ -83,7 +82,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	var genericFindings []*inventory.GenericFinding
 
 	// --- Lockfiles ---
-	lockfileExtractors := getExtractors(scalibrextract.ExtractorsLockfiles, accessors, actions)
+	lockfileExtractors := getExtractors([]string{"lockfile"}, accessors, actions)
 
 	if len(lockfileExtractors) == 0 {
 		return nil, errors.New("at least one extractor must be enabled")
@@ -100,7 +99,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	// --- SBOMs ---
 	// none of the SBOM extractors need configuring
-	sbomExtractors := builders.BuildExtractors(scalibrextract.ExtractorsSBOMs)
+	sbomExtractors := builders.BuildExtractors([]string{"sbom"})
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
 		if err != nil {
@@ -125,11 +124,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	// --- Directories ---
 
 	dirExtractors := getExtractors(
-		slices.Concat(
-			scalibrextract.ExtractorsLockfiles,
-			scalibrextract.ExtractorsSBOMs,
-			scalibrextract.ExtractorsDirectories,
-		),
+		[]string{"lockfile", "sbom", "directory"},
 		accessors,
 		actions,
 	)
