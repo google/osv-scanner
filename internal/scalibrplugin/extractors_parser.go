@@ -3,11 +3,12 @@ package scalibrplugin
 
 import (
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 )
 
-var extractorPresets = map[string][]string{
+var extractorPresets = map[string]list.InitMap{
 	"sbom":      scalibrextract.ExtractorsSBOMs,
 	"lockfile":  scalibrextract.ExtractorsLockfiles,
 	"directory": scalibrextract.ExtractorsDirectories,
@@ -22,7 +23,7 @@ func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []s
 
 		for _, extractorOrPreset := range exts {
 			if names, ok := extractorPresets[extractorOrPreset]; ok {
-				for _, name := range names {
+				for name := range names {
 					extractors[name] = enabled
 				}
 

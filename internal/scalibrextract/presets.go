@@ -28,6 +28,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
+	"github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
@@ -39,85 +40,85 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
-var ExtractorsSBOMs = []string{
-	spdx.Name,
-	cdx.Name,
+var ExtractorsSBOMs = list.InitMap{
+	spdx.Name: {spdx.New},
+	cdx.Name:  {cdx.New},
 }
 
-var ExtractorsLockfiles = []string{
+var ExtractorsLockfiles = list.InitMap{
 	// C
-	conanlock.Name,
+	conanlock.Name: {conanlock.New},
 
 	// Erlang
-	mixlock.Name,
+	mixlock.Name: {mixlock.New},
 
 	// Flutter
-	pubspec.Name,
+	pubspec.Name: {pubspec.New},
 
 	// Go
-	gomod.Name,
+	gomod.Name: {gomod.New},
 
 	// Java
-	gradlelockfile.Name,
-	gradleverificationmetadataxml.Name,
-	pomxmlenhanceable.Name,
+	gradlelockfile.Name:                {gradlelockfile.New},
+	gradleverificationmetadataxml.Name: {gradleverificationmetadataxml.New},
+	pomxmlenhanceable.Name:             {pomxmlenhanceable.New},
 
 	// Javascript
-	packagelockjson.Name,
-	pnpmlock.Name,
-	yarnlock.Name,
-	bunlock.Name,
+	packagelockjson.Name: {packagelockjson.NewDefault},
+	pnpmlock.Name:        {pnpmlock.New},
+	yarnlock.Name:        {yarnlock.New},
+	bunlock.Name:         {bunlock.New},
 
 	// PHP
-	composerlock.Name,
+	composerlock.Name: {composerlock.New},
 
 	// Python
-	pipfilelock.Name,
-	pdmlock.Name,
-	poetrylock.Name,
-	requirementsenhancable.Name,
-	uvlock.Name,
+	pipfilelock.Name:            {pipfilelock.New},
+	pdmlock.Name:                {pdmlock.New},
+	poetrylock.Name:             {poetrylock.New},
+	requirementsenhancable.Name: {requirementsenhancable.New},
+	uvlock.Name:                 {uvlock.New},
 
 	// R
-	renvlock.Name,
+	renvlock.Name: {renvlock.New},
 
 	// Ruby
-	gemfilelock.Name,
+	gemfilelock.Name: {gemfilelock.New},
 
 	// Rust
-	cargolock.Name,
+	cargolock.Name: {cargolock.New},
 
 	// NuGet
-	depsjson.Name,
-	packagesconfig.Name,
-	packageslockjson.Name,
+	depsjson.Name:         {depsjson.NewDefault},
+	packagesconfig.Name:   {packagesconfig.NewDefault},
+	packageslockjson.Name: {packageslockjson.NewDefault},
 
 	// Haskell
-	cabal.Name,
-	stacklock.Name,
+	cabal.Name:     {cabal.NewDefault},
+	stacklock.Name: {stacklock.NewDefault},
 }
 
-var ExtractorsDirectories = []string{
-	gitrepo.Name,
-	vendored.Name,
+var ExtractorsDirectories = list.InitMap{
+	gitrepo.Name:  {gitrepo.New},
+	vendored.Name: {vendored.New},
 }
 
-var ExtractorsArtifacts = []string{
+var ExtractorsArtifacts = list.InitMap{
 	// --- Project artifacts ---
 	// Python
-	wheelegg.Name,
+	wheelegg.Name: {wheelegg.NewDefault},
 	// Java
-	archive.Name,
+	archive.Name: {archive.NewDefault},
 	// Go
-	gobinary.Name,
+	gobinary.Name: {gobinary.NewDefault},
 	// Javascript
-	nodemodules.Name,
+	nodemodules.Name: {nodemodules.New},
 	// Rust
-	cargoauditable.Name,
+	cargoauditable.Name: {cargoauditable.NewDefault},
 
 	// --- OS packages ---
 	// Alpine
-	apk.Name,
+	apk.Name: {apk.NewDefault},
 	// Debian
-	dpkg.Name,
+	dpkg.Name: {dpkg.NewDefault},
 }
