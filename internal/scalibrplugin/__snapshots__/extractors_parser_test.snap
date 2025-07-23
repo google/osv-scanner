@@ -8,7 +8,6 @@ dotnet/pe
 go/binary
 java/archive
 javascript/nodemodules
-javascript/packagejson
 os/apk
 os/cos
 os/dpkg

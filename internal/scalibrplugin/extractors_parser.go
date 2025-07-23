@@ -8,6 +8,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagejson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/list"
@@ -39,7 +40,7 @@ var ExtractorPresets = map[string]list.InitMap{
 		vendored.Name: {vendored.New},
 	},
 	"artifact": concat(
-		without(list.Artifact, []string{secrets.Name}),
+		without(list.Artifact, []string{secrets.Name, packagejson.Name}),
 		list.InitMap{
 			nodemodules.Name: {nodemodules.New},
 		},

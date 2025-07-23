@@ -13,7 +13,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagejson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
@@ -119,7 +118,6 @@ func TestResolveEnabledExtractors(t *testing.T) {
 				module.Name,
 				nix.Name,
 				nodemodules.Name,
-				packagejson.Name,
 				pacman.Name,
 				podman.Name,
 				portage.Name,
@@ -156,7 +154,6 @@ func TestResolveEnabledExtractors(t *testing.T) {
 				module.Name,
 				nix.Name,
 				nodemodules.Name,
-				packagejson.Name,
 				pacman.Name,
 				podman.Name,
 				portage.Name,
@@ -199,7 +196,6 @@ func TestResolveEnabledExtractors(t *testing.T) {
 				module.Name,
 				nix.Name,
 				nodemodules.Name,
-				packagejson.Name,
 				pacman.Name,
 				podman.Name,
 				portage.Name,
@@ -237,7 +233,6 @@ func TestResolveEnabledExtractors(t *testing.T) {
 				module.Name,
 				nix.Name,
 				nodemodules.Name,
-				packagejson.Name,
 				pacman.Name,
 				podman.Name,
 				portage.Name,
