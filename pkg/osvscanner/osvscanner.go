@@ -548,7 +548,7 @@ func overrideGoVersion(scanResults *results.ScanResults) {
 	}
 }
 
-// SetCmdLogger sets the global slog handler for the cmdlogger.
-func SetCmdLogger(handler slog.Handler) {
+// SetLogger sets the global slog handler for the cmdlogger.
+func SetLogger(handler slog.Handler) {
 	cmdlogger.GlobalHandler = handler
 }
