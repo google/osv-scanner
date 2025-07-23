@@ -29,6 +29,7 @@
     },
     {
       "matchPackageNames": ["osv-scalibr"],
+      "groupName": "osv-scalibr"
       "enabled": true
     }
   ],
