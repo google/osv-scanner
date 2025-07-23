@@ -65,13 +65,17 @@ func (e *Enricher) RequiredPlugins() []string {
 	return []string{gomod.Name}
 }
 
+func NewEnricher() Enricher {
+	return Enricher{}
+}
+
 // Enrich runs govulncheck on the Go modules in the inventory.
 func (e *Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *inventory.Inventory) error {
 	cmd := exec.Command("go", "version")
 	_, err := cmd.Output()
 	if err != nil {
 		log.Infof("Skipping call analysis on Go code since Go is not installed.")
-		return nil
+		return nil //nolint:nilerr
 	}
 
 	// Set GOVERSION to the Go version in go.mod.
@@ -95,7 +99,7 @@ func (e *Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *i
 			}
 			scanned[l] = true
 			modDir := filepath.Dir(l)
-			absModDir := filepath.Join(string(input.ScanRoot.Path), modDir)
+			absModDir := filepath.Join(input.ScanRoot.Path, modDir)
 			findings, err := e.runGovulncheck(ctx, absModDir, goVersion)
 			if err != nil {
 				log.Errorf("govulncheck on %s: %v", modDir, err)
@@ -114,18 +118,22 @@ func (e *Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *i
 }
 
 func (e *Enricher) addSignals(inv *inventory.Inventory, idToFindings map[string][]*Finding) {
-	idToModuleToCalled := map[string]map[string]bool{}
-	for id, findings := range idToFindings {
-		idToModuleToCalled[id] = map[string]bool{}
-		for _, f := range findings {
-			modulePath := f.Trace[0].Module
-			called := f.Trace[0].Function != ""
-			idToModuleToCalled[f.OSV][modulePath] = called
-		}
-	}
-
 	for _, pv := range inv.PackageVulns {
-		if idToModuleToCalled[pv.ID] != nil && !idToModuleToCalled[pv.ID]["PLACEHOLDER"] {
+		findings, exist := idToFindings[pv.ID]
+		// Skip if no findings for this package vulnerability ID
+		if !exist {
+			continue
+		}
+
+		isReachable := false
+		for _, f := range findings {
+			if len(f.Trace) > 0 && f.Trace[0].Function != "" {
+				isReachable = true
+				break
+			}
+		}
+
+		if !isReachable {
 			pv.ExploitabilitySignals = append(pv.ExploitabilitySignals, &vex.FindingExploitabilitySignal{
 				Plugin:        Name,
 				Justification: vex.VulnerableCodeNotInExecutePath,
@@ -176,6 +184,7 @@ func handleJSON(from io.Reader, to *osvHandler) error {
 			to.Finding(msg.Finding)
 		}
 	}
+
 	return nil
 }
 

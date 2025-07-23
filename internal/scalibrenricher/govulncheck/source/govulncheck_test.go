@@ -13,108 +13,113 @@
 // limitations under the License.
 package source
 
-// func TestEnrich(t *testing.T) {
-// 	var called bool
-// 	var gotAbsModDir, gotGoVersion string
+import (
+	"path/filepath"
+	"testing"
 
-// 	e := &Enricher{
-// 		runner: func(ctx context.Context, absModDir string, goVersion string) (map[string][]*Finding, error) {
-// 			called = true
-// 			gotAbsModDir = absModDir
-// 			gotGoVersion = goVersion
-// 			return map[string][]*Finding{
-// 				"GO-2021-0001": {{OSV: "GO-2021-0001"}},
-// 			}, nil
-// 		},
-// 	}
+	"github.com/google/osv-scalibr/enricher"
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gomod"
+	scalibrfs "github.com/google/osv-scalibr/fs"
+	"github.com/google/osv-scalibr/inventory"
+	"github.com/google/osv-scalibr/inventory/vex"
+	"github.com/google/osv-scalibr/purl"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
+)
 
-// 	tmpDir := t.TempDir()
-// 	i := &inventory.Inventory{
-// 		Packages: []*inventory.Package{
-// 			{
-// 				Name:      "stdlib",
-// 				Version:   "1.20",
-// 				Locations: []inventory.Location{{Path: filepath.Join(tmpDir, "go.mod")}},
-// 				Plugins:   []string{gomod.Name},
-// 			},
-// 		},
-// 	}
+const testdata = "./testdata"
+const reachableVuln = "GO-2023-1558"
+const unreachableVuln = "GO-2021-0053"
 
-// 	input := &enricher.ScanInput{
-// 		ScanRoot: inventory.Path(filepath.Dir(tmpDir)),
-// 	}
-// 	if err := e.Enrich(context.Background(), input, i); err != nil {
-// 		t.Fatalf("Enrich(): %v", err)
-// 	}
+func TestEnricher(t *testing.T) {
+	t.Parallel()
+	pkgs := setupPackages()
+	vulns := setupPackageVulns()
+	input := enricher.ScanInput{
+		ScanRoot: &scalibrfs.ScanRoot{
+			Path: testdata,
+			FS:   scalibrfs.DirFS("."),
+		},
+	}
 
-// 	if !called {
-// 		t.Errorf("runner was not called")
-// 	}
+	inv := inventory.Inventory{
+		Packages:     pkgs,
+		PackageVulns: vulns,
+	}
 
-// 	wantAbsModDir := tmpDir
-// 	if gotAbsModDir != wantAbsModDir {
-// 		t.Errorf("runner called with absModDir got: %q, want: %q", gotAbsModDir, wantAbsModDir)
-// 	}
+	enr := NewEnricher()
+	err := enr.Enrich(t.Context(), &input, &inv)
 
-// 	wantGoVersion := "1.20"
-// 	if gotGoVersion != wantGoVersion {
-// 		t.Errorf("runner called with goVersion got: %q, want: %q", gotGoVersion, wantGoVersion)
-// 	}
-// }
+	if err != nil {
+		t.Fatalf("govulncheck enrich failed: %s", err)
+	}
 
-// func TestEnrichGoNotInstalled(t *testing.T) {
-// 	e := &Enricher{
-// 		runner: func(ctx context.Context, absModDir string, goVersion string) (map[string][]*Finding, error) {
-// 			t.Error("runner should not be called if go is not installed")
-// 			return nil, nil
-// 		},
-// 	}
-// 	// This is a bit of a hack to simulate `go version` failing.
-// 	// We can't easily mock exec.Command, so we rely on the fact that a non-existent
-// 	// PATH will cause the command to fail.
-// 	t.Setenv("PATH", "")
+	for _, vuln := range inv.PackageVulns {
+		switch vuln.ID {
+		case reachableVuln:
+			if len(vuln.ExploitabilitySignals) != 0 {
+				t.Fatalf("govulncheck enrich failed, expected %s to be reachable, but marked as unreachable", reachableVuln)
+			}
+		case unreachableVuln:
+			if len(vuln.ExploitabilitySignals) == 0 || vuln.ExploitabilitySignals[0].Justification != vex.VulnerableCodeNotInExecutePath {
+				t.Fatalf("govulncheck enrich failed, expected %s to be unreachable, but marked as reachable", unreachableVuln)
+			}
+		}
+	}
+}
 
-// 	i := &inventory.Inventory{
-// 		Packages: []*inventory.Package{
-// 			{
-// 				Name:      "stdlib",
-// 				Version:   "1.20",
-// 				Locations: []inventory.Location{{Path: "go.mod"}},
-// 				Plugins:   []string{gomod.Name},
-// 			},
-// 		},
-// 	}
+func setupPackages() []*extractor.Package {
+	pkgs := []*extractor.Package{}
 
-// 	if err := e.Enrich(context.Background(), &enricher.ScanInput{}, i); err != nil {
-// 		t.Fatalf("Enrich(): %v", err)
-// 	}
-// }
+	pkgs = append(pkgs, &extractor.Package{
+		Name:      "stdlib",
+		Version:   "1.19",
+		PURLType:  purl.TypeGolang,
+		Locations: []string{filepath.Join(".", "go.mod")},
+		Plugins:   []string{gomod.Name},
+	})
 
-// func TestEnrichRunnerError(t *testing.T) {
-// 	e := &Enricher{
-// 		runner: func(ctx context.Context, absModDir string, goVersion string) (map[string][]*Finding, error) {
-// 			return nil, fmt.Errorf("runner error")
-// 		},
-// 	}
+	pkgs = append(pkgs, &extractor.Package{
+		Name:      "github.com/gogo/protobuf",
+		Version:   "1.3.1",
+		PURLType:  purl.TypeGolang,
+		Locations: []string{filepath.Join(".", "go.mod")},
+		Plugins:   []string{gomod.Name},
+	})
 
-// 	tmpDir := t.TempDir()
-// 	i := &inventory.Inventory{
-// 		Packages: []*inventory.Package{
-// 			{
-// 				Name:      "stdlib",
-// 				Version:   "1.20",
-// 				Locations: []inventory.Location{{Path: filepath.Join(tmpDir, "go.mod")}},
-// 				Plugins:   []string{gomod.Name},
-// 			},
-// 		},
-// 	}
+	pkgs = append(pkgs, &extractor.Package{
+		Name:      "github.com/ipfs/go-bitfield",
+		Version:   "1.0.0",
+		PURLType:  purl.TypeGolang,
+		Locations: []string{filepath.Join(".", "go.mod")},
+		Plugins:   []string{gomod.Name},
+	})
 
-// 	input := &enricher.ScanInput{
-// 		ScanRoot: inventory.Path(filepath.Dir(tmpDir)),
-// 	}
-// 	if err := e.Enrich(context.Background(), input, i); err != nil {
-// 		t.Fatalf("Enrich(): %v", err)
-// 	}
-// 	// We don't return an error from Enrich, just log it.
-// 	// A more advanced test could check the logs.
-// }
+	pkgs = append(pkgs, &extractor.Package{
+		Name:      "golang.org/x/image",
+		Version:   "0.4.0",
+		PURLType:  purl.TypeGolang,
+		Locations: []string{filepath.Join(".", "go.mod")},
+		Plugins:   []string{gomod.Name},
+	})
+
+	return pkgs
+}
+
+func setupPackageVulns() []*inventory.PackageVuln {
+	vulns := []*inventory.PackageVuln{}
+
+	vulns = append(vulns, &inventory.PackageVuln{
+		Vulnerability: osvschema.Vulnerability{
+			ID: reachableVuln,
+		},
+	})
+
+	vulns = append(vulns, &inventory.PackageVuln{
+		Vulnerability: osvschema.Vulnerability{
+			ID: unreachableVuln,
+		},
+	})
+
+	return vulns
+}
