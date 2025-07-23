@@ -1,4 +1,5 @@
-package helper
+// Package scalibrplugin provides functions related to configuring scalibr plugins
+package scalibrplugin
 
 import (
 	"github.com/google/osv-scalibr/extractor/filesystem"

@@ -27,6 +27,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -64,11 +65,11 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 }
 
 func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, actions ScannerActions) []filesystem.Extractor {
-	extractors := actions.Extractors
-
-	if len(extractors) == 0 {
-		extractors = builders.BuildExtractors(defaultExtractorNames)
+	if len(actions.ExtractorsEnabled) == 0 {
+		actions.ExtractorsEnabled = defaultExtractorNames
 	}
+
+	extractors := scalibrplugin.ResolveEnabledExtractors(actions.ExtractorsEnabled, actions.ExtractorsDisabled)
 
 	configureExtractors(extractors, accessors, actions)
 
@@ -83,6 +84,11 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	// --- Lockfiles ---
 	lockfileExtractors := getExtractors(scalibrextract.ExtractorsLockfiles, accessors, actions)
+
+	if len(lockfileExtractors) == 0 {
+		return nil, errors.New("at least one extractor must be enabled")
+	}
+
 	for _, lockfileElem := range actions.LockfilePaths {
 		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
 		if err != nil {
@@ -128,6 +134,10 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 		actions,
 	)
 
+	if len(dirExtractors) == 0 {
+		return nil, errors.New("at least one extractor must be enabled")
+	}
+
 	scanner := scalibr.New()
 
 	// Build list of paths for each root
@@ -152,6 +162,8 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
 
+	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
+
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
@@ -165,12 +177,12 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		plugins := make([]plugin.Plugin, len(dirExtractors)+len(actions.Detectors))
+		plugins := make([]plugin.Plugin, len(dirExtractors)+len(detectors))
 		for i, ext := range dirExtractors {
 			plugins[i] = ext.(plugin.Plugin)
 		}
 
-		for i, det := range actions.Detectors {
+		for i, det := range detectors {
 			plugins[i+len(dirExtractors)] = det.(plugin.Plugin)
 		}
 

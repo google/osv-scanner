@@ -1,4 +1,4 @@
-package helper
+package scalibrplugin
 
 import (
 	"github.com/google/osv-scalibr/detector"
