@@ -86,9 +86,9 @@ func (e *Extractor) Enhance(config requirementsnet.Config) {
 var _ enhanceable = &Extractor{}
 
 // EnhanceIfPossible calls Extractor.Enhance with the given config if the
-// provided extractor is an Extractor
-func EnhanceIfPossible(extractor filesystem.Extractor, config requirementsnet.Config) {
-	us, ok := extractor.(enhanceable)
+// provided plug(in) is an Extractor
+func EnhanceIfPossible(plug plugin.Plugin, config requirementsnet.Config) {
+	us, ok := plug.(enhanceable)
 
 	if ok {
 		us.Enhance(config)
