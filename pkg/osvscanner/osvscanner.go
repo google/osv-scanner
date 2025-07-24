@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 	"maps"
 	"net/http"
 	"os"
@@ -19,7 +20,6 @@ import (
 	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/enricher/java/javareach"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
@@ -33,6 +33,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
+	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
@@ -72,7 +73,11 @@ type ScannerActions struct {
 type ExperimentalScannerActions struct {
 	TransitiveScanningActions
 
-	Extractors []filesystem.Extractor
+	ExtractorsEnabled  []string
+	ExtractorsDisabled []string
+
+	DetectorsEnabled  []string
+	DetectorsDisabled []string
 }
 
 type TransitiveScanningActions struct {
@@ -226,12 +231,13 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	}
 
 	// ----- Perform Scanning -----
-	packages, err := scan(accessors, actions)
+	packagesAndFindings, err := scan(accessors, actions)
 	if err != nil {
 		return models.VulnerabilityResults{}, err
 	}
 
-	scanResult.PackageScanResults = packages
+	scanResult.PackageScanResults = packagesAndFindings.PackageResults
+	scanResult.GenericFindings = packagesAndFindings.GenericFindings
 
 	// ----- Filtering -----
 	filterUnscannablePackages(&scanResult)
@@ -296,6 +302,16 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
+	filesystemExtractors := getExtractors(
+		scalibrextract.ExtractorsArtifacts,
+		accessors,
+		actions,
+	)
+
+	if len(filesystemExtractors) == 0 {
+		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
+	}
+
 	// --- Initialize Image To Scan ---'
 
 	var img *image.Image
@@ -323,13 +339,9 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}
 	}()
 
-	filesystemExtractors := getExtractors(
-		scalibrextract.ExtractorsArtifacts,
-		accessors,
-		actions,
-	)
+	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
 
-	plugins := make([]plugin.Plugin, len(filesystemExtractors))
+	plugins := make([]plugin.Plugin, len(filesystemExtractors)+len(detectors))
 	for i, ext := range filesystemExtractors {
 		plugins[i] = ext.(plugin.Plugin)
 	}
@@ -338,10 +350,22 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		plugins = append(plugins, javareach.NewDefault())
 	}
 
+	for i, det := range detectors {
+		plugins[i+len(filesystemExtractors)] = det.(plugin.Plugin)
+	}
+
+	capabilities := &plugin.Capabilities{
+		DirectFS:      true,
+		RunningSystem: false,
+		OS:            plugin.OSLinux,
+	}
+	plugins = plugin.FilterByCapabilities(plugins, capabilities)
+
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
-		Plugins: plugins,
+		Plugins:      plugins,
+		Capabilities: capabilities,
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
@@ -397,6 +421,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 			psr.PackageInfo.AnnotationsDeprecated = append(psr.PackageInfo.AnnotationsDeprecated, extractor.InsideOSPackage)
 		}
 	}
+
+	scanResult.GenericFindings = scalibrSR.Inventory.GenericFindings
 
 	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
 
@@ -460,12 +486,12 @@ func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount 
 
 // determineReturnErr determines whether we found a "vulnerability" or not,
 // and therefore whether we should return a ErrVulnerabilityFound error.
-func determineReturnErr(results models.VulnerabilityResults, showAllVulns bool, isContainerScanning bool) error {
-	if len(results.Results) > 0 {
+func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bool, isContainerScanning bool) error {
+	if len(vulnResults.Results) > 0 {
 		var vuln bool
 		onlyUnimportantVuln := true
 		var licenseViolation bool
-		for _, vf := range results.Flatten() {
+		for _, vf := range vulnResults.Flatten() {
 			if vf.Vulnerability.ID != "" {
 				vuln = true
 				// TODO(gongh): rewrite the logic once we support reachability analysis for container scanning.
@@ -536,4 +562,9 @@ func overrideGoVersion(scanResults *results.ScanResults) {
 			continue
 		}
 	}
+}
+
+// SetLogger sets the global slog handler for the cmdlogger.
+func SetLogger(handler slog.Handler) {
+	cmdlogger.GlobalHandler = handler
 }

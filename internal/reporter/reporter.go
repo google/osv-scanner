@@ -1,3 +1,4 @@
+// Package reporter provides functionality for reporting scan results in various formats.
 package reporter
 
 import (

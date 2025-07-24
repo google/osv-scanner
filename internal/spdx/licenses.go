@@ -623,6 +623,7 @@ var IDs = map[string]bool{
 	"sspl-1.0":                             true,
 	"standardml-nj":                        true,
 	"sugarcrm-1.1.3":                       true,
+	"sul-1.0":                              true,
 	"sun-ppp":                              true,
 	"sun-ppp-2000":                         true,
 	"sunpro":                               true,

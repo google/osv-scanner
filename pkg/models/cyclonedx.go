@@ -1,3 +1,4 @@
+// Package models provides data models for osv-scanner.
 package models
 
 type CycloneDXVersion int

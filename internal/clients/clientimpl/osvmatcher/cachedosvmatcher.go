@@ -1,3 +1,4 @@
+// Package osvmatcher implements two vulnerability matcher using osv.dev's API.
 package osvmatcher
 
 import (

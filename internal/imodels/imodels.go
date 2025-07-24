@@ -1,8 +1,8 @@
+// Package imodels defines internal models for osv-scanner.
 package imodels
 
 import (
 	"fmt"
-	"log"
 	"strings"
 
 	"github.com/google/osv-scalibr/converter"
@@ -19,7 +19,9 @@ import (
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -122,8 +124,7 @@ func (pkg *PackageInfo) Ecosystem() ecosystem.Parsed {
 	eco, err := ecosystem.Parse(ecosystemStr)
 	if err != nil {
 		// Ignore this error for now as we can't do too much about an unknown ecosystem
-		// TODO(v2): Replace with slog
-		log.Printf("Warning: %s\n", err.Error())
+		cmdlogger.Warnf("Warning: %s", err.Error())
 	}
 
 	return eco
@@ -217,8 +218,8 @@ func (pkg *PackageInfo) OSPackageName() string {
 }
 
 // FromInventory converts an extractor.Package into a PackageInfo.
-func FromInventory(inventory *extractor.Package) PackageInfo {
-	pi := PackageInfo{Package: inventory}
+func FromInventory(inv *extractor.Package) PackageInfo {
+	pi := PackageInfo{Package: inv}
 	if pi.SourceType() == models.SourceTypeSBOM {
 		purlStruct := converter.ToPURL(pi.Package)
 		if purlStruct != nil {
@@ -242,4 +243,11 @@ type PackageScanResult struct {
 	// TODO(v2):
 	// SourceAnalysis *SourceAnalysis
 	// Any additional scan enrichment steps
+}
+
+// ScanResult represents the result of a scan, which will generally have packages
+// but can also have more generic findings that are not related to packages
+type ScanResult struct {
+	PackageResults  []PackageScanResult
+	GenericFindings []*inventory.GenericFinding
 }

@@ -1,0 +1,21 @@
+{
+  "results": [
+    {
+      "source": {
+        "path": "/path/to/scorecard-check-osv-e2e/go.mod",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "github.com/brandnew/package",
+            "version": "1.0.0",
+            "ecosystem": "Go"
+          },
+          "vulnerabilities": [],
+          "groups": []
+        }
+      ]
+    }
+  ]
+}

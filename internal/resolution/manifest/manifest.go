@@ -1,3 +1,4 @@
+// Package manifest provides functionality for reading and writing manifest files.
 package manifest
 
 import (

@@ -1,4 +1,9 @@
+// Package testcmd provides utilities for testing osv-scanner CLI commands.
 package testcmd
+
+import (
+	"strings"
+)
 
 type Case struct {
 	Name string
@@ -9,16 +14,18 @@ type Case struct {
 	ReplaceRules []JSONReplaceRule
 }
 
-func (c Case) isOutputtingJSON() bool {
+// findFirstValueOfFlag returns the value of the first instance of the given flag
+// in the test case arguments, if it is present at all
+func (c Case) findFirstValueOfFlag(f string) string {
 	for i, arg := range c.Args {
-		if arg == "--format=json" {
-			return true
+		if strings.HasPrefix(arg, f+"=") {
+			return strings.TrimPrefix(arg, f+"=")
 		}
 
-		if arg == "--format" && i < len(c.Args) && c.Args[i+1] == "json" {
-			return true
+		if arg == f && i < len(c.Args) {
+			return c.Args[i+1]
 		}
 	}
 
-	return false
+	return ""
 }

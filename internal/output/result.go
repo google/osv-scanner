@@ -81,7 +81,7 @@ func mustGetWorkingDirectory() string {
 // groupFixedVersions builds the fixed versions for each ID Group, with keys formatted like so:
 // `Source:ID`
 func groupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]string {
-	groupFixedVersions := map[string][]string{}
+	groupedFixedVersions := map[string][]string{}
 
 	// Get the fixed versions indexed by each group of vulnerabilities
 	// Prepend source path as same vulnerability in two projects should be counted twice
@@ -92,18 +92,18 @@ func groupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 			Ecosystem: vf.Package.Ecosystem,
 			Name:      vf.Package.Name,
 		}
-		groupFixedVersions[groupIdx] =
-			append(groupFixedVersions[groupIdx], vulns.GetFixedVersions(vf.Vulnerability)[pkg]...)
+		groupedFixedVersions[groupIdx] =
+			append(groupedFixedVersions[groupIdx], vulns.GetFixedVersions(vf.Vulnerability)[pkg]...)
 	}
 
 	// Remove duplicates
-	for k := range groupFixedVersions {
-		fixedVersions := groupFixedVersions[k]
+	for k := range groupedFixedVersions {
+		fixedVersions := groupedFixedVersions[k]
 		slices.Sort(fixedVersions)
-		groupFixedVersions[k] = slices.Compact(fixedVersions)
+		groupedFixedVersions[k] = slices.Compact(fixedVersions)
 	}
 
-	return groupFixedVersions
+	return groupedFixedVersions
 }
 
 // groupedSARIFFinding groups vulnerabilities by aliases
@@ -119,11 +119,11 @@ type groupedSARIFFinding struct {
 
 // mapIDsToGroupedSARIFFinding creates a map over all vulnerability IDs, with aliased vuln IDs
 // pointing to the same groupedSARIFFinding object
-func mapIDsToGroupedSARIFFinding(vulns *models.VulnerabilityResults) map[string]*groupedSARIFFinding {
+func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[string]*groupedSARIFFinding {
 	// Map of vuln IDs to their respective groupedSARIFFinding
 	results := map[string]*groupedSARIFFinding{}
 
-	for _, res := range vulns.Results {
+	for _, res := range vulnResults.Results {
 		for _, pkg := range res.Packages {
 			for _, gi := range pkg.Groups {
 				var data *groupedSARIFFinding

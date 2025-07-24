@@ -26,6 +26,11 @@
     {
       "matchDepTypes": ["golang"],
       "enabled": false
+    },
+    {
+      "matchPackageNames": ["osv-scalibr"],
+      "groupName": "osv-scalibr",
+      "enabled": true
     }
   ],
   "ignorePaths": ["**/fixtures/**", "**/fixtures-go/**"],

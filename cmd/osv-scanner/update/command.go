@@ -1,3 +1,4 @@
+// Package update implements the `update` command for osv-scanner.
 package update
 
 import (

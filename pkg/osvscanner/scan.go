@@ -17,6 +17,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/fs"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -26,6 +27,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -63,24 +65,30 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 }
 
 func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, actions ScannerActions) []filesystem.Extractor {
-	extractors := actions.Extractors
-
-	if len(extractors) == 0 {
-		extractors = builders.BuildExtractors(defaultExtractorNames)
+	if len(actions.ExtractorsEnabled) == 0 {
+		actions.ExtractorsEnabled = defaultExtractorNames
 	}
+
+	extractors := scalibrplugin.ResolveEnabledExtractors(actions.ExtractorsEnabled, actions.ExtractorsDisabled)
 
 	configureExtractors(extractors, accessors, actions)
 
 	return extractors
 }
 
-// scan essentially converts ScannerActions into PackageScanResult by performing the extractions
-func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.PackageScanResult, error) {
+// scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
+func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
+	var genericFindings []*inventory.GenericFinding
 
 	// --- Lockfiles ---
 	lockfileExtractors := getExtractors(scalibrextract.ExtractorsLockfiles, accessors, actions)
+
+	if len(lockfileExtractors) == 0 {
+		return nil, errors.New("at least one extractor must be enabled")
+	}
+
 	for _, lockfileElem := range actions.LockfilePaths {
 		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
 		if err != nil {
@@ -126,6 +134,10 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		actions,
 	)
 
+	if len(dirExtractors) == 0 {
+		return nil, errors.New("at least one extractor must be enabled")
+	}
+
 	scanner := scalibr.New()
 
 	// Build list of paths for each root
@@ -148,27 +160,33 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 	}
 
 	testlogger.BeginDirScanMarker()
+	osCapability := determineOS()
+
+	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
+
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
 			DirectFS:      true,
 			RunningSystem: true,
 			Network:       plugin.NetworkOnline,
-			OS:            plugin.OSUnix,
+			OS:            osCapability,
 		}
 
 		if actions.CompareOffline {
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		if runtime.GOOS == "windows" {
-			capabilities.OS = plugin.OSWindows
-		}
-
-		plugins := make([]plugin.Plugin, len(dirExtractors))
+		plugins := make([]plugin.Plugin, len(dirExtractors)+len(detectors))
 		for i, ext := range dirExtractors {
 			plugins[i] = ext.(plugin.Plugin)
 		}
+
+		for i, det := range detectors {
+			plugins[i+len(dirExtractors)] = det.(plugin.Plugin)
+		}
+
+		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
 
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
 			Plugins:               plugins,
@@ -195,6 +213,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, status.Status.FailureReason)
 			}
 		}
+		genericFindings = append(genericFindings, sr.Inventory.GenericFindings...)
 		scannedInventories = append(scannedInventories, sr.Inventory.Packages...)
 	}
 
@@ -213,17 +232,19 @@ func scan(accessors ExternalAccessors, actions ScannerActions) ([]imodels.Packag
 		return nil, ErrNoPackagesFound
 	}
 
+	scanResult := imodels.ScanResult{GenericFindings: genericFindings}
+
 	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
-	packages := []imodels.PackageScanResult{}
 	for _, inv := range scannedInventories {
 		pi := imodels.FromInventory(inv)
 
-		packages = append(packages, imodels.PackageScanResult{
-			PackageInfo: pi,
-		})
+		scanResult.PackageResults = append(
+			scanResult.PackageResults,
+			imodels.PackageScanResult{PackageInfo: pi},
+		)
 	}
 
-	return packages, nil
+	return &scanResult, nil
 }
 
 // getRootDir returns the root directory on each system.
@@ -239,4 +260,19 @@ func getRootDir(path string) string {
 	}
 
 	return ""
+}
+
+func determineOS() plugin.OS {
+	switch runtime.GOOS {
+	case "windows":
+		return plugin.OSWindows
+	case "darwin":
+		return plugin.OSMac
+	case "linux":
+		return plugin.OSLinux
+	default:
+		cmdlogger.Warnf("Unknown OS \"%s\" - results might be inaccurate", runtime.GOOS)
+
+		return plugin.OSAny
+	}
 }

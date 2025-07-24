@@ -1,3 +1,4 @@
+// Package scanners provides functionality for scanning lockfiles.
 package scanners
 
 import (

@@ -1,3 +1,4 @@
+// Package depgroups provides functionality for working with dependency groups.
 package depgroups
 
 import (

@@ -202,7 +202,7 @@ func extractRlibArchive(rlibPath string) (bytes.Buffer, error) {
 			// There should only be one file (since we set codegen-units=1)
 			if !strings.HasSuffix(filename, RustLibExtension) {
 				// TODO: Verify this, and return an error here instead.
-				log.Printf("rlib archive contents were unexpected: %s\n", filename)
+				cmdlogger.Warnf("rlib archive contents were unexpected: %s\n", filename)
 			}
 		}
 		// /0 indicates the first file mentioned in the "//" store

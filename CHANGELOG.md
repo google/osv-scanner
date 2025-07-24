@@ -1,3 +1,26 @@
+# v2.1.0
+
+### Features:
+
+- [Feature #2038](https://github.com/google/osv-scanner/pull/2038) Add CycloneDX location field to the output source string.
+- [Feature #2036](https://github.com/google/osv-scanner/pull/2036) Include upstream source information in vulnerability grouping to improve accuracy.
+- [Feature #1970](https://github.com/google/osv-scanner/pull/1970) Hide unimportant vulnerabilities by default to reduce noise, and adds a `--show-all-vulns` flag to show all.
+- [Feature #2003](https://github.com/google/osv-scanner/pull/2003) Add experimental summary output format for the reporter.
+- [Feature #1988](https://github.com/google/osv-scanner/pull/1988) Add support for CycloneDX 1.6 report format.
+- [Feature #1987](https://github.com/google/osv-scanner/pull/1987) Add support for `gems.locked` files used by Bundler.
+- [Feature #1980](https://github.com/google/osv-scanner/pull/1980) Enable transitive dependency extraction for Python `requirements.txt` files.
+- [Feature #1961](https://github.com/google/osv-scanner/pull/1961) Deprecate the `--sbom` flag in favor of the existing `-L/--lockfile` flag for scanning SBOMs.
+- [Feature #1963](https://github.com/google/osv-scanner/pull/1963) Stabilize various experimental fields in the output by moving them out of the experimental struct.
+- [Feature #1957](https://github.com/google/osv-scanner/pull/1957) Use a dedicated exit code for invalid configuration files.
+
+### Fixes:
+
+- [Bug #2046](https://github.com/google/osv-scanner/pull/2046) Correctly set the user agent string for all outgoing requests.
+- [Bug #2019](https://github.com/google/osv-scanner/pull/2019) Use more natural language in the descriptions for extractor-related flags.
+- [Bug #1982](https://github.com/google/osv-scanner/pull/1982) Correctly parse Ubuntu package information with suffixes (e.g. `:Pro`, `:LTS`).
+- [Bug #2000](https://github.com/google/osv-scanner/pull/2000) Ensure CDATA content in XML is correctly outputted in guided remediation.
+- [Bug #1949](https://github.com/google/osv-scanner/pull/1949) Fix filtering of package types in vulnerability counts.
+
 # v2.0.3
 
 ### Features:

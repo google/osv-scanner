@@ -1,3 +1,4 @@
+// Package image implements the `image` subcommand of the `scan` command.
 package image
 
 import (
@@ -74,10 +75,6 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 	scannerAction.Image = cmd.Args().First()
 	scannerAction.IsImageArchive = cmd.Bool("archive")
 	scannerAction.ExperimentalScannerActions = helper.GetExperimentalScannerActions(cmd)
-
-	if len(scannerAction.Extractors) == 0 {
-		return errors.New("at least one extractor must be enabled")
-	}
 
 	var vulnResult models.VulnerabilityResults
 	//nolint:contextcheck // passing the context in would be a breaking change

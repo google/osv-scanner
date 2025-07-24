@@ -1,3 +1,4 @@
+// Package source implements the `source` subcommand of the `scan` command.
 package source
 
 import (
@@ -121,10 +122,6 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 	scannerAction.NoIgnore = cmd.Bool("no-ignore")
 	scannerAction.DirectoryPaths = cmd.Args().Slice()
 	scannerAction.ExperimentalScannerActions = experimentalScannerActions
-
-	if len(experimentalScannerActions.Extractors) == 0 {
-		return errors.New("at least one extractor must be enabled")
-	}
 
 	var vulnResult models.VulnerabilityResults
 	//nolint:contextcheck // passing the context in would be a breaking change

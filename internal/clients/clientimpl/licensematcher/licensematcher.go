@@ -1,3 +1,4 @@
+// Package licensematcher implements a client for matching licenses using the deps.dev API.
 package licensematcher
 
 import (

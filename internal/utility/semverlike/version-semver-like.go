@@ -1,4 +1,6 @@
-// semverlike is currently used to parse go mod version to determine if a patch version exists
+// Package semverlike provides functionality to parse and compare version strings
+// that are similar to semantic versioning, but with more flexibility.
+// It is currently used to parse go mod versions to determine if a patch version exists.
 package semverlike
 
 import (
