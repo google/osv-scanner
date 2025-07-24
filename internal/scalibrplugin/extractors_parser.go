@@ -28,7 +28,6 @@ var extractorPresets = map[string]list.InitMap{
 		without(list.SourceCode, []string{
 			pomxml.Name, pomxmlnet.Name,
 			requirements.Name, requirementsnet.Name,
-			// this is actually a detector
 			secrets.Name,
 		}),
 		list.InitMap{
