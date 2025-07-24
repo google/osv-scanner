@@ -1,0 +1,23 @@
+[[PackageOverrides]]
+name = "stdlib"
+ecosystem = "Go"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "golang.org/x/image"
+ecosystem = "Go"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "github.com/ipfs/go-bitfield"
+ecosystem = "Go"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
+
+[[PackageOverrides]]
+name = "github.com/gogo/protobuf"
+ecosystem = "Go"
+ignore = true
+reason = "This is an intentionally vulnerable test project"
