@@ -49,14 +49,6 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 				Usage: "also scan files that would be ignored by .gitignore",
 				Value: false,
 			},
-			&cli.StringSliceFlag{
-				Name:  "call-analysis",
-				Usage: "attempt call analysis on code to detect only active vulnerabilities",
-			},
-			&cli.StringSliceFlag{
-				Name:  "no-call-analysis",
-				Usage: "disables call graph analysis",
-			},
 			&cli.BoolFlag{
 				Name:  "include-git-root",
 				Usage: "include scanning git root (non-submoduled) repositories",
@@ -112,8 +104,6 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 		return err
 	}
 
-	callAnalysisStates := helper.CreateCallAnalysisStates(cmd.StringSlice("call-analysis"), cmd.StringSlice("no-call-analysis"))
-
 	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd)
 	// Add `source` specific experimental configs
 	experimentalScannerActions.TransitiveScanningActions = osvscanner.TransitiveScanningActions{
@@ -130,7 +120,6 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 	scannerAction.Recursive = cmd.Bool("recursive")
 	scannerAction.NoIgnore = cmd.Bool("no-ignore")
 	scannerAction.DirectoryPaths = cmd.Args().Slice()
-	scannerAction.CallAnalysisStates = callAnalysisStates
 	scannerAction.ExperimentalScannerActions = experimentalScannerActions
 
 	if len(experimentalScannerActions.Extractors) == 0 {

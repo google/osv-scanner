@@ -17,6 +17,7 @@ import (
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
+	"github.com/google/osv-scalibr/enricher/java/javareach"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/plugin"
@@ -333,6 +334,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		plugins[i] = ext.(plugin.Plugin)
 	}
 
+	if actions.CallAnalysisStates["jar"] {
+		plugins = append(plugins, javareach.NewDefault())
+	}
+
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
 	scalibrSR, err := scanner.ScanContainer(context.Background(), img, &scalibr.ScanConfig{
@@ -351,6 +356,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	for i, inv := range scalibrSR.Inventory.Packages {
 		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
 		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
+		scanResult.PackageScanResults[i].PackageInfo.ExploitabilitySignals = inv.ExploitabilitySignals
 	}
 
 	// --- Fill Image Metadata ---
