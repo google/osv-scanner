@@ -17,6 +17,7 @@
     },
     {
       "matchCategories": ["golang"],
+      "matchPackageNames": ["!osv-scalibr"],
       "groupName": "osv-scanner minor"
     },
     {
