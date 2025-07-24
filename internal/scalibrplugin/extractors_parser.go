@@ -3,7 +3,6 @@ package scalibrplugin
 
 import (
 	"maps"
-	"slices"
 
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
@@ -51,10 +50,10 @@ var extractorPresets = map[string]list.InitMap{
 func without(initMap list.InitMap, omit []string) list.InitMap {
 	result := list.InitMap{}
 
-	for name := range initMap {
-		if !slices.Contains(omit, name) {
-			result[name] = initMap[name]
-		}
+	maps.Copy(result, initMap)
+
+	for _, name := range omit {
+		delete(result, name)
 	}
 
 	return result
