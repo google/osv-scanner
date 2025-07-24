@@ -2,17 +2,70 @@
 package scalibrplugin
 
 import (
+	"maps"
+
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagejson"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
+	"github.com/google/osv-scalibr/extractor/filesystem/list"
+	"github.com/google/osv-scalibr/extractor/filesystem/secrets"
 	"github.com/google/osv-scanner/v2/internal/builders"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
-// todo: rename this to be clearer now we've got `detectorPresets`
-var presets = map[string][]string{
-	"sbom":      scalibrextract.ExtractorsSBOMs,
-	"lockfile":  scalibrextract.ExtractorsLockfiles,
-	"directory": scalibrextract.ExtractorsDirectories,
-	"artifact":  scalibrextract.ExtractorsArtifacts,
+var extractorPresets = map[string]list.InitMap{
+	"sbom": list.SBOM,
+	"lockfile": concat(
+		without(list.SourceCode, []string{
+			pomxml.Name, pomxmlnet.Name,
+			requirements.Name, requirementsnet.Name,
+			secrets.Name,
+		}),
+		list.InitMap{
+			pomxmlenhanceable.Name:      {pomxmlenhanceable.New},
+			requirementsenhancable.Name: {requirementsenhancable.New},
+		},
+	),
+	"directory": {
+		gitrepo.Name:  {gitrepo.New},
+		vendored.Name: {vendored.New},
+	},
+	"artifact": concat(
+		without(list.Artifact, []string{secrets.Name, packagejson.Name}),
+		list.InitMap{
+			nodemodules.Name:    {nodemodules.New},
+			cargoauditable.Name: {cargoauditable.NewDefault},
+		},
+	),
+}
+
+func without(initMap list.InitMap, omit []string) list.InitMap {
+	result := list.InitMap{}
+
+	maps.Copy(result, initMap)
+
+	for _, name := range omit {
+		delete(result, name)
+	}
+
+	return result
+}
+
+func concat(initMaps ...list.InitMap) list.InitMap {
+	result := list.InitMap{}
+	for _, m := range initMaps {
+		maps.Copy(result, m)
+	}
+
+	return result
 }
 
 func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []string) []filesystem.Extractor {
@@ -22,8 +75,8 @@ func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []s
 		enabled := i == 0
 
 		for _, extractorOrPreset := range exts {
-			if names, ok := presets[extractorOrPreset]; ok {
-				for _, name := range names {
+			if names, ok := extractorPresets[extractorOrPreset]; ok {
+				for name := range names {
 					extractors[name] = enabled
 				}
 
