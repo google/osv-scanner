@@ -18,7 +18,7 @@ import (
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
-	"github.com/google/osv-scalibr/enricher/java/javareach"
+	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
@@ -346,10 +346,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		plugins[i] = ext.(plugin.Plugin)
 	}
 
-	if actions.CallAnalysisStates["jar"] {
-		plugins = append(plugins, javareach.NewDefault())
-	}
-
 	for i, det := range detectors {
 		plugins[i+len(filesystemExtractors)] = det.(plugin.Plugin)
 	}
@@ -360,6 +356,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		OS:            plugin.OSLinux,
 	}
 	plugins = plugin.FilterByCapabilities(plugins, capabilities)
+
+	if actions.CallAnalysisStates["jar"] {
+		plugins = append(plugins, java.NewDefault())
+	}
 
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()

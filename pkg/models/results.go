@@ -189,5 +189,4 @@ type PackageInfo struct {
 	Commit        string              `json:"commit,omitempty"`
 	ImageOrigin   *ImageOriginDetails `json:"image_origin_details,omitempty"`
 	Inventory     *extractor.Package  `json:"-"`
-	Unreachable   bool                `json: "is_unreachable,omitempty"`
 }
