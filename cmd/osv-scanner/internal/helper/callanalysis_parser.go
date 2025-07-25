@@ -3,6 +3,7 @@ package helper
 var stableCallAnalysisStates = map[string]bool{
 	"go":   true,
 	"rust": false,
+	"jar":  false,
 }
 
 // CreateCallAnalysisStates creates a map to record if languages are enabled or disabled for call analysis
