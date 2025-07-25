@@ -178,7 +178,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		plugins := make([]plugin.Plugin, len(dirExtractors)+len(detectors))
+		plugins := make([]plugin.Plugin, 0, len(dirExtractors)+len(detectors))
 		for i, ext := range dirExtractors {
 			plugins[i] = ext.(plugin.Plugin)
 		}
@@ -191,7 +191,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 		if actions.CallAnalysisStates["jar"] {
 			plugins = append(plugins, java.NewDefault())
-			fmt.Printf("added jar enricher to %v\n", plugins)
 		}
 
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{

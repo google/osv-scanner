@@ -341,7 +341,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
 
-	plugins := make([]plugin.Plugin, len(filesystemExtractors)+len(detectors))
+	plugins := make([]plugin.Plugin, 0, len(filesystemExtractors)+len(detectors))
 	for i, ext := range filesystemExtractors {
 		plugins[i] = ext.(plugin.Plugin)
 	}
