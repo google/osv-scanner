@@ -28,7 +28,7 @@
       "enabled": false
     },
     {
-      "matchPackageNames": ["osv-scalibr"],
+      "matchPackageNames": ["github.com/google/osv-scalibr"],
       "groupName": "osv-scalibr",
       "enabled": true
     }
