@@ -273,7 +273,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 19 packages affected by 39 known vulnerabilities (2 Critical, 12 High, 19 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
+Total 19 packages affected by 40 known vulnerabilities (2 Critical, 12 High, 20 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
 15 vulnerabilities can be fixed.
 
 
@@ -286,7 +286,7 @@ Ubuntu:22.04
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          4 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          2 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
@@ -318,7 +318,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 19 packages affected by 39 known vulnerabilities (2 Critical, 12 High, 19 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
+Total 19 packages affected by 40 known vulnerabilities (2 Critical, 12 High, 20 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
 15 vulnerabilities can be fixed.
 
 
@@ -331,7 +331,7 @@ Ubuntu:22.04
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          4 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          2 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
@@ -2576,9 +2576,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "USN-7541-1",
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
-            "UBUNTU-CVE-2025-4802"
+            "UBUNTU-CVE-2025-4802",
+            "UBUNTU-CVE-2025-8058"
           ],
-          "groups": 3
+          "groups": 4
         },
         {
           "package": {
@@ -2595,9 +2596,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "USN-7541-1",
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
-            "UBUNTU-CVE-2025-4802"
+            "UBUNTU-CVE-2025-4802",
+            "UBUNTU-CVE-2025-8058"
           ],
-          "groups": 3
+          "groups": 4
         },
         {
           "package": {
