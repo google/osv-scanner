@@ -179,12 +179,12 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 		}
 
 		plugins := make([]plugin.Plugin, 0, len(dirExtractors)+len(detectors))
-		for i, ext := range dirExtractors {
-			plugins[i] = ext.(plugin.Plugin)
+		for _, ext := range dirExtractors {
+			plugins = append(plugins, ext.(plugin.Plugin))
 		}
 
-		for i, det := range detectors {
-			plugins[i+len(dirExtractors)] = det.(plugin.Plugin)
+		for _, det := range detectors {
+			plugins = append(plugins, det.(plugin.Plugin))
 		}
 
 		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
