@@ -11,7 +11,7 @@ import (
 func IsDevGroup(sys osvschema.Ecosystem, groups []string) bool {
 	var dev string
 	switch sys {
-	case osvschema.EcosystemPackagist, osvschema.EcosystemNPM, osvschema.EcosystemPyPI, osvschema.EcosystemPub:
+	case osvschema.EcosystemDrupal, osvschema.EcosystemPackagist, osvschema.EcosystemNPM, osvschema.EcosystemPyPI, osvschema.EcosystemPub:
 		dev = "dev"
 	case osvschema.EcosystemConanCenter:
 		dev = "build-requires"
