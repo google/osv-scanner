@@ -1745,20 +1745,7 @@ HTML output available at: <tempdir>/report.html
 
 [TestCommand_JavareachArchive/Test_java_reachability_enricher - 1]
 Scanning dir ./fixtures/artifact/javareach_test.jar
-Added a unreachable signal to package 'com.amazonaws:aws-java-sdk-core' with: [0xc0fd0a8bc0]
-Added a unreachable signal to package 'com.amazonaws:aws-java-sdk-kms' with: [0xc0fd0a8b00]
-Added a unreachable signal to package 'com.amazonaws:aws-java-sdk-s3' with: [0xc0fd0a8a80]
-Added a unreachable signal to package 'com.amazonaws:jmespath-java' with: [0xc0fd0a8ec0]
-Added a unreachable signal to package 'com.example:hello-tester' with: [0xc0fd0a8a40]
-Added a unreachable signal to package 'commons-codec:commons-codec' with: [0xc0fd0a8d00]
-Added a unreachable signal to package 'commons-logging:commons-logging' with: [0xc0fd0a8c00]
-Added a unreachable signal to package 'joda-time:joda-time' with: [0xc0fd0a8e40]
-Added a unreachable signal to package 'org.apache.httpcomponents:httpclient' with: [0xc0fd0a8c40]
-Added a unreachable signal to package 'org.apache.httpcomponents:httpcore' with: [0xc0fd0a8c80]
-Added a unreachable signal to package 'org.eclipse.jetty:jetty-continuation' with: [0xc0fd0a8f40]
-Added a unreachable signal to package 'org.eclipse.jetty:jetty-io' with: [0xc0fd0a9000]
-Added a unreachable signal to package 'org.eclipse.jetty:jetty-servlets' with: [0xc0fd0a8f00]
-Added a unreachable signal to package 'software.amazon.ion:ion-java' with: [0xc0fd0a8dc0]
+Java reachability enricher marked 14 packages as unreachable
 Scanned <rootdir>/fixtures/artifact/javareach_test.jar file and found 21 packages
 failed to download package err jar not found: https://repo1.maven.org/maven2/com/example/hello-tester/1.0-SNAPSHOT/hello-tester-1.0-SNAPSHOT.jar
 Total 4 packages affected by 53 known vulnerabilities (18 Critical, 29 High, 5 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
