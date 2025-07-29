@@ -124,7 +124,7 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 				// exit early if another hydration request has already failed
 				// results are thrown away later, so avoid needless work
 				if ctx.Err() != nil {
-					return nil //nonilerrlint: // this value doesn't matter to errgroup.Wait()
+					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
 				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.ID)
 				if err != nil {
