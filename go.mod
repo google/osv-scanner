@@ -2,6 +2,11 @@ module github.com/google/osv-scanner/v2
 
 go 1.24.4
 
+replace (
+	github.com/google/osv-scalibr v0.3.2-0.20250731235936-b4e2f64ac4bd => github.com/ackama/osv-scalibr v0.0.0-20250804221715-c976f4f62054
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20250804010012-a529c42c15de => github.com/ackama/osv-schema/bindings/go v0.0.0-20250804221549-30e540261055
+)
+
 require (
 	deps.dev/api/v3 v3.0.0-20250729065307-991cf8720f82
 	deps.dev/util/maven v0.0.0-20250729065307-991cf8720f82
