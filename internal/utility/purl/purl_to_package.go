@@ -19,6 +19,7 @@ var purlEcosystems = map[string]map[string]osvschema.Ecosystem{
 	"nuget":    {"*": osvschema.EcosystemNuGet},
 	"npm":      {"*": osvschema.EcosystemNPM},
 	"composer": {"*": osvschema.EcosystemPackagist},
+	"drupal":   {"*": osvschema.EcosystemDrupal},
 	"generic":  {"*": osvschema.EcosystemOSSFuzz},
 	"pypi":     {"*": osvschema.EcosystemPyPI},
 	"gem":      {"*": osvschema.EcosystemRubyGems},
