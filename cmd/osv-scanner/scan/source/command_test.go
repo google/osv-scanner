@@ -1156,3 +1156,31 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 		})
 	}
 }
+
+func TestCommand_MixedEcosystems(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "insecure_composer_lock_with_multiple_ecosystems_offline",
+			Args: []string{"", "source", "--offline", "./fixtures/locks-insecure-drupal/composer.lock"},
+			Exit: 1,
+		},
+		{
+			Name: "insecure_composer_lock_with_multiple_ecosystems_offline_and_all_packages",
+			Args: []string{"", "source", "--offline", "--all-packages", "./fixtures/locks-insecure-drupal/composer.lock"},
+			Exit: 1,
+		},
+		{
+			Name: "insecure_composer_lock_with_multiple_ecosystems_offline_and_all_packages_in_json",
+			Args: []string{"", "source", "--offline", "--all-packages", "--format=json", "./fixtures/locks-insecure-drupal/composer.lock"},
+			Exit: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
