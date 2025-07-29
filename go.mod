@@ -2,6 +2,11 @@ module github.com/google/osv-scanner/v2
 
 go 1.24.4
 
+replace (
+	github.com/google/osv-scalibr v0.3.2-0.20250730184944-a53bc1d5872b => github.com/ackama/osv-scalibr v0.0.0-20250731195056-00355c582d3e
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20250729032812-0fc8769faf3d => github.com/ackama/osv-schema/bindings/go v0.0.0-20250731190650-66875e0e5acc
+)
+
 require (
 	deps.dev/api/v3 v3.0.0-20250630145910-0bba51f925b0
 	deps.dev/util/maven v0.0.0-20250630145910-0bba51f925b0
@@ -21,7 +26,7 @@ require (
 	github.com/jedib0t/go-pretty/v6 v6.6.7
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/ossf/osv-schema/bindings/go v0.0.0-20250715064423-7310c9ec4b2a
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20250729032812-0fc8769faf3d
 	github.com/owenrumney/go-sarif/v3 v3.2.1
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
