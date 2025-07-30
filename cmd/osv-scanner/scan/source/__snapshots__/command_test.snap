@@ -3401,14 +3401,14 @@ Scanning dir ./fixtures/locks-insecure-drupal/composer.lock
 Scanned <rootdir>/fixtures/locks-insecure-drupal/composer.lock file and found 5 packages
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-0 vulnerabilities can be fixed.
+1 vulnerability can be fixed.
 
 
-+-------------------------------------+------+-----------+-----------------------+---------+---------------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE               | VERSION | FIXED VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+-----------------------+---------+---------------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Drupal    | drupal/simple_sitemap | 4.2.2   | --            | fixtures/locks-insecure-drupal/composer.lock |
-+-------------------------------------+------+-----------+-----------------------+---------+---------------+----------------------------------------------+
++-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | fixtures/locks-insecure-drupal/composer.lock |
++-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
 
 ---
 
@@ -3422,14 +3422,14 @@ Scanning dir ./fixtures/locks-insecure-drupal/composer.lock
 Scanned <rootdir>/fixtures/locks-insecure-drupal/composer.lock file and found 5 packages
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-0 vulnerabilities can be fixed.
+1 vulnerability can be fixed.
 
 
-+-------------------------------------+------+-----------+-----------------------+---------+---------------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE               | VERSION | FIXED VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+-----------------------+---------+---------------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Drupal    | drupal/simple_sitemap | 4.2.2   | --            | fixtures/locks-insecure-drupal/composer.lock |
-+-------------------------------------+------+-----------+-----------------------+---------+---------------+----------------------------------------------+
++-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | fixtures/locks-insecure-drupal/composer.lock |
++-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
 
 ---
 
@@ -3460,6 +3460,21 @@ could not load db for Drupal ecosystem: unable to fetch OSV database: no offline
             "name": "drupal/simple_sitemap",
             "version": "4.2.2",
             "ecosystem": "Drupal"
+          }
+        },
+        {
+          "package": {
+            "name": "drupal/tfa",
+            "version": "2.0.0-alpha4",
+            "ecosystem": "Drupal"
+          }
+        },
+        {
+          "package": {
+            "name": "league/flysystem",
+            "version": "1.0.8",
+            "ecosystem": "Packagist",
+            "commit": "941a320939cf9421bb6573fad417c841f8b862f3"
           },
           "vulnerabilities": [
             {
@@ -3742,21 +3757,6 @@ could not load db for Drupal ecosystem: unable to fetch OSV database: no offline
               "max_severity": "9.8"
             }
           ]
-        },
-        {
-          "package": {
-            "name": "drupal/tfa",
-            "version": "2.0.0-alpha4",
-            "ecosystem": "Drupal"
-          }
-        },
-        {
-          "package": {
-            "name": "league/flysystem",
-            "version": "1.0.8",
-            "ecosystem": "Packagist",
-            "commit": "941a320939cf9421bb6573fad417c841f8b862f3"
-          }
         },
         {
           "package": {
