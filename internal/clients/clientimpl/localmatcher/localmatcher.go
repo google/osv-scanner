@@ -72,6 +72,9 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 		db, err := matcher.loadDBFromCache(ctx, pkg.Ecosystem())
 
 		if err != nil {
+			// no logging here as the loader will have already done that
+			results = append(results, []*osvschema.Vulnerability{})
+
 			continue
 		}
 
