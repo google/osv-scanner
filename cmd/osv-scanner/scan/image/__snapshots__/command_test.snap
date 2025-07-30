@@ -382,8 +382,8 @@ failed to load image from tarball with path "../../fixtures/locks-manyoci-image/
 Scanning local image tarball "../../../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 18 packages affected by 25 known vulnerabilities (1 Critical, 8 High, 11 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
-25 vulnerabilities can be fixed.
+Total 18 packages affected by 26 known vulnerabilities (2 Critical, 8 High, 11 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
+26 vulnerabilities can be fixed.
 
 
 Maven
@@ -416,7 +416,7 @@ Alpine:v3.21
 | libtasn1       | 4.19.0-r2         | Fix Available |          1 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          1 | musl, musl-utils           | # 0 Layer        | alpine          |
 | openssl        | 3.3.2-r4          | Fix Available |          2 | libcrypto3, libssl3... (3) | # 0 Layer        | alpine          |
-| sqlite         | 3.47.1-r0         | Fix Available |          1 | sqlite-libs                | # 5 Layer        | eclipse-temurin |
+| sqlite         | 3.47.1-r0         | Fix Available |          2 | sqlite-libs                | # 5 Layer        | eclipse-temurin |
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
