@@ -580,6 +580,7 @@ func main() {
 				log.Printf("get imported items file paths error: %v\n", err)
 			}
 
+			// Find the imported libraries in the files where the imported items are defined.
 			err = findImportedLibrary(lib)
 			if err != nil {
 				log.Printf("Error finding imported items: %v\n", err)
