@@ -34,7 +34,7 @@ func TestMain(m *testing.M) {
 	}
 	m.Run()
 
-	testutility.CleanSnapshots(m)
-
 	os.RemoveAll("./fixtures/.git")
+
+	testutility.CleanSnapshots(m)
 }

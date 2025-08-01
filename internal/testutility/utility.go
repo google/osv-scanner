@@ -2,6 +2,7 @@ package testutility
 
 import (
 	"flag"
+	"fmt"
 	"os"
 	"runtime"
 	"strings"
@@ -36,7 +37,16 @@ func applyWindowsReplacements(content string, replacements map[string]string) st
 
 // CleanSnapshots ensures that snapshots are relevant and sorted for consistency
 func CleanSnapshots(m *testing.M) {
-	snaps.Clean(m, snaps.CleanOpts{Sort: true})
+	dirty, err := snaps.Clean(m, snaps.CleanOpts{Sort: true})
+
+	if err != nil {
+		fmt.Println("Error cleaning snaps:", err)
+		os.Exit(1)
+	}
+	if dirty {
+		fmt.Println("Some snapshots were outdated.")
+		os.Exit(1)
+	}
 }
 
 // Skip is equivalent to t.Log followed by t.SkipNow, but allows tracking of
