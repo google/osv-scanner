@@ -3,26 +3,25 @@ module github.com/google/osv-scanner/v2
 go 1.24.4
 
 require (
-	deps.dev/api/v3 v3.0.0-20250630145910-0bba51f925b0
-	deps.dev/util/maven v0.0.0-20250630145910-0bba51f925b0
-	deps.dev/util/resolve v0.0.0-20250630145910-0bba51f925b0
-	deps.dev/util/semver v0.0.0-20250630145910-0bba51f925b0
+	deps.dev/api/v3 v3.0.0-20250729065307-991cf8720f82
+	deps.dev/util/maven v0.0.0-20250729065307-991cf8720f82
+	deps.dev/util/resolve v0.0.0-20250729065307-991cf8720f82
+	deps.dev/util/semver v0.0.0-20250729065307-991cf8720f82
 	github.com/BurntSushi/toml v1.5.0
 	github.com/CycloneDX/cyclonedx-go v0.9.2
 	github.com/charmbracelet/bubbles v0.21.0
 	github.com/charmbracelet/bubbletea v1.3.6
 	github.com/charmbracelet/glamour v0.10.0
 	github.com/charmbracelet/lipgloss v1.1.1-0.20250404203927-76690c660834
-	github.com/gkampitakis/go-snaps v0.5.13
-	github.com/go-git/go-billy/v5 v5.6.2
+	github.com/gkampitakis/go-snaps v0.5.14
 	github.com/go-git/go-git/v5 v5.16.2
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.3.2-0.20250729054915-67d84baeb90b
+	github.com/google/osv-scalibr v0.3.2-0.20250731235936-b4e2f64ac4bd
 	github.com/ianlancetaylor/demangle v0.0.0-20250628045327-2d64ad6b7ec5
-	github.com/jedib0t/go-pretty/v6 v6.6.7
+	github.com/jedib0t/go-pretty/v6 v6.6.8
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/ossf/osv-schema/bindings/go v0.0.0-20250715064423-7310c9ec4b2a
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20250804010012-a529c42c15de
 	github.com/owenrumney/go-sarif/v3 v3.2.1
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
@@ -34,11 +33,11 @@ require (
 	golang.org/x/sync v0.16.0
 	golang.org/x/term v0.33.0
 	golang.org/x/vuln v1.1.4
-	google.golang.org/grpc v1.74.0
+	google.golang.org/grpc v1.74.2
 	google.golang.org/protobuf v1.36.6
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
-	osv.dev/bindings/go v0.0.0-20250716051240-efc8ec45c9b0
+	osv.dev/bindings/go v0.0.0-20250731024040-0ecbb9ee94cb
 )
 
 require (
@@ -96,6 +95,7 @@ require (
 	github.com/gkampitakis/ciinfo v0.3.2 // indirect
 	github.com/gkampitakis/go-diff v1.3.2 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
+	github.com/go-git/go-billy/v5 v5.6.2 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect

@@ -3,27 +3,23 @@ package imodels
 
 import (
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
 	archivemetadata "github.com/google/osv-scalibr/extractor/filesystem/language/java/archive/metadata"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	dpkgmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
-	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
-	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/utility/purl"
 	"github.com/google/osv-scanner/v2/internal/utility/semverlike"
@@ -34,11 +30,6 @@ import (
 	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
 )
 
-var sbomExtractors = map[string]struct{}{
-	spdx.Name: {},
-	cdx.Name:  {},
-}
-
 var gitExtractors = map[string]struct{}{
 	gitrepo.Name: {},
 }
@@ -47,13 +38,6 @@ var osExtractors = map[string]struct{}{
 	dpkg.Name: {},
 	apk.Name:  {},
 	rpm.Name:  {},
-}
-
-var artifactExtractors = map[string]struct{}{
-	nodemodules.Name: {},
-	gobinary.Name:    {},
-	archive.Name:     {},
-	wheelegg.Name:    {},
 }
 
 // PackageInfo provides getter functions for commonly used fields of inventory
@@ -176,23 +160,21 @@ func (pkg *PackageInfo) Commit() string {
 }
 
 func (pkg *PackageInfo) SourceType() models.SourceType {
-	if len(pkg.Plugins) == 0 {
-		return models.SourceTypeUnknown
-	}
-
 	for _, extractorName := range pkg.Plugins {
 		if _, ok := osExtractors[extractorName]; ok {
 			return models.SourceTypeOSPackage
-		} else if _, ok := sbomExtractors[extractorName]; ok {
+		} else if slices.Contains(scalibrextract.ExtractorsSBOMs, extractorName) {
 			return models.SourceTypeSBOM
 		} else if _, ok := gitExtractors[extractorName]; ok {
 			return models.SourceTypeGit
-		} else if _, ok := artifactExtractors[extractorName]; ok {
+		} else if slices.Contains(scalibrextract.ExtractorsArtifacts, extractorName) {
 			return models.SourceTypeArtifact
+		} else if slices.Contains(scalibrextract.ExtractorsLockfiles, extractorName) {
+			return models.SourceTypeProjectPackage
 		}
 	}
 
-	return models.SourceTypeProjectPackage
+	return models.SourceTypeUnknown
 }
 
 func (pkg *PackageInfo) DepGroups() []string {
