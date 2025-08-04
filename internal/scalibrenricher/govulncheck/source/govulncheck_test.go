@@ -28,8 +28,8 @@ import (
 )
 
 const testdata = "./testdata"
-const reachableVuln = "GO-2023-1558"
-const unreachableVuln = "GO-2021-0053"
+const reachableVulnID = "GO-2023-1558"
+const unreachableVulnID = "GO-2021-0053"
 
 func TestEnricher(t *testing.T) {
 	t.Parallel()
@@ -56,13 +56,13 @@ func TestEnricher(t *testing.T) {
 
 	for _, vuln := range inv.PackageVulns {
 		switch vuln.ID {
-		case reachableVuln:
+		case reachableVulnID:
 			if len(vuln.ExploitabilitySignals) != 0 {
-				t.Fatalf("govulncheck enrich failed, expected %s to be reachable, but marked as unreachable", reachableVuln)
+				t.Fatalf("govulncheck enrich failed, expected %s to be reachable, but marked as unreachable", reachableVulnID)
 			}
-		case unreachableVuln:
+		case unreachableVulnID:
 			if len(vuln.ExploitabilitySignals) == 0 || vuln.ExploitabilitySignals[0].Justification != vex.VulnerableCodeNotInExecutePath {
-				t.Fatalf("govulncheck enrich failed, expected %s to be unreachable, but marked as reachable", unreachableVuln)
+				t.Fatalf("govulncheck enrich failed, expected %s to be unreachable, but marked as reachable", unreachableVulnID)
 			}
 		}
 	}
@@ -111,13 +111,13 @@ func setupPackageVulns() []*inventory.PackageVuln {
 
 	vulns = append(vulns, &inventory.PackageVuln{
 		Vulnerability: osvschema.Vulnerability{
-			ID: reachableVuln,
+			ID: reachableVulnID,
 		},
 	})
 
 	vulns = append(vulns, &inventory.PackageVuln{
 		Vulnerability: osvschema.Vulnerability{
-			ID: unreachableVuln,
+			ID: unreachableVulnID,
 		},
 	})
 

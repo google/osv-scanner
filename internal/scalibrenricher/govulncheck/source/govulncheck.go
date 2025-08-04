@@ -78,40 +78,39 @@ func (e *Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *i
 		return nil //nolint:nilerr
 	}
 
-	// Set GOVERSION to the Go version in go.mod.
-	var goVersion string
+	goModVersions := make(map[string]string)
 	for _, pkg := range inv.Packages {
+		if !slices.Contains(pkg.Plugins, gomod.Name) {
+			continue
+		}
 		if pkg.Name == "stdlib" {
-			goVersion = pkg.Version
-			break
+			for _, l := range pkg.Locations {
+				if goModVersions[l] != "" {
+					continue
+				}
+
+				// Set GOVERSION to the Go version in go.mod.
+				goModVersions[l] = pkg.Version
+
+				continue
+			}
 		}
 	}
 
-	scanned := make(map[string]bool)
-	for _, p := range inv.Packages {
-		if !slices.Contains(p.Plugins, gomod.Name) {
+	for goModLocation, goVersion := range goModVersions {
+		modDir := filepath.Dir(goModLocation)
+		absModDir := filepath.Join(input.ScanRoot.Path, modDir)
+		findings, err := e.runGovulncheck(ctx, absModDir, goVersion)
+		if err != nil {
+			log.Errorf("govulncheck on %s: %v", modDir, err)
 			continue
 		}
 
-		for _, l := range p.Locations {
-			if scanned[l] {
-				continue
-			}
-			scanned[l] = true
-			modDir := filepath.Dir(l)
-			absModDir := filepath.Join(input.ScanRoot.Path, modDir)
-			findings, err := e.runGovulncheck(ctx, absModDir, goVersion)
-			if err != nil {
-				log.Errorf("govulncheck on %s: %v", modDir, err)
-				continue
-			}
-
-			if len(findings) == 0 {
-				continue
-			}
-
-			e.addSignals(inv, findings)
+		if len(findings) == 0 {
+			continue
 		}
+
+		e.addSignals(inv, findings)
 	}
 
 	return nil
