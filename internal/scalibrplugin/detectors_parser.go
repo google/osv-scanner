@@ -1,4 +1,4 @@
-package helper
+package scalibrplugin
 
 import (
 	"github.com/google/osv-scalibr/detector"
@@ -10,7 +10,7 @@ var detectorPresets = map[string]list.InitMap{
 	"cis":         list.CIS,
 	"govulncheck": list.Govulncheck,
 	"untested":    list.Untested,
-	"weakcreds":   list.Weakcreds,
+	"weakcreds":   list.Weakcredentials,
 }
 
 func ResolveEnabledDetectors(enabledDetectors []string, disabledDetectors []string) []detector.Detector {

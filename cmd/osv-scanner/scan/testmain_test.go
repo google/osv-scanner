@@ -28,7 +28,7 @@ func TestMain(m *testing.M) {
 	testcmd.CommandsUnderTest = []cmd.CommandBuilder{scan.Command}
 	m.Run()
 
-	testutility.CleanSnapshots(m)
-
 	os.RemoveAll("./fixtures/.git")
+
+	testutility.CleanSnapshots(m)
 }

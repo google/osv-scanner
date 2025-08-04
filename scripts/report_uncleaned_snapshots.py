@@ -27,7 +27,10 @@ def report_lack_of_snapshot_cleaning(directory):
     annotate_file(file, 'Make sure that `TestMain` is calling `testutility.CleanSnapshots(m)` after the tests have been run')
     print(f'{file} is not calling `testutility.CleanSnapshots(m)`')
   else:
-    file = list(glob.iglob(os.path.join(directory, '*_test.go')))[0]
+    try:
+      file = list(glob.iglob(os.path.join(directory, '*_test.go')))[0]
+    except IndexError:
+      file = directory
 
     annotate_file(file, 'Please add a `testmain_test.go` file with a `TestMain` function that calls `testutility.CleanSnapshots(m)` after the tests have been run')
     print(f'{directory} does not have a `testmain_test.go` file with a `TestMain` function that calls `testutility.CleanSnapshots(m)` after the tests have been run')

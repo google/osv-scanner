@@ -12,8 +12,7 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["major"],
-      "groupName": "Major Updates",
-      "enabled": true
+      "groupName": "Major Updates"
     },
     {
       "matchCategories": ["golang"],
@@ -24,8 +23,8 @@
       "groupName": "workflows"
     },
     {
-      "matchDepTypes": ["golang"],
-      "enabled": false
+      "matchPackageNames": ["github.com/google/osv-scalibr"],
+      "groupName": "osv-scalibr"
     }
   ],
   "ignorePaths": ["**/fixtures/**", "**/fixtures-go/**"],

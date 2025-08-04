@@ -37,7 +37,7 @@ Total 2 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 Alpine:v3.18
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -152,7 +152,7 @@ Total 2 packages affected by 41 known vulnerabilities (2 Critical, 18 High, 14 M
 
 Alpine:v3.18
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -273,13 +273,13 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 19 packages affected by 39 known vulnerabilities (2 Critical, 12 High, 19 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
+Total 19 packages affected by 37 known vulnerabilities (2 Critical, 9 High, 20 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
 15 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
 +---------------------------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:var/lib/dpkg/status                                                                                                                     |
+| Source:os:/var/lib/dpkg/status                                                                                                                    |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION            | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
@@ -289,7 +289,7 @@ Ubuntu:22.04
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          2 | libgnutls30             | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Partial fixes Available |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
@@ -298,13 +298,13 @@ Ubuntu:22.04
 | openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          3 | libssl3                 | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          2 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |          4 | perl-base               | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |          3 | perl-base               | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          1 | tar                     | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
-Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
+Hiding 5 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
 
@@ -318,13 +318,13 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "../../../../internal/image/fixtures/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 19 packages affected by 39 known vulnerabilities (2 Critical, 12 High, 19 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
+Total 19 packages affected by 37 known vulnerabilities (2 Critical, 9 High, 20 Medium, 4 Low, 2 Unknown) from 1 ecosystem.
 15 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
 +---------------------------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:var/lib/dpkg/status                                                                                                                     |
+| Source:os:/var/lib/dpkg/status                                                                                                                    |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION            | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
@@ -334,7 +334,7 @@ Ubuntu:22.04
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          2 | libgnutls30             | # 4 Layer        | ubuntu        |
-| krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          3 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Partial fixes Available |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
@@ -343,7 +343,7 @@ Ubuntu:22.04
 | openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          3 | libssl3                 | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          2 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
-| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |          4 | perl-base               | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |          3 | perl-base               | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          1 | tar                     | # 4 Layer        | ubuntu        |
@@ -353,7 +353,10 @@ Filtered Vulnerabilities:
 +---------+--------------+--------------------------+---------------------+----------------+
 | PACKAGE | ECOSYSTEM    | INSTALLED VERSION        | FILTERED VULN COUNT | FILTER REASONS |
 +---------+--------------+--------------------------+---------------------+----------------+
+| glibc   | Ubuntu:22.04 | 2.35-0ubuntu3.8          |                   1 | Unimportant    |
+| krb5    | Ubuntu:22.04 | 1.19.2-2ubuntu0.4        |                   2 | Unimportant    |
 | pcre3   | Ubuntu:22.04 | 2:8.39-13ubuntu0.22.04.1 |                   1 | Unimportant    |
+| perl    | Ubuntu:22.04 | 5.34.0-3ubuntu1.3        |                   1 | Unimportant    |
 +---------+--------------+--------------------------+---------------------+----------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -379,13 +382,13 @@ failed to load image from tarball with path "../../fixtures/locks-manyoci-image/
 Scanning local image tarball "../../../../internal/image/fixtures/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 18 packages affected by 25 known vulnerabilities (1 Critical, 8 High, 11 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
-25 vulnerabilities can be fixed.
+Total 18 packages affected by 26 known vulnerabilities (2 Critical, 8 High, 11 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
+26 vulnerabilities can be fixed.
 
 
 Maven
 +-------------------------------------------------------------------------------------------------------------------------------+
-| Source:artifact:app/target.jar                                                                                                |
+| Source:artifact:/app/target.jar                                                                                               |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE                                   | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
@@ -405,7 +408,7 @@ Maven
 +-------------------------------------------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.21
 +-----------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                                    |
+| Source:os:/lib/apk/db/installed                                                                                                   |
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT)    | INTRODUCED LAYER | IN BASE IMAGE   |
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
@@ -413,7 +416,7 @@ Alpine:v3.21
 | libtasn1       | 4.19.0-r2         | Fix Available |          1 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          1 | musl, musl-utils           | # 0 Layer        | alpine          |
 | openssl        | 3.3.2-r4          | Fix Available |          2 | libcrypto3, libssl3... (3) | # 0 Layer        | alpine          |
-| sqlite         | 3.47.1-r0         | Fix Available |          1 | sqlite-libs                | # 5 Layer        | eclipse-temurin |
+| sqlite         | 3.47.1-r0         | Fix Available |          2 | sqlite-libs                | # 5 Layer        | eclipse-temurin |
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -435,28 +438,28 @@ Total 14 packages affected by 22 known vulnerabilities (0 Critical, 6 High, 2 Me
 
 PyPI
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl      |
+| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl     |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | pip     | 23.0.1            | Fix Available |          1 | # 7 Layer        | python        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl  |
+| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
 +------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +------------+-------------------+---------------+------------+------------------+---------------+
 | setuptools | 58.1.0            | Fix Available |          3 | # 7 Layer        | python        |
 +------------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA         |
+| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | pip     | 23.0.1            | Fix Available |          1 | # 13 Layer       | python        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA     |
+| Source:artifact:/usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA    |
 +------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +------------+-------------------+---------------+------------+------------------+---------------+
@@ -464,7 +467,7 @@ PyPI
 +------------+-------------------+---------------+------------+------------------+---------------+
 Debian:10
 +-----------------------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:var/lib/dpkg/status                                                                                                                 |
+| Source:os:/var/lib/dpkg/status                                                                                                                |
 +------------------------+------------------------+---------------+------------+-----------------------------+------------------+---------------+
 | SOURCE PACKAGE         | INSTALLED VERSION      | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT)     | INTRODUCED LAYER | IN BASE IMAGE |
 +------------------------+------------------------+---------------+------------+-----------------------------+------------------+---------------+
@@ -499,63 +502,63 @@ Total 19 packages affected by 39 known vulnerabilities (0 Critical, 12 High, 12 
 
 PyPI
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl      |
+| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl     |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | pip     | 23.0.1            | Fix Available |          1 | # 7 Layer        | python        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl  |
+| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
 +------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +------------+-------------------+---------------+------------+------------------+---------------+
 | setuptools | 58.1.0            | Fix Available |          3 | # 7 Layer        | python        |
 +------------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/site-packages/Django-1.11.29.dist-info/METADATA     |
+| Source:artifact:/usr/local/lib/python3.9/site-packages/Django-1.11.29.dist-info/METADATA    |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | django  | 1.11.29           | Fix Available |          4 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/site-packages/Flask-0.12.2.dist-info/METADATA       |
+| Source:artifact:/usr/local/lib/python3.9/site-packages/Flask-0.12.2.dist-info/METADATA      |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | flask   | 0.12.2            | Fix Available |          3 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/site-packages/idna-2.7.dist-info/METADATA           |
+| Source:artifact:/usr/local/lib/python3.9/site-packages/idna-2.7.dist-info/METADATA          |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | idna    | 2.7               | Fix Available |          1 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA         |
+| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | pip     | 23.0.1            | Fix Available |          1 | # 13 Layer       | python        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +----------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA     |
+| Source:artifact:/usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA    |
 +----------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE  | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +----------+-------------------+---------------+------------+------------------+---------------+
 | requests | 2.20.0            | Fix Available |          3 | # 17 Layer       | --            |
 +----------+-------------------+---------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA     |
+| Source:artifact:/usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA    |
 +------------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +------------+-------------------+---------------+------------+------------------+---------------+
 | setuptools | 58.1.0            | Fix Available |          3 | # 13 Layer       | python        |
 +------------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:usr/local/lib/python3.9/site-packages/urllib3-1.24.3.dist-info/METADATA     |
+| Source:artifact:/usr/local/lib/python3.9/site-packages/urllib3-1.24.3.dist-info/METADATA    |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
@@ -563,7 +566,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 Debian:10
 +-----------------------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:var/lib/dpkg/status                                                                                                                 |
+| Source:os:/var/lib/dpkg/status                                                                                                                |
 +------------------------+------------------------+---------------+------------+-----------------------------+------------------+---------------+
 | SOURCE PACKAGE         | INSTALLED VERSION      | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT)     | INTRODUCED LAYER | IN BASE IMAGE |
 +------------------------+------------------------+---------------+------------+-----------------------------+------------------+---------------+
@@ -598,42 +601,42 @@ Total 8 packages affected by 66 known vulnerabilities (0 Critical, 1 High, 0 Med
 
 Go
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:go/bin/more-vuln-overwrite-less-vuln                                        |
+| Source:artifact:/go/bin/more-vuln-overwrite-less-vuln                                       |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | stdlib  | 1.22.4            | Fix Available |         10 | # 9 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:go/bin/ptf-1.2.0                                                            |
+| Source:artifact:/go/bin/ptf-1.2.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | stdlib  | 1.22.4            | Fix Available |         10 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:go/bin/ptf-1.3.0                                                            |
+| Source:artifact:/go/bin/ptf-1.3.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | stdlib  | 1.22.4            | Fix Available |         10 | # 4 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:go/bin/ptf-1.3.0-moved                                                      |
+| Source:artifact:/go/bin/ptf-1.3.0-moved                                                     |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | stdlib  | 1.22.4            | Fix Available |         10 | # 3 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:go/bin/ptf-1.4.0                                                            |
+| Source:artifact:/go/bin/ptf-1.4.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | stdlib  | 1.22.4            | Fix Available |         10 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
-| Source:artifact:go/bin/ptf-vulnerable                                                       |
+| Source:artifact:/go/bin/ptf-vulnerable                                                      |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
@@ -641,7 +644,7 @@ Go
 +---------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.20
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -668,7 +671,7 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 
 Alpine:v3.10
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -694,7 +697,7 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 
 Alpine:v3.10
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -720,7 +723,7 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 
 Alpine:v3.10
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -746,7 +749,7 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 
 Alpine:v3.10
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -772,7 +775,7 @@ Total 2 packages affected by 11 known vulnerabilities (0 Critical, 1 High, 4 Med
 
 Alpine:v3.19
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -799,7 +802,7 @@ Total 4 packages affected by 14 known vulnerabilities (2 Critical, 1 High, 5 Med
 
 npm
 +-------------------------------------------------------------------------------------------------+
-| Source:artifact:prod/app/node_modules/.package-lock.json                                        |
+| Source:artifact:/prod/app/node_modules/.package-lock.json                                       |
 +----------+-------------------+------------------+------------+------------------+---------------+
 | PACKAGE  | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +----------+-------------------+------------------+------------+------------------+---------------+
@@ -808,7 +811,7 @@ npm
 +----------+-------------------+------------------+------------+------------------+---------------+
 Alpine:v3.19
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -835,7 +838,7 @@ Total 2 packages affected by 11 known vulnerabilities (0 Critical, 1 High, 4 Med
 
 Alpine:v3.19
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -862,7 +865,7 @@ Total 2 packages affected by 11 known vulnerabilities (0 Critical, 1 High, 4 Med
 
 Alpine:v3.19
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -889,7 +892,7 @@ Total 2 packages affected by 11 known vulnerabilities (0 Critical, 1 High, 4 Med
 
 Alpine:v3.19
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -916,7 +919,7 @@ Total 2 packages affected by 11 known vulnerabilities (0 Critical, 1 High, 4 Med
 
 Alpine:v3.19
 +------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:lib/apk/db/installed                                                                                               |
+| Source:os:/lib/apk/db/installed                                                                                              |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -938,7 +941,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
   "results": [
     {
       "source": {
-        "path": "usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl",
+        "path": "/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl",
         "type": "artifact"
       },
       "packages": [
@@ -961,7 +964,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
     },
     {
       "source": {
-        "path": "usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl",
+        "path": "/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl",
         "type": "artifact"
       },
       "packages": [
@@ -987,7 +990,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
     },
     {
       "source": {
-        "path": "usr/local/lib/python3.9/site-packages/Django-1.11.29.dist-info/METADATA",
+        "path": "/usr/local/lib/python3.9/site-packages/Django-1.11.29.dist-info/METADATA",
         "type": "artifact"
       },
       "packages": [
@@ -1013,7 +1016,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
     },
     {
       "source": {
-        "path": "usr/local/lib/python3.9/site-packages/Flask-0.12.2.dist-info/METADATA",
+        "path": "/usr/local/lib/python3.9/site-packages/Flask-0.12.2.dist-info/METADATA",
         "type": "artifact"
       },
       "packages": [
@@ -1040,7 +1043,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
     },
     {
       "source": {
-        "path": "usr/local/lib/python3.9/site-packages/idna-2.7.dist-info/METADATA",
+        "path": "/usr/local/lib/python3.9/site-packages/idna-2.7.dist-info/METADATA",
         "type": "artifact"
       },
       "packages": [
@@ -1063,7 +1066,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
     },
     {
       "source": {
-        "path": "usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA",
+        "path": "/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA",
         "type": "artifact"
       },
       "packages": [
@@ -1086,7 +1089,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
     },
     {
       "source": {
-        "path": "usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA",
+        "path": "/usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA",
         "type": "artifact"
       },
       "packages": [
@@ -1111,7 +1114,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
     },
     {
       "source": {
-        "path": "usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA",
+        "path": "/usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA",
         "type": "artifact"
       },
       "packages": [
@@ -1137,7 +1140,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
     },
     {
       "source": {
-        "path": "usr/local/lib/python3.9/site-packages/urllib3-1.24.3.dist-info/METADATA",
+        "path": "/usr/local/lib/python3.9/site-packages/urllib3-1.24.3.dist-info/METADATA",
         "type": "artifact"
       },
       "packages": [
@@ -1167,7 +1170,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
     },
     {
       "source": {
-        "path": "var/lib/dpkg/status",
+        "path": "/var/lib/dpkg/status",
         "type": "os"
       },
       "packages": [
@@ -1679,7 +1682,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
   "results": [
     {
       "source": {
-        "path": "go/bin/ptf-1.4.0",
+        "path": "/go/bin/ptf-1.4.0",
         "type": "artifact"
       },
       "packages": [
@@ -1734,7 +1737,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-python-fu
     },
     {
       "source": {
-        "path": "lib/apk/db/installed",
+        "path": "/lib/apk/db/installed",
         "type": "os"
       },
       "packages": [
@@ -2007,7 +2010,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-go-binary
   "results": [
     {
       "source": {
-        "path": "lib/apk/db/installed",
+        "path": "/lib/apk/db/installed",
         "type": "os"
       },
       "packages": [
@@ -2107,7 +2110,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-alpine-et
   "results": [
     {
       "source": {
-        "path": "lib/apk/db/installed",
+        "path": "/lib/apk/db/installed",
         "type": "os"
       },
       "packages": [
@@ -2207,7 +2210,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-alpine-et
   "results": [
     {
       "source": {
-        "path": "lib/apk/db/installed",
+        "path": "/lib/apk/db/installed",
         "type": "os"
       },
       "packages": [
@@ -2316,7 +2319,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-alpine-et
     },
     {
       "source": {
-        "path": "prod/app/node_modules/.package-lock.json",
+        "path": "/prod/app/node_modules/.package-lock.json",
         "type": "artifact"
       },
       "packages": [
@@ -2492,7 +2495,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
   "results": [
     {
       "source": {
-        "path": "var/lib/dpkg/status",
+        "path": "/var/lib/dpkg/status",
         "type": "os"
       },
       "packages": [
@@ -2576,9 +2579,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "USN-7541-1",
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
-            "UBUNTU-CVE-2025-4802"
+            "UBUNTU-CVE-2025-4802",
+            "UBUNTU-CVE-2025-8058"
           ],
-          "groups": 3
+          "groups": 4
         },
         {
           "package": {
@@ -2595,9 +2599,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "USN-7541-1",
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
-            "UBUNTU-CVE-2025-4802"
+            "UBUNTU-CVE-2025-4802",
+            "UBUNTU-CVE-2025-8058"
           ],
-          "groups": 3
+          "groups": 4
         },
         {
           "package": {
@@ -2681,13 +2686,14 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "USN-7314-1",
             "USN-7257-1",
             "USN-7542-1",
+            "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576"
           ],
-          "groups": 3
+          "groups": 4
         },
         {
           "package": {
@@ -2703,13 +2709,14 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "USN-7314-1",
             "USN-7257-1",
             "USN-7542-1",
+            "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576"
           ],
-          "groups": 3
+          "groups": 4
         },
         {
           "package": {
@@ -2725,13 +2732,14 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "USN-7314-1",
             "USN-7257-1",
             "USN-7542-1",
+            "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576"
           ],
-          "groups": 3
+          "groups": 4
         },
         {
           "package": {
@@ -2747,13 +2755,14 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
             "USN-7314-1",
             "USN-7257-1",
             "USN-7542-1",
+            "UBUNTU-CVE-2018-5709",
             "UBUNTU-CVE-2024-26458",
             "UBUNTU-CVE-2024-26461",
             "UBUNTU-CVE-2024-3596",
             "UBUNTU-CVE-2025-24528",
             "UBUNTU-CVE-2025-3576"
           ],
-          "groups": 3
+          "groups": 4
         },
         {
           "package": {
@@ -3083,6 +3092,7 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
           },
           "vulnerabilities": [
             "USN-7434-1",
+            "USN-7678-1",
             "UBUNTU-CVE-2023-31486",
             "UBUNTU-CVE-2023-47039",
             "UBUNTU-CVE-2024-56406",
@@ -3121,13 +3131,13 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
         "diff_id": "",
         "command": "/bin/sh -c #(nop)  ARG RELEASE",
         "is_empty": true,
-        "base_image_index": 1
+        "base_image_index": 2
       },
       {
         "diff_id": "",
         "command": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
         "is_empty": true,
-        "base_image_index": 1
+        "base_image_index": 2
       },
       {
         "diff_id": "",
@@ -3158,6 +3168,10 @@ Scanning local image tarball "../../../../internal/image/fixtures/test-node_modu
       {},
       {
         "name": "ubuntu",
+        "tags": null
+      },
+      {
+        "name": "laurentsogeti/pod_showname_formation_ckad",
         "tags": null
       }
     ]

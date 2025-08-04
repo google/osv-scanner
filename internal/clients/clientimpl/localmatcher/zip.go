@@ -247,14 +247,3 @@ func VulnerabilitiesAffectingPackage(allVulns []osvschema.Vulnerability, pkg imo
 
 	return vulnerabilities
 }
-
-func (db *ZipDB) Check(pkgs []imodels.PackageInfo) ([]*osvschema.Vulnerability, error) {
-	allVulns := db.Vulnerabilities(false)
-	vulnerabilities := make([]*osvschema.Vulnerability, 0, len(pkgs))
-
-	for _, pkg := range pkgs {
-		vulnerabilities = append(vulnerabilities, VulnerabilitiesAffectingPackage(allVulns, pkg)...)
-	}
-
-	return vulnerabilities, nil
-}
