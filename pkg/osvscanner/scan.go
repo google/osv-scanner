@@ -187,11 +187,11 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			plugins = append(plugins, det.(plugin.Plugin))
 		}
 
-		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
-
 		if actions.CallAnalysisStates["jar"] {
 			plugins = append(plugins, java.NewDefault())
 		}
+
+		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
 
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
 			Plugins:               plugins,

@@ -355,11 +355,12 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		RunningSystem: false,
 		OS:            plugin.OSLinux,
 	}
-	plugins = plugin.FilterByCapabilities(plugins, capabilities)
 
 	if actions.CallAnalysisStates["jar"] {
 		plugins = append(plugins, java.NewDefault())
 	}
+
+	plugins = plugin.FilterByCapabilities(plugins, capabilities)
 
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
