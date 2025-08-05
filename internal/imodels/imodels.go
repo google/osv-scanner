@@ -17,7 +17,7 @@ import (
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
-	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"	
+	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
