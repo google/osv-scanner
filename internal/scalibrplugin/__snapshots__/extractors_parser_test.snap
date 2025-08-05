@@ -65,7 +65,6 @@ r/renvlock
 ruby/gemfilelock
 ruby/gemspec
 rust/cargolock
-rust/cargotoml
 swift/packageresolved
 swift/podfilelock
 ---

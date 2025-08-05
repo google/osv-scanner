@@ -10,6 +10,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagejson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargotoml"
 	"github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/secrets"
 	"github.com/google/osv-scanner/v2/internal/builders"
@@ -26,7 +27,7 @@ var ExtractorPresets = map[string]list.InitMap{
 		without(list.SourceCode, []string{
 			pomxml.Name, pomxmlnet.Name,
 			requirements.Name, requirementsnet.Name,
-			secrets.Name,
+			secrets.Name, cargotoml.Name,
 		}),
 		list.InitMap{
 			pomxmlenhanceable.Name:      {pomxmlenhanceable.New},
