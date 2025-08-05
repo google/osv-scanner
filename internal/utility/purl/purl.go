@@ -16,6 +16,7 @@ var EcosystemToPURLMapper = map[osvschema.Ecosystem]string{
 	osvschema.EcosystemMaven:       packageurl.TypeMaven,
 	osvschema.EcosystemGo:          packageurl.TypeGolang,
 	osvschema.EcosystemPackagist:   packageurl.TypeComposer,
+	osvschema.EcosystemDrupal:      packageurl.TypeDrupal,
 	osvschema.EcosystemPyPI:        packageurl.TypePyPi,
 	osvschema.EcosystemRubyGems:    packageurl.TypeGem,
 	osvschema.EcosystemNuGet:       packageurl.TypeNuget,
