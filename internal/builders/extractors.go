@@ -22,15 +22,15 @@ func BuildExtractors(names []string) []filesystem.Extractor {
 			extractors = append(extractors, pomxmlenhanceable.New())
 		// Javascript
 		case nodemodules.Name:
-			extractors = append(extractors, nodemodules.Extractor{})
+			extractors = append(extractors, nodemodules.New())
 		// Python
 		case requirementsenhancable.Name:
 			extractors = append(extractors, requirementsenhancable.New())
 		// Directories
 		case vendored.Name:
-			extractors = append(extractors, &vendored.Extractor{})
+			extractors = append(extractors, vendored.New())
 		case gitrepo.Name:
-			extractors = append(extractors, &gitrepo.Extractor{})
+			extractors = append(extractors, gitrepo.New())
 		default:
 			extras, err := list.ExtractorsFromName(name)
 
