@@ -17,7 +17,8 @@ import (
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
-	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
+	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"	
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/utility/purl"
@@ -97,6 +98,10 @@ func (pkg *PackageInfo) Name() string {
 
 func (pkg *PackageInfo) Ecosystem() ecosystem.Parsed {
 	ecosystemStr := pkg.Package.Ecosystem()
+
+	if metadata, ok := pkg.Metadata.(*osvscannerjson.Metadata); ok {
+		ecosystemStr = metadata.Ecosystem
+	}
 
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 	if pkg.purlCache != nil {
