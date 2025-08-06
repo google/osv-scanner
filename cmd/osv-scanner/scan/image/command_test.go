@@ -19,9 +19,9 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
-				"--experimental-extractors=sbom/spdx",
-				"--experimental-extractors=sbom/cdx",
-				"--experimental-disable-extractors=sbom",
+				"--experimental-plugins=sbom/spdx",
+				"--experimental-plugins=sbom/cdx",
+				"--experimental-disable-plugins=sbom",
 				"alpine:non-existent-tag",
 			},
 			Exit: 127,
@@ -30,8 +30,8 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "extractors_cancelled_out_with_presets",
 			Args: []string{
 				"", "image",
-				"--experimental-extractors=sbom",
-				"--experimental-disable-extractors=sbom",
+				"--experimental-plugins=sbom",
+				"--experimental-disable-plugins=sbom",
 				"alpine:non-existent-tag",
 			},
 			Exit: 127,
@@ -40,8 +40,8 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
-				"--experimental-extractors=sbom/spdx,sbom/cdx",
-				"--experimental-disable-extractors=sbom",
+				"--experimental-plugins=sbom/spdx,sbom/cdx",
+				"--experimental-disable-plugins=sbom",
 				"alpine:non-existent-tag",
 			},
 			Exit: 127,
@@ -101,7 +101,7 @@ func TestCommand_Docker(t *testing.T) {
 			// since we've requested the os/apk extractor disabled, and there's nothing else
 			// in the image that we support extracting
 			Name: "real_alpine_image_without_apk_extractor_enabled",
-			Args: []string{"", "image", "--experimental-disable-extractors=os/apk", "alpine:3.18.9"},
+			Args: []string{"", "image", "--experimental-disable-plugins=os/apk", "alpine:3.18.9"},
 			Exit: 128,
 		},
 	}
@@ -221,7 +221,8 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_specific_detector_enabled",
 			Args: []string{
 				"", "image",
-				"--experimental-detectors", "weakcredentials/etcshadow",
+				"--experimental-plugins", "os/apk",
+				"--experimental-plugins", "weakcredentials/etcshadow",
 				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
@@ -230,8 +231,9 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_specific_detector_disabled",
 			Args: []string{
 				"", "image",
-				"--experimental-detectors", "weakcreds",
-				"--experimental-disable-detectors", "weakcredentials/etcshadow",
+				"--experimental-plugins", "os/apk",
+				"--experimental-plugins", "weakcreds",
+				"--experimental-disable-plugins", "weakcredentials/etcshadow",
 				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
@@ -240,7 +242,8 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_detector_preset",
 			Args: []string{
 				"", "image",
-				"--experimental-detectors", "weakcreds",
+				"--experimental-plugins", "os/apk",
+				"--experimental-plugins", "weakcreds",
 				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
@@ -323,7 +326,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_specific_detector_enabled",
 			Args: []string{
 				"", "image", "--format=json",
-				"--experimental-detectors", "weakcredentials/etcshadow",
+				"--experimental-plugins", "os/apk",
+				"--experimental-plugins", "weakcredentials/etcshadow",
 				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
@@ -338,7 +342,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_detector_preset",
 			Args: []string{
 				"", "image", "--format=json",
-				"--experimental-detectors", "weakcreds",
+				"--experimental-plugins", "os/apk",
+				"--experimental-plugins", "weakcreds",
 				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,

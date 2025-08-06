@@ -1399,14 +1399,14 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_ExplicitExtractors/empty_extractors_flag_does_nothing - 1]
+[TestCommand_ExplicitExtractors/empty_plugins_flag_does_nothing - 1]
 
 ---
 
-[TestCommand_ExplicitExtractors/empty_extractors_flag_does_nothing - 2]
-Incorrect Usage: flag needs an argument: --experimental-extractors=
+[TestCommand_ExplicitExtractors/empty_plugins_flag_does_nothing - 2]
+Incorrect Usage: flag needs an argument: --experimental-plugins=
 
-flag needs an argument: --experimental-extractors=
+flag needs an argument: --experimental-plugins=
 
 ---
 

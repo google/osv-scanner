@@ -70,11 +70,8 @@ type ScannerActions struct {
 type ExperimentalScannerActions struct {
 	TransitiveScanningActions
 
-	ExtractorsEnabled  []string
-	ExtractorsDisabled []string
-
-	DetectorsEnabled  []string
-	DetectorsDisabled []string
+	PluginsEnabled  []string
+	PluginsDisabled []string
 }
 
 type TransitiveScanningActions struct {
