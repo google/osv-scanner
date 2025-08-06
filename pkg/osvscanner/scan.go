@@ -30,16 +30,16 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-func configurePlugins(extractors []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
-	for _, tor := range extractors {
+func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
+	for _, plug := range plugins {
 		if accessors.DependencyClients[osvschema.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
-			pomxmlenhanceable.EnhanceIfPossible(tor, pomxmlnet.Config{
+			pomxmlenhanceable.EnhanceIfPossible(plug, pomxmlnet.Config{
 				DependencyClient:       accessors.DependencyClients[osvschema.EcosystemMaven],
 				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
 			})
 		}
 		if accessors.DependencyClients[osvschema.EcosystemPyPI] != nil {
-			requirementsenhancable.EnhanceIfPossible(tor, requirementsnet.Config{
+			requirementsenhancable.EnhanceIfPossible(plug, requirementsnet.Config{
 				Extractor: &requirements.Extractor{},
 				Client:    accessors.DependencyClients[osvschema.EcosystemPyPI],
 			})
@@ -47,12 +47,12 @@ func configurePlugins(extractors []plugin.Plugin, accessors ExternalAccessors, a
 
 		// todo: the "disabled" aspect should probably be worked into the extractor being present in the first place
 		//  since "IncludeRootGit" is always true
-		gitrepo.Configure(tor, gitrepo.Config{
+		gitrepo.Configure(plug, gitrepo.Config{
 			IncludeRootGit: actions.IncludeGitRoot,
 			Disabled:       !actions.IncludeGitRoot,
 		})
 
-		vendored.Configure(tor, vendored.Config{
+		vendored.Configure(plug, vendored.Config{
 			// Only attempt to vendor check git directories if we are not skipping scanning root git directories
 			ScanGitDir: !actions.IncludeGitRoot,
 			OSVClient:  accessors.OSVDevClient,
@@ -73,15 +73,16 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 	return plugins
 }
 
-func omitDirExtractors(extractors []plugin.Plugin) []plugin.Plugin {
-	filtered := make([]plugin.Plugin, 0, len(extractors))
+// omitDirExtractors removes any plugins that require extracting from a directory
+func omitDirExtractors(plugins []plugin.Plugin) []plugin.Plugin {
+	filtered := make([]plugin.Plugin, 0, len(plugins))
 
-	for _, ext := range extractors {
-		if ext.Requirements().ExtractFromDirs {
+	for _, plug := range plugins {
+		if plug.Requirements().ExtractFromDirs {
 			continue
 		}
 
-		filtered = append(filtered, ext)
+		filtered = append(filtered, plug)
 	}
 
 	return filtered
@@ -104,10 +105,10 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	}
 
 	// --- Lockfiles ---
-	lockfileExtractors := omitDirExtractors(plugins)
+	lockfilePlugins := omitDirExtractors(plugins)
 
 	for _, lockfileElem := range actions.LockfilePaths {
-		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
+		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfilePlugins)
 		if err != nil {
 			return nil, err
 		}

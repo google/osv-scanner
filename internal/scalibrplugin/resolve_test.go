@@ -175,16 +175,13 @@ func TestResolve(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(
-				tt.args.enabled,
-				tt.args.disabled,
-			)
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled)
 
 			slices.Sort(tt.want)
 
 			gotNames := make([]string, 0, len(got))
-			for _, detector := range got {
-				gotNames = append(gotNames, detector.Name())
+			for _, plug := range got {
+				gotNames = append(gotNames, plug.Name())
 			}
 
 			slices.Sort(gotNames)
@@ -200,8 +197,8 @@ func TestResolve_Detectors(t *testing.T) {
 	t.Parallel()
 
 	type args struct {
-		enabledDetectors  []string
-		disabledDetectors []string
+		enabled  []string
+		disabled []string
 	}
 	tests := []struct {
 		name string
@@ -211,16 +208,16 @@ func TestResolve_Detectors(t *testing.T) {
 		{
 			name: "nothing_enabled_or_disabled",
 			args: args{
-				enabledDetectors:  nil,
-				disabledDetectors: nil,
+				enabled:  nil,
+				disabled: nil,
 			},
 			want: []string{},
 		},
 		{
 			name: "empty_strings_are_ignored",
 			args: args{
-				enabledDetectors:  []string{""},
-				disabledDetectors: []string{""},
+				enabled:  []string{""},
+				disabled: []string{""},
 			},
 			want: []string{},
 		},
@@ -228,24 +225,24 @@ func TestResolve_Detectors(t *testing.T) {
 		{
 			name: "one_detector_enabled_and_nothing_disabled",
 			args: args{
-				enabledDetectors:  []string{etcshadow.Name},
-				disabledDetectors: nil,
+				enabled:  []string{etcshadow.Name},
+				disabled: nil,
 			},
 			want: []string{etcshadow.Name},
 		},
 		{
 			name: "one_detector_enabled_and_different_detector_disabled",
 			args: args{
-				enabledDetectors:  []string{etcshadow.Name},
-				disabledDetectors: []string{binary.Name},
+				enabled:  []string{etcshadow.Name},
+				disabled: []string{binary.Name},
 			},
 			want: []string{etcshadow.Name},
 		},
 		{
 			name: "one_detector_enabled_and_same_detector_disabled",
 			args: args{
-				enabledDetectors:  []string{etcshadow.Name},
-				disabledDetectors: []string{etcshadow.Name},
+				enabled:  []string{etcshadow.Name},
+				disabled: []string{etcshadow.Name},
 			},
 			want: []string{},
 		},
@@ -253,8 +250,8 @@ func TestResolve_Detectors(t *testing.T) {
 		{
 			name: "one_preset_enabled_and_nothing_disabled",
 			args: args{
-				enabledDetectors:  []string{"weakcreds"},
-				disabledDetectors: nil,
+				enabled:  []string{"weakcreds"},
+				disabled: nil,
 			},
 			want: []string{
 				codeserver.Name,
@@ -266,8 +263,8 @@ func TestResolve_Detectors(t *testing.T) {
 		{
 			name: "one_preset_enabled_and_different_preset_disabled",
 			args: args{
-				enabledDetectors:  []string{"weakcreds"},
-				disabledDetectors: []string{"untested"},
+				enabled:  []string{"weakcreds"},
+				disabled: []string{"untested"},
 			},
 			want: []string{
 				codeserver.Name,
@@ -279,16 +276,16 @@ func TestResolve_Detectors(t *testing.T) {
 		{
 			name: "one_preset_enabled_and_same_preset_disabled",
 			args: args{
-				enabledDetectors:  []string{"weakcreds"},
-				disabledDetectors: []string{"weakcreds"},
+				enabled:  []string{"weakcreds"},
+				disabled: []string{"weakcreds"},
 			},
 			want: []string{},
 		},
 		{
 			name: "one_preset_enabled_and_some_detectors_disabled",
 			args: args{
-				enabledDetectors:  []string{"weakcreds"},
-				disabledDetectors: []string{codeserver.Name, filebrowser.Name},
+				enabled:  []string{"weakcreds"},
+				disabled: []string{codeserver.Name, filebrowser.Name},
 			},
 			want: []string{
 				etcshadow.Name,
@@ -299,8 +296,8 @@ func TestResolve_Detectors(t *testing.T) {
 		{
 			name: "multiple_presets_enabled_and_nothing_disabled",
 			args: args{
-				enabledDetectors:  []string{"weakcreds", "cis"},
-				disabledDetectors: []string{},
+				enabled:  []string{"weakcreds", "cis"},
+				disabled: []string{},
 			},
 			want: []string{
 				codeserver.Name,
@@ -314,12 +311,12 @@ func TestResolve_Detectors(t *testing.T) {
 		{
 			name: "multiple_detectors_enabled_and_one_disabled_preset",
 			args: args{
-				enabledDetectors: []string{
+				enabled: []string{
 					etcshadow.Name,
 					filebrowser.Name,
 					etcpasswdpermissions.Name,
 				},
-				disabledDetectors: []string{"weakcreds"},
+				disabled: []string{"weakcreds"},
 			},
 			want: []string{
 				etcpasswdpermissions.Name,
@@ -328,12 +325,12 @@ func TestResolve_Detectors(t *testing.T) {
 		{
 			name: "multiple_detectors_enabled_and_disabled",
 			args: args{
-				enabledDetectors: []string{
+				enabled: []string{
 					etcshadow.Name,
 					filebrowser.Name,
 					etcpasswdpermissions.Name,
 				},
-				disabledDetectors: []string{
+				disabled: []string{
 					codeserver.Name,
 					winlocal.Name,
 				},
@@ -349,16 +346,13 @@ func TestResolve_Detectors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(
-				tt.args.enabledDetectors,
-				tt.args.disabledDetectors,
-			)
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled)
 
 			slices.Sort(tt.want)
 
 			gotNames := make([]string, 0, len(got))
-			for _, detector := range got {
-				gotNames = append(gotNames, detector.Name())
+			for _, plug := range got {
+				gotNames = append(gotNames, plug.Name())
 			}
 
 			slices.Sort(gotNames)
@@ -374,8 +368,8 @@ func TestResolve_Extractors(t *testing.T) {
 	t.Parallel()
 
 	type args struct {
-		enabledExtractors  []string
-		disabledExtractors []string
+		enabled  []string
+		disabled []string
 	}
 	tests := []struct {
 		name string
@@ -386,24 +380,24 @@ func TestResolve_Extractors(t *testing.T) {
 		{
 			name: "one_extractor_enabled_and_nothing_disabled",
 			args: args{
-				enabledExtractors:  []string{composerlock.Name},
-				disabledExtractors: nil,
+				enabled:  []string{composerlock.Name},
+				disabled: nil,
 			},
 			want: []string{composerlock.Name},
 		},
 		{
 			name: "one_extractor_enabled_and_different_extractor_disabled",
 			args: args{
-				enabledExtractors:  []string{composerlock.Name},
-				disabledExtractors: []string{packageslockjson.Name},
+				enabled:  []string{composerlock.Name},
+				disabled: []string{packageslockjson.Name},
 			},
 			want: []string{composerlock.Name},
 		},
 		{
 			name: "one_extractor_enabled_and_same_extractor_disabled",
 			args: args{
-				enabledExtractors:  []string{composerlock.Name},
-				disabledExtractors: []string{composerlock.Name},
+				enabled:  []string{composerlock.Name},
+				disabled: []string{composerlock.Name},
 			},
 			want: []string{},
 		},
@@ -411,8 +405,8 @@ func TestResolve_Extractors(t *testing.T) {
 		{
 			name: "one_preset_enabled_and_nothing_disabled",
 			args: args{
-				enabledExtractors:  []string{"artifact"},
-				disabledExtractors: nil,
+				enabled:  []string{"artifact"},
+				disabled: nil,
 			},
 			want: []string{
 				apk.Name,
@@ -447,8 +441,8 @@ func TestResolve_Extractors(t *testing.T) {
 		{
 			name: "one_preset_enabled_and_different_preset_disabled",
 			args: args{
-				enabledExtractors:  []string{"artifact"},
-				disabledExtractors: []string{"directory"},
+				enabled:  []string{"artifact"},
+				disabled: []string{"directory"},
 			},
 			want: []string{
 				apk.Name,
@@ -483,16 +477,16 @@ func TestResolve_Extractors(t *testing.T) {
 		{
 			name: "one_preset_enabled_and_same_preset_disabled",
 			args: args{
-				enabledExtractors:  []string{"artifact"},
-				disabledExtractors: []string{"artifact"},
+				enabled:  []string{"artifact"},
+				disabled: []string{"artifact"},
 			},
 			want: []string{},
 		},
 		{
 			name: "one_preset_enabled_and_some_extractors_disabled",
 			args: args{
-				enabledExtractors:  []string{"artifact"},
-				disabledExtractors: []string{wheelegg.Name, archive.Name, cargoauditable.Name},
+				enabled:  []string{"artifact"},
+				disabled: []string{wheelegg.Name, archive.Name, cargoauditable.Name},
 			},
 			want: []string{
 				apk.Name,
@@ -525,8 +519,8 @@ func TestResolve_Extractors(t *testing.T) {
 		{
 			name: "multiple_presets_enabled_and_nothing_disabled",
 			args: args{
-				enabledExtractors:  []string{"artifact", "directory"},
-				disabledExtractors: []string{},
+				enabled:  []string{"artifact", "directory"},
+				disabled: []string{},
 			},
 			want: []string{
 				apk.Name,
@@ -564,12 +558,12 @@ func TestResolve_Extractors(t *testing.T) {
 		{
 			name: "multiple_extractors_enabled_and_one_disabled_preset",
 			args: args{
-				enabledExtractors: []string{
+				enabled: []string{
 					spdx.Name,
 					archive.Name,
 					gobinary.Name,
 				},
-				disabledExtractors: []string{"sbom"},
+				disabled: []string{"sbom"},
 			},
 			want: []string{
 				archive.Name,
@@ -579,13 +573,13 @@ func TestResolve_Extractors(t *testing.T) {
 		{
 			name: "multiple_extractors_enabled_and_disabled",
 			args: args{
-				enabledExtractors: []string{
+				enabled: []string{
 					spdx.Name,
 					archive.Name,
 					gobinary.Name,
 					cargoauditable.Name,
 				},
-				disabledExtractors: []string{
+				disabled: []string{
 					cdx.Name,
 					wheelegg.Name,
 					gobinary.Name,
@@ -603,16 +597,13 @@ func TestResolve_Extractors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(
-				tt.args.enabledExtractors,
-				tt.args.disabledExtractors,
-			)
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled)
 
 			slices.Sort(tt.want)
 
 			gotNames := make([]string, 0, len(got))
-			for _, extractor := range got {
-				gotNames = append(gotNames, extractor.Name())
+			for _, plug := range got {
+				gotNames = append(gotNames, plug.Name())
 			}
 
 			slices.Sort(gotNames)

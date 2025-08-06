@@ -56,7 +56,7 @@ func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.
 //   - error: any errors encountered during extraction
 //
 // If no extractors are found, then ErrExtractorNotFound is returned.
-func ExtractWithExtractors(ctx context.Context, localPath string, extractors []plugin.Plugin) ([]*extractor.Package, error) {
+func ExtractWithExtractors(ctx context.Context, localPath string, plugins []plugin.Plugin) ([]*extractor.Package, error) {
 	info, err := os.Stat(localPath)
 	if err != nil {
 		return nil, err
@@ -64,14 +64,10 @@ func ExtractWithExtractors(ctx context.Context, localPath string, extractors []p
 
 	result := []*extractor.Package{}
 	extractorFound := false
-	for _, plug := range extractors {
+	for _, plug := range plugins {
 		ext, ok := plug.(filesystem.Extractor)
 
-		if !ok {
-			continue
-		}
-
-		if !ext.FileRequired(simplefileapi.New(localPath, info)) {
+		if !ok || !ext.FileRequired(simplefileapi.New(localPath, info)) {
 			continue
 		}
 		extractorFound = true
