@@ -2,10 +2,44 @@
 package scalibrplugin
 
 import (
+	"fmt"
+
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/plugin/list"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
+
+func resolveFromName(name string) (plugin.Plugin, error) {
+	plug, err := list.FromName(name)
+
+	if err == nil {
+		return plug, nil
+	}
+
+	switch name {
+	// Java
+	case pomxmlenhanceable.Name:
+		return pomxmlenhanceable.New(), nil
+	// Javascript
+	case nodemodules.Name:
+		return nodemodules.New(), nil
+	// Python
+	case requirementsenhancable.Name:
+		return requirementsenhancable.New(), nil
+	// Directories
+	case vendored.Name:
+		return vendored.New(), nil
+	case gitrepo.Name:
+		return gitrepo.New(), nil
+	default:
+		return nil, fmt.Errorf("not an exact name for a plugin: %q", name)
+	}
+}
 
 func Resolve(enabledPlugins []string, disabledPlugins []string) []plugin.Plugin {
 	plugins := make(map[string]bool)
@@ -38,11 +72,7 @@ func Resolve(enabledPlugins []string, disabledPlugins []string) []plugin.Plugin 
 
 	for name, value := range plugins {
 		if name != "" && value {
-			plug, err := list.FromName(name)
-
-			if err != nil {
-				plug, err = BuildExtractor(name)
-			}
+			plug, err := resolveFromName(name)
 
 			if err != nil {
 				cmdlogger.Errorf("%s", err)

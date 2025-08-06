@@ -118,7 +118,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	// --- SBOMs ---
 	// none of the SBOM extractors need configuring
-	sbomExtractors := scalibrplugin.BuildExtractors([]string{"sbom"})
+	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{})
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
 		if err != nil {
