@@ -1,3 +1,4 @@
+// Package scalibrplugin provides functions related to resolving scalibr plugins
 package scalibrplugin
 
 import (
