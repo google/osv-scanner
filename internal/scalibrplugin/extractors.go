@@ -1,6 +1,8 @@
 package scalibrplugin
 
 import (
+	"fmt"
+
 	"github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -10,6 +12,27 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
+
+func BuildExtractor(name string) (plugin.Plugin, error) {
+	switch name {
+	// Java
+	case pomxmlenhanceable.Name:
+		return pomxmlenhanceable.New(), nil
+	// Javascript
+	case nodemodules.Name:
+		return nodemodules.New(), nil
+	// Python
+	case requirementsenhancable.Name:
+		return requirementsenhancable.New(), nil
+	// Directories
+	case vendored.Name:
+		return vendored.New(), nil
+	case gitrepo.Name:
+		return gitrepo.New(), nil
+	default:
+		return nil, fmt.Errorf("not an exact name for a plugin: %q", name)
+	}
+}
 
 func BuildExtractors(names []string) []plugin.Plugin {
 	extractors := make([]plugin.Plugin, 0, len(names))

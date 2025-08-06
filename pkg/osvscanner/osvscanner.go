@@ -337,11 +337,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		}
 	}()
 
-	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
-
-	for _, det := range detectors {
-		plugins = append(plugins, det)
-	}
+	detectors := scalibrplugin.Resolve(actions.DetectorsEnabled, actions.DetectorsDisabled)
+	plugins = append(plugins, detectors...)
 
 	capabilities := &plugin.Capabilities{
 		DirectFS:      true,
