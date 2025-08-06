@@ -11,7 +11,6 @@ import (
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
@@ -32,7 +31,7 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAccessors, actions ScannerActions) {
+func configurePlugins(extractors []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
 	for _, tor := range extractors {
 		if accessors.DependencyClients[osvschema.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
 			pomxmlenhanceable.EnhanceIfPossible(tor, pomxmlnet.Config{
@@ -63,20 +62,20 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 	}
 }
 
-func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, actions ScannerActions) []filesystem.Extractor {
+func getPlugins(defaultExtractorNames []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
 	if len(actions.ExtractorsEnabled) == 0 {
 		actions.ExtractorsEnabled = defaultExtractorNames
 	}
 
 	extractors := scalibrplugin.ResolveEnabledExtractors(actions.ExtractorsEnabled, actions.ExtractorsDisabled)
 
-	configureExtractors(extractors, accessors, actions)
+	configurePlugins(extractors, accessors, actions)
 
 	return extractors
 }
 
-func omitDirExtractors(extractors []filesystem.Extractor) []filesystem.Extractor {
-	filtered := make([]filesystem.Extractor, 0, len(extractors))
+func omitDirExtractors(extractors []plugin.Plugin) []plugin.Plugin {
+	filtered := make([]plugin.Plugin, 0, len(extractors))
 
 	for _, ext := range extractors {
 		if ext.Requirements().ExtractFromDirs {
@@ -95,18 +94,18 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	var scannedInventories []*extractor.Package
 	var genericFindings []*inventory.GenericFinding
 
-	extractors := getExtractors(
+	plugins := getPlugins(
 		[]string{"lockfile", "sbom", "directory"},
 		accessors,
 		actions,
 	)
 
-	if len(extractors) == 0 {
+	if len(plugins) == 0 {
 		return nil, errors.New("at least one extractor must be enabled")
 	}
 
 	// --- Lockfiles ---
-	lockfileExtractors := omitDirExtractors(extractors)
+	lockfileExtractors := omitDirExtractors(plugins)
 
 	for _, lockfileElem := range actions.LockfilePaths {
 		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
@@ -168,6 +167,9 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	osCapability := determineOS()
 
 	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
+	for _, det := range detectors {
+		plugins = append(plugins, det)
+	}
 
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
@@ -182,19 +184,8 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		plugins := make([]plugin.Plugin, len(extractors)+len(detectors))
-		for i, ext := range extractors {
-			plugins[i] = ext.(plugin.Plugin)
-		}
-
-		for i, det := range detectors {
-			plugins[i+len(extractors)] = det.(plugin.Plugin)
-		}
-
-		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
-
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
-			Plugins:               plugins,
+			Plugins:               plugin.FilterByCapabilities(plugins, &capabilities),
 			Capabilities:          &capabilities,
 			ScanRoots:             fs.RealFSScanRoots(root),
 			PathsToExtract:        paths,

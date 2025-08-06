@@ -2,8 +2,8 @@
 package builders
 
 import (
-	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/list"
+	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
@@ -12,8 +12,8 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
-func BuildExtractors(names []string) []filesystem.Extractor {
-	extractors := make([]filesystem.Extractor, 0, len(names))
+func BuildExtractors(names []string) []plugin.Plugin {
+	extractors := make([]plugin.Plugin, 0, len(names))
 
 	for _, name := range names {
 		switch name {
@@ -40,7 +40,9 @@ func BuildExtractors(names []string) []filesystem.Extractor {
 				continue
 			}
 
-			extractors = append(extractors, extras...)
+			for _, extra := range extras {
+				extractors = append(extractors, extra)
+			}
 		}
 	}
 

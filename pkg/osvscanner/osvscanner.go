@@ -300,13 +300,13 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
-	filesystemExtractors := getExtractors(
+	plugins := getPlugins(
 		[]string{"artifact"},
 		accessors,
 		actions,
 	)
 
-	if len(filesystemExtractors) == 0 {
+	if len(plugins) == 0 {
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
 
@@ -339,13 +339,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
 
-	plugins := make([]plugin.Plugin, len(filesystemExtractors)+len(detectors))
-	for i, ext := range filesystemExtractors {
-		plugins[i] = ext.(plugin.Plugin)
-	}
-
-	for i, det := range detectors {
-		plugins[i+len(filesystemExtractors)] = det.(plugin.Plugin)
+	for _, det := range detectors {
+		plugins = append(plugins, det)
 	}
 
 	capabilities := &plugin.Capabilities{

@@ -4,7 +4,6 @@ package scalibrplugin
 import (
 	"maps"
 
-	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/javascript/packagejson"
@@ -13,6 +12,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargotoml"
 	"github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/secrets"
+	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
@@ -67,7 +67,7 @@ func concat(initMaps ...list.InitMap) list.InitMap {
 	return result
 }
 
-func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []string) []filesystem.Extractor {
+func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []string) []plugin.Plugin {
 	extractors := make(map[string]bool)
 
 	for i, exts := range [][]string{enabledExtractors, disabledExtractors} {
