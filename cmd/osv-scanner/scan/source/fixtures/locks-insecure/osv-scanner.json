@@ -1,0 +1,28 @@
+{
+  "results": [
+    {
+      "source": {},
+      "packages": [
+        {
+          "package": {
+            "name": "stdlib",
+            "version": "1.24.4",
+            "ecosystem": "Go"
+          }
+        }
+      ]
+    },
+    {
+      "source": {},
+      "packages": [
+        {
+          "package": {
+            "name": "toolchain",
+            "version": "1.24.4",
+            "ecosystem": "Go"
+          }
+        }
+      ]
+    }
+  ]
+}
