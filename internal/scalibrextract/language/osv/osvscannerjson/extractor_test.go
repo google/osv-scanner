@@ -39,7 +39,8 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:      "activesupport",
 					Version:   "7.0.7",
 					Locations: []string{"testdata/one-package.json"},
-					Metadata: osvscannerjson.Metadata{
+					Plugins:   []string{"osv/osvscannerjson"},
+					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "RubyGems",
 						SourceInfo: models.SourceInfo{
 							Path: "/path/to/Gemfile.lock",
@@ -57,10 +58,11 @@ func TestExtractor_Extract(t *testing.T) {
 			WantPackages: []*extractor.Package{
 				{
 					Locations: []string{"testdata/one-package-commit.json"},
+					Plugins:   []string{"osv/osvscannerjson"},
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "9a6bd55c9d0722cb101fe85a3b22d89e4ff4fe52",
 					},
-					Metadata: osvscannerjson.Metadata{
+					Metadata: &osvscannerjson.Metadata{
 						SourceInfo: models.SourceInfo{
 							Path: "/path/to/Gemfile.lock",
 							Type: "lockfile",
@@ -79,7 +81,8 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:      "crossbeam-utils",
 					Version:   "0.6.6",
 					Locations: []string{"testdata/multiple-packages-with-vulns.json"},
-					Metadata: osvscannerjson.Metadata{
+					Plugins:   []string{"osv/osvscannerjson"},
+					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "crates.io",
 						SourceInfo: models.SourceInfo{
 							Path: "/path/to/Cargo.lock",
@@ -91,7 +94,8 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:      "memoffset",
 					Version:   "0.5.6",
 					Locations: []string{"testdata/multiple-packages-with-vulns.json"},
-					Metadata: osvscannerjson.Metadata{
+					Plugins:   []string{"osv/osvscannerjson"},
+					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "crates.io",
 						SourceInfo: models.SourceInfo{
 							Path: "/path/to/Cargo.lock",
@@ -103,7 +107,8 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:      "smallvec",
 					Version:   "1.6.0",
 					Locations: []string{"testdata/multiple-packages-with-vulns.json"},
-					Metadata: osvscannerjson.Metadata{
+					Plugins:   []string{"osv/osvscannerjson"},
+					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "crates.io",
 						SourceInfo: models.SourceInfo{
 							Path: "/path/to/Cargo.lock",

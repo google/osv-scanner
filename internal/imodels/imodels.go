@@ -3,7 +3,6 @@ package imodels
 
 import (
 	"fmt"
-	"slices"
 	"strings"
 
 	"github.com/google/osv-scalibr/converter"
@@ -19,8 +18,9 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/utility/purl"
 	"github.com/google/osv-scanner/v2/internal/utility/semverlike"
 
@@ -99,6 +99,10 @@ func (pkg *PackageInfo) Name() string {
 func (pkg *PackageInfo) Ecosystem() ecosystem.Parsed {
 	ecosystemStr := pkg.Package.Ecosystem()
 
+	if metadata, ok := pkg.Metadata.(*osvscannerjson.Metadata); ok {
+		ecosystemStr = metadata.Ecosystem
+	}
+
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 	if pkg.purlCache != nil {
 		ecosystemStr = pkg.purlCache.Ecosystem
@@ -163,13 +167,13 @@ func (pkg *PackageInfo) SourceType() models.SourceType {
 	for _, extractorName := range pkg.Plugins {
 		if _, ok := osExtractors[extractorName]; ok {
 			return models.SourceTypeOSPackage
-		} else if slices.Contains(scalibrextract.ExtractorsSBOMs, extractorName) {
+		} else if _, ok := scalibrplugin.ExtractorPresets["sbom"][extractorName]; ok {
 			return models.SourceTypeSBOM
 		} else if _, ok := gitExtractors[extractorName]; ok {
 			return models.SourceTypeGit
-		} else if slices.Contains(scalibrextract.ExtractorsArtifacts, extractorName) {
+		} else if _, ok := scalibrplugin.ExtractorPresets["artifact"][extractorName]; ok {
 			return models.SourceTypeArtifact
-		} else if slices.Contains(scalibrextract.ExtractorsLockfiles, extractorName) {
+		} else if _, ok := scalibrplugin.ExtractorPresets["lockfile"][extractorName]; ok {
 			return models.SourceTypeProjectPackage
 		}
 	}

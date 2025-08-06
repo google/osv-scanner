@@ -7,7 +7,6 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
-	"slices"
 	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
@@ -98,11 +97,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	var genericFindings []*inventory.GenericFinding
 
 	extractors := getExtractors(
-		slices.Concat(
-			scalibrextract.ExtractorsLockfiles,
-			scalibrextract.ExtractorsSBOMs,
-			scalibrextract.ExtractorsDirectories,
-		),
+		[]string{"lockfile", "sbom", "directory"},
 		accessors,
 		actions,
 	)
@@ -125,7 +120,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	// --- SBOMs ---
 	// none of the SBOM extractors need configuring
-	sbomExtractors := builders.BuildExtractors(scalibrextract.ExtractorsSBOMs)
+	sbomExtractors := builders.BuildExtractors([]string{"sbom"})
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
 		if err != nil {

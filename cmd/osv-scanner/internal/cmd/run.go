@@ -8,6 +8,7 @@ import (
 	"strings"
 	"testing"
 
+	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
@@ -53,6 +54,7 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 
 	cli.VersionPrinter = func(cmd *cli.Command) {
 		cmdlogger.Infof("osv-scanner version: %s", cmd.Version)
+		cmdlogger.Infof("osv-scalibr version: %s", scalibr.ScannerVersion)
 		cmdlogger.Infof("commit: %s", commit)
 		cmdlogger.Infof("built at: %s", date)
 	}
