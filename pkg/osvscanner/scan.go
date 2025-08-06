@@ -17,7 +17,6 @@ import (
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
-	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
@@ -118,7 +117,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	// --- SBOMs ---
 	// none of the SBOM extractors need configuring
-	sbomExtractors := builders.BuildExtractors([]string{"sbom"})
+	sbomExtractors := scalibrplugin.BuildExtractors([]string{"sbom"})
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
 		if err != nil {

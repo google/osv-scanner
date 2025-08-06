@@ -1,5 +1,4 @@
-// Package builders provides functions to convert extractors from name.
-package builders
+package scalibrplugin
 
 import (
 	"github.com/google/osv-scalibr/extractor/filesystem/list"

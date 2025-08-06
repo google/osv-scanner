@@ -13,7 +13,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/secrets"
 	"github.com/google/osv-scalibr/plugin"
-	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
@@ -94,5 +93,5 @@ func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []s
 		}
 	}
 
-	return builders.BuildExtractors(asSlice)
+	return BuildExtractors(asSlice)
 }
