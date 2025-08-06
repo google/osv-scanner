@@ -61,16 +61,19 @@ func configurePlugins(extractors []plugin.Plugin, accessors ExternalAccessors, a
 	}
 }
 
-func getPlugins(defaultExtractorNames []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
+func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
 	if len(actions.ExtractorsEnabled) == 0 {
-		actions.ExtractorsEnabled = defaultExtractorNames
+		actions.ExtractorsEnabled = defaultPlugins
 	}
 
-	extractors := scalibrplugin.Resolve(actions.ExtractorsEnabled, actions.ExtractorsDisabled)
+	var plugins []plugin.Plugin
 
-	configurePlugins(extractors, accessors, actions)
+	plugins = append(plugins, scalibrplugin.Resolve(actions.ExtractorsEnabled, actions.ExtractorsDisabled)...)
+	plugins = append(plugins, scalibrplugin.Resolve(actions.DetectorsEnabled, actions.DetectorsDisabled)...)
 
-	return extractors
+	configurePlugins(plugins, accessors, actions)
+
+	return plugins
 }
 
 func omitDirExtractors(extractors []plugin.Plugin) []plugin.Plugin {
@@ -164,9 +167,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
-
-	detectors := scalibrplugin.Resolve(actions.DetectorsEnabled, actions.DetectorsDisabled)
-	plugins = append(plugins, detectors...)
 
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {

@@ -31,7 +31,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
-	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
@@ -336,9 +335,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 			cmdlogger.Errorf("Failed to clean up image: %s", err)
 		}
 	}()
-
-	detectors := scalibrplugin.Resolve(actions.DetectorsEnabled, actions.DetectorsDisabled)
-	plugins = append(plugins, detectors...)
 
 	capabilities := &plugin.Capabilities{
 		DirectFS:      true,
