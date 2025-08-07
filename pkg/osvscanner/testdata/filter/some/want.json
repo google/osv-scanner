@@ -2,7 +2,7 @@
   "results": [
     {
       "source": {
-        "path": "fixtures/filter/some/configs/a/",
+        "path": "testdata/filter/some/configs/a/",
         "type": "lockfile"
       },
       "packages": [
@@ -108,7 +108,7 @@
     },
     {
       "source": {
-        "path": "fixtures/filter/some/configs/b/",
+        "path": "testdata/filter/some/configs/b/",
         "type": "lockfile"
       },
       "packages": [
@@ -321,7 +321,7 @@
     },
     {
       "source": {
-        "path": "fixtures/filter/some/configs/c/",
+        "path": "testdata/filter/some/configs/c/",
         "type": "lockfile"
       },
       "packages": [

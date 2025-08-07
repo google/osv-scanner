@@ -16,7 +16,7 @@
   "results": [
     {
       "source": {
-        "path": "fixtures/filter/none/configs/a/",
+        "path": "testdata/filter/none/configs/a/",
         "type": "lockfile"
       },
       "packages": [
@@ -424,7 +424,7 @@
     },
     {
       "source": {
-        "path": "fixtures/filter/none/configs/b/",
+        "path": "testdata/filter/none/configs/b/",
         "type": "lockfile"
       },
       "packages": [
@@ -920,7 +920,7 @@
     },
     {
       "source": {
-        "path": "fixtures/filter/none/configs/c/",
+        "path": "testdata/filter/none/configs/c/",
         "type": "lockfile"
       },
       "packages": [
@@ -1487,7 +1487,7 @@
   "results": [
     {
       "source": {
-        "path": "fixtures/filter/some/configs/a/",
+        "path": "testdata/filter/some/configs/a/",
         "type": "lockfile"
       },
       "packages": [
@@ -1652,7 +1652,7 @@
     },
     {
       "source": {
-        "path": "fixtures/filter/some/configs/b/",
+        "path": "testdata/filter/some/configs/b/",
         "type": "lockfile"
       },
       "packages": [
@@ -1869,7 +1869,7 @@
     },
     {
       "source": {
-        "path": "fixtures/filter/some/configs/c/",
+        "path": "testdata/filter/some/configs/c/",
         "type": "lockfile"
       },
       "packages": [

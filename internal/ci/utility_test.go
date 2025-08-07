@@ -35,19 +35,19 @@ func TestLoadVulnResults(t *testing.T) {
 	}{
 		{
 			name:    "does_not_exist",
-			args:    args{path: "./fixtures/does_not_exist"},
+			args:    args{path: "./testdata/does_not_exist"},
 			want:    models.VulnerabilityResults{},
 			wantErr: true,
 		},
 		{
 			name:    "invalid_json",
-			args:    args{path: "./fixtures/not-json.txt"},
+			args:    args{path: "./testdata/not-json.txt"},
 			want:    models.VulnerabilityResults{},
 			wantErr: true,
 		},
 		{
 			name: "results_empty",
-			args: args{path: "./fixtures/results-empty.json"},
+			args: args{path: "./testdata/results-empty.json"},
 			want: models.VulnerabilityResults{
 				Results: []models.PackageSource{},
 				ExperimentalAnalysisConfig: models.ExperimentalAnalysisConfig{
@@ -63,7 +63,7 @@ func TestLoadVulnResults(t *testing.T) {
 		},
 		{
 			name: "results_some",
-			args: args{path: "./fixtures/results-some.json"},
+			args: args{path: "./testdata/results-some.json"},
 			want: models.VulnerabilityResults{
 				Results: []models.PackageSource{
 					{
