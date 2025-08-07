@@ -866,13 +866,14 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 
 [TestCommand/go_packages_in_osv-scanner.json_format - 1]
 Scanned <rootdir>/fixtures/locks-insecure/osv-scanner.json file as a osv-scanner and found 2 packages
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
-1 vulnerability can be fixed.
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+2 vulnerabilities can be fixed.
 
 
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 | OSV URL                      | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                   |
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
+| https://osv.dev/GO-2025-3849 |      | Go        | stdlib    | 1.24.4  | 1.24.6        | fixtures/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2025-3828 |      | Go        | toolchain | 1.24.4  | 1.24.5        | fixtures/locks-insecure/osv-scanner.json |
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 
