@@ -1,6 +1,6 @@
 # v2.2.0
 
-OSV-Scanner now supports all OSV-Scalibr features behind experimental flags (`--experimental-plugins`, see <insert doc link here>)!
+OSV-Scanner now supports all OSV-Scalibr features behind experimental flags (`--experimental-plugins`, see details [here](https://google.github.io/osv-scanner/experimental/manual-plugin-selection/))!
 
 ### Features:
 
