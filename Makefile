@@ -14,7 +14,7 @@ test:
 
 clean:
 	rm -f osv-scanner
-	rm -r internal/image/fixtures/test-*.tar
+	rm -r cmd/osv-scanner/scan/image/testdata/test-*.tar
 
 update-snapshots:
 	UPDATE_SNAPS=true scripts/run_tests.sh
