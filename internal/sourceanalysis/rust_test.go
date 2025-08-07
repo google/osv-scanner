@@ -14,7 +14,7 @@ import (
 
 func Test_extractRlibArchive(t *testing.T) {
 	t.Parallel()
-	entries, err := os.ReadDir("fixtures-rust/archives")
+	entries, err := os.ReadDir("testdata/rust/archives")
 	if err != nil {
 		t.Error(err)
 	}
@@ -22,18 +22,18 @@ func Test_extractRlibArchive(t *testing.T) {
 		filename := file.Name()
 		t.Run("Extract Rlib "+filename, func(t *testing.T) {
 			t.Parallel()
-			buf, err := extractRlibArchive(filepath.Join("fixtures-rust/archives", filename))
+			buf, err := extractRlibArchive(filepath.Join("testdata/rust/archives", filename))
 			if err != nil {
 				t.Error(err)
 			}
 
 			expectedFileName := strings.Replace(filename, ".rlib", ".o", 1)
-			expectedBuf, err := os.ReadFile(filepath.Join("fixtures-rust/objs", expectedFileName))
+			expectedBuf, err := os.ReadFile(filepath.Join("testdata/rust/objs", expectedFileName))
 			if err != nil {
 				t.Error(err)
 			}
 			if !bytes.Equal(buf.Bytes(), expectedBuf) {
-				t.Fatalf("Extracted not identical to expected: %s", filepath.Join("fixtures-rust/archives", filename))
+				t.Fatalf("Extracted not identical to expected: %s", filepath.Join("testdata/rust/archives", filename))
 			}
 		})
 	}
@@ -41,7 +41,7 @@ func Test_extractRlibArchive(t *testing.T) {
 
 func Test_functionsFromDWARF(t *testing.T) {
 	t.Parallel()
-	entries, err := os.ReadDir("fixtures-rust/objs")
+	entries, err := os.ReadDir("testdata/rust/objs")
 	if err != nil {
 		t.Error(err)
 	}
@@ -49,7 +49,7 @@ func Test_functionsFromDWARF(t *testing.T) {
 		filename := file.Name()
 		t.Run("Parsing DWARF "+filename, func(t *testing.T) {
 			t.Parallel()
-			buf, err := os.ReadFile(filepath.Join("fixtures-rust/objs", filename))
+			buf, err := os.ReadFile(filepath.Join("testdata/rust/objs", filename))
 			if err != nil {
 				t.Error(err)
 			}
@@ -81,12 +81,12 @@ func Test_rustBuildSource(t *testing.T) {
 		{
 			args: args{
 				source: models.SourceInfo{
-					Path: "fixtures-rust/rust-project/Cargo.lock",
+					Path: "testdata/rust/rust-project/Cargo.lock",
 					Type: "lockfile",
 				},
 			},
 			want: []string{
-				cwd + filepath.FromSlash("/fixtures-rust/rust-project/target/release/test-project") + testutility.ValueIfOnWindows(".exe", ""),
+				cwd + filepath.FromSlash("/testdata/rust/rust-project/target/release/test-project") + testutility.ValueIfOnWindows(".exe", ""),
 			},
 		},
 	}

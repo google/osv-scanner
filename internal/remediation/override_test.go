@@ -25,20 +25,20 @@ func TestComputeOverridePatches(t *testing.T) {
 	}{
 		{
 			name:         "maven-zeppelin-server",
-			universePath: "./fixtures/zeppelin-server/universe.yaml",
-			manifestPath: "./fixtures/zeppelin-server/pom.xml",
+			universePath: "./testdata/zeppelin-server/universe.yaml",
+			manifestPath: "./testdata/zeppelin-server/pom.xml",
 			opts:         basicOpts,
 		},
 		{
 			name:         "maven-classifier",
-			universePath: "./fixtures/maven-classifier/universe.yaml",
-			manifestPath: "./fixtures/maven-classifier/pom.xml",
+			universePath: "./testdata/maven-classifier/universe.yaml",
+			manifestPath: "./testdata/maven-classifier/pom.xml",
 			opts:         basicOpts,
 		},
 		{
 			name:         "maven-management-only",
-			universePath: "./fixtures/zeppelin-server/universe.yaml",
-			manifestPath: "./fixtures/zeppelin-server/parent/pom.xml",
+			universePath: "./testdata/zeppelin-server/universe.yaml",
+			manifestPath: "./testdata/zeppelin-server/parent/pom.xml",
 			opts: remediation.Options{
 				ResolveOpts: resolution.ResolveOpts{
 					MavenManagement: true,
@@ -50,26 +50,26 @@ func TestComputeOverridePatches(t *testing.T) {
 		},
 		{
 			name:         "workaround-maven-guava-none-to-jre",
-			universePath: "./fixtures/override-workaround/universe.yaml",
-			manifestPath: "./fixtures/override-workaround/guava/none-to-jre/pom.xml",
+			universePath: "./testdata/override-workaround/universe.yaml",
+			manifestPath: "./testdata/override-workaround/guava/none-to-jre/pom.xml",
 			opts:         basicOpts,
 		},
 		{
 			name:         "workaround-maven-guava-jre-to-jre",
-			universePath: "./fixtures/override-workaround/universe.yaml",
-			manifestPath: "./fixtures/override-workaround/guava/jre-to-jre/pom.xml",
+			universePath: "./testdata/override-workaround/universe.yaml",
+			manifestPath: "./testdata/override-workaround/guava/jre-to-jre/pom.xml",
 			opts:         basicOpts,
 		},
 		{
 			name:         "workaround-maven-guava-android-to-android",
-			universePath: "./fixtures/override-workaround/universe.yaml",
-			manifestPath: "./fixtures/override-workaround/guava/android-to-android/pom.xml",
+			universePath: "./testdata/override-workaround/universe.yaml",
+			manifestPath: "./testdata/override-workaround/guava/android-to-android/pom.xml",
 			opts:         basicOpts,
 		},
 		{
 			name:         "workaround-commons",
-			universePath: "./fixtures/override-workaround/universe.yaml",
-			manifestPath: "./fixtures/override-workaround/commons/pom.xml",
+			universePath: "./testdata/override-workaround/universe.yaml",
+			manifestPath: "./testdata/override-workaround/commons/pom.xml",
 			opts:         basicOpts,
 		},
 	}

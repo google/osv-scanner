@@ -41,4 +41,3 @@ RUN cp /go/bin/ptf-1.4.0 /go/bin/ptf-vulnerable
 # This tests when a more vulnerable file overwrites a less vulnerable file
 RUN cp /go/bin/ptf-1.4.0 /go/bin/more-vuln-overwrite-less-vuln
 RUN cp /go/bin/ptf-1.2.0 /go/bin/more-vuln-overwrite-less-vuln
-

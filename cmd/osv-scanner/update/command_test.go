@@ -14,27 +14,27 @@ func TestCommand(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "update pom.xml with in-place changes",
-			Args: []string{"", "update", "-M=./fixtures/pom.xml"},
+			Args: []string{"", "update", "-M=./testdata/pom.xml"},
 			Exit: 0,
 		},
 		{
 			Name: "update_pom_with_in_place_changes_using_deps_dev_data_source",
-			Args: []string{"", "update", "--data-source", "deps.dev", "-M", "./fixtures/pom.xml"},
+			Args: []string{"", "update", "--data-source", "deps.dev", "-M", "./testdata/pom.xml"},
 			Exit: 0,
 		},
 		{
 			Name: "update_pom_with_in_place_changes_using_native_data_source",
-			Args: []string{"", "update", "--data-source", "native", "-M", "./fixtures/pom.xml"},
+			Args: []string{"", "update", "--data-source", "native", "-M", "./testdata/pom.xml"},
 			Exit: 0,
 		},
 		{
 			Name: "errors_with_invalid_data_source",
-			Args: []string{"", "update", "--data-source", "github", "-M", "./fixtures/pom.xml"},
+			Args: []string{"", "update", "--data-source", "github", "-M", "./testdata/pom.xml"},
 			Exit: 127,
 		},
 		{
 			Name: "file_does_not_exist",
-			Args: []string{"", "update", "-M", "./fixtures/does_not_exist.xml"},
+			Args: []string{"", "update", "-M", "./testdata/does_not_exist.xml"},
 			Exit: 127,
 		},
 		// TODO: add other test cases.

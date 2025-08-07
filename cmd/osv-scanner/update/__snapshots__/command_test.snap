@@ -76,7 +76,7 @@ unsupported data-source "github" - must be one of: deps.dev, native
 ---
 
 [TestCommand/file_does_not_exist - 2]
-file not found: ./fixtures/does_not_exist.xml
+file not found: ./testdata/does_not_exist.xml
 
 ---
 

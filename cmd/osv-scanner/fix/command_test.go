@@ -33,42 +33,42 @@ func TestCommand(t *testing.T) {
 		},
 		{
 			Name: "fix non-interactive in-place package-lock.json",
-			Args: []string{"", "fix", "--strategy=in-place", "-L", "./fixtures/in-place-npm/package-lock.json"},
+			Args: []string{"", "fix", "--strategy=in-place", "-L", "./testdata/in-place-npm/package-lock.json"},
 			Exit: 0,
 		},
 		{
 			Name: "fix_non_interactive_in_place_package_lock_json_with_native_data_source",
-			Args: []string{"", "fix", "--strategy=in-place", "--data-source", "native", "-L", "./fixtures/in-place-npm/package-lock.json"},
+			Args: []string{"", "fix", "--strategy=in-place", "--data-source", "native", "-L", "./testdata/in-place-npm/package-lock.json"},
 			Exit: 0,
 		},
 		{
 			Name: "fix non-interactive relax package.json",
-			Args: []string{"", "fix", "--strategy=relax", "-M", "./fixtures/relax-npm/package.json"},
+			Args: []string{"", "fix", "--strategy=relax", "-M", "./testdata/relax-npm/package.json"},
 			Exit: 0,
 		},
 		{
 			Name: "fix non-interactive override pom.xml",
-			Args: []string{"", "fix", "--strategy=override", "-M", "./fixtures/override-maven/pom.xml"},
+			Args: []string{"", "fix", "--strategy=override", "-M", "./testdata/override-maven/pom.xml"},
 			Exit: 0,
 		},
 		{
 			Name: "fix_non_interactive_override_pom_xml_with_native_data_source",
-			Args: []string{"", "fix", "--strategy=override", "--data-source", "native", "-M", "./fixtures/override-maven/pom.xml"},
+			Args: []string{"", "fix", "--strategy=override", "--data-source", "native", "-M", "./testdata/override-maven/pom.xml"},
 			Exit: 0,
 		},
 		{
 			Name: "fix non-interactive json in-place package-lock.json",
-			Args: []string{"", "fix", "--strategy=in-place", "--format=json", "-L", "./fixtures/in-place-npm/package-lock.json"},
+			Args: []string{"", "fix", "--strategy=in-place", "--format=json", "-L", "./testdata/in-place-npm/package-lock.json"},
 			Exit: 0,
 		},
 		{
 			Name: "fix non-interactive json relax package.json",
-			Args: []string{"", "fix", "--strategy=relax", "--format=json", "-M", "./fixtures/relax-npm/package.json"},
+			Args: []string{"", "fix", "--strategy=relax", "--format=json", "-M", "./testdata/relax-npm/package.json"},
 			Exit: 0,
 		},
 		{
 			Name: "fix non-interactive json override pom.xml",
-			Args: []string{"", "fix", "--strategy=override", "--format=json", "-M", "./fixtures/override-maven/pom.xml"},
+			Args: []string{"", "fix", "--strategy=override", "--format=json", "-M", "./testdata/override-maven/pom.xml"},
 			Exit: 0,
 		},
 		{

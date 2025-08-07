@@ -15,7 +15,7 @@ func TestParentPOMPath(t *testing.T) {
 		currentPath, relativePath string
 		want                      string
 	}{
-		// fixtures
+		// testdata
 		// |- maven
 		// |  |- my-app
 		// |  |  |- pom.xml
@@ -24,37 +24,37 @@ func TestParentPOMPath(t *testing.T) {
 		// |- pom.xml
 		{
 			// Parent path is specified correctly.
-			currentPath:  filepath.Join("fixtures", "my-app", "pom.xml"),
+			currentPath:  filepath.Join("testdata", "my-app", "pom.xml"),
 			relativePath: "../parent/pom.xml",
-			want:         filepath.Join("fixtures", "parent", "pom.xml"),
+			want:         filepath.Join("testdata", "parent", "pom.xml"),
 		},
 		{
 			// Wrong file name is specified in relative path.
-			currentPath:  filepath.Join("fixtures", "my-app", "pom.xml"),
+			currentPath:  filepath.Join("testdata", "my-app", "pom.xml"),
 			relativePath: "../parent/abc.xml",
 			want:         "",
 		},
 		{
 			// Wrong directory is specified in relative path.
-			currentPath:  filepath.Join("fixtures", "my-app", "pom.xml"),
+			currentPath:  filepath.Join("testdata", "my-app", "pom.xml"),
 			relativePath: "../not-found/pom.xml",
 			want:         "",
 		},
 		{
 			// Only directory is specified.
-			currentPath:  filepath.Join("fixtures", "my-app", "pom.xml"),
+			currentPath:  filepath.Join("testdata", "my-app", "pom.xml"),
 			relativePath: "../parent",
-			want:         filepath.Join("fixtures", "parent", "pom.xml"),
+			want:         filepath.Join("testdata", "parent", "pom.xml"),
 		},
 		{
 			// Parent relative path is default to '../pom.xml'.
-			currentPath:  filepath.Join("fixtures", "my-app", "pom.xml"),
+			currentPath:  filepath.Join("testdata", "my-app", "pom.xml"),
 			relativePath: "",
-			want:         filepath.Join("fixtures", "pom.xml"),
+			want:         filepath.Join("testdata", "pom.xml"),
 		},
 		{
 			// No pom.xml is found even in the default path.
-			currentPath:  filepath.Join("fixtures", "pom.xml"),
+			currentPath:  filepath.Join("testdata", "pom.xml"),
 			relativePath: "",
 			want:         "",
 		},
