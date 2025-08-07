@@ -4,6 +4,7 @@ OSV-Scanner now supports all OSV-Scalibr features behind experimental flags (`--
 
 ### Features:
 
+- [Feature #2146](https://github.com/google/osv-scanner/pull/2146) Allow manual OSV-Scalibr plugin selection.
 - [Feature #2144](https://github.com/google/osv-scanner/pull/2144) Add OSV-Scalibr version to osv-scanner --version output.
 - [Feature #2021](https://github.com/google/osv-scanner/pull/2021) Add experimental support for running OSV-Scalibr detectors.
 - [Feature #2079](https://github.com/google/osv-scanner/pull/2079) Fall back to offline extractor if the transitive one fails, so at least direct dependencies are returned.
