@@ -11,13 +11,13 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-var fixturesDir = "integration/fixtures-go"
+var testdataDir = "testdata/go-integration"
 
 func Test_runGovulncheck(t *testing.T) {
 	t.Parallel()
-	entries, err := os.ReadDir(fixturesDir)
+	entries, err := os.ReadDir(testdataDir)
 	if err != nil {
-		t.Errorf("failed to read fixtures dir: %v", err)
+		t.Errorf("failed to read testdata dir: %v", err)
 	}
 
 	vulns := []osvschema.Vulnerability{}
@@ -30,7 +30,7 @@ func Test_runGovulncheck(t *testing.T) {
 			continue
 		}
 
-		fn := filepath.Join(fixturesDir, de.Name())
+		fn := filepath.Join(testdataDir, de.Name())
 		file, err := os.Open(fn)
 		if err != nil {
 			t.Errorf("failed to open fixture vuln files: %v", err)
@@ -44,7 +44,7 @@ func Test_runGovulncheck(t *testing.T) {
 		vulns = append(vulns, newVuln)
 	}
 
-	res, err := runGovulncheck(filepath.Join(fixturesDir, "test-project"), vulns, "1.19")
+	res, err := runGovulncheck(filepath.Join(testdataDir, "test-project"), vulns, "1.19")
 	if err != nil {
 		t.Errorf("failed to run RunGoVulnCheck: %v", err)
 	}
