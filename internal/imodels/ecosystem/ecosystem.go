@@ -91,6 +91,53 @@ func (p Parsed) String() string {
 	return str
 }
 
+func (p Parsed) IsValid() bool {
+	// Missing ecosystems here would be caught by the "exhaustive" linter
+	switch p.Ecosystem {
+	case osvschema.EcosystemAlmaLinux,
+		osvschema.EcosystemAlpaquita,
+		osvschema.EcosystemAlpine,
+		osvschema.EcosystemAndroid,
+		osvschema.EcosystemBellSoftHardenedContainers,
+		osvschema.EcosystemBioconductor,
+		osvschema.EcosystemBitnami,
+		osvschema.EcosystemChainguard,
+		osvschema.EcosystemConanCenter,
+		osvschema.EcosystemCRAN,
+		osvschema.EcosystemCratesIO,
+		osvschema.EcosystemDebian,
+		osvschema.EcosystemGHC,
+		osvschema.EcosystemGitHubActions,
+		osvschema.EcosystemGo,
+		osvschema.EcosystemHackage,
+		osvschema.EcosystemHex,
+		osvschema.EcosystemKubernetes,
+		osvschema.EcosystemLinux,
+		osvschema.EcosystemMageia,
+		osvschema.EcosystemMaven,
+		osvschema.EcosystemMinimOS,
+		osvschema.EcosystemNPM,
+		osvschema.EcosystemNuGet,
+		osvschema.EcosystemOpenEuler,
+		osvschema.EcosystemOpenSUSE,
+		osvschema.EcosystemOSSFuzz,
+		osvschema.EcosystemPackagist,
+		osvschema.EcosystemPhotonOS,
+		osvschema.EcosystemPub,
+		osvschema.EcosystemPyPI,
+		osvschema.EcosystemRedHat,
+		osvschema.EcosystemRockyLinux,
+		osvschema.EcosystemRubyGems,
+		osvschema.EcosystemSUSE,
+		osvschema.EcosystemSwiftURL,
+		osvschema.EcosystemUbuntu,
+		osvschema.EcosystemWolfi:
+		return true
+	}
+
+	return false
+}
+
 // MustParse parses a string into a constants.Ecosystem and an optional suffix specified with a ":"
 // Panics if there is an invalid ecosystem
 func MustParse(str string) Parsed {

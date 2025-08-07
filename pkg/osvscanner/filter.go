@@ -12,7 +12,8 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-// filterUnscannablePackages removes packages that don't have enough information to be scanned
+// filterUnscannablePackages removes packages that don't have enough information to be scanned or
+// are not a supported ecosystem
 // e,g, local packages that specified by path
 func filterUnscannablePackages(scanResults *results.ScanResults) {
 	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
@@ -20,11 +21,17 @@ func filterUnscannablePackages(scanResults *results.ScanResults) {
 		p := psr.PackageInfo
 
 		switch {
-		// If none of the cases match, skip this package since it's not scannable
+		// If **none** of the cases match, skip this package since it's not scannable
 		case !p.Ecosystem().IsEmpty() && p.Name() != "" && p.Version() != "":
 		case p.Commit() != "":
-		case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown":
 		default:
+			continue
+		}
+
+		switch {
+		// If **any** of the following cases are true, skip this package
+		case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown",
+			!p.Ecosystem().IsValid() && !p.Ecosystem().IsEmpty():
 			continue
 		}
 
