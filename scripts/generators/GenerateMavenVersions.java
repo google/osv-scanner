@@ -15,7 +15,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
- * Script for generating a list of maven version comparison fixtures based off
+ * Script for generating a list of maven version comparison testdata based off
  * every version mentioned in the OSV Maven database, sorted using the native
  * Maven implementation.
  * <p>
@@ -275,7 +275,7 @@ public class GenerateMavenVersions {
   }
 
   public static void main(String[] args) throws IOException {
-    String outfile = "internal/semantic/fixtures/maven-versions-generated.txt";
+    String outfile = "internal/semantic/testdata/maven-versions-generated.txt";
     Map<String, List<String>> packages = fetchPackageVersions();
 
     writeToFile(outfile, generatePackageCompares(packages));

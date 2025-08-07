@@ -35,9 +35,9 @@ built at: n/a
 ---
 
 [Test_run_SubCommands/scan_with_a_flag - 1]
-Scanning dir ./fixtures/locks-one-with-nested
-Scanned <rootdir>/fixtures/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/fixtures/locks-one-with-nested/yarn.lock file and found 1 package
+Scanning dir ./testdata/locks-one-with-nested
+Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 No issues found
 
 ---
@@ -48,9 +48,9 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 ---
 
 [Test_run_SubCommands/with_no_subcommand - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+Scanning dir ./testdata/locks-many/composer.lock
+Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -60,9 +60,9 @@ No issues found
 ---
 
 [Test_run_SubCommands/with_scan_subcommand - 1]
-Scanning dir ./fixtures/locks-many/composer.lock
-Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+Scanning dir ./testdata/locks-many/composer.lock
+Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
 No issues found
 
 ---

@@ -67,7 +67,7 @@ func TestResolve(t *testing.T) {
 			name:     "simple", // simple root -> dependency -> vuln
 			version:  "1.0.0",
 			system:   resolve.NPM,
-			universe: "./fixtures/basic-universe.yaml",
+			universe: "./testdata/basic-universe.yaml",
 			requirements: []requirement{
 				{
 					name:    "dependency",
@@ -80,7 +80,7 @@ func TestResolve(t *testing.T) {
 			name:     "direct", // vulnerability in direct dependency
 			version:  "1.0.0",
 			system:   resolve.NPM,
-			universe: "./fixtures/basic-universe.yaml",
+			universe: "./testdata/basic-universe.yaml",
 			requirements: []requirement{
 				{
 					name:    "bad",
@@ -92,7 +92,7 @@ func TestResolve(t *testing.T) {
 			name:     "duplicates", // same package with vulns included multiple times
 			version:  "1.1.1",
 			system:   resolve.NPM,
-			universe: "./fixtures/basic-universe.yaml",
+			universe: "./testdata/basic-universe.yaml",
 			requirements: []requirement{
 				{
 					name:    "bad",
@@ -115,7 +115,7 @@ func TestResolve(t *testing.T) {
 			name:     "different-pkgs", // same vuln in two different packages
 			version:  "3.0.0",
 			system:   resolve.NPM,
-			universe: "./fixtures/basic-universe.yaml",
+			universe: "./testdata/basic-universe.yaml",
 			requirements: []requirement{
 				{
 					name:    "bad2",
@@ -131,7 +131,7 @@ func TestResolve(t *testing.T) {
 			name:     "existing", // manifest package/version exists in universe already
 			version:  "1.0.0",
 			system:   resolve.NPM,
-			universe: "./fixtures/basic-universe.yaml",
+			universe: "./testdata/basic-universe.yaml",
 			requirements: []requirement{
 				{
 					name:    "dependency",
@@ -144,7 +144,7 @@ func TestResolve(t *testing.T) {
 			name:     "non-problem", // non-problem chains
 			version:  "1.0.0",
 			system:   resolve.NPM,
-			universe: "./fixtures/basic-universe.yaml",
+			universe: "./testdata/basic-universe.yaml",
 			requirements: []requirement{
 				{
 					name:    "bad",
@@ -160,7 +160,7 @@ func TestResolve(t *testing.T) {
 			name:     "diamond", // diamond dependency on vulnerable pkg
 			version:  "1.0.0",
 			system:   resolve.NPM,
-			universe: "./fixtures/diamond-universe.yaml",
+			universe: "./testdata/diamond-universe.yaml",
 			requirements: []requirement{
 				{
 					name:    "pkg",
@@ -177,7 +177,7 @@ func TestResolve(t *testing.T) {
 			name:     "complex", // more complex graph/vulnerability structure
 			version:  "9.9.9",
 			system:   resolve.NPM,
-			universe: "./fixtures/complex-universe.yaml",
+			universe: "./testdata/complex-universe.yaml",
 			requirements: []requirement{
 				{
 					name:    "alice",

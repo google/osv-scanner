@@ -14,12 +14,12 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	// ensure a git repository doesn't already exist in the fixtures directory,
+	// ensure a git repository doesn't already exist in the testdata directory,
 	// in case we didn't get a chance to clean-up properly in the last run
-	os.RemoveAll("./fixtures/.git")
+	os.RemoveAll("./testdata/.git")
 
-	// Temporarily make the fixtures folder a git repository to prevent gitignore files messing with tests.
-	_, err := git.PlainInit("./fixtures", false)
+	// Temporarily make the testdata folder a git repository to prevent gitignore files messing with tests.
+	_, err := git.PlainInit("./testdata", false)
 	if err != nil {
 		panic(err)
 	}
@@ -28,7 +28,7 @@ func TestMain(m *testing.M) {
 	testcmd.CommandsUnderTest = []cmd.CommandBuilder{source.Command}
 	m.Run()
 
-	os.RemoveAll("./fixtures/.git")
+	os.RemoveAll("./testdata/.git")
 
 	testutility.CleanSnapshots(m)
 }

@@ -27,6 +27,6 @@
       "groupName": "osv-scalibr"
     }
   ],
-  "ignorePaths": ["**/fixtures/**", "**/fixtures-go/**", "**/testdata/**"],
+  "ignorePaths": ["**/testdata/**"],
   "ignoreDeps": ["golang.org/x/vuln"]
 }

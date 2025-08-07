@@ -19,7 +19,7 @@ func TestNpmReadV2(t *testing.T) {
 
 	// This lockfile was generated using a private registry with https://verdaccio.org/
 	// Mock packages were published to it and installed with npm.
-	df, err := depfile.OpenLocalDepFile("./fixtures/npm_v2/package-lock.json")
+	df, err := depfile.OpenLocalDepFile("./testdata/npm_v2/package-lock.json")
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -70,7 +70,7 @@ func TestNpmReadV1(t *testing.T) {
 
 	// This lockfile was generated using a private registry with https://verdaccio.org/
 	// Mock packages were published to it and installed with npm.
-	df, err := depfile.OpenLocalDepFile("./fixtures/npm_v1/package-lock.json")
+	df, err := depfile.OpenLocalDepFile("./testdata/npm_v1/package-lock.json")
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -119,7 +119,7 @@ func TestNpmReadTypeOrder(t *testing.T) {
 	// Empirically, devDependencies > optionalDependencies > dependencies > peerDependencies
 
 	// This lockfile was manually constructed.
-	df, err := depfile.OpenLocalDepFile("./fixtures/npm_type_order/package-lock.json")
+	df, err := depfile.OpenLocalDepFile("./testdata/npm_type_order/package-lock.json")
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -160,12 +160,12 @@ func TestNpmWrite(t *testing.T) {
 
 	// Set up mock npm registry
 	srv := testutility.NewMockHTTPServer(t)
-	srv.SetResponseFromFile(t, "/@fake-registry%2fa/1.2.4", "./fixtures/npm_registry/@fake-registry-a-1.2.4.json")
-	srv.SetResponseFromFile(t, "/@fake-registry%2fa/2.3.5", "./fixtures/npm_registry/@fake-registry-a-2.3.5.json")
+	srv.SetResponseFromFile(t, "/@fake-registry%2fa/1.2.4", "./testdata/npm_registry/@fake-registry-a-1.2.4.json")
+	srv.SetResponseFromFile(t, "/@fake-registry%2fa/2.3.5", "./testdata/npm_registry/@fake-registry-a-2.3.5.json")
 
 	// Copy package-lock.json to temporary directory
 	dir := testutility.CreateTestDir(t)
-	b, err := os.ReadFile("./fixtures/npm_v2/package-lock.json")
+	b, err := os.ReadFile("./testdata/npm_v2/package-lock.json")
 	if err != nil {
 		t.Fatalf("could not read test file: %v", err)
 	}
