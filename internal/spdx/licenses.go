@@ -671,6 +671,7 @@ var IDs = map[string]bool{
 	"w3m":                                  true,
 	"watcom-1.0":                           true,
 	"widget-workshop":                      true,
+	"wordnet":                              true,
 	"wsuipa":                               true,
 	"wtfpl":                                true,
 	"wwl":                                  true,
