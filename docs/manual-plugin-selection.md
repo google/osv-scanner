@@ -5,24 +5,44 @@ parent: Experimental Features
 nav_order: 5
 ---
 
-# Manual OSV-Scalibr plugin selection
+# Manual OSV-Scalibr Plugin Selection
 
 Experimental
 {: .label }
 
-By default, osv-scanner will automatically enable the relevant plugins for each scanning situation
-(see [this page](./supported_languages_and_lockfiles.md) for more details).
-But if the default selection is not suitable, or you require additional plugins from OSV-Scalibr (e.g. detectors),
-you can manually enable/disable them with the following flag:
+{: .no_toc }
 
-```bash
-osv-scanner scan source --experimental-plugins name1,name2,name3
-```
+<details open markdown="block">
+  <summary>
+    Table of contents
+  </summary>
+  {: .text-delta }
+- TOC
+{:toc}
+</details>
 
-For the full list of available plugin names, please see OSV-Scalib's `list.go`.
+By default, OSV-Scanner automatically enables the relevant plugins for each scanning situation (see [this page](./supported_languages_and_lockfiles.md) for more details). However, if the default selection is not suitable, or you require additional plugins from OSV-Scalibr (e.g., detectors), you can manually enable or disable them.
+
+## Enabling and Disabling Plugins
+
+You can control which plugins to run using the following flags:
+
+- `--experimental-plugins`: Enables a comma-separated list of specific plugins.
+- `--experimental-disable-plugins`: Disables a comma-separated list of specific plugins.
+
+For a full list of available plugin names, see OSV-Scalibr's `list.go` files:
+
+- [`enricher/enricherlist/list.go`](https://github.com/google/osv-scalibr/blob/main/enricher/enricherlist/list.go)
+- [`annotator/list/list.go`](https://github.com/google/osv-scalibr/blob/main/annotator/list/list.go)
+- [`detector/list/list.go`](https://github.com/google/osv-scalibr/blob/main/detector/list/list.go)
+- [`extractor/standalone/list/list.go`](https://github.com/google/osv-scalibr/blob/main/extractor/standalone/list/list.go)
+- [`extractor/filesystem/list/list.go`](https://github.com/google/osv-scalibr/blob/main/extractor/filesystem/list/list.go)
 
 ### Presets
-You can also enable various presets, which will enable a list of plugins together:
+
+You can also enable or disable various presets, which group multiple plugins together.
+
+**Example:**
 
 ```bash
 # This will enable all sbom plugins + cargolock extractor + requirements extractor
@@ -32,34 +52,32 @@ osv-scanner scan source --experimental-plugins sbom,rust/cargolock,python/requir
 osv-scanner scan source --experimental-plugins lockfile --experimental-disable-plugins rust/cargolock,python/requirements
 ```
 
-List of available presets:
+**Available Presets:**
 
-```
-# General presets
-- sbom
-- lockfile   (default for lockfile scanning)
-- directory  (default
-- artifact   (default for image scanning
-```
+| Preset      | Description                               |
+| :---------- | :---------------------------------------- |
+| `sbom`      | Default for directory scanning.           |
+| `lockfile`  | Default for lockfile scanning.            |
+| `directory` | Default for directory scanning.           |
+| `artifact`  | Default for image scanning.               |
 
 ### Detectors
 
-OSV-Scalibr provides detectors which we experimentally support.
-Currently detector findings are only available in the JSON output under `experimental_generic_findings`.
+OSV-Scalibr provides detectors that can identify potential security issues beyond known vulnerabilities. We experimentally support these detectors. Currently, detector findings are only available in the JSON output under `experimental_generic_findings`.
 
-Available detector presets:
-```
-- untested
-- weakcreds
-- govulncheck
-- cis
-```
+**Available Detector Presets:**
+
+| Preset        | Description                                       |
+| :------------ | :------------------------------------------------ |
+| `untested`    | Finds dependencies that are not tested.           |
+| `weakcreds`   | Detects weak credentials.                         |
+| `govulncheck` | Checks for vulnerabilities in Go binaries.        |
+| `cis`         | Checks for compliance with CIS benchmarks.        |
 
 <details markdown="block">
 <summary>
 Example detector run
 </summary>
-
 
 ```bash
 osv-scanner scan image <img> --experimental-plugins=os/apk,weakcredentials/etcshadow --format=json
