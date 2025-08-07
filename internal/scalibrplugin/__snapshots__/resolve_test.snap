@@ -1,5 +1,29 @@
 
-[TestResolveEnabledExtractors_Presets/artifact - 1]
+[TestResolve_Detectors_Presets/cis - 1]
+cis/generic-linux/etcpasswdpermissions
+---
+
+[TestResolve_Detectors_Presets/govulncheck - 1]
+govulncheck/binary
+---
+
+[TestResolve_Detectors_Presets/untested - 1]
+cve/cve-2020-11978
+cve/cve-2020-16846
+cve/cve-2022-33891
+cve/cve-2023-38408
+cve/cve-2023-6019
+cve/cve-2024-2912
+---
+
+[TestResolve_Detectors_Presets/weakcreds - 1]
+weakcredentials/codeserver
+weakcredentials/etcshadow
+weakcredentials/filebrowser
+weakcredentials/winlocal
+---
+
+[TestResolve_Extractors_Presets/artifact - 1]
 chrome/extensions
 containers/containerd
 containers/dockerbaseimage
@@ -29,12 +53,12 @@ vscode/extensions
 wordpress/plugins
 ---
 
-[TestResolveEnabledExtractors_Presets/directory - 1]
+[TestResolve_Extractors_Presets/directory - 1]
 filesystem/vendored
 vcs/gitrepo
 ---
 
-[TestResolveEnabledExtractors_Presets/lockfile - 1]
+[TestResolve_Extractors_Presets/lockfile - 1]
 cpp/conanlock
 dart/pubspec
 dotnet/depsjson
@@ -69,7 +93,7 @@ swift/packageresolved
 swift/podfilelock
 ---
 
-[TestResolveEnabledExtractors_Presets/sbom - 1]
+[TestResolve_Extractors_Presets/sbom - 1]
 sbom/cdx
 sbom/spdx
 ---

@@ -303,17 +303,17 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "empty_extractors_flag_does_nothing",
-			Args: []string{"", "source", "--experimental-extractors="},
+			Name: "empty_plugins_flag_does_nothing",
+			Args: []string{"", "source", "--experimental-plugins="},
 			Exit: 127,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_individually",
 			Args: []string{
 				"", "source",
-				"--experimental-extractors=sbom/spdx",
-				"--experimental-extractors=sbom/cdx",
-				"--experimental-disable-extractors=sbom",
+				"--experimental-plugins=sbom/spdx",
+				"--experimental-plugins=sbom/cdx",
+				"--experimental-disable-plugins=sbom",
 			},
 			Exit: 127,
 		},
@@ -321,8 +321,8 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "extractors_cancelled_out_specified_together",
 			Args: []string{
 				"", "source",
-				"--experimental-extractors=sbom/spdx,sbom/cdx",
-				"--experimental-disable-extractors=sbom",
+				"--experimental-plugins=sbom/spdx,sbom/cdx",
+				"--experimental-disable-plugins=sbom",
 			},
 			Exit: 127,
 		},
@@ -330,8 +330,8 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "extractors_cancelled_out_with_presets",
 			Args: []string{
 				"", "source",
-				"--experimental-extractors=sbom",
-				"--experimental-disable-extractors=sbom",
+				"--experimental-plugins=sbom",
+				"--experimental-disable-plugins=sbom",
 			},
 			Exit: 127,
 		},
@@ -341,7 +341,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "scanning_directory_with_one_specific_extractor_enabled",
 			Args: []string{
 				"", "source",
-				"--experimental-extractors=javascript/packagelockjson",
+				"--experimental-plugins=javascript/packagelockjson",
 				"./fixtures/locks-many",
 			},
 			Exit: 0,
@@ -350,9 +350,9 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "scanning_directory_with_an_extractor_that_does_not_exist",
 			Args: []string{
 				"", "source",
-				"--experimental-extractors=javascript/packagelockjson",
-				"--experimental-extractors=custom/extractor",
-				"--experimental-disable-extractors=custom/anotherextractor",
+				"--experimental-plugins=javascript/packagelockjson",
+				"--experimental-plugins=custom/extractor",
+				"--experimental-disable-plugins=custom/anotherextractor",
 				"./fixtures/locks-many",
 			},
 			Exit: 127,
@@ -363,8 +363,8 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_individually",
 			Args: []string{
 				"", "source",
-				"--experimental-extractors=javascript/packagelockjson",
-				"--experimental-extractors=php/composerlock",
+				"--experimental-plugins=javascript/packagelockjson",
+				"--experimental-plugins=php/composerlock",
 				"./fixtures/locks-many",
 			},
 			Exit: 0,
@@ -375,7 +375,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together",
 			Args: []string{
 				"", "source",
-				"--experimental-extractors=javascript/packagelockjson,php/composerlock",
+				"--experimental-plugins=javascript/packagelockjson,php/composerlock",
 				"./fixtures/locks-many",
 			},
 			Exit: 0,
@@ -386,7 +386,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "scanning_directory_with_one_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-disable-extractors=javascript/packagelockjson",
+				"--experimental-disable-plugins=javascript/packagelockjson",
 				"./fixtures/locks-many",
 			},
 			Exit: 0,
@@ -397,7 +397,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "scanning_file_with_one_specific_extractor_enabled",
 			Args: []string{
 				"", "source",
-				"--experimental-extractors=javascript/packagelockjson",
+				"--experimental-plugins=javascript/packagelockjson",
 				"./fixtures/locks-many/package-lock.json",
 			},
 			Exit: 0,
@@ -408,7 +408,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "scanning_file_with_one_different_extractor_enabled",
 			Args: []string{
 				"", "source",
-				"--experimental-extractors=javascript/packagelockjson",
+				"--experimental-plugins=javascript/packagelockjson",
 				"./fixtures/locks-many/composer.lock",
 			},
 			Exit: 128,
@@ -420,7 +420,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "scanning_file_with_parse_as_but_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-disable-extractors=javascript/packagelockjson",
+				"--experimental-disable-plugins=javascript/packagelockjson",
 				"-L", "package-lock.json:./fixtures/locks-many/composer.lock",
 			},
 			Exit: 127,
@@ -1050,7 +1050,8 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 			Name: "ssh_version_is_before_first_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-detectors", "cve/cve-2023-38408",
+				"--experimental-plugins", "php/composerlock",
+				"--experimental-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1060,7 +1061,8 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 			Name: "ssh_version_is_after_last_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-detectors", "cve/cve-2023-38408",
+				"--experimental-plugins", "php/composerlock",
+				"--experimental-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1070,7 +1072,8 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 			Name: "ssh_version_errors",
 			Args: []string{
 				"", "source",
-				"--experimental-detectors", "cve/cve-2023-38408",
+				"--experimental-plugins", "php/composerlock",
+				"--experimental-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1119,7 +1122,8 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 			Name: "ssh_version_is_before_first_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-detectors", "cve/cve-2023-38408",
+				"--experimental-plugins", "php/composerlock",
+				"--experimental-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1129,7 +1133,8 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 			Name: "ssh_version_is_after_last_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-detectors", "cve/cve-2023-38408",
+				"--experimental-plugins", "php/composerlock",
+				"--experimental-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1139,7 +1144,8 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 			Name: "ssh_version_errors",
 			Args: []string{
 				"", "source",
-				"--experimental-detectors", "cve/cve-2023-38408",
+				"--experimental-plugins", "php/composerlock",
+				"--experimental-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
