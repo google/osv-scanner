@@ -149,7 +149,7 @@ osv-scanner scan image <img> --experimental-plugins=os/apk,weakcredentials/etcsh
       },
       {
         "diff_id": "",
-        "command": "/bin/sh -c #(nop)  CMD [/"/bin/sh/"]",
+        "command": "/bin/sh -c #(nop)  CMD [\"/bin/sh\"]",
         "is_empty": true,
         "base_image_index": 1
       },
