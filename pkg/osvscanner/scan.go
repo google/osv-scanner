@@ -11,14 +11,12 @@ import (
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/extractor"
-	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
-	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
@@ -32,16 +30,16 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAccessors, actions ScannerActions) {
-	for _, tor := range extractors {
+func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
+	for _, plug := range plugins {
 		if accessors.DependencyClients[osvschema.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
-			pomxmlenhanceable.EnhanceIfPossible(tor, pomxmlnet.Config{
+			pomxmlenhanceable.EnhanceIfPossible(plug, pomxmlnet.Config{
 				DependencyClient:       accessors.DependencyClients[osvschema.EcosystemMaven],
 				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
 			})
 		}
 		if accessors.DependencyClients[osvschema.EcosystemPyPI] != nil {
-			requirementsenhancable.EnhanceIfPossible(tor, requirementsnet.Config{
+			requirementsenhancable.EnhanceIfPossible(plug, requirementsnet.Config{
 				Extractor: &requirements.Extractor{},
 				Client:    accessors.DependencyClients[osvschema.EcosystemPyPI],
 			})
@@ -49,12 +47,12 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 
 		// todo: the "disabled" aspect should probably be worked into the extractor being present in the first place
 		//  since "IncludeRootGit" is always true
-		gitrepo.Configure(tor, gitrepo.Config{
+		gitrepo.Configure(plug, gitrepo.Config{
 			IncludeRootGit: actions.IncludeGitRoot,
 			Disabled:       !actions.IncludeGitRoot,
 		})
 
-		vendored.Configure(tor, vendored.Config{
+		vendored.Configure(plug, vendored.Config{
 			// Only attempt to vendor check git directories if we are not skipping scanning root git directories
 			ScanGitDir: !actions.IncludeGitRoot,
 			OSVClient:  accessors.OSVDevClient,
@@ -63,27 +61,28 @@ func configureExtractors(extractors []filesystem.Extractor, accessors ExternalAc
 	}
 }
 
-func getExtractors(defaultExtractorNames []string, accessors ExternalAccessors, actions ScannerActions) []filesystem.Extractor {
-	if len(actions.ExtractorsEnabled) == 0 {
-		actions.ExtractorsEnabled = defaultExtractorNames
+func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
+	if len(actions.PluginsEnabled) == 0 {
+		actions.PluginsEnabled = defaultPlugins
 	}
 
-	extractors := scalibrplugin.ResolveEnabledExtractors(actions.ExtractorsEnabled, actions.ExtractorsDisabled)
+	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled)
 
-	configureExtractors(extractors, accessors, actions)
+	configurePlugins(plugins, accessors, actions)
 
-	return extractors
+	return plugins
 }
 
-func omitDirExtractors(extractors []filesystem.Extractor) []filesystem.Extractor {
-	filtered := make([]filesystem.Extractor, 0, len(extractors))
+// omitDirExtractors removes any plugins that require extracting from a directory
+func omitDirExtractors(plugins []plugin.Plugin) []plugin.Plugin {
+	filtered := make([]plugin.Plugin, 0, len(plugins))
 
-	for _, ext := range extractors {
-		if ext.Requirements().ExtractFromDirs {
+	for _, plug := range plugins {
+		if plug.Requirements().ExtractFromDirs {
 			continue
 		}
 
-		filtered = append(filtered, ext)
+		filtered = append(filtered, plug)
 	}
 
 	return filtered
@@ -95,21 +94,21 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	var scannedInventories []*extractor.Package
 	var genericFindings []*inventory.GenericFinding
 
-	extractors := getExtractors(
+	plugins := getPlugins(
 		[]string{"lockfile", "sbom", "directory"},
 		accessors,
 		actions,
 	)
 
-	if len(extractors) == 0 {
+	if len(plugins) == 0 {
 		return nil, errors.New("at least one extractor must be enabled")
 	}
 
 	// --- Lockfiles ---
-	lockfileExtractors := omitDirExtractors(extractors)
+	lockfilePlugins := omitDirExtractors(plugins)
 
 	for _, lockfileElem := range actions.LockfilePaths {
-		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfileExtractors)
+		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfilePlugins)
 		if err != nil {
 			return nil, err
 		}
@@ -119,7 +118,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	// --- SBOMs ---
 	// none of the SBOM extractors need configuring
-	sbomExtractors := builders.BuildExtractors([]string{"sbom"})
+	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{})
 	for _, sbomPath := range actions.SBOMPaths {
 		path, err := filepath.Abs(sbomPath)
 		if err != nil {
@@ -167,8 +166,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
 
-	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
-
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
@@ -182,19 +179,8 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		plugins := make([]plugin.Plugin, len(extractors)+len(detectors))
-		for i, ext := range extractors {
-			plugins[i] = ext.(plugin.Plugin)
-		}
-
-		for i, det := range detectors {
-			plugins[i+len(extractors)] = det.(plugin.Plugin)
-		}
-
-		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
-
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
-			Plugins:               plugins,
+			Plugins:               plugin.FilterByCapabilities(plugins, &capabilities),
 			Capabilities:          &capabilities,
 			ScanRoots:             fs.RealFSScanRoots(root),
 			PathsToExtract:        paths,

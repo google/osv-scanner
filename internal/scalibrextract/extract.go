@@ -14,6 +14,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
+	"github.com/google/osv-scalibr/plugin"
 
 	scalibrfs "github.com/google/osv-scalibr/fs"
 )
@@ -55,7 +56,7 @@ func ExtractWithExtractor(ctx context.Context, localPath string, ext filesystem.
 //   - error: any errors encountered during extraction
 //
 // If no extractors are found, then ErrExtractorNotFound is returned.
-func ExtractWithExtractors(ctx context.Context, localPath string, extractors []filesystem.Extractor) ([]*extractor.Package, error) {
+func ExtractWithExtractors(ctx context.Context, localPath string, plugins []plugin.Plugin) ([]*extractor.Package, error) {
 	info, err := os.Stat(localPath)
 	if err != nil {
 		return nil, err
@@ -63,8 +64,10 @@ func ExtractWithExtractors(ctx context.Context, localPath string, extractors []f
 
 	result := []*extractor.Package{}
 	extractorFound := false
-	for _, ext := range extractors {
-		if !ext.FileRequired(simplefileapi.New(localPath, info)) {
+	for _, plug := range plugins {
+		ext, ok := plug.(filesystem.Extractor)
+
+		if !ok || !ext.FileRequired(simplefileapi.New(localPath, info)) {
 			continue
 		}
 		extractorFound = true

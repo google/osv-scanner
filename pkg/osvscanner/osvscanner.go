@@ -31,7 +31,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
-	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
@@ -71,11 +70,8 @@ type ScannerActions struct {
 type ExperimentalScannerActions struct {
 	TransitiveScanningActions
 
-	ExtractorsEnabled  []string
-	ExtractorsDisabled []string
-
-	DetectorsEnabled  []string
-	DetectorsDisabled []string
+	PluginsEnabled  []string
+	PluginsDisabled []string
 }
 
 type TransitiveScanningActions struct {
@@ -300,13 +296,13 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
-	filesystemExtractors := getExtractors(
+	plugins := getPlugins(
 		[]string{"artifact"},
 		accessors,
 		actions,
 	)
 
-	if len(filesystemExtractors) == 0 {
+	if len(plugins) == 0 {
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
 
@@ -336,17 +332,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 			cmdlogger.Errorf("Failed to clean up image: %s", err)
 		}
 	}()
-
-	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
-
-	plugins := make([]plugin.Plugin, len(filesystemExtractors)+len(detectors))
-	for i, ext := range filesystemExtractors {
-		plugins[i] = ext.(plugin.Plugin)
-	}
-
-	for i, det := range detectors {
-		plugins[i+len(filesystemExtractors)] = det.(plugin.Plugin)
-	}
 
 	capabilities := &plugin.Capabilities{
 		DirectFS:      true,

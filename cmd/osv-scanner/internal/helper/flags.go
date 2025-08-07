@@ -168,21 +168,13 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Value: &allowedLicencesFlag{},
 		},
 		&cli.StringSliceFlag{
-			Name:  "experimental-extractors",
-			Usage: "list of specific extractors and presets of extractors to use",
+			Name:  "experimental-plugins",
+			Usage: "list of specific plugins and presets of plugins to use",
 			Value: defaultExtractors,
 		},
 		&cli.StringSliceFlag{
-			Name:  "experimental-disable-extractors",
-			Usage: "list of specific extractors and presets of extractors to not use",
-		},
-		&cli.StringSliceFlag{
-			Name:  "experimental-detectors",
-			Usage: "list of specific detectors and presets of detectors to use",
-		},
-		&cli.StringSliceFlag{
-			Name:  "experimental-disable-detectors",
-			Usage: "list of specific detectors and presets of detectors to not use",
+			Name:  "experimental-disable-plugins",
+			Usage: "list of specific plugins and presets of plugins to not use",
 		},
 	}
 }

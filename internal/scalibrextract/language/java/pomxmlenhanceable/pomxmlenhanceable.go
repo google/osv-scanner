@@ -85,9 +85,9 @@ func (e *Extractor) Enhance(config pomxmlnet.Config) {
 var _ enhanceable = &Extractor{}
 
 // EnhanceIfPossible calls Extractor.Enhance with the given config if the
-// provided extractor is an Extractor
-func EnhanceIfPossible(extractor filesystem.Extractor, config pomxmlnet.Config) {
-	us, ok := extractor.(enhanceable)
+// provided plug(in) is an Extractor
+func EnhanceIfPossible(plug plugin.Plugin, config pomxmlnet.Config) {
+	us, ok := plug.(enhanceable)
 
 	if ok {
 		us.Enhance(config)
