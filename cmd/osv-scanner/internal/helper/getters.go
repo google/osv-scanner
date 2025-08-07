@@ -32,6 +32,8 @@ func GetScanLicensesAllowlist(cmd *cli.Command) ([]string, error) {
 }
 
 func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) osvscanner.ScannerActions {
+	callAnalysisStates := CreateCallAnalysisStates(cmd.StringSlice("call-analysis"), cmd.StringSlice("no-call-analysis"))
+
 	return osvscanner.ScannerActions{
 		IncludeGitRoot:     cmd.Bool("include-git-root"),
 		ConfigOverridePath: cmd.String("config"),
@@ -43,6 +45,7 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 		LocalDBPath:           cmd.String("local-db-path"),
 		ScanLicensesSummary:   cmd.IsSet("licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,
+		CallAnalysisStates:    callAnalysisStates,
 	}
 }
 

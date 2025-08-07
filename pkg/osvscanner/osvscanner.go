@@ -18,6 +18,7 @@ import (
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
+	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
@@ -339,13 +340,13 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
 
-	plugins := make([]plugin.Plugin, len(filesystemExtractors)+len(detectors))
-	for i, ext := range filesystemExtractors {
-		plugins[i] = ext.(plugin.Plugin)
+	plugins := make([]plugin.Plugin, 0, len(filesystemExtractors)+len(detectors))
+	for _, ext := range filesystemExtractors {
+		plugins = append(plugins, ext.(plugin.Plugin))
 	}
 
-	for i, det := range detectors {
-		plugins[i+len(filesystemExtractors)] = det.(plugin.Plugin)
+	for _, det := range detectors {
+		plugins = append(plugins, det.(plugin.Plugin))
 	}
 
 	capabilities := &plugin.Capabilities{
@@ -353,6 +354,11 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		RunningSystem: false,
 		OS:            plugin.OSLinux,
 	}
+
+	if actions.CallAnalysisStates["jar"] {
+		plugins = append(plugins, java.NewDefault())
+	}
+
 	plugins = plugin.FilterByCapabilities(plugins, capabilities)
 
 	// --- Do Scalibr Scan ---
@@ -375,6 +381,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	for i, inv := range scalibrSR.Inventory.Packages {
 		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
 		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
+		scanResult.PackageScanResults[i].PackageInfo.ExploitabilitySignals = inv.ExploitabilitySignals
 	}
 
 	// --- Fill Image Metadata ---

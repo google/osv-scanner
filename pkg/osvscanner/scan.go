@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
+	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
@@ -182,13 +183,17 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		plugins := make([]plugin.Plugin, len(extractors)+len(detectors))
-		for i, ext := range extractors {
-			plugins[i] = ext.(plugin.Plugin)
+		plugins := make([]plugin.Plugin, 0, len(extractors)+len(detectors))
+		for _, ext := range extractors {
+			plugins = append(plugins, ext.(plugin.Plugin))
 		}
 
-		for i, det := range detectors {
-			plugins[i+len(extractors)] = det.(plugin.Plugin)
+		for _, det := range detectors {
+			plugins = append(plugins, det.(plugin.Plugin))
+		}
+
+		if actions.CallAnalysisStates["jar"] {
+			plugins = append(plugins, java.NewDefault())
 		}
 
 		plugins = plugin.FilterByCapabilities(plugins, &capabilities)
