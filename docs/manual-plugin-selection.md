@@ -54,12 +54,12 @@ osv-scanner scan source --experimental-plugins lockfile --experimental-disable-p
 
 **Available Presets:**
 
-| Preset      | Description                               |
-| :---------- | :---------------------------------------- |
-| `sbom`      | Default for directory scanning.           |
-| `lockfile`  | Default for lockfile scanning.            |
-| `directory` | Default for directory scanning.           |
-| `artifact`  | Default for image scanning.               |
+| Preset      | Description                     |
+| :---------- | :------------------------------ |
+| `sbom`      | Default for directory scanning. |
+| `lockfile`  | Default for lockfile scanning.  |
+| `directory` | Default for directory scanning. |
+| `artifact`  | Default for image scanning.     |
 
 ### Detectors
 
@@ -67,12 +67,12 @@ OSV-Scalibr provides detectors that can identify potential security issues beyon
 
 **Available Detector Presets:**
 
-| Preset        | Description                                       |
-| :------------ | :------------------------------------------------ |
-| `untested`    | Finds dependencies that are not tested.           |
-| `weakcreds`   | Detects weak credentials.                         |
-| `govulncheck` | Checks for vulnerabilities in Go binaries.        |
-| `cis`         | Checks for compliance with CIS benchmarks.        |
+| Preset        | Description                                |
+| :------------ | :----------------------------------------- |
+| `untested`    | Finds dependencies that are not tested.    |
+| `weakcreds`   | Detects weak credentials.                  |
+| `govulncheck` | Checks for vulnerabilities in Go binaries. |
+| `cis`         | Checks for compliance with CIS benchmarks. |
 
 <details markdown="block">
 <summary>
@@ -103,9 +103,7 @@ osv-scanner scan image <img> --experimental-plugins=os/apk,weakcredentials/etcsh
               "index": 0
             }
           },
-          "vulnerabilities": [
-            "CVE-2021-36159"
-          ],
+          "vulnerabilities": ["CVE-2021-36159"],
           "groups": 1
         }
       ]
@@ -132,9 +130,7 @@ osv-scanner scan image <img> --experimental-plugins=os/apk,weakcredentials/etcsh
       "Target": {
         "Extra": "/etc/shadow: The following users have weak passwords:/nuser-bcrypt/n"
       },
-      "Plugins": [
-        "weakcredentials/etcshadow"
-      ],
+      "Plugins": ["weakcredentials/etcshadow"],
       "ExploitabilitySignals": null
     }
   ],
@@ -178,4 +174,3 @@ osv-scanner scan image <img> --experimental-plugins=os/apk,weakcredentials/etcsh
 ```
 
 </details>
-
