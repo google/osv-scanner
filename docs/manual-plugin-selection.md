@@ -1,8 +1,8 @@
 ---
 layout: page
-permalink: /experimental/osv-reporter/
+permalink: /experimental/manual-plugin-selection/
 parent: Experimental Features
-nav_order: 4
+nav_order: 5
 ---
 
 # Manual OSV-Scalibr plugin selection
