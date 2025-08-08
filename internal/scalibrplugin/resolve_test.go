@@ -12,10 +12,6 @@ import (
 	"github.com/google/osv-scalibr/detector/weakcredentials/etcshadow"
 	"github.com/google/osv-scalibr/detector/weakcredentials/filebrowser"
 	"github.com/google/osv-scalibr/detector/weakcredentials/winlocal"
-	"github.com/google/osv-scalibr/extractor/filesystem/containers/containerd"
-	"github.com/google/osv-scalibr/extractor/filesystem/containers/dockerbaseimage"
-	"github.com/google/osv-scalibr/extractor/filesystem/containers/podman"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/dotnetpe"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
@@ -23,21 +19,8 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
 	chromeextensions "github.com/google/osv-scalibr/extractor/filesystem/misc/chrome/extensions"
-	"github.com/google/osv-scalibr/extractor/filesystem/misc/vscodeextensions"
-	wordpressplugins "github.com/google/osv-scalibr/extractor/filesystem/misc/wordpress/plugins"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/cos"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/flatpak"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/kernel/module"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/kernel/vmlinuz"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/macapps"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/nix"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/pacman"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/portage"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/snap"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -221,7 +204,6 @@ func TestResolve_Detectors(t *testing.T) {
 			},
 			want: []string{},
 		},
-		//
 		{
 			name: "one_detector_enabled_and_nothing_disabled",
 			args: args{
@@ -412,30 +394,10 @@ func TestResolve_Extractors(t *testing.T) {
 				apk.Name,
 				archive.Name,
 				cargoauditable.Name,
-				cdx.Name,
-				chromeextensions.Name,
-				containerd.Name,
-				cos.Name,
-				dockerbaseimage.Name,
-				dotnetpe.Name,
 				dpkg.Name,
-				flatpak.Name,
 				gobinary.Name,
-				homebrew.Name,
-				macapps.Name,
-				module.Name,
-				nix.Name,
 				nodemodules.Name,
-				pacman.Name,
-				podman.Name,
-				portage.Name,
-				rpm.Name,
-				snap.Name,
-				spdx.Name,
-				vmlinuz.Name,
-				vscodeextensions.Name,
 				wheelegg.Name,
-				wordpressplugins.Name,
 			},
 		},
 		{
@@ -448,30 +410,10 @@ func TestResolve_Extractors(t *testing.T) {
 				apk.Name,
 				archive.Name,
 				cargoauditable.Name,
-				cdx.Name,
-				chromeextensions.Name,
-				containerd.Name,
-				cos.Name,
-				dockerbaseimage.Name,
-				dotnetpe.Name,
 				dpkg.Name,
-				flatpak.Name,
 				gobinary.Name,
-				homebrew.Name,
-				macapps.Name,
-				module.Name,
-				nix.Name,
 				nodemodules.Name,
-				pacman.Name,
-				podman.Name,
-				portage.Name,
-				rpm.Name,
-				snap.Name,
-				spdx.Name,
-				vmlinuz.Name,
-				vscodeextensions.Name,
 				wheelegg.Name,
-				wordpressplugins.Name,
 			},
 		},
 		{
@@ -490,29 +432,9 @@ func TestResolve_Extractors(t *testing.T) {
 			},
 			want: []string{
 				apk.Name,
-				cdx.Name,
-				chromeextensions.Name,
-				containerd.Name,
-				cos.Name,
-				dockerbaseimage.Name,
-				dotnetpe.Name,
 				dpkg.Name,
-				flatpak.Name,
 				gobinary.Name,
-				homebrew.Name,
-				macapps.Name,
-				module.Name,
-				nix.Name,
 				nodemodules.Name,
-				pacman.Name,
-				podman.Name,
-				portage.Name,
-				rpm.Name,
-				snap.Name,
-				spdx.Name,
-				vmlinuz.Name,
-				vscodeextensions.Name,
-				wordpressplugins.Name,
 			},
 		},
 		//
@@ -526,32 +448,12 @@ func TestResolve_Extractors(t *testing.T) {
 				apk.Name,
 				archive.Name,
 				cargoauditable.Name,
-				cdx.Name,
-				chromeextensions.Name,
-				containerd.Name,
-				cos.Name,
-				dockerbaseimage.Name,
-				dotnetpe.Name,
 				dpkg.Name,
-				flatpak.Name,
 				gitrepo.Name,
 				gobinary.Name,
-				homebrew.Name,
-				macapps.Name,
-				module.Name,
-				nix.Name,
 				nodemodules.Name,
-				pacman.Name,
-				podman.Name,
-				portage.Name,
-				rpm.Name,
-				snap.Name,
-				spdx.Name,
 				vendored.Name,
-				vmlinuz.Name,
-				vscodeextensions.Name,
 				wheelegg.Name,
-				wordpressplugins.Name,
 			},
 		},
 		//
