@@ -3415,6 +3415,24 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 
 ---
 
+[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 1]
+
+---
+
+[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 2]
+could not determine extractor suitable to this file
+
+---
+
+[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 1]
+
+---
+
+[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 2]
+could not determine extractor suitable to this file
+
+---
+
 [TestCommand_MoreLockfiles/cabal.project.freeze - 1]
 Scanned <rootdir>/fixtures/locks-scalibr/cabal.project.freeze file and found 6 packages
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.

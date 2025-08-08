@@ -10,6 +10,8 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargotoml"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/swift/packageresolved"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/swift/podfilelock"
 	extractors "github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/secrets"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -33,6 +35,9 @@ var ExtractorPresets = map[string]extractors.InitMap{
 			pomxml.Name, pomxmlnet.Name,
 			requirements.Name, requirementsnet.Name,
 			secrets.Name, cargotoml.Name,
+			// We don't support Cocoapods ecosystem
+			podfilelock.Name,
+			packageresolved.Name,
 		}),
 		extractors.InitMap{
 			pomxmlenhanceable.Name:      {pomxmlenhanceable.New},

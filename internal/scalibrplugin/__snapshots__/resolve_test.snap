@@ -89,8 +89,6 @@ r/renvlock
 ruby/gemfilelock
 ruby/gemspec
 rust/cargolock
-swift/packageresolved
-swift/podfilelock
 ---
 
 [TestResolve_Extractors_Presets/sbom - 1]

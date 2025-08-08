@@ -960,13 +960,16 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Args: []string{"", "source", "-L", "./fixtures/locks-scalibr/gems.locked"},
 			Exit: 1,
 		},
-		/*
-			{
-				name: "Package.resolved",
-				args: []string{"", "source", "-L", "./fixtures/locks-scalibr/Package.resolved"},
-				exit: 0,
-			},
-		*/
+		{
+			Name: "Podfile.lock - Unsupported ecosystem, should not be scanned",
+			Args: []string{"", "source", "-L", "./fixtures/locks-scalibr/Podfile.lock"},
+			Exit: 127,
+		},
+		{
+			Name: "Package.resolved - Unsupported ecosystem, should not be scanned",
+			Args: []string{"", "source", "-L", "./fixtures/locks-scalibr/Package.resolved"},
+			Exit: 127,
+		},
 	}
 
 	for _, tt := range tests {
