@@ -1,8 +1,8 @@
 # v2.2.1
 
 ### Fixes
+
 - [Bug #2151](https://github.com/google/osv-scanner/issues/2151) Filter by ecosystem before querying.
-- [Bug #2158](https://github.com/google/osv-scanner/pull/2158) Don't overwrite custom default configurations.
 
 # v2.2.0
 
