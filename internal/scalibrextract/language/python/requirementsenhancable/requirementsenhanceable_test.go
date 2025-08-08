@@ -16,6 +16,7 @@ import (
 )
 
 func TestExtract(t *testing.T) {
+	t.Parallel()
 	tests := []extracttest.TestTableEntry{
 		{
 			Name: "basic",
