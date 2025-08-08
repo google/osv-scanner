@@ -66,6 +66,7 @@ func TestExtract(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 			resolutionClient := clienttest.NewMockResolutionClient(t, "testdata/basic-universe.yaml")
 			extr := New()
 			EnhanceIfPossible(extr, requirementsnet.Config{
