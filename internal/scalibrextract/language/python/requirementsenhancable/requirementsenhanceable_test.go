@@ -21,44 +21,44 @@ func TestExtract(t *testing.T) {
 		{
 			Name: "basic",
 			InputConfig: extracttest.ScanInputMockConfig{
-				Path: "testdata/requirements.txt",
+				Path: "requirements.txt",
 			},
 			WantPackages: []*extractor.Package{
 				{
 					Name:      "alice",
 					Version:   "1.0.0",
 					PURLType:  purl.TypePyPi,
-					Locations: []string{"testdata/requirements.txt"},
+					Locations: []string{"requirements.txt"},
 				},
 				{
 					Name:      "bob",
 					Version:   "2.0.0",
 					PURLType:  purl.TypePyPi,
-					Locations: []string{"testdata/requirements.txt"},
+					Locations: []string{"requirements.txt"},
 				},
 				{
 					Name:      "chuck",
 					Version:   "2.0.0",
 					PURLType:  purl.TypePyPi,
-					Locations: []string{"testdata/requirements.txt"},
+					Locations: []string{"requirements.txt"},
 				},
 				{
 					Name:      "dave",
 					Version:   "2.0.0",
 					PURLType:  purl.TypePyPi,
-					Locations: []string{"testdata/requirements.txt"},
+					Locations: []string{"requirements.txt"},
 				},
 				{
 					Name:      "eve",
 					Version:   "1.5.0",
 					PURLType:  purl.TypePyPi,
-					Locations: []string{"testdata/requirements.txt"},
+					Locations: []string{"requirements.txt"},
 				},
 				{
 					Name:      "frank",
 					Version:   "2.0.0",
 					PURLType:  purl.TypePyPi,
-					Locations: []string{"testdata/requirements.txt"},
+					Locations: []string{"requirements.txt"},
 				},
 			},
 		},
