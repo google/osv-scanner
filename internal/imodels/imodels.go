@@ -8,11 +8,8 @@ import (
 	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/extractor"
 	archivemetadata "github.com/google/osv-scalibr/extractor/filesystem/language/java/archive/metadata"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	dpkgmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
-	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
@@ -32,12 +29,6 @@ import (
 
 var gitExtractors = map[string]struct{}{
 	gitrepo.Name: {},
-}
-
-var osExtractors = map[string]struct{}{
-	dpkg.Name: {},
-	apk.Name:  {},
-	rpm.Name:  {},
 }
 
 // PackageInfo provides getter functions for commonly used fields of inventory
@@ -165,7 +156,7 @@ func (pkg *PackageInfo) Commit() string {
 
 func (pkg *PackageInfo) SourceType() models.SourceType {
 	for _, extractorName := range pkg.Plugins {
-		if _, ok := osExtractors[extractorName]; ok {
+		if strings.HasPrefix(extractorName, "os/") {
 			return models.SourceTypeOSPackage
 		} else if _, ok := scalibrplugin.ExtractorPresets["sbom"][extractorName]; ok {
 			return models.SourceTypeSBOM
