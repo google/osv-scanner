@@ -17,11 +17,13 @@ The `osv-scanner` CLI is designed to be more intuitive and user-friendly. Here's
 ### Scanning a directory
 
 **osv-scalibr:**
+
 ```sh
 scalibr --root /path/to/your/project
 ```
 
 **osv-scanner:**
+
 ```sh
 osv-scanner /path/to/your/project
 ```
@@ -34,6 +36,7 @@ In `osv-scalibr`, you can select which plugins to run using the `--extractors`, 
 or alternatively using the `--plugins` flag.
 
 **osv-scalibr:**
+
 ```sh
 scalibr --plugins python/pip,go/gomod --detectors go/govulncheck /path/to/your/project
 ```
@@ -41,6 +44,7 @@ scalibr --plugins python/pip,go/gomod --detectors go/govulncheck /path/to/your/p
 In `osv-scanner`, you can achieve the same by using the `--experimental-plugins` flag. This is an experimental feature.
 
 **osv-scanner:**
+
 ```sh
 osv-scanner --experimental-plugins python/pip,go/gomod,go/govulncheck /path/to/your/project
 ```
@@ -49,12 +53,12 @@ osv-scanner --experimental-plugins python/pip,go/gomod,go/govulncheck /path/to/y
 
 For more details on manual plugin selection in `osv-scanner`, see the [manual plugin selection documentation](manual-plugin-selection.md).
 
-
 ### Generating SPDX output
 
 `osv-scalibr` uses the `-o` flag to specify the output format and file. For example, to generate an SPDX JSON report:
 
 **osv-scalibr:**
+
 ```sh
 scalibr -o spdx23-json=result.spdx.json /path/to/your/project
 ```
@@ -63,6 +67,7 @@ scalibr -o spdx23-json=result.spdx.json /path/to/your/project
 and a separate `--output` flag if you wish to save the output into a file.
 
 **osv-scanner:**
+
 ```sh
 osv-scanner --format spdx-2.3-json /path/to/your/project > result.spdx.json
 ```
@@ -72,7 +77,7 @@ For more details on `osv-scanner` output formats, see the [output documentation]
 ## Flag Translation Table
 
 | `osv-scalibr` Flag                | `osv-scanner` Flag        | Notes                                                                                                 |
-|-----------------------------------|---------------------------|-------------------------------------------------------------------------------------------------------|
+| --------------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
 | `--version`                       | `--version`               | `osv-scanner version`                                                                                 |
 | `--root`                          | `[directory]` (argument)  | `osv-scanner scan source [directory]`                                                                 |
 | `--result`                        | `--output`                | `osv-scanner --output <file>`                                                                         |
@@ -106,4 +111,3 @@ For more details on `osv-scanner` output formats, see the [output documentation]
 | `--windows-all-drives`            | Not yet available         |                                                                                                       |
 | `--offline`                       | `--offline`               |                                                                                                       |
 | `--local-registry`                | `--maven-registry`        | Only for Maven.                                                                                       |
-
