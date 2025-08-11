@@ -18,3 +18,6 @@ clean:
 
 update-snapshots:
 	UPDATE_SNAPS=true scripts/run_tests.sh
+
+docs:
+	scripts/run_local_docs.sh
