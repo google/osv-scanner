@@ -15,7 +15,11 @@ import (
 // filterUnscannablePackages removes packages that don't have enough information to be scanned or
 // are not a supported ecosystem
 // e,g, local packages that specified by path
-func filterUnscannablePackages(scanResults *results.ScanResults) {
+func filterUnscannablePackages(scanResults *results.ScanResults, showAllPackages bool) {
+	if showAllPackages {
+		cmdlogger.Infof("Skipping filtering of unscannable packages as --all-packages is set.")
+		return
+	}
 	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		p := psr.PackageInfo

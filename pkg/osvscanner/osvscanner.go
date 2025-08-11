@@ -234,7 +234,8 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	scanResult.GenericFindings = packagesAndFindings.GenericFindings
 
 	// ----- Filtering -----
-	filterUnscannablePackages(&scanResult)
+	filterUnscannablePackages(&scanResult, actions.ShowAllPackages)
+
 	filterIgnoredPackages(&scanResult)
 
 	// ----- Custom Overrides -----
@@ -369,7 +370,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	// ----- Filtering -----
-	filterUnscannablePackages(&scanResult)
+	filterUnscannablePackages(&scanResult, actions.ShowAllPackages)
 	filterIgnoredPackages(&scanResult)
 
 	filterNonContainerRelevantPackages(&scanResult)
