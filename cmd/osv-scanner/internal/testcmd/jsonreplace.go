@@ -85,7 +85,7 @@ var (
 	// NormalizeCreateDateSPDX replaces the created date with a placeholder date
 	NormalizeCreateDateSPDX = JSONReplaceRule{
 		Path: "creationInfo.created",
-		ReplaceFunc: func(toReplace gjson.Result) any {
+		ReplaceFunc: func(_ gjson.Result) any {
 			return "2025-01-01T01:01:01Z"
 		},
 	}
