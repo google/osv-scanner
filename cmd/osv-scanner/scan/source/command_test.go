@@ -199,6 +199,17 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-5", "--all-packages", "./fixtures/locks-insecure"},
 			Exit: 1,
 		},
+		// output format: spdx 2.3
+		{
+			Name: "Empty spdx 2.3 output",
+			Args: []string{"", "source", "--format", "spdx-2-3", "./fixtures/locks-many/composer.lock"},
+			Exit: 0,
+		},
+		{
+			Name: "spdx 2.3 output", // SPDX does not support outputting vulnerabilties
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "spdx-2-3", "--all-packages", "./fixtures/locks-insecure"},
+			Exit: 1,
+		},
 		// output format: unsupported
 		{
 			Name: "output format: unsupported",

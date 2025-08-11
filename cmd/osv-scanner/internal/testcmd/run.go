@@ -5,7 +5,9 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"io"
+	"regexp"
 	"sort"
 	"strings"
 	"testing"
@@ -18,6 +20,9 @@ import (
 
 // CommandsUnderTest should be set in TestMain by every cmd package test
 var CommandsUnderTest []cmd.CommandBuilder
+
+var uuidV4Regexp = regexp.MustCompile(
+	"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}")
 
 // fetchCommandsToTest returns the commands that should be tested, ensuring that
 // the default "scan" command is included to avoid a panic
@@ -63,9 +68,11 @@ func RunAndNormalize(t *testing.T, tc Case) (string, string) {
 	stdout = normalizeDirScanOrder(t, stdout)
 	stderr = normalizeDirScanOrder(t, stderr)
 
-	if tc.findFirstValueOfFlag("--format") == "json" {
+	if len(tc.ReplaceRules) > 0 {
 		stdout = normalizeJSON(t, stdout, tc.ReplaceRules...)
 	}
+
+	stdout = normalizeUUID(t, stdout)
 
 	return stdout, stderr
 }
@@ -142,4 +149,28 @@ func normalizeDirScanOrder(t *testing.T, input string) string {
 	}
 
 	return strings.Join(completeOutput, "\n")
+}
+
+// normalizeUUID normalizes each unique instance of uuid string into it's own placeholder, so relations are preserved.
+func normalizeUUID(t *testing.T, input string) string {
+	t.Helper()
+
+	uuidMapping := map[string]int{}
+	allUUIDs := uuidV4Regexp.FindAllString(input, -1)
+
+	for _, id := range allUUIDs {
+		if _, ok := uuidMapping[id]; ok {
+			continue
+		}
+
+		// Create a incrementing uuid mapping for each unique uuid we encounter
+		uuidMapping[id] = len(uuidMapping)
+	}
+
+	replacerRules := make([]string, 0, len(uuidMapping)*2)
+	for s, i := range uuidMapping {
+		replacerRules = append(replacerRules, s, fmt.Sprintf("uuid-placeholder-%d", i))
+	}
+
+	return strings.NewReplacer(replacerRules...).Replace(input)
 }

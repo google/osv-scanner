@@ -11,5 +11,7 @@
 .go-version
 node_modules
 
+osv-scalibr-portal
+
 # we don't want to check in this file as it's very very large
 /internal/semantic/fixtures/redhat-versions-generated.txt
