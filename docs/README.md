@@ -2,9 +2,18 @@
 
 The [OSV-Scanner docs](https://google.github.io/osv-scanner) are hosted on a [GitHub page](https://pages.github.com/).
 
-## Running docs locally
+## Running docs locally (docker)
 
-To run the docs locally:
+You can run the docs locally consistently through docker:
+
+```bash
+docker build -t osv-scanner-docs -f docs.Dockerfile .
+docker run -p 4000:4000 osv-scanner-docs
+```
+
+## Running docs locally (native)
+
+To run the docs locally, use :
 
 - Install `ruby (>= 3.1.0)`. This should come with `bundler`.
   - On Debian, you need to install them separately:
