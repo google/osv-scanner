@@ -118,6 +118,47 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 
 ---
 
+[TestCommand/Empty_spdx_2.3_output - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/uuid-placeholder-0",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-08-11T02:58:41Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-uuid-placeholder-1",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestCommand/Empty_spdx_2.3_output - 2]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+
+---
+
 [TestCommand/Go_project_with_an_overridden_go_version - 1]
 Scanning dir ./fixtures/go-project
 Scanned <rootdir>/fixtures/go-project/go.mod file and found 1 package
@@ -1302,6 +1343,125 @@ Total 10 packages affected by 35 known vulnerabilities (2 Critical, 13 High, 18 
 ---
 
 [TestCommand/requirements.txt_can_have_all_kinds_of_names - 2]
+
+---
+
+[TestCommand/spdx_2.3_output - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/uuid-placeholder-0",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-08-11T02:58:42Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-uuid-placeholder-1",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    },
+    {
+      "name": "has-flag",
+      "SPDXID": "SPDXRef-Package-has-flag-uuid-placeholder-2",
+      "versionInfo": "4.0.0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/bunlock extractor from <rootdir>/fixtures/locks-insecure/bun.lock",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/has-flag@4.0.0"
+        }
+      ]
+    },
+    {
+      "name": "wrappy",
+      "SPDXID": "SPDXRef-Package-wrappy-uuid-placeholder-3",
+      "versionInfo": "1.0.2",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/bunlock extractor from <rootdir>/fixtures/locks-insecure/bun.lock",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/wrappy@1.0.2"
+        }
+      ]
+    },
+    {
+      "name": "league/flysystem",
+      "SPDXID": "SPDXRef-Package-league-flysystem-uuid-placeholder-4",
+      "versionInfo": "1.0.8",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the php/composerlock extractor from <rootdir>/fixtures/locks-insecure/composer.lock",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:composer/league%2Fflysystem@1.0.8"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relatedSpdxElement": "SPDXRef-Package-has-flag-uuid-placeholder-2",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-has-flag-uuid-placeholder-2",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relatedSpdxElement": "SPDXRef-Package-wrappy-uuid-placeholder-3",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-wrappy-uuid-placeholder-3",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relatedSpdxElement": "SPDXRef-Package-league-flysystem-uuid-placeholder-4",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-league-flysystem-uuid-placeholder-4",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    }
+  ]
+}
+
+---
+
+[TestCommand/spdx_2.3_output - 2]
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 
 ---
 
