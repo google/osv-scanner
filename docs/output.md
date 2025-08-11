@@ -409,9 +409,7 @@ However, `osv-scanner` will still exit with a non-zero exit code (`1`) if any vu
   "name": "SCALIBR-generated SPDX",
   "documentNamespace": "https://spdx.google/uuid-placeholder-0",
   "creationInfo": {
-    "creators": [
-      "Tool: SCALIBR"
-    ],
+    "creators": ["Tool: SCALIBR"],
     "created": "2025-08-11T02:58:42Z"
   },
   "packages": [
@@ -601,7 +599,6 @@ You can also specify cyclonedx 1.4 using `--format cyclonedx-1.4`.
 </details>
 
 ---
-
 
 ## Call analysis
 
