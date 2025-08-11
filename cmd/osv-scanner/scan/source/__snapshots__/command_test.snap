@@ -129,7 +129,7 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-08-11T02:58:41Z"
+    "created": "2025-01-01T01:01:01Z"
   },
   "packages": [
     {
@@ -1357,7 +1357,7 @@ Total 10 packages affected by 35 known vulnerabilities (2 Critical, 13 High, 18 
     "creators": [
       "Tool: SCALIBR"
     ],
-    "created": "2025-08-11T02:58:42Z"
+    "created": "2025-01-01T01:01:01Z"
   },
   "packages": [
     {

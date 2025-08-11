@@ -7,12 +7,12 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"regexp"
 	"sort"
 	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/urfave/cli/v3"
@@ -20,9 +20,6 @@ import (
 
 // CommandsUnderTest should be set in TestMain by every cmd package test
 var CommandsUnderTest []cmd.CommandBuilder
-
-var uuidV4Regexp = regexp.MustCompile(
-	"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}")
 
 // fetchCommandsToTest returns the commands that should be tested, ensuring that
 // the default "scan" command is included to avoid a panic
@@ -154,6 +151,9 @@ func normalizeDirScanOrder(t *testing.T, input string) string {
 // normalizeUUID normalizes each unique instance of uuid string into it's own placeholder, so relations are preserved.
 func normalizeUUID(t *testing.T, input string) string {
 	t.Helper()
+
+	uuidV4Regexp := cachedregexp.MustCompile(
+		"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89ABab][0-9a-fA-F]{3}-[0-9a-fA-F]{12}")
 
 	uuidMapping := map[string]int{}
 	allUUIDs := uuidV4Regexp.FindAllString(input, -1)
