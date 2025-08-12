@@ -22,7 +22,7 @@ func TestPrintSARIFReport(t *testing.T) {
 		{
 			name: "",
 			args: testutility.LoadJSONFixtureWithWindowsReplacements[models.VulnerabilityResults](t,
-				"fixtures/test-vuln-results-a.json",
+				"testdata/test-vuln-results-a.json",
 				map[string]string{
 					"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
 					"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",

@@ -36,7 +36,7 @@ jobs:
     # If you want to copy this config, highly suggest pinning this to a release rather than tracking the nightly branch.
     uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@nightly"
     with:
-      # Just scan the root directory and docs, since everything else is fixtures
+      # Just scan the root directory and docs, since everything else is testdata
       scan-args: |-
         ./
         ./docs/
@@ -49,7 +49,7 @@ jobs:
     # If you want to copy this config, highly suggest pinning this to a release rather than tracking the nightly branch.
     uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@nightly"
     with:
-      # Just scan the root directory and docs, since everything else is fixtures
+      # Just scan the root directory and docs, since everything else is testdata
       scan-args: |-
         ./
         ./docs/

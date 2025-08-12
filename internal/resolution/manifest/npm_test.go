@@ -54,7 +54,7 @@ func npmReqKey(t *testing.T, name, knownAs string) manifest.RequirementKey {
 func TestNpmRead(t *testing.T) {
 	t.Parallel()
 
-	df, err := depfile.OpenLocalDepFile("./fixtures/package.json")
+	df, err := depfile.OpenLocalDepFile("./testdata/package.json")
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -116,7 +116,7 @@ func TestNpmRead(t *testing.T) {
 func TestNpmWorkspaceRead(t *testing.T) {
 	t.Parallel()
 
-	df, err := depfile.OpenLocalDepFile("./fixtures/npm-workspaces/package.json")
+	df, err := depfile.OpenLocalDepFile("./testdata/npm-workspaces/package.json")
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -216,7 +216,7 @@ func TestNpmWorkspaceRead(t *testing.T) {
 func TestNpmWrite(t *testing.T) {
 	t.Parallel()
 
-	df, err := depfile.OpenLocalDepFile("./fixtures/package.json")
+	df, err := depfile.OpenLocalDepFile("./testdata/package.json")
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}

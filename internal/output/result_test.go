@@ -17,13 +17,13 @@ func Test_groupFixedVersions(t *testing.T) {
 	}{
 		{
 			name: "",
-			args: testutility.LoadJSONFixture[[]models.VulnerabilityFlattened](t, "fixtures/flattened_vulns.json"),
+			args: testutility.LoadJSONFixture[[]models.VulnerabilityFlattened](t, "testdata/flattened_vulns.json"),
 			want: testutility.NewSnapshot(),
 		},
 		{
 			name: "",
 			args: testutility.LoadJSONFixtureWithWindowsReplacements[[]models.VulnerabilityFlattened](t,
-				"fixtures/flattened_vulns.json",
+				"testdata/flattened_vulns.json",
 				map[string]string{
 					"/path/to/scorecard-check-osv-e2e/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\sub-rust-project\\\\Cargo.lock",
 					"/path/to/scorecard-check-osv-e2e/go.mod":                      "D:\\\\path\\\\to\\\\scorecard-check-osv-e2e\\\\go.mod",
@@ -56,7 +56,7 @@ func Test_mapIDsToGroupedSARIFFinding(t *testing.T) {
 	}{
 		{
 			args: testutility.LoadJSONFixtureWithWindowsReplacements[models.VulnerabilityResults](t,
-				"fixtures/test-vuln-results-a.json",
+				"testdata/test-vuln-results-a.json",
 				map[string]string{
 					"/path/to/sub-rust-project/Cargo.lock": "D:\\\\path\\\\to\\\\sub-rust-project\\\\Cargo.lock",
 					"/path/to/go.mod":                      "D:\\\\path\\\\to\\\\go.mod",
