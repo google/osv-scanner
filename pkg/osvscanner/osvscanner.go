@@ -179,7 +179,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	}
 
 	// We only support native registry client for PyPI.
-	externalAccessors.DependencyClients[osvschema.EcosystemPyPI] = resolution.NewPyPIRegistryClient("")
+	externalAccessors.DependencyClients[osvschema.EcosystemPyPI] = resolution.NewPyPIRegistryClient("", "")
 
 	if err != nil {
 		return ExternalAccessors{}, err
