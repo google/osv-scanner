@@ -15,38 +15,57 @@ import (
 // filterUnscannablePackages removes packages that don't have enough information to be scanned or
 // are not a supported ecosystem
 // e,g, local packages that specified by path
-func filterUnscannablePackages(scanResults *results.ScanResults, showAllPackages bool) {
+// Changed signature to return scannable packages as a slice.
+func filterUnscannablePackages(scanResults *results.ScanResults, showAllPackages bool) []imodels.PackageScanResult {
 	if showAllPackages {
-		cmdlogger.Infof("Skipping filtering of unscannable packages as --all-packages is set.")
-		return
-	}
-	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
-	for _, psr := range scanResults.PackageScanResults {
-		p := psr.PackageInfo
+		cmdlogger.Infof("Copying all packages for output, filtering only scannable for vulnerability querying.")
+		// Copy full list to preserve for output
+		allPackages := make([]imodels.PackageScanResult, len(scanResults.PackageScanResults))
+		copy(allPackages, scanResults.PackageScanResults)
 
-		switch {
-		// If **none** of the cases match, skip this package since it's not scannable
-		case !p.Ecosystem().IsEmpty() && p.Name() != "" && p.Version() != "":
-		case p.Commit() != "":
-		default:
-			continue
+		// Filter scannable packages only for querying
+		packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+		for _, psr := range scanResults.PackageScanResults {
+			p := psr.PackageInfo
+			switch {
+			case !p.Ecosystem().IsEmpty() && p.Name() != "" && p.Version() != "":
+			case p.Commit() != "":
+			default:
+				continue
+			}
+			switch {
+			case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown",
+				!p.Ecosystem().IsValid() && !p.Ecosystem().IsEmpty():
+				continue
+			}
+			packageResults = append(packageResults, psr)
 		}
-
-		switch {
-		// If **any** of the following cases are true, skip this package
-		case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown",
-			!p.Ecosystem().IsValid() && !p.Ecosystem().IsEmpty():
-			continue
+		// Return filtered packages for querying, but leave scanResults.PackageScanResults untouched for output
+		return packageResults
+	} else {
+		// When not showing all packages, filter as usual in place
+		packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+		for _, psr := range scanResults.PackageScanResults {
+			p := psr.PackageInfo
+			switch {
+			case !p.Ecosystem().IsEmpty() && p.Name() != "" && p.Version() != "":
+			case p.Commit() != "":
+			default:
+				continue
+			}
+			switch {
+			case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown",
+				!p.Ecosystem().IsValid() && !p.Ecosystem().IsEmpty():
+				continue
+			}
+			packageResults = append(packageResults, psr)
 		}
-
-		packageResults = append(packageResults, psr)
+		if len(packageResults) != len(scanResults.PackageScanResults) {
+			cmdlogger.Infof("Filtered %d local/unscannable package/s from the scan.", len(scanResults.PackageScanResults)-len(packageResults))
+		}
+		scanResults.PackageScanResults = packageResults
+		return packageResults
 	}
-
-	if len(packageResults) != len(scanResults.PackageScanResults) {
-		cmdlogger.Infof("Filtered %d local/unscannable package/s from the scan.", len(scanResults.PackageScanResults)-len(packageResults))
-	}
-
-	scanResults.PackageScanResults = packageResults
 }
 
 // filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
