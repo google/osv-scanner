@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 )
 
 func resolveFromName(name string) (plugin.Plugin, error) {
@@ -36,6 +37,8 @@ func resolveFromName(name string) (plugin.Plugin, error) {
 		return vendored.New(), nil
 	case gitrepo.Name:
 		return gitrepo.New(), nil
+	case "osv/osvscannerjson":
+        return osvscannerjson.New(), nil
 	default:
 		return nil, fmt.Errorf("not an exact name for a plugin: %q", name)
 	}
