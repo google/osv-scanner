@@ -396,7 +396,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand/all_supported_lockfiles_in_the_directory_should_be_checked - 2]
-Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract from <rootdir>/fixtures/locks-many-with-invalid/composer.lock: invalid character ',' looking for beginning of object key string
+Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
@@ -2676,7 +2676,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 2]
-Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract from <rootdir>/fixtures/locks-many-with-invalid/composer.lock: invalid character ',' looking for beginning of object key string
+Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
@@ -2694,7 +2694,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 4]
-Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract from <rootdir>/fixtures/locks-many-with-invalid/composer.lock: invalid character ',' looking for beginning of object key string
+Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
@@ -3472,7 +3472,7 @@ stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 2]
-(extracting as rust/cargolock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
+(extracting as rust/cargolock) could not extract: toml: line 1: expected '.' or '=', but got '{' instead
 
 ---
 
@@ -3540,7 +3540,7 @@ No issues found
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
-(extracting as javascript/packagelockjson) could not extract from "<rootdir>/fixtures/locks-many/yarn.lock": invalid character '#' looking for beginning of value
+(extracting as javascript/packagelockjson) could not extract: invalid character '#' looking for beginning of value
 
 ---
 
