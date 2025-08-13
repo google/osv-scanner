@@ -1630,8 +1630,8 @@ Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
-Package &{stdlib 1.24.4 <nil> [<rootdir>/fixtures/locks-insecure/osv-scanner-custom.json]  [osv/osvscannerjson osv/osvscannerjson] [] [] <nil> 0xc00ced8ab0} has no PURL, skipping
-Package &{toolchain 1.24.4 <nil> [<rootdir>/fixtures/locks-insecure/osv-scanner-custom.json]  [osv/osvscannerjson osv/osvscannerjson] [] [] <nil> 0xc00ced8ae0} has no PURL, skipping
+Package &{stdlib 1.24.4 <nil> [<rootdir>/fixtures/locks-insecure/osv-scanner-custom.json]  [osv/osvscannerjson osv/osvscannerjson] [] [] <nil> 0xc0183322d0} has no PURL, skipping
+Package &{toolchain 1.24.4 <nil> [<rootdir>/fixtures/locks-insecure/osv-scanner-custom.json]  [osv/osvscannerjson osv/osvscannerjson] [] [] <nil> 0xc018332300} has no PURL, skipping
 
 ---
 

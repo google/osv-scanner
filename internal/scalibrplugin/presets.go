@@ -105,7 +105,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		// Haskell
 		cabal.Name:     {cabal.NewDefault},
 		stacklock.Name: {stacklock.NewDefault},
-		
+
 		osvscannerjson.Name: {osvscannerjson.New},
 	},
 	"directory": {

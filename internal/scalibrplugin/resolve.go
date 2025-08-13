@@ -37,8 +37,8 @@ func resolveFromName(name string) (plugin.Plugin, error) {
 		return vendored.New(), nil
 	case gitrepo.Name:
 		return gitrepo.New(), nil
-	case "osv/osvscannerjson":
-        return osvscannerjson.New(), nil
+	case osvscannerjson.Name:
+		return osvscannerjson.New(), nil
 	default:
 		return nil, fmt.Errorf("not an exact name for a plugin: %q", name)
 	}
