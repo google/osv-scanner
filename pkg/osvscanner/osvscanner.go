@@ -341,7 +341,12 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	capabilities := &plugin.Capabilities{
 		DirectFS:      true,
 		RunningSystem: false,
+		Network:       plugin.NetworkOnline,
 		OS:            plugin.OSLinux,
+	}
+
+	if actions.CompareOffline {
+		capabilities.Network = plugin.NetworkOffline
 	}
 
 	plugins = plugin.FilterByCapabilities(plugins, capabilities)
