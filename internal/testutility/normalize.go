@@ -110,7 +110,7 @@ func normalizeErrors(t *testing.T, str string) string {
 	str = strings.ReplaceAll(str, "The system cannot find the file specified.", "no such file or directory")
 	str = strings.ReplaceAll(str, "CreateFile", "lstat")
 	str = strings.ReplaceAll(str, "\nstat ./fixtures/", "\nlstat ./fixtures/")
-	str = strings.ReplaceAll(str, "GetFileAttributesEx", "lstat")
+	str = strings.ReplaceAll(str, "GetFileAttributesEx", "stat")
 
 	return str
 }
