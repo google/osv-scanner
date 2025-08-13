@@ -19,9 +19,9 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
-				"--experimental-extractors=sbom/spdx",
-				"--experimental-extractors=sbom/cdx",
-				"--experimental-disable-extractors=sbom",
+				"--experimental-plugins=sbom/spdx",
+				"--experimental-plugins=sbom/cdx",
+				"--experimental-disable-plugins=sbom",
 				"alpine:non-existent-tag",
 			},
 			Exit: 127,
@@ -30,8 +30,8 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "extractors_cancelled_out_with_presets",
 			Args: []string{
 				"", "image",
-				"--experimental-extractors=sbom",
-				"--experimental-disable-extractors=sbom",
+				"--experimental-plugins=sbom",
+				"--experimental-disable-plugins=sbom",
 				"alpine:non-existent-tag",
 			},
 			Exit: 127,
@@ -40,8 +40,8 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
-				"--experimental-extractors=sbom/spdx,sbom/cdx",
-				"--experimental-disable-extractors=sbom",
+				"--experimental-plugins=sbom/spdx,sbom/cdx",
+				"--experimental-disable-plugins=sbom",
 				"alpine:non-existent-tag",
 			},
 			Exit: 127,
@@ -101,7 +101,7 @@ func TestCommand_Docker(t *testing.T) {
 			// since we've requested the os/apk extractor disabled, and there's nothing else
 			// in the image that we support extracting
 			Name: "real_alpine_image_without_apk_extractor_enabled",
-			Args: []string{"", "image", "--experimental-disable-extractors=os/apk", "alpine:3.18.9"},
+			Args: []string{"", "image", "--experimental-disable-plugins=os/apk", "alpine:3.18.9"},
 			Exit: 128,
 		},
 	}
@@ -132,88 +132,88 @@ func TestCommand_OCIImage(t *testing.T) {
 		},
 		{
 			Name: "Alpine 3.10 image tar with 3.18 version file",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-alpine.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-alpine.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "Empty Ubuntu 22.04 image tar",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-ubuntu.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "Empty Ubuntu 22.04 image tar with unimportant vulns",
-			Args: []string{"", "image", "--all-vulns", "--archive", "../../../../internal/image/fixtures/test-ubuntu.tar"},
+			Args: []string{"", "image", "--all-vulns", "--archive", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "Empty Ubuntu 20.04 image tar with only unimportant vulns shown",
 			Args: []string{"", "image", "--archive", "--all-vulns",
-				"--config=../../../../internal/image/fixtures/ubuntu20-04-unimportant-config.toml",
-				"--all-vulns", "../../../../internal/image/fixtures/test-ubuntu-20-04.tar"},
+				"--config=./testdata/ubuntu20-04-unimportant-config.toml",
+				"--all-vulns", "./testdata/test-ubuntu-20-04.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "Empty Ubuntu 20.04 image tar with no vulns shown",
 			Args: []string{"", "image", "--archive",
-				"--config=../../../../internal/image/fixtures/ubuntu20-04-unimportant-config.toml",
-				"../../../../internal/image/fixtures/test-ubuntu-20-04.tar"},
+				"--config=./testdata/ubuntu20-04-unimportant-config.toml",
+				"./testdata/test-ubuntu-20-04.tar"},
 			Exit: 0,
 		},
 		{
 			Name: "Scanning python image with some packages",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-python-full.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-python-full.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "Scanning python image with no packages",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-python-empty.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-python-empty.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "Scanning java image with some packages",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-java-full.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-java-full.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using npm with no packages",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-npm-empty.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-npm-empty.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using npm with some packages",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-npm-full.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-npm-full.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using yarn with no packages",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-yarn-empty.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-yarn-empty.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using yarn with some packages",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-yarn-full.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-yarn-full.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using pnpm with no packages",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-pnpm-empty.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-pnpm-empty.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning node_modules using pnpm with some packages",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-node_modules-pnpm-full.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-pnpm-full.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning image with go binary",
-			Args: []string{"", "image", "--archive", "../../../../internal/image/fixtures/test-package-tracing.tar"},
+			Args: []string{"", "image", "--archive", "./testdata/test-package-tracing.tar"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning_insecure_alpine_image_without_detectors",
 			Args: []string{
 				"", "image",
-				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
 		},
@@ -221,8 +221,9 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_specific_detector_enabled",
 			Args: []string{
 				"", "image",
-				"--experimental-detectors", "weakcredentials/etcshadow",
-				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+				"--experimental-plugins", "os/apk",
+				"--experimental-plugins", "weakcredentials/etcshadow",
+				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
 		},
@@ -230,9 +231,10 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_specific_detector_disabled",
 			Args: []string{
 				"", "image",
-				"--experimental-detectors", "weakcreds",
-				"--experimental-disable-detectors", "weakcredentials/etcshadow",
-				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+				"--experimental-plugins", "os/apk",
+				"--experimental-plugins", "weakcreds",
+				"--experimental-disable-plugins", "weakcredentials/etcshadow",
+				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
 		},
@@ -240,8 +242,9 @@ func TestCommand_OCIImage(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_detector_preset",
 			Args: []string{
 				"", "image",
-				"--experimental-detectors", "weakcreds",
-				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+				"--experimental-plugins", "os/apk",
+				"--experimental-plugins", "weakcreds",
+				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
 		},
@@ -252,7 +255,7 @@ func TestCommand_OCIImage(t *testing.T) {
 
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
-				if strings.HasPrefix(arg, "../../../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
+				if strings.HasPrefix(arg, "./testdata/") && strings.HasSuffix(arg, ".tar") {
 					if _, err := os.Stat(arg); errors.Is(err, os.ErrNotExist) {
 						t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", arg)
 					}
@@ -272,7 +275,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "Scanning python image with some packages",
-			Args: []string{"", "image", "--archive", "--format=json", "../../../../internal/image/fixtures/test-python-full.tar"},
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-python-full.tar"},
 			Exit: 1,
 			ReplaceRules: []testcmd.JSONReplaceRule{
 				testcmd.GroupsAsArrayLen,
@@ -285,7 +288,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 		},
 		{
 			Name: "scanning node_modules using npm with some packages",
-			Args: []string{"", "image", "--archive", "--format=json", "../../../../internal/image/fixtures/test-node_modules-npm-full.tar"},
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-node_modules-npm-full.tar"},
 			Exit: 1,
 			ReplaceRules: []testcmd.JSONReplaceRule{
 				testcmd.GroupsAsArrayLen,
@@ -298,7 +301,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 		},
 		{
 			Name: "scanning image with go binary",
-			Args: []string{"", "image", "--archive", "--all-packages", "--format=json", "../../../../internal/image/fixtures/test-go-binary.tar"},
+			Args: []string{"", "image", "--archive", "--all-packages", "--format=json", "./testdata/test-go-binary.tar"},
 			Exit: 1,
 			ReplaceRules: []testcmd.JSONReplaceRule{
 				testcmd.GroupsAsArrayLen,
@@ -310,7 +313,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 		},
 		{
 			Name: "scanning ubuntu image",
-			Args: []string{"", "image", "--archive", "--format=json", "../../../../internal/image/fixtures/test-ubuntu.tar"},
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
 			ReplaceRules: []testcmd.JSONReplaceRule{
 				testcmd.GroupsAsArrayLen,
@@ -323,8 +326,9 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_specific_detector_enabled",
 			Args: []string{
 				"", "image", "--format=json",
-				"--experimental-detectors", "weakcredentials/etcshadow",
-				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+				"--experimental-plugins", "os/apk",
+				"--experimental-plugins", "weakcredentials/etcshadow",
+				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
 			ReplaceRules: []testcmd.JSONReplaceRule{
@@ -338,8 +342,9 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			Name: "scanning_insecure_alpine_image_with_detector_preset",
 			Args: []string{
 				"", "image", "--format=json",
-				"--experimental-detectors", "weakcreds",
-				"--archive", "../../../../internal/image/fixtures/test-alpine-etcshadow.tar",
+				"--experimental-plugins", "os/apk",
+				"--experimental-plugins", "weakcreds",
+				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
 			ReplaceRules: []testcmd.JSONReplaceRule{
@@ -356,7 +361,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 
 			// point out that we need the images to be built and saved separately
 			for _, arg := range tt.Args {
-				if strings.HasPrefix(arg, "../../../../internal/image/fixtures/") && strings.HasSuffix(arg, ".tar") {
+				if strings.HasPrefix(arg, "./testdata/") && strings.HasSuffix(arg, ".tar") {
 					if _, err := os.Stat(arg); errors.Is(err, os.ErrNotExist) {
 						t.Fatalf("%s does not exist - have you run scripts/build_test_images.sh?", arg)
 					}
@@ -378,7 +383,7 @@ func TestCommand_HtmlFile(t *testing.T) {
 		Name: "one specific supported lockfile",
 		Args: []string{"",
 			"image", "--format=html", "--output", testDir + "/report.html",
-			"--archive", "../../../../internal/image/fixtures/test-alpine.tar",
+			"--archive", "./testdata/test-alpine.tar",
 		},
 		Exit: 1,
 	})

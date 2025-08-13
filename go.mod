@@ -1,6 +1,6 @@
 module github.com/google/osv-scanner/v2
 
-go 1.24.4
+go 1.24.6
 
 require (
 	deps.dev/api/v3 v3.0.0-20250729065307-991cf8720f82
@@ -16,7 +16,7 @@ require (
 	github.com/gkampitakis/go-snaps v0.5.14
 	github.com/go-git/go-git/v5 v5.16.2
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.3.2-0.20250731235936-b4e2f64ac4bd
+	github.com/google/osv-scalibr v0.3.2-0.20250812004447-f38f28e2746b
 	github.com/ianlancetaylor/demangle v0.0.0-20250628045327-2d64ad6b7ec5
 	github.com/jedib0t/go-pretty/v6 v6.6.8
 	github.com/muesli/reflow v0.3.0

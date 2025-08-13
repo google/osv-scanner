@@ -1,0 +1,72 @@
+
+[TestResolve_Detectors_Presets/cis - 1]
+cis/generic-linux/etcpasswdpermissions
+---
+
+[TestResolve_Detectors_Presets/govulncheck - 1]
+govulncheck/binary
+---
+
+[TestResolve_Detectors_Presets/untested - 1]
+cve/cve-2020-11978
+cve/cve-2020-16846
+cve/cve-2022-33891
+cve/cve-2023-38408
+cve/cve-2023-6019
+cve/cve-2024-2912
+---
+
+[TestResolve_Detectors_Presets/weakcreds - 1]
+weakcredentials/codeserver
+weakcredentials/etcshadow
+weakcredentials/filebrowser
+weakcredentials/winlocal
+---
+
+[TestResolve_Extractors_Presets/artifact - 1]
+go/binary
+java/archive
+javascript/nodemodules
+os/apk
+os/dpkg
+python/wheelegg
+rust/cargoauditable
+---
+
+[TestResolve_Extractors_Presets/directory - 1]
+filesystem/vendored
+vcs/gitrepo
+---
+
+[TestResolve_Extractors_Presets/lockfile - 1]
+cpp/conanlock
+dart/pubspec
+dotnet/depsjson
+dotnet/packagesconfig
+dotnet/packageslockjson
+erlang/mixlock
+go/gomod
+haskell/cabal
+haskell/stacklock
+java/gradlelockfile
+java/gradleverificationmetadataxml
+java/pomxmlenhanceable
+javascript/bunlock
+javascript/packagelockjson
+javascript/pnpmlock
+javascript/yarnlock
+php/composerlock
+python/pdmlock
+python/pipfilelock
+python/poetrylock
+python/requirementsenhanceable
+python/uvlock
+r/renvlock
+ruby/gemfilelock
+rust/cargolock
+---
+
+[TestResolve_Extractors_Presets/sbom - 1]
+sbom/cdx
+sbom/spdx
+---

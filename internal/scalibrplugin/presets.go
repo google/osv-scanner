@@ -1,8 +1,7 @@
-// Package scalibrplugin provides functions related to configuring scalibr plugins
 package scalibrplugin
 
 import (
-	"github.com/google/osv-scalibr/extractor/filesystem"
+	detectors "github.com/google/osv-scalibr/detector/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
@@ -30,12 +29,11 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
-	"github.com/google/osv-scalibr/extractor/filesystem/list"
+	extractors "github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
-	"github.com/google/osv-scanner/v2/internal/builders"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
@@ -43,7 +41,14 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
-var ExtractorPresets = map[string]list.InitMap{
+var detectorPresets = map[string]detectors.InitMap{
+	"cis":         detectors.CIS,
+	"govulncheck": detectors.Govulncheck,
+	"untested":    detectors.Untested,
+	"weakcreds":   detectors.Weakcredentials,
+}
+
+var ExtractorPresets = map[string]extractors.InitMap{
 	"sbom": {
 		spdx.Name: {spdx.New},
 		cdx.Name:  {cdx.New},
@@ -123,34 +128,4 @@ var ExtractorPresets = map[string]list.InitMap{
 		// Debian
 		dpkg.Name: {dpkg.NewDefault},
 	},
-}
-
-func ResolveEnabledExtractors(enabledExtractors []string, disabledExtractors []string) []filesystem.Extractor {
-	extractors := make(map[string]bool)
-
-	for i, exts := range [][]string{enabledExtractors, disabledExtractors} {
-		enabled := i == 0
-
-		for _, extractorOrPreset := range exts {
-			if names, ok := ExtractorPresets[extractorOrPreset]; ok {
-				for name := range names {
-					extractors[name] = enabled
-				}
-
-				continue
-			}
-
-			extractors[extractorOrPreset] = enabled
-		}
-	}
-
-	asSlice := make([]string, 0, len(extractors))
-
-	for name, value := range extractors {
-		if name != "" && value {
-			asSlice = append(asSlice, name)
-		}
-	}
-
-	return builders.BuildExtractors(asSlice)
 }

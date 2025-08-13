@@ -1,3 +1,37 @@
+# v2.2.1
+
+### Fixes
+
+- [Bug #2151](https://github.com/google/osv-scanner/issues/2151) Filter by ecosystem before querying.
+
+# v2.2.0
+
+OSV-Scanner now supports all OSV-Scalibr features behind experimental flags (`--experimental-plugins`, see details [here](https://google.github.io/osv-scanner/experimental/manual-plugin-selection/))!
+
+### Features:
+
+- [Feature #2146](https://github.com/google/osv-scanner/pull/2146) Allow manual OSV-Scalibr plugin selection.
+- [Feature #2144](https://github.com/google/osv-scanner/pull/2144) Add OSV-Scalibr version to osv-scanner --version output.
+- [Feature #2021](https://github.com/google/osv-scanner/pull/2021) Add experimental support for running OSV-Scalibr detectors.
+- [Feature #2079](https://github.com/google/osv-scanner/pull/2079) Fall back to offline extractor if the transitive one fails, so at least direct dependencies are returned.
+- [Feature #2032](https://github.com/google/osv-scanner/pull/2032) Add summary section at the top of outputs and a 'Fixed Version' column.
+- [Feature #2076](https://github.com/google/osv-scanner/pull/2076) Support Ubuntu severity type.
+
+### Fixes:
+
+- [Bug #2141](https://github.com/google/osv-scanner/pull/2141) Fix OSV-Scanner json scans not matching with correct ecosystem.
+- [Bug #2084](https://github.com/google/osv-scanner/pull/2084) Show absolute paths when scanning containers.
+- [Bug #2126](https://github.com/google/osv-scanner/pull/2126) Log and preserve package count before continuing on db error.
+- [Bug #2095](https://github.com/google/osv-scanner/pull/2095) Pass through plugin capabilities correctly.
+- [Bug #2051](https://github.com/google/osv-scanner/pull/2051) Properly flag if running on Linux or Mac OSs for plugin compatibility.
+- [Bug #2072](https://github.com/google/osv-scanner/pull/2072) Add missing "text" property in description fields.
+- [Bug #2068](https://github.com/google/osv-scanner/pull/2068) Change links in output to go to the specific vulnerability page instead of the list page.
+- [Bug #2064](https://github.com/google/osv-scanner/pull/2064) Fix SARIF v3 output to include results.
+
+### API Changes:
+
+- [API Change #2096](https://github.com/google/osv-scanner/pull/2096) Allow log handler to be overridden.
+
 # v2.1.0
 
 ### Features:

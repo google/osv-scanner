@@ -35,6 +35,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
@@ -75,7 +76,7 @@ var lockfileExtractorMapping = map[string][]string{
 }
 
 // ScanSingleFile is similar to ScanSingleFileWithMapping, just without supporting the <lockfileformat>:/path/to/lockfile prefix identifier
-func ScanSingleFile(path string, extractorsToUse []filesystem.Extractor) ([]*extractor.Package, error) {
+func ScanSingleFile(path string, extractorsToUse []plugin.Plugin) ([]*extractor.Package, error) {
 	invs, err := scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
 	if err != nil {
 		return nil, err
@@ -96,7 +97,7 @@ func ScanSingleFile(path string, extractorsToUse []filesystem.Extractor) ([]*ext
 
 // ScanSingleFileWithMapping will load, identify, and parse the lockfile path passed in, and add the dependencies specified
 // within to `query`
-func ScanSingleFileWithMapping(scanPath string, extractorsToUse []filesystem.Extractor) ([]*extractor.Package, error) {
+func ScanSingleFileWithMapping(scanPath string, pluginsToUse []plugin.Plugin) ([]*extractor.Package, error) {
 	var err error
 	var inventories []*extractor.Package
 
@@ -119,17 +120,19 @@ func ScanSingleFileWithMapping(scanPath string, extractorsToUse []filesystem.Ext
 	case "osv-scanner":
 		inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, osvscannerjson.Extractor{})
 	case "": // No specific parseAs specified
-		inventories, err = scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
+		inventories, err = scalibrextract.ExtractWithExtractors(context.Background(), path, pluginsToUse)
 	default: // A specific parseAs without a special case is selected
 		// Find and extract with the extractor of parseAs
 		if names, ok := lockfileExtractorMapping[parseAs]; ok && len(names) > 0 {
-			i := slices.IndexFunc(extractorsToUse, func(ext filesystem.Extractor) bool {
-				return slices.Contains(names, ext.Name())
+			i := slices.IndexFunc(pluginsToUse, func(plug plugin.Plugin) bool {
+				_, ok = plug.(filesystem.Extractor)
+
+				return ok && slices.Contains(names, plug.Name())
 			})
 			if i < 0 {
 				return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
 			}
-			inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, extractorsToUse[i])
+			inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, pluginsToUse[i].(filesystem.Extractor))
 		} else {
 			return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
 		}

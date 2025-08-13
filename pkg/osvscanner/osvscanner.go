@@ -32,7 +32,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
-	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
@@ -72,11 +71,8 @@ type ScannerActions struct {
 type ExperimentalScannerActions struct {
 	TransitiveScanningActions
 
-	ExtractorsEnabled  []string
-	ExtractorsDisabled []string
-
-	DetectorsEnabled  []string
-	DetectorsDisabled []string
+	PluginsEnabled  []string
+	PluginsDisabled []string
 }
 
 type TransitiveScanningActions struct {
@@ -184,7 +180,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	}
 
 	// We only support native registry client for PyPI.
-	externalAccessors.DependencyClients[osvschema.EcosystemPyPI] = resolution.NewPyPIRegistryClient("")
+	externalAccessors.DependencyClients[osvschema.EcosystemPyPI] = resolution.NewPyPIRegistryClient("", "")
 
 	if err != nil {
 		return ExternalAccessors{}, err
@@ -301,13 +297,13 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to initialize accessors: %w", err)
 	}
 
-	filesystemExtractors := getExtractors(
+	plugins := getPlugins(
 		[]string{"artifact"},
 		accessors,
 		actions,
 	)
 
-	if len(filesystemExtractors) == 0 {
+	if len(plugins) == 0 {
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
 
@@ -337,17 +333,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 			cmdlogger.Errorf("Failed to clean up image: %s", err)
 		}
 	}()
-
-	detectors := scalibrplugin.ResolveEnabledDetectors(actions.DetectorsEnabled, actions.DetectorsDisabled)
-
-	plugins := make([]plugin.Plugin, 0, len(filesystemExtractors)+len(detectors))
-	for _, ext := range filesystemExtractors {
-		plugins = append(plugins, ext.(plugin.Plugin))
-	}
-
-	for _, det := range detectors {
-		plugins = append(plugins, det.(plugin.Plugin))
-	}
 
 	capabilities := &plugin.Capabilities{
 		DirectFS:      true,
@@ -413,11 +398,11 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	// TODO: This is a set of heuristics,
-	//    - Assume that packages under usr/ might be a OS package depending on ecosystem
+	//    - Assume that packages under /usr/ might be a OS package depending on ecosystem
 	//    - Assume python packages under dist-packages is a OS package
 	// Replace this with an actual implementation in OSV-Scalibr (potentially via full filesystem accountability).
 	for _, psr := range scanResult.PackageScanResults {
-		if (strings.HasPrefix(psr.PackageInfo.Location(), "usr/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemGo) ||
+		if (strings.HasPrefix(psr.PackageInfo.Location(), "/usr/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemGo) ||
 			strings.Contains(psr.PackageInfo.Location(), "dist-packages/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
 			psr.PackageInfo.AnnotationsDeprecated = append(psr.PackageInfo.AnnotationsDeprecated, extractor.InsideOSPackage)
 		}

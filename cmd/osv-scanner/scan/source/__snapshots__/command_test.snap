@@ -96,7 +96,7 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
           "rules": [],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.1.0"
+          "version": "2.2.1"
         },
         "extensions": []
       },
@@ -112,6 +112,47 @@ Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
 ---
 
 [TestCommand/Empty_sarif_output - 2]
+Scanning dir ./fixtures/locks-many/composer.lock
+Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+
+---
+
+[TestCommand/Empty_spdx_2.3_output - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/uuid-placeholder-0",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-01-01T01:01:01Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-uuid-placeholder-1",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relationshipType": "DESCRIBES"
+    }
+  ]
+}
+
+---
+
+[TestCommand/Empty_spdx_2.3_output - 2]
 Scanning dir ./fixtures/locks-many/composer.lock
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
@@ -302,7 +343,7 @@ Total 2 packages affected by 7 known vulnerabilities (3 Critical, 3 High, 0 Medi
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.1.0"
+          "version": "2.2.1"
         },
         "extensions": []
       },
@@ -355,7 +396,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand/all_supported_lockfiles_in_the_directory_should_be_checked - 2]
-Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract from <rootdir>/fixtures/locks-many-with-invalid/composer.lock: invalid character ',' looking for beginning of object key string
+Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
@@ -638,7 +679,7 @@ Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 pac
 Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 9 local/unscannable package/s from the scan.
-Total 26 packages affected by 155 known vulnerabilities (21 Critical, 60 High, 37 Medium, 1 Low, 36 Unknown) from 3 ecosystems.
+Total 26 packages affected by 155 known vulnerabilities (20 Critical, 61 High, 37 Medium, 1 Low, 36 Unknown) from 3 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -733,7 +774,7 @@ Total 26 packages affected by 155 known vulnerabilities (21 Critical, 60 High, 3
 | https://osv.dev/DSA-4875-1          | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4963-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5103-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/DSA-5139-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DSA-5139-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5169-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5343-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5417-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -866,13 +907,14 @@ Scanned <rootdir>/fixtures/locks-many/package-lock.json file and found 1 package
 
 [TestCommand/go_packages_in_osv-scanner.json_format - 1]
 Scanned <rootdir>/fixtures/locks-insecure/osv-scanner.json file as a osv-scanner and found 2 packages
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
-1 vulnerability can be fixed.
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+2 vulnerabilities can be fixed.
 
 
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 | OSV URL                      | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                   |
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
+| https://osv.dev/GO-2025-3849 |      | Go        | stdlib    | 1.24.4  | 1.24.6        | fixtures/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2025-3828 |      | Go        | toolchain | 1.24.4  | 1.24.5        | fixtures/locks-insecure/osv-scanner.json |
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 
@@ -1304,6 +1346,125 @@ Total 10 packages affected by 35 known vulnerabilities (2 Critical, 13 High, 18 
 
 ---
 
+[TestCommand/spdx_2.3_output - 1]
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/uuid-placeholder-0",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-01-01T01:01:01Z"
+  },
+  "packages": [
+    {
+      "name": "main",
+      "SPDXID": "SPDXRef-Package-main-uuid-placeholder-1",
+      "versionInfo": "0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false
+    },
+    {
+      "name": "has-flag",
+      "SPDXID": "SPDXRef-Package-has-flag-uuid-placeholder-2",
+      "versionInfo": "4.0.0",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/bunlock extractor from <rootdir>/fixtures/locks-insecure/bun.lock",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/has-flag@4.0.0"
+        }
+      ]
+    },
+    {
+      "name": "wrappy",
+      "SPDXID": "SPDXRef-Package-wrappy-uuid-placeholder-3",
+      "versionInfo": "1.0.2",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the javascript/bunlock extractor from <rootdir>/fixtures/locks-insecure/bun.lock",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:npm/wrappy@1.0.2"
+        }
+      ]
+    },
+    {
+      "name": "league/flysystem",
+      "SPDXID": "SPDXRef-Package-league-flysystem-uuid-placeholder-4",
+      "versionInfo": "1.0.8",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the php/composerlock extractor from <rootdir>/fixtures/locks-insecure/composer.lock",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:composer/league%2Fflysystem@1.0.8"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "spdxElementId": "SPDXRef-DOCUMENT",
+      "relatedSpdxElement": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relationshipType": "DESCRIBES"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relatedSpdxElement": "SPDXRef-Package-has-flag-uuid-placeholder-2",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-has-flag-uuid-placeholder-2",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relatedSpdxElement": "SPDXRef-Package-wrappy-uuid-placeholder-3",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-wrappy-uuid-placeholder-3",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relatedSpdxElement": "SPDXRef-Package-league-flysystem-uuid-placeholder-4",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-league-flysystem-uuid-placeholder-4",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    }
+  ]
+}
+
+---
+
+[TestCommand/spdx_2.3_output - 2]
+Scanning dir ./fixtures/locks-insecure
+Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
+Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+
+---
+
 [TestCommand/verbosity_level_=_error - 1]
 No issues found
 
@@ -1399,14 +1560,14 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_ExplicitExtractors/empty_extractors_flag_does_nothing - 1]
+[TestCommand_ExplicitExtractors/empty_plugins_flag_does_nothing - 1]
 
 ---
 
-[TestCommand_ExplicitExtractors/empty_extractors_flag_does_nothing - 2]
-Incorrect Usage: flag needs an argument: --experimental-extractors=
+[TestCommand_ExplicitExtractors/empty_plugins_flag_does_nothing - 2]
+Incorrect Usage: flag needs an argument: --experimental-plugins=
 
-flag needs an argument: --experimental-extractors=
+flag needs an argument: --experimental-plugins=
 
 ---
 
@@ -1481,7 +1642,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_ExplicitExtractors/scanning_directory_with_an_extractor_that_does_not_exist - 2]
-unknown extractor "custom/extractor"
+not an exact name for a plugin: "custom/extractor"
 
 ---
 
@@ -1732,7 +1893,7 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.1.0"
+          "version": "2.2.1"
         },
         "extensions": []
       },
@@ -2597,7 +2758,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 2]
-Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract from <rootdir>/fixtures/locks-many-with-invalid/composer.lock: invalid character ',' looking for beginning of object key string
+Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
@@ -2615,7 +2776,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 4]
-Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract from <rootdir>/fixtures/locks-many-with-invalid/composer.lock: invalid character ',' looking for beginning of object key string
+Error during extraction: (extracting as php/composerlock) <rootdir>/fixtures/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
@@ -2739,7 +2900,7 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-Total 21 packages affected by 148 known vulnerabilities (18 Critical, 58 High, 37 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
+Total 21 packages affected by 148 known vulnerabilities (17 Critical, 59 High, 37 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -2827,7 +2988,7 @@ Total 21 packages affected by 148 known vulnerabilities (18 Critical, 58 High, 3
 | https://osv.dev/DSA-4875-1          | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4963-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5103-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DSA-5139-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5139-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5169-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5343-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5417-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2954,7 +3115,7 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-Total 21 packages affected by 148 known vulnerabilities (18 Critical, 58 High, 37 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
+Total 21 packages affected by 148 known vulnerabilities (17 Critical, 59 High, 37 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -3042,7 +3203,7 @@ Total 21 packages affected by 148 known vulnerabilities (18 Critical, 58 High, 3
 | https://osv.dev/DSA-4875-1          | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4963-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5103-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DSA-5139-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5139-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5169-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5343-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5417-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3393,7 +3554,7 @@ stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 2]
-(extracting as rust/cargolock) could not extract from <rootdir>/fixtures/locks-insecure/my-package-lock.json: toml: line 1: expected '.' or '=', but got '{' instead
+(extracting as rust/cargolock) could not extract: toml: line 1: expected '.' or '=', but got '{' instead
 
 ---
 
@@ -3461,7 +3622,7 @@ No issues found
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
-(extracting as javascript/packagelockjson) could not extract from "<rootdir>/fixtures/locks-many/yarn.lock": invalid character '#' looking for beginning of value
+(extracting as javascript/packagelockjson) could not extract: invalid character '#' looking for beginning of value
 
 ---
 
@@ -3493,6 +3654,24 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file - 2]
+
+---
+
+[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 1]
+
+---
+
+[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 2]
+could not determine extractor suitable to this file
+
+---
+
+[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 1]
+
+---
+
+[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 2]
+could not determine extractor suitable to this file
 
 ---
 
