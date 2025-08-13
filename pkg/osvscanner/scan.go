@@ -105,6 +105,10 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 		return nil, errors.New("at least one extractor must be enabled")
 	}
 
+	if actions.CallAnalysisStates["jar"] {
+		plugins = append(plugins, java.NewDefault())
+	}
+
 	// --- Lockfiles ---
 	lockfilePlugins := omitDirExtractors(plugins)
 
@@ -178,10 +182,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 		if actions.CompareOffline {
 			capabilities.Network = plugin.NetworkOffline
-		}
-
-		if actions.CallAnalysisStates["jar"] {
-			plugins = append(plugins, java.NewDefault())
 		}
 
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{

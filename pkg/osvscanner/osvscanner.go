@@ -307,6 +307,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
 
+	if actions.CallAnalysisStates["jar"] {
+		plugins = append(plugins, java.NewDefault())
+	}
+
 	// --- Initialize Image To Scan ---'
 
 	var img *image.Image
@@ -338,10 +342,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		DirectFS:      true,
 		RunningSystem: false,
 		OS:            plugin.OSLinux,
-	}
-
-	if actions.CallAnalysisStates["jar"] {
-		plugins = append(plugins, java.NewDefault())
 	}
 
 	plugins = plugin.FilterByCapabilities(plugins, capabilities)

@@ -321,7 +321,7 @@ func TestCommand_JavareachArchive(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "Test java reachability enricher",
-			Args: []string{"", "source", "--call-analysis=jar", "--all-vulns", "--experimental-extractors=artifact", "./fixtures/artifact/javareach_test.jar"},
+			Args: []string{"", "source", "--call-analysis=jar", "--all-vulns", "--experimental-plugins=artifact", "./fixtures/artifact/javareach_test.jar"},
 			Exit: 1,
 		},
 	}
