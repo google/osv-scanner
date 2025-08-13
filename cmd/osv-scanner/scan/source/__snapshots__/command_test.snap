@@ -407,6 +407,7 @@ Scanning dir ./fixtures/locks-insecure
 Scanning dir ./fixtures/maven-transitive
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
@@ -438,27 +439,31 @@ overriding license for package Alpine/scanelf/1.3.5-r1 with MIT
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Alpine/ssl_client/1.36.1-r27 with MIT
 overriding license for package Alpine/zlib/1.2.13-r0 with MIT
-Total 2 packages affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 4 ecosystems.
-1 vulnerability can be fixed.
+Total 4 packages affected by 4 known vulnerabilities (1 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 5 ecosystems.
+3 vulnerabilities can be fixed.
 
 
-+-------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                |
-+-------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | fixtures/locks-insecure/composer.lock |
-| https://osv.dev/CVE-2025-26519      |      | Alpine    | musl             | 1.2.3-r4 | --            | fixtures/locks-many/alpine.cdx.xml    |
-+-------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
++-------------------------------------+------+-----------+------------------+----------+---------------+-------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                          |
++-------------------------------------+------+-----------+------------------+----------+---------------+-------------------------------------------------+
+| https://osv.dev/GO-2025-3849        |      | Go        | stdlib           | 1.24.4   | 1.24.6        | fixtures/locks-insecure/osv-scanner-custom.json |
+| https://osv.dev/GO-2025-3828        |      | Go        | toolchain        | 1.24.4   | 1.24.5        | fixtures/locks-insecure/osv-scanner-custom.json |
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | fixtures/locks-insecure/composer.lock           |
+| https://osv.dev/CVE-2025-26519      |      | Alpine    | musl             | 1.2.3-r4 | --            | fixtures/locks-many/alpine.cdx.xml              |
++-------------------------------------+------+-----------+------------------+----------+---------------+-------------------------------------------------+
 +---------+-------------------------+
 | LICENSE | NO. OF PACKAGE VERSIONS |
 +---------+-------------------------+
 | MIT     |                      14 |
 | 0BSD    |                       2 |
-| UNKNOWN |                       4 |
+| UNKNOWN |                       6 |
 +---------+-------------------------+
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE                                        | VERSION | SOURCE                                                |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 | 0BSD              | Packagist | league/flysystem                               | 1.0.8   | fixtures/locks-insecure/composer.lock                 |
+| UNKNOWN           | Go        | stdlib                                         | 1.24.4  | fixtures/locks-insecure/osv-scanner-custom.json       |
+| UNKNOWN           | Go        | toolchain                                      | 1.24.4  | fixtures/locks-insecure/osv-scanner-custom.json       |
 | UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
@@ -533,6 +538,22 @@ No issues found
       "purl": "pkg:composer/league/flysystem@1.0.8"
     },
     {
+      "bom-ref": "pkg:golang/stdlib@1.24.4",
+      "type": "library",
+      "name": "stdlib",
+      "version": "1.24.4",
+      "licenses": [],
+      "purl": "pkg:golang/stdlib@1.24.4"
+    },
+    {
+      "bom-ref": "pkg:golang/toolchain@1.24.4",
+      "type": "library",
+      "name": "toolchain",
+      "version": "1.24.4",
+      "licenses": [],
+      "purl": "pkg:golang/toolchain@1.24.4"
+    },
+    {
       "bom-ref": "pkg:npm/has-flag@4.0.0",
       "type": "library",
       "name": "has-flag",
@@ -581,6 +602,70 @@ No issues found
           "ref": "pkg:composer/league/flysystem"
         }
       ]
+    },
+    {
+      "id": "GO-2025-3828",
+      "references": [
+        {
+          "id": "BIT-golang-2025-4674",
+          "source": {}
+        },
+        {
+          "id": "CVE-2025-4674",
+          "source": {}
+        }
+      ],
+      "ratings": [],
+      "description": "Unexpected command execution in untrusted VCS repositories in cmd/go",
+      "detail": "The go command may execute unexpected commands when operating in untrusted VCS repositories.\n\nThis occurs when possibly dangerous VCS configuration is present in repositories. This can happen when a repository was fetched via one VCS (e.g. Git), but contains metadata for another VCS (e.g. Mercurial). Modules which are retrieved using the go command line, i.e. via \"go get\", are not affected.",
+      "advisories": [],
+      "published": "2025-07-29T21:02:00Z",
+      "updated": "2025-07-31T07:14:38Z",
+      "credits": {
+        "organizations": [
+          {
+            "name": "RyotaK (https://ryotak.net) of GMO Flatt Security Inc",
+            "url": null
+          }
+        ]
+      },
+      "affects": [
+        {
+          "ref": "pkg:golang/toolchain"
+        }
+      ]
+    },
+    {
+      "id": "GO-2025-3849",
+      "references": [
+        {
+          "id": "BIT-golang-2025-47907",
+          "source": {}
+        },
+        {
+          "id": "CVE-2025-47907",
+          "source": {}
+        }
+      ],
+      "ratings": [],
+      "description": "Incorrect results returned from Rows.Scan in database/sql",
+      "detail": "Cancelling a query (e.g. by cancelling the context passed to one of the query methods) during a call to the Scan method of the returned Rows can result in unexpected results if other queries are being made in parallel. This can result in a race condition that may overwrite the expected results with those of another query, causing the call to Scan to return either unexpected results from the other query or an error.",
+      "advisories": [],
+      "published": "2025-08-07T15:07:27Z",
+      "updated": "2025-08-11T06:27:06Z",
+      "credits": {
+        "organizations": [
+          {
+            "name": "Spike Curtis from Coder",
+            "url": null
+          }
+        ]
+      },
+      "affects": [
+        {
+          "ref": "pkg:golang/stdlib"
+        }
+      ]
     }
   ]
 }
@@ -591,6 +676,7 @@ No issues found
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 
 ---
 
@@ -610,6 +696,22 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
       "purl": "pkg:composer/league/flysystem@1.0.8"
     },
     {
+      "bom-ref": "pkg:golang/stdlib@1.24.4",
+      "type": "library",
+      "name": "stdlib",
+      "version": "1.24.4",
+      "licenses": [],
+      "purl": "pkg:golang/stdlib@1.24.4"
+    },
+    {
+      "bom-ref": "pkg:golang/toolchain@1.24.4",
+      "type": "library",
+      "name": "toolchain",
+      "version": "1.24.4",
+      "licenses": [],
+      "purl": "pkg:golang/toolchain@1.24.4"
+    },
+    {
       "bom-ref": "pkg:npm/has-flag@4.0.0",
       "type": "library",
       "name": "has-flag",
@@ -658,6 +760,70 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
           "ref": "pkg:composer/league/flysystem"
         }
       ]
+    },
+    {
+      "id": "GO-2025-3828",
+      "references": [
+        {
+          "id": "BIT-golang-2025-4674",
+          "source": {}
+        },
+        {
+          "id": "CVE-2025-4674",
+          "source": {}
+        }
+      ],
+      "ratings": [],
+      "description": "Unexpected command execution in untrusted VCS repositories in cmd/go",
+      "detail": "The go command may execute unexpected commands when operating in untrusted VCS repositories.\n\nThis occurs when possibly dangerous VCS configuration is present in repositories. This can happen when a repository was fetched via one VCS (e.g. Git), but contains metadata for another VCS (e.g. Mercurial). Modules which are retrieved using the go command line, i.e. via \"go get\", are not affected.",
+      "advisories": [],
+      "published": "2025-07-29T21:02:00Z",
+      "updated": "2025-07-31T07:14:38Z",
+      "credits": {
+        "organizations": [
+          {
+            "name": "RyotaK (https://ryotak.net) of GMO Flatt Security Inc",
+            "url": null
+          }
+        ]
+      },
+      "affects": [
+        {
+          "ref": "pkg:golang/toolchain"
+        }
+      ]
+    },
+    {
+      "id": "GO-2025-3849",
+      "references": [
+        {
+          "id": "BIT-golang-2025-47907",
+          "source": {}
+        },
+        {
+          "id": "CVE-2025-47907",
+          "source": {}
+        }
+      ],
+      "ratings": [],
+      "description": "Incorrect results returned from Rows.Scan in database/sql",
+      "detail": "Cancelling a query (e.g. by cancelling the context passed to one of the query methods) during a call to the Scan method of the returned Rows can result in unexpected results if other queries are being made in parallel. This can result in a race condition that may overwrite the expected results with those of another query, causing the call to Scan to return either unexpected results from the other query or an error.",
+      "advisories": [],
+      "published": "2025-08-07T15:07:27Z",
+      "updated": "2025-08-11T06:27:06Z",
+      "credits": {
+        "organizations": [
+          {
+            "name": "Spike Curtis from Coder",
+            "url": null
+          }
+        ]
+      },
+      "affects": [
+        {
+          "ref": "pkg:golang/stdlib"
+        }
+      ]
     }
   ]
 }
@@ -668,6 +834,7 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 
 ---
 
@@ -679,7 +846,7 @@ Scanned <rootdir>/fixtures/sbom-insecure/bad-purls.cdx.xml file and found 15 pac
 Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/fixtures/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 9 local/unscannable package/s from the scan.
-Total 26 packages affected by 155 known vulnerabilities (21 Critical, 60 High, 37 Medium, 1 Low, 36 Unknown) from 3 ecosystems.
+Total 26 packages affected by 155 known vulnerabilities (20 Critical, 61 High, 37 Medium, 1 Low, 36 Unknown) from 3 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -774,7 +941,7 @@ Total 26 packages affected by 155 known vulnerabilities (21 Critical, 60 High, 3
 | https://osv.dev/DSA-4875-1          | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4963-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5103-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/DSA-5139-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DSA-5139-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5169-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5343-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5417-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1462,6 +1629,9 @@ Total 10 packages affected by 35 known vulnerabilities (2 Critical, 13 High, 18 
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
+Package &{stdlib 1.24.4 <nil> [<rootdir>/fixtures/locks-insecure/osv-scanner-custom.json]  [osv/osvscannerjson osv/osvscannerjson] [] [] <nil> 0xc00ced8ab0} has no PURL, skipping
+Package &{toolchain 1.24.4 <nil> [<rootdir>/fixtures/locks-insecure/osv-scanner-custom.json]  [osv/osvscannerjson osv/osvscannerjson] [] [] <nil> 0xc00ced8ae0} has no PURL, skipping
 
 ---
 
@@ -1852,8 +2022,8 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
                 "text": "An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing."
               },
               "help": {
-                "markdown": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| unknown:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
-                "text": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| unknown:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+                "markdown": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
               },
               "id": "CVE-2023-39137",
               "name": "CVE-2023-39137",
@@ -1876,8 +2046,8 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
                 "text": "An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file."
               },
               "help": {
-                "markdown": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| unknown:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
-                "text": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| unknown:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+                "markdown": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
               },
               "id": "CVE-2023-39139",
               "name": "CVE-2023-39139",
@@ -2280,6 +2450,7 @@ Scanning dir ./fixtures/locks-many
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
@@ -2307,30 +2478,34 @@ ignoring license for package Alpine/scanelf/1.3.5-r1
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 ignoring license for package Alpine/ssl_client/1.36.1-r27
 ignoring license for package Alpine/zlib/1.2.13-r0
-Total 2 packages affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 3 ecosystems.
-1 vulnerability can be fixed.
+Total 4 packages affected by 4 known vulnerabilities (1 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 4 ecosystems.
+3 vulnerabilities can be fixed.
 
 
-+-------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                |
-+-------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | fixtures/locks-insecure/composer.lock |
-| https://osv.dev/CVE-2025-26519      |      | Alpine    | musl             | 1.2.3-r4 | --            | fixtures/locks-many/alpine.cdx.xml    |
-+-------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
++-------------------------------------+------+-----------+------------------+----------+---------------+-------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                          |
++-------------------------------------+------+-----------+------------------+----------+---------------+-------------------------------------------------+
+| https://osv.dev/GO-2025-3849        |      | Go        | stdlib           | 1.24.4   | 1.24.6        | fixtures/locks-insecure/osv-scanner-custom.json |
+| https://osv.dev/GO-2025-3828        |      | Go        | toolchain        | 1.24.4   | 1.24.5        | fixtures/locks-insecure/osv-scanner-custom.json |
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | fixtures/locks-insecure/composer.lock           |
+| https://osv.dev/CVE-2025-26519      |      | Alpine    | musl             | 1.2.3-r4 | --            | fixtures/locks-many/alpine.cdx.xml              |
++-------------------------------------+------+-----------+------------------+----------+---------------+-------------------------------------------------+
 +---------+-------------------------+
 | LICENSE | NO. OF PACKAGE VERSIONS |
 +---------+-------------------------+
 | 0BSD    |                       2 |
-| UNKNOWN |                       2 |
+| UNKNOWN |                       4 |
 +---------+-------------------------+
-+-------------------+-----------+------------------+----------+---------------------------------------+
-| LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION  | SOURCE                                |
-+-------------------+-----------+------------------+----------+---------------------------------------+
-| 0BSD              | Packagist | league/flysystem | 1.0.8    | fixtures/locks-insecure/composer.lock |
-| UNKNOWN           | RubyGems  | ast              | 2.4.2    | fixtures/locks-many/Gemfile.lock      |
-| UNKNOWN           | Alpine    | musl             | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml    |
-| 0BSD              | Packagist | sentry/sdk       | 2.0.4    | fixtures/locks-many/composer.lock     |
-+-------------------+-----------+------------------+----------+---------------------------------------+
++-------------------+-----------+------------------+----------+-------------------------------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION  | SOURCE                                          |
++-------------------+-----------+------------------+----------+-------------------------------------------------+
+| 0BSD              | Packagist | league/flysystem | 1.0.8    | fixtures/locks-insecure/composer.lock           |
+| UNKNOWN           | Go        | stdlib           | 1.24.4   | fixtures/locks-insecure/osv-scanner-custom.json |
+| UNKNOWN           | Go        | toolchain        | 1.24.4   | fixtures/locks-insecure/osv-scanner-custom.json |
+| UNKNOWN           | RubyGems  | ast              | 2.4.2    | fixtures/locks-many/Gemfile.lock                |
+| UNKNOWN           | Alpine    | musl             | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml              |
+| 0BSD              | Packagist | sentry/sdk       | 2.0.4    | fixtures/locks-many/composer.lock               |
++-------------------+-----------+------------------+----------+-------------------------------------------------+
 
 ---
 
@@ -2818,7 +2993,7 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-Total 21 packages affected by 148 known vulnerabilities (18 Critical, 58 High, 37 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
+Total 21 packages affected by 148 known vulnerabilities (17 Critical, 59 High, 37 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -2906,7 +3081,7 @@ Total 21 packages affected by 148 known vulnerabilities (18 Critical, 58 High, 3
 | https://osv.dev/DSA-4875-1          | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4963-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5103-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DSA-5139-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5139-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5169-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5343-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5417-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3033,7 +3208,7 @@ Scanned <rootdir>/fixtures/sbom-insecure/postgres-stretch.cdx.xml file and found
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-Total 21 packages affected by 148 known vulnerabilities (18 Critical, 58 High, 37 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
+Total 21 packages affected by 148 known vulnerabilities (17 Critical, 59 High, 37 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -3121,7 +3296,7 @@ Total 21 packages affected by 148 known vulnerabilities (18 Critical, 58 High, 3
 | https://osv.dev/DSA-4875-1          | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4963-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5103-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DSA-5139-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5139-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5169-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5343-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5417-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | fixtures/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3482,17 +3657,20 @@ Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and f
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-3 vulnerabilities can be fixed.
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
+Total 5 packages affected by 5 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 2 Unknown) from 3 ecosystems.
+5 vulnerabilities can be fixed.
 
 
-+-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
++-------------------------------------+------+-----------+------------------+---------+---------------+-------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                          |
++-------------------------------------+------+-----------+------------------+---------+---------------+-------------------------------------------------+
+| https://osv.dev/GO-2025-3849        |      | Go        | stdlib           | 1.24.4  | 1.24.6        | fixtures/locks-insecure/osv-scanner-custom.json |
+| https://osv.dev/GO-2025-3828        |      | Go        | toolchain        | 1.24.4  | 1.24.5        | fixtures/locks-insecure/osv-scanner-custom.json |
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | fixtures/locks-insecure/composer.lock           |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | fixtures/locks-insecure/my-package-lock.json    |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | fixtures/locks-insecure/my-yarn.lock            |
++-------------------------------------+------+-----------+------------------+---------+---------------+-------------------------------------------------+
 
 ---
 
@@ -3506,17 +3684,20 @@ Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-3 vulnerabilities can be fixed.
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
+Total 5 packages affected by 5 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 2 Unknown) from 3 ecosystems.
+5 vulnerabilities can be fixed.
 
 
-+-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | fixtures/locks-insecure/my-package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | fixtures/locks-insecure/my-yarn.lock         |
-+-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
++-------------------------------------+------+-----------+------------------+---------+---------------+-------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                          |
++-------------------------------------+------+-----------+------------------+---------+---------------+-------------------------------------------------+
+| https://osv.dev/GO-2025-3849        |      | Go        | stdlib           | 1.24.4  | 1.24.6        | fixtures/locks-insecure/osv-scanner-custom.json |
+| https://osv.dev/GO-2025-3828        |      | Go        | toolchain        | 1.24.4  | 1.24.5        | fixtures/locks-insecure/osv-scanner-custom.json |
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | fixtures/locks-insecure/composer.lock           |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | fixtures/locks-insecure/my-package-lock.json    |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | fixtures/locks-insecure/my-yarn.lock            |
++-------------------------------------+------+-----------+------------------+---------+---------------+-------------------------------------------------+
 
 ---
 
@@ -3558,16 +3739,19 @@ Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
-Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
+Total 4 packages affected by 4 known vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 2 Unknown) from 3 ecosystems.
+4 vulnerabilities can be fixed.
 
 
-+-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | fixtures/locks-insecure/composer.lock        |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | fixtures/locks-insecure/my-package-lock.json |
-+-------------------------------------+------+-----------+------------------+---------+---------------+----------------------------------------------+
++-------------------------------------+------+-----------+------------------+---------+---------------+-------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                          |
++-------------------------------------+------+-----------+------------------+---------+---------------+-------------------------------------------------+
+| https://osv.dev/GO-2025-3849        |      | Go        | stdlib           | 1.24.4  | 1.24.6        | fixtures/locks-insecure/osv-scanner-custom.json |
+| https://osv.dev/GO-2025-3828        |      | Go        | toolchain        | 1.24.4  | 1.24.5        | fixtures/locks-insecure/osv-scanner-custom.json |
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | fixtures/locks-insecure/composer.lock           |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html        | 0.0.1   | 0.0.8         | fixtures/locks-insecure/my-package-lock.json    |
++-------------------------------------+------+-----------+------------------+---------+---------------+-------------------------------------------------+
 
 ---
 

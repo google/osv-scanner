@@ -3,9 +3,9 @@ package osvscannerjson
 
 import (
 	"context"
-	"path/filepath"
 	"encoding/json"
 	"fmt"
+	"path/filepath"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
