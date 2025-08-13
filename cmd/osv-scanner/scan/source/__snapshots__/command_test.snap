@@ -1921,6 +1921,88 @@ HTML output available at: <tempdir>/report.html
 
 ---
 
+[TestCommand_JavareachArchive/Test_java_reachability_enricher - 1]
+Scanning dir ./fixtures/artifact/javareach_test.jar
+Java reachability enricher marked 14 packages as unreachable
+Scanned <rootdir>/fixtures/artifact/javareach_test.jar file and found 21 packages
+failed to download package err jar not found: https://repo1.maven.org/maven2/com/example/hello-tester/1.0-SNAPSHOT/hello-tester-1.0-SNAPSHOT.jar
+Total 4 packages affected by 53 known vulnerabilities (18 Critical, 29 High, 5 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+53 vulnerabilities can be fixed.
+
+
++-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
++-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
+| https://osv.dev/GHSA-h46c-h94j-95f3 | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.15.0        | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-288c-cq4h-88gq | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.4       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-4gq5-ch57-c2mg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-4w82-r329-3q67 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.4       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-57j2-w4cx-62h2 | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.12.6.1      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-5949-rw7g-wx7w | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-5r5r-6hpj-8gg9 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-5ww9-j83m-q7qx | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-645p-88qh-w398 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-6fpp-rgj9-8rwc | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.6       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-85cw-hj65-qqv9 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-89qr-369f-5m5x | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-8c4j-34r4-xr8g | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-8w26-6f25-cm9x | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-9gph-22xh-8x98 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-9m6f-7xcq-8vf8 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-c8hm-7hpq-7jhg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-cf6r-3wgc-h863 | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-cggj-fvv3-cqwv | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-cjjf-94ff-43w7 | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.4       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-cmfg-87vq-g5g4 | 5.9  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-cvm9-fjm9-3572 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-f3j5-rmmp-3fc5 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.8.11.5      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-f9xh-2qgp-cq57 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-fmmc-742q-jg75 | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-fqwf-pjwf-7vqv | 8.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.4       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-gjmw-vf9h-g25v | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-gwp4-hfv6-p7hw | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-gww7-p5w4-wrfv | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.4       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-h3cw-g4mq-c5x2 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.6      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-h592-38cm-4ggp | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-h822-r4r5-v8jg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-jjjh-jjxp-wpff | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.12.7.1      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-m6x4-97wx-4q27 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-mph4-vhrx-mv67 | 5.9  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-mx7p-6679-8g3q | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.3       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-p43x-xfjf-5jhr | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.7       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-q93h-jc49-78gg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.7       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-qjw2-hr98-qgfh | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-qr7j-h6gg-jmgc | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.4       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-r3gr-cxrf-hg25 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-r695-7vr9-jgc2 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-rfx6-vp9g-rh7v | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.2       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-rgv9-q543-rqg4 | 8.2  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.12.7.1      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-rpr3-cw39-3pxh | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.4      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-v585-23hc-c647 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-vfqx-33qm-g869 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-w3f4-3q6j-rh82 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.5       | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-wh8g-3j2c-rqj5 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-j288-q9x7-2f5v | 6.5  | Maven     | org.apache.commons:commons-lang3            | 3.12.0           | 3.18.0        | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-cj7v-27pg-wf7q | 2.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.47        | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-hmr7-m48g-48f6 | 5.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.52        | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-qh8g-58pp-2wxh | 6.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.12       | fixtures/artifact/javareach_test.jar |
++-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
+| Uncalled vulnerabilities            |      |           |                                             |                  |               |                                      |
++-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
+| https://osv.dev/GHSA-c28r-hw5m-5gv3 | 7.9  | Maven     | com.amazonaws:aws-java-sdk-s3               | 1.11.327         | 1.12.261      | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-7r82-7xv7-xcpj | 5.3  | Maven     | org.apache.httpcomponents:httpclient        | 4.5.5            | 4.5.13        | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-3gh6-v5v9-6v9j | 3.5  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.52        | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-gwcr-j4wh-j3cq | 5.3  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.41        | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-j26w-f9rq-mr2q | 5.3  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.54        | fixtures/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-264p-99wq-f4j6 | 7.5  | Maven     | software.amazon.ion:ion-java                | 1.0.2            | --            | fixtures/artifact/javareach_test.jar |
++-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
+
+---
+
+[TestCommand_JavareachArchive/Test_java_reachability_enricher - 2]
+
+---
+
 [TestCommand_Licenses/Licenses_in_summary_mode_json - 1]
 {
   "results": [],
