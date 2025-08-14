@@ -1,3 +1,0 @@
-flask==0.12.2  # Vulnerable to CVE-2019-1010083
-django==1.11.29  # Vulnerable to CVE-2021-35042
-requests==2.20.0  # Vulnerable to CVE-2018-18074

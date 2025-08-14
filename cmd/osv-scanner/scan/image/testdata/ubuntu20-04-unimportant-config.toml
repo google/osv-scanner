@@ -1,0 +1,74 @@
+[[PackageOverrides]]
+name = "coreutils"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "gcc-10"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "glibc"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "gnupg2"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "libgcrypt20"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "libtasn1-6"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "ncurses"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "pam"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "pcre2"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "perl"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "shadow"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "systemd"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "dpkg"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "gnutls28"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "tar"
+reason = "Just want to test only unimportant vulns"
+ignore = true

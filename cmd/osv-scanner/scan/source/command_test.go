@@ -315,6 +315,25 @@ func TestCommand(t *testing.T) {
 	}
 }
 
+func TestCommand_JavareachArchive(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "Test java reachability enricher",
+			Args: []string{"", "source", "--call-analysis=jar", "--all-vulns", "--experimental-plugins=artifact", "./fixtures/artifact/javareach_test.jar"},
+			Exit: 1,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
 func TestCommand_ExplicitExtractors(t *testing.T) {
 	t.Parallel()
 

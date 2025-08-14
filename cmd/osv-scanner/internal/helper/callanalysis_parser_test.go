@@ -18,6 +18,7 @@ func TestCreateCallAnalysisStates(t *testing.T) {
 			expectedCallAnalysisStates: map[string]bool{
 				"go":   true,
 				"rust": true,
+				"jar":  false,
 			},
 		},
 		{
@@ -26,6 +27,7 @@ func TestCreateCallAnalysisStates(t *testing.T) {
 			expectedCallAnalysisStates: map[string]bool{
 				"go":   true,
 				"rust": false,
+				"jar":  true,
 			},
 		},
 		{
@@ -34,6 +36,7 @@ func TestCreateCallAnalysisStates(t *testing.T) {
 			expectedCallAnalysisStates: map[string]bool{
 				"go":   false,
 				"rust": false,
+				"jar":  false,
 			},
 		},
 		{
@@ -42,6 +45,7 @@ func TestCreateCallAnalysisStates(t *testing.T) {
 			expectedCallAnalysisStates: map[string]bool{
 				"go":   true,
 				"rust": false,
+				"jar":  false,
 			},
 		},
 		{
@@ -50,6 +54,7 @@ func TestCreateCallAnalysisStates(t *testing.T) {
 			expectedCallAnalysisStates: map[string]bool{
 				"go":   false,
 				"rust": true,
+				"jar":  true,
 			},
 		},
 	}
