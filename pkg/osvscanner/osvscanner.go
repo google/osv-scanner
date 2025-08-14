@@ -18,6 +18,7 @@ import (
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
+	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
@@ -179,7 +180,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	}
 
 	// We only support native registry client for PyPI.
-	externalAccessors.DependencyClients[osvschema.EcosystemPyPI] = resolution.NewPyPIRegistryClient("")
+	externalAccessors.DependencyClients[osvschema.EcosystemPyPI] = resolution.NewPyPIRegistryClient("", "")
 
 	if err != nil {
 		return ExternalAccessors{}, err
@@ -306,14 +307,21 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
 
+	if actions.CallAnalysisStates["jar"] {
+		plugins = append(plugins, java.NewDefault())
+	}
+
 	// --- Initialize Image To Scan ---'
+
+	// TODO: Setup context at the start of the run
+	ctx := context.TODO()
 
 	var img *image.Image
 	if actions.IsImageArchive {
 		cmdlogger.Infof("Scanning local image tarball %q", actions.Image)
 		img, err = image.FromTarball(actions.Image, image.DefaultConfig())
 	} else if actions.Image != "" {
-		path, exportErr := imagehelpers.ExportDockerImage(actions.Image)
+		path, exportErr := imagehelpers.ExportDockerImage(ctx, actions.Image)
 		if exportErr != nil {
 			return models.VulnerabilityResults{}, exportErr
 		}
@@ -336,8 +344,14 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	capabilities := &plugin.Capabilities{
 		DirectFS:      true,
 		RunningSystem: false,
+		Network:       plugin.NetworkOnline,
 		OS:            plugin.OSLinux,
 	}
+
+	if actions.CompareOffline {
+		capabilities.Network = plugin.NetworkOffline
+	}
+
 	plugins = plugin.FilterByCapabilities(plugins, capabilities)
 
 	// --- Do Scalibr Scan ---
@@ -360,6 +374,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	for i, inv := range scalibrSR.Inventory.Packages {
 		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
 		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
+		scanResult.PackageScanResults[i].PackageInfo.ExploitabilitySignals = inv.ExploitabilitySignals
 	}
 
 	// --- Fill Image Metadata ---
