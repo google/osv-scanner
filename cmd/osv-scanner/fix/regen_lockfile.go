@@ -1,12 +1,13 @@
 package fix
 
 import (
+	"context"
 	"os"
 	"os/exec"
 	"path/filepath"
 )
 
-func regenerateLockfileCmd(opts osvFixOptions) (*exec.Cmd, error) {
+func regenerateLockfileCmd(ctx context.Context, opts osvFixOptions) (*exec.Cmd, error) {
 	// TODO: this is npm-specific and hacky
 	// delete existing package-lock & node_modules directory to force npm to do a clean install
 	dir := filepath.Dir(opts.Manifest)
@@ -18,7 +19,7 @@ func regenerateLockfileCmd(opts osvFixOptions) (*exec.Cmd, error) {
 	}
 	// TODO: need to also remove node_modules/ in workspace packages
 
-	c := exec.Command("npm", "install", "--package-lock-only")
+	c := exec.CommandContext(ctx, "npm", "install", "--package-lock-only")
 	c.Dir = dir
 
 	return c, nil

@@ -518,7 +518,8 @@ func (st *stateRelockResult) write(m model) tea.Msg {
 		return writeMsg{nil}
 	}
 
-	c, err := regenerateLockfileCmd(m.options)
+	// TODO: This will be moved to osv-scalibr, which might have context already
+	c, err := regenerateLockfileCmd(context.TODO(), m.options)
 	if err != nil {
 		return writeMsg{err}
 	}
@@ -526,7 +527,7 @@ func (st *stateRelockResult) write(m model) tea.Msg {
 	return tea.ExecProcess(c, func(err error) tea.Msg {
 		if err != nil {
 			// try again with "--legacy-peer-deps"
-			c, err := regenerateLockfileCmd(m.options)
+			c, err := regenerateLockfileCmd(context.TODO(), m.options)
 			if err != nil {
 				return writeMsg{err}
 			}

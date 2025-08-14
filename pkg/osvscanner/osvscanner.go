@@ -313,12 +313,15 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	// --- Initialize Image To Scan ---'
 
+	// TODO: Setup context at the start of the run
+	ctx := context.TODO()
+
 	var img *image.Image
 	if actions.IsImageArchive {
 		cmdlogger.Infof("Scanning local image tarball %q", actions.Image)
 		img, err = image.FromTarball(actions.Image, image.DefaultConfig())
 	} else if actions.Image != "" {
-		path, exportErr := imagehelpers.ExportDockerImage(actions.Image)
+		path, exportErr := imagehelpers.ExportDockerImage(ctx, actions.Image)
 		if exportErr != nil {
 			return models.VulnerabilityResults{}, exportErr
 		}

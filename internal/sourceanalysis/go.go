@@ -20,7 +20,8 @@ import (
 )
 
 func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
-	cmd := exec.Command("go", "version")
+	// TODO: This will be moved to enrichers which does have context.
+	cmd := exec.CommandContext(context.TODO(), "go", "version")
 	_, err := cmd.Output()
 	if err != nil {
 		cmdlogger.Infof("Skipping call analysis on Go code since Go is not installed.")

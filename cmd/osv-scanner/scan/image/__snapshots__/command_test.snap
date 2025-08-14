@@ -382,8 +382,8 @@ failed to load image from tarball with path "../../fixtures/locks-manyoci-image/
 Scanning local image tarball "./testdata/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 18 packages affected by 26 known vulnerabilities (2 Critical, 8 High, 11 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
-26 vulnerabilities can be fixed.
+Total 19 packages affected by 27 known vulnerabilities (2 Critical, 9 High, 11 Medium, 0 Low, 5 Unknown) from 2 ecosystems.
+27 vulnerabilities can be fixed.
 
 
 Maven
@@ -398,6 +398,7 @@ Maven
 | commons-beanutils:commons-beanutils       | 1.9.4             | Fix Available |          1 | # 12 Layer       | --            |
 | dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
+| io.netty:netty-codec-http2                | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
 | io.netty:netty-handler                    | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
 | org.apache.avro:avro                      | 1.9.2             | Fix Available |          2 | # 12 Layer       | --            |
