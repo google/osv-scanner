@@ -1,3 +1,9 @@
+# v2.2.1
+
+### Fixes
+
+- [Bug #2151](https://github.com/google/osv-scanner/issues/2151) Filter by ecosystem before querying.
+
 # v2.2.0
 
 OSV-Scanner now supports all OSV-Scalibr features behind experimental flags (`--experimental-plugins`, see details [here](https://google.github.io/osv-scanner/experimental/manual-plugin-selection/))!

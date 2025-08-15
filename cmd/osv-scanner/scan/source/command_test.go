@@ -199,6 +199,23 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-5", "--all-packages", "./fixtures/locks-insecure"},
 			Exit: 1,
 		},
+		// output format: spdx 2.3
+		{
+			Name: "Empty spdx 2.3 output",
+			Args: []string{"", "source", "--format", "spdx-2-3", "./fixtures/locks-many/composer.lock"},
+			ReplaceRules: []testcmd.JSONReplaceRule{
+				testcmd.NormalizeCreateDateSPDX,
+			},
+			Exit: 0,
+		},
+		{
+			Name: "spdx 2.3 output", // SPDX does not support outputting vulnerabilties
+			Args: []string{"", "source", "--config=./fixtures/osv-scanner-empty-config.toml", "--format", "spdx-2-3", "--all-packages", "./fixtures/locks-insecure"},
+			ReplaceRules: []testcmd.JSONReplaceRule{
+				testcmd.NormalizeCreateDateSPDX,
+			},
+			Exit: 1,
+		},
 		// output format: unsupported
 		{
 			Name: "output format: unsupported",
@@ -290,6 +307,25 @@ func TestCommand(t *testing.T) {
 			Exit: 1,
 		},
 	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
+func TestCommand_JavareachArchive(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "Test java reachability enricher",
+			Args: []string{"", "source", "--call-analysis=jar", "--all-vulns", "--experimental-plugins=artifact", "./fixtures/artifact/javareach_test.jar"},
+			Exit: 1,
+		},
+	}
+
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()

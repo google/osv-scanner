@@ -2,6 +2,7 @@ package sourceanalysis
 
 import (
 	"bytes"
+	"context"
 	"debug/dwarf"
 	"debug/elf"
 	"errors"
@@ -221,7 +222,8 @@ func extractRlibArchive(rlibPath string) (bytes.Buffer, error) {
 func rustBuildSource(source models.SourceInfo) ([]string, error) {
 	projectBaseDir := filepath.Dir(source.Path)
 
-	cmd := exec.Command("cargo", "build", "--workspace", "--all-targets", "--release")
+	// TODO: This will be moved to enrichers which does have context.
+	cmd := exec.CommandContext(context.TODO(), "cargo", "build", "--workspace", "--all-targets", "--release")
 	cmd.Env = append(cmd.Environ(), RustFlagsEnv)
 	cmd.Dir = projectBaseDir
 	if errors.Is(cmd.Err, exec.ErrDot) {

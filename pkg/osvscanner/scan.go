@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
+	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
@@ -102,6 +103,10 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	if len(plugins) == 0 {
 		return nil, errors.New("at least one extractor must be enabled")
+	}
+
+	if actions.CallAnalysisStates["jar"] {
+		plugins = append(plugins, java.NewDefault())
 	}
 
 	// --- Lockfiles ---

@@ -71,7 +71,7 @@ func NewEnricher() Enricher {
 
 // Enrich runs govulncheck on the Go modules in the inventory.
 func (e *Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *inventory.Inventory) error {
-	cmd := exec.Command("go", "version")
+	cmd := exec.CommandContext(ctx, "go", "version")
 	_, err := cmd.Output()
 	if err != nil {
 		log.Infof("Skipping call analysis on Go code since Go is not installed.")

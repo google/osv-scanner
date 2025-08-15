@@ -67,7 +67,7 @@ func BuildImageMetadata(img *image.Image, baseImageMatcher clientinterfaces.Base
 // cleaned automatically by this function.
 //
 // ExportDockerImage will first try to locate the image locally, and if not found, attempt to pull the image from the docker registry.
-func ExportDockerImage(dockerImageName string) (string, error) {
+func ExportDockerImage(ctx context.Context, dockerImageName string) (string, error) {
 	tempImageFile, err := os.CreateTemp("", "docker-image-*.tar")
 	if err != nil {
 		cmdlogger.Errorf("Failed to create temporary file: %s", err)
@@ -83,11 +83,12 @@ func ExportDockerImage(dockerImageName string) (string, error) {
 
 	// Check if image exists locally, if not, pull from the cloud.
 	cmdlogger.Infof("Checking if docker image (%q) exists locally...", dockerImageName)
-	cmd := exec.Command("docker", "images", "-q", dockerImageName)
+	// TODO: Pass through context here.
+	cmd := exec.CommandContext(ctx, "docker", "images", "-q", dockerImageName)
 	output, err := cmd.Output()
 	if err != nil || string(output) == "" {
 		cmdlogger.Infof("Image not found locally, pulling docker image (%q)...", dockerImageName)
-		err = runCommandLogError("docker", "pull", "-q", dockerImageName)
+		err = runCommandLogError(ctx, "docker", "pull", "-q", dockerImageName)
 		if err != nil {
 			_ = os.RemoveAll(tempImageFile.Name())
 
@@ -96,7 +97,7 @@ func ExportDockerImage(dockerImageName string) (string, error) {
 	}
 
 	cmdlogger.Infof("Saving docker image (%q) to temporary file...", dockerImageName)
-	err = runCommandLogError("docker", "save", "-o", tempImageFile.Name(), dockerImageName)
+	err = runCommandLogError(ctx, "docker", "save", "-o", tempImageFile.Name(), dockerImageName)
 	if err != nil {
 		_ = os.RemoveAll(tempImageFile.Name())
 
@@ -106,8 +107,8 @@ func ExportDockerImage(dockerImageName string) (string, error) {
 	return tempImageFile.Name(), nil
 }
 
-func runCommandLogError(name string, args ...string) error {
-	cmd := exec.Command(name, args...)
+func runCommandLogError(ctx context.Context, name string, args ...string) error {
+	cmd := exec.CommandContext(ctx, name, args...)
 
 	// Get stderr for debugging when docker fails
 	stderr, err := cmd.StderrPipe()

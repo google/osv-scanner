@@ -188,7 +188,7 @@ func autoRelax(ctx context.Context, opts osvFixOptions, maxUpgrades int) error {
 		// We only recreate the lockfile if we know a lockfile already exists
 		// or we've been given a command to run.
 		cmdlogger.Infof("Shelling out to regenerate lockfile...")
-		cmd, err := regenerateLockfileCmd(opts)
+		cmd, err := regenerateLockfileCmd(ctx, opts)
 		if err != nil {
 			return err
 		}
@@ -202,7 +202,7 @@ func autoRelax(ctx context.Context, opts osvFixOptions, maxUpgrades int) error {
 		}
 
 		cmdlogger.Warnf("Install failed. Trying again with `--legacy-peer-deps`...")
-		cmd, err = regenerateLockfileCmd(opts)
+		cmd, err = regenerateLockfileCmd(ctx, opts)
 		if err != nil {
 			return err
 		}
