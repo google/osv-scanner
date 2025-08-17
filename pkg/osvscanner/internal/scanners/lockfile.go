@@ -5,6 +5,7 @@ import (
 	"context"
 	"fmt"
 	"path/filepath"
+	"runtime"
 	"slices"
 	"strings"
 
@@ -162,7 +163,7 @@ func ScanSingleFileWithMapping(scanPath string, pluginsToUse []plugin.Plugin) ([
 }
 
 func parseLockfilePath(scanArg string) (string, string) {
-	if (!strings.Contains(scanArg, ":")) {
+	if (runtime.GOOS == "windows" && filepath.IsAbs(scanArg)) || !strings.Contains(scanArg, ":") {
 		scanArg = ":" + scanArg
 	}
 
