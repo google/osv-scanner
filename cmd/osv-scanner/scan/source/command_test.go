@@ -514,6 +514,8 @@ func TestCommand_CallAnalysis(t *testing.T) {
 func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	t.Parallel()
 
+	cwd := testutility.GetCurrentWorkingDirectory(t)
+
 	tests := []testcmd.Case{
 		{
 			Name: "unsupported parse-as",
@@ -633,66 +635,35 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			},
 			Exit: 0,
 		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.Name, func(t *testing.T) {
-			t.Parallel()
-			testcmd.RunAndMatchSnapshots(t, tt)
-		})
-	}
-}
-
-func TestCommand_LockfileWithAbsoluteWindowsPath(t *testing.T) {
-	t.Parallel()
-
-	if runtime.GOOS != "windows" {
-		testutility.Skip(t, "This test requires being on Windows")
-	}
-
-	root, err := filepath.Abs(".")
-
-	if err != nil {
-		t.Fatalf("could not determine absolute path: %v", err)
-	}
-
-	tests := []testcmd.Case{
 		{
-			Name: "relative_paths_are_left_alone",
+			// if this isn't true, the test would fail along the lines of
+			// "could not determine extractor, requested D"
+			Name: "absolute_paths_are_automatically_escaped_on_windows",
 			Args: []string{
 				"",
 				"source",
 				"-L",
-				filepath.FromSlash("./fixtures/locks-many/yarn.lock"),
+				filepath.FromSlash(filepath.Join(cwd, "./fixtures/locks-many/yarn.lock")),
 			},
 			Exit: 0,
 		},
 		{
-			Name: "absolute_paths_are_automatically_escaped",
+			Name: "absolute_paths_work_with_explicit_escaping",
 			Args: []string{
 				"",
 				"source",
 				"-L",
-				filepath.FromSlash(filepath.Join(root, "./fixtures/locks-many/yarn.lock")),
+				":" + filepath.FromSlash(filepath.Join(cwd, "./fixtures/locks-many/yarn.lock")),
 			},
 			Exit: 0,
 		},
 		{
-			Name: "explicit_escaping_works",
+			Name: "absolute_paths_can_have_explicit_parse_as",
 			Args: []string{
 				"",
 				"source",
 				"-L",
-				":" + filepath.FromSlash(filepath.Join(root, "./fixtures/locks-many/yarn.lock")),
-			},
-			Exit: 0,
-		},
-		{
-			Name: "explicit_parse_as_is_still_supported",
-			Args: []string{
-				"",
-				"source",
-				"-L",
-				"package-lock.json:" + filepath.FromSlash(filepath.Join(root, "./fixtures/locks-many/yarn.lock")),
+				"package-lock.json:" + filepath.FromSlash(filepath.Join(cwd, "./fixtures/locks-many/yarn.lock")),
 			},
 			Exit: 127,
 		},
