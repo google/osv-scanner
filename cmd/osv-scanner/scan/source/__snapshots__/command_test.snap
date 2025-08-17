@@ -3495,6 +3495,48 @@ could not load db for Packagist ecosystem: unable to fetch OSV database: no offl
 
 ---
 
+[TestCommand_LockfileWithAbsoluteWindowsPath/absolute_paths_are_automatically_escaped - 1]
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+No issues found
+
+---
+
+[TestCommand_LockfileWithAbsoluteWindowsPath/absolute_paths_are_automatically_escaped - 2]
+
+---
+
+[TestCommand_LockfileWithAbsoluteWindowsPath/explicit_escaping_works - 1]
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+No issues found
+
+---
+
+[TestCommand_LockfileWithAbsoluteWindowsPath/explicit_escaping_works - 2]
+
+---
+
+[TestCommand_LockfileWithAbsoluteWindowsPath/explicit_parse_as_is_still_supported - 1]
+
+---
+
+[TestCommand_LockfileWithAbsoluteWindowsPath/explicit_parse_as_is_still_supported - 2]
+(extracting as javascript/packagelockjson) could not extract: invalid character '#' looking for beginning of value
+
+---
+
+[TestCommand_LockfileWithAbsoluteWindowsPath/relative_paths_are_left_alone - 1]
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+No issues found
+
+---
+
+[TestCommand_LockfileWithAbsoluteWindowsPath/relative_paths_are_left_alone - 2]
+
+---
+
 [TestCommand_LockfileWithExplicitParseAs/"apk-installed"_is_supported - 1]
 Scanned <rootdir>/fixtures/locks-many/installed file as a apk-installed and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml

@@ -642,6 +642,69 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	}
 }
 
+func TestCommand_LockfileWithAbsoluteWindowsPath(t *testing.T) {
+	t.Parallel()
+
+	if runtime.GOOS != "windows" {
+		testutility.Skip(t, "This test requires being on Windows")
+	}
+
+	root, err := filepath.Abs(".")
+
+	if err != nil {
+		t.Fatalf("could not determine absolute path: %v", err)
+	}
+
+	tests := []testcmd.Case{
+		{
+			Name: "relative_paths_are_left_alone",
+			Args: []string{
+				"",
+				"source",
+				"-L",
+				filepath.FromSlash("./fixtures/locks-many/yarn.lock"),
+			},
+			Exit: 0,
+		},
+		{
+			Name: "absolute_paths_are_automatically_escaped",
+			Args: []string{
+				"",
+				"source",
+				"-L",
+				filepath.FromSlash(filepath.Join(root, "./fixtures/locks-many/yarn.lock")),
+			},
+			Exit: 0,
+		},
+		{
+			Name: "explicit_escaping_works",
+			Args: []string{
+				"",
+				"source",
+				"-L",
+				":" + filepath.FromSlash(filepath.Join(root, "./fixtures/locks-many/yarn.lock")),
+			},
+			Exit: 0,
+		},
+		{
+			Name: "explicit_parse_as_is_still_supported",
+			Args: []string{
+				"",
+				"source",
+				"-L",
+				"package-lock.json:" + filepath.FromSlash(filepath.Join(root, "./fixtures/locks-many/yarn.lock")),
+			},
+			Exit: 127,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
 // TestCommand_GithubActions tests common actions the github actions reusable workflow will run
 func TestCommand_GithubActions(t *testing.T) {
 	t.Parallel()
