@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -206,7 +207,8 @@ version =
 
 			// 3. Call the function under test.
 			fpath := filepath.Join(tmpDir, tc.fpathInTestDir)
-			actualResult, err := parsePoetryLock(fpath)
+			ctx := context.Background()
+			actualResult, err := parsePoetryLock(ctx, fpath)
 
 			// 4. Assert the results.
 			if tc.expectError {

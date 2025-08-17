@@ -54,21 +54,14 @@ type Response struct {
 }
 
 var (
-	directory         string
-	pythonFile        string
-	requirementsFile  string
+	directory = flag.String("directory", "directory", "directory to scan")
+	// TODO: Find alternative ways for these regexes.
 	mainEntryRegex    = regexp.MustCompile(`^\s*if\s+__name__\s*==\s*['"]__main__['"]\s*:`)
 	importRegex       = regexp.MustCompile(`^\s*import\s+([a-zA-Z0-9_.]+)(?:\s+as\s+([a-zA-Z0-9_]+))?`)
 	fromImportRegex   = regexp.MustCompile(`^\s*from\s+([a-zA-Z0-9_.]+)\s+import\s+(.+)`)
 	importItemRegex   = regexp.MustCompile(`([a-zA-Z0-9_.*]+)(?:\s+as\s+([a-zA-Z0-9_]+))?`)
 	memberImportRegex = regexp.MustCompile(`import (\w+)\.(\w+)`)
 )
-
-func init() {
-	flag.StringVar(&directory, "directory", "directory", "directory to scan")
-	flag.StringVar(&pythonFile, "python_file", "example.py", "python file to scan")
-	flag.StringVar(&requirementsFile, "requirements_file", "requirements.txt", "requirements.txt to read")
-}
 
 // findMainEntryPoint scans the directory for Python files that contain a main entry point.
 func findMainEntryPoint(dir string) ([]string, error) {
@@ -119,7 +112,7 @@ func findMainEntryPoint(dir string) ([]string, error) {
 }
 
 // parsePoetryLock reads the poetry lock file and updates  libraryInfo with versions.
-func parsePoetryLock(fpath string) ([]*LibraryInfo, error) {
+func parsePoetryLock(ctx context.Context, fpath string) ([]*LibraryInfo, error) {
 	dir := filepath.Dir(fpath)
 	fsys := scalibrfs.DirFS(dir)
 	r, err := fsys.Open("poetry.lock")
@@ -134,7 +127,7 @@ func parsePoetryLock(fpath string) ([]*LibraryInfo, error) {
 		Reader: r,
 	}
 	extractor := poetrylock.New()
-	inventory, err := extractor.Extract(context.Background(), input)
+	inventory, err := extractor.Extract(ctx, input)
 	if err != nil {
 		return nil, fmt.Errorf("failed to extract from %s: %w", fpath, err)
 	}
@@ -164,16 +157,19 @@ func libraryFinder(file *os.File, poetryLibraryInfos []*LibraryInfo) ([]*Library
 			continue
 		}
 
-		// Find the existing imported libraries, if they don't exist, create a new one.
+		// If the import statement matches, the imported library is in poetry lock file and the imported library is not already in the importedLibraries map,
+		// extract the imported library name, version and alias if any.
 		if match := importRegex.FindStringSubmatch(line); match != nil {
 			libraryName := match[1]
 			alias := match[2]
 
 			if lib, ok := poetryLibraries[libraryName]; ok {
-				importedLibraries[libraryName] = &LibraryInfo{
-					Name:    lib.Name,
-					Version: lib.Version,
-					Alias:   alias,
+				if _, found := importedLibraries[libraryName]; !found {
+					importedLibraries[libraryName] = &LibraryInfo{
+						Name:    lib.Name,
+						Version: lib.Version,
+						Alias:   alias,
+					}
 				}
 			}
 		} else if match := fromImportRegex.FindStringSubmatch(line); match != nil {
@@ -228,7 +224,7 @@ func libraryFinder(file *os.File, poetryLibraryInfos []*LibraryInfo) ([]*Library
 	return fileLibraryInfos, nil
 }
 
-// getPackageDependencies fetches the dependencies of each library from PyPI and updates the libraryInfo.
+// getPackageDependencies gets the name of direct dependencies of each library from PyPI and updates the libraryInfo.
 func getPackageDependencies(libraryInfos []*LibraryInfo) []error {
 	var wg sync.WaitGroup
 	errs := make(chan error, len(libraryInfos))
@@ -527,12 +523,17 @@ func findImportedLibrary(libraryInfo *LibraryInfo) error {
 
 func main() {
 	flag.Parse()
+	ctx := context.Background()
 
 	// 1. Looking for files with main entry point
-	pythonFiles, _ := findMainEntryPoint(directory)
+	pythonFiles, err := findMainEntryPoint(*directory)
+	if err != nil {
+		log.Printf("Error finding main entry point: %v\n", err)
+	}
+
 	for _, file := range pythonFiles {
 		// 2. Collect libraries from poertry.lock file
-		poetryLibraryInfos, err := parsePoetryLock(filepath.Join(filepath.Dir(file), "poetry.lock"))
+		poetryLibraryInfos, err := parsePoetryLock(ctx, filepath.Join(filepath.Dir(file), "poetry.lock"))
 		if err != nil {
 			log.Printf("Error collecting libraries in poetry.lock: %v\n", err)
 			continue
@@ -551,7 +552,7 @@ func main() {
 			log.Printf("Error finding libraries in file %s: %v\n", file, err)
 		}
 
-		// 4. Update dependencies of the imported libraries
+		// 4. Get dependencies of the imported libraries
 		errs := getPackageDependencies(importedLibraries)
 		if len(errs) > 0 {
 			for _, err := range errs {
@@ -569,7 +570,7 @@ func main() {
 			}
 		}
 
-		// 6. Traverse directory of the source code and ook for Python files where they define the imported items
+		// 6. Traverse directory of the source code and look for Python files where they define the imported items
 		// and collect the imported libraries in those files
 		for _, lib := range importedLibraries {
 			if lib.Version == "" || len(lib.ImportedItems) == 0 {
