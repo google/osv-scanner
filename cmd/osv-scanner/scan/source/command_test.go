@@ -320,12 +320,16 @@ func TestCommand_JavareachArchive(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "Test java reachability enricher",
+			Name: "jars_can_be_scanned_without_call_analysis",
+			Args: []string{"", "source", "--all-vulns", "--experimental-plugins=artifact", "./fixtures/artifact/javareach_test.jar"},
+			Exit: 1,
+		},
+		{
+			Name: "jars_can_be_scanned_with_call_analysis",
 			Args: []string{"", "source", "--call-analysis=jar", "--all-vulns", "--experimental-plugins=artifact", "./fixtures/artifact/javareach_test.jar"},
 			Exit: 1,
 		},
 	}
-
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
