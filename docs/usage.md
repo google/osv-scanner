@@ -163,11 +163,11 @@ docker pull ghcr.io/google/osv-scanner:latest
 Once you have the image, you can test that it works by running:
 
 ```bash
-docker run -it ghcr.io/google/osv-scanner -h
+docker run ghcr.io/google/osv-scanner -h
 ```
 
 To run a scan, mount the directory to scan to `/src` and pass the necessary flags:
 
 ```bash
-docker run -it -v ${PWD}:/src ghcr.io/google/osv-scanner -L /src/go.mod
+docker run -v ${PWD}:/src ghcr.io/google/osv-scanner -L /src/go.mod
 ```

@@ -135,3 +135,9 @@ Then pass this to `osv-scanner` with this:
 ```
 osv-scanner --lockfile osv-scanner:/path/to/osv-scanner.json
 ```
+
+## Known limitations
+
+When scanning a file in the `osv-scanner.json` format, using the `--format=spdx` flag produces incorrect output.
+
+For more details, see issue [#2192](https://github.com/google/osv-scanner/issues/2192).
