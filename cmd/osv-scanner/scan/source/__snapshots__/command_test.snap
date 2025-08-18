@@ -1581,6 +1581,38 @@ Total 10 packages affected by 35 known vulnerabilities (2 Critical, 13 High, 18 
           "referenceLocator": "pkg:composer/league%2Fflysystem@1.0.8"
         }
       ]
+    },
+    {
+      "name": "stdlib",
+      "SPDXID": "SPDXRef-Package-stdlib-uuid-placeholder-5",
+      "versionInfo": "1.24.4",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the osv/osvscannerjson extractor from <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:placeholder/stdlib@1.24.4"
+        }
+      ]
+    },
+    {
+      "name": "toolchain",
+      "SPDXID": "SPDXRef-Package-toolchain-uuid-placeholder-6",
+      "versionInfo": "1.24.4",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the osv/osvscannerjson extractor from <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:placeholder/toolchain@1.24.4"
+        }
+      ]
     }
   ],
   "relationships": [
@@ -1618,6 +1650,26 @@ Total 10 packages affected by 35 known vulnerabilities (2 Critical, 13 High, 18 
       "spdxElementId": "SPDXRef-Package-league-flysystem-uuid-placeholder-4",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relatedSpdxElement": "SPDXRef-Package-stdlib-uuid-placeholder-5",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-stdlib-uuid-placeholder-5",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relatedSpdxElement": "SPDXRef-Package-toolchain-uuid-placeholder-6",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-toolchain-uuid-placeholder-6",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
     }
   ]
 }
@@ -1629,8 +1681,6 @@ Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
-Package &{stdlib 1.24.4 <nil> [<rootdir>/fixtures/locks-insecure/osv-scanner-custom.json]  [osv/osvscannerjson osv/osvscannerjson] [] [] <nil> 0xc0183322d0} has no PURL, skipping
-Package &{toolchain 1.24.4 <nil> [<rootdir>/fixtures/locks-insecure/osv-scanner-custom.json]  [osv/osvscannerjson osv/osvscannerjson] [] [] <nil> 0xc018332300} has no PURL, skipping
 
 ---
 
