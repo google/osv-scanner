@@ -3,6 +3,7 @@ package source_test
 import (
 	"log/slog"
 	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/go-git/go-git/v5"
@@ -13,14 +14,47 @@ import (
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
-func TestMain(m *testing.M) {
+func setupGitFixtures() (func(), error) {
 	// ensure a git repository doesn't already exist in the fixtures directory,
 	// in case we didn't get a chance to clean-up properly in the last run
 	os.RemoveAll("./fixtures/.git")
 
+	toRemove := []string{"./fixtures/.git"}
+
+	cleaner := func() {
+		for _, p := range toRemove {
+			os.RemoveAll(p)
+		}
+	}
+
 	// Temporarily make the fixtures folder a git repository to prevent gitignore files messing with tests.
 	_, err := git.PlainInit("./fixtures", false)
 	if err != nil {
+		return cleaner, err
+	}
+
+	for _, f := range []string{
+		"./fixtures/locks-gitignore/test.gitignore",
+		"./fixtures/locks-gitignore/subdir/test.gitignore",
+	} {
+		gitignoreFile, err := testcmd.CopyFile(f, filepath.Join(filepath.Dir(f), ".gitignore"))
+
+		if err != nil {
+			return cleaner, err
+		}
+
+		toRemove = append(toRemove, gitignoreFile)
+	}
+
+	return cleaner, nil
+}
+
+func TestMain(m *testing.M) {
+	cleanupGitFixtures, err := setupGitFixtures()
+
+	if err != nil {
+		cleanupGitFixtures()
+
 		panic(err)
 	}
 
@@ -28,7 +62,7 @@ func TestMain(m *testing.M) {
 	testcmd.CommandsUnderTest = []cmd.CommandBuilder{source.Command}
 	m.Run()
 
-	os.RemoveAll("./fixtures/.git")
+	cleanupGitFixtures()
 
 	testutility.CleanSnapshots(m)
 }

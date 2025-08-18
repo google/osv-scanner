@@ -1,25 +1,24 @@
 package testcmd
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 )
 
-func CopyFileTo(t *testing.T, file, dir string) string {
-	t.Helper()
-	b, err := os.ReadFile(file)
+func CopyFile(from, to string) (string, error) {
+	b, err := os.ReadFile(from)
 	if err != nil {
-		t.Fatalf("could not read test file: %v", err)
+		return "", fmt.Errorf("could not read test file: %w", err)
 	}
 
-	dst := filepath.Join(dir, filepath.Base(file))
-	if err := os.WriteFile(dst, b, 0600); err != nil {
-		t.Fatalf("could not copy test file: %v", err)
+	if err := os.WriteFile(to, b, 0600); err != nil {
+		return "", fmt.Errorf("could not copy test file: %w", err)
 	}
 
-	return dst
+	return to, nil
 }
 
 // CopyFileFlagTo creates a copy of the file pointed to by the given flag (if present
@@ -38,7 +37,11 @@ func CopyFileFlagTo(t *testing.T, tc Case, flagName string, dir string) string {
 		return ""
 	}
 
-	newPath := CopyFileTo(t, flagValue, dir)
+	newPath, err := CopyFile(flagValue, filepath.Join(dir, filepath.Base(flagValue)))
+
+	if err != nil {
+		t.Fatalf("%v", err)
+	}
 
 	for i := range tc.Args {
 		tc.Args[i] = strings.ReplaceAll(tc.Args[i], flagValue, newPath)
