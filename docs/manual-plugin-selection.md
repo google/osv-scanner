@@ -53,7 +53,7 @@ osv-scanner scan source --experimental-plugins lockfile --experimental-disable-p
 **Available Presets:**
 
 | Preset      | Description                     |
-|:------------|:--------------------------------|
+| :---------- | :------------------------------ |
 | `sbom`      | Default for directory scanning. |
 | `lockfile`  | Default for lockfile scanning.  |
 | `directory` | Default for directory scanning. |

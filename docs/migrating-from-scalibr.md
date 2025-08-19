@@ -85,7 +85,7 @@ For more details on `osv-scanner` output formats, see the [output documentation]
 ## Flag Translation Table
 
 | `osv-scalibr` Flag                | `osv-scanner` Flag        | Notes                                                                                                 |
-|-----------------------------------|---------------------------|-------------------------------------------------------------------------------------------------------|
+| --------------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
 | `--version`                       | `--version`               | `osv-scanner version`                                                                                 |
 | `--root`                          | `[directory]` (argument)  | `osv-scanner scan source [directory]`                                                                 |
 | `--result`                        | `--output`                | `osv-scanner --output <file>`                                                                         |
