@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"path/filepath"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
@@ -32,9 +33,14 @@ func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
-// FileRequired never returns true, as this is for the osv-scanner json output.
-func (e Extractor) FileRequired(_ filesystem.FileAPI) bool {
-	return false
+func New() filesystem.Extractor {
+	return Extractor{}
+}
+
+// FileRequired returns true only for osv-scanner-custom.json files,
+// since this is specific to the osv-scanner JSON output
+func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
+	return filepath.Base(fapi.Path()) == "osv-scanner-custom.json"
 }
 
 // Extract extracts packages from yarn.lock files passed through the scan input.
@@ -56,6 +62,7 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inve
 					Ecosystem:  pkg.Package.Ecosystem,
 					SourceInfo: res.Source,
 				},
+				PURLType:  "placeholder",
 				Locations: []string{input.Path},
 				Plugins:   []string{"osv/osvscannerjson"},
 			}

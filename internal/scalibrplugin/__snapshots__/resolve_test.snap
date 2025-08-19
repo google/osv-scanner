@@ -55,6 +55,7 @@ javascript/bunlock
 javascript/packagelockjson
 javascript/pnpmlock
 javascript/yarnlock
+osv/osvscannerjson
 php/composerlock
 python/pdmlock
 python/pipfilelock

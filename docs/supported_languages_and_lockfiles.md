@@ -136,7 +136,13 @@ Then pass this to `osv-scanner` with this:
 osv-scanner --lockfile osv-scanner:/path/to/osv-scanner.json
 ```
 
-## Known limitations
+For automatic scan detection, you can create an `osv-scanner-custom.json` file using the same procedure described above for `osv-scanner.json`.
+Run the command below for detection:
+
+```
+./osv-scanner scan source -r /path/to/folder/you/want/to/scan
+```
+### Known limitations
 
 When scanning a file in the `osv-scanner.json` format, using the `--format=spdx` flag produces incorrect output.
 

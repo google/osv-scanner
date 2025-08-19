@@ -39,6 +39,7 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:      "activesupport",
 					Version:   "7.0.7",
 					Locations: []string{"testdata/one-package.json"},
+					PURLType:  "placeholder",
 					Plugins:   []string{"osv/osvscannerjson"},
 					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "RubyGems",
@@ -58,6 +59,7 @@ func TestExtractor_Extract(t *testing.T) {
 			WantPackages: []*extractor.Package{
 				{
 					Locations: []string{"testdata/one-package-commit.json"},
+					PURLType:  "placeholder",
 					Plugins:   []string{"osv/osvscannerjson"},
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "9a6bd55c9d0722cb101fe85a3b22d89e4ff4fe52",
@@ -81,6 +83,7 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:      "crossbeam-utils",
 					Version:   "0.6.6",
 					Locations: []string{"testdata/multiple-packages-with-vulns.json"},
+					PURLType:  "placeholder",
 					Plugins:   []string{"osv/osvscannerjson"},
 					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "crates.io",
@@ -94,6 +97,7 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:      "memoffset",
 					Version:   "0.5.6",
 					Locations: []string{"testdata/multiple-packages-with-vulns.json"},
+					PURLType:  "placeholder",
 					Plugins:   []string{"osv/osvscannerjson"},
 					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "crates.io",
@@ -107,6 +111,7 @@ func TestExtractor_Extract(t *testing.T) {
 					Name:      "smallvec",
 					Version:   "1.6.0",
 					Locations: []string{"testdata/multiple-packages-with-vulns.json"},
+					PURLType:  "placeholder",
 					Plugins:   []string{"osv/osvscannerjson"},
 					Metadata: &osvscannerjson.Metadata{
 						Ecosystem: "crates.io",
