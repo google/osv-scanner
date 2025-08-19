@@ -407,6 +407,7 @@ Scanning dir ./fixtures/locks-insecure
 Scanning dir ./fixtures/maven-transitive
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
@@ -438,7 +439,7 @@ overriding license for package Alpine/scanelf/1.3.5-r1 with MIT
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Alpine/ssl_client/1.36.1-r27 with MIT
 overriding license for package Alpine/zlib/1.2.13-r0 with MIT
-Total 2 packages affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 4 ecosystems.
+Total 2 packages affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 5 ecosystems.
 1 vulnerability can be fixed.
 
 
@@ -453,12 +454,14 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medi
 +---------+-------------------------+
 | MIT     |                      14 |
 | 0BSD    |                       2 |
-| UNKNOWN |                       4 |
+| UNKNOWN |                       6 |
 +---------+-------------------------+
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE                                        | VERSION | SOURCE                                                |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 | 0BSD              | Packagist | league/flysystem                               | 1.0.8   | fixtures/locks-insecure/composer.lock                 |
+| UNKNOWN           | Go        | stdlib                                         | 1.99.9  | fixtures/locks-insecure/osv-scanner-custom.json       |
+| UNKNOWN           | Go        | toolchain                                      | 1.99.9  | fixtures/locks-insecure/osv-scanner-custom.json       |
 | UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | fixtures/locks-insecure/osv-scanner-flutter-deps.json |
@@ -533,6 +536,22 @@ No issues found
       "purl": "pkg:composer/league/flysystem@1.0.8"
     },
     {
+      "bom-ref": "pkg:golang/stdlib@1.99.9",
+      "type": "library",
+      "name": "stdlib",
+      "version": "1.99.9",
+      "licenses": [],
+      "purl": "pkg:golang/stdlib@1.99.9"
+    },
+    {
+      "bom-ref": "pkg:golang/toolchain@1.99.9",
+      "type": "library",
+      "name": "toolchain",
+      "version": "1.99.9",
+      "licenses": [],
+      "purl": "pkg:golang/toolchain@1.99.9"
+    },
+    {
       "bom-ref": "pkg:npm/has-flag@4.0.0",
       "type": "library",
       "name": "has-flag",
@@ -591,6 +610,7 @@ No issues found
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 
 ---
 
@@ -608,6 +628,22 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
       "version": "1.0.8",
       "licenses": [],
       "purl": "pkg:composer/league/flysystem@1.0.8"
+    },
+    {
+      "bom-ref": "pkg:golang/stdlib@1.99.9",
+      "type": "library",
+      "name": "stdlib",
+      "version": "1.99.9",
+      "licenses": [],
+      "purl": "pkg:golang/stdlib@1.99.9"
+    },
+    {
+      "bom-ref": "pkg:golang/toolchain@1.99.9",
+      "type": "library",
+      "name": "toolchain",
+      "version": "1.99.9",
+      "licenses": [],
+      "purl": "pkg:golang/toolchain@1.99.9"
     },
     {
       "bom-ref": "pkg:npm/has-flag@4.0.0",
@@ -668,6 +704,7 @@ Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 
 ---
 
@@ -1414,6 +1451,38 @@ Total 10 packages affected by 35 known vulnerabilities (2 Critical, 13 High, 18 
           "referenceLocator": "pkg:composer/league%2Fflysystem@1.0.8"
         }
       ]
+    },
+    {
+      "name": "stdlib",
+      "SPDXID": "SPDXRef-Package-stdlib-uuid-placeholder-5",
+      "versionInfo": "1.99.9",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the osv/osvscannerjson extractor from <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:placeholder/stdlib@1.99.9"
+        }
+      ]
+    },
+    {
+      "name": "toolchain",
+      "SPDXID": "SPDXRef-Package-toolchain-uuid-placeholder-6",
+      "versionInfo": "1.99.9",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the osv/osvscannerjson extractor from <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:placeholder/toolchain@1.99.9"
+        }
+      ]
     }
   ],
   "relationships": [
@@ -1451,6 +1520,26 @@ Total 10 packages affected by 35 known vulnerabilities (2 Critical, 13 High, 18 
       "spdxElementId": "SPDXRef-Package-league-flysystem-uuid-placeholder-4",
       "relatedSpdxElement": "NOASSERTION",
       "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relatedSpdxElement": "SPDXRef-Package-stdlib-uuid-placeholder-5",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-stdlib-uuid-placeholder-5",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-main-uuid-placeholder-1",
+      "relatedSpdxElement": "SPDXRef-Package-toolchain-uuid-placeholder-6",
+      "relationshipType": "CONTAINS"
+    },
+    {
+      "spdxElementId": "SPDXRef-Package-toolchain-uuid-placeholder-6",
+      "relatedSpdxElement": "NOASSERTION",
+      "relationshipType": "CONTAINS"
     }
   ]
 }
@@ -1461,6 +1550,7 @@ Total 10 packages affected by 35 known vulnerabilities (2 Critical, 13 High, 18 
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 
 ---
 
@@ -1851,8 +1941,8 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
                 "text": "An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing."
               },
               "help": {
-                "markdown": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| unknown:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
-                "text": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| unknown:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+                "markdown": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [CVE-2023-39137](https://osv.dev/CVE-2023-39137)**.\n\n## [CVE-2023-39137](https://osv.dev/CVE-2023-39137)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to spoof zip filenames which can lead to inconsistent filename parsing.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39137\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
               },
               "id": "CVE-2023-39137",
               "name": "CVE-2023-39137",
@@ -1875,8 +1965,8 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
                 "text": "An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file."
               },
               "help": {
-                "markdown": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| unknown:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
-                "text": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| unknown:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+                "markdown": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [CVE-2023-39139](https://osv.dev/CVE-2023-39139)**.\n\n## [CVE-2023-39139](https://osv.dev/CVE-2023-39139)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e An issue in Archive v3.3.7 allows attackers to execute a path traversal via extracting a crafted zip file.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/fixtures/locks-insecure/osv-scanner-flutter-deps.json | https://github.com/brendan-duncan/archive.git | 9de7a0544457c6aba755ccb65abb41b0dc1db70d |\n\n## Remediation\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/fixtures/locks-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2023-39139\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
               },
               "id": "CVE-2023-39139",
               "name": "CVE-2023-39139",
@@ -2361,6 +2451,7 @@ Scanning dir ./fixtures/locks-many
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Scanned <rootdir>/fixtures/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/fixtures/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
@@ -2388,7 +2479,7 @@ ignoring license for package Alpine/scanelf/1.3.5-r1
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 ignoring license for package Alpine/ssl_client/1.36.1-r27
 ignoring license for package Alpine/zlib/1.2.13-r0
-Total 2 packages affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 3 ecosystems.
+Total 2 packages affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 4 ecosystems.
 1 vulnerability can be fixed.
 
 
@@ -2402,16 +2493,18 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medi
 | LICENSE | NO. OF PACKAGE VERSIONS |
 +---------+-------------------------+
 | 0BSD    |                       2 |
-| UNKNOWN |                       2 |
+| UNKNOWN |                       4 |
 +---------+-------------------------+
-+-------------------+-----------+------------------+----------+---------------------------------------+
-| LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION  | SOURCE                                |
-+-------------------+-----------+------------------+----------+---------------------------------------+
-| 0BSD              | Packagist | league/flysystem | 1.0.8    | fixtures/locks-insecure/composer.lock |
-| UNKNOWN           | RubyGems  | ast              | 2.4.2    | fixtures/locks-many/Gemfile.lock      |
-| UNKNOWN           | Alpine    | musl             | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml    |
-| 0BSD              | Packagist | sentry/sdk       | 2.0.4    | fixtures/locks-many/composer.lock     |
-+-------------------+-----------+------------------+----------+---------------------------------------+
++-------------------+-----------+------------------+----------+-------------------------------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION  | SOURCE                                          |
++-------------------+-----------+------------------+----------+-------------------------------------------------+
+| 0BSD              | Packagist | league/flysystem | 1.0.8    | fixtures/locks-insecure/composer.lock           |
+| UNKNOWN           | Go        | stdlib           | 1.99.9   | fixtures/locks-insecure/osv-scanner-custom.json |
+| UNKNOWN           | Go        | toolchain        | 1.99.9   | fixtures/locks-insecure/osv-scanner-custom.json |
+| UNKNOWN           | RubyGems  | ast              | 2.4.2    | fixtures/locks-many/Gemfile.lock                |
+| UNKNOWN           | Alpine    | musl             | 1.2.3-r4 | fixtures/locks-many/alpine.cdx.xml              |
+| 0BSD              | Packagist | sentry/sdk       | 2.0.4    | fixtures/locks-many/composer.lock               |
++-------------------+-----------+------------------+----------+-------------------------------------------------+
 
 ---
 
@@ -3592,6 +3685,7 @@ Scanned <rootdir>/fixtures/locks-insecure/my-yarn.lock file as a yarn.lock and f
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 3 vulnerabilities can be fixed.
 
@@ -3616,6 +3710,7 @@ Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 3 vulnerabilities can be fixed.
 
@@ -3668,6 +3763,7 @@ Scanned <rootdir>/fixtures/locks-insecure/my-package-lock.json file as a package
 Scanning dir ./fixtures/locks-insecure
 Scanned <rootdir>/fixtures/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/fixtures/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/fixtures/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
 
