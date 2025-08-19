@@ -6,20 +6,24 @@ nav_order: 18
 
 # Migrating from osv-scalibr to osv-scanner
 
-This guide is for users who are familiar with `osv-scalibr` and want to migrate to `osv-scanner`. It explains how to achieve similar results with `osv-scanner`.
+This guide is for users who are familiar with `osv-scalibr` and want to migrate to `osv-scanner`. It explains how to
+achieve similar results with `osv-scanner`.
 
-`osv-scanner` has integrated `osv-scalibr`'s inventory collection and vulnerability scanning capabilities. While most of `osv-scalibr`'s functionalities are available in `osv-scanner`, the command-line flags and output formats are different.
+`osv-scanner` has integrated `osv-scalibr`'s inventory collection and vulnerability scanning capabilities.
+While most of `osv-scalibr`'s functionalities are available in `osv-scanner`, the command-line flags and output formats
+are different.
 
 ## Command-line Equivalence
 
-The `osv-scanner` CLI is designed to be more intuitive and user-friendly. Here's a mapping of common `osv-scalibr` commands to their `osv-scanner` equivalents.
+The `osv-scanner` CLI is designed to be more intuitive and user-friendly. Here's a mapping of common `osv-scalibr`
+commands to their `osv-scanner` equivalents.
 
 ### Scanning a directory
 
 **osv-scalibr:**
 
 ```sh
-scalibr --root /path/to/your/project
+scalibr --root /path/to/your/project --result result.json
 ```
 
 **osv-scanner:**
@@ -30,10 +34,14 @@ osv-scanner /path/to/your/project
 
 ### Selecting plugins
 
-OSV-Scanner has access to the full list of OSV-Scalibr plugins, though only a well tested subset of them are enabled by default in OSV-Scanner.
+OSV-Scanner has access to the full list of OSV-Scalibr plugins, though only a well tested subset of them are enabled by
+default in OSV-Scanner.
 
 In `osv-scalibr`, you can select which plugins to run using the `--extractors`, `--detectors` flags,
 or alternatively using the `--plugins` flag.
+
+For a full list of available plugin names, see OSV-Scalibr's documentation here:
+https://github.com/google/osv-scalibr/blob/main/docs/supported_inventory_types.md
 
 **osv-scalibr:**
 
@@ -77,7 +85,7 @@ For more details on `osv-scanner` output formats, see the [output documentation]
 ## Flag Translation Table
 
 | `osv-scalibr` Flag                | `osv-scanner` Flag        | Notes                                                                                                 |
-| --------------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------------- |
+|-----------------------------------|---------------------------|-------------------------------------------------------------------------------------------------------|
 | `--version`                       | `--version`               | `osv-scanner version`                                                                                 |
 | `--root`                          | `[directory]` (argument)  | `osv-scanner scan source [directory]`                                                                 |
 | `--result`                        | `--output`                | `osv-scanner --output <file>`                                                                         |
