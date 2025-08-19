@@ -514,6 +514,8 @@ func TestCommand_CallAnalysis(t *testing.T) {
 func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	t.Parallel()
 
+	cwd := testutility.GetCurrentWorkingDirectory(t)
+
 	tests := []testcmd.Case{
 		{
 			Name: "unsupported parse-as",
@@ -632,6 +634,38 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 				"dpkg-status:" + filepath.FromSlash("./fixtures/locks-many/status"),
 			},
 			Exit: 0,
+		},
+		{
+			// if this isn't true, the test would fail along the lines of
+			// "could not determine extractor, requested D"
+			Name: "absolute_paths_are_automatically_escaped_on_windows",
+			Args: []string{
+				"",
+				"source",
+				"-L",
+				filepath.FromSlash(filepath.Join(cwd, "./fixtures/locks-many/yarn.lock")),
+			},
+			Exit: 0,
+		},
+		{
+			Name: "absolute_paths_work_with_explicit_escaping",
+			Args: []string{
+				"",
+				"source",
+				"-L",
+				":" + filepath.FromSlash(filepath.Join(cwd, "./fixtures/locks-many/yarn.lock")),
+			},
+			Exit: 0,
+		},
+		{
+			Name: "absolute_paths_can_have_explicit_parse_as",
+			Args: []string{
+				"",
+				"source",
+				"-L",
+				"package-lock.json:" + filepath.FromSlash(filepath.Join(cwd, "./fixtures/locks-many/yarn.lock")),
+			},
+			Exit: 127,
 		},
 	}
 	for _, tt := range tests {

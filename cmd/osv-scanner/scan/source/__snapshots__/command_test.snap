@@ -3517,6 +3517,37 @@ No issues found
 
 ---
 
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_are_automatically_escaped_on_windows - 1]
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+No issues found
+
+---
+
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_are_automatically_escaped_on_windows - 2]
+
+---
+
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_can_have_explicit_parse_as - 1]
+
+---
+
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_can_have_explicit_parse_as - 2]
+(extracting as javascript/packagelockjson) could not extract: invalid character '#' looking for beginning of value
+
+---
+
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_work_with_explicit_escaping - 1]
+Scanned <rootdir>/fixtures/locks-many/yarn.lock file and found 1 package
+Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
+No issues found
+
+---
+
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_work_with_explicit_escaping - 2]
+
+---
+
 [TestCommand_LockfileWithExplicitParseAs/empty_is_default - 1]
 Scanned <rootdir>/fixtures/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/fixtures/locks-many/osv-scanner.toml
