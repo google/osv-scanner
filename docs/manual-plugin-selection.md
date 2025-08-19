@@ -21,7 +21,10 @@ Experimental
 {:toc}
 </details>
 
-By default, OSV-Scanner automatically enables the relevant plugins for each scanning situation (see [this page](./supported_languages_and_lockfiles.md) for more details). However, if the default selection is not suitable, or you require additional plugins from OSV-Scalibr (e.g., detectors), you can manually enable or disable them.
+By default, OSV-Scanner automatically enables the relevant plugins for each scanning situation
+(see [this page](./supported_languages_and_lockfiles.md) for more details).
+However, if the default selection is not suitable, or you require additional plugins from OSV-Scalibr (e.g., detectors),
+you can manually enable or disable them.
 
 ## Enabling and Disabling Plugins
 
@@ -30,13 +33,8 @@ You can control which plugins to run using the following flags:
 - `--experimental-plugins`: Enables a comma-separated list of specific plugins.
 - `--experimental-disable-plugins`: Disables a comma-separated list of specific plugins.
 
-For a full list of available plugin names, see OSV-Scalibr's `list.go` files:
-
-- [`enricher/enricherlist/list.go`](https://github.com/google/osv-scalibr/blob/main/enricher/enricherlist/list.go)
-- [`annotator/list/list.go`](https://github.com/google/osv-scalibr/blob/main/annotator/list/list.go)
-- [`detector/list/list.go`](https://github.com/google/osv-scalibr/blob/main/detector/list/list.go)
-- [`extractor/standalone/list/list.go`](https://github.com/google/osv-scalibr/blob/main/extractor/standalone/list/list.go)
-- [`extractor/filesystem/list/list.go`](https://github.com/google/osv-scalibr/blob/main/extractor/filesystem/list/list.go)
+For a full list of available plugin names, see OSV-Scalibr's documentation here:
+https://github.com/google/osv-scalibr/blob/main/docs/supported_inventory_types.md
 
 ### Presets
 
@@ -63,7 +61,9 @@ osv-scanner scan source --experimental-plugins lockfile --experimental-disable-p
 
 ### Detectors
 
-OSV-Scalibr provides detectors that can identify potential security issues beyond known vulnerabilities. We experimentally support these detectors. Currently, detector findings are only available in the JSON output under `experimental_generic_findings`.
+OSV-Scalibr provides detectors that can identify potential security issues beyond known vulnerabilities.
+We experimentally support these detectors. Currently, detector findings are only available in the JSON output under
+`experimental_generic_findings`.
 
 **Available Detector Presets:**
 
