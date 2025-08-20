@@ -56,7 +56,7 @@
           "package": "github.com/ossf-tests/osv-e2e",
           "function": "init",
           "position": {
-            "filename": "<rootdir>/Documents/Project/osv-scanner/internal/sourceanalysis/integration/fixtures-go/test-project/main.go",
+            "filename": "<rootdir>/Documents/Project/osv-scanner/internal/sourceanalysis/testdata/go-integration/test-project/main.go",
             "offset": 44,
             "line": 7,
             "column": 2

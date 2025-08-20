@@ -88,7 +88,7 @@ func TestMavenSuggester_Suggest(t *testing.T) {
 	depProfileTwoMgmt.AddAttr(dep.Scope, "import")
 
 	mf := manifest.Manifest{
-		FilePath: filepath.Join("fixtures", "pom.xml"),
+		FilePath: filepath.Join("testdata", "pom.xml"),
 		Root: resolve.Version{
 			VersionKey: resolve.VersionKey{
 				PackageKey: resolve.PackageKey{

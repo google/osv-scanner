@@ -15,13 +15,13 @@ func Test_createSARIFHelpText(t *testing.T) {
 		want testutility.Snapshot
 	}{
 		{
-			args: testutility.LoadJSONFixture[groupedSARIFFinding](t, "fixtures/vuln-grouped.json"),
+			args: testutility.LoadJSONFixture[groupedSARIFFinding](t, "testdata/vuln-grouped.json"),
 			want: testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
 				"\\path\\to\\sub-rust-project\\osv-scanner.toml": "/path/to/sub-rust-project/osv-scanner.toml",
 			}),
 		},
 		{
-			args: testutility.LoadJSONFixture[groupedSARIFFinding](t, "fixtures/commit-grouped.json"),
+			args: testutility.LoadJSONFixture[groupedSARIFFinding](t, "testdata/commit-grouped.json"),
 			want: testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
 				"<rootdir>\\Documents\\Project\\engine\\osv-scanner.toml": "<rootdir>/Documents/Project/engine/osv-scanner.toml",
 			}),

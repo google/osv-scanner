@@ -24,12 +24,12 @@ func TestNpmRegistryClient(t *testing.T) {
 
 	srv1 := testutility.NewMockHTTPServer(t)
 	srv1.SetAuthorization(t, "Basic "+auth)
-	srv1.SetResponseFromFile(t, "/fake-package", "./fixtures/npm_registry/fake-package.json")
-	srv1.SetResponseFromFile(t, "/fake-package/2.2.2", "./fixtures/npm_registry/fake-package-2.2.2.json")
+	srv1.SetResponseFromFile(t, "/fake-package", "./testdata/npm_registry/fake-package.json")
+	srv1.SetResponseFromFile(t, "/fake-package/2.2.2", "./testdata/npm_registry/fake-package-2.2.2.json")
 
 	srv2 := testutility.NewMockHTTPServer(t)
 	srv2.SetAuthorization(t, "Bearer "+authToken)
-	srv2.SetResponseFromFile(t, "/@fake-registry%2fa", "./fixtures/npm_registry/@fake-registry-a.json")
+	srv2.SetResponseFromFile(t, "/@fake-registry%2fa", "./testdata/npm_registry/@fake-registry-a.json")
 
 	npmrcFile := createTempNpmrc(t, ".npmrc")
 	writeToNpmrc(t, npmrcFile,

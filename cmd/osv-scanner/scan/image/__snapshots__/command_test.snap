@@ -369,12 +369,12 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 ---
 
 [TestCommand_OCIImage/Invalid_path - 1]
-Scanning local image tarball "../../fixtures/locks-manyoci-image/no-file-here.tar"
+Scanning local image tarball "../../testdata/locks-manyoci-image/no-file-here.tar"
 
 ---
 
 [TestCommand_OCIImage/Invalid_path - 2]
-failed to load image from tarball with path "../../fixtures/locks-manyoci-image/no-file-here.tar": open ../../fixtures/locks-manyoci-image/no-file-here.tar: no such file or directory
+failed to load image from tarball with path "../../testdata/locks-manyoci-image/no-file-here.tar": open ../../testdata/locks-manyoci-image/no-file-here.tar: no such file or directory
 
 ---
 

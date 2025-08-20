@@ -99,7 +99,7 @@ func TestMavenReadWrite(t *testing.T) {
 	`))
 
 	cwd := testutility.GetCurrentWorkingDirectory(t)
-	df, err := depfile.OpenLocalDepFile(filepath.Join(cwd, "fixtures", "maven", "my-app", "pom.xml"))
+	df, err := depfile.OpenLocalDepFile(filepath.Join(cwd, "testdata", "maven", "my-app", "pom.xml"))
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -408,7 +408,7 @@ func TestMavenReadWrite(t *testing.T) {
 	}
 
 	// Re-open the file for writing.
-	df, err = depfile.OpenLocalDepFile(filepath.Join(cwd, "fixtures", "maven", "my-app", "pom.xml"))
+	df, err = depfile.OpenLocalDepFile(filepath.Join(cwd, "testdata", "maven", "my-app", "pom.xml"))
 	if err != nil {
 		t.Fatalf("failed to open file: %v", err)
 	}
@@ -426,7 +426,7 @@ func TestMavenWrite(t *testing.T) {
 	t.Parallel()
 
 	cwd := testutility.GetCurrentWorkingDirectory(t)
-	df, err := depfile.OpenLocalDepFile(filepath.Join(cwd, "fixtures", "maven", "my-app", "pom.xml"))
+	df, err := depfile.OpenLocalDepFile(filepath.Join(cwd, "testdata", "maven", "my-app", "pom.xml"))
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}
@@ -535,7 +535,7 @@ func TestMavenWriteDM(t *testing.T) {
 	t.Parallel()
 
 	cwd := testutility.GetCurrentWorkingDirectory(t)
-	df, err := depfile.OpenLocalDepFile(filepath.Join(cwd, "fixtures", "maven", "no-dependency-management.xml"))
+	df, err := depfile.OpenLocalDepFile(filepath.Join(cwd, "testdata", "maven", "no-dependency-management.xml"))
 	if err != nil {
 		t.Fatalf("fail to open file: %v", err)
 	}
@@ -600,7 +600,7 @@ func Test_buildPatches(t *testing.T) {
 	t.Parallel()
 
 	cwd := testutility.GetCurrentWorkingDirectory(t)
-	parentPath := filepath.Join(cwd, "fixtures", "maven", "parent", "pom.xml")
+	parentPath := filepath.Join(cwd, "testdata", "maven", "parent", "pom.xml")
 
 	depProfileTwoMgmt.AddAttr(dep.MavenArtifactType, "pom")
 	depProfileTwoMgmt.AddAttr(dep.Scope, "import")

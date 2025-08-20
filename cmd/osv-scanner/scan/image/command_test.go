@@ -127,7 +127,7 @@ func TestCommand_OCIImage(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "Invalid path",
-			Args: []string{"", "image", "--archive", "../../fixtures/locks-manyoci-image/no-file-here.tar"},
+			Args: []string{"", "image", "--archive", "../../testdata/locks-manyoci-image/no-file-here.tar"},
 			Exit: 127,
 		},
 		{

@@ -19,17 +19,17 @@ func Test_filterResults(t *testing.T) {
 	}{
 		{
 			name: "filter_everything",
-			path: "fixtures/filter/all",
+			path: "testdata/filter/all",
 			want: 15,
 		},
 		{
 			name: "filter_nothing",
-			path: "fixtures/filter/none",
+			path: "testdata/filter/none",
 			want: 0,
 		},
 		{
 			name: "filter_partially",
-			path: "fixtures/filter/some",
+			path: "testdata/filter/some",
 			want: 10,
 		},
 	}
@@ -37,7 +37,7 @@ func Test_filterResults(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 			// configManager looks for osv-scanner.toml in the source path.
-			// Sources in the test input should point to files/folders in the text fixture folder for this to work correctly.
+			// Sources in the test input should point to files/folders in the testdata folder for this to work correctly.
 			configManager := config.Manager{
 				DefaultConfig: config.Config{},
 				ConfigMap:     make(map[string]config.Config),

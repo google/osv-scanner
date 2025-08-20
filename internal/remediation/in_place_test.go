@@ -121,8 +121,8 @@ func TestComputeInPlacePatches(t *testing.T) {
 	}{
 		{
 			name:         "npm-santatracker",
-			universePath: "./fixtures/santatracker/universe.yaml",
-			lockfilePath: "./fixtures/santatracker/package-lock.json",
+			universePath: "./testdata/santatracker/universe.yaml",
+			lockfilePath: "./testdata/santatracker/package-lock.json",
 			opts:         basicOpts,
 		},
 	}

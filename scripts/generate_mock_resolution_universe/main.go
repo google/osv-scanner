@@ -2,7 +2,7 @@
 package main
 
 // Generate a MockResolutionClient universe file based on real packages encountered during in-place and/or relock updates.
-// Used for generating test fixtures.
+// Used for generating testdata.
 // Usage: go run ./generate_mock_resolution_universe [list of manifests / lockfiles] > output.yaml
 // Will automatically attempt in-place updates and relock/relax updates on all supplied lockfiles/manifests,
 // And write all encountered package versions to the output, along with all vulnerabilities for each package.

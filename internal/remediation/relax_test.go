@@ -24,8 +24,8 @@ func TestComputeRelaxPatches(t *testing.T) {
 	}{
 		{
 			name:         "npm-santatracker",
-			universePath: "./fixtures/santatracker/universe.yaml",
-			manifestPath: "./fixtures/santatracker/package.json",
+			universePath: "./testdata/santatracker/universe.yaml",
+			manifestPath: "./testdata/santatracker/package.json",
 			opts:         basicOpts,
 		},
 	}

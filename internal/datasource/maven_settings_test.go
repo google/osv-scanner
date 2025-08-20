@@ -33,7 +33,7 @@ func TestParseMavenSettings(t *testing.T) {
 		},
 	}
 
-	got := datasource.ParseMavenSettings("./fixtures/maven_settings/settings.xml")
+	got := datasource.ParseMavenSettings("./testdata/maven_settings/settings.xml")
 
 	if diff := cmp.Diff(want, got); diff != "" {
 		t.Errorf("ParseMavenSettings() (-want +got):\n%s", diff)

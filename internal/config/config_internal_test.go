@@ -40,7 +40,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 		{
 			name: "target does not exist",
 			args: args{
-				target: "./fixtures/testdatainner/does-not-exist",
+				target: "./testdata/testdatainner/does-not-exist",
 			},
 			want:    "",
 			wantErr: true,
@@ -48,41 +48,41 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 		{
 			name: "target is file in directory",
 			args: args{
-				target: "./fixtures/testdatainner/innerFolder/test.yaml",
+				target: "./testdata/testdatainner/innerFolder/test.yaml",
 			},
-			want:    "fixtures/testdatainner/innerFolder/osv-scanner.toml",
+			want:    "testdata/testdatainner/innerFolder/osv-scanner.toml",
 			wantErr: false,
 		},
 		{
 			name: "target is inner directory with trailing slash",
 			args: args{
-				target: "./fixtures/testdatainner/innerFolder/",
+				target: "./testdata/testdatainner/innerFolder/",
 			},
-			want:    "fixtures/testdatainner/innerFolder/osv-scanner.toml",
+			want:    "testdata/testdatainner/innerFolder/osv-scanner.toml",
 			wantErr: false,
 		},
 		{
 			name: "target is inner directory without trailing slash",
 			args: args{
-				target: "./fixtures/testdatainner/innerFolder",
+				target: "./testdata/testdatainner/innerFolder",
 			},
-			want:    "fixtures/testdatainner/innerFolder/osv-scanner.toml",
+			want:    "testdata/testdatainner/innerFolder/osv-scanner.toml",
 			wantErr: false,
 		},
 		{
 			name: "target is directory with trailing slash",
 			args: args{
-				target: "./fixtures/testdatainner/",
+				target: "./testdata/testdatainner/",
 			},
-			want:    "fixtures/testdatainner/osv-scanner.toml",
+			want:    "testdata/testdatainner/osv-scanner.toml",
 			wantErr: false,
 		},
 		{
 			name: "target is file in directory",
 			args: args{
-				target: "./fixtures/testdatainner/some-manifest.yaml",
+				target: "./testdata/testdatainner/some-manifest.yaml",
 			},
-			want:    "fixtures/testdatainner/osv-scanner.toml",
+			want:    "testdata/testdatainner/osv-scanner.toml",
 			wantErr: false,
 		},
 	}
@@ -119,7 +119,7 @@ func Test_tryLoadConfig(t *testing.T) {
 		{
 			name: "config does not exist",
 			args: args{
-				configPath: "./fixtures/testdatainner/does-not-exist",
+				configPath: "./testdata/testdatainner/does-not-exist",
 			},
 			want:    Config{},
 			wantErr: true,
@@ -127,10 +127,10 @@ func Test_tryLoadConfig(t *testing.T) {
 		{
 			name: "config has some ignored vulnerabilities and package overrides",
 			args: args{
-				configPath: "./fixtures/testdatainner/osv-scanner.toml",
+				configPath: "./testdata/testdatainner/osv-scanner.toml",
 			},
 			want: Config{
-				LoadPath: "./fixtures/testdatainner/osv-scanner.toml",
+				LoadPath: "./testdata/testdatainner/osv-scanner.toml",
 				IgnoredVulns: []IgnoreEntry{
 					{
 						ID: "GO-2022-0968",
@@ -164,7 +164,7 @@ func Test_tryLoadConfig(t *testing.T) {
 		{
 			name: "load path cannot be overridden via config",
 			args: args{
-				configPath: "./fixtures/testdatainner/osv-scanner-load-path.toml",
+				configPath: "./testdata/testdatainner/osv-scanner-load-path.toml",
 			},
 			want: Config{
 				LoadPath: "",
@@ -196,31 +196,31 @@ func TestTryLoadConfig_UnknownKeys(t *testing.T) {
 		unknownMsg string
 	}{
 		{
-			configPath: "./fixtures/unknown-key-1.toml",
+			configPath: "./testdata/unknown-key-1.toml",
 			unknownMsg: "IgnoredVulns.ignoreUntilTime",
 		},
 		{
-			configPath: "./fixtures/unknown-key-2.toml",
+			configPath: "./testdata/unknown-key-2.toml",
 			unknownMsg: "IgnoredVulns.ignoreUntiI",
 		},
 		{
-			configPath: "./fixtures/unknown-key-3.toml",
+			configPath: "./testdata/unknown-key-3.toml",
 			unknownMsg: "IgnoredVulns.reasoning",
 		},
 		{
-			configPath: "./fixtures/unknown-key-4.toml",
+			configPath: "./testdata/unknown-key-4.toml",
 			unknownMsg: "PackageOverrides.skip",
 		},
 		{
-			configPath: "./fixtures/unknown-key-5.toml",
+			configPath: "./testdata/unknown-key-5.toml",
 			unknownMsg: "PackageOverrides.license.skip",
 		},
 		{
-			configPath: "./fixtures/unknown-key-6.toml",
+			configPath: "./testdata/unknown-key-6.toml",
 			unknownMsg: "RustVersionOverride",
 		},
 		{
-			configPath: "./fixtures/unknown-key-7.toml",
+			configPath: "./testdata/unknown-key-7.toml",
 			unknownMsg: "RustVersionOverride, PackageOverrides.skip",
 		},
 	}
