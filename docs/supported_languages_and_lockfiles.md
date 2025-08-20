@@ -142,3 +142,9 @@ Run the command below for detection:
 ```
 ./osv-scanner scan source -r /path/to/folder/you/want/to/scan
 ```
+
+### Known limitations
+
+When scanning a file in the `osv-scanner.json` format, using the `--format=spdx` flag produces incorrect output.
+
+For more details, see issue [#2192](https://github.com/google/osv-scanner/issues/2192).
