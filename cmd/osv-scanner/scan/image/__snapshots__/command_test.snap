@@ -274,7 +274,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
 Total 19 packages affected by 37 known vulnerabilities (2 Critical, 11 High, 19 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
-15 vulnerabilities can be fixed.
+16 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -285,7 +285,7 @@ Ubuntu:22.04
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
-| gcc-12         | 12.3.0-1ubuntu1~22.04        | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
+| gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          2 | libgnutls30             | # 4 Layer        | ubuntu        |
@@ -319,7 +319,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
 Total 19 packages affected by 37 known vulnerabilities (2 Critical, 11 High, 19 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
-15 vulnerabilities can be fixed.
+16 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -330,7 +330,7 @@ Ubuntu:22.04
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
-| gcc-12         | 12.3.0-1ubuntu1~22.04        | No fix available        |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
+| gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          2 | libgnutls30             | # 4 Layer        | ubuntu        |
@@ -2543,6 +2543,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             }
           },
           "vulnerabilities": [
+            "USN-7700-1",
             "UBUNTU-CVE-2022-27943",
             "UBUNTU-CVE-2023-4039"
           ],
@@ -2633,6 +2634,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             }
           },
           "vulnerabilities": [
+            "USN-7700-1",
             "UBUNTU-CVE-2022-27943",
             "UBUNTU-CVE-2023-4039"
           ],
@@ -2930,6 +2932,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             }
           },
           "vulnerabilities": [
+            "USN-7700-1",
             "UBUNTU-CVE-2022-27943",
             "UBUNTU-CVE-2023-4039"
           ],
