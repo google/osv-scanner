@@ -11,7 +11,7 @@ import (
 
 func main() {
 	os.Exit(
-		cmd.Run(os.Args, os.Stdout, os.Stderr, []cmd.CommandBuilder{
+		cmd.Run(os.Args, os.Stdout, os.Stderr, nil, []cmd.CommandBuilder{
 			scan.Command,
 			fix.Command,
 			update.Command,
