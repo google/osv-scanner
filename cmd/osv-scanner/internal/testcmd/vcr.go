@@ -32,6 +32,33 @@ func determineRecorderMode() recorder.Mode {
 	return recorder.ModeRecordOnce
 }
 
+// withHeadersTripper adds extra headers to requests before they're done by the wrapped http.Client
+type withHeadersTripper struct {
+	wrapper http.Client
+	headers map[string]string
+}
+
+func (wht withHeadersTripper) RoundTrip(request *http.Request) (*http.Response, error) {
+	for key, value := range wht.headers {
+		request.Header.Set(key, value)
+	}
+
+	return wht.wrapper.Do(request)
+}
+
+var _ http.RoundTripper = withHeadersTripper{}
+
+// WithTestNameHeader wraps the given http.Client with an http.RoundTripper that
+// adds a custom header to every request with the name of the test being run
+func WithTestNameHeader(t *testing.T, client http.Client) *http.Client {
+	t.Helper()
+
+	return &http.Client{Transport: withHeadersTripper{
+		wrapper: client,
+		headers: map[string]string{"X-Test-Name": t.Name()},
+	}}
+}
+
 // InsertCassette returns an http.Client backed by a [recorder.Recorder] which
 // will record and (re)play responses from a cassette based on the tests name
 func InsertCassette(t *testing.T) *http.Client {
