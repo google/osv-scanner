@@ -13,6 +13,8 @@ import (
 func TestCommand(t *testing.T) {
 	t.Parallel()
 
+	client := testcmd.InsertCassette(t)
+
 	tests := []testcmd.Case{
 		// one specific supported lockfile
 		{
@@ -322,6 +324,9 @@ func TestCommand(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = client
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
