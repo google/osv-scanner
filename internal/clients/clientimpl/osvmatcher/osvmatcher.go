@@ -3,6 +3,7 @@ package osvmatcher
 import (
 	"context"
 	"errors"
+	"net/http"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -30,11 +31,15 @@ type OSVMatcher struct {
 }
 
 func New(initialQueryTimeout time.Duration, userAgent string) *OSVMatcher {
-	client := *osvdev.DefaultClient()
-	client.Config.UserAgent = userAgent
+	config := osvdev.DefaultConfig()
+	config.UserAgent = userAgent
 
 	return &OSVMatcher{
-		Client:              client,
+		Client: osvdev.OSVClient{
+			HTTPClient:  http.DefaultClient,
+			Config:      config,
+			BaseHostURL: osvdev.DefaultBaseURL,
+		},
 		InitialQueryTimeout: initialQueryTimeout,
 	}
 }
