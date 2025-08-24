@@ -331,7 +331,7 @@ func TestCommand(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = client
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
