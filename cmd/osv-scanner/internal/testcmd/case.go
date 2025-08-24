@@ -2,6 +2,7 @@
 package testcmd
 
 import (
+	"net/http"
 	"strings"
 )
 
@@ -12,6 +13,8 @@ type Case struct {
 
 	// ReplaceRules are only used for JSON output
 	ReplaceRules []JSONReplaceRule
+
+	HTTPClient *http.Client
 }
 
 // findFirstValueOfFlag returns the value of the first instance of the given flag
