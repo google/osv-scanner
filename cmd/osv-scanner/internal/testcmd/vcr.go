@@ -7,6 +7,7 @@ import (
 	"strings"
 	"testing"
 
+	"gopkg.in/dnaeon/go-vcr.v4/pkg/cassette"
 	"gopkg.in/dnaeon/go-vcr.v4/pkg/recorder"
 )
 
@@ -46,6 +47,23 @@ func InsertCassette(t *testing.T) *http.Client {
 			// endpoint, as those reqs are what results in specific vulns being looked up
 			return strings.HasPrefix(req.URL.Path, "/v1/vulns/")
 		}),
+		recorder.WithHook(func(i *cassette.Interaction) error {
+			// remove headers that are not important to reduce cassette size and noise
+			for _, header := range []string{
+				"Alt-Svc",
+				"Grpc-Accept-Encoding",
+				"Grpc-Message",
+				"Grpc-Status",
+				"Server",
+				"Traceparent",
+				"X-Cloud-Trace-Context",
+				"X-Envoy-Decorator-Operation",
+			} {
+				delete(i.Response.Headers, header)
+			}
+
+			return nil
+		}, recorder.AfterCaptureHook),
 	)
 	if err != nil {
 		t.Fatal(err)
