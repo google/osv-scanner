@@ -353,8 +353,6 @@ func TestCommand_JavareachArchive(t *testing.T) {
 func TestCommand_ExplicitExtractors(t *testing.T) {
 	t.Parallel()
 
-	client := testcmd.InsertCassette(t)
-
 	tests := []testcmd.Case{
 		{
 			Name: "empty_plugins_flag_does_nothing",
@@ -484,6 +482,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
+			client := testcmd.InsertCassette(t)
 			tt.HTTPClient = client
 
 			testcmd.RunAndMatchSnapshots(t, tt)
