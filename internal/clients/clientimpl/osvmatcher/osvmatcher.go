@@ -30,13 +30,17 @@ type OSVMatcher struct {
 	InitialQueryTimeout time.Duration
 }
 
-func New(initialQueryTimeout time.Duration, userAgent string) *OSVMatcher {
+func New(initialQueryTimeout time.Duration, userAgent string, httpClient *http.Client) *OSVMatcher {
+	if httpClient == nil {
+		httpClient = http.DefaultClient
+	}
+
 	config := osvdev.DefaultConfig()
 	config.UserAgent = userAgent
 
 	return &OSVMatcher{
 		Client: osvdev.OSVClient{
-			HTTPClient:  http.DefaultClient,
+			HTTPClient:  httpClient,
 			Config:      config,
 			BaseHostURL: osvdev.DefaultBaseURL,
 		},
