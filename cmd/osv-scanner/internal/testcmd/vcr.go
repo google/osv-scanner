@@ -62,6 +62,9 @@ func InsertCassette(t *testing.T) *http.Client {
 				delete(i.Response.Headers, header)
 			}
 
+			// use a static duration since we don't care about replicating latency
+			i.Response.Duration = 0
+
 			return nil
 		}, recorder.AfterCaptureHook),
 	)
