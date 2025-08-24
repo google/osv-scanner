@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"sort"
 	"strings"
 	"testing"
@@ -25,14 +26,14 @@ var CommandsUnderTest []cmd.CommandBuilder
 // the default "scan" command is included to avoid a panic
 func fetchCommandsToTest() []cmd.CommandBuilder {
 	for _, builder := range CommandsUnderTest {
-		command := builder(nil, nil)
+		command := builder(nil, nil, nil)
 
 		if command.Name == "scan" {
 			return CommandsUnderTest
 		}
 	}
 
-	return append(CommandsUnderTest, func(_, _ io.Writer) *cli.Command {
+	return append(CommandsUnderTest, func(_, _ io.Writer, _ *http.Client) *cli.Command {
 		return &cli.Command{
 			Name: "scan",
 			Action: func(_ context.Context, _ *cli.Command) error {
@@ -48,7 +49,7 @@ func run(t *testing.T, tc Case) (string, string) {
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 
-	ec := cmd.Run(tc.Args, stdout, stderr, fetchCommandsToTest())
+	ec := cmd.Run(tc.Args, stdout, stderr, tc.HTTPClient, fetchCommandsToTest())
 
 	if ec != tc.Exit {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.Exit)

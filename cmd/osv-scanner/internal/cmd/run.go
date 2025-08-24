@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io"
 	"log/slog"
+	"net/http"
 	"os"
 	"testing"
 
@@ -21,9 +22,9 @@ var (
 	date   = "n/a"
 )
 
-type CommandBuilder = func(stdout, stderr io.Writer) *cli.Command
+type CommandBuilder = func(stdout, stderr io.Writer, client *http.Client) *cli.Command
 
-func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int {
+func Run(args []string, stdout, stderr io.Writer, client *http.Client, commands []CommandBuilder) int {
 	// urfave/cli uses a global for its help flag which makes it possible for a nil
 	// pointer dereference if running in a parallel setting, which our test suite
 	// does, so this is used to hide the help flag so the global won't be used
@@ -59,7 +60,7 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 
 	cmds := make([]*cli.Command, 0, len(commands))
 	for _, cmd := range commands {
-		c := cmd(stdout, stderr)
+		c := cmd(stdout, stderr, client)
 		c.HideHelp = shouldHideHelp
 
 		cmds = append(cmds, c)
