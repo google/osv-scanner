@@ -38,6 +38,7 @@ require (
 	golang.org/x/vuln v1.1.4
 	google.golang.org/grpc v1.76.0
 	google.golang.org/protobuf v1.36.10
+	gopkg.in/dnaeon/go-vcr.v4 v4.0.5
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
 	osv.dev/bindings/go v0.0.0-20251114023950-43ef4fb673ff
