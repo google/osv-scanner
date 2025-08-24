@@ -387,6 +387,8 @@ func TestCommand_JavareachArchive(t *testing.T) {
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
 
+	client := testcmd.InsertCassette(t)
+
 	tests := []testcmd.Case{
 		{
 			Name: "empty_plugins_flag_does_nothing",
@@ -660,6 +662,9 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = client
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
