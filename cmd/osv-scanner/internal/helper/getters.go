@@ -2,6 +2,7 @@ package helper
 
 import (
 	"fmt"
+	"net/http"
 	"strings"
 
 	"github.com/google/osv-scanner/v2/internal/spdx"
@@ -49,10 +50,11 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 	}
 }
 
-func GetExperimentalScannerActions(cmd *cli.Command) osvscanner.ExperimentalScannerActions {
+func GetExperimentalScannerActions(cmd *cli.Command, client *http.Client) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
 		PluginsEnabled:    cmd.StringSlice("experimental-plugins"),
 		PluginsDisabled:   cmd.StringSlice("experimental-disable-plugins"),
 		PluginsNoDefaults: cmd.Bool("experimental-no-default-plugins"),
+		HTTPClient:        client,
 	}
 }
