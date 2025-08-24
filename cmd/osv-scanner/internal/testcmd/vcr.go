@@ -40,6 +40,12 @@ func InsertCassette(t *testing.T) *http.Client {
 		filepath.Join("testdata/cassettes", strings.ReplaceAll(t.Name(), "/", "_")),
 		recorder.WithSkipRequestLatency(true),
 		recorder.WithMode(determineRecorderMode()),
+		recorder.WithPassthrough(func(req *http.Request) bool {
+			// exclude requests for info on a specific vuln since they can be quite large
+			// and their changes should be less impactful to our snapshots than the query
+			// endpoint, as those reqs are what results in specific vulns being looked up
+			return strings.HasPrefix(req.URL.Path, "/v1/vulns/")
+		}),
 	)
 	if err != nil {
 		t.Fatal(err)
