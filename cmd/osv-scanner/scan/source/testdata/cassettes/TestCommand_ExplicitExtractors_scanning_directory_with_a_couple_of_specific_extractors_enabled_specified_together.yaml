@@ -23,28 +23,12 @@ interactions:
     content_length: 98
     body: "{\"results\":[{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{}]}"
     headers:
-      Alt-Svc:
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
       Content-Length:
       - "98"
       Content-Type:
       - application/json
       Date:
       - Sun, 24 Aug 2025 20:41:38 GMT
-      Grpc-Accept-Encoding:
-      - identity, deflate, gzip
-      Grpc-Message:
-      - ""
-      Grpc-Status:
-      - "0"
-      Server:
-      - Google Frontend
-      Traceparent:
-      - 00-df2dff29e6830c6e0d2b7063b70278d4-feb24a773575bb0b-00
-      X-Cloud-Trace-Context:
-      - df2dff29e6830c6e0d2b7063b70278d4/18352813307346664203
-      X-Envoy-Decorator-Operation:
-      - ingress QueryAffectedBatch
     status: 200 OK
     code: 200
     duration: 879.730155ms

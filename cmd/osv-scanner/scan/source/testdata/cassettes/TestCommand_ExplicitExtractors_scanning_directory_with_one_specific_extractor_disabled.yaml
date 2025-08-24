@@ -23,28 +23,12 @@ interactions:
     content_length: 138
     body: "{\"results\":[{},{},{},{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"CVE-2025-26519\",\"modified\":\"2025-08-05T20:57:02.403959Z\"}]},{},{},{},{},{}]}"
     headers:
-      Alt-Svc:
-      - h3=":443"; ma=2592000,h3-29=":443"; ma=2592000
       Content-Length:
       - "138"
       Content-Type:
       - application/json
       Date:
       - Sun, 24 Aug 2025 20:41:38 GMT
-      Grpc-Accept-Encoding:
-      - identity, deflate, gzip
-      Grpc-Message:
-      - ""
-      Grpc-Status:
-      - "0"
-      Server:
-      - Google Frontend
-      Traceparent:
-      - 00-ca477697f165771e0d2b7063b7027d5f-242a592e3c0c631c-00
-      X-Cloud-Trace-Context:
-      - ca477697f165771e0d2b7063b7027d5f/2605993389498065692
-      X-Envoy-Decorator-Operation:
-      - ingress QueryAffectedBatch
     status: 200 OK
     code: 200
     duration: 1.017461766s
