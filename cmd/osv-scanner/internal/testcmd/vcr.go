@@ -37,7 +37,7 @@ func InsertCassette(t *testing.T) *http.Client {
 	t.Helper()
 
 	r, err := recorder.New(
-		filepath.Join("testdata", strings.ReplaceAll(t.Name(), "/", "_")),
+		filepath.Join("testdata/cassettes", strings.ReplaceAll(t.Name(), "/", "_")),
 		recorder.WithSkipRequestLatency(true),
 		recorder.WithMode(determineRecorderMode()),
 	)
