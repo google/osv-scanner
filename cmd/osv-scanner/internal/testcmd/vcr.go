@@ -31,7 +31,7 @@ func determineRecorderMode() recorder.Mode {
 		return recorder.ModeReplayOnly
 	}
 
-	return recorder.ModeRecordOnce
+	return recorder.ModeReplayWithNewEpisodes
 }
 
 // withHeadersTripper adds extra headers to requests before they're done by the wrapped http.Client
