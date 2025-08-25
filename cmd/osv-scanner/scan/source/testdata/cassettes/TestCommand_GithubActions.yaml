@@ -29,8 +29,6 @@ interactions:
       - "161"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:01:26 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -62,8 +60,6 @@ interactions:
       - "161"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:01:26 GMT
     status: 200 OK
     code: 200
     duration: 0s

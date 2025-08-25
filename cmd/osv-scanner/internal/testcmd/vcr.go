@@ -89,6 +89,7 @@ func InsertCassette(t *testing.T) *http.Client {
 				"Traceparent",
 				"X-Cloud-Trace-Context",
 				"X-Envoy-Decorator-Operation",
+				"Date",
 			} {
 				delete(i.Response.Headers, header)
 			}

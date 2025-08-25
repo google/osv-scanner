@@ -29,8 +29,6 @@ interactions:
       - "5242"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:37:24 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -62,8 +60,6 @@ interactions:
       - "1573"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:37:22 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -95,8 +91,6 @@ interactions:
       - "129"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:37:21 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -128,8 +122,6 @@ interactions:
       - "129"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:37:21 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -161,8 +153,6 @@ interactions:
       - "2024"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:37:22 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -194,8 +184,6 @@ interactions:
       - "9104"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:37:22 GMT
     status: 200 OK
     code: 200
     duration: 0s

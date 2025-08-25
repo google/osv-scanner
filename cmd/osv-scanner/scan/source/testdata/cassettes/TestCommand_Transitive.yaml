@@ -29,8 +29,6 @@ interactions:
       - "16"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:01:30 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -62,8 +60,6 @@ interactions:
       - "801"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:01:34 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -95,8 +91,6 @@ interactions:
       - "795"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:01:32 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -128,8 +122,6 @@ interactions:
       - "558"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:01:59 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -161,8 +153,6 @@ interactions:
       - "558"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:01:48 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -194,8 +184,6 @@ interactions:
       - "98"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:01:32 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -227,8 +215,6 @@ interactions:
       - "311"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:01:33 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -260,8 +246,6 @@ interactions:
       - "311"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:01:32 GMT
     status: 200 OK
     code: 200
     duration: 0s
@@ -293,8 +277,6 @@ interactions:
       - "1593"
       Content-Type:
       - application/json
-      Date:
-      - Mon, 25 Aug 2025 01:01:39 GMT
     status: 200 OK
     code: 200
     duration: 0s
