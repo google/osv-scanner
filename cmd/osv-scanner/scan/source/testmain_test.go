@@ -29,5 +29,7 @@ func TestMain(m *testing.M) {
 
 	cleanupGitFixtures()
 
+	testcmd.SortCassetteInteractions()
+
 	testutility.CleanSnapshots(m)
 }
