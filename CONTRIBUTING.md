@@ -94,6 +94,17 @@ You can regenerate snapshots by setting `UPDATE_SNAPS=true` when running tests:
 UPDATE_SNAPS=true ./scripts/run_tests.sh
 ```
 
+`cmd` tests use [`go-vcr`](https://github.com/dnaeon/go-vcr) to provide a custom `http.Client` for osv.dev requests to the `querybulk` endpoint which uses
+snapshots of requests called cassettes to reduce noise from changes to advisories while still providing a high degree
+of confidence.
+
+You can control the recording behaviour by setting the `TEST_VCR_MODE` environment variable to one of the [supported modes](https://github.com/dnaeon/go-vcr/blob/v4/pkg/recorder/recorder.go#L51),
+specified either by its name without the `Mode` suffix or by its int value.
+
+The default mode locally is `ReplayWithNewEpisodes`, meaning existing interactions will be replayed while any new ones will
+be recorded and added to the existing cassette; when running in CI, the default mode is `ReplayOnly` meaning an error will be
+raised if an http interaction is missing from a test's cassette.
+
 If adding a lockfile with known vulnerabilities for test data, also add an [`osv-scanner.toml`](https://google.github.io/osv-scanner/configuration/) config file to exclude those vulnerabilities from scans of the repository.
 
 ### Linting
