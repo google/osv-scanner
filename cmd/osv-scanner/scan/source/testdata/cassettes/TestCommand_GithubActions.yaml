@@ -1,0 +1,69 @@
+---
+version: 2
+interactions:
+- id: 0
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 214
+    host: api.osv.dev
+    body: "{\"queries\":[{\"commit\":\"4579d5538f06c5ef615a15bc67ebb9ac0523a973\",\"package\":{}},{\"commit\":\"9de7a0544457c6aba755ccb65abb41b0dc1db70d\",\"package\":{}},{\"commit\":\"5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6\",\"package\":{}}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.1
+      X-Test-Name:
+      - TestCommand_GithubActions/scanning_osv-scanner_custom_format
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 161
+    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"CVE-2023-39137\",\"modified\":\"2025-07-29T10:58:58.945228Z\"},{\"id\":\"CVE-2023-39139\",\"modified\":\"2025-07-29T10:58:59.269027Z\"}]},{}]}"
+    headers:
+      Content-Length:
+      - "161"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 Aug 2025 01:01:26 GMT
+    status: 200 OK
+    code: 200
+    duration: 0s
+- id: 1
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 214
+    host: api.osv.dev
+    body: "{\"queries\":[{\"commit\":\"4579d5538f06c5ef615a15bc67ebb9ac0523a973\",\"package\":{}},{\"commit\":\"9de7a0544457c6aba755ccb65abb41b0dc1db70d\",\"package\":{}},{\"commit\":\"5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6\",\"package\":{}}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.1
+      X-Test-Name:
+      - TestCommand_GithubActions/scanning_osv-scanner_custom_format_output_json
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 161
+    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"CVE-2023-39137\",\"modified\":\"2025-07-29T10:58:58.945228Z\"},{\"id\":\"CVE-2023-39139\",\"modified\":\"2025-07-29T10:58:59.269027Z\"}]},{}]}"
+    headers:
+      Content-Length:
+      - "161"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 Aug 2025 01:01:26 GMT
+    status: 200 OK
+    code: 200
+    duration: 0s
