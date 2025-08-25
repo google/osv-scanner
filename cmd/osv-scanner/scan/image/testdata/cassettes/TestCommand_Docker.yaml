@@ -1,0 +1,36 @@
+---
+version: 2
+interactions:
+- id: 0
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 1232
+    host: api.osv.dev
+    body: "{\"queries\":[{\"package\":{\"name\":\"alpine-baselayout\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"3.4.3-r1\"},{\"package\":{\"name\":\"alpine-baselayout\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"3.4.3-r1\"},{\"package\":{\"name\":\"alpine-keys\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"2.4-r1\"},{\"package\":{\"name\":\"apk-tools\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"2.14.4-r0\"},{\"package\":{\"name\":\"busybox\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"1.36.1-r7\"},{\"package\":{\"name\":\"busybox\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"1.36.1-r7\"},{\"package\":{\"name\":\"ca-certificates\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"20240226-r0\"},{\"package\":{\"name\":\"libc-dev\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"0.7.2-r5\"},{\"package\":{\"name\":\"openssl\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"3.1.7-r0\"},{\"package\":{\"name\":\"openssl\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"3.1.7-r0\"},{\"package\":{\"name\":\"musl\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"1.2.4-r2\"},{\"package\":{\"name\":\"musl\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"1.2.4-r2\"},{\"package\":{\"name\":\"pax-utils\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"1.3.7-r1\"},{\"package\":{\"name\":\"busybox\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"1.36.1-r7\"},{\"package\":{\"name\":\"zlib\",\"ecosystem\":\"Alpine:v3.18\"},\"version\":\"1.2.13-r1\"}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.1
+      X-Test-Name:
+      - TestCommand_Docker/Real_Alpine_image
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 482
+    body: "{\"results\":[{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"CVE-2024-13176\",\"modified\":\"2025-07-29T11:03:59.272724Z\"},{\"id\":\"CVE-2024-9143\",\"modified\":\"2025-07-29T11:16:51.872164Z\"}]},{\"vulns\":[{\"id\":\"CVE-2024-13176\",\"modified\":\"2025-07-29T11:03:59.272724Z\"},{\"id\":\"CVE-2024-9143\",\"modified\":\"2025-07-29T11:16:51.872164Z\"}]},{\"vulns\":[{\"id\":\"CVE-2025-26519\",\"modified\":\"2025-08-05T20:57:02.403959Z\"}]},{\"vulns\":[{\"id\":\"CVE-2025-26519\",\"modified\":\"2025-08-05T20:57:02.403959Z\"}]},{},{},{}]}"
+    headers:
+      Content-Length:
+      - "482"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 Aug 2025 01:37:21 GMT
+    status: 200 OK
+    code: 200
+    duration: 0s
