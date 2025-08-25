@@ -19,7 +19,5 @@ func TestMain(m *testing.M) {
 	testcmd.CommandsUnderTest = []cmd.CommandBuilder{image.Command}
 	m.Run()
 
-	testcmd.SortCassetteInteractions()
-
 	testutility.CleanSnapshots(m)
 }

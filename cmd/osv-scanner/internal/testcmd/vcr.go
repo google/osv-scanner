@@ -2,8 +2,6 @@ package testcmd
 
 import (
 	"cmp"
-	"fmt"
-	"io/fs"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -68,8 +66,10 @@ func WithTestNameHeader(t *testing.T, client http.Client) *http.Client {
 func InsertCassette(t *testing.T) *http.Client {
 	t.Helper()
 
+	path := filepath.Join("testdata/cassettes", strings.ReplaceAll(t.Name(), "/", "_"))
+
 	r, err := recorder.New(
-		filepath.Join("testdata/cassettes", strings.ReplaceAll(t.Name(), "/", "_")),
+		path,
 		recorder.WithSkipRequestLatency(true),
 		recorder.WithMode(determineRecorderMode()),
 		recorder.WithPassthrough(func(req *http.Request) bool {
@@ -106,34 +106,29 @@ func InsertCassette(t *testing.T) *http.Client {
 		if err := r.Stop(); err != nil {
 			t.Error(err)
 		}
+
+		sortCassetteInteractions(t, path)
 	})
 
 	return r.GetDefaultClient()
 }
 
-// SortCassetteInteractions walks over each cassette in testdata/cassettes and
-// sorts the interactions recorded in each based on the X-Test-Name header
-func SortCassetteInteractions() {
-	err := filepath.Walk("./testdata/cassettes", func(path string, info fs.FileInfo, err error) error {
-		if err != nil || info.IsDir() || !strings.HasSuffix(path, ".yaml") {
-			return err
-		}
+// sortCassetteInteractions reorders the interactions in the given cassette, based
+// on the X-Test-Name header to help reduce the diff when interactions are changed
+func sortCassetteInteractions(t *testing.T, path string) {
+	t.Helper()
 
-		cass, err := cassette.Load(strings.TrimSuffix(path, ".yaml"))
-		if err != nil {
-			return err
-		}
+	cass, err := cassette.Load(strings.TrimSuffix(path, ".yaml"))
+	if err != nil {
+		t.Fatalf("failed to load %s: %v", path, err)
+	}
 
-		// we don't need to worry about the interaction ids as they get updated as part of saving
-		slices.SortFunc(cass.Interactions, func(a, b *cassette.Interaction) int {
-			return cmp.Compare(a.Request.Headers.Get("X-Test-Name"), b.Request.Headers.Get("X-Test-Name"))
-		})
-
-		return cass.Save()
+	// we don't need to worry about the interaction ids as they get updated as part of saving
+	slices.SortFunc(cass.Interactions, func(a, b *cassette.Interaction) int {
+		return cmp.Compare(a.Request.Headers.Get("X-Test-Name"), b.Request.Headers.Get("X-Test-Name"))
 	})
 
-	if err != nil {
-		fmt.Printf("error sorting cassette interactions: %v\n", err)
-		os.Exit(1)
+	if err = cass.Save(); err != nil {
+		t.Fatalf("failed to write %s: %v", path, err)
 	}
 }
