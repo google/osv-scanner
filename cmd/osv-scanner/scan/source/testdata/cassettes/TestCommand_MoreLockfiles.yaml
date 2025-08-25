@@ -1,0 +1,234 @@
+---
+version: 2
+interactions:
+- id: 0
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 447
+    host: api.osv.dev
+    body: "{\"queries\":[{\"package\":{\"name\":\"AC-Angle\",\"ecosystem\":\"Hackage\"},\"version\":\"1.0\"},{\"package\":{\"name\":\"ALUT\",\"ecosystem\":\"Hackage\"},\"version\":\"2.4.0.3\"},{\"package\":{\"name\":\"ANum\",\"ecosystem\":\"Hackage\"},\"version\":\"0.2.0.2\"},{\"package\":{\"name\":\"Agda\",\"ecosystem\":\"Hackage\"},\"version\":\"2.6.4.3\"},{\"package\":{\"name\":\"Allure\",\"ecosystem\":\"Hackage\"},\"version\":\"0.11.0.0\"},{\"package\":{\"name\":\"biscuit-haskell\",\"ecosystem\":\"Hackage\"},\"version\":\"0.3.0.0\"}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.1
+      X-Test-Name:
+      - TestCommand_MoreLockfiles/cabal.project.freeze
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 105
+    body: "{\"results\":[{},{},{},{},{},{\"vulns\":[{\"id\":\"HSEC-2024-0009\",\"modified\":\"2025-07-27T20:43:16.367058Z\"}]}]}"
+    headers:
+      Content-Length:
+      - "105"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 Aug 2025 01:01:33 GMT
+    status: 200 OK
+    code: 200
+    duration: 0s
+- id: 1
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 350
+    host: api.osv.dev
+    body: "{\"queries\":[{\"package\":{\"name\":\"AWSSDK.Core\",\"ecosystem\":\"NuGet\"},\"version\":\"3.7.10.6\"},{\"package\":{\"name\":\"Microsoft.Extensions.DependencyInjection\",\"ecosystem\":\"NuGet\"},\"version\":\"6.0.0\"},{\"package\":{\"name\":\"System.Linq.Dynamic.Core\",\"ecosystem\":\"NuGet\"},\"version\":\"1.3.7\"},{\"package\":{\"name\":\"TestLibrary\",\"ecosystem\":\"NuGet\"},\"version\":\"1.0.0\"}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.1
+      X-Test-Name:
+      - TestCommand_MoreLockfiles/depsjson
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 104
+    body: "{\"results\":[{},{},{\"vulns\":[{\"id\":\"GHSA-4cv2-4hjh-77rx\",\"modified\":\"2025-01-27T19:00:52.634361Z\"}]},{}]}"
+    headers:
+      Content-Length:
+      - "104"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 Aug 2025 01:01:33 GMT
+    status: 200 OK
+    code: 200
+    duration: 0s
+- id: 2
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 1881
+    host: api.osv.dev
+    body: "{\"queries\":[{\"package\":{\"name\":\"async\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.23.0\"},{\"package\":{\"name\":\"async-dns\",\"ecosystem\":\"RubyGems\"},\"version\":\"1.4.1\"},{\"package\":{\"name\":\"async-http\",\"ecosystem\":\"RubyGems\"},\"version\":\"0.87.0\"},{\"package\":{\"name\":\"async-pool\",\"ecosystem\":\"RubyGems\"},\"version\":\"0.10.3\"},{\"package\":{\"name\":\"console\",\"ecosystem\":\"RubyGems\"},\"version\":\"1.29.2\"},{\"package\":{\"name\":\"fiber-annotation\",\"ecosystem\":\"RubyGems\"},\"version\":\"0.2.0\"},{\"package\":{\"name\":\"fiber-local\",\"ecosystem\":\"RubyGems\"},\"version\":\"1.1.0\"},{\"package\":{\"name\":\"fiber-storage\",\"ecosystem\":\"RubyGems\"},\"version\":\"1.0.0\"},{\"package\":{\"name\":\"geoip\",\"ecosystem\":\"RubyGems\"},\"version\":\"1.6.4\"},{\"package\":{\"name\":\"io-endpoint\",\"ecosystem\":\"RubyGems\"},\"version\":\"0.15.1\"},{\"package\":{\"name\":\"io-event\",\"ecosystem\":\"RubyGems\"},\"version\":\"1.9.0\"},{\"package\":{\"name\":\"io-stream\",\"ecosystem\":\"RubyGems\"},\"version\":\"0.6.1\"},{\"package\":{\"name\":\"json\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.10.1\"},{\"package\":{\"name\":\"metrics\",\"ecosystem\":\"RubyGems\"},\"version\":\"0.12.1\"},{\"package\":{\"name\":\"nokogiri\",\"ecosystem\":\"RubyGems\"},\"version\":\"1.18.2\"},{\"package\":{\"name\":\"process-daemon\",\"ecosystem\":\"RubyGems\"},\"version\":\"1.0.1\"},{\"package\":{\"name\":\"protocol-hpack\",\"ecosystem\":\"RubyGems\"},\"version\":\"1.5.1\"},{\"package\":{\"name\":\"protocol-http\",\"ecosystem\":\"RubyGems\"},\"version\":\"0.49.0\"},{\"package\":{\"name\":\"protocol-http1\",\"ecosystem\":\"RubyGems\"},\"version\":\"0.30.0\"},{\"package\":{\"name\":\"protocol-http2\",\"ecosystem\":\"RubyGems\"},\"version\":\"0.22.1\"},{\"package\":{\"name\":\"racc\",\"ecosystem\":\"RubyGems\"},\"version\":\"1.8.1\"},{\"package\":{\"name\":\"rainbow\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.2.2\"},{\"package\":{\"name\":\"rake\",\"ecosystem\":\"RubyGems\"},\"version\":\"13.2.1\"},{\"package\":{\"name\":\"rubydns\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.0.2\"},{\"package\":{\"name\":\"traces\",\"ecosystem\":\"RubyGems\"},\"version\":\"0.15.2\"}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.1
+      X-Test-Name:
+      - TestCommand_MoreLockfiles/gems.locked
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 456
+    body: "{\"results\":[{},{},{},{},{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"GHSA-9m3q-rhmv-5q44\",\"modified\":\"2025-03-13T21:49:32.847007Z\"}]},{},{\"vulns\":[{\"id\":\"GHSA-353f-x4gh-cqq8\",\"modified\":\"2025-07-21T19:42:17.531986Z\"},{\"id\":\"GHSA-5w6v-399v-w3cc\",\"modified\":\"2025-04-21T22:04:45.823585Z\"},{\"id\":\"GHSA-mrxw-mxhj-p664\",\"modified\":\"2025-03-21T15:52:20.761884Z\"},{\"id\":\"GHSA-vvfq-8hwr-qm4m\",\"modified\":\"2025-03-10T22:51:07.538402Z\"}]},{},{},{},{},{},{},{},{},{},{}]}"
+    headers:
+      Content-Length:
+      - "456"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 Aug 2025 01:01:33 GMT
+    status: 200 OK
+    code: 200
+    duration: 0s
+- id: 3
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 210
+    host: api.osv.dev
+    body: "{\"queries\":[{\"package\":{\"name\":\"Microsoft.CodeDom.Providers.DotNetCompilerPlatform\",\"ecosystem\":\"NuGet\"},\"version\":\"1.0.0\"},{\"package\":{\"name\":\"Microsoft.Net.Compilers\",\"ecosystem\":\"NuGet\"},\"version\":\"1.0.0\"}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.1
+      X-Test-Name:
+      - TestCommand_MoreLockfiles/packages.config
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 19
+    body: "{\"results\":[{},{}]}"
+    headers:
+      Content-Length:
+      - "19"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 Aug 2025 01:01:33 GMT
+    status: 200 OK
+    code: 200
+    duration: 0s
+- id: 4
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 91
+    host: api.osv.dev
+    body: "{\"queries\":[{\"package\":{\"name\":\"Newtonsoft.Json\",\"ecosystem\":\"NuGet\"},\"version\":\"13.0.3\"}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.1
+      X-Test-Name:
+      - TestCommand_MoreLockfiles/packages.lock.json
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 16
+    body: "{\"results\":[{}]}"
+    headers:
+      Content-Length:
+      - "16"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 Aug 2025 01:01:32 GMT
+    status: 200 OK
+    code: 200
+    duration: 0s
+- id: 5
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 315
+    host: api.osv.dev
+    body: "{\"queries\":[{\"package\":{\"name\":\"fuzzyset\",\"ecosystem\":\"Hackage\"},\"version\":\"0.2.4\"},{\"package\":{\"name\":\"hasql-pool\",\"ecosystem\":\"Hackage\"},\"version\":\"1.0.1\"},{\"package\":{\"name\":\"jose-jwt\",\"ecosystem\":\"Hackage\"},\"version\":\"0.10.0\"},{\"package\":{\"name\":\"postgresql-libpq\",\"ecosystem\":\"Hackage\"},\"version\":\"0.10.1.0\"}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.1
+      X-Test-Name:
+      - TestCommand_MoreLockfiles/stack.yaml.lock
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 25
+    body: "{\"results\":[{},{},{},{}]}"
+    headers:
+      Content-Length:
+      - "25"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 Aug 2025 01:01:32 GMT
+    status: 200 OK
+    code: 200
+    duration: 0s
+- id: 6
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 150
+    host: api.osv.dev
+    body: "{\"queries\":[{\"package\":{\"name\":\"emoji\",\"ecosystem\":\"PyPI\"},\"version\":\"2.14.0\"},{\"package\":{\"name\":\"protobuf\",\"ecosystem\":\"PyPI\"},\"version\":\"4.25.5\"}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.1
+      X-Test-Name:
+      - TestCommand_MoreLockfiles/uv.lock
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 98
+    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"GHSA-8qvm-5x2c-j2w7\",\"modified\":\"2025-06-16T16:27:17.848804Z\"}]}]}"
+    headers:
+      Content-Length:
+      - "98"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 25 Aug 2025 01:01:31 GMT
+    status: 200 OK
+    code: 200
+    duration: 0s
