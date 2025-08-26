@@ -272,7 +272,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		)
 	}
 
-	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns, false)
+	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
@@ -433,7 +433,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		)
 	}
 
-	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns, true)
+	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)
 }
 
 func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount {
@@ -480,7 +480,7 @@ func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount 
 
 // determineReturnErr determines whether we found a "vulnerability" or not,
 // and therefore whether we should return a ErrVulnerabilityFound error.
-func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bool, isContainerScanning bool) error {
+func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bool) error {
 	if len(vulnResults.Results) > 0 {
 		var vuln bool
 		onlyUnimportantVuln := true

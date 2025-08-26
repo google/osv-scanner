@@ -1,0 +1,34 @@
+{
+  "spdxVersion": "SPDX-2.3",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "SCALIBR-generated SPDX",
+  "documentNamespace": "https://spdx.google/1989157b-1458-4e57-abcb-fbec4a542b9c",
+  "creationInfo": {
+    "creators": [
+      "Tool: SCALIBR"
+    ],
+    "created": "2025-08-26T01:01:15Z"
+  },
+  "packages": [
+    {
+      "name": "libpcre3",
+      "SPDXID": "SPDXRef-Package-libpcre3-9f1e7f2f-24ab-4eb2-8be4-7d3be9403a72",
+      "versionInfo": "2:8.39-12ubuntu0.1",
+      "supplier": "NOASSERTION",
+      "downloadLocation": "NOASSERTION",
+      "filesAnalyzed": false,
+      "sourceInfo": "Identified by the os/dpkg extractor from var/lib/dpkg/status",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:deb/ubuntu/pcre3@2%3A8.39-12ubuntu0.1?arch=amd64\u0026distro=focal\u0026source=pcre3"
+        }
+      ]
+    }
+  ],
+  "relationships": [
+
+  ]
+}
