@@ -90,7 +90,7 @@ func tableBuilder(outputTable table.Writer, result Result, showAllVulns bool) ta
 	}
 
 	unimportantRows := tableBuilderInner(result, VulnTypeUnimportant)
-	if len(unimportantRows) != 0 {
+	if showAllVulns && len(unimportantRows) != 0 {
 		outputTable.AppendSeparator()
 		outputTable.AppendRow(table.Row{"Unimportant vulnerabilities"})
 		outputTable.AppendSeparator()

@@ -708,15 +708,51 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
 
 ---
 
+[TestCommand/folder_of_supported_sbom_with_only_unimportant - 1]
+Scanning dir ./testdata/sbom-insecure/only-unimportant.spdx.json
+Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+
+---
+
+[TestCommand/folder_of_supported_sbom_with_only_unimportant - 2]
+
+---
+
+[TestCommand/folder_of_supported_sbom_with_only_unimportant#01 - 1]
+Scanning dir ./testdata/sbom-insecure/only-unimportant.spdx.json
+Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
++---------------------------------------+------+-----------+---------+--------------------+---------------+---------------------------------------------------+
+| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION            | FIXED VERSION | SOURCE                                            |
++---------------------------------------+------+-----------+---------+--------------------+---------------+---------------------------------------------------+
+| Unimportant vulnerabilities           |      |           |         |                    |               |                                                   |
++---------------------------------------+------+-----------+---------+--------------------+---------------+---------------------------------------------------+
+| https://osv.dev/UBUNTU-CVE-2017-11164 | 7.5  | Ubuntu    | pcre3   | 2:8.39-12ubuntu0.1 | --            | testdata/sbom-insecure/only-unimportant.spdx.json |
++---------------------------------------+------+-----------+---------+--------------------+---------------+---------------------------------------------------+
+
+---
+
+[TestCommand/folder_of_supported_sbom_with_only_unimportant#01 - 2]
+
+---
+
 [TestCommand/folder_of_supported_sbom_with_vulns - 1]
 Scanning dir ./testdata/sbom-insecure/
 Scanned <rootdir>/testdata/sbom-insecure/alpine-zlib-16.cdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 9 local/unscannable package/s from the scan.
-Total 26 packages affected by 154 known vulnerabilities (20 Critical, 61 High, 37 Medium, 1 Low, 35 Unknown) from 3 ecosystems.
+Total 26 packages affected by 154 known vulnerabilities (20 Critical, 61 High, 37 Medium, 1 Low, 35 Unknown) from 4 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -902,27 +938,6 @@ Total 26 packages affected by 154 known vulnerabilities (20 Critical, 61 High, 3
 | https://osv.dev/DSA-5123-1          | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5895-1          |      | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/CVE-2024-3094       | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
-| Unimportant vulnerabilities         |      |           |                                |                                    |                                   |                                                                     |
-+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
-| https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2019-18276      | 7.8  | Debian    | bash                           | 4.4-5                              | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2017-18018      | 4.7  | Debian    | coreutils                      | 8.26-3                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2025-5278       |      | Debian    | coreutils                      | 8.26-3                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2018-6829       | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2024-2236       |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2018-1000654    | 5.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/DSA-5949-1          | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2020-24977      | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2011-4116       | 3.3  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2022-48522      | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2023-31486      | 8.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2005-2541       |      | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2019-9923       | 7.5  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2021-20193      | 3.3  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2022-48303      | 5.5  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2018-7738       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2022-0563       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
 
 ---
@@ -3249,27 +3264,6 @@ Total 21 packages affected by 147 known vulnerabilities (17 Critical, 59 High, 3
 | https://osv.dev/DSA-5895-1          |      | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-3094       | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
-| Unimportant vulnerabilities         |      |           |                                |                                    |                                   |                                                 |
-+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
-| https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2019-18276      | 7.8  | Debian    | bash                           | 4.4-5                              | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2017-18018      | 4.7  | Debian    | coreutils                      | 8.26-3                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2025-5278       |      | Debian    | coreutils                      | 8.26-3                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2018-6829       | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2024-2236       |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2018-1000654    | 5.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DSA-5949-1          | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2020-24977      | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2011-4116       | 3.3  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2022-48522      | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2023-31486      | 8.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2005-2541       |      | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2019-9923       | 7.5  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2021-20193      | 3.3  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2022-48303      | 5.5  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2018-7738       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2022-0563       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
 
 ---
 
@@ -3462,27 +3456,6 @@ Total 21 packages affected by 147 known vulnerabilities (17 Critical, 59 High, 3
 | https://osv.dev/DSA-5123-1          | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5895-1          |      | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2024-3094       | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
-| Unimportant vulnerabilities         |      |           |                                |                                    |                                   |                                                 |
-+-------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
-| https://osv.dev/CVE-2011-3374       | 3.7  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2019-18276      | 7.8  | Debian    | bash                           | 4.4-5                              | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2017-18018      | 4.7  | Debian    | coreutils                      | 8.26-3                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2025-5278       |      | Debian    | coreutils                      | 8.26-3                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2018-6829       | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2024-2236       |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2018-1000654    | 5.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DSA-5949-1          | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2020-24977      | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2011-4116       | 3.3  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2022-48522      | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2023-31486      | 8.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2005-2541       |      | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2019-9923       | 7.5  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2021-20193      | 3.3  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2022-48303      | 5.5  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2018-7738       | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2022-0563       | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 +-------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
 
 ---
