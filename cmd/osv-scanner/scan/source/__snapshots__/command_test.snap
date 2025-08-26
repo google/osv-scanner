@@ -3852,13 +3852,13 @@ could not determine extractor suitable to this file
 [TestCommand_MoreLockfiles/cabal.project.freeze - 1]
 Scanned <rootdir>/testdata/locks-scalibr/cabal.project.freeze file and found 6 packages
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
-0 vulnerabilities can be fixed.
+1 vulnerability can be fixed.
 
 
 +--------------------------------+------+-----------+-----------------+---------+---------------+---------------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE         | VERSION | FIXED VERSION | SOURCE                                      |
 +--------------------------------+------+-----------+-----------------+---------+---------------+---------------------------------------------+
-| https://osv.dev/HSEC-2024-0009 |      | Hackage   | biscuit-haskell | 0.3.0.0 | --            | testdata/locks-scalibr/cabal.project.freeze |
+| https://osv.dev/HSEC-2024-0009 |      | Hackage   | biscuit-haskell | 0.3.0.0 | 0.4.0.0       | testdata/locks-scalibr/cabal.project.freeze |
 +--------------------------------+------+-----------+-----------------+---------+---------------+---------------------------------------------+
 
 ---

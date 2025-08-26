@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	scalibr "github.com/google/osv-scalibr"
+	scalibr "github.com/google/osv-scalibr/version"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
