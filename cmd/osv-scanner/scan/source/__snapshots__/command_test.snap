@@ -4323,3 +4323,38 @@ No issues found
 [TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2]
 
 ---
+
+[TestCommand/folder_of_supported_sbom_with_only_unimportant - 1]
+Scanning dir ./testdata/sbom-insecure/only-unimportant.spdx.json
+Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+
+---
+
+[TestCommand/folder_of_supported_sbom_with_only_unimportant - 2]
+
+---
+
+[TestCommand/folder_of_supported_sbom_with_only_unimportant#01 - 1]
+Scanning dir ./testdata/sbom-insecure/only-unimportant.spdx.json
+Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
++---------------------------------------+------+-----------+---------+--------------------+---------------+---------------------------------------------------+
+| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION            | FIXED VERSION | SOURCE                                            |
++---------------------------------------+------+-----------+---------+--------------------+---------------+---------------------------------------------------+
+| Unimportant vulnerabilities           |      |           |         |                    |               |                                                   |
++---------------------------------------+------+-----------+---------+--------------------+---------------+---------------------------------------------------+
+| https://osv.dev/UBUNTU-CVE-2017-11164 | 7.5  | Ubuntu    | pcre3   | 2:8.39-12ubuntu0.1 | --            | testdata/sbom-insecure/only-unimportant.spdx.json |
++---------------------------------------+------+-----------+---------+--------------------+---------------+---------------------------------------------------+
+
+---
+
+[TestCommand/folder_of_supported_sbom_with_only_unimportant#01 - 2]
+
+---
