@@ -1,4 +1,5 @@
 # Currently experimental.
+# WARNING, this workflow is for legacy purposes. To view the current workflow see: https://github.com/google/osv-scanner-action
 name: "osv-scanner"
 description: "Scans your directory against the OSV database (Experimental)"
 inputs:

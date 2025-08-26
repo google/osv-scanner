@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# WARNING, this workflow is for legacy purposes. To view the current workflow see: https://github.com/google/osv-scanner-action
 FROM golang:1.24.6-alpine3.21@sha256:50f8a10a46c0c26b5b816a80314f1999196c44c3e3571f41026b061339c29db6
 
 RUN mkdir /src
@@ -41,4 +42,8 @@ COPY ./exit_code_redirect.sh ./
 
 ENV PATH="${PATH}:/root"
 
-ENTRYPOINT ["bash", "/root/exit_code_redirect.sh"]
+ENTRYPOINT [
+  "bash",
+  "-c",
+  "echo 'WARNING, this workflow is for legacy purposes. To view the current workflow see: https://github.com/google/osv-scanner-action' && /root/exit_code_redirect.sh"
+]
