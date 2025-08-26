@@ -32,6 +32,18 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/sbom-insecure/"},
 			Exit: 1,
 		},
+		// one specific supported sbom with only unimportant
+		{
+			Name: "folder of supported sbom with only unimportant",
+			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/sbom-insecure/only-unimportant.spdx.json"},
+			Exit: 0,
+		},
+		// one specific supported sbom with only unimportant but with --all-vulns
+		{
+			Name: "folder of supported sbom with only unimportant",
+			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--all-vulns", "./testdata/sbom-insecure/only-unimportant.spdx.json"},
+			Exit: 1,
+		},
 		// one specific supported sbom with vulns
 		{
 			Name: "one specific supported sbom with vulns",

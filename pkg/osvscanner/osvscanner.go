@@ -489,9 +489,7 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 			if vf.Vulnerability.ID != "" {
 				vuln = true
 				// TODO(gongh): rewrite the logic once we support reachability analysis for container scanning.
-				if !isContainerScanning && vf.GroupInfo.IsCalled() {
-					onlyUnimportantVuln = false
-				} else if isContainerScanning && !vf.GroupInfo.IsGroupUnimportant() {
+				if vf.GroupInfo.IsCalled() && !vf.GroupInfo.IsGroupUnimportant() {
 					onlyUnimportantVuln = false
 				}
 			}
