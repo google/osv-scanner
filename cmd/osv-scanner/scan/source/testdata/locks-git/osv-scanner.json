@@ -1,0 +1,21 @@
+{
+  "results": [
+    {
+      "packages": [
+        {
+          "package": {
+            "name": "github.com/sfackler/rust-openssl",
+            "commit": "0f428d190410263e4daa65b917c0e84707a9c0ef",
+            "version": "openssl-v0.8.1"
+          }
+        },
+        {
+          "package": {
+            "name": "github.com/openssl/openssl",
+            "commit": "45fda76bc1b9fd74d10e85e0ce9b65a12dcc58b0"
+          }
+        }
+      ]
+    }
+  ]
+}
