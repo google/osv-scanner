@@ -984,7 +984,7 @@ func TestCommand_CommitSupport(t *testing.T) {
 		{
 			Name: "offline_uses_git_tags",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--lockfile", "osv-scanner:./testdata/locks-git/osv-scanner.json"},
-			Exit: 0,
+			Exit: 1,
 		},
 	}
 
