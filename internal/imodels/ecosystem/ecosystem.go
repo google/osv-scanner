@@ -131,7 +131,8 @@ func (p Parsed) IsValid() bool {
 		osvschema.EcosystemSUSE,
 		osvschema.EcosystemSwiftURL,
 		osvschema.EcosystemUbuntu,
-		osvschema.EcosystemWolfi:
+		osvschema.EcosystemWolfi,
+		osvschema.EcosystemEcho:
 		return true
 	}
 
