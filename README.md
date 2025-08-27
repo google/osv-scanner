@@ -152,4 +152,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for documentation on how to contribute co
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=google/osv-scanner&type=Date)](https://star-history.com/#google/osv-scanner&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=google/osv-scanner&type=Date)](https://www.star-history.com/#google/osv-scanner&Date)
