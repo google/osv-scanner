@@ -2,14 +2,14 @@
 
 ### Features:
 
--   [Feature #2113](https://github.com/google/osv-scanner/pull/2113) Add support for Java reachability analysis to identify uncalled vulnerabilities in JAR files.
--   [Feature #2177](https://github.com/google/osv-scanner/pull/2177) Add support for scanning `osv-scanner-custom.json` files.
+- [Feature #2113](https://github.com/google/osv-scanner/pull/2113) Add support for Java reachability analysis to identify uncalled vulnerabilities in JAR files.
+- [Feature #2177](https://github.com/google/osv-scanner/pull/2177) Add support for scanning `osv-scanner-custom.json` files.
 
 ### Fixes:
 
--   [Bug #2204](https://github.com/google/osv-scanner/pull/2204) Add a warning to guide users to the correct GitHub Action.
--   [Bug #2202](https://github.com/google/osv-scanner/pull/2202) Fix incorrect exit code when unimportant vulnerabilities are found in non-container scans.
--   [Bug #2188](https://github.com/google/osv-scanner/pull/2188) Fix handling of absolute paths on Windows.
+- [Bug #2204](https://github.com/google/osv-scanner/pull/2204) Add a warning to guide users to the correct GitHub Action.
+- [Bug #2202](https://github.com/google/osv-scanner/pull/2202) Fix incorrect exit code when unimportant vulnerabilities are found in non-container scans.
+- [Bug #2188](https://github.com/google/osv-scanner/pull/2188) Fix handling of absolute paths on Windows.
 
 # v2.2.1
 
