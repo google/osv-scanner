@@ -3,7 +3,7 @@
 ### Features:
 
 - [Feature #2113](https://github.com/google/osv-scanner/pull/2113) Add support for Java reachability analysis to identify uncalled vulnerabilities in JAR files.
-- [Feature #2177](https://github.com/google/osv-scanner/pull/2177) Add support for scanning `osv-scanner-custom.json` files.
+- [Feature #2177](https://github.com/google/osv-scanner/pull/2177) Automatically parse `osv-scanner-custom.json` files as `osv-scanner.json` custom lockfiles.
 
 ### Fixes:
 
