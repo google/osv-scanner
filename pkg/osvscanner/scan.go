@@ -63,8 +63,8 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 }
 
 func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
-	if len(actions.PluginsEnabled) == 0 {
-		actions.PluginsEnabled = defaultPlugins
+	if !actions.PluginsNoDefaults {
+		actions.PluginsEnabled = append(actions.PluginsEnabled, defaultPlugins...)
 	}
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled)

@@ -30,8 +30,9 @@ you can manually enable or disable them.
 
 You can control which plugins to run using the following flags:
 
-- `--experimental-plugins`: Enables a comma-separated list of specific plugins.
+- `--experimental-plugins`: Enables a comma-separated list of specific plugins that will be used along with the default plugins for the command being run
 - `--experimental-disable-plugins`: Disables a comma-separated list of specific plugins.
+- `--experimental-no-default-plugins`: Excludes the default plugins for the command being run from being automatically included
 
 For a full list of available plugin names, see OSV-Scalibr's documentation here:
 https://github.com/google/osv-scalibr/blob/main/docs/supported_inventory_types.md

@@ -11,7 +11,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
-func TestCommand_ExplicitExtractors(t *testing.T) {
+func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
 
 	tests := []testcmd.Case{
@@ -42,6 +42,59 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 				"", "image",
 				"--experimental-plugins=sbom/spdx,sbom/cdx",
 				"--experimental-disable-plugins=sbom",
+				"alpine:non-existent-tag",
+			},
+			Exit: 127,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			// Only test on linux, and mac/windows CI/CD does not come with docker preinstalled
+			if runtime.GOOS != "linux" {
+				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
+			}
+
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
+func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "extractors_cancelled_out",
+			Args: []string{
+				"", "image",
+				"--experimental-plugins=sbom/spdx",
+				"--experimental-plugins=sbom/cdx",
+				"--experimental-disable-plugins=sbom",
+				"--experimental-no-default-plugins",
+				"alpine:non-existent-tag",
+			},
+			Exit: 127,
+		},
+		{
+			Name: "extractors_cancelled_out_with_presets",
+			Args: []string{
+				"", "image",
+				"--experimental-plugins=sbom",
+				"--experimental-disable-plugins=sbom",
+				"--experimental-no-default-plugins",
+				"alpine:non-existent-tag",
+			},
+			Exit: 127,
+		},
+		{
+			Name: "extractors_cancelled_out",
+			Args: []string{
+				"", "image",
+				"--experimental-plugins=sbom/spdx,sbom/cdx",
+				"--experimental-disable-plugins=sbom",
+				"--experimental-no-default-plugins",
 				"alpine:non-existent-tag",
 			},
 			Exit: 127,
