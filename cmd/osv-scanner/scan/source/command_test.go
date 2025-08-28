@@ -1,6 +1,7 @@
 package source_test
 
 import (
+	"net/http"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -808,6 +809,10 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 				"apk-installed:" + filepath.FromSlash("./testdata/locks-many/installed"),
 			},
 			Exit: 0,
+
+			// don't intercept requests for this case as the apk extractor reads the OS version
+			// of the environment its being run in, and currently does not support being overridden
+			HTTPClient: http.DefaultClient,
 		},
 		{
 			Name: "\"dpkg-status\" is supported",
@@ -818,6 +823,10 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 				"dpkg-status:" + filepath.FromSlash("./testdata/locks-many/status"),
 			},
 			Exit: 0,
+
+			// don't intercept requests for this case as the dpkg extractor reads the OS version
+			// of the environment its being run in, and currently does not support being overridden
+			HTTPClient: http.DefaultClient,
 		},
 		{
 			// if this isn't true, the test would fail along the lines of
@@ -856,7 +865,9 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+			if tt.HTTPClient == nil {
+				tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+			}
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
