@@ -184,5 +184,9 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Name:  "experimental-disable-plugins",
 			Usage: "list of specific plugins and presets of plugins to not use",
 		},
+		&cli.BoolFlag{
+			Name:  "experimental-no-default-plugins",
+			Usage: "disable default plugins, instead using only those enabled by --experimental-plugins",
+		},
 	}
 }

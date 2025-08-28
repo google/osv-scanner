@@ -109,29 +109,68 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out - 1]
+Checking if docker image ("alpine:non-existent-tag") exists locally...
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out - 2]
+Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
+STDERR:
+> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
+failed to pull container image: failed to run docker command
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out#01 - 1]
+Checking if docker image ("alpine:non-existent-tag") exists locally...
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out#01 - 2]
+Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
+STDERR:
+> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
+failed to pull container image: failed to run docker command
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 1]
+Checking if docker image ("alpine:non-existent-tag") exists locally...
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 2]
+Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
+STDERR:
+> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
+failed to pull container image: failed to run docker command
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out - 1]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out - 2]
 at least one extractor must be enabled
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out#01 - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out#01 - 1]
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out#01 - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out#01 - 2]
 at least one extractor must be enabled
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out_with_presets - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 1]
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out_with_presets - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 2]
 at least one extractor must be enabled
 
 ---
