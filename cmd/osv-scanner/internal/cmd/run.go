@@ -5,6 +5,7 @@ import (
 	"errors"
 	"io"
 	"log/slog"
+	"net/http"
 	"strings"
 	"testing"
 
@@ -21,9 +22,9 @@ var (
 	date   = "n/a"
 )
 
-type CommandBuilder = func(stdout, stderr io.Writer) *cli.Command
+type CommandBuilder = func(stdout, stderr io.Writer, client *http.Client) *cli.Command
 
-func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int {
+func Run(args []string, stdout, stderr io.Writer, client *http.Client, commands []CommandBuilder) int {
 	// get rid of the extraneous space in the subcommand help template, as otherwise
 	// our snapshots will fail because it will be trailing and removed by editors
 	//
@@ -61,7 +62,7 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 
 	cmds := make([]*cli.Command, 0, len(commands))
 	for _, cmd := range commands {
-		cmds = append(cmds, cmd(stdout, stderr))
+		cmds = append(cmds, cmd(stdout, stderr, client))
 	}
 
 	app := &cli.Command{

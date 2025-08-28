@@ -13,6 +13,8 @@ import (
 func TestCommand(t *testing.T) {
 	t.Parallel()
 
+	client := testcmd.InsertCassette(t)
+
 	tests := []testcmd.Case{
 		// one specific supported lockfile
 		{
@@ -322,6 +324,9 @@ func TestCommand(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -329,6 +334,8 @@ func TestCommand(t *testing.T) {
 
 func TestCommand_JavareachArchive(t *testing.T) {
 	t.Parallel()
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -345,6 +352,9 @@ func TestCommand_JavareachArchive(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -352,6 +362,8 @@ func TestCommand_JavareachArchive(t *testing.T) {
 
 func TestCommand_ExplicitExtractors(t *testing.T) {
 	t.Parallel()
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -481,6 +493,9 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -491,6 +506,8 @@ func TestCommand_CallAnalysis(t *testing.T) {
 
 	// Switch to acceptance test if this takes too long, or when we add rust tests
 	// testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -522,6 +539,9 @@ func TestCommand_CallAnalysis(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -531,6 +551,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	t.Parallel()
 
 	cwd := testutility.GetCurrentWorkingDirectory(t)
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -687,6 +708,9 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -695,6 +719,8 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 // TestCommand_GithubActions tests common actions the github actions reusable workflow will run
 func TestCommand_GithubActions(t *testing.T) {
 	t.Parallel()
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -711,6 +737,9 @@ func TestCommand_GithubActions(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -718,6 +747,8 @@ func TestCommand_GithubActions(t *testing.T) {
 
 func TestCommand_LocalDatabases(t *testing.T) {
 	t.Parallel()
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -792,6 +823,8 @@ func TestCommand_LocalDatabases(t *testing.T) {
 				tt.Args = append(tt.Args, old[2:]...)
 			}
 
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
 			testcmd.RunAndMatchSnapshots(t, tt)
@@ -802,6 +835,8 @@ func TestCommand_LocalDatabases(t *testing.T) {
 
 func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 	t.Parallel()
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -819,6 +854,8 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 			tt.Args = []string{"", "source", "--local-db-path", testDir}
 			tt.Args = append(tt.Args, old[2:]...)
 
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			// run each test twice since they should provide the same output,
 			// and the second run should be fast as the db is already available
 			testcmd.RunAndMatchSnapshots(t, tt)
@@ -829,6 +866,8 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 func TestCommand_Licenses(t *testing.T) {
 	t.Parallel()
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -926,6 +965,9 @@ func TestCommand_Licenses(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -933,6 +975,8 @@ func TestCommand_Licenses(t *testing.T) {
 
 func TestCommand_Transitive(t *testing.T) {
 	t.Parallel()
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1002,6 +1046,9 @@ func TestCommand_Transitive(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1009,6 +1056,8 @@ func TestCommand_Transitive(t *testing.T) {
 
 func TestCommand_MoreLockfiles(t *testing.T) {
 	t.Parallel()
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1061,6 +1110,9 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1075,6 +1127,8 @@ func TestCommandNonGit(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	client := testcmd.InsertCassette(t)
+
 	tests := []testcmd.Case{
 		// one specific supported lockfile
 		{
@@ -1086,6 +1140,9 @@ func TestCommandNonGit(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1095,11 +1152,14 @@ func TestCommand_HtmlFile(t *testing.T) {
 	t.Parallel()
 
 	testDir := testutility.CreateTestDir(t)
+	client := testcmd.InsertCassette(t)
 
 	_, stderr := testcmd.RunAndNormalize(t, testcmd.Case{
 		Name: "one specific supported lockfile",
 		Args: []string{"", "source", "--format=html", "--output", testDir + "/report.html", "./testdata/locks-many/composer.lock"},
 		Exit: 0,
+
+		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
@@ -1129,6 +1189,8 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	client := testcmd.InsertCassette(t)
+
 	tests := []struct {
 		Name string
 		Args []string
@@ -1180,6 +1242,8 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 				Name: tt.Name,
 				Args: tt.Args,
 				Exit: tt.Exit,
+
+				HTTPClient: testcmd.WithTestNameHeader(t, *client),
 			})
 		})
 	}
@@ -1201,6 +1265,8 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 		t.Fatal(err)
 	}
 
+	client := testcmd.InsertCassette(t)
+
 	tests := []struct {
 		Name string
 		Args []string
@@ -1252,6 +1318,8 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 				Name: tt.Name,
 				Args: tt.Args,
 				Exit: tt.Exit,
+
+				HTTPClient: testcmd.WithTestNameHeader(t, *client),
 			})
 		})
 	}
