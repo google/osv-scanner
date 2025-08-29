@@ -14,11 +14,11 @@ import (
 	"time"
 
 	"deps.dev/util/resolve"
+	"github.com/google/osv-scalibr/inventory/osvecosystem"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
-	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/resolution"
@@ -327,7 +327,7 @@ func action(ctx context.Context, cmd *cli.Command, stdout, stderr io.Writer) err
 			// Something's very wrong if we hit this
 			panic("unhandled resolve.Ecosystem: " + system.String())
 		}
-		if err := matcher.LoadEcosystem(ctx, ecosystem.Parsed{Ecosystem: eco}); err != nil {
+		if err := matcher.LoadEcosystem(ctx, osvecosystem.Parsed{Ecosystem: eco}); err != nil {
 			return err
 		}
 
