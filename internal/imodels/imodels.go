@@ -71,8 +71,6 @@ func (pkg *PackageInfo) Name() string {
 
 	// Patch Maven archive extractor package names
 	if metadata, ok := pkg.Metadata.(*archivemetadata.Metadata); ok {
-		// Debian uses source name on osv.dev
-		// (fallback to using the normal name if source name is empty)
 		if metadata.ArtifactID != "" && metadata.GroupID != "" {
 			return metadata.GroupID + ":" + metadata.ArtifactID
 		}
