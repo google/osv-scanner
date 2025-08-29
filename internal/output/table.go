@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
+	"github.com/google/osv-scalibr/inventory/osvecosystem"
 	depgroups "github.com/google/osv-scanner/v2/internal/utility/depgroup"
 	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
@@ -305,7 +305,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 						name := pkg.Name
 
 						// TODO(#1646): Migrate this earlier to the result struct directly
-						if depgroups.IsDevGroup(ecosystem.MustParse(eco.Name).Ecosystem, pkg.DepGroups) {
+						if depgroups.IsDevGroup(osvecosystem.MustParse(eco.Name).Ecosystem, pkg.DepGroups) {
 							name += " (dev)"
 						}
 						outputRow = append(outputRow, name)

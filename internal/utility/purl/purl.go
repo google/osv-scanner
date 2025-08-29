@@ -4,7 +4,7 @@ package purl
 import (
 	"fmt"
 
-	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
+	"github.com/google/osv-scalibr/inventory/osvecosystem"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"github.com/package-url/packageurl-go"
@@ -37,7 +37,7 @@ func FromPackage(packageInfo models.PackageInfo) (*packageurl.PackageURL, error)
 	var namespace string
 	var name string
 	version := packageInfo.Version
-	eco, err := ecosystem.Parse(packageInfo.Ecosystem)
+	eco, err := osvecosystem.Parse(packageInfo.Ecosystem)
 	if err != nil {
 		return nil, err
 	}

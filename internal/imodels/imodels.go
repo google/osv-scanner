@@ -15,9 +15,9 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
 	"github.com/google/osv-scalibr/inventory"
+	"github.com/google/osv-scalibr/inventory/osvecosystem"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
-	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
@@ -96,23 +96,28 @@ func (pkg *PackageInfo) Name() string {
 	return pkg.Package.Name
 }
 
-func (pkg *PackageInfo) Ecosystem() ecosystem.Parsed {
-	ecosystemStr := pkg.Package.Ecosystem()
+func (pkg *PackageInfo) Ecosystem() osvecosystem.Parsed {
+	eco := pkg.Package.Ecosystem()
 
 	if metadata, ok := pkg.Metadata.(*osvscannerjson.Metadata); ok {
-		ecosystemStr = metadata.Ecosystem
+		newEco, err := osvecosystem.Parse(metadata.Ecosystem)
+		if err != nil {
+			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
+			return eco
+		}
+
+		eco = newEco
 	}
 
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 	if pkg.purlCache != nil {
-		ecosystemStr = pkg.purlCache.Ecosystem
-	}
+		newEco, err := osvecosystem.Parse(pkg.purlCache.Ecosystem)
+		if err != nil {
+			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
+			return eco
+		}
 
-	// TODO: Maybe cache this parse result
-	eco, err := ecosystem.Parse(ecosystemStr)
-	if err != nil {
-		// Ignore this error for now as we can't do too much about an unknown ecosystem
-		cmdlogger.Warnf("Warning: %s", err.Error())
+		eco = newEco
 	}
 
 	return eco
