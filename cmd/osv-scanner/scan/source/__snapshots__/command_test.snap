@@ -1324,13 +1324,15 @@ unsupported output format "unknown" - must be one of: table, html, vertical, jso
 Scanning dir ./testdata/locks-requirements
 Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 6 packages
 Scanned <rootdir>/testdata/locks-requirements/requirements-dev.txt file and found 8 packages
+Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 14 packages
 Scanned <rootdir>/testdata/locks-requirements/requirements.prod.txt file and found 3 packages
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 13 packages
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 failed to parse metadata for file Flask-Cors-1.0.tar.gz: sdist: dependencies in setup.py, not in PKG-INFO
-Total 10 packages affected by 35 known vulnerabilities (2 Critical, 13 High, 18 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
-35 vulnerabilities can be fixed.
+failed to resolve transitive dependencies for "<rootdir>/testdata/locks-requirements/unresolvable-requirements.txt", falling back to offline extraction: failed resolving: no file can be used for parsing requirements for package flask-cors version 1.0
+Total 15 packages affected by 50 known vulnerabilities (2 Critical, 17 High, 28 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+50 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
@@ -1338,6 +1340,28 @@ Total 10 packages affected by 35 known vulnerabilities (2 Critical, 13 High, 18 
 +-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0     | 2.2.5         | testdata/locks-requirements/my-requirements.txt           |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django     | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django     | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django     | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0     | 2.2.5         | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
+| https://osv.dev/PYSEC-2024-60       | 7.5  | PyPI      | idna       | 2.7     | 3.7           | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-jjg7-2v4v-x38h |      |           |            |         |               |                                                           |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests   | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests   | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests   | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/PYSEC-2020-148      | 6.9  | PyPI      | urllib3    | 1.24.3  | 1.25.9        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-wqvq-5m8c-6g24 |      |           |            |         |               |                                                           |
+| https://osv.dev/PYSEC-2021-108      |      | PyPI      | urllib3    | 1.24.3  | 1.26.5        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/PYSEC-2023-192      | 8.1  | PyPI      | urllib3    | 1.24.3  | 1.26.17       | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-v845-jxx5-vc9f |      |           |            |         |               |                                                           |
+| https://osv.dev/PYSEC-2023-212      | 5.7  | PyPI      | urllib3    | 1.24.3  | 1.26.18       | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-g4mx-q9vg-27p4 |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-34jh-p97f-mpxf | 4.4  | PyPI      | urllib3    | 1.24.3  | 1.26.19       | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3    | 1.24.3  | 2.5.0         | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/PYSEC-2021-439      | 7.3  | PyPI      | django     | 2.2.24  | 2.2.25        | testdata/locks-requirements/requirements.prod.txt         |
 | https://osv.dev/GHSA-v6rh-hp5x-86rv |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2022-1        | 8.7  | PyPI      | django     | 2.2.24  | 2.2.26        | testdata/locks-requirements/requirements.prod.txt         |
@@ -3589,6 +3613,7 @@ Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
 Scanned <rootdir>/testdata/locks-requirements/requirements.prod.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
@@ -3620,6 +3645,7 @@ Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
 Scanned <rootdir>/testdata/locks-requirements/requirements.prod.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
@@ -4052,6 +4078,7 @@ unsupported data-source "github" - must be one of: deps.dev, native
 Scanning dir ./testdata/locks-requirements/unresolvable-requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 failed to parse metadata for file Flask-Cors-1.0.tar.gz: sdist: dependencies in setup.py, not in PKG-INFO
+failed to resolve transitive dependencies for "<rootdir>/testdata/locks-requirements/unresolvable-requirements.txt", falling back to offline extraction: failed resolving: no file can be used for parsing requirements for package flask-cors version 1.0
 Total 3 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 4 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 8 vulnerabilities can be fixed.
 
@@ -4097,6 +4124,35 @@ Total 2 packages affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medi
 ---
 
 [TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 2]
+
+---
+
+[TestCommand_Transitive/scan_local_disk_transitive_dependencies - 1]
+Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
+Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
+Total 3 packages affected by 8 known vulnerabilities (0 Critical, 2 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+8 vulnerabilities can be fixed.
+
+
++-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                                  |
++-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                                         |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0.0   | 2.2.5         | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |               |                                                         |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                                         |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements-transitive.txt |
++-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
+
+---
+
+[TestCommand_Transitive/scan_local_disk_transitive_dependencies - 2]
 
 ---
 

@@ -131,6 +131,9 @@ func createScanInput(path string, root string, fileInfo fs.FileInfo) (*filesyste
 		return nil, err
 	}
 
+	// Convert path to slashes, as go FS expects unix like paths
+	path = filepath.ToSlash(path)
+
 	si := filesystem.ScanInput{
 		FS:     os.DirFS(root).(scalibrfs.FS),
 		Path:   path,

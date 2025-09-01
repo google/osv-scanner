@@ -997,6 +997,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--data-source=github", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
 			Exit: 127,
 		},
+		{
+			Name: "scan local disk transitive dependencies",
+			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--no-resolve", "./testdata/locks-requirements/requirements-transitive.txt"},
+			Exit: 1,
+		},
 	}
 
 	for _, tt := range tests {
