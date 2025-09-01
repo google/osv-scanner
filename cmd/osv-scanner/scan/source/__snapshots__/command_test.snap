@@ -4296,3 +4296,32 @@ No issues found
 [TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2]
 
 ---
+
+[TestCommand_Transitive/scan_local_disk_transitive_dependencies - 1]
+Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
+Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
+Total 3 packages affected by 8 known vulnerabilities (0 Critical, 2 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+8 vulnerabilities can be fixed.
+
+
++-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                                  |
++-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                                         |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0.0   | 2.2.5         | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |               |                                                         |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                                         |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements-transitive.txt |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements-transitive.txt |
++-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
+
+---
+
+[TestCommand_Transitive/scan_local_disk_transitive_dependencies - 2]
+
+---
