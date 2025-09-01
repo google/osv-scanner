@@ -9,6 +9,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 )
 
 const (
@@ -58,6 +59,9 @@ func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (i
 		// online is the same as offline so we don't need to run extraction again.
 		return inv, err
 	}
+
+	cmdlogger.Warnf(
+		"failed to resolve transitive dependencies for %q, falling back to offline extraction: %s", input.Path, err.Error())
 
 	// Fallback to the base extractor if the enhanced extraction failed.
 	f, err := input.FS.Open(input.Path)
