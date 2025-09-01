@@ -273,7 +273,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 19 packages affected by 37 known vulnerabilities (2 Critical, 11 High, 19 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
+Total 19 packages affected by 38 known vulnerabilities (2 Critical, 11 High, 20 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
 16 vulnerabilities can be fixed.
 
 
@@ -297,7 +297,7 @@ Ubuntu:22.04
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          2 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
 | openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          3 | libssl3                 | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
-| pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
+| pcre2          | 10.39-3ubuntu0.1             | No fix available        |          2 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |          3 | perl-base               | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
@@ -318,7 +318,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 19 packages affected by 37 known vulnerabilities (2 Critical, 11 High, 19 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
+Total 19 packages affected by 38 known vulnerabilities (2 Critical, 11 High, 20 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
 16 vulnerabilities can be fixed.
 
 
@@ -342,7 +342,7 @@ Ubuntu:22.04
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          2 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
 | openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          3 | libssl3                 | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
-| pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
+| pcre2          | 10.39-3ubuntu0.1             | No fix available        |          2 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |          3 | perl-base               | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
@@ -2883,9 +2883,10 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             }
           },
           "vulnerabilities": [
-            "UBUNTU-CVE-2022-41409"
+            "UBUNTU-CVE-2022-41409",
+            "UBUNTU-CVE-2025-58050"
           ],
-          "groups": 1
+          "groups": 2
         },
         {
           "package": {
