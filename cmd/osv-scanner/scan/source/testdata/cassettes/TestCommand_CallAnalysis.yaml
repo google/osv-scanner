@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_CallAnalysis/Run_with_govulncheck
     url: https://api.osv.dev/v1/querybatch
@@ -44,7 +44,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled
     url: https://api.osv.dev/v1/querybatch
@@ -75,7 +75,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled_but_enabled_all-vulns_flag
     url: https://api.osv.dev/v1/querybatch

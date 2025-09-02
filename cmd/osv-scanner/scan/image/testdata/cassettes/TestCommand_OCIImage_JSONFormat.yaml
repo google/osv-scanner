@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages
     url: https://api.osv.dev/v1/querybatch
@@ -44,7 +44,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_OCIImage_JSONFormat/scanning_image_with_go_binary
     url: https://api.osv.dev/v1/querybatch
@@ -75,7 +75,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_detector_preset
     url: https://api.osv.dev/v1/querybatch
@@ -106,7 +106,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_OCIImage_JSONFormat/scanning_insecure_alpine_image_with_specific_detector_enabled
     url: https://api.osv.dev/v1/querybatch
@@ -137,7 +137,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_OCIImage_JSONFormat/scanning_node_modules_using_npm_with_some_packages
     url: https://api.osv.dev/v1/querybatch
@@ -168,7 +168,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_OCIImage_JSONFormat/scanning_ubuntu_image
     url: https://api.osv.dev/v1/querybatch
