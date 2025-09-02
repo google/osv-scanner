@@ -73,6 +73,8 @@ type ExperimentalScannerActions struct {
 
 	PluginsEnabled  []string
 	PluginsDisabled []string
+
+	HTTPClient *http.Client
 }
 
 type TransitiveScanningActions struct {
@@ -132,7 +134,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// Online Mode
 	// -----------
 	// --- Vulnerability Matcher ---
-	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, "osv-scanner_scan/"+version.OSVVersion)
+	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, "osv-scanner_scan/"+version.OSVVersion, actions.HTTPClient)
 
 	// --- License Matcher ---
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {

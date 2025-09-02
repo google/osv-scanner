@@ -62,7 +62,7 @@ type osvFixOptions struct {
 	Stderr      io.Writer
 }
 
-func Command(stdout, stderr io.Writer) *cli.Command {
+func Command(stdout, stderr io.Writer, _ *http.Client) *cli.Command {
 	return &cli.Command{
 		Name:        "fix",
 		Usage:       "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
