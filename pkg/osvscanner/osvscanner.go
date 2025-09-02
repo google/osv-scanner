@@ -424,6 +424,19 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		)
 	}
 
+	if unusedIgnoredEntries := scanResult.ConfigManager.GetUnusedIgnoreEntries(); len(unusedIgnoredEntries) != 0 {
+		configFiles := slices.Collect(maps.Keys(unusedIgnoredEntries))
+		slices.Sort(configFiles)
+
+		for _, configFile := range configFiles {
+			cmdlogger.Warnf("%s has unused ignores:", configFile)
+
+			for _, iv := range unusedIgnoredEntries[configFile] {
+				cmdlogger.Warnf(" - %s", iv.ID)
+			}
+		}
+	}
+
 	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)
 }
 

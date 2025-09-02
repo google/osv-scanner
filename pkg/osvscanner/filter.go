@@ -153,6 +153,8 @@ func filterPackageVulns(pkgVulns models.PackageVulns, configToUse config.Config)
 					cmdlogger.Infof("%s and %d aliases have been filtered out because: %s", ignoreLine.ID, len(group.Aliases)-1, reason)
 				}
 
+				ignoreLine.MarkAsUsed()
+
 				break
 			}
 		}
