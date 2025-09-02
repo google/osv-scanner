@@ -327,6 +327,34 @@ func TestCommand(t *testing.T) {
 	}
 }
 
+func TestCommand_Config_UnusedIgnores(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "unused_ignores_are_reported_with_specific_config_and_file",
+			Args: []string{"", "source", "--config", "testdata/osv-scanner-partial-ignores-config.toml", "testdata/sbom-insecure/alpine.cdx.xml"},
+			Exit: 1,
+		},
+		{
+			Name: "unused_ignores_are_reported_with_specific_config_and_multiple_files",
+			Args: []string{"", "source", "--config", "testdata/osv-scanner-partial-ignores-config.toml", "testdata/sbom-insecure/alpine.cdx.xml", "testdata/sbom-insecure/postgres-stretch.cdx.xml"},
+			Exit: 1,
+		},
+		{
+			Name: "unused_ignores_are_reported_with_specific_config_and_file",
+			Args: []string{"", "source", "--config", "testdata/osv-scanner-partial-ignores-config.toml", "testdata/sbom-insecure"},
+			Exit: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
 func TestCommand_JavareachArchive(t *testing.T) {
 	t.Parallel()
 
