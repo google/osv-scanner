@@ -1,0 +1,8 @@
+[[IgnoredVulns]]
+id = "CVE-2025-26519" # in alpine.cdx.xml
+
+[[IgnoredVulns]]
+id = "CVE-2018-25032" # in alpine.cdx.xml
+
+[[IgnoredVulns]]
+id = "GO-2022-0274" # in postgres-stretch.cdx.xml
