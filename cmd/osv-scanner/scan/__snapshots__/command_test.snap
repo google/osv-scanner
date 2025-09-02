@@ -15,6 +15,10 @@ No issues found
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+<rootdir>/testdata/locks-many/osv-scanner.toml has unused ignores:
+ - GHSA-whgm-jr23-g3j9
+ - CVE-2022-48174
+ - CVE-2025-26519
 No issues found
 
 ---
@@ -27,6 +31,10 @@ No issues found
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+<rootdir>/testdata/locks-many/osv-scanner.toml has unused ignores:
+ - GHSA-whgm-jr23-g3j9
+ - CVE-2022-48174
+ - CVE-2025-26519
 No issues found
 
 ---
