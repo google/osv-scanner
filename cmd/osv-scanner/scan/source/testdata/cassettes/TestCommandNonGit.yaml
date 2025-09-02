@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommandNonGit/one_specific_supported_lockfile
     url: https://api.osv.dev/v1/querybatch

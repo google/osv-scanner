@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_SubCommands/scan_with_a_flag
     url: https://api.osv.dev/v1/querybatch
@@ -44,7 +44,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_SubCommands/with_no_subcommand
     url: https://api.osv.dev/v1/querybatch
@@ -75,7 +75,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.1
+      - osv-scanner_scan/2.2.3
       X-Test-Name:
       - TestCommand_SubCommands/with_scan_subcommand
     url: https://api.osv.dev/v1/querybatch
