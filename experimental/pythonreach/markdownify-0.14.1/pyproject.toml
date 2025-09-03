@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.2", "setuptools_scm[toml]>=3.4.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "markdownify"
+version = "0.14.1"
+authors = [{name = "Matthew Tretter", email = "m@tthewwithanm.com"}]
+description = "Convert HTML to markdown."
+readme = "README.rst"
+classifiers = [
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 2.5",
+    "Programming Language :: Python :: 2.6",
+    "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "beautifulsoup4>=4.9,<5",
+    "six>=1.15,<2"
+]
+
+[project.urls]
+Homepage = "http://github.com/matthewwithanm/python-markdownify"
+Download = "http://github.com/matthewwithanm/python-markdownify/tarball/master"
+
+[project.scripts]
+markdownify = "markdownify.main:main"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["markdownify", "markdownify.*"]
+namespaces = false
+
+[tool.setuptools_scm]

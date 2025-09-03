@@ -5,7 +5,6 @@ import (
 	"bufio"
 	"compress/gzip"
 	"context"
-	"encoding/json"
 	"flag"
 	"fmt"
 	"io"
@@ -16,9 +15,9 @@ import (
 	"regexp"
 	"slices"
 	"strings"
-	"sync"
-	"time"
 
+	"deps.dev/util/pypi"
+	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
 	scalibrfs "github.com/google/osv-scalibr/fs"
@@ -111,6 +110,36 @@ func findMainEntryPoint(dir string) ([]string, error) {
 	return mainFiles, nil
 }
 
+// findManifest searches a directory for a supported manifest file.
+func findManifestFiles(dir string) ([]string, error) {
+	supportedManifests := []string{"poetry.lock"}
+	unsupportedManifests := []string{"requirements.txt", "Pipfile", "Pipefile.lock", "pyproject.toml"}
+	absDir, err := filepath.Abs(dir)
+	if err != nil {
+		return nil, fmt.Errorf("could not get absolute path for %s: %w", dir, err)
+	}
+	manifestFiles := []string{}
+
+	files, err := os.ReadDir(absDir)
+	if err != nil {
+		return nil, fmt.Errorf("could not read directory %s: %w", absDir, err)
+	}
+
+	for _, file := range files {
+		if file.IsDir() {
+			continue
+		}
+		fileName := file.Name()
+		if slices.Contains(supportedManifests, fileName) {
+			manifestFiles = append(manifestFiles, fileName)
+		} else if slices.Contains(unsupportedManifests, fileName) {
+			return nil, fmt.Errorf("unsupported manifest file found: %s", fileName)
+		}
+	}
+
+	return manifestFiles, nil
+}
+
 // parsePoetryLock reads the poetry lock file and updates  libraryInfo with versions.
 func parsePoetryLock(ctx context.Context, fpath string) ([]*LibraryInfo, error) {
 	dir := filepath.Dir(fpath)
@@ -141,7 +170,7 @@ func parsePoetryLock(ctx context.Context, fpath string) ([]*LibraryInfo, error) 
 }
 
 // libraryFinder scans the Python file for import statements and returns a list of LibraryInfo.
-func libraryFinder(file *os.File, poetryLibraryInfos []*LibraryInfo) ([]*LibraryInfo, error) {
+func libraryFinder(file io.Reader, poetryLibraryInfos []*LibraryInfo) ([]*LibraryInfo, error) {
 	poetryLibraries := make(map[string]*LibraryInfo, len(poetryLibraryInfos))
 	for _, lib := range poetryLibraryInfos {
 		poetryLibraries[lib.Name] = lib
@@ -222,75 +251,6 @@ func libraryFinder(file *os.File, poetryLibraryInfos []*LibraryInfo) ([]*Library
 		fileLibraryInfos = append(fileLibraryInfos, lib)
 	}
 	return fileLibraryInfos, nil
-}
-
-// getPackageDependencies gets the name of direct dependencies of each library from PyPI and updates the libraryInfo.
-func getPackageDependencies(libraryInfos []*LibraryInfo) []error {
-	var wg sync.WaitGroup
-	errs := make(chan error, len(libraryInfos))
-
-	client := &http.Client{
-		Timeout: 10 * time.Second,
-	}
-	for _, library := range libraryInfos {
-		if library.Version == "" {
-			continue // Skip modules without a version
-		}
-		wg.Add(1)
-
-		// Use goroutine for each library to fetch dependencies concurrently.
-		go func(library *LibraryInfo) {
-			defer wg.Done()
-			url := fmt.Sprintf("https://pypi.org/pypi/%s/%s/json", library.Name, library.Version)
-			resp, err := client.Get(url)
-			if err != nil {
-				errs <- fmt.Errorf("error fetching package info of url %s: %w", url, err)
-				return
-			}
-			defer resp.Body.Close()
-			if resp.StatusCode != http.StatusOK {
-				errs <- fmt.Errorf("error fetching package info of url %s: %w", url, err)
-				return
-			}
-
-			body, err := io.ReadAll(resp.Body)
-			if err != nil {
-				errs <- fmt.Errorf("failed to read body for %s: %w", library.Name, err)
-				return
-			}
-
-			var pypiResponse PyPIResponse
-			err = json.Unmarshal(body, &pypiResponse)
-			if err != nil {
-				errs <- fmt.Errorf("failed to unmarshal json for %s: %w", library.Name, err)
-				return
-			}
-
-			requiresDist := pypiResponse.Info.RequiresDist
-			for _, dep := range requiresDist {
-				re := regexp.MustCompile(`^[^<>=~!]+`)
-				matches := re.FindStringSubmatch(dep)
-				for _, match := range matches {
-					if slices.Contains(library.PyPIDependencies, strings.TrimSpace(match)) {
-						continue
-					}
-					library.PyPIDependencies = append(library.PyPIDependencies, strings.TrimSpace(match))
-				}
-			}
-		}(library)
-	}
-
-	wg.Wait()
-	close(errs)
-	var errSlice []error
-	for err := range errs {
-		errSlice = append(errSlice, err)
-	}
-	if len(errSlice) > 0 {
-		return errSlice
-	}
-
-	return nil
 }
 
 // downloadPackageSource downloads the source code of a package from PyPI.
@@ -388,44 +348,50 @@ func extractCompressedPackageSource(sourceFile string) error {
 	return nil
 }
 
-// retrievePackageSource fetches the source code of a library from PyPI and extracts it.
-func retrievePackageSource(libraryInfo *LibraryInfo) error {
-	url := fmt.Sprintf("https://pypi.org/simple/%s/", libraryInfo.Name)
-	resp, err := http.Get(url)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
+// retrieveSourceAndCollectDependencies fetches the source code of a library from PyPI, extracts the compressed source file and
+// collect dependencies of the imported library.
+func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *LibraryInfo) error {
+	reg := datasource.NewPyPIRegistryAPIClient("")
+	response, _ := reg.GetIndex(ctx, libraryInfo.Name)
+	downloadURL := ""
+	fileName := strings.ToLower(fmt.Sprintf(`%s-%s.tar.gz`, libraryInfo.Name, libraryInfo.Version))
+	for _, file := range response.Files {
+		//fmt.Printf("Found file %s with URL %s\n", file.Name, file.URL)
 
-	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("%s HTTP error: %d", libraryInfo.Name, resp.StatusCode)
-	}
-
-	s := strings.ToLower(fmt.Sprintf(`%s\-%s\.tar\.gz`, libraryInfo.Name, libraryInfo.Version))
-	scanner := bufio.NewScanner(resp.Body)
-	for scanner.Scan() {
-		line := strings.ToLower(scanner.Text())
-		re := regexp.MustCompile(s)
-		matches := re.MatchString(line)
-		if matches {
-			re = regexp.MustCompile(`<a href="([^"]+)"`)
-			substring := re.FindStringSubmatch(line)
-			fileName, err := downloadPackageSource(substring[1])
-			if err != nil {
-				return fmt.Errorf("failed to download package source: %w", err)
-			}
-			err = extractCompressedPackageSource(fileName)
-			if err != nil {
-				return err
-			}
-			err = os.Remove(fileName)
-			if err != nil {
-				return fmt.Errorf("failed to remove file: %w", err)
-			}
-			return nil
+		//fmt.Printf("Looking for file %s\n", fileName)
+		if file.Name == fileName {
+			downloadURL = file.URL
 		}
 	}
 
+	downloadFileSource, err := downloadPackageSource(downloadURL)
+	if err != nil {
+		return fmt.Errorf("failed to download package source: %w", err)
+	}
+
+	// Open the downloaded file to collect dependencies of the imported library.
+	fileSource, err := os.Open(downloadFileSource)
+	if err != nil {
+		log.Printf("failed to open downloaded file %s: %v", downloadFileSource, err)
+	}
+	defer fileSource.Close()
+	metadata, err := pypi.SdistMetadata(ctx, fileName, fileSource)
+	if err != nil {
+		log.Printf("failed to parse metadata from %s: %v", downloadFileSource, err)
+	}
+	for _, dep := range metadata.Dependencies {
+		libraryInfo.PyPIDependencies = append(libraryInfo.PyPIDependencies, dep.Name)
+
+	}
+
+	err = extractCompressedPackageSource(downloadFileSource)
+	if err != nil {
+		return err
+	}
+	err = os.Remove(downloadFileSource)
+	if err != nil {
+		return fmt.Errorf("failed to remove file: %w", err)
+	}
 	return nil
 }
 
@@ -525,20 +491,50 @@ func main() {
 	flag.Parse()
 	ctx := context.Background()
 
+	// Check if the flag was actually set by the user.
+	fileFlagProvided := false
+	flag.Visit(func(f *flag.Flag) {
+		if f.Name == "directory" {
+			fileFlagProvided = true
+		}
+	})
+	if !fileFlagProvided {
+		fmt.Fprintln(os.Stderr, "Error: -directory flag is required.")
+		flag.Usage()
+		return
+	}
+
 	// 1. Looking for files with main entry point
 	pythonFiles, err := findMainEntryPoint(*directory)
 	if err != nil {
 		log.Printf("Error finding main entry point: %v\n", err)
 	}
 
-	for _, file := range pythonFiles {
-		// 2. Collect libraries from poertry.lock file
-		poetryLibraryInfos, err := parsePoetryLock(ctx, filepath.Join(filepath.Dir(file), "poetry.lock"))
-		if err != nil {
-			log.Printf("Error collecting libraries in poetry.lock: %v\n", err)
-			continue
-		}
+	if len(pythonFiles) == 0 {
+		log.Println("No Python files with a main entry point found.")
+		return
+	}
 
+	// 2. Collect libraries from supported manifest files.
+	manifestFiles, err := findManifestFiles(*directory)
+	if err != nil {
+		log.Printf("Error finding manifest files: %v\n", err)
+		return
+	}
+
+	poetryLibraryInfos := []*LibraryInfo{}
+	for _, manifestFile := range manifestFiles {
+		switch manifestFile {
+		case "poetry.lock":
+			// Parse the poetry.lock file to get library information.
+			poetryLibraryInfos, err = parsePoetryLock(ctx, filepath.Join(*directory, manifestFile))
+			if err != nil {
+				log.Printf("Error collecting libraries in poetry.lock: %v\n", err)
+			}
+		}
+	}
+
+	for _, file := range pythonFiles {
 		pythonFile, err := os.Open(file)
 		if err != nil {
 			log.Printf("Error opening Python file %s: %v\n", file, err)
@@ -552,25 +548,18 @@ func main() {
 			log.Printf("Error finding libraries in file %s: %v\n", file, err)
 		}
 
-		// 4. Get dependencies of the imported libraries
-		errs := getPackageDependencies(importedLibraries)
-		if len(errs) > 0 {
-			for _, err := range errs {
-				log.Printf("Error getting package dependencies: %v\n", err)
-			}
-		}
-		// 5. Download the source code of the libraries
+		// 4. Download the source code of the libraries & collect the dependencies of the libraries.
 		for _, lib := range importedLibraries {
 			if lib.Version == "" {
 				continue
 			}
-			err = retrievePackageSource(lib)
+			err = retrieveSourceAndCollectDependencies(ctx, lib)
 			if err != nil {
 				log.Printf("Get source of lib error: %v\n", err)
 			}
 		}
 
-		// 6. Traverse directory of the source code and look for Python files where they define the imported items
+		// 5. Traverse directory of the source code and look for Python files where they define the imported items
 		// and collect the imported libraries in those files
 		for _, lib := range importedLibraries {
 			if lib.Version == "" || len(lib.ImportedItems) == 0 {
@@ -588,7 +577,7 @@ func main() {
 			}
 		}
 
-		// 7. Comparison between the collected imported libraries and the PYPI dependencies of the libraries
+		// 6. Comparison between the collected imported libraries and the PYPI dependencies of the libraries
 		// to find the reachability of the PYPI dependencies.
 		for _, library := range importedLibraries {
 			for _, item := range library.ImportedItems {
