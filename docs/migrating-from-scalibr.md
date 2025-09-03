@@ -57,7 +57,10 @@ In `osv-scanner`, you can achieve the same by using the `--experimental-plugins`
 osv-scanner --experimental-plugins python/pip,go/gomod,go/govulncheck /path/to/your/project
 ```
 
-`osv-scanner` also allows you to disable default plugins with `--experimental-disable-plugins`.
+`osv-scanner` lets you exclude its default plugins with `--experimental-no-default-plugins`, for when you want to only
+run specific plugins.
+
+`osv-scanner` also allows you to disable specific plugins with `--experimental-disable-plugins`.
 
 For more details on manual plugin selection in `osv-scanner`, see the [manual plugin selection documentation](manual-plugin-selection.md).
 

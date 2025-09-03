@@ -1689,80 +1689,96 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_ExplicitExtractors/empty_plugins_flag_does_nothing - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/empty_plugins_flag_does_nothing - 1]
 
 ---
 
-[TestCommand_ExplicitExtractors/empty_plugins_flag_does_nothing - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/empty_plugins_flag_does_nothing - 2]
 Incorrect Usage: flag needs an argument: --experimental-plugins=
 
 flag needs an argument: --experimental-plugins=
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_individually - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_individually - 1]
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_individually - 2]
-at least one extractor must be enabled
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_individually - 2]
+No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_together - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_together - 1]
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out_specified_together - 2]
-at least one extractor must be enabled
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_together - 2]
+No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out_with_presets - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 1]
 
 ---
 
-[TestCommand_ExplicitExtractors/extractors_cancelled_out_with_presets - 2]
-at least one extractor must be enabled
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 2]
+No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 1]
 Scanning dir ./testdata/locks-many
+Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
+Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 2]
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 1]
 Scanning dir ./testdata/locks-many
+Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
+Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 2]
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_directory_with_an_extractor_that_does_not_exist - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 1]
 Scanning dir ./testdata/locks-many
+Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
+Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
@@ -1770,12 +1786,12 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_directory_with_an_extractor_that_does_not_exist - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 2]
 not an exact name for a plugin: "custom/extractor"
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_disabled - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_disabled - 1]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
@@ -1789,35 +1805,43 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_disabled - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_disabled - 2]
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_enabled - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_enabled_and_the_defaults - 1]
 Scanning dir ./testdata/locks-many
+Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
+Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_directory_with_one_specific_extractor_enabled - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_enabled_and_the_defaults - 2]
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_file_with_one_different_extractor_enabled - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_different_extractor_enabled - 1]
 Scanning dir ./testdata/locks-many/composer.lock
+Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_file_with_one_different_extractor_enabled - 2]
-No package sources found, --help for usage information.
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_different_extractor_enabled - 2]
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_file_with_one_specific_extractor_enabled - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_specific_extractor_enabled - 1]
 Scanning dir ./testdata/locks-many/package-lock.json
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
@@ -1827,15 +1851,166 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_file_with_one_specific_extractor_enabled - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_specific_extractor_enabled - 2]
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_file_with_parse_as_but_specific_extractor_disabled - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 1]
 
 ---
 
-[TestCommand_ExplicitExtractors/scanning_file_with_parse_as_but_specific_extractor_disabled - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 2]
+could not determine extractor, requested package-lock.json
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/empty_plugins_flag_does_nothing - 1]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/empty_plugins_flag_does_nothing - 2]
+Incorrect Usage: flag needs an argument: --experimental-plugins=
+
+flag needs an argument: --experimental-plugins=
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_individually - 1]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_individually - 2]
+at least one extractor must be enabled
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_together - 1]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_together - 2]
+at least one extractor must be enabled
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 1]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 2]
+at least one extractor must be enabled
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 1]
+Scanning dir ./testdata/locks-many
+Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 2]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 1]
+Scanning dir ./testdata/locks-many
+Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 2]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 1]
+Scanning dir ./testdata/locks-many
+Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
+0 vulnerabilities can be fixed.
+
+
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 2]
+not an exact name for a plugin: "custom/extractor"
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_disabled - 1]
+Scanning dir ./testdata/locks-many
+Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
+Filtered 1 local/unscannable package/s from the scan.
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+CVE-2025-26519 has been filtered out because: Test manifest file (alpine.cdx.xml)
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_disabled - 2]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_enabled_and_no_defaults - 1]
+Scanning dir ./testdata/locks-many
+Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_enabled_and_no_defaults - 2]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_different_extractor_enabled - 1]
+Scanning dir ./testdata/locks-many/composer.lock
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_different_extractor_enabled - 2]
+No package sources found, --help for usage information.
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_specific_extractor_enabled - 1]
+Scanning dir ./testdata/locks-many/package-lock.json
+Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_specific_extractor_enabled - 2]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 1]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 2]
 could not determine extractor, requested package-lock.json
 
 ---

@@ -350,7 +350,7 @@ func TestCommand_JavareachArchive(t *testing.T) {
 	}
 }
 
-func TestCommand_ExplicitExtractors(t *testing.T) {
+func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
 
 	tests := []testcmd.Case{
@@ -367,7 +367,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 				"--experimental-plugins=sbom/cdx",
 				"--experimental-disable-plugins=sbom",
 			},
-			Exit: 127,
+			Exit: 128,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_together",
@@ -376,7 +376,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 				"--experimental-plugins=sbom/spdx,sbom/cdx",
 				"--experimental-disable-plugins=sbom",
 			},
-			Exit: 127,
+			Exit: 128,
 		},
 		{
 			Name: "extractors_cancelled_out_with_presets",
@@ -385,12 +385,12 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 				"--experimental-plugins=sbom",
 				"--experimental-disable-plugins=sbom",
 			},
-			Exit: 127,
+			Exit: 128,
 		},
 		{
-			// this will scan just the package-lock.json file as we've not enabled
-			// extractors for any of the other lockfiles
-			Name: "scanning_directory_with_one_specific_extractor_enabled",
+			// this will scan all the lockfiles as we have not explicitly disabled the
+			// default extractors for any of the other lockfiles
+			Name: "scanning_directory_with_one_specific_extractor_enabled_and_the_defaults",
 			Args: []string{
 				"", "source",
 				"--experimental-plugins=javascript/packagelockjson",
@@ -444,12 +444,155 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Exit: 0,
 		},
 		{
+			// this will scan just the package lock, since we're requested that file specifically
+			Name: "scanning_file_with_one_specific_extractor_enabled",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=javascript/packagelockjson",
+				"./testdata/locks-many/package-lock.json",
+			},
+			Exit: 0,
+		},
+		{
+			// this will result in no issues since we have left the default plugins enabled
+			Name: "scanning_file_with_one_different_extractor_enabled",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=javascript/packagelockjson",
+				"./testdata/locks-many/composer.lock",
+			},
+			Exit: 0,
+		},
+		{
+			// this will result in an error about not being able to determine the extractor
+			// since we've requested the file to be parsed with a specific extractor
+			// that we've also disabled
+			Name: "scanning_file_with_parse_as_but_specific_extractor_disabled",
+			Args: []string{
+				"", "source",
+				"--experimental-disable-plugins=javascript/packagelockjson",
+				"-L", "package-lock.json:./testdata/locks-many/composer.lock",
+			},
+			Exit: 127,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
+func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "empty_plugins_flag_does_nothing",
+			Args: []string{"", "source", "--experimental-no-default-plugins", "--experimental-plugins="},
+			Exit: 127,
+		},
+		{
+			Name: "extractors_cancelled_out_specified_individually",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=sbom/spdx",
+				"--experimental-plugins=sbom/cdx",
+				"--experimental-disable-plugins=sbom",
+				"--experimental-no-default-plugins",
+			},
+			Exit: 127,
+		},
+		{
+			Name: "extractors_cancelled_out_specified_together",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=sbom/spdx,sbom/cdx",
+				"--experimental-disable-plugins=sbom",
+				"--experimental-no-default-plugins",
+			},
+			Exit: 127,
+		},
+		{
+			Name: "extractors_cancelled_out_with_presets",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=sbom",
+				"--experimental-disable-plugins=sbom",
+				"--experimental-no-default-plugins",
+			},
+			Exit: 127,
+		},
+		{
+			// this will scan just the package-lock.json file as we've explicitly
+			// disabled the default extractors for any of the other lockfiles
+			Name: "scanning_directory_with_one_specific_extractor_enabled_and_no_defaults",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=javascript/packagelockjson",
+				"--experimental-no-default-plugins",
+				"./testdata/locks-many",
+			},
+			Exit: 0,
+		},
+		{
+			Name: "scanning_directory_with_an_extractor_that_does_not_exist",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=javascript/packagelockjson",
+				"--experimental-plugins=custom/extractor",
+				"--experimental-disable-plugins=custom/anotherextractor",
+				"--experimental-no-default-plugins",
+				"./testdata/locks-many",
+			},
+			Exit: 127,
+		},
+		{
+			// this will scan just the package-lock.json and composer.lock files as
+			// we've not enabled extractors for any of the other lockfiles
+			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_individually",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=javascript/packagelockjson",
+				"--experimental-plugins=php/composerlock",
+				"--experimental-no-default-plugins",
+				"./testdata/locks-many",
+			},
+			Exit: 0,
+		},
+		{
+			// this will scan just the package-lock.json and composer.lock files as
+			// we've not enabled extractors for any of the other lockfiles
+			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=javascript/packagelockjson,php/composerlock",
+				"--experimental-no-default-plugins",
+				"./testdata/locks-many",
+			},
+			Exit: 0,
+		},
+		{
+			// this should result in all files within the directory being scanned
+			// except for the package-lock.json
+			Name: "scanning_directory_with_one_specific_extractor_disabled",
+			Args: []string{
+				"", "source",
+				"--experimental-disable-plugins=javascript/packagelockjson",
+				"--experimental-no-default-plugins",
+				"./testdata/locks-many",
+			},
+			Exit: 0,
+		},
+		{
 			// this will scan just the package lock, since we're requested that file
 			// specifically and have enabled just that extractor
 			Name: "scanning_file_with_one_specific_extractor_enabled",
 			Args: []string{
 				"", "source",
 				"--experimental-plugins=javascript/packagelockjson",
+				"--experimental-no-default-plugins",
 				"./testdata/locks-many/package-lock.json",
 			},
 			Exit: 0,
@@ -461,6 +604,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "source",
 				"--experimental-plugins=javascript/packagelockjson",
+				"--experimental-no-default-plugins",
 				"./testdata/locks-many/composer.lock",
 			},
 			Exit: 128,
@@ -473,6 +617,7 @@ func TestCommand_ExplicitExtractors(t *testing.T) {
 			Args: []string{
 				"", "source",
 				"--experimental-disable-plugins=javascript/packagelockjson",
+				"--experimental-no-default-plugins",
 				"-L", "package-lock.json:./testdata/locks-many/composer.lock",
 			},
 			Exit: 127,

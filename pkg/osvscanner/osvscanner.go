@@ -71,8 +71,9 @@ type ScannerActions struct {
 type ExperimentalScannerActions struct {
 	TransitiveScanningActions
 
-	PluginsEnabled  []string
-	PluginsDisabled []string
+	PluginsEnabled    []string
+	PluginsDisabled   []string
+	PluginsNoDefaults bool
 }
 
 type TransitiveScanningActions struct {
