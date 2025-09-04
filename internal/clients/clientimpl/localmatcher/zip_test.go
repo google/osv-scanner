@@ -26,14 +26,12 @@ const userAgent = "osv-scanner_test/" + version.OSVVersion
 
 func expectDBToHaveOSVs(
 	t *testing.T,
-	db interface {
-		Vulnerabilities(includeWithdrawn bool) []osvschema.Vulnerability
-	},
+	db *localmatcher.ZipDB,
 	expect []osvschema.Vulnerability,
 ) {
 	t.Helper()
 
-	vulns := db.Vulnerabilities(true)
+	vulns := db.Vulnerabilities
 
 	sort.Slice(vulns, func(i, j int) bool {
 		return vulns[i].ID < vulns[j].ID

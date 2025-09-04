@@ -32,7 +32,7 @@ type ZipDB struct {
 	// the path to the zip archive on disk
 	StoredAt string
 	// the vulnerabilities that are loaded into this database
-	vulnerabilities []osvschema.Vulnerability
+	Vulnerabilities []osvschema.Vulnerability
 	// User agent to query with
 	UserAgent string
 }
@@ -169,7 +169,7 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 		return
 	}
 
-	db.vulnerabilities = append(db.vulnerabilities, vulnerability)
+	db.Vulnerabilities = append(db.Vulnerabilities, vulnerability)
 }
 
 // load fetches a zip archive of the OSV database and loads known vulnerabilities
@@ -179,7 +179,7 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 // so that a new version of the archive is only downloaded if it has been
 // modified, per HTTP caching standards.
 func (db *ZipDB) load(ctx context.Context) error {
-	db.vulnerabilities = []osvschema.Vulnerability{}
+	db.Vulnerabilities = []osvschema.Vulnerability{}
 
 	body, err := db.fetchZip(ctx)
 
