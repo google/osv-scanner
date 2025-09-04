@@ -219,28 +219,12 @@ func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, o
 	return db, nil
 }
 
-func (db *ZipDB) Vulnerabilities(includeWithdrawn bool) []osvschema.Vulnerability {
-	if includeWithdrawn {
-		return db.vulnerabilities
-	}
-
-	var vulnerabilities []osvschema.Vulnerability
-
-	for _, vulnerability := range db.vulnerabilities {
-		if vulnerability.Withdrawn.IsZero() {
-			vulnerabilities = append(vulnerabilities, vulnerability)
-		}
-	}
-
-	return vulnerabilities
-}
-
 // TODO: Move this to another file.
 func VulnerabilitiesAffectingPackage(allVulns []osvschema.Vulnerability, pkg imodels.PackageInfo) []*osvschema.Vulnerability {
 	var vulnerabilities []*osvschema.Vulnerability
 
 	for _, vulnerability := range allVulns {
-		if vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
+		if vulnerability.Withdrawn.IsZero() && vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
 			vulnerabilities = append(vulnerabilities, &vulnerability)
 		}
 	}
