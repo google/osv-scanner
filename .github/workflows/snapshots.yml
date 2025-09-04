@@ -2,7 +2,7 @@ name: Snapshots
 
 on:
   schedule:
-    - cron: "47 12 * * *"
+    - cron: "47 18 * * *"
   workflow_dispatch:
 concurrency:
   # Pushing new changes to a branch will cancel any in-progress CI runs
