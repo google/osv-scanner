@@ -9,7 +9,7 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-// TODO: use osvschema.Ecosystem or imodel's ecosystem.Parsed
+// TODO: use osvschema.Ecosystem or imodel's osvecosystem.Parsed
 var OSVEcosystem = map[resolve.System]osvschema.Ecosystem{
 	resolve.NPM:   osvschema.EcosystemNPM,
 	resolve.Maven: osvschema.EcosystemMaven,

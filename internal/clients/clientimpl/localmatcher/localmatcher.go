@@ -10,9 +10,9 @@ import (
 	"path"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/inventory/osvecosystem"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
-	"github.com/google/osv-scanner/v2/internal/imodels/ecosystem"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -86,13 +86,13 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 
 // LoadEcosystem tries to preload the ecosystem into the cache, and returns an error if the ecosystem
 // cannot be loaded.
-func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, eco ecosystem.Parsed) error {
+func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, eco osvecosystem.Parsed) error {
 	_, err := matcher.loadDBFromCache(ctx, eco)
 
 	return err
 }
 
-func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco ecosystem.Parsed) (*ZipDB, error) {
+func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvecosystem.Parsed) (*ZipDB, error) {
 	if db, ok := matcher.dbs[eco.Ecosystem]; ok {
 		return db, nil
 	}
