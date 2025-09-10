@@ -752,7 +752,7 @@ Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and fou
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 9 local/unscannable package/s from the scan.
-Total 26 packages affected by 156 known vulnerabilities (19 Critical, 62 High, 37 Medium, 1 Low, 37 Unknown) from 4 ecosystems.
+Total 26 packages affected by 156 known vulnerabilities (19 Critical, 62 High, 38 Medium, 1 Low, 36 Unknown) from 4 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -822,6 +822,7 @@ Total 26 packages affected by 156 known vulnerabilities (19 Critical, 62 High, 3
 | https://osv.dev/CVE-2017-16932      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/CVE-2017-18258      | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/CVE-2017-5130       | 8.8  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/CVE-2017-5969       | 4.7  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/CVE-2017-7375       | 9.8  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/CVE-2017-7376       | 9.8  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/CVE-2017-8872       | 9.1  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -840,7 +841,6 @@ Total 26 packages affected by 156 known vulnerabilities (19 Critical, 62 High, 3
 | https://osv.dev/CVE-2021-3537       | 5.9  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/CVE-2021-3541       | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/CVE-2022-23308      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/CVE-2025-26434      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4661-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1332,8 +1332,8 @@ Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 failed to parse metadata for file Flask-Cors-1.0.tar.gz: sdist: dependencies in setup.py, not in PKG-INFO
 failed to resolve transitive dependencies for "<rootdir>/testdata/locks-requirements/unresolvable-requirements.txt", falling back to offline extraction: failed resolving: no file can be used for parsing requirements for package flask-cors version 1.0
-Total 15 packages affected by 50 known vulnerabilities (2 Critical, 17 High, 28 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
-50 vulnerabilities can be fixed.
+Total 15 packages affected by 53 known vulnerabilities (2 Critical, 20 High, 28 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+53 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
@@ -1343,6 +1343,7 @@ Total 15 packages affected by 50 known vulnerabilities (2 Critical, 17 High, 28 
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django     | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django     | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django     | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django     | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements-transitive.txt   |
@@ -1379,11 +1380,13 @@ Total 15 packages affected by 50 known vulnerabilities (2 Critical, 17 High, 28 
 | https://osv.dev/GHSA-6cw3-g6wv-c2xv |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2022-3        | 6.9  | PyPI      | django     | 2.2.24  | 2.2.26        | testdata/locks-requirements/requirements.prod.txt         |
 | https://osv.dev/GHSA-jrh2-hc4r-7jwx |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django     | 2.2.24  | 4.2.24        | testdata/locks-requirements/requirements.prod.txt         |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django     | 2.2.24  | 4.2.22        | testdata/locks-requirements/requirements.prod.txt         |
 | https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django     | 2.2.24  | 3.2.15        | testdata/locks-requirements/requirements.prod.txt         |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 2.2.24  | 4.2.16        | testdata/locks-requirements/requirements.prod.txt         |
 | https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django     | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django     | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django     | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django     | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt              |
@@ -3285,7 +3288,7 @@ Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-Total 21 packages affected by 149 known vulnerabilities (16 Critical, 60 High, 37 Medium, 1 Low, 35 Unknown) from 2 ecosystems.
+Total 21 packages affected by 149 known vulnerabilities (16 Critical, 60 High, 38 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -3348,6 +3351,7 @@ Total 21 packages affected by 149 known vulnerabilities (16 Critical, 60 High, 3
 | https://osv.dev/CVE-2017-16932      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-18258      | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-5130       | 8.8  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2017-5969       | 4.7  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-7375       | 9.8  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-7376       | 9.8  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-8872       | 9.1  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3366,7 +3370,6 @@ Total 21 packages affected by 149 known vulnerabilities (16 Critical, 60 High, 3
 | https://osv.dev/CVE-2021-3537       | 5.9  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3541       | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2022-23308      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2025-26434      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4661-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3480,7 +3483,7 @@ Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-Total 21 packages affected by 149 known vulnerabilities (16 Critical, 60 High, 37 Medium, 1 Low, 35 Unknown) from 2 ecosystems.
+Total 21 packages affected by 149 known vulnerabilities (16 Critical, 60 High, 38 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -3543,6 +3546,7 @@ Total 21 packages affected by 149 known vulnerabilities (16 Critical, 60 High, 3
 | https://osv.dev/CVE-2017-16932      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-18258      | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-5130       | 8.8  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2017-5969       | 4.7  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-7375       | 9.8  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-7376       | 9.8  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2017-8872       | 9.1  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3561,7 +3565,6 @@ Total 21 packages affected by 149 known vulnerabilities (16 Critical, 60 High, 3
 | https://osv.dev/CVE-2021-3537       | 5.9  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3541       | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2022-23308      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/CVE-2025-26434      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4661-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -4188,8 +4191,8 @@ No issues found
 [TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 1]
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
-Total 3 packages affected by 8 known vulnerabilities (0 Critical, 2 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-8 vulnerabilities can be fixed.
+Total 3 packages affected by 9 known vulnerabilities (0 Critical, 3 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+9 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
@@ -4197,6 +4200,7 @@ Total 3 packages affected by 8 known vulnerabilities (0 Critical, 2 High, 6 Medi
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
@@ -4218,8 +4222,8 @@ Total 3 packages affected by 8 known vulnerabilities (0 Critical, 2 High, 6 Medi
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Loaded PyPI local db from <tempdir>/osv-scanner/PyPI/all.zip
-Total 3 packages affected by 8 known vulnerabilities (0 Critical, 2 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-8 vulnerabilities can be fixed.
+Total 3 packages affected by 9 known vulnerabilities (0 Critical, 3 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+9 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
@@ -4227,6 +4231,7 @@ Total 3 packages affected by 8 known vulnerabilities (0 Critical, 2 High, 6 Medi
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
@@ -4308,8 +4313,8 @@ Total 2 packages affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medi
 [TestCommand_Transitive/scan_local_disk_transitive_dependencies - 1]
 Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
-Total 3 packages affected by 8 known vulnerabilities (0 Critical, 2 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-8 vulnerabilities can be fixed.
+Total 3 packages affected by 9 known vulnerabilities (0 Critical, 3 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+9 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
@@ -4317,6 +4322,7 @@ Total 3 packages affected by 8 known vulnerabilities (0 Critical, 2 High, 6 Medi
 +-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
 | https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements-transitive.txt |
 | https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                                         |
+| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements-transitive.txt |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements-transitive.txt |
 | https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements-transitive.txt |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements-transitive.txt |
@@ -4420,8 +4426,8 @@ Total 1 package affected by 4 known vulnerabilities (2 Critical, 1 High, 1 Mediu
 [TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1]
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 13 packages
-Total 5 packages affected by 15 known vulnerabilities (0 Critical, 4 High, 10 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
-15 vulnerabilities can be fixed.
+Total 5 packages affected by 16 known vulnerabilities (0 Critical, 5 High, 10 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+16 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
@@ -4429,6 +4435,7 @@ Total 5 packages affected by 15 known vulnerabilities (0 Critical, 4 High, 10 Me
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
