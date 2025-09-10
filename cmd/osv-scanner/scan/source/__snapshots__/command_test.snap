@@ -752,7 +752,7 @@ Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and fou
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 9 local/unscannable package/s from the scan.
-Total 26 packages affected by 155 known vulnerabilities (20 Critical, 61 High, 37 Medium, 1 Low, 36 Unknown) from 4 ecosystems.
+Total 26 packages affected by 156 known vulnerabilities (19 Critical, 62 High, 37 Medium, 1 Low, 37 Unknown) from 4 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -840,6 +840,7 @@ Total 26 packages affected by 155 known vulnerabilities (20 Critical, 61 High, 3
 | https://osv.dev/CVE-2021-3537       | 5.9  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/CVE-2021-3541       | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/CVE-2022-23308      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/CVE-2025-26434      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4661-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -849,7 +850,7 @@ Total 26 packages affected by 155 known vulnerabilities (20 Critical, 61 High, 3
 | https://osv.dev/DSA-4963-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5103-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5139-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
-| https://osv.dev/DSA-5169-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DSA-5169-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5343-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5417-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5532-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -3284,7 +3285,7 @@ Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-Total 21 packages affected by 148 known vulnerabilities (17 Critical, 59 High, 37 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
+Total 21 packages affected by 149 known vulnerabilities (16 Critical, 60 High, 37 Medium, 1 Low, 35 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -3365,6 +3366,7 @@ Total 21 packages affected by 148 known vulnerabilities (17 Critical, 59 High, 3
 | https://osv.dev/CVE-2021-3537       | 5.9  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3541       | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2022-23308      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-26434      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4661-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3374,7 +3376,7 @@ Total 21 packages affected by 148 known vulnerabilities (17 Critical, 59 High, 3
 | https://osv.dev/DSA-4963-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5103-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5139-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DSA-5169-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5169-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5343-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5417-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5532-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3478,7 +3480,7 @@ Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
-Total 21 packages affected by 148 known vulnerabilities (17 Critical, 59 High, 37 Medium, 1 Low, 34 Unknown) from 2 ecosystems.
+Total 21 packages affected by 149 known vulnerabilities (16 Critical, 60 High, 37 Medium, 1 Low, 35 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
 
 
@@ -3559,6 +3561,7 @@ Total 21 packages affected by 148 known vulnerabilities (17 Critical, 59 High, 3
 | https://osv.dev/CVE-2021-3537       | 5.9  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2021-3541       | 6.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/CVE-2022-23308      | 7.5  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/CVE-2025-26434      |      | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1          | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3          |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4661-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3568,7 +3571,7 @@ Total 21 packages affected by 148 known vulnerabilities (17 Critical, 59 High, 3
 | https://osv.dev/DSA-4963-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5103-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5139-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
-| https://osv.dev/DSA-5169-1          | 9.8  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DSA-5169-1          | 7.3  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5343-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5417-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5532-1          | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
