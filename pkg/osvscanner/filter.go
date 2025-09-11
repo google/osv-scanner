@@ -30,8 +30,8 @@ func filterUnscannablePackages(scanResults *results.ScanResults) {
 
 		switch {
 		// If **any** of the following cases are true, skip this package
-		case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown",
-			!p.Ecosystem().IsValid() && !p.Ecosystem().IsEmpty():
+		case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown", // Is Maven with package name unknown
+			p.Ecosystem().GetValidity() != nil && !p.Ecosystem().IsEmpty(): // Is invalid and not empty
 			continue
 		}
 
