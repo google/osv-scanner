@@ -537,8 +537,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 19 packages affected by 39 known vulnerabilities (0 Critical, 12 High, 12 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-39 vulnerabilities can be fixed.
+Total 19 packages affected by 40 known vulnerabilities (0 Critical, 13 High, 12 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+40 vulnerabilities can be fixed.
 
 
 PyPI
@@ -561,7 +561,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| django  | 1.11.29           | Fix Available |          4 | # 17 Layer       | --            |
+| django  | 1.11.29           | Fix Available |          5 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/Flask-0.12.2.dist-info/METADATA      |
@@ -1047,11 +1047,12 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           "vulnerabilities": [
             "PYSEC-2021-98",
             "GHSA-68w8-qjq3-2gfm",
+            "GHSA-6w2r-r2m5-xq5w",
             "GHSA-7xr5-9hcq-chf9",
             "GHSA-8x94-hmjh-97hq",
             "GHSA-rrqc-c2jx-6jgv"
           ],
-          "groups": 4
+          "groups": 5
         }
       ]
     },
