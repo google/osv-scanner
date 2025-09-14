@@ -269,6 +269,16 @@ func TestCommand_OCIImage(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "rockylinux_empty_image",
+			Args: []string{"", "image", "--archive", "./testdata/test-rockylinux.tar"},
+			Exit: 1,
+		},
+		{
+			Name: "rockylinux_empty_image_all_vulns",
+			Args: []string{"", "image", "--all-vulns", "--archive", "./testdata/test-rockylinux.tar"},
+			Exit: 1,
+		},
+		{
 			Name: "Scanning_python_image_with_some_packages",
 			Args: []string{"", "image", "--archive", "./testdata/test-python-full.tar"},
 			Exit: 1,
