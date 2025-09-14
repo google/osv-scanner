@@ -35,6 +35,7 @@ import (
 	extractors "github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/datasource"
@@ -136,6 +137,8 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		apk.Name: {apk.NewDefault},
 		// Debian
 		dpkg.Name: {dpkg.NewDefault},
+		// RedHat
+		rpm.Name: {rpm.NewDefault},
 	},
 }
 
