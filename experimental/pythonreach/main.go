@@ -62,7 +62,31 @@ var (
 	memberImportRegex = regexp.MustCompile(`import (\w+)\.(\w+)`)
 )
 
-// findMainEntryPoint scans the directory for Python files that contain a main entry point.
+// fileContainsMainEntryPoint checks if a given Python file contains a main entry point.
+func fileContainsMainEntryPoint(filePath string) (bool, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return false, err
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		// Check for the main entry point
+		if mainEntryRegex.MatchString(line) {
+			return true, nil // Found it, no need to scan the rest of the file.
+		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		return false, err
+	}
+
+	return false, nil
+}
+
+// findMainEntryPoint scans the target directory for Python files that contain a main entry point.
 func findMainEntryPoint(dir string) ([]string, error) {
 	absDir, err := filepath.Abs(dir)
 	if err != nil {
@@ -78,26 +102,13 @@ func findMainEntryPoint(dir string) ([]string, error) {
 			return nil
 		}
 
-		err = func() error {
-			file, err := os.Open(path)
-			if err != nil {
-				return err
-			}
-			defer file.Close()
-
-			scanner := bufio.NewScanner(file)
-			for scanner.Scan() {
-				line := strings.TrimSpace(scanner.Text())
-				// Check for the main entry point
-				if mainEntryRegex.MatchString(line) {
-					mainFiles = append(mainFiles, path)
-					break // Found it, no need to scan the rest of the file.
-				}
-			}
-			return scanner.Err()
-		}()
+		containsEntry, err := fileContainsMainEntryPoint(path)
 		if err != nil {
 			return fmt.Errorf("error reading file %s: %w", path, err)
+		}
+
+		if containsEntry {
+			mainFiles = append(mainFiles, path)
 		}
 
 		return nil
