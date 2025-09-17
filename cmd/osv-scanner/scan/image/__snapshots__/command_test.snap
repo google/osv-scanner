@@ -185,8 +185,8 @@ HTML output available at: <tempdir>/report.html
 Scanning local image tarball "./testdata/test-alpine.tar"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 2 packages affected by 41 known vulnerabilities (2 Critical, 18 High, 14 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
-41 vulnerabilities can be fixed.
+Total 5 packages affected by 65 known vulnerabilities (5 Critical, 31 High, 21 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
+65 vulnerabilities can be fixed.
 
 
 Alpine:v3.18
@@ -195,6 +195,9 @@ Alpine:v3.18
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          2 | apk-tools               | # 3 Layer        | --            |
+| busybox        | 1.30.1-r5         | Fix Available |         19 | busybox, ssl_client     | # 3 Layer        | --            |
+| musl           | 1.1.22-r4         | Fix Available |          3 | musl, musl-utils        | # 3 Layer        | --            |
 | openssl        | 1.1.1k-r0         | Fix Available |         39 | libcrypto1.1... (2)     | # 3 Layer        | --            |
 | zlib           | 1.2.11-r1         | Fix Available |          2 | zlib                    | # 3 Layer        | --            |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
