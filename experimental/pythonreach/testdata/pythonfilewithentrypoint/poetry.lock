@@ -1,0 +1,7 @@
+[[package]]
+name = "numpy"
+version = "1.26.4"
+
+[[package]]
+name = "pandas"
+version = "2.2.2"
