@@ -69,7 +69,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 			continue
 		}
 
-		db, err := matcher.loadDBFromCache(ctx, pkg.Ecosystem())
+		db, err := matcher.loadDBFromCache(ctx, pkg.Ecosystem(), invs)
 
 		if err != nil {
 			// no logging here as the loader will have already done that
@@ -87,12 +87,12 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 // LoadEcosystem tries to preload the ecosystem into the cache, and returns an error if the ecosystem
 // cannot be loaded.
 func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, eco osvecosystem.Parsed) error {
-	_, err := matcher.loadDBFromCache(ctx, eco)
+	_, err := matcher.loadDBFromCache(ctx, eco, nil)
 
 	return err
 }
 
-func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvecosystem.Parsed) (*ZipDB, error) {
+func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvecosystem.Parsed, invs []*extractor.Package) (*ZipDB, error) {
 	if db, ok := matcher.dbs[eco.Ecosystem]; ok {
 		return db, nil
 	}
@@ -101,7 +101,15 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvecosyst
 		return nil, matcher.failedDBs[eco.Ecosystem]
 	}
 
-	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(eco.Ecosystem), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, eco.Ecosystem), matcher.userAgent, !matcher.downloadDB)
+	db, err := NewZippedDB(
+		ctx,
+		matcher.dbBasePath,
+		string(eco.Ecosystem),
+		fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, eco.Ecosystem),
+		matcher.userAgent,
+		!matcher.downloadDB,
+		invs,
+	)
 
 	if err != nil {
 		matcher.failedDBs[eco.Ecosystem] = err
