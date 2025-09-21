@@ -23,33 +23,82 @@ import (
 	scalibrfs "github.com/google/osv-scalibr/fs"
 )
 
+// ModuleInfo represents a Python module or function imported from a library
 type ModuleInfo struct {
-	Name                  string
-	Alias                 string
-	DefinitionPaths       []string            // Paths where this item is defined in the library's source code.
-	DependenciesByPath    map[string][]string // map[path][]imported_items
-	ReachableDependencies []string            // Reachability status of the imported items.
+	Name                 string   // Original name of the imported module/function
+	Alias                string   // Alias used in the import statement (if any)
+	SourceDefinedPaths   []string // File paths where this module/function is defined in the library source
+	ImportedLibraryNames []string // Names of libraries imported in the module's source files
+	ReachableDeps        []string // Names of dependencies that are actually used by this module
 }
 
+// LibraryInfo represents a Python library and its dependencies
 type LibraryInfo struct {
-	Name             string
-	Alias            string
-	Version          string
-	ImportedItems    []*ModuleInfo
-	PyPIDependencies []string
-	ItemDependencies map[string][]string //map[imported_item_name][]library_names]
+	Name         string        // Library name as it appears in imports
+	Alias        string        // Alias used when importing the entire library
+	Version      string        // Version from poetry.lock
+	Modules      []*ModuleInfo // Specific modules or functions imported from this library
+	Dependencies []string      // Direct dependencies declared in library's metadata
 }
 
-type PyPIResponse struct {
-	Info struct {
-		RequiresDist    []string `json:"requires_dist"`
-		Vulnerabilities []string `json:"vulnerabilities"`
-	} `json:"info"`
+// Constants for terminal output formatting
+
+// safeOpenFile safely opens a file and returns a closer function
+func safeOpenFile(filePath string) (*os.File, func(), error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return nil, nil, fmt.Errorf("failed to open file %s: %w", filePath, err)
+	}
+	closer := func() {
+		if err := file.Close(); err != nil {
+			log.Printf("Error closing file %s: %v", filePath, err)
+		}
+	}
+	return file, closer, nil
 }
 
-type Response struct {
-	ImportedLibrary string   `json:"imported_library"`
-	UsedModule      []string `json:"used_module"`
+// scanFile is a helper function that provides a common way to scan files line by line
+func scanFile(file io.Reader, processLine func(string) error) error {
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		if err := processLine(line); err != nil {
+			return err
+		}
+	}
+	return scanner.Err()
+}
+
+// getOrCreateLibraryInfo gets an existing library info or creates a new one
+func getOrCreateLibraryInfo(libraries map[string]*LibraryInfo, name string) *LibraryInfo {
+	lib, found := libraries[name]
+	if !found {
+		lib = &LibraryInfo{Name: name}
+		libraries[name] = lib
+	}
+	return lib
+}
+
+// createMapFromLibraryInfos creates a map of library infos keyed by name
+func createMapFromLibraryInfos(libraryInfos []*LibraryInfo) map[string]*LibraryInfo {
+	libraries := make(map[string]*LibraryInfo, len(libraryInfos))
+	for _, lib := range libraryInfos {
+		libraries[lib.Name] = lib
+	}
+	return libraries
+}
+
+// walkPythonFiles walks through a directory and processes only Python files
+func walkPythonFiles(root string, processPythonFile func(path string, info os.FileInfo) error) error {
+	return filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		if err != nil {
+			return err
+		}
+		if !info.IsDir() && strings.HasSuffix(path, ".py") {
+			return processPythonFile(path, info)
+		}
+		return nil
+	})
 }
 
 var (
@@ -62,28 +111,33 @@ var (
 	memberImportRegex = regexp.MustCompile(`import (\w+)\.(\w+)`)
 )
 
+const (
+	ColorReset  = "\033[0m"
+	ColorCyan   = "\033[36m" // For labels
+	ColorYellow = "\033[33m" // For values
+)
+
 // fileContainsMainEntryPoint checks if a given Python file contains a main entry point.
 func fileContainsMainEntryPoint(filePath string) (bool, error) {
-	file, err := os.Open(filePath)
+	file, closer, err := safeOpenFile(filePath)
 	if err != nil {
 		return false, err
 	}
-	defer file.Close()
+	defer closer()
 
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := strings.TrimSpace(scanner.Text())
-		// Check for the main entry point
+	hasMainEntry := false
+	err = scanFile(file, func(line string) error {
 		if mainEntryRegex.MatchString(line) {
-			return true, nil // Found it, no need to scan the rest of the file.
+			hasMainEntry = true
+			return io.EOF // Stop scanning once we find the main entry
 		}
-	}
+		return nil
+	})
 
-	if err := scanner.Err(); err != nil {
-		return false, err
+	if err == io.EOF {
+		return true, nil
 	}
-
-	return false, nil
+	return hasMainEntry, err
 }
 
 // findMainEntryPoint scans the target directory for Python files that contain a main entry point.
@@ -180,80 +234,53 @@ func parsePoetryLock(ctx context.Context, fpath string) ([]*LibraryInfo, error) 
 	return libraryInfos, nil
 }
 
-// libraryFinder scans the Python file for import statements and returns a list of LibraryInfo.
-func libraryFinder(file io.Reader, poetryLibraryInfos []*LibraryInfo) ([]*LibraryInfo, error) {
-	poetryLibraries := make(map[string]*LibraryInfo, len(poetryLibraryInfos))
-	for _, lib := range poetryLibraryInfos {
-		poetryLibraries[lib.Name] = lib
-	}
+// findImportedLibraries scans the Python file for all import statements.
+func findImportedLibraries(file io.Reader) ([]*LibraryInfo, error) {
 	importedLibraries := make(map[string]*LibraryInfo)
 
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		line := strings.TrimSpace(scanner.Text())
-
+	err := scanFile(file, func(line string) error {
 		// Skip empty lines and comments
 		if line == "" || strings.HasPrefix(line, "#") {
-			continue
+			return nil
 		}
 
-		// If the import statement matches, the imported library is in poetry lock file and the imported library is not already in the importedLibraries map,
-		// extract the imported library name, version and alias if any.
+		// Parse import statements without checking poetry.lock
 		if match := importRegex.FindStringSubmatch(line); match != nil {
 			libraryName := match[1]
 			alias := match[2]
+			lib := getOrCreateLibraryInfo(importedLibraries, libraryName)
+			lib.Alias = alias
 
-			if lib, ok := poetryLibraries[libraryName]; ok {
-				if _, found := importedLibraries[libraryName]; !found {
-					importedLibraries[libraryName] = &LibraryInfo{
-						Name:    lib.Name,
-						Version: lib.Version,
-						Alias:   alias,
-					}
-				}
-			}
 		} else if match := fromImportRegex.FindStringSubmatch(line); match != nil {
 			libraryName := match[1]
 			items := match[2]
 
-			if lib, ok := poetryLibraries[libraryName]; ok {
-				libraryInfo, found := importedLibraries[libraryName]
-				if !found {
-					libraryInfo = &LibraryInfo{Name: libraryName, Version: lib.Version}
-					importedLibraries[libraryName] = libraryInfo
-				}
-
-				if strings.TrimSpace(items) == "*" {
-					libraryInfo.ImportedItems = append(libraryInfo.ImportedItems, &ModuleInfo{Name: "*"})
-				} else {
-					items := strings.Split(items, ",")
-					for _, item := range items {
-						item = strings.TrimSpace(item)
-						if itemMatch := importItemRegex.FindStringSubmatch(item); itemMatch != nil {
-							libraryInfo.ImportedItems = append(libraryInfo.ImportedItems, &ModuleInfo{
-								Name:  itemMatch[1],
-								Alias: itemMatch[2],
-							})
-						}
+			lib := getOrCreateLibraryInfo(importedLibraries, libraryName)
+			if strings.TrimSpace(items) == "*" {
+				lib.Modules = append(lib.Modules, &ModuleInfo{Name: "*"})
+			} else {
+				items := strings.Split(items, ",")
+				for _, item := range items {
+					item = strings.TrimSpace(item)
+					if itemMatch := importItemRegex.FindStringSubmatch(item); itemMatch != nil {
+						lib.Modules = append(lib.Modules, &ModuleInfo{
+							Name:  itemMatch[1],
+							Alias: itemMatch[2],
+						})
 					}
 				}
-				importedLibraries[libraryName] = libraryInfo
 			}
 		} else if match := memberImportRegex.FindStringSubmatch(line); match != nil {
 			libraryName := match[1]
 			moduleName := match[2]
-			if lib, ok := poetryLibraries[libraryName]; ok {
-				if _, found := importedLibraries[libraryName]; !found {
-					importedLibraries[libraryName] = &LibraryInfo{
-						Name:    lib.Name,
-						Version: lib.Version,
-					}
-				}
-				importedLibraries[libraryName].ImportedItems = append(importedLibraries[libraryName].ImportedItems, &ModuleInfo{Name: moduleName})
-			}
+
+			lib := getOrCreateLibraryInfo(importedLibraries, libraryName)
+			lib.Modules = append(lib.Modules, &ModuleInfo{Name: moduleName})
 		}
-	}
-	if err := scanner.Err(); err != nil {
+		return nil
+	})
+
+	if err != nil {
 		return nil, fmt.Errorf("error scanning file: %w", err)
 	}
 
@@ -262,6 +289,36 @@ func libraryFinder(file io.Reader, poetryLibraryInfos []*LibraryInfo) ([]*Librar
 		fileLibraryInfos = append(fileLibraryInfos, lib)
 	}
 	return fileLibraryInfos, nil
+}
+
+// libraryFinder scans the Python file for import statements and returns a list of LibraryInfo,
+// filtered to only include libraries present in the poetry.lock file.
+func findLibrariesPoetryLock(file io.Reader, poetryLibraryInfos []*LibraryInfo) ([]*LibraryInfo, error) {
+	// Create a map of poetry libraries for quick lookup
+	poetryLibraries := createMapFromLibraryInfos(poetryLibraryInfos)
+
+	// Find all imported libraries first
+	allLibraries, err := findImportedLibraries(file)
+	if err != nil {
+		return nil, err
+	}
+
+	// Filter and enrich libraries that are in poetry.lock
+	var filteredLibraries []*LibraryInfo
+	for _, lib := range allLibraries {
+		if poetryLib, ok := poetryLibraries[lib.Name]; ok {
+			// Create a new library info with version from poetry.lock
+			enrichedLib := &LibraryInfo{
+				Name:    poetryLib.Name,
+				Version: poetryLib.Version,
+				Alias:   lib.Alias,
+				Modules: lib.Modules,
+			}
+			filteredLibraries = append(filteredLibraries, enrichedLib)
+		}
+	}
+
+	return filteredLibraries, nil
 }
 
 // downloadPackageSource downloads the source code of a package from PyPI.
@@ -391,7 +448,7 @@ func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *Libr
 		log.Printf("failed to parse metadata from %s: %v", downloadFileSource, err)
 	}
 	for _, dep := range metadata.Dependencies {
-		libraryInfo.PyPIDependencies = append(libraryInfo.PyPIDependencies, dep.Name)
+		libraryInfo.Dependencies = append(libraryInfo.Dependencies, dep.Name)
 
 	}
 
@@ -434,64 +491,47 @@ func getImportedItemsFilePaths(libraryInfo *LibraryInfo) error {
 		return err
 	}
 
-	// Traverse the directories of the library.
-	err = filepath.Walk(libraryFolder, func(path string, info os.FileInfo, err error) error {
+	return walkPythonFiles(libraryFolder, func(path string, _ os.FileInfo) error {
+		file, closer, err := safeOpenFile(path)
 		if err != nil {
 			return err
 		}
-		if !info.IsDir() {
-			if strings.HasSuffix(path, ".py") {
-				file, err := os.Open(path)
-				if err != nil {
-					return fmt.Errorf("failed to open file %s: %w", path, err)
-				}
-				defer file.Close()
+		defer closer()
 
-				// Check if the file contains definitions of the imported items.
-				scanner := bufio.NewScanner(file)
-				for scanner.Scan() {
-					for _, item := range libraryInfo.ImportedItems {
-						searchTerm := fmt.Sprintf("def %s(", item.Name)
-						if strings.Contains(scanner.Text(), searchTerm) {
-							item.DefinitionPaths = append(item.DefinitionPaths, path)
-						}
-					}
+		return scanFile(file, func(line string) error {
+			for _, module := range libraryInfo.Modules {
+				searchTerm := fmt.Sprintf("def %s(", module.Name)
+				if strings.Contains(line, searchTerm) {
+					module.SourceDefinedPaths = append(module.SourceDefinedPaths, path)
 				}
 			}
-		}
-		return nil
+			return nil
+		})
 	})
-
-	if err != nil {
-		return fmt.Errorf("error walking through directory %s: %w", libraryFolder, err)
-	}
-	return nil
 }
 
-// findImportedItemPaths finds libraries in import statements in the files where the imported items are defined.
+// findImportedItemPaths finds libraries in import statements in the files.
 func findImportedLibrary(libraryInfo *LibraryInfo) error {
-	for _, item := range libraryInfo.ImportedItems {
-		for _, path := range item.DefinitionPaths {
-			var importedItems []string
-			file, err := os.Open(path)
+	for _, module := range libraryInfo.Modules {
+		for _, path := range module.SourceDefinedPaths {
+			absPath, err := filepath.Abs(path)
+			if err != nil {
+				return fmt.Errorf("failed to get absolute path for %s: %w", path, err)
+			}
+			file, err := os.Open(absPath)
 			if err != nil {
 				return fmt.Errorf("failed to open file %s: %w", path, err)
 			}
 			defer file.Close()
 
-			importedLibraries, err := libraryFinder(file, nil)
+			importedLibraries, err := findImportedLibraries(file)
 			if err != nil {
 				return fmt.Errorf("failed to find libraries in file %s: %w", path, err)
 			}
 
 			for _, lib := range importedLibraries {
-				importedItems = append(importedItems, lib.Name)
+				module.ImportedLibraryNames = append(module.ImportedLibraryNames, lib.Name)
 			}
-
-			if item.DependenciesByPath == nil {
-				item.DependenciesByPath = make(map[string][]string)
-			}
-			item.DependenciesByPath[path] = importedItems
 		}
 	}
 
@@ -552,9 +592,9 @@ func main() {
 			continue
 		}
 		defer pythonFile.Close()
-
+		fmt.Printf("Processing Python file: %s\n", pythonFile.Name())
 		// 3. Find libraries imported in the main file that are defined in poetry.lock
-		importedLibraries, err := libraryFinder(pythonFile, poetryLibraryInfos)
+		importedLibraries, err := findLibrariesPoetryLock(pythonFile, poetryLibraryInfos)
 		if err != nil {
 			log.Printf("Error finding libraries in file %s: %v\n", file, err)
 		}
@@ -573,7 +613,7 @@ func main() {
 		// 5. Traverse directory of the source code and look for Python files where they define the imported items
 		// and collect the imported libraries in those files
 		for _, lib := range importedLibraries {
-			if lib.Version == "" || len(lib.ImportedItems) == 0 {
+			if lib.Version == "" || len(lib.Modules) == 0 {
 				continue
 			}
 			err := getImportedItemsFilePaths(lib)
@@ -591,22 +631,51 @@ func main() {
 		// 6. Comparison between the collected imported libraries and the PYPI dependencies of the libraries
 		// to find the reachability of the PYPI dependencies.
 		for _, library := range importedLibraries {
-			for _, item := range library.ImportedItems {
-				if len(item.DefinitionPaths) == 0 {
-					fmt.Printf("No paths found for item %s in library %s\n", item.Name, library.Name)
+			fmt.Printf("%sLibrary:%s %s%s%s, %sVersion:%s %s%s%s\n",
+				ColorCyan, ColorReset,
+				ColorYellow,
+				library.Name,
+				ColorReset,
+				ColorCyan, ColorReset,
+				ColorYellow,
+				library.Version,
+				ColorReset)
+			if len(library.Modules) == 0 {
+				for _, dep := range library.Dependencies {
+					fmt.Printf("  %sPyPI Dependencies:%s %s%s%s --> Reachable\n", ColorCyan, ColorReset, ColorYellow, dep, ColorReset)
+				}
+				continue
+			}
+
+			for _, module := range library.Modules {
+				if module.SourceDefinedPaths == nil {
+					for _, dep := range library.Dependencies {
+						fmt.Printf("  %sPyPI Dependencies:%s %s%s%s --> Reachable\n", ColorCyan, ColorReset, ColorYellow, dep, ColorReset)
+					}
 					continue
 				}
-				for _, importedItems := range item.DependenciesByPath {
-					var matchingItems []string
-					for _, dep := range library.PyPIDependencies {
-						for _, itemName := range importedItems {
-							if strings.Contains(itemName, dep) {
-								matchingItems = append(matchingItems, itemName)
-							}
+				fmt.Printf("  %sImported Item:%s %s%s%s\n", ColorCyan, ColorReset, ColorYellow, module.Name, ColorReset)
+				for _, dep := range library.Dependencies {
+					fmt.Printf("  %sPyPI Dependencies:%s %s%s%s\n", ColorCyan, ColorReset, ColorYellow, dep, ColorReset)
+				}
+				fmt.Println("Reachability:")
+				for _, dep := range library.Dependencies {
+					reachable := false
+					slices.Sort(module.ImportedLibraryNames)
+					importedLibs := slices.Compact(module.ImportedLibraryNames)
+					for _, importedLib := range importedLibs {
+						if strings.Contains(importedLib, dep) {
+							module.ReachableDeps = append(module.ReachableDeps, dep)
+							reachable = true
+							break
 						}
+
 					}
-					if len(matchingItems) > 0 {
-						item.ReachableDependencies = matchingItems
+
+					if !reachable {
+						fmt.Printf("   %sPyPI Dependencies:%s %s%s%s --> Unreachable\n", ColorCyan, ColorReset, ColorYellow, dep, ColorReset)
+					} else {
+						fmt.Printf("   %sPyPI Dependencies:%s %s%s%s --> Reachable\n", ColorCyan, ColorReset, ColorYellow, dep, ColorReset)
 					}
 				}
 			}
