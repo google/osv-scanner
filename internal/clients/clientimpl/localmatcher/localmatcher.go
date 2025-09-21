@@ -77,7 +77,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 			eco = "GIT"
 		}
 
-		db, err := matcher.loadDBFromCache(ctx, eco)
+		db, err := matcher.loadDBFromCache(ctx, eco, invs)
 
 		if err != nil {
 			// no logging here as the loader will have already done that
@@ -95,12 +95,12 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 // LoadEcosystem tries to preload the ecosystem into the cache, and returns an error if the ecosystem
 // cannot be loaded.
 func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, eco osvecosystem.Parsed) error {
-	_, err := matcher.loadDBFromCache(ctx, eco.Ecosystem)
+	_, err := matcher.loadDBFromCache(ctx, eco.Ecosystem, nil)
 
 	return err
 }
 
-func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvschema.Ecosystem) (*ZipDB, error) {
+func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvschema.Ecosystem, invs []*extractor.Package) (*ZipDB, error) {
 	if db, ok := matcher.dbs[eco]; ok {
 		return db, nil
 	}
@@ -109,7 +109,15 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvschema.
 		return nil, matcher.failedDBs[eco]
 	}
 
-	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(eco), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, eco), matcher.userAgent, !matcher.downloadDB)
+	db, err := NewZippedDB(
+		ctx,
+		matcher.dbBasePath,
+		string(eco),
+		fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, eco),
+		matcher.userAgent,
+		!matcher.downloadDB,
+		invs,
+	)
 
 	if err != nil {
 		matcher.failedDBs[eco] = err
