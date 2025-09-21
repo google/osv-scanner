@@ -21,7 +21,7 @@ require (
 	github.com/jedib0t/go-pretty/v6 v6.6.8
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/ossf/osv-schema/bindings/go v0.0.0-20250902063920-695987a6b7da
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20250919052759-3d3d565bdc2a
 	github.com/owenrumney/go-sarif/v3 v3.2.3
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
