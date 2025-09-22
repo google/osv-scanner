@@ -41,7 +41,10 @@ type VulnDescription struct {
 	Details string
 }
 
-// Two double-quotes ("") is replaced with a single backtick (`), since we can't embed backticks in raw strings
+// SARIFTemplate is used as the help text for findings.
+//
+// Note that double double-quotes are ("") are used to represent a single backtick (`)`,
+// since backticks cannot be escaped in raw strings
 const SARIFTemplate = `
 **Your dependency is vulnerable to [{{.ID}}](https://osv.dev/{{.ID}})**
 {{- if gt (len .AliasedVulns) 1 }}

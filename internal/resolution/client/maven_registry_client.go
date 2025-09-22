@@ -54,6 +54,8 @@ func (c *MavenRegistryClient) Version(ctx context.Context, vk resolve.VersionKey
 	return resolve.Version{VersionKey: vk, AttrSet: attr}, nil
 }
 
+// Versions does something...
+//
 // TODO: we should also include versions not listed in the metadata file
 // There exist versions in the repository but not listed in the metada file,
 // for example version 20030203.000550 of package commons-io:commons-io

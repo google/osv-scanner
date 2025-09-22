@@ -22,6 +22,7 @@ import (
 )
 
 const (
+	// RustFlagsEnv defines the flags that are required for effective source analysis:
 	// - opt-level=3 (Use the highest optimisation level (default with --release))
 	// - debuginfo=1 (Include DWARF debug info which is extracted to find which funcs are called)
 	// - embed-bitcode=yes (Required to enable LTO)
