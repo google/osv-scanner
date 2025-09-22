@@ -54,7 +54,7 @@ func (c *MavenRegistryClient) Version(ctx context.Context, vk resolve.VersionKey
 	return resolve.Version{VersionKey: vk, AttrSet: attr}, nil
 }
 
-// Versions does something...
+// Versions returns all available versions of the given package from the maven-metadata.xml file
 //
 // TODO: we should also include versions not listed in the metadata file
 // There exist versions in the repository but not listed in the metada file,
