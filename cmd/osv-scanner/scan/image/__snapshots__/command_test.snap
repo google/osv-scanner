@@ -424,8 +424,8 @@ failed to load image from tarball with path "../../testdata/locks-manyoci-image/
 Scanning local image tarball "./testdata/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 20 packages affected by 31 known vulnerabilities (3 Critical, 9 High, 12 Medium, 0 Low, 7 Unknown) from 2 ecosystems.
-31 vulnerabilities can be fixed.
+Total 20 packages affected by 32 known vulnerabilities (3 Critical, 9 High, 12 Medium, 0 Low, 8 Unknown) from 2 ecosystems.
+32 vulnerabilities can be fixed.
 
 
 Maven
@@ -456,7 +456,7 @@ Alpine:v3.21
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT)    | INTRODUCED LAYER | IN BASE IMAGE   |
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
-| expat          | 2.6.4-r0          | Fix Available |          1 | libexpat                   | # 5 Layer        | eclipse-temurin |
+| expat          | 2.6.4-r0          | Fix Available |          2 | libexpat                   | # 5 Layer        | eclipse-temurin |
 | libtasn1       | 4.19.0-r2         | Fix Available |          1 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          1 | musl, musl-utils           | # 0 Layer        | alpine          |
 | openssl        | 3.3.2-r4          | Fix Available |          2 | libcrypto3, libssl3... (3) | # 0 Layer        | alpine          |
