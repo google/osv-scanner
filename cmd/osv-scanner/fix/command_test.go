@@ -86,6 +86,36 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "fix", "--data-source=github"},
 			Exit: 127,
 		},
+		{
+			Name: "errors_with_unsupported_format",
+			Args: []string{"", "fix", "--format=yaml"},
+			Exit: 127,
+		},
+		{
+			Name: "errors_with_unsupported_strategy",
+			Args: []string{"", "fix", "--strategy=force"},
+			Exit: 127,
+		},
+		{
+			Name: "errors_when_in_place_used_without_lockfile",
+			Args: []string{"", "fix", "--strategy=in-place", "-M", "./testdata/relax-npm/package.json"},
+			Exit: 127,
+		},
+		{
+			Name: "errors_when_relock_used_without_manifest",
+			Args: []string{"", "fix", "--strategy=relock", "-L", "./testdata/in-place-npm/package-lock.json"},
+			Exit: 127,
+		},
+		{
+			Name: "errors_when_relax_used_without_manifest",
+			Args: []string{"", "fix", "--strategy=relax", "-L", "./testdata/in-place-npm/package-lock.json"},
+			Exit: 127,
+		},
+		{
+			Name: "errors_when_override_used_without_manifest",
+			Args: []string{"", "fix", "--strategy=override", "-L", "./testdata/in-place-npm/package-lock.json"},
+			Exit: 127,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
