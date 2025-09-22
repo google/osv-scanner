@@ -12,6 +12,7 @@ import (
 )
 
 // TODO: Supported strategies should be part of the manifest/lockfile ReadWriter directly
+
 func SupportsRelax(m manifest.ReadWriter) bool {
 	switch m.(type) {
 	case manifest.NpmReadWriter:
