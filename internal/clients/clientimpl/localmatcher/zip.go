@@ -36,6 +36,10 @@ type ZipDB struct {
 	Vulnerabilities []osvschema.Vulnerability
 	// User agent to query with
 	UserAgent string
+
+	// whether this database only has some of the advisories
+	// loaded from the underlying zip file
+	Partial bool
 }
 
 var ErrOfflineDatabaseNotFound = errors.New("no offline version of the OSV database is available")
@@ -231,6 +235,9 @@ func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, o
 		Offline:    offline,
 		StoredAt:   path.Join(dbBasePath, name, "all.zip"),
 		UserAgent:  userAgent,
+
+		// we only fully load the database if we're not provided a list of packages
+		Partial: len(invs) != 0,
 	}
 	names := make([]string, 0, len(invs))
 

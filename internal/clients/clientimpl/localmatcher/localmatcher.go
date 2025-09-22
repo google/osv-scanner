@@ -49,6 +49,15 @@ func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*Lo
 func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	results := make([][]*osvschema.Vulnerability, 0, len(invs))
 
+	// ensure all databases loaded so far have been fully loaded; this is just a
+	// basic safeguard since we don't actually currently attempt to reuse matchers
+	// across scans, and its possible we never will, so we don't need to be smart
+	for _, db := range matcher.dbs {
+		if db.Partial {
+			return nil, errors.New("local matcher cannot be (re)used with a partially loaded database")
+		}
+	}
+
 	for _, inv := range invs {
 		if ctx.Err() != nil {
 			return nil, ctx.Err()
@@ -94,6 +103,8 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 
 // LoadEcosystem tries to preload the ecosystem into the cache, and returns an error if the ecosystem
 // cannot be loaded.
+//
+// Preloaded databases include every advisory, so can be reused.
 func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, eco osvecosystem.Parsed) error {
 	_, err := matcher.loadDBFromCache(ctx, eco.Ecosystem, nil)
 
