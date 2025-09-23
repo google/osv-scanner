@@ -37,6 +37,11 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		{
+			Name: "fix_non_interactive_in_place_package_lock_json_with_offline_vulns",
+			Args: []string{"", "fix", "--strategy=in-place", "--offline-vulnerabilities", "--download-offline-databases", "-L", "./testdata/in-place-npm/package-lock.json"},
+			Exit: 0,
+		},
+		{
 			Name: "fix_non_interactive_in_place_package_lock_json_with_native_data_source",
 			Args: []string{"", "fix", "--strategy=in-place", "--data-source", "native", "-L", "./testdata/in-place-npm/package-lock.json"},
 			Exit: 0,
@@ -44,6 +49,11 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "fix non-interactive relax package.json",
 			Args: []string{"", "fix", "--strategy=relax", "-M", "./testdata/relax-npm/package.json"},
+			Exit: 0,
+		},
+		{
+			Name: "fix_non_interactive_relax_package_json_with_offline_vulns",
+			Args: []string{"", "fix", "--strategy=relax", "--offline-vulnerabilities", "--download-offline-databases", "-M", "./testdata/relax-npm/package.json"},
 			Exit: 0,
 		},
 		{
@@ -74,6 +84,36 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "errors_with_invalid_data_source",
 			Args: []string{"", "fix", "--data-source=github"},
+			Exit: 127,
+		},
+		{
+			Name: "errors_with_unsupported_format",
+			Args: []string{"", "fix", "--format=yaml"},
+			Exit: 127,
+		},
+		{
+			Name: "errors_with_unsupported_strategy",
+			Args: []string{"", "fix", "--strategy=force"},
+			Exit: 127,
+		},
+		{
+			Name: "errors_when_in_place_used_without_lockfile",
+			Args: []string{"", "fix", "--strategy=in-place", "-M", "./testdata/relax-npm/package.json"},
+			Exit: 127,
+		},
+		{
+			Name: "errors_when_relock_used_without_manifest",
+			Args: []string{"", "fix", "--strategy=relock", "-L", "./testdata/in-place-npm/package-lock.json"},
+			Exit: 127,
+		},
+		{
+			Name: "errors_when_relax_used_without_manifest",
+			Args: []string{"", "fix", "--strategy=relax", "-L", "./testdata/in-place-npm/package-lock.json"},
+			Exit: 127,
+		},
+		{
+			Name: "errors_when_override_used_without_manifest",
+			Args: []string{"", "fix", "--strategy=override", "-L", "./testdata/in-place-npm/package-lock.json"},
 			Exit: 127,
 		},
 	}
