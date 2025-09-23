@@ -95,8 +95,6 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 
 // LoadEcosystem tries to preload the ecosystem into the cache, and returns an error if the ecosystem
 // cannot be loaded.
-//
-// Preloaded databases include every advisory, so can be reused.
 func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, eco osvecosystem.Parsed) error {
 	_, err := matcher.loadDBFromCache(ctx, eco, nil)
 
