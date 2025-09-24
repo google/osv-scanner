@@ -19,15 +19,9 @@ const (
 	Name = "vcs/gitrepo"
 )
 
-type Config struct {
-	IncludeRootGit bool
-}
-
 // Extractor extracts git repository hashes including submodule hashes.
 // This extractor will not return an error, and will just return no results if we fail to extract
-type Extractor struct {
-	IncludeRootGit bool
-}
+type Extractor struct{}
 
 func getCommitSHA(repo *git.Repository) (string, error) {
 	head, err := repo.Head()
@@ -113,14 +107,12 @@ func (e *Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inv
 
 	var inv inventory.Inventory
 
-	if e.IncludeRootGit {
-		commitSHA, err := getCommitSHA(repo)
+	commitSHA, err := getCommitSHA(repo)
 
-		// If error is not nil, then ignore this and continue, as it is not fatal.
-		// The error could be because there are no commits in the repository
-		if err == nil {
-			inv.Packages = append(inv.Packages, createCommitQueryInventory(commitSHA, input.Path))
-		}
+	// If error is not nil, then ignore this and continue, as it is not fatal.
+	// The error could be because there are no commits in the repository
+	if err == nil {
+		inv.Packages = append(inv.Packages, createCommitQueryInventory(commitSHA, input.Path))
 	}
 
 	// If we can't get submodules, just return with what we have.
@@ -148,21 +140,3 @@ func (e *Extractor) Ecosystem(_ *extractor.Package) string {
 }
 
 var _ filesystem.Extractor = &Extractor{}
-
-type configurable interface {
-	Configure(config Config)
-}
-
-func (e *Extractor) Configure(config Config) {
-	e.IncludeRootGit = config.IncludeRootGit
-}
-
-var _ configurable = &Extractor{}
-
-func Configure(plug plugin.Plugin, config Config) {
-	us, ok := plug.(configurable)
-
-	if ok {
-		us.Configure(config)
-	}
-}

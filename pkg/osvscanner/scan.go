@@ -46,12 +46,6 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 			})
 		}
 
-		// todo: the "disabled" aspect should probably be worked into the extractor being present in the first place
-		//  since "IncludeRootGit" is always true
-		gitrepo.Configure(plug, gitrepo.Config{
-			IncludeRootGit: actions.IncludeGitRoot,
-		})
-
 		vendored.Configure(plug, vendored.Config{
 			// Only attempt to vendor check git directories if we are not skipping scanning root git directories
 			ScanGitDir: !actions.IncludeGitRoot,
