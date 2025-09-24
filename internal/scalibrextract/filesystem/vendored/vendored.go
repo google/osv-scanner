@@ -65,7 +65,6 @@ type Config struct {
 	// this is used to avoid duplicate results, once from git scanning, once from vendoredDir scanning
 	ScanGitDir bool
 	OSVClient  *osvdev.OSVClient
-	Disabled   bool
 }
 
 type Extractor struct {
@@ -73,7 +72,6 @@ type Extractor struct {
 	// this is used to avoid duplicate results, once from git scanning, once from vendoredDir scanning
 	ScanGitDir bool
 	OSVClient  *osvdev.OSVClient
-	Disabled   bool
 }
 
 // New returns a new instance of the extractor.
@@ -96,10 +94,6 @@ func (e *Extractor) Requirements() *plugin.Capabilities {
 
 // FileRequired returns true for likely directories to contain vendored c/c++ code
 func (e *Extractor) FileRequired(fapi filesystem.FileAPI) bool {
-	if e.Disabled {
-		return false
-	}
-
 	// Check if parent directory is one of the vendoredLibName
 	// Clean first before Dir call to avoid trailing slashes causing problems
 	parentDir := filepath.Base(filepath.Dir(filepath.Clean(fapi.Path())))
@@ -120,11 +114,6 @@ func (e *Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 // Extract determines the most likely package version from the directory and returns them as
 // commit hash inventory entries
 func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
-	// todo: maybe we should return an error instead? need to double check we're always using FileRequired correctly first
-	if e.Disabled {
-		return inventory.Inventory{}, nil
-	}
-
 	var packages []*extractor.Package
 
 	results, err := e.queryDetermineVersions(ctx, input.Path, input.FS, e.ScanGitDir)
@@ -229,7 +218,6 @@ type configurable interface {
 func (e *Extractor) Configure(config Config) {
 	e.ScanGitDir = config.ScanGitDir
 	e.OSVClient = config.OSVClient
-	e.Disabled = config.Disabled
 }
 
 var _ configurable = &Extractor{}
