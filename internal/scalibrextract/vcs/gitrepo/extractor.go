@@ -21,14 +21,12 @@ const (
 
 type Config struct {
 	IncludeRootGit bool
-	Disabled       bool
 }
 
 // Extractor extracts git repository hashes including submodule hashes.
 // This extractor will not return an error, and will just return no results if we fail to extract
 type Extractor struct {
 	IncludeRootGit bool
-	Disabled       bool
 }
 
 func getCommitSHA(repo *git.Repository) (string, error) {
@@ -89,10 +87,6 @@ func (e *Extractor) Requirements() *plugin.Capabilities {
 
 // FileRequired returns true for git repositories .git dirs
 func (e *Extractor) FileRequired(fapi filesystem.FileAPI) bool {
-	if e.Disabled {
-		return false
-	}
-
 	if filepath.Base(fapi.Path()) != ".git" {
 		return false
 	}
@@ -108,11 +102,6 @@ func (e *Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 
 // Extract extracts git commits from HEAD and from submodules
 func (e *Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
-	// todo: maybe we should return an error instead? need to double check we're always using FileRequired correctly first
-	if e.Disabled {
-		return inventory.Inventory{}, nil
-	}
-
 	// The input path is the .git directory, but git.PlainOpen expects the actual directory containing the .git dir.
 	// So call filepath.Dir to get the parent path
 	// Assume this is fully on a real filesystem
@@ -166,7 +155,6 @@ type configurable interface {
 
 func (e *Extractor) Configure(config Config) {
 	e.IncludeRootGit = config.IncludeRootGit
-	e.Disabled = config.Disabled
 }
 
 var _ configurable = &Extractor{}
