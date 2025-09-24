@@ -111,6 +111,7 @@ var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 var ErrAPIFailed = errors.New("API query failed")
 
 func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, error) {
+	ctx := context.Background()
 	externalAccessors := ExternalAccessors{
 		DependencyClients: map[osvschema.Ecosystem]resolve.Client{},
 	}
@@ -165,7 +166,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	}
 
 	// --- Transitive Scanning Clients ---
-	externalAccessors.MavenRegistryAPIClient, err = datasource.NewMavenRegistryAPIClient(datasource.MavenRegistry{
+	externalAccessors.MavenRegistryAPIClient, err = datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
 		URL:             actions.MavenRegistry,
 		ReleasesEnabled: true,
 	}, "")
@@ -177,7 +178,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	if !actions.NativeDataSource {
 		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	} else {
-		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(actions.MavenRegistry, "")
+		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(ctx, actions.MavenRegistry, "")
 	}
 
 	// We only support native registry client for PyPI.
