@@ -316,7 +316,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
 Total 19 packages affected by 37 known vulnerabilities (2 Critical, 11 High, 19 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
-17 vulnerabilities can be fixed.
+18 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -326,7 +326,7 @@ Ubuntu:22.04
 | SOURCE PACKAGE | INSTALLED VERSION            | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
-| dpkg           | 1.21.1ubuntu2.3              | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
+| dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
@@ -361,7 +361,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
 Total 19 packages affected by 37 known vulnerabilities (2 Critical, 11 High, 19 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
-17 vulnerabilities can be fixed.
+18 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -371,7 +371,7 @@ Ubuntu:22.04
 | SOURCE PACKAGE | INSTALLED VERSION            | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
-| dpkg           | 1.21.1ubuntu2.3              | No fix available        |          1 | dpkg                    | # 4 Layer        | ubuntu        |
+| dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
@@ -476,8 +476,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-python-empty.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 14 packages affected by 22 known vulnerabilities (0 Critical, 6 High, 2 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
-22 vulnerabilities can be fixed.
+Total 14 packages affected by 24 known vulnerabilities (0 Critical, 6 High, 4 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
+24 vulnerabilities can be fixed.
 
 
 PyPI
@@ -486,7 +486,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          1 | # 7 Layer        | python        |
+| pip     | 23.0.1            | Fix Available |          2 | # 7 Layer        | python        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
@@ -500,7 +500,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          1 | # 13 Layer       | python        |
+| pip     | 23.0.1            | Fix Available |          2 | # 13 Layer       | python        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA    |
@@ -540,8 +540,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 19 packages affected by 40 known vulnerabilities (0 Critical, 13 High, 12 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-40 vulnerabilities can be fixed.
+Total 19 packages affected by 42 known vulnerabilities (0 Critical, 13 High, 14 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+42 vulnerabilities can be fixed.
 
 
 PyPI
@@ -550,7 +550,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          1 | # 7 Layer        | python        |
+| pip     | 23.0.1            | Fix Available |          2 | # 7 Layer        | python        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
@@ -585,7 +585,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          1 | # 13 Layer       | python        |
+| pip     | 23.0.1            | Fix Available |          2 | # 13 Layer       | python        |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +----------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA    |
@@ -1000,9 +1000,10 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           },
           "vulnerabilities": [
             "PYSEC-2023-228",
+            "GHSA-4xh5-x5gv-qwph",
             "GHSA-mq26-g339-26xf"
           ],
-          "groups": 1
+          "groups": 2
         }
       ]
     },
@@ -1126,9 +1127,10 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
           },
           "vulnerabilities": [
             "PYSEC-2023-228",
+            "GHSA-4xh5-x5gv-qwph",
             "GHSA-mq26-g339-26xf"
           ],
-          "groups": 1
+          "groups": 2
         }
       ]
     },
@@ -2573,6 +2575,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             }
           },
           "vulnerabilities": [
+            "USN-7768-1",
             "UBUNTU-CVE-2025-6297"
           ],
           "groups": 1
