@@ -477,17 +477,17 @@ Scanning local image tarball "./testdata/test-python-empty.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
 Total 14 packages affected by 24 known vulnerabilities (0 Critical, 6 High, 4 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
-24 vulnerabilities can be fixed.
+22 vulnerabilities can be fixed.
 
 
 PyPI
-+---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl     |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          2 | # 7 Layer        | python        |
-+---------+-------------------+---------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl               |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Partial fixes Available |          2 | # 7 Layer        | python        |
++---------+-------------------+-------------------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
 +------------+-------------------+---------------+------------+------------------+---------------+
@@ -495,13 +495,13 @@ PyPI
 +------------+-------------------+---------------+------------+------------------+---------------+
 | setuptools | 58.1.0            | Fix Available |          3 | # 7 Layer        | python        |
 +------------+-------------------+---------------+------------+------------------+---------------+
-+---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA        |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          2 | # 13 Layer       | python        |
-+---------+-------------------+---------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA                  |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Partial fixes Available |          2 | # 13 Layer       | python        |
++---------+-------------------+-------------------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA    |
 +------------+-------------------+---------------+------------+------------------+---------------+
@@ -541,17 +541,17 @@ Scanning local image tarball "./testdata/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
 Total 19 packages affected by 42 known vulnerabilities (0 Critical, 13 High, 14 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-42 vulnerabilities can be fixed.
+40 vulnerabilities can be fixed.
 
 
 PyPI
-+---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl     |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          2 | # 7 Layer        | python        |
-+---------+-------------------+---------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl               |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Partial fixes Available |          2 | # 7 Layer        | python        |
++---------+-------------------+-------------------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
 +------------+-------------------+---------------+------------+------------------+---------------+
@@ -580,13 +580,13 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | idna    | 2.7               | Fix Available |          1 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
-+---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA        |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          2 | # 13 Layer       | python        |
-+---------+-------------------+---------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA                  |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Partial fixes Available |          2 | # 13 Layer       | python        |
++---------+-------------------+-------------------------+------------+------------------+---------------+
 +----------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA    |
 +----------+-------------------+---------------+------------+------------------+---------------+
@@ -1900,11 +1900,11 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             }
           },
           "vulnerabilities": [
-            "CVE-2024-12797",
-            "CVE-2024-13176",
-            "CVE-2024-5535",
-            "CVE-2024-6119",
-            "CVE-2024-9143"
+            "ALPINE-CVE-2024-12797",
+            "ALPINE-CVE-2024-13176",
+            "ALPINE-CVE-2024-5535",
+            "ALPINE-CVE-2024-6119",
+            "ALPINE-CVE-2024-9143"
           ],
           "groups": 5
         },
@@ -1920,11 +1920,11 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             }
           },
           "vulnerabilities": [
-            "CVE-2024-12797",
-            "CVE-2024-13176",
-            "CVE-2024-5535",
-            "CVE-2024-6119",
-            "CVE-2024-9143"
+            "ALPINE-CVE-2024-12797",
+            "ALPINE-CVE-2024-13176",
+            "ALPINE-CVE-2024-5535",
+            "ALPINE-CVE-2024-6119",
+            "ALPINE-CVE-2024-9143"
           ],
           "groups": 5
         },
@@ -1940,7 +1940,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             }
           },
           "vulnerabilities": [
-            "CVE-2025-26519"
+            "ALPINE-CVE-2025-26519"
           ],
           "groups": 1
         },
@@ -1956,7 +1956,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             }
           },
           "vulnerabilities": [
-            "CVE-2025-26519"
+            "ALPINE-CVE-2025-26519"
           ],
           "groups": 1
         },
@@ -2075,7 +2075,7 @@ Scanning local image tarball "./testdata/test-go-binary.tar"
             }
           },
           "vulnerabilities": [
-            "CVE-2021-36159"
+            "ALPINE-CVE-2021-36159"
           ],
           "groups": 1
         }
@@ -2175,7 +2175,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             }
           },
           "vulnerabilities": [
-            "CVE-2021-36159"
+            "ALPINE-CVE-2021-36159"
           ],
           "groups": 1
         }
@@ -2275,10 +2275,10 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             }
           },
           "vulnerabilities": [
-            "CVE-2023-42363",
-            "CVE-2023-42364",
-            "CVE-2023-42365",
-            "CVE-2023-42366"
+            "ALPINE-CVE-2023-42363",
+            "ALPINE-CVE-2023-42364",
+            "ALPINE-CVE-2023-42365",
+            "ALPINE-CVE-2023-42366"
           ],
           "groups": 4
         },
@@ -2294,10 +2294,10 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             }
           },
           "vulnerabilities": [
-            "CVE-2023-42363",
-            "CVE-2023-42364",
-            "CVE-2023-42365",
-            "CVE-2023-42366"
+            "ALPINE-CVE-2023-42363",
+            "ALPINE-CVE-2023-42364",
+            "ALPINE-CVE-2023-42365",
+            "ALPINE-CVE-2023-42366"
           ],
           "groups": 4
         },
@@ -2313,13 +2313,13 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             }
           },
           "vulnerabilities": [
-            "CVE-2024-13176",
-            "CVE-2024-2511",
-            "CVE-2024-4603",
-            "CVE-2024-4741",
-            "CVE-2024-5535",
-            "CVE-2024-6119",
-            "CVE-2024-9143"
+            "ALPINE-CVE-2024-13176",
+            "ALPINE-CVE-2024-2511",
+            "ALPINE-CVE-2024-4603",
+            "ALPINE-CVE-2024-4741",
+            "ALPINE-CVE-2024-5535",
+            "ALPINE-CVE-2024-6119",
+            "ALPINE-CVE-2024-9143"
           ],
           "groups": 7
         },
@@ -2335,13 +2335,13 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             }
           },
           "vulnerabilities": [
-            "CVE-2024-13176",
-            "CVE-2024-2511",
-            "CVE-2024-4603",
-            "CVE-2024-4741",
-            "CVE-2024-5535",
-            "CVE-2024-6119",
-            "CVE-2024-9143"
+            "ALPINE-CVE-2024-13176",
+            "ALPINE-CVE-2024-2511",
+            "ALPINE-CVE-2024-4603",
+            "ALPINE-CVE-2024-4741",
+            "ALPINE-CVE-2024-5535",
+            "ALPINE-CVE-2024-6119",
+            "ALPINE-CVE-2024-9143"
           ],
           "groups": 7
         },
@@ -2357,10 +2357,10 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
             }
           },
           "vulnerabilities": [
-            "CVE-2023-42363",
-            "CVE-2023-42364",
-            "CVE-2023-42365",
-            "CVE-2023-42366"
+            "ALPINE-CVE-2023-42363",
+            "ALPINE-CVE-2023-42364",
+            "ALPINE-CVE-2023-42365",
+            "ALPINE-CVE-2023-42366"
           ],
           "groups": 4
         }
