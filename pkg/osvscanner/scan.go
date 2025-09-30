@@ -46,18 +46,10 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 			})
 		}
 
-		// todo: the "disabled" aspect should probably be worked into the extractor being present in the first place
-		//  since "IncludeRootGit" is always true
-		gitrepo.Configure(plug, gitrepo.Config{
-			IncludeRootGit: actions.IncludeGitRoot,
-			Disabled:       !actions.IncludeGitRoot,
-		})
-
 		vendored.Configure(plug, vendored.Config{
 			// Only attempt to vendor check git directories if we are not skipping scanning root git directories
 			ScanGitDir: !actions.IncludeGitRoot,
 			OSVClient:  accessors.OSVDevClient,
-			Disabled:   accessors.OSVDevClient == nil,
 		})
 	}
 }
@@ -65,6 +57,14 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
 	if !actions.PluginsNoDefaults {
 		actions.PluginsEnabled = append(actions.PluginsEnabled, defaultPlugins...)
+	}
+
+	if !actions.IncludeGitRoot {
+		actions.PluginsDisabled = append(actions.PluginsDisabled, gitrepo.Name)
+	}
+
+	if accessors.OSVDevClient == nil {
+		actions.PluginsDisabled = append(actions.PluginsDisabled, vendored.Name)
 	}
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled)
