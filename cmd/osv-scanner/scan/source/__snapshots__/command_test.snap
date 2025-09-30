@@ -4299,6 +4299,74 @@ Total 3 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 4 Medi
 ---
 
 [TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 1]
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services/10.0.0/play-services-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j/2.14.1/log4j-2.14.1.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j/2.14.1/log4j-2.14.1.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/apache/23/apache-23.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/apache/23/apache-23.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-ads/10.0.0/play-services-ads-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-ads-lite/10.0.0/play-services-ads-lite-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-analytics/10.0.0/play-services-analytics-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-analytics-impl/10.0.0/play-services-analytics-impl-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-appinvite/10.0.0/play-services-appinvite-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-auth/10.0.0/play-services-auth-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-auth-base/10.0.0/play-services-auth-base-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-base/10.0.0/play-services-base-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-cast-framework/10.0.0/play-services-cast-framework-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-cast/10.0.0/play-services-cast-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-clearcut/10.0.0/play-services-clearcut-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-basement/10.0.0/play-services-basement-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-config/10.0.0/firebase-config-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-awareness/10.0.0/play-services-awareness-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-crash/10.0.0/firebase-crash-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-drive/10.0.0/play-services-drive-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-auth/10.0.0/firebase-auth-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-database-connection/10.0.0/firebase-database-connection-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-database/10.0.0/firebase-database-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-iid/10.0.0/firebase-iid-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-messaging/10.0.0/firebase-messaging-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-storage/10.0.0/firebase-storage-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-storage-common/10.0.0/firebase-storage-common-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-common/10.0.0/firebase-common-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-fitness/10.0.0/play-services-fitness-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-games/10.0.0/play-services-games-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-gass/10.0.0/play-services-gass-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-gcm/10.0.0/play-services-gcm-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-appindexing/10.0.0/firebase-appindexing-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-identity/10.0.0/play-services-identity-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-iid/10.0.0/play-services-iid-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-instantapps/10.0.0/play-services-instantapps-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-location/10.0.0/play-services-location-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-maps/10.0.0/play-services-maps-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-analytics/10.0.0/firebase-analytics-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-analytics-impl/10.0.0/firebase-analytics-impl-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-nearby/10.0.0/play-services-nearby-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-panorama/10.0.0/play-services-panorama-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-places/10.0.0/play-services-places-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-plus/10.0.0/play-services-plus-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-safetynet/10.0.0/play-services-safetynet-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tagmanager-api/10.0.0/play-services-tagmanager-api-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tagmanager/10.0.0/play-services-tagmanager-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tagmanager-v4-impl/10.0.0/play-services-tagmanager-v4-impl-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tasks/10.0.0/play-services-tasks-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-vision/10.0.0/play-services-vision-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-wallet/10.0.0/play-services-wallet-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-wearable/10.0.0/play-services-wearable-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/mediarouter-v7/24.0.0/mediarouter-v7-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-v4/24.0.0/support-v4-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/palette-v7/24.0.0/palette-v7-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/appcompat-v7/24.0.0/appcompat-v7-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-vector-drawable/24.0.0/support-vector-drawable-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/animated-vector-drawable/24.0.0/animated-vector-drawable-24.0.0.pom
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file as a pom.xml and found 59 packages
 Total 2 packages affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
