@@ -1,0 +1,40 @@
+{
+  "results": [
+    {
+      "packages": [
+        {
+          "//1": "version and commit are the same, so rust-openssl advisories should be reported",
+          "//2": "note online reports CVE-2023-6180 as well due to matching commits for an implicit fork",
+          "package": {
+            "name": "https://github.com/sfackler/rust-openssl",
+            "commit": "0f428d190410263e4daa65b917c0e84707a9c0ef",
+            "version": "openssl-v0.8.1"
+          }
+        },
+        {
+          "//1": "repo is different to the advisory, so only online checking will report anything",
+          "package": {
+            "name": "https://github.com/sfackler-fork/rust-openssl",
+            "commit": "3b064fdb022912bbb98f5b8d9d111aeb6fec8f79",
+            "version": "openssl-v0.10.23"
+          }
+        },
+        {
+          "//1": "no version, so only online checking will report anything",
+          "package": {
+            "name": "https://github.com/openssl/openssl",
+            "commit": "45fda76bc1b9fd74d10e85e0ce9b65a12dcc58b0"
+          }
+        },
+        {
+          "//1": "version is for 3.5.0 which is vulnerable to CVE-2025-3416, but commit is for 3.5.1 which is not",
+          "package": {
+            "name": "https://github.com/openssl/openssl",
+            "commit": "aea7aaf2abb04789f5868cbabec406ea43aa84bf",
+            "version": "openssl-3.5.0"
+          }
+        }
+      ]
+    }
+  ]
+}

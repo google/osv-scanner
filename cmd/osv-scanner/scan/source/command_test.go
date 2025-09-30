@@ -972,6 +972,31 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 	}
 }
 
+func TestCommand_CommitSupport(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "online_uses_git_commits",
+			Args: []string{"", "source", "--lockfile", "osv-scanner:./testdata/locks-git/osv-scanner.json"},
+			Exit: 1,
+		},
+		{
+			Name: "offline_uses_git_tags",
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "--lockfile", "osv-scanner:./testdata/locks-git/osv-scanner.json"},
+			Exit: 1,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
 func TestCommand_Licenses(t *testing.T) {
 	t.Parallel()
 
