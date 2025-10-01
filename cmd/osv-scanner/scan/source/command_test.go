@@ -29,63 +29,63 @@ func TestCommand(t *testing.T) {
 		// one specific supported sbom with vulns
 		{
 			Name: "folder of supported sbom with vulns",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/sbom-insecure/"},
+			Args: []string{"", "source", "./testdata/sbom-insecure/"},
 			Exit: 1,
 		},
 		// one specific supported sbom with only unimportant
 		{
 			Name: "folder of supported sbom with only unimportant",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/sbom-insecure/only-unimportant.spdx.json"},
+			Args: []string{"", "source", "./testdata/sbom-insecure/only-unimportant.spdx.json"},
 			Exit: 0,
 		},
 		// one specific supported sbom with only unimportant but with --all-vulns
 		{
 			Name: "folder of supported sbom with only unimportant",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--all-vulns", "./testdata/sbom-insecure/only-unimportant.spdx.json"},
+			Args: []string{"", "source", "--all-vulns", "./testdata/sbom-insecure/only-unimportant.spdx.json"},
 			Exit: 1,
 		},
 		// one specific supported sbom with vulns
 		{
 			Name: "one specific supported sbom with vulns",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--sbom", "./testdata/sbom-insecure/alpine.cdx.xml"},
+			Args: []string{"", "source", "--sbom", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
 		{
 			Name: "one specific supported sbom with vulns using -L flag",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "-L", "./testdata/sbom-insecure/alpine.cdx.xml"},
+			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
 		// one specific supported sbom with vulns and invalid PURLs
 		{
 			Name: "one specific supported sbom with invalid PURLs",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--sbom", "./testdata/sbom-insecure/bad-purls.cdx.xml"},
+			Args: []string{"", "source", "--sbom", "./testdata/sbom-insecure/bad-purls.cdx.xml"},
 			Exit: 0,
 		},
 		{
 			Name: "one specific supported sbom with invalid PURLs using -L flag",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "-L", "./testdata/sbom-insecure/bad-purls.cdx.xml"},
+			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/bad-purls.cdx.xml"},
 			Exit: 0,
 		},
 		// one specific supported sbom with duplicate PURLs
 		{
 			Name: "one specific supported sbom with duplicate PURLs",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--sbom", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
+			Args: []string{"", "source", "--sbom", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
 		},
 		{
 			Name: "one specific supported sbom with duplicate PURLs using -L flag",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "-L", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
+			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
 		},
 		// one file that does not match the supported sbom file names
 		{
 			Name: "one file that does not match the supported sbom file names",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--sbom", "./testdata/locks-many/composer.lock"},
+			Args: []string{"", "source", "--sbom", "./testdata/locks-many/composer.lock"},
 			Exit: 127,
 		},
 		{
 			Name: "one file that does not match the supported sbom file names using -L flag",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "-L", "spdx:./testdata/locks-many/composer.lock"},
+			Args: []string{"", "source", "-L", "spdx:./testdata/locks-many/composer.lock"},
 			Exit: 127,
 		},
 		// one specific unsupported lockfile
@@ -257,12 +257,12 @@ func TestCommand(t *testing.T) {
 		},
 		{
 			Name: "PURL SBOM case sensitivity (api)",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
+			Args: []string{"", "source", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
 		{
 			Name: "PURL SBOM case sensitivity (local)",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
 		// Go project with an overridden go version
@@ -310,12 +310,12 @@ func TestCommand(t *testing.T) {
 		// a bunch of requirements.txt files with different names
 		{
 			Name: "requirements.txt can have all kinds of names",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/locks-requirements"},
+			Args: []string{"", "source", "./testdata/locks-requirements"},
 			Exit: 1,
 		},
 		{
 			Name: "go_packages_in_osv-scanner.json_format",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner.json"},
+			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner.json"},
 			Exit: 1,
 		},
 	}
@@ -723,7 +723,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Args: []string{
 				"",
 				"source",
-				"--config=./testdata/osv-scanner-empty-config.toml",
 				"-L",
 				"package-lock.json:" + filepath.FromSlash("./testdata/locks-insecure/my-package-lock.json"),
 				filepath.FromSlash("./testdata/locks-insecure"),
@@ -735,7 +734,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Args: []string{
 				"",
 				"source",
-				"--config=./testdata/osv-scanner-empty-config.toml",
 				"-L", "package-lock.json:" + filepath.FromSlash("./testdata/locks-insecure/my-package-lock.json"),
 				"-L", "yarn.lock:" + filepath.FromSlash("./testdata/locks-insecure/my-yarn.lock"),
 				filepath.FromSlash("./testdata/locks-insecure"),
@@ -747,7 +745,6 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Args: []string{
 				"",
 				"source",
-				"--config=./testdata/osv-scanner-empty-config.toml",
 				"-L", "yarn.lock:" + filepath.FromSlash("./testdata/locks-insecure/my-yarn.lock"),
 				"-L", "package-lock.json:" + filepath.FromSlash("./testdata/locks-insecure/my-package-lock.json"),
 				filepath.FromSlash("./testdata/locks-insecure"),
@@ -844,12 +841,12 @@ func TestCommand_GithubActions(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "scanning osv-scanner custom format",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json"},
+			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json"},
 			Exit: 1,
 		},
 		{
 			Name: "scanning osv-scanner custom format output json",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
+			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
 			Exit: 1,
 		},
 	}
@@ -872,7 +869,7 @@ func TestCommand_LocalDatabases(t *testing.T) {
 		},
 		{
 			Name: "one specific supported sbom with vulns",
-			Args: []string{"", "source", "--offline", "--download-offline-databases", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/sbom-insecure/postgres-stretch.cdx.xml"},
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/sbom-insecure/postgres-stretch.cdx.xml"},
 			Exit: 1,
 		},
 		{
@@ -951,7 +948,7 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "a bunch of different lockfiles and ecosystem",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--offline", "./testdata/locks-requirements", "./testdata/locks-many"},
+			Args: []string{"", "source", "--offline", "./testdata/locks-requirements", "./testdata/locks-many"},
 			Exit: 127,
 		},
 	}
@@ -1078,12 +1075,12 @@ func TestCommand_Licenses(t *testing.T) {
 		},
 		{
 			Name: "When offline licenses summary cannot be printed",
-			Args: []string{"", "source", "--offline", "--licenses", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/locks-many/package-lock.json"},
+			Args: []string{"", "source", "--offline", "--licenses", "./testdata/locks-many/package-lock.json"},
 			Exit: 127,
 		},
 		{
 			Name: "When offline licenses cannot be checked",
-			Args: []string{"", "source", "--offline", "--licenses=MIT", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/locks-many/package-lock.json"},
+			Args: []string{"", "source", "--offline", "--licenses=MIT", "./testdata/locks-many/package-lock.json"},
 			Exit: 127,
 		},
 		{
@@ -1107,69 +1104,69 @@ func TestCommand_Transitive(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "scans transitive dependencies for pom.xml by default",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/maven-transitive/pom.xml"},
+			Args: []string{"", "source", "./testdata/maven-transitive/pom.xml"},
 			Exit: 1,
 		},
 		{
 			Name: "scans transitive dependencies by specifying pom.xml",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "-L", "pom.xml:./testdata/maven-transitive/abc.xml"},
+			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/abc.xml"},
 			Exit: 1,
 		},
 		{
 			Name: "scans pom.xml with non UTF-8 encoding",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "-L", "pom.xml:./testdata/maven-transitive/encoding.xml"},
+			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/encoding.xml"},
 			Exit: 1,
 		},
 		{
 			// Direct dependencies do not have any vulnerability.
 			Name: "does not scan transitive dependencies for pom.xml with offline mode",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "./testdata/maven-transitive/pom.xml"},
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/maven-transitive/pom.xml"},
 			Exit: 0,
 		},
 		{
 			// Direct dependencies do not have any vulnerability.
 			Name: "does not scan transitive dependencies for pom.xml with no-resolve",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--no-resolve", "./testdata/maven-transitive/pom.xml"},
+			Args: []string{"", "source", "--no-resolve", "./testdata/maven-transitive/pom.xml"},
 			Exit: 0,
 		},
 		{
 			Name: "scans dependencies from multiple registries",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
+			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
 			Exit: 1,
 		},
 		{
 			Name: "resolves transitive dependencies with native data source",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--data-source=native", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
+			Args: []string{"", "source", "--data-source=native", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
 			Exit: 1,
 		},
 		{
 			Name: "uses native data source for requirements.txt",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/locks-requirements/requirements.txt"},
+			Args: []string{"", "source", "./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 		{
 			Name: "fall back to the offline extractor if resolution failed",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/locks-requirements/unresolvable-requirements.txt"},
+			Args: []string{"", "source", "./testdata/locks-requirements/unresolvable-requirements.txt"},
 			Exit: 1,
 		},
 		{
 			Name: "does not scan transitive dependencies for requirements.txt with no-resolve",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--no-resolve", "./testdata/locks-requirements/requirements.txt"},
+			Args: []string{"", "source", "--no-resolve", "./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 		{
 			Name: "does not scan transitive dependencies for requirements.txt with offline mode",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--offline", "--download-offline-databases", "./testdata/locks-requirements/requirements.txt"},
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 		{
 			Name: "errors_with_invalid_data_source",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--data-source=github", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
+			Args: []string{"", "source", "--data-source=github", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
 			Exit: 127,
 		},
 		{
 			Name: "scan local disk transitive dependencies",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--no-resolve", "./testdata/locks-requirements/requirements-transitive.txt"},
+			Args: []string{"", "source", "--no-resolve", "./testdata/locks-requirements/requirements-transitive.txt"},
 			Exit: 1,
 		},
 	}
