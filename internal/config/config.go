@@ -15,7 +15,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 )
 
-const osvScannerConfigName = "osv-scanner.toml"
+var OsvScannerConfigName = "osv-scanner.toml"
 
 type Manager struct {
 	// Override to replace all other configs
@@ -198,7 +198,7 @@ func normalizeConfigLoadPath(target string) (string, error) {
 	} else {
 		containingFolder = target
 	}
-	configPath := filepath.Join(containingFolder, osvScannerConfigName)
+	configPath := filepath.Join(containingFolder, OsvScannerConfigName)
 
 	return configPath, nil
 }
