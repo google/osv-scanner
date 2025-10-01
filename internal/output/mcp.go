@@ -1,7 +1,6 @@
 package output
 
 import (
-	"fmt"
 	"io"
 	"strings"
 
@@ -23,7 +22,7 @@ Scan Info:
 `)
 
 	for _, s := range additionalInfo {
-		stringRes.WriteString(fmt.Sprintf("%s\n", s))
+		stringRes.WriteString(s + "\n")
 	}
 
 	stringRes.WriteString("\n")
@@ -53,5 +52,4 @@ func amendString(builder *strings.Builder, value string, indent int) {
 	}
 	builder.WriteString(value)
 	builder.WriteByte('\n')
-
 }

@@ -20,12 +20,12 @@ import (
 
 var vulnCacheMap = map[string]*osvschema.Vulnerability{}
 
-func Command(stdout, stderr io.Writer) *cli.Command {
+func Command(_, _ io.Writer) *cli.Command {
 	return &cli.Command{
 		Name:        "mcp",
 		Usage:       "Run osv-scanner as an MCP service",
 		Description: "Run osv-scanner as an MCP service, speaking the MCP protocol over stdin/stdout.",
-		Action: func(ctx context.Context, cmd *cli.Command) error {
+		Action: func(_ context.Context, _ *cli.Command) error {
 			s := server.NewMCPServer("OSV-Scanner", version.OSVVersion,
 				server.WithToolCapabilities(true),
 				server.WithResourceCapabilities(true, true),
@@ -55,10 +55,12 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 				scanSource,
 			)
 
+			// TODO(another-rex): Ideally this would be a template resource, but gemini-cli does not support those yet.
 			s.AddTool(
 				mcp.NewTool("get_vulnerability_details",
 					mcp.WithReadOnlyHintAnnotation(true),
-					mcp.WithDescription("Retrieves the full JSON details for a given vulnerability ID from the cache of a previous scan."),
+					mcp.WithDescription(
+						"Retrieves the full JSON details for a given vulnerability ID from the cache of a previous scan."),
 					mcp.WithString("vuln_id",
 						mcp.Required(),
 						mcp.Description("The OSV vulnerability ID to retrieve details for."),
@@ -81,7 +83,7 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 	}
 }
 
-func scanSource(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func scanSource(_ context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	path, err := req.RequireStringSlice("paths")
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
@@ -93,7 +95,7 @@ func scanSource(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResu
 	}
 
 	// Security: validate path
-	//if !isValidPath(path) {
+	// if !isValidPath(path) {
 	//	return mcp.NewToolResultError(fmt.Sprintf("invalid path: %s", path)), nil
 	//}
 
@@ -107,6 +109,8 @@ func scanSource(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResu
 		},
 		Recursive: recursive,
 	}
+
+	//nolint:contextcheck // passing the context in would be a breaking change
 	scanResults, err := osvscanner.DoScan(action)
 	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 		return mcp.NewToolResultError(fmt.Sprintf("failed to run scanner: %v", err)), nil
@@ -129,7 +133,7 @@ func scanSource(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResu
 	return mcp.NewToolResultText(buf.String()), nil
 }
 
-func handleVulnIDRetrieval(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+func handleVulnIDRetrieval(_ context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult, error) {
 	vulnID, err := req.RequireString("vuln_id")
 	if err != nil {
 		return mcp.NewToolResultError(err.Error()), nil
