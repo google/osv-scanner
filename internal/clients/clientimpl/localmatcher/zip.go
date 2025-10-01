@@ -154,6 +154,13 @@ func mightAffectPackages(v osvschema.Vulnerability, names []string) bool {
 			if affected.Package.Name == name {
 				return true
 			}
+
+			// "name" will be the git repository in the case of the GIT ecosystem
+			for _, ran := range affected.Ranges {
+				if ran.Repo == name {
+					return true
+				}
+			}
 		}
 	}
 
