@@ -9,7 +9,6 @@
 ### Fixes:
 
 - [Bug #2214](https://github.com/google/osv-scanner/pull/2214) Fix issue where `input.Path` was incorrectly constructed on Windows when using the `-L` flag.
-- [Fix #2219](https://github.com/google/osv-scanner/pull/2219) **Performance:** Exclude withdrawn advisories early in the local matching process to significantly reduce memory consumption.
 - [Fix #2241](https://github.com/google/osv-scanner/pull/2241) **Performance:** Greatly reduce memory usage in the local matcher by only loading advisories relevant to the packages being scanned.
 
 # v2.2.2
