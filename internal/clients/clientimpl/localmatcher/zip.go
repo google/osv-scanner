@@ -16,6 +16,7 @@ import (
 	"path"
 	"strings"
 
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/utility/vulns"
@@ -35,6 +36,10 @@ type ZipDB struct {
 	Vulnerabilities []osvschema.Vulnerability
 	// User agent to query with
 	UserAgent string
+
+	// whether this database only has some of the advisories
+	// loaded from the underlying zip file
+	Partial bool
 }
 
 var ErrOfflineDatabaseNotFound = errors.New("no offline version of the OSV database is available")
@@ -143,9 +148,28 @@ func (db *ZipDB) fetchZip(ctx context.Context) ([]byte, error) {
 	return body, nil
 }
 
+func mightAffectPackages(v osvschema.Vulnerability, names []string) bool {
+	for _, affected := range v.Affected {
+		for _, name := range names {
+			if affected.Package.Name == name {
+				return true
+			}
+
+			// "name" will be the git repository in the case of the GIT ecosystem
+			for _, ran := range affected.Ranges {
+				if ran.Repo == name {
+					return true
+				}
+			}
+		}
+	}
+
+	return false
+}
+
 // Loads the given zip file into the database as an OSV.
 // It is assumed that the file is JSON and in the working directory of the db
-func (db *ZipDB) loadZipFile(zipFile *zip.File) {
+func (db *ZipDB) loadZipFile(zipFile *zip.File, names []string) {
 	file, err := zipFile.Open()
 	if err != nil {
 		cmdlogger.Warnf("Could not read %s: %v", zipFile.Name, err)
@@ -169,16 +193,23 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File) {
 		return
 	}
 
-	db.Vulnerabilities = append(db.Vulnerabilities, vulnerability)
+	// if we have been provided a list of package names, only load advisories
+	// that might actually affect those packages, rather than all advisories
+	if len(names) == 0 || mightAffectPackages(vulnerability, names) {
+		db.Vulnerabilities = append(db.Vulnerabilities, vulnerability)
+	}
 }
 
 // load fetches a zip archive of the OSV database and loads known vulnerabilities
 // from it (which are assumed to be in json files following the OSV spec).
 //
+// If a list of package names is provided, then only advisories with at least
+// one affected entry for a listed package will be loaded.
+//
 // Internally, the archive is cached along with the date that it was fetched
 // so that a new version of the archive is only downloaded if it has been
 // modified, per HTTP caching standards.
-func (db *ZipDB) load(ctx context.Context) error {
+func (db *ZipDB) load(ctx context.Context, names []string) error {
 	db.Vulnerabilities = []osvschema.Vulnerability{}
 
 	body, err := db.fetchZip(ctx)
@@ -198,21 +229,33 @@ func (db *ZipDB) load(ctx context.Context) error {
 			continue
 		}
 
-		db.loadZipFile(zipFile)
+		db.loadZipFile(zipFile, names)
 	}
 
 	return nil
 }
 
-func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, offline bool) (*ZipDB, error) {
+func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, offline bool, invs []*extractor.Package) (*ZipDB, error) {
 	db := &ZipDB{
 		Name:       name,
 		ArchiveURL: url,
 		Offline:    offline,
 		StoredAt:   path.Join(dbBasePath, name, "all.zip"),
 		UserAgent:  userAgent,
+
+		// we only fully load the database if we're not provided a list of packages
+		Partial: len(invs) != 0,
 	}
-	if err := db.load(ctx); err != nil {
+	names := make([]string, 0, len(invs))
+
+	// map the packages to their names ahead of loading,
+	// to make things simpler and reduce double working
+	for _, inv := range invs {
+		in := imodels.FromInventory(inv)
+		names = append(names, in.Name())
+	}
+
+	if err := db.load(ctx, names); err != nil {
 		return nil, fmt.Errorf("unable to fetch OSV database: %w", err)
 	}
 

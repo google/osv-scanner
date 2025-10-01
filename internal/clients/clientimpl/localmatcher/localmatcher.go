@@ -49,6 +49,15 @@ func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*Lo
 func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	results := make([][]*osvschema.Vulnerability, 0, len(invs))
 
+	// ensure all databases loaded so far have been fully loaded; this is just a
+	// basic safeguard since we don't actually currently attempt to reuse matchers
+	// across scans, and its possible we never will, so we don't need to be smart
+	for _, db := range matcher.dbs {
+		if db.Partial {
+			return nil, errors.New("local matcher cannot be (re)used with a partially loaded database")
+		}
+	}
+
 	for _, inv := range invs {
 		if ctx.Err() != nil {
 			return nil, ctx.Err()
@@ -77,7 +86,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 			eco = "GIT"
 		}
 
-		db, err := matcher.loadDBFromCache(ctx, eco)
+		db, err := matcher.loadDBFromCache(ctx, eco, invs)
 
 		if err != nil {
 			// no logging here as the loader will have already done that
@@ -94,13 +103,15 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 
 // LoadEcosystem tries to preload the ecosystem into the cache, and returns an error if the ecosystem
 // cannot be loaded.
+//
+// Preloaded databases include every advisory, so can be reused.
 func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, eco osvecosystem.Parsed) error {
-	_, err := matcher.loadDBFromCache(ctx, eco.Ecosystem)
+	_, err := matcher.loadDBFromCache(ctx, eco.Ecosystem, nil)
 
 	return err
 }
 
-func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvschema.Ecosystem) (*ZipDB, error) {
+func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvschema.Ecosystem, invs []*extractor.Package) (*ZipDB, error) {
 	if db, ok := matcher.dbs[eco]; ok {
 		return db, nil
 	}
@@ -109,7 +120,15 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvschema.
 		return nil, matcher.failedDBs[eco]
 	}
 
-	db, err := NewZippedDB(ctx, matcher.dbBasePath, string(eco), fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, eco), matcher.userAgent, !matcher.downloadDB)
+	db, err := NewZippedDB(
+		ctx,
+		matcher.dbBasePath,
+		string(eco),
+		fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, eco),
+		matcher.userAgent,
+		!matcher.downloadDB,
+		invs,
+	)
 
 	if err != nil {
 		matcher.failedDBs[eco] = err
