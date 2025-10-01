@@ -3878,6 +3878,7 @@ Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 Filtered 1 local/unscannable package/s from the scan.
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
@@ -3910,6 +3911,7 @@ Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 Filtered 1 local/unscannable package/s from the scan.
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
