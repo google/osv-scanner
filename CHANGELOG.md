@@ -1,3 +1,16 @@
+# v2.2.3
+
+### Features:
+
+- [Feature #2209](https://github.com/google/osv-scanner/pull/2209) Add support for resolving git packages that have a version specified.
+- [Feature #2210](https://github.com/google/osv-scanner/pull/2210) Make the `--experimental-plugins` flag additive by default, and introduce a new `--experimental-no-default-plugins` flag.
+- [Feature #2203](https://github.com/google/osv-scanner/pull/2203) Update `osv-scalibr` to 0.3.4 for improved dependency extraction. See osv-scalibr changelog for additional information.
+
+### Fixes:
+
+- [Bug #2214](https://github.com/google/osv-scanner/pull/2214) Fix issue where `input.Path` was incorrectly constructed on Windows when using the `-L` flag.
+- [Fix #2241](https://github.com/google/osv-scanner/pull/2241) **Performance:** Greatly reduce memory usage in the local matcher by only loading advisories relevant to the packages being scanned.
+
 # v2.2.2
 
 ### Features:
