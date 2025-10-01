@@ -1,6 +1,7 @@
 package output
 
 import (
+	"fmt"
 	"io"
 	"strings"
 
@@ -8,16 +9,24 @@ import (
 )
 
 // PrintMCPReport prints a LLM friendly vulnerability report
-func PrintMCPReport(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
+func PrintMCPReport(vulnResult *models.VulnerabilityResults, additionalInfo []string, outputWriter io.Writer) error {
 	stringRes := strings.Builder{}
 	stringRes.WriteString(`
 Output results are grouped into (Ecosystem -> Source file -> Packages -> Vulnerabilities),
 with a title for each section, and indentation to indicate that it belongs to the above section.
 When resolving these vulnerabilities, avoid manually updating individual packages, and use system tools.
 Use https://osv.dev/<VULN-ID> as the official record of the vulnerability.
-
 Do not attempt to fix vulnerabilities without fix available.
+
+Scan Info:
+
 `)
+
+	for _, s := range additionalInfo {
+		stringRes.WriteString(fmt.Sprintf("%s\n", s))
+	}
+
+	stringRes.WriteString("\n")
 
 	outputResult := BuildResults(vulnResult)
 	for _, eco := range outputResult.Ecosystems {

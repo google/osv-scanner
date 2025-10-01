@@ -97,10 +97,15 @@ func scanSource(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResu
 	//	return mcp.NewToolResultError(fmt.Sprintf("invalid path: %s", path)), nil
 	//}
 
+	statsCollector := fileOpenedLogger{}
+
 	action := osvscanner.ScannerActions{
 		DirectoryPaths:      path,
 		ScanLicensesSummary: true,
-		Recursive:           recursive,
+		ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
+			StatsCollector: &statsCollector,
+		},
+		Recursive: recursive,
 	}
 	scanResults, err := osvscanner.DoScan(action)
 	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
@@ -116,7 +121,7 @@ func scanSource(ctx context.Context, req mcp.CallToolRequest) (*mcp.CallToolResu
 	}
 
 	buf := strings.Builder{}
-	err = output.PrintMCPReport(&scanResults, &buf)
+	err = output.PrintMCPReport(&scanResults, statsCollector.collectedLines, &buf)
 	if err != nil {
 		return mcp.NewToolResultError(fmt.Sprintf("failed to format result scanner: %v", err)), nil
 	}
