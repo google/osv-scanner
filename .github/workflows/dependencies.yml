@@ -1,0 +1,50 @@
+name: Dependencies
+
+on:
+  schedule:
+    - cron: "47 18 * * *"
+  workflow_dispatch:
+concurrency:
+  # Pushing new changes to a branch will cancel any in-progress CI runs
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Restrict jobs in this workflow to have no permissions by default; permissions
+# should be granted per job as needed using a dedicated `permissions` block
+permissions: {}
+
+jobs:
+  update:
+    permissions:
+      contents: write # to fetch and commit code
+      actions: write # to manually dispatch checks on the pull request
+      pull-requests: write # Create pull requests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00 # v6.0.0
+        with:
+          go-version: stable
+          check-latest: true
+      - run: |
+          latest_commit=$(git ls-remote https://github.com/google/osv-scalibr.git HEAD | cut -f1)
+          echo "updating osv-scalibr to $latest_commit"
+          go get github.com/google/osv-scalibr@"$latest_commit"
+          echo "latest_scalibr_commit=$latest_commit" >> "$GITHUB_ENV"
+          go mod tidy
+      - run: go test ./cmd/osv-scanner/ -run 'Test_run$'
+        env:
+          TEST_ACCEPTANCE: true
+          UPDATE_SNAPS: always
+      - uses: peter-evans/create-pull-request@271a8d0340265f705b14b6d32b9829c1cb33d45e # v7.0.8
+        with:
+          token: ${{ secrets.PR_TOKEN_BOT }}
+          title: "feat: update osv-scalibr"
+          body: >
+            This updates `osv-scalibr` to https://github.com/google/osv-scalibr/commit/${{ env.latest_scalibr_commit }}
+          branch: "bot/update-scalibr"
+          author: "osv-robot <osv-robot@google.com>"
+          commit-message: "feat: update osv-scalibr to ${{ env.latest_scalibr_commit }}"
+          delete-branch: true
