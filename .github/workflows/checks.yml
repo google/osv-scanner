@@ -16,10 +16,10 @@ name: Checks
 
 on:
   push:
-    branches: [main, v1]
+    branches: ["main", "v1", "mcp"]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [main, v1]
+    branches: ["main", "v1", "mcp"]
   workflow_dispatch:
 
 concurrency:
