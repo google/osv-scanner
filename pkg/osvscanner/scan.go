@@ -18,6 +18,7 @@ import (
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
+	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
@@ -171,6 +172,13 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
 
+	var statsCollector stats.Collector
+	if actions.StatsCollector != nil {
+		statsCollector = actions.StatsCollector
+	} else {
+		statsCollector = fileOpenedPrinter{}
+	}
+
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
@@ -194,7 +202,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			SkipDirRegex:          nil,
 			SkipDirGlob:           nil,
 			UseGitignore:          !actions.NoIgnore,
-			Stats:                 FileOpenedPrinter{},
+			Stats:                 statsCollector,
 			ReadSymlinks:          false,
 			MaxInodes:             0,
 			StoreAbsolutePath:     true,
