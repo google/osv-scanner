@@ -15,7 +15,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	config.OsvScannerConfigName = "osv-scanner-test.toml"
+	config.OSVScannerConfigName = "osv-scanner-test.toml"
 
 	cleanupGitFixtures, err := testcmd.SetupGitFixtures()
 
