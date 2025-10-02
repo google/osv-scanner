@@ -50,7 +50,6 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 [Test_run_SubCommands/with_no_subcommand - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -62,7 +61,6 @@ No issues found
 [Test_run_SubCommands/with_scan_subcommand - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
 No issues found
 
 ---

@@ -14,7 +14,6 @@ No issues found
 [TestCommand_SubCommands/with_no_subcommand - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
 No issues found
 
 ---
@@ -26,7 +25,6 @@ No issues found
 [TestCommand_SubCommands/with_scan_subcommand - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner.toml
 No issues found
 
 ---
