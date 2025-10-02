@@ -13,7 +13,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	config.OsvScannerConfigName = "osv-scanner-test.toml"
+	config.OSVScannerConfigName = "osv-scanner-test.toml"
 
 	slog.SetDefault(slog.New(testlogger.New()))
 	testcmd.CommandsUnderTest = []cmd.CommandBuilder{image.Command}
