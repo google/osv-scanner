@@ -5,6 +5,7 @@ import (
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/fix"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/cmd"
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/mcp"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/scan"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/update"
 )
@@ -15,6 +16,7 @@ func main() {
 			scan.Command,
 			fix.Command,
 			update.Command,
+			mcp.Command,
 		}),
 	)
 }
