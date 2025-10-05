@@ -177,11 +177,11 @@ interactions:
     proto: HTTP/2.0
     proto_major: 2
     proto_minor: 0
-    content_length: 220
-    body: "{\"results\":[{},{},{},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"CVE-2025-26519\",\"modified\":\"2025-08-05T20:57:02.403959Z\"}]},{},{},{},{},{}]}"
+    content_length: 227
+    body: "{\"results\":[{},{},{},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"ALPINE-CVE-2025-26519\",\"modified\":\"2025-09-30T05:29:32.392594Z\"}]},{},{},{},{},{}]}"
     headers:
       Content-Length:
-      - "220"
+      - "227"
       Content-Type:
       - application/json
     status: 200 OK
@@ -208,11 +208,11 @@ interactions:
     proto: HTTP/2.0
     proto_major: 2
     proto_minor: 0
-    content_length: 220
-    body: "{\"results\":[{},{},{},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"CVE-2025-26519\",\"modified\":\"2025-08-05T20:57:02.403959Z\"}]},{},{},{},{},{}]}"
+    content_length: 227
+    body: "{\"results\":[{},{},{},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"ALPINE-CVE-2025-26519\",\"modified\":\"2025-09-30T05:29:32.392594Z\"}]},{},{},{},{},{}]}"
     headers:
       Content-Length:
-      - "220"
+      - "227"
       Content-Type:
       - application/json
     status: 200 OK
@@ -270,11 +270,11 @@ interactions:
     proto: HTTP/2.0
     proto_major: 2
     proto_minor: 0
-    content_length: 223
-    body: "{\"results\":[{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"GHSA-9f46-5r25-5wfm\",\"modified\":\"2024-02-16T08:21:35.601880Z\"}]},{},{},{},{\"vulns\":[{\"id\":\"CVE-2025-26519\",\"modified\":\"2025-08-05T20:57:02.403959Z\"}]},{},{},{},{},{},{},{}]}"
+    content_length: 230
+    body: "{\"results\":[{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"GHSA-9f46-5r25-5wfm\",\"modified\":\"2024-02-16T08:21:35.601880Z\"}]},{},{},{},{\"vulns\":[{\"id\":\"ALPINE-CVE-2025-26519\",\"modified\":\"2025-09-30T05:29:32.392594Z\"}]},{},{},{},{},{},{},{}]}"
     headers:
       Content-Length:
-      - "223"
+      - "230"
       Content-Type:
       - application/json
     status: 200 OK

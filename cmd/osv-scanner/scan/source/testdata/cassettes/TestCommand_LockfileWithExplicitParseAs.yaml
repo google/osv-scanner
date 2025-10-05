@@ -6,68 +6,6 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 97
-    host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"name\":\"apk-tools\",\"ecosystem\":\"Alpine:v22.04\"},\"version\":\"2.12.10-r1\"}]}"
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.3
-      X-Test-Name:
-      - TestCommand_LockfileWithExplicitParseAs/"apk-installed"_is_supported
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 16
-    body: "{\"results\":[{}]}"
-    headers:
-      Content-Length:
-      - "16"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
-- id: 1
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
-    content_length: 89
-    host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"name\":\"adduser\",\"ecosystem\":\"Ubuntu:22.04\"},\"version\":\"3.118\"}]}"
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.3
-      X-Test-Name:
-      - TestCommand_LockfileWithExplicitParseAs/"dpkg-status"_is_supported
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 16
-    body: "{\"results\":[{}]}"
-    headers:
-      Content-Length:
-      - "16"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
-- id: 2
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
     content_length: 87
     host: api.osv.dev
     body: "{\"queries\":[{\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"},\"version\":\"1.0.2\"}]}"
@@ -94,7 +32,7 @@ interactions:
     status: 200 OK
     code: 200
     duration: 0s
-- id: 3
+- id: 1
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -125,7 +63,7 @@ interactions:
     status: 200 OK
     code: 200
     duration: 0s
-- id: 4
+- id: 2
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -156,7 +94,7 @@ interactions:
     status: 200 OK
     code: 200
     duration: 0s
-- id: 5
+- id: 3
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -187,7 +125,7 @@ interactions:
     status: 200 OK
     code: 200
     duration: 0s
-- id: 6
+- id: 4
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -218,7 +156,7 @@ interactions:
     status: 200 OK
     code: 200
     duration: 0s
-- id: 7
+- id: 5
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -249,7 +187,7 @@ interactions:
     status: 200 OK
     code: 200
     duration: 0s
-- id: 8
+- id: 6
   request:
     proto: HTTP/1.1
     proto_major: 1
