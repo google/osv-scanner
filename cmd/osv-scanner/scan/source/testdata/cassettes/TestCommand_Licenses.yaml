@@ -161,6 +161,37 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
+    content_length: 300
+    host: api.osv.dev
+    body: "{\"queries\":[{\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"},\"version\":\"0.0.8\"},{\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.4.2\"},{\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"},\"version\":\"1.0.2\"},{\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"},\"version\":\"2.0.4\"}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.3
+      X-Test-Name:
+      - TestCommand_Licenses/No_vulnerabilities_with_license_summary
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 25
+    body: "{\"results\":[{},{},{},{}]}"
+    headers:
+      Content-Length:
+      - "25"
+      Content-Type:
+      - application/json
+    status: 200 OK
+    code: 200
+    duration: 0s
+- id: 6
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
     content_length: 1388
     host: api.osv.dev
     body: "{\"queries\":[{\"package\":{\"name\":\"alpine-baselayout\",\"ecosystem\":\"Alpine\"},\"version\":\"3.4.0-r0\"},{\"package\":{\"name\":\"alpine-baselayout-data\",\"ecosystem\":\"Alpine\"},\"version\":\"3.4.0-r0\"},{\"package\":{\"name\":\"alpine-keys\",\"ecosystem\":\"Alpine\"},\"version\":\"2.4-r1\"},{\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"},\"version\":\"0.0.1\"},{\"package\":{\"name\":\"apk-tools\",\"ecosystem\":\"Alpine\"},\"version\":\"2.12.10-r1\"},{\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.4.2\"},{\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"},\"version\":\"1.0.2\"},{\"package\":{\"name\":\"busybox-binsh\",\"ecosystem\":\"Alpine\"},\"version\":\"1.36.1-r27\"},{\"package\":{\"name\":\"ca-certificates-bundle\",\"ecosystem\":\"Alpine\"},\"version\":\"20220614-r4\"},{\"package\":{\"name\":\"libc-utils\",\"ecosystem\":\"Alpine\"},\"version\":\"0.7.2-r3\"},{\"package\":{\"name\":\"libcrypto3\",\"ecosystem\":\"Alpine\"},\"version\":\"3.0.8-r0\"},{\"package\":{\"name\":\"libssl3\",\"ecosystem\":\"Alpine\"},\"version\":\"3.0.8-r0\"},{\"package\":{\"name\":\"musl\",\"ecosystem\":\"Alpine\"},\"version\":\"1.2.3-r4\"},{\"package\":{\"name\":\"musl-utils\",\"ecosystem\":\"Alpine\"},\"version\":\"1.2.3-r4\"},{\"package\":{\"name\":\"scanelf\",\"ecosystem\":\"Alpine\"},\"version\":\"1.3.5-r1\"},{\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"},\"version\":\"2.0.4\"},{\"package\":{\"name\":\"ssl_client\",\"ecosystem\":\"Alpine\"},\"version\":\"1.36.1-r27\"},{\"package\":{\"name\":\"zlib\",\"ecosystem\":\"Alpine\"},\"version\":\"1.2.13-r0\"}]}"
@@ -177,17 +208,17 @@ interactions:
     proto: HTTP/2.0
     proto_major: 2
     proto_minor: 0
-    content_length: 220
-    body: "{\"results\":[{},{},{},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"CVE-2025-26519\",\"modified\":\"2025-08-05T20:57:02.403959Z\"}]},{},{},{},{},{}]}"
+    content_length: 227
+    body: "{\"results\":[{},{},{},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"ALPINE-CVE-2025-26519\",\"modified\":\"2025-09-30T05:29:32.392594Z\"}]},{},{},{},{},{}]}"
     headers:
       Content-Length:
-      - "220"
+      - "227"
       Content-Type:
       - application/json
     status: 200 OK
     code: 200
     duration: 0s
-- id: 6
+- id: 7
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -208,17 +239,48 @@ interactions:
     proto: HTTP/2.0
     proto_major: 2
     proto_minor: 0
-    content_length: 220
-    body: "{\"results\":[{},{},{},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"CVE-2025-26519\",\"modified\":\"2025-08-05T20:57:02.403959Z\"}]},{},{},{},{},{}]}"
+    content_length: 227
+    body: "{\"results\":[{},{},{},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"ALPINE-CVE-2025-26519\",\"modified\":\"2025-09-30T05:29:32.392594Z\"}]},{},{},{},{},{}]}"
     headers:
       Content-Length:
-      - "220"
+      - "227"
       Content-Type:
       - application/json
     status: 200 OK
     code: 200
     duration: 0s
-- id: 7
+- id: 8
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 300
+    host: api.osv.dev
+    body: "{\"queries\":[{\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"},\"version\":\"0.0.8\"},{\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.4.2\"},{\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"},\"version\":\"1.0.2\"},{\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"},\"version\":\"2.0.4\"}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.3
+      X-Test-Name:
+      - TestCommand_Licenses/No_vulnerabilities_with_license_summary_in_markdown
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 25
+    body: "{\"results\":[{},{},{},{}]}"
+    headers:
+      Content-Length:
+      - "25"
+      Content-Type:
+      - application/json
+    status: 200 OK
+    code: 200
+    duration: 0s
+- id: 9
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -249,7 +311,7 @@ interactions:
     status: 200 OK
     code: 200
     duration: 0s
-- id: 8
+- id: 10
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -270,17 +332,48 @@ interactions:
     proto: HTTP/2.0
     proto_major: 2
     proto_minor: 0
-    content_length: 223
-    body: "{\"results\":[{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"GHSA-9f46-5r25-5wfm\",\"modified\":\"2024-02-16T08:21:35.601880Z\"}]},{},{},{},{\"vulns\":[{\"id\":\"CVE-2025-26519\",\"modified\":\"2025-08-05T20:57:02.403959Z\"}]},{},{},{},{},{},{},{}]}"
+    content_length: 230
+    body: "{\"results\":[{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"GHSA-9f46-5r25-5wfm\",\"modified\":\"2024-02-16T08:21:35.601880Z\"}]},{},{},{},{\"vulns\":[{\"id\":\"ALPINE-CVE-2025-26519\",\"modified\":\"2025-09-30T05:29:32.392594Z\"}]},{},{},{},{},{},{},{}]}"
     headers:
       Content-Length:
-      - "223"
+      - "230"
       Content-Type:
       - application/json
     status: 200 OK
     code: 200
     duration: 0s
-- id: 9
+- id: 11
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 374
+    host: api.osv.dev
+    body: "{\"queries\":[{\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.4.2\"},{\"package\":{\"name\":\"league/flysystem\",\"ecosystem\":\"Packagist\"},\"version\":\"1.0.8\"},{\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"},\"version\":\"2.0.4\"},{\"package\":{\"name\":\"stdlib\",\"ecosystem\":\"Go\"},\"version\":\"1.99.9\"},{\"package\":{\"name\":\"toolchain\",\"ecosystem\":\"Go\"},\"version\":\"1.99.9\"}]}"
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - osv-scanner_scan/2.2.3
+      X-Test-Name:
+      - TestCommand_Licenses/Some_packages_with_ignored_licenses
+    url: https://api.osv.dev/v1/querybatch
+    method: POST
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 107
+    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"GHSA-9f46-5r25-5wfm\",\"modified\":\"2024-02-16T08:21:35.601880Z\"}]},{},{},{}]}"
+    headers:
+      Content-Length:
+      - "107"
+      Content-Type:
+      - application/json
+    status: 200 OK
+    code: 200
+    duration: 0s
+- id: 12
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -311,7 +404,7 @@ interactions:
     status: 200 OK
     code: 200
     duration: 0s
-- id: 10
+- id: 13
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -342,7 +435,7 @@ interactions:
     status: 200 OK
     code: 200
     duration: 0s
-- id: 11
+- id: 14
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -373,7 +466,7 @@ interactions:
     status: 200 OK
     code: 200
     duration: 0s
-- id: 12
+- id: 15
   request:
     proto: HTTP/1.1
     proto_major: 1
@@ -404,7 +497,7 @@ interactions:
     status: 200 OK
     code: 200
     duration: 0s
-- id: 13
+- id: 16
   request:
     proto: HTTP/1.1
     proto_major: 1

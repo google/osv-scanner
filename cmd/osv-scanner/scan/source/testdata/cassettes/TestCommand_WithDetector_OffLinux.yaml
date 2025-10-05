@@ -15,7 +15,7 @@ interactions:
       User-Agent:
       - osv-scanner_scan/2.2.3
       X-Test-Name:
-      - TestCommand_WithDetector_OnWindows/ssh_version_errors
+      - TestCommand_WithDetector_OffLinux/ssh_version_errors
     url: https://api.osv.dev/v1/querybatch
     method: POST
   response:
@@ -46,7 +46,7 @@ interactions:
       User-Agent:
       - osv-scanner_scan/2.2.3
       X-Test-Name:
-      - TestCommand_WithDetector_OnWindows/ssh_version_is_after_last_vuln_version
+      - TestCommand_WithDetector_OffLinux/ssh_version_is_after_last_vuln_version
     url: https://api.osv.dev/v1/querybatch
     method: POST
   response:
@@ -77,7 +77,7 @@ interactions:
       User-Agent:
       - osv-scanner_scan/2.2.3
       X-Test-Name:
-      - TestCommand_WithDetector_OnWindows/ssh_version_is_before_first_vuln_version
+      - TestCommand_WithDetector_OffLinux/ssh_version_is_before_first_vuln_version
     url: https://api.osv.dev/v1/querybatch
     method: POST
   response:
