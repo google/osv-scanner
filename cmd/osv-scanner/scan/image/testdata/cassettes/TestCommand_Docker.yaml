@@ -22,11 +22,11 @@ interactions:
     proto: HTTP/2.0
     proto_major: 2
     proto_minor: 0
-    content_length: 482
-    body: "{\"results\":[{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"CVE-2024-13176\",\"modified\":\"2025-07-29T11:03:59.272724Z\"},{\"id\":\"CVE-2024-9143\",\"modified\":\"2025-07-29T11:16:51.872164Z\"}]},{\"vulns\":[{\"id\":\"CVE-2024-13176\",\"modified\":\"2025-07-29T11:03:59.272724Z\"},{\"id\":\"CVE-2024-9143\",\"modified\":\"2025-07-29T11:16:51.872164Z\"}]},{\"vulns\":[{\"id\":\"CVE-2025-26519\",\"modified\":\"2025-08-05T20:57:02.403959Z\"}]},{\"vulns\":[{\"id\":\"CVE-2025-26519\",\"modified\":\"2025-08-05T20:57:02.403959Z\"}]},{},{},{}]}"
+    content_length: 524
+    body: "{\"results\":[{},{},{},{},{},{},{},{},{\"vulns\":[{\"id\":\"ALPINE-CVE-2024-13176\",\"modified\":\"2025-09-30T05:27:16.464785Z\"},{\"id\":\"ALPINE-CVE-2024-9143\",\"modified\":\"2025-09-30T05:29:06.784291Z\"}]},{\"vulns\":[{\"id\":\"ALPINE-CVE-2024-13176\",\"modified\":\"2025-09-30T05:27:16.464785Z\"},{\"id\":\"ALPINE-CVE-2024-9143\",\"modified\":\"2025-09-30T05:29:06.784291Z\"}]},{\"vulns\":[{\"id\":\"ALPINE-CVE-2025-26519\",\"modified\":\"2025-09-30T05:29:32.392594Z\"}]},{\"vulns\":[{\"id\":\"ALPINE-CVE-2025-26519\",\"modified\":\"2025-09-30T05:29:32.392594Z\"}]},{},{},{}]}"
     headers:
       Content-Length:
-      - "482"
+      - "524"
       Content-Type:
       - application/json
     status: 200 OK
