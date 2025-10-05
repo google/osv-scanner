@@ -8,7 +8,7 @@ require (
 	deps.dev/util/resolve v0.0.0-20250917073939-6ff3dd7d2eea
 	deps.dev/util/semver v0.0.0-20250917073939-6ff3dd7d2eea
 	github.com/BurntSushi/toml v1.5.0
-	github.com/CycloneDX/cyclonedx-go v0.9.2
+	github.com/CycloneDX/cyclonedx-go v0.9.3
 	github.com/charmbracelet/bubbles v0.21.0
 	github.com/charmbracelet/bubbletea v1.3.10
 	github.com/charmbracelet/glamour v0.10.0
@@ -34,10 +34,10 @@ require (
 	golang.org/x/term v0.35.0
 	golang.org/x/vuln v1.1.4
 	google.golang.org/grpc v1.75.1
-	google.golang.org/protobuf v1.36.9
+	google.golang.org/protobuf v1.36.10
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
-	osv.dev/bindings/go v0.0.0-20250929041518-3b73304a1688
+	osv.dev/bindings/go v0.0.0-20251003064252-c81c39e62149
 )
 
 require (
