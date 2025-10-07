@@ -249,7 +249,7 @@ Total 2 packages affected by 7 known vulnerabilities (3 Critical, 3 High, 0 Medi
           "length": -1,
           "location": {
             "index": -1,
-            "uri": "file://<rootdir>/testdata/locks-many/package-lock.json"
+            "uri": "file://<rootdir>/testdata/locks-many-with-insecure/package-lock.json"
           },
           "parentIndex": -1,
           "roles": []
@@ -282,7 +282,7 @@ Total 2 packages affected by 7 known vulnerabilities (3 Critical, 3 High, 0 Medi
               "physicalLocation": {
                 "artifactLocation": {
                   "index": -1,
-                  "uri": "file://<rootdir>/testdata/locks-many/package-lock.json"
+                  "uri": "file://<rootdir>/testdata/locks-many-with-insecure/package-lock.json"
                 }
               },
               "relationships": []
@@ -326,8 +326,8 @@ Total 2 packages affected by 7 known vulnerabilities (3 Critical, 3 High, 0 Medi
                 "text": "This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time."
               },
               "help": {
-                "markdown": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/CVE-2021-23424)**.\n\n## [GHSA-whgm-jr23-g3j9](https://osv.dev/GHSA-whgm-jr23-g3j9)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/testdata/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/testdata/locks-many/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2021-23424\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
-                "text": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/CVE-2021-23424)**.\n\n## [GHSA-whgm-jr23-g3j9](https://osv.dev/GHSA-whgm-jr23-g3j9)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/testdata/locks-many/package-lock.json | ansi-html | 0.0.1 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/testdata/locks-many/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2021-23424\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
+                "markdown": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/CVE-2021-23424)**.\n\n## [GHSA-whgm-jr23-g3j9](https://osv.dev/GHSA-whgm-jr23-g3j9)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/testdata/locks-many-with-insecure/package-lock.json | ansi-html | 0.0.1 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/testdata/locks-many-with-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2021-23424\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n",
+                "text": "**Your dependency is vulnerable to [CVE-2021-23424](https://osv.dev/CVE-2021-23424)**.\n\n## [GHSA-whgm-jr23-g3j9](https://osv.dev/GHSA-whgm-jr23-g3j9)\n\n\u003cdetails\u003e\n\u003csummary\u003eDetails\u003c/summary\u003e\n\n\u003e This affects all versions of package ansi-html. If an attacker provides a malicious string, it will get stuck processing the input for an extremely long time.\n\n\u003c/details\u003e\n\n---\n\n### Affected Packages\n\n| Source | Package Name | Package Version |\n| --- | --- | --- |\n| lockfile:<rootdir>/testdata/locks-many-with-insecure/package-lock.json | ansi-html | 0.0.1 |\n\n## Remediation\n\nTo fix these vulnerabilities, update the vulnerabilities past the listed fixed versions below.\n\n### Fixed Versions\n\n| Vulnerability ID | Package Name | Fixed Version |\n| --- | --- | --- |\n| GHSA-whgm-jr23-g3j9 | ansi-html | 0.0.8 |\n\nIf you believe these vulnerabilities do not affect your code and wish to ignore them, add them to the ignore list in an\n`osv-scanner.toml` file located in the same directory as the lockfile containing the vulnerable dependency.\n\nSee the format and more options in our documentation here: https://google.github.io/osv-scanner/configuration/\n\nAdd or append these values to the following config files to ignore this vulnerability:\n\n`<rootdir>/testdata/locks-many-with-insecure/osv-scanner.toml`\n\n```\n[[IgnoredVulns]]\nid = \"CVE-2021-23424\"\nreason = \"Your reason for ignoring this vulnerability\"\n```\n"
               },
               "id": "CVE-2021-23424",
               "name": "CVE-2021-23424",
@@ -359,23 +359,18 @@ Total 2 packages affected by 7 known vulnerabilities (3 Critical, 3 High, 0 Medi
 ---
 
 [TestCommand/Sarif_with_vulns - 2]
-Scanning dir ./testdata/locks-many/package-lock.json
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 
 ---
 
 [TestCommand/Scan_locks-many - 1]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-CVE-2025-26519 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
 No issues found
 
 ---
@@ -402,17 +397,17 @@ Error during extraction: (extracting as php/composerlock) <rootdir>/testdata/loc
 
 [TestCommand/config_file_can_be_broad - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
-Scanning dir ./testdata/locks-many
+Scanning dir ./testdata/locks-many-with-insecure
 Scanning dir ./testdata/locks-insecure
 Scanning dir ./testdata/maven-transitive
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
-Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
-Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 3 packages
 Filtered 1 local/unscannable package/s from the scan.
 Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
@@ -443,12 +438,12 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medi
 1 vulnerability can be fixed.
 
 
-+---------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
-| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                |
-+---------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-insecure/composer.lock |
-| https://osv.dev/ALPINE-CVE-2025-26519 |      | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many/alpine.cdx.xml    |
-+---------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
++---------------------------------------+------+-----------+------------------+----------+---------------+--------------------------------------------------+
+| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                           |
++---------------------------------------+------+-----------+------------------+----------+---------------+--------------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-insecure/composer.lock            |
+| https://osv.dev/ALPINE-CVE-2025-26519 |      | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
++---------------------------------------+------+-----------+------------------+----------+---------------+--------------------------------------------------+
 +---------+-------------------------+
 | LICENSE | NO. OF PACKAGE VERSIONS |
 +---------+-------------------------+
@@ -465,8 +460,8 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medi
 | UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |         | testdata/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | testdata/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | testdata/locks-insecure/osv-scanner-flutter-deps.json |
-| UNKNOWN           | RubyGems  | ast                                            | 2.4.2   | testdata/locks-many/Gemfile.lock                      |
-| 0BSD              | Packagist | sentry/sdk                                     | 2.0.4   | testdata/locks-many/composer.lock                     |
+| UNKNOWN           | RubyGems  | ast                                            | 2.4.2   | testdata/locks-many-with-insecure/Gemfile.lock        |
+| 0BSD              | Packagist | sentry/sdk                                     | 2.0.4   | testdata/locks-many-with-insecure/composer.lock       |
 +-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
 
 ---
@@ -504,14 +499,9 @@ unknown keys in config file: RustVersionOverride, PackageOverrides.skip, Package
 warning: ./testdata/osv-scanner-duplicate-config.toml has multiple ignores for GO-2022-0274 - only the first will be used!
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
-CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 2 vulnerabilities from output
 No issues found
 
 ---
@@ -959,9 +949,9 @@ Total 26 packages affected by 159 known vulnerabilities (19 Critical, 62 High, 4
 ---
 
 [TestCommand/gh-annotations_with_vulns - 2]
-Scanning dir ./testdata/locks-many/package-lock.json
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
-::error file=testdata/locks-many/package-lock.json::testdata/locks-many/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
+Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
+::error file=testdata/locks-many-with-insecure/package-lock.json::testdata/locks-many-with-insecure/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
 ---
 
 [TestCommand/go_packages_in_osv-scanner.json_format - 1]
@@ -985,10 +975,10 @@ Total 2 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand/ignores_without_reason_should_be_explicitly_called_out - 1]
-Scanning dir ./testdata/locks-many/package-lock.json
+Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanning dir ./testdata/locks-many/composer.lock
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Package Packagist/sentry/sdk/2.0.4 has been filtered out because: (no reason given)
 Filtered 1 ignored package/s from the scan.
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
@@ -1303,15 +1293,15 @@ No issues found
 ---
 
 [TestCommand/output_format:_markdown_table - 1]
-Scanning dir ./testdata/locks-many/package-lock.json
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
 
 | OSV URL | CVSS | Ecosystem | Package | Version | Fixed Version | Source |
 | --- | --- | --- | --- | --- | --- | --- |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5 | npm | ansi-html | 0.0.1 | 0.0.8 | testdata/locks-many/package-lock.json |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5 | npm | ansi-html | 0.0.1 | 0.0.8 | testdata/locks-many-with-insecure/package-lock.json |
 
 ---
 
@@ -1800,15 +1790,10 @@ No package sources found, --help for usage information.
 [TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 1]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-CVE-2025-26519 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
 No issues found
 
 ---
@@ -1820,15 +1805,10 @@ No issues found
 [TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 1]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-CVE-2025-26519 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
 No issues found
 
 ---
@@ -1840,15 +1820,10 @@ No issues found
 [TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 1]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-CVE-2025-26519 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
@@ -1864,13 +1839,9 @@ not an exact name for a plugin: "custom/extractor"
 [TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_disabled - 1]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-CVE-2025-26519 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-Filtered 1 vulnerability from output
 No issues found
 
 ---
@@ -1882,15 +1853,10 @@ No issues found
 [TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_enabled_and_the_defaults - 1]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-CVE-2025-26519 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
 No issues found
 
 ---
@@ -1915,8 +1881,6 @@ No issues found
 Scanning dir ./testdata/locks-many/package-lock.json
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
 No issues found
 
 ---
@@ -1977,8 +1941,6 @@ Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
 No issues found
 
 ---
@@ -1992,8 +1954,6 @@ Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
 No issues found
 
 ---
@@ -2006,8 +1966,6 @@ No issues found
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
@@ -2023,13 +1981,9 @@ not an exact name for a plugin: "custom/extractor"
 [TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_disabled - 1]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-CVE-2025-26519 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-Filtered 1 vulnerability from output
 No issues found
 
 ---
@@ -2042,8 +1996,6 @@ No issues found
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
 No issues found
 
 ---
@@ -2066,8 +2018,6 @@ No package sources found, --help for usage information.
 Scanning dir ./testdata/locks-many/package-lock.json
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 1 vulnerability from output
 No issues found
 
 ---
@@ -2671,15 +2621,10 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 [TestCommand_Licenses/No_vulnerabilities_with_license_summary - 1]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-CVE-2025-26519 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
@@ -2689,7 +2634,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 +------------+-------------------------+
 | Apache-2.0 |                       1 |
 | MIT        |                       1 |
-| UNKNOWN    |                      16 |
+| UNKNOWN    |                       2 |
 +------------+-------------------------+
 
 ---
@@ -2701,15 +2646,10 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 [TestCommand_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 1]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
-CVE-2025-26519 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
@@ -2718,7 +2658,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 | --- | ---:|
 | Apache-2.0 | 1 |
 | MIT | 1 |
-| UNKNOWN | 16 |
+| UNKNOWN | 2 |
 
 ---
 
@@ -2815,58 +2755,40 @@ Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Filtered 1 local/unscannable package/s from the scan.
-Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
+Package npm/ansi-html/0.0.8 has been filtered out because: (no reason given)
 Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
 Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
 Filtered 4 ignored package/s from the scan.
-ignoring license for package Alpine/alpine-baselayout/3.4.0-r0
-ignoring license for package Alpine/alpine-baselayout-data/3.4.0-r0
-ignoring license for package Alpine/alpine-keys/2.4-r1
-ignoring license for package Alpine/apk-tools/2.12.10-r1
-ignoring license for package Alpine/busybox-binsh/1.36.1-r27
-ignoring license for package Alpine/ca-certificates-bundle/20220614-r4
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
-ignoring license for package Alpine/libc-utils/0.7.2-r3
-ignoring license for package Alpine/libcrypto3/3.0.8-r0
-ignoring license for package Alpine/libssl3/3.0.8-r0
-overriding license for package Alpine/musl/1.2.3-r4 with UNKNOWN
-ignoring license for package Alpine/musl-utils/1.2.3-r4
-ignoring license for package Alpine/scanelf/1.3.5-r1
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
-ignoring license for package Alpine/ssl_client/1.36.1-r27
-ignoring license for package Alpine/zlib/1.2.13-r0
-Total 2 packages affected by 2 known vulnerabilities (1 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 4 ecosystems.
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
 1 vulnerability can be fixed.
 
 
-+---------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
-| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                |
-+---------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-insecure/composer.lock |
-| https://osv.dev/ALPINE-CVE-2025-26519 |      | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many/alpine.cdx.xml    |
-+---------------------------------------+------+-----------+------------------+----------+---------------+---------------------------------------+
++-------------------------------------+------+-----------+------------------+---------+---------------+---------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE          | VERSION | FIXED VERSION | SOURCE                                |
++-------------------------------------+------+-----------+------------------+---------+---------------+---------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm | 9.8  | Packagist | league/flysystem | 1.0.8   | 1.1.4         | testdata/locks-insecure/composer.lock |
++-------------------------------------+------+-----------+------------------+---------+---------------+---------------------------------------+
 +---------+-------------------------+
 | LICENSE | NO. OF PACKAGE VERSIONS |
 +---------+-------------------------+
 | 0BSD    |                       2 |
-| UNKNOWN |                       4 |
+| UNKNOWN |                       3 |
 +---------+-------------------------+
-+-------------------+-----------+------------------+----------+-------------------------------------------------+
-| LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION  | SOURCE                                          |
-+-------------------+-----------+------------------+----------+-------------------------------------------------+
-| 0BSD              | Packagist | league/flysystem | 1.0.8    | testdata/locks-insecure/composer.lock           |
-| UNKNOWN           | Go        | stdlib           | 1.99.9   | testdata/locks-insecure/osv-scanner-custom.json |
-| UNKNOWN           | Go        | toolchain        | 1.99.9   | testdata/locks-insecure/osv-scanner-custom.json |
-| UNKNOWN           | RubyGems  | ast              | 2.4.2    | testdata/locks-many/Gemfile.lock                |
-| UNKNOWN           | Alpine    | musl             | 1.2.3-r4 | testdata/locks-many/alpine.cdx.xml              |
-| 0BSD              | Packagist | sentry/sdk       | 2.0.4    | testdata/locks-many/composer.lock               |
-+-------------------+-----------+------------------+----------+-------------------------------------------------+
++-------------------+-----------+------------------+---------+-------------------------------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                          |
++-------------------+-----------+------------------+---------+-------------------------------------------------+
+| 0BSD              | Packagist | league/flysystem | 1.0.8   | testdata/locks-insecure/composer.lock           |
+| UNKNOWN           | Go        | stdlib           | 1.99.9  | testdata/locks-insecure/osv-scanner-custom.json |
+| UNKNOWN           | Go        | toolchain        | 1.99.9  | testdata/locks-insecure/osv-scanner-custom.json |
+| UNKNOWN           | RubyGems  | ast              | 2.4.2   | testdata/locks-many/Gemfile.lock                |
+| 0BSD              | Packagist | sentry/sdk       | 2.0.4   | testdata/locks-many/composer.lock               |
++-------------------+-----------+------------------+---------+-------------------------------------------------+
 
 ---
 
@@ -3019,17 +2941,17 @@ Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 pac
 ---
 
 [TestCommand_Licenses/Vulnerabilities_and_all_license_violations_allowlisted - 1]
-Scanning dir ./testdata/locks-many/package-lock.json
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+---------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                |
-+-------------------------------------+------+-----------+-----------+---------+---------------+---------------------------------------+
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | testdata/locks-many/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------+---------------------------------------+
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
 +------------+-------------------------+
 | LICENSE    | NO. OF PACKAGE VERSIONS |
 +------------+-------------------------+
@@ -3043,17 +2965,17 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 ---
 
 [TestCommand_Licenses/Vulnerabilities_and_license_summary - 1]
-Scanning dir ./testdata/locks-many/package-lock.json
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+---------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                |
-+-------------------------------------+------+-----------+-----------+---------+---------------+---------------------------------------+
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | testdata/locks-many/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------+---------------------------------------+
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
 +------------+-------------------------+
 | LICENSE    | NO. OF PACKAGE VERSIONS |
 +------------+-------------------------+
@@ -3067,27 +2989,27 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 ---
 
 [TestCommand_Licenses/Vulnerabilities_and_license_violations_with_allowlist - 1]
-Scanning dir ./testdata/locks-many/package-lock.json
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
+Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+---------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                |
-+-------------------------------------+------+-----------+-----------+---------+---------------+---------------------------------------+
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | testdata/locks-many/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------+---------------------------------------+
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
 +------------+-------------------------+
 | LICENSE    | NO. OF PACKAGE VERSIONS |
 +------------+-------------------------+
 | Apache-2.0 |                       1 |
 +------------+-------------------------+
-+-------------------+-----------+-----------+---------+---------------------------------------+
-| LICENSE VIOLATION | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                |
-+-------------------+-----------+-----------+---------+---------------------------------------+
-| Apache-2.0        | npm       | ansi-html | 0.0.1   | testdata/locks-many/package-lock.json |
-+-------------------+-----------+-----------+---------+---------------------------------------+
++-------------------+-----------+-----------+---------+-----------------------------------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                                              |
++-------------------+-----------+-----------+---------+-----------------------------------------------------+
+| Apache-2.0        | npm       | ansi-html | 0.0.1   | testdata/locks-many-with-insecure/package-lock.json |
++-------------------+-----------+-----------+---------+-----------------------------------------------------+
 
 ---
 
@@ -3151,22 +3073,27 @@ No issues found
 ---
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 1]
-Scanning dir ./testdata/locks-many
-Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
-Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
+Scanning dir ./testdata/locks-many-with-insecure
+Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-CVE-2025-26519 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
-No issues found
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 0 Medium, 0 Low, 1 Unknown) from 2 ecosystems.
+1 vulnerability can be fixed.
+
+
++---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
+| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE   | VERSION  | FIXED VERSION | SOURCE                                              |
++---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-whgm-jr23-g3j9   | 7.5  | npm       | ansi-html | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
+| https://osv.dev/ALPINE-CVE-2025-26519 |      | Alpine    | musl      | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
++---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
 
 ---
 
@@ -3175,22 +3102,27 @@ No issues found
 ---
 
 [TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 3]
-Scanning dir ./testdata/locks-many
-Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
-Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
+Scanning dir ./testdata/locks-many-with-insecure
+Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-CVE-2025-26519 and 1 alias have been filtered out because: Test manifest file (alpine.cdx.xml)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: Test manifest file
-Filtered 2 vulnerabilities from output
-No issues found
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 0 Medium, 0 Low, 1 Unknown) from 2 ecosystems.
+1 vulnerability can be fixed.
+
+
++---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
+| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE   | VERSION  | FIXED VERSION | SOURCE                                              |
++---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-whgm-jr23-g3j9   | 7.5  | npm       | ansi-html | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
+| https://osv.dev/ALPINE-CVE-2025-26519 |      | Alpine    | musl      | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
++---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
 
 ---
 
@@ -3864,12 +3796,12 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 1]
 Scanning dir ./testdata/locks-requirements
-Scanning dir ./testdata/locks-many
-Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
-Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
+Scanning dir ./testdata/locks-many-with-insecure
+Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-dev.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
@@ -3878,7 +3810,6 @@ Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 Filtered 1 local/unscannable package/s from the scan.
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
@@ -3897,12 +3828,12 @@ could not load db for Packagist ecosystem: unable to fetch OSV database: no offl
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 3]
 Scanning dir ./testdata/locks-requirements
-Scanning dir ./testdata/locks-many
-Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
-Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
+Scanning dir ./testdata/locks-many-with-insecure
+Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-dev.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
@@ -3911,7 +3842,6 @@ Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 Filtered 1 local/unscannable package/s from the scan.
-Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
 
