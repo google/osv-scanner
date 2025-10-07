@@ -1,0 +1,32 @@
+C:Q1Ef3iwt+cMdGngEgaFr2URIJhKzQ=
+P:apk-tools
+V:2.12.10-r1
+A:x86_64
+S:120973
+I:307200
+T:Alpine Package Keeper - package manager for alpine
+U:https://gitlab.alpinelinux.org/alpine/apk-tools
+L:GPL-2.0-only
+o:apk-tools
+m:Natanael Copa <ncopa@alpinelinux.org>
+t:1666552494
+c:0188f510baadbae393472103427b9c1875117136
+D:musl>=1.2 ca-certificates-bundle so:libc.musl-x86_64.so.1 so:libcrypto.so.3 so:libssl.so.3 so:libz.so.1
+p:so:libapk.so.3.12.0=3.12.0 cmd:apk=2.12.10-r1
+F:etc
+F:etc/apk
+F:etc/apk/keys
+F:etc/apk/protected_paths.d
+F:lib
+R:libapk.so.3.12.0
+a:0:0:755
+Z:Q1opjpYqXgzmOVo7EbNe8l5Xol08g=
+F:lib/apk
+F:lib/apk/exec
+F:sbin
+R:apk
+a:0:0:755
+Z:Q1/4bmOPe/H1YhHRzlrj27oufThMw=
+F:var
+F:var/lib
+F:var/lib/apk
