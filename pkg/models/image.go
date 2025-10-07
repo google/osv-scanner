@@ -6,11 +6,11 @@ type ImageOriginDetails struct {
 	Index int `json:"index"`
 }
 
-type ImageMetadata struct {
-	OS            string               `json:"os"`
-	LayerMetadata []LayerMetadata      `json:"layer_metadata"`
-	BaseImages    [][]BaseImageDetails `json:"base_images"`
-}
+//type ImageMetadata struct {
+//	OS            string               `json:"os"`
+//	LayerMetadata []LayerMetadata      `json:"layer_metadata"`
+//	BaseImages    [][]BaseImageDetails `json:"base_images"`
+//}
 
 type BaseImageDetails struct {
 	Name string `json:"name"`

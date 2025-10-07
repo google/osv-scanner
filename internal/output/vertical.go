@@ -110,10 +110,10 @@ func printBaseImages(imageResult ImageInfo, out io.Writer) {
 		for _, layer := range baseImage.AllLayers {
 			layerCommand := formatLayerCommand(layer.LayerMetadata.Command)[0]
 			layerCommand = truncate(layerCommand, 100)
-			fmt.Fprintf(out, "    %s", text.FgCyan.Sprintf("Layer %d", layer.Index))
+			fmt.Fprintf(out, "    %s", text.FgCyan.Sprintf("Layer %d", layer.LayerMetadata.Index))
 
 			// Add spaces for alignment
-			padding := strings.Repeat(" ", maxDigits-len(strconv.Itoa(layer.Index)))
+			padding := strings.Repeat(" ", maxDigits-len(strconv.Itoa(layer.LayerMetadata.Index)))
 			fmt.Fprintf(out, "%s", padding)
 
 			fmt.Fprintf(out, "%s", text.Italic.Sprintf(" %s", layerCommand))

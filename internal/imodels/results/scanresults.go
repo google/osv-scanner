@@ -2,10 +2,10 @@
 package results
 
 import (
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/imodels"
-	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
 // ScanResults represents the complete results of a scan.
@@ -22,7 +22,9 @@ type ScanResults struct {
 	ConfigManager config.Manager
 
 	// For container scanning, metadata including layer information
-	ImageMetadata *models.ImageMetadata
+	ImageMetadata *extractor.ContainerImageMetadata
+
+	OS string
 
 	GenericFindings []*inventory.GenericFinding
 }

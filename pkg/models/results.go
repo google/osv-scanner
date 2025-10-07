@@ -11,11 +11,11 @@ import (
 
 // VulnerabilityResults is the top-level struct for the results of a scan
 type VulnerabilityResults struct {
-	Results                     []PackageSource             `json:"results"`
-	ExperimentalAnalysisConfig  ExperimentalAnalysisConfig  `json:"experimental_config"`
-	ExperimentalGenericFindings []*inventory.GenericFinding `json:"experimental_generic_findings,omitempty"`
-	ImageMetadata               *ImageMetadata              `json:"image_metadata,omitempty"`
-	LicenseSummary              []LicenseCount              `json:"license_summary,omitempty"`
+	Results                     []PackageSource                   `json:"results"`
+	ExperimentalAnalysisConfig  ExperimentalAnalysisConfig        `json:"experimental_config"`
+	ExperimentalGenericFindings []*inventory.GenericFinding       `json:"experimental_generic_findings,omitempty"`
+	ImageMetadata               *extractor.ContainerImageMetadata `json:"image_metadata,omitempty"`
+	LicenseSummary              []LicenseCount                    `json:"license_summary,omitempty"`
 }
 
 type LicenseCount struct {

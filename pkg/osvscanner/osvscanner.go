@@ -373,17 +373,15 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	// --- Save Scalibr Scan Results ---
 	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventory.Packages))
-	for i, inv := range scalibrSR.Inventory.Packages {
-		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
-		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
-		scanResult.PackageScanResults[i].PackageInfo.ExploitabilitySignals = inv.ExploitabilitySignals
+	for i, pkgs := range scalibrSR.Inventory.Packages {
+		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(pkgs)
+		scanResult.PackageScanResults[i].PackageInfo.ExploitabilitySignals = pkgs.ExploitabilitySignals
 	}
 
 	// --- Fill Image Metadata ---
-	scanResult.ImageMetadata, err = imagehelpers.BuildImageMetadata(img, accessors.BaseImageMatcher)
-	if err != nil { // Not getting image metadata is not fatal
-		cmdlogger.Errorf("Failed to fully get image metadata: %v", err)
-	}
+	scanResult.ImageMetadata = scalibrSR.Inventory.ContainerImageMetadata[0]
+
+
 
 	// ----- Filtering -----
 	filterUnscannablePackages(&scanResult)
