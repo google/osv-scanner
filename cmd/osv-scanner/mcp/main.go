@@ -62,7 +62,7 @@ func Command(_, _ io.Writer) *cli.Command {
 				mcp.NewTool("get_vulnerability_details",
 					mcp.WithReadOnlyHintAnnotation(true),
 					mcp.WithDescription(
-						"Retrieves the full JSON details for a given vulnerability ID from the cache of a previous scan."),
+						"Retrieves the full JSON details for a given vulnerability ID."),
 					mcp.WithString("vuln_id",
 						mcp.Required(),
 						mcp.Description("The OSV vulnerability ID to retrieve details for."),
