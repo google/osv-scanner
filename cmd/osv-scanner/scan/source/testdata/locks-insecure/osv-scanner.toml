@@ -1,5 +1,2 @@
 [[PackageOverrides]]
-name = "league/flysystem"
-ecosystem = "Packagist"
 ignore = true
-reason = "This is an intentionally vulnerable test project"
