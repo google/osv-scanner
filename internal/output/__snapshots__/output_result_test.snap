@@ -37,57 +37,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -145,57 +95,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 2,
@@ -268,57 +168,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -376,57 +226,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 2,
@@ -551,57 +351,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -659,57 +409,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 2,
@@ -782,57 +482,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -890,57 +540,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 2,
@@ -1051,57 +651,7 @@
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 0,
@@ -1160,57 +710,7 @@
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 0,
@@ -1241,57 +741,7 @@
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 0,
@@ -1350,57 +800,7 @@
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 0,
@@ -1431,57 +831,7 @@
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 0,
@@ -1606,57 +956,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -1729,57 +1029,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -1810,57 +1060,7 @@
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 0,
@@ -1933,57 +1133,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -2014,57 +1164,7 @@
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 0,
@@ -2189,57 +1289,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -2331,57 +1381,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 2,
@@ -2467,57 +1467,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 2,
@@ -2596,57 +1546,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -2771,57 +1671,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -2914,57 +1764,7 @@
                   "SeverityScore": "N/A"
                 }
               ],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -3050,57 +1850,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 2,
@@ -3179,57 +1929,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -3354,57 +2054,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -3496,57 +2146,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 2,
@@ -3632,57 +2232,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 2,
@@ -3761,57 +2311,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -4179,57 +2679,7 @@
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 0,
@@ -4368,57 +2818,7 @@
                   "SeverityScore": "N/A"
                 }
               ],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -4543,57 +2943,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -4718,57 +3068,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -4893,57 +3193,7 @@
                   "SeverityScore": "N/A"
                 }
               ],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 0,
@@ -5068,57 +3318,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -5243,57 +3443,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -5421,57 +3571,7 @@
                   "SeverityScore": "N/A"
                 }
               ],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 0,
@@ -5599,57 +3699,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -5777,57 +3827,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -5952,57 +3952,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -6127,57 +4077,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -6302,57 +4202,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -6397,57 +4247,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -6572,57 +4372,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -6681,57 +4431,7 @@
               "FixedVersion": "No fix available",
               "RegularVulns": [],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 0,
@@ -6856,57 +4556,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
@@ -6979,57 +4629,7 @@
                 }
               ],
               "HiddenVulns": [],
-              "LayerDetail": {
-                "LayerIndex": 0,
-                "LayerInfo": {
-                  "Index": 0,
-                  "LayerMetadata": {
-                    "diff_id": "",
-                    "command": "",
-                    "is_empty": false,
-                    "base_image_index": 0
-                  },
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                },
-                "BaseImageInfo": {
-                  "Index": 0,
-                  "BaseImageInfo": null,
-                  "AllLayers": null,
-                  "Count": {
-                    "AnalysisCount": {
-                      "Regular": 0,
-                      "Hidden": 0
-                    },
-                    "SeverityCount": {
-                      "Critical": 0,
-                      "High": 0,
-                      "Medium": 0,
-                      "Low": 0,
-                      "Unknown": 0
-                    },
-                    "FixableCount": {
-                      "Fixed": 0,
-                      "UnFixed": 0
-                    }
-                  }
-                }
-              },
+              "LayerDetail": null,
               "VulnCount": {
                 "AnalysisCount": {
                   "Regular": 1,
