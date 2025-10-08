@@ -169,7 +169,7 @@ func TestCommand(t *testing.T) {
 		},
 		{
 			Name: "Sarif with vulns",
-			Args: []string{"", "source", "--format", "sarif", "--config", "./testdata/osv-scanner-empty-config.toml", "./testdata/locks-many/package-lock.json"},
+			Args: []string{"", "source", "--format", "sarif", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
 		// output format: gh-annotations
@@ -180,13 +180,13 @@ func TestCommand(t *testing.T) {
 		},
 		{
 			Name: "gh-annotations with vulns",
-			Args: []string{"", "source", "--format", "gh-annotations", "--config", "./testdata/osv-scanner-empty-config.toml", "./testdata/locks-many/package-lock.json"},
+			Args: []string{"", "source", "--format", "gh-annotations", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
 		// output format: markdown table
 		{
 			Name: "output format: markdown table",
-			Args: []string{"", "source", "--format", "markdown", "--config", "./testdata/osv-scanner-empty-config.toml", "./testdata/locks-many/package-lock.json"},
+			Args: []string{"", "source", "--format", "markdown", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
 		// output format: cyclonedx 1.4
@@ -280,13 +280,13 @@ func TestCommand(t *testing.T) {
 		// broad config file that overrides a whole ecosystem
 		{
 			Name: "config file can be broad",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-composite-config.toml", "--licenses=MIT", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "./testdata/locks-many", "./testdata/locks-insecure", "./testdata/maven-transitive"},
+			Args: []string{"", "source", "--config=./testdata/osv-scanner-composite-config.toml", "--licenses=MIT", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "./testdata/locks-many-with-insecure", "./testdata/locks-insecure", "./testdata/maven-transitive"},
 			Exit: 1,
 		},
 		// ignored vulnerabilities and packages without a reason should be called out
 		{
 			Name: "ignores without reason should be explicitly called out",
-			Args: []string{"", "source", "--config=./testdata/osv-scanner-reasonless-ignores-config.toml", "./testdata/locks-many/package-lock.json", "./testdata/locks-many/composer.lock"},
+			Args: []string{"", "source", "--config=./testdata/osv-scanner-reasonless-ignores-config.toml", "./testdata/locks-many-with-insecure/package-lock.json", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		// invalid config file
@@ -879,8 +879,8 @@ func TestCommand_LocalDatabases(t *testing.T) {
 		},
 		{
 			Name: "all supported lockfiles in the directory should be checked",
-			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-many"},
-			Exit: 0,
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-many-with-insecure"},
+			Exit: 1,
 		},
 		{
 			Name: "all supported lockfiles in the directory should be checked",
@@ -948,7 +948,7 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "a bunch of different lockfiles and ecosystem",
-			Args: []string{"", "source", "--offline", "./testdata/locks-requirements", "./testdata/locks-many"},
+			Args: []string{"", "source", "--offline", "./testdata/locks-requirements", "./testdata/locks-many-with-insecure"},
 			Exit: 127,
 		},
 	}
@@ -1010,12 +1010,12 @@ func TestCommand_Licenses(t *testing.T) {
 		},
 		{
 			Name: "Vulnerabilities and license summary",
-			Args: []string{"", "source", "--licenses", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/locks-many/package-lock.json"},
+			Args: []string{"", "source", "--licenses", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
 		{
 			Name: "Vulnerabilities and license violations with allowlist",
-			Args: []string{"", "source", "--licenses=MIT", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/locks-many/package-lock.json"},
+			Args: []string{"", "source", "--licenses=MIT", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
 		{
@@ -1025,7 +1025,7 @@ func TestCommand_Licenses(t *testing.T) {
 		},
 		{
 			Name: "Vulnerabilities and all license violations allowlisted",
-			Args: []string{"", "source", "--licenses=Apache-2.0", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/locks-many/package-lock.json"},
+			Args: []string{"", "source", "--licenses=Apache-2.0", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
 		{
