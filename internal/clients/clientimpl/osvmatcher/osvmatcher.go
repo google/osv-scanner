@@ -113,10 +113,8 @@ func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {
 	if pkg.Name() != "" && !pkg.Ecosystem().IsEmpty() && pkg.Version() != "" {
 		return &osvdev.Query{
 			Package: osvdev.Package{
-				Name:      pkg.Name(),
-				Ecosystem: pkg.Ecosystem().String(),
+				PURL: pkg.PURL().String(),
 			},
-			Version: pkg.Version(),
 		}
 	}
 
