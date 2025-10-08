@@ -49,9 +49,9 @@ jobs:
         with:
           persist-credentials: false
       - run: |
-          find . -mindepth 1 ! -regex '.*/[#@A-Za-z0-9._-]*' \
-            | xargs -I '{}' bash -c \
-              "echo '{}' && echo '::error file={}::This filename contains undesired characters' && false"
+          find . -mindepth 1 ! -regex '.*/[#@A-Za-z0-9._-]*' -print0 \
+            | xargs -0 -I{} bash -c \
+              'printf "::error file=%q::This filename contains undesired characters\n" "$1" && false' _ {}
   format:
     permissions:
       contents: read # to fetch code (actions/checkout)
