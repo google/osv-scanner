@@ -195,26 +195,28 @@ This will return a report of all the relevant lockfiles and all vulnerable depen
 
 **Step 2: Analyse the report**
 
-Go through the report and determine the relevant project lockfiles (ignoring lockfiles in test directories).
-For the relevant lockfiles, ask the user whether they want you to attempt to fix the vulnerabilities.
+Go through the report and determine the relevant project lockfiles (ignoring lockfiles in test directories),
+and prioritise which vulnerability to fix based on the description and severity.
+If more information is needed about a vulnerability, use get_vulnerability_details.
 
+For the relevant lockfiles, ask the user whether they want you to attempt to fix the vulnerabilities.
 
 **Step 3: Fixing the vulnerabilities**
 
 IF the user asks for the vulnerabilities to be fixed, then perform the following core fix loop until all fixable
 vulnerabilities are fixed.
 Do not attempt to fix vulnerabilities without fix available.
-If more information is needed about a vulnerability, use get_vulnerability_details.
 
 For each lockfile, perform the following actions
 
 **Step 3.1: Run tests**
 Find and run the tests in this repository, and if tests fail, abort and notify the user that the tests must be fixed
-before upgrading dependencies.
+before upgrading dependencies. Do not automatically attempt to fix the tests unless the user asks.
 
 **Step 3.2: Upgrading dependencies**
 Try to fix all the fixable vulnerabilities by upgrading their dependencies.
 Prefer to use standard ecosystem package manager tooling to update the files over editing the files directly.
+Specify exactly which dependencies should be upgraded.
 
 **Step 3.3: Verify no breaking changes**
 Find and run tests again in the repository and compare against results in 3.1.
@@ -222,7 +224,7 @@ If both tests pass, move onto step 3.5.
 If tests fail move onto step 3.4.
 
 **Step 3.4: Fix breaking changes**
-Attempt to fix the breaking changes cauasing the test to fail. Run test again to verify the fix.
+Attempt to fix the breaking changes causing the test to fail. Run test again to verify the fix.
 
 **Step 3.5: Verify fix**
 Perform scan_vulnerable_dependencies on this lockfile specifically to confirm vulnerabilities are fixed.
