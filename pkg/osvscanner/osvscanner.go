@@ -20,6 +20,7 @@ import (
 	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
@@ -367,7 +368,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
 	}
 
-	if scalibrSR.Inventory.IsEmpty() {
+	if inventoryIsEmpty(scalibrSR.Inventory) {
 		return models.VulnerabilityResults{}, ErrNoPackagesFound
 	}
 
@@ -380,8 +381,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	// --- Fill Image Metadata ---
 	scanResult.ImageMetadata = scalibrSR.Inventory.ContainerImageMetadata[0]
-
-
 
 	// ----- Filtering -----
 	filterUnscannablePackages(&scanResult)
@@ -559,4 +558,20 @@ func overrideGoVersion(scanResults *results.ScanResults) {
 // SetLogger sets the global slog handler for the cmdlogger.
 func SetLogger(handler slog.Handler) {
 	cmdlogger.GlobalHandler = handler
+}
+
+func inventoryIsEmpty(i inventory.Inventory) bool {
+	if len(i.Packages) != 0 {
+		return false
+	}
+	if len(i.PackageVulns) != 0 {
+		return false
+	}
+	if len(i.GenericFindings) != 0 {
+		return false
+	}
+	if len(i.Secrets) != 0 {
+		return false
+	}
+	return true
 }

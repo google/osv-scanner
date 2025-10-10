@@ -16,7 +16,7 @@
           {{ template "severity_summary_template.gohtml" .VulnCount.SeverityCount }}
         </div>
         {{ range .ImageInfo.AllLayers }}
-        {{ $index := .Index }}
+        {{ $index := .LayerMetadata.Index }}
         {{ $originalCommand := .LayerMetadata.Command }}
         {{ $commandSet := formatLayerCommand $originalCommand }}
         {{ $command := index $commandSet 0 }}

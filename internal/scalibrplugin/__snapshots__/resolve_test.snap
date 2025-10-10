@@ -24,6 +24,7 @@ weakcredentials/winlocal
 ---
 
 [TestResolve_Extractors_Presets/artifact - 1]
+baseimage
 go/binary
 java/archive
 javascript/nodemodules

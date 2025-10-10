@@ -267,7 +267,11 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, 
 // It uses a pointer receiver (*Result) to modify the original result in place.
 func populateResultWithImageMetadata(result *Result, imageMetadata *extractor.ContainerImageMetadata) {
 	allLayers := buildLayers(imageMetadata.LayerMetadata)
-	allBaseImages := buildBaseImages(imageMetadata.BaseImages)
+	baseImages := imageMetadata.BaseImages
+	if len(baseImages) == 0 {
+		baseImages = make([][]*extractor.BaseImageDetails, 1)
+	}
+	allBaseImages := buildBaseImages(baseImages)
 
 	layerCount := make([]VulnCount, len(allLayers))
 	baseImageCount := make([]VulnCount, len(allBaseImages))
@@ -279,8 +283,10 @@ func populateResultWithImageMetadata(result *Result, imageMetadata *extractor.Co
 				layerIndex := pkg.LayerDetail.LayerIndex
 				layerCount[layerIndex].Add(pkg.VulnCount)
 
-				baseImageIndex := allLayers[layerIndex].LayerMetadata.BaseImageIndex
-				baseImageCount[baseImageIndex].Add(pkg.VulnCount)
+				if len(baseImageCount) < layerIndex {
+					baseImageIndex := allLayers[layerIndex].LayerMetadata.BaseImageIndex
+					baseImageCount[baseImageIndex].Add(pkg.VulnCount)
+				}
 			}
 		}
 	}

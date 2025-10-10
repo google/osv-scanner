@@ -2,6 +2,7 @@ package scalibrplugin
 
 import (
 	detectors "github.com/google/osv-scalibr/detector/list"
+	"github.com/google/osv-scalibr/enricher/enricherlist"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
@@ -131,4 +132,10 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		// Debian
 		dpkg.Name: {dpkg.NewDefault},
 	},
+}
+
+var enricherPresets = map[string]enricherlist.InitMap{
+	"artifact": enricherlist.LayerDetails,
+	"vulns":    enricherlist.VulnMatching,
+	"licenses": enricherlist.License,
 }
