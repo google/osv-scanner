@@ -1694,7 +1694,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file as a osv-scanner and found 4 packages
 Skipping commit scanning for: 45fda76bc1b9fd74d10e85e0ce9b65a12dcc58b0
 Loaded GIT local db from <tempdir>/osv-scanner/GIT/all.zip
-Total 2 packages affected by 9 known vulnerabilities (2 Critical, 2 High, 0 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
+Total 2 packages affected by 8 known vulnerabilities (2 Critical, 2 High, 0 Medium, 0 Low, 4 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -1709,7 +1709,6 @@ Total 2 packages affected by 9 known vulnerabilities (2 Critical, 2 High, 0 Medi
 | https://osv.dev/CVE-2016-10931 | 8.1  | GIT       |  https://github.com/sfackler/rust-openssl@0f428d19  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2018-20997 | 9.8  | GIT       |  https://github.com/sfackler/rust-openssl@0f428d19  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2023-53159 | 9.1  | GIT       |  https://github.com/sfackler/rust-openssl@0f428d19  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2025-3416  |      | GIT       |  https://github.com/sfackler/rust-openssl@0f428d19  | --            | testdata/locks-git/osv-scanner.json |
 +--------------------------------+------+-----------+-----------------------------------------------------+---------------+-------------------------------------+
 
 ---
