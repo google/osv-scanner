@@ -16,6 +16,7 @@ import (
 	"deps.dev/util/resolve"
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
+	"github.com/google/osv-scalibr/binary/proto"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
@@ -380,7 +381,12 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	// --- Fill Image Metadata ---
-	scanResult.ImageMetadata = scalibrSR.Inventory.ContainerImageMetadata[0]
+	pssr, err := proto.ScanResultToProto(scalibrSR)
+	if err != nil {
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to serialize scan results to proto: %w", err)
+	}
+
+	scanResult.ImageMetadata = pssr.Inventory.ContainerImageMetadata[0]
 
 	// ----- Filtering -----
 	filterUnscannablePackages(&scanResult)

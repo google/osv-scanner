@@ -2,7 +2,7 @@
 package results
 
 import (
-	"github.com/google/osv-scalibr/extractor"
+	spb "github.com/google/osv-scalibr/binary/proto/scan_result_go_proto"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/imodels"
@@ -22,7 +22,7 @@ type ScanResults struct {
 	ConfigManager config.Manager
 
 	// For container scanning, metadata including layer information
-	ImageMetadata *extractor.ContainerImageMetadata
+	ImageMetadata *spb.ContainerImageMetadata
 
 	OS string
 

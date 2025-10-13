@@ -9,6 +9,7 @@ import (
 	"sort"
 	"strings"
 
+	spb "github.com/google/osv-scalibr/binary/proto/scan_result_go_proto"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/semantic"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
@@ -104,13 +105,13 @@ type PackageContainerInfo struct {
 
 type BaseImageGroupInfo struct {
 	Index         int
-	BaseImageInfo []*extractor.BaseImageDetails
+	BaseImageInfo []*spb.BaseImageDetails
 	AllLayers     []LayerInfo
 	Count         VulnCount
 }
 
 type LayerInfo struct {
-	LayerMetadata *extractor.LayerMetadata
+	LayerMetadata *spb.LayerMetadata
 	Count         VulnCount
 }
 
@@ -205,7 +206,7 @@ RowLoop:
 }
 
 // buildResult builds the final Result object from the ecosystem map and total vulnerability count.
-func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *extractor.ContainerImageMetadata, licenseConfig models.ExperimentalLicenseConfig, licenseCount []models.LicenseCount) Result {
+func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *spb.ContainerImageMetadata, licenseConfig models.ExperimentalLicenseConfig, licenseCount []models.LicenseCount) Result {
 	result := Result{}
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
@@ -265,12 +266,9 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, 
 
 // populateResultWithImageMetadata modifies the result by adding image metadata to it.
 // It uses a pointer receiver (*Result) to modify the original result in place.
-func populateResultWithImageMetadata(result *Result, imageMetadata *extractor.ContainerImageMetadata) {
+func populateResultWithImageMetadata(result *Result, imageMetadata *spb.ContainerImageMetadata) {
 	allLayers := buildLayers(imageMetadata.LayerMetadata)
-	baseImages := imageMetadata.BaseImages
-	if len(baseImages) == 0 {
-		baseImages = make([][]*extractor.BaseImageDetails, 1)
-	}
+	baseImages := imageMetadata.BaseImageChains
 	allBaseImages := buildBaseImages(baseImages)
 
 	layerCount := make([]VulnCount, len(allLayers))
@@ -297,7 +295,7 @@ func populateResultWithImageMetadata(result *Result, imageMetadata *extractor.Co
 	for i := range allLayers {
 		allLayers[i].Count = layerCount[i]
 		baseImageIndex := allLayers[i].LayerMetadata.BaseImageIndex
-		baseImageMap[baseImageIndex] = append(baseImageMap[baseImageIndex], allLayers[i])
+		baseImageMap[int(baseImageIndex)] = append(baseImageMap[int(baseImageIndex)], allLayers[i])
 	}
 
 	for i := range allBaseImages {
@@ -330,7 +328,7 @@ func populateResultWithImageMetadata(result *Result, imageMetadata *extractor.Co
 	})
 
 	result.ImageInfo = ImageInfo{
-		OS:            imageMetadata.OSInfo["PRETTY_NAME"],
+		OS:            imageMetadata.OsInfo["PRETTY_NAME"],
 		AllLayers:     allLayers,
 		AllBaseImages: allBaseImages,
 	}
@@ -340,19 +338,19 @@ func populateResultWithImageMetadata(result *Result, imageMetadata *extractor.Co
 	}
 }
 
-func buildBaseImages(baseImages [][]*extractor.BaseImageDetails) []BaseImageGroupInfo {
+func buildBaseImages(baseImages []*spb.BaseImageChain) []BaseImageGroupInfo {
 	allBaseImages := make([]BaseImageGroupInfo, len(baseImages))
 	for i, baseImage := range baseImages {
 		allBaseImages[i] = BaseImageGroupInfo{
 			Index:         i,
-			BaseImageInfo: baseImage,
+			BaseImageInfo: baseImage.BaseImages,
 		}
 	}
 
 	return allBaseImages
 }
 
-func buildLayers(layerMetadata []*extractor.LayerMetadata) []LayerInfo {
+func buildLayers(layerMetadata []*spb.LayerMetadata) []LayerInfo {
 	allLayers := make([]LayerInfo, len(layerMetadata))
 	for i, layer := range layerMetadata {
 		allLayers[i] = LayerInfo{

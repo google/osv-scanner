@@ -10,52 +10,41 @@ import (
 	"os/exec"
 
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/imodels/results"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/opencontainers/go-digest"
 )
 
-//func BuildImageMetadata(img *image.Image, baseImageMatcher clientinterfaces.BaseImageMatcher) (*models.ImageMetadata, error) {
-//	chainLayers, err := img.ChainLayers()
-//	if err != nil {
-//		// This is very unlikely, as if this would error we would have failed the initial scan
-//		return nil, err
-//	}
-//	m, err := osrelease.GetOSRelease(chainLayers[len(chainLayers)-1].FS())
-//	OS := "Unknown"
-//	if err == nil {
-//		OS = m["PRETTY_NAME"]
-//	}
-//
-//	layerMetadata := []models.LayerMetadata{}
-//	for _, cl := range chainLayers {
-//		layerMetadata = append(layerMetadata, models.LayerMetadata{
-//			DiffID:  cl.Layer().DiffID(),
-//			Command: cl.Layer().Command(),
-//			IsEmpty: cl.Layer().IsEmpty(),
-//		})
-//	}
-//
-//	var baseImages [][]models.BaseImageDetails
-//
-//	if baseImageMatcher != nil {
-//		baseImages, err = baseImageMatcher.MatchBaseImages(context.Background(), layerMetadata)
-//		if err != nil {
-//			return nil, fmt.Errorf("failed to query for container base images: %w", err)
-//		}
-//	} else {
-//		baseImages = [][]models.BaseImageDetails{
-//			// The base image at index 0 is a placeholder representing your image, so always empty
-//			// This is the case even if your image is a base image, in that case no layers point to index 0
-//			{},
-//		}
-//	}
-//
-//	imgMetadata := models.ImageMetadata{
-//		OS:            OS,
-//		LayerMetadata: layerMetadata,
-//		BaseImages:    baseImages,
-//	}
-//
-//	return &imgMetadata, nil
-//}
+func BuildImageMetadata(scanResults *results.ScanResults) *models.ImageMetadata {
+	var layerMetadata []models.LayerMetadata
+	for _, cl := range scanResults.ImageMetadata.LayerMetadata {
+		layerMetadata = append(layerMetadata, models.LayerMetadata{
+			DiffID:  digest.Digest(cl.DiffId),
+			Command: cl.Command,
+			IsEmpty: cl.IsEmpty,
+		})
+	}
+
+	var baseImages [][]models.BaseImageDetails
+
+	for _, chain := range scanResults.ImageMetadata.BaseImageChains {
+		var baseImageChain []models.BaseImageDetails
+		for _, imgs := range chain.BaseImages {
+			baseImageChain = append(baseImageChain, models.BaseImageDetails{
+				Name: imgs.Repository,
+			})
+		}
+		baseImages = append(baseImages)
+	}
+
+	imgMetadata := models.ImageMetadata{
+		OS:            scanResults.OS,
+		LayerMetadata: layerMetadata,
+		BaseImages:    baseImages,
+	}
+
+	return &imgMetadata
+}
 
 // ExportDockerImage will execute the docker binary to export an image to a temporary file in the tarball OCI format.
 //

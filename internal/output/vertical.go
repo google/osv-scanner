@@ -113,7 +113,7 @@ func printBaseImages(imageResult ImageInfo, out io.Writer) {
 			fmt.Fprintf(out, "    %s", text.FgCyan.Sprintf("Layer %d", layer.LayerMetadata.Index))
 
 			// Add spaces for alignment
-			padding := strings.Repeat(" ", maxDigits-len(strconv.Itoa(layer.LayerMetadata.Index)))
+			padding := strings.Repeat(" ", maxDigits-len(strconv.Itoa(int(layer.LayerMetadata.Index))))
 			fmt.Fprintf(out, "%s", padding)
 
 			fmt.Fprintf(out, "%s", text.Italic.Sprintf(" %s", layerCommand))

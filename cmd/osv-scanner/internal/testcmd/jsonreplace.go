@@ -56,6 +56,16 @@ var (
 			return ""
 		},
 	}
+	AnyChainID = JSONReplaceRule{
+		Path: "image_metadata.layer_metadata.#.chain_id",
+		ReplaceFunc: func(toReplace gjson.Result) any {
+			if len(toReplace.String()) > 7 {
+				return toReplace.String()[:7] + "..."
+			}
+
+			return ""
+		},
+	}
 	// ShortenHistoryCommandLength truncates COMMAND data to 28 characters
 	ShortenHistoryCommandLength = JSONReplaceRule{
 		Path: "image_metadata.layer_metadata.#.command",
