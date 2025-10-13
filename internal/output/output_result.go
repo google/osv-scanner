@@ -9,7 +9,6 @@ import (
 	"sort"
 	"strings"
 
-	spb "github.com/google/osv-scalibr/binary/proto/scan_result_go_proto"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/semantic"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
@@ -63,7 +62,7 @@ type PackageResult struct {
 	RegularVulns []VulnResult
 	// HiddenVulns holds all the vulnerabilities that should not be displayed to users, such as those deemed unimportant or uncalled.
 	HiddenVulns       []VulnResult
-	LayerDetail       *PackageContainerInfo
+	LayerDetail       PackageContainerInfo
 	VulnCount         VulnCount
 	Licenses          []models.License
 	LicenseViolations []models.License
@@ -105,13 +104,14 @@ type PackageContainerInfo struct {
 
 type BaseImageGroupInfo struct {
 	Index         int
-	BaseImageInfo []*spb.BaseImageDetails
+	BaseImageInfo []models.BaseImageDetails
 	AllLayers     []LayerInfo
 	Count         VulnCount
 }
 
 type LayerInfo struct {
-	LayerMetadata *spb.LayerMetadata
+	Index         int
+	LayerMetadata models.LayerMetadata
 	Count         VulnCount
 }
 
@@ -206,7 +206,7 @@ RowLoop:
 }
 
 // buildResult builds the final Result object from the ecosystem map and total vulnerability count.
-func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *spb.ContainerImageMetadata, licenseConfig models.ExperimentalLicenseConfig, licenseCount []models.LicenseCount) Result {
+func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata, licenseConfig models.ExperimentalLicenseConfig, licenseCount []models.LicenseCount) Result {
 	result := Result{}
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
@@ -247,7 +247,7 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, 
 	result.VulnCount = resultCount
 
 	if imageMetadata != nil {
-		populateResultWithImageMetadata(&result, imageMetadata)
+		populateResultWithImageMetadata(&result, *imageMetadata)
 	}
 
 	if licenseConfig.Summary {
@@ -266,10 +266,9 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, 
 
 // populateResultWithImageMetadata modifies the result by adding image metadata to it.
 // It uses a pointer receiver (*Result) to modify the original result in place.
-func populateResultWithImageMetadata(result *Result, imageMetadata *spb.ContainerImageMetadata) {
+func populateResultWithImageMetadata(result *Result, imageMetadata models.ImageMetadata) {
 	allLayers := buildLayers(imageMetadata.LayerMetadata)
-	baseImages := imageMetadata.BaseImageChains
-	allBaseImages := buildBaseImages(baseImages)
+	allBaseImages := buildBaseImages(imageMetadata.BaseImages)
 
 	layerCount := make([]VulnCount, len(allLayers))
 	baseImageCount := make([]VulnCount, len(allBaseImages))
@@ -281,10 +280,8 @@ func populateResultWithImageMetadata(result *Result, imageMetadata *spb.Containe
 				layerIndex := pkg.LayerDetail.LayerIndex
 				layerCount[layerIndex].Add(pkg.VulnCount)
 
-				if len(baseImageCount) < layerIndex {
-					baseImageIndex := allLayers[layerIndex].LayerMetadata.BaseImageIndex
-					baseImageCount[baseImageIndex].Add(pkg.VulnCount)
-				}
+				baseImageIndex := allLayers[layerIndex].LayerMetadata.BaseImageIndex
+				baseImageCount[baseImageIndex].Add(pkg.VulnCount)
 			}
 		}
 	}
@@ -295,13 +292,13 @@ func populateResultWithImageMetadata(result *Result, imageMetadata *spb.Containe
 	for i := range allLayers {
 		allLayers[i].Count = layerCount[i]
 		baseImageIndex := allLayers[i].LayerMetadata.BaseImageIndex
-		baseImageMap[int(baseImageIndex)] = append(baseImageMap[int(baseImageIndex)], allLayers[i])
+		baseImageMap[baseImageIndex] = append(baseImageMap[baseImageIndex], allLayers[i])
 	}
 
 	for i := range allBaseImages {
 		allBaseImages[i].Count = baseImageCount[i]
 		slices.SortFunc(baseImageMap[i], func(a, b LayerInfo) int {
-			return cmp.Compare(a.LayerMetadata.Index, b.LayerMetadata.Index)
+			return cmp.Compare(a.Index, b.Index)
 		})
 		allBaseImages[i].AllLayers = baseImageMap[i]
 	}
@@ -328,7 +325,7 @@ func populateResultWithImageMetadata(result *Result, imageMetadata *spb.Containe
 	})
 
 	result.ImageInfo = ImageInfo{
-		OS:            imageMetadata.OsInfo["PRETTY_NAME"],
+		OS:            imageMetadata.OS,
 		AllLayers:     allLayers,
 		AllBaseImages: allBaseImages,
 	}
@@ -338,22 +335,23 @@ func populateResultWithImageMetadata(result *Result, imageMetadata *spb.Containe
 	}
 }
 
-func buildBaseImages(baseImages []*spb.BaseImageChain) []BaseImageGroupInfo {
+func buildBaseImages(baseImages [][]models.BaseImageDetails) []BaseImageGroupInfo {
 	allBaseImages := make([]BaseImageGroupInfo, len(baseImages))
 	for i, baseImage := range baseImages {
 		allBaseImages[i] = BaseImageGroupInfo{
 			Index:         i,
-			BaseImageInfo: baseImage.BaseImages,
+			BaseImageInfo: baseImage,
 		}
 	}
 
 	return allBaseImages
 }
 
-func buildLayers(layerMetadata []*spb.LayerMetadata) []LayerInfo {
+func buildLayers(layerMetadata []models.LayerMetadata) []LayerInfo {
 	allLayers := make([]LayerInfo, len(layerMetadata))
 	for i, layer := range layerMetadata {
 		allLayers[i] = LayerInfo{
+			Index:         i,
 			LayerMetadata: layer,
 		}
 	}
@@ -402,7 +400,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 
 		packageResult := processPackage(vulnPkg)
 		if vulnPkg.Package.ImageOrigin != nil {
-			packageResult.LayerDetail = &PackageContainerInfo{
+			packageResult.LayerDetail = PackageContainerInfo{
 				LayerIndex: vulnPkg.Package.ImageOrigin.Index,
 			}
 		}
@@ -690,7 +688,7 @@ func getFilteredVulnReasons(vulns []VulnResult) string {
 
 func getBaseImageName(baseImageInfo BaseImageGroupInfo) string {
 	if len(baseImageInfo.BaseImageInfo) > 0 {
-		return baseImageInfo.BaseImageInfo[0].Repository
+		return baseImageInfo.BaseImageInfo[0].Name
 	}
 
 	return ""

@@ -102,7 +102,7 @@
         <p><span class="package-detail-title">Installed binaries:</span> {{ $binaries }}</p>
         {{ end }}
 
-        {{ if and $element.LayerDetail $element.LayerDetail.LayerInfo.LayerMetadata (not (eq $element.LayerDetail.LayerInfo.LayerMetadata.Command "")) }}
+        {{ if and $element.LayerDetail.LayerInfo.LayerMetadata (not (eq $element.LayerDetail.LayerInfo.LayerMetadata.Command "")) }}
         {{ $index := $element.LayerDetail.LayerIndex }}
         {{ $diffID := $element.LayerDetail.LayerInfo.LayerMetadata.DiffID }}
         {{ $baseImageIndex := $element.LayerDetail.LayerInfo.LayerMetadata.BaseImageIndex }}

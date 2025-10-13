@@ -16,6 +16,10 @@ import (
 )
 
 func BuildImageMetadata(scanResults *results.ScanResults) *models.ImageMetadata {
+	if scanResults.ImageMetadata == nil {
+		return nil
+	}
+
 	var layerMetadata []models.LayerMetadata
 	for _, cl := range scanResults.ImageMetadata.LayerMetadata {
 		layerMetadata = append(layerMetadata, models.LayerMetadata{
