@@ -22,6 +22,8 @@ var (
 
 type CommandBuilder = func(stdout, stderr io.Writer) *cli.Command
 
+var shouldHideHelp = testing.Testing()
+
 func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int {
 	// --- Setup Logger ---
 	logHandler := cmdlogger.New(stdout, stderr)
@@ -50,7 +52,10 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 
 	cmds := make([]*cli.Command, 0, len(commands))
 	for _, cmd := range commands {
-		cmds = append(cmds, cmd(stdout, stderr))
+		c := cmd(stdout, stderr)
+		c.HideHelp = shouldHideHelp
+
+		cmds = append(cmds, c)
 	}
 
 	app := &cli.Command{
@@ -58,9 +63,9 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 		Version:        version.OSVVersion,
 		Usage:          "scans various mediums for dependencies and checks them against the OSV database",
 		Suggest:        true,
+		HideHelp:       shouldHideHelp,
 		Writer:         stdout,
 		ErrWriter:      stderr,
-		HideHelp:       true,
 		DefaultCommand: "scan",
 		Commands:       cmds,
 

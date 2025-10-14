@@ -21,10 +21,9 @@ import (
 
 func Command(_, _ io.Writer) *cli.Command {
 	return &cli.Command{
-		Hidden:   true,
-		Name:     "update",
-		Usage:    "[EXPERIMENTAL] scans a manifest file then updates dependencies",
-		HideHelp: true,
+		Hidden: true,
+		Name:   "update",
+		Usage:  "[EXPERIMENTAL] scans a manifest file then updates dependencies",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:      "manifest",

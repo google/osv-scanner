@@ -67,7 +67,6 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 		Name:        "fix",
 		Usage:       "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
 		Description: "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
-		HideHelp:    true,
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:      "manifest",

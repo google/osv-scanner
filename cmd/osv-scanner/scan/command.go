@@ -20,7 +20,6 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 		Name:        "scan",
 		Usage:       "scans projects and container images for dependencies, and checks them against the OSV database.",
 		Description: "scans projects and container images for dependencies, and checks them against the OSV database.",
-		HideHelp:    true,
 		Commands: []*cli.Command{
 			source.Command(stdout, stderr),
 			image.Command(stdout, stderr),

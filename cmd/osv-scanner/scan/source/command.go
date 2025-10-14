@@ -21,7 +21,6 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 		Name:        "source",
 		Usage:       "scans a source project's dependencies for known vulnerabilities using the OSV database.",
 		Description: "scans a source project's dependencies for known vulnerabilities using the OSV database.",
-		HideHelp:    true,
 		Flags: append([]cli.Flag{
 			&cli.StringSliceFlag{
 				Name:      "lockfile",
