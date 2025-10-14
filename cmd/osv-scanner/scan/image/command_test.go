@@ -14,6 +14,8 @@ import (
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
 
+	client := testcmd.InsertCassette(t)
+
 	tests := []testcmd.Case{
 		{
 			Name: "extractors_cancelled_out",
@@ -56,6 +58,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
 			}
 
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -63,6 +67,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 
 func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	t.Parallel()
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -103,6 +109,9 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -112,6 +121,8 @@ func TestCommand_Docker(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -167,6 +178,8 @@ func TestCommand_Docker(t *testing.T) {
 				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
 			}
 
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -176,6 +189,8 @@ func TestCommand_OCIImage(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -315,6 +330,8 @@ func TestCommand_OCIImage(t *testing.T) {
 				}
 			}
 
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -324,6 +341,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -421,6 +440,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				}
 			}
 
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -431,6 +452,7 @@ func TestCommand_HtmlFile(t *testing.T) {
 	testutility.SkipIfNotAcceptanceTesting(t, "Needs container image")
 
 	testDir := testutility.CreateTestDir(t)
+	client := testcmd.InsertCassette(t)
 
 	_, stderr := testcmd.RunAndNormalize(t, testcmd.Case{
 		Name: "one specific supported lockfile",
@@ -439,6 +461,8 @@ func TestCommand_HtmlFile(t *testing.T) {
 			"--archive", "./testdata/test-alpine.tar",
 		},
 		Exit: 1,
+
+		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
