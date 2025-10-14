@@ -23,9 +23,10 @@ func BuildImageMetadata(scanResults *results.ScanResults) *models.ImageMetadata 
 	var layerMetadata []models.LayerMetadata
 	for _, cl := range scanResults.ImageMetadata.LayerMetadata {
 		layerMetadata = append(layerMetadata, models.LayerMetadata{
-			DiffID:  digest.Digest(cl.DiffId),
-			Command: cl.Command,
-			IsEmpty: cl.IsEmpty,
+			DiffID:         digest.Digest(cl.DiffId),
+			Command:        cl.Command,
+			IsEmpty:        cl.IsEmpty,
+			BaseImageIndex: int(cl.BaseImageIndex),
 		})
 	}
 
@@ -38,11 +39,11 @@ func BuildImageMetadata(scanResults *results.ScanResults) *models.ImageMetadata 
 				Name: imgs.Repository,
 			})
 		}
-		baseImages = append(baseImages)
+		baseImages = append(baseImages, baseImageChain)
 	}
 
 	imgMetadata := models.ImageMetadata{
-		OS:            scanResults.OS,
+		OS:            scanResults.ImageMetadata.GetOsInfo()["PRETTY_NAME"],
 		LayerMetadata: layerMetadata,
 		BaseImages:    baseImages,
 	}
