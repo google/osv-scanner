@@ -31,7 +31,7 @@ Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 2 packages affected by 3 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+Total 2 packages affected by 3 known vulnerabilities (0 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 3 vulnerabilities can be fixed.
 
 
@@ -185,7 +185,7 @@ HTML output available at: <tempdir>/report.html
 Scanning local image tarball "./testdata/test-alpine.tar"
 
 Container Scanning Result (Alpine Linux v3.18):
-Total 5 packages affected by 65 known vulnerabilities (5 Critical, 31 High, 21 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
+Total 5 packages affected by 65 known vulnerabilities (6 Critical, 33 High, 26 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 65 vulnerabilities can be fixed.
 
 
@@ -424,7 +424,7 @@ failed to load image from tarball with path "../../testdata/locks-manyoci-image/
 Scanning local image tarball "./testdata/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 20 packages affected by 35 known vulnerabilities (3 Critical, 9 High, 13 Medium, 0 Low, 10 Unknown) from 2 ecosystems.
+Total 20 packages affected by 35 known vulnerabilities (3 Critical, 13 High, 18 Medium, 0 Low, 1 Unknown) from 2 ecosystems.
 35 vulnerabilities can be fixed.
 
 
@@ -639,7 +639,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 8 packages affected by 81 known vulnerabilities (0 Critical, 1 High, 0 Medium, 0 Low, 80 Unknown) from 2 ecosystems.
+Total 8 packages affected by 81 known vulnerabilities (1 Critical, 3 High, 5 Medium, 0 Low, 72 Unknown) from 2 ecosystems.
 81 vulnerabilities can be fixed.
 
 
@@ -813,7 +813,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-npm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 13 known vulnerabilities (0 Critical, 1 High, 4 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
+Total 2 packages affected by 13 known vulnerabilities (1 Critical, 3 High, 9 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 13 vulnerabilities can be fixed.
 
 
@@ -840,7 +840,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 4 packages affected by 16 known vulnerabilities (2 Critical, 1 High, 5 Medium, 0 Low, 8 Unknown) from 2 ecosystems.
+Total 4 packages affected by 16 known vulnerabilities (3 Critical, 3 High, 10 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 15 vulnerabilities can be fixed.
 
 
@@ -876,7 +876,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-pnpm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 13 known vulnerabilities (0 Critical, 1 High, 4 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
+Total 2 packages affected by 13 known vulnerabilities (1 Critical, 3 High, 9 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 13 vulnerabilities can be fixed.
 
 
@@ -903,7 +903,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-pnpm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 13 known vulnerabilities (0 Critical, 1 High, 4 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
+Total 2 packages affected by 13 known vulnerabilities (1 Critical, 3 High, 9 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 13 vulnerabilities can be fixed.
 
 
@@ -930,7 +930,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-yarn-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 13 known vulnerabilities (0 Critical, 1 High, 4 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
+Total 2 packages affected by 13 known vulnerabilities (1 Critical, 3 High, 9 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 13 vulnerabilities can be fixed.
 
 
@@ -957,7 +957,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-yarn-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 13 known vulnerabilities (0 Critical, 1 High, 4 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
+Total 2 packages affected by 13 known vulnerabilities (1 Critical, 3 High, 9 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 13 vulnerabilities can be fixed.
 
 
