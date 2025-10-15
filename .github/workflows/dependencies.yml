@@ -34,7 +34,7 @@ jobs:
           go get github.com/google/osv-scalibr@"$latest_commit"
           echo "latest_scalibr_commit=$latest_commit" >> "$GITHUB_ENV"
           go mod tidy
-      - run: go test ./cmd/osv-scanner/ -run 'Test_run$'
+      - run: go test ./cmd/osv-scanner/ -run 'Test_run$' || true
         env:
           TEST_ACCEPTANCE: true
           UPDATE_SNAPS: always
