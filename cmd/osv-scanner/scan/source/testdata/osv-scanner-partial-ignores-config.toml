@@ -1,0 +1,16 @@
+[[IgnoredVulns]]
+id = "CVE-2025-26519" # in alpine.cdx.xml
+
+[[IgnoredVulns]]
+id = "CVE-2018-25032" # in alpine.cdx.xml
+
+[[IgnoredVulns]]
+id = "GO-2022-0274" # in postgres-stretch.cdx.xml
+
+[[IgnoredVulns]]
+id = "CVE-2019-5188"
+ignoreUntil = 2020-01-01
+
+[[IgnoredVulns]]
+id = "CVE-2022-1304"
+ignoreUntil = 2100-01-01

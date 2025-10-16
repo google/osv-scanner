@@ -259,22 +259,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		}
 	}
 
-	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
-
-	if actions.ScanLicensesSummary {
-		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
-	}
-
-	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
-	if filtered > 0 {
-		cmdlogger.Infof(
-			"Filtered %d %s from output",
-			filtered,
-			output.Form(filtered, "vulnerability", "vulnerabilities"),
-		)
-	}
-
-	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)
+	return finalizeScanResult(scanResult, actions)
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
@@ -420,6 +405,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	scanResult.GenericFindings = scalibrSR.Inventory.GenericFindings
 
+	return finalizeScanResult(scanResult, actions)
+}
+
+func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) (models.VulnerabilityResults, error) {
 	vulnerabilityResults := buildVulnerabilityResults(actions, &scanResult)
 
 	if actions.ScanLicensesSummary {
@@ -433,6 +422,19 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 			filtered,
 			output.Form(filtered, "vulnerability", "vulnerabilities"),
 		)
+	}
+
+	if unusedIgnoredEntries := scanResult.ConfigManager.GetUnusedIgnoreEntries(); len(unusedIgnoredEntries) != 0 {
+		configFiles := slices.Collect(maps.Keys(unusedIgnoredEntries))
+		slices.Sort(configFiles)
+
+		for _, configFile := range configFiles {
+			cmdlogger.Warnf("%s has unused ignores:", configFile)
+
+			for _, iv := range unusedIgnoredEntries[configFile] {
+				cmdlogger.Warnf(" - %s", iv.ID)
+			}
+		}
 	}
 
 	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)

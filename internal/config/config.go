@@ -35,10 +35,28 @@ type Config struct {
 	LoadPath string `toml:"-"`
 }
 
+func (c *Config) UnusedIgnoredVulns() []IgnoreEntry {
+	unused := make([]IgnoreEntry, 0, len(c.IgnoredVulns))
+
+	for _, entry := range c.IgnoredVulns {
+		if !entry.Used {
+			unused = append(unused, entry)
+		}
+	}
+
+	return unused
+}
+
 type IgnoreEntry struct {
 	ID          string    `toml:"id"`
 	IgnoreUntil time.Time `toml:"ignoreUntil"`
 	Reason      string    `toml:"reason"`
+
+	Used bool `toml:"-"`
+}
+
+func (ie *IgnoreEntry) MarkAsUsed() {
+	ie.Used = true
 }
 
 type PackageOverrideEntry struct {
@@ -183,6 +201,28 @@ func (c *Manager) Get(targetPath string) Config {
 	c.ConfigMap[configPath] = config
 
 	return config
+}
+
+func (c *Manager) GetUnusedIgnoreEntries() map[string][]IgnoreEntry {
+	m := make(map[string][]IgnoreEntry)
+
+	for _, config := range c.ConfigMap {
+		unusedEntries := config.UnusedIgnoredVulns()
+
+		if len(unusedEntries) > 0 {
+			m[config.LoadPath] = unusedEntries
+		}
+	}
+
+	if c.OverrideConfig != nil {
+		unusedEntries := c.OverrideConfig.UnusedIgnoredVulns()
+
+		if len(unusedEntries) > 0 {
+			m[c.OverrideConfig.LoadPath] = unusedEntries
+		}
+	}
+
+	return m
 }
 
 // Finds the containing folder of `target`, then appends osvScannerConfigName
