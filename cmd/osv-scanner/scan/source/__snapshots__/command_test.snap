@@ -1728,7 +1728,7 @@ Total 2 packages affected by 8 known vulnerabilities (2 Critical, 2 High, 0 Medi
 
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file as a osv-scanner and found 4 packages
-Total 3 packages affected by 14 known vulnerabilities (3 Critical, 1 High, 2 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
+Total 3 packages affected by 15 known vulnerabilities (3 Critical, 1 High, 3 Medium, 0 Low, 8 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -1743,6 +1743,7 @@ Total 3 packages affected by 14 known vulnerabilities (3 Critical, 1 High, 2 Med
 | https://osv.dev/CVE-2025-9232  |      | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2023-53159 | 9.1  | GIT       |  https://github.com/sfackler-fork/rust-openssl@3b064fdb  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2023-6180  | 5.3  | GIT       |  https://github.com/sfackler-fork/rust-openssl@3b064fdb  | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-24898 | 6.3  | GIT       |  https://github.com/sfackler-fork/rust-openssl@3b064fdb  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-3416  |      | GIT       |  https://github.com/sfackler-fork/rust-openssl@3b064fdb  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2016-10931 | 8.1  | GIT       |     https://github.com/sfackler/rust-openssl@0f428d19    | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2018-20997 | 9.8  | GIT       |     https://github.com/sfackler/rust-openssl@0f428d19    | --            | testdata/locks-git/osv-scanner.json |

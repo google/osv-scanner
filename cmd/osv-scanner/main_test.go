@@ -9,6 +9,8 @@ import (
 
 //nolint:paralleltest
 func Test_run(t *testing.T) {
+	t.Setenv("TEST_SHOW_HELP", "true")
+
 	tests := []testcmd.Case{
 		{
 			Name: "",
