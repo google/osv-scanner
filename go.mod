@@ -4,6 +4,7 @@ go 1.24.6
 
 require (
 	deps.dev/api/v3 v3.0.0-20250917073939-6ff3dd7d2eea
+	deps.dev/api/v3alpha v0.0.0-20250903005441-604c45d5b44b
 	deps.dev/util/maven v0.0.0-20250917073939-6ff3dd7d2eea
 	deps.dev/util/resolve v0.0.0-20250917073939-6ff3dd7d2eea
 	deps.dev/util/semver v0.0.0-20250917073939-6ff3dd7d2eea
@@ -43,7 +44,6 @@ require (
 require (
 	cloud.google.com/go/compute/metadata v0.8.4 // indirect
 	dario.cat/mergo v1.0.2 // indirect
-	deps.dev/api/v3alpha v0.0.0-20250903005441-604c45d5b44b // indirect
 	deps.dev/util/pypi v0.0.0-20250903005441-604c45d5b44b // indirect
 	github.com/AdaLogics/go-fuzz-headers v0.0.0-20240806141605-e8a1dd7889d6 // indirect
 	github.com/AdamKorcz/go-118-fuzz-build v0.0.0-20250520111509-a70c2aa677fa // indirect
