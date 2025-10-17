@@ -53,6 +53,11 @@ linters:
     gocritic:
       disabled-checks:
         - ifElseChain
+    govet:
+      enable-all: true
+      disable:
+        - fieldalignment
+        - shadow
     nlreturn:
       block-size: 2
     revive:
