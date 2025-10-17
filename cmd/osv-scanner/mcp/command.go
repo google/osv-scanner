@@ -132,12 +132,12 @@ func handleScan(_ context.Context, req mcp.CallToolRequest) (*mcp.CallToolResult
 
 	action := osvscanner.ScannerActions{
 		DirectoryPaths:      path,
-		ScanLicensesSummary: true,
+		ScanLicensesSummary: false,
 		ExperimentalScannerActions: osvscanner.ExperimentalScannerActions{
 			StatsCollector: &statsCollector,
 		},
 		CallAnalysisStates: map[string]bool{
-			"go": false,
+			"go": true,
 		},
 		Recursive: recursive,
 	}
@@ -196,7 +196,6 @@ func handleVulnIDRetrieval(ctx context.Context, req mcp.CallToolRequest) (*mcp.C
 }
 
 func handleCodeReview(ctx context.Context, req mcp.GetPromptRequest) (*mcp.GetPromptResult, error) {
-
 	return &mcp.GetPromptResult{
 		Description: "Dependency vulnerability analysis",
 		Messages: []mcp.PromptMessage{
@@ -222,8 +221,7 @@ If more information is needed about a vulnerability, use get_vulnerability_detai
 **Step 3: Prioritisation**
 
 Give advice on which vulnerabilities to prioritise fixing, and general advice on how to go about fixing
-them by updating.
-
+them by updating. Don't try to automatically update for the user without input.
 `),
 			},
 		},
