@@ -568,6 +568,8 @@ func SetLogger(handler slog.Handler) {
 	cmdlogger.GlobalHandler = handler
 }
 
+// inventoryIsEmpty is a custom inventory is empty check because the default check
+// returns false if image metadata is filled. We want to still return empty if there is image metadata
 func inventoryIsEmpty(i inventory.Inventory) bool {
 	if len(i.Packages) != 0 {
 		return false
