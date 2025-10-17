@@ -20,23 +20,23 @@ func BuildImageMetadata(scanResults *results.ScanResults) *models.ImageMetadata 
 		return nil
 	}
 
-	var layerMetadata []models.LayerMetadata
-	for _, cl := range scanResults.ImageMetadata.LayerMetadata {
+	layerMetadata := make([]models.LayerMetadata, 0, len(scanResults.ImageMetadata.GetLayerMetadata()))
+	for _, cl := range scanResults.ImageMetadata.GetLayerMetadata() {
 		layerMetadata = append(layerMetadata, models.LayerMetadata{
-			DiffID:         digest.Digest(cl.DiffId),
-			Command:        cl.Command,
-			IsEmpty:        cl.IsEmpty,
-			BaseImageIndex: int(cl.BaseImageIndex),
+			DiffID:         digest.Digest(cl.GetDiffId()),
+			Command:        cl.GetCommand(),
+			IsEmpty:        cl.GetIsEmpty(),
+			BaseImageIndex: int(cl.GetBaseImageIndex()),
 		})
 	}
 
-	var baseImages [][]models.BaseImageDetails
+	baseImages := make([][]models.BaseImageDetails, 0, len(scanResults.ImageMetadata.GetBaseImageChains()))
 
-	for _, chain := range scanResults.ImageMetadata.BaseImageChains {
-		var baseImageChain []models.BaseImageDetails
-		for _, imgs := range chain.BaseImages {
+	for _, chain := range scanResults.ImageMetadata.GetBaseImageChains() {
+		baseImageChain := make([]models.BaseImageDetails, 0, len(chain.GetBaseImages()))
+		for _, imgs := range chain.GetBaseImages() {
 			baseImageChain = append(baseImageChain, models.BaseImageDetails{
-				Name: imgs.Repository,
+				Name: imgs.GetRepository(),
 			})
 		}
 		baseImages = append(baseImages, baseImageChain)

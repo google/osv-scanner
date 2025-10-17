@@ -2,6 +2,8 @@ package scalibrplugin
 
 import (
 	detectors "github.com/google/osv-scalibr/detector/list"
+	"github.com/google/osv-scalibr/enricher"
+	"github.com/google/osv-scalibr/enricher/baseimage"
 	"github.com/google/osv-scalibr/enricher/enricherlist"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
@@ -35,12 +37,15 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
+	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/version"
 )
 
 var detectorPresets = map[string]detectors.InitMap{
@@ -135,7 +140,27 @@ var ExtractorPresets = map[string]extractors.InitMap{
 }
 
 var enricherPresets = map[string]enricherlist.InitMap{
-	"artifact": enricherlist.LayerDetails,
+	"artifact": {
+		baseimage.Name: {baseImageEnricher},
+	},
 	"vulns":    enricherlist.VulnMatching,
 	"licenses": enricherlist.License,
+}
+
+func baseImageEnricher() enricher.Enricher {
+	insightsClient, err := datasource.NewInsightsAlphaClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+	if err != nil {
+		panic("unable to connect to insights server")
+	}
+
+	client := baseimage.NewClientGRPC(insightsClient)
+	baseImageEnricher, err := baseimage.New(&baseimage.Config{
+		Client: client,
+	})
+
+	if err != nil {
+		panic("unable to initialize base image enricher")
+	}
+
+	return baseImageEnricher
 }

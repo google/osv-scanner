@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log/slog"
 	"maps"
-	"net/http"
 	"os"
 	"slices"
 	"sort"
@@ -23,7 +22,6 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
-	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
@@ -86,9 +84,8 @@ type TransitiveScanningActions struct {
 
 type ExternalAccessors struct {
 	// Matchers
-	VulnMatcher      clientinterfaces.VulnerabilityMatcher
-	LicenseMatcher   clientinterfaces.LicenseMatcher
-	BaseImageMatcher clientinterfaces.BaseImageMatcher
+	VulnMatcher    clientinterfaces.VulnerabilityMatcher
+	LicenseMatcher clientinterfaces.LicenseMatcher
 
 	// Required for pomxmlnet Extractor
 	MavenRegistryAPIClient *datasource.MavenRegistryAPIClient
@@ -147,14 +144,6 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 
 		externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
 			Client: depsDevAPIClient,
-		}
-	}
-
-	// --- Base Image Matcher ---
-	if actions.Image != "" {
-		externalAccessors.BaseImageMatcher = &baseimagematcher.DepsDevBaseImageMatcher{
-			HTTPClient: *http.DefaultClient,
-			Config:     baseimagematcher.DefaultConfig(),
 		}
 	}
 
@@ -371,7 +360,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to serialize scan results to proto: %w", err)
 	}
 
-	scanResult.ImageMetadata = pssr.Inventory.ContainerImageMetadata[0]
+	scanResult.ImageMetadata = pssr.GetInventory().GetContainerImageMetadata()[0]
 
 	// ----- Filtering -----
 	filterUnscannablePackages(&scanResult)
@@ -583,5 +572,6 @@ func inventoryIsEmpty(i inventory.Inventory) bool {
 	if len(i.Secrets) != 0 {
 		return false
 	}
+
 	return true
 }
