@@ -5,7 +5,7 @@ import (
 	"errors"
 	"io"
 	"log/slog"
-	"strings"
+	"os"
 	"testing"
 
 	scalibr "github.com/google/osv-scalibr/version"
@@ -24,15 +24,13 @@ var (
 type CommandBuilder = func(stdout, stderr io.Writer) *cli.Command
 
 func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int {
-	// get rid of the extraneous space in the subcommand help template, as otherwise
-	// our snapshots will fail because it will be trailing and removed by editors
+	// urfave/cli uses a global for its help flag which makes it possible for a nil
+	// pointer dereference if running in a parallel setting, which our test suite
+	// does, so this is used to hide the help flag so the global won't be used
+	// unless a particular env variable is set
 	//
-	// todo: remove this once https://github.com/urfave/cli/pull/2140 has been released
-	cli.SubcommandHelpTemplate = strings.ReplaceAll(
-		cli.SubcommandHelpTemplate,
-		"{{if .VisibleCommands}} [command [command options]] {{end}}",
-		"{{if .VisibleCommands}} [command [command options]]{{end}}",
-	)
+	// see https://github.com/urfave/cli/issues/2176
+	shouldHideHelp := testing.Testing() && os.Getenv("TEST_SHOW_HELP") != "true"
 
 	// --- Setup Logger ---
 	logHandler := cmdlogger.New(stdout, stderr)
@@ -61,7 +59,10 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 
 	cmds := make([]*cli.Command, 0, len(commands))
 	for _, cmd := range commands {
-		cmds = append(cmds, cmd(stdout, stderr))
+		c := cmd(stdout, stderr)
+		c.HideHelp = shouldHideHelp
+
+		cmds = append(cmds, c)
 	}
 
 	app := &cli.Command{
@@ -69,6 +70,7 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 		Version:        version.OSVVersion,
 		Usage:          "scans various mediums for dependencies and checks them against the OSV database",
 		Suggest:        true,
+		HideHelp:       shouldHideHelp,
 		Writer:         stdout,
 		ErrWriter:      stderr,
 		DefaultCommand: "scan",
