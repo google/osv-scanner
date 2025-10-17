@@ -201,7 +201,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			PrintDurationAnalysis: false,
 			ErrorOnFSErrors:       false,
 		})
-		if sr.Status.Status != plugin.ScanStatusSucceeded {
+		if sr.Status.Status == plugin.ScanStatusFailed {
 			return nil, errors.New(sr.Status.FailureReason)
 		}
 		for _, status := range sr.PluginStatus {

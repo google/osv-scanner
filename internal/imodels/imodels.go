@@ -218,7 +218,6 @@ type PackageScanResult struct {
 	// TODO: Use osvschema.Vulnerability instead
 	Vulnerabilities []*osvschema.Vulnerability
 	Licenses        []models.License
-	LayerDetails    *extractor.LayerDetails
 
 	// TODO(v2):
 	// SourceAnalysis *SourceAnalysis

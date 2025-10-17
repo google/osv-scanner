@@ -12,6 +12,7 @@ import (
 	"github.com/google/osv-scalibr/detector/weakcredentials/etcshadow"
 	"github.com/google/osv-scalibr/detector/weakcredentials/filebrowser"
 	"github.com/google/osv-scalibr/detector/weakcredentials/winlocal"
+	"github.com/google/osv-scalibr/enricher/baseimage"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
@@ -393,6 +394,7 @@ func TestResolve_Extractors(t *testing.T) {
 			want: []string{
 				apk.Name,
 				archive.Name,
+				baseimage.Name,
 				cargoauditable.Name,
 				dpkg.Name,
 				gobinary.Name,
@@ -409,6 +411,7 @@ func TestResolve_Extractors(t *testing.T) {
 			want: []string{
 				apk.Name,
 				archive.Name,
+				baseimage.Name,
 				cargoauditable.Name,
 				dpkg.Name,
 				gobinary.Name,
@@ -432,6 +435,7 @@ func TestResolve_Extractors(t *testing.T) {
 			},
 			want: []string{
 				apk.Name,
+				baseimage.Name,
 				dpkg.Name,
 				gobinary.Name,
 				nodemodules.Name,
@@ -447,6 +451,7 @@ func TestResolve_Extractors(t *testing.T) {
 			want: []string{
 				apk.Name,
 				archive.Name,
+				baseimage.Name,
 				cargoauditable.Name,
 				dpkg.Name,
 				gitrepo.Name,
