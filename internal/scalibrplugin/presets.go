@@ -160,6 +160,7 @@ func baseImageEnricher() enricher.Enricher {
 		Client: baseimage.NewClientGRPC(insightsClient),
 	})
 
+	// These panics should be very unlikely to happen. Does **not** happen when network is not available.
 	if err != nil {
 		panic("unable to initialize base image enricher")
 	}
