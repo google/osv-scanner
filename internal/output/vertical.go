@@ -281,14 +281,15 @@ func truncate(str string, limit int) string {
 }
 
 func describe(vulnerability VulnResult) string {
-	description := vulnerability.Description
-	if description == "" {
-		description += "(no details available)"
+	builder := strings.Builder{}
+	if vulnerability.Description == "" {
+		builder.WriteString("(no details available)")
 	} else {
-		description = truncate(vulnerability.Description, 80)
+		builder.WriteString(truncate(vulnerability.Description, 80))
 	}
 
-	description += " (" + OSVBaseVulnerabilityURL + vulnerability.ID + ")"
+	builder.WriteString(
+		fmt.Sprintf("; Severity: '%s'; Minimal Fix Version: '%s'", vulnerability.SeverityScore, vulnerability.FixedVersion))
 
-	return description
+	return builder.String()
 }
