@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log/slog"
 	"maps"
-	"net/http"
 	"os"
 	"slices"
 	"sort"
@@ -16,12 +15,13 @@ import (
 	"deps.dev/util/resolve"
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
+	"github.com/google/osv-scalibr/binary/proto"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
-	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/baseimagematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
@@ -84,9 +84,8 @@ type TransitiveScanningActions struct {
 
 type ExternalAccessors struct {
 	// Matchers
-	VulnMatcher      clientinterfaces.VulnerabilityMatcher
-	LicenseMatcher   clientinterfaces.LicenseMatcher
-	BaseImageMatcher clientinterfaces.BaseImageMatcher
+	VulnMatcher    clientinterfaces.VulnerabilityMatcher
+	LicenseMatcher clientinterfaces.LicenseMatcher
 
 	// Required for pomxmlnet Extractor
 	MavenRegistryAPIClient *datasource.MavenRegistryAPIClient
@@ -145,14 +144,6 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 
 		externalAccessors.LicenseMatcher = &licensematcher.DepsDevLicenseMatcher{
 			Client: depsDevAPIClient,
-		}
-	}
-
-	// --- Base Image Matcher ---
-	if actions.Image != "" {
-		externalAccessors.BaseImageMatcher = &baseimagematcher.DepsDevBaseImageMatcher{
-			HTTPClient: *http.DefaultClient,
-			Config:     baseimagematcher.DefaultConfig(),
 		}
 	}
 
@@ -352,22 +343,27 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)
 	}
 
-	if scalibrSR.Inventory.IsEmpty() {
+	if inventoryIsEmpty(scalibrSR.Inventory) {
 		return models.VulnerabilityResults{}, ErrNoPackagesFound
 	}
 
 	// --- Save Scalibr Scan Results ---
 	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventory.Packages))
-	for i, inv := range scalibrSR.Inventory.Packages {
-		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(inv)
-		scanResult.PackageScanResults[i].LayerDetails = inv.LayerDetails
-		scanResult.PackageScanResults[i].PackageInfo.ExploitabilitySignals = inv.ExploitabilitySignals
+	for i, pkgs := range scalibrSR.Inventory.Packages {
+		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(pkgs)
+		scanResult.PackageScanResults[i].PackageInfo.ExploitabilitySignals = pkgs.ExploitabilitySignals
 	}
 
 	// --- Fill Image Metadata ---
-	scanResult.ImageMetadata, err = imagehelpers.BuildImageMetadata(img, accessors.BaseImageMatcher)
-	if err != nil { // Not getting image metadata is not fatal
-		cmdlogger.Errorf("Failed to fully get image metadata: %v", err)
+	pssr, err := proto.ScanResultToProto(scalibrSR)
+	if err != nil {
+		return models.VulnerabilityResults{}, fmt.Errorf("failed to serialize scan results to proto: %w", err)
+	}
+
+	if len(pssr.GetInventory().GetContainerImageMetadata()) > 0 {
+		scanResult.ImageMetadata = pssr.GetInventory().GetContainerImageMetadata()[0]
+	} else {
+		cmdlogger.Warnf("No container image metadata found in scan results")
 	}
 
 	// ----- Filtering -----
@@ -563,4 +559,22 @@ func overrideGoVersion(scanResults *results.ScanResults) {
 // SetLogger sets the global slog handler for the cmdlogger.
 func SetLogger(handler slog.Handler) {
 	cmdlogger.GlobalHandler = handler
+}
+
+// inventoryIsEmpty ignores image metadata when checking if an inventory is empty
+func inventoryIsEmpty(i inventory.Inventory) bool {
+	if len(i.Packages) != 0 {
+		return false
+	}
+	if len(i.PackageVulns) != 0 {
+		return false
+	}
+	if len(i.GenericFindings) != 0 {
+		return false
+	}
+	if len(i.Secrets) != 0 {
+		return false
+	}
+
+	return true
 }

@@ -1,3 +1,4 @@
+// Package clientinterfaces defines interfaces for external accessors used in osv-scanner.
 package clientinterfaces
 
 import (

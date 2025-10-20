@@ -2,6 +2,9 @@ package scalibrplugin
 
 import (
 	detectors "github.com/google/osv-scalibr/detector/list"
+	"github.com/google/osv-scalibr/enricher"
+	"github.com/google/osv-scalibr/enricher/baseimage"
+	"github.com/google/osv-scalibr/enricher/enricherlist"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
@@ -34,12 +37,15 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
+	"github.com/google/osv-scanner/v2/internal/datasource"
+	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
+	"github.com/google/osv-scanner/v2/internal/version"
 )
 
 var detectorPresets = map[string]detectors.InitMap{
@@ -131,4 +137,33 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		// Debian
 		dpkg.Name: {dpkg.NewDefault},
 	},
+}
+
+var enricherPresets = map[string]enricherlist.InitMap{
+	"artifact": {
+		baseimage.Name: {baseImageEnricher},
+	},
+	"vulns":    enricherlist.VulnMatching,
+	"licenses": enricherlist.License,
+}
+
+func baseImageEnricher() enricher.Enricher {
+	// The grpc client **does not** make any requests. It starts in an IDLE state until
+	// the first function call is made. This means we can safely initialize the client even in offline mode,
+	// and the enricher plugin will be filtered out in offline mode.
+	insightsClient, err := datasource.NewInsightsAlphaClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+	if err != nil {
+		panic("unable to connect to insights server")
+	}
+
+	baseImageEnricher, err := baseimage.New(&baseimage.Config{
+		Client: baseimage.NewClientGRPC(insightsClient),
+	})
+
+	// These panics should be very unlikely to happen. Does **not** happen when network is not available.
+	if err != nil {
+		panic("unable to initialize base image enricher")
+	}
+
+	return baseImageEnricher
 }

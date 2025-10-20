@@ -51,23 +51,31 @@ func Resolve(enabledPlugins []string, disabledPlugins []string) []plugin.Plugin 
 		enabled := i == 0
 
 		for _, pluginOrPreset := range exts {
+			wasAPreset := false
 			if names, ok := ExtractorPresets[pluginOrPreset]; ok {
 				for name := range names {
 					plugins[name] = enabled
 				}
-
-				continue
+				wasAPreset = true
 			}
 
 			if names, ok := detectorPresets[pluginOrPreset]; ok {
 				for name := range names {
 					plugins[name] = enabled
 				}
-
-				continue
+				wasAPreset = true
 			}
 
-			plugins[pluginOrPreset] = enabled
+			if names, ok := enricherPresets[pluginOrPreset]; ok {
+				for name := range names {
+					plugins[name] = enabled
+				}
+				wasAPreset = true
+			}
+
+			if !wasAPreset {
+				plugins[pluginOrPreset] = enabled
+			}
 		}
 	}
 
