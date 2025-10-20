@@ -360,7 +360,11 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to serialize scan results to proto: %w", err)
 	}
 
-	scanResult.ImageMetadata = pssr.GetInventory().GetContainerImageMetadata()[0]
+	if len(pssr.GetInventory().GetContainerImageMetadata()) > 0 {
+		scanResult.ImageMetadata = pssr.GetInventory().GetContainerImageMetadata()[0]
+	} else {
+		cmdlogger.Warnf("No container image metadata found in scan results")
+	}
 
 	// ----- Filtering -----
 	filterUnscannablePackages(&scanResult)
