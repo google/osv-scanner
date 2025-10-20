@@ -148,7 +148,7 @@ var enricherPresets = map[string]enricherlist.InitMap{
 }
 
 func baseImageEnricher() enricher.Enricher {
-	// The grpc client **does not** make any requests are start in an IDLE state until
+	// The grpc client **does not** make any requests. It starts in an IDLE state until
 	// the first function call is made. This means we can safely initialize the client even in offline mode,
 	// and the enricher plugin will be filtered out in offline mode.
 	insightsClient, err := datasource.NewInsightsAlphaClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
