@@ -5,7 +5,7 @@ import (
 	"io"
 
 	scalibr "github.com/google/osv-scalibr"
-	"github.com/google/osv-scalibr/converter"
+	"github.com/google/osv-scalibr/converter/spdx"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
@@ -20,7 +20,7 @@ func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	}
 
 	// TODO(#1783): Allow user configuration
-	doc := converter.ToSPDX23(scanResult, converter.SPDXConfig{})
+	doc := spdx.ToSPDX23(scanResult, spdx.Config{})
 
 	encoder := json.NewEncoder(outputWriter)
 	encoder.SetIndent("", "  ")

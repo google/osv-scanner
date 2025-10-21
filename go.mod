@@ -17,7 +17,7 @@ require (
 	github.com/gkampitakis/go-snaps v0.5.15
 	github.com/go-git/go-git/v5 v5.16.3
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.3.6-0.20251017043508-d55b1c134c72
+	github.com/google/osv-scalibr v0.3.6-0.20251020225308-1659c7bad104
 	github.com/ianlancetaylor/demangle v0.0.0-20250628045327-2d64ad6b7ec5
 	github.com/jedib0t/go-pretty/v6 v6.6.8
 	github.com/muesli/reflow v0.3.0
@@ -42,6 +42,7 @@ require (
 )
 
 require (
+	bitbucket.org/creachadair/stringset v0.0.14 // indirect
 	cloud.google.com/go/compute/metadata v0.8.4 // indirect
 	dario.cat/mergo v1.0.2 // indirect
 	deps.dev/util/pypi v0.0.0-20250903005441-604c45d5b44b // indirect
@@ -167,6 +168,7 @@ require (
 	github.com/skeema/knownhosts v1.3.1 // indirect
 	github.com/spdx/gordf v0.0.0-20250128162952-000978ccd6fb // indirect
 	github.com/spdx/tools-golang v0.5.5 // indirect
+	github.com/thoas/go-funk v0.9.3 // indirect
 	github.com/tidwall/jsonc v0.3.2 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tink-crypto/tink-go/v2 v2.4.0 // indirect
