@@ -3,6 +3,7 @@ package mcp
 
 import (
 	"context"
+	_ "embed"
 	"errors"
 	"fmt"
 	"io"
@@ -41,13 +42,17 @@ func Command(_, _ io.Writer) *cli.Command {
 }
 
 type ScanVulnerableDependenciesInput struct {
-	Paths              []string `json:"paths"                jsonschema:"A list of absolute or relative path to a file or directory to scan.,required"`
+	Paths              []string `json:"paths"                jsonschema:"A list of absolute or relative path to a file or directory to scan."`
 	IgnoreGlobPatterns []string `json:"ignore_glob_patterns" jsonschema:"A list of glob patterns to ignore when scanning."`
 	Recursive          bool     `json:"recursive"            jsonschema:"Scans directory recursively"`
 }
 
 type GetVulnerabilityDetailsInput struct {
-	VulnID string `json:"vuln_id" jsonschema:"The OSV vulnerability ID to retrieve details for.,required"`
+	VulnID string `json:"vuln_id" jsonschema:"The OSV vulnerability ID to retrieve details for."`
+}
+
+type IgnoreVulnerabilityInput struct {
+	Verbose bool `json:"verbose"    jsonschema:"ignore this parameter"`
 }
 
 func action(ctx context.Context, cmd *cli.Command) error {
@@ -67,6 +72,11 @@ func action(ctx context.Context, cmd *cli.Command) error {
 		Name:        "get_vulnerability_details",
 		Description: "Retrieves the full JSON details for a given vulnerability ID.",
 	}, handleVulnIDRetrieval)
+
+	mcp.AddTool(s, &mcp.Tool{
+		Name:        "ignore_vulnerability",
+		Description: "Provides instructions for writing a config file to exclude vulnerabilities from the scan report.",
+	}, handleIgnoreVulnerability)
 
 	s.AddPrompt(&mcp.Prompt{
 		Name:        "scan_deps",
@@ -158,6 +168,17 @@ func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *G
 	}
 
 	return &mcp.CallToolResult{}, vuln, nil
+}
+
+//go:embed configuration-instructions.md
+var configInstructions string
+
+func handleIgnoreVulnerability(ctx context.Context, _ *mcp.CallToolRequest, _ *IgnoreVulnerabilityInput) (*mcp.CallToolResult, any, error) {
+	return &mcp.CallToolResult{
+		Content: []mcp.Content{
+			&mcp.TextContent{Text: configInstructions},
+		},
+	}, nil, nil
 }
 
 func handleCodeReview(_ context.Context, _ *mcp.GetPromptRequest) (*mcp.GetPromptResult, error) {
