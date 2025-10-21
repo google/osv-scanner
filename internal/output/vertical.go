@@ -213,6 +213,12 @@ func printVerticalVulnerabilitiesForPackages(packages []PackageResult, out io.Wr
 				text.FgCyan.Sprintf("%s:", vulnerability.ID),
 				describe(vulnerability),
 			)
+
+			fmt.Fprintf(out,
+				"      Severity: '%s'; Minimal Fix Version: '%s';\n",
+				vulnerability.SeverityScore,
+				vulnerability.FixedVersion,
+			)
 		}
 	}
 }
@@ -287,9 +293,6 @@ func describe(vulnerability VulnResult) string {
 	} else {
 		builder.WriteString(truncate(vulnerability.Description, 80))
 	}
-
-	builder.WriteString(
-		fmt.Sprintf("; Severity: '%s'; Minimal Fix Version: '%s'", vulnerability.SeverityScore, vulnerability.FixedVersion))
 
 	return builder.String()
 }

@@ -97,11 +97,6 @@ func action(ctx context.Context, cmd *cli.Command) error {
 }
 
 func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *ScanVulnerableDependenciesInput) (*mcp.CallToolResult, any, error) {
-	// Security: validate path
-	// if !isValidPath(path) {
-	//	return mcp.NewToolResultError(fmt.Sprintf("invalid path: %s", path)), nil
-	//}
-
 	statsCollector := fileOpenedLogger{}
 
 	action := osvscanner.ScannerActions{
