@@ -367,7 +367,8 @@ Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show t
 sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   mine2@3.2.5 has the following known vulnerabilities:
-    OSV-2: Something less scary! (https://osv.dev/OSV-2)
+    OSV-2: Something less scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in sbom:<rootdir>/path/to/my/second/lockfile
   no license violations found
@@ -394,7 +395,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -406,7 +408,8 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   mine2@3.2.5 has the following known vulnerabilities:
-    OSV-2: Something less scary! (https://osv.dev/OSV-2)
+    OSV-2: Something less scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in sbom:<rootdir>/path/to/my/second/lockfile
   no license violations found
@@ -414,7 +417,8 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 unknown:<rootdir>/path/to/my/third/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in unknown:<rootdir>/path/to/my/third/lockfile
 
@@ -437,7 +441,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -449,7 +454,8 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   mine2@ has the following known vulnerabilities:
-    OSV-2: Something less scary! (https://osv.dev/OSV-2)
+    OSV-2: Something less scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in sbom:<rootdir>/path/to/my/second/lockfile
   no license violations found
@@ -457,7 +463,8 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 unknown:<rootdir>/path/to/my/third/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in unknown:<rootdir>/path/to/my/third/lockfile
 
@@ -480,7 +487,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -502,7 +510,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -542,7 +551,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -564,7 +574,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
   no license violations found
@@ -590,20 +601,26 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 2 packages with issues
 
   mine1@1.2.2 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-    OSV-5: Something scarier! (https://osv.dev/OSV-5)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+    OSV-5: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   3 known vulnerabilities found in lockfile:<rootdir>/path/to/my/first/lockfile
 
 sbom:<rootdir>/path/to/my/second/lockfile: found 2 packages with issues
 
   mine2@3.2.5 has the following known vulnerabilities:
-    OSV-2: Something less scary! (https://osv.dev/OSV-2)
+    OSV-2: Something less scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
   mine3@0.4.1 has the following known vulnerabilities:
-    OSV-3: Something mildly scary! (https://osv.dev/OSV-3)
-    OSV-5: Something scarier! (https://osv.dev/OSV-5)
+    OSV-3: Something mildly scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+    OSV-5: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   3 known vulnerabilities found in sbom:<rootdir>/path/to/my/second/lockfile
 
@@ -620,20 +637,26 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 2 packages with issues
 
   mine1@1.2.2 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-    OSV-5: Something scarier! (https://osv.dev/OSV-5)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+    OSV-5: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   3 known vulnerabilities found in lockfile:<rootdir>/path/to/my/first/lockfile
 
 sbom:<rootdir>/path/to/my/second/lockfile: found 2 packages with issues
 
   mine2@3.2.5 has the following known vulnerabilities:
-    OSV-2: Something less scary! (https://osv.dev/OSV-2)
+    OSV-2: Something less scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
   mine3@0.4.1 has the following known vulnerabilities:
-    OSV-3: Something mildly scary! (https://osv.dev/OSV-3)
-    OSV-5: Something scarier! (https://osv.dev/OSV-5)
+    OSV-3: Something mildly scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+    OSV-5: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   3 known vulnerabilities found in sbom:<rootdir>/path/to/my/second/lockfile
 
@@ -669,21 +692,24 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
 sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   mine2@3.2.5 has the following known vulnerabilities:
-    OSV-2: Something less scary! (https://osv.dev/OSV-2)
+    OSV-2: Something less scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in sbom:<rootdir>/path/to/my/second/lockfile
 
 unknown:<rootdir>/path/to/my/third/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in unknown:<rootdir>/path/to/my/third/lockfile
 
@@ -700,7 +726,8 @@ NuGet
 sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   mine2@3.2.5 has the following known vulnerabilities:
-    OSV-2: Something less scary! (https://osv.dev/OSV-2)
+    OSV-2: Something less scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in sbom:<rootdir>/path/to/my/second/lockfile
 
@@ -709,16 +736,20 @@ Packagist
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   author1/mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-    OSV-5: Something scarier! (https://osv.dev/OSV-5)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+    OSV-5: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   2 known vulnerabilities found in lockfile:<rootdir>/path/to/my/first/lockfile
 
 sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   author3/mine3@0.4.1 has the following known vulnerabilities:
-    OSV-3: Something mildly scary! (https://osv.dev/OSV-3)
-    OSV-5: Something scarier! (https://osv.dev/OSV-5)
+    OSV-3: Something mildly scary!
+      Severity: '4.3'; Minimal Fix Version: 'No fix available';
+    OSV-5: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   2 known vulnerabilities found in sbom:<rootdir>/path/to/my/second/lockfile
 
@@ -727,7 +758,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.2 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -744,7 +776,8 @@ NuGet
 sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   mine2@3.2.5 has the following known vulnerabilities:
-    OSV-2: Something less scary! (https://osv.dev/OSV-2)
+    OSV-2: Something less scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in sbom:<rootdir>/path/to/my/second/lockfile
 
@@ -753,20 +786,24 @@ Packagist
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   author1/mine1@1.2.3 has the following known vulnerabilities:
-    OSV-5: Something scarier! (https://osv.dev/OSV-5)
+    OSV-5: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
   author1/mine1@1.2.3 has the following uncalled vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 uncalled/unimportant vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile (filtered out)
 
 sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   author3/mine3@0.4.1 has the following known vulnerabilities:
-    OSV-3: Something mildly scary! (https://osv.dev/OSV-3)
-    OSV-5: Something scarier! (https://osv.dev/OSV-5)
+    OSV-3: Something mildly scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+    OSV-5: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   2 known vulnerabilities found in sbom:<rootdir>/path/to/my/second/lockfile
 
@@ -775,7 +812,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.2 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -792,7 +830,8 @@ NuGet
 sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   mine2@3.2.5 has the following known vulnerabilities:
-    OSV-2: Something less scary! (https://osv.dev/OSV-2)
+    OSV-2: Something less scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in sbom:<rootdir>/path/to/my/second/lockfile
 
@@ -801,16 +840,20 @@ Packagist
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   author1/mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
-    OSV-5: Something scarier! (https://osv.dev/OSV-5)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+    OSV-5: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   2 known vulnerabilities found in lockfile:<rootdir>/path/to/my/first/lockfile
 
 sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   author3/mine3@0.4.1 has the following known vulnerabilities:
-    OSV-3: Something mildly scary! (https://osv.dev/OSV-3)
-    OSV-5: Something scarier! (https://osv.dev/OSV-5)
+    OSV-3: Something mildly scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+    OSV-5: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   2 known vulnerabilities found in sbom:<rootdir>/path/to/my/second/lockfile
 
@@ -819,7 +862,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@ has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -890,12 +934,14 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
   mine1@1.2.3 has the following uncalled vulnerabilities:
-    GHSA-123: Something scarier! (https://osv.dev/GHSA-123)
+    GHSA-123: Something scarier!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 uncalled/unimportant vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile (filtered out)
 
@@ -912,7 +958,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: '9'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -929,7 +976,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -946,7 +994,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
 
   mine1@1.2.3 has the following uncalled vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 uncalled/unimportant vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile (filtered out)
 
@@ -963,7 +1012,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -980,7 +1030,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -997,7 +1048,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
 
   mine1@1.2.3 has the following uncalled vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 uncalled/unimportant vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile (filtered out)
 
@@ -1014,7 +1066,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: '8.3'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -1031,7 +1084,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -1048,7 +1102,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -1065,7 +1120,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@ has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -1082,9 +1138,11 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 2 packages with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: This vulnerability allows for some very scary stuff to happen - seriously,... (https://osv.dev/OSV-1)
+    OSV-1: This vulnerability allows for some very scary stuff to happen - seriously,...
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
   mine3@0.10.2-rc has the following known vulnerabilities:
-    OSV-2: (no details available) (https://osv.dev/OSV-2)
+    OSV-2: (no details available)
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   2 known vulnerabilities found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -1101,7 +1159,8 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
@@ -1121,14 +1180,16 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
 sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
-    OSV-1: Something scary! (https://osv.dev/OSV-1)
+    OSV-1: Something scary!
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in sbom:<rootdir>/path/to/my/second/lockfile
 
