@@ -1462,6 +1462,8 @@ Total 15 packages affected by 53 known vulnerabilities (2 Critical, 20 High, 28 
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "sourceInfo": "Identified by the javascript/bunlock extractor from <rootdir>/testdata/locks-insecure/bun.lock",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1478,6 +1480,8 @@ Total 15 packages affected by 53 known vulnerabilities (2 Critical, 20 High, 28 
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "sourceInfo": "Identified by the javascript/bunlock extractor from <rootdir>/testdata/locks-insecure/bun.lock",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1494,6 +1498,8 @@ Total 15 packages affected by 53 known vulnerabilities (2 Critical, 20 High, 28 
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "sourceInfo": "Identified by the php/composerlock extractor from <rootdir>/testdata/locks-insecure/composer.lock",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1510,6 +1516,8 @@ Total 15 packages affected by 53 known vulnerabilities (2 Critical, 20 High, 28 
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "sourceInfo": "Identified by the osv/osvscannerjson extractor from <rootdir>/testdata/locks-insecure/osv-scanner-custom.json",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",
@@ -1526,6 +1534,8 @@ Total 15 packages affected by 53 known vulnerabilities (2 Critical, 20 High, 28 
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
       "sourceInfo": "Identified by the osv/osvscannerjson extractor from <rootdir>/testdata/locks-insecure/osv-scanner-custom.json",
+      "licenseConcluded": "NOASSERTION",
+      "licenseDeclared": "NOASSERTION",
       "externalRefs": [
         {
           "referenceCategory": "PACKAGE-MANAGER",

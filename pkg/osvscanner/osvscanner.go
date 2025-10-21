@@ -160,7 +160,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	externalAccessors.MavenRegistryAPIClient, err = datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
 		URL:             actions.MavenRegistry,
 		ReleasesEnabled: true,
-	}, "")
+	}, "", false)
 
 	if err != nil {
 		return ExternalAccessors{}, err
@@ -169,7 +169,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	if !actions.NativeDataSource {
 		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	} else {
-		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(ctx, actions.MavenRegistry, "")
+		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(ctx, actions.MavenRegistry, "", false)
 	}
 
 	// We only support native registry client for PyPI.
