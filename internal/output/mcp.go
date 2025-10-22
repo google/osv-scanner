@@ -14,7 +14,7 @@ func PrintMCPReport(vulnResult *models.VulnerabilityResults, additionalInfo []st
 Output results are grouped into (Ecosystem -> Source file -> Packages -> Vulnerabilities),
 with a title for each section, and indentation to indicate that it belongs to the above section.
 When resolving these vulnerabilities, avoid manually updating individual packages, and use system tools.
-Use https://osv.dev/<VULN-ID> as the official record of the vulnerability.
+Use https://osv.dev/vulnerability/<VULN-ID> as the official record of the vulnerability.
 Do not attempt to fix vulnerabilities without fix available.
 
 Scan Info:
