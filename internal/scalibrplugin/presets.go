@@ -26,6 +26,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pdmlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/uvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
@@ -43,7 +44,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/version"
 )
@@ -88,11 +88,11 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		composerlock.Name: {composerlock.New},
 
 		// Python
-		pipfilelock.Name:            {pipfilelock.New},
-		pdmlock.Name:                {pdmlock.New},
-		poetrylock.Name:             {poetrylock.New},
-		requirementsenhancable.Name: {requirementsenhancable.New},
-		uvlock.Name:                 {uvlock.New},
+		pipfilelock.Name:  {pipfilelock.New},
+		pdmlock.Name:      {pdmlock.New},
+		poetrylock.Name:   {poetrylock.New},
+		requirements.Name: {requirements.NewDefault},
+		uvlock.Name:       {uvlock.New},
 
 		// R
 		renvlock.Name: {renvlock.New},
