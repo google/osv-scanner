@@ -5124,6 +5124,16 @@ Total 1 package affected by 4 known vulnerabilities (2 Critical, 1 High, 1 Mediu
 
 ---
 
+[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 1]
+Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
+
+---
+
+[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 2]
+No package sources found, --help for usage information.
+
+---
+
 [TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1]
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
