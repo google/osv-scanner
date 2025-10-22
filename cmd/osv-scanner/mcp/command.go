@@ -8,6 +8,8 @@ import (
 	"fmt"
 	"io"
 	"strings"
+	"sync"
+	"time"
 
 	"net/http"
 
@@ -47,7 +49,7 @@ them by updating. Don't try to automatically update for the user without input.
 
 // vulnCacheMap is a cache of vulnerability details that have been retrieved from the OSV API during normal scanning.
 // This avoids unnecessary double queries to the osv.dev API.
-var vulnCacheMap = map[string]*osvschema.Vulnerability{}
+var vulnCacheMap = sync.Map{}
 
 // Command is the entry point for the `mcp` subcommand.
 func Command(_, _ io.Writer) *cli.Command {
@@ -109,8 +111,14 @@ func action(ctx context.Context, cmd *cli.Command) error {
 		handler := mcp.NewSSEHandler(func(_ *http.Request) *mcp.Server {
 			return s
 		}, nil)
-		//nolint:gosec // Having no timeouts is unlikely to cause problems as this is meant to be run locally.
-		if err := http.ListenAndServe(sseAddr, handler); err != nil {
+		srv := &http.Server{
+			Addr:         sseAddr,
+			Handler:      handler,
+			ReadTimeout:  30 * time.Second,
+			WriteTimeout: 30 * time.Second,
+			IdleTimeout:  120 * time.Second,
+		}
+		if err := srv.ListenAndServe(); err != nil {
 			cmdlogger.Errorf("mcp error: %s", err)
 			return err
 		}
@@ -148,7 +156,7 @@ func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *scanVulnerable
 	}
 
 	for _, vuln := range scanResults.Flatten() {
-		vulnCacheMap[vuln.Vulnerability.ID] = &vuln.Vulnerability
+		vulnCacheMap.Store(vuln.Vulnerability.ID, &vuln.Vulnerability)
 	}
 
 	if err == nil {
@@ -181,7 +189,8 @@ type getVulnerabilityDetailsInput struct {
 }
 
 func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *getVulnerabilityDetailsInput) (*mcp.CallToolResult, *osvschema.Vulnerability, error) {
-	vuln, found := vulnCacheMap[input.VulnID]
+	vulnAny, found := vulnCacheMap.Load(input.VulnID)
+	vuln := vulnAny.(*osvschema.Vulnerability)
 	if !found {
 		var err error
 		vuln, err = osvdev.DefaultClient().GetVulnByID(ctx, input.VulnID)
@@ -189,7 +198,7 @@ func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *g
 			return nil, nil, fmt.Errorf("vulnerability with ID %s not found: %w", input.VulnID, err)
 		}
 
-		vulnCacheMap[input.VulnID] = vuln
+		vulnCacheMap.Store(input.VulnID, vuln)
 	}
 
 	return &mcp.CallToolResult{}, vuln, nil
