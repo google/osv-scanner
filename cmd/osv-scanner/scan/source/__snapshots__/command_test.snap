@@ -188,6 +188,25 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
+[TestCommand/Go_project_with_an_overridden_go_version_and_licences - 1]
+Scanning dir ./testdata/go-project
+Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
++--------------+-------------------------+
+| LICENSE      | NO. OF PACKAGE VERSIONS |
++--------------+-------------------------+
+| BSD-3-Clause |                       1 |
++--------------+-------------------------+
+
+---
+
+[TestCommand/Go_project_with_an_overridden_go_version_and_licences - 2]
+
+---
+
 [TestCommand/PURL_SBOM_case_sensitivity_(api) - 1]
 Scanning dir ./testdata/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
