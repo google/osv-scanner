@@ -15,6 +15,7 @@ import (
 	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
@@ -47,6 +48,18 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 	}
 }
 
+func isRequirementsExtractorEnabled(plugins []plugin.Plugin) bool {
+	for _, plug := range plugins {
+		_, ok := plug.(*requirements.Extractor)
+
+		if ok {
+			return true
+		}
+	}
+
+	return false
+}
+
 func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
 	if !actions.PluginsNoDefaults {
 		actions.PluginsEnabled = append(actions.PluginsEnabled, defaultPlugins...)
@@ -62,7 +75,8 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled)
 
-	if accessors.DependencyClients[osvschema.EcosystemPyPI] != nil {
+	// todo: use Enricher.RequiredPlugins to check this generically
+	if accessors.DependencyClients[osvschema.EcosystemPyPI] != nil && isRequirementsExtractorEnabled(plugins) {
 		plugins = append(plugins, transitivedependencyrequirements.NewEnricher(accessors.DependencyClients[osvschema.EcosystemPyPI]))
 	}
 
