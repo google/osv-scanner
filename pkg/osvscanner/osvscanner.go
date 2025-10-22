@@ -290,7 +290,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		actions,
 	)
 
-	if len(plugins) == 0 {
+	if countNotEnrichers(plugins) == 0 {
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
 
