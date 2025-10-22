@@ -22,8 +22,34 @@ import (
 	"osv.dev/bindings/go/osvdev"
 )
 
+// scanDepsPrompt is the prompt that is sent to the AI model when the scan_deps prompt is requested.
+const scanDepsPrompt = `
+You are a highly skilled senior security analyst.
+Your primary task is to conduct a security audit of the vulnerabilities in the dependencies of this project.
+Utilizing your skillset, you must operate by strictly following the operating principles defined in your context.
+
+**Step 1: Perform initial scan**
+
+Use the scan_vulnerable_dependencies with recursive on the project, always use the absolute path.
+This will return a report of all the relevant lockfiles and all vulnerable dependencies in those files.
+
+**Step 2: Analyse the report**
+
+Go through the report and determine the relevant project lockfiles (ignoring lockfiles in test directories),
+and prioritise which vulnerability to fix based on the description and severity.
+If more information is needed about a vulnerability, use get_vulnerability_details.
+
+**Step 3: Prioritisation**
+
+Give advice on which vulnerabilities to prioritise fixing, and general advice on how to go about fixing
+them by updating. Don't try to automatically update for the user without input.
+`
+
+// vulnCacheMap is a cache of vulnerability details that have been retrieved from the OSV API during normal scanning.
+// This avoids unnecessary double queries to the osv.dev API.
 var vulnCacheMap = map[string]*osvschema.Vulnerability{}
 
+// Command is the entry point for the `mcp` subcommand.
 func Command(_, _ io.Writer) *cli.Command {
 	return &cli.Command{
 		Name:        "experimental-mcp",
@@ -41,18 +67,11 @@ func Command(_, _ io.Writer) *cli.Command {
 	}
 }
 
-type ScanVulnerableDependenciesInput struct {
+// scanVulnerableDependenciesInput is the input for the scan_vulnerable_dependencies tool.
+type scanVulnerableDependenciesInput struct {
 	Paths              []string `json:"paths"                jsonschema:"A list of absolute or relative path to a file or directory to scan."`
 	IgnoreGlobPatterns []string `json:"ignore_glob_patterns" jsonschema:"A list of glob patterns to ignore when scanning."`
 	Recursive          bool     `json:"recursive"            jsonschema:"Scans directory recursively"`
-}
-
-type GetVulnerabilityDetailsInput struct {
-	VulnID string `json:"vuln_id" jsonschema:"The OSV vulnerability ID to retrieve details for."`
-}
-
-type IgnoreVulnerabilityInput struct {
-	Verbose bool `json:"verbose"    jsonschema:"ignore this parameter"`
 }
 
 func action(ctx context.Context, cmd *cli.Command) error {
@@ -83,6 +102,7 @@ func action(ctx context.Context, cmd *cli.Command) error {
 		Description: "Scans your project dependencies for known vulnerabilities.",
 	}, handleCodeReview)
 
+	// Provide two options, sse on a network port, or stdio.
 	if cmd.IsSet("sse") {
 		sseAddr := cmd.String("sse")
 		cmdlogger.Infof("Starting SSE server on %s", sseAddr)
@@ -106,7 +126,7 @@ func action(ctx context.Context, cmd *cli.Command) error {
 	return nil
 }
 
-func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *ScanVulnerableDependenciesInput) (*mcp.CallToolResult, any, error) {
+func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *scanVulnerableDependenciesInput) (*mcp.CallToolResult, any, error) {
 	statsCollector := fileOpenedLogger{}
 
 	action := osvscanner.ScannerActions{
@@ -155,7 +175,12 @@ func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *ScanVulnerable
 	}, nil, nil
 }
 
-func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *GetVulnerabilityDetailsInput) (*mcp.CallToolResult, *osvschema.Vulnerability, error) {
+// getVulnerabilityDetailsInput is the input for the get_vulnerability_details tool.
+type getVulnerabilityDetailsInput struct {
+	VulnID string `json:"vuln_id" jsonschema:"The OSV vulnerability ID to retrieve details for."`
+}
+
+func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *getVulnerabilityDetailsInput) (*mcp.CallToolResult, *osvschema.Vulnerability, error) {
 	vuln, found := vulnCacheMap[input.VulnID]
 	if !found {
 		var err error
@@ -170,10 +195,16 @@ func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *G
 	return &mcp.CallToolResult{}, vuln, nil
 }
 
+// ignoreVulnerabilityInput is a placeholder to enable the tool call,
+// as it seems like go-sdk mcp does not support a tool call with no arguments.
+type ignoreVulnerabilityInput struct {
+	Verbose bool `json:"verbose" jsonschema:"ignore this parameter"`
+}
+
 //go:embed configuration-instructions.md
 var configInstructions string
 
-func handleIgnoreVulnerability(ctx context.Context, _ *mcp.CallToolRequest, _ *IgnoreVulnerabilityInput) (*mcp.CallToolResult, any, error) {
+func handleIgnoreVulnerability(_ context.Context, _ *mcp.CallToolRequest, _ *ignoreVulnerabilityInput) (*mcp.CallToolResult, any, error) {
 	return &mcp.CallToolResult{
 		Content: []mcp.Content{
 			&mcp.TextContent{Text: configInstructions},
@@ -188,28 +219,7 @@ func handleCodeReview(_ context.Context, _ *mcp.GetPromptRequest) (*mcp.GetPromp
 			{
 				Role: "assistant",
 				Content: &mcp.TextContent{
-					Text: `
-
-You are a highly skilled senior security analyst.
-Your primary task is to conduct a security audit of the vulnerabilities in the dependencies of this project.
-Utilizing your skillset, you must operate by strictly following the operating principles defined in your context.
-
-**Step 1: Perform initial scan**
-
-Use the scan_vulnerable_dependencies with recursive on the project, always use the absolute path.
-This will return a report of all the relevant lockfiles and all vulnerable dependencies in those files.
-
-**Step 2: Analyse the report**
-
-Go through the report and determine the relevant project lockfiles (ignoring lockfiles in test directories),
-and prioritise which vulnerability to fix based on the description and severity.
-If more information is needed about a vulnerability, use get_vulnerability_details.
-
-**Step 3: Prioritisation**
-
-Give advice on which vulnerabilities to prioritise fixing, and general advice on how to go about fixing
-them by updating. Don't try to automatically update for the user without input.
-`,
+					Text: scanDepsPrompt,
 				},
 			},
 		},
