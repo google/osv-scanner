@@ -99,7 +99,7 @@ snapshots of requests called cassettes to reduce noise from changes to advisorie
 of confidence.
 
 You can control the recording behaviour by setting the `TEST_VCR_MODE` environment variable to one of the [supported modes](https://github.com/dnaeon/go-vcr/blob/v4/pkg/recorder/recorder.go#L51),
-specified either by its name without the `Mode` suffix or by its int value.
+specified either by [its name without the `Mode` suffix or by its int value](./cmd/osv-scanner/internal/testcmd/vcr.go#L16).
 
 The default mode locally is `ReplayWithNewEpisodes`, meaning existing interactions will be replayed while any new ones will
 be recorded and added to the existing cassette; when running in CI, the default mode is `ReplayOnly` meaning an error will be
