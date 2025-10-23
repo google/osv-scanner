@@ -224,6 +224,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			StoreAbsolutePath:     true,
 			PrintDurationAnalysis: false,
 			ErrorOnFSErrors:       false,
+			ExplicitPlugins:       true,
 		})
 		if sr.Status.Status == plugin.ScanStatusFailed {
 			return nil, errors.New(sr.Status.FailureReason)
