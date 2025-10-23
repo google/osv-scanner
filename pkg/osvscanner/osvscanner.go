@@ -290,6 +290,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		actions,
 	)
 
+	// technically having one detector enabled would also be sufficient, but we're
+	// not mentioning them to avoid confusion since they're still in their infancy
 	if countNotEnrichers(plugins) == 0 {
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
