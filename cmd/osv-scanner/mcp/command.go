@@ -24,31 +24,9 @@ import (
 	"osv.dev/bindings/go/osvdev"
 )
 
-// scanDepsPrompt is the prompt that is sent to the AI model when the scan_deps prompt is requested.
-const scanDepsPrompt = `
-You are a highly skilled senior security analyst.
-Your primary task is to conduct a security audit of the vulnerabilities in the dependencies of this project.
-Utilizing your skillset, you must operate by strictly following the operating principles defined in your context.
-
-**Step 1: Perform initial scan**
-
-Use the scan_vulnerable_dependencies with recursive on the project, always use the absolute path.
-This will return a report of all the relevant lockfiles and all vulnerable dependencies in those files.
-
-**Step 2: Analyse the report**
-
-Go through the report and determine the relevant project lockfiles (ignoring lockfiles in test directories),
-and prioritise which vulnerability to fix based on the description and severity.
-If more information is needed about a vulnerability, use get_vulnerability_details.
-
-**Step 3: Prioritisation**
-
-Give advice on which vulnerabilities to prioritise fixing, and general advice on how to go about fixing
-them by updating. Don't try to automatically update for the user without input.
-`
-
 // vulnCacheMap is a cache of vulnerability details that have been retrieved from the OSV API during normal scanning.
 // This avoids unnecessary double queries to the osv.dev API.
+// vulnCacheMap: map[string]*osvschema.Vulnerability
 var vulnCacheMap = sync.Map{}
 
 // Command is the entry point for the `mcp` subcommand.
@@ -88,7 +66,7 @@ func action(ctx context.Context, cmd *cli.Command) error {
 			" Use this tool to check that the user's project is not depending on known vulnerable code.",
 	}, handleScan)
 
-	// TODO(another-rex): Ideally this would be a template resource, but gemini-cli does not support those yet.
+	// TODO(another-rex): Ideally both of the following tools would be resources, but gemini-cli does not support those yet.
 	mcp.AddTool(s, &mcp.Tool{
 		Name:        "get_vulnerability_details",
 		Description: "Retrieves the full JSON details for a given vulnerability ID.",
@@ -102,7 +80,7 @@ func action(ctx context.Context, cmd *cli.Command) error {
 	s.AddPrompt(&mcp.Prompt{
 		Name:        "scan_deps",
 		Description: "Scans your project dependencies for known vulnerabilities.",
-	}, handleCodeReview)
+	}, handleScanDepsPrompt)
 
 	// Provide two options, sse on a network port, or stdio.
 	if cmd.IsSet("sse") {
@@ -207,12 +185,15 @@ func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *g
 // ignoreVulnerabilityInput is a placeholder to enable the tool call,
 // as it seems like go-sdk mcp does not support a tool call with no arguments.
 type ignoreVulnerabilityInput struct {
+	// Extra field is needed as a placeholder to prevent the llm from erroring when calling the tool
 	Verbose bool `json:"verbose" jsonschema:"ignore this parameter"`
 }
 
 //go:embed configuration-instructions.md
 var configInstructions string
 
+// handleIgnoreVulnerability does not perform any actual actions, but instead provides the instructions of how
+// to write an ignore file to the LLM using this tool, so that it can correctly write the ignore file.
 func handleIgnoreVulnerability(_ context.Context, _ *mcp.CallToolRequest, _ *ignoreVulnerabilityInput) (*mcp.CallToolResult, any, error) {
 	return &mcp.CallToolResult{
 		Content: []mcp.Content{
@@ -221,7 +202,12 @@ func handleIgnoreVulnerability(_ context.Context, _ *mcp.CallToolRequest, _ *ign
 	}, nil, nil
 }
 
-func handleCodeReview(_ context.Context, _ *mcp.GetPromptRequest) (*mcp.GetPromptResult, error) {
+// scanDepsPrompt is the prompt that is sent to the AI model when the scan_deps prompt is requested.
+//
+//go:embed scan-deps-prompt.md
+var scanDepsPrompt string
+
+func handleScanDepsPrompt(_ context.Context, _ *mcp.GetPromptRequest) (*mcp.GetPromptResult, error) {
 	return &mcp.GetPromptResult{
 		Description: "Dependency vulnerability analysis",
 		Messages: []*mcp.PromptMessage{
