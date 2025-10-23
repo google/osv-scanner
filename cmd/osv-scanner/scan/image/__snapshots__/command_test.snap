@@ -636,6 +636,108 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestCommand_OCIImage/rockylinux_empty_image - 1]
+Scanning local image tarball "./testdata/test-rockylinux.tar"
+
+Container Scanning Result (Rocky Linux 9.2 (Blue Onyx)):
+Total 13 packages affected by 32 known vulnerabilities (0 Critical, 15 High, 3 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
+4 vulnerabilities can be fixed.
+
+
+PyPI
++--------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/share/python3-wheels/pip-21.2.3-py3-none-any.whl                            |
++---------+-------------------+---------------+------------+------------------+--------------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE      |
++---------+-------------------+---------------+------------+------------------+--------------------+
+| pip     | 21.2.3            | Fix Available |          1 | # 0 Layer        | library/rockylinux |
++---------+-------------------+---------------+------------+------------------+--------------------+
++-----------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/share/python3-wheels/setuptools-53.0.0-py3-none-any.whl                        |
++------------+-------------------+---------------+------------+------------------+--------------------+
+| PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE      |
++------------+-------------------+---------------+------------+------------------+--------------------+
+| setuptools | 53.0.0            | Fix Available |          3 | # 0 Layer        | library/rockylinux |
++------------+-------------------+---------------+------------+------------------+--------------------+
+Rocky Linux
++--------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/rpm/rpmdb.sqlite                                                                                                  |
++----------------+-------------------+------------------+------------+-------------------------+------------------+--------------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE      |
++----------------+-------------------+------------------+------------+-------------------------+------------------+--------------------+
+| expat          | 2.5.0-1.el9       | No fix available |          2 | expat                   | # 0 Layer        | library/rockylinux |
+| glib2          | 2.68.4-6.el9      | No fix available |          1 | glib2                   | # 0 Layer        | library/rockylinux |
+| glibc          | 2.34-60.el9       | No fix available |          2 | glibc                   | # 0 Layer        | library/rockylinux |
+| gnutls         | 3.7.6-20.el9_2    | No fix available |          1 | gnutls                  | # 0 Layer        | library/rockylinux |
+| less           | 590-1.el9_0       | No fix available |          3 | less                    | # 0 Layer        | library/rockylinux |
+| libeconf       | 0.4.1-2.el9       | No fix available |          1 | libeconf                | # 0 Layer        | library/rockylinux |
+| libgcrypt      | 1.10.0-10.el9_2   | No fix available |          1 | libgcrypt               | # 0 Layer        | library/rockylinux |
+| libxml2        | 2.9.13-3.el9_1    | No fix available |          2 | libxml2                 | # 0 Layer        | library/rockylinux |
+| openssl        | 3.0.7-6.el9_2     | No fix available |         12 | openssl                 | # 0 Layer        | library/rockylinux |
+| pam            | 1.5.1-14.el9      | No fix available |          1 | pam                     | # 0 Layer        | library/rockylinux |
+| tar            | 1.34-6.el9_1      | No fix available |          2 | tar                     | # 0 Layer        | library/rockylinux |
++----------------+-------------------+------------------+------------+-------------------------+------------------+--------------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/rockylinux_empty_image - 2]
+
+---
+
+[TestCommand_OCIImage/rockylinux_empty_image_all_vulns - 1]
+Scanning local image tarball "./testdata/test-rockylinux.tar"
+
+Container Scanning Result (Rocky Linux 9.2 (Blue Onyx)):
+Total 13 packages affected by 32 known vulnerabilities (0 Critical, 15 High, 3 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
+4 vulnerabilities can be fixed.
+
+
+PyPI
++--------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/share/python3-wheels/pip-21.2.3-py3-none-any.whl                            |
++---------+-------------------+---------------+------------+------------------+--------------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE      |
++---------+-------------------+---------------+------------+------------------+--------------------+
+| pip     | 21.2.3            | Fix Available |          1 | # 0 Layer        | library/rockylinux |
++---------+-------------------+---------------+------------+------------------+--------------------+
++-----------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/share/python3-wheels/setuptools-53.0.0-py3-none-any.whl                        |
++------------+-------------------+---------------+------------+------------------+--------------------+
+| PACKAGE    | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE      |
++------------+-------------------+---------------+------------+------------------+--------------------+
+| setuptools | 53.0.0            | Fix Available |          3 | # 0 Layer        | library/rockylinux |
++------------+-------------------+---------------+------------+------------------+--------------------+
+Rocky Linux
++--------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/rpm/rpmdb.sqlite                                                                                                  |
++----------------+-------------------+------------------+------------+-------------------------+------------------+--------------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE      |
++----------------+-------------------+------------------+------------+-------------------------+------------------+--------------------+
+| expat          | 2.5.0-1.el9       | No fix available |          2 | expat                   | # 0 Layer        | library/rockylinux |
+| glib2          | 2.68.4-6.el9      | No fix available |          1 | glib2                   | # 0 Layer        | library/rockylinux |
+| glibc          | 2.34-60.el9       | No fix available |          2 | glibc                   | # 0 Layer        | library/rockylinux |
+| gnutls         | 3.7.6-20.el9_2    | No fix available |          1 | gnutls                  | # 0 Layer        | library/rockylinux |
+| less           | 590-1.el9_0       | No fix available |          3 | less                    | # 0 Layer        | library/rockylinux |
+| libeconf       | 0.4.1-2.el9       | No fix available |          1 | libeconf                | # 0 Layer        | library/rockylinux |
+| libgcrypt      | 1.10.0-10.el9_2   | No fix available |          1 | libgcrypt               | # 0 Layer        | library/rockylinux |
+| libxml2        | 2.9.13-3.el9_1    | No fix available |          2 | libxml2                 | # 0 Layer        | library/rockylinux |
+| openssl        | 3.0.7-6.el9_2     | No fix available |         12 | openssl                 | # 0 Layer        | library/rockylinux |
+| pam            | 1.5.1-14.el9      | No fix available |          1 | pam                     | # 0 Layer        | library/rockylinux |
+| tar            | 1.34-6.el9_1      | No fix available |          2 | tar                     | # 0 Layer        | library/rockylinux |
++----------------+-------------------+------------------+------------+-------------------------+------------------+--------------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/rockylinux_empty_image_all_vulns - 2]
+
+---
+
 [TestCommand_OCIImage/scanning_image_with_go_binary - 1]
 Scanning local image tarball "./testdata/test-package-tracing.tar"
 

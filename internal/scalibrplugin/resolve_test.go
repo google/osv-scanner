@@ -22,6 +22,7 @@ import (
 	chromeextensions "github.com/google/osv-scalibr/extractor/filesystem/misc/chrome/extensions"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -399,6 +400,7 @@ func TestResolve_Extractors(t *testing.T) {
 				dpkg.Name,
 				gobinary.Name,
 				nodemodules.Name,
+				rpm.Name,
 				wheelegg.Name,
 			},
 		},
@@ -416,6 +418,7 @@ func TestResolve_Extractors(t *testing.T) {
 				dpkg.Name,
 				gobinary.Name,
 				nodemodules.Name,
+				rpm.Name,
 				wheelegg.Name,
 			},
 		},
@@ -439,6 +442,7 @@ func TestResolve_Extractors(t *testing.T) {
 				dpkg.Name,
 				gobinary.Name,
 				nodemodules.Name,
+				rpm.Name,
 			},
 		},
 		//
@@ -458,6 +462,7 @@ func TestResolve_Extractors(t *testing.T) {
 				gobinary.Name,
 				nodemodules.Name,
 				vendored.Name,
+				rpm.Name,
 				wheelegg.Name,
 			},
 		},
