@@ -347,6 +347,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		Plugins:           plugins,
 		Capabilities:      capabilities,
 		StoreAbsolutePath: true,
+		ExplicitPlugins:   true,
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)

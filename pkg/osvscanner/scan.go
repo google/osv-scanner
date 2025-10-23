@@ -233,6 +233,7 @@ SBOMLoop:
 			StoreAbsolutePath:     true,
 			PrintDurationAnalysis: false,
 			ErrorOnFSErrors:       false,
+			ExplicitPlugins:       true,
 			ExtractorOverride: func(api filesystem.FileAPI) []filesystem.Extractor {
 				ext, ok := overrideMap[filepath.Join(root, filepath.FromSlash(api.Path()))]
 				if ok {
