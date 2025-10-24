@@ -562,6 +562,7 @@ func overrideGoVersion(scanResults *results.ScanResults) {
 // SetLogger sets the global slog handler for the cmdlogger.
 func SetLogger(handler slog.Handler) {
 	cmdlogger.GlobalHandler = handler
+	cmdlogger.GlobalLogger = slog.New(handler)
 }
 
 // inventoryIsEmpty ignores image metadata when checking if an inventory is empty

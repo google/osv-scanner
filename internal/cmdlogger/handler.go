@@ -8,7 +8,10 @@ import (
 	"strings"
 )
 
-var GlobalHandler slog.Handler
+var (
+	GlobalHandler slog.Handler
+	GlobalLogger  *slog.Logger
+)
 
 type Handler struct {
 	stdout             io.Writer
