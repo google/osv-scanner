@@ -22,6 +22,7 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
+	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
@@ -74,6 +75,8 @@ type ExperimentalScannerActions struct {
 	PluginsEnabled    []string
 	PluginsDisabled   []string
 	PluginsNoDefaults bool
+
+	StatsCollector stats.Collector
 }
 
 type TransitiveScanningActions struct {

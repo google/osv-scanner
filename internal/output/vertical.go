@@ -213,6 +213,12 @@ func printVerticalVulnerabilitiesForPackages(packages []PackageResult, out io.Wr
 				text.FgCyan.Sprintf("%s:", vulnerability.ID),
 				describe(vulnerability),
 			)
+
+			fmt.Fprintf(out,
+				"      Severity: '%s'; Minimal Fix Version: '%s';\n",
+				vulnerability.SeverityScore,
+				vulnerability.FixedVersion,
+			)
 		}
 	}
 }
@@ -281,14 +287,12 @@ func truncate(str string, limit int) string {
 }
 
 func describe(vulnerability VulnResult) string {
-	description := vulnerability.Description
-	if description == "" {
-		description += "(no details available)"
+	builder := strings.Builder{}
+	if vulnerability.Description == "" {
+		builder.WriteString("(no details available)")
 	} else {
-		description = truncate(vulnerability.Description, 80)
+		builder.WriteString(truncate(vulnerability.Description, 80))
 	}
 
-	description += " (" + OSVBaseVulnerabilityURL + vulnerability.ID + ")"
-
-	return description
+	return builder.String()
 }
