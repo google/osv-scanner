@@ -21,6 +21,7 @@ import (
 	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
+	scalibrlog "github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
@@ -562,7 +563,9 @@ func overrideGoVersion(scanResults *results.ScanResults) {
 // SetLogger sets the global slog handler for the cmdlogger.
 func SetLogger(handler slog.Handler) {
 	cmdlogger.GlobalHandler = handler
-	cmdlogger.GlobalLogger = slog.New(handler)
+	logger := slog.New(handler)
+	cmdlogger.GlobalLogger = logger
+	scalibrlog.SetLogger(&cmdlogger.ScalibrAdapter{Logger: logger})
 }
 
 // inventoryIsEmpty ignores image metadata when checking if an inventory is empty
