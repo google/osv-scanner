@@ -3,11 +3,11 @@ module github.com/google/osv-scanner/v2
 go 1.24.6
 
 require (
-	deps.dev/api/v3 v3.0.0-20250917073939-6ff3dd7d2eea
-	deps.dev/api/v3alpha v0.0.0-20250903005441-604c45d5b44b
-	deps.dev/util/maven v0.0.0-20250917073939-6ff3dd7d2eea
-	deps.dev/util/resolve v0.0.0-20250917073939-6ff3dd7d2eea
-	deps.dev/util/semver v0.0.0-20250917073939-6ff3dd7d2eea
+	deps.dev/api/v3 v3.0.0-20251019231704-8ff8223a3361
+	deps.dev/api/v3alpha v0.0.0-20251019231704-8ff8223a3361
+	deps.dev/util/maven v0.0.0-20251019231704-8ff8223a3361
+	deps.dev/util/resolve v0.0.0-20251019231704-8ff8223a3361
+	deps.dev/util/semver v0.0.0-20251019231704-8ff8223a3361
 	github.com/BurntSushi/toml v1.5.0
 	github.com/CycloneDX/cyclonedx-go v0.9.3
 	github.com/charmbracelet/bubbles v0.21.0
@@ -23,14 +23,14 @@ require (
 	github.com/modelcontextprotocol/go-sdk v1.0.0
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/ossf/osv-schema/bindings/go v0.0.0-20251012234424-434020c6442f
-	github.com/owenrumney/go-sarif/v3 v3.2.3
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20251023235818-d5eaee79a3a5
+	github.com/owenrumney/go-sarif/v3 v3.3.0
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/tidwall/gjson v1.18.0
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
-	github.com/urfave/cli/v3 v3.4.1
+	github.com/urfave/cli/v3 v3.5.0
 	golang.org/x/net v0.46.0
 	golang.org/x/sync v0.17.0
 	golang.org/x/term v0.36.0
@@ -39,7 +39,7 @@ require (
 	google.golang.org/protobuf v1.36.10
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
-	osv.dev/bindings/go v0.0.0-20251013010847-b847e93bd9b0
+	osv.dev/bindings/go v0.0.0-20251024052304-fc6e7551fc55
 )
 
 require (
@@ -211,8 +211,8 @@ require (
 	golang.org/x/tools v0.37.0 // indirect
 	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect
 	google.golang.org/genproto v0.0.0-20250707201910-8d1bb00bc6a7 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20250804133106-a7a43d27e69b // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250804133106-a7a43d27e69b // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20251014184007-4626949a642f // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20251007200510-49b9836ed3ff // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	modernc.org/libc v1.66.3 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
