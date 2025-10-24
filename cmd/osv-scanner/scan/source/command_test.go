@@ -265,6 +265,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
+		// Go project with an overridden go version and licenses
+		{
+			Name: "Go project with an overridden go version and licences",
+			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "--licenses", "./testdata/go-project"},
+			Exit: 0,
+		},
 		// Go project with an overridden go version
 		{
 			Name: "Go project with an overridden go version",
