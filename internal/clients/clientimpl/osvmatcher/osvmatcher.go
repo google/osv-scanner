@@ -111,9 +111,22 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 
 func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {
 	if pkg.Name() != "" && !pkg.Ecosystem().IsEmpty() && pkg.Version() != "" {
+		name := pkg.Name()
+
+		// Tools like Syft create Go PURLs where the major suffix is part of the
+		// subpath as opposed to the package name. For a correct match we need to
+		// add that back
+		if pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo && pkg.PURL().Subpath != "" {
+			if pkg.PURL().Subpath[0] != '/' {
+				name += "/"
+			}
+
+			name += pkg.PURL().Subpath
+		}
+
 		return &osvdev.Query{
 			Package: osvdev.Package{
-				Name:      pkg.Name(),
+				Name:      name,
 				Ecosystem: pkg.Ecosystem().String(),
 			},
 			Version: pkg.Version(),
