@@ -9,7 +9,15 @@ import (
 )
 
 // TestDoScan_LogHandlerOverride tests that the SetLogger override works correctly
+//
+//nolint:paralleltest // No parallel test since slog.SetDefault sets global behavior
 func TestDoScan_LogHandlerOverride(t *testing.T) {
+	// Restore default slog behavior at the ned of the test
+	defaultHandler := slog.Default()
+	defer func() {
+		slog.SetDefault(defaultHandler)
+	}()
+
 	actions := osvscanner.ScannerActions{
 		DirectoryPaths: []string{"../../cmd/osv-scanner/testdata/locks-many/Gemfile.lock"},
 	}
