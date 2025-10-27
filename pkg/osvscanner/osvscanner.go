@@ -562,8 +562,8 @@ func overrideGoVersion(scanResults *results.ScanResults) {
 
 // SetLogger sets the global slog handler for the cmdlogger.
 func SetLogger(handler slog.Handler) {
-	cmdlogger.GlobalHandler = handler
-	logger := slog.New(handler)
+	baseHandler := cmdlogger.NewOverride(handler)
+	logger := slog.New(baseHandler)
 	cmdlogger.GlobalLogger = logger
 	scalibrlog.SetLogger(&cmdlogger.ScalibrAdapter{Logger: logger})
 }
