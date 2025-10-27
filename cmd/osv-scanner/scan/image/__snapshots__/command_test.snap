@@ -243,10 +243,18 @@ Package Ubuntu:20.04/tar/1.30+dfsg-7ubuntu0.20.04.4 has been filtered out becaus
 Filtered 27 ignored package/s from the scan.
 
 Container Scanning Result (Ubuntu 20.04.6 LTS):
-Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
+Ubuntu:20.04
++--------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/dpkg/status                                                                                                       |
++----------------+------------------------+------------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION      | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+------------------------+------------------+------------+-------------------------+------------------+---------------+
+| lz4            | 1.9.2-2ubuntu0.20.04.1 | No fix available |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
++----------------+------------------------+------------------+------------+-------------------------+------------------+---------------+
 
 Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -290,10 +298,18 @@ Package Ubuntu:20.04/tar/1.30+dfsg-7ubuntu0.20.04.4 has been filtered out becaus
 Filtered 27 ignored package/s from the scan.
 
 Container Scanning Result (Ubuntu 20.04.6 LTS):
-Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
+Ubuntu:20.04
++--------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/dpkg/status                                                                                                       |
++----------------+------------------------+------------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION      | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+------------------------+------------------+------------+-------------------------+------------------+---------------+
+| lz4            | 1.9.2-2ubuntu0.20.04.1 | No fix available |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
++----------------+------------------------+------------------+------------+-------------------------+------------------+---------------+
 
 Filtered Vulnerabilities:
 +---------+--------------+--------------------+---------------------+----------------+
@@ -315,7 +331,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 19 packages affected by 38 known vulnerabilities (2 Critical, 12 High, 20 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+Total 20 packages affected by 39 known vulnerabilities (2 Critical, 12 High, 21 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
 19 vulnerabilities can be fixed.
 
 
@@ -336,6 +352,7 @@ Ubuntu:22.04
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Partial fixes Available |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
+| lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          2 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
 | openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          4 | libssl3                 | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
@@ -360,7 +377,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 19 packages affected by 38 known vulnerabilities (2 Critical, 12 High, 20 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+Total 20 packages affected by 39 known vulnerabilities (2 Critical, 12 High, 21 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
 19 vulnerabilities can be fixed.
 
 
@@ -381,6 +398,7 @@ Ubuntu:22.04
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Partial fixes Available |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
+| lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          2 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
 | openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          4 | libssl3                 | # 4 Layer        | ubuntu        |
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
@@ -478,17 +496,17 @@ Scanning local image tarball "./testdata/test-python-empty.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
 Total 14 packages affected by 24 known vulnerabilities (0 Critical, 6 High, 4 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
-22 vulnerabilities can be fixed.
+24 vulnerabilities can be fixed.
 
 
 PyPI
-+-------------------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl               |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Partial fixes Available |          2 | # 7 Layer        | python        |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl     |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Fix Available |          2 | # 7 Layer        | python        |
++---------+-------------------+---------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
 +------------+-------------------+---------------+------------+------------------+---------------+
@@ -496,13 +514,13 @@ PyPI
 +------------+-------------------+---------------+------------+------------------+---------------+
 | setuptools | 58.1.0            | Fix Available |          3 | # 7 Layer        | python        |
 +------------+-------------------+---------------+------------+------------------+---------------+
-+-------------------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA                  |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Partial fixes Available |          2 | # 13 Layer       | python        |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA        |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Fix Available |          2 | # 13 Layer       | python        |
++---------+-------------------+---------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA    |
 +------------+-------------------+---------------+------------+------------------+---------------+
@@ -542,17 +560,17 @@ Scanning local image tarball "./testdata/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
 Total 19 packages affected by 42 known vulnerabilities (0 Critical, 13 High, 14 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-40 vulnerabilities can be fixed.
+42 vulnerabilities can be fixed.
 
 
 PyPI
-+-------------------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl               |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Partial fixes Available |          2 | # 7 Layer        | python        |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl     |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Fix Available |          2 | # 7 Layer        | python        |
++---------+-------------------+---------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
 +------------+-------------------+---------------+------------+------------------+---------------+
@@ -581,13 +599,13 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | idna    | 2.7               | Fix Available |          1 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
-+-------------------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA                  |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Partial fixes Available |          2 | # 13 Layer       | python        |
-+---------+-------------------+-------------------------+------------+------------------+---------------+
++---------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA        |
++---------+-------------------+---------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+---------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Fix Available |          2 | # 13 Layer       | python        |
++---------+-------------------+---------------+------------+------------------+---------------+
 +----------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA    |
 +----------+-------------------+---------------+------------+------------------+---------------+
@@ -2828,6 +2846,21 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2025-3576"
           ],
           "groups": 4
+        },
+        {
+          "package": {
+            "name": "lz4",
+            "os_package_name": "liblz4-1",
+            "version": "1.9.3-2build2",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "vulnerabilities": [
+            "UBUNTU-CVE-2025-62813"
+          ],
+          "groups": 1
         },
         {
           "package": {
