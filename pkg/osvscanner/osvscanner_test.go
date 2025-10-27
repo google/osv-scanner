@@ -8,8 +8,7 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 )
 
-// TestDoScan_GemfileLock tests that DoScan can scan a Gemfile.lock,
-// and that it does not return an error if no vulnerabilities are found.
+// TestDoScan_LogHandlerOverride tests that the SetLogger override works correctly
 func TestDoScan_LogHandlerOverride(t *testing.T) {
 	actions := osvscanner.ScannerActions{
 		DirectoryPaths: []string{"../../cmd/osv-scanner/testdata/locks-many/Gemfile.lock"},
