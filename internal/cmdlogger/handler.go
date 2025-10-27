@@ -8,14 +8,17 @@ import (
 	"strings"
 )
 
-var GlobalHandler slog.Handler
+var (
+	GlobalLogger *slog.Logger
+)
 
 type Handler struct {
 	stdout             io.Writer
 	stderr             io.Writer
 	hasErrored         bool
 	everythingToStderr bool
-	Level              slog.Leveler
+	level              slog.Leveler
+	overrideHandler    slog.Handler
 
 	hasErroredBecauseInvalidConfig bool
 }
@@ -30,7 +33,7 @@ func (c *Handler) SendEverythingToStderr() {
 }
 
 func (c *Handler) SetLevel(level slog.Leveler) {
-	c.Level = level
+	c.level = level
 }
 
 func (c *Handler) writer(level slog.Level) io.Writer {
@@ -46,11 +49,11 @@ func (c *Handler) Enabled(ctx context.Context, level slog.Level) bool {
 		c.hasErrored = true
 	}
 
-	if GlobalHandler != nil {
-		return GlobalHandler.Enabled(ctx, level)
+	if c.overrideHandler != nil {
+		return c.overrideHandler.Enabled(ctx, level)
 	}
 
-	return level >= c.Level.Level()
+	return level >= c.level.Level()
 }
 
 func (c *Handler) Handle(ctx context.Context, record slog.Record) error {
@@ -62,8 +65,8 @@ func (c *Handler) Handle(ctx context.Context, record slog.Record) error {
 		}
 	}
 
-	if GlobalHandler != nil {
-		return GlobalHandler.Handle(ctx, record)
+	if c.overrideHandler != nil {
+		return c.overrideHandler.Handle(ctx, record)
 	}
 
 	_, err := fmt.Fprint(c.writer(record.Level), record.Message+"\n")
@@ -84,15 +87,15 @@ func (c *Handler) HasErroredBecauseInvalidConfig() bool {
 }
 
 func (c *Handler) WithAttrs(a []slog.Attr) slog.Handler {
-	if GlobalHandler != nil {
-		return GlobalHandler.WithAttrs(a)
+	if c.overrideHandler != nil {
+		return c.overrideHandler.WithAttrs(a)
 	}
 	panic("not supported")
 }
 
 func (c *Handler) WithGroup(g string) slog.Handler {
-	if GlobalHandler != nil {
-		return GlobalHandler.WithGroup(g)
+	if c.overrideHandler != nil {
+		return c.overrideHandler.WithGroup(g)
 	}
 	panic("not supported")
 }
@@ -103,6 +106,12 @@ func New(stdout, stderr io.Writer) CmdLogger {
 	return &Handler{
 		stdout: stdout,
 		stderr: stderr,
-		Level:  slog.LevelInfo,
+		level:  slog.LevelInfo,
+	}
+}
+
+func NewOverride(overrideHandler slog.Handler) CmdLogger {
+	return &Handler{
+		overrideHandler: overrideHandler,
 	}
 }
