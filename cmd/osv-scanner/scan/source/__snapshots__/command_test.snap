@@ -1732,24 +1732,28 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file as a osv-scanner and found 11 packages
 Loaded GIT local db from <tempdir>/osv-scanner/GIT/all.zip
 Skipping commit scanning for: 45fda76bc1b9fd74d10e85e0ce9b65a12dcc58b0
-Total 3 packages affected by 10 known vulnerabilities (2 Critical, 3 High, 3 Medium, 0 Low, 2 Unknown) from 1 ecosystem.
+Total 5 packages affected by 14 known vulnerabilities (4 Critical, 4 High, 3 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
-+--------------------------------+------+-----------+--------------------------+--------------------------+---------------+-------------------------------------+
-| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE                  | VERSION                  | FIXED VERSION | SOURCE                              |
-+--------------------------------+------+-----------+--------------------------+--------------------------+---------------+-------------------------------------+
-| https://osv.dev/OSV-2023-1161  |      | GIT       |       https://github.com/Exiv2/exiv2@931a40a7       | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/OSV-2024-340   |      | GIT       |       https://github.com/Exiv2/exiv2@931a40a7       | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2183  | 7.5  | GIT       |     https://github.com/openssl/openssl@aea7aaf2     | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2025-4575  | 6.5  | GIT       |     https://github.com/openssl/openssl@aea7aaf2     | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2025-9230  | 7.5  | GIT       |     https://github.com/openssl/openssl@aea7aaf2     | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2025-9231  | 6.5  | GIT       |     https://github.com/openssl/openssl@aea7aaf2     | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2025-9232  | 5.9  | GIT       |     https://github.com/openssl/openssl@aea7aaf2     | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-10931 | 8.1  | GIT       |  https://github.com/sfackler/rust-openssl@0f428d19  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2018-20997 | 9.8  | GIT       |  https://github.com/sfackler/rust-openssl@0f428d19  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-53159 | 9.1  | GIT       |  https://github.com/sfackler/rust-openssl@0f428d19  | --            | testdata/locks-git/osv-scanner.json |
-+--------------------------------+------+-----------+-----------------------------------------------------+---------------+-------------------------------------+
++--------------------------------+------+-----------+----------------------------+----------------------------+---------------+-------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE                    | VERSION                    | FIXED VERSION | SOURCE                              |
++--------------------------------+------+-----------+----------------------------+----------------------------+---------------+-------------------------------------+
+| https://osv.dev/OSV-2023-1161  |      | GIT       |         https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/OSV-2024-340   |      | GIT       |         https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/OSV-2018-389   |      | GIT       |        https://github.com/boostorg/boost@1a9dda41       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2024-51757 | 9.3  | GIT       |  https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-61927 | 7.2  | GIT       |  https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-62410 | 9.4  | GIT       |  https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2016-2183  | 7.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-4575  | 6.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-9230  | 7.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-9231  | 6.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-9232  | 5.9  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2016-10931 | 8.1  | GIT       |    https://github.com/sfackler/rust-openssl@0f428d19    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2018-20997 | 9.8  | GIT       |    https://github.com/sfackler/rust-openssl@0f428d19    | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2023-53159 | 9.1  | GIT       |    https://github.com/sfackler/rust-openssl@0f428d19    | --            | testdata/locks-git/osv-scanner.json |
++--------------------------------+------+-----------+---------------------------------------------------------+---------------+-------------------------------------+
 
 ---
 

@@ -157,7 +157,7 @@ func mightAffectPackages(v osvschema.Vulnerability, names []string) bool {
 
 			// "name" will be the git repository in the case of the GIT ecosystem
 			for _, ran := range affected.Ranges {
-				if ran.Repo == name {
+				if vulns.NormalizeRepo(ran.Repo) == vulns.NormalizeRepo(name) {
 					return true
 				}
 			}
