@@ -1732,13 +1732,16 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file as a osv-scanner and found 11 packages
 Loaded GIT local db from <tempdir>/osv-scanner/GIT/all.zip
 Skipping commit scanning for: 45fda76bc1b9fd74d10e85e0ce9b65a12dcc58b0
-Total 5 packages affected by 14 known vulnerabilities (4 Critical, 4 High, 3 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+Total 8 packages affected by 17 known vulnerabilities (4 Critical, 4 High, 3 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
 +--------------------------------+------+-----------+----------------------------+----------------------------+---------------+-------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE                    | VERSION                    | FIXED VERSION | SOURCE                              |
 +--------------------------------+------+-----------+----------------------------+----------------------------+---------------+-------------------------------------+
+| https://osv.dev/OSV-2018-389   |      | GIT       |         git://github.com/boostorg/boost@1a9dda41        | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/OSV-2018-389   |      | GIT       |            github.com/boostorg/boost@1a9dda41           | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/OSV-2018-389   |      | GIT       |        http://github.com/boostorg/boost@1a9dda41        | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/OSV-2023-1161  |      | GIT       |         https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/OSV-2024-340   |      | GIT       |         https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/OSV-2018-389   |      | GIT       |        https://github.com/boostorg/boost@1a9dda41       | --            | testdata/locks-git/osv-scanner.json |
