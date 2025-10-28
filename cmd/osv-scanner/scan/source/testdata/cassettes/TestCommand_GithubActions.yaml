@@ -23,7 +23,7 @@ interactions:
     proto_major: 2
     proto_minor: 0
     content_length: 161
-    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"CVE-2023-39137\",\"modified\":\"2025-09-24T12:09:45.171149Z\"},{\"id\":\"CVE-2023-39139\",\"modified\":\"2025-09-24T12:09:44.618007Z\"}]},{}]}"
+    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"CVE-2023-39137\",\"modified\":\"2025-10-21T13:22:57.391415Z\"},{\"id\":\"CVE-2023-39139\",\"modified\":\"2025-10-21T13:22:57.568653Z\"}]},{}]}"
     headers:
       Content-Length:
       - "161"
@@ -54,7 +54,7 @@ interactions:
     proto_major: 2
     proto_minor: 0
     content_length: 161
-    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"CVE-2023-39137\",\"modified\":\"2025-09-24T12:09:45.171149Z\"},{\"id\":\"CVE-2023-39139\",\"modified\":\"2025-09-24T12:09:44.618007Z\"}]},{}]}"
+    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"CVE-2023-39137\",\"modified\":\"2025-10-21T13:22:57.391415Z\"},{\"id\":\"CVE-2023-39139\",\"modified\":\"2025-10-21T13:22:57.568653Z\"}]},{}]}"
     headers:
       Content-Length:
       - "161"
