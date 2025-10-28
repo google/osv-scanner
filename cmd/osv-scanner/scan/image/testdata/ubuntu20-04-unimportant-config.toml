@@ -72,3 +72,8 @@ ignore = true
 name = "tar"
 reason = "Just want to test only unimportant vulns"
 ignore = true
+
+[[PackageOverrides]]
+name = "lz4"
+reason = "Just want to test only unimportant vulns"
+ignore = true
