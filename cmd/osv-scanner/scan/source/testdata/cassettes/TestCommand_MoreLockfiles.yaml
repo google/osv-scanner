@@ -23,7 +23,7 @@ interactions:
     proto_major: 2
     proto_minor: 0
     content_length: 105
-    body: "{\"results\":[{},{},{},{},{},{\"vulns\":[{\"id\":\"HSEC-2024-0009\",\"modified\":\"2025-07-27T20:43:16.367058Z\"}]}]}"
+    body: "{\"results\":[{},{},{},{},{},{\"vulns\":[{\"id\":\"HSEC-2024-0009\",\"modified\":\"2025-10-15T13:12:21.549202Z\"}]}]}"
     headers:
       Content-Length:
       - "105"
