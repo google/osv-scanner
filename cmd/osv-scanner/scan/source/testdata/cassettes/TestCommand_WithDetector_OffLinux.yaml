@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_WithDetector_OffLinux/ssh_version_errors
     url: https://api.osv.dev/v1/querybatch
@@ -44,7 +44,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_WithDetector_OffLinux/ssh_version_is_after_last_vuln_version
     url: https://api.osv.dev/v1/querybatch
@@ -75,7 +75,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_WithDetector_OffLinux/ssh_version_is_before_first_vuln_version
     url: https://api.osv.dev/v1/querybatch

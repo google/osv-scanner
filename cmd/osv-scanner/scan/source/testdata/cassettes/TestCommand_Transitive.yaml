@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve
     url: https://api.osv.dev/v1/querybatch
@@ -44,7 +44,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve
     url: https://api.osv.dev/v1/querybatch
@@ -75,7 +75,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed
     url: https://api.osv.dev/v1/querybatch
@@ -106,7 +106,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source
     url: https://api.osv.dev/v1/querybatch
@@ -137,7 +137,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Transitive/scan_local_disk_transitive_dependencies
     url: https://api.osv.dev/v1/querybatch
@@ -168,7 +168,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Transitive/scans_dependencies_from_multiple_registries
     url: https://api.osv.dev/v1/querybatch
@@ -199,7 +199,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding
     url: https://api.osv.dev/v1/querybatch
@@ -230,7 +230,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml
     url: https://api.osv.dev/v1/querybatch
@@ -261,7 +261,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default
     url: https://api.osv.dev/v1/querybatch
@@ -292,7 +292,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Transitive/uses_native_data_source_for_requirements.txt
     url: https://api.osv.dev/v1/querybatch

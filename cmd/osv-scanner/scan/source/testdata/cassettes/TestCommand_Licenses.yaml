@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/Licenses_in_summary_mode_json
     url: https://api.osv.dev/v1/querybatch
@@ -44,7 +44,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/Licenses_with_expressions
     url: https://api.osv.dev/v1/querybatch
@@ -75,7 +75,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/Licenses_with_invalid_expression_in_config
     url: https://api.osv.dev/v1/querybatch
@@ -106,7 +106,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/No_license_violations_and_show-all-packages_in_json
     url: https://api.osv.dev/v1/querybatch
@@ -137,7 +137,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/No_vulnerabilities_but_license_violations_with_allowlist
     url: https://api.osv.dev/v1/querybatch
@@ -168,7 +168,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/No_vulnerabilities_with_license_summary
     url: https://api.osv.dev/v1/querybatch
@@ -199,7 +199,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/No_vulnerabilities_with_license_summary_in_markdown
     url: https://api.osv.dev/v1/querybatch
@@ -230,7 +230,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/Show_all_Packages_with_license_summary_in_json
     url: https://api.osv.dev/v1/querybatch
@@ -261,7 +261,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/Some_packages_with_ignored_licenses
     url: https://api.osv.dev/v1/querybatch
@@ -292,7 +292,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json
     url: https://api.osv.dev/v1/querybatch
@@ -323,7 +323,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/Some_packages_with_license_violations_in_json
     url: https://api.osv.dev/v1/querybatch
@@ -354,7 +354,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/Vulnerabilities_and_all_license_violations_allowlisted
     url: https://api.osv.dev/v1/querybatch
@@ -385,7 +385,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/Vulnerabilities_and_license_summary
     url: https://api.osv.dev/v1/querybatch
@@ -416,7 +416,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Licenses/Vulnerabilities_and_license_violations_with_allowlist
     url: https://api.osv.dev/v1/querybatch
