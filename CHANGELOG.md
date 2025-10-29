@@ -12,7 +12,6 @@
 - [Bug #2300](https://github.com/google/osv-scanner/pull/2300) Ensure the global logger is used in `cmdlogger` and `osv-scalibr` when set (fixes \#2081).
 - [Bug #2295](https://github.com/google/osv-scanner/pull/2295) Fix Go stdlib license result matching (fixes \#2191).
 
-
 # v2.2.3
 
 ### Features:
