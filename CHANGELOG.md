@@ -1,3 +1,18 @@
+# v2.2.4
+
+### Features:
+
+- [Feature #2256](https://github.com/google/osv-scanner/pull/2256) Add experimental OSV-Scanner MCP server. (`osv-scanner experimental-mcp`)
+- [Feature #2284](https://github.com/google/osv-scanner/pull/2284) Update `osv-scalibr` integration, replacing `baseimagematch` with the base image enricher.
+- [Feature #2216](https://github.com/google/osv-scanner/pull/2216) Warn when vulnerabilities specified in the ignore config are not found during a scan (fixes \#2206).
+
+### Fixes:
+
+- [Bug #2305](https://github.com/google/osv-scanner/pull/2305) Ignore common protocols and `.git` suffix when checking if an advisory affects a git repository (fixes \#2291).
+- [Bug #2300](https://github.com/google/osv-scanner/pull/2300) Ensure the global logger is used in `cmdlogger` and `osv-scalibr` when set (fixes \#2081).
+- [Bug #2295](https://github.com/google/osv-scanner/pull/2295) Fix Go stdlib license result matching (fixes \#2191).
+
+
 # v2.2.3
 
 ### Features:
