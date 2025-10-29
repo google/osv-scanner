@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_GithubActions/scanning_osv-scanner_custom_format
     url: https://api.osv.dev/v1/querybatch
@@ -44,7 +44,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_GithubActions/scanning_osv-scanner_custom_format_output_json
     url: https://api.osv.dev/v1/querybatch

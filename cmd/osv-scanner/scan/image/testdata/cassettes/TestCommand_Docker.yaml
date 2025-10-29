@@ -13,7 +13,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - osv-scanner_scan/2.2.3
+      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_Docker/Real_Alpine_image
     url: https://api.osv.dev/v1/querybatch
