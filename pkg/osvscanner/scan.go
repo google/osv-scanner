@@ -214,7 +214,16 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 		}
 		for _, status := range sr.PluginStatus {
 			if status.Status.Status != plugin.ScanStatusSucceeded {
-				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, status.Status.FailureReason)
+				builder := strings.Builder{}
+
+				for _, fileError := range status.Status.FileErrors {
+					if len(status.Status.FileErrors) > 1 {
+						// If there is more than 1 file error, write them on new lines
+						builder.WriteString("\n\t")
+					}
+					builder.WriteString(fmt.Sprintf("%s: %s", fileError.FilePath, fileError.ErrorMessage))
+				}
+				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, builder.String())
 			}
 		}
 		genericFindings = append(genericFindings, sr.Inventory.GenericFindings...)
