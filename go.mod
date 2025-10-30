@@ -17,7 +17,7 @@ require (
 	github.com/gkampitakis/go-snaps v0.5.15
 	github.com/go-git/go-git/v5 v5.16.3
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.3.7-0.20251028103653-ba3117fbf7a7
+	github.com/google/osv-scalibr v0.3.7-0.20251029213949-57f9a8bf7775
 	github.com/ianlancetaylor/demangle v0.0.0-20250628045327-2d64ad6b7ec5
 	github.com/jedib0t/go-pretty/v6 v6.6.8
 	github.com/modelcontextprotocol/go-sdk v1.0.0
