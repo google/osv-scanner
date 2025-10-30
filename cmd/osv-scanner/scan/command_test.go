@@ -11,6 +11,11 @@ func TestCommand_SubCommands(t *testing.T) {
 	t.Parallel()
 
 	tests := []testcmd.Case{
+		{
+			Name: "with_no_arguments",
+			Args: []string{"", "scan"},
+			Exit: 127,
+		},
 		// without subcommands
 		{
 			Name: "with no subcommand",

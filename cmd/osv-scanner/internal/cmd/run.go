@@ -50,6 +50,13 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 	}
 	// ---
 
+	helpWasShown := false
+
+	cli.HelpPrinter = func(w io.Writer, templ string, data any) {
+		helpWasShown = true
+		cli.HelpPrinterCustom(w, templ, data, nil)
+	}
+
 	cli.VersionPrinter = func(cmd *cli.Command) {
 		cmdlogger.Infof("osv-scanner version: %s", cmd.Version)
 		cmdlogger.Infof("osv-scalibr version: %s", scalibr.ScannerVersion)
@@ -117,7 +124,10 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	if logHandler.HasErrored() {
+	//
+	// we also use this code if help was shown, to catch situations where
+	// the cli was called without any arguments
+	if helpWasShown || logHandler.HasErrored() {
 		return 127
 	}
 
