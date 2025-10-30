@@ -50,10 +50,8 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 	}
 	// ---
 
-	helpWasShown := false
-
 	cli.HelpPrinter = func(w io.Writer, templ string, data any) {
-		helpWasShown = true
+		cmdlogger.SetHasErrored()
 		cli.HelpPrinterCustom(w, templ, data, nil)
 	}
 
@@ -124,10 +122,7 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 
 	// if we've been told to print an error, and not already exited with
 	// a specific error code, then exit with a generic non-zero code
-	//
-	// we also use this code if help was shown, to catch situations where
-	// the cli was called without any arguments
-	if helpWasShown || logHandler.HasErrored() {
+	if logHandler.HasErrored() {
 		return 127
 	}
 
