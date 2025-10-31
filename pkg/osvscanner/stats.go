@@ -10,11 +10,13 @@ import (
 
 type fileOpenedPrinter struct {
 	stats.NoopCollector
+	filesExtracted map[string]struct{}
 }
 
 var _ stats.Collector = &fileOpenedPrinter{}
 
 func (c fileOpenedPrinter) AfterExtractorRun(_ string, extractorstats *stats.AfterExtractorStats) {
+	c.filesExtracted[extractorstats.Path] = struct{}{}
 	if extractorstats.Error != nil { // Don't log scanned if error occurred
 		return
 	}

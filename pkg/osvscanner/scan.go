@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"slices"
 	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
@@ -20,9 +21,9 @@ import (
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
-	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
@@ -114,8 +115,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	// --- Lockfiles ---
 	//lockfilePlugins := omitDirExtractors(plugins)
 
-	// --- Directories ---
-
 	scanner := scalibr.New()
 
 	// Build list of paths for each root
@@ -126,21 +125,35 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	// map[path]parseAs
 	overrideMap := map[string]filesystem.Extractor{}
 	var specificPaths []string
+	statsCollector := fileOpenedPrinter{
+		filesExtracted: make(map[string]struct{}),
+	}
 
+	// --- Directories ---
+	for _, path := range actions.DirectoryPaths {
+		cmdlogger.Infof("Scanning dir %s", path)
+		if _, err := pathToRootMap(rootMap, path, actions.Recursive); err != nil {
+			return nil, err
+		}
+	}
+
+	// --- Lockfiles ---
 	for _, lockfileElem := range actions.LockfilePaths {
 		parseAs, path := scanners.ParseLockfilePath(lockfileElem)
 
 		//cmdlogger.Infof("Scanning lockfiles %s", path)
-		if absPath, err := pathToRootMap(rootMap, path); err != nil {
+		if absPath, err := pathToRootMap(rootMap, path, actions.Recursive); err != nil {
 			return nil, err
-		} else if parseAs != "" {
+		} else {
 			specificPaths = append(specificPaths, absPath)
 
-			plug, err := scanners.ParseAsToPlugin(parseAs, plugins)
-			if err != nil {
-				return nil, err
+			if parseAs != "" {
+				plug, err := scanners.ParseAsToPlugin(parseAs, plugins)
+				if err != nil {
+					return nil, err
+				}
+				overrideMap[absPath] = plug
 			}
-			overrideMap[absPath] = plug
 		}
 	}
 
@@ -150,7 +163,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 SBOMLoop:
 	for _, sbomPath := range actions.SBOMPaths {
-		if absPath, err := pathToRootMap(rootMap, sbomPath); err != nil {
+		if absPath, err := pathToRootMap(rootMap, sbomPath, actions.Recursive); err != nil {
 			return nil, err
 		} else {
 			specificPaths = append(specificPaths, absPath)
@@ -170,22 +183,15 @@ SBOMLoop:
 		}
 	}
 
-	for _, path := range actions.DirectoryPaths {
-		cmdlogger.Infof("Scanning dir %s", path)
-		if _, err := pathToRootMap(rootMap, path); err != nil {
-			return nil, err
-		}
-	}
-
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
 
-	var statsCollector stats.Collector
-	if actions.StatsCollector != nil {
-		statsCollector = actions.StatsCollector
-	} else {
-		statsCollector = fileOpenedPrinter{}
-	}
+	//var statsCollector stats.Collector
+	//if actions.StatsCollector != nil {
+	//	statsCollector = actions.StatsCollector
+	//} else {
+	//	statsCollector = fileOpenedPrinter{}
+	//}
 
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
@@ -225,6 +231,7 @@ SBOMLoop:
 				}
 			},
 		})
+
 		if sr.Status.Status == plugin.ScanStatusFailed {
 			return nil, errors.New(sr.Status.FailureReason)
 		}
@@ -253,6 +260,21 @@ SBOMLoop:
 				}
 			}
 		}
+
+		// Check if specific paths have been extracted
+		for _, path := range specificPaths {
+			key, _ := filepath.Rel(root, path)
+			if _, ok := statsCollector.filesExtracted[key]; !ok {
+				return nil, fmt.Errorf("%w: %q", scalibrextract.ErrExtractorNotFound, path)
+			}
+		}
+
+		slices.SortFunc(sr.Inventory.Packages, inventorySort)
+		invsCompact := slices.CompactFunc(sr.Inventory.Packages, func(a, b *extractor.Package) bool {
+			return inventorySort(a, b) == 0
+		})
+		sr.Inventory.Packages = invsCompact
+
 		genericFindings = append(genericFindings, sr.Inventory.GenericFindings...)
 		scannedInventories = append(scannedInventories, sr.Inventory.Packages...)
 	}
@@ -287,22 +309,66 @@ SBOMLoop:
 	return &scanResult, nil
 }
 
-// pathToRootMap saves the absolute path into the root map, and returns the absolute path
-func pathToRootMap(rootMap map[string][]string, path string) (string, error) {
+// pathToRootMap saves the absolute path into the root map, and returns the absolute path.
+// path is only saved if it does not fall under an existing path.
+// IMPORTANT: it does not remove existing paths already added to the rootMap, so add directories before specific files.
+func pathToRootMap(rootMap map[string][]string, path string, recursive bool) (string, error) {
 	absPath, err := filepath.Abs(path)
 	if err != nil {
 		return "", err
 	}
 
-	_, err = os.Stat(absPath)
+	fi, err := os.Stat(absPath)
 	if err != nil {
 		return "", fmt.Errorf("failed to resolve path: %w", err)
 	}
 
 	root := getRootDir(absPath)
+	// If path is a directory and we are not recursively scanning, then always add it as a target.
+	if fi.IsDir() && !recursive {
+		rootMap[root] = append(rootMap[root], absPath)
+		return absPath, nil
+	}
+
+	// Otherwise, only add if it's not a descendent of an existing path
+	for _, existing := range rootMap[root] {
+		if isDescendent(existing, absPath, recursive) {
+			return absPath, nil
+		}
+	}
 	rootMap[root] = append(rootMap[root], absPath)
 
 	return absPath, nil
+}
+
+func isDescendent(potentialParent, path string, recursive bool) bool {
+	rel, err := filepath.Rel(potentialParent, path)
+	if err != nil {
+		// This should never happen
+		return false
+	}
+
+	if rel == "." {
+		// Same as an existing path, skip
+		return true
+	}
+
+	if strings.HasPrefix(rel, "..") {
+		return false
+	}
+
+	depths := len(strings.Split(rel, string(filepath.Separator)))
+	if recursive {
+		// Descendant of existing dir, and we are recursively scanning, so skip
+		return true
+	}
+
+	if depths == 1 {
+		// Direct child of existing dir, skip
+		return true
+	}
+
+	return false
 }
 
 // getRootDir returns the root directory on each system.
