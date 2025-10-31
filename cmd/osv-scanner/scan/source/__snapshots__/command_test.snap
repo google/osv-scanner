@@ -1776,7 +1776,7 @@ Total 8 packages affected by 17 known vulnerabilities (4 Critical, 4 High, 3 Med
 
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
-Total 10 packages affected by 37 known vulnerabilities (6 Critical, 7 High, 14 Medium, 4 Low, 6 Unknown) from 1 ecosystem.
+Total 11 packages affected by 41 known vulnerabilities (6 Critical, 9 High, 16 Medium, 4 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -1812,6 +1812,10 @@ Total 10 packages affected by 37 known vulnerabilities (6 Critical, 7 High, 14 M
 | https://osv.dev/CVE-2025-9230  | 7.5  | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9231  | 6.5  | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9232  | 5.9  | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2016-2183  | 7.5  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-9230  | 7.5  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-9231  | 6.5  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-9232  | 5.9  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2023-53159 | 9.1  | GIT       |  https://github.com/sfackler-fork/rust-openssl@3b064fdb  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2023-6180  | 5.3  | GIT       |  https://github.com/sfackler-fork/rust-openssl@3b064fdb  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-24898 | 6.3  | GIT       |  https://github.com/sfackler-fork/rust-openssl@3b064fdb  | --            | testdata/locks-git/osv-scanner.json |
@@ -2566,6 +2570,48 @@ No issues found
 
 [TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 2]
 could not determine extractor, requested package-lock.json
+
+---
+
+[TestCommand_Filter/Show_all_Packages_with_empty_config - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/testdata/locks-insecure/osv-scanner-with-unscannables.json",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "stdlib",
+            "version": "1.999.1",
+            "ecosystem": "Go"
+          }
+        },
+        {
+          "package": {
+            "name": "toolchain",
+            "version": "1.24.4",
+            "ecosystem": ""
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_Filter/Show_all_Packages_with_empty_config - 2]
+Scanned <rootdir>/testdata/locks-insecure/osv-scanner-with-unscannables.json file and found 2 packages
+Filtered 1 local/unscannable package/s from the scan.
 
 ---
 

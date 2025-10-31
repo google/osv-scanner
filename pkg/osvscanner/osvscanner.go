@@ -232,7 +232,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	scanResult.GenericFindings = packagesAndFindings.GenericFindings
 
 	// ----- Filtering -----
-	filterUnscannablePackages(&scanResult)
+	unscannablePackages := filterUnscannablePackages(&scanResult, actions)
 	filterIgnoredPackages(&scanResult)
 
 	// ----- Custom Overrides -----
@@ -252,6 +252,10 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
+	}
+
+	if len(unscannablePackages) > 0 {
+		scanResult.PackageScanResults = slices.Concat(scanResult.PackageScanResults, unscannablePackages)
 	}
 
 	return finalizeScanResult(scanResult, actions)
@@ -371,7 +375,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	// ----- Filtering -----
-	filterUnscannablePackages(&scanResult)
+	unscannablePackages := filterUnscannablePackages(&scanResult, actions)
 	filterIgnoredPackages(&scanResult)
 
 	filterNonContainerRelevantPackages(&scanResult)
@@ -404,6 +408,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	scanResult.GenericFindings = scalibrSR.Inventory.GenericFindings
+
+	if len(unscannablePackages) > 0 {
+		scanResult.PackageScanResults = slices.Concat(scanResult.PackageScanResults, unscannablePackages)
+	}
 
 	return finalizeScanResult(scanResult, actions)
 }
