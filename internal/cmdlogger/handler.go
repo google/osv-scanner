@@ -46,7 +46,7 @@ func (c *Handler) writer(level slog.Level) io.Writer {
 
 func (c *Handler) Enabled(ctx context.Context, level slog.Level) bool {
 	if level == slog.LevelError {
-		c.hasErrored = true
+		c.SetHasErrored()
 	}
 
 	if c.overrideHandler != nil {
@@ -58,7 +58,7 @@ func (c *Handler) Enabled(ctx context.Context, level slog.Level) bool {
 
 func (c *Handler) Handle(ctx context.Context, record slog.Record) error {
 	if record.Level == slog.LevelError {
-		c.hasErrored = true
+		c.SetHasErrored()
 
 		if strings.HasPrefix(record.Message, "Ignored invalid config file") {
 			c.hasErroredBecauseInvalidConfig = true
@@ -72,6 +72,10 @@ func (c *Handler) Handle(ctx context.Context, record slog.Record) error {
 	_, err := fmt.Fprint(c.writer(record.Level), record.Message+"\n")
 
 	return err
+}
+
+func (c *Handler) SetHasErrored() {
+	c.hasErrored = true
 }
 
 // HasErrored returns true if there have been any calls to Handle with
