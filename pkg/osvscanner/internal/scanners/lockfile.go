@@ -45,7 +45,10 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 )
 
-var lockfileExtractorMapping = map[string][]string{
+// OSV-Scanner and OSV-Scalibr has different plugin/override naming conventions.
+var osvscannerScalibrExtractionMapping = map[string][]string{
+	"apk-installed":               {apk.Name},
+	"dpkg-status":                 {dpkg.Name},
 	"pubspec.lock":                {pubspec.Name},
 	"pnpm-lock.yaml":              {pnpmlock.Name},
 	"yarn.lock":                   {yarnlock.Name},
@@ -102,7 +105,7 @@ func ScanSingleFileWithMapping(scanPath string, pluginsToUse []plugin.Plugin) ([
 	var err error
 	var inventories []*extractor.Package
 
-	parseAs, path := parseLockfilePath(scanPath)
+	parseAs, path := ParseLockfilePath(scanPath)
 
 	path, err = filepath.Abs(path)
 	if err != nil {
@@ -124,7 +127,7 @@ func ScanSingleFileWithMapping(scanPath string, pluginsToUse []plugin.Plugin) ([
 		inventories, err = scalibrextract.ExtractWithExtractors(context.Background(), path, pluginsToUse)
 	default: // A specific parseAs without a special case is selected
 		// Find and extract with the extractor of parseAs
-		if names, ok := lockfileExtractorMapping[parseAs]; ok && len(names) > 0 {
+		if names, ok := osvscannerScalibrExtractionMapping[parseAs]; ok && len(names) > 0 {
 			i := slices.IndexFunc(pluginsToUse, func(plug plugin.Plugin) bool {
 				_, ok = plug.(filesystem.Extractor)
 
@@ -162,7 +165,7 @@ func ScanSingleFileWithMapping(scanPath string, pluginsToUse []plugin.Plugin) ([
 	return inventories, nil
 }
 
-func parseLockfilePath(scanArg string) (string, string) {
+func ParseLockfilePath(scanArg string) (string, string) {
 	if (runtime.GOOS == "windows" && filepath.IsAbs(scanArg)) || !strings.Contains(scanArg, ":") {
 		scanArg = ":" + scanArg
 	}
@@ -170,4 +173,34 @@ func parseLockfilePath(scanArg string) (string, string) {
 	splits := strings.SplitN(scanArg, ":", 2)
 
 	return splits[0], splits[1]
+}
+
+func ParseAsToPlugin(parseAs string, pluginsToUse []plugin.Plugin) (filesystem.Extractor, error) {
+	switch parseAs {
+	case "": // No specific parseAs specified
+		return nil, nil
+	case "osv-scanner":
+		return osvscannerjson.Extractor{}, nil
+	default:
+		// Find and extract with the extractor of parseAs
+		if names, ok := osvscannerScalibrExtractionMapping[parseAs]; ok && len(names) > 0 {
+			i := slices.IndexFunc(pluginsToUse, func(plug plugin.Plugin) bool {
+				_, ok = plug.(filesystem.Extractor)
+
+				return ok && slices.Contains(names, plug.Name())
+			})
+			if i < 0 {
+				return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
+			}
+
+			fsysExtractor, ok := pluginsToUse[i].(filesystem.Extractor)
+			if !ok {
+				return nil, fmt.Errorf("invalid extractor name %s", parseAs)
+			}
+
+			return fsysExtractor, nil
+		} else {
+			return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
+		}
+	}
 }

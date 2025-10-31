@@ -12,16 +12,17 @@ import (
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
+	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
@@ -111,40 +112,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	}
 
 	// --- Lockfiles ---
-	lockfilePlugins := omitDirExtractors(plugins)
-
-	for _, lockfileElem := range actions.LockfilePaths {
-		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfilePlugins)
-		if err != nil {
-			return nil, err
-		}
-
-		scannedInventories = append(scannedInventories, invs...)
-	}
-
-	// --- SBOMs ---
-	// none of the SBOM extractors need configuring
-	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{})
-	for _, sbomPath := range actions.SBOMPaths {
-		path, err := filepath.Abs(sbomPath)
-		if err != nil {
-			cmdlogger.Errorf("Failed to resolved path %q with error: %s", path, err)
-			return nil, err
-		}
-
-		invs, err := scanners.ScanSingleFile(path, sbomExtractors)
-		if err != nil {
-			cmdlogger.Infof("Failed to parse SBOM %q with error: %s", path, err)
-
-			if errors.Is(err, scalibrextract.ErrExtractorNotFound) {
-				cmdlogger.Infof("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
-			}
-
-			return nil, err
-		}
-
-		scannedInventories = append(scannedInventories, invs...)
-	}
+	//lockfilePlugins := omitDirExtractors(plugins)
 
 	// --- Directories ---
 
@@ -153,20 +121,60 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	// Build list of paths for each root
 	// On linux this would return a map with just one entry of /
 	rootMap := map[string][]string{}
+
+	// Also build a map of specific plugin overrides that the user specify
+	// map[path]parseAs
+	overrideMap := map[string]filesystem.Extractor{}
+	var specificPaths []string
+
+	for _, lockfileElem := range actions.LockfilePaths {
+		parseAs, path := scanners.ParseLockfilePath(lockfileElem)
+
+		//cmdlogger.Infof("Scanning lockfiles %s", path)
+		if absPath, err := pathToRootMap(rootMap, path); err != nil {
+			return nil, err
+		} else if parseAs != "" {
+			specificPaths = append(specificPaths, absPath)
+
+			plug, err := scanners.ParseAsToPlugin(parseAs, plugins)
+			if err != nil {
+				return nil, err
+			}
+			overrideMap[absPath] = plug
+		}
+	}
+
+	// --- SBOMs (Deprecated) ---
+	// none of the SBOM extractors need configuring
+	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{})
+
+SBOMLoop:
+	for _, sbomPath := range actions.SBOMPaths {
+		if absPath, err := pathToRootMap(rootMap, sbomPath); err != nil {
+			return nil, err
+		} else {
+			specificPaths = append(specificPaths, absPath)
+
+			for _, se := range sbomExtractors {
+				// All sbom extractors are filesystem extractors
+				sbomExtractor := se.(filesystem.Extractor)
+				if sbomExtractor.FileRequired(simplefileapi.New(absPath, nil)) {
+					overrideMap[absPath] = sbomExtractor
+					continue SBOMLoop
+				}
+			}
+			cmdlogger.Errorf("Failed to parse SBOM %q: Invalid SBOM filename.", sbomPath)
+			cmdlogger.Errorf("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
+
+			return nil, fmt.Errorf("invalid SBOM filename: %s", sbomPath)
+		}
+	}
+
 	for _, path := range actions.DirectoryPaths {
 		cmdlogger.Infof("Scanning dir %s", path)
-		absPath, err := filepath.Abs(path)
-		if err != nil {
+		if _, err := pathToRootMap(rootMap, path); err != nil {
 			return nil, err
 		}
-
-		_, err = os.Stat(absPath)
-		if err != nil {
-			return nil, fmt.Errorf("failed to scan dir: %w", err)
-		}
-
-		root := getRootDir(absPath)
-		rootMap[root] = append(rootMap[root], absPath)
 	}
 
 	testlogger.BeginDirScanMarker()
@@ -208,6 +216,14 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			StoreAbsolutePath:     true,
 			PrintDurationAnalysis: false,
 			ErrorOnFSErrors:       false,
+			ExtractorOverride: func(api filesystem.FileAPI) []filesystem.Extractor {
+				ext, ok := overrideMap[filepath.Join(root, api.Path())]
+				if ok {
+					return []filesystem.Extractor{ext}
+				} else {
+					return []filesystem.Extractor{}
+				}
+			},
 		})
 		if sr.Status.Status == plugin.ScanStatusFailed {
 			return nil, errors.New(sr.Status.FailureReason)
@@ -215,15 +231,26 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 		for _, status := range sr.PluginStatus {
 			if status.Status.Status != plugin.ScanStatusSucceeded {
 				builder := strings.Builder{}
-
+				criticalError := false
 				for _, fileError := range status.Status.FileErrors {
 					if len(status.Status.FileErrors) > 1 {
 						// If there is more than 1 file error, write them on new lines
 						builder.WriteString("\n\t")
 					}
 					builder.WriteString(fmt.Sprintf("%s: %s", fileError.FilePath, fileError.ErrorMessage))
+
+					// Check if the erroring file was a path specifically passed in (not a result of a file walk)
+					for _, path := range specificPaths {
+						if strings.Contains(filepath.ToSlash(path), filepath.ToSlash(fileError.FilePath)) {
+							criticalError = true
+							break
+						}
+					}
 				}
 				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, builder.String())
+				if criticalError {
+					return nil, errors.New("extraction failed on specified lockfile")
+				}
 			}
 		}
 		genericFindings = append(genericFindings, sr.Inventory.GenericFindings...)
@@ -258,6 +285,24 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	}
 
 	return &scanResult, nil
+}
+
+// pathToRootMap saves the absolute path into the root map, and returns the absolute path
+func pathToRootMap(rootMap map[string][]string, path string) (string, error) {
+	absPath, err := filepath.Abs(path)
+	if err != nil {
+		return "", err
+	}
+
+	_, err = os.Stat(absPath)
+	if err != nil {
+		return "", fmt.Errorf("failed to resolve path: %w", err)
+	}
+
+	root := getRootDir(absPath)
+	rootMap[root] = append(rootMap[root], absPath)
+
+	return absPath, nil
 }
 
 // getRootDir returns the root directory on each system.
