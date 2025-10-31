@@ -123,6 +123,10 @@ See [licenses scanning](./license-scanning.md) for more details.
 
 The `--all-packages` flag can be used to output all packages in JSON format (make sure to set `--format=json`).
 
+Note that the `PackageOverrides` configuration, specifically the `ignore` action, takes precedence over this flag.
+
+See [configuration](./configuration.md#override-packages) for more details.
+
 ```bash
 osv-scanner --all-packages --format=json path/to/repository
 ```

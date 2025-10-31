@@ -13,10 +13,11 @@ import (
 )
 
 // filterUnscannablePackages removes packages that don't have enough information to be scanned or
-// are not a supported ecosystem
+// are not a supported ecosystem, and returns the list of removed packages (if --all-packages flag is passed in)
 // e,g, local packages that specified by path
-func filterUnscannablePackages(scanResults *results.ScanResults) {
+func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []imodels.PackageScanResult {
 	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+	filteredPsr := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		p := psr.PackageInfo
 
@@ -25,6 +26,10 @@ func filterUnscannablePackages(scanResults *results.ScanResults) {
 		case !p.Ecosystem().IsEmpty() && p.Name() != "" && p.Version() != "":
 		case p.Commit() != "":
 		default:
+			if actions.ShowAllPackages {
+				filteredPsr = append(filteredPsr, psr)
+			}
+
 			continue
 		}
 
@@ -32,6 +37,10 @@ func filterUnscannablePackages(scanResults *results.ScanResults) {
 		// If **any** of the following cases are true, skip this package
 		case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown", // Is Maven with package name unknown
 			p.Ecosystem().GetValidity() != nil && !p.Ecosystem().IsEmpty(): // Is invalid and not empty
+			if actions.ShowAllPackages {
+				filteredPsr = append(filteredPsr, psr)
+			}
+
 			continue
 		}
 
@@ -43,6 +52,8 @@ func filterUnscannablePackages(scanResults *results.ScanResults) {
 	}
 
 	scanResults.PackageScanResults = packageResults
+
+	return filteredPsr
 }
 
 // filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
