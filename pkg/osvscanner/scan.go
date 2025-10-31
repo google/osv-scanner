@@ -112,9 +112,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 		plugins = append(plugins, java.NewDefault())
 	}
 
-	// --- Lockfiles ---
-	//lockfilePlugins := omitDirExtractors(plugins)
-
 	scanner := scalibr.New()
 
 	// Build list of paths for each root
