@@ -124,7 +124,9 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	// Also build a map of specific plugin overrides that the user specify
 	// map[path]parseAs
 	overrideMap := map[string]filesystem.Extractor{}
+	// List of specific paths the user passes in so that we can check that they all get processed.
 	var specificPaths []string
+
 	statsCollector := fileOpenedPrinter{
 		filesExtracted: make(map[string]struct{}),
 	}
@@ -141,7 +143,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	for _, lockfileElem := range actions.LockfilePaths {
 		parseAs, path := scanners.ParseLockfilePath(lockfileElem)
 
-		//cmdlogger.Infof("Scanning lockfiles %s", path)
 		if absPath, err := pathToRootMap(rootMap, path, actions.Recursive); err != nil {
 			return nil, err
 		} else {
@@ -186,13 +187,6 @@ SBOMLoop:
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
 
-	//var statsCollector stats.Collector
-	//if actions.StatsCollector != nil {
-	//	statsCollector = actions.StatsCollector
-	//} else {
-	//	statsCollector = fileOpenedPrinter{}
-	//}
-
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
@@ -216,7 +210,7 @@ SBOMLoop:
 			SkipDirRegex:          nil,
 			SkipDirGlob:           nil,
 			UseGitignore:          !actions.NoIgnore,
-			Stats:                 statsCollector,
+			Stats:                 &statsCollector,
 			ReadSymlinks:          false,
 			MaxInodes:             0,
 			StoreAbsolutePath:     true,
@@ -232,9 +226,11 @@ SBOMLoop:
 			},
 		})
 
+		// --- Check status of the run ---
 		if sr.Status.Status == plugin.ScanStatusFailed {
 			return nil, errors.New(sr.Status.FailureReason)
 		}
+
 		for _, status := range sr.PluginStatus {
 			if status.Status.Status != plugin.ScanStatusSucceeded {
 				builder := strings.Builder{}
@@ -261,7 +257,8 @@ SBOMLoop:
 			}
 		}
 
-		// Check if specific paths have been extracted
+		// Check if specific paths have been extracted.
+		// This allows us to error if a specific file provided by the user failed to extract, and return an error for them.
 		for _, path := range specificPaths {
 			key, _ := filepath.Rel(root, path)
 			if _, ok := statsCollector.filesExtracted[key]; !ok {

@@ -2,14 +2,12 @@
 package scanners
 
 import (
-	"context"
 	"fmt"
 	"path/filepath"
 	"runtime"
 	"slices"
 	"strings"
 
-	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
@@ -37,9 +35,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/plugin"
-	"github.com/google/osv-scanner/v2/internal/cmdlogger"
-	"github.com/google/osv-scanner/v2/internal/output"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
@@ -77,92 +72,6 @@ var osvscannerScalibrExtractionMapping = map[string][]string{
 	"cabal.project.freeze":        {cabal.Name},
 	"stack.yaml.lock":             {stacklock.Name},
 	// "Package.resolved":            {packageresolved.Name},
-}
-
-// ScanSingleFile is similar to ScanSingleFileWithMapping, just without supporting the <lockfileformat>:/path/to/lockfile prefix identifier
-func ScanSingleFile(path string, extractorsToUse []plugin.Plugin) ([]*extractor.Package, error) {
-	invs, err := scalibrextract.ExtractWithExtractors(context.Background(), path, extractorsToUse)
-	if err != nil {
-		return nil, err
-	}
-
-	pkgCount := len(invs)
-	if pkgCount > 0 {
-		cmdlogger.Infof(
-			"Scanned %s file and found %d %s",
-			path,
-			pkgCount,
-			output.Form(pkgCount, "package", "packages"),
-		)
-	}
-
-	return invs, nil
-}
-
-// ScanSingleFileWithMapping will load, identify, and parse the lockfile path passed in, and add the dependencies specified
-// within to `query`
-func ScanSingleFileWithMapping(scanPath string, pluginsToUse []plugin.Plugin) ([]*extractor.Package, error) {
-	var err error
-	var inventories []*extractor.Package
-
-	parseAs, path := ParseLockfilePath(scanPath)
-
-	path, err = filepath.Abs(path)
-	if err != nil {
-		cmdlogger.Errorf("Failed to resolved path %q with error: %s", path, err)
-		return nil, err
-	}
-
-	// special case for the APK and DPKG parsers because they have a very generic name while
-	// living at a specific location, so they are not included in the map of parsers
-	// used by lockfile.Parse to avoid false-positives when scanning projects
-	switch parseAs {
-	case "apk-installed":
-		inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, apk.New(apk.DefaultConfig()))
-	case "dpkg-status":
-		inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, dpkg.New(dpkg.DefaultConfig()))
-	case "osv-scanner":
-		inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, osvscannerjson.Extractor{})
-	case "": // No specific parseAs specified
-		inventories, err = scalibrextract.ExtractWithExtractors(context.Background(), path, pluginsToUse)
-	default: // A specific parseAs without a special case is selected
-		// Find and extract with the extractor of parseAs
-		if names, ok := osvscannerScalibrExtractionMapping[parseAs]; ok && len(names) > 0 {
-			i := slices.IndexFunc(pluginsToUse, func(plug plugin.Plugin) bool {
-				_, ok = plug.(filesystem.Extractor)
-
-				return ok && slices.Contains(names, plug.Name())
-			})
-			if i < 0 {
-				return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
-			}
-			inventories, err = scalibrextract.ExtractWithExtractor(context.Background(), path, pluginsToUse[i].(filesystem.Extractor))
-		} else {
-			return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
-		}
-	}
-
-	if err != nil {
-		return nil, err
-	}
-
-	parsedAsComment := ""
-
-	if parseAs != "" {
-		parsedAsComment = fmt.Sprintf("as a %s ", parseAs)
-	}
-
-	pkgCount := len(inventories)
-
-	cmdlogger.Infof(
-		"Scanned %s file %sand found %d %s",
-		path,
-		parsedAsComment,
-		pkgCount,
-		output.Form(pkgCount, "package", "packages"),
-	)
-
-	return inventories, nil
 }
 
 func ParseLockfilePath(scanArg string) (string, string) {
