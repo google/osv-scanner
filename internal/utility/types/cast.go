@@ -1,3 +1,4 @@
+// Package types provides type conversion utility functions
 package types
 
 func MustCastSlice[OUT, IN any](a []IN) []OUT {

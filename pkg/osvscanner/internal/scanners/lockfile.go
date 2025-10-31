@@ -2,6 +2,7 @@
 package scanners
 
 import (
+	"errors"
 	"fmt"
 	"path/filepath"
 	"runtime"
@@ -84,10 +85,11 @@ func ParseLockfilePath(scanArg string) (string, string) {
 	return splits[0], splits[1]
 }
 
+// ParseAsToPlugin finds the parseAs extractor in the list of pluginsToUse
 func ParseAsToPlugin(parseAs string, pluginsToUse []plugin.Plugin) (filesystem.Extractor, error) {
 	switch parseAs {
 	case "": // No specific parseAs specified
-		return nil, nil
+		return nil, errors.New("no parseAs specified")
 	case "osv-scanner":
 		return osvscannerjson.Extractor{}, nil
 	default:
@@ -108,8 +110,8 @@ func ParseAsToPlugin(parseAs string, pluginsToUse []plugin.Plugin) (filesystem.E
 			}
 
 			return fsysExtractor, nil
-		} else {
-			return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
 		}
+
+		return nil, fmt.Errorf("could not determine extractor, requested %s", parseAs)
 	}
 }

@@ -23,7 +23,6 @@ import (
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
@@ -33,6 +32,8 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
+
+var ErrExtractorNotFound = errors.New("could not determine extractor suitable to this file")
 
 func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
 	for _, plug := range plugins {
@@ -77,21 +78,6 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 	return plugins
 }
 
-// omitDirExtractors removes any plugins that require extracting from a directory
-func omitDirExtractors(plugins []plugin.Plugin) []plugin.Plugin {
-	filtered := make([]plugin.Plugin, 0, len(plugins))
-
-	for _, plug := range plugins {
-		if plug.Requirements().ExtractFromDirs {
-			continue
-		}
-
-		filtered = append(filtered, plug)
-	}
-
-	return filtered
-}
-
 // scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
@@ -122,6 +108,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	// map[path]parseAs
 	overrideMap := map[string]filesystem.Extractor{}
 	// List of specific paths the user passes in so that we can check that they all get processed.
+	//nolint:prealloc // Does not matter in this case
 	var specificPaths []string
 
 	statsCollector := fileOpenedPrinter{
@@ -139,19 +126,19 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	// --- Lockfiles ---
 	for _, lockfileElem := range actions.LockfilePaths {
 		parseAs, path := scanners.ParseLockfilePath(lockfileElem)
-
-		if absPath, err := pathToRootMap(rootMap, path, actions.Recursive); err != nil {
+		absPath, err := pathToRootMap(rootMap, path, actions.Recursive)
+		if err != nil {
 			return nil, err
-		} else {
-			specificPaths = append(specificPaths, absPath)
+		}
 
-			if parseAs != "" {
-				plug, err := scanners.ParseAsToPlugin(parseAs, plugins)
-				if err != nil {
-					return nil, err
-				}
-				overrideMap[absPath] = plug
+		specificPaths = append(specificPaths, absPath)
+
+		if parseAs != "" {
+			plug, err := scanners.ParseAsToPlugin(parseAs, plugins)
+			if err != nil {
+				return nil, err
 			}
+			overrideMap[absPath] = plug
 		}
 	}
 
@@ -161,24 +148,24 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 SBOMLoop:
 	for _, sbomPath := range actions.SBOMPaths {
-		if absPath, err := pathToRootMap(rootMap, sbomPath, actions.Recursive); err != nil {
+		absPath, err := pathToRootMap(rootMap, sbomPath, actions.Recursive)
+		if err != nil {
 			return nil, err
-		} else {
-			specificPaths = append(specificPaths, absPath)
-
-			for _, se := range sbomExtractors {
-				// All sbom extractors are filesystem extractors
-				sbomExtractor := se.(filesystem.Extractor)
-				if sbomExtractor.FileRequired(simplefileapi.New(absPath, nil)) {
-					overrideMap[absPath] = sbomExtractor
-					continue SBOMLoop
-				}
-			}
-			cmdlogger.Errorf("Failed to parse SBOM %q: Invalid SBOM filename.", sbomPath)
-			cmdlogger.Errorf("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
-
-			return nil, fmt.Errorf("invalid SBOM filename: %s", sbomPath)
 		}
+		specificPaths = append(specificPaths, absPath)
+
+		for _, se := range sbomExtractors {
+			// All sbom extractors are filesystem extractors
+			sbomExtractor := se.(filesystem.Extractor)
+			if sbomExtractor.FileRequired(simplefileapi.New(absPath, nil)) {
+				overrideMap[absPath] = sbomExtractor
+				continue SBOMLoop
+			}
+		}
+		cmdlogger.Errorf("Failed to parse SBOM %q: Invalid SBOM filename.", sbomPath)
+		cmdlogger.Errorf("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
+
+		return nil, fmt.Errorf("invalid SBOM filename: %s", sbomPath)
 	}
 
 	testlogger.BeginDirScanMarker()
@@ -217,9 +204,9 @@ SBOMLoop:
 				ext, ok := overrideMap[filepath.Join(root, api.Path())]
 				if ok {
 					return []filesystem.Extractor{ext}
-				} else {
-					return []filesystem.Extractor{}
 				}
+
+				return []filesystem.Extractor{}
 			},
 		})
 
@@ -259,7 +246,7 @@ SBOMLoop:
 		for _, path := range specificPaths {
 			key, _ := filepath.Rel(root, path)
 			if _, ok := statsCollector.filesExtracted[key]; !ok {
-				return nil, fmt.Errorf("%w: %q", scalibrextract.ErrExtractorNotFound, path)
+				return nil, fmt.Errorf("%w: %q", ErrExtractorNotFound, path)
 			}
 		}
 

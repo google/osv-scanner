@@ -5,8 +5,9 @@ import (
 	"testing"
 )
 
-
 func Test_isDescendent(t *testing.T) {
+	t.Parallel()
+
 	tests := []struct {
 		name            string
 		potentialParent string
@@ -87,6 +88,7 @@ func Test_isDescendent(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			// Normalize paths for the current OS
 			potentialParent := filepath.FromSlash(tt.potentialParent)
 			path := filepath.FromSlash(tt.path)
