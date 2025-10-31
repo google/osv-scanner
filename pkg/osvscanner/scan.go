@@ -7,21 +7,22 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"slices"
 	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
+	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
-	"github.com/google/osv-scalibr/stats"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
@@ -31,6 +32,8 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
+
+var ErrExtractorNotFound = errors.New("could not determine extractor suitable to this file")
 
 func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
 	for _, plug := range plugins {
@@ -75,21 +78,6 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 	return plugins
 }
 
-// omitDirExtractors removes any plugins that require extracting from a directory
-func omitDirExtractors(plugins []plugin.Plugin) []plugin.Plugin {
-	filtered := make([]plugin.Plugin, 0, len(plugins))
-
-	for _, plug := range plugins {
-		if plug.Requirements().ExtractFromDirs {
-			continue
-		}
-
-		filtered = append(filtered, plug)
-	}
-
-	return filtered
-}
-
 // scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
@@ -110,74 +98,78 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 		plugins = append(plugins, java.NewDefault())
 	}
 
-	// --- Lockfiles ---
-	lockfilePlugins := omitDirExtractors(plugins)
-
-	for _, lockfileElem := range actions.LockfilePaths {
-		invs, err := scanners.ScanSingleFileWithMapping(lockfileElem, lockfilePlugins)
-		if err != nil {
-			return nil, err
-		}
-
-		scannedInventories = append(scannedInventories, invs...)
-	}
-
-	// --- SBOMs ---
-	// none of the SBOM extractors need configuring
-	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{})
-	for _, sbomPath := range actions.SBOMPaths {
-		path, err := filepath.Abs(sbomPath)
-		if err != nil {
-			cmdlogger.Errorf("Failed to resolved path %q with error: %s", path, err)
-			return nil, err
-		}
-
-		invs, err := scanners.ScanSingleFile(path, sbomExtractors)
-		if err != nil {
-			cmdlogger.Infof("Failed to parse SBOM %q with error: %s", path, err)
-
-			if errors.Is(err, scalibrextract.ErrExtractorNotFound) {
-				cmdlogger.Infof("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
-			}
-
-			return nil, err
-		}
-
-		scannedInventories = append(scannedInventories, invs...)
-	}
-
-	// --- Directories ---
-
 	scanner := scalibr.New()
 
 	// Build list of paths for each root
 	// On linux this would return a map with just one entry of /
 	rootMap := map[string][]string{}
+
+	// Also build a map of specific plugin overrides that the user specify
+	// map[path]parseAs
+	overrideMap := map[string]filesystem.Extractor{}
+	// List of specific paths the user passes in so that we can check that they all get processed.
+	//nolint:prealloc // Does not matter in this case
+	var specificPaths []string
+
+	statsCollector := fileOpenedPrinter{
+		filesExtracted: make(map[string]struct{}),
+	}
+
+	// --- Directories ---
 	for _, path := range actions.DirectoryPaths {
 		cmdlogger.Infof("Scanning dir %s", path)
-		absPath, err := filepath.Abs(path)
+		if _, err := pathToRootMap(rootMap, path, actions.Recursive); err != nil {
+			return nil, err
+		}
+	}
+
+	// --- Lockfiles ---
+	for _, lockfileElem := range actions.LockfilePaths {
+		parseAs, path := scanners.ParseLockfilePath(lockfileElem)
+		absPath, err := pathToRootMap(rootMap, path, actions.Recursive)
 		if err != nil {
 			return nil, err
 		}
 
-		_, err = os.Stat(absPath)
-		if err != nil {
-			return nil, fmt.Errorf("failed to scan dir: %w", err)
-		}
+		specificPaths = append(specificPaths, absPath)
 
-		root := getRootDir(absPath)
-		rootMap[root] = append(rootMap[root], absPath)
+		if parseAs != "" {
+			plug, err := scanners.ParseAsToPlugin(parseAs, plugins)
+			if err != nil {
+				return nil, err
+			}
+			overrideMap[absPath] = plug
+		}
+	}
+
+	// --- SBOMs (Deprecated) ---
+	// none of the SBOM extractors need configuring
+	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{})
+
+SBOMLoop:
+	for _, sbomPath := range actions.SBOMPaths {
+		absPath, err := pathToRootMap(rootMap, sbomPath, actions.Recursive)
+		if err != nil {
+			return nil, err
+		}
+		specificPaths = append(specificPaths, absPath)
+
+		for _, se := range sbomExtractors {
+			// All sbom extractors are filesystem extractors
+			sbomExtractor := se.(filesystem.Extractor)
+			if sbomExtractor.FileRequired(simplefileapi.New(absPath, nil)) {
+				overrideMap[absPath] = sbomExtractor
+				continue SBOMLoop
+			}
+		}
+		cmdlogger.Errorf("Failed to parse SBOM %q: Invalid SBOM filename.", sbomPath)
+		cmdlogger.Errorf("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
+
+		return nil, fmt.Errorf("invalid SBOM filename: %s", sbomPath)
 	}
 
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
-
-	var statsCollector stats.Collector
-	if actions.StatsCollector != nil {
-		statsCollector = actions.StatsCollector
-	} else {
-		statsCollector = fileOpenedPrinter{}
-	}
 
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
@@ -202,30 +194,68 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			SkipDirRegex:          nil,
 			SkipDirGlob:           nil,
 			UseGitignore:          !actions.NoIgnore,
-			Stats:                 statsCollector,
+			Stats:                 &statsCollector,
 			ReadSymlinks:          false,
 			MaxInodes:             0,
 			StoreAbsolutePath:     true,
 			PrintDurationAnalysis: false,
 			ErrorOnFSErrors:       false,
+			ExtractorOverride: func(api filesystem.FileAPI) []filesystem.Extractor {
+				ext, ok := overrideMap[filepath.Join(root, api.Path())]
+				if ok {
+					return []filesystem.Extractor{ext}
+				}
+
+				return []filesystem.Extractor{}
+			},
 		})
+
+		// --- Check status of the run ---
 		if sr.Status.Status == plugin.ScanStatusFailed {
 			return nil, errors.New(sr.Status.FailureReason)
 		}
+
 		for _, status := range sr.PluginStatus {
 			if status.Status.Status != plugin.ScanStatusSucceeded {
 				builder := strings.Builder{}
-
+				criticalError := false
 				for _, fileError := range status.Status.FileErrors {
 					if len(status.Status.FileErrors) > 1 {
 						// If there is more than 1 file error, write them on new lines
 						builder.WriteString("\n\t")
 					}
 					builder.WriteString(fmt.Sprintf("%s: %s", fileError.FilePath, fileError.ErrorMessage))
+
+					// Check if the erroring file was a path specifically passed in (not a result of a file walk)
+					for _, path := range specificPaths {
+						if strings.Contains(filepath.ToSlash(path), filepath.ToSlash(fileError.FilePath)) {
+							criticalError = true
+							break
+						}
+					}
 				}
 				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, builder.String())
+				if criticalError {
+					return nil, errors.New("extraction failed on specified lockfile")
+				}
 			}
 		}
+
+		// Check if specific paths have been extracted.
+		// This allows us to error if a specific file provided by the user failed to extract, and return an error for them.
+		for _, path := range specificPaths {
+			key, _ := filepath.Rel(root, path)
+			if _, ok := statsCollector.filesExtracted[key]; !ok {
+				return nil, fmt.Errorf("%w: %q", ErrExtractorNotFound, path)
+			}
+		}
+
+		slices.SortFunc(sr.Inventory.Packages, inventorySort)
+		invsCompact := slices.CompactFunc(sr.Inventory.Packages, func(a, b *extractor.Package) bool {
+			return inventorySort(a, b) == 0
+		})
+		sr.Inventory.Packages = invsCompact
+
 		genericFindings = append(genericFindings, sr.Inventory.GenericFindings...)
 		scannedInventories = append(scannedInventories, sr.Inventory.Packages...)
 	}
@@ -258,6 +288,68 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	}
 
 	return &scanResult, nil
+}
+
+// pathToRootMap saves the absolute path into the root map, and returns the absolute path.
+// path is only saved if it does not fall under an existing path.
+// IMPORTANT: it does not remove existing paths already added to the rootMap, so add directories before specific files.
+func pathToRootMap(rootMap map[string][]string, path string, recursive bool) (string, error) {
+	absPath, err := filepath.Abs(path)
+	if err != nil {
+		return "", err
+	}
+
+	fi, err := os.Stat(absPath)
+	if err != nil {
+		return "", fmt.Errorf("failed to resolve path: %w", err)
+	}
+
+	root := getRootDir(absPath)
+	// If path is a directory and we are not recursively scanning, then always add it as a target.
+	if fi.IsDir() && !recursive {
+		rootMap[root] = append(rootMap[root], absPath)
+		return absPath, nil
+	}
+
+	// Otherwise, only add if it's not a descendent of an existing path
+	for _, existing := range rootMap[root] {
+		if isDescendent(existing, absPath, recursive) {
+			return absPath, nil
+		}
+	}
+	rootMap[root] = append(rootMap[root], absPath)
+
+	return absPath, nil
+}
+
+func isDescendent(potentialParent, path string, recursive bool) bool {
+	rel, err := filepath.Rel(potentialParent, path)
+	if err != nil {
+		// This should never happen
+		return false
+	}
+
+	if rel == "." {
+		// Same as an existing path, skip
+		return true
+	}
+
+	if strings.HasPrefix(rel, "..") {
+		return false
+	}
+
+	depths := len(strings.Split(rel, string(filepath.Separator)))
+	if recursive {
+		// Descendant of existing dir, and we are recursively scanning, so skip
+		return true
+	}
+
+	if depths == 1 {
+		// Direct child of existing dir, skip
+		return true
+	}
+
+	return false
 }
 
 // getRootDir returns the root directory on each system.

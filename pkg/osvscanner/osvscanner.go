@@ -77,6 +77,7 @@ type ExperimentalScannerActions struct {
 	PluginsDisabled   []string
 	PluginsNoDefaults bool
 
+	// Currently unused.
 	StatsCollector stats.Collector
 }
 
