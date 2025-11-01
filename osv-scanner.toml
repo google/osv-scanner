@@ -1,1 +1,7 @@
+[[IgnoredVulns]]
+id = "GHSA-j288-q9x7-2f5v"
+reason = "Scorecard scans surface this advisory from a test-only javareach fixture; the artifact is not part of production images"
 
+[[IgnoredVulns]]
+id = "CVE-2023-45853"
+reason = "Scorecard scans surface this advisory from a test-only javareach fixture; the artifact is not part of production images"
