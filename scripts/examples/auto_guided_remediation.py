@@ -1,159 +1,227 @@
 #!/usr/bin/env python3
-"""
-Proof of concept demonstrating an automated guided remediation patching workflow.
-We progressively try more and more patches until tests fail.
-Requires osv-scanner to be in your PATH.
-"""
+"""Automated guided remediation workflow for `osv-scanner fix`."""
 
 import os.path
 import re
 import subprocess
 import sys
-from typing import List, Tuple
+from dataclasses import dataclass
+from typing import List, Optional, Sequence, Tuple
+
 
 PATCH_STRATEGIES = [
-    ['--strategy=in-place'],  # Try every single transitive dependency upgrade without relocking or bumping direct dependencies.json.
+    ['--strategy=in-place'],  # Try transitive dependency upgrades without relocking.
     ['--strategy=relock'],  # Relock the manifest and try direct dependency bumps.
-    # This could also include things like:
-    # '--min-severity=X'  Minimum severity of vulnerabilities to consider.
-    # '--max-depth=Y': Maximum (shortest) dependency depth
-    # '--upgrade-config={major/minor/patch}':  What level of package upgrades are allowed.
-    # etc... which can help reduce/increase the scope of changes by prioritizing vulnerabilities according to these filters.
-    # e.g. ['--strategy=relock', '--upgrade-config=minor', '--max-depth=5'],  # Relock the manifest and try direct dependency bumps.
-    # See `osv-scanner fix --help`.
+    # Additional filters can narrow scope, for example:
+    # ['--strategy=relock', '--upgrade-config=minor', '--max-depth=5'].
 ]
 
-if len(sys.argv) < 2:
-  print(f'Usage: {sys.argv[0]} <project-directory>')
-  sys.exit(1)
 
-directory = sys.argv[1]
-osv_fix_args = sys.argv[2:]
+@dataclass
+class FixContext:
+    """Shared configuration for executing `osv-scanner fix`."""
 
-# check if the directory is within a git repo
-if subprocess.call(['git', '-C', directory, 'rev-parse']):
-  print(f'{directory} is not part of a git repository')
-  sys.exit(1)
-
-manifest = os.path.join(directory, 'package.json')
-lockfile = os.path.join(directory, 'package-lock.json')
+    directory: str
+    manifest: str
+    lockfile: str
+    osv_fix_args: List[str]
 
 
-def run_fix(n_patches: int, avoid_pkgs: List[str], strategy: List[str]) -> Tuple[List[str], int, int]:
-  # restore package.json & package-lock.json
-  subprocess.check_call(['git', 'checkout', 'package.json', 'package-lock.json'], cwd=directory)
-  # run osv-fix and parse changes
-  cmd = ['osv-scanner', 'fix', '-M', manifest, '-L', lockfile] + osv_fix_args + strategy
+def run_fix(
+    context: FixContext,
+    n_patches: int,
+    avoid_pkgs: Sequence[str],
+    strategy: Sequence[str],
+) -> Tuple[List[str], Optional[int], Optional[int]]:
+    """Apply `osv-scanner fix` and return upgrade details."""
 
-  # 0 is a magic value that means we try all patches.
-  if n_patches != 0:
-    cmd.extend(['--apply-top', str(n_patches)])
+    subprocess.check_call(
+        ['git', 'checkout', 'package.json', 'package-lock.json'],
+        cwd=context.directory,
+    )
 
-  for pkg in avoid_pkgs:
-    cmd.extend(['--upgrade-config', f'{pkg}:none'])
+    cmd = [
+        'osv-scanner',
+        'fix',
+        '-M',
+        context.manifest,
+        '-L',
+        context.lockfile,
+        *context.osv_fix_args,
+        *strategy,
+    ]
 
-  try:
-    output = subprocess.check_output(cmd, text=True)
-  except subprocess.CalledProcessError as e:
-    output = (e.stdout or '') + (e.stderr or '')
+    if n_patches != 0:
+        cmd.extend(['--apply-top', str(n_patches)])
 
-  upgraded = [m[1] for m in re.finditer(r'UPGRADED-PACKAGE: (.*),(.*),(.*)', output)]
-  remaining_vulns = None
-  unfixable_vulns = None
+    for pkg in avoid_pkgs:
+        cmd.extend(['--upgrade-config', f'{pkg}:none'])
 
-  match = re.search(r'REMAINING-VULNS:\s*(\d+)', output)
-  if match:
-    remaining_vulns = int(match.group(1))
+    try:
+        output = subprocess.check_output(cmd, text=True)
+    except subprocess.CalledProcessError as error:
+        output = (error.stdout or '') + (error.stderr or '')
 
-  match = re.search(r'UNFIXABLE-VULNS:\s*(\d+)', output)
-  if match:
-    unfixable_vulns = int(match.group(1))
+    upgraded = [
+        match[1]
+        for match in re.finditer(r'UPGRADED-PACKAGE: (.*),(.*),(.*)', output)
+    ]
+    remaining_vulns: Optional[int] = None
+    unfixable_vulns: Optional[int] = None
 
-  return upgraded, remaining_vulns, unfixable_vulns
+    match = re.search(r'REMAINING-VULNS:\s*(\d+)', output)
+    if match:
+        remaining_vulns = int(match.group(1))
+
+    match = re.search(r'UNFIXABLE-VULNS:\s*(\d+)', output)
+    if match:
+        unfixable_vulns = int(match.group(1))
+
+    return upgraded, remaining_vulns, unfixable_vulns
 
 
-def run_loop(strategy: List[str]) -> Tuple[List[str], int, int, List[str]]:
-  valid = []
-  avoid = []
-  # 0 is a special value meaning that we try applying every patch. This is
-  # meant as a shortcut in case this would've succeeded anyway.
-  n_patches = 0
+def run_loop(
+    context: FixContext,
+    strategy: Sequence[str],
+) -> Tuple[List[str], Optional[int], Optional[int], List[str]]:
+    """Iteratively apply a strategy until tests pass or patches are exhausted."""
 
-  print('===== Attempting auto-patch with strategy', strategy, '=====')
+    valid: List[str] = []
+    avoid: List[str] = []
+    n_patches = 0
 
-  remaining = None
-  total_unfixable = None
+    print('===== Attempting auto-patch with strategy', strategy, '=====')
 
-  while True:
-    changes, remaining, unfixable = run_fix(n_patches, avoid, strategy)
-    if changes == valid:
-      # if the result of running osv-fix hasn't changed, then we've run out of patches to apply
-      break
+    remaining: Optional[int] = None
+    total_unfixable: Optional[int] = None
 
-    print('===== Trying to upgrade:', changes, '=====')
-    print('===== Current blocklist:', avoid, '=====')
-    # check the install & tests
-    if subprocess.call(['npm', 'ci'], cwd=directory) or subprocess.call(['npm', 'run', 'test'], cwd=directory):  # tests failed
-      if n_patches == 0:
-        # First try with every single patch.
-        # Record the unfixable count using this, as it represents the real
-        # unfixable count if every possible package upgrade was allowed.
-        total_unfixable = unfixable
-        n_patches += 1
-        continue
+    while True:
+        changes, remaining, unfixable = run_fix(context, n_patches, avoid, strategy)
+        if changes == valid:
+            break
 
-      print('===== Tests failed, blocklisting upgrades =====')
-      # add each new package to the avoid list
+        print('===== Trying to upgrade:', changes, '=====')
+        print('===== Current blocklist:', avoid, '=====')
 
-      for c in changes:
-        if c not in valid:
-          avoid.append(c)
-      print('===== Current blocklist:', avoid, '=====')
-    else:  # tests passed
-      if n_patches == 0:
-        valid = changes
-        break
+        install_result = subprocess.call(['npm', 'ci'], cwd=context.directory)
+        test_result = subprocess.call(['npm', 'run', 'test'], cwd=context.directory)
 
-      # try now with the next patch
-      valid = changes
-      n_patches += 1
+        if install_result or test_result:
+            if n_patches == 0:
+                total_unfixable = unfixable
+                n_patches += 1
+                continue
 
-  if valid:
+            print('===== Tests failed, blocklisting upgrades =====')
+
+            for change in changes:
+                if change not in valid:
+                    avoid.append(change)
+            print('===== Current blocklist:', avoid, '=====')
+        else:
+            if n_patches == 0:
+                valid = changes
+                break
+
+            valid = changes
+            n_patches += 1
+
+    if valid:
+        print()
+        print('===== The following packages have been changed and verified =====')
+        print('===== against the tests: =====')
+        for package in valid:
+            print(package)
+
+    return valid, remaining, total_unfixable, avoid
+
+
+def is_git_repo(directory: str) -> bool:
+    """Return True when the directory resides in a Git repository."""
+
+    try:
+        subprocess.check_call(
+            ['git', '-C', directory, 'rev-parse'],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+    except subprocess.CalledProcessError:
+        return False
+    return True
+
+
+def main(argv: List[str]) -> int:
+    """Entry point for the guided remediation helper script."""
+
+    if not argv:
+        print(f'Usage: {sys.argv[0]} <project-directory> [osv-scanner args...]')
+        return 1
+
+    directory, *osv_fix_args = argv
+
+    if not is_git_repo(directory):
+        print(f'{directory} is not part of a git repository')
+        return 1
+
+    context = FixContext(
+        directory=directory,
+        manifest=os.path.join(directory, 'package.json'),
+        lockfile=os.path.join(directory, 'package-lock.json'),
+        osv_fix_args=osv_fix_args,
+    )
+
+    best_strategy: Optional[Sequence[str]] = None
+    best_changes: List[str] = []
+    best_avoid: List[str] = []
+    best_remaining_value = float('inf')
+    best_remaining: Optional[int] = None
+    best_unfixable: Optional[int] = None
+
+    for strategy in PATCH_STRATEGIES:
+        changes, remaining, unfixable, avoid = run_loop(context, strategy)
+        if not changes:
+            continue
+
+        remaining_value = float(remaining) if remaining is not None else float('inf')
+        if remaining_value < best_remaining_value:
+            best_strategy = strategy
+            best_changes = changes
+            best_avoid = avoid
+            best_remaining_value = remaining_value
+            best_remaining = remaining
+            best_unfixable = unfixable
+
+    if best_strategy is None:
+        print('No strategy produced a successful patch set.')
+        return 1
+
     print()
-    print('===== The following packages have been changed and verified against the tests: =====')
-    for v in valid:
-      print(v)
+    print('===== Auto-patch completed with the following changed packages =====')
+    print('Best strategy:', best_strategy)
+    for package in best_changes:
+        print(package)
 
-  return valid, remaining, total_unfixable, avoid
+    if best_avoid:
+        print('The following packages cannot be upgraded due to failing tests:')
+        for package in best_avoid:
+            print(package)
+    else:
+        print('All attempted package upgrades passed tests.')
+
+    print()
+    if best_remaining is not None:
+        print(best_remaining, 'vulnerabilities remain')
+    else:
+        print('The remaining vulnerability count is unavailable.')
+
+    if best_unfixable is not None:
+        print(
+            best_unfixable,
+            'vulnerabilities are impossible to fix by package upgrades',
+        )
+
+    return 0
 
 
-best_strategy = None
-best_changes = []
-best_avoid = []
-best_remaining = 10000000
-best_unfixable = None
-
-for strategy in PATCH_STRATEGIES:
-  changes, remaining, unfixable, avoid = run_loop(strategy)
-  if changes and remaining < best_remaining:
-    best_strategy = strategy
-    best_changes = changes
-    best_avoid = avoid
-    best_remaining = remaining
-    best_unfixable = unfixable
-
-print()
-print('===== Auto-patch completed with the following changed packages =====')
-print('Best strategy:', best_strategy)
-for v in best_changes:
-  print(v)
-
-print('The follow packages cannot be upgraded due to failing tests:')
-for v in best_avoid:
-  print(v)
-
-print()
-print(best_remaining, 'vulnerabilities remain')
-
-if best_unfixable:
-  print(best_unfixable, 'vulnerabilities are impossible to fix by package upgrades')
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))
