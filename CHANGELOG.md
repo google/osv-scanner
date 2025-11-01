@@ -1,3 +1,10 @@
+# Unreleased
+
+### Fixes:
+
+- Rebuild Docker images with explicit `apk upgrade` steps so published artifacts pick up patched Alpine base packages.
+- Remove legacy repository-level ignores for `GHSA-j288-q9x7-2f5v` / `CVE-2023-45853` now that the test fixture jar is no longer committed.
+
 # v2.2.3
 
 ### Features:
@@ -320,7 +327,7 @@ Last year we released a feature called [guided remediation](https://osv.dev/blog
 
 With guided remediation support for Maven, you can remediate vulnerabilities in both direct and transitive dependencies through direct version updates or overriding versions through dependency management.
 
-We’ve introduced a few new features for our Maven support:
+We?ve introduced a few new features for our Maven support:
 
 - A new remediation strategy `override` is introduced.
 - Support for reading and writing pom.xml files, including writing changes to local parent pom files.
@@ -355,9 +362,9 @@ With the help from [OSV-Scalibr](https://github.com/google/osv-scalibr), we now 
 
 The full list of supported formats can be found [here](https://google.github.io/osv-scanner/supported-languages-and-lockfiles/).
 
-The first beta doesn’t enable every single extractor currently available in OSV-Scalibr today. We’ll continue to add more leading up to the final 2.0.0 release.
+The first beta doesn?t enable every single extractor currently available in OSV-Scalibr today. We?ll continue to add more leading up to the final 2.0.0 release.
 
-OSV-Scalibr also makes it incredibly easy to add new extractors. Please file a [feature request](https://github.com/google/osv-scalibr/issues) if a format you’re interested in is missing!
+OSV-Scalibr also makes it incredibly easy to add new extractors. Please file a [feature request](https://github.com/google/osv-scalibr/issues) if a format you?re interested in is missing!
 
 # v1.9.1
 
