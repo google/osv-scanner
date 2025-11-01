@@ -112,7 +112,7 @@ Some types: `feat:`, `fix:`, `docs:`, `chore:`, `refactor:`, and others.
 
 ### Release hygiene
 
-Container images published from this repository are rebuilt by the GoReleaser workflows (`goreleaser-nightly` and tagged releases). When base image CVEs are disclosed or we touch the Dockerfiles, trigger the relevant workflow from the Actions tab so new artifacts pick up the patched layers. After publishing, re-run the `Scorecards supply-chain security` and `OSV-Scanner` workflows to confirm that the `GHSA-j288-q9x7-2f5v` / `CVE-2023-45853` advisories no longer appear.
+Container images published from this repository are rebuilt by the GoReleaser workflows (`goreleaser-nightly` and tagged releases). When base image CVEs are disclosed or we touch the Dockerfiles, trigger the relevant workflow from the Actions tab so new artifacts pick up the patched layers. After publishing, re-run the `Scorecards supply-chain security` and `OSV-Scanner` workflows to confirm that previously reported advisories no longer appear.
 
 ## Contributing documentation
 
