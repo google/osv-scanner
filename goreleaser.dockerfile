@@ -14,10 +14,11 @@
 
 FROM alpine:3.23
 
-RUN apk --no-cache add \
-    ca-certificates \
-    git && \
-  git config --global --add safe.directory '*'
+RUN apk upgrade --no-cache && \
+    apk add --no-cache \
+      ca-certificates \
+      git && \
+    git config --global --add safe.directory '*'
 
 WORKDIR /
 

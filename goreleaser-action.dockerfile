@@ -13,10 +13,11 @@
 # limitations under the License.
 
 FROM alpine:3.23
-RUN apk --no-cache add \
-  ca-certificates \
-  git \
-  bash && \
+RUN apk upgrade --no-cache && \
+  apk add --no-cache \
+    ca-certificates \
+    git \
+    bash && \
   git config --global --add safe.directory '*'
 
 # Built binaries provided by goreleaser
