@@ -254,7 +254,7 @@ SBOMLoop:
 		// This allows us to error if a specific file provided by the user failed to extract, and return an error for them.
 		for _, path := range specificPaths {
 			key, _ := filepath.Rel(root, path)
-			if _, ok := statsCollector.filesExtracted[key]; !ok {
+			if _, ok := statsCollector.filesExtracted[filepath.ToSlash(key)]; !ok {
 				return nil, fmt.Errorf("%w: %q", ErrExtractorNotFound, path)
 			}
 		}
