@@ -49,7 +49,7 @@ The `scan` subcommand is the primary way to initiate vulnerability scans. It has
 
 Both `scan source` and `scan image` share a common set of flags for configuring the scan and output.
 
-## Post-Extraction Flags:
+## Post-Extraction Flags
 
 ### Saving to File
 
@@ -141,19 +141,55 @@ Several other features are available through flags. See their respective documen
 
 OSV-Scanner can be integrated as a [pre-commit](https://pre-commit.com) hook in your project.
 
-1.  Add the `osv-scanner` hook to your `.pre-commit-config.yaml` file.
+1. Add the `osv-scanner` hook to your `.pre-commit-config.yaml` file.
 
-2.  Use the `args` key to pass command-line arguments as you would when running OSV-Scanner directly.
+2. Use the `args` key to pass command-line arguments as you would when running OSV-Scanner directly.
 
-### Example
+3. Verify your configuration with:
+
+```bash
+pre-commit run --all-files --verbose osv-scanner
+```
+
+### Examples
 
 ```yaml
+# Scan the current directory.
 repos:
   - repo: https://github.com/google/osv-scanner/
-    rev: # pass a Git tag or commit hash here
+    rev: v2.2.4
     hooks:
       - id: osv-scanner
-        args: ["-r", "/path/to/your/dir"]
+
+# Scan the current directory, this equivalent as the previous one, but with custom
+# user defined arguments. The arguments (`args` key) are the defaults.
+repos:
+  - repo: https://github.com/google/osv-scanner/
+    rev: v2.2.4
+    hooks:
+      - id: osv-scanner
+        args:
+          - "scan"
+          - "source"
+          - "--all-vulns"
+          - "--format=vertical"
+          - "--verbosity=error"
+          - "--recursive"
+          - "." # replace with your chosen directory or lock file
+
+# Scan a container image. The `docker` command should be present in your PATH.
+repos:
+  - repo: https://github.com/google/osv-scanner/
+    rev: v2.2.4
+    hooks:
+      - id: osv-scanner
+        args:
+          - "scan"
+          - "image"
+          - "--all-vulns"
+          - "--format=vertical"
+          - "--verbosity=error"
+          - "debian:trixie" # replace with your chosen image (the tag is mandatory)
 ```
 
 ## Running in a Docker Container
