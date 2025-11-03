@@ -323,6 +323,9 @@ func pathToRootMap(rootMap map[string][]string, path string, recursive bool) (st
 	return absPath, nil
 }
 
+// isDescendent returns whether `path` is either a descendent or a direct child of `potentialParent`
+// recursive = true: checks for descendents
+// recursive = false: checks for direct children
 func isDescendent(potentialParent, path string, recursive bool) bool {
 	rel, err := filepath.Rel(potentialParent, path)
 	if err != nil {
