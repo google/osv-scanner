@@ -78,6 +78,7 @@ type ExperimentalScannerActions struct {
 	PluginsNoDefaults bool
 
 	// Currently unused.
+	// TODO(another-rex): Use or wrap this
 	StatsCollector stats.Collector
 }
 
