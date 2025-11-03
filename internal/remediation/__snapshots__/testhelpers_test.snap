@@ -2234,7 +2234,35 @@
 ---
 
 [TestComputeOverridePatches/workaround-commons - 1]
-[]
+[
+  {
+    "Patch": {
+      "Deps": [
+        {
+          "Pkg": {
+            "System": 6,
+            "Name": "commons-beanutils:commons-beanutils"
+          },
+          "Type": {},
+          "OrigRequire": "",
+          "NewRequire": "1.9.4",
+          "OrigResolved": "20020520",
+          "NewResolved": "1.9.4"
+        }
+      ],
+      "EcosystemSpecific": null
+    },
+    "RemovedVulns": [
+      {
+        "ID": "GHSA-6phf-73q6-gh87",
+        "AffectedNodes": [
+          1
+        ]
+      }
+    ],
+    "AddedVulns": []
+  }
+]
 ---
 
 [TestComputeOverridePatches/workaround-maven-guava-android-to-android - 1]
@@ -2249,55 +2277,16 @@
           },
           "Type": {},
           "OrigRequire": "",
-          "NewRequire": "32.0.0-android",
+          "NewRequire": "24.0-android",
           "OrigResolved": "22.0-android",
-          "NewResolved": "32.0.0-android"
+          "NewResolved": "24.0-android"
         }
       ],
       "EcosystemSpecific": null
     },
     "RemovedVulns": [
       {
-        "ID": "GHSA-5mg8-w23w-74h3",
-        "AffectedNodes": [
-          1
-        ]
-      },
-      {
-        "ID": "GHSA-7g45-4rm6-3mm3",
-        "AffectedNodes": [
-          1
-        ]
-      },
-      {
-        "ID": "GHSA-mvr2-9pj6-7w5j",
-        "AffectedNodes": [
-          1
-        ]
-      }
-    ],
-    "AddedVulns": []
-  },
-  {
-    "Patch": {
-      "Deps": [
-        {
-          "Pkg": {
-            "System": 6,
-            "Name": "com.google.guava:guava"
-          },
-          "Type": {},
-          "OrigRequire": "",
-          "NewRequire": "24.1.1-android",
-          "OrigResolved": "22.0-android",
-          "NewResolved": "24.1.1-android"
-        }
-      ],
-      "EcosystemSpecific": null
-    },
-    "RemovedVulns": [
-      {
-        "ID": "GHSA-mvr2-9pj6-7w5j",
+        "ID": "OSV-000-000",
         "AffectedNodes": [
           1
         ]
@@ -2320,55 +2309,16 @@
           },
           "Type": {},
           "OrigRequire": "",
-          "NewRequire": "32.0.0-jre",
+          "NewRequire": "24.0-jre",
           "OrigResolved": "23.1-jre",
-          "NewResolved": "32.0.0-jre"
+          "NewResolved": "24.0-jre"
         }
       ],
       "EcosystemSpecific": null
     },
     "RemovedVulns": [
       {
-        "ID": "GHSA-5mg8-w23w-74h3",
-        "AffectedNodes": [
-          1
-        ]
-      },
-      {
-        "ID": "GHSA-7g45-4rm6-3mm3",
-        "AffectedNodes": [
-          1
-        ]
-      },
-      {
-        "ID": "GHSA-mvr2-9pj6-7w5j",
-        "AffectedNodes": [
-          1
-        ]
-      }
-    ],
-    "AddedVulns": []
-  },
-  {
-    "Patch": {
-      "Deps": [
-        {
-          "Pkg": {
-            "System": 6,
-            "Name": "com.google.guava:guava"
-          },
-          "Type": {},
-          "OrigRequire": "",
-          "NewRequire": "24.1.1-jre",
-          "OrigResolved": "23.1-jre",
-          "NewResolved": "24.1.1-jre"
-        }
-      ],
-      "EcosystemSpecific": null
-    },
-    "RemovedVulns": [
-      {
-        "ID": "GHSA-mvr2-9pj6-7w5j",
+        "ID": "OSV-000-000",
         "AffectedNodes": [
           1
         ]
@@ -2391,55 +2341,16 @@
           },
           "Type": {},
           "OrigRequire": "",
-          "NewRequire": "32.0.0-jre",
+          "NewRequire": "24.0-jre",
           "OrigResolved": "20.0",
-          "NewResolved": "32.0.0-jre"
+          "NewResolved": "24.0-jre"
         }
       ],
       "EcosystemSpecific": null
     },
     "RemovedVulns": [
       {
-        "ID": "GHSA-5mg8-w23w-74h3",
-        "AffectedNodes": [
-          1
-        ]
-      },
-      {
-        "ID": "GHSA-7g45-4rm6-3mm3",
-        "AffectedNodes": [
-          1
-        ]
-      },
-      {
-        "ID": "GHSA-mvr2-9pj6-7w5j",
-        "AffectedNodes": [
-          1
-        ]
-      }
-    ],
-    "AddedVulns": []
-  },
-  {
-    "Patch": {
-      "Deps": [
-        {
-          "Pkg": {
-            "System": 6,
-            "Name": "com.google.guava:guava"
-          },
-          "Type": {},
-          "OrigRequire": "",
-          "NewRequire": "24.1.1-jre",
-          "OrigResolved": "20.0",
-          "NewResolved": "24.1.1-jre"
-        }
-      ],
-      "EcosystemSpecific": null
-    },
-    "RemovedVulns": [
-      {
-        "ID": "GHSA-mvr2-9pj6-7w5j",
+        "ID": "OSV-000-000",
         "AffectedNodes": [
           1
         ]
