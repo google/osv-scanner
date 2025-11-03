@@ -172,6 +172,13 @@ SBOMLoop:
 	// --- Add git commits directly ---
 	gitDirectPlugin := gitcommitdirect.New(actions.GitCommits)
 
+	if len(rootMap) == 0 && len(actions.GitCommits) > 0 {
+		// Even if there's no actual paths, if we have git commits, still do the scan
+		rootMap = map[string][]string{
+			"/": {},
+		}
+	}
+
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
 
