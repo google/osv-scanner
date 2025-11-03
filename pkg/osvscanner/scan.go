@@ -81,7 +81,6 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 
 // scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanResult, error) {
-	//nolint:prealloc // We don't know how many inventories we will retrieve
 	var scannedInventories []*extractor.Package
 	var genericFindings []*inventory.GenericFinding
 

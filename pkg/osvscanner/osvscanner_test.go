@@ -57,6 +57,8 @@ func TestDoScan_LogHandlerOverride(t *testing.T) {
 }
 
 func TestDoScan(t *testing.T) {
+	t.Parallel()
+
 	type args struct {
 		actions osvscanner.ScannerActions
 	}
@@ -80,6 +82,7 @@ func TestDoScan(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			got, err := osvscanner.DoScan(tt.args.actions)
 			if !errors.Is(err, tt.wantErr) {
 				t.Errorf("DoScan() error = %v, wantErr %v", err, tt.wantErr)

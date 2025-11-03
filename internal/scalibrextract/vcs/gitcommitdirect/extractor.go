@@ -39,7 +39,7 @@ func (e *Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
-func (e *Extractor) Extract(ctx context.Context, input *standalone.ScanInput) (inventory.Inventory, error) {
+func (e *Extractor) Extract(_ context.Context, _ *standalone.ScanInput) (inventory.Inventory, error) {
 	pkgs := make([]*extractor.Package, 0, len(e.commits))
 	for _, commit := range e.commits {
 		pkgs = append(pkgs, &extractor.Package{
