@@ -82,7 +82,7 @@ func ParseLockfilePath(scanArg string) (string, string) {
 	}
 
 	parseAs, path, found := strings.Cut(scanArg, ":")
-if !found {
+	if !found {
 		path = parseAs
 		parseAs = ""
 	}
