@@ -50,6 +50,11 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 	}
 	// ---
 
+	cli.HelpPrinter = func(w io.Writer, templ string, data any) {
+		cmdlogger.SetHasErrored()
+		cli.HelpPrinterCustom(w, templ, data, nil)
+	}
+
 	cli.VersionPrinter = func(cmd *cli.Command) {
 		cmdlogger.Infof("osv-scanner version: %s", cmd.Version)
 		cmdlogger.Infof("osv-scalibr version: %s", scalibr.ScannerVersion)

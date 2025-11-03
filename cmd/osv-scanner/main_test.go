@@ -15,7 +15,12 @@ func Test_run(t *testing.T) {
 		{
 			Name: "",
 			Args: []string{""},
-			Exit: 0,
+			Exit: 127,
+		},
+		{
+			Name: "",
+			Args: []string{"--help"},
+			Exit: 127,
 		},
 		{
 			Name: "version",

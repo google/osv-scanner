@@ -13,6 +13,11 @@ func TestCommand(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
+			Name: "with_no_arguments",
+			Args: []string{"", "update"},
+			Exit: 127,
+		},
+		{
 			Name: "update pom.xml with in-place changes",
 			Args: []string{"", "update", "-M=./testdata/pom.xml"},
 			Exit: 0,
