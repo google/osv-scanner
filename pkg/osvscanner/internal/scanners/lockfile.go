@@ -75,14 +75,19 @@ var osvscannerScalibrExtractionMapping = map[string][]string{
 	// "Package.resolved":            {packageresolved.Name},
 }
 
+// ParseLockfilePath returns (parseAs, path)
 func ParseLockfilePath(scanArg string) (string, string) {
-	if (runtime.GOOS == "windows" && filepath.IsAbs(scanArg)) || !strings.Contains(scanArg, ":") {
-		scanArg = ":" + scanArg
+	if runtime.GOOS == "windows" && filepath.IsAbs(scanArg) {
+		return "", scanArg
 	}
 
-	splits := strings.SplitN(scanArg, ":", 2)
+	parseAs, path, found := strings.Cut(scanArg, ":")
+if !found {
+		path = parseAs
+		parseAs = ""
+	}
 
-	return splits[0], splits[1]
+	return parseAs, path
 }
 
 // ParseAsToPlugin finds the parseAs extractor in the list of pluginsToUse

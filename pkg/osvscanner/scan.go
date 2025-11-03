@@ -108,8 +108,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	// map[path]parseAs
 	overrideMap := map[string]filesystem.Extractor{}
 	// List of specific paths the user passes in so that we can check that they all get processed.
-	//nolint:prealloc // Does not matter in this case
-	var specificPaths []string
+	specificPaths := make([]string, 0, len(actions.LockfilePaths)+len(actions.SBOMPaths))
 
 	statsCollector := fileOpenedPrinter{
 		filesExtracted: make(map[string]struct{}),

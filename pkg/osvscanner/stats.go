@@ -17,6 +17,10 @@ type fileOpenedPrinter struct {
 var _ stats.Collector = &fileOpenedPrinter{}
 
 func (c *fileOpenedPrinter) AfterExtractorRun(_ string, extractorstats *stats.AfterExtractorStats) {
+	if c.filesExtracted != nil {
+		c.filesExtracted = map[string]struct{}{}
+	}
+
 	c.filesExtracted[extractorstats.Path] = struct{}{}
 	if extractorstats.Error != nil { // Don't log scanned if error occurred
 		return
