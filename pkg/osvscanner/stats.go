@@ -17,7 +17,7 @@ type fileOpenedPrinter struct {
 var _ stats.Collector = &fileOpenedPrinter{}
 
 func (c *fileOpenedPrinter) AfterExtractorRun(_ string, extractorstats *stats.AfterExtractorStats) {
-	if c.filesExtracted != nil {
+	if c.filesExtracted == nil {
 		c.filesExtracted = make(map[string]struct{})
 	}
 
