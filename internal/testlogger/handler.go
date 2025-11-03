@@ -102,6 +102,10 @@ func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 	return l.Handle(ctx, record)
 }
 
+func (tl *Handler) SetHasErrored() {
+	tl.getLogger().SetHasErrored()
+}
+
 // HasErrored returns true if there have been any calls to Handle with
 // a level of [slog.LevelError]
 func (tl *Handler) HasErrored() bool {

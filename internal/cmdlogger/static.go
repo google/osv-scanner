@@ -2,6 +2,14 @@ package cmdlogger
 
 import "log/slog"
 
+func SetHasErrored() {
+	l, ok := slog.Default().Handler().(CmdLogger)
+
+	if ok {
+		l.SetHasErrored()
+	}
+}
+
 // HasErrored returns true if there have been any calls to Handle with
 // a level of [slog.LevelError], assuming the logger is a [Handler].
 //
