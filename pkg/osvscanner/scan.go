@@ -26,6 +26,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
@@ -168,6 +169,9 @@ SBOMLoop:
 		return nil, fmt.Errorf("invalid SBOM filename: %s", sbomPath)
 	}
 
+	// --- Add git commits directly ---
+	gitDirectPlugin := gitcommitdirect.New(actions.GitCommits)
+
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
 
@@ -185,7 +189,7 @@ SBOMLoop:
 		}
 
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
-			Plugins:               plugin.FilterByCapabilities(plugins, &capabilities),
+			Plugins:               append(plugin.FilterByCapabilities(plugins, &capabilities), gitDirectPlugin),
 			Capabilities:          &capabilities,
 			ScanRoots:             fs.RealFSScanRoots(root),
 			PathsToExtract:        paths,
@@ -261,15 +265,6 @@ SBOMLoop:
 	}
 
 	testlogger.EndDirScanMarker()
-
-	// Add on additional direct dependencies passed straight from ScannerActions:
-	for _, commit := range actions.GitCommits {
-		inv := &extractor.Package{
-			SourceCode: &extractor.SourceCodeIdentifier{Commit: commit},
-		}
-
-		scannedInventories = append(scannedInventories, inv)
-	}
 
 	if len(scannedInventories) == 0 {
 		return nil, ErrNoPackagesFound

@@ -52,3 +52,4 @@ func TestDoScan_LogHandlerOverride(t *testing.T) {
 		t.Errorf("altOutput.Len() = %d, want %d", altOutput.Len(), 0)
 	}
 }
+
