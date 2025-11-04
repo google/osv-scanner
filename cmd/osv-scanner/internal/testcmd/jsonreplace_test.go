@@ -381,7 +381,6 @@ func Test_repaceJSONInput(t *testing.T) {
 		slices.Sort(paths)
 
 		for _, path := range paths {
-			// todo: figure out how to name these...
 			t.Run(fmt.Sprintf("%d-%s", i, path), func(t *testing.T) {
 				t.Parallel()
 
