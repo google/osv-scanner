@@ -250,15 +250,6 @@ SBOMLoop:
 			}
 		}
 
-		// Check if specific paths have been extracted.
-		// This allows us to error if a specific file provided by the user failed to extract, and return an error for them.
-		for _, path := range specificPaths {
-			key, _ := filepath.Rel(root, path)
-			if _, ok := statsCollector.filesExtracted[filepath.ToSlash(key)]; !ok {
-				return nil, fmt.Errorf("%w: %q", ErrExtractorNotFound, path)
-			}
-		}
-
 		slices.SortFunc(sr.Inventory.Packages, inventorySort)
 		invsCompact := slices.CompactFunc(sr.Inventory.Packages, func(a, b *extractor.Package) bool {
 			return inventorySort(a, b) == 0
@@ -270,6 +261,14 @@ SBOMLoop:
 	}
 
 	testlogger.EndDirScanMarker()
+
+	// Check if specific paths have been extracted.
+	// This allows us to error if a specific file provided by the user failed to extract, and return an error for them.
+	for _, path := range specificPaths {
+		if _, ok := statsCollector.filesExtracted[path]; !ok {
+			return nil, fmt.Errorf("%w: %q", ErrExtractorNotFound, path)
+		}
+	}
 
 	if len(scannedInventories) == 0 {
 		return nil, ErrNoPackagesFound

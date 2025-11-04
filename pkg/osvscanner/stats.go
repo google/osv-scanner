@@ -21,7 +21,8 @@ func (c *fileOpenedPrinter) AfterExtractorRun(_ string, extractorstats *stats.Af
 		c.filesExtracted = make(map[string]struct{})
 	}
 
-	c.filesExtracted[extractorstats.Path] = struct{}{}
+	systemPath := filepath.Join(extractorstats.Root, filepath.FromSlash(extractorstats.Path))
+	c.filesExtracted[systemPath] = struct{}{}
 	if extractorstats.Error != nil { // Don't log scanned if error occurred
 		return
 	}
@@ -30,7 +31,7 @@ func (c *fileOpenedPrinter) AfterExtractorRun(_ string, extractorstats *stats.Af
 
 	cmdlogger.Infof(
 		"Scanned %s file and found %d %s",
-		filepath.Join(extractorstats.Root, extractorstats.Path),
+		systemPath,
 		pkgsFound,
 		output.Form(pkgsFound, "package", "packages"),
 	)
