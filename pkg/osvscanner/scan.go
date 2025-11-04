@@ -236,8 +236,8 @@ SBOMLoop:
 					builder.WriteString(fmt.Sprintf("%s: %s", fileError.FilePath, fileError.ErrorMessage))
 
 					// Check if the erroring file was a path specifically passed in (not a result of a file walk)
-					for _, path := range specificPaths {
-						if strings.Contains(filepath.ToSlash(path), filepath.ToSlash(fileError.FilePath)) {
+					for _, p := range specificPaths {
+						if p == filepath.Join(root, fileError.FilePath) {
 							criticalError = true
 							break
 						}
