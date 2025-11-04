@@ -171,7 +171,6 @@ repos:
         args:
           - "scan"
           - "source"
-          - "--all-vulns"
           - "--format=vertical"
           - "--verbosity=error"
           - "--recursive"
