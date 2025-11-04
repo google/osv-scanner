@@ -9,7 +9,6 @@
   args:
     - "scan"
     - "source"
-    - "--all-vulns"
     - "--format=vertical"
     - "--recursive"
     - "--verbosity=error"
