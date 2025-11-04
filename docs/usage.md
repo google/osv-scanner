@@ -186,7 +186,6 @@ repos:
         args:
           - "scan"
           - "image"
-          - "--all-vulns"
           - "--format=vertical"
           - "--verbosity=error"
           - "debian:trixie" # replace with your chosen image (the tag is mandatory)
