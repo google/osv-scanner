@@ -29,21 +29,21 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 )
 
 func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
 	for _, plug := range plugins {
-		if accessors.DependencyClients[osvschema.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
+		if accessors.DependencyClients[osvconstants.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
 			pomxmlenhanceable.EnhanceIfPossible(plug, pomxmlnet.Config{
-				DependencyClient:       accessors.DependencyClients[osvschema.EcosystemMaven],
+				DependencyClient:       accessors.DependencyClients[osvconstants.EcosystemMaven],
 				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
 			})
 		}
-		if accessors.DependencyClients[osvschema.EcosystemPyPI] != nil {
+		if accessors.DependencyClients[osvconstants.EcosystemPyPI] != nil {
 			requirementsenhancable.EnhanceIfPossible(plug, requirementsnet.Config{
 				Extractor: &requirements.Extractor{},
-				Client:    accessors.DependencyClients[osvschema.EcosystemPyPI],
+				Client:    accessors.DependencyClients[osvconstants.EcosystemPyPI],
 			})
 		}
 

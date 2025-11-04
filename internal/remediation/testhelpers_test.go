@@ -15,7 +15,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
-func parseRemediationFixture(t *testing.T, universePath, manifestPath string, opts resolution.ResolveOpts) (*resolution.Result, client.ResolutionClient) {
+func parseRemediationFixture(t *testing.T, universePath, vulnPath, manifestPath string, opts resolution.ResolveOpts) (*resolution.Result, client.ResolutionClient) {
 	t.Helper()
 
 	rw, err := manifest.GetReadWriter(manifestPath, "")
@@ -34,7 +34,7 @@ func parseRemediationFixture(t *testing.T, universePath, manifestPath string, op
 		t.Fatalf("Failed to parse manifest: %v", err)
 	}
 
-	cl := clienttest.NewMockResolutionClient(t, universePath)
+	cl := clienttest.NewMockResolutionClient(t, universePath, vulnPath)
 
 	res, err := resolution.Resolve(t.Context(), cl, m, opts)
 	if err != nil {
@@ -64,7 +64,7 @@ func checkRemediationResults(t *testing.T, res []resolution.Difference) {
 		slices.Sort(sortedNodes)
 
 		return minimalVuln{
-			ID:            v.OSV.ID,
+			ID:            v.OSV.Id,
 			AffectedNodes: sortedNodes,
 		}
 	}

@@ -17,6 +17,7 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/vuln/scan"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
@@ -40,7 +41,7 @@ func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 	vulns, vulnsByID := vulnsFromAllPkgs(pkgs)
 	// Filter out advisories with no symbol information first
 	// This is purely an optimisation step, further filtering is done in matchAnalysisWithPackageVulns function
-	filteredVulns := []osvschema.Vulnerability{}
+	filteredVulns := []*osvschema.Vulnerability{}
 	for _, vuln := range vulns {
 		if vulnHasImportsField(vuln, nil) {
 			filteredVulns = append(filteredVulns, vuln)
@@ -60,7 +61,7 @@ func goAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 	matchAnalysisWithPackageVulns(pkgs, res, vulnsByID)
 }
 
-func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[string][]*govulncheck.Finding, vulnsByID map[string]osvschema.Vulnerability) {
+func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[string][]*govulncheck.Finding, vulnsByID map[string]*osvschema.Vulnerability) {
 	idToModuleToCalled := map[string]map[string]bool{}
 	for id, findings := range idToFindings {
 		idToModuleToCalled[id] = map[string]bool{}
@@ -100,7 +101,10 @@ func matchAnalysisWithPackageVulns(pkgs []models.PackageVulns, idToFindings map[
 	}
 }
 
-func vulnHasImportsField(vuln osvschema.Vulnerability, pkg *models.PackageInfo) bool {
+func vulnHasImportsField(vuln *osvschema.Vulnerability, pkg *models.PackageInfo) bool {
+	if vuln == nil {
+		return false
+	}
 	for _, affected := range vuln.Affected {
 		if pkg != nil {
 			// TODO: Compare versions to see if this is the correct affected element
@@ -109,7 +113,10 @@ func vulnHasImportsField(vuln osvschema.Vulnerability, pkg *models.PackageInfo) 
 				continue
 			}
 		}
-		_, hasImportsField := affected.EcosystemSpecific["imports"]
+		if affected.EcosystemSpecific == nil {
+			continue
+		}
+		_, hasImportsField := affected.EcosystemSpecific.Fields["imports"]
 		if hasImportsField {
 			return true
 		}
@@ -119,7 +126,7 @@ func vulnHasImportsField(vuln osvschema.Vulnerability, pkg *models.PackageInfo) 
 }
 
 // fillNotImportedAnalysisInfo checks for any source information in advisories, and sets called to false
-func fillNotImportedAnalysisInfo(vulnsByID map[string]osvschema.Vulnerability, vulnID string, pv models.PackageVulns, analysis *map[string]models.AnalysisInfo) {
+func fillNotImportedAnalysisInfo(vulnsByID map[string]*osvschema.Vulnerability, vulnID string, pv models.PackageVulns, analysis *map[string]models.AnalysisInfo) {
 	if vulnHasImportsField(vulnsByID[vulnID], &pv.Package) {
 		// If there is source information, then analysis has been performed, and
 		// code does not import the vulnerable package, so definitely not called
@@ -129,7 +136,7 @@ func fillNotImportedAnalysisInfo(vulnsByID map[string]osvschema.Vulnerability, v
 	}
 }
 
-func runGovulncheck(moddir string, vulns []osvschema.Vulnerability, goVersion string) (map[string][]*govulncheck.Finding, error) {
+func runGovulncheck(moddir string, vulns []*osvschema.Vulnerability, goVersion string) (map[string][]*govulncheck.Finding, error) {
 	// Create a temporary directory containing all the vulnerabilities that
 	// are passed in to check against govulncheck.
 	//
@@ -147,11 +154,11 @@ func runGovulncheck(moddir string, vulns []osvschema.Vulnerability, goVersion st
 	}()
 
 	for _, vuln := range vulns {
-		dat, err := json.Marshal(vuln)
+		dat, err := protojson.Marshal(vuln)
 		if err != nil {
 			return nil, err
 		}
-		if err := os.WriteFile(fmt.Sprintf("%s/%s.json", dbdir, vuln.ID), dat, 0600); err != nil {
+		if err := os.WriteFile(fmt.Sprintf("%s/%s.json", dbdir, vuln.Id), dat, 0600); err != nil {
 			return nil, err
 		}
 	}

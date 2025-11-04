@@ -2,17 +2,12 @@
 [Test_matchAnalysisWithPackageVulns - 1]
 [
   {
-    "package": {
-      "name": "github.com/gogo/protobuf",
-      "version": "1.3.1",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
-        "modified": "2022-03-28T20:28:00Z",
-        "published": "2022-03-28T20:28:00Z",
         "schema_version": "1.3.0",
         "id": "GHSA-c3h9-896r-86jm",
+        "published": "2022-03-28T20:28:00Z",
+        "modified": "2022-03-28T20:28:00Z",
         "aliases": [
           "CVE-2021-3121"
         ],
@@ -21,8 +16,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "github.com/gogo/protobuf",
+              "ecosystem": "Go",
               "purl": "pkg:golang/github.com/gogo/protobuf"
             },
             "ranges": [
@@ -97,10 +92,10 @@
         }
       },
       {
-        "modified": "2023-02-10T16:51:38Z",
-        "published": "2021-04-14T20:04:52Z",
         "schema_version": "1.3.0",
         "id": "GO-2021-0053",
+        "published": "2021-04-14T20:04:52Z",
+        "modified": "2023-02-10T16:51:38Z",
         "aliases": [
           "CVE-2021-3121",
           "GHSA-c3h9-896r-86jm"
@@ -109,8 +104,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "github.com/gogo/protobuf",
+              "ecosystem": "Go",
               "purl": "pkg:golang/github.com/gogo/protobuf"
             },
             "ranges": [
@@ -126,10 +121,6 @@
                 ]
               }
             ],
-            "database_specific": {
-              "source": "https://vuln.go.dev/ID/GO-2021-0053.json",
-              "url": "https://pkg.go.dev/vuln/GO-2021-0053"
-            },
             "ecosystem_specific": {
               "imports": [
                 {
@@ -140,6 +131,10 @@
                   ]
                 }
               ]
+            },
+            "database_specific": {
+              "source": "https://vuln.go.dev/ID/GO-2021-0053.json",
+              "url": "https://pkg.go.dev/vuln/GO-2021-0053"
             }
           }
         ],
@@ -151,6 +146,11 @@
         ]
       }
     ],
+    "package": {
+      "name": "github.com/gogo/protobuf",
+      "version": "1.3.1",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [
@@ -169,17 +169,12 @@
     ]
   },
   {
-    "package": {
-      "name": "github.com/ipfs/go-bitfield",
-      "version": "1.0.0",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
-        "modified": "2023-02-10T19:52:45Z",
-        "published": "2023-02-10T19:52:45Z",
         "schema_version": "1.3.0",
         "id": "GHSA-2h6c-j3gf-xp9r",
+        "published": "2023-02-10T19:52:45Z",
+        "modified": "2023-02-10T19:52:45Z",
         "aliases": [
           "CVE-2023-23626"
         ],
@@ -188,8 +183,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "github.com/ipfs/go-bitfield",
+              "ecosystem": "Go",
               "purl": "pkg:golang/github.com/ipfs/go-bitfield"
             },
             "ranges": [
@@ -247,10 +242,10 @@
         }
       },
       {
-        "modified": "2023-02-14T19:41:21Z",
-        "published": "2023-02-14T19:41:21Z",
         "schema_version": "1.3.0",
         "id": "GO-2023-1558",
+        "published": "2023-02-14T19:41:21Z",
+        "modified": "2023-02-14T19:41:21Z",
         "aliases": [
           "CVE-2023-23626",
           "GHSA-2h6c-j3gf-xp9r"
@@ -259,8 +254,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "github.com/ipfs/go-bitfield",
+              "ecosystem": "Go",
               "purl": "pkg:golang/github.com/ipfs/go-bitfield"
             },
             "ranges": [
@@ -276,10 +271,6 @@
                 ]
               }
             ],
-            "database_specific": {
-              "source": "https://vuln.go.dev/ID/GO-2023-1558.json",
-              "url": "https://pkg.go.dev/vuln/GO-2023-1558"
-            },
             "ecosystem_specific": {
               "imports": [
                 {
@@ -290,6 +281,10 @@
                   ]
                 }
               ]
+            },
+            "database_specific": {
+              "source": "https://vuln.go.dev/ID/GO-2023-1558.json",
+              "url": "https://pkg.go.dev/vuln/GO-2023-1558"
             }
           }
         ],
@@ -305,6 +300,11 @@
         ]
       }
     ],
+    "package": {
+      "name": "github.com/ipfs/go-bitfield",
+      "version": "1.0.0",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [
@@ -323,17 +323,12 @@
     ]
   },
   {
-    "package": {
-      "name": "golang.org/x/image",
-      "version": "0.4.0",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
-        "modified": "2023-02-17T13:59:44Z",
-        "published": "2023-02-17T13:59:44Z",
         "schema_version": "1.3.0",
         "id": "GHSA-qgc7-mgm3-q253",
+        "published": "2023-02-17T13:59:44Z",
+        "modified": "2023-02-17T13:59:44Z",
         "aliases": [
           "CVE-2022-41727"
         ],
@@ -342,8 +337,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "golang.org/x/image",
+              "ecosystem": "Go",
               "purl": "pkg:golang/golang.org/x/image"
             },
             "ranges": [
@@ -397,10 +392,10 @@
         }
       },
       {
-        "modified": "2023-02-16T22:25:24Z",
-        "published": "2023-02-16T22:25:24Z",
         "schema_version": "1.3.0",
         "id": "GO-2023-1572",
+        "published": "2023-02-16T22:25:24Z",
+        "modified": "2023-02-16T22:25:24Z",
         "aliases": [
           "CVE-2022-41727"
         ],
@@ -408,8 +403,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "golang.org/x/image",
+              "ecosystem": "Go",
               "purl": "pkg:golang/golang.org/x/image"
             },
             "ranges": [
@@ -425,10 +420,6 @@
                 ]
               }
             ],
-            "database_specific": {
-              "source": "https://vuln.go.dev/ID/GO-2023-1572.json",
-              "url": "https://pkg.go.dev/vuln/GO-2023-1572"
-            },
             "ecosystem_specific": {
               "imports": [
                 {
@@ -441,6 +432,10 @@
                   ]
                 }
               ]
+            },
+            "database_specific": {
+              "source": "https://vuln.go.dev/ID/GO-2023-1572.json",
+              "url": "https://pkg.go.dev/vuln/GO-2023-1572"
             }
           }
         ],
@@ -460,6 +455,11 @@
         ]
       }
     ],
+    "package": {
+      "name": "golang.org/x/image",
+      "version": "0.4.0",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [
@@ -483,17 +483,12 @@
 [Test_matchEmptyAnalysisWithPackageVulns - 1]
 [
   {
-    "package": {
-      "name": "github.com/gogo/protobuf",
-      "version": "1.3.1",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
-        "modified": "2022-03-28T20:28:00Z",
-        "published": "2022-03-28T20:28:00Z",
         "schema_version": "1.3.0",
         "id": "GHSA-c3h9-896r-86jm",
+        "published": "2022-03-28T20:28:00Z",
+        "modified": "2022-03-28T20:28:00Z",
         "aliases": [
           "CVE-2021-3121"
         ],
@@ -502,8 +497,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "github.com/gogo/protobuf",
+              "ecosystem": "Go",
               "purl": "pkg:golang/github.com/gogo/protobuf"
             },
             "ranges": [
@@ -578,10 +573,10 @@
         }
       },
       {
-        "modified": "2023-02-10T16:51:38Z",
-        "published": "2021-04-14T20:04:52Z",
         "schema_version": "1.3.0",
         "id": "GO-2021-0053",
+        "published": "2021-04-14T20:04:52Z",
+        "modified": "2023-02-10T16:51:38Z",
         "aliases": [
           "CVE-2021-3121",
           "GHSA-c3h9-896r-86jm"
@@ -590,8 +585,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "github.com/gogo/protobuf",
+              "ecosystem": "Go",
               "purl": "pkg:golang/github.com/gogo/protobuf"
             },
             "ranges": [
@@ -621,6 +616,11 @@
         ]
       }
     ],
+    "package": {
+      "name": "github.com/gogo/protobuf",
+      "version": "1.3.1",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [
@@ -633,17 +633,12 @@
     ]
   },
   {
-    "package": {
-      "name": "github.com/ipfs/go-bitfield",
-      "version": "1.0.0",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
-        "modified": "2023-02-10T19:52:45Z",
-        "published": "2023-02-10T19:52:45Z",
         "schema_version": "1.3.0",
         "id": "GHSA-2h6c-j3gf-xp9r",
+        "published": "2023-02-10T19:52:45Z",
+        "modified": "2023-02-10T19:52:45Z",
         "aliases": [
           "CVE-2023-23626"
         ],
@@ -652,8 +647,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "github.com/ipfs/go-bitfield",
+              "ecosystem": "Go",
               "purl": "pkg:golang/github.com/ipfs/go-bitfield"
             },
             "ranges": [
@@ -711,10 +706,10 @@
         }
       },
       {
-        "modified": "2023-02-14T19:41:21Z",
-        "published": "2023-02-14T19:41:21Z",
         "schema_version": "1.3.0",
         "id": "GO-2023-1558",
+        "published": "2023-02-14T19:41:21Z",
+        "modified": "2023-02-14T19:41:21Z",
         "aliases": [
           "CVE-2023-23626",
           "GHSA-2h6c-j3gf-xp9r"
@@ -723,8 +718,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "github.com/ipfs/go-bitfield",
+              "ecosystem": "Go",
               "purl": "pkg:golang/github.com/ipfs/go-bitfield"
             },
             "ranges": [
@@ -758,6 +753,11 @@
         ]
       }
     ],
+    "package": {
+      "name": "github.com/ipfs/go-bitfield",
+      "version": "1.0.0",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [
@@ -770,17 +770,12 @@
     ]
   },
   {
-    "package": {
-      "name": "golang.org/x/image",
-      "version": "0.4.0",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
-        "modified": "2023-02-17T13:59:44Z",
-        "published": "2023-02-17T13:59:44Z",
         "schema_version": "1.3.0",
         "id": "GHSA-qgc7-mgm3-q253",
+        "published": "2023-02-17T13:59:44Z",
+        "modified": "2023-02-17T13:59:44Z",
         "aliases": [
           "CVE-2022-41727"
         ],
@@ -789,8 +784,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "golang.org/x/image",
+              "ecosystem": "Go",
               "purl": "pkg:golang/golang.org/x/image"
             },
             "ranges": [
@@ -844,10 +839,10 @@
         }
       },
       {
-        "modified": "2023-02-16T22:25:24Z",
-        "published": "2023-02-16T22:25:24Z",
         "schema_version": "1.3.0",
         "id": "GO-2023-1572",
+        "published": "2023-02-16T22:25:24Z",
+        "modified": "2023-02-16T22:25:24Z",
         "aliases": [
           "CVE-2022-41727"
         ],
@@ -855,8 +850,8 @@
         "affected": [
           {
             "package": {
-              "ecosystem": "Go",
               "name": "golang.org/x/image",
+              "ecosystem": "Go",
               "purl": "pkg:golang/golang.org/x/image"
             },
             "ranges": [
@@ -894,6 +889,11 @@
         ]
       }
     ],
+    "package": {
+      "name": "golang.org/x/image",
+      "version": "0.4.0",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [

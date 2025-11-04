@@ -118,7 +118,7 @@ func (e *Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *i
 
 func (e *Enricher) addSignals(inv *inventory.Inventory, idToFindings map[string][]*Finding) {
 	for _, pv := range inv.PackageVulns {
-		findings, exist := idToFindings[pv.ID]
+		findings, exist := idToFindings[pv.Vulnerability.Id]
 		// Skip if no findings for this package vulnerability ID
 		if !exist {
 			continue

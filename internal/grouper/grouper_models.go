@@ -13,14 +13,14 @@ type IDAliases struct {
 	Aliases []string
 }
 
-func ConvertVulnerabilityToIDAliases(c []osvschema.Vulnerability) []IDAliases {
+func ConvertVulnerabilityToIDAliases(c []*osvschema.Vulnerability) []IDAliases {
 	output := []IDAliases{}
 
 	slices.SortFunc(c, identifiers.MostUpstreamsOrder)
 
 	for _, v := range c {
 		idAliases := IDAliases{
-			ID:      v.ID,
+			ID:      v.Id,
 			Aliases: v.Aliases,
 		}
 
@@ -29,7 +29,7 @@ func ConvertVulnerabilityToIDAliases(c []osvschema.Vulnerability) []IDAliases {
 		// For Ubuntu Security Advisory data,
 		// all related CVEs should be bundled together, as they are part of this USN.
 		// TODO(jesslowe): remove after all USNs are migrated.
-		if strings.Split(v.ID, "-")[0] == "USN" {
+		if strings.Split(v.Id, "-")[0] == "USN" {
 			idAliases.Aliases = append(idAliases.Aliases, v.Related...)
 		}
 

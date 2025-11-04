@@ -70,7 +70,7 @@ func (opts Options) MatchVuln(v resolution.Vulnerability) bool {
 }
 
 func (opts Options) matchID(v resolution.Vulnerability, ids []string) bool {
-	if slices.Contains(ids, v.OSV.ID) {
+	if slices.Contains(ids, v.OSV.Id) {
 		return true
 	}
 

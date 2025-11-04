@@ -6,7 +6,6 @@ import (
 	"context"
 	"encoding/base64"
 	"encoding/binary"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"hash/crc32"
@@ -21,6 +20,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 type ZipDB struct {
@@ -33,7 +33,7 @@ type ZipDB struct {
 	// the path to the zip archive on disk
 	StoredAt string
 	// the vulnerabilities that are loaded into this database
-	Vulnerabilities []osvschema.Vulnerability
+	Vulnerabilities []*osvschema.Vulnerability
 	// User agent to query with
 	UserAgent string
 
@@ -148,16 +148,16 @@ func (db *ZipDB) fetchZip(ctx context.Context) ([]byte, error) {
 	return body, nil
 }
 
-func mightAffectPackages(v osvschema.Vulnerability, names []string) bool {
-	for _, affected := range v.Affected {
+func mightAffectPackages(v *osvschema.Vulnerability, names []string) bool {
+	for _, affected := range v.GetAffected() {
 		for _, name := range names {
-			if affected.Package.Name == name {
+			if affected.GetPackage().GetName() == name {
 				return true
 			}
 
 			// "name" will be the git repository in the case of the GIT ecosystem
-			for _, ran := range affected.Ranges {
-				if vulns.NormalizeRepo(ran.Repo) == vulns.NormalizeRepo(name) {
+			for _, ran := range affected.GetRanges() {
+				if vulns.NormalizeRepo(ran.GetRepo()) == vulns.NormalizeRepo(name) {
 					return true
 				}
 			}
@@ -185,9 +185,8 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File, names []string) {
 		return
 	}
 
-	var vulnerability osvschema.Vulnerability
-
-	if err := json.Unmarshal(content, &vulnerability); err != nil {
+	vulnerability := &osvschema.Vulnerability{}
+	if err := protojson.Unmarshal(content, vulnerability); err != nil {
 		cmdlogger.Warnf("%s is not a valid JSON file: %v", zipFile.Name, err)
 
 		return
@@ -210,7 +209,7 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File, names []string) {
 // so that a new version of the archive is only downloaded if it has been
 // modified, per HTTP caching standards.
 func (db *ZipDB) load(ctx context.Context, names []string) error {
-	db.Vulnerabilities = []osvschema.Vulnerability{}
+	db.Vulnerabilities = []*osvschema.Vulnerability{}
 
 	body, err := db.fetchZip(ctx)
 
@@ -265,12 +264,12 @@ func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, o
 // VulnerabilitiesAffectingPackage returns the vulnerabilities that affects the provided package
 //
 // TODO: Move this to another file.
-func VulnerabilitiesAffectingPackage(allVulns []osvschema.Vulnerability, pkg imodels.PackageInfo) []*osvschema.Vulnerability {
+func VulnerabilitiesAffectingPackage(allVulns []*osvschema.Vulnerability, pkg imodels.PackageInfo) []*osvschema.Vulnerability {
 	var vulnerabilities []*osvschema.Vulnerability
 
 	for _, vulnerability := range allVulns {
-		if vulnerability.Withdrawn.IsZero() && vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
-			vulnerabilities = append(vulnerabilities, &vulnerability)
+		if vulnerability.Withdrawn == nil && vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
+			vulnerabilities = append(vulnerabilities, vulnerability)
 		}
 	}
 

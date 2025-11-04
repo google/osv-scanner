@@ -23,12 +23,12 @@ const (
 	UnknownRating  Rating = "UNKNOWN"
 )
 
-func CalculateScore(severity osvschema.Severity) (float64, string, error) {
+func CalculateScore(severity *osvschema.Severity) (float64, string, error) {
 	score := -1.0
 	rating := string(UnknownRating)
 	var err error
 	switch severity.Type {
-	case osvschema.SeverityCVSSV2:
+	case osvschema.Severity_CVSS_V2:
 		var vec *gocvss20.CVSS20
 		vec, err = gocvss20.ParseVector(severity.Score)
 		if err == nil {
@@ -36,7 +36,7 @@ func CalculateScore(severity osvschema.Severity) (float64, string, error) {
 			// CVSS 2.0 does not define a rating, use CVSS 3.0's rating instead
 			rating, err = gocvss30.Rating(score)
 		}
-	case osvschema.SeverityCVSSV3:
+	case osvschema.Severity_CVSS_V3:
 		switch {
 		case strings.HasPrefix(severity.Score, "CVSS:3.0"):
 			var vec *gocvss30.CVSS30
@@ -53,21 +53,21 @@ func CalculateScore(severity osvschema.Severity) (float64, string, error) {
 				rating, err = gocvss31.Rating(score)
 			}
 		}
-	case osvschema.SeverityCVSSV4:
+	case osvschema.Severity_CVSS_V4:
 		var vec *gocvss40.CVSS40
 		vec, err = gocvss40.ParseVector(severity.Score)
 		if err == nil {
 			score = vec.Score()
 			rating, err = gocvss40.Rating(score)
 		}
-	case osvschema.SeverityUbuntu:
+	case osvschema.Severity_Ubuntu:
 		rating = severity.Score
 	}
 
 	return score, rating, err
 }
 
-func CalculateOverallScore(severities []osvschema.Severity) (float64, string, error) {
+func CalculateOverallScore(severities []*osvschema.Severity) (float64, string, error) {
 	maxScore := -1.0
 	maxRating := string(UnknownRating)
 

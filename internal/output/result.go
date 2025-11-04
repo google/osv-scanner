@@ -2,6 +2,7 @@ package output
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"maps"
 	"os"
@@ -12,6 +13,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 type pkgWithSource struct {
@@ -87,8 +89,11 @@ func groupFixedVersions(flattened []models.VulnerabilityFlattened) map[string][]
 	// Prepend source path as same vulnerability in two projects should be counted twice
 	// Remember to sort and compact before displaying later
 	for _, vf := range flattened {
+		if vf.Vulnerability == nil {
+			continue
+		}
 		groupIdx := vf.Source.String() + ":" + vf.GroupInfo.IndexString()
-		pkg := osvschema.Package{
+		pkg := vulns.PackageKey{
 			Ecosystem: vf.Package.Ecosystem,
 			Name:      vf.Package.Name,
 		}
@@ -111,10 +116,79 @@ type groupedSARIFFinding struct {
 	DisplayID string
 	PkgSource pkgSourceSet
 	// AliasedVulns contains vulns that are OSV vulnerabilities
-	AliasedVulns map[string]osvschema.Vulnerability
+	AliasedVulns map[string]*osvschema.Vulnerability
 	// AliasedIDList contains all aliased IDs, including ones that are not OSV (e.g. CVE IDs)
 	// Sorted by idSortFunc, therefore the first element will be the display ID
 	AliasedIDList []string
+}
+
+// UnmarshalJSON implements the json.unmarshaler interface.
+// It is required because the AliasedVulns field is a proto message,
+// which requires protojson to unmarshal, while the rest of the struct uses
+// the standard encoding/json library.
+func (g *groupedSARIFFinding) UnmarshalJSON(data []byte) error {
+	// Use alias to avoid recursion.
+	type alias groupedSARIFFinding
+
+	// Use temporary struct to combine standard fields (via alias)
+	// and the manually processed field (via shadowing).
+	tmp := &struct {
+		AliasedVulns map[string]json.RawMessage `json:"AliasedVulns"`
+		*alias
+	}{
+		alias: (*alias)(g),
+	}
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	// Manually process the custom field from RawMessage format.
+	if tmp.AliasedVulns != nil {
+		g.AliasedVulns = make(map[string]*osvschema.Vulnerability, len(tmp.AliasedVulns))
+		for id, rawVuln := range tmp.AliasedVulns {
+			var vuln osvschema.Vulnerability
+			if err := protojson.Unmarshal(rawVuln, &vuln); err != nil {
+				return fmt.Errorf("failed to protojson unmarshal vuln %q: %w", id, err)
+			}
+			g.AliasedVulns[id] = &vuln
+		}
+	}
+
+	return nil
+}
+
+// MarshalJSON implements the json.Marshaler interface.
+// It is required because the AliasedVulns field is a proto message,
+// which requires protojson to marshal, while the rest of the struct uses
+// the standard encoding/json library.
+func (g *groupedSARIFFinding) MarshalJSON() ([]byte, error) {
+	// Use alias to avoid recursion.
+	type alias groupedSARIFFinding
+
+	// Pre-process the custom field into standardized RawMessage format.
+	var rawVulns map[string]json.RawMessage
+	if g.AliasedVulns != nil {
+		rawVulns = make(map[string]json.RawMessage, len(g.AliasedVulns))
+		for id, vuln := range g.AliasedVulns {
+			marshaler := protojson.MarshalOptions{Indent: "  "}
+			b, err := marshaler.Marshal(vuln)
+			if err != nil {
+				return nil, fmt.Errorf("failed to marshal vuln %q: %w", id, err)
+			}
+			rawVulns[id] = b
+		}
+	}
+
+	// Use temporary struct to combine standard fields (via alias)
+	// and the manually processed field (via shadowing).
+	return json.Marshal(&struct {
+		AliasedVulns map[string]json.RawMessage `json:"AliasedVulns"`
+		*alias
+	}{
+		AliasedVulns: rawVulns,
+		alias:        (*alias)(g),
+	})
 }
 
 // mapIDsToGroupedSARIFFinding creates a map over all vulnerability IDs, with aliased vuln IDs
@@ -139,7 +213,7 @@ func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[s
 				if data == nil {
 					data = &groupedSARIFFinding{
 						PkgSource:    make(pkgSourceSet),
-						AliasedVulns: make(map[string]osvschema.Vulnerability),
+						AliasedVulns: make(map[string]*osvschema.Vulnerability),
 					}
 				}
 				// Point all the IDs of the same group to the same data, either newly created or existing
@@ -152,10 +226,10 @@ func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[s
 					Package: pkg.Package,
 					Source:  res.Source,
 				}
-				entry := results[v.ID]
+				entry := results[v.Id]
 				entry.PkgSource[newPkgSource] = struct{}{}
-				entry.AliasedVulns[v.ID] = v
-				entry.AliasedIDList = append(entry.AliasedIDList, v.ID)
+				entry.AliasedVulns[v.Id] = v
+				entry.AliasedIDList = append(entry.AliasedIDList, v.Id)
 				entry.AliasedIDList = append(entry.AliasedIDList, v.Aliases...)
 			}
 		}

@@ -86,10 +86,7 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 					//     ],
 					//     "arch": []
 					// }
-					ecosystemAffects, ok := a.EcosystemSpecific["affects"].(map[string]any)
-					if !ok {
-						continue
-					}
+					ecosystemAffects := a.EcosystemSpecific.Fields["affects"].GetStructValue().AsMap()
 					affectedFunctions, ok := ecosystemAffects["functions"].([]any)
 					if !ok {
 						continue
@@ -98,7 +95,7 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 						if funcName, ok := f.(string); ok {
 							_, called := calls[funcName]
 							// Once one advisory marks this vuln as called, always mark as called
-							isCalledVulnMap[v.ID] = isCalledVulnMap[v.ID] || called
+							isCalledVulnMap[v.Id] = isCalledVulnMap[v.Id] || called
 						}
 					}
 				}

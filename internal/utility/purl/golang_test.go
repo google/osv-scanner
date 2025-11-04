@@ -4,9 +4,8 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/utility/purl"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
-
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 )
 
 func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
@@ -22,7 +21,7 @@ func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 			packageInfo: models.PackageInfo{
 				Name:      "golang.org/x/mod",
 				Version:   "v0.14.0",
-				Ecosystem: string(osvschema.EcosystemGo),
+				Ecosystem: string(osvconstants.EcosystemGo),
 				Commit:    "",
 			},
 			expectedNamespace: "golang.org/x",
@@ -33,7 +32,7 @@ func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 			packageInfo: models.PackageInfo{
 				Name:      "github.com/urfave/cli/v2",
 				Version:   "v2.26.0",
-				Ecosystem: string(osvschema.EcosystemGo),
+				Ecosystem: string(osvconstants.EcosystemGo),
 				Commit:    "",
 			},
 			expectedNamespace: "github.com/urfave/cli",
@@ -44,7 +43,7 @@ func TestGolangExtraction_shouldExtractPackages(t *testing.T) {
 			packageInfo: models.PackageInfo{
 				Name:      "go.opencensus.io",
 				Version:   "v0.24.0",
-				Ecosystem: string(osvschema.EcosystemGo),
+				Ecosystem: string(osvconstants.EcosystemGo),
 				Commit:    "",
 			},
 			expectedNamespace: "",
@@ -82,7 +81,7 @@ func TestGolangExtraction_shouldFilterPackages(t *testing.T) {
 			packageInfo: models.PackageInfo{
 				Name:      "",
 				Version:   "v2.26.0",
-				Ecosystem: string(osvschema.EcosystemGo),
+				Ecosystem: string(osvconstants.EcosystemGo),
 				Commit:    "",
 			},
 		},

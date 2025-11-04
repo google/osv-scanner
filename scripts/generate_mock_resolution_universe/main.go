@@ -3,16 +3,18 @@ package main
 
 // Generate a MockResolutionClient universe file based on real packages encountered during in-place and/or relock updates.
 // Used for generating testdata.
-// Usage: go run ./generate_mock_resolution_universe [list of manifests / lockfiles] > output.yaml
+// Usage: go run ./generate_mock_resolution_universe -universeFile <universe.yaml> -vulnFile <vulns.json> [list of manifests / lockfiles]
 // Will automatically attempt in-place updates and relock/relax updates on all supplied lockfiles/manifests,
-// And write all encountered package versions to the output, along with all vulnerabilities for each package.
+// And write all encountered package versions to a universe file, and all vulnerabilities for each package to a vulnerability file.
 // Lockfiles/manifests are assumed to be all from the same ecosystem.
 
 import (
 	"bytes"
 	"context"
 	"encoding/gob"
+	"encoding/json"
 	"errors"
+	"flag"
 	"fmt"
 	"maps"
 	"net/http"
@@ -40,7 +42,9 @@ import (
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
+	"google.golang.org/protobuf/encoding/protojson"
 	"gopkg.in/yaml.v3"
+	"osv.dev/bindings/go/api"
 	"osv.dev/bindings/go/osvdev"
 )
 
@@ -204,17 +208,17 @@ func (t *depsdevAPICache) GobDecode(b []byte) error {
 	return dec.Decode((*c)(t))
 }
 
-func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, error) {
+func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, clienttest.VulnerabilityMatcher, error) {
 	pkgs, err := getCachedVersions(cl)
 	if err != nil {
-		return clienttest.ResolutionUniverse{}, err
+		return clienttest.ResolutionUniverse{}, clienttest.VulnerabilityMatcher{}, err
 	}
 
 	pks := slices.AppendSeq(make([]resolve.PackageKey, 0, len(pkgs)), maps.Keys(pkgs))
 	slices.SortFunc(pks, func(a, b resolve.PackageKey) int { return a.Compare(b) })
 
 	if len(pks) == 0 {
-		return clienttest.ResolutionUniverse{}, errors.New("no packages found in cache")
+		return clienttest.ResolutionUniverse{}, clienttest.VulnerabilityMatcher{}, errors.New("no packages found in cache")
 	}
 	// assume every package is the same system
 	system := pks[0].System
@@ -252,10 +256,10 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 
 	// Get all vulns for all versions of all packages.
 	// It's easier to re-query this than to try to use the vulnerability client's cache.
-	batchQueries := make([]*osvdev.Query, len(pks))
+	batchQueries := make([]*api.Query, len(pks))
 	for i, pk := range pks {
-		batchQueries[i] = &osvdev.Query{
-			Package: osvdev.Package{
+		batchQueries[i] = &api.Query{
+			Package: &osvschema.Package{
 				Name:      pk.Name,
 				Ecosystem: string(util.OSVEcosystem[pk.System]),
 			},
@@ -264,7 +268,7 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 
 	batchResp, err := osvdev.DefaultClient().QueryBatch(context.Background(), batchQueries)
 	if err != nil {
-		return clienttest.ResolutionUniverse{}, err
+		return clienttest.ResolutionUniverse{}, clienttest.VulnerabilityMatcher{}, err
 	}
 
 	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.Results))
@@ -280,7 +284,7 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 				if ctx.Err() != nil {
 					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
-				vuln, err := osvdev.DefaultClient().GetVulnByID(ctx, vuln.ID)
+				vuln, err := osvdev.DefaultClient().GetVulnByID(ctx, vuln.Id)
 				if err != nil {
 					return err
 				}
@@ -292,17 +296,17 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, erro
 	}
 
 	if err := g.Wait(); err != nil {
-		return clienttest.ResolutionUniverse{}, err
+		return clienttest.ResolutionUniverse{}, clienttest.VulnerabilityMatcher{}, err
 	}
 
-	var vulns []osvschema.Vulnerability
+	var vulns []*osvschema.Vulnerability
 	for _, r := range vulnerabilities {
 		for _, r2 := range r {
-			vulns = append(vulns, *r2)
+			vulns = append(vulns, r2)
 		}
 	}
 
-	return clienttest.ResolutionUniverse{System: system.String(), Schema: schema.String(), Vulns: vulns}, nil
+	return clienttest.ResolutionUniverse{System: system.String(), Schema: schema.String()}, clienttest.VulnerabilityMatcher{Vulns: vulns}, nil
 }
 
 // These are just the relevant AttrKeys for our supported ecosystems.
@@ -329,6 +333,10 @@ func typeString(t dep.Type) string {
 }
 
 func main() {
+	universeFile := flag.String("universeFile", "universe.yaml", "output file for the resolution universe")
+	vulnFile := flag.String("vulnFile", "vulns.json", "output file for the vulnerabilities")
+	flag.Parse()
+
 	cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -336,7 +344,7 @@ func main() {
 	}
 
 	group := &errgroup.Group{}
-	for _, filename := range os.Args[1:] {
+	for _, filename := range flag.Args() {
 		if io, err := manifest.GetReadWriter(filename, ""); err == nil {
 			if remediation.SupportsRelax(io) {
 				group.Go(func() error {
@@ -376,17 +384,54 @@ func main() {
 		fmt.Fprintln(os.Stderr, err)
 	}
 
-	universe, err := makeUniverse(cl)
+	universe, vulns, err := makeUniverse(cl)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error making universe: %v\n", err)
 		os.Exit(1)
 	}
 
-	fmt.Fprintf(os.Stdout, "# Automatically generated by generate_mock_resolution_universe on %s. DO NOT EDIT.\n", time.Now().Format(time.RFC822))
-	enc := yaml.NewEncoder(os.Stdout)
-	enc.SetIndent(2)
-	if err := enc.Encode(universe); err != nil {
-		fmt.Fprintln(os.Stderr, err)
+	uFile, err := os.Create(*universeFile)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error creating universe file: %v\n", err)
+		os.Exit(1)
+	}
+	defer uFile.Close()
+
+	fmt.Fprintf(uFile, "# Automatically generated by generate_mock_resolution_universe on %s. DO NOT EDIT.\n", time.Now().Format(time.RFC822))
+	uEnc := yaml.NewEncoder(uFile)
+	uEnc.SetIndent(2)
+	if err := uEnc.Encode(universe); err != nil {
+		fmt.Fprintf(os.Stderr, "error encoding universe: %v\n", err)
+		os.Exit(1)
+	}
+
+	vFile, err := os.Create(*vulnFile)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error creating vuln file: %v\n", err)
+		os.Exit(1)
+	}
+	defer vFile.Close()
+
+	// Marshal each vulnerability using protojson to get human-readable timestamps
+	vulnsJSON := make([]json.RawMessage, 0, len(vulns.Vulns))
+	marshaler := protojson.MarshalOptions{}
+	for _, v := range vulns.Vulns {
+		jsonBytes, err := marshaler.Marshal(v)
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "error marshalling vuln to json: %v\n", err)
+			os.Exit(1)
+		}
+		vulnsJSON = append(vulnsJSON, jsonBytes)
+	}
+
+	vulnsData := map[string]interface{}{
+		"vulns": vulnsJSON,
+	}
+
+	vEnc := json.NewEncoder(vFile)
+	vEnc.SetIndent("", "  ")
+	if err := vEnc.Encode(vulnsData); err != nil {
+		fmt.Fprintf(os.Stderr, "error encoding vulns: %v\n", err)
 		os.Exit(1)
 	}
 }

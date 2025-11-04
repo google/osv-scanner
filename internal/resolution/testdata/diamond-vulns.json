@@ -1,0 +1,28 @@
+{
+  "vulns": [
+    {
+      "affected": [
+        {
+          "package": {
+            "ecosystem": "npm",
+            "name": "bad"
+          },
+          "ranges": [
+            {
+              "events": [
+                {
+                  "introduced": "0"
+                },
+                {
+                  "fixed": "2.0.0"
+                }
+              ],
+              "type": "SEMVER"
+            }
+          ]
+        }
+      ],
+      "id": "DIA-000-000"
+    }
+  ]
+}

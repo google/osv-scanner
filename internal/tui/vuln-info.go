@@ -133,7 +133,7 @@ func (v *vulnInfo) View() string {
 
 	detailWidth := v.width - (vulnInfoHeadingStyle.GetWidth() + vulnInfoHeadingStyle.GetMarginRight())
 
-	vID := v.vuln.OSV.ID
+	vID := v.vuln.OSV.Id
 	sev := RenderSeverity(v.vuln.OSV.Severity)
 	sum := wordwrap.String(v.vuln.OSV.Summary, detailWidth)
 

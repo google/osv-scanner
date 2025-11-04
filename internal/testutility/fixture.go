@@ -5,6 +5,9 @@ import (
 	"encoding/json"
 	"os"
 	"testing"
+
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 // load returns the contents of the fixture file after applying any replacements if on Windows
@@ -48,4 +51,28 @@ func LoadJSONFixtureWithWindowsReplacements[V any](
 	}
 
 	return elem
+}
+
+// LoadVulnMapFixture returns the contents of the fixture file parsed as a map of vulnerability IDs to vulnerabilities
+func LoadVulnMapFixture(t *testing.T, path string) map[string]*osvschema.Vulnerability {
+	t.Helper()
+
+	file := load(t, path, map[string]string{})
+
+	var raw map[string]json.RawMessage
+	err := json.Unmarshal(file, &raw)
+	if err != nil {
+		t.Fatalf("Failed to unmarshal val: %s", err)
+	}
+
+	vulns := make(map[string]*osvschema.Vulnerability)
+	for id, rawVuln := range raw {
+		vuln := &osvschema.Vulnerability{}
+		if err := protojson.Unmarshal(rawVuln, vuln); err != nil {
+			t.Fatalf("Failed to unmarshal vuln %s: %s", id, err)
+		}
+		vulns[id] = vuln
+	}
+
+	return vulns
 }

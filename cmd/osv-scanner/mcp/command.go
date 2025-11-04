@@ -134,7 +134,7 @@ func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *scanVulnerable
 	}
 
 	for _, vuln := range scanResults.Flatten() {
-		vulnCacheMap.Store(vuln.Vulnerability.ID, &vuln.Vulnerability)
+		vulnCacheMap.Store(vuln.Vulnerability.Id, &vuln.Vulnerability)
 	}
 
 	if err == nil {

@@ -19,7 +19,7 @@ import (
 )
 
 type Vulnerability struct {
-	OSV     osvschema.Vulnerability
+	OSV     *osvschema.Vulnerability
 	DevOnly bool
 	// Subgraphs are the collections of nodes and edges that reach the vulnerable node.
 	// Subgraphs all contain the root node (NodeID 0) with no incoming edges (Parents),
@@ -220,13 +220,13 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 
 	// Find all dependency paths to the vulnerable dependencies
 	var vulnerableNodes []resolve.NodeID
-	vulnInfo := make(map[string]osvschema.Vulnerability)
+	vulnInfo := make(map[string]*osvschema.Vulnerability)
 	for i, vulns := range nodeVulns {
 		if len(vulns) > 0 {
 			vulnerableNodes = append(vulnerableNodes, resolve.NodeID(i))
 		}
 		for _, vuln := range vulns {
-			vulnInfo[vuln.ID] = *vuln
+			vulnInfo[vuln.Id] = vuln
 		}
 	}
 
@@ -234,7 +234,7 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 	vulnSubgraphs := make(map[string][]*DependencySubgraph)
 	for i, nID := range vulnerableNodes {
 		for _, vuln := range nodeVulns[nID] {
-			vulnSubgraphs[vuln.ID] = append(vulnSubgraphs[vuln.ID], nodeSubgraphs[i])
+			vulnSubgraphs[vuln.Id] = append(vulnSubgraphs[vuln.Id], nodeSubgraphs[i])
 		}
 	}
 
@@ -315,12 +315,12 @@ func (res *Result) CalculateDiff(other *Result) Difference {
 	// Currently this relies on vulnerability IDs being unique in the Vulns slice.
 	oldVulns := make(map[string]int, len(res.Vulns))
 	for i, v := range res.Vulns {
-		oldVulns[v.OSV.ID] = i
+		oldVulns[v.OSV.Id] = i
 	}
 	for _, v := range other.Vulns {
-		if _, ok := oldVulns[v.OSV.ID]; ok {
+		if _, ok := oldVulns[v.OSV.Id]; ok {
 			// The vuln already existed.
-			delete(oldVulns, v.OSV.ID) // delete so we know what's been removed
+			delete(oldVulns, v.OSV.Id) // delete so we know what's been removed
 		} else {
 			// This vuln was not in the original resolution - it was newly added
 			diff.AddedVulns = append(diff.AddedVulns, v)

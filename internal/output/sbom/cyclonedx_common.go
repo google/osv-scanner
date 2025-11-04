@@ -8,6 +8,7 @@ import (
 	"github.com/CycloneDX/cyclonedx-go"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns) *cyclonedx.BOM {
@@ -63,14 +64,15 @@ func fillLicenses(component *cyclonedx.Component, packageDetail models.PackageVu
 }
 
 func addVulnerabilities(vulnerabilities map[string]cyclonedx.Vulnerability, packageDetail models.PackageVulns) {
-	for _, vulnerability := range packageDetail.Vulnerabilities {
-		if _, exists := vulnerabilities[vulnerability.ID]; exists {
+	for i := range packageDetail.Vulnerabilities {
+		vulnerability := packageDetail.Vulnerabilities[i]
+		if _, exists := vulnerabilities[vulnerability.Id]; exists {
 			continue
 		}
 
 		// It doesn't exist yet, lets add it
-		vulnerabilities[vulnerability.ID] = cyclonedx.Vulnerability{
-			ID:          vulnerability.ID,
+		vulnerabilities[vulnerability.Id] = cyclonedx.Vulnerability{
+			ID:          vulnerability.Id,
 			Updated:     formatDateIfExists(vulnerability.Modified),
 			Published:   formatDateIfExists(vulnerability.Published),
 			Rejected:    formatDateIfExists(vulnerability.Withdrawn),
@@ -85,15 +87,18 @@ func addVulnerabilities(vulnerabilities map[string]cyclonedx.Vulnerability, pack
 	}
 }
 
-func formatDateIfExists(date time.Time) string {
-	if date.IsZero() {
+func formatDateIfExists(ts *timestamppb.Timestamp) string {
+	if ts == nil {
 		return ""
 	}
-
-	return date.Format(time.RFC3339)
+	t := ts.AsTime()
+	if t.IsZero() {
+		return ""
+	}
+	return t.Format(time.RFC3339)
 }
 
-func buildCredits(vulnerability osvschema.Vulnerability) *cyclonedx.Credits {
+func buildCredits(vulnerability *osvschema.Vulnerability) *cyclonedx.Credits {
 	organizations := make([]cyclonedx.OrganizationalEntity, len(vulnerability.Credits))
 
 	for index, credit := range vulnerability.Credits {
@@ -108,7 +113,7 @@ func buildCredits(vulnerability osvschema.Vulnerability) *cyclonedx.Credits {
 	}
 }
 
-func buildAffectedPackages(vulnerability osvschema.Vulnerability) *[]cyclonedx.Affects {
+func buildAffectedPackages(vulnerability *osvschema.Vulnerability) *[]cyclonedx.Affects {
 	uniqueRefs := make(map[string]bool)
 	affectedPackages := make([]cyclonedx.Affects, 0)
 
@@ -125,7 +130,7 @@ func buildAffectedPackages(vulnerability osvschema.Vulnerability) *[]cyclonedx.A
 	return &affectedPackages
 }
 
-func buildRatings(vulnerability osvschema.Vulnerability) *[]cyclonedx.VulnerabilityRating {
+func buildRatings(vulnerability *osvschema.Vulnerability) *[]cyclonedx.VulnerabilityRating {
 	ratings := make([]cyclonedx.VulnerabilityRating, len(vulnerability.Severity))
 	for index, severity := range vulnerability.Severity {
 		ratings[index] = cyclonedx.VulnerabilityRating{
@@ -137,7 +142,7 @@ func buildRatings(vulnerability osvschema.Vulnerability) *[]cyclonedx.Vulnerabil
 	return &ratings
 }
 
-func buildReferences(vulnerability osvschema.Vulnerability) *[]cyclonedx.VulnerabilityReference {
+func buildReferences(vulnerability *osvschema.Vulnerability) *[]cyclonedx.VulnerabilityReference {
 	references := make([]cyclonedx.VulnerabilityReference, len(vulnerability.Aliases))
 
 	for index, alias := range vulnerability.Aliases {
@@ -150,14 +155,14 @@ func buildReferences(vulnerability osvschema.Vulnerability) *[]cyclonedx.Vulnera
 	return &references
 }
 
-func buildAdvisories(vulnerability osvschema.Vulnerability) *[]cyclonedx.Advisory {
+func buildAdvisories(vulnerability *osvschema.Vulnerability) *[]cyclonedx.Advisory {
 	advisories := make([]cyclonedx.Advisory, 0)
 	for _, reference := range vulnerability.References {
-		if reference.Type != osvschema.ReferenceAdvisory {
+		if reference.Type != osvschema.Reference_ADVISORY {
 			continue
 		}
 		advisories = append(advisories, cyclonedx.Advisory{
-			URL: reference.URL,
+			URL: reference.Url,
 		})
 	}
 

@@ -929,24 +929,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -978,24 +976,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-2",
               "summary": "Something less scary!",
               "severity": [
                 {
-                  "type": "low",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1047,24 +1043,22 @@
           ]
         },
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1112,24 +1106,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1155,24 +1147,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-2",
               "summary": "Something less scary!",
               "severity": [
                 {
-                  "type": "low",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1218,24 +1208,22 @@
           ]
         },
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1277,25 +1265,23 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "summary": "Something scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm",
             "commit": "abcxzy"
           },
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-1",
-              "summary": "Something scary!",
-              "severity": [
-                {
-                  "type": "high",
-                  "score": "1"
-                }
-              ]
-            }
-          ],
           "groups": [
             {
               "ids": [
@@ -1321,25 +1307,23 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-2",
+              "summary": "Something less scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine2",
             "version": "",
             "ecosystem": "npm",
             "commit": "abc123"
           },
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-2",
-              "summary": "Something less scary!",
-              "severity": [
-                {
-                  "type": "low",
-                  "score": "1"
-                }
-              ]
-            }
-          ],
           "groups": [
             {
               "ids": [
@@ -1385,24 +1369,22 @@
           ]
         },
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1444,24 +1426,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1503,24 +1483,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1568,24 +1546,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1633,24 +1609,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1692,24 +1666,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1769,6 +1741,26 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "summary": "Something scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            },
+            {
+              "id": "OSV-5",
+              "summary": "Something scarier!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
@@ -1777,30 +1769,6 @@
           "dependency_groups": [
             "dev",
             "optional"
-          ],
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-1",
-              "summary": "Something scary!",
-              "severity": [
-                {
-                  "type": "high",
-                  "score": "1"
-                }
-              ]
-            },
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-5",
-              "summary": "Something scarier!",
-              "severity": [
-                {
-                  "type": "extreme",
-                  "score": "1"
-                }
-              ]
-            }
           ],
           "groups": [
             {
@@ -1820,24 +1788,22 @@
           ]
         },
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.2",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.2",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1857,6 +1823,17 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-2",
+              "summary": "Something less scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine2",
             "version": "3.2.5",
@@ -1864,19 +1841,6 @@
           },
           "dependency_groups": [
             "dev"
-          ],
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-2",
-              "summary": "Something less scary!",
-              "severity": [
-                {
-                  "type": "low",
-                  "score": "1"
-                }
-              ]
-            }
           ],
           "groups": [
             {
@@ -1889,6 +1853,26 @@
           ]
         },
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-3",
+              "summary": "Something mildly scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            },
+            {
+              "id": "OSV-5",
+              "summary": "Something scarier!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine3",
             "version": "0.4.1",
@@ -1896,30 +1880,6 @@
           },
           "dependency_groups": [
             "build"
-          ],
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-3",
-              "summary": "Something mildly scary!",
-              "severity": [
-                {
-                  "type": "medium",
-                  "score": "1"
-                }
-              ]
-            },
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-5",
-              "summary": "Something scarier!",
-              "severity": [
-                {
-                  "type": "extreme",
-                  "score": "1"
-                }
-              ]
-            }
           ],
           "groups": [
             {
@@ -1961,35 +1921,31 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             },
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-5",
               "summary": "Something scarier!",
               "severity": [
                 {
-                  "type": "extreme",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2008,24 +1964,22 @@
           ]
         },
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.2",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.2",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2045,24 +1999,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-2",
               "summary": "Something less scary!",
               "severity": [
                 {
-                  "type": "low",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2074,35 +2026,31 @@
           ]
         },
         {
-          "package": {
-            "name": "mine3",
-            "version": "0.4.1",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-3",
               "summary": "Something mildly scary!",
               "severity": [
                 {
-                  "type": "medium",
                   "score": "1"
                 }
               ]
             },
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-5",
               "summary": "Something scarier!",
               "severity": [
                 {
-                  "type": "extreme",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine3",
+            "version": "0.4.1",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2216,24 +2164,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2253,24 +2199,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-2",
               "summary": "Something less scary!",
               "severity": [
                 {
-                  "type": "low",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2304,24 +2248,22 @@
           }
         },
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2355,35 +2297,31 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "author1/mine1",
-            "version": "1.2.3",
-            "ecosystem": "Packagist"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             },
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-5",
               "summary": "Something scarier!",
               "severity": [
                 {
-                  "type": "extreme",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "author1/mine1",
+            "version": "1.2.3",
+            "ecosystem": "Packagist"
+          },
           "groups": [
             {
               "ids": [
@@ -2402,24 +2340,22 @@
           ]
         },
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.2",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.2",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2439,6 +2375,17 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-2",
+              "summary": "Something less scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine2",
             "version": "3.2.5",
@@ -2446,19 +2393,6 @@
           },
           "dependency_groups": [
             "dev"
-          ],
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-2",
-              "summary": "Something less scary!",
-              "severity": [
-                {
-                  "type": "low",
-                  "score": "1"
-                }
-              ]
-            }
           ],
           "groups": [
             {
@@ -2471,6 +2405,26 @@
           ]
         },
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-3",
+              "summary": "Something mildly scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            },
+            {
+              "id": "OSV-5",
+              "summary": "Something scarier!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "author3/mine3",
             "version": "0.4.1",
@@ -2478,30 +2432,6 @@
           },
           "dependency_groups": [
             "build"
-          ],
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-3",
-              "summary": "Something mildly scary!",
-              "severity": [
-                {
-                  "type": "medium",
-                  "score": "1"
-                }
-              ]
-            },
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-5",
-              "summary": "Something scarier!",
-              "severity": [
-                {
-                  "type": "extreme",
-                  "score": "1"
-                }
-              ]
-            }
           ],
           "groups": [
             {
@@ -2543,35 +2473,31 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "author1/mine1",
-            "version": "1.2.3",
-            "ecosystem": "Packagist"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             },
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-5",
               "summary": "Something scarier!",
               "severity": [
                 {
-                  "type": "extreme",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "author1/mine1",
+            "version": "1.2.3",
+            "ecosystem": "Packagist"
+          },
           "groups": [
             {
               "ids": [
@@ -2602,24 +2528,22 @@
           ]
         },
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.2",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.2",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2639,6 +2563,17 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-2",
+              "summary": "Something less scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine2",
             "version": "3.2.5",
@@ -2646,19 +2581,6 @@
           },
           "dependency_groups": [
             "dev"
-          ],
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-2",
-              "summary": "Something less scary!",
-              "severity": [
-                {
-                  "type": "low",
-                  "score": "1"
-                }
-              ]
-            }
           ],
           "groups": [
             {
@@ -2671,6 +2593,26 @@
           ]
         },
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-3",
+              "summary": "Something mildly scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            },
+            {
+              "id": "OSV-5",
+              "summary": "Something scarier!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "author3/mine3",
             "version": "0.4.1",
@@ -2678,30 +2620,6 @@
           },
           "dependency_groups": [
             "build"
-          ],
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-3",
-              "summary": "Something mildly scary!",
-              "severity": [
-                {
-                  "type": "medium",
-                  "score": "1"
-                }
-              ]
-            },
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-5",
-              "summary": "Something scarier!",
-              "severity": [
-                {
-                  "type": "extreme",
-                  "score": "1"
-                }
-              ]
-            }
           ],
           "groups": [
             {
@@ -2749,36 +2667,32 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "summary": "Something scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            },
+            {
+              "id": "OSV-5",
+              "summary": "Something scarier!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "author1/mine1",
             "version": "1.2.3",
             "ecosystem": "Packagist",
             "commit": "123abc"
           },
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-1",
-              "summary": "Something scary!",
-              "severity": [
-                {
-                  "type": "high",
-                  "score": "1"
-                }
-              ]
-            },
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-5",
-              "summary": "Something scarier!",
-              "severity": [
-                {
-                  "type": "extreme",
-                  "score": "1"
-                }
-              ]
-            }
-          ],
           "groups": [
             {
               "ids": [
@@ -2797,25 +2711,23 @@
           ]
         },
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "summary": "Something scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine1",
             "version": "",
             "ecosystem": "npm",
             "commit": "abcxyz"
           },
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-1",
-              "summary": "Something scary!",
-              "severity": [
-                {
-                  "type": "high",
-                  "score": "1"
-                }
-              ]
-            }
-          ],
           "groups": [
             {
               "ids": [
@@ -2835,6 +2747,17 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-2",
+              "summary": "Something less scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine2",
             "version": "3.2.5",
@@ -2842,19 +2765,6 @@
           },
           "dependency_groups": [
             "dev"
-          ],
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-2",
-              "summary": "Something less scary!",
-              "severity": [
-                {
-                  "type": "low",
-                  "score": "1"
-                }
-              ]
-            }
           ],
           "groups": [
             {
@@ -2867,6 +2777,26 @@
           ]
         },
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-3",
+              "summary": "Something mildly scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            },
+            {
+              "id": "OSV-5",
+              "summary": "Something scarier!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "author3/mine3",
             "version": "0.4.1",
@@ -2874,30 +2804,6 @@
           },
           "dependency_groups": [
             "build"
-          ],
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-3",
-              "summary": "Something mildly scary!",
-              "severity": [
-                {
-                  "type": "medium",
-                  "score": "1"
-                }
-              ]
-            },
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-5",
-              "summary": "Something scarier!",
-              "severity": [
-                {
-                  "type": "extreme",
-                  "score": "1"
-                }
-              ]
-            }
           ],
           "groups": [
             {
@@ -3037,35 +2943,31 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             },
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "GHSA-123",
               "summary": "Something scarier!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3118,24 +3020,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3169,24 +3069,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3226,24 +3124,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3283,24 +3179,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3334,6 +3228,17 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "summary": "Something scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
@@ -3341,19 +3246,6 @@
           },
           "dependency_groups": [
             "dev"
-          ],
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-1",
-              "summary": "Something scary!",
-              "severity": [
-                {
-                  "type": "high",
-                  "score": "1"
-                }
-              ]
-            }
           ],
           "groups": [
             {
@@ -3388,25 +3280,17 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             },
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "GHSA-123",
               "aliases": [
                 "OSV-1"
@@ -3414,12 +3298,16 @@
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3463,25 +3351,17 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             },
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "GHSA-123",
               "aliases": [
                 "OSV-1"
@@ -3489,12 +3369,16 @@
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3532,25 +3416,17 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             },
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "GHSA-123",
               "aliases": [
                 "OSV-1"
@@ -3558,12 +3434,16 @@
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3601,25 +3481,23 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "summary": "Something scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm",
             "commit": "abc123"
           },
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-1",
-              "summary": "Something scary!",
-              "severity": [
-                {
-                  "type": "high",
-                  "score": "1"
-                }
-              ]
-            }
-          ],
           "groups": [
             {
               "ids": [
@@ -3653,25 +3531,23 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "summary": "Something scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine1",
             "version": "",
             "ecosystem": "npm",
             "commit": "abc123"
           },
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-1",
-              "summary": "Something scary!",
-              "severity": [
-                {
-                  "type": "high",
-                  "score": "1"
-                }
-              ]
-            }
-          ],
           "groups": [
             {
               "ids": [
@@ -3705,18 +3581,17 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "details": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!"
+            }
+          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
           },
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-1",
-              "details": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!"
-            }
-          ],
           "groups": [
             {
               "ids": [
@@ -3728,17 +3603,16 @@
           ]
         },
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-2"
+            }
+          ],
           "package": {
             "name": "mine3",
             "version": "0.10.2-rc",
             "ecosystem": "npm"
           },
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-2"
-            }
-          ],
           "groups": [
             {
               "ids": [
@@ -3772,24 +3646,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3838,24 +3710,22 @@
       },
       "packages": [
         {
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
-              "modified": "0001-01-01T00:00:00Z",
               "id": "OSV-1",
               "summary": "Something scary!",
               "severity": [
                 {
-                  "type": "high",
                   "score": "1"
                 }
               ]
             }
           ],
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3875,6 +3745,17 @@
       },
       "packages": [
         {
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "summary": "Something scary!",
+              "severity": [
+                {
+                  "score": "1"
+                }
+              ]
+            }
+          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
@@ -3882,19 +3763,6 @@
           },
           "dependency_groups": [
             "dev"
-          ],
-          "vulnerabilities": [
-            {
-              "modified": "0001-01-01T00:00:00Z",
-              "id": "OSV-1",
-              "summary": "Something scary!",
-              "severity": [
-                {
-                  "type": "high",
-                  "score": "1"
-                }
-              ]
-            }
           ],
           "groups": [
             {

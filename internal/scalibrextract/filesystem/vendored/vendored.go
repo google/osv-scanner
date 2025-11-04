@@ -21,6 +21,7 @@ import (
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
+	"osv.dev/bindings/go/api"
 	"osv.dev/bindings/go/osvdev"
 )
 
@@ -147,8 +148,8 @@ func (e *Extractor) Ecosystem(_ *extractor.Package) string {
 	return ""
 }
 
-func (e *Extractor) queryDetermineVersions(ctx context.Context, repoDir string, fsys scalibrfs.FS, scanGitDir bool) (*osvdev.DetermineVersionResponse, error) {
-	var hashes []osvdev.DetermineVersionHash
+func (e *Extractor) queryDetermineVersions(ctx context.Context, repoDir string, fsys scalibrfs.FS, scanGitDir bool) (*api.VersionMatchList, error) {
+	var hashes []*api.FileHash
 
 	err := fs.WalkDir(fsys, repoDir, func(p string, d fs.DirEntry, _ error) error {
 		if d.IsDir() {
@@ -182,9 +183,9 @@ func (e *Extractor) queryDetermineVersions(ctx context.Context, repoDir string, 
 			return err
 		}
 		hash := md5.Sum(buf.Bytes()) //nolint:gosec
-		hashes = append(hashes, osvdev.DetermineVersionHash{
-			Path: strings.ReplaceAll(p, repoDir, ""),
-			Hash: hash[:],
+		hashes = append(hashes, &api.FileHash{
+			FilePath: strings.ReplaceAll(p, repoDir, ""),
+			Hash:     hash[:],
 		})
 		if len(hashes) > maxDetermineVersionFiles {
 			return errors.New("too many files to hash")
@@ -197,9 +198,11 @@ func (e *Extractor) queryDetermineVersions(ctx context.Context, repoDir string, 
 		return nil, fmt.Errorf("failed during hashing: %w", err)
 	}
 
-	result, err := e.OSVClient.ExperimentalDetermineVersion(ctx, &osvdev.DetermineVersionsRequest{
-		Name:       filepath.Base(repoDir),
-		FileHashes: hashes,
+	result, err := e.OSVClient.ExperimentalDetermineVersion(ctx, &api.DetermineVersionParameters{
+		Query: &api.VersionQuery{
+			Name:       filepath.Base(repoDir),
+			FileHashes: hashes,
+		},
 	})
 
 	if err != nil {

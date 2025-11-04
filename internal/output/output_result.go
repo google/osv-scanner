@@ -529,14 +529,14 @@ func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[
 func updateVuln(vulnMap map[string]VulnResult, vulnPkg models.PackageVulns) {
 	for _, vuln := range vulnPkg.Vulnerabilities {
 		fixable, fixedVersion := getNextFixVersion(vuln.Affected, vulnPkg.Package.Version, vulnPkg.Package.Name, vulnPkg.Package.Ecosystem)
-		if outputVuln, exist := vulnMap[vuln.ID]; exist {
+		if outputVuln, exist := vulnMap[vuln.Id]; exist {
 			outputVuln.FixedVersion = fixedVersion
 			outputVuln.IsFixable = fixable
 			outputVuln.Description = vuln.Summary
 			if outputVuln.Description == "" {
 				outputVuln.Description = vuln.Details
 			}
-			vulnMap[vuln.ID] = outputVuln
+			vulnMap[vuln.Id] = outputVuln
 		}
 	}
 }
@@ -557,7 +557,7 @@ func getVulnList(vulnMap map[string]VulnResult) []VulnResult {
 
 // getNextFixVersion finds the next fixed version for a given vulnerability.
 // returns a boolean value indicating whether a fixed version is available.
-func getNextFixVersion(allAffected []osvschema.Affected, installedVersion string, installedPackage string, ecosystem string) (bool, string) {
+func getNextFixVersion(allAffected []*osvschema.Affected, installedVersion string, installedPackage string, ecosystem string) (bool, string) {
 	ecosystemPrefix := strings.Split(ecosystem, ":")[0]
 	vp, err := semantic.Parse(installedVersion, ecosystemPrefix)
 	if err != nil {

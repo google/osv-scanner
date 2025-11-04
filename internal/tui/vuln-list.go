@@ -50,13 +50,13 @@ func NewVulnList(vulns []*resolution.Vulnerability, preamble string) *vulnList {
 			return -c
 		}
 
-		return cmp.Compare(a.OSV.ID, b.OSV.ID)
+		return cmp.Compare(a.OSV.Id, b.OSV.Id)
 	})
 	items := make([]list.Item, 0, len(vulns))
 	delegate := vulnListItemDelegate{idWidth: 0}
 	for _, v := range vulns {
 		items = append(items, vulnListItem{v})
-		if w := lipgloss.Width(v.OSV.ID); w > delegate.idWidth {
+		if w := lipgloss.Width(v.OSV.Id); w > delegate.idWidth {
 			delegate.idWidth = w
 		}
 	}
@@ -157,7 +157,7 @@ type vulnListItem struct {
 }
 
 func (v vulnListItem) FilterValue() string {
-	return v.OSV.ID
+	return v.OSV.Id
 }
 
 type vulnListItemDelegate struct {
@@ -179,7 +179,7 @@ func (d vulnListItemDelegate) Render(w io.Writer, m list.Model, index int, listI
 		cursor = SelectedTextStyle.Render(">")
 		idStyle = idStyle.Inherit(SelectedTextStyle)
 	}
-	id := idStyle.Render(vuln.OSV.ID)
+	id := idStyle.Render(vuln.OSV.Id)
 	sev := RenderSeverityShort(vuln.OSV.Severity)
 	str := fmt.Sprintf("%s %s  %s  ", cursor, id, sev)
 	fmt.Fprint(w, str)

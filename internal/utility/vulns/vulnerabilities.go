@@ -3,9 +3,9 @@ package vulns
 
 import "github.com/ossf/osv-schema/bindings/go/osvschema"
 
-func Include(vs []*osvschema.Vulnerability, vulnerability osvschema.Vulnerability) bool {
+func Include(vs []*osvschema.Vulnerability, vulnerability *osvschema.Vulnerability) bool {
 	for _, vuln := range vs {
-		if vuln.ID == vulnerability.ID {
+		if vuln.Id == vulnerability.Id {
 			return true
 		}
 	}

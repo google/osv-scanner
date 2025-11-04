@@ -54,13 +54,13 @@
       {
         "ID": "GHSA-9w38-p64v-xpmv",
         "AffectedNodes": [
-          15
+          16
         ]
       },
       {
         "ID": "GHSA-xjp4-hw94-mvp5",
         "AffectedNodes": [
-          15
+          16
         ]
       }
     ],
@@ -87,13 +87,13 @@
       {
         "ID": "GHSA-hhw5-c326-822h",
         "AffectedNodes": [
-          22
+          23
         ]
       },
       {
         "ID": "GHSA-pmhc-2g4f-85cg",
         "AffectedNodes": [
-          22
+          23
         ]
       }
     ],
@@ -120,7 +120,7 @@
       {
         "ID": "GHSA-78wr-2p64-hpwj",
         "AffectedNodes": [
-          18
+          19
         ]
       }
     ],
@@ -147,7 +147,7 @@
       {
         "ID": "GHSA-jc7h-c423-mpjc",
         "AffectedNodes": [
-          21
+          22
         ]
       }
     ],
@@ -174,7 +174,7 @@
       {
         "ID": "GHSA-pmhc-2g4f-85cg",
         "AffectedNodes": [
-          22
+          23
         ]
       }
     ],
