@@ -2,6 +2,11 @@
 [Test_matchAnalysisWithPackageVulns - 1]
 [
   {
+    "package": {
+      "name": "github.com/gogo/protobuf",
+      "version": "1.3.1",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [
@@ -18,11 +23,6 @@
         "max_severity": ""
       }
     ],
-    "package": {
-      "name": "github.com/gogo/protobuf",
-      "version": "1.3.1",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
         "schema_version": "1.3.0",
@@ -169,6 +169,11 @@
     ]
   },
   {
+    "package": {
+      "name": "github.com/ipfs/go-bitfield",
+      "version": "1.0.0",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [
@@ -185,11 +190,6 @@
         "max_severity": ""
       }
     ],
-    "package": {
-      "name": "github.com/ipfs/go-bitfield",
-      "version": "1.0.0",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
         "schema_version": "1.3.0",
@@ -323,6 +323,11 @@
     ]
   },
   {
+    "package": {
+      "name": "golang.org/x/image",
+      "version": "0.4.0",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [
@@ -339,11 +344,6 @@
         "max_severity": ""
       }
     ],
-    "package": {
-      "name": "golang.org/x/image",
-      "version": "0.4.0",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
         "schema_version": "1.3.0",
@@ -483,6 +483,11 @@
 [Test_matchEmptyAnalysisWithPackageVulns - 1]
 [
   {
+    "package": {
+      "name": "github.com/gogo/protobuf",
+      "version": "1.3.1",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [
@@ -493,11 +498,6 @@
         "max_severity": ""
       }
     ],
-    "package": {
-      "name": "github.com/gogo/protobuf",
-      "version": "1.3.1",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
         "schema_version": "1.3.0",
@@ -633,6 +633,11 @@
     ]
   },
   {
+    "package": {
+      "name": "github.com/ipfs/go-bitfield",
+      "version": "1.0.0",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [
@@ -643,11 +648,6 @@
         "max_severity": ""
       }
     ],
-    "package": {
-      "name": "github.com/ipfs/go-bitfield",
-      "version": "1.0.0",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
         "schema_version": "1.3.0",
@@ -770,6 +770,11 @@
     ]
   },
   {
+    "package": {
+      "name": "golang.org/x/image",
+      "version": "0.4.0",
+      "ecosystem": "Go"
+    },
     "groups": [
       {
         "ids": [
@@ -780,11 +785,6 @@
         "max_severity": ""
       }
     ],
-    "package": {
-      "name": "golang.org/x/image",
-      "version": "0.4.0",
-      "ecosystem": "Go"
-    },
     "vulnerabilities": [
       {
         "schema_version": "1.3.0",

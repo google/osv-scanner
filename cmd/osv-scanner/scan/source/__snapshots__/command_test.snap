@@ -3115,44 +3115,44 @@ license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.
       },
       "packages": [
         {
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "babel",
             "version": "6.23.0",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ]
         },
         {
-          "licenses": [
-            "Apache-2.0"
-          ],
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "Apache-2.0"
+          ]
         },
         {
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "ms",
             "version": "2.1.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ]
         },
         {
-          "licenses": [
-            "CC0-1.0 OR MIT"
-          ],
           "package": {
             "name": "type-fest",
             "version": "4.26.1",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "CC0-1.0 OR MIT"
+          ]
         }
       ]
     }
@@ -3272,44 +3272,44 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
       },
       "packages": [
         {
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "babel",
             "version": "6.23.0",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ]
         },
         {
-          "licenses": [
-            "Apache-2.0"
-          ],
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "Apache-2.0"
+          ]
         },
         {
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "ms",
             "version": "2.1.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ]
         },
         {
-          "licenses": [
-            "CC0-1.0 OR MIT"
-          ],
           "package": {
             "name": "type-fest",
             "version": "4.26.1",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "CC0-1.0 OR MIT"
+          ]
         }
       ]
     }
@@ -3402,47 +3402,47 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
       },
       "packages": [
         {
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "babel",
             "version": "6.23.0",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ]
         },
         {
-          "license_violations": [
-            "Apache-2.0"
-          ],
-          "licenses": [
-            "Apache-2.0"
-          ],
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "license_violations": [
+            "Apache-2.0"
+          ]
         },
         {
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "ms",
             "version": "2.1.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ]
         },
         {
-          "licenses": [
-            "CC0-1.0 OR MIT"
-          ],
           "package": {
             "name": "type-fest",
             "version": "4.26.1",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "CC0-1.0 OR MIT"
+          ]
         }
       ]
     }
@@ -3489,17 +3489,17 @@ Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 pac
       },
       "packages": [
         {
-          "license_violations": [
-            "Apache-2.0"
-          ],
-          "licenses": [
-            "Apache-2.0"
-          ],
           "package": {
             "name": "human-signals",
             "version": "5.0.0",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "license_violations": [
+            "Apache-2.0"
+          ]
         }
       ]
     }

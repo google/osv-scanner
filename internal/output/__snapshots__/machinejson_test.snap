@@ -9,14 +9,14 @@
       },
       "packages": [
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         }
       ]
     },
@@ -27,24 +27,24 @@
       },
       "packages": [
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine2",
             "version": "3.2.5",
             "ecosystem": "npm"
-          }
-        },
-        {
+          },
           "licenses": [
             "ISC"
-          ],
+          ]
+        },
+        {
           "package": {
             "name": "mine3",
             "version": "0.4.1",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         }
       ]
     },
@@ -55,24 +55,24 @@
       },
       "packages": [
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.3.5",
             "ecosystem": "npm"
-          }
-        },
-        {
+          },
           "licenses": [
             "ISC"
-          ],
+          ]
+        },
+        {
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         }
       ]
     }
@@ -99,17 +99,17 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     },
@@ -120,27 +120,27 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "Apache-2.0"
-          ],
-          "licenses": [
-            "Apache-2.0"
-          ],
           "package": {
             "name": "mine2",
             "version": "3.2.5",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "license_violations": [
+            "Apache-2.0"
+          ]
         },
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine3",
             "version": "0.4.1",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         }
       ]
     },
@@ -151,27 +151,27 @@
       },
       "packages": [
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.3.5",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         },
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     }
@@ -198,18 +198,18 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT",
-            "Apache-2.0"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT",
+            "Apache-2.0"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     },
@@ -220,27 +220,27 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "UNKNOWN"
-          ],
-          "licenses": [
-            "UNKNOWN"
-          ],
           "package": {
             "name": "mine2",
             "version": "3.2.5",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "UNKNOWN"
+          ],
+          "license_violations": [
+            "UNKNOWN"
+          ]
         },
         {
-          "licenses": [
-            "Apache-2.0"
-          ],
           "package": {
             "name": "mine3",
             "version": "0.4.1",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "Apache-2.0"
+          ]
         }
       ]
     },
@@ -251,27 +251,27 @@
       },
       "packages": [
         {
-          "licenses": [
-            "Apache-2.0"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.3.5",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "Apache-2.0"
+          ]
         },
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     }
@@ -296,17 +296,17 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "author1/mine1",
             "version": "1.2.3",
             "ecosystem": "Packagist"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     },
@@ -317,27 +317,27 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "Apache-2.0"
-          ],
-          "licenses": [
-            "Apache-2.0"
-          ],
           "package": {
             "name": "mine2",
             "version": "3.2.5",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "license_violations": [
+            "Apache-2.0"
+          ]
         },
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine3",
             "version": "0.4.1",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         }
       ]
     },
@@ -348,30 +348,30 @@
       },
       "packages": [
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.3.5",
             "ecosystem": "NuGet"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         },
         {
-          "dependency_groups": [
-            "dev"
-          ],
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "author1/mine1",
             "version": "1.2.3",
             "ecosystem": "Packagist"
-          }
+          },
+          "dependency_groups": [
+            "dev"
+          ],
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     }
@@ -398,21 +398,21 @@
       },
       "packages": [
         {
-          "dependency_groups": [
-            "dev",
-            "optional"
-          ],
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "dependency_groups": [
+            "dev",
+            "optional"
+          ],
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     },
@@ -423,31 +423,31 @@
       },
       "packages": [
         {
-          "dependency_groups": [
-            "dev",
-            "optional"
-          ],
-          "license_violations": [
-            "Apache-2.0"
-          ],
-          "licenses": [
-            "Apache-2.0"
-          ],
           "package": {
             "name": "mine2",
             "version": "3.2.5",
             "ecosystem": "npm"
-          }
+          },
+          "dependency_groups": [
+            "dev",
+            "optional"
+          ],
+          "licenses": [
+            "Apache-2.0"
+          ],
+          "license_violations": [
+            "Apache-2.0"
+          ]
         },
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine3",
             "version": "0.4.1",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         }
       ]
     },
@@ -458,30 +458,30 @@
       },
       "packages": [
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.3.5",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         },
         {
-          "dependency_groups": [
-            "build"
-          ],
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "dependency_groups": [
+            "build"
+          ],
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     }
@@ -583,14 +583,14 @@
       },
       "packages": [
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         }
       ]
     }
@@ -648,14 +648,14 @@
       },
       "packages": [
         {
-          "licenses": [
-            "UNKNOWN"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "UNKNOWN"
+          ]
         }
       ]
     }
@@ -682,19 +682,19 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT",
-            "Apache-2.0"
-          ],
-          "licenses": [
-            "MIT",
-            "Apache-2.0"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT",
+            "Apache-2.0"
+          ],
+          "license_violations": [
+            "MIT",
+            "Apache-2.0"
+          ]
         }
       ]
     }
@@ -721,17 +721,17 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     }
@@ -758,20 +758,20 @@
       },
       "packages": [
         {
-          "dependency_groups": [
-            "dev"
-          ],
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "dependency_groups": [
+            "dev"
+          ],
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     }
@@ -798,18 +798,18 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm",
             "commit": "abc123"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     }
@@ -836,18 +836,18 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "",
             "ecosystem": "npm",
             "commit": "abc123"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     }
@@ -874,17 +874,17 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.2.3",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     },
@@ -895,14 +895,14 @@
       },
       "packages": [
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine2",
             "version": "5.9.0",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         }
       ]
     }
@@ -929,6 +929,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -944,17 +949,12 @@
               "max_severity": "7.8"
             }
           ],
-          "license_violations": [
-            "MIT"
-          ],
           "licenses": [
             "MIT"
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
+          "license_violations": [
+            "MIT"
+          ],
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -976,6 +976,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -994,11 +999,6 @@
           "licenses": [
             "ISC"
           ],
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-2",
@@ -1012,14 +1012,14 @@
           ]
         },
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine3",
             "version": "0.4.1",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         }
       ]
     },
@@ -1030,19 +1030,24 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.3.5",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         },
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1058,17 +1063,12 @@
               "max_severity": ""
             }
           ],
-          "license_violations": [
-            "Apache-2.0"
-          ],
           "licenses": [
             "Apache-2.0"
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
+          "license_violations": [
+            "Apache-2.0"
+          ],
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1106,6 +1106,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1115,17 +1120,12 @@
               "max_severity": ""
             }
           ],
-          "license_violations": [
-            "MIT"
-          ],
           "licenses": [
             "MIT"
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
+          "license_violations": [
+            "MIT"
+          ],
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1147,6 +1147,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1159,11 +1164,6 @@
           "licenses": [
             "ISC"
           ],
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-2",
@@ -1177,14 +1177,14 @@
           ]
         },
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine3",
             "version": "0.4.1",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         }
       ]
     },
@@ -1195,19 +1195,24 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.3.5",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         },
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1217,17 +1222,12 @@
               "max_severity": ""
             }
           ],
-          "license_violations": [
-            "Apache-2.0"
-          ],
           "licenses": [
             "Apache-2.0"
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
+          "license_violations": [
+            "Apache-2.0"
+          ],
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1265,6 +1265,12 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm",
+            "commit": "abcxzy"
+          },
           "groups": [
             {
               "ids": [
@@ -1274,18 +1280,12 @@
               "max_severity": ""
             }
           ],
-          "license_violations": [
-            "MIT"
-          ],
           "licenses": [
             "MIT"
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm",
-            "commit": "abcxzy"
-          },
+          "license_violations": [
+            "MIT"
+          ],
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1307,6 +1307,12 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine2",
+            "version": "",
+            "ecosystem": "npm",
+            "commit": "abc123"
+          },
           "groups": [
             {
               "ids": [
@@ -1319,12 +1325,6 @@
           "licenses": [
             "ISC"
           ],
-          "package": {
-            "name": "mine2",
-            "version": "",
-            "ecosystem": "npm",
-            "commit": "abc123"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-2",
@@ -1338,14 +1338,14 @@
           ]
         },
         {
-          "licenses": [
-            "ISC"
-          ],
           "package": {
             "name": "mine3",
             "version": "0.4.1",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "ISC"
+          ]
         }
       ]
     },
@@ -1356,19 +1356,24 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine1",
             "version": "1.3.5",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         },
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1378,17 +1383,12 @@
               "max_severity": ""
             }
           ],
-          "license_violations": [
-            "Apache-2.0"
-          ],
           "licenses": [
             "Apache-2.0"
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
+          "license_violations": [
+            "Apache-2.0"
+          ],
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1426,6 +1426,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1435,17 +1440,12 @@
               "max_severity": ""
             }
           ],
-          "license_violations": [
-            "MIT"
-          ],
           "licenses": [
             "MIT"
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
+          "license_violations": [
+            "MIT"
+          ],
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1483,6 +1483,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1498,17 +1503,12 @@
               "max_severity": ""
             }
           ],
-          "license_violations": [
-            "MIT"
-          ],
           "licenses": [
             "MIT"
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
+          "license_violations": [
+            "MIT"
+          ],
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1546,6 +1546,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1561,17 +1566,12 @@
               "max_severity": ""
             }
           ],
-          "license_violations": [
-            "MIT"
-          ],
           "licenses": [
             "MIT"
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
+          "license_violations": [
+            "MIT"
+          ],
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1609,6 +1609,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1618,17 +1623,12 @@
               "max_severity": ""
             }
           ],
-          "license_violations": [
-            "MIT"
-          ],
           "licenses": [
             "MIT"
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
+          "license_violations": [
+            "MIT"
+          ],
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1666,6 +1666,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1678,11 +1683,6 @@
           "licenses": [
             "ISC"
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1704,17 +1704,17 @@
       },
       "packages": [
         {
-          "license_violations": [
-            "MIT"
-          ],
-          "licenses": [
-            "MIT"
-          ],
           "package": {
             "name": "mine2",
             "version": "5.9.0",
             "ecosystem": "npm"
-          }
+          },
+          "licenses": [
+            "MIT"
+          ],
+          "license_violations": [
+            "MIT"
+          ]
         }
       ]
     }
@@ -1741,6 +1741,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "dependency_groups": [
             "dev",
             "optional"
@@ -1761,11 +1766,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1788,6 +1788,11 @@
           ]
         },
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.2",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1797,11 +1802,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.2",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1823,6 +1823,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "npm"
+          },
           "dependency_groups": [
             "dev"
           ],
@@ -1835,11 +1840,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-2",
@@ -1853,6 +1853,11 @@
           ]
         },
         {
+          "package": {
+            "name": "mine3",
+            "version": "0.4.1",
+            "ecosystem": "npm"
+          },
           "dependency_groups": [
             "build"
           ],
@@ -1872,11 +1877,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine3",
-            "version": "0.4.1",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-3",
@@ -1921,6 +1921,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1937,11 +1942,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1964,6 +1964,11 @@
           ]
         },
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.2",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -1973,11 +1978,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.2",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -1999,6 +1999,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2008,11 +2013,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-2",
@@ -2026,6 +2026,11 @@
           ]
         },
         {
+          "package": {
+            "name": "mine3",
+            "version": "0.4.1",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2042,11 +2047,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine3",
-            "version": "0.4.1",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-3",
@@ -2164,6 +2164,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2173,11 +2178,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -2199,6 +2199,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2208,11 +2213,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-2",
@@ -2248,6 +2248,11 @@
           }
         },
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2257,11 +2262,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -2297,6 +2297,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "author1/mine1",
+            "version": "1.2.3",
+            "ecosystem": "Packagist"
+          },
           "groups": [
             {
               "ids": [
@@ -2313,11 +2318,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "author1/mine1",
-            "version": "1.2.3",
-            "ecosystem": "Packagist"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -2340,6 +2340,11 @@
           ]
         },
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.2",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2349,11 +2354,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.2",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -2375,6 +2375,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "NuGet"
+          },
           "dependency_groups": [
             "dev"
           ],
@@ -2387,11 +2392,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "NuGet"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-2",
@@ -2405,6 +2405,11 @@
           ]
         },
         {
+          "package": {
+            "name": "author3/mine3",
+            "version": "0.4.1",
+            "ecosystem": "Packagist"
+          },
           "dependency_groups": [
             "build"
           ],
@@ -2424,11 +2429,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "author3/mine3",
-            "version": "0.4.1",
-            "ecosystem": "Packagist"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-3",
@@ -2473,6 +2473,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "author1/mine1",
+            "version": "1.2.3",
+            "ecosystem": "Packagist"
+          },
           "groups": [
             {
               "ids": [
@@ -2501,11 +2506,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "author1/mine1",
-            "version": "1.2.3",
-            "ecosystem": "Packagist"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -2528,6 +2528,11 @@
           ]
         },
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.2",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2537,11 +2542,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.2",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -2563,6 +2563,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "NuGet"
+          },
           "dependency_groups": [
             "dev"
           ],
@@ -2575,11 +2580,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "NuGet"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-2",
@@ -2593,6 +2593,11 @@
           ]
         },
         {
+          "package": {
+            "name": "author3/mine3",
+            "version": "0.4.1",
+            "ecosystem": "Packagist"
+          },
           "dependency_groups": [
             "build"
           ],
@@ -2618,11 +2623,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "author3/mine3",
-            "version": "0.4.1",
-            "ecosystem": "Packagist"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-3",
@@ -2667,6 +2667,12 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "author1/mine1",
+            "version": "1.2.3",
+            "ecosystem": "Packagist",
+            "commit": "123abc"
+          },
           "groups": [
             {
               "ids": [
@@ -2683,12 +2689,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "author1/mine1",
-            "version": "1.2.3",
-            "ecosystem": "Packagist",
-            "commit": "123abc"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -2711,6 +2711,12 @@
           ]
         },
         {
+          "package": {
+            "name": "mine1",
+            "version": "",
+            "ecosystem": "npm",
+            "commit": "abcxyz"
+          },
           "groups": [
             {
               "ids": [
@@ -2720,12 +2726,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "",
-            "ecosystem": "npm",
-            "commit": "abcxyz"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -2747,6 +2747,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine2",
+            "version": "3.2.5",
+            "ecosystem": "NuGet"
+          },
           "dependency_groups": [
             "dev"
           ],
@@ -2759,11 +2764,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine2",
-            "version": "3.2.5",
-            "ecosystem": "NuGet"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-2",
@@ -2777,6 +2777,11 @@
           ]
         },
         {
+          "package": {
+            "name": "author3/mine3",
+            "version": "0.4.1",
+            "ecosystem": "Packagist"
+          },
           "dependency_groups": [
             "build"
           ],
@@ -2796,11 +2801,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "author3/mine3",
-            "version": "0.4.1",
-            "ecosystem": "Packagist"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-3",
@@ -2943,6 +2943,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -2971,11 +2976,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3020,6 +3020,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3029,11 +3034,6 @@
               "max_severity": "9"
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3069,6 +3069,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3084,11 +3089,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3124,6 +3124,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3139,11 +3144,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3179,6 +3179,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3188,11 +3193,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3228,6 +3228,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "dependency_groups": [
             "dev"
           ],
@@ -3240,11 +3245,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3280,6 +3280,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3299,11 +3304,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3351,6 +3351,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3364,11 +3369,6 @@
               "max_severity": "8.3"
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3416,6 +3416,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3429,11 +3434,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3481,6 +3481,12 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm",
+            "commit": "abc123"
+          },
           "groups": [
             {
               "ids": [
@@ -3490,12 +3496,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm",
-            "commit": "abc123"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3531,6 +3531,12 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "",
+            "ecosystem": "npm",
+            "commit": "abc123"
+          },
           "groups": [
             {
               "ids": [
@@ -3540,12 +3546,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "",
-            "ecosystem": "npm",
-            "commit": "abc123"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3581,6 +3581,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3590,11 +3595,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3603,6 +3603,11 @@
           ]
         },
         {
+          "package": {
+            "name": "mine3",
+            "version": "0.10.2-rc",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3612,11 +3617,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine3",
-            "version": "0.10.2-rc",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-2"
@@ -3646,6 +3646,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3655,11 +3660,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3710,6 +3710,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "groups": [
             {
               "ids": [
@@ -3719,11 +3724,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",
@@ -3745,6 +3745,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
           "dependency_groups": [
             "dev"
           ],
@@ -3757,11 +3762,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "mine1",
-            "version": "1.2.3",
-            "ecosystem": "npm"
-          },
           "vulnerabilities": [
             {
               "id": "OSV-1",

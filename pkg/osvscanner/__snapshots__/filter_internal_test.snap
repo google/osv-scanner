@@ -21,6 +21,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "remove_dir_all",
+            "version": "0.5.3",
+            "ecosystem": "crates.io"
+          },
           "groups": [
             {
               "ids": [
@@ -34,11 +39,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "remove_dir_all",
-            "version": "0.5.3",
-            "ecosystem": "crates.io"
-          },
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -172,6 +172,11 @@
           ]
         },
         {
+          "package": {
+            "name": "time",
+            "version": "0.1.45",
+            "ecosystem": "crates.io"
+          },
           "groups": [
             {
               "ids": [
@@ -185,11 +190,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "time",
-            "version": "0.1.45",
-            "ecosystem": "crates.io"
-          },
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -429,6 +429,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "golang.org/x/net",
+            "version": "0.1.0",
+            "ecosystem": "Go"
+          },
           "groups": [
             {
               "ids": [
@@ -462,11 +467,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "golang.org/x/net",
-            "version": "0.1.0",
-            "ecosystem": "Go"
-          },
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -925,6 +925,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "ascii",
+            "version": "0.8.7",
+            "ecosystem": "crates.io"
+          },
           "groups": [
             {
               "ids": [
@@ -945,11 +950,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "ascii",
-            "version": "0.8.7",
-            "ecosystem": "crates.io"
-          },
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -1071,6 +1071,11 @@
           ]
         },
         {
+          "package": {
+            "name": "remove_dir_all",
+            "version": "0.5.3",
+            "ecosystem": "crates.io"
+          },
           "groups": [
             {
               "ids": [
@@ -1084,11 +1089,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "remove_dir_all",
-            "version": "0.5.3",
-            "ecosystem": "crates.io"
-          },
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -1222,6 +1222,11 @@
           ]
         },
         {
+          "package": {
+            "name": "time",
+            "version": "0.1.45",
+            "ecosystem": "crates.io"
+          },
           "groups": [
             {
               "ids": [
@@ -1235,11 +1240,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "time",
-            "version": "0.1.45",
-            "ecosystem": "crates.io"
-          },
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -1492,6 +1492,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "unixodbc",
+            "version": "2.3.11-2",
+            "ecosystem": "Debian:10"
+          },
           "groups": [
             {
               "ids": [
@@ -1501,11 +1506,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "unixodbc",
-            "version": "2.3.11-2",
-            "ecosystem": "Debian:10"
-          },
           "vulnerabilities": [
             {
               "id": "CVE-2024-1013",
@@ -1551,6 +1551,11 @@
           ]
         },
         {
+          "package": {
+            "name": "chromium",
+            "version": "73.0.3683.75-1",
+            "ecosystem": "Debian:10"
+          },
           "groups": [
             {
               "ids": [
@@ -1560,11 +1565,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "chromium",
-            "version": "73.0.3683.75-1",
-            "ecosystem": "Debian:10"
-          },
           "vulnerabilities": [
             {
               "id": "CVE-2024-3847",
@@ -1657,6 +1657,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "golang.org/x/net",
+            "version": "0.1.0",
+            "ecosystem": "Go"
+          },
           "groups": [
             {
               "ids": [
@@ -1670,11 +1675,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "golang.org/x/net",
-            "version": "0.1.0",
-            "ecosystem": "Go"
-          },
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -1874,6 +1874,11 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "ascii",
+            "version": "0.8.7",
+            "ecosystem": "crates.io"
+          },
           "groups": [
             {
               "ids": [
@@ -1885,11 +1890,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "ascii",
-            "version": "0.8.7",
-            "ecosystem": "crates.io"
-          },
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -1952,6 +1952,11 @@
           ]
         },
         {
+          "package": {
+            "name": "time",
+            "version": "0.1.45",
+            "ecosystem": "crates.io"
+          },
           "groups": [
             {
               "ids": [
@@ -1965,11 +1970,6 @@
               "max_severity": ""
             }
           ],
-          "package": {
-            "name": "time",
-            "version": "0.1.45",
-            "ecosystem": "crates.io"
-          },
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
