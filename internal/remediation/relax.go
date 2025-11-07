@@ -39,7 +39,7 @@ func ComputeRelaxPatches(ctx context.Context, cl client.ResolutionClient, result
 	toProcess := 0
 	for _, vuln := range result.Vulns {
 		// TODO: limit the number of goroutines
-		go doRelax([]string{vuln.OSV.Id})
+		go doRelax([]string{vuln.OSV.GetId()})
 		toProcess++
 	}
 

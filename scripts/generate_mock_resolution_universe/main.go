@@ -301,9 +301,7 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, clie
 
 	var vulns []*osvschema.Vulnerability
 	for _, r := range vulnerabilities {
-		for _, r2 := range r {
-			vulns = append(vulns, r2)
-		}
+		vulns = append(vulns, r...)
 	}
 
 	return clienttest.ResolutionUniverse{System: system.String(), Schema: schema.String()}, clienttest.VulnerabilityMatcher{Vulns: vulns}, nil
@@ -332,15 +330,14 @@ func typeString(t dep.Type) string {
 	return strings.Join(parts, " ")
 }
 
-func main() {
+func run() error {
 	universeFile := flag.String("universeFile", "universe.yaml", "output file for the resolution universe")
 	vulnFile := flag.String("vulnFile", "vulns.json", "output file for the vulnerabilities")
 	flag.Parse()
 
 	cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
 	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-		os.Exit(1)
+		return err
 	}
 
 	group := &errgroup.Group{}
@@ -386,14 +383,12 @@ func main() {
 
 	universe, vulns, err := makeUniverse(cl)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error making universe: %v\n", err)
-		os.Exit(1)
+		return fmt.Errorf("error making universe: %w", err)
 	}
 
 	uFile, err := os.Create(*universeFile)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error creating universe file: %v\n", err)
-		os.Exit(1)
+		return fmt.Errorf("error creating universe file: %w", err)
 	}
 	defer uFile.Close()
 
@@ -401,14 +396,12 @@ func main() {
 	uEnc := yaml.NewEncoder(uFile)
 	uEnc.SetIndent(2)
 	if err := uEnc.Encode(universe); err != nil {
-		fmt.Fprintf(os.Stderr, "error encoding universe: %v\n", err)
-		os.Exit(1)
+		return fmt.Errorf("error encoding universe: %w", err)
 	}
 
 	vFile, err := os.Create(*vulnFile)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "error creating vuln file: %v\n", err)
-		os.Exit(1)
+		return fmt.Errorf("error creating vuln file: %w", err)
 	}
 	defer vFile.Close()
 
@@ -418,8 +411,7 @@ func main() {
 	for _, v := range vulns.Vulns {
 		jsonBytes, err := marshaler.Marshal(v)
 		if err != nil {
-			fmt.Fprintf(os.Stderr, "error marshalling vuln to json: %v\n", err)
-			os.Exit(1)
+			return fmt.Errorf("error marshalling vuln to json: %w", err)
 		}
 		vulnsJSON = append(vulnsJSON, jsonBytes)
 	}
@@ -431,7 +423,15 @@ func main() {
 	vEnc := json.NewEncoder(vFile)
 	vEnc.SetIndent("", "  ")
 	if err := vEnc.Encode(vulnsData); err != nil {
-		fmt.Fprintf(os.Stderr, "error encoding vulns: %v\n", err)
+		return fmt.Errorf("error encoding vulns: %w", err)
+	}
+
+	return nil
+}
+
+func main() {
+	if err := run(); err != nil {
+		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 }

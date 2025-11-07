@@ -158,7 +158,7 @@ func runGovulncheck(moddir string, vulns []*osvschema.Vulnerability, goVersion s
 		if err != nil {
 			return nil, err
 		}
-		if err := os.WriteFile(fmt.Sprintf("%s/%s.json", dbdir, vuln.Id), dat, 0600); err != nil {
+		if err := os.WriteFile(fmt.Sprintf("%s/%s.json", dbdir, vuln.GetId()), dat, 0600); err != nil {
 			return nil, err
 		}
 	}

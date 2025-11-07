@@ -268,7 +268,7 @@ func VulnerabilitiesAffectingPackage(allVulns []*osvschema.Vulnerability, pkg im
 	var vulnerabilities []*osvschema.Vulnerability
 
 	for _, vulnerability := range allVulns {
-		if vulnerability.Withdrawn == nil && vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
+		if vulnerability.GetWithdrawn() == nil && vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
 			vulnerabilities = append(vulnerabilities, vulnerability)
 		}
 	}

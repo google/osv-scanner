@@ -241,9 +241,9 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			if v == nil {
 				continue
 			}
-			longDescription = v.Details
-			if v.Summary != "" {
-				shortDescription = fmt.Sprintf("%s: %s", gv.DisplayID, v.Summary)
+			longDescription = v.GetDetails()
+			if v.GetSummary() != "" {
+				shortDescription = fmt.Sprintf("%s: %s", gv.DisplayID, v.GetSummary())
 				break
 			}
 		}

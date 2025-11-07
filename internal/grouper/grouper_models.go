@@ -20,17 +20,17 @@ func ConvertVulnerabilityToIDAliases(c []*osvschema.Vulnerability) []IDAliases {
 
 	for _, v := range c {
 		idAliases := IDAliases{
-			ID:      v.Id,
-			Aliases: v.Aliases,
+			ID:      v.GetId(),
+			Aliases: v.GetAliases(),
 		}
 
-		idAliases.Aliases = append(idAliases.Aliases, v.Upstream...)
+		idAliases.Aliases = append(idAliases.Aliases, v.GetUpstream()...)
 
 		// For Ubuntu Security Advisory data,
 		// all related CVEs should be bundled together, as they are part of this USN.
 		// TODO(jesslowe): remove after all USNs are migrated.
-		if strings.Split(v.Id, "-")[0] == "USN" {
-			idAliases.Aliases = append(idAliases.Aliases, v.Related...)
+		if strings.Split(v.GetId(), "-")[0] == "USN" {
+			idAliases.Aliases = append(idAliases.Aliases, v.GetRelated()...)
 		}
 
 		output = append(output, idAliases)

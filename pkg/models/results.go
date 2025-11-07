@@ -48,7 +48,7 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 					Package:       pkg.Package,
 					DepGroups:     pkg.DepGroups,
 					Vulnerability: v,
-					GroupInfo:     getGroupInfoForVuln(pkg.Groups, v.Id),
+					GroupInfo:     getGroupInfoForVuln(pkg.Groups, v.GetId()),
 				})
 			}
 			if len(pkg.LicenseViolations) > 0 {
@@ -124,8 +124,8 @@ func (v *VulnerabilityFlattened) UnmarshalJSON(data []byte) error {
 	// Use an alias to avoid an infinite recursion loop.
 	type alias VulnerabilityFlattened
 	tmp := &struct {
-		Vulnerability json.RawMessage `json:"Vulnerability"`
 		*alias
+		Vulnerability json.RawMessage `json:"Vulnerability"`
 	}{
 		alias: (*alias)(v),
 	}
@@ -238,8 +238,8 @@ func (p *PackageVulns) UnmarshalJSON(data []byte) error {
 	// Use temporary struct to combine standard fields (via alias)
 	// and the manually processed field (via shadowing).
 	tmp := &struct {
-		Vulnerabilities []json.RawMessage `json:"vulnerabilities,omitempty"`
 		*alias
+		Vulnerabilities []json.RawMessage `json:"vulnerabilities,omitempty"`
 	}{
 		alias: (*alias)(p),
 	}

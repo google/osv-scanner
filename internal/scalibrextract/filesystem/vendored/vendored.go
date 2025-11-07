@@ -122,13 +122,13 @@ func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (i
 		return inventory.Inventory{}, err
 	}
 
-	if len(results.Matches) > 0 && results.Matches[0].Score > determineVersionThreshold {
-		match := results.Matches[0]
-		// r.Infof("Identified %s as %s at %s.\n", libPath, match.RepoInfo.Address, match.RepoInfo.Commit)
-		packages = append(packages, &extractor.Package{
-			SourceCode: &extractor.SourceCodeIdentifier{
-				Commit: match.RepoInfo.Commit,
-			},
+	if len(results.GetMatches()) > 0 && results.GetMatches()[0].Score > determineVersionThreshold {
+			match := results.GetMatches()[0]
+			// r.Infof("Identified %s as %s at %s.\n", libPath, match.RepoInfo.Address, match.RepoInfo.Commit)
+			packages = append(packages, &extractor.Package{
+				SourceCode: &extractor.SourceCodeIdentifier{
+					Commit: match.GetRepoInfo().GetCommit(),
+				},
 			Locations: []string{input.Path},
 		})
 	}

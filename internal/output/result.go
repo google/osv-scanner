@@ -133,8 +133,8 @@ func (g *groupedSARIFFinding) UnmarshalJSON(data []byte) error {
 	// Use temporary struct to combine standard fields (via alias)
 	// and the manually processed field (via shadowing).
 	tmp := &struct {
-		AliasedVulns map[string]json.RawMessage `json:"AliasedVulns"`
 		*alias
+		AliasedVulns map[string]json.RawMessage `json:"AliasedVulns"`
 	}{
 		alias: (*alias)(g),
 	}
@@ -183,8 +183,8 @@ func (g *groupedSARIFFinding) MarshalJSON() ([]byte, error) {
 	// Use temporary struct to combine standard fields (via alias)
 	// and the manually processed field (via shadowing).
 	return json.Marshal(&struct {
-		AliasedVulns map[string]json.RawMessage `json:"AliasedVulns"`
 		*alias
+		AliasedVulns map[string]json.RawMessage `json:"AliasedVulns"`
 	}{
 		AliasedVulns: rawVulns,
 		alias:        (*alias)(g),
@@ -226,11 +226,11 @@ func mapIDsToGroupedSARIFFinding(vulnResults *models.VulnerabilityResults) map[s
 					Package: pkg.Package,
 					Source:  res.Source,
 				}
-				entry := results[v.Id]
+				entry := results[v.GetId()]
 				entry.PkgSource[newPkgSource] = struct{}{}
-				entry.AliasedVulns[v.Id] = v
-				entry.AliasedIDList = append(entry.AliasedIDList, v.Id)
-				entry.AliasedIDList = append(entry.AliasedIDList, v.Aliases...)
+				entry.AliasedVulns[v.GetId()] = v
+				entry.AliasedIDList = append(entry.AliasedIDList, v.GetId())
+				entry.AliasedIDList = append(entry.AliasedIDList, v.GetAliases()...)
 			}
 		}
 	}

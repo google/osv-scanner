@@ -498,7 +498,7 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 		onlyUnimportantVuln := true
 		var licenseViolation bool
 		for _, vf := range vulnResults.Flatten() {
-			if vf.Vulnerability != nil && vf.Vulnerability.Id != "" {
+			if vf.Vulnerability != nil && vf.Vulnerability.GetId() != "" {
 				vuln = true
 				// TODO(gongh): rewrite the logic once we support reachability analysis for container scanning.
 				if vf.GroupInfo.IsCalled() && !vf.GroupInfo.IsGroupUnimportant() {

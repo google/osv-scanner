@@ -10,13 +10,13 @@ import (
 // MostUpstreamsOrder orders by which vuln has the most upstreams,
 // thereby finding the furthest downstream vuln identifier.
 func MostUpstreamsOrder(a, b *osvschema.Vulnerability) int {
-	if len(a.Upstream) > len(b.Upstream) {
+	if len(a.GetUpstream()) > len(b.GetUpstream()) {
 		return -1
-	} else if len(a.Upstream) < len(b.Upstream) {
+	} else if len(a.GetUpstream()) < len(b.GetUpstream()) {
 		return 1
 	}
 
-	return IDSortFunc(a.Id, b.Id)
+	return IDSortFunc(a.GetId(), b.GetId())
 }
 
 func prefixOrder(prefix string) int {

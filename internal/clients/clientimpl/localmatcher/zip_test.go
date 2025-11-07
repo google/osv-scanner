@@ -36,7 +36,7 @@ func expectDBToHaveOSVs(
 	vulns := db.Vulnerabilities
 
 	sort.Slice(vulns, func(i, j int) bool {
-		return vulns[i].Id < vulns[j].Id
+		return vulns[i].GetId() < vulns[j].GetId()
 	})
 	sort.Slice(expect, func(i, j int) bool {
 		return expect[i].Id < expect[j].Id

@@ -99,7 +99,7 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 		// If there are any new vulns, try override them as well
 		var newlyAdded []string
 		for _, v := range diff.AddedVulns {
-			if !slices.Contains(res.vulnIDs, v.OSV.Id) {
+			if !slices.Contains(res.vulnIDs, v.OSV.GetId()) {
 				newlyAdded = append(newlyAdded, v.OSV.Id)
 			}
 		}

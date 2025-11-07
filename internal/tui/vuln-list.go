@@ -179,11 +179,11 @@ func (d vulnListItemDelegate) Render(w io.Writer, m list.Model, index int, listI
 		cursor = SelectedTextStyle.Render(">")
 		idStyle = idStyle.Inherit(SelectedTextStyle)
 	}
-	id := idStyle.Render(vuln.OSV.Id)
-	sev := RenderSeverityShort(vuln.OSV.Severity)
+	id := idStyle.Render(vuln.OSV.GetId())
+	sev := RenderSeverityShort(vuln.OSV.GetSeverity())
 	str := fmt.Sprintf("%s %s  %s  ", cursor, id, sev)
 	fmt.Fprint(w, str)
-	fmt.Fprint(w, truncate.StringWithTail(vuln.OSV.Summary, uint(m.Width()-lipgloss.Width(str)), "…")) //nolint:gosec
+	fmt.Fprint(w, truncate.StringWithTail(vuln.OSV.GetSummary(), uint(m.Width()-lipgloss.Width(str)), "…")) //nolint:gosec
 }
 
 // workaround item delegate wrapper to stop the selected item from being shown as selected

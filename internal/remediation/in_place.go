@@ -74,7 +74,7 @@ func (r InPlaceResult) VulnCount() VulnCount {
 	for _, p := range r.Patches {
 		vk := resolve.VersionKey{PackageKey: p.Pkg, Version: p.OrigVersion}
 		for _, rv := range p.ResolvedVulns {
-			key := vulnKey{id: rv.OSV.Id, vk: vk}
+			key := vulnKey{id: rv.OSV.GetId(), vk: vk}
 			d, ok := uniqueVulns[key]
 			if !ok {
 				d.dev = rv.DevOnly

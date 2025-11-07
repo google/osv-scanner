@@ -320,7 +320,7 @@ func (res *Result) CalculateDiff(other *Result) Difference {
 	for _, v := range other.Vulns {
 		if _, ok := oldVulns[v.OSV.Id]; ok {
 			// The vuln already existed.
-			delete(oldVulns, v.OSV.Id) // delete so we know what's been removed
+			delete(oldVulns, v.OSV.GetId()) // delete so we know what's been removed
 		} else {
 			// This vuln was not in the original resolution - it was newly added
 			diff.AddedVulns = append(diff.AddedVulns, v)

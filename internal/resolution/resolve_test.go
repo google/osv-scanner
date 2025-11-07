@@ -27,7 +27,7 @@ func checkResult(t *testing.T, result *resolution.Result) {
 	minVulns := make([]minimalVuln, len(result.Vulns))
 	for i, v := range result.Vulns {
 		minVulns[i] = minimalVuln{
-			ID:        v.OSV.Id,
+			ID:        v.OSV.GetId(),
 			DevOnly:   v.DevOnly,
 			Subgraphs: v.Subgraphs,
 		}

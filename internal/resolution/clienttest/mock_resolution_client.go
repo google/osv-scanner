@@ -46,6 +46,7 @@ func (vm *VulnerabilityMatcher) UnmarshalJSON(data []byte) error {
 		}
 		vm.Vulns = append(vm.Vulns, vuln)
 	}
+
 	return nil
 }
 
@@ -66,10 +67,10 @@ func (mdc mockDependencyClient) LoadCache(string) error                  { retur
 func (mdc mockDependencyClient) WriteCache(string) error                 { return nil }
 func (mdc mockDependencyClient) AddRegistries(_ []client.Registry) error { return nil }
 
-func NewMockResolutionClient(t *testing.T, universeYaml, vulnJson string) client.ResolutionClient {
+func NewMockResolutionClient(t *testing.T, universeYaml, vulnJSON string) client.ResolutionClient {
 	t.Helper()
 
-	f, err := os.Open(vulnJson)
+	f, err := os.Open(vulnJSON)
 	if err != nil {
 		t.Fatalf("failed reading mock vulnerability file: %v", err)
 	}

@@ -61,7 +61,7 @@ func NewInPlaceInfo(res remediation.InPlaceResult) *inPlaceInfo {
 			row := table.Row{
 				"",
 				"",
-				v.OSV.Id,
+				v.OSV.GetId(),
 			}
 			rows = append(rows, row)
 			info.vulns = append(info.vulns, &patch.ResolvedVulns[i+1])

@@ -133,9 +133,9 @@ func (v *vulnInfo) View() string {
 
 	detailWidth := v.width - (vulnInfoHeadingStyle.GetWidth() + vulnInfoHeadingStyle.GetMarginRight())
 
-	vID := v.vuln.OSV.Id
-	sev := RenderSeverity(v.vuln.OSV.Severity)
-	sum := wordwrap.String(v.vuln.OSV.Summary, detailWidth)
+	vID := v.vuln.OSV.GetId()
+	sev := RenderSeverity(v.vuln.OSV.GetSeverity())
+	sum := wordwrap.String(v.vuln.OSV.GetSummary(), detailWidth)
 
 	var det string
 	r, err := glamour.NewTermRenderer(
@@ -189,7 +189,7 @@ func (v *vulnInfo) detailsOnlyView() string {
 		glamour.WithWordWrap(v.width),
 	)
 	if err == nil {
-		det, err = r.Render(v.vuln.OSV.Details)
+		det, err = r.Render(v.vuln.OSV.GetDetails())
 	}
 	if err != nil {
 		det = v.fallbackDetails(v.width)

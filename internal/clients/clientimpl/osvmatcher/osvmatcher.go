@@ -88,7 +88,7 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 				if ctx.Err() != nil {
 					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
-				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.Id)
+				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.GetId())
 				if err != nil {
 					return err
 				}

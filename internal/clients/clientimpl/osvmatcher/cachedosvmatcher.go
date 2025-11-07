@@ -50,7 +50,7 @@ func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs 
 		}
 
 		pkgInfo := imodels.FromInventory(inv)
-		vulns, ok := matcher.vulnCache.Load(
+		cachedVulns, ok := matcher.vulnCache.Load(
 			vulns.NewPackageKey(&osvschema.Package{
 				Name:      pkgInfo.Name(),
 				Ecosystem: pkgInfo.Ecosystem().String(),
@@ -58,7 +58,7 @@ func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs 
 		if !ok {
 			continue
 		}
-		results[i] = localmatcher.VulnerabilitiesAffectingPackage(vulns.([]*osvschema.Vulnerability), pkgInfo)
+		results[i] = localmatcher.VulnerabilitiesAffectingPackage(cachedVulns.([]*osvschema.Vulnerability), pkgInfo)
 	}
 
 	return results, nil
@@ -126,7 +126,7 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 				if ctx.Err() != nil {
 					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
-				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.Id)
+				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.GetId())
 				if err != nil {
 					return err
 				}

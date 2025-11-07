@@ -59,7 +59,7 @@ func checkInPlaceResults(t *testing.T, res remediation.InPlaceResult) {
 		slices.Sort(sortedNodes)
 
 		return minimalVuln{
-			ID:            v.OSV.Id,
+			ID:            v.OSV.GetId(),
 			AffectedNodes: sortedNodes,
 		}
 	}

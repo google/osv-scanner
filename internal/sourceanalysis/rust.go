@@ -95,7 +95,7 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 						if funcName, ok := f.(string); ok {
 							_, called := calls[funcName]
 							// Once one advisory marks this vuln as called, always mark as called
-							isCalledVulnMap[v.Id] = isCalledVulnMap[v.Id] || called
+							isCalledVulnMap[v.GetId()] = isCalledVulnMap[v.GetId()] || called
 						}
 					}
 				}

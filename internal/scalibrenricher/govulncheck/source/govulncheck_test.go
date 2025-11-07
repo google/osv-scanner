@@ -56,7 +56,7 @@ func TestEnricher(t *testing.T) {
 	}
 
 	for _, vuln := range inv.PackageVulns {
-		switch vuln.Vulnerability.Id {
+		switch vuln.Vulnerability.GetId() {
 		case reachableVulnID:
 			if len(vuln.ExploitabilitySignals) != 0 {
 				t.Fatalf("govulncheck enrich failed, expected %s to be reachable, but marked as unreachable", reachableVulnID)

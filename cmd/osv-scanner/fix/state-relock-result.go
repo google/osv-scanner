@@ -247,14 +247,14 @@ func relockUnfixableVulns(diffs []resolution.Difference) []*resolution.Vulnerabi
 	fixableVulnIDs := make(map[string]struct{})
 	for _, diff := range diffs {
 		for _, v := range diff.RemovedVulns {
-			fixableVulnIDs[v.OSV.Id] = struct{}{}
+			fixableVulnIDs[v.OSV.GetId()] = struct{}{}
 		}
 	}
 
 	// select only vulns that aren't fixed in any patch
 	var unfixable []*resolution.Vulnerability
 	for i, v := range diffs[0].Original.Vulns {
-		if _, ok := fixableVulnIDs[v.OSV.Id]; !ok {
+		if _, ok := fixableVulnIDs[v.OSV.GetId()]; !ok {
 			unfixable = append(unfixable, &diffs[0].Original.Vulns[i])
 		}
 	}

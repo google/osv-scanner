@@ -28,6 +28,8 @@ func CalculateScore(severity *osvschema.Severity) (float64, string, error) {
 	rating := string(UnknownRating)
 	var err error
 	switch severity.Type {
+	case osvschema.Severity_UNSPECIFIED:
+		// UNSPECIFIED has no score information
 	case osvschema.Severity_CVSS_V2:
 		var vec *gocvss20.CVSS20
 		vec, err = gocvss20.ParseVector(severity.Score)
@@ -61,7 +63,7 @@ func CalculateScore(severity *osvschema.Severity) (float64, string, error) {
 			rating, err = gocvss40.Rating(score)
 		}
 	case osvschema.Severity_Ubuntu:
-		rating = severity.Score
+		rating = severity.GetScore()
 	}
 
 	return score, rating, err

@@ -571,7 +571,7 @@ func getNextFixVersion(allAffected []*osvschema.Affected, installedVersion strin
 		}
 		for _, affectedRange := range affected.Ranges {
 			for _, affectedEvent := range affectedRange.Events {
-				order, _ := vp.CompareStr(affectedEvent.Fixed)
+				order, _ := vp.CompareStr(affectedEvent.GetFixed())
 				// Skip if it's not a fix version event or the installed version is greater than the fix version.
 				if affectedEvent.Fixed == "" || order > 0 {
 					continue

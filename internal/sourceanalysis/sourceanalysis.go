@@ -12,7 +12,7 @@ func vulnsFromAllPkgs(pkgs []models.PackageVulns) ([]*osvschema.Vulnerability, m
 	flatVulns := map[string]*osvschema.Vulnerability{}
 	for _, pv := range pkgs {
 		for _, vuln := range pv.Vulnerabilities {
-			flatVulns[vuln.Id] = vuln
+			flatVulns[vuln.GetId()] = vuln
 		}
 	}
 
