@@ -224,5 +224,5 @@ func (v *vulnInfo) headingStyle(idx int) lipgloss.Style {
 
 func (v *vulnInfo) fallbackDetails(width int) string {
 	// Use raw details if markdown rendering fails for whatever reason
-	return wordwrap.String(v.vuln.OSV.Details, width)
+	return wordwrap.String(v.vuln.OSV.GetDetails(), width)
 }

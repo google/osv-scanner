@@ -27,12 +27,12 @@ func CalculateScore(severity *osvschema.Severity) (float64, string, error) {
 	score := -1.0
 	rating := string(UnknownRating)
 	var err error
-	switch severity.Type {
+	switch severity.GetType() {
 	case osvschema.Severity_UNSPECIFIED:
 		// UNSPECIFIED has no score information
 	case osvschema.Severity_CVSS_V2:
 		var vec *gocvss20.CVSS20
-		vec, err = gocvss20.ParseVector(severity.Score)
+		vec, err = gocvss20.ParseVector(severity.GetScore())
 		if err == nil {
 			score = vec.BaseScore()
 			// CVSS 2.0 does not define a rating, use CVSS 3.0's rating instead
@@ -40,16 +40,16 @@ func CalculateScore(severity *osvschema.Severity) (float64, string, error) {
 		}
 	case osvschema.Severity_CVSS_V3:
 		switch {
-		case strings.HasPrefix(severity.Score, "CVSS:3.0"):
+		case strings.HasPrefix(severity.GetScore(), "CVSS:3.0"):
 			var vec *gocvss30.CVSS30
-			vec, err = gocvss30.ParseVector(severity.Score)
+			vec, err = gocvss30.ParseVector(severity.GetScore())
 			if err == nil {
 				score = vec.BaseScore()
 				rating, err = gocvss30.Rating(score)
 			}
-		case strings.HasPrefix(severity.Score, "CVSS:3.1"):
+		case strings.HasPrefix(severity.GetScore(), "CVSS:3.1"):
 			var vec *gocvss31.CVSS31
-			vec, err = gocvss31.ParseVector(severity.Score)
+			vec, err = gocvss31.ParseVector(severity.GetScore())
 			if err == nil {
 				score = vec.BaseScore()
 				rating, err = gocvss31.Rating(score)

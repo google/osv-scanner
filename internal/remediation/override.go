@@ -58,7 +58,7 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 	toProcess := 0
 	for _, v := range result.Vulns {
 		// TODO: limit the number of goroutines
-		go doOverride([]string{v.OSV.Id})
+		go doOverride([]string{v.OSV.GetId()})
 		toProcess++
 	}
 

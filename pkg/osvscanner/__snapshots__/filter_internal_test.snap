@@ -21,6 +21,24 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "remove_dir_all",
+            "version": "0.5.3",
+            "ecosystem": "crates.io"
+          },
+          "groups": [
+            {
+              "ids": [
+                "GHSA-mc8h-8q98-g5hr",
+                "RUSTSEC-2023-0018"
+              ],
+              "aliases": [
+                "GHSA-mc8h-8q98-g5hr",
+                "RUSTSEC-2023-0018"
+              ],
+              "max_severity": ""
+            }
+          ],
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -151,27 +169,27 @@
                 }
               ]
             }
-          ],
+          ]
+        },
+        {
           "package": {
-            "name": "remove_dir_all",
-            "version": "0.5.3",
+            "name": "time",
+            "version": "0.1.45",
             "ecosystem": "crates.io"
           },
           "groups": [
             {
               "ids": [
-                "GHSA-mc8h-8q98-g5hr",
-                "RUSTSEC-2023-0018"
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
               ],
               "aliases": [
-                "GHSA-mc8h-8q98-g5hr",
-                "RUSTSEC-2023-0018"
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
               ],
               "max_severity": ""
             }
-          ]
-        },
-        {
+          ],
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -400,24 +418,6 @@
                 }
               ]
             }
-          ],
-          "package": {
-            "name": "time",
-            "version": "0.1.45",
-            "ecosystem": "crates.io"
-          },
-          "groups": [
-            {
-              "ids": [
-                "GHSA-wcg3-cvx6-7396",
-                "RUSTSEC-2020-0071"
-              ],
-              "aliases": [
-                "GHSA-wcg3-cvx6-7396",
-                "RUSTSEC-2020-0071"
-              ],
-              "max_severity": ""
-            }
           ]
         }
       ]
@@ -429,6 +429,44 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "golang.org/x/net",
+            "version": "0.1.0",
+            "ecosystem": "Go"
+          },
+          "groups": [
+            {
+              "ids": [
+                "GHSA-fxg5-wq6x-vr4w",
+                "GO-2023-1495"
+              ],
+              "aliases": [
+                "GHSA-fxg5-wq6x-vr4w",
+                "GO-2023-1495"
+              ],
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "GO-2022-1144"
+              ],
+              "aliases": [
+                "GO-2022-1144"
+              ],
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "GHSA-vvpx-j8f3-3w6h",
+                "GO-2023-1571"
+              ],
+              "aliases": [
+                "GHSA-vvpx-j8f3-3w6h",
+                "GO-2023-1571"
+              ],
+              "max_severity": ""
+            }
+          ],
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -876,44 +914,6 @@
                 }
               ]
             }
-          ],
-          "package": {
-            "name": "golang.org/x/net",
-            "version": "0.1.0",
-            "ecosystem": "Go"
-          },
-          "groups": [
-            {
-              "ids": [
-                "GHSA-fxg5-wq6x-vr4w",
-                "GO-2023-1495"
-              ],
-              "aliases": [
-                "GHSA-fxg5-wq6x-vr4w",
-                "GO-2023-1495"
-              ],
-              "max_severity": ""
-            },
-            {
-              "ids": [
-                "GO-2022-1144"
-              ],
-              "aliases": [
-                "GO-2022-1144"
-              ],
-              "max_severity": ""
-            },
-            {
-              "ids": [
-                "GHSA-vvpx-j8f3-3w6h",
-                "GO-2023-1571"
-              ],
-              "aliases": [
-                "GHSA-vvpx-j8f3-3w6h",
-                "GO-2023-1571"
-              ],
-              "max_severity": ""
-            }
           ]
         }
       ]
@@ -925,6 +925,31 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "ascii",
+            "version": "0.8.7",
+            "ecosystem": "crates.io"
+          },
+          "groups": [
+            {
+              "ids": [
+                "GHSA-mrrw-grhq-86gf"
+              ],
+              "aliases": [
+                "GHSA-mrrw-grhq-86gf"
+              ],
+              "max_severity": ""
+            },
+            {
+              "ids": [
+                "RUSTSEC-2023-0015"
+              ],
+              "aliases": [
+                "RUSTSEC-2023-0015"
+              ],
+              "max_severity": ""
+            }
+          ],
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -1043,34 +1068,27 @@
                 }
               ]
             }
-          ],
+          ]
+        },
+        {
           "package": {
-            "name": "ascii",
-            "version": "0.8.7",
+            "name": "remove_dir_all",
+            "version": "0.5.3",
             "ecosystem": "crates.io"
           },
           "groups": [
             {
               "ids": [
-                "GHSA-mrrw-grhq-86gf"
+                "GHSA-mc8h-8q98-g5hr",
+                "RUSTSEC-2023-0018"
               ],
               "aliases": [
-                "GHSA-mrrw-grhq-86gf"
-              ],
-              "max_severity": ""
-            },
-            {
-              "ids": [
-                "RUSTSEC-2023-0015"
-              ],
-              "aliases": [
-                "RUSTSEC-2023-0015"
+                "GHSA-mc8h-8q98-g5hr",
+                "RUSTSEC-2023-0018"
               ],
               "max_severity": ""
             }
-          ]
-        },
-        {
+          ],
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -1201,27 +1219,27 @@
                 }
               ]
             }
-          ],
+          ]
+        },
+        {
           "package": {
-            "name": "remove_dir_all",
-            "version": "0.5.3",
+            "name": "time",
+            "version": "0.1.45",
             "ecosystem": "crates.io"
           },
           "groups": [
             {
               "ids": [
-                "GHSA-mc8h-8q98-g5hr",
-                "RUSTSEC-2023-0018"
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
               ],
               "aliases": [
-                "GHSA-mc8h-8q98-g5hr",
-                "RUSTSEC-2023-0018"
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
               ],
               "max_severity": ""
             }
-          ]
-        },
-        {
+          ],
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -1450,24 +1468,6 @@
                 }
               ]
             }
-          ],
-          "package": {
-            "name": "time",
-            "version": "0.1.45",
-            "ecosystem": "crates.io"
-          },
-          "groups": [
-            {
-              "ids": [
-                "GHSA-wcg3-cvx6-7396",
-                "RUSTSEC-2020-0071"
-              ],
-              "aliases": [
-                "GHSA-wcg3-cvx6-7396",
-                "RUSTSEC-2020-0071"
-              ],
-              "max_severity": ""
-            }
           ]
         }
       ]
@@ -1492,6 +1492,20 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "unixodbc",
+            "version": "2.3.11-2",
+            "ecosystem": "Debian:10"
+          },
+          "groups": [
+            {
+              "ids": [
+                "CVE-2024-1013"
+              ],
+              "aliases": null,
+              "max_severity": ""
+            }
+          ],
           "vulnerabilities": [
             {
               "id": "CVE-2024-1013",
@@ -1534,23 +1548,23 @@
                 }
               ]
             }
-          ],
+          ]
+        },
+        {
           "package": {
-            "name": "unixodbc",
-            "version": "2.3.11-2",
+            "name": "chromium",
+            "version": "73.0.3683.75-1",
             "ecosystem": "Debian:10"
           },
           "groups": [
             {
               "ids": [
-                "CVE-2024-1013"
+                "CVE-2024-3847"
               ],
               "aliases": null,
               "max_severity": ""
             }
-          ]
-        },
-        {
+          ],
           "vulnerabilities": [
             {
               "id": "CVE-2024-3847",
@@ -1632,20 +1646,6 @@
                 }
               ]
             }
-          ],
-          "package": {
-            "name": "chromium",
-            "version": "73.0.3683.75-1",
-            "ecosystem": "Debian:10"
-          },
-          "groups": [
-            {
-              "ids": [
-                "CVE-2024-3847"
-              ],
-              "aliases": null,
-              "max_severity": ""
-            }
           ]
         }
       ]
@@ -1657,6 +1657,24 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "golang.org/x/net",
+            "version": "0.1.0",
+            "ecosystem": "Go"
+          },
+          "groups": [
+            {
+              "ids": [
+                "GHSA-vvpx-j8f3-3w6h",
+                "GO-2023-1571"
+              ],
+              "aliases": [
+                "GHSA-vvpx-j8f3-3w6h",
+                "GO-2023-1571"
+              ],
+              "max_severity": ""
+            }
+          ],
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -1845,24 +1863,6 @@
                 }
               ]
             }
-          ],
-          "package": {
-            "name": "golang.org/x/net",
-            "version": "0.1.0",
-            "ecosystem": "Go"
-          },
-          "groups": [
-            {
-              "ids": [
-                "GHSA-vvpx-j8f3-3w6h",
-                "GO-2023-1571"
-              ],
-              "aliases": [
-                "GHSA-vvpx-j8f3-3w6h",
-                "GO-2023-1571"
-              ],
-              "max_severity": ""
-            }
           ]
         }
       ]
@@ -1874,6 +1874,22 @@
       },
       "packages": [
         {
+          "package": {
+            "name": "ascii",
+            "version": "0.8.7",
+            "ecosystem": "crates.io"
+          },
+          "groups": [
+            {
+              "ids": [
+                "GHSA-mrrw-grhq-86gf"
+              ],
+              "aliases": [
+                "GHSA-mrrw-grhq-86gf"
+              ],
+              "max_severity": ""
+            }
+          ],
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -1933,25 +1949,27 @@
                 "severity": "MODERATE"
               }
             }
-          ],
+          ]
+        },
+        {
           "package": {
-            "name": "ascii",
-            "version": "0.8.7",
+            "name": "time",
+            "version": "0.1.45",
             "ecosystem": "crates.io"
           },
           "groups": [
             {
               "ids": [
-                "GHSA-mrrw-grhq-86gf"
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
               ],
               "aliases": [
-                "GHSA-mrrw-grhq-86gf"
+                "GHSA-wcg3-cvx6-7396",
+                "RUSTSEC-2020-0071"
               ],
               "max_severity": ""
             }
-          ]
-        },
-        {
+          ],
           "vulnerabilities": [
             {
               "schema_version": "1.4.0",
@@ -2179,24 +2197,6 @@
                   "url": "https://github.com/time-rs/time/issues/293"
                 }
               ]
-            }
-          ],
-          "package": {
-            "name": "time",
-            "version": "0.1.45",
-            "ecosystem": "crates.io"
-          },
-          "groups": [
-            {
-              "ids": [
-                "GHSA-wcg3-cvx6-7396",
-                "RUSTSEC-2020-0071"
-              ],
-              "aliases": [
-                "GHSA-wcg3-cvx6-7396",
-                "RUSTSEC-2020-0071"
-              ],
-              "max_severity": ""
             }
           ]
         }

@@ -35,12 +35,12 @@ func NewVulnList(vulns []*resolution.Vulnerability, preamble string) *vulnList {
 	// Sort the vulns by descending severity, then ID
 	vulns = slices.Clone(vulns)
 	slices.SortFunc(vulns, func(a, b *resolution.Vulnerability) int {
-		aScoreFloat, aRating, _ := severity.CalculateOverallScore(a.OSV.Severity)
+		aScoreFloat, aRating, _ := severity.CalculateOverallScore(a.OSV.GetSeverity())
 		aScore := int(aScoreFloat * 10) // CVSS scores are only to 1dp
 		if aRating == "UNKNOWN" {
 			aScore = 999 // Sort unknown before critical
 		}
-		bScoreFloat, bRating, _ := severity.CalculateOverallScore(b.OSV.Severity)
+		bScoreFloat, bRating, _ := severity.CalculateOverallScore(b.OSV.GetSeverity())
 		bScore := int(bScoreFloat * 10) // CVSS scores are only to 1dp
 		if bRating == "UNKNOWN" {
 			bScore = 999 // Sort unknown before critical
@@ -50,13 +50,13 @@ func NewVulnList(vulns []*resolution.Vulnerability, preamble string) *vulnList {
 			return -c
 		}
 
-		return cmp.Compare(a.OSV.Id, b.OSV.Id)
+		return cmp.Compare(a.OSV.GetId(), b.OSV.GetId())
 	})
 	items := make([]list.Item, 0, len(vulns))
 	delegate := vulnListItemDelegate{idWidth: 0}
 	for _, v := range vulns {
 		items = append(items, vulnListItem{v})
-		if w := lipgloss.Width(v.OSV.Id); w > delegate.idWidth {
+		if w := lipgloss.Width(v.OSV.GetId()); w > delegate.idWidth {
 			delegate.idWidth = w
 		}
 	}

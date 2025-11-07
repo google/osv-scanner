@@ -107,11 +107,12 @@ func (v *VulnerabilityFlattened) MarshalJSON() ([]byte, error) {
 	// Marshal a temporary struct that combines the standard
 	// fields (from the alias) with the custom-handled field.
 	return json.Marshal(&struct {
-		Vulnerability json.RawMessage `json:"Vulnerability"`
 		*alias
+
+		Vulnerability json.RawMessage `json:"Vulnerability"`
 	}{
-		Vulnerability: rawVulnerability,
 		alias:         (*alias)(v),
+		Vulnerability: rawVulnerability,
 	})
 }
 
@@ -125,6 +126,7 @@ func (v *VulnerabilityFlattened) UnmarshalJSON(data []byte) error {
 	type alias VulnerabilityFlattened
 	tmp := &struct {
 		*alias
+
 		Vulnerability json.RawMessage `json:"Vulnerability"`
 	}{
 		alias: (*alias)(v),
@@ -219,11 +221,12 @@ func (p *PackageVulns) MarshalJSON() ([]byte, error) {
 	// Marshal a temporary struct that combines the standard
 	// fields (from the alias) with the custom-handled field.
 	return json.Marshal(&struct {
-		Vulnerabilities []json.RawMessage `json:"vulnerabilities,omitempty"`
 		*alias
+
+		Vulnerabilities []json.RawMessage `json:"vulnerabilities,omitempty"`
 	}{
-		Vulnerabilities: rawVulnerabilities,
 		alias:           (*alias)(p),
+		Vulnerabilities: rawVulnerabilities,
 	})
 }
 
@@ -238,9 +241,9 @@ func (p *PackageVulns) UnmarshalJSON(data []byte) error {
 	// Use temporary struct to combine standard fields (via alias)
 	// and the manually processed field (via shadowing).
 	tmp := &struct {
-		Vulnerabilities []json.RawMessage `json:"vulnerabilities,omitempty"`
-
 		*alias
+
+		Vulnerabilities []json.RawMessage `json:"vulnerabilities,omitempty"`
 	}{
 		alias: (*alias)(p),
 	}

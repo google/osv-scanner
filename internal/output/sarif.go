@@ -164,14 +164,14 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 			fixedPkgTableData = append(fixedPkgTableData, FixedPkgTableData{
 				PackageName:  p.Name,
 				FixedVersion: strings.Join(slices.Compact(v2), ", "),
-				VulnID:       v.Id,
+				VulnID:       v.GetId(),
 			})
 			hasFixedVersion = true
 		}
 
 		vulnDescriptions = append(vulnDescriptions, VulnDescription{
-			ID:      v.Id,
-			Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
+			ID:      v.GetId(),
+			Details: strings.ReplaceAll(v.GetDetails(), "\n", "\n> "),
 		})
 	}
 	slices.SortFunc(vulnDescriptions, func(a, b VulnDescription) int { return identifiers.IDSortFunc(a.ID, b.ID) })

@@ -271,20 +271,20 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, clie
 		return clienttest.ResolutionUniverse{}, clienttest.VulnerabilityMatcher{}, err
 	}
 
-	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.Results))
+	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.GetResults()))
 	g, ctx := errgroup.WithContext(context.Background())
 	g.SetLimit(1000)
 
-	for batchIdx, resp := range batchResp.Results {
-		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.Vulns))
-		for resultIdx, vuln := range resp.Vulns {
+	for batchIdx, resp := range batchResp.GetResults() {
+		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.GetVulns()))
+		for resultIdx, vuln := range resp.GetVulns() {
 			g.Go(func() error {
 				// exit early if another hydration request has already failed
 				// results are thrown away later, so avoid needless work
 				if ctx.Err() != nil {
 					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
-				vuln, err := osvdev.DefaultClient().GetVulnByID(ctx, vuln.Id)
+				vuln, err := osvdev.DefaultClient().GetVulnByID(ctx, vuln.GetId())
 				if err != nil {
 					return err
 				}

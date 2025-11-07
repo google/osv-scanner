@@ -86,7 +86,7 @@ func (opts Options) matchID(v resolution.Vulnerability, ids []string) bool {
 func (opts Options) matchSeverity(v resolution.Vulnerability) bool {
 	maxScore := -1.0
 	// TODO: also check OSV.Affected[].Severity
-	for _, sev := range v.OSV.Severity {
+	for _, sev := range v.OSV.GetSeverity() {
 		if score, _, _ := severity.CalculateScore(sev); score > maxScore {
 			maxScore = score
 		}

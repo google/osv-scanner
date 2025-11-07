@@ -134,6 +134,7 @@ func (g *groupedSARIFFinding) UnmarshalJSON(data []byte) error {
 	// and the manually processed field (via shadowing).
 	tmp := &struct {
 		*alias
+
 		AliasedVulns map[string]json.RawMessage `json:"AliasedVulns"`
 	}{
 		alias: (*alias)(g),
@@ -183,12 +184,12 @@ func (g *groupedSARIFFinding) MarshalJSON() ([]byte, error) {
 	// Use temporary struct to combine standard fields (via alias)
 	// and the manually processed field (via shadowing).
 	return json.Marshal(&struct {
-		AliasedVulns map[string]json.RawMessage `json:"AliasedVulns"`
-
 		*alias
+
+		AliasedVulns map[string]json.RawMessage `json:"AliasedVulns"`
 	}{
-		AliasedVulns: rawVulns,
 		alias:        (*alias)(g),
+		AliasedVulns: rawVulns,
 	})
 }
 

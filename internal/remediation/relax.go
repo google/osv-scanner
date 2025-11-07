@@ -119,7 +119,7 @@ func reqsToRelax(ctx context.Context, cl resolve.Client, res *resolution.Result,
 	toRelax := make(map[resolve.VersionKey]string)
 	for _, v := range res.Vulns {
 		// Don't do a full opts.MatchVuln() since we know we don't need to check every condition
-		if !slices.Contains(vulnIDs, v.OSV.Id) || (!opts.DevDeps && v.DevOnly) {
+		if !slices.Contains(vulnIDs, v.OSV.GetId()) || (!opts.DevDeps && v.DevOnly) {
 			continue
 		}
 		// Only relax dependencies if their distance is less than MaxDepth

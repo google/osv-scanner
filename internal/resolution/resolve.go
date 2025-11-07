@@ -226,7 +226,7 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 			vulnerableNodes = append(vulnerableNodes, resolve.NodeID(i))
 		}
 		for _, vuln := range vulns {
-			vulnInfo[vuln.Id] = vuln
+			vulnInfo[vuln.GetId()] = vuln
 		}
 	}
 
@@ -234,7 +234,7 @@ func (res *Result) computeVulns(ctx context.Context, cl client.ResolutionClient)
 	vulnSubgraphs := make(map[string][]*DependencySubgraph)
 	for i, nID := range vulnerableNodes {
 		for _, vuln := range nodeVulns[nID] {
-			vulnSubgraphs[vuln.Id] = append(vulnSubgraphs[vuln.Id], nodeSubgraphs[i])
+			vulnSubgraphs[vuln.GetId()] = append(vulnSubgraphs[vuln.GetId()], nodeSubgraphs[i])
 		}
 	}
 
