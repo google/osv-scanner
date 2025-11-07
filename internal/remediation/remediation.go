@@ -74,7 +74,7 @@ func (opts Options) matchID(v resolution.Vulnerability, ids []string) bool {
 		return true
 	}
 
-	for _, id := range v.OSV.Aliases {
+	for _, id := range v.OSV.GetAliases() {
 		if slices.Contains(ids, id) {
 			return true
 		}

@@ -157,7 +157,7 @@ type vulnListItem struct {
 }
 
 func (v vulnListItem) FilterValue() string {
-	return v.OSV.Id
+	return v.OSV.GetId()
 }
 
 type vulnListItemDelegate struct {

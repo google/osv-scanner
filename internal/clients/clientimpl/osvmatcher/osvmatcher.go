@@ -75,13 +75,13 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 		}
 	}
 
-	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.Results))
+	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.GetResults()))
 	g, ctx := errgroup.WithContext(ctx)
 	g.SetLimit(maxConcurrentRequests)
 
-	for batchIdx, resp := range batchResp.Results {
-		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.Vulns))
-		for resultIdx, vuln := range resp.Vulns {
+	for batchIdx, resp := range batchResp.GetResults() {
+		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.GetVulns()))
+		for resultIdx, vuln := range resp.GetVulns() {
 			g.Go(func() error {
 				// exit early if another hydration request has already failed
 				// results are thrown away later, so avoid needless work

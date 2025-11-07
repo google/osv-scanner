@@ -282,7 +282,7 @@ func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatc
 				Subgraphs: []*resolution.DependencySubgraph{nodeSubgraphs[i]},
 				DevOnly:   nodeSubgraphs[i].IsDevOnly(nil),
 			}
-			idx := slices.IndexFunc(result.vkVulns[vk], func(rv resolution.Vulnerability) bool { return rv.OSV.Id == resVuln.OSV.Id })
+			idx := slices.IndexFunc(result.vkVulns[vk], func(rv resolution.Vulnerability) bool { return rv.OSV.GetId() == resVuln.OSV.GetId() })
 			if idx >= 0 {
 				result.vkVulns[vk][idx].DevOnly = result.vkVulns[vk][idx].DevOnly && resVuln.DevOnly
 

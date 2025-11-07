@@ -143,7 +143,7 @@ func (v *vulnInfo) View() string {
 		glamour.WithWordWrap(detailWidth),
 	)
 	if err == nil {
-		det, err = r.Render(v.vuln.OSV.Details)
+		det, err = r.Render(v.vuln.OSV.GetDetails())
 	}
 	if err != nil {
 		det = v.fallbackDetails(detailWidth)

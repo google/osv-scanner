@@ -315,10 +315,10 @@ func (res *Result) CalculateDiff(other *Result) Difference {
 	// Currently this relies on vulnerability IDs being unique in the Vulns slice.
 	oldVulns := make(map[string]int, len(res.Vulns))
 	for i, v := range res.Vulns {
-		oldVulns[v.OSV.Id] = i
+		oldVulns[v.OSV.GetId()] = i
 	}
 	for _, v := range other.Vulns {
-		if _, ok := oldVulns[v.OSV.Id]; ok {
+		if _, ok := oldVulns[v.OSV.GetId()]; ok {
 			// The vuln already existed.
 			delete(oldVulns, v.OSV.GetId()) // delete so we know what's been removed
 		} else {

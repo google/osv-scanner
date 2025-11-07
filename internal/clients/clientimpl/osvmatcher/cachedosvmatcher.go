@@ -146,7 +146,7 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 	}
 
 	for i, vs := range vulnerabilities {
-		matcher.vulnCache.Store(vulns.NewPackageKey(queries[i].Package), vs)
+		matcher.vulnCache.Store(vulns.NewPackageKey(queries[i].GetPackage()), vs)
 	}
 
 	return nil

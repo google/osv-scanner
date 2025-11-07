@@ -60,7 +60,7 @@ func ComputeRelaxPatches(ctx context.Context, cl client.ResolutionClient, result
 		// If this patch adds a new vuln, see if we can fix it also
 		// TODO: If there's more than 1 added vuln, this can possibly cause every permutation of those vulns to be computed
 		for _, added := range diff.AddedVulns {
-			go doRelax(append(slices.Clone(res.vulnIDs), added.OSV.Id))
+			go doRelax(append(slices.Clone(res.vulnIDs), added.OSV.GetId()))
 			toProcess++
 		}
 	}

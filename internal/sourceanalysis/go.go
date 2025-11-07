@@ -105,18 +105,18 @@ func vulnHasImportsField(vuln *osvschema.Vulnerability, pkg *models.PackageInfo)
 	if vuln == nil {
 		return false
 	}
-	for _, affected := range vuln.Affected {
+	for _, affected := range vuln.GetAffected() {
 		if pkg != nil {
 			// TODO: Compare versions to see if this is the correct affected element
 			// ver, err := semantic.Parse(pv.Package.Version, semantic.SemverVersion)
-			if affected.Package.Name != pkg.Name {
+			if affected.GetPackage().GetName() != pkg.Name {
 				continue
 			}
 		}
-		if affected.EcosystemSpecific == nil {
+		if affected.GetEcosystemSpecific() == nil {
 			continue
 		}
-		_, hasImportsField := affected.EcosystemSpecific.Fields["imports"]
+		_, hasImportsField := affected.GetEcosystemSpecific().GetFields()["imports"]
 		if hasImportsField {
 			return true
 		}

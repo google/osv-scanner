@@ -267,10 +267,10 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		// Find the worst severity score
 		var worstScore float64 = -1
 		for _, v := range gv.AliasedVulns {
-			if v == nil || v.Severity == nil {
+			if v == nil || v.GetSeverity() == nil {
 				continue
 			}
-			score, _, _ := severity.CalculateOverallScore(v.Severity)
+			score, _, _ := severity.CalculateOverallScore(v.GetSeverity())
 			if score > worstScore {
 				worstScore = score
 			}

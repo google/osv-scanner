@@ -238,8 +238,9 @@ func (p *PackageVulns) UnmarshalJSON(data []byte) error {
 	// Use temporary struct to combine standard fields (via alias)
 	// and the manually processed field (via shadowing).
 	tmp := &struct {
-		*alias
 		Vulnerabilities []json.RawMessage `json:"vulnerabilities,omitempty"`
+
+		*alias
 	}{
 		alias: (*alias)(p),
 	}

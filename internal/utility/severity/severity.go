@@ -57,7 +57,7 @@ func CalculateScore(severity *osvschema.Severity) (float64, string, error) {
 		}
 	case osvschema.Severity_CVSS_V4:
 		var vec *gocvss40.CVSS40
-		vec, err = gocvss40.ParseVector(severity.Score)
+		vec, err = gocvss40.ParseVector(severity.GetScore())
 		if err == nil {
 			score = vec.Score()
 			rating, err = gocvss40.Rating(score)

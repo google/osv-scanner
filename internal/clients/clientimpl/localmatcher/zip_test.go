@@ -39,7 +39,7 @@ func expectDBToHaveOSVs(
 		return vulns[i].GetId() < vulns[j].GetId()
 	})
 	sort.Slice(expect, func(i, j int) bool {
-		return expect[i].Id < expect[j].Id
+		return expect[i].GetId() < expect[j].GetId()
 	})
 
 	if diff := cmp.Diff(expect, vulns, protocmp.Transform()); diff != "" {

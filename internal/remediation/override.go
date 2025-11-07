@@ -100,7 +100,7 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 		var newlyAdded []string
 		for _, v := range diff.AddedVulns {
 			if !slices.Contains(res.vulnIDs, v.OSV.GetId()) {
-				newlyAdded = append(newlyAdded, v.OSV.Id)
+				newlyAdded = append(newlyAdded, v.OSV.GetId())
 			}
 		}
 
@@ -127,7 +127,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 		// Find the relevant vulns affecting each version key.
 		vkVulns := make(map[resolve.VersionKey][]*resolution.Vulnerability)
 		for i, v := range result.Vulns {
-			if !slices.Contains(vulnIDs, v.OSV.Id) {
+			if !slices.Contains(vulnIDs, v.OSV.GetId()) {
 				continue
 			}
 			// Keep track of VersionKeys we've seen for this vuln to avoid duplicates.

@@ -416,7 +416,7 @@ func run() error {
 		vulnsJSON = append(vulnsJSON, jsonBytes)
 	}
 
-	vulnsData := map[string]interface{}{
+	vulnsData := map[string]any{
 		"vulns": vulnsJSON,
 	}
 

@@ -76,7 +76,7 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 
 		for _, pv := range pkgs {
 			for _, v := range pv.Vulnerabilities {
-				for _, a := range v.Affected {
+				for _, a := range v.GetAffected() {
 					// Example of RUSTSEC function level information:
 					//
 					// "affects": {
@@ -86,7 +86,7 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 					//     ],
 					//     "arch": []
 					// }
-					ecosystemAffects := a.EcosystemSpecific.Fields["affects"].GetStructValue().AsMap()
+					ecosystemAffects := a.GetEcosystemSpecific().GetFields()["affects"].GetStructValue().AsMap()
 					affectedFunctions, ok := ecosystemAffects["functions"].([]any)
 					if !ok {
 						continue
