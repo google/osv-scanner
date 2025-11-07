@@ -30,6 +30,7 @@ java/archive
 javascript/nodemodules
 os/apk
 os/dpkg
+os/rpm
 python/wheelegg
 rust/cargoauditable
 ---
