@@ -1,6 +1,8 @@
 package output
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"io"
 	"log"
@@ -141,6 +143,20 @@ func createSARIFFixedPkgTable(fixedPkgTableData []FixedPkgTableData) table.Write
 // stripGitHubWorkspace strips /github/workspace/ from the given path.
 func stripGitHubWorkspace(path string) string {
 	return strings.TrimPrefix(path, "/github/workspace/")
+}
+
+// createSARIFFingerprint generates a stable fingerprint for a SARIF result
+// to help GitHub deduplicate findings across scans.
+// The fingerprint is based on: vulnerability ID, artifact path, package name, and package version.
+func createSARIFFingerprint(vulnID string, artifactPath string, pkg models.PackageInfo) string {
+	// Create a stable string representation
+	pkgStr := results.PkgToString(pkg)
+	fingerprintData := fmt.Sprintf("%s:%s:%s", vulnID, artifactPath, pkgStr)
+
+	// Hash the data to create a stable fingerprint
+	hash := sha256.Sum256([]byte(fingerprintData))
+
+	return hex.EncodeToString(hash[:])
 }
 
 // createSARIFHelpText returns the text for SARIF rule's help field
@@ -285,6 +301,9 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 				alsoKnownAsStr = fmt.Sprintf(" (also known as '%s')", strings.Join(gv.AliasedIDList[1:], "', '"))
 			}
 
+			// Generate a stable fingerprint for deduplication
+			fingerprint := createSARIFFingerprint(gv.DisplayID, artifactPath, pws.Package)
+
 			run.CreateResultForRule(gv.DisplayID).
 				WithLevel("warning").
 				WithMessage(
@@ -299,7 +318,10 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 					sarif.NewLocationWithPhysicalLocation(
 						sarif.NewPhysicalLocation().
 							WithArtifactLocation(sarif.NewSimpleArtifactLocation(artifactPath)),
-					))
+					)).
+				WithPartialFingerprints(map[string]string{
+					"primaryLocationLineHash": fingerprint,
+				})
 		}
 	}
 
