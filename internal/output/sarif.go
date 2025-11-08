@@ -147,7 +147,18 @@ func stripGitHubWorkspace(path string) string {
 
 // createSARIFFingerprint generates a stable fingerprint for a SARIF result
 // to help GitHub deduplicate findings across scans.
-// The fingerprint is based on: vulnerability ID, artifact path, package name, and package version.
+//
+// The fingerprint is computed from three components to ensure uniqueness while maintaining stability:
+//  1. vulnID: The vulnerability identifier (e.g., "CVE-2022-24713") - ensures different vulnerabilities
+//     produce different fingerprints even for the same package
+//  2. artifactPath: The path to the lockfile (e.g., "/path/to/package.json") - distinguishes the same
+//     vulnerability in different parts of a monorepo or different projects
+//  3. pkg: The package information (name, version, or commit) - differentiates the same vulnerability
+//     across different versions or instances of a package
+//
+// These three components are combined because they uniquely identify a specific vulnerability finding:
+// the same vulnerability (vulnID) in the same package (pkg) detected in the same location (artifactPath)
+// should always be considered the same finding and produce the same fingerprint across scans.
 func createSARIFFingerprint(vulnID string, artifactPath string, pkg models.PackageInfo) string {
 	// Create a stable string representation
 	pkgStr := results.PkgToString(pkg)
@@ -320,6 +331,19 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 							WithArtifactLocation(sarif.NewSimpleArtifactLocation(artifactPath)),
 					)).
 				WithPartialFingerprints(map[string]string{
+					// Use "primaryLocationLineHash" as the key for the fingerprint.
+					// This is the standard key that GitHub Advanced Security uses to deduplicate
+					// code scanning alerts across multiple runs.
+					//
+					// Reference: https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning#preventing-duplicate-alerts-using-fingerprints
+					//
+					// GitHub's documentation states: "GitHub uses the primaryLocationLineHash property
+					// to detect results that are logically the same, so they can be shown only once,
+					// in the correct branch and pull request."
+					//
+					// For dependency scanning (as opposed to source code analysis), we don't have
+					// line numbers in the traditional sense, so our fingerprint is based on the
+					// combination of vulnerability ID, package, and location rather than source code lines.
 					"primaryLocationLineHash": fingerprint,
 				})
 		}
