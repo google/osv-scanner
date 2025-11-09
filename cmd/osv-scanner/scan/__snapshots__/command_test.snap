@@ -25,6 +25,9 @@ COMMANDS:
    source  scans a source project's dependencies for known vulnerabilities using the OSV database.
    image   detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally
 
+OPTIONS:
+   --help, -h  show help
+
 ---
 
 [TestCommand_SubCommands/with_no_arguments - 2]
