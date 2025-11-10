@@ -56,9 +56,11 @@ func (v *Version) fetchComponentsAndBuild(maxComponents int) (Components, string
 
 	build := v.Build
 
+	var buildSb59 strings.Builder
 	for _, c := range extra {
-		build += fmt.Sprintf(".%d", c)
+		buildSb59.WriteString(fmt.Sprintf(".%d", c))
 	}
+	build += buildSb59.String()
 
 	return comps, build
 }
