@@ -19,4 +19,5 @@ var System = map[osvschema.Ecosystem]depsdevpb.System{
 	osvschema.EcosystemGo:       depsdevpb.System_GO,
 	osvschema.EcosystemMaven:    depsdevpb.System_MAVEN,
 	osvschema.EcosystemPyPI:     depsdevpb.System_PYPI,
+	osvschema.EcosystemRubyGems: depsdevpb.System_RUBYGEMS,
 }
