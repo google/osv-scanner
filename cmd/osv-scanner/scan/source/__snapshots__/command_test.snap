@@ -424,7 +424,7 @@ Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 6 packages
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 3 packages
@@ -443,6 +443,10 @@ overriding license for package Alpine/alpine-keys/2.4-r1 with MIT
 overriding license for package Alpine/apk-tools/2.12.10-r1 with MIT
 overriding license for package Alpine/busybox-binsh/1.36.1-r27 with MIT
 overriding license for package Alpine/ca-certificates-bundle/20220614-r4 with MIT
+overriding license for package Packagist/drupal/core/10.4.5 with 0BSD
+overriding license for package Packagist/drupal/simple_sitemap/4.2.2 with 0BSD
+overriding license for package Packagist/drupal/tfa/2.0.0-alpha4 with 0BSD
+overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Alpine/libc-utils/0.7.2-r3 with MIT
 overriding license for package Alpine/libcrypto3/3.0.8-r0 with MIT
@@ -452,36 +456,42 @@ overriding license for package Alpine/musl-utils/1.2.3-r4 with MIT
 overriding license for package Alpine/scanelf/1.3.5-r1 with MIT
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Alpine/ssl_client/1.36.1-r27 with MIT
+overriding license for package Packagist/theseer/tokenizer/1.1.3 with 0BSD
 overriding license for package Alpine/zlib/1.2.13-r0 with MIT
-Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 5 ecosystems.
-1 vulnerability can be fixed.
+Total 3 packages affected by 3 known vulnerabilities (2 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 4 ecosystems.
+2 vulnerabilities can be fixed.
 
 
 +---------------------------------------+------+-----------+------------------+----------+---------------+--------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                           |
 +---------------------------------------+------+-----------+------------------+----------+---------------+--------------------------------------------------+
 | https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-insecure/composer.lock            |
+| https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+------------------+----------+---------------+--------------------------------------------------+
 +---------+-------------------------+
 | LICENSE | NO. OF PACKAGE VERSIONS |
 +---------+-------------------------+
-| MIT     |                      14 |
-| 0BSD    |                       2 |
-| UNKNOWN |                       6 |
+| MIT     |                      15 |
+| 0BSD    |                       7 |
+| UNKNOWN |                       5 |
 +---------+-------------------------+
-+-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
-| LICENSE VIOLATION | ECOSYSTEM | PACKAGE                                        | VERSION | SOURCE                                                |
-+-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
-| 0BSD              | Packagist | league/flysystem                               | 1.0.8   | testdata/locks-insecure/composer.lock                 |
-| UNKNOWN           | Go        | stdlib                                         | 1.99.9  | testdata/locks-insecure/osv-scanner-custom.json       |
-| UNKNOWN           | Go        | toolchain                                      | 1.99.9  | testdata/locks-insecure/osv-scanner-custom.json       |
-| UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |         | testdata/locks-insecure/osv-scanner-flutter-deps.json |
-| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |         | testdata/locks-insecure/osv-scanner-flutter-deps.json |
-| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |         | testdata/locks-insecure/osv-scanner-flutter-deps.json |
-| UNKNOWN           | RubyGems  | ast                                            | 2.4.2   | testdata/locks-many-with-insecure/Gemfile.lock        |
-| 0BSD              | Packagist | sentry/sdk                                     | 2.0.4   | testdata/locks-many-with-insecure/composer.lock       |
-+-------------------+-----------+------------------------------------------------+---------+-------------------------------------------------------+
++-------------------+-----------+------------------------------------------------+--------------+-------------------------------------------------------+
+| LICENSE VIOLATION | ECOSYSTEM | PACKAGE                                        | VERSION      | SOURCE                                                |
++-------------------+-----------+------------------------------------------------+--------------+-------------------------------------------------------+
+| 0BSD              | Packagist | league/flysystem                               | 1.0.8        | testdata/locks-insecure/composer.lock                 |
+| UNKNOWN           | Go        | stdlib                                         | 1.99.9       | testdata/locks-insecure/osv-scanner-custom.json       |
+| UNKNOWN           | Go        | toolchain                                      | 1.99.9       | testdata/locks-insecure/osv-scanner-custom.json       |
+| UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |              | testdata/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |              | testdata/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |              | testdata/locks-insecure/osv-scanner-flutter-deps.json |
+| 0BSD              | Packagist | drupal/core                                    | 10.4.5       | testdata/locks-many-with-insecure/composer.lock       |
+| 0BSD              | Packagist | drupal/simple_sitemap                          | 4.2.2        | testdata/locks-many-with-insecure/composer.lock       |
+| 0BSD              | Packagist | drupal/tfa                                     | 2.0.0-alpha4 | testdata/locks-many-with-insecure/composer.lock       |
+| 0BSD              | Packagist | league/flysystem                               | 1.0.8        | testdata/locks-many-with-insecure/composer.lock       |
+| 0BSD              | Packagist | sentry/sdk                                     | 2.0.4        | testdata/locks-many-with-insecure/composer.lock       |
+| 0BSD              | Packagist | theseer/tokenizer                              | 1.1.3        | testdata/locks-many-with-insecure/composer.lock       |
++-------------------+-----------+------------------------------------------------+--------------+-------------------------------------------------------+
 
 ---
 
@@ -3231,9 +3241,9 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 +------------+-------------------------+
 | LICENSE    | NO. OF PACKAGE VERSIONS |
 +------------+-------------------------+
+| MIT        |                       2 |
 | Apache-2.0 |                       1 |
-| MIT        |                       1 |
-| UNKNOWN    |                       2 |
+| UNKNOWN    |                       1 |
 +------------+-------------------------+
 
 ---
@@ -3255,9 +3265,9 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 | License | No. of package versions |
 | --- | ---:|
+| MIT | 2 |
 | Apache-2.0 | 1 |
-| MIT | 1 |
-| UNKNOWN | 2 |
+| UNKNOWN | 1 |
 
 ---
 
@@ -3364,7 +3374,7 @@ Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
 Filtered 4 ignored package/s from the scan.
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
-Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 1 vulnerability can be fixed.
 
 
@@ -3377,7 +3387,8 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 | LICENSE | NO. OF PACKAGE VERSIONS |
 +---------+-------------------------+
 | 0BSD    |                       2 |
-| UNKNOWN |                       3 |
+| MIT     |                       1 |
+| UNKNOWN |                       2 |
 +---------+-------------------------+
 +-------------------+-----------+------------------+---------+-------------------------------------------------+
 | LICENSE VIOLATION | ECOSYSTEM | PACKAGE          | VERSION | SOURCE                                          |
@@ -3385,7 +3396,6 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 | 0BSD              | Packagist | league/flysystem | 1.0.8   | testdata/locks-insecure/composer.lock           |
 | UNKNOWN           | Go        | stdlib           | 1.99.9  | testdata/locks-insecure/osv-scanner-custom.json |
 | UNKNOWN           | Go        | toolchain        | 1.99.9  | testdata/locks-insecure/osv-scanner-custom.json |
-| UNKNOWN           | RubyGems  | ast              | 2.4.2   | testdata/locks-many/Gemfile.lock                |
 | 0BSD              | Packagist | sentry/sdk       | 2.0.4   | testdata/locks-many/composer.lock               |
 +-------------------+-----------+------------------+---------+-------------------------------------------------+
 
@@ -3675,7 +3685,7 @@ No issues found
 Scanning dir ./testdata/locks-many-with-insecure
 Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 6 packages
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
@@ -3683,16 +3693,17 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-1 vulnerability can be fixed.
+Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
+2 vulnerabilities can be fixed.
 
 
-+---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
-| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE   | VERSION  | FIXED VERSION | SOURCE                                              |
-+---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
-| https://osv.dev/GHSA-whgm-jr23-g3j9   | 7.5  | npm       | ansi-html | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl      | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
-+---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
++---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
+| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                              |
++---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/GHSA-whgm-jr23-g3j9   | 7.5  | npm       | ansi-html        | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
++---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
 
 ---
 
@@ -3704,7 +3715,7 @@ Total 2 packages affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Medi
 Scanning dir ./testdata/locks-many-with-insecure
 Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 6 packages
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
@@ -3712,16 +3723,17 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-1 vulnerability can be fixed.
+Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
+2 vulnerabilities can be fixed.
 
 
-+---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
-| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE   | VERSION  | FIXED VERSION | SOURCE                                              |
-+---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
-| https://osv.dev/GHSA-whgm-jr23-g3j9   | 7.5  | npm       | ansi-html | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl      | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
-+---------------------------------------+------+-----------+-----------+----------+---------------+-----------------------------------------------------+
++---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
+| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                              |
++---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/GHSA-whgm-jr23-g3j9   | 7.5  | npm       | ansi-html        | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
++---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
 
 ---
 
@@ -4406,7 +4418,7 @@ Scanning dir ./testdata/locks-requirements
 Scanning dir ./testdata/locks-many-with-insecure
 Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 6 packages
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 1 package
@@ -4438,7 +4450,7 @@ Scanning dir ./testdata/locks-requirements
 Scanning dir ./testdata/locks-many-with-insecure
 Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
-Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 6 packages
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 1 package
