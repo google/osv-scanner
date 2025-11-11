@@ -90,10 +90,6 @@ type VulnerabilityFlattened struct {
 // which requires protojson to marshal, while the rest of the struct uses
 // the standard encoding/json library.
 func (v *VulnerabilityFlattened) MarshalJSON() ([]byte, error) {
-	// Use alias to avoid recursion.
-	type alias VulnerabilityFlattened
-
-	// Pre-process the custom field.
 	var rawVulnerability json.RawMessage
 	if v.Vulnerability != nil {
 		unstableJSON, err := protojson.Marshal(v.Vulnerability)
@@ -111,16 +107,18 @@ func (v *VulnerabilityFlattened) MarshalJSON() ([]byte, error) {
 		rawVulnerability = b
 	}
 
-	// Marshal a temporary struct that combines the standard
-	// fields (from the alias) with the custom-handled field.
-	return json.Marshal(&struct {
-		*alias
+	// Manually marshal to a map to handle the protojson field.
+	m := map[string]any{
+		"Source":            v.Source,
+		"Package":           v.Package,
+		"DepGroups":         v.DepGroups,
+		"Vulnerability":     rawVulnerability,
+		"GroupInfo":         v.GroupInfo,
+		"Licenses":          v.Licenses,
+		"LicenseViolations": v.LicenseViolations,
+	}
 
-		Vulnerability json.RawMessage `json:"Vulnerability"`
-	}{
-		alias:         (*alias)(v),
-		Vulnerability: rawVulnerability,
-	})
+	return json.Marshal(m)
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface.
@@ -208,10 +206,6 @@ type PackageVulns struct {
 // which requires protojson to marshal, while the rest of the struct uses
 // the standard encoding/json library.
 func (p *PackageVulns) MarshalJSON() ([]byte, error) {
-	// Use alias to avoid recursion.
-	type alias PackageVulns
-
-	// Pre-process the custom field.
 	var rawVulnerabilities []json.RawMessage
 	if len(p.Vulnerabilities) > 0 {
 		rawVulnerabilities = make([]json.RawMessage, 0, len(p.Vulnerabilities))
@@ -220,11 +214,11 @@ func (p *PackageVulns) MarshalJSON() ([]byte, error) {
 			if err != nil {
 				return nil, fmt.Errorf("failed to marshal vulnerability: %w", err)
 			}
-			var vuln any
-			if err := json.Unmarshal(unstableJSON, &vuln); err != nil {
+			var v any
+			if err := json.Unmarshal(unstableJSON, &v); err != nil {
 				return nil, err
 			}
-			b, err := json.MarshalIndent(vuln, "", "  ")
+			b, err := json.MarshalIndent(v, "", "  ")
 			if err != nil {
 				return nil, err
 			}
@@ -232,16 +226,26 @@ func (p *PackageVulns) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	// Marshal a temporary struct that combines the standard
-	// fields (from the alias) with the custom-handled field.
-	return json.Marshal(&struct {
-		*alias
+	m := map[string]any{
+		"package": p.Package,
+	}
+	if len(p.DepGroups) > 0 {
+		m["dependency_groups"] = p.DepGroups
+	}
+	if len(rawVulnerabilities) > 0 {
+		m["vulnerabilities"] = rawVulnerabilities
+	}
+	if len(p.Groups) > 0 {
+		m["groups"] = p.Groups
+	}
+	if len(p.Licenses) > 0 {
+		m["licenses"] = p.Licenses
+	}
+	if len(p.LicenseViolations) > 0 {
+		m["license_violations"] = p.LicenseViolations
+	}
 
-		Vulnerabilities []json.RawMessage `json:"vulnerabilities,omitempty"`
-	}{
-		alias:           (*alias)(p),
-		Vulnerabilities: rawVulnerabilities,
-	})
+	return json.Marshal(m)
 }
 
 // UnmarshalJSON implements the json.Unmarshaler interface.

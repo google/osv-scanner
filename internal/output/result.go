@@ -164,9 +164,6 @@ func (g *groupedSARIFFinding) UnmarshalJSON(data []byte) error {
 // which requires protojson to marshal, while the rest of the struct uses
 // the standard encoding/json library.
 func (g *groupedSARIFFinding) MarshalJSON() ([]byte, error) {
-	// Use alias to avoid recursion.
-	type alias groupedSARIFFinding
-
 	// Pre-process the custom field into standardized RawMessage format.
 	var rawVulns map[string]json.RawMessage
 	if g.AliasedVulns != nil {
@@ -176,11 +173,11 @@ func (g *groupedSARIFFinding) MarshalJSON() ([]byte, error) {
 			if err != nil {
 				return nil, fmt.Errorf("failed to marshal vuln %q: %w", id, err)
 			}
-			var vuln any
-			if err := json.Unmarshal(unstableJSON, &vuln); err != nil {
+			var v any
+			if err := json.Unmarshal(unstableJSON, &v); err != nil {
 				return nil, err
 			}
-			b, err := json.MarshalIndent(vuln, "", "  ")
+			b, err := json.MarshalIndent(v, "", "  ")
 			if err != nil {
 				return nil, err
 			}
@@ -188,16 +185,14 @@ func (g *groupedSARIFFinding) MarshalJSON() ([]byte, error) {
 		}
 	}
 
-	// Use temporary struct to combine standard fields (via alias)
-	// and the manually processed field (via shadowing).
-	return json.Marshal(&struct {
-		*alias
+	m := map[string]any{
+		"DisplayID":     g.DisplayID,
+		"PkgSource":     &g.PkgSource,
+		"AliasedVulns":  rawVulns,
+		"AliasedIDList": g.AliasedIDList,
+	}
 
-		AliasedVulns map[string]json.RawMessage `json:"AliasedVulns"`
-	}{
-		alias:        (*alias)(g),
-		AliasedVulns: rawVulns,
-	})
+	return json.Marshal(m)
 }
 
 // mapIDsToGroupedSARIFFinding creates a map over all vulnerability IDs, with aliased vuln IDs
