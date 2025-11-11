@@ -172,10 +172,17 @@ func (g *groupedSARIFFinding) MarshalJSON() ([]byte, error) {
 	if g.AliasedVulns != nil {
 		rawVulns = make(map[string]json.RawMessage, len(g.AliasedVulns))
 		for id, vuln := range g.AliasedVulns {
-			marshaler := protojson.MarshalOptions{Indent: "  "}
-			b, err := marshaler.Marshal(vuln)
+			unstableJSON, err := protojson.Marshal(vuln)
 			if err != nil {
 				return nil, fmt.Errorf("failed to marshal vuln %q: %w", id, err)
+			}
+			var vuln any
+			if err := json.Unmarshal(unstableJSON, &vuln); err != nil {
+				return nil, err
+			}
+			b, err := json.MarshalIndent(vuln, "", "  ")
+			if err != nil {
+				return nil, err
 			}
 			rawVulns[id] = b
 		}

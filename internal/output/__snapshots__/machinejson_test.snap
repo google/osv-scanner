@@ -958,12 +958,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1002,12 +1002,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-2",
-              "summary": "Something less scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something less scary!"
             }
           ]
         },
@@ -1072,12 +1072,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1129,12 +1129,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1167,12 +1167,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-2",
-              "summary": "Something less scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something less scary!"
             }
           ]
         },
@@ -1231,12 +1231,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1289,12 +1289,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1328,12 +1328,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-2",
-              "summary": "Something less scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something less scary!"
             }
           ]
         },
@@ -1392,12 +1392,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1449,12 +1449,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1512,12 +1512,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1575,12 +1575,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1632,12 +1632,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1686,12 +1686,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1769,21 +1769,21 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             },
             {
               "id": "OSV-5",
-              "summary": "Something scarier!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scarier!"
             }
           ]
         },
@@ -1805,12 +1805,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -1843,12 +1843,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-2",
-              "summary": "Something less scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something less scary!"
             }
           ]
         },
@@ -1880,21 +1880,21 @@
           "vulnerabilities": [
             {
               "id": "OSV-3",
-              "summary": "Something mildly scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something mildly scary!"
             },
             {
               "id": "OSV-5",
-              "summary": "Something scarier!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scarier!"
             }
           ]
         }
@@ -1945,21 +1945,21 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             },
             {
               "id": "OSV-5",
-              "summary": "Something scarier!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scarier!"
             }
           ]
         },
@@ -1981,12 +1981,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -2016,12 +2016,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-2",
-              "summary": "Something less scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something less scary!"
             }
           ]
         },
@@ -2050,21 +2050,21 @@
           "vulnerabilities": [
             {
               "id": "OSV-3",
-              "summary": "Something mildly scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something mildly scary!"
             },
             {
               "id": "OSV-5",
-              "summary": "Something scarier!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scarier!"
             }
           ]
         }
@@ -2181,12 +2181,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -2216,12 +2216,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-2",
-              "summary": "Something less scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something less scary!"
             }
           ]
         },
@@ -2265,12 +2265,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -2321,21 +2321,21 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             },
             {
               "id": "OSV-5",
-              "summary": "Something scarier!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scarier!"
             }
           ]
         },
@@ -2357,12 +2357,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -2395,12 +2395,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-2",
-              "summary": "Something less scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something less scary!"
             }
           ]
         },
@@ -2432,21 +2432,21 @@
           "vulnerabilities": [
             {
               "id": "OSV-3",
-              "summary": "Something mildly scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something mildly scary!"
             },
             {
               "id": "OSV-5",
-              "summary": "Something scarier!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scarier!"
             }
           ]
         }
@@ -2509,21 +2509,21 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             },
             {
               "id": "OSV-5",
-              "summary": "Something scarier!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scarier!"
             }
           ]
         },
@@ -2545,12 +2545,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -2583,12 +2583,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-2",
-              "summary": "Something less scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something less scary!"
             }
           ]
         },
@@ -2626,21 +2626,21 @@
           "vulnerabilities": [
             {
               "id": "OSV-3",
-              "summary": "Something mildly scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something mildly scary!"
             },
             {
               "id": "OSV-5",
-              "summary": "Something scarier!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scarier!"
             }
           ]
         }
@@ -2692,21 +2692,21 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             },
             {
               "id": "OSV-5",
-              "summary": "Something scarier!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scarier!"
             }
           ]
         },
@@ -2729,12 +2729,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -2767,12 +2767,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-2",
-              "summary": "Something less scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something less scary!"
             }
           ]
         },
@@ -2804,21 +2804,21 @@
           "vulnerabilities": [
             {
               "id": "OSV-3",
-              "summary": "Something mildly scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something mildly scary!"
             },
             {
               "id": "OSV-5",
-              "summary": "Something scarier!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scarier!"
             }
           ]
         }
@@ -2979,21 +2979,21 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             },
             {
               "id": "GHSA-123",
-              "summary": "Something scarier!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scarier!"
             }
           ]
         }
@@ -3037,12 +3037,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3092,12 +3092,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3147,12 +3147,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3196,12 +3196,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3248,12 +3248,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3307,24 +3307,24 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             },
             {
-              "id": "GHSA-123",
               "aliases": [
                 "OSV-1"
               ],
-              "summary": "Something scary!",
+              "id": "GHSA-123",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3372,24 +3372,24 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             },
             {
-              "id": "GHSA-123",
               "aliases": [
                 "OSV-1"
               ],
-              "summary": "Something scary!",
+              "id": "GHSA-123",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3437,24 +3437,24 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             },
             {
-              "id": "GHSA-123",
               "aliases": [
                 "OSV-1"
               ],
-              "summary": "Something scary!",
+              "id": "GHSA-123",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3499,12 +3499,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3549,12 +3549,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3597,8 +3597,8 @@
           ],
           "vulnerabilities": [
             {
-              "id": "OSV-1",
-              "details": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!"
+              "details": "This vulnerability allows for some very scary stuff to happen - seriously, you'd not believe it!",
+              "id": "OSV-1"
             }
           ]
         },
@@ -3663,12 +3663,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3727,12 +3727,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }
@@ -3765,12 +3765,12 @@
           "vulnerabilities": [
             {
               "id": "OSV-1",
-              "summary": "Something scary!",
               "severity": [
                 {
                   "score": "1"
                 }
-              ]
+              ],
+              "summary": "Something scary!"
             }
           ]
         }

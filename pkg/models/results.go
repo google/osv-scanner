@@ -96,10 +96,17 @@ func (v *VulnerabilityFlattened) MarshalJSON() ([]byte, error) {
 	// Pre-process the custom field.
 	var rawVulnerability json.RawMessage
 	if v.Vulnerability != nil {
-		marshaler := protojson.MarshalOptions{Indent: "  "}
-		b, err := marshaler.Marshal(v.Vulnerability)
+		unstableJSON, err := protojson.Marshal(v.Vulnerability)
 		if err != nil {
 			return nil, fmt.Errorf("failed to marshal Vulnerability: %w", err)
+		}
+		var vuln any
+		if err := json.Unmarshal(unstableJSON, &vuln); err != nil {
+			return nil, err
+		}
+		b, err := json.MarshalIndent(vuln, "", "  ")
+		if err != nil {
+			return nil, err
 		}
 		rawVulnerability = b
 	}
@@ -209,10 +216,17 @@ func (p *PackageVulns) MarshalJSON() ([]byte, error) {
 	if len(p.Vulnerabilities) > 0 {
 		rawVulnerabilities = make([]json.RawMessage, 0, len(p.Vulnerabilities))
 		for _, vuln := range p.Vulnerabilities {
-			marshaler := protojson.MarshalOptions{Indent: "  "}
-			b, err := marshaler.Marshal(vuln)
+			unstableJSON, err := protojson.Marshal(vuln)
 			if err != nil {
 				return nil, fmt.Errorf("failed to marshal vulnerability: %w", err)
+			}
+			var vuln any
+			if err := json.Unmarshal(unstableJSON, &vuln); err != nil {
+				return nil, err
+			}
+			b, err := json.MarshalIndent(vuln, "", "  ")
+			if err != nil {
+				return nil, err
 			}
 			rawVulnerabilities = append(rawVulnerabilities, b)
 		}

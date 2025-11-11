@@ -41,22 +41,18 @@
           ],
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-mc8h-8q98-g5hr",
-              "published": "2023-02-24T16:23:59Z",
-              "modified": "2023-02-24T16:23:59Z",
-              "summary": "Race Condition Enabling Link Following and Time-of-check Time-of-use (TOCTOU) Race Condition in remove_dir_all",
-              "details": "The `remove_dir_all` crate is a Rust library that offers additional features over the Rust standard library `fs::remove_dir_all` function. It suffers the same class of failure as the code it was layering over: TOCTOU race conditions, with the ability to cause arbitrary paths to be deleted by substituting a symlink for a path after the type of the path was checked.\n\nThanks to the Rust security team for identifying the problem and alerting us to it.",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-mc8h-8q98-g5hr/GHSA-mc8h-8q98-g5hr.json"
+                  },
                   "package": {
-                    "name": "remove_dir_all",
                     "ecosystem": "crates.io",
+                    "name": "remove_dir_all",
                     "purl": "pkg:cargo/remove_dir_all"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0"
@@ -64,14 +60,26 @@
                         {
                           "fixed": "0.8.0"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-mc8h-8q98-g5hr/GHSA-mc8h-8q98-g5hr.json"
-                  }
+                  ]
                 }
               ],
+              "database_specific": {
+                "cwe_ids": [
+                  "CWE-366",
+                  "CWE-367"
+                ],
+                "github_reviewed": true,
+                "github_reviewed_at": "2023-02-24T16:23:59Z",
+                "nvd_published_at": null,
+                "severity": "LOW"
+              },
+              "details": "The `remove_dir_all` crate is a Rust library that offers additional features over the Rust standard library `fs::remove_dir_all` function. It suffers the same class of failure as the code it was layering over: TOCTOU race conditions, with the ability to cause arbitrary paths to be deleted by substituting a symlink for a path after the type of the path was checked.\n\nThanks to the Rust security team for identifying the problem and alerting us to it.",
+              "id": "GHSA-mc8h-8q98-g5hr",
+              "modified": "2023-02-24T16:23:59Z",
+              "published": "2023-02-24T16:23:59Z",
               "references": [
                 {
                   "type": "WEB",
@@ -90,47 +98,18 @@
                   "url": "https://rustsec.org/advisories/RUSTSEC-2023-0018.html"
                 }
               ],
-              "database_specific": {
-                "cwe_ids": [
-                  "CWE-366",
-                  "CWE-367"
-                ],
-                "github_reviewed": true,
-                "github_reviewed_at": "2023-02-24T16:23:59Z",
-                "nvd_published_at": null,
-                "severity": "LOW"
-              }
+              "schema_version": "1.4.0",
+              "summary": "Race Condition Enabling Link Following and Time-of-check Time-of-use (TOCTOU) Race Condition in remove_dir_all"
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2023-0018",
-              "published": "2023-02-24T12:00:00Z",
-              "modified": "2023-03-04T21:50:30Z",
-              "aliases": [
-                "GHSA-mc8h-8q98-g5hr"
-              ],
-              "summary": "Race Condition Enabling Link Following and Time-of-check Time-of-use (TOCTOU)",
-              "details": "The remove_dir_all crate is a Rust library that offers additional features over the Rust\nstandard library fs::remove_dir_all function.\n\nIt was possible to trick a privileged process doing a recursive delete in an\nattacker controlled directory into deleting privileged files, on all operating systems.\n\nFor instance, consider deleting a tree called 'etc' in a parent directory\ncalled 'p'. Between calling `remove_dir_all(\"a\")` and remove_dir_all(\"a\")\nactually starting its work, the attacker can move 'p' to 'p-prime', and\nreplace 'p' with a symlink to '/'. Then the privileged process deletes 'p/etc'\nwhich is actually /etc, and now your system is broken. There are some\nmitigations for this exact scenario, such as CWD relative file lookup, but\nthey are not guaranteed - any code using absolute paths will not have that\nprotection in place.\n\nThe same attack could be performed at any point in the directory tree being\ndeleted: if 'a' contains a child directory called 'etc', attacking the\ndeletion by replacing 'a' with a link is possible.\n\nThe new code in this release mitigates the attack within the directory tree\nbeing deleted by using file-handle relative operations: to open 'a/etc', the\npath 'etc' relative to 'a' is opened, where 'a' is represented by a file\ndescriptor (Unix) or handle (Windows). With the exception of the entry points\ninto the directory deletion logic, this is robust against manipulation of the\ndirectory hierarchy, and remove_dir_all will only delete files and directories\ncontained in the tree it is deleting.\n\nThe entry path however is a challenge - as described above, there are some\npotential mitigations, but since using them must be done by the calling code,\nit is hard to be confident about the security properties of the path based\ninterface.\n\nThe new extension trait `RemoveDir` provides an interface where it is much\nharder to get it wrong.\n\n`somedir.remove_dir_contents(\"name-of-child\")`.\n\nCallers can then make their own security evaluation about how to securely get\na directory handle. That is still not particularly obvious, and we're going to\nfollow up with a helper of some sort (probably in the `fs_at` crate). Once\nthat is available, the path based entry points will get deprecated.\n\nIn the interim, processes that might run with elevated privileges should\nfigure out how to securely identify the directory they are going to delete, to\navoid the initial race. Pragmatically, other processes should be fine with the\npath based entry points : this is the same interface `std::fs::remove_dir_all`\noffers, and an unprivileged process running in an attacker controlled\ndirectory can't do anything that the attacker can't already do.",
               "affected": [
                 {
-                  "package": {
-                    "name": "remove_dir_all",
-                    "ecosystem": "crates.io",
-                    "purl": "pkg:cargo/remove_dir_all"
+                  "database_specific": {
+                    "categories": [],
+                    "cvss": null,
+                    "informational": null,
+                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2023-0018.json"
                   },
-                  "ranges": [
-                    {
-                      "type": "SEMVER",
-                      "events": [
-                        {
-                          "introduced": "0.0.0-0"
-                        },
-                        {
-                          "fixed": "0.8.0"
-                        }
-                      ]
-                    }
-                  ],
                   "ecosystem_specific": {
                     "affects": {
                       "arch": [],
@@ -142,14 +121,33 @@
                       "os": []
                     }
                   },
-                  "database_specific": {
-                    "categories": [],
-                    "cvss": null,
-                    "informational": null,
-                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2023-0018.json"
-                  }
+                  "package": {
+                    "ecosystem": "crates.io",
+                    "name": "remove_dir_all",
+                    "purl": "pkg:cargo/remove_dir_all"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0.0.0-0"
+                        },
+                        {
+                          "fixed": "0.8.0"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
                 }
               ],
+              "aliases": [
+                "GHSA-mc8h-8q98-g5hr"
+              ],
+              "details": "The remove_dir_all crate is a Rust library that offers additional features over the Rust\nstandard library fs::remove_dir_all function.\n\nIt was possible to trick a privileged process doing a recursive delete in an\nattacker controlled directory into deleting privileged files, on all operating systems.\n\nFor instance, consider deleting a tree called 'etc' in a parent directory\ncalled 'p'. Between calling `remove_dir_all(\"a\")` and remove_dir_all(\"a\")\nactually starting its work, the attacker can move 'p' to 'p-prime', and\nreplace 'p' with a symlink to '/'. Then the privileged process deletes 'p/etc'\nwhich is actually /etc, and now your system is broken. There are some\nmitigations for this exact scenario, such as CWD relative file lookup, but\nthey are not guaranteed - any code using absolute paths will not have that\nprotection in place.\n\nThe same attack could be performed at any point in the directory tree being\ndeleted: if 'a' contains a child directory called 'etc', attacking the\ndeletion by replacing 'a' with a link is possible.\n\nThe new code in this release mitigates the attack within the directory tree\nbeing deleted by using file-handle relative operations: to open 'a/etc', the\npath 'etc' relative to 'a' is opened, where 'a' is represented by a file\ndescriptor (Unix) or handle (Windows). With the exception of the entry points\ninto the directory deletion logic, this is robust against manipulation of the\ndirectory hierarchy, and remove_dir_all will only delete files and directories\ncontained in the tree it is deleting.\n\nThe entry path however is a challenge - as described above, there are some\npotential mitigations, but since using them must be done by the calling code,\nit is hard to be confident about the security properties of the path based\ninterface.\n\nThe new extension trait `RemoveDir` provides an interface where it is much\nharder to get it wrong.\n\n`somedir.remove_dir_contents(\"name-of-child\")`.\n\nCallers can then make their own security evaluation about how to securely get\na directory handle. That is still not particularly obvious, and we're going to\nfollow up with a helper of some sort (probably in the `fs_at` crate). Once\nthat is available, the path based entry points will get deprecated.\n\nIn the interim, processes that might run with elevated privileges should\nfigure out how to securely identify the directory they are going to delete, to\navoid the initial race. Pragmatically, other processes should be fine with the\npath based entry points : this is the same interface `std::fs::remove_dir_all`\noffers, and an unprivileged process running in an attacker controlled\ndirectory can't do anything that the attacker can't already do.",
+              "id": "RUSTSEC-2023-0018",
+              "modified": "2023-03-04T21:50:30Z",
+              "published": "2023-02-24T12:00:00Z",
               "references": [
                 {
                   "type": "PACKAGE",
@@ -167,7 +165,9 @@
                   "type": "ADVISORY",
                   "url": "https://github.com/advisories/GHSA-mc8h-8q98-g5hr"
                 }
-              ]
+              ],
+              "schema_version": "1.4.0",
+              "summary": "Race Condition Enabling Link Following and Time-of-check Time-of-use (TOCTOU)"
             }
           ]
         },
@@ -192,25 +192,18 @@
           ],
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-wcg3-cvx6-7396",
-              "published": "2021-08-25T20:56:46Z",
-              "modified": "2022-12-06T00:16:25Z",
-              "aliases": [
-                "CVE-2020-26235"
-              ],
-              "summary": "Segmentation fault in time",
-              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nIn some versions of `time`, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods. In later versions, `time` will attempt to determine the number of threads running in the process. If the process is single-threaded, the call will proceed as its safety invariant is upheld.\n\nUsers and library authors with time in their dependency tree must perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and must upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nLibrary authors must ensure that the program only has one running thread at the time of calling any affected method. Binary authors may do the same and/or ensure that no other thread is actively mutating the environment.\n\n### References\n\n[time-rs/time#293](https://github.com/time-rs/time/issues/293).",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
+                  },
                   "package": {
-                    "name": "time",
                     "ecosystem": "crates.io",
+                    "name": "time",
                     "purl": "pkg:cargo/time"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0.1"
@@ -218,32 +211,15 @@
                         {
                           "last_affected": "0.2"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
-                  }
+                  ]
                 },
                 {
-                  "package": {
-                    "name": "time",
-                    "ecosystem": "crates.io",
-                    "purl": "pkg:cargo/time"
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
                   },
-                  "ranges": [
-                    {
-                      "type": "SEMVER",
-                      "events": [
-                        {
-                          "introduced": "0.2.7"
-                        },
-                        {
-                          "fixed": "0.2.23"
-                        }
-                      ]
-                    }
-                  ],
                   "ecosystem_specific": {
                     "affected_functions": [
                       "time::UtcOffset::local_offset_at",
@@ -254,11 +230,40 @@
                       "time::OffsetDateTime::try_now_local"
                     ]
                   },
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
-                  }
+                  "package": {
+                    "ecosystem": "crates.io",
+                    "name": "time",
+                    "purl": "pkg:cargo/time"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0.2.7"
+                        },
+                        {
+                          "fixed": "0.2.23"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2020-26235"
+              ],
+              "database_specific": {
+                "cwe_ids": [
+                  "CWE-476"
+                ],
+                "github_reviewed": true,
+                "severity": "MODERATE"
+              },
+              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nIn some versions of `time`, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods. In later versions, `time` will attempt to determine the number of threads running in the process. If the process is single-threaded, the call will proceed as its safety invariant is upheld.\n\nUsers and library authors with time in their dependency tree must perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and must upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nLibrary authors must ensure that the program only has one running thread at the time of calling any affected method. Binary authors may do the same and/or ensure that no other thread is actively mutating the environment.\n\n### References\n\n[time-rs/time#293](https://github.com/time-rs/time/issues/293).",
+              "id": "GHSA-wcg3-cvx6-7396",
+              "modified": "2022-12-06T00:16:25Z",
+              "published": "2021-08-25T20:56:46Z",
               "references": [
                 {
                   "type": "WEB",
@@ -285,34 +290,55 @@
                   "url": "https://rustsec.org/advisories/RUSTSEC-2020-0071.html"
                 }
               ],
-              "database_specific": {
-                "cwe_ids": [
-                  "CWE-476"
-                ],
-                "github_reviewed": true,
-                "severity": "MODERATE"
-              }
+              "schema_version": "1.4.0",
+              "summary": "Segmentation fault in time"
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2020-0071",
-              "published": "2020-11-18T12:00:00Z",
-              "modified": "2023-02-08T15:06:38Z",
-              "aliases": [
-                "CVE-2020-26235"
-              ],
-              "summary": "Potential segfault in the time crate",
-              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nPending a proper fix, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods.\n\nUsers and library authors with time in their dependency tree should perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and should upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nA possible workaround for crates affected through the transitive dependency in `chrono`, is to avoid using the default `oldtime` feature dependency of the `chrono` crate by disabling its `default-features` and manually specifying the required features instead.\n\n#### Examples:\n\n`Cargo.toml`:  \n\n```toml\nchrono = { version = \"0.4\", default-features = false, features = [\"serde\"] }\n```\n\n```toml\nchrono = { version = \"0.4.22\", default-features = false, features = [\"clock\"] }\n```\n\nCommandline:  \n\n```bash\ncargo add chrono --no-default-features -F clock\n```\n\nSources:  \n - [chronotope/chrono#602 (comment)](https://github.com/chronotope/chrono/issues/602#issuecomment-1242149249)  \n - [vityafx/serde-aux#21](https://github.com/vityafx/serde-aux/issues/21)",
               "affected": [
                 {
+                  "database_specific": {
+                    "categories": [
+                      "code-execution",
+                      "memory-corruption"
+                    ],
+                    "cvss": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                    "informational": null,
+                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2020-0071.json"
+                  },
+                  "ecosystem_specific": {
+                    "affects": {
+                      "arch": [],
+                      "functions": [
+                        "time::OffsetDateTime::now_local",
+                        "time::OffsetDateTime::try_now_local",
+                        "time::UtcOffset::current_local_offset",
+                        "time::UtcOffset::local_offset_at",
+                        "time::UtcOffset::try_current_local_offset",
+                        "time::UtcOffset::try_local_offset_at",
+                        "time::at",
+                        "time::at_utc",
+                        "time::now"
+                      ],
+                      "os": [
+                        "linux",
+                        "redox",
+                        "solaris",
+                        "android",
+                        "ios",
+                        "macos",
+                        "netbsd",
+                        "openbsd",
+                        "freebsd"
+                      ]
+                    }
+                  },
                   "package": {
-                    "name": "time",
                     "ecosystem": "crates.io",
+                    "name": "time",
                     "purl": "pkg:cargo/time"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0.0.0-0"
@@ -362,47 +388,19 @@
                         {
                           "fixed": "0.2.23"
                         }
-                      ]
-                    }
-                  ],
-                  "ecosystem_specific": {
-                    "affects": {
-                      "arch": [],
-                      "functions": [
-                        "time::OffsetDateTime::now_local",
-                        "time::OffsetDateTime::try_now_local",
-                        "time::UtcOffset::current_local_offset",
-                        "time::UtcOffset::local_offset_at",
-                        "time::UtcOffset::try_current_local_offset",
-                        "time::UtcOffset::try_local_offset_at",
-                        "time::at",
-                        "time::at_utc",
-                        "time::now"
                       ],
-                      "os": [
-                        "linux",
-                        "redox",
-                        "solaris",
-                        "android",
-                        "ios",
-                        "macos",
-                        "netbsd",
-                        "openbsd",
-                        "freebsd"
-                      ]
+                      "type": "SEMVER"
                     }
-                  },
-                  "database_specific": {
-                    "categories": [
-                      "code-execution",
-                      "memory-corruption"
-                    ],
-                    "cvss": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-                    "informational": null,
-                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2020-0071.json"
-                  }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2020-26235"
+              ],
+              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nPending a proper fix, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods.\n\nUsers and library authors with time in their dependency tree should perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and should upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nA possible workaround for crates affected through the transitive dependency in `chrono`, is to avoid using the default `oldtime` feature dependency of the `chrono` crate by disabling its `default-features` and manually specifying the required features instead.\n\n#### Examples:\n\n`Cargo.toml`:  \n\n```toml\nchrono = { version = \"0.4\", default-features = false, features = [\"serde\"] }\n```\n\n```toml\nchrono = { version = \"0.4.22\", default-features = false, features = [\"clock\"] }\n```\n\nCommandline:  \n\n```bash\ncargo add chrono --no-default-features -F clock\n```\n\nSources:  \n - [chronotope/chrono#602 (comment)](https://github.com/chronotope/chrono/issues/602#issuecomment-1242149249)  \n - [vityafx/serde-aux#21](https://github.com/vityafx/serde-aux/issues/21)",
+              "id": "RUSTSEC-2020-0071",
+              "modified": "2023-02-08T15:06:38Z",
+              "published": "2020-11-18T12:00:00Z",
               "references": [
                 {
                   "type": "PACKAGE",
@@ -416,7 +414,9 @@
                   "type": "REPORT",
                   "url": "https://github.com/time-rs/time/issues/293"
                 }
-              ]
+              ],
+              "schema_version": "1.4.0",
+              "summary": "Potential segfault in the time crate"
             }
           ]
         }
@@ -469,25 +469,18 @@
           ],
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-fxg5-wq6x-vr4w",
-              "published": "2023-01-14T00:30:23Z",
-              "modified": "2023-01-24T18:56:46Z",
-              "aliases": [
-                "CVE-2022-41721"
-              ],
-              "summary": "golang.org/x/net/http2/h2c vulnerable to request smuggling attack",
-              "details": "A request smuggling attack is possible when using MaxBytesHandler. When using MaxBytesHandler, the body of an HTTP request is not fully consumed. When the server attempts to read HTTP2 frames from the connection, it will instead be reading the body of the HTTP request, which could be attacker-manipulated to represent arbitrary HTTP2 requests.",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/01/GHSA-fxg5-wq6x-vr4w/GHSA-fxg5-wq6x-vr4w.json"
+                  },
                   "package": {
-                    "name": "golang.org/x/net/http2/h2c",
                     "ecosystem": "Go",
+                    "name": "golang.org/x/net/http2/h2c",
                     "purl": "pkg:golang/golang.org/x/net/http2/h2c"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0.0.0-20220524220425-1d687d428aca"
@@ -495,22 +488,22 @@
                         {
                           "fixed": "0.1.1-0.20221104162952-702349b0e862"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/01/GHSA-fxg5-wq6x-vr4w/GHSA-fxg5-wq6x-vr4w.json"
-                  }
+                  ]
                 },
                 {
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/01/GHSA-fxg5-wq6x-vr4w/GHSA-fxg5-wq6x-vr4w.json"
+                  },
                   "package": {
-                    "name": "golang.org/x/net",
                     "ecosystem": "Go",
+                    "name": "golang.org/x/net",
                     "purl": "pkg:golang/golang.org/x/net"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0.0.0-20220524220425-1d687d428aca"
@@ -518,14 +511,28 @@
                         {
                           "fixed": "0.1.1-0.20221104162952-702349b0e862"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/01/GHSA-fxg5-wq6x-vr4w/GHSA-fxg5-wq6x-vr4w.json"
-                  }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2022-41721"
+              ],
+              "database_specific": {
+                "cwe_ids": [
+                  "CWE-444"
+                ],
+                "github_reviewed": true,
+                "github_reviewed_at": "2023-01-20T22:40:06Z",
+                "nvd_published_at": "2023-01-13T23:15:00Z",
+                "severity": "HIGH"
+              },
+              "details": "A request smuggling attack is possible when using MaxBytesHandler. When using MaxBytesHandler, the body of an HTTP request is not fully consumed. When the server attempts to read HTTP2 frames from the connection, it will instead be reading the body of the HTTP request, which could be attacker-manipulated to represent arbitrary HTTP2 requests.",
+              "id": "GHSA-fxg5-wq6x-vr4w",
+              "modified": "2023-01-24T18:56:46Z",
+              "published": "2023-01-14T00:30:23Z",
               "references": [
                 {
                   "type": "ADVISORY",
@@ -548,46 +555,16 @@
                   "url": "https://pkg.go.dev/vuln/GO-2023-1495"
                 }
               ],
-              "database_specific": {
-                "cwe_ids": [
-                  "CWE-444"
-                ],
-                "github_reviewed": true,
-                "github_reviewed_at": "2023-01-20T22:40:06Z",
-                "nvd_published_at": "2023-01-13T23:15:00Z",
-                "severity": "HIGH"
-              }
+              "schema_version": "1.4.0",
+              "summary": "golang.org/x/net/http2/h2c vulnerable to request smuggling attack"
             },
             {
-              "schema_version": "1.4.0",
-              "id": "GO-2023-1495",
-              "published": "2023-01-13T22:39:40Z",
-              "modified": "2023-01-31T21:39:17Z",
-              "aliases": [
-                "CVE-2022-41721",
-                "GHSA-fxg5-wq6x-vr4w"
-              ],
-              "details": "A request smuggling attack is possible when using MaxBytesHandler.\n\nWhen using MaxBytesHandler, the body of an HTTP request is not fully consumed. When the server attempts to read HTTP2 frames from the connection, it will instead be reading the body of the HTTP request, which could be attacker-manipulated to represent arbitrary HTTP2 requests.",
               "affected": [
                 {
-                  "package": {
-                    "name": "golang.org/x/net",
-                    "ecosystem": "Go",
-                    "purl": "pkg:golang/golang.org/x/net"
+                  "database_specific": {
+                    "source": "https://vuln.go.dev/ID/GO-2023-1495.json",
+                    "url": "https://pkg.go.dev/vuln/GO-2023-1495"
                   },
-                  "ranges": [
-                    {
-                      "type": "SEMVER",
-                      "events": [
-                        {
-                          "introduced": "0.0.0-20220524220425-1d687d428aca"
-                        },
-                        {
-                          "fixed": "0.1.1-0.20221104162952-702349b0e862"
-                        }
-                      ]
-                    }
-                  ],
                   "ecosystem_specific": {
                     "imports": [
                       {
@@ -599,12 +576,34 @@
                       }
                     ]
                   },
-                  "database_specific": {
-                    "source": "https://vuln.go.dev/ID/GO-2023-1495.json",
-                    "url": "https://pkg.go.dev/vuln/GO-2023-1495"
-                  }
+                  "package": {
+                    "ecosystem": "Go",
+                    "name": "golang.org/x/net",
+                    "purl": "pkg:golang/golang.org/x/net"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0.0.0-20220524220425-1d687d428aca"
+                        },
+                        {
+                          "fixed": "0.1.1-0.20221104162952-702349b0e862"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2022-41721",
+                "GHSA-fxg5-wq6x-vr4w"
+              ],
+              "details": "A request smuggling attack is possible when using MaxBytesHandler.\n\nWhen using MaxBytesHandler, the body of an HTTP request is not fully consumed. When the server attempts to read HTTP2 frames from the connection, it will instead be reading the body of the HTTP request, which could be attacker-manipulated to represent arbitrary HTTP2 requests.",
+              "id": "GO-2023-1495",
+              "modified": "2023-01-31T21:39:17Z",
+              "published": "2023-01-13T22:39:40Z",
               "references": [
                 {
                   "type": "REPORT",
@@ -614,44 +613,16 @@
                   "type": "FIX",
                   "url": "https://go.dev/cl/447396"
                 }
-              ]
+              ],
+              "schema_version": "1.4.0"
             },
             {
-              "schema_version": "1.4.0",
-              "id": "GO-2022-1144",
-              "published": "2022-12-08T19:01:21Z",
-              "modified": "2023-01-31T21:39:15Z",
-              "aliases": [
-                "CVE-2022-41717",
-                "GHSA-xrjj-mj9h-534m"
-              ],
-              "details": "An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests.\n\nHTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
               "affected": [
                 {
-                  "package": {
-                    "name": "stdlib",
-                    "ecosystem": "Go",
-                    "purl": "pkg:golang/stdlib"
+                  "database_specific": {
+                    "source": "https://vuln.go.dev/ID/GO-2022-1144.json",
+                    "url": "https://pkg.go.dev/vuln/GO-2022-1144"
                   },
-                  "ranges": [
-                    {
-                      "type": "SEMVER",
-                      "events": [
-                        {
-                          "introduced": "0"
-                        },
-                        {
-                          "fixed": "1.18.9"
-                        },
-                        {
-                          "introduced": "1.19.0"
-                        },
-                        {
-                          "fixed": "1.19.4"
-                        }
-                      ]
-                    }
-                  ],
                   "ecosystem_specific": {
                     "imports": [
                       {
@@ -671,30 +642,36 @@
                       }
                     ]
                   },
-                  "database_specific": {
-                    "source": "https://vuln.go.dev/ID/GO-2022-1144.json",
-                    "url": "https://pkg.go.dev/vuln/GO-2022-1144"
-                  }
-                },
-                {
                   "package": {
-                    "name": "golang.org/x/net",
                     "ecosystem": "Go",
-                    "purl": "pkg:golang/golang.org/x/net"
+                    "name": "stdlib",
+                    "purl": "pkg:golang/stdlib"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0"
                         },
                         {
-                          "fixed": "0.4.0"
+                          "fixed": "1.18.9"
+                        },
+                        {
+                          "introduced": "1.19.0"
+                        },
+                        {
+                          "fixed": "1.19.4"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
+                  ]
+                },
+                {
+                  "database_specific": {
+                    "source": "https://vuln.go.dev/ID/GO-2022-1144.json",
+                    "url": "https://pkg.go.dev/vuln/GO-2022-1144"
+                  },
                   "ecosystem_specific": {
                     "imports": [
                       {
@@ -706,12 +683,34 @@
                       }
                     ]
                   },
-                  "database_specific": {
-                    "source": "https://vuln.go.dev/ID/GO-2022-1144.json",
-                    "url": "https://pkg.go.dev/vuln/GO-2022-1144"
-                  }
+                  "package": {
+                    "ecosystem": "Go",
+                    "name": "golang.org/x/net",
+                    "purl": "pkg:golang/golang.org/x/net"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0"
+                        },
+                        {
+                          "fixed": "0.4.0"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2022-41717",
+                "GHSA-xrjj-mj9h-534m"
+              ],
+              "details": "An attacker can cause excessive memory growth in a Go server accepting HTTP/2 requests.\n\nHTTP/2 server connections contain a cache of HTTP header keys sent by the client. While the total number of entries in this cache is capped, an attacker sending very large keys can cause the server to allocate approximately 64 MiB per open connection.",
+              "id": "GO-2022-1144",
+              "modified": "2023-01-31T21:39:15Z",
+              "published": "2022-12-08T19:01:21Z",
               "references": [
                 {
                   "type": "REPORT",
@@ -729,28 +728,22 @@
                   "type": "WEB",
                   "url": "https://groups.google.com/g/golang-announce/c/L_3rmdT0BMU/m/yZDrXjIiBQAJ"
                 }
-              ]
+              ],
+              "schema_version": "1.4.0"
             },
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-vvpx-j8f3-3w6h",
-              "published": "2023-02-17T14:00:02Z",
-              "modified": "2023-03-09T21:20:44Z",
-              "aliases": [
-                "CVE-2022-41723"
-              ],
-              "summary": "Uncontrolled Resource Consumption",
-              "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-vvpx-j8f3-3w6h/GHSA-vvpx-j8f3-3w6h.json"
+                  },
                   "package": {
-                    "name": "golang.org/x/net",
                     "ecosystem": "Go",
+                    "name": "golang.org/x/net",
                     "purl": "pkg:golang/golang.org/x/net"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0"
@@ -758,14 +751,28 @@
                         {
                           "fixed": "0.7.0"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-vvpx-j8f3-3w6h/GHSA-vvpx-j8f3-3w6h.json"
-                  }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2022-41723"
+              ],
+              "database_specific": {
+                "cwe_ids": [
+                  "CWE-400"
+                ],
+                "github_reviewed": true,
+                "github_reviewed_at": "2023-02-17T14:00:02Z",
+                "nvd_published_at": "2023-02-28T18:15:00Z",
+                "severity": "HIGH"
+              },
+              "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+              "id": "GHSA-vvpx-j8f3-3w6h",
+              "modified": "2023-03-09T21:20:44Z",
+              "published": "2023-02-17T14:00:02Z",
               "references": [
                 {
                   "type": "ADVISORY",
@@ -796,36 +803,30 @@
                   "url": "https://vuln.go.dev/ID/GO-2023-1571.json"
                 }
               ],
-              "database_specific": {
-                "cwe_ids": [
-                  "CWE-400"
-                ],
-                "github_reviewed": true,
-                "github_reviewed_at": "2023-02-17T14:00:02Z",
-                "nvd_published_at": "2023-02-28T18:15:00Z",
-                "severity": "HIGH"
-              }
+              "schema_version": "1.4.0",
+              "summary": "Uncontrolled Resource Consumption"
             },
             {
-              "schema_version": "1.4.0",
-              "id": "GO-2023-1571",
-              "published": "2023-02-16T22:31:36Z",
-              "modified": "2023-02-22T20:13:12Z",
-              "aliases": [
-                "CVE-2022-41723",
-                "GHSA-vvpx-j8f3-3w6h"
-              ],
-              "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://vuln.go.dev/ID/GO-2023-1571.json",
+                    "url": "https://pkg.go.dev/vuln/GO-2023-1571"
+                  },
+                  "ecosystem_specific": {
+                    "imports": [
+                      {
+                        "path": "net/http"
+                      }
+                    ]
+                  },
                   "package": {
-                    "name": "stdlib",
                     "ecosystem": "Go",
+                    "name": "stdlib",
                     "purl": "pkg:golang/stdlib"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0"
@@ -839,40 +840,16 @@
                         {
                           "fixed": "1.20.1"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "ecosystem_specific": {
-                    "imports": [
-                      {
-                        "path": "net/http"
-                      }
-                    ]
-                  },
+                  ]
+                },
+                {
                   "database_specific": {
                     "source": "https://vuln.go.dev/ID/GO-2023-1571.json",
                     "url": "https://pkg.go.dev/vuln/GO-2023-1571"
-                  }
-                },
-                {
-                  "package": {
-                    "name": "golang.org/x/net",
-                    "ecosystem": "Go",
-                    "purl": "pkg:golang/golang.org/x/net"
                   },
-                  "ranges": [
-                    {
-                      "type": "SEMVER",
-                      "events": [
-                        {
-                          "introduced": "0"
-                        },
-                        {
-                          "fixed": "0.7.0"
-                        }
-                      ]
-                    }
-                  ],
                   "ecosystem_specific": {
                     "imports": [
                       {
@@ -889,12 +866,34 @@
                       }
                     ]
                   },
-                  "database_specific": {
-                    "source": "https://vuln.go.dev/ID/GO-2023-1571.json",
-                    "url": "https://pkg.go.dev/vuln/GO-2023-1571"
-                  }
+                  "package": {
+                    "ecosystem": "Go",
+                    "name": "golang.org/x/net",
+                    "purl": "pkg:golang/golang.org/x/net"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0"
+                        },
+                        {
+                          "fixed": "0.7.0"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2022-41723",
+                "GHSA-vvpx-j8f3-3w6h"
+              ],
+              "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+              "id": "GO-2023-1571",
+              "modified": "2023-02-22T20:13:12Z",
+              "published": "2023-02-16T22:31:36Z",
               "references": [
                 {
                   "type": "REPORT",
@@ -912,7 +911,8 @@
                   "type": "WEB",
                   "url": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E"
                 }
-              ]
+              ],
+              "schema_version": "1.4.0"
             }
           ]
         }
@@ -952,22 +952,18 @@
           ],
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-mrrw-grhq-86gf",
-              "published": "2023-02-28T20:30:10Z",
-              "modified": "2023-02-28T20:30:10Z",
-              "summary": "Ascii (crate) allows out-of-bounds array indexing in safe code",
-              "details": "Affected version of this crate had implementation of `From\u003c\u0026mut AsciiStr\u003e` for `\u0026mut [u8]` and `\u0026mut str`. This can result in out-of-bounds array indexing in safe code.\n\nThe flaw was corrected in commit [8a6c779](https://github.com/tomprogrammer/rust-ascii/pull/63/commits/8a6c7798c202766bd57d70fb8d12739dd68fb9dc) by removing those impls.\n",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-mrrw-grhq-86gf/GHSA-mrrw-grhq-86gf.json"
+                  },
                   "package": {
-                    "name": "ascii",
                     "ecosystem": "crates.io",
+                    "name": "ascii",
                     "purl": "pkg:cargo/ascii"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0.6.0"
@@ -975,14 +971,23 @@
                         {
                           "fixed": "0.9.3"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-mrrw-grhq-86gf/GHSA-mrrw-grhq-86gf.json"
-                  }
+                  ]
                 }
               ],
+              "database_specific": {
+                "cwe_ids": [],
+                "github_reviewed": true,
+                "github_reviewed_at": "2023-02-28T20:30:10Z",
+                "nvd_published_at": null,
+                "severity": "MODERATE"
+              },
+              "details": "Affected version of this crate had implementation of `From\u003c\u0026mut AsciiStr\u003e` for `\u0026mut [u8]` and `\u0026mut str`. This can result in out-of-bounds array indexing in safe code.\n\nThe flaw was corrected in commit [8a6c779](https://github.com/tomprogrammer/rust-ascii/pull/63/commits/8a6c7798c202766bd57d70fb8d12739dd68fb9dc) by removing those impls.\n",
+              "id": "GHSA-mrrw-grhq-86gf",
+              "modified": "2023-02-28T20:30:10Z",
+              "published": "2023-02-28T20:30:10Z",
               "references": [
                 {
                   "type": "WEB",
@@ -1001,48 +1006,12 @@
                   "url": "https://rustsec.org/advisories/RUSTSEC-2023-0015.html"
                 }
               ],
-              "database_specific": {
-                "cwe_ids": [],
-                "github_reviewed": true,
-                "github_reviewed_at": "2023-02-28T20:30:10Z",
-                "nvd_published_at": null,
-                "severity": "MODERATE"
-              }
+              "schema_version": "1.4.0",
+              "summary": "Ascii (crate) allows out-of-bounds array indexing in safe code"
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2023-0015",
-              "published": "2023-02-25T12:00:00Z",
-              "modified": "2023-02-25T15:13:09Z",
-              "summary": "Ascii allows out-of-bounds array indexing in safe code",
-              "details": "Affected version of this crate had implementation of `From\u003c\u0026mut AsciiStr\u003e` for `\u0026mut [u8]` and `\u0026mut str`. This can result in out-of-bounds array indexing in safe code.\n\nThe flaw was corrected in commit [8a6c779](https://github.com/tomprogrammer/rust-ascii/pull/63/commits/8a6c7798c202766bd57d70fb8d12739dd68fb9dc) by removing those impls.",
               "affected": [
                 {
-                  "package": {
-                    "name": "ascii",
-                    "ecosystem": "crates.io",
-                    "purl": "pkg:cargo/ascii"
-                  },
-                  "ranges": [
-                    {
-                      "type": "SEMVER",
-                      "events": [
-                        {
-                          "introduced": "0.6.1-0"
-                        },
-                        {
-                          "fixed": "0.9.3"
-                        }
-                      ]
-                    }
-                  ],
-                  "ecosystem_specific": {
-                    "affects": {
-                      "arch": [],
-                      "functions": [],
-                      "os": []
-                    }
-                  },
                   "database_specific": {
                     "categories": [
                       "memory-corruption"
@@ -1050,9 +1019,38 @@
                     "cvss": null,
                     "informational": "unsound",
                     "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2023-0015.json"
-                  }
+                  },
+                  "ecosystem_specific": {
+                    "affects": {
+                      "arch": [],
+                      "functions": [],
+                      "os": []
+                    }
+                  },
+                  "package": {
+                    "ecosystem": "crates.io",
+                    "name": "ascii",
+                    "purl": "pkg:cargo/ascii"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0.6.1-0"
+                        },
+                        {
+                          "fixed": "0.9.3"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
                 }
               ],
+              "details": "Affected version of this crate had implementation of `From\u003c\u0026mut AsciiStr\u003e` for `\u0026mut [u8]` and `\u0026mut str`. This can result in out-of-bounds array indexing in safe code.\n\nThe flaw was corrected in commit [8a6c779](https://github.com/tomprogrammer/rust-ascii/pull/63/commits/8a6c7798c202766bd57d70fb8d12739dd68fb9dc) by removing those impls.",
+              "id": "RUSTSEC-2023-0015",
+              "modified": "2023-02-25T15:13:09Z",
+              "published": "2023-02-25T12:00:00Z",
               "references": [
                 {
                   "type": "PACKAGE",
@@ -1066,7 +1064,9 @@
                   "type": "REPORT",
                   "url": "https://github.com/tomprogrammer/rust-ascii/issues/64"
                 }
-              ]
+              ],
+              "schema_version": "1.4.0",
+              "summary": "Ascii allows out-of-bounds array indexing in safe code"
             }
           ]
         },
@@ -1091,22 +1091,18 @@
           ],
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-mc8h-8q98-g5hr",
-              "published": "2023-02-24T16:23:59Z",
-              "modified": "2023-02-24T16:23:59Z",
-              "summary": "Race Condition Enabling Link Following and Time-of-check Time-of-use (TOCTOU) Race Condition in remove_dir_all",
-              "details": "The `remove_dir_all` crate is a Rust library that offers additional features over the Rust standard library `fs::remove_dir_all` function. It suffers the same class of failure as the code it was layering over: TOCTOU race conditions, with the ability to cause arbitrary paths to be deleted by substituting a symlink for a path after the type of the path was checked.\n\nThanks to the Rust security team for identifying the problem and alerting us to it.",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-mc8h-8q98-g5hr/GHSA-mc8h-8q98-g5hr.json"
+                  },
                   "package": {
-                    "name": "remove_dir_all",
                     "ecosystem": "crates.io",
+                    "name": "remove_dir_all",
                     "purl": "pkg:cargo/remove_dir_all"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0"
@@ -1114,14 +1110,26 @@
                         {
                           "fixed": "0.8.0"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-mc8h-8q98-g5hr/GHSA-mc8h-8q98-g5hr.json"
-                  }
+                  ]
                 }
               ],
+              "database_specific": {
+                "cwe_ids": [
+                  "CWE-366",
+                  "CWE-367"
+                ],
+                "github_reviewed": true,
+                "github_reviewed_at": "2023-02-24T16:23:59Z",
+                "nvd_published_at": null,
+                "severity": "LOW"
+              },
+              "details": "The `remove_dir_all` crate is a Rust library that offers additional features over the Rust standard library `fs::remove_dir_all` function. It suffers the same class of failure as the code it was layering over: TOCTOU race conditions, with the ability to cause arbitrary paths to be deleted by substituting a symlink for a path after the type of the path was checked.\n\nThanks to the Rust security team for identifying the problem and alerting us to it.",
+              "id": "GHSA-mc8h-8q98-g5hr",
+              "modified": "2023-02-24T16:23:59Z",
+              "published": "2023-02-24T16:23:59Z",
               "references": [
                 {
                   "type": "WEB",
@@ -1140,47 +1148,18 @@
                   "url": "https://rustsec.org/advisories/RUSTSEC-2023-0018.html"
                 }
               ],
-              "database_specific": {
-                "cwe_ids": [
-                  "CWE-366",
-                  "CWE-367"
-                ],
-                "github_reviewed": true,
-                "github_reviewed_at": "2023-02-24T16:23:59Z",
-                "nvd_published_at": null,
-                "severity": "LOW"
-              }
+              "schema_version": "1.4.0",
+              "summary": "Race Condition Enabling Link Following and Time-of-check Time-of-use (TOCTOU) Race Condition in remove_dir_all"
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2023-0018",
-              "published": "2023-02-24T12:00:00Z",
-              "modified": "2023-03-04T21:50:30Z",
-              "aliases": [
-                "GHSA-mc8h-8q98-g5hr"
-              ],
-              "summary": "Race Condition Enabling Link Following and Time-of-check Time-of-use (TOCTOU)",
-              "details": "The remove_dir_all crate is a Rust library that offers additional features over the Rust\nstandard library fs::remove_dir_all function.\n\nIt was possible to trick a privileged process doing a recursive delete in an\nattacker controlled directory into deleting privileged files, on all operating systems.\n\nFor instance, consider deleting a tree called 'etc' in a parent directory\ncalled 'p'. Between calling `remove_dir_all(\"a\")` and remove_dir_all(\"a\")\nactually starting its work, the attacker can move 'p' to 'p-prime', and\nreplace 'p' with a symlink to '/'. Then the privileged process deletes 'p/etc'\nwhich is actually /etc, and now your system is broken. There are some\nmitigations for this exact scenario, such as CWD relative file lookup, but\nthey are not guaranteed - any code using absolute paths will not have that\nprotection in place.\n\nThe same attack could be performed at any point in the directory tree being\ndeleted: if 'a' contains a child directory called 'etc', attacking the\ndeletion by replacing 'a' with a link is possible.\n\nThe new code in this release mitigates the attack within the directory tree\nbeing deleted by using file-handle relative operations: to open 'a/etc', the\npath 'etc' relative to 'a' is opened, where 'a' is represented by a file\ndescriptor (Unix) or handle (Windows). With the exception of the entry points\ninto the directory deletion logic, this is robust against manipulation of the\ndirectory hierarchy, and remove_dir_all will only delete files and directories\ncontained in the tree it is deleting.\n\nThe entry path however is a challenge - as described above, there are some\npotential mitigations, but since using them must be done by the calling code,\nit is hard to be confident about the security properties of the path based\ninterface.\n\nThe new extension trait `RemoveDir` provides an interface where it is much\nharder to get it wrong.\n\n`somedir.remove_dir_contents(\"name-of-child\")`.\n\nCallers can then make their own security evaluation about how to securely get\na directory handle. That is still not particularly obvious, and we're going to\nfollow up with a helper of some sort (probably in the `fs_at` crate). Once\nthat is available, the path based entry points will get deprecated.\n\nIn the interim, processes that might run with elevated privileges should\nfigure out how to securely identify the directory they are going to delete, to\navoid the initial race. Pragmatically, other processes should be fine with the\npath based entry points : this is the same interface `std::fs::remove_dir_all`\noffers, and an unprivileged process running in an attacker controlled\ndirectory can't do anything that the attacker can't already do.",
               "affected": [
                 {
-                  "package": {
-                    "name": "remove_dir_all",
-                    "ecosystem": "crates.io",
-                    "purl": "pkg:cargo/remove_dir_all"
+                  "database_specific": {
+                    "categories": [],
+                    "cvss": null,
+                    "informational": null,
+                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2023-0018.json"
                   },
-                  "ranges": [
-                    {
-                      "type": "SEMVER",
-                      "events": [
-                        {
-                          "introduced": "0.0.0-0"
-                        },
-                        {
-                          "fixed": "0.8.0"
-                        }
-                      ]
-                    }
-                  ],
                   "ecosystem_specific": {
                     "affects": {
                       "arch": [],
@@ -1192,14 +1171,33 @@
                       "os": []
                     }
                   },
-                  "database_specific": {
-                    "categories": [],
-                    "cvss": null,
-                    "informational": null,
-                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2023-0018.json"
-                  }
+                  "package": {
+                    "ecosystem": "crates.io",
+                    "name": "remove_dir_all",
+                    "purl": "pkg:cargo/remove_dir_all"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0.0.0-0"
+                        },
+                        {
+                          "fixed": "0.8.0"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
                 }
               ],
+              "aliases": [
+                "GHSA-mc8h-8q98-g5hr"
+              ],
+              "details": "The remove_dir_all crate is a Rust library that offers additional features over the Rust\nstandard library fs::remove_dir_all function.\n\nIt was possible to trick a privileged process doing a recursive delete in an\nattacker controlled directory into deleting privileged files, on all operating systems.\n\nFor instance, consider deleting a tree called 'etc' in a parent directory\ncalled 'p'. Between calling `remove_dir_all(\"a\")` and remove_dir_all(\"a\")\nactually starting its work, the attacker can move 'p' to 'p-prime', and\nreplace 'p' with a symlink to '/'. Then the privileged process deletes 'p/etc'\nwhich is actually /etc, and now your system is broken. There are some\nmitigations for this exact scenario, such as CWD relative file lookup, but\nthey are not guaranteed - any code using absolute paths will not have that\nprotection in place.\n\nThe same attack could be performed at any point in the directory tree being\ndeleted: if 'a' contains a child directory called 'etc', attacking the\ndeletion by replacing 'a' with a link is possible.\n\nThe new code in this release mitigates the attack within the directory tree\nbeing deleted by using file-handle relative operations: to open 'a/etc', the\npath 'etc' relative to 'a' is opened, where 'a' is represented by a file\ndescriptor (Unix) or handle (Windows). With the exception of the entry points\ninto the directory deletion logic, this is robust against manipulation of the\ndirectory hierarchy, and remove_dir_all will only delete files and directories\ncontained in the tree it is deleting.\n\nThe entry path however is a challenge - as described above, there are some\npotential mitigations, but since using them must be done by the calling code,\nit is hard to be confident about the security properties of the path based\ninterface.\n\nThe new extension trait `RemoveDir` provides an interface where it is much\nharder to get it wrong.\n\n`somedir.remove_dir_contents(\"name-of-child\")`.\n\nCallers can then make their own security evaluation about how to securely get\na directory handle. That is still not particularly obvious, and we're going to\nfollow up with a helper of some sort (probably in the `fs_at` crate). Once\nthat is available, the path based entry points will get deprecated.\n\nIn the interim, processes that might run with elevated privileges should\nfigure out how to securely identify the directory they are going to delete, to\navoid the initial race. Pragmatically, other processes should be fine with the\npath based entry points : this is the same interface `std::fs::remove_dir_all`\noffers, and an unprivileged process running in an attacker controlled\ndirectory can't do anything that the attacker can't already do.",
+              "id": "RUSTSEC-2023-0018",
+              "modified": "2023-03-04T21:50:30Z",
+              "published": "2023-02-24T12:00:00Z",
               "references": [
                 {
                   "type": "PACKAGE",
@@ -1217,7 +1215,9 @@
                   "type": "ADVISORY",
                   "url": "https://github.com/advisories/GHSA-mc8h-8q98-g5hr"
                 }
-              ]
+              ],
+              "schema_version": "1.4.0",
+              "summary": "Race Condition Enabling Link Following and Time-of-check Time-of-use (TOCTOU)"
             }
           ]
         },
@@ -1242,25 +1242,18 @@
           ],
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-wcg3-cvx6-7396",
-              "published": "2021-08-25T20:56:46Z",
-              "modified": "2022-12-06T00:16:25Z",
-              "aliases": [
-                "CVE-2020-26235"
-              ],
-              "summary": "Segmentation fault in time",
-              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nIn some versions of `time`, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods. In later versions, `time` will attempt to determine the number of threads running in the process. If the process is single-threaded, the call will proceed as its safety invariant is upheld.\n\nUsers and library authors with time in their dependency tree must perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and must upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nLibrary authors must ensure that the program only has one running thread at the time of calling any affected method. Binary authors may do the same and/or ensure that no other thread is actively mutating the environment.\n\n### References\n\n[time-rs/time#293](https://github.com/time-rs/time/issues/293).",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
+                  },
                   "package": {
-                    "name": "time",
                     "ecosystem": "crates.io",
+                    "name": "time",
                     "purl": "pkg:cargo/time"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0.1"
@@ -1268,32 +1261,15 @@
                         {
                           "last_affected": "0.2"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
-                  }
+                  ]
                 },
                 {
-                  "package": {
-                    "name": "time",
-                    "ecosystem": "crates.io",
-                    "purl": "pkg:cargo/time"
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
                   },
-                  "ranges": [
-                    {
-                      "type": "SEMVER",
-                      "events": [
-                        {
-                          "introduced": "0.2.7"
-                        },
-                        {
-                          "fixed": "0.2.23"
-                        }
-                      ]
-                    }
-                  ],
                   "ecosystem_specific": {
                     "affected_functions": [
                       "time::UtcOffset::local_offset_at",
@@ -1304,11 +1280,40 @@
                       "time::OffsetDateTime::try_now_local"
                     ]
                   },
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
-                  }
+                  "package": {
+                    "ecosystem": "crates.io",
+                    "name": "time",
+                    "purl": "pkg:cargo/time"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0.2.7"
+                        },
+                        {
+                          "fixed": "0.2.23"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2020-26235"
+              ],
+              "database_specific": {
+                "cwe_ids": [
+                  "CWE-476"
+                ],
+                "github_reviewed": true,
+                "severity": "MODERATE"
+              },
+              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nIn some versions of `time`, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods. In later versions, `time` will attempt to determine the number of threads running in the process. If the process is single-threaded, the call will proceed as its safety invariant is upheld.\n\nUsers and library authors with time in their dependency tree must perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and must upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nLibrary authors must ensure that the program only has one running thread at the time of calling any affected method. Binary authors may do the same and/or ensure that no other thread is actively mutating the environment.\n\n### References\n\n[time-rs/time#293](https://github.com/time-rs/time/issues/293).",
+              "id": "GHSA-wcg3-cvx6-7396",
+              "modified": "2022-12-06T00:16:25Z",
+              "published": "2021-08-25T20:56:46Z",
               "references": [
                 {
                   "type": "WEB",
@@ -1335,34 +1340,55 @@
                   "url": "https://rustsec.org/advisories/RUSTSEC-2020-0071.html"
                 }
               ],
-              "database_specific": {
-                "cwe_ids": [
-                  "CWE-476"
-                ],
-                "github_reviewed": true,
-                "severity": "MODERATE"
-              }
+              "schema_version": "1.4.0",
+              "summary": "Segmentation fault in time"
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2020-0071",
-              "published": "2020-11-18T12:00:00Z",
-              "modified": "2023-02-08T15:06:38Z",
-              "aliases": [
-                "CVE-2020-26235"
-              ],
-              "summary": "Potential segfault in the time crate",
-              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nPending a proper fix, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods.\n\nUsers and library authors with time in their dependency tree should perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and should upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nA possible workaround for crates affected through the transitive dependency in `chrono`, is to avoid using the default `oldtime` feature dependency of the `chrono` crate by disabling its `default-features` and manually specifying the required features instead.\n\n#### Examples:\n\n`Cargo.toml`:  \n\n```toml\nchrono = { version = \"0.4\", default-features = false, features = [\"serde\"] }\n```\n\n```toml\nchrono = { version = \"0.4.22\", default-features = false, features = [\"clock\"] }\n```\n\nCommandline:  \n\n```bash\ncargo add chrono --no-default-features -F clock\n```\n\nSources:  \n - [chronotope/chrono#602 (comment)](https://github.com/chronotope/chrono/issues/602#issuecomment-1242149249)  \n - [vityafx/serde-aux#21](https://github.com/vityafx/serde-aux/issues/21)",
               "affected": [
                 {
+                  "database_specific": {
+                    "categories": [
+                      "code-execution",
+                      "memory-corruption"
+                    ],
+                    "cvss": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                    "informational": null,
+                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2020-0071.json"
+                  },
+                  "ecosystem_specific": {
+                    "affects": {
+                      "arch": [],
+                      "functions": [
+                        "time::OffsetDateTime::now_local",
+                        "time::OffsetDateTime::try_now_local",
+                        "time::UtcOffset::current_local_offset",
+                        "time::UtcOffset::local_offset_at",
+                        "time::UtcOffset::try_current_local_offset",
+                        "time::UtcOffset::try_local_offset_at",
+                        "time::at",
+                        "time::at_utc",
+                        "time::now"
+                      ],
+                      "os": [
+                        "linux",
+                        "redox",
+                        "solaris",
+                        "android",
+                        "ios",
+                        "macos",
+                        "netbsd",
+                        "openbsd",
+                        "freebsd"
+                      ]
+                    }
+                  },
                   "package": {
-                    "name": "time",
                     "ecosystem": "crates.io",
+                    "name": "time",
                     "purl": "pkg:cargo/time"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0.0.0-0"
@@ -1412,47 +1438,19 @@
                         {
                           "fixed": "0.2.23"
                         }
-                      ]
-                    }
-                  ],
-                  "ecosystem_specific": {
-                    "affects": {
-                      "arch": [],
-                      "functions": [
-                        "time::OffsetDateTime::now_local",
-                        "time::OffsetDateTime::try_now_local",
-                        "time::UtcOffset::current_local_offset",
-                        "time::UtcOffset::local_offset_at",
-                        "time::UtcOffset::try_current_local_offset",
-                        "time::UtcOffset::try_local_offset_at",
-                        "time::at",
-                        "time::at_utc",
-                        "time::now"
                       ],
-                      "os": [
-                        "linux",
-                        "redox",
-                        "solaris",
-                        "android",
-                        "ios",
-                        "macos",
-                        "netbsd",
-                        "openbsd",
-                        "freebsd"
-                      ]
+                      "type": "SEMVER"
                     }
-                  },
-                  "database_specific": {
-                    "categories": [
-                      "code-execution",
-                      "memory-corruption"
-                    ],
-                    "cvss": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-                    "informational": null,
-                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2020-0071.json"
-                  }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2020-26235"
+              ],
+              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nPending a proper fix, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods.\n\nUsers and library authors with time in their dependency tree should perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and should upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nA possible workaround for crates affected through the transitive dependency in `chrono`, is to avoid using the default `oldtime` feature dependency of the `chrono` crate by disabling its `default-features` and manually specifying the required features instead.\n\n#### Examples:\n\n`Cargo.toml`:  \n\n```toml\nchrono = { version = \"0.4\", default-features = false, features = [\"serde\"] }\n```\n\n```toml\nchrono = { version = \"0.4.22\", default-features = false, features = [\"clock\"] }\n```\n\nCommandline:  \n\n```bash\ncargo add chrono --no-default-features -F clock\n```\n\nSources:  \n - [chronotope/chrono#602 (comment)](https://github.com/chronotope/chrono/issues/602#issuecomment-1242149249)  \n - [vityafx/serde-aux#21](https://github.com/vityafx/serde-aux/issues/21)",
+              "id": "RUSTSEC-2020-0071",
+              "modified": "2023-02-08T15:06:38Z",
+              "published": "2020-11-18T12:00:00Z",
               "references": [
                 {
                   "type": "PACKAGE",
@@ -1466,7 +1464,9 @@
                   "type": "REPORT",
                   "url": "https://github.com/time-rs/time/issues/293"
                 }
-              ]
+              ],
+              "schema_version": "1.4.0",
+              "summary": "Potential segfault in the time crate"
             }
           ]
         }
@@ -1508,31 +1508,31 @@
           ],
           "vulnerabilities": [
             {
-              "id": "CVE-2024-1013",
-              "published": "2024-03-18T11:15:09Z",
-              "modified": "2024-03-18T12:38:25Z",
-              "details": "An out-of-bounds stack write flaw was found in unixODBC on 64-bit architectures where the caller has 4 bytes and callee writes 8 bytes. This issue may go unnoticed on little-endian architectures, while big-endian architectures can be broken.",
               "affected": [
                 {
+                  "ecosystem_specific": {
+                    "urgency": "unimportant"
+                  },
                   "package": {
-                    "name": "unixodbc",
-                    "ecosystem": "Debian:10"
+                    "ecosystem": "Debian:10",
+                    "name": "unixodbc"
                   },
                   "ranges": [
                     {
-                      "type": "ECOSYSTEM",
                       "events": [
                         {
                           "introduced": "0"
                         }
-                      ]
+                      ],
+                      "type": "ECOSYSTEM"
                     }
-                  ],
-                  "ecosystem_specific": {
-                    "urgency": "unimportant"
-                  }
+                  ]
                 }
               ],
+              "details": "An out-of-bounds stack write flaw was found in unixODBC on 64-bit architectures where the caller has 4 bytes and callee writes 8 bytes. This issue may go unnoticed on little-endian architectures, while big-endian architectures can be broken.",
+              "id": "CVE-2024-1013",
+              "modified": "2024-03-18T12:38:25Z",
+              "published": "2024-03-18T11:15:09Z",
               "references": [
                 {
                   "type": "REPORT",
@@ -1567,50 +1567,50 @@
           ],
           "vulnerabilities": [
             {
-              "id": "CVE-2024-3847",
-              "published": "2024-04-17T08:15:10Z",
-              "modified": "2024-05-03T03:16:29Z",
-              "details": "Insufficient policy enforcement in WebUI in Google Chrome prior to 124.0.6367.60 allowed a remote attacker to bypass content security policy via a crafted HTML page. (Chromium security severity: Low)",
               "affected": [
                 {
+                  "ecosystem_specific": {
+                    "urgency": "low"
+                  },
                   "package": {
-                    "name": "chromium",
-                    "ecosystem": "Debian:10"
+                    "ecosystem": "Debian:10",
+                    "name": "chromium"
                   },
                   "ranges": [
                     {
-                      "type": "ECOSYSTEM",
                       "events": [
                         {
                           "introduced": "0"
                         }
-                      ]
+                      ],
+                      "type": "ECOSYSTEM"
                     }
-                  ],
-                  "ecosystem_specific": {
-                    "urgency": "low"
-                  }
+                  ]
                 },
                 {
+                  "ecosystem_specific": {
+                    "urgency": "low"
+                  },
                   "package": {
-                    "name": "chromium",
-                    "ecosystem": "Debian:11"
+                    "ecosystem": "Debian:11",
+                    "name": "chromium"
                   },
                   "ranges": [
                     {
-                      "type": "ECOSYSTEM",
                       "events": [
                         {
                           "introduced": "0"
                         }
-                      ]
+                      ],
+                      "type": "ECOSYSTEM"
                     }
-                  ],
-                  "ecosystem_specific": {
-                    "urgency": "low"
-                  }
+                  ]
                 }
               ],
+              "details": "Insufficient policy enforcement in WebUI in Google Chrome prior to 124.0.6367.60 allowed a remote attacker to bypass content security policy via a crafted HTML page. (Chromium security severity: Low)",
+              "id": "CVE-2024-3847",
+              "modified": "2024-05-03T03:16:29Z",
+              "published": "2024-04-17T08:15:10Z",
               "references": [
                 {
                   "type": "ARTICLE",
@@ -1677,25 +1677,21 @@
           ],
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-vvpx-j8f3-3w6h",
-              "published": "2023-02-17T14:00:02Z",
-              "modified": "2023-03-09T21:20:44Z",
-              "aliases": [
-                "CVE-2022-41723"
-              ],
-              "summary": "Uncontrolled Resource Consumption",
-              "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-vvpx-j8f3-3w6h/GHSA-vvpx-j8f3-3w6h.json"
+                  },
+                  "ecosystem_specific": {
+                    "urgency": "unimportant"
+                  },
                   "package": {
-                    "name": "golang.org/x/net",
                     "ecosystem": "Go",
+                    "name": "golang.org/x/net",
                     "purl": "pkg:golang/golang.org/x/net"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0"
@@ -1703,17 +1699,28 @@
                         {
                           "fixed": "0.7.0"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "ecosystem_specific": {
-                    "urgency": "unimportant"
-                  },
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-vvpx-j8f3-3w6h/GHSA-vvpx-j8f3-3w6h.json"
-                  }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2022-41723"
+              ],
+              "database_specific": {
+                "cwe_ids": [
+                  "CWE-400"
+                ],
+                "github_reviewed": true,
+                "github_reviewed_at": "2023-02-17T14:00:02Z",
+                "nvd_published_at": "2023-02-28T18:15:00Z",
+                "severity": "HIGH"
+              },
+              "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+              "id": "GHSA-vvpx-j8f3-3w6h",
+              "modified": "2023-03-09T21:20:44Z",
+              "published": "2023-02-17T14:00:02Z",
               "references": [
                 {
                   "type": "ADVISORY",
@@ -1744,36 +1751,31 @@
                   "url": "https://vuln.go.dev/ID/GO-2023-1571.json"
                 }
               ],
-              "database_specific": {
-                "cwe_ids": [
-                  "CWE-400"
-                ],
-                "github_reviewed": true,
-                "github_reviewed_at": "2023-02-17T14:00:02Z",
-                "nvd_published_at": "2023-02-28T18:15:00Z",
-                "severity": "HIGH"
-              }
+              "schema_version": "1.4.0",
+              "summary": "Uncontrolled Resource Consumption"
             },
             {
-              "schema_version": "1.4.0",
-              "id": "GO-2023-1571",
-              "published": "2023-02-16T22:31:36Z",
-              "modified": "2023-02-22T20:13:12Z",
-              "aliases": [
-                "CVE-2022-41723",
-                "GHSA-vvpx-j8f3-3w6h"
-              ],
-              "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://vuln.go.dev/ID/GO-2023-1571.json",
+                    "url": "https://pkg.go.dev/vuln/GO-2023-1571"
+                  },
+                  "ecosystem_specific": {
+                    "imports": [
+                      {
+                        "path": "net/http"
+                      }
+                    ],
+                    "urgency": "low"
+                  },
                   "package": {
-                    "name": "stdlib",
                     "ecosystem": "Go",
+                    "name": "stdlib",
                     "purl": "pkg:golang/stdlib"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0"
@@ -1787,41 +1789,16 @@
                         {
                           "fixed": "1.20.1"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "ecosystem_specific": {
-                    "imports": [
-                      {
-                        "path": "net/http"
-                      }
-                    ],
-                    "urgency": "low"
-                  },
+                  ]
+                },
+                {
                   "database_specific": {
                     "source": "https://vuln.go.dev/ID/GO-2023-1571.json",
                     "url": "https://pkg.go.dev/vuln/GO-2023-1571"
-                  }
-                },
-                {
-                  "package": {
-                    "name": "golang.org/x/net",
-                    "ecosystem": "Go",
-                    "purl": "pkg:golang/golang.org/x/net"
                   },
-                  "ranges": [
-                    {
-                      "type": "SEMVER",
-                      "events": [
-                        {
-                          "introduced": "0"
-                        },
-                        {
-                          "fixed": "0.7.0"
-                        }
-                      ]
-                    }
-                  ],
                   "ecosystem_specific": {
                     "imports": [
                       {
@@ -1838,12 +1815,34 @@
                       }
                     ]
                   },
-                  "database_specific": {
-                    "source": "https://vuln.go.dev/ID/GO-2023-1571.json",
-                    "url": "https://pkg.go.dev/vuln/GO-2023-1571"
-                  }
+                  "package": {
+                    "ecosystem": "Go",
+                    "name": "golang.org/x/net",
+                    "purl": "pkg:golang/golang.org/x/net"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0"
+                        },
+                        {
+                          "fixed": "0.7.0"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2022-41723",
+                "GHSA-vvpx-j8f3-3w6h"
+              ],
+              "details": "A maliciously crafted HTTP/2 stream could cause excessive CPU consumption in the HPACK decoder, sufficient to cause a denial of service from a small number of small requests.",
+              "id": "GO-2023-1571",
+              "modified": "2023-02-22T20:13:12Z",
+              "published": "2023-02-16T22:31:36Z",
               "references": [
                 {
                   "type": "REPORT",
@@ -1861,7 +1860,8 @@
                   "type": "WEB",
                   "url": "https://groups.google.com/g/golang-announce/c/V0aBFqaFs_E"
                 }
-              ]
+              ],
+              "schema_version": "1.4.0"
             }
           ]
         }
@@ -1892,22 +1892,18 @@
           ],
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-mrrw-grhq-86gf",
-              "published": "2023-02-28T20:30:10Z",
-              "modified": "2023-02-28T20:30:10Z",
-              "summary": "Ascii (crate) allows out-of-bounds array indexing in safe code",
-              "details": "Affected version of this crate had implementation of `From\u003c\u0026mut AsciiStr\u003e` for `\u0026mut [u8]` and `\u0026mut str`. This can result in out-of-bounds array indexing in safe code.\n\nThe flaw was corrected in commit [8a6c779](https://github.com/tomprogrammer/rust-ascii/pull/63/commits/8a6c7798c202766bd57d70fb8d12739dd68fb9dc) by removing those impls.\n",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-mrrw-grhq-86gf/GHSA-mrrw-grhq-86gf.json"
+                  },
                   "package": {
-                    "name": "ascii",
                     "ecosystem": "crates.io",
+                    "name": "ascii",
                     "purl": "pkg:cargo/ascii"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0.6.0"
@@ -1915,14 +1911,23 @@
                         {
                           "fixed": "0.9.3"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-mrrw-grhq-86gf/GHSA-mrrw-grhq-86gf.json"
-                  }
+                  ]
                 }
               ],
+              "database_specific": {
+                "cwe_ids": [],
+                "github_reviewed": true,
+                "github_reviewed_at": "2023-02-28T20:30:10Z",
+                "nvd_published_at": null,
+                "severity": "MODERATE"
+              },
+              "details": "Affected version of this crate had implementation of `From\u003c\u0026mut AsciiStr\u003e` for `\u0026mut [u8]` and `\u0026mut str`. This can result in out-of-bounds array indexing in safe code.\n\nThe flaw was corrected in commit [8a6c779](https://github.com/tomprogrammer/rust-ascii/pull/63/commits/8a6c7798c202766bd57d70fb8d12739dd68fb9dc) by removing those impls.\n",
+              "id": "GHSA-mrrw-grhq-86gf",
+              "modified": "2023-02-28T20:30:10Z",
+              "published": "2023-02-28T20:30:10Z",
               "references": [
                 {
                   "type": "WEB",
@@ -1941,13 +1946,8 @@
                   "url": "https://rustsec.org/advisories/RUSTSEC-2023-0015.html"
                 }
               ],
-              "database_specific": {
-                "cwe_ids": [],
-                "github_reviewed": true,
-                "github_reviewed_at": "2023-02-28T20:30:10Z",
-                "nvd_published_at": null,
-                "severity": "MODERATE"
-              }
+              "schema_version": "1.4.0",
+              "summary": "Ascii (crate) allows out-of-bounds array indexing in safe code"
             }
           ]
         },
@@ -1972,25 +1972,18 @@
           ],
           "vulnerabilities": [
             {
-              "schema_version": "1.4.0",
-              "id": "GHSA-wcg3-cvx6-7396",
-              "published": "2021-08-25T20:56:46Z",
-              "modified": "2022-12-06T00:16:25Z",
-              "aliases": [
-                "CVE-2020-26235"
-              ],
-              "summary": "Segmentation fault in time",
-              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nIn some versions of `time`, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods. In later versions, `time` will attempt to determine the number of threads running in the process. If the process is single-threaded, the call will proceed as its safety invariant is upheld.\n\nUsers and library authors with time in their dependency tree must perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and must upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nLibrary authors must ensure that the program only has one running thread at the time of calling any affected method. Binary authors may do the same and/or ensure that no other thread is actively mutating the environment.\n\n### References\n\n[time-rs/time#293](https://github.com/time-rs/time/issues/293).",
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
+                  },
                   "package": {
-                    "name": "time",
                     "ecosystem": "crates.io",
+                    "name": "time",
                     "purl": "pkg:cargo/time"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0.1"
@@ -1998,32 +1991,15 @@
                         {
                           "last_affected": "0.2"
                         }
-                      ]
+                      ],
+                      "type": "SEMVER"
                     }
-                  ],
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
-                  }
+                  ]
                 },
                 {
-                  "package": {
-                    "name": "time",
-                    "ecosystem": "crates.io",
-                    "purl": "pkg:cargo/time"
+                  "database_specific": {
+                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
                   },
-                  "ranges": [
-                    {
-                      "type": "SEMVER",
-                      "events": [
-                        {
-                          "introduced": "0.2.7"
-                        },
-                        {
-                          "fixed": "0.2.23"
-                        }
-                      ]
-                    }
-                  ],
                   "ecosystem_specific": {
                     "affected_functions": [
                       "time::UtcOffset::local_offset_at",
@@ -2034,11 +2010,40 @@
                       "time::OffsetDateTime::try_now_local"
                     ]
                   },
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-wcg3-cvx6-7396/GHSA-wcg3-cvx6-7396.json"
-                  }
+                  "package": {
+                    "ecosystem": "crates.io",
+                    "name": "time",
+                    "purl": "pkg:cargo/time"
+                  },
+                  "ranges": [
+                    {
+                      "events": [
+                        {
+                          "introduced": "0.2.7"
+                        },
+                        {
+                          "fixed": "0.2.23"
+                        }
+                      ],
+                      "type": "SEMVER"
+                    }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2020-26235"
+              ],
+              "database_specific": {
+                "cwe_ids": [
+                  "CWE-476"
+                ],
+                "github_reviewed": true,
+                "severity": "MODERATE"
+              },
+              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nIn some versions of `time`, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods. In later versions, `time` will attempt to determine the number of threads running in the process. If the process is single-threaded, the call will proceed as its safety invariant is upheld.\n\nUsers and library authors with time in their dependency tree must perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and must upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nLibrary authors must ensure that the program only has one running thread at the time of calling any affected method. Binary authors may do the same and/or ensure that no other thread is actively mutating the environment.\n\n### References\n\n[time-rs/time#293](https://github.com/time-rs/time/issues/293).",
+              "id": "GHSA-wcg3-cvx6-7396",
+              "modified": "2022-12-06T00:16:25Z",
+              "published": "2021-08-25T20:56:46Z",
               "references": [
                 {
                   "type": "WEB",
@@ -2065,34 +2070,55 @@
                   "url": "https://rustsec.org/advisories/RUSTSEC-2020-0071.html"
                 }
               ],
-              "database_specific": {
-                "cwe_ids": [
-                  "CWE-476"
-                ],
-                "github_reviewed": true,
-                "severity": "MODERATE"
-              }
+              "schema_version": "1.4.0",
+              "summary": "Segmentation fault in time"
             },
             {
-              "schema_version": "1.4.0",
-              "id": "RUSTSEC-2020-0071",
-              "published": "2020-11-18T12:00:00Z",
-              "modified": "2023-02-08T15:06:38Z",
-              "aliases": [
-                "CVE-2020-26235"
-              ],
-              "summary": "Potential segfault in the time crate",
-              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nPending a proper fix, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods.\n\nUsers and library authors with time in their dependency tree should perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and should upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nA possible workaround for crates affected through the transitive dependency in `chrono`, is to avoid using the default `oldtime` feature dependency of the `chrono` crate by disabling its `default-features` and manually specifying the required features instead.\n\n#### Examples:\n\n`Cargo.toml`:  \n\n```toml\nchrono = { version = \"0.4\", default-features = false, features = [\"serde\"] }\n```\n\n```toml\nchrono = { version = \"0.4.22\", default-features = false, features = [\"clock\"] }\n```\n\nCommandline:  \n\n```bash\ncargo add chrono --no-default-features -F clock\n```\n\nSources:  \n - [chronotope/chrono#602 (comment)](https://github.com/chronotope/chrono/issues/602#issuecomment-1242149249)  \n - [vityafx/serde-aux#21](https://github.com/vityafx/serde-aux/issues/21)",
               "affected": [
                 {
+                  "database_specific": {
+                    "categories": [
+                      "code-execution",
+                      "memory-corruption"
+                    ],
+                    "cvss": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+                    "informational": null,
+                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2020-0071.json"
+                  },
+                  "ecosystem_specific": {
+                    "affects": {
+                      "arch": [],
+                      "functions": [
+                        "time::OffsetDateTime::now_local",
+                        "time::OffsetDateTime::try_now_local",
+                        "time::UtcOffset::current_local_offset",
+                        "time::UtcOffset::local_offset_at",
+                        "time::UtcOffset::try_current_local_offset",
+                        "time::UtcOffset::try_local_offset_at",
+                        "time::at",
+                        "time::at_utc",
+                        "time::now"
+                      ],
+                      "os": [
+                        "linux",
+                        "redox",
+                        "solaris",
+                        "android",
+                        "ios",
+                        "macos",
+                        "netbsd",
+                        "openbsd",
+                        "freebsd"
+                      ]
+                    }
+                  },
                   "package": {
-                    "name": "time",
                     "ecosystem": "crates.io",
+                    "name": "time",
                     "purl": "pkg:cargo/time"
                   },
                   "ranges": [
                     {
-                      "type": "SEMVER",
                       "events": [
                         {
                           "introduced": "0.0.0-0"
@@ -2142,47 +2168,19 @@
                         {
                           "fixed": "0.2.23"
                         }
-                      ]
-                    }
-                  ],
-                  "ecosystem_specific": {
-                    "affects": {
-                      "arch": [],
-                      "functions": [
-                        "time::OffsetDateTime::now_local",
-                        "time::OffsetDateTime::try_now_local",
-                        "time::UtcOffset::current_local_offset",
-                        "time::UtcOffset::local_offset_at",
-                        "time::UtcOffset::try_current_local_offset",
-                        "time::UtcOffset::try_local_offset_at",
-                        "time::at",
-                        "time::at_utc",
-                        "time::now"
                       ],
-                      "os": [
-                        "linux",
-                        "redox",
-                        "solaris",
-                        "android",
-                        "ios",
-                        "macos",
-                        "netbsd",
-                        "openbsd",
-                        "freebsd"
-                      ]
+                      "type": "SEMVER"
                     }
-                  },
-                  "database_specific": {
-                    "categories": [
-                      "code-execution",
-                      "memory-corruption"
-                    ],
-                    "cvss": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
-                    "informational": null,
-                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2020-0071.json"
-                  }
+                  ]
                 }
               ],
+              "aliases": [
+                "CVE-2020-26235"
+              ],
+              "details": "### Impact\n\nUnix-like operating systems may segfault due to dereferencing a dangling pointer in specific circumstances. This requires an environment variable to be set in a different thread than the affected functions. This may occur without the user's knowledge, notably in a third-party library.\n\nThe affected functions from time 0.2.7 through 0.2.22 are:\n\n- `time::UtcOffset::local_offset_at`\n- `time::UtcOffset::try_local_offset_at`\n- `time::UtcOffset::current_local_offset`\n- `time::UtcOffset::try_current_local_offset`\n- `time::OffsetDateTime::now_local`\n- `time::OffsetDateTime::try_now_local`\n\nThe affected functions in time 0.1 (all versions) are:\n\n- `at`\n- `at_utc`\n- `now`\n\nNon-Unix targets (including Windows and wasm) are unaffected.\n\n### Patches\n\nPending a proper fix, the internal method that determines the local offset has been modified to always return `None` on the affected operating systems. This has the effect of returning an `Err` on the `try_*` methods and `UTC` on the non-`try_*` methods.\n\nUsers and library authors with time in their dependency tree should perform `cargo update`, which will pull in the updated, unaffected code.\n\nUsers of time 0.1 do not have a patch and should upgrade to an unaffected version: time 0.2.23 or greater or the 0.3 series.\n\n### Workarounds\n\nA possible workaround for crates affected through the transitive dependency in `chrono`, is to avoid using the default `oldtime` feature dependency of the `chrono` crate by disabling its `default-features` and manually specifying the required features instead.\n\n#### Examples:\n\n`Cargo.toml`:  \n\n```toml\nchrono = { version = \"0.4\", default-features = false, features = [\"serde\"] }\n```\n\n```toml\nchrono = { version = \"0.4.22\", default-features = false, features = [\"clock\"] }\n```\n\nCommandline:  \n\n```bash\ncargo add chrono --no-default-features -F clock\n```\n\nSources:  \n - [chronotope/chrono#602 (comment)](https://github.com/chronotope/chrono/issues/602#issuecomment-1242149249)  \n - [vityafx/serde-aux#21](https://github.com/vityafx/serde-aux/issues/21)",
+              "id": "RUSTSEC-2020-0071",
+              "modified": "2023-02-08T15:06:38Z",
+              "published": "2020-11-18T12:00:00Z",
               "references": [
                 {
                   "type": "PACKAGE",
@@ -2196,7 +2194,9 @@
                   "type": "REPORT",
                   "url": "https://github.com/time-rs/time/issues/293"
                 }
-              ]
+              ],
+              "schema_version": "1.4.0",
+              "summary": "Potential segfault in the time crate"
             }
           ]
         }
