@@ -12,12 +12,12 @@ import (
 const DepsdevAPI = "api.deps.dev:443"
 
 // System maps from a lockfile system to the depsdev API system.
-var System = map[osvschema.Ecosystem]depsdevpb.System{
-	osvschema.EcosystemNPM:      depsdevpb.System_NPM,
-	osvschema.EcosystemNuGet:    depsdevpb.System_NUGET,
-	osvschema.EcosystemCratesIO: depsdevpb.System_CARGO,
-	osvschema.EcosystemGo:       depsdevpb.System_GO,
-	osvschema.EcosystemMaven:    depsdevpb.System_MAVEN,
-	osvschema.EcosystemPyPI:     depsdevpb.System_PYPI,
-	osvschema.EcosystemRubyGems: depsdevpb.System_RUBYGEMS,
+var System = map[osvconstants.Ecosystem]depsdevpb.System{
+	osvconstants.EcosystemNPM:      depsdevpb.System_NPM,
+	osvconstants.EcosystemNuGet:    depsdevpb.System_NUGET,
+	osvconstants.EcosystemCratesIO: depsdevpb.System_CARGO,
+	osvconstants.EcosystemGo:       depsdevpb.System_GO,
+	osvconstants.EcosystemMaven:    depsdevpb.System_MAVEN,
+	osvconstants.EcosystemPyPI:     depsdevpb.System_PYPI,
+	osvconstants.EcosystemRubyGems: depsdevpb.System_RUBYGEMS,
 }
