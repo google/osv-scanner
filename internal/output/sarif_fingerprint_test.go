@@ -6,7 +6,7 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
-func TestCreateSARIFFingerprint(t *testing.T) {
+func Test_createSARIFFingerprint(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
