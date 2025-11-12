@@ -54,13 +54,15 @@ func (v *Version) fetchComponentsAndBuild(maxComponents int) (Components, string
 	comps := v.Components[:maxComponents]
 	extra := v.Components[maxComponents:]
 
-	build := v.Build
+	var build strings.Builder
+
+	build.WriteString(v.Build)
 
 	for _, c := range extra {
-		build += fmt.Sprintf(".%d", c)
+		build.WriteString(fmt.Sprintf(".%d", c))
 	}
 
-	return comps, build
+	return comps, build.String()
 }
 
 func ParseSemverLikeVersion(line string, maxComponents int) Version {

@@ -18,8 +18,8 @@ type Case struct {
 // in the test case arguments, if it is present at all
 func (c Case) findFirstValueOfFlag(f string) string {
 	for i, arg := range c.Args {
-		if strings.HasPrefix(arg, f+"=") {
-			return strings.TrimPrefix(arg, f+"=")
+		if after, ok := strings.CutPrefix(arg, f+"="); ok {
+			return after
 		}
 
 		if arg == f && i < len(c.Args) {
