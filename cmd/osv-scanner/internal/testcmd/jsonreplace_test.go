@@ -384,7 +384,7 @@ func Test_replaceJSONInput(t *testing.T) {
 			t.Run(fmt.Sprintf("%d-%s", i, path), func(t *testing.T) {
 				t.Parallel()
 
-				got := replaceJSONInput(&testing.T{}, tt.input, path, matcher)
+				got := replaceJSONInput(t, tt.input, path, matcher)
 				if !gjson.Valid(got) {
 					t.Fatalf("Output not valid: \n%s", got)
 				}
@@ -545,7 +545,7 @@ func Test_replaceJSONInput_More(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := replaceJSONInput(&testing.T{}, tt.args.jsonInput, tt.args.path, tt.args.matcher)
+			got := replaceJSONInput(t, tt.args.jsonInput, tt.args.path, tt.args.matcher)
 			if !gjson.Valid(got) {
 				t.Fatalf("Output not valid: \n%s", got)
 			}
