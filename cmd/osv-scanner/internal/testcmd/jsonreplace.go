@@ -143,6 +143,7 @@ func replaceJSONInput(t *testing.T, jsonInput string, path string, replacer func
 			continue
 		}
 
+		// optimistically replace the element, since we know at this point it does exist
 		json, err = sjson.SetOptions(json, pathElem, replacer(res), &sjson.Options{Optimistic: true})
 		if err != nil {
 			t.Fatalf("failed to set element")
