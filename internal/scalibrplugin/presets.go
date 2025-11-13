@@ -113,6 +113,13 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		stacklock.Name: {stacklock.NewDefault},
 
 		osvscannerjson.Name: {osvscannerjson.New},
+
+		// --- OS "lockfiles" ---
+		// These have very strict FileRequired paths, so we can safely enable them for source scanning as well.
+		// Alpine
+		apk.Name: {apk.NewDefault},
+		// Debian
+		dpkg.Name: {dpkg.NewDefault},
 	},
 	"directory": {
 		gitrepo.Name:  {gitrepo.New},
