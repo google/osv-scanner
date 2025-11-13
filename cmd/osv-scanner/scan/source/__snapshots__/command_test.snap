@@ -415,13 +415,13 @@ Error during extraction: (extracting as php/composerlock) <rootdir>/testdata/loc
 ---
 
 [TestCommand/config_file_can_be_broad - 1]
-Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
 Scanning dir ./testdata/locks-many-with-insecure
 Scanning dir ./testdata/locks-insecure
 Scanning dir ./testdata/maven-transitive
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
+Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file and found 3 packages
 Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 6 packages
@@ -429,35 +429,35 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and f
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 3 packages
 Filtered 1 local/unscannable package/s from the scan.
+Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
+Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
 Package npm/ansi-html/0.0.1 has been filtered out because: (no reason given)
 Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
-Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package Maven/org.apache.logging.log4j:log4j-api/2.14.1 has been filtered out because: it makes the table output really really long
 Package Maven/org.apache.logging.log4j:log4j-core/2.14.1 has been filtered out because: it makes the table output really really long
 Package Maven/org.apache.logging.log4j:log4j-web/2.14.1 has been filtered out because: it makes the table output really really long
-Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
 Filtered 7 ignored package/s from the scan.
+overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Alpine/alpine-baselayout/3.4.0-r0 with MIT
 overriding license for package Alpine/alpine-baselayout-data/3.4.0-r0 with MIT
 overriding license for package Alpine/alpine-keys/2.4-r1 with MIT
 overriding license for package Alpine/apk-tools/2.12.10-r1 with MIT
 overriding license for package Alpine/busybox-binsh/1.36.1-r27 with MIT
 overriding license for package Alpine/ca-certificates-bundle/20220614-r4 with MIT
-overriding license for package Packagist/drupal/core/10.4.5 with 0BSD
-overriding license for package Packagist/drupal/simple_sitemap/4.2.2 with 0BSD
-overriding license for package Packagist/drupal/tfa/2.0.0-alpha4 with 0BSD
-overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
-overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Alpine/libc-utils/0.7.2-r3 with MIT
 overriding license for package Alpine/libcrypto3/3.0.8-r0 with MIT
 overriding license for package Alpine/libssl3/3.0.8-r0 with MIT
 overriding license for package Alpine/musl/1.2.3-r4 with MIT
 overriding license for package Alpine/musl-utils/1.2.3-r4 with MIT
 overriding license for package Alpine/scanelf/1.3.5-r1 with MIT
-overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Alpine/ssl_client/1.36.1-r27 with MIT
-overriding license for package Packagist/theseer/tokenizer/1.1.3 with 0BSD
 overriding license for package Alpine/zlib/1.2.13-r0 with MIT
+overriding license for package Packagist/drupal/core/10.4.5 with 0BSD
+overriding license for package Packagist/drupal/simple_sitemap/4.2.2 with 0BSD
+overriding license for package Packagist/drupal/tfa/2.0.0-alpha4 with 0BSD
+overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
+overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
+overriding license for package Packagist/theseer/tokenizer/1.1.3 with 0BSD
 Total 3 packages affected by 3 known vulnerabilities (2 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 4 ecosystems.
 2 vulnerabilities can be fixed.
 
@@ -993,7 +993,7 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and f
 ---
 
 [TestCommand/go_packages_in_osv-scanner.json_format - 1]
-Scanned <rootdir>/testdata/locks-insecure/osv-scanner.json file as a osv-scanner and found 2 packages
+Scanned <rootdir>/testdata/locks-insecure/osv-scanner.json file and found 2 packages
 Total 2 packages affected by 13 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 13 Unknown) from 1 ecosystem.
 13 vulnerabilities can be fixed.
 
@@ -1106,7 +1106,7 @@ Scanning dir ./testdata/locks-none-does-not-exist
 ---
 
 [TestCommand/no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine - 2]
-failed to scan dir: stat <rootdir>/testdata/locks-none-does-not-exist: no such file or directory
+failed to resolve path: stat <rootdir>/testdata/locks-none-does-not-exist: no such file or directory
 
 ---
 
@@ -1155,13 +1155,13 @@ No package sources found, --help for usage information.
 
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 1]
 Warning: --sbom has been deprecated in favor of -L
-Failed to parse SBOM "<rootdir>/testdata/locks-many/composer.lock" with error: could not determine extractor suitable to this file
-If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.
 
 ---
 
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 2]
-could not determine extractor suitable to this file
+Failed to parse SBOM "./testdata/locks-many/composer.lock": Invalid SBOM filename.
+If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.
+invalid SBOM filename: ./testdata/locks-many/composer.lock
 
 ---
 
@@ -1216,7 +1216,7 @@ No issues found
 
 [TestCommand/one_specific_supported_sbom_with_duplicate_PURLs - 1]
 Warning: --sbom has been deprecated in favor of -L
-Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 1 local/unscannable package/s from the scan.
 Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -1237,7 +1237,7 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 ---
 
 [TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 1]
-Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 15 packages
+Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 1 local/unscannable package/s from the scan.
 Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -1759,7 +1759,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_CommitSupport/offline_uses_git_tags - 1]
-Scanned <rootdir>/testdata/locks-git/osv-scanner.json file as a osv-scanner and found 11 packages
+Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 Loaded GIT local db from <tempdir>/osv-scanner/GIT/all.zip
 Skipping commit scanning for: 45fda76bc1b9fd74d10e85e0ce9b65a12dcc58b0
 Total 8 packages affected by 17 known vulnerabilities (4 Critical, 4 High, 3 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
@@ -1795,7 +1795,7 @@ Total 8 packages affected by 17 known vulnerabilities (4 Critical, 4 High, 3 Med
 ---
 
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
-Scanned <rootdir>/testdata/locks-git/osv-scanner.json file as a osv-scanner and found 11 packages
+Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 Total 11 packages affected by 41 known vulnerabilities (6 Critical, 9 High, 16 Medium, 4 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
@@ -1897,8 +1897,7 @@ CVE-2022-1304 and 2 aliases have been filtered out because: (no reason given)
 GO-2022-0274 and 2 aliases have been filtered out because: (no reason given)
 CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
 CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
-CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
-Filtered 9 vulnerabilities from output
+Filtered 8 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2025-26519
  - CVE-2018-25032
@@ -2639,13 +2638,13 @@ could not determine extractor, requested package-lock.json
 ---
 
 [TestCommand_Filter/Show_all_Packages_with_empty_config - 2]
-Scanned <rootdir>/testdata/locks-insecure/osv-scanner-with-unscannables.json file as a osv-scanner and found 2 packages
+Scanned <rootdir>/testdata/locks-insecure/osv-scanner-with-unscannables.json file and found 2 packages
 Filtered 1 local/unscannable package/s from the scan.
 
 ---
 
 [TestCommand_GithubActions/scanning_osv-scanner_custom_format - 1]
-Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
+Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file and found 3 packages
 Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
@@ -2842,7 +2841,7 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
 ---
 
 [TestCommand_GithubActions/scanning_osv-scanner_custom_format_output_json - 2]
-Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file as a osv-scanner and found 3 packages
+Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file and found 3 packages
 
 ---
 
@@ -3367,10 +3366,10 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Package npm/ansi-html/0.0.8 has been filtered out because: (no reason given)
-Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
 Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
+Package npm/ansi-html/0.0.8 has been filtered out because: (no reason given)
+Package npm/balanced-match/1.0.2 has been filtered out because: (no reason given)
 Filtered 4 ignored package/s from the scan.
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
@@ -3689,10 +3688,10 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
-Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
 2 vulnerabilities can be fixed.
 
@@ -3719,10 +3718,10 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
-Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
+Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 3 ecosystems.
 2 vulnerabilities can be fixed.
 
@@ -3806,8 +3805,8 @@ Scanned <rootdir>/testdata/locks-gitignore/subdir/composer.lock file and found 1
 Scanned <rootdir>/testdata/locks-gitignore/subdir/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 No issues found
 
 ---
@@ -3827,8 +3826,8 @@ Scanned <rootdir>/testdata/locks-gitignore/subdir/composer.lock file and found 1
 Scanned <rootdir>/testdata/locks-gitignore/subdir/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 No issues found
 
 ---
@@ -3841,8 +3840,8 @@ No issues found
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 No issues found
 
 ---
@@ -3855,8 +3854,8 @@ No issues found
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 No issues found
 
 ---
@@ -4437,11 +4436,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 2]
-could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
-could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
-could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 
 ---
 
@@ -4469,16 +4468,16 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 4]
-could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
-could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
-could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/"apk-installed"_is_supported - 1]
-Scanned <rootdir>/testdata/locks-many/installed file as a apk-installed and found 1 package
+Scanned <rootdir>/testdata/locks-many/installed file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 No issues found
 
@@ -4489,7 +4488,7 @@ No issues found
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/"dpkg-status"_is_supported - 1]
-Scanned <rootdir>/testdata/locks-many/status file as a dpkg-status and found 1 package
+Scanned <rootdir>/testdata/locks-many/status file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 No issues found
 
@@ -4515,7 +4514,8 @@ No issues found
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/absolute_paths_can_have_explicit_parse_as - 2]
-(extracting as javascript/packagelockjson) could not extract: invalid character '#' looking for beginning of value
+Error during extraction: (extracting as javascript/packagelockjson) <rootdir>/testdata/locks-many/yarn.lock: could not extract: invalid character '#' looking for beginning of value
+extraction failed on specified lockfile
 
 ---
 
@@ -4546,7 +4546,7 @@ No issues found
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 2]
-stat <rootdir>/path/to/my:file: no such file or directory
+failed to resolve path: stat <rootdir>/path/to/my:file: no such file or directory
 
 ---
 
@@ -4555,25 +4555,27 @@ stat <rootdir>/path/to/my:file: no such file or directory
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 2]
-stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
+failed to resolve path: stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 1]
-
+Scanning dir ./testdata/locks-insecure
+Scanning dir ./testdata/locks-many
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 2]
-(extracting as rust/cargolock) could not extract: toml: line 1: expected '.' or '=', but got '{' instead
+Error during extraction: (extracting as rust/cargolock) <rootdir>/testdata/locks-insecure/my-package-lock.json: could not extract: toml: line 1: expected '.' or '=', but got '{' instead
+extraction failed on specified lockfile
 
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic - 1]
-Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
-Scanned <rootdir>/testdata/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file and found 1 package
+Scanned <rootdir>/testdata/locks-insecure/my-yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 3 vulnerabilities can be fixed.
@@ -4594,11 +4596,11 @@ Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2 - 1]
-Scanned <rootdir>/testdata/locks-insecure/my-yarn.lock file as a yarn.lock and found 1 package
-Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file and found 1 package
+Scanned <rootdir>/testdata/locks-insecure/my-yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 3 vulnerabilities can be fixed.
@@ -4619,7 +4621,7 @@ Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1]
-Scanned <rootdir>/testdata/locks-many/replace-local.mod file as a go.mod and found 1 package
+Scanned <rootdir>/testdata/locks-many/replace-local.mod file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 No issues found
 
@@ -4634,7 +4636,8 @@ No issues found
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
-(extracting as javascript/packagelockjson) could not extract: invalid character '#' looking for beginning of value
+Error during extraction: (extracting as javascript/packagelockjson) <rootdir>/testdata/locks-many/yarn.lock: could not extract: invalid character '#' looking for beginning of value
+extraction failed on specified lockfile
 
 ---
 
@@ -4648,10 +4651,10 @@ could not determine extractor, requested my-file
 ---
 
 [TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file - 1]
-Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file as a package-lock.json and found 1 package
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
 Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -4675,7 +4678,7 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 ---
 
 [TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 2]
-could not determine extractor suitable to this file
+could not determine extractor suitable to this file: "<rootdir>/testdata/locks-scalibr/Package.resolved"
 
 ---
 
@@ -4684,7 +4687,7 @@ could not determine extractor suitable to this file
 ---
 
 [TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 2]
-could not determine extractor suitable to this file
+could not determine extractor suitable to this file: "<rootdir>/testdata/locks-scalibr/Podfile.lock"
 
 ---
 
@@ -4707,7 +4710,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 ---
 
 [TestCommand_MoreLockfiles/depsjson - 1]
-Scanned <rootdir>/testdata/locks-scalibr/depsjson file as a deps.json and found 4 packages
+Scanned <rootdir>/testdata/locks-scalibr/depsjson file and found 4 packages
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
@@ -4725,7 +4728,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 ---
 
 [TestCommand_MoreLockfiles/gems.locked - 1]
-Scanned <rootdir>/testdata/locks-scalibr/gems.locked file and found 25 packages
+Scanned <rootdir>/testdata/locks-scalibr/gems.locked file and found 26 packages
 Total 2 packages affected by 5 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
 
@@ -4922,75 +4925,75 @@ Total 3 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 4 Medi
 ---
 
 [TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 1]
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services/10.0.0/play-services-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j/2.14.1/log4j-2.14.1.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j/2.14.1/log4j-2.14.1.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/apache/23/apache-23.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/apache/23/apache-23.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-ads/10.0.0/play-services-ads-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/animated-vector-drawable/24.0.0/animated-vector-drawable-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/appcompat-v7/24.0.0/appcompat-v7-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/mediarouter-v7/24.0.0/mediarouter-v7-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/palette-v7/24.0.0/palette-v7-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-v4/24.0.0/support-v4-24.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-vector-drawable/24.0.0/support-vector-drawable-24.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-ads-lite/10.0.0/play-services-ads-lite-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-analytics/10.0.0/play-services-analytics-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-ads/10.0.0/play-services-ads-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-analytics-impl/10.0.0/play-services-analytics-impl-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-analytics/10.0.0/play-services-analytics-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-appinvite/10.0.0/play-services-appinvite-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-auth/10.0.0/play-services-auth-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-auth-base/10.0.0/play-services-auth-base-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-auth/10.0.0/play-services-auth-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-awareness/10.0.0/play-services-awareness-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-base/10.0.0/play-services-base-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-basement/10.0.0/play-services-basement-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-cast-framework/10.0.0/play-services-cast-framework-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-cast/10.0.0/play-services-cast-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-clearcut/10.0.0/play-services-clearcut-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-basement/10.0.0/play-services-basement-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-config/10.0.0/firebase-config-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-awareness/10.0.0/play-services-awareness-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-crash/10.0.0/firebase-crash-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-drive/10.0.0/play-services-drive-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-auth/10.0.0/firebase-auth-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-database-connection/10.0.0/firebase-database-connection-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-database/10.0.0/firebase-database-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-iid/10.0.0/firebase-iid-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-messaging/10.0.0/firebase-messaging-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-storage/10.0.0/firebase-storage-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-storage-common/10.0.0/firebase-storage-common-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-common/10.0.0/firebase-common-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-fitness/10.0.0/play-services-fitness-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-games/10.0.0/play-services-games-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-gass/10.0.0/play-services-gass-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-gcm/10.0.0/play-services-gcm-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-appindexing/10.0.0/firebase-appindexing-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-identity/10.0.0/play-services-identity-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-iid/10.0.0/play-services-iid-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-instantapps/10.0.0/play-services-instantapps-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-location/10.0.0/play-services-location-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-maps/10.0.0/play-services-maps-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-analytics/10.0.0/firebase-analytics-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-analytics-impl/10.0.0/firebase-analytics-impl-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-nearby/10.0.0/play-services-nearby-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-panorama/10.0.0/play-services-panorama-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-places/10.0.0/play-services-places-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-plus/10.0.0/play-services-plus-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-safetynet/10.0.0/play-services-safetynet-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tagmanager-api/10.0.0/play-services-tagmanager-api-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tagmanager/10.0.0/play-services-tagmanager-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tagmanager-v4-impl/10.0.0/play-services-tagmanager-v4-impl-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tagmanager/10.0.0/play-services-tagmanager-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tasks/10.0.0/play-services-tasks-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-vision/10.0.0/play-services-vision-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-wallet/10.0.0/play-services-wallet-10.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-wearable/10.0.0/play-services-wearable-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/mediarouter-v7/24.0.0/mediarouter-v7-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-v4/24.0.0/support-v4-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/palette-v7/24.0.0/palette-v7-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/appcompat-v7/24.0.0/appcompat-v7-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-vector-drawable/24.0.0/support-vector-drawable-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/animated-vector-drawable/24.0.0/animated-vector-drawable-24.0.0.pom
-Scanned <rootdir>/testdata/maven-transitive/registry.xml file as a pom.xml and found 59 packages
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services/10.0.0/play-services-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-analytics-impl/10.0.0/firebase-analytics-impl-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-analytics/10.0.0/firebase-analytics-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-appindexing/10.0.0/firebase-appindexing-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-auth/10.0.0/firebase-auth-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-common/10.0.0/firebase-common-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-config/10.0.0/firebase-config-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-crash/10.0.0/firebase-crash-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-database-connection/10.0.0/firebase-database-connection-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-database/10.0.0/firebase-database-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-iid/10.0.0/firebase-iid-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-messaging/10.0.0/firebase-messaging-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-storage-common/10.0.0/firebase-storage-common-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-storage/10.0.0/firebase-storage-10.0.0.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/apache/23/apache-23.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j/2.14.1/log4j-2.14.1.pom
+Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/apache/23/apache-23.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j/2.14.1/log4j-2.14.1.pom
+Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom
+Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 59 packages
 Total 2 packages affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
 
@@ -5044,7 +5047,7 @@ Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Med
 ---
 
 [TestCommand_Transitive/scans_dependencies_from_multiple_registries - 1]
-Scanned <rootdir>/testdata/maven-transitive/registry.xml file as a pom.xml and found 59 packages
+Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 59 packages
 Total 2 packages affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
 
@@ -5066,7 +5069,7 @@ Total 2 packages affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medi
 ---
 
 [TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 1]
-Scanned <rootdir>/testdata/maven-transitive/encoding.xml file as a pom.xml and found 2 packages
+Scanned <rootdir>/testdata/maven-transitive/encoding.xml file and found 2 packages
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
@@ -5084,7 +5087,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 ---
 
 [TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
-Scanned <rootdir>/testdata/maven-transitive/abc.xml file as a pom.xml and found 3 packages
+Scanned <rootdir>/testdata/maven-transitive/abc.xml file and found 3 packages
 Total 1 package affected by 4 known vulnerabilities (2 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 4 vulnerabilities can be fixed.
 

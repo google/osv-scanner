@@ -1,4 +1,4 @@
-package scalibrextract
+package osvscanner
 
 import (
 	"cmp"
