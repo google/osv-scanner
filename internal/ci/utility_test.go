@@ -8,6 +8,9 @@ import (
 	"github.com/google/osv-scanner/v2/internal/ci"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"google.golang.org/protobuf/testing/protocmp"
+	"google.golang.org/protobuf/types/known/structpb"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func parseTime(t *testing.T, str string) time.Time {
@@ -24,30 +27,27 @@ func parseTime(t *testing.T, str string) time.Time {
 func TestLoadVulnResults(t *testing.T) {
 	t.Parallel()
 
-	type args struct {
-		path string
-	}
 	tests := []struct {
 		name    string
-		args    args
+		path    string
 		want    models.VulnerabilityResults
 		wantErr bool
 	}{
 		{
 			name:    "does_not_exist",
-			args:    args{path: "./testdata/does_not_exist"},
+			path:    "./testdata/does_not_exist",
 			want:    models.VulnerabilityResults{},
 			wantErr: true,
 		},
 		{
 			name:    "invalid_json",
-			args:    args{path: "./testdata/not-json.txt"},
+			path:    "./testdata/not-json.txt",
 			want:    models.VulnerabilityResults{},
 			wantErr: true,
 		},
 		{
 			name: "results_empty",
-			args: args{path: "./testdata/results-empty.json"},
+			path: "./testdata/results-empty.json",
 			want: models.VulnerabilityResults{
 				Results: []models.PackageSource{},
 				ExperimentalAnalysisConfig: models.ExperimentalAnalysisConfig{
@@ -63,7 +63,7 @@ func TestLoadVulnResults(t *testing.T) {
 		},
 		{
 			name: "results_some",
-			args: args{path: "./testdata/results-some.json"},
+			path: "./testdata/results-some.json",
 			want: models.VulnerabilityResults{
 				Results: []models.PackageSource{
 					{
@@ -79,40 +79,95 @@ func TestLoadVulnResults(t *testing.T) {
 									Version:   "1.3.1",
 									Ecosystem: "Go",
 								},
-								Vulnerabilities: []osvschema.Vulnerability{
+								Vulnerabilities: []*osvschema.Vulnerability{
 									{
 										SchemaVersion: "1.4.0",
-										ID:            "GO-2021-0053",
-										Modified:      parseTime(t, "2023-06-12T18:45:41Z"),
-										Published:     parseTime(t, "2021-04-14T20:04:52Z"),
+										Id:            "GO-2021-0053",
+										Modified:      timestamppb.New(parseTime(t, "2023-06-12T18:45:41Z")),
+										Published:     timestamppb.New(parseTime(t, "2021-04-14T20:04:52Z")),
 										Aliases:       []string{"CVE-2021-3121", "GHSA-c3h9-896r-86jm"},
 										Summary:       "Panic due to improper input validation in github.com/gogo/protobuf",
 										Details:       "Due to improper bounds checking, maliciously crafted input to generated Unmarshal methods can cause an out-of-bounds panic. If parsing messages from untrusted parties, this may be used as a denial of service vector.",
-										Affected: []osvschema.Affected{
+										Affected: []*osvschema.Affected{
 											{
-												Package: osvschema.Package{
+												Package: &osvschema.Package{
 													Ecosystem: "Go",
 													Name:      "github.com/gogo/protobuf",
 													Purl:      "pkg:golang/github.com/gogo/protobuf",
 												},
-												Ranges: []osvschema.Range{{
-													Type: "SEMVER",
-													Events: []osvschema.Event{
+												Ranges: []*osvschema.Range{{
+													Type: osvschema.Range_SEMVER,
+													Events: []*osvschema.Event{
 														{Introduced: "0"},
 														{Fixed: "1.3.2"},
 													},
 												}},
-												DatabaseSpecific: map[string]any{"source": "https://vuln.go.dev/ID/GO-2021-0053.json"},
-												EcosystemSpecific: map[string]any{"imports": []any{map[string]any{
-													"path":    "github.com/gogo/protobuf/plugin/unmarshal",
-													"symbols": []any{"unmarshal.Generate", "unmarshal.field"},
-												}}},
+												DatabaseSpecific: &structpb.Struct{
+													Fields: map[string]*structpb.Value{
+														"source": {
+															Kind: &structpb.Value_StringValue{
+																StringValue: "https://vuln.go.dev/ID/GO-2021-0053.json",
+															},
+														},
+													},
+												},
+												EcosystemSpecific: &structpb.Struct{
+													Fields: map[string]*structpb.Value{
+														"imports": {
+															Kind: &structpb.Value_ListValue{
+																ListValue: &structpb.ListValue{
+																	Values: []*structpb.Value{
+																		{
+																			Kind: &structpb.Value_StructValue{
+																				StructValue: &structpb.Struct{
+																					Fields: map[string]*structpb.Value{
+																						"path": {
+																							Kind: &structpb.Value_StringValue{
+																								StringValue: "github.com/gogo/protobuf/plugin/unmarshal",
+																							},
+																						},
+																						"symbols": {
+																							Kind: &structpb.Value_ListValue{
+																								ListValue: &structpb.ListValue{
+																									Values: []*structpb.Value{
+																										{
+																											Kind: &structpb.Value_StringValue{
+																												StringValue: "unmarshal.Generate",
+																											},
+																										},
+																										{
+																											Kind: &structpb.Value_StringValue{
+																												StringValue: "unmarshal.field",
+																											},
+																										},
+																									},
+																								},
+																							},
+																						},
+																					},
+																				},
+																			},
+																		},
+																	},
+																},
+															},
+														},
+													},
+												},
 											},
 										},
-										References: []osvschema.Reference{
-											{Type: "FIX", URL: "https://github.com/gogo/protobuf/commit/b03c65ea87cdc3521ede29f62fe3ce239267c1bc"},
+										References: []*osvschema.Reference{
+											{Type: osvschema.Reference_FIX, Url: "https://github.com/gogo/protobuf/commit/b03c65ea87cdc3521ede29f62fe3ce239267c1bc"},
 										},
-										DatabaseSpecific: map[string]any{"url": "https://pkg.go.dev/vuln/GO-2021-0053"},
+										DatabaseSpecific: &structpb.Struct{
+											Fields: map[string]*structpb.Value{
+												"url": {
+													Kind: &structpb.Value_StringValue{
+														StringValue: "https://pkg.go.dev/vuln/GO-2021-0053",
+													},
+												},
+											},
+										},
 									},
 								},
 								Groups:            []models.GroupInfo{{IDs: []string{"GO-2021-0053"}}},
@@ -137,12 +192,12 @@ func TestLoadVulnResults(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got, err := ci.LoadVulnResults(tt.args.path)
+			got, err := ci.LoadVulnResults(tt.path)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("LoadVulnResults() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
-			if diff := cmp.Diff(tt.want, got); diff != "" {
+			if diff := cmp.Diff(tt.want, got, protocmp.Transform()); diff != "" {
 				t.Errorf("LoadVulnResults() returned unexpected result (-want +got):\n%s", diff)
 			}
 		})

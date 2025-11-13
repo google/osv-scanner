@@ -35,12 +35,12 @@ func NewVulnList(vulns []*resolution.Vulnerability, preamble string) *vulnList {
 	// Sort the vulns by descending severity, then ID
 	vulns = slices.Clone(vulns)
 	slices.SortFunc(vulns, func(a, b *resolution.Vulnerability) int {
-		aScoreFloat, aRating, _ := severity.CalculateOverallScore(a.OSV.Severity)
+		aScoreFloat, aRating, _ := severity.CalculateOverallScore(a.OSV.GetSeverity())
 		aScore := int(aScoreFloat * 10) // CVSS scores are only to 1dp
 		if aRating == "UNKNOWN" {
 			aScore = 999 // Sort unknown before critical
 		}
-		bScoreFloat, bRating, _ := severity.CalculateOverallScore(b.OSV.Severity)
+		bScoreFloat, bRating, _ := severity.CalculateOverallScore(b.OSV.GetSeverity())
 		bScore := int(bScoreFloat * 10) // CVSS scores are only to 1dp
 		if bRating == "UNKNOWN" {
 			bScore = 999 // Sort unknown before critical
@@ -50,13 +50,13 @@ func NewVulnList(vulns []*resolution.Vulnerability, preamble string) *vulnList {
 			return -c
 		}
 
-		return cmp.Compare(a.OSV.ID, b.OSV.ID)
+		return cmp.Compare(a.OSV.GetId(), b.OSV.GetId())
 	})
 	items := make([]list.Item, 0, len(vulns))
 	delegate := vulnListItemDelegate{idWidth: 0}
 	for _, v := range vulns {
 		items = append(items, vulnListItem{v})
-		if w := lipgloss.Width(v.OSV.ID); w > delegate.idWidth {
+		if w := lipgloss.Width(v.OSV.GetId()); w > delegate.idWidth {
 			delegate.idWidth = w
 		}
 	}
@@ -157,7 +157,7 @@ type vulnListItem struct {
 }
 
 func (v vulnListItem) FilterValue() string {
-	return v.OSV.ID
+	return v.OSV.GetId()
 }
 
 type vulnListItemDelegate struct {
@@ -179,11 +179,11 @@ func (d vulnListItemDelegate) Render(w io.Writer, m list.Model, index int, listI
 		cursor = SelectedTextStyle.Render(">")
 		idStyle = idStyle.Inherit(SelectedTextStyle)
 	}
-	id := idStyle.Render(vuln.OSV.ID)
-	sev := RenderSeverityShort(vuln.OSV.Severity)
+	id := idStyle.Render(vuln.OSV.GetId())
+	sev := RenderSeverityShort(vuln.OSV.GetSeverity())
 	str := fmt.Sprintf("%s %s  %s  ", cursor, id, sev)
 	fmt.Fprint(w, str)
-	fmt.Fprint(w, truncate.StringWithTail(vuln.OSV.Summary, uint(m.Width()-lipgloss.Width(str)), "…")) //nolint:gosec
+	fmt.Fprint(w, truncate.StringWithTail(vuln.OSV.GetSummary(), uint(m.Width()-lipgloss.Width(str)), "…")) //nolint:gosec
 }
 
 // workaround item delegate wrapper to stop the selected item from being shown as selected

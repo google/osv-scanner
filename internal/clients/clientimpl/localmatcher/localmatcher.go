@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scalibr/inventory/osvecosystem"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -23,10 +24,10 @@ const envKeyLocalDBCacheDirectory = "OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY"
 // and performing the matching locally.
 type LocalMatcher struct {
 	dbBasePath string
-	dbs        map[osvschema.Ecosystem]*ZipDB
+	dbs        map[osvconstants.Ecosystem]*ZipDB
 	downloadDB bool
 	// failedDBs keeps track of the errors when getting databases for each ecosystem
-	failedDBs map[osvschema.Ecosystem]error
+	failedDBs map[osvconstants.Ecosystem]error
 	// userAgent sets the user agent requests for db zips are made with
 	userAgent string
 }
@@ -39,10 +40,10 @@ func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*Lo
 
 	return &LocalMatcher{
 		dbBasePath: dbBasePath,
-		dbs:        make(map[osvschema.Ecosystem]*ZipDB),
+		dbs:        make(map[osvconstants.Ecosystem]*ZipDB),
 		downloadDB: downloadDB,
 		userAgent:  userAgent,
-		failedDBs:  make(map[osvschema.Ecosystem]error),
+		failedDBs:  make(map[osvconstants.Ecosystem]error),
 	}, nil
 }
 
@@ -111,7 +112,7 @@ func (matcher *LocalMatcher) LoadEcosystem(ctx context.Context, eco osvecosystem
 	return err
 }
 
-func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvschema.Ecosystem, invs []*extractor.Package) (*ZipDB, error) {
+func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvconstants.Ecosystem, invs []*extractor.Package) (*ZipDB, error) {
 	if db, ok := matcher.dbs[eco]; ok {
 		return db, nil
 	}

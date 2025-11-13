@@ -20,24 +20,28 @@ func TestComputeOverridePatches(t *testing.T) {
 	tests := []struct {
 		name         string
 		universePath string
+		vulnPath     string
 		manifestPath string
 		opts         remediation.Options
 	}{
 		{
 			name:         "maven-zeppelin-server",
 			universePath: "./testdata/zeppelin-server/universe.yaml",
+			vulnPath:     "./testdata/zeppelin-server/vulns.json",
 			manifestPath: "./testdata/zeppelin-server/pom.xml",
 			opts:         basicOpts,
 		},
 		{
 			name:         "maven-classifier",
 			universePath: "./testdata/maven-classifier/universe.yaml",
+			vulnPath:     "./testdata/maven-classifier/vulns.json",
 			manifestPath: "./testdata/maven-classifier/pom.xml",
 			opts:         basicOpts,
 		},
 		{
 			name:         "maven-management-only",
 			universePath: "./testdata/zeppelin-server/universe.yaml",
+			vulnPath:     "./testdata/zeppelin-server/vulns.json",
 			manifestPath: "./testdata/zeppelin-server/parent/pom.xml",
 			opts: remediation.Options{
 				ResolveOpts: resolution.ResolveOpts{
@@ -51,24 +55,28 @@ func TestComputeOverridePatches(t *testing.T) {
 		{
 			name:         "workaround-maven-guava-none-to-jre",
 			universePath: "./testdata/override-workaround/universe.yaml",
+			vulnPath:     "./testdata/override-workaround/vulns.json",
 			manifestPath: "./testdata/override-workaround/guava/none-to-jre/pom.xml",
 			opts:         basicOpts,
 		},
 		{
 			name:         "workaround-maven-guava-jre-to-jre",
 			universePath: "./testdata/override-workaround/universe.yaml",
+			vulnPath:     "./testdata/override-workaround/vulns.json",
 			manifestPath: "./testdata/override-workaround/guava/jre-to-jre/pom.xml",
 			opts:         basicOpts,
 		},
 		{
 			name:         "workaround-maven-guava-android-to-android",
 			universePath: "./testdata/override-workaround/universe.yaml",
+			vulnPath:     "./testdata/override-workaround/vulns.json",
 			manifestPath: "./testdata/override-workaround/guava/android-to-android/pom.xml",
 			opts:         basicOpts,
 		},
 		{
 			name:         "workaround-commons",
 			universePath: "./testdata/override-workaround/universe.yaml",
+			vulnPath:     "./testdata/override-workaround/vulns.json",
 			manifestPath: "./testdata/override-workaround/commons/pom.xml",
 			opts:         basicOpts,
 		},
@@ -77,7 +85,7 @@ func TestComputeOverridePatches(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath, tt.opts.ResolveOpts)
+			res, cl := parseRemediationFixture(t, tt.universePath, tt.vulnPath, tt.manifestPath, tt.opts.ResolveOpts)
 			res.FilterVulns(tt.opts.MatchVuln)
 			p, err := remediation.ComputeOverridePatches(t.Context(), cl, res, tt.opts)
 			if err != nil {

@@ -9,6 +9,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
@@ -35,7 +36,7 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 
 		switch {
 		// If **any** of the following cases are true, skip this package
-		case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown", // Is Maven with package name unknown
+		case p.Ecosystem().Ecosystem == osvconstants.EcosystemMaven && p.Name() == "unknown", // Is Maven with package name unknown
 			p.Ecosystem().GetValidity() != nil && !p.Ecosystem().IsEmpty(): // Is invalid and not empty
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
@@ -174,10 +175,10 @@ func filterPackageVulns(pkgVulns models.PackageVulns, configToUse config.Config)
 		}
 	}
 
-	var newVulns []osvschema.Vulnerability
+	var newVulns []*osvschema.Vulnerability
 	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
 		for _, vuln := range pkgVulns.Vulnerabilities {
-			if _, filtered := ignoredVulns[vuln.ID]; !filtered {
+			if _, filtered := ignoredVulns[vuln.GetId()]; !filtered {
 				newVulns = append(newVulns, vuln)
 			}
 		}

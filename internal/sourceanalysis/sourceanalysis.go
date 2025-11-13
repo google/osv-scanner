@@ -8,15 +8,15 @@ import (
 )
 
 // vulnsFromAllPkgs returns the flattened list of unique vulnerabilities
-func vulnsFromAllPkgs(pkgs []models.PackageVulns) ([]osvschema.Vulnerability, map[string]osvschema.Vulnerability) {
-	flatVulns := map[string]osvschema.Vulnerability{}
+func vulnsFromAllPkgs(pkgs []models.PackageVulns) ([]*osvschema.Vulnerability, map[string]*osvschema.Vulnerability) {
+	flatVulns := map[string]*osvschema.Vulnerability{}
 	for _, pv := range pkgs {
 		for _, vuln := range pv.Vulnerabilities {
-			flatVulns[vuln.ID] = vuln
+			flatVulns[vuln.GetId()] = vuln
 		}
 	}
 
-	vulns := []osvschema.Vulnerability{}
+	vulns := []*osvschema.Vulnerability{}
 	for _, v := range flatVulns {
 		vulns = append(vulns, v)
 	}

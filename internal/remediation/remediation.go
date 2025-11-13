@@ -70,11 +70,11 @@ func (opts Options) MatchVuln(v resolution.Vulnerability) bool {
 }
 
 func (opts Options) matchID(v resolution.Vulnerability, ids []string) bool {
-	if slices.Contains(ids, v.OSV.ID) {
+	if slices.Contains(ids, v.OSV.GetId()) {
 		return true
 	}
 
-	for _, id := range v.OSV.Aliases {
+	for _, id := range v.OSV.GetAliases() {
 		if slices.Contains(ids, id) {
 			return true
 		}
@@ -86,7 +86,7 @@ func (opts Options) matchID(v resolution.Vulnerability, ids []string) bool {
 func (opts Options) matchSeverity(v resolution.Vulnerability) bool {
 	maxScore := -1.0
 	// TODO: also check OSV.Affected[].Severity
-	for _, sev := range v.OSV.Severity {
+	for _, sev := range v.OSV.GetSeverity() {
 		if score, _, _ := severity.CalculateScore(sev); score > maxScore {
 			maxScore = score
 		}

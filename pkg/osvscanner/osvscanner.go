@@ -37,7 +37,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"osv.dev/bindings/go/osvdev"
 )
 
@@ -101,7 +101,7 @@ type ExternalAccessors struct {
 	// DependencyClients is a map of implementations of DependencyClient
 	// for each ecosystem, the following is currently implemented:
 	// - [osvschema.EcosystemMaven] required for pomxmlnet Extractor
-	DependencyClients map[osvschema.Ecosystem]resolve.Client
+	DependencyClients map[osvconstants.Ecosystem]resolve.Client
 }
 
 // ErrNoPackagesFound for when no packages are found during a scan.
@@ -118,7 +118,7 @@ var ErrAPIFailed = errors.New("API query failed")
 func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, error) {
 	ctx := context.Background()
 	externalAccessors := ExternalAccessors{
-		DependencyClients: map[osvschema.Ecosystem]resolve.Client{},
+		DependencyClients: map[osvconstants.Ecosystem]resolve.Client{},
 	}
 	var err error
 
@@ -173,13 +173,13 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	}
 
 	if !actions.NativeDataSource {
-		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		externalAccessors.DependencyClients[osvconstants.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	} else {
-		externalAccessors.DependencyClients[osvschema.EcosystemMaven], err = resolution.NewMavenRegistryClient(ctx, actions.MavenRegistry, "", false)
+		externalAccessors.DependencyClients[osvconstants.EcosystemMaven], err = resolution.NewMavenRegistryClient(ctx, actions.MavenRegistry, "", false)
 	}
 
 	// We only support native registry client for PyPI.
-	externalAccessors.DependencyClients[osvschema.EcosystemPyPI] = resolution.NewPyPIRegistryClient("", "")
+	externalAccessors.DependencyClients[osvconstants.EcosystemPyPI] = resolution.NewPyPIRegistryClient("", "")
 
 	if err != nil {
 		return ExternalAccessors{}, err
@@ -403,8 +403,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	//    - Assume python packages under dist-packages is a OS package
 	// Replace this with an actual implementation in OSV-Scalibr (potentially via full filesystem accountability).
 	for _, psr := range scanResult.PackageScanResults {
-		if (strings.HasPrefix(psr.PackageInfo.Location(), "/usr/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemGo) ||
-			strings.Contains(psr.PackageInfo.Location(), "dist-packages/") && psr.PackageInfo.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
+		if (strings.HasPrefix(psr.PackageInfo.Location(), "/usr/") && psr.PackageInfo.Ecosystem().Ecosystem == osvconstants.EcosystemGo) ||
+			strings.Contains(psr.PackageInfo.Location(), "dist-packages/") && psr.PackageInfo.Ecosystem().Ecosystem == osvconstants.EcosystemPyPI {
 			psr.PackageInfo.AnnotationsDeprecated = append(psr.PackageInfo.AnnotationsDeprecated, extractor.InsideOSPackage)
 		}
 	}
@@ -500,7 +500,7 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 		onlyUnimportantVuln := true
 		var licenseViolation bool
 		for _, vf := range vulnResults.Flatten() {
-			if vf.Vulnerability.ID != "" {
+			if vf.Vulnerability != nil && vf.Vulnerability.GetId() != "" {
 				vuln = true
 				// TODO(gongh): rewrite the logic once we support reachability analysis for container scanning.
 				if vf.GroupInfo.IsCalled() && !vf.GroupInfo.IsGroupUnimportant() {
@@ -559,7 +559,7 @@ func makeVulnRequestWithMatcher(
 func overrideGoVersion(scanResults *results.ScanResults) {
 	for i, psr := range scanResults.PackageScanResults {
 		pkg := psr.PackageInfo
-		if pkg.Name() == "stdlib" && pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo {
+		if pkg.Name() == "stdlib" && pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo {
 			configToUse := scanResults.ConfigManager.Get(pkg.Location())
 			if configToUse.GoVersionOverride != "" {
 				scanResults.PackageScanResults[i].PackageInfo.Package.Version = configToUse.GoVersionOverride

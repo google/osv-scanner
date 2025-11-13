@@ -39,7 +39,7 @@ func ComputeRelaxPatches(ctx context.Context, cl client.ResolutionClient, result
 	toProcess := 0
 	for _, vuln := range result.Vulns {
 		// TODO: limit the number of goroutines
-		go doRelax([]string{vuln.OSV.ID})
+		go doRelax([]string{vuln.OSV.GetId()})
 		toProcess++
 	}
 
@@ -60,7 +60,7 @@ func ComputeRelaxPatches(ctx context.Context, cl client.ResolutionClient, result
 		// If this patch adds a new vuln, see if we can fix it also
 		// TODO: If there's more than 1 added vuln, this can possibly cause every permutation of those vulns to be computed
 		for _, added := range diff.AddedVulns {
-			go doRelax(append(slices.Clone(res.vulnIDs), added.OSV.ID))
+			go doRelax(append(slices.Clone(res.vulnIDs), added.OSV.GetId()))
 			toProcess++
 		}
 	}
@@ -119,12 +119,12 @@ func reqsToRelax(ctx context.Context, cl resolve.Client, res *resolution.Result,
 	toRelax := make(map[resolve.VersionKey]string)
 	for _, v := range res.Vulns {
 		// Don't do a full opts.MatchVuln() since we know we don't need to check every condition
-		if !slices.Contains(vulnIDs, v.OSV.ID) || (!opts.DevDeps && v.DevOnly) {
+		if !slices.Contains(vulnIDs, v.OSV.GetId()) || (!opts.DevDeps && v.DevOnly) {
 			continue
 		}
 		// Only relax dependencies if their distance is less than MaxDepth
 		for _, sg := range v.Subgraphs {
-			constr := sg.ConstrainingSubgraph(ctx, cl, &v.OSV)
+			constr := sg.ConstrainingSubgraph(ctx, cl, v.OSV)
 			for _, edge := range constr.Nodes[0].Children {
 				gNode := constr.Nodes[edge.To]
 				if opts.MaxDepth <= 0 || gNode.Distance+1 <= opts.MaxDepth {
