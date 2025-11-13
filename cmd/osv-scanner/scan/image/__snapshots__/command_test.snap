@@ -1748,9 +1748,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 2
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         },
         {
           "package": {
@@ -1795,9 +1793,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 2
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         }
       ]
     },
@@ -1817,9 +1813,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         },
         {
           "package": {
@@ -1831,9 +1825,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         },
         {
           "package": {
@@ -1845,9 +1837,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         },
         {
           "package": {
@@ -1859,9 +1849,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         },
         {
           "package": {
@@ -1873,9 +1861,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         },
         {
           "package": {
@@ -1887,9 +1873,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         },
         {
           "package": {
@@ -1901,9 +1885,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         },
         {
           "package": {
@@ -1993,9 +1975,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         },
         {
           "package": {
@@ -2007,9 +1987,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         },
         {
           "package": {
@@ -2021,9 +1999,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          },
-          "groups": 0,
-          "vulnerabilities": null
+          }
         }
       ]
     }
