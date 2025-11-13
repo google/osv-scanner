@@ -3,11 +3,11 @@ module github.com/google/osv-scanner/v2
 go 1.25.4
 
 require (
-	deps.dev/api/v3 v3.0.0-20250917073939-6ff3dd7d2eea
-	deps.dev/api/v3alpha v0.0.0-20250903005441-604c45d5b44b
-	deps.dev/util/maven v0.0.0-20250917073939-6ff3dd7d2eea
-	deps.dev/util/resolve v0.0.0-20250917073939-6ff3dd7d2eea
-	deps.dev/util/semver v0.0.0-20250917073939-6ff3dd7d2eea
+	deps.dev/api/v3 v3.0.0-20251104021112-20ad94767ddf
+	deps.dev/api/v3alpha v0.0.0-20251104021112-20ad94767ddf
+	deps.dev/util/maven v0.0.0-20251104021112-20ad94767ddf
+	deps.dev/util/resolve v0.0.0-20251104021112-20ad94767ddf
+	deps.dev/util/semver v0.0.0-20251104021112-20ad94767ddf
 	github.com/BurntSushi/toml v1.5.0
 	github.com/CycloneDX/cyclonedx-go v0.9.3
 	github.com/charmbracelet/bubbles v0.21.0
@@ -20,27 +20,27 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/google/osv-scalibr v0.3.7-0.20251031021149-f8169c9356bf
 	github.com/ianlancetaylor/demangle v0.0.0-20250628045327-2d64ad6b7ec5
-	github.com/jedib0t/go-pretty/v6 v6.6.8
-	github.com/modelcontextprotocol/go-sdk v1.0.0
+	github.com/jedib0t/go-pretty/v6 v6.7.1
+	github.com/modelcontextprotocol/go-sdk v1.1.0
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/ossf/osv-schema/bindings/go v0.0.0-20251029033743-5e05f9d00d92
-	github.com/owenrumney/go-sarif/v3 v3.2.3
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20251112210320-9fb6c8870ac1
+	github.com/owenrumney/go-sarif/v3 v3.3.0
 	github.com/package-url/packageurl-go v0.1.3
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/tidwall/gjson v1.18.0
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v3 v3.6.0
-	golang.org/x/net v0.46.0
-	golang.org/x/sync v0.17.0
-	golang.org/x/term v0.36.0
+	golang.org/x/net v0.47.0
+	golang.org/x/sync v0.18.0
+	golang.org/x/term v0.37.0
 	golang.org/x/vuln v1.1.4
 	google.golang.org/grpc v1.76.0
 	google.golang.org/protobuf v1.36.10
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
-	osv.dev/bindings/go v0.0.0-20251105233301-fc2197ecd5ab
+	osv.dev/bindings/go v0.0.0-20251113023009-27a98cf5463b
 )
 
 require (
@@ -202,18 +202,18 @@ require (
 	go.uber.org/zap v1.17.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.2 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/crypto v0.43.0 // indirect
+	golang.org/x/crypto v0.44.0 // indirect
 	golang.org/x/exp v0.0.0-20250711185948-6ae5c78190dc // indirect
-	golang.org/x/mod v0.28.0 // indirect
+	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/oauth2 v0.30.0 // indirect
-	golang.org/x/sys v0.37.0 // indirect
-	golang.org/x/telemetry v0.0.0-20250908211612-aef8a434d053 // indirect
-	golang.org/x/text v0.30.0 // indirect
-	golang.org/x/tools v0.37.0 // indirect
+	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/telemetry v0.0.0-20251008203120-078029d740a8 // indirect
+	golang.org/x/text v0.31.0 // indirect
+	golang.org/x/tools v0.38.0 // indirect
 	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect
 	google.golang.org/genproto v0.0.0-20250707201910-8d1bb00bc6a7 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20251103181224-f26f9409b101 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20251029180050-ab9386a59fda // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20251111163417-95abcf5c77ba // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20251103181224-f26f9409b101 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	modernc.org/libc v1.66.3 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
