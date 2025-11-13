@@ -10,11 +10,12 @@ import (
 	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
+	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
+	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirementsnet"
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
@@ -24,7 +25,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
@@ -40,12 +40,6 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
 			})
 		}
-		if accessors.DependencyClients[osvconstants.EcosystemPyPI] != nil {
-			requirementsenhancable.EnhanceIfPossible(plug, requirementsnet.Config{
-				Extractor: &requirements.Extractor{},
-				Client:    accessors.DependencyClients[osvconstants.EcosystemPyPI],
-			})
-		}
 
 		vendored.Configure(plug, vendored.Config{
 			// Only attempt to vendor check git directories if we are not skipping scanning root git directories
@@ -53,6 +47,18 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 			OSVClient:  accessors.OSVDevClient,
 		})
 	}
+}
+
+func isRequirementsExtractorEnabled(plugins []plugin.Plugin) bool {
+	for _, plug := range plugins {
+		_, ok := plug.(*requirements.Extractor)
+
+		if ok {
+			return true
+		}
+	}
+
+	return false
 }
 
 func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
@@ -69,6 +75,11 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 	}
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled)
+
+	// todo: use Enricher.RequiredPlugins to check this generically
+	if accessors.DependencyClients[osvconstants.EcosystemPyPI] != nil && isRequirementsExtractorEnabled(plugins) {
+		plugins = append(plugins, transitivedependencyrequirements.NewEnricher(accessors.DependencyClients[osvconstants.EcosystemPyPI]))
+	}
 
 	configurePlugins(plugins, accessors, actions)
 
@@ -90,6 +101,19 @@ func omitDirExtractors(plugins []plugin.Plugin) []plugin.Plugin {
 	return filtered
 }
 
+// countNotEnrichers counts the number of plugins that are not enricher.Enricher plugins
+func countNotEnrichers(plugins []plugin.Plugin) int {
+	count := 0
+	for _, plug := range plugins {
+		_, ok := plug.(enricher.Enricher)
+		if !ok {
+			count++
+		}
+	}
+
+	return count
+}
+
 // scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanResult, error) {
 	//nolint:prealloc // We don't know how many inventories we will retrieve
@@ -102,7 +126,9 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 		actions,
 	)
 
-	if len(plugins) == 0 {
+	// technically having one detector enabled would also be sufficient, but we're
+	// not mentioning them to avoid confusion since they're still in their infancy
+	if countNotEnrichers(plugins) == 0 {
 		return nil, errors.New("at least one extractor must be enabled")
 	}
 
@@ -208,6 +234,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 			StoreAbsolutePath:     true,
 			PrintDurationAnalysis: false,
 			ErrorOnFSErrors:       false,
+			ExplicitPlugins:       true,
 		})
 		if sr.Status.Status == plugin.ScanStatusFailed {
 			return nil, errors.New(sr.Status.FailureReason)

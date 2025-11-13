@@ -30,6 +30,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pdmlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/uvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
@@ -42,7 +43,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 )
 
 var lockfileExtractorMapping = map[string][]string{
@@ -57,7 +57,7 @@ var lockfileExtractorMapping = map[string][]string{
 	"poetry.lock":                 {poetrylock.Name},
 	"Pipfile.lock":                {pipfilelock.Name},
 	"pdm.lock":                    {pdmlock.Name},
-	"requirements.txt":            {requirementsenhancable.Name},
+	"requirements.txt":            {requirements.Name},
 	"uv.lock":                     {uvlock.Name},
 	"Cargo.lock":                  {cargolock.Name},
 	"composer.lock":               {composerlock.Name},
