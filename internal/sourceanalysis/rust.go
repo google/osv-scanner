@@ -86,7 +86,15 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 					//     ],
 					//     "arch": []
 					// }
-					ecosystemAffects := a.GetEcosystemSpecific().GetFields()["affects"].GetStructValue().AsMap()
+					ecosystemSpecific := a.GetEcosystemSpecific()
+					if ecosystemSpecific == nil {
+						continue
+					}
+					ecosystemAffectsVal, ok := ecosystemSpecific.GetFields()["affects"]
+					if !ok || ecosystemAffectsVal == nil || ecosystemAffectsVal.GetStructValue() == nil {
+						continue
+					}
+					ecosystemAffects := ecosystemAffectsVal.GetStructValue().AsMap()
 					affectedFunctions, ok := ecosystemAffects["functions"].([]any)
 					if !ok {
 						continue
