@@ -12,7 +12,7 @@ import (
 	"github.com/tidwall/gjson"
 )
 
-func Test_repaceJSONInput(t *testing.T) {
+func Test_replaceJSONInput(t *testing.T) {
 	t.Parallel()
 
 	matcher := func(_ gjson.Result) any {
