@@ -15,27 +15,27 @@
             "ecosystem": "",
             "commit": "33dffa3909a67e1b5d22647128ab7eb6e53fd0c7"
           },
-          "vulnerabilities": [
+          "groups": [
             {
-              "modified": "2025-11-06T01:21:21Z",
-              "published": "2025-10-31T07:15:38Z",
-              "schema_version": "1.7.3",
-              "id": "CVE-2025-63675",
+              "ids": [
+                "CVE-2025-63675"
+              ],
               "aliases": [
+                "CVE-2025-63675",
                 "GHSA-97w9-v595-3h5q"
               ],
-              "details": "cryptidy through 1.2.4 allows code execution via untrusted data because pickle.loads is used. This occurs in aes_decrypt_message in symmetric_encryption.py.",
-              "severity": [
-                {
-                  "type": "CVSS_V3",
-                  "score": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L"
-                }
-              ],
+              "max_severity": "6.9"
+            }
+          ],
+          "vulnerabilities": [
+            {
               "affected": [
                 {
+                  "database_specific": {
+                    "source": "https://storage.googleapis.com/cve-osv-conversion/osv-output/CVE-2025-63675.json"
+                  },
                   "ranges": [
                     {
-                      "type": "GIT",
                       "events": [
                         {
                           "introduced": "0"
@@ -44,7 +44,8 @@
                           "last_affected": "33dffa3909a67e1b5d22647128ab7eb6e53fd0c7"
                         }
                       ],
-                      "repo": "https://github.com/netinvent/cryptidy"
+                      "repo": "https://github.com/netinvent/cryptidy",
+                      "type": "GIT"
                     }
                   ],
                   "versions": [
@@ -57,12 +58,16 @@
                     "v1.2.2",
                     "v1.2.3",
                     "v1.2.4"
-                  ],
-                  "database_specific": {
-                    "source": "https://storage.googleapis.com/cve-osv-conversion/osv-output/CVE-2025-63675.json"
-                  }
+                  ]
                 }
               ],
+              "aliases": [
+                "GHSA-97w9-v595-3h5q"
+              ],
+              "details": "cryptidy through 1.2.4 allows code execution via untrusted data because pickle.loads is used. This occurs in aes_decrypt_message in symmetric_encryption.py.",
+              "id": "CVE-2025-63675",
+              "modified": "2025-11-06T01:21:21.629057Z",
+              "published": "2025-10-31T07:15:38Z",
               "references": [
                 {
                   "type": "PACKAGE",
@@ -72,19 +77,14 @@
                   "type": "WEB",
                   "url": "https://github.com/netinvent/cryptidy/blob/cebc9ffd54cc20679d15a1a43ca9a5da645b0c58/cryptidy/symmetric_encryption.py#L220-L238"
                 }
+              ],
+              "schema_version": "1.7.3",
+              "severity": [
+                {
+                  "score": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+                  "type": "CVSS_V3"
+                }
               ]
-            }
-          ],
-          "groups": [
-            {
-              "ids": [
-                "CVE-2025-63675"
-              ],
-              "aliases": [
-                "CVE-2025-63675",
-                "GHSA-97w9-v595-3h5q"
-              ],
-              "max_severity": "6.9"
             }
           ]
         }
