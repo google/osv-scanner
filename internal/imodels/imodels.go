@@ -22,6 +22,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/utility/semverlike"
 
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
 	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
@@ -49,13 +50,13 @@ func (pkg *PackageInfo) Name() string {
 
 	// --- Make specific patches to names as necessary ---
 	// Patch Go package to stdlib
-	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo && pkg.Package.Name == "go" {
+	if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo && pkg.Package.Name == "go" {
 		return "stdlib"
 	}
 
 	// TODO: Move the normalization to another where matching logic happens.
 	// Patch python package names to be normalized
-	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemPyPI {
+	if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
 		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Package.Name, "-"))
 	}
@@ -126,7 +127,7 @@ func (pkg *PackageInfo) Version() string {
 	// However, if we assume patch version as .0, this will cause a lot of
 	// false positives. This compromise still allows osv-scanner to pick up
 	// when the user is using a minor version that is out-of-support.
-	if pkg.Ecosystem().Ecosystem == osvschema.EcosystemGo && pkg.Name() == "stdlib" {
+	if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo && pkg.Name() == "stdlib" {
 		v := semverlike.ParseSemverLikeVersion(pkg.Package.Version, 3)
 		if len(v.Components) == 2 {
 			return fmt.Sprintf(
@@ -214,8 +215,7 @@ func FromInventory(inv *extractor.Package) PackageInfo {
 // PackageScanResult represents a package and its associated vulnerabilities and licenses.
 // This struct is used to store the results of a scan at a per package level.
 type PackageScanResult struct {
-	PackageInfo PackageInfo
-	// TODO: Use osvschema.Vulnerability instead
+	PackageInfo     PackageInfo
 	Vulnerabilities []*osvschema.Vulnerability
 	Licenses        []models.License
 

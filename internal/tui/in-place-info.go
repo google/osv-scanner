@@ -45,7 +45,7 @@ func NewInPlaceInfo(res remediation.InPlaceResult) *inPlaceInfo {
 		row := table.Row{
 			patch.Pkg.Name,
 			fmt.Sprintf("%s → %s", patch.OrigVersion, patch.NewVersion),
-			patch.ResolvedVulns[0].OSV.ID,
+			patch.ResolvedVulns[0].OSV.GetId(),
 		}
 		// Set each column to their widest element
 		for i, s := range row {
@@ -61,7 +61,7 @@ func NewInPlaceInfo(res remediation.InPlaceResult) *inPlaceInfo {
 			row := table.Row{
 				"",
 				"",
-				v.OSV.ID,
+				v.OSV.GetId(),
 			}
 			rows = append(rows, row)
 			info.vulns = append(info.vulns, &patch.ResolvedVulns[i+1])

@@ -1,12 +1,15 @@
 package models
 
 import (
+	"encoding/json"
+	"fmt"
 	"slices"
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 // VulnerabilityResults is the top-level struct for the results of a scan
@@ -45,7 +48,7 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 					Package:       pkg.Package,
 					DepGroups:     pkg.DepGroups,
 					Vulnerability: v,
-					GroupInfo:     getGroupInfoForVuln(pkg.Groups, v.ID),
+					GroupInfo:     getGroupInfoForVuln(pkg.Groups, v.GetId()),
 				})
 			}
 			if len(pkg.LicenseViolations) > 0 {
@@ -76,10 +79,79 @@ type VulnerabilityFlattened struct {
 	Source            SourceInfo
 	Package           PackageInfo
 	DepGroups         []string
-	Vulnerability     osvschema.Vulnerability
+	Vulnerability     *osvschema.Vulnerability
 	GroupInfo         GroupInfo
 	Licenses          []License
 	LicenseViolations []License
+}
+
+// MarshalJSON implements the json.Marshaler interface.
+// It is required because the Vulnerability field is a proto message,
+// which requires protojson to marshal, while the rest of the struct uses
+// the standard encoding/json library.
+func (v *VulnerabilityFlattened) MarshalJSON() ([]byte, error) {
+	// Use alias to avoid recursion.
+	type alias VulnerabilityFlattened
+
+	// Pre-process the custom field.
+	var rawVulnerability json.RawMessage
+	if v.Vulnerability != nil {
+		unstableJSON, err := protojson.Marshal(v.Vulnerability)
+		if err != nil {
+			return nil, fmt.Errorf("failed to marshal Vulnerability: %w", err)
+		}
+		var vuln any
+		if err := json.Unmarshal(unstableJSON, &vuln); err != nil {
+			return nil, err
+		}
+		b, err := json.MarshalIndent(vuln, "", "  ")
+		if err != nil {
+			return nil, err
+		}
+		rawVulnerability = b
+	}
+
+	// Marshal a temporary struct that combines the standard
+	// fields (from the alias) with the custom-handled field.
+	return json.Marshal(&struct {
+		*alias
+
+		Vulnerability json.RawMessage `json:"Vulnerability"`
+	}{
+		alias:         (*alias)(v),
+		Vulnerability: rawVulnerability,
+	})
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface.
+// It is required because the Vulnerability field is a proto message,
+// which requires protojson to unmarshal, while the rest of the struct uses
+// the standard encoding/json library.
+func (v *VulnerabilityFlattened) UnmarshalJSON(data []byte) error {
+	// Unmarshal into a temporary struct with Vulnerability as json.RawMessage.
+	// Use an alias to avoid an infinite recursion loop.
+	type alias VulnerabilityFlattened
+	tmp := &struct {
+		*alias
+
+		Vulnerability json.RawMessage `json:"Vulnerability"`
+	}{
+		alias: (*alias)(v),
+	}
+
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	// If there is a vulnerability, unmarshal it using protojson.
+	if len(tmp.Vulnerability) > 0 && string(tmp.Vulnerability) != "null" {
+		v.Vulnerability = &osvschema.Vulnerability{}
+		if err := protojson.Unmarshal(tmp.Vulnerability, v.Vulnerability); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 // SourceType categorizes packages based on the extractor that extracted
@@ -123,12 +195,91 @@ type License string
 // PackageVulns grouped by package
 // TODO: rename this to be Package as it now includes license information too.
 type PackageVulns struct {
-	Package           PackageInfo               `json:"package"`
-	DepGroups         []string                  `json:"dependency_groups,omitempty"`
-	Vulnerabilities   []osvschema.Vulnerability `json:"vulnerabilities,omitempty"`
-	Groups            []GroupInfo               `json:"groups,omitempty"`
-	Licenses          []License                 `json:"licenses,omitempty"`
-	LicenseViolations []License                 `json:"license_violations,omitempty"`
+	Package           PackageInfo                `json:"package"`
+	DepGroups         []string                   `json:"dependency_groups,omitempty"`
+	Vulnerabilities   []*osvschema.Vulnerability `json:"vulnerabilities,omitempty"`
+	Groups            []GroupInfo                `json:"groups,omitempty"`
+	Licenses          []License                  `json:"licenses,omitempty"`
+	LicenseViolations []License                  `json:"license_violations,omitempty"`
+}
+
+// MarshalJSON implements the json.Marshaler interface.
+// It is required because the Vulnerabilities field is a slice of proto messages,
+// which requires protojson to marshal, while the rest of the struct uses
+// the standard encoding/json library.
+func (p *PackageVulns) MarshalJSON() ([]byte, error) {
+	// Use alias to avoid recursion.
+	type alias PackageVulns
+
+	// Pre-process the custom field.
+	var rawVulnerabilities []json.RawMessage
+	if len(p.Vulnerabilities) > 0 {
+		rawVulnerabilities = make([]json.RawMessage, 0, len(p.Vulnerabilities))
+		for _, vuln := range p.Vulnerabilities {
+			unstableJSON, err := protojson.Marshal(vuln)
+			if err != nil {
+				return nil, fmt.Errorf("failed to marshal vulnerability: %w", err)
+			}
+			var vuln any
+			if err := json.Unmarshal(unstableJSON, &vuln); err != nil {
+				return nil, err
+			}
+			b, err := json.MarshalIndent(vuln, "", "  ")
+			if err != nil {
+				return nil, err
+			}
+			rawVulnerabilities = append(rawVulnerabilities, b)
+		}
+	}
+
+	// Marshal a temporary struct that combines the standard
+	// fields (from the alias) with the custom-handled field.
+	return json.Marshal(&struct {
+		*alias
+
+		Vulnerabilities []json.RawMessage `json:"vulnerabilities,omitempty"`
+	}{
+		alias:           (*alias)(p),
+		Vulnerabilities: rawVulnerabilities,
+	})
+}
+
+// UnmarshalJSON implements the json.Unmarshaler interface.
+// It is required because the Vulnerabilities field is a slice of proto messages,
+// which requires protojson to unmarshal, while the rest of the struct uses
+// the standard encoding/json library.
+func (p *PackageVulns) UnmarshalJSON(data []byte) error {
+	// Use alias to avoid recursion.
+	type alias PackageVulns
+
+	// Use temporary struct to combine standard fields (via alias)
+	// and the manually processed field (via shadowing).
+	tmp := &struct {
+		*alias
+
+		Vulnerabilities []json.RawMessage `json:"vulnerabilities,omitempty"`
+	}{
+		alias: (*alias)(p),
+	}
+
+	// Unmarshal into the temporary struct.
+	if err := json.Unmarshal(data, &tmp); err != nil {
+		return err
+	}
+
+	// Manually process the custom field from RawMessage format.
+	if len(tmp.Vulnerabilities) > 0 {
+		p.Vulnerabilities = make([]*osvschema.Vulnerability, 0, len(tmp.Vulnerabilities))
+		for i, rawVuln := range tmp.Vulnerabilities {
+			vuln := &osvschema.Vulnerability{}
+			if err := protojson.Unmarshal(rawVuln, vuln); err != nil {
+				return fmt.Errorf("failed to protojson unmarshal vulnerability at index %d: %w", i, err)
+			}
+			p.Vulnerabilities = append(p.Vulnerabilities, vuln)
+		}
+	}
+
+	return nil
 }
 
 type GroupInfo struct {

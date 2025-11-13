@@ -12,8 +12,10 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
+	"osv.dev/bindings/go/api"
 	"osv.dev/bindings/go/osvdev"
 	"osv.dev/bindings/go/osvdevexperimental"
 )
@@ -31,7 +33,7 @@ type CachedOSVMatcher struct {
 	// still return fully hydrated.
 	InitialQueryTimeout time.Duration
 
-	vulnCache sync.Map // map[osvdev.Package][]osvschema.Vulnerability
+	vulnCache sync.Map // map[PackageKey][]osvschema.Vulnerability
 }
 
 func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
@@ -48,44 +50,42 @@ func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs 
 		}
 
 		pkgInfo := imodels.FromInventory(inv)
-		pkg := osvdev.Package{
-			Name:      pkgInfo.Name(),
-			Ecosystem: pkgInfo.Ecosystem().String(),
-		}
-		vulns, ok := matcher.vulnCache.Load(pkg)
+		cachedVulns, ok := matcher.vulnCache.Load(
+			vulns.NewPackageKey(&osvschema.Package{
+				Name:      pkgInfo.Name(),
+				Ecosystem: pkgInfo.Ecosystem().String(),
+			}))
 		if !ok {
 			continue
 		}
-		results[i] = localmatcher.VulnerabilitiesAffectingPackage(vulns.([]osvschema.Vulnerability), pkgInfo)
+		results[i] = localmatcher.VulnerabilitiesAffectingPackage(cachedVulns.([]*osvschema.Vulnerability), pkgInfo)
 	}
 
 	return results, nil
 }
 
 func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extractor.Package) error {
-	var batchResp *osvdev.BatchedResponse
+	var batchResp *api.BatchVulnerabilityList
 	deadlineExceeded := false
 
-	var queries []*osvdev.Query
-	{
-		// determine which packages aren't already cached
-		// convert Package to Query for each pkgs element
-		toQuery := make(map[*osvdev.Query]struct{})
-		for _, inv := range invs {
-			pkgInfo := imodels.FromInventory(inv)
-			if pkgInfo.Name() == "" || pkgInfo.Ecosystem().IsEmpty() {
-				continue
-			}
-			pkg := osvdev.Package{
-				Name:      pkgInfo.Name(),
-				Ecosystem: pkgInfo.Ecosystem().String(),
-			}
-			if _, ok := matcher.vulnCache.Load(pkg); !ok {
-				toQuery[&osvdev.Query{Package: pkg}] = struct{}{}
-			}
+	var queries []*api.Query
+	// determine which packages aren't already cached
+	// convert Package to Query for each pkgs element
+	toQuery := make(map[*api.Query]struct{})
+	for _, inv := range invs {
+		pkgInfo := imodels.FromInventory(inv)
+		if pkgInfo.Name() == "" || pkgInfo.Ecosystem().IsEmpty() {
+			continue
 		}
-		queries = slices.AppendSeq(make([]*osvdev.Query, 0, len(toQuery)), maps.Keys(toQuery))
+		pkg := &osvschema.Package{
+			Name:      pkgInfo.Name(),
+			Ecosystem: pkgInfo.Ecosystem().String(),
+		}
+		if _, ok := matcher.vulnCache.Load(vulns.NewPackageKey(pkg)); !ok {
+			toQuery[&api.Query{Package: pkg}] = struct{}{}
+		}
 	}
+	queries = slices.AppendSeq(make([]*api.Query, 0, len(toQuery)), maps.Keys(toQuery))
 
 	if len(queries) == 0 {
 		return nil
@@ -113,24 +113,24 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 		}
 	}
 
-	vulnerabilities := make([][]osvschema.Vulnerability, len(batchResp.Results))
+	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.GetResults()))
 	g, ctx := errgroup.WithContext(ctx)
 	g.SetLimit(maxConcurrentRequests)
 
-	for batchIdx, resp := range batchResp.Results {
-		vulnerabilities[batchIdx] = make([]osvschema.Vulnerability, len(resp.Vulns))
-		for resultIdx, vuln := range resp.Vulns {
+	for batchIdx, resp := range batchResp.GetResults() {
+		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.GetVulns()))
+		for resultIdx, vuln := range resp.GetVulns() {
 			g.Go(func() error {
 				// exit early if another hydration request has already failed
 				// results are thrown away later, so avoid needless work
 				if ctx.Err() != nil {
 					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
-				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.ID)
+				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.GetId())
 				if err != nil {
 					return err
 				}
-				vulnerabilities[batchIdx][resultIdx] = *vuln
+				vulnerabilities[batchIdx][resultIdx] = vuln
 
 				return nil
 			})
@@ -145,8 +145,8 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 		return context.DeadlineExceeded
 	}
 
-	for i, vulns := range vulnerabilities {
-		matcher.vulnCache.Store(queries[i].Package, vulns)
+	for i, vs := range vulnerabilities {
+		matcher.vulnCache.Store(vulns.NewPackageKey(queries[i].GetPackage()), vs)
 	}
 
 	return nil

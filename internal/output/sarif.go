@@ -156,19 +156,22 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 
 	hasFixedVersion := false
 	for _, v := range gv.AliasedVulns {
+		if v == nil {
+			continue
+		}
 		for p, v2 := range vulns.GetFixedVersions(v) {
 			slices.Sort(v2)
 			fixedPkgTableData = append(fixedPkgTableData, FixedPkgTableData{
 				PackageName:  p.Name,
 				FixedVersion: strings.Join(slices.Compact(v2), ", "),
-				VulnID:       v.ID,
+				VulnID:       v.GetId(),
 			})
 			hasFixedVersion = true
 		}
 
 		vulnDescriptions = append(vulnDescriptions, VulnDescription{
-			ID:      v.ID,
-			Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
+			ID:      v.GetId(),
+			Details: strings.ReplaceAll(v.GetDetails(), "\n", "\n> "),
 		})
 	}
 	slices.SortFunc(vulnDescriptions, func(a, b VulnDescription) int { return identifiers.IDSortFunc(a.ID, b.ID) })
@@ -219,6 +222,9 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	for _, vulnID := range vulnIDs {
 		gv := vulnIDMap[vulnID]
+		if gv == nil {
+			continue
+		}
 
 		helpText := createSARIFHelpText(gv)
 
@@ -232,9 +238,12 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 		for _, id := range ids {
 			v := gv.AliasedVulns[id]
-			longDescription = v.Details
-			if v.Summary != "" {
-				shortDescription = fmt.Sprintf("%s: %s", gv.DisplayID, v.Summary)
+			if v == nil {
+				continue
+			}
+			longDescription = v.GetDetails()
+			if v.GetSummary() != "" {
+				shortDescription = fmt.Sprintf("%s: %s", gv.DisplayID, v.GetSummary())
 				break
 			}
 		}
@@ -245,8 +254,12 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			shortDescription = gv.DisplayID
 		}
 
-		rule := run.AddRule(gv.DisplayID).
-			WithName(gv.DisplayID).
+		rule := run.AddRule(gv.DisplayID)
+		if rule == nil {
+			// Skipping SARIF rule for empty ID
+			continue
+		}
+		rule.WithName(gv.DisplayID).
 			WithShortDescription(sarif.NewMultiformatMessageString().WithText(shortDescription).WithMarkdown(shortDescription)).
 			WithFullDescription(sarif.NewMultiformatMessageString().WithText(longDescription).WithMarkdown(longDescription)).
 			WithMarkdownHelp(helpText)
@@ -254,7 +267,10 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		// Find the worst severity score
 		var worstScore float64 = -1
 		for _, v := range gv.AliasedVulns {
-			score, _, _ := severity.CalculateOverallScore(v.Severity)
+			if v == nil || v.GetSeverity() == nil {
+				continue
+			}
+			score, _, _ := severity.CalculateOverallScore(v.GetSeverity())
 			if score > worstScore {
 				worstScore = score
 			}
@@ -266,6 +282,9 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			rule.WithProperties(bag)
 		}
 
+		if gv.AliasedIDList == nil {
+			gv.AliasedIDList = []string{}
+		}
 		rule.DeprecatedIds = gv.AliasedIDList
 
 		for _, pws := range gv.PkgSource.StableKeys() {
@@ -273,9 +292,10 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			if filepath.IsAbs(artifactPath) {
 				// this only errors if the file path is not absolute,
 				// which we've already confirmed is not the case
-				p, _ := url.FromFilePath(artifactPath)
-
-				artifactPath = p.String()
+				p, err := url.FromFilePath(artifactPath)
+				if err == nil && p != nil {
+					artifactPath = p.String()
+				}
 			}
 
 			run.AddDistinctArtifact(artifactPath)

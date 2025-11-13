@@ -528,15 +528,15 @@ func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[
 // updateVuln updates each vulnerability info in vulnMap from the details of vulnPkg.Vulnerabilities.
 func updateVuln(vulnMap map[string]VulnResult, vulnPkg models.PackageVulns) {
 	for _, vuln := range vulnPkg.Vulnerabilities {
-		fixable, fixedVersion := getNextFixVersion(vuln.Affected, vulnPkg.Package.Version, vulnPkg.Package.Name, vulnPkg.Package.Ecosystem)
-		if outputVuln, exist := vulnMap[vuln.ID]; exist {
+		fixable, fixedVersion := getNextFixVersion(vuln.GetAffected(), vulnPkg.Package.Version, vulnPkg.Package.Name, vulnPkg.Package.Ecosystem)
+		if outputVuln, exist := vulnMap[vuln.GetId()]; exist {
 			outputVuln.FixedVersion = fixedVersion
 			outputVuln.IsFixable = fixable
-			outputVuln.Description = vuln.Summary
+			outputVuln.Description = vuln.GetSummary()
 			if outputVuln.Description == "" {
-				outputVuln.Description = vuln.Details
+				outputVuln.Description = vuln.GetDetails()
 			}
-			vulnMap[vuln.ID] = outputVuln
+			vulnMap[vuln.GetId()] = outputVuln
 		}
 	}
 }
@@ -557,7 +557,7 @@ func getVulnList(vulnMap map[string]VulnResult) []VulnResult {
 
 // getNextFixVersion finds the next fixed version for a given vulnerability.
 // returns a boolean value indicating whether a fixed version is available.
-func getNextFixVersion(allAffected []osvschema.Affected, installedVersion string, installedPackage string, ecosystem string) (bool, string) {
+func getNextFixVersion(allAffected []*osvschema.Affected, installedVersion string, installedPackage string, ecosystem string) (bool, string) {
 	ecosystemPrefix := strings.Split(ecosystem, ":")[0]
 	vp, err := semantic.Parse(installedVersion, ecosystemPrefix)
 	if err != nil {
@@ -566,21 +566,21 @@ func getNextFixVersion(allAffected []osvschema.Affected, installedVersion string
 
 	minFixVersion := UnfixedDescription
 	for _, affected := range allAffected {
-		if affected.Package.Name != installedPackage || removeVariants(affected.Package.Ecosystem) != ecosystem {
+		if affected.GetPackage().GetName() != installedPackage || removeVariants(affected.GetPackage().GetEcosystem()) != ecosystem {
 			continue
 		}
-		for _, affectedRange := range affected.Ranges {
-			for _, affectedEvent := range affectedRange.Events {
-				order, _ := vp.CompareStr(affectedEvent.Fixed)
+		for _, affectedRange := range affected.GetRanges() {
+			for _, affectedEvent := range affectedRange.GetEvents() {
+				order, _ := vp.CompareStr(affectedEvent.GetFixed())
 				// Skip if it's not a fix version event or the installed version is greater than the fix version.
-				if affectedEvent.Fixed == "" || order > 0 {
+				if affectedEvent.GetFixed() == "" || order > 0 {
 					continue
 				}
 
-				order, _ = semantic.MustParse(affectedEvent.Fixed, ecosystemPrefix).CompareStr(minFixVersion)
+				order, _ = semantic.MustParse(affectedEvent.GetFixed(), ecosystemPrefix).CompareStr(minFixVersion)
 				// Find the minimum fix version
 				if minFixVersion == UnfixedDescription || order < 0 {
-					minFixVersion = affectedEvent.Fixed
+					minFixVersion = affectedEvent.GetFixed()
 				}
 			}
 		}

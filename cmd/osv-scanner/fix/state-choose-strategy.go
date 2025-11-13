@@ -68,7 +68,7 @@ func (st *stateChooseStrategy) Init(m model) tea.Cmd {
 		var relockFixes []*resolution.Vulnerability
 		for _, v := range allVulns {
 			if !slices.ContainsFunc(m.relockBaseRes.Vulns, func(r resolution.Vulnerability) bool {
-				return r.OSV.ID == v.OSV.ID
+				return r.OSV.GetId() == v.OSV.GetId()
 			}) {
 				relockFixes = append(relockFixes, v)
 			}
