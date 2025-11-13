@@ -17,7 +17,7 @@
           },
           "vulnerabilities": [
             {
-              "modified": "2025-11-02T06:08:01Z",
+              "modified": "2025-11-06T01:21:21Z",
               "published": "2025-10-31T07:15:38Z",
               "schema_version": "1.7.3",
               "id": "CVE-2025-63675",
