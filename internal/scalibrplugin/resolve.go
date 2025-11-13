@@ -8,6 +8,7 @@ import (
 	"github.com/google/osv-scalibr/plugin/list"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/imagepackagefilter"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
@@ -16,7 +17,7 @@ import (
 )
 
 func resolveFromName(name string) (plugin.Plugin, error) {
-	plug, err := list.FromName(name)
+	plug, err := list.FromName(name, nil)
 
 	if err == nil {
 		return plug, nil
@@ -39,6 +40,7 @@ func resolveFromName(name string) (plugin.Plugin, error) {
 		return gitrepo.New(), nil
 	case osvscannerjson.Name:
 		return osvscannerjson.New(), nil
+	case imagepackagefilter.Name: return imagepackagefilter.New(nil), nil
 	default:
 		return nil, fmt.Errorf("not an exact name for a plugin: %q", name)
 	}
@@ -60,6 +62,13 @@ func Resolve(enabledPlugins []string, disabledPlugins []string) []plugin.Plugin 
 			}
 
 			if names, ok := detectorPresets[pluginOrPreset]; ok {
+				for name := range names {
+					plugins[name] = enabled
+				}
+				wasAPreset = true
+			}
+
+			if names, ok := annotatorPresets[pluginOrPreset]; ok {
 				for name := range names {
 					plugins[name] = enabled
 				}

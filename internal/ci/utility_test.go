@@ -71,7 +71,7 @@ func TestLoadVulnResults(t *testing.T) {
 							Path: "/path/to/different-dir/go.mod",
 							Type: "lockfile",
 						},
-						ExperimentalAnnotations: nil,
+						ExperimentalPES: nil,
 						Packages: []models.PackageVulns{
 							{
 								Package: models.PackageInfo{
