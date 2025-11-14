@@ -1,7 +1,10 @@
 package scalibrplugin
 
 import (
+	"github.com/google/osv-scalibr/annotator"
 	annotatorlist "github.com/google/osv-scalibr/annotator/list"
+	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
+	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	detectors "github.com/google/osv-scalibr/detector/list"
 	"github.com/google/osv-scalibr/enricher"
@@ -43,7 +46,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/datasource"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/imagepackagefilter"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
@@ -160,7 +162,8 @@ var enricherPresets = map[string]enricherlist.InitMap{
 
 var annotatorPresets = map[string]annotatorlist.InitMap{
 	"artifact": {
-		imagepackagefilter.Name: {imagepackagefilter.New},
+		apkanno.Name:  {noCFGAnnotator(apkanno.New)},
+		dpkganno.Name: {noCFGAnnotator(dpkganno.New)},
 	},
 }
 
@@ -197,4 +200,8 @@ func noCFG(f func() filesystem.Extractor) extractors.InitFn {
 // Copied from osv-scalibr
 func noCFGEnricher(f func() enricher.Enricher) enricherlist.InitFn {
 	return func(_ *cpb.PluginConfig) enricher.Enricher { return f() }
+}
+
+func noCFGAnnotator(f func() annotator.Annotator) annotatorlist.InitFn {
+	return func(_ *cpb.PluginConfig) annotator.Annotator { return f() }
 }
