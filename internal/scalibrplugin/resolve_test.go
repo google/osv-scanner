@@ -422,7 +422,8 @@ func TestResolve_Extractors(t *testing.T) {
 				nodemodules.Name,
 				wheelegg.Name,
 				apkanno.Name,
-				dpkganno.Name},
+				dpkganno.Name
+			},
 		},
 		{
 			name: "one_preset_enabled_and_same_preset_disabled",
