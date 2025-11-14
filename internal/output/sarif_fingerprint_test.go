@@ -94,18 +94,50 @@ func Test_createSARIFFingerprint(t *testing.T) {
 func Test_createSARIFFingerprint_DifferentInputs(t *testing.T) {
 	t.Parallel()
 
-	// Test that different inputs produce different fingerprints
-	fp1 := createSARIFFingerprint("CVE-1", "/path/to/file1", models.PackageInfo{Name: "pkg1", Version: "1.0.0"})
-	fp2 := createSARIFFingerprint("CVE-2", "/path/to/file1", models.PackageInfo{Name: "pkg1", Version: "1.0.0"})
-	fp3 := createSARIFFingerprint("CVE-1", "/path/to/file2", models.PackageInfo{Name: "pkg1", Version: "1.0.0"})
-	fp4 := createSARIFFingerprint("CVE-1", "/path/to/file1", models.PackageInfo{Name: "pkg2", Version: "1.0.0"})
-	fp5 := createSARIFFingerprint("CVE-1", "/path/to/file1", models.PackageInfo{Name: "pkg1", Version: "2.0.0"})
+	// Define test dimensions - different values for each parameter
+	vulnIDs := []string{"CVE-2021-1234", "CVE-2022-5678"}
+	artifactPaths := []string{"/path/to/package.json", "/different/path/go.mod"}
+	packages := []models.PackageInfo{
+		{Name: "pkg1", Version: "1.0.0"},
+		{Name: "pkg2", Version: "1.0.0"},
+		{Name: "pkg1", Version: "2.0.0"},
+		{Name: "pkg1", Commit: "abc123"},
+	}
 
-	fingerprints := []string{fp1, fp2, fp3, fp4, fp5}
-	for i := range fingerprints {
-		for j := i + 1; j < len(fingerprints); j++ {
-			if fingerprints[i] == fingerprints[j] {
-				t.Errorf("Expected different fingerprints for different inputs, but got same: %v", fingerprints[i])
+	// Generate all combinations and their fingerprints
+	type testCase struct {
+		vulnID       string
+		artifactPath string
+		pkg          models.PackageInfo
+		fingerprint  string
+	}
+
+	var testCases []testCase
+	for _, vulnID := range vulnIDs {
+		for _, artifactPath := range artifactPaths {
+			for _, pkg := range packages {
+				fp := createSARIFFingerprint(vulnID, artifactPath, pkg)
+				testCases = append(testCases, testCase{
+					vulnID:       vulnID,
+					artifactPath: artifactPath,
+					pkg:          pkg,
+					fingerprint:  fp,
+				})
+			}
+		}
+	}
+
+	// Verify that all fingerprints are unique
+	for i := range testCases {
+		for j := i + 1; j < len(testCases); j++ {
+			if testCases[i].fingerprint == testCases[j].fingerprint {
+				t.Errorf("Expected different fingerprints but got same:\n"+
+					"  Input 1: vulnID=%q, path=%q, pkg=%+v\n"+
+					"  Input 2: vulnID=%q, path=%q, pkg=%+v\n"+
+					"  Fingerprint: %s",
+					testCases[i].vulnID, testCases[i].artifactPath, testCases[i].pkg,
+					testCases[j].vulnID, testCases[j].artifactPath, testCases[j].pkg,
+					testCases[i].fingerprint)
 			}
 		}
 	}
