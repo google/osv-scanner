@@ -1,110 +1,61 @@
 package output
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
+// Common test parameter values used by both test functions
+var (
+	testVulnIDs = []string{"CVE-2021-1234", "CVE-2022-5678"}
+	testArtifactPaths = []string{"/path/to/package.json", "/different/path/go.mod"}
+	testPackages = []models.PackageInfo{
+		{Name: "pkg1", Version: "1.0.0"},
+		{Name: "pkg2", Version: "1.0.0"},
+		{Name: "pkg1", Version: "2.0.0"},
+		{Name: "pkg1", Commit: "abc123"},
+	}
+)
+
 func Test_createSARIFFingerprint(t *testing.T) {
 	t.Parallel()
 
-	tests := []struct {
-		name         string
-		vulnID       string
-		artifactPath string
-		pkg          models.PackageInfo
-	}{
-		{
-			name:         "basic fingerprint",
-			vulnID:       "CVE-2021-1234",
-			artifactPath: "/path/to/package.json",
-			pkg: models.PackageInfo{
-				Name:    "example-package",
-				Version: "1.0.0",
-			},
-		},
-		{
-			name:         "different vulnerability ID",
-			vulnID:       "CVE-2022-5678",
-			artifactPath: "/path/to/package.json",
-			pkg: models.PackageInfo{
-				Name:    "example-package",
-				Version: "1.0.0",
-			},
-		},
-		{
-			name:         "different artifact path",
-			vulnID:       "CVE-2021-1234",
-			artifactPath: "/different/path/package.json",
-			pkg: models.PackageInfo{
-				Name:    "example-package",
-				Version: "1.0.0",
-			},
-		},
-		{
-			name:         "different package name",
-			vulnID:       "CVE-2021-1234",
-			artifactPath: "/path/to/package.json",
-			pkg: models.PackageInfo{
-				Name:    "different-package",
-				Version: "1.0.0",
-			},
-		},
-		{
-			name:         "different package version",
-			vulnID:       "CVE-2021-1234",
-			artifactPath: "/path/to/package.json",
-			pkg: models.PackageInfo{
-				Name:    "example-package",
-				Version: "2.0.0",
-			},
-		},
-		{
-			name:         "package with commit",
-			vulnID:       "CVE-2021-1234",
-			artifactPath: "/path/to/go.mod",
-			pkg: models.PackageInfo{
-				Name:   "example-package",
-				Commit: "abc123def456",
-			},
-		},
-	}
+	// Generate all combinations from common test parameters
+	for i, vulnID := range testVulnIDs {
+		for j, artifactPath := range testArtifactPaths {
+			for k, pkg := range testPackages {
+				testName := fmt.Sprintf("vuln_%d_path_%d_pkg_%d", i, j, k)
+				vulnID := vulnID
+				artifactPath := artifactPath
+				pkg := pkg
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			t.Parallel()
+				t.Run(testName, func(t *testing.T) {
+					t.Parallel()
 
-			got := createSARIFFingerprint(tt.vulnID, tt.artifactPath, tt.pkg)
+					got := createSARIFFingerprint(vulnID, artifactPath, pkg)
 
-			// Verify it returns a 64-character hex string (SHA-256 produces 32 bytes = 64 hex chars)
-			if len(got) != 64 {
-				t.Errorf("createSARIFFingerprint() returned fingerprint of length %d, want 64", len(got))
+					// Verify it returns a 64-character hex string (SHA-256 produces 32 bytes = 64 hex chars)
+					if len(got) != 64 {
+						t.Errorf("createSARIFFingerprint() returned fingerprint of length %d, want 64", len(got))
+					}
+
+					// Verify determinism by calling it again with the same inputs
+					got2 := createSARIFFingerprint(vulnID, artifactPath, pkg)
+					if got != got2 {
+						t.Errorf("createSARIFFingerprint() is not deterministic: first call = %v, second call = %v", got, got2)
+					}
+				})
 			}
-
-			// Verify determinism by calling it again with the same inputs
-			got2 := createSARIFFingerprint(tt.vulnID, tt.artifactPath, tt.pkg)
-			if got != got2 {
-				t.Errorf("createSARIFFingerprint() is not deterministic: first call = %v, second call = %v", got, got2)
-			}
-		})
+		}
 	}
 }
 
 func Test_createSARIFFingerprint_DifferentInputs(t *testing.T) {
 	t.Parallel()
 
-	// Define test dimensions - different values for each parameter
-	vulnIDs := []string{"CVE-2021-1234", "CVE-2022-5678"}
-	artifactPaths := []string{"/path/to/package.json", "/different/path/go.mod"}
-	packages := []models.PackageInfo{
-		{Name: "pkg1", Version: "1.0.0"},
-		{Name: "pkg2", Version: "1.0.0"},
-		{Name: "pkg1", Version: "2.0.0"},
-		{Name: "pkg1", Commit: "abc123"},
-	}
-
-	// Generate all combinations and their fingerprints
+	// Generate all combinations from common test parameters and their fingerprints
 	type testCase struct {
 		vulnID       string
 		artifactPath string
@@ -113,9 +64,9 @@ func Test_createSARIFFingerprint_DifferentInputs(t *testing.T) {
 	}
 
 	var testCases []testCase
-	for _, vulnID := range vulnIDs {
-		for _, artifactPath := range artifactPaths {
-			for _, pkg := range packages {
+	for _, vulnID := range testVulnIDs {
+		for _, artifactPath := range testArtifactPaths {
+			for _, pkg := range testPackages {
 				fp := createSARIFFingerprint(vulnID, artifactPath, pkg)
 				testCases = append(testCases, testCase{
 					vulnID:       vulnID,
