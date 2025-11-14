@@ -3258,3 +3258,881 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 ---
+
+[TestCommand_OCIImage/Ubuntu_22.04_image_with_go_OS_packages - 1]
+Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
+
+Container Scanning Result (Ubuntu 22.04.5 LTS):
+Total 20 packages affected by 39 known vulnerabilities (2 Critical, 12 High, 21 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+19 vulnerabilities can be fixed.
+
+
+Ubuntu:22.04
++---------------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/var/lib/dpkg/status                                                                                                                    |
++----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION            | FIX AVAILABLE           | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+| coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
+| dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
+| gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          2 | libgnutls30             | # 4 Layer        | ubuntu        |
+| krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
+| libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libtasn1-6     | 4.18.0-4build1               | Partial fixes Available |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
+| libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
+| lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
+| ncurses        | 6.3-2ubuntu0.1               | No fix available        |          2 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
+| openssl        | 3.0.2-0ubuntu1.18            | Partial fixes Available |          4 | libssl3                 | # 4 Layer        | ubuntu        |
+| pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          3 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
+| pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
+| perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |          3 | perl-base               | # 4 Layer        | ubuntu        |
+| shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
+| systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
+| tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          1 | tar                     | # 4 Layer        | ubuntu        |
++----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
+
+Hiding 5 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/Ubuntu_22.04_image_with_go_OS_packages - 2]
+
+---
+
+[TestCommand_OCIImage_JSONFormat/Ubuntu_22.04_image_with_go_OS_packages - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "/usr/bin/fzf",
+        "type": "artifact"
+      },
+      "experimental_pes": [
+        {
+          "Plugin": "misc/imagepackagefilter",
+          "Justification": 1,
+          "VulnIdentifiers": null,
+          "MatchesAllVulns": true
+        }
+      ],
+      "packages": [
+        {
+          "package": {
+            "name": "stdlib",
+            "version": "1.18.1",
+            "ecosystem": "Go",
+            "image_origin_details": {
+              "index": 7
+            }
+          },
+          "groups": 74,
+          "vulnerabilities": [
+            "GO-2022-0477",
+            "GO-2022-0493",
+            "GO-2022-0515",
+            "GO-2022-0520",
+            "GO-2022-0521",
+            "GO-2022-0522",
+            "GO-2022-0523",
+            "GO-2022-0524",
+            "GO-2022-0525",
+            "GO-2022-0526",
+            "GO-2022-0527",
+            "GO-2022-0531",
+            "GO-2022-0532",
+            "GO-2022-0533",
+            "GO-2022-0537",
+            "GO-2022-0969",
+            "GO-2022-1037",
+            "GO-2022-1038",
+            "GO-2022-1039",
+            "GO-2022-1095",
+            "GO-2022-1143",
+            "GO-2022-1144",
+            "GO-2023-1568",
+            "GO-2023-1569",
+            "GO-2023-1570",
+            "GO-2023-1571",
+            "GO-2023-1621",
+            "GO-2023-1702",
+            "GO-2023-1703",
+            "GO-2023-1704",
+            "GO-2023-1705",
+            "GO-2023-1751",
+            "GO-2023-1752",
+            "GO-2023-1753",
+            "GO-2023-1840",
+            "GO-2023-1878",
+            "GO-2023-1987",
+            "GO-2023-2041",
+            "GO-2023-2043",
+            "GO-2023-2102",
+            "GO-2023-2185",
+            "GO-2023-2186",
+            "GO-2023-2375",
+            "GO-2023-2382",
+            "GO-2024-2598",
+            "GO-2024-2599",
+            "GO-2024-2600",
+            "GO-2024-2609",
+            "GO-2024-2610",
+            "GO-2024-2687",
+            "GO-2024-2887",
+            "GO-2024-2888",
+            "GO-2024-2963",
+            "GO-2024-3105",
+            "GO-2024-3106",
+            "GO-2024-3107",
+            "GO-2025-3373",
+            "GO-2025-3420",
+            "GO-2025-3447",
+            "GO-2025-3563",
+            "GO-2025-3750",
+            "GO-2025-3751",
+            "GO-2025-3849",
+            "GO-2025-3956",
+            "GO-2025-4006",
+            "GO-2025-4007",
+            "GO-2025-4008",
+            "GO-2025-4009",
+            "GO-2025-4010",
+            "GO-2025-4011",
+            "GO-2025-4012",
+            "GO-2025-4013",
+            "GO-2025-4014",
+            "GO-2025-4015"
+          ]
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/var/lib/dpkg/status",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "coreutils",
+            "os_package_name": "coreutils",
+            "version": "8.32-4.1ubuntu1.2",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2016-2781",
+            "UBUNTU-CVE-2025-5278"
+          ]
+        },
+        {
+          "package": {
+            "name": "dpkg",
+            "os_package_name": "dpkg",
+            "version": "1.21.1ubuntu2.3",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "USN-7768-1",
+            "UBUNTU-CVE-2025-6297"
+          ]
+        },
+        {
+          "package": {
+            "name": "gcc-12",
+            "os_package_name": "gcc-12-base",
+            "version": "12.3.0-1ubuntu1~22.04",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "USN-7700-1",
+            "UBUNTU-CVE-2022-27943",
+            "UBUNTU-CVE-2023-4039"
+          ]
+        },
+        {
+          "package": {
+            "name": "gnupg2",
+            "os_package_name": "gpgv",
+            "version": "2.2.27-3ubuntu2.1",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "USN-7412-1",
+            "UBUNTU-CVE-2022-3219",
+            "UBUNTU-CVE-2025-30258",
+            "USN-7412-2"
+          ]
+        },
+        {
+          "package": {
+            "name": "glibc",
+            "os_package_name": "libc-bin",
+            "version": "2.35-0ubuntu3.8",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 4,
+          "vulnerabilities": [
+            "USN-7259-1",
+            "USN-7541-1",
+            "USN-7760-1",
+            "UBUNTU-CVE-2016-20013",
+            "UBUNTU-CVE-2025-0395",
+            "UBUNTU-CVE-2025-4802",
+            "UBUNTU-CVE-2025-8058"
+          ]
+        },
+        {
+          "package": {
+            "name": "glibc",
+            "os_package_name": "libc6",
+            "version": "2.35-0ubuntu3.8",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 4,
+          "vulnerabilities": [
+            "USN-7259-1",
+            "USN-7541-1",
+            "USN-7760-1",
+            "UBUNTU-CVE-2016-20013",
+            "UBUNTU-CVE-2025-0395",
+            "UBUNTU-CVE-2025-4802",
+            "UBUNTU-CVE-2025-8058"
+          ]
+        },
+        {
+          "package": {
+            "name": "libcap2",
+            "os_package_name": "libcap2",
+            "version": "1:2.44-1ubuntu0.22.04.1",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "USN-7287-1",
+            "UBUNTU-CVE-2025-1390"
+          ]
+        },
+        {
+          "package": {
+            "name": "gcc-12",
+            "os_package_name": "libgcc-s1",
+            "version": "12.3.0-1ubuntu1~22.04",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "USN-7700-1",
+            "UBUNTU-CVE-2022-27943",
+            "UBUNTU-CVE-2023-4039"
+          ]
+        },
+        {
+          "package": {
+            "name": "libgcrypt20",
+            "os_package_name": "libgcrypt20",
+            "version": "1.9.4-3ubuntu3",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2024-2236"
+          ]
+        },
+        {
+          "package": {
+            "name": "gnutls28",
+            "os_package_name": "libgnutls30",
+            "version": "3.7.3-4ubuntu1.5",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "USN-7635-1",
+            "USN-7281-1",
+            "UBUNTU-CVE-2024-12243",
+            "UBUNTU-CVE-2025-32988",
+            "UBUNTU-CVE-2025-32989",
+            "UBUNTU-CVE-2025-32990",
+            "UBUNTU-CVE-2025-6395"
+          ]
+        },
+        {
+          "package": {
+            "name": "krb5",
+            "os_package_name": "libgssapi-krb5-2",
+            "version": "1.19.2-2ubuntu0.4",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 4,
+          "vulnerabilities": [
+            "USN-7314-1",
+            "USN-7257-1",
+            "USN-7542-1",
+            "UBUNTU-CVE-2018-5709",
+            "UBUNTU-CVE-2024-26458",
+            "UBUNTU-CVE-2024-26461",
+            "UBUNTU-CVE-2024-3596",
+            "UBUNTU-CVE-2025-24528",
+            "UBUNTU-CVE-2025-3576"
+          ]
+        },
+        {
+          "package": {
+            "name": "krb5",
+            "os_package_name": "libk5crypto3",
+            "version": "1.19.2-2ubuntu0.4",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 4,
+          "vulnerabilities": [
+            "USN-7314-1",
+            "USN-7257-1",
+            "USN-7542-1",
+            "UBUNTU-CVE-2018-5709",
+            "UBUNTU-CVE-2024-26458",
+            "UBUNTU-CVE-2024-26461",
+            "UBUNTU-CVE-2024-3596",
+            "UBUNTU-CVE-2025-24528",
+            "UBUNTU-CVE-2025-3576"
+          ]
+        },
+        {
+          "package": {
+            "name": "krb5",
+            "os_package_name": "libkrb5-3",
+            "version": "1.19.2-2ubuntu0.4",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 4,
+          "vulnerabilities": [
+            "USN-7314-1",
+            "USN-7257-1",
+            "USN-7542-1",
+            "UBUNTU-CVE-2018-5709",
+            "UBUNTU-CVE-2024-26458",
+            "UBUNTU-CVE-2024-26461",
+            "UBUNTU-CVE-2024-3596",
+            "UBUNTU-CVE-2025-24528",
+            "UBUNTU-CVE-2025-3576"
+          ]
+        },
+        {
+          "package": {
+            "name": "krb5",
+            "os_package_name": "libkrb5support0",
+            "version": "1.19.2-2ubuntu0.4",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 4,
+          "vulnerabilities": [
+            "USN-7314-1",
+            "USN-7257-1",
+            "USN-7542-1",
+            "UBUNTU-CVE-2018-5709",
+            "UBUNTU-CVE-2024-26458",
+            "UBUNTU-CVE-2024-26461",
+            "UBUNTU-CVE-2024-3596",
+            "UBUNTU-CVE-2025-24528",
+            "UBUNTU-CVE-2025-3576"
+          ]
+        },
+        {
+          "package": {
+            "name": "lz4",
+            "os_package_name": "liblz4-1",
+            "version": "1.9.3-2build2",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2025-62813"
+          ]
+        },
+        {
+          "package": {
+            "name": "ncurses",
+            "os_package_name": "libncurses6",
+            "version": "6.3-2ubuntu0.1",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2023-50495",
+            "UBUNTU-CVE-2025-6141"
+          ]
+        },
+        {
+          "package": {
+            "name": "ncurses",
+            "os_package_name": "libncursesw6",
+            "version": "6.3-2ubuntu0.1",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2023-50495",
+            "UBUNTU-CVE-2025-6141"
+          ]
+        },
+        {
+          "package": {
+            "name": "pam",
+            "os_package_name": "libpam-modules",
+            "version": "1.4.0-11ubuntu2.5",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "USN-7580-1",
+            "UBUNTU-CVE-2024-10041",
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2025-8941"
+          ]
+        },
+        {
+          "package": {
+            "name": "pam",
+            "os_package_name": "libpam-modules-bin",
+            "version": "1.4.0-11ubuntu2.5",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "USN-7580-1",
+            "UBUNTU-CVE-2024-10041",
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2025-8941"
+          ]
+        },
+        {
+          "package": {
+            "name": "pam",
+            "os_package_name": "libpam-runtime",
+            "version": "1.4.0-11ubuntu2.5",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "USN-7580-1",
+            "UBUNTU-CVE-2024-10041",
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2025-8941"
+          ]
+        },
+        {
+          "package": {
+            "name": "pam",
+            "os_package_name": "libpam0g",
+            "version": "1.4.0-11ubuntu2.5",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 3,
+          "vulnerabilities": [
+            "USN-7580-1",
+            "UBUNTU-CVE-2024-10041",
+            "UBUNTU-CVE-2025-6020",
+            "UBUNTU-CVE-2025-8941"
+          ]
+        },
+        {
+          "package": {
+            "name": "pcre2",
+            "os_package_name": "libpcre2-8-0",
+            "version": "10.39-3ubuntu0.1",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2022-41409"
+          ]
+        },
+        {
+          "package": {
+            "name": "pcre3",
+            "os_package_name": "libpcre3",
+            "version": "2:8.39-13ubuntu0.22.04.1",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2017-11164"
+          ]
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "libssl3",
+            "version": "3.0.2-0ubuntu1.18",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 4,
+          "vulnerabilities": [
+            "USN-7786-1",
+            "USN-7278-1",
+            "UBUNTU-CVE-2024-13176",
+            "UBUNTU-CVE-2024-41996",
+            "UBUNTU-CVE-2024-9143",
+            "UBUNTU-CVE-2025-27587",
+            "UBUNTU-CVE-2025-9230"
+          ]
+        },
+        {
+          "package": {
+            "name": "gcc-12",
+            "os_package_name": "libstdc++6",
+            "version": "12.3.0-1ubuntu1~22.04",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "USN-7700-1",
+            "UBUNTU-CVE-2022-27943",
+            "UBUNTU-CVE-2023-4039"
+          ]
+        },
+        {
+          "package": {
+            "name": "systemd",
+            "os_package_name": "libsystemd0",
+            "version": "249.11-0ubuntu3.12",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "USN-7559-1",
+            "UBUNTU-CVE-2023-7008",
+            "UBUNTU-CVE-2025-4598"
+          ]
+        },
+        {
+          "package": {
+            "name": "libtasn1-6",
+            "os_package_name": "libtasn1-6",
+            "version": "4.18.0-4build1",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "USN-7275-1",
+            "UBUNTU-CVE-2021-46848",
+            "UBUNTU-CVE-2024-12133"
+          ]
+        },
+        {
+          "package": {
+            "name": "ncurses",
+            "os_package_name": "libtinfo6",
+            "version": "6.3-2ubuntu0.1",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2023-50495",
+            "UBUNTU-CVE-2025-6141"
+          ]
+        },
+        {
+          "package": {
+            "name": "systemd",
+            "os_package_name": "libudev1",
+            "version": "249.11-0ubuntu3.12",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "USN-7559-1",
+            "UBUNTU-CVE-2023-7008",
+            "UBUNTU-CVE-2025-4598"
+          ]
+        },
+        {
+          "package": {
+            "name": "libzstd",
+            "os_package_name": "libzstd1",
+            "version": "1.4.8+dfsg-3build1",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2022-4899"
+          ]
+        },
+        {
+          "package": {
+            "name": "shadow",
+            "os_package_name": "login",
+            "version": "1:4.8.1-2ubuntu2.2",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2023-29383",
+            "UBUNTU-CVE-2024-56433"
+          ]
+        },
+        {
+          "package": {
+            "name": "ncurses",
+            "os_package_name": "ncurses-base",
+            "version": "6.3-2ubuntu0.1",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2023-50495",
+            "UBUNTU-CVE-2025-6141"
+          ]
+        },
+        {
+          "package": {
+            "name": "ncurses",
+            "os_package_name": "ncurses-bin",
+            "version": "6.3-2ubuntu0.1",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2023-50495",
+            "UBUNTU-CVE-2025-6141"
+          ]
+        },
+        {
+          "package": {
+            "name": "shadow",
+            "os_package_name": "passwd",
+            "version": "1:4.8.1-2ubuntu2.2",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2023-29383",
+            "UBUNTU-CVE-2024-56433"
+          ]
+        },
+        {
+          "package": {
+            "name": "perl",
+            "os_package_name": "perl-base",
+            "version": "5.34.0-3ubuntu1.3",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 4,
+          "vulnerabilities": [
+            "USN-7434-1",
+            "USN-7678-1",
+            "UBUNTU-CVE-2023-31486",
+            "UBUNTU-CVE-2023-47039",
+            "UBUNTU-CVE-2024-56406",
+            "UBUNTU-CVE-2025-40909"
+          ]
+        },
+        {
+          "package": {
+            "name": "tar",
+            "os_package_name": "tar",
+            "version": "1.34+dfsg-1ubuntu0.1.22.04.2",
+            "ecosystem": "Ubuntu:22.04",
+            "image_origin_details": {
+              "index": 4
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "UBUNTU-CVE-2025-45582"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "image_metadata": {
+    "os": "Ubuntu 22.04.5 LTS",
+    "layer_metadata": [
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  ARG RELEASE",
+        "is_empty": true,
+        "base_image_index": 2
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
+        "is_empty": true,
+        "base_image_index": 2
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=22.04",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "/bin/sh -c #(nop) ADD file:1b6c8c9518be42fa2afe5e241ca31677fce58d27cdfa88baa91a65a259be3637 in / ",
+        "is_empty": false,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "",
+        "command": "/bin/sh -c #(nop)  CMD [/"/bin/bash/"]",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "COPY /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb /tmp # buildkit",
+        "is_empty": false,
+        "base_image_index": 0
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "RUN /bin/sh -c dpkg -i /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb /u0026/u0026 rm /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb # buildkit",
+        "is_empty": false,
+        "base_image_index": 0
+      }
+    ],
+    "base_images": [
+      {},
+      {
+        "name": "ubuntu",
+        "tags": null
+      },
+      {
+        "name": "laurentsogeti/pod_showname_formation_ckad",
+        "tags": null
+      }
+    ]
+  }
+}
+
+---
+
+[TestCommand_OCIImage_JSONFormat/Ubuntu_22.04_image_with_go_OS_packages - 2]
+Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
+
+---

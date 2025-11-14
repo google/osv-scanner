@@ -213,6 +213,12 @@ func TestCommand_OCIImage(t *testing.T) {
 			Exit: 0,
 		},
 		{
+			// This tests that the fzf go binary is not being reported because it's a OS package
+			Name: "Ubuntu 22.04 image with go OS packages",
+			Args: []string{"", "image", "--archive", "./testdata/test-ubuntu-with-packages.tar"},
+			Exit: 1,
+		},
+		{
 			Name: "Scanning python image with some packages",
 			Args: []string{"", "image", "--archive", "./testdata/test-python-full.tar"},
 			Exit: 1,
@@ -367,6 +373,18 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 		{
 			Name: "scanning ubuntu image",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-ubuntu.tar"},
+			Exit: 1,
+			ReplaceRules: []testcmd.JSONReplaceRule{
+				testcmd.GroupsAsArrayLen,
+				testcmd.OnlyIDVulnsRule,
+				testcmd.OnlyFirstBaseImage,
+				testcmd.AnyDiffID,
+			},
+		},
+		{
+			// This tests that the fzf go binary is not being reported because it's a OS package
+			Name: "Ubuntu 22.04 image with go OS packages",
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-ubuntu-with-packages.tar"},
 			Exit: 1,
 			ReplaceRules: []testcmd.JSONReplaceRule{
 				testcmd.GroupsAsArrayLen,

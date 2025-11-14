@@ -43,7 +43,7 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 	//    - Assume python packages under dist-packages is a OS package
 	// Move this into OSV-Scalibr (potentially via full filesystem accountability).
 	for i, psr := range results.Packages {
-		if (strings.HasPrefix(psr.Locations[0], "/usr/") && psr.Ecosystem().Ecosystem == osvconstants.EcosystemGo) ||
+		if (strings.HasPrefix(psr.Locations[0], "usr/") && psr.Ecosystem().Ecosystem == osvconstants.EcosystemGo) ||
 			strings.Contains(psr.Locations[0], "dist-packages/") && psr.Ecosystem().Ecosystem == osvconstants.EcosystemPyPI {
 			results.Packages[i].ExploitabilitySignals = append(results.Packages[i].ExploitabilitySignals,
 				&vex.PackageExploitabilitySignal{
@@ -52,7 +52,6 @@ func (a *Annotator) Annotate(_ context.Context, _ *annotator.ScanInput, results 
 					VulnIdentifiers: nil,
 					MatchesAllVulns: true,
 				})
-			//psr.PackageInfo.AnnotationsDeprecated = append(psr.PackageInfo.AnnotationsDeprecated, extractor.InsideOSPackage)
 		}
 	}
 
