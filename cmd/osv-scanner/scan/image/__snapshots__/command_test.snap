@@ -3315,7 +3315,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
       },
       "experimental_pes": [
         {
-          "Plugin": "misc/imagepackagefilter",
+          "Plugin": "vex/os-duplicate/dpkg",
           "Justification": 1,
           "VulnIdentifiers": null,
           "MatchesAllVulns": true

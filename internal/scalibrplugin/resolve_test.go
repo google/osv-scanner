@@ -6,6 +6,8 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
+	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
 	"github.com/google/osv-scalibr/detector/cis/generic_linux/etcpasswdpermissions"
 	"github.com/google/osv-scalibr/detector/govulncheck/binary"
 	"github.com/google/osv-scalibr/detector/weakcredentials/codeserver"
@@ -25,7 +27,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/imagepackagefilter"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
@@ -401,7 +402,8 @@ func TestResolve_Extractors(t *testing.T) {
 				gobinary.Name,
 				nodemodules.Name,
 				wheelegg.Name,
-				imagepackagefilter.Name,
+				apkanno.Name,
+				dpkganno.Name,
 			},
 		},
 		{
@@ -419,8 +421,8 @@ func TestResolve_Extractors(t *testing.T) {
 				gobinary.Name,
 				nodemodules.Name,
 				wheelegg.Name,
-				imagepackagefilter.Name,
-			},
+				apkanno.Name,
+				dpkganno.Name},
 		},
 		{
 			name: "one_preset_enabled_and_same_preset_disabled",
@@ -442,7 +444,8 @@ func TestResolve_Extractors(t *testing.T) {
 				dpkg.Name,
 				gobinary.Name,
 				nodemodules.Name,
-				imagepackagefilter.Name,
+				apkanno.Name,
+				dpkganno.Name,
 			},
 		},
 		//
@@ -463,7 +466,8 @@ func TestResolve_Extractors(t *testing.T) {
 				nodemodules.Name,
 				vendored.Name,
 				wheelegg.Name,
-				imagepackagefilter.Name,
+				apkanno.Name,
+				dpkganno.Name,
 			},
 		},
 		//
@@ -496,7 +500,8 @@ func TestResolve_Extractors(t *testing.T) {
 					wheelegg.Name,
 					gobinary.Name,
 					apk.Name,
-					imagepackagefilter.Name,
+					apkanno.Name,
+					dpkganno.Name,
 				},
 			},
 			want: []string{

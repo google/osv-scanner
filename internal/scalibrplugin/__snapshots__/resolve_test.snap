@@ -28,11 +28,12 @@ baseimage
 go/binary
 java/archive
 javascript/nodemodules
-misc/imagepackagefilter
 os/apk
 os/dpkg
 python/wheelegg
 rust/cargoauditable
+vex/os-duplicate/apk
+vex/os-duplicate/dpkg
 ---
 
 [TestResolve_Extractors_Presets/directory - 1]
