@@ -92,16 +92,16 @@ root 1.0.0
 	v.Version = "2.0.0"
 	cl.AddVersion(v, []resolve.RequirementVersion{})
 	vuln := &osvschema.Vulnerability{
-		ID: "VULN-001",
-		Affected: []osvschema.Affected{{
-			Package: osvschema.Package{
+		Id: "VULN-001",
+		Affected: []*osvschema.Affected{{
+			Package: &osvschema.Package{
 				Ecosystem: "npm",
 				Name:      vulnPkgName,
 			},
-			Ranges: []osvschema.Range{
+			Ranges: []*osvschema.Range{
 				{
-					Type:   "SEMVER",
-					Events: []osvschema.Event{{Introduced: "0"}, {Fixed: "2.0.0"}},
+					Type:   osvschema.Range_SEMVER,
+					Events: []*osvschema.Event{{Introduced: "0"}, {Fixed: "2.0.0"}},
 				},
 			},
 		},

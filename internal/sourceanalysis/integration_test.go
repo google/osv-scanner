@@ -1,7 +1,6 @@
 package sourceanalysis
 
 import (
-	"encoding/json"
 	"os"
 	"path/filepath"
 	"strings"
@@ -9,6 +8,7 @@ import (
 
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 var testdataDir = "testdata/go-integration"
@@ -20,7 +20,7 @@ func Test_runGovulncheck(t *testing.T) {
 		t.Errorf("failed to read testdata dir: %v", err)
 	}
 
-	vulns := []osvschema.Vulnerability{}
+	vulns := []*osvschema.Vulnerability{}
 	for _, de := range entries {
 		if !de.Type().IsRegular() {
 			continue
@@ -35,9 +35,15 @@ func Test_runGovulncheck(t *testing.T) {
 		if err != nil {
 			t.Errorf("failed to open fixture vuln files: %v", err)
 		}
+		defer file.Close()
 
-		newVuln := osvschema.Vulnerability{}
-		err = json.NewDecoder(file).Decode(&newVuln)
+		fileBytes, err := os.ReadFile(fn)
+		if err != nil {
+			t.Errorf("failed to read fixture vuln file (%q): %v", fn, err)
+		}
+
+		newVuln := &osvschema.Vulnerability{}
+		err = protojson.Unmarshal(fileBytes, newVuln)
 		if err != nil {
 			t.Errorf("failed to decode fixture vuln file (%q): %v", fn, err)
 		}

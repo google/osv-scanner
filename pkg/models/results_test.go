@@ -6,6 +6,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"google.golang.org/protobuf/testing/protocmp"
 )
 
 func TestFlatten(t *testing.T) {
@@ -14,7 +15,7 @@ func TestFlatten(t *testing.T) {
 	vulns := models.VulnerabilityResults{Results: []models.PackageSource{}}
 	expectedFlattened := []models.VulnerabilityFlattened{}
 	flattened := vulns.Flatten()
-	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened, protocmp.Transform()); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
@@ -24,12 +25,11 @@ func TestFlatten(t *testing.T) {
 		Package:   models.PackageInfo{Name: "package"},
 		DepGroups: []string{"dev"},
 		Groups:    []models.GroupInfo{group},
-		Vulnerabilities: []osvschema.Vulnerability{
+		Vulnerabilities: []*osvschema.Vulnerability{
 			{
-				ID: "CVE-2021-1234",
-				Severity: []osvschema.Severity{
+				Id: "CVE-2021-1234",
+				Severity: []*osvschema.Severity{
 					{
-						Type:  osvschema.SeverityType("high"),
 						Score: "1",
 					},
 				},
@@ -49,7 +49,7 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened, protocmp.Transform()); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
@@ -74,7 +74,7 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened, protocmp.Transform()); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 
@@ -84,12 +84,11 @@ func TestFlatten(t *testing.T) {
 		Package:   models.PackageInfo{Name: "package"},
 		DepGroups: []string{"dev"},
 		Groups:    []models.GroupInfo{group},
-		Vulnerabilities: []osvschema.Vulnerability{
+		Vulnerabilities: []*osvschema.Vulnerability{
 			{
-				ID: "CVE-2021-1234",
-				Severity: []osvschema.Severity{
+				Id: "CVE-2021-1234",
+				Severity: []*osvschema.Severity{
 					{
-						Type:  "high",
 						Score: "1",
 					},
 				},
@@ -117,7 +116,7 @@ func TestFlatten(t *testing.T) {
 		},
 	}
 	flattened = vulns.Flatten()
-	if diff := cmp.Diff(expectedFlattened, flattened); diff != "" {
+	if diff := cmp.Diff(expectedFlattened, flattened, protocmp.Transform()); diff != "" {
 		t.Errorf("Flatten() returned unexpected result (-want +got):\n%s", diff)
 	}
 }

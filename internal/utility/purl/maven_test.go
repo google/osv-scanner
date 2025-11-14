@@ -4,9 +4,8 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/utility/purl"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
-
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 )
 
 func TestMavenExtraction_shouldExtractPackages(t *testing.T) {
@@ -19,7 +18,7 @@ func TestMavenExtraction_shouldExtractPackages(t *testing.T) {
 		packageInfo: models.PackageInfo{
 			Name:      "log4j:log4j-core",
 			Version:   "1.2.17",
-			Ecosystem: string(osvschema.EcosystemMaven),
+			Ecosystem: string(osvconstants.EcosystemMaven),
 			Commit:    "",
 		},
 		expectedNamespace: "log4j",
@@ -50,7 +49,7 @@ func TestMavenExtraction_shouldFilterPackages(t *testing.T) {
 			packageInfo: models.PackageInfo{
 				Name:      "log4j",
 				Version:   "1.2.17",
-				Ecosystem: string(osvschema.EcosystemMaven),
+				Ecosystem: string(osvconstants.EcosystemMaven),
 				Commit:    "",
 			},
 		},
@@ -59,7 +58,7 @@ func TestMavenExtraction_shouldFilterPackages(t *testing.T) {
 			packageInfo: models.PackageInfo{
 				Name:      "",
 				Version:   "1.2.17",
-				Ecosystem: string(osvschema.EcosystemMaven),
+				Ecosystem: string(osvconstants.EcosystemMaven),
 				Commit:    "",
 			},
 		},

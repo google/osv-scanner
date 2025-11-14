@@ -14,6 +14,7 @@ func LoadVulnResults(path string) (models.VulnerabilityResults, error) {
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to load '%s'", path)
 	}
+	defer file.Close()
 	var value models.VulnerabilityResults
 	err = json.NewDecoder(file).Decode(&value)
 	if err != nil {

@@ -173,7 +173,7 @@ func (ds *DependencySubgraph) ConstrainingSubgraph(ctx context.Context, cl resol
 		}
 		bestVK := vers[len(vers)-1] // This should be the highest version for npm
 
-		if vulns.IsAffected(*vuln, util.VKToPackageInfo(bestVK.VersionKey)) {
+		if vulns.IsAffected(vuln, util.VKToPackageInfo(bestVK.VersionKey)) {
 			newParents = append(newParents, pEdge)
 		}
 	}

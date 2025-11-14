@@ -74,7 +74,7 @@ func (r InPlaceResult) VulnCount() VulnCount {
 	for _, p := range r.Patches {
 		vk := resolve.VersionKey{PackageKey: p.Pkg, Version: p.OrigVersion}
 		for _, rv := range p.ResolvedVulns {
-			key := vulnKey{id: rv.OSV.ID, vk: vk}
+			key := vulnKey{id: rv.OSV.GetId(), vk: vk}
 			d, ok := uniqueVulns[key]
 			if !ok {
 				d.dev = rv.DevOnly
@@ -278,11 +278,11 @@ func inPlaceVulnsNodes(ctx context.Context, m clientinterfaces.VulnerabilityMatc
 		result.vkNodes[vk] = append(result.vkNodes[vk], nID)
 		for _, vuln := range nodeVulns[nID] {
 			resVuln := resolution.Vulnerability{
-				OSV:       *vuln,
+				OSV:       vuln,
 				Subgraphs: []*resolution.DependencySubgraph{nodeSubgraphs[i]},
 				DevOnly:   nodeSubgraphs[i].IsDevOnly(nil),
 			}
-			idx := slices.IndexFunc(result.vkVulns[vk], func(rv resolution.Vulnerability) bool { return rv.OSV.ID == resVuln.OSV.ID })
+			idx := slices.IndexFunc(result.vkVulns[vk], func(rv resolution.Vulnerability) bool { return rv.OSV.GetId() == resVuln.OSV.GetId() })
 			if idx >= 0 {
 				result.vkVulns[vk][idx].DevOnly = result.vkVulns[vk][idx].DevOnly && resVuln.DevOnly
 

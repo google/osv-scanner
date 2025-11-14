@@ -342,10 +342,10 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 func MaxSeverity(group models.GroupInfo, pkg models.PackageVulns) string {
 	var maxSeverity float64 = -1
 	for _, vulnID := range group.IDs {
-		var severities []osvschema.Severity
+		var severities []*osvschema.Severity
 		for _, vuln := range pkg.Vulnerabilities {
-			if vuln.ID == vulnID {
-				severities = vuln.Severity
+			if vuln.GetId() == vulnID {
+				severities = vuln.GetSeverity()
 			}
 		}
 		score, _, _ := severity.CalculateOverallScore(severities)

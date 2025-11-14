@@ -4,6 +4,7 @@ package spdx
 import (
 	"errors"
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -114,10 +115,8 @@ func (ts *tokens) isNextValid(cur string) error {
 		next = "EXP"
 	}
 
-	for _, a := range allowedNext {
-		if next == a {
-			return nil
-		}
+	if slices.Contains(allowedNext, next) {
+		return nil
 	}
 
 	return fmt.Errorf("unexpected %s after %s", next, cur)

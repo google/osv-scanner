@@ -17,7 +17,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
-func parseInPlaceFixture(t *testing.T, universePath, lockfilePath string) (*resolve.Graph, client.ResolutionClient) {
+func parseInPlaceFixture(t *testing.T, universePath, vulnPath, lockfilePath string) (*resolve.Graph, client.ResolutionClient) {
 	t.Helper()
 
 	rw, err := lockfile.GetReadWriter(lockfilePath)
@@ -36,7 +36,7 @@ func parseInPlaceFixture(t *testing.T, universePath, lockfilePath string) (*reso
 		t.Fatalf("Failed to parse lockfile: %v", err)
 	}
 
-	return g, clienttest.NewMockResolutionClient(t, universePath)
+	return g, clienttest.NewMockResolutionClient(t, universePath, vulnPath)
 }
 
 func checkInPlaceResults(t *testing.T, res remediation.InPlaceResult) {
@@ -59,7 +59,7 @@ func checkInPlaceResults(t *testing.T, res remediation.InPlaceResult) {
 		slices.Sort(sortedNodes)
 
 		return minimalVuln{
-			ID:            v.OSV.ID,
+			ID:            v.OSV.GetId(),
 			AffectedNodes: sortedNodes,
 		}
 	}
@@ -116,12 +116,14 @@ func TestComputeInPlacePatches(t *testing.T) {
 	tests := []struct {
 		name         string
 		universePath string
+		vulnPath     string
 		lockfilePath string
 		opts         remediation.Options
 	}{
 		{
 			name:         "npm-santatracker",
 			universePath: "./testdata/santatracker/universe.yaml",
+			vulnPath:     "./testdata/santatracker/vulns.json",
 			lockfilePath: "./testdata/santatracker/package-lock.json",
 			opts:         basicOpts,
 		},
@@ -130,7 +132,7 @@ func TestComputeInPlacePatches(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			g, cl := parseInPlaceFixture(t, tt.universePath, tt.lockfilePath)
+			g, cl := parseInPlaceFixture(t, tt.universePath, tt.vulnPath, tt.lockfilePath)
 			res, err := remediation.ComputeInPlacePatches(t.Context(), cl, g, tt.opts)
 			if err != nil {
 				t.Fatalf("Failed to compute in-place patches: %v", err)

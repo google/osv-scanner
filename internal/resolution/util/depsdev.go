@@ -6,15 +6,15 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/imodels"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 )
 
 // OSVEcosystem maps resolve.System constants to osvschema.Ecosystem constants
 //
 // TODO: use osvschema.Ecosystem or imodel's osvecosystem.Parsed
-var OSVEcosystem = map[resolve.System]osvschema.Ecosystem{
-	resolve.NPM:   osvschema.EcosystemNPM,
-	resolve.Maven: osvschema.EcosystemMaven,
+var OSVEcosystem = map[resolve.System]osvconstants.Ecosystem{
+	resolve.NPM:   osvconstants.EcosystemNPM,
+	resolve.Maven: osvconstants.EcosystemMaven,
 }
 
 var PURLType = map[resolve.System]string{

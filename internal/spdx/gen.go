@@ -1,5 +1,4 @@
 //go:build generate
-// +build generate
 
 //go:generate go run gen.go
 

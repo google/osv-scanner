@@ -22,8 +22,7 @@ func TestRequestCache(t *testing.T) {
 
 	for i := range numKeys {
 		for range requestsPerKey {
-			wg.Add(1)
-			go func() {
+			wg.Go(func() {
 				t.Helper()
 				//nolint:errcheck
 				requestCache.Get(i, func() (int, error) {
@@ -32,8 +31,7 @@ func TestRequestCache(t *testing.T) {
 					atomic.AddInt32(&fnCalls[i], 1)
 					return i, nil
 				})
-				wg.Done()
-			}()
+			})
 		}
 	}
 

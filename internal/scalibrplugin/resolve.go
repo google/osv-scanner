@@ -16,7 +16,7 @@ import (
 )
 
 func resolveFromName(name string) (plugin.Plugin, error) {
-	plug, err := list.FromName(name)
+	plug, err := list.FromName(name, nil)
 
 	if err == nil {
 		return plug, nil
@@ -60,6 +60,13 @@ func Resolve(enabledPlugins []string, disabledPlugins []string) []plugin.Plugin 
 			}
 
 			if names, ok := detectorPresets[pluginOrPreset]; ok {
+				for name := range names {
+					plugins[name] = enabled
+				}
+				wasAPreset = true
+			}
+
+			if names, ok := annotatorPresets[pluginOrPreset]; ok {
 				for name := range names {
 					plugins[name] = enabled
 				}

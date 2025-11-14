@@ -302,9 +302,10 @@ USAGE:
 
 OPTIONS:
    --manifest string, -M string                                                     path to manifest file (required)
-   --ignore-dev                                                                     whether to ignore development dependencies for updates (default: false)
+   --ignore-dev                                                                     whether to ignore development dependencies for updates
    --upgrade-config [package-name:]level [ --upgrade-config [package-name:]level ]  the allowed package upgrades, in the format [package-name:]level. If package-name is omitted, level is applied to all packages. level must be one of (major, minor, patch, none). (default: major)
    --data-source string                                                             source to fetch package information from; value can be: deps.dev, native (default: "deps.dev")
+   --help, -h                                                                       show help
 
 ---
 

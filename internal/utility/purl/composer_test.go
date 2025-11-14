@@ -4,9 +4,8 @@ import (
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/utility/purl"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
-
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 )
 
 func TestComposerExtraction_shouldExtractPackages(t *testing.T) {
@@ -19,7 +18,7 @@ func TestComposerExtraction_shouldExtractPackages(t *testing.T) {
 		packageInfo: models.PackageInfo{
 			Name:      "symfony/yaml",
 			Version:   "7.0.0",
-			Ecosystem: string(osvschema.EcosystemPackagist),
+			Ecosystem: string(osvconstants.EcosystemPackagist),
 			Commit:    "",
 		},
 		expectedNamespace: "symfony",
@@ -50,7 +49,7 @@ func TestComposerExtraction_shouldFilterPackages(t *testing.T) {
 			packageInfo: models.PackageInfo{
 				Name:      "symfony",
 				Version:   "7.0.0",
-				Ecosystem: string(osvschema.EcosystemPackagist),
+				Ecosystem: string(osvconstants.EcosystemPackagist),
 				Commit:    "",
 			},
 		},
@@ -59,7 +58,7 @@ func TestComposerExtraction_shouldFilterPackages(t *testing.T) {
 			packageInfo: models.PackageInfo{
 				Name:      "",
 				Version:   "7.0.0",
-				Ecosystem: string(osvschema.EcosystemPackagist),
+				Ecosystem: string(osvconstants.EcosystemPackagist),
 				Commit:    "",
 			},
 		},

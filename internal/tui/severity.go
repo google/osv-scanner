@@ -23,7 +23,7 @@ var (
 			Align(lipgloss.Center)
 )
 
-func RenderSeverity(severities []osvschema.Severity) string {
+func RenderSeverity(severities []*osvschema.Severity) string {
 	text := "UNKNOWN"
 	score, rating, _ := severity.CalculateOverallScore(severities)
 	if rating != "UNKNOWN" {
@@ -33,7 +33,7 @@ func RenderSeverity(severities []osvschema.Severity) string {
 	return severityStyle.Width(16).Background(severityColor[rating]).Render(text)
 }
 
-func RenderSeverityShort(severities []osvschema.Severity) string {
+func RenderSeverityShort(severities []*osvschema.Severity) string {
 	score, rating, _ := severity.CalculateOverallScore(severities)
 	scoreStr := fmt.Sprintf("%1.1f", score)
 	if rating == "UNKNOWN" {

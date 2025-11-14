@@ -10,6 +10,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
+	"osv.dev/bindings/go/api"
 	"osv.dev/bindings/go/osvdev"
 	"osv.dev/bindings/go/osvdevexperimental"
 )
@@ -40,7 +41,7 @@ func New(initialQueryTimeout time.Duration, userAgent string) *OSVMatcher {
 
 // MatchVulnerabilities matches vulnerabilities for a list of packages.
 func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
-	var batchResp *osvdev.BatchedResponse
+	var batchResp *api.BatchVulnerabilityList
 	deadlineExceeded := false
 
 	{
@@ -74,20 +75,20 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 		}
 	}
 
-	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.Results))
+	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.GetResults()))
 	g, ctx := errgroup.WithContext(ctx)
 	g.SetLimit(maxConcurrentRequests)
 
-	for batchIdx, resp := range batchResp.Results {
-		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.Vulns))
-		for resultIdx, vuln := range resp.Vulns {
+	for batchIdx, resp := range batchResp.GetResults() {
+		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.GetVulns()))
+		for resultIdx, vuln := range resp.GetVulns() {
 			g.Go(func() error {
 				// exit early if another hydration request has already failed
 				// results are thrown away later, so avoid needless work
 				if ctx.Err() != nil {
 					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
-				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.ID)
+				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.GetId())
 				if err != nil {
 					return err
 				}
@@ -109,20 +110,24 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 	return vulnerabilities, nil
 }
 
-func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {
+func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
 	if pkg.Name() != "" && !pkg.Ecosystem().IsEmpty() && pkg.Version() != "" {
-		return &osvdev.Query{
-			Package: osvdev.Package{
+		return &api.Query{
+			Package: &osvschema.Package{
 				Name:      pkg.Name(),
 				Ecosystem: pkg.Ecosystem().String(),
 			},
-			Version: pkg.Version(),
+			Param: &api.Query_Version{
+				Version: pkg.Version(),
+			},
 		}
 	}
 
 	if pkg.Commit() != "" {
-		return &osvdev.Query{
-			Commit: pkg.Commit(),
+		return &api.Query{
+			Param: &api.Query_Commit{
+				Commit: pkg.Commit(),
+			},
 		}
 	}
 
@@ -134,8 +139,8 @@ func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {
 
 // invsToQueries converts inventories to queries via the osv-scanner internal imodels
 // to perform the necessary transformations
-func invsToQueries(invs []*extractor.Package) []*osvdev.Query {
-	queries := make([]*osvdev.Query, len(invs))
+func invsToQueries(invs []*extractor.Package) []*api.Query {
+	queries := make([]*api.Query, len(invs))
 
 	for i, inv := range invs {
 		pkg := imodels.FromInventory(inv)

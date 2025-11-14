@@ -19,12 +19,14 @@ func TestComputeRelaxPatches(t *testing.T) {
 	tests := []struct {
 		name         string
 		universePath string
+		vulnPath     string
 		manifestPath string
 		opts         remediation.Options
 	}{
 		{
 			name:         "npm-santatracker",
 			universePath: "./testdata/santatracker/universe.yaml",
+			vulnPath:     "./testdata/santatracker/vulns.json",
 			manifestPath: "./testdata/santatracker/package.json",
 			opts:         basicOpts,
 		},
@@ -33,7 +35,7 @@ func TestComputeRelaxPatches(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			res, cl := parseRemediationFixture(t, tt.universePath, tt.manifestPath, tt.opts.ResolveOpts)
+			res, cl := parseRemediationFixture(t, tt.universePath, tt.vulnPath, tt.manifestPath, tt.opts.ResolveOpts)
 			res.FilterVulns(tt.opts.MatchVuln)
 			p, err := remediation.ComputeRelaxPatches(t.Context(), cl, res, tt.opts)
 			if err != nil {

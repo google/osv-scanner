@@ -7,19 +7,29 @@
       "version": "1.3.1",
       "ecosystem": "Go"
     },
+    "groups": [
+      {
+        "ids": [
+          "GHSA-c3h9-896r-86jm",
+          "GO-2021-0053"
+        ],
+        "aliases": null,
+        "experimental_analysis": {
+          "GO-2021-0053": {
+            "called": false,
+            "unimportant": false
+          }
+        },
+        "max_severity": ""
+      }
+    ],
     "vulnerabilities": [
       {
-        "modified": "2022-03-28T20:28:00Z",
-        "published": "2022-03-28T20:28:00Z",
-        "schema_version": "1.3.0",
-        "id": "GHSA-c3h9-896r-86jm",
-        "aliases": [
-          "CVE-2021-3121"
-        ],
-        "summary": "Improper Input Validation in GoGo Protobuf",
-        "details": "An issue was discovered in GoGo Protobuf before 1.3.2. plugin/unmarshal/unmarshal.go lacks certain index validation, aka the \"skippy peanut butter\" issue.",
         "affected": [
           {
+            "database_specific": {
+              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2022/03/GHSA-c3h9-896r-86jm/GHSA-c3h9-896r-86jm.json"
+            },
             "package": {
               "ecosystem": "Go",
               "name": "github.com/gogo/protobuf",
@@ -27,7 +37,6 @@
             },
             "ranges": [
               {
-                "type": "SEMVER",
                 "events": [
                   {
                     "introduced": "0"
@@ -35,14 +44,29 @@
                   {
                     "fixed": "1.3.2"
                   }
-                ]
+                ],
+                "type": "SEMVER"
               }
-            ],
-            "database_specific": {
-              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2022/03/GHSA-c3h9-896r-86jm/GHSA-c3h9-896r-86jm.json"
-            }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2021-3121"
+        ],
+        "database_specific": {
+          "cwe_ids": [
+            "CWE-129",
+            "CWE-20"
+          ],
+          "github_reviewed": true,
+          "github_reviewed_at": "2022-03-28T20:28:00Z",
+          "nvd_published_at": "2021-01-11T06:15:00Z",
+          "severity": "HIGH"
+        },
+        "details": "An issue was discovered in GoGo Protobuf before 1.3.2. plugin/unmarshal/unmarshal.go lacks certain index validation, aka the \"skippy peanut butter\" issue.",
+        "id": "GHSA-c3h9-896r-86jm",
+        "modified": "2022-03-28T20:28:00Z",
+        "published": "2022-03-28T20:28:00Z",
         "references": [
           {
             "type": "ADVISORY",
@@ -85,47 +109,12 @@
             "url": "https://security.netapp.com/advisory/ntap-20210219-0006/"
           }
         ],
-        "database_specific": {
-          "cwe_ids": [
-            "CWE-129",
-            "CWE-20"
-          ],
-          "github_reviewed": true,
-          "github_reviewed_at": "2022-03-28T20:28:00Z",
-          "nvd_published_at": "2021-01-11T06:15:00Z",
-          "severity": "HIGH"
-        }
+        "schema_version": "1.3.0",
+        "summary": "Improper Input Validation in GoGo Protobuf"
       },
       {
-        "modified": "2023-02-10T16:51:38Z",
-        "published": "2021-04-14T20:04:52Z",
-        "schema_version": "1.3.0",
-        "id": "GO-2021-0053",
-        "aliases": [
-          "CVE-2021-3121",
-          "GHSA-c3h9-896r-86jm"
-        ],
-        "details": "Due to improper bounds checking, maliciously crafted input to generated Unmarshal methods can cause an out-of-bounds panic. If parsing messages from untrusted parties, this may be used as a denial of service vector.",
         "affected": [
           {
-            "package": {
-              "ecosystem": "Go",
-              "name": "github.com/gogo/protobuf",
-              "purl": "pkg:golang/github.com/gogo/protobuf"
-            },
-            "ranges": [
-              {
-                "type": "SEMVER",
-                "events": [
-                  {
-                    "introduced": "0"
-                  },
-                  {
-                    "fixed": "1.3.2"
-                  }
-                ]
-              }
-            ],
             "database_specific": {
               "source": "https://vuln.go.dev/ID/GO-2021-0053.json",
               "url": "https://pkg.go.dev/vuln/GO-2021-0053"
@@ -140,31 +129,42 @@
                   ]
                 }
               ]
-            }
+            },
+            "package": {
+              "ecosystem": "Go",
+              "name": "github.com/gogo/protobuf",
+              "purl": "pkg:golang/github.com/gogo/protobuf"
+            },
+            "ranges": [
+              {
+                "events": [
+                  {
+                    "introduced": "0"
+                  },
+                  {
+                    "fixed": "1.3.2"
+                  }
+                ],
+                "type": "SEMVER"
+              }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2021-3121",
+          "GHSA-c3h9-896r-86jm"
+        ],
+        "details": "Due to improper bounds checking, maliciously crafted input to generated Unmarshal methods can cause an out-of-bounds panic. If parsing messages from untrusted parties, this may be used as a denial of service vector.",
+        "id": "GO-2021-0053",
+        "modified": "2023-02-10T16:51:38Z",
+        "published": "2021-04-14T20:04:52Z",
         "references": [
           {
             "type": "FIX",
             "url": "https://github.com/gogo/protobuf/commit/b03c65ea87cdc3521ede29f62fe3ce239267c1bc"
           }
-        ]
-      }
-    ],
-    "groups": [
-      {
-        "ids": [
-          "GHSA-c3h9-896r-86jm",
-          "GO-2021-0053"
         ],
-        "aliases": null,
-        "experimental_analysis": {
-          "GO-2021-0053": {
-            "called": false,
-            "unimportant": false
-          }
-        },
-        "max_severity": ""
+        "schema_version": "1.3.0"
       }
     ]
   },
@@ -174,19 +174,29 @@
       "version": "1.0.0",
       "ecosystem": "Go"
     },
+    "groups": [
+      {
+        "ids": [
+          "GHSA-2h6c-j3gf-xp9r",
+          "GO-2023-1558"
+        ],
+        "aliases": null,
+        "experimental_analysis": {
+          "GO-2023-1558": {
+            "called": true,
+            "unimportant": false
+          }
+        },
+        "max_severity": ""
+      }
+    ],
     "vulnerabilities": [
       {
-        "modified": "2023-02-10T19:52:45Z",
-        "published": "2023-02-10T19:52:45Z",
-        "schema_version": "1.3.0",
-        "id": "GHSA-2h6c-j3gf-xp9r",
-        "aliases": [
-          "CVE-2023-23626"
-        ],
-        "summary": "IPFS go-bitfield vulnerable to DoS via malformed size arguments",
-        "details": "### Impact\nWhen feeding untrusted user input into the size parameter of `NewBitfield` and `FromBytes` functions, an attacker can trigger `panic`s.\n\nThis happen when the `size` is a not a multiple of `8` or is negative.\nThere were already a note in the `NewBitfield` documentation:\n\u003e ```\n\u003e Panics if size is not a multiple of 8.\n\u003e ````\n\nBut it incomplete and missing from `FromBytes`'s documentation.\n\nThis has been replaced by returning an `(Bitfield, error)` and returning a non nil error if the size is wrong.\n\n### Patches\n- https://github.com/ipfs/go-bitfield/commit/5e1d256fe043fc4163343ccca83862c69c52e579\n\n### Workarounds\n- Ensure `size%8 == 0 \u0026\u0026 size \u003e= 0` yourself before calling `NewBitfield` or `FromBytes`\n\n### References\n- https://github.com/ipfs/go-unixfs/security/advisories/GHSA-q264-w97q-q778\n",
         "affected": [
           {
+            "database_specific": {
+              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-2h6c-j3gf-xp9r/GHSA-2h6c-j3gf-xp9r.json"
+            },
             "package": {
               "ecosystem": "Go",
               "name": "github.com/ipfs/go-bitfield",
@@ -194,7 +204,6 @@
             },
             "ranges": [
               {
-                "type": "SEMVER",
                 "events": [
                   {
                     "introduced": "1.0.0"
@@ -202,17 +211,32 @@
                   {
                     "fixed": "1.1.0"
                   }
-                ]
+                ],
+                "type": "SEMVER"
               }
             ],
             "versions": [
               "1.0.0"
-            ],
-            "database_specific": {
-              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-2h6c-j3gf-xp9r/GHSA-2h6c-j3gf-xp9r.json"
-            }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2023-23626"
+        ],
+        "database_specific": {
+          "cwe_ids": [
+            "CWE-1284",
+            "CWE-754"
+          ],
+          "github_reviewed": true,
+          "github_reviewed_at": "2023-02-10T19:52:45Z",
+          "nvd_published_at": "2023-02-09T21:15:00Z",
+          "severity": "MODERATE"
+        },
+        "details": "### Impact\nWhen feeding untrusted user input into the size parameter of `NewBitfield` and `FromBytes` functions, an attacker can trigger `panic`s.\n\nThis happen when the `size` is a not a multiple of `8` or is negative.\nThere were already a note in the `NewBitfield` documentation:\n\u003e ```\n\u003e Panics if size is not a multiple of 8.\n\u003e ````\n\nBut it incomplete and missing from `FromBytes`'s documentation.\n\nThis has been replaced by returning an `(Bitfield, error)` and returning a non nil error if the size is wrong.\n\n### Patches\n- https://github.com/ipfs/go-bitfield/commit/5e1d256fe043fc4163343ccca83862c69c52e579\n\n### Workarounds\n- Ensure `size%8 == 0 \u0026\u0026 size \u003e= 0` yourself before calling `NewBitfield` or `FromBytes`\n\n### References\n- https://github.com/ipfs/go-unixfs/security/advisories/GHSA-q264-w97q-q778\n",
+        "id": "GHSA-2h6c-j3gf-xp9r",
+        "modified": "2023-02-10T19:52:45Z",
+        "published": "2023-02-10T19:52:45Z",
         "references": [
           {
             "type": "WEB",
@@ -235,47 +259,12 @@
             "url": "https://pkg.go.dev/vuln/GO-2023-1558"
           }
         ],
-        "database_specific": {
-          "cwe_ids": [
-            "CWE-1284",
-            "CWE-754"
-          ],
-          "github_reviewed": true,
-          "github_reviewed_at": "2023-02-10T19:52:45Z",
-          "nvd_published_at": "2023-02-09T21:15:00Z",
-          "severity": "MODERATE"
-        }
+        "schema_version": "1.3.0",
+        "summary": "IPFS go-bitfield vulnerable to DoS via malformed size arguments"
       },
       {
-        "modified": "2023-02-14T19:41:21Z",
-        "published": "2023-02-14T19:41:21Z",
-        "schema_version": "1.3.0",
-        "id": "GO-2023-1558",
-        "aliases": [
-          "CVE-2023-23626",
-          "GHSA-2h6c-j3gf-xp9r"
-        ],
-        "details": "When feeding untrusted user input into the size parameter of `NewBitfield` and FromBytes functions, an attacker can trigger panics.\n\nThis happens when the size is a not a multiple of 8 or is negative.\n\nA workaround is to ensure size%8 == 0 \u0026\u0026 size \u003e= 0 yourself before calling NewBitfield or FromBytes.",
         "affected": [
           {
-            "package": {
-              "ecosystem": "Go",
-              "name": "github.com/ipfs/go-bitfield",
-              "purl": "pkg:golang/github.com/ipfs/go-bitfield"
-            },
-            "ranges": [
-              {
-                "type": "SEMVER",
-                "events": [
-                  {
-                    "introduced": "0"
-                  },
-                  {
-                    "fixed": "1.1.0"
-                  }
-                ]
-              }
-            ],
             "database_specific": {
               "source": "https://vuln.go.dev/ID/GO-2023-1558.json",
               "url": "https://pkg.go.dev/vuln/GO-2023-1558"
@@ -290,9 +279,35 @@
                   ]
                 }
               ]
-            }
+            },
+            "package": {
+              "ecosystem": "Go",
+              "name": "github.com/ipfs/go-bitfield",
+              "purl": "pkg:golang/github.com/ipfs/go-bitfield"
+            },
+            "ranges": [
+              {
+                "events": [
+                  {
+                    "introduced": "0"
+                  },
+                  {
+                    "fixed": "1.1.0"
+                  }
+                ],
+                "type": "SEMVER"
+              }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2023-23626",
+          "GHSA-2h6c-j3gf-xp9r"
+        ],
+        "details": "When feeding untrusted user input into the size parameter of `NewBitfield` and FromBytes functions, an attacker can trigger panics.\n\nThis happens when the size is a not a multiple of 8 or is negative.\n\nA workaround is to ensure size%8 == 0 \u0026\u0026 size \u003e= 0 yourself before calling NewBitfield or FromBytes.",
+        "id": "GO-2023-1558",
+        "modified": "2023-02-14T19:41:21Z",
+        "published": "2023-02-14T19:41:21Z",
         "references": [
           {
             "type": "ADVISORY",
@@ -302,23 +317,8 @@
             "type": "FIX",
             "url": "https://github.com/ipfs/go-bitfield/commit/5e1d256fe043fc4163343ccca83862c69c52e579"
           }
-        ]
-      }
-    ],
-    "groups": [
-      {
-        "ids": [
-          "GHSA-2h6c-j3gf-xp9r",
-          "GO-2023-1558"
         ],
-        "aliases": null,
-        "experimental_analysis": {
-          "GO-2023-1558": {
-            "called": true,
-            "unimportant": false
-          }
-        },
-        "max_severity": ""
+        "schema_version": "1.3.0"
       }
     ]
   },
@@ -328,19 +328,29 @@
       "version": "0.4.0",
       "ecosystem": "Go"
     },
+    "groups": [
+      {
+        "ids": [
+          "GHSA-qgc7-mgm3-q253",
+          "GO-2023-1572"
+        ],
+        "aliases": null,
+        "experimental_analysis": {
+          "GO-2023-1572": {
+            "called": false,
+            "unimportant": false
+          }
+        },
+        "max_severity": ""
+      }
+    ],
     "vulnerabilities": [
       {
-        "modified": "2023-02-17T13:59:44Z",
-        "published": "2023-02-17T13:59:44Z",
-        "schema_version": "1.3.0",
-        "id": "GHSA-qgc7-mgm3-q253",
-        "aliases": [
-          "CVE-2022-41727"
-        ],
-        "summary": "Uncontrolled Resource Consumption",
-        "details": "An attacker can craft a malformed TIFF image which will consume a significant amount of memory when passed to DecodeConfig. This could lead to a denial of service.",
         "affected": [
           {
+            "database_specific": {
+              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-qgc7-mgm3-q253/GHSA-qgc7-mgm3-q253.json"
+            },
             "package": {
               "ecosystem": "Go",
               "name": "golang.org/x/image",
@@ -348,7 +358,6 @@
             },
             "ranges": [
               {
-                "type": "SEMVER",
                 "events": [
                   {
                     "introduced": "0"
@@ -356,14 +365,28 @@
                   {
                     "fixed": "0.5.0"
                   }
-                ]
+                ],
+                "type": "SEMVER"
               }
-            ],
-            "database_specific": {
-              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-qgc7-mgm3-q253/GHSA-qgc7-mgm3-q253.json"
-            }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2022-41727"
+        ],
+        "database_specific": {
+          "cwe_ids": [
+            "CWE-400"
+          ],
+          "github_reviewed": true,
+          "github_reviewed_at": "2023-02-17T13:59:44Z",
+          "nvd_published_at": null,
+          "severity": "LOW"
+        },
+        "details": "An attacker can craft a malformed TIFF image which will consume a significant amount of memory when passed to DecodeConfig. This could lead to a denial of service.",
+        "id": "GHSA-qgc7-mgm3-q253",
+        "modified": "2023-02-17T13:59:44Z",
+        "published": "2023-02-17T13:59:44Z",
         "references": [
           {
             "type": "ADVISORY",
@@ -386,45 +409,12 @@
             "url": "https://pkg.go.dev/vuln/GO-2023-1572"
           }
         ],
-        "database_specific": {
-          "cwe_ids": [
-            "CWE-400"
-          ],
-          "github_reviewed": true,
-          "github_reviewed_at": "2023-02-17T13:59:44Z",
-          "nvd_published_at": null,
-          "severity": "LOW"
-        }
+        "schema_version": "1.3.0",
+        "summary": "Uncontrolled Resource Consumption"
       },
       {
-        "modified": "2023-02-16T22:25:24Z",
-        "published": "2023-02-16T22:25:24Z",
-        "schema_version": "1.3.0",
-        "id": "GO-2023-1572",
-        "aliases": [
-          "CVE-2022-41727"
-        ],
-        "details": "An attacker can craft a malformed TIFF image which will consume a significant amount of memory when passed to DecodeConfig. This could lead to a denial of service.",
         "affected": [
           {
-            "package": {
-              "ecosystem": "Go",
-              "name": "golang.org/x/image",
-              "purl": "pkg:golang/golang.org/x/image"
-            },
-            "ranges": [
-              {
-                "type": "SEMVER",
-                "events": [
-                  {
-                    "introduced": "0"
-                  },
-                  {
-                    "fixed": "0.5.0"
-                  }
-                ]
-              }
-            ],
             "database_specific": {
               "source": "https://vuln.go.dev/ID/GO-2023-1572.json",
               "url": "https://pkg.go.dev/vuln/GO-2023-1572"
@@ -441,9 +431,34 @@
                   ]
                 }
               ]
-            }
+            },
+            "package": {
+              "ecosystem": "Go",
+              "name": "golang.org/x/image",
+              "purl": "pkg:golang/golang.org/x/image"
+            },
+            "ranges": [
+              {
+                "events": [
+                  {
+                    "introduced": "0"
+                  },
+                  {
+                    "fixed": "0.5.0"
+                  }
+                ],
+                "type": "SEMVER"
+              }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2022-41727"
+        ],
+        "details": "An attacker can craft a malformed TIFF image which will consume a significant amount of memory when passed to DecodeConfig. This could lead to a denial of service.",
+        "id": "GO-2023-1572",
+        "modified": "2023-02-16T22:25:24Z",
+        "published": "2023-02-16T22:25:24Z",
         "references": [
           {
             "type": "REPORT",
@@ -457,23 +472,8 @@
             "type": "WEB",
             "url": "https://groups.google.com/g/golang-announce/c/ag-FiyjlD5o"
           }
-        ]
-      }
-    ],
-    "groups": [
-      {
-        "ids": [
-          "GHSA-qgc7-mgm3-q253",
-          "GO-2023-1572"
         ],
-        "aliases": null,
-        "experimental_analysis": {
-          "GO-2023-1572": {
-            "called": false,
-            "unimportant": false
-          }
-        },
-        "max_severity": ""
+        "schema_version": "1.3.0"
       }
     ]
   }
@@ -488,19 +488,23 @@
       "version": "1.3.1",
       "ecosystem": "Go"
     },
+    "groups": [
+      {
+        "ids": [
+          "GHSA-c3h9-896r-86jm",
+          "GO-2021-0053"
+        ],
+        "aliases": null,
+        "max_severity": ""
+      }
+    ],
     "vulnerabilities": [
       {
-        "modified": "2022-03-28T20:28:00Z",
-        "published": "2022-03-28T20:28:00Z",
-        "schema_version": "1.3.0",
-        "id": "GHSA-c3h9-896r-86jm",
-        "aliases": [
-          "CVE-2021-3121"
-        ],
-        "summary": "Improper Input Validation in GoGo Protobuf",
-        "details": "An issue was discovered in GoGo Protobuf before 1.3.2. plugin/unmarshal/unmarshal.go lacks certain index validation, aka the \"skippy peanut butter\" issue.",
         "affected": [
           {
+            "database_specific": {
+              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2022/03/GHSA-c3h9-896r-86jm/GHSA-c3h9-896r-86jm.json"
+            },
             "package": {
               "ecosystem": "Go",
               "name": "github.com/gogo/protobuf",
@@ -508,7 +512,6 @@
             },
             "ranges": [
               {
-                "type": "SEMVER",
                 "events": [
                   {
                     "introduced": "0"
@@ -516,14 +519,29 @@
                   {
                     "fixed": "1.3.2"
                   }
-                ]
+                ],
+                "type": "SEMVER"
               }
-            ],
-            "database_specific": {
-              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2022/03/GHSA-c3h9-896r-86jm/GHSA-c3h9-896r-86jm.json"
-            }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2021-3121"
+        ],
+        "database_specific": {
+          "cwe_ids": [
+            "CWE-129",
+            "CWE-20"
+          ],
+          "github_reviewed": true,
+          "github_reviewed_at": "2022-03-28T20:28:00Z",
+          "nvd_published_at": "2021-01-11T06:15:00Z",
+          "severity": "HIGH"
+        },
+        "details": "An issue was discovered in GoGo Protobuf before 1.3.2. plugin/unmarshal/unmarshal.go lacks certain index validation, aka the \"skippy peanut butter\" issue.",
+        "id": "GHSA-c3h9-896r-86jm",
+        "modified": "2022-03-28T20:28:00Z",
+        "published": "2022-03-28T20:28:00Z",
         "references": [
           {
             "type": "ADVISORY",
@@ -566,29 +584,16 @@
             "url": "https://security.netapp.com/advisory/ntap-20210219-0006/"
           }
         ],
-        "database_specific": {
-          "cwe_ids": [
-            "CWE-129",
-            "CWE-20"
-          ],
-          "github_reviewed": true,
-          "github_reviewed_at": "2022-03-28T20:28:00Z",
-          "nvd_published_at": "2021-01-11T06:15:00Z",
-          "severity": "HIGH"
-        }
+        "schema_version": "1.3.0",
+        "summary": "Improper Input Validation in GoGo Protobuf"
       },
       {
-        "modified": "2023-02-10T16:51:38Z",
-        "published": "2021-04-14T20:04:52Z",
-        "schema_version": "1.3.0",
-        "id": "GO-2021-0053",
-        "aliases": [
-          "CVE-2021-3121",
-          "GHSA-c3h9-896r-86jm"
-        ],
-        "details": "Due to improper bounds checking, maliciously crafted input to generated Unmarshal methods can cause an out-of-bounds panic. If parsing messages from untrusted parties, this may be used as a denial of service vector.",
         "affected": [
           {
+            "database_specific": {
+              "source": "https://vuln.go.dev/ID/GO-2021-0053.json",
+              "url": "https://pkg.go.dev/vuln/GO-2021-0053"
+            },
             "package": {
               "ecosystem": "Go",
               "name": "github.com/gogo/protobuf",
@@ -596,7 +601,6 @@
             },
             "ranges": [
               {
-                "type": "SEMVER",
                 "events": [
                   {
                     "introduced": "0"
@@ -604,31 +608,27 @@
                   {
                     "fixed": "1.3.2"
                   }
-                ]
+                ],
+                "type": "SEMVER"
               }
-            ],
-            "database_specific": {
-              "source": "https://vuln.go.dev/ID/GO-2021-0053.json",
-              "url": "https://pkg.go.dev/vuln/GO-2021-0053"
-            }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2021-3121",
+          "GHSA-c3h9-896r-86jm"
+        ],
+        "details": "Due to improper bounds checking, maliciously crafted input to generated Unmarshal methods can cause an out-of-bounds panic. If parsing messages from untrusted parties, this may be used as a denial of service vector.",
+        "id": "GO-2021-0053",
+        "modified": "2023-02-10T16:51:38Z",
+        "published": "2021-04-14T20:04:52Z",
         "references": [
           {
             "type": "FIX",
             "url": "https://github.com/gogo/protobuf/commit/b03c65ea87cdc3521ede29f62fe3ce239267c1bc"
           }
-        ]
-      }
-    ],
-    "groups": [
-      {
-        "ids": [
-          "GHSA-c3h9-896r-86jm",
-          "GO-2021-0053"
         ],
-        "aliases": null,
-        "max_severity": ""
+        "schema_version": "1.3.0"
       }
     ]
   },
@@ -638,19 +638,23 @@
       "version": "1.0.0",
       "ecosystem": "Go"
     },
+    "groups": [
+      {
+        "ids": [
+          "GHSA-2h6c-j3gf-xp9r",
+          "GO-2023-1558"
+        ],
+        "aliases": null,
+        "max_severity": ""
+      }
+    ],
     "vulnerabilities": [
       {
-        "modified": "2023-02-10T19:52:45Z",
-        "published": "2023-02-10T19:52:45Z",
-        "schema_version": "1.3.0",
-        "id": "GHSA-2h6c-j3gf-xp9r",
-        "aliases": [
-          "CVE-2023-23626"
-        ],
-        "summary": "IPFS go-bitfield vulnerable to DoS via malformed size arguments",
-        "details": "### Impact\nWhen feeding untrusted user input into the size parameter of `NewBitfield` and `FromBytes` functions, an attacker can trigger `panic`s.\n\nThis happen when the `size` is a not a multiple of `8` or is negative.\nThere were already a note in the `NewBitfield` documentation:\n\u003e ```\n\u003e Panics if size is not a multiple of 8.\n\u003e ````\n\nBut it incomplete and missing from `FromBytes`'s documentation.\n\nThis has been replaced by returning an `(Bitfield, error)` and returning a non nil error if the size is wrong.\n\n### Patches\n- https://github.com/ipfs/go-bitfield/commit/5e1d256fe043fc4163343ccca83862c69c52e579\n\n### Workarounds\n- Ensure `size%8 == 0 \u0026\u0026 size \u003e= 0` yourself before calling `NewBitfield` or `FromBytes`\n\n### References\n- https://github.com/ipfs/go-unixfs/security/advisories/GHSA-q264-w97q-q778\n",
         "affected": [
           {
+            "database_specific": {
+              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-2h6c-j3gf-xp9r/GHSA-2h6c-j3gf-xp9r.json"
+            },
             "package": {
               "ecosystem": "Go",
               "name": "github.com/ipfs/go-bitfield",
@@ -658,7 +662,6 @@
             },
             "ranges": [
               {
-                "type": "SEMVER",
                 "events": [
                   {
                     "introduced": "1.0.0"
@@ -666,17 +669,32 @@
                   {
                     "fixed": "1.1.0"
                   }
-                ]
+                ],
+                "type": "SEMVER"
               }
             ],
             "versions": [
               "1.0.0"
-            ],
-            "database_specific": {
-              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-2h6c-j3gf-xp9r/GHSA-2h6c-j3gf-xp9r.json"
-            }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2023-23626"
+        ],
+        "database_specific": {
+          "cwe_ids": [
+            "CWE-1284",
+            "CWE-754"
+          ],
+          "github_reviewed": true,
+          "github_reviewed_at": "2023-02-10T19:52:45Z",
+          "nvd_published_at": "2023-02-09T21:15:00Z",
+          "severity": "MODERATE"
+        },
+        "details": "### Impact\nWhen feeding untrusted user input into the size parameter of `NewBitfield` and `FromBytes` functions, an attacker can trigger `panic`s.\n\nThis happen when the `size` is a not a multiple of `8` or is negative.\nThere were already a note in the `NewBitfield` documentation:\n\u003e ```\n\u003e Panics if size is not a multiple of 8.\n\u003e ````\n\nBut it incomplete and missing from `FromBytes`'s documentation.\n\nThis has been replaced by returning an `(Bitfield, error)` and returning a non nil error if the size is wrong.\n\n### Patches\n- https://github.com/ipfs/go-bitfield/commit/5e1d256fe043fc4163343ccca83862c69c52e579\n\n### Workarounds\n- Ensure `size%8 == 0 \u0026\u0026 size \u003e= 0` yourself before calling `NewBitfield` or `FromBytes`\n\n### References\n- https://github.com/ipfs/go-unixfs/security/advisories/GHSA-q264-w97q-q778\n",
+        "id": "GHSA-2h6c-j3gf-xp9r",
+        "modified": "2023-02-10T19:52:45Z",
+        "published": "2023-02-10T19:52:45Z",
         "references": [
           {
             "type": "WEB",
@@ -699,29 +717,16 @@
             "url": "https://pkg.go.dev/vuln/GO-2023-1558"
           }
         ],
-        "database_specific": {
-          "cwe_ids": [
-            "CWE-1284",
-            "CWE-754"
-          ],
-          "github_reviewed": true,
-          "github_reviewed_at": "2023-02-10T19:52:45Z",
-          "nvd_published_at": "2023-02-09T21:15:00Z",
-          "severity": "MODERATE"
-        }
+        "schema_version": "1.3.0",
+        "summary": "IPFS go-bitfield vulnerable to DoS via malformed size arguments"
       },
       {
-        "modified": "2023-02-14T19:41:21Z",
-        "published": "2023-02-14T19:41:21Z",
-        "schema_version": "1.3.0",
-        "id": "GO-2023-1558",
-        "aliases": [
-          "CVE-2023-23626",
-          "GHSA-2h6c-j3gf-xp9r"
-        ],
-        "details": "When feeding untrusted user input into the size parameter of `NewBitfield` and FromBytes functions, an attacker can trigger panics.\n\nThis happens when the size is a not a multiple of 8 or is negative.\n\nA workaround is to ensure size%8 == 0 \u0026\u0026 size \u003e= 0 yourself before calling NewBitfield or FromBytes.",
         "affected": [
           {
+            "database_specific": {
+              "source": "https://vuln.go.dev/ID/GO-2023-1558.json",
+              "url": "https://pkg.go.dev/vuln/GO-2023-1558"
+            },
             "package": {
               "ecosystem": "Go",
               "name": "github.com/ipfs/go-bitfield",
@@ -729,7 +734,6 @@
             },
             "ranges": [
               {
-                "type": "SEMVER",
                 "events": [
                   {
                     "introduced": "0"
@@ -737,15 +741,20 @@
                   {
                     "fixed": "1.1.0"
                   }
-                ]
+                ],
+                "type": "SEMVER"
               }
-            ],
-            "database_specific": {
-              "source": "https://vuln.go.dev/ID/GO-2023-1558.json",
-              "url": "https://pkg.go.dev/vuln/GO-2023-1558"
-            }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2023-23626",
+          "GHSA-2h6c-j3gf-xp9r"
+        ],
+        "details": "When feeding untrusted user input into the size parameter of `NewBitfield` and FromBytes functions, an attacker can trigger panics.\n\nThis happens when the size is a not a multiple of 8 or is negative.\n\nA workaround is to ensure size%8 == 0 \u0026\u0026 size \u003e= 0 yourself before calling NewBitfield or FromBytes.",
+        "id": "GO-2023-1558",
+        "modified": "2023-02-14T19:41:21Z",
+        "published": "2023-02-14T19:41:21Z",
         "references": [
           {
             "type": "ADVISORY",
@@ -755,17 +764,8 @@
             "type": "FIX",
             "url": "https://github.com/ipfs/go-bitfield/commit/5e1d256fe043fc4163343ccca83862c69c52e579"
           }
-        ]
-      }
-    ],
-    "groups": [
-      {
-        "ids": [
-          "GHSA-2h6c-j3gf-xp9r",
-          "GO-2023-1558"
         ],
-        "aliases": null,
-        "max_severity": ""
+        "schema_version": "1.3.0"
       }
     ]
   },
@@ -775,19 +775,23 @@
       "version": "0.4.0",
       "ecosystem": "Go"
     },
+    "groups": [
+      {
+        "ids": [
+          "GHSA-qgc7-mgm3-q253",
+          "GO-2023-1572"
+        ],
+        "aliases": null,
+        "max_severity": ""
+      }
+    ],
     "vulnerabilities": [
       {
-        "modified": "2023-02-17T13:59:44Z",
-        "published": "2023-02-17T13:59:44Z",
-        "schema_version": "1.3.0",
-        "id": "GHSA-qgc7-mgm3-q253",
-        "aliases": [
-          "CVE-2022-41727"
-        ],
-        "summary": "Uncontrolled Resource Consumption",
-        "details": "An attacker can craft a malformed TIFF image which will consume a significant amount of memory when passed to DecodeConfig. This could lead to a denial of service.",
         "affected": [
           {
+            "database_specific": {
+              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-qgc7-mgm3-q253/GHSA-qgc7-mgm3-q253.json"
+            },
             "package": {
               "ecosystem": "Go",
               "name": "golang.org/x/image",
@@ -795,7 +799,6 @@
             },
             "ranges": [
               {
-                "type": "SEMVER",
                 "events": [
                   {
                     "introduced": "0"
@@ -803,14 +806,28 @@
                   {
                     "fixed": "0.5.0"
                   }
-                ]
+                ],
+                "type": "SEMVER"
               }
-            ],
-            "database_specific": {
-              "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2023/02/GHSA-qgc7-mgm3-q253/GHSA-qgc7-mgm3-q253.json"
-            }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2022-41727"
+        ],
+        "database_specific": {
+          "cwe_ids": [
+            "CWE-400"
+          ],
+          "github_reviewed": true,
+          "github_reviewed_at": "2023-02-17T13:59:44Z",
+          "nvd_published_at": null,
+          "severity": "LOW"
+        },
+        "details": "An attacker can craft a malformed TIFF image which will consume a significant amount of memory when passed to DecodeConfig. This could lead to a denial of service.",
+        "id": "GHSA-qgc7-mgm3-q253",
+        "modified": "2023-02-17T13:59:44Z",
+        "published": "2023-02-17T13:59:44Z",
         "references": [
           {
             "type": "ADVISORY",
@@ -833,27 +850,16 @@
             "url": "https://pkg.go.dev/vuln/GO-2023-1572"
           }
         ],
-        "database_specific": {
-          "cwe_ids": [
-            "CWE-400"
-          ],
-          "github_reviewed": true,
-          "github_reviewed_at": "2023-02-17T13:59:44Z",
-          "nvd_published_at": null,
-          "severity": "LOW"
-        }
+        "schema_version": "1.3.0",
+        "summary": "Uncontrolled Resource Consumption"
       },
       {
-        "modified": "2023-02-16T22:25:24Z",
-        "published": "2023-02-16T22:25:24Z",
-        "schema_version": "1.3.0",
-        "id": "GO-2023-1572",
-        "aliases": [
-          "CVE-2022-41727"
-        ],
-        "details": "An attacker can craft a malformed TIFF image which will consume a significant amount of memory when passed to DecodeConfig. This could lead to a denial of service.",
         "affected": [
           {
+            "database_specific": {
+              "source": "https://vuln.go.dev/ID/GO-2023-1572.json",
+              "url": "https://pkg.go.dev/vuln/GO-2023-1572"
+            },
             "package": {
               "ecosystem": "Go",
               "name": "golang.org/x/image",
@@ -861,7 +867,6 @@
             },
             "ranges": [
               {
-                "type": "SEMVER",
                 "events": [
                   {
                     "introduced": "0"
@@ -869,15 +874,19 @@
                   {
                     "fixed": "0.5.0"
                   }
-                ]
+                ],
+                "type": "SEMVER"
               }
-            ],
-            "database_specific": {
-              "source": "https://vuln.go.dev/ID/GO-2023-1572.json",
-              "url": "https://pkg.go.dev/vuln/GO-2023-1572"
-            }
+            ]
           }
         ],
+        "aliases": [
+          "CVE-2022-41727"
+        ],
+        "details": "An attacker can craft a malformed TIFF image which will consume a significant amount of memory when passed to DecodeConfig. This could lead to a denial of service.",
+        "id": "GO-2023-1572",
+        "modified": "2023-02-16T22:25:24Z",
+        "published": "2023-02-16T22:25:24Z",
         "references": [
           {
             "type": "REPORT",
@@ -891,17 +900,8 @@
             "type": "WEB",
             "url": "https://groups.google.com/g/golang-announce/c/ag-FiyjlD5o"
           }
-        ]
-      }
-    ],
-    "groups": [
-      {
-        "ids": [
-          "GHSA-qgc7-mgm3-q253",
-          "GO-2023-1572"
         ],
-        "aliases": null,
-        "max_severity": ""
+        "schema_version": "1.3.0"
       }
     ]
   }

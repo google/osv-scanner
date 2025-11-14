@@ -84,7 +84,7 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 			}
 			uniqueVulns[p] = struct{}{}
 			outputResult.Vulnerabilities = append(outputResult.Vulnerabilities, vulnOutput{
-				ID:           rv.OSV.ID,
+				ID:           rv.OSV.GetId(),
 				Packages:     []packageOutput{p},
 				Unactionable: false,
 			})
@@ -99,7 +99,7 @@ func autoChooseInPlacePatches(res remediation.InPlaceResult, maxUpgrades int, ou
 
 			vulns := make([]vulnOutput, len(p.ResolvedVulns))
 			for i, v := range p.ResolvedVulns {
-				vulns[i].ID = v.OSV.ID
+				vulns[i].ID = v.OSV.GetId()
 				vulns[i].Packages = []packageOutput{{Name: p.Pkg.Name, Version: p.OrigVersion}}
 				vulns[i].Unactionable = false
 			}
@@ -363,7 +363,7 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 		// e.g. We have {foo@1 -> bar@1}, and two possible patches [foo@3, bar@2].
 		// Patching foo@3 makes {foo@3 -> bar@3}, which also fixes the vulnerability in bar.
 		// Applying both patches would force {foo@3 -> bar@2}, which is less desirable.
-		if slices.ContainsFunc(diff.RemovedVulns, func(rv resolution.Vulnerability) bool { _, ok := fixedVulns[rv.OSV.ID]; return ok }) {
+		if slices.ContainsFunc(diff.RemovedVulns, func(rv resolution.Vulnerability) bool { _, ok := fixedVulns[rv.OSV.GetId()]; return ok }) {
 			continue
 		}
 
@@ -389,7 +389,7 @@ func autoChooseOverridePatches(diffs []resolution.Difference, maxUpgrades int, o
 			p.PackageUpdates = append(p.PackageUpdates, pkgUpdate)
 		}
 		for _, vuln := range diff.RemovedVulns {
-			fixedVulns[vuln.OSV.ID] = struct{}{}
+			fixedVulns[vuln.OSV.GetId()] = struct{}{}
 			p.Fixed = append(p.Fixed, makeResultVuln(vuln))
 		}
 		sortVulns(p.Fixed)
@@ -416,7 +416,7 @@ func sortVulns(vulns []vulnOutput) {
 
 func makeResultVuln(vuln resolution.Vulnerability) vulnOutput {
 	v := vulnOutput{
-		ID: vuln.OSV.ID,
+		ID: vuln.OSV.GetId(),
 	}
 
 	affected := make(map[packageOutput]struct{})
@@ -465,9 +465,9 @@ func populateResultVulns(outputResult *fixOutput, res *resolution.Result, allPat
 	// Determine if vulnerabilities are actionable
 	for _, p := range allPatches {
 		for _, vuln := range p.RemovedVulns {
-			if v, ok := vulns[vuln.OSV.ID]; ok {
+			if v, ok := vulns[vuln.OSV.GetId()]; ok {
 				v.Unactionable = false
-				vulns[vuln.OSV.ID] = v
+				vulns[vuln.OSV.GetId()] = v
 			}
 		}
 	}
