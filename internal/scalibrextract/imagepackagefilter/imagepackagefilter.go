@@ -19,9 +19,9 @@ const (
 	Name = "misc/imagepackagefilter"
 )
 
-// Annotator adds annotations to NPM packages that are installed from the NPM repositories.
-// This is used to determine if NPM package is a locally-published package or not to
-// identify package name collisions on the NPM registry.
+// Annotator filters out language packages that are installed as OS packages
+// by adding a `ComponentNotPresent` exploitability signal. This prevents them
+// from being reported as language package vulnerabilities.
 type Annotator struct{}
 
 // New returns a new Annotator.
