@@ -25,6 +25,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/imagepackagefilter"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
@@ -400,6 +401,7 @@ func TestResolve_Extractors(t *testing.T) {
 				gobinary.Name,
 				nodemodules.Name,
 				wheelegg.Name,
+				imagepackagefilter.Name,
 			},
 		},
 		{
@@ -417,6 +419,7 @@ func TestResolve_Extractors(t *testing.T) {
 				gobinary.Name,
 				nodemodules.Name,
 				wheelegg.Name,
+				imagepackagefilter.Name,
 			},
 		},
 		{
@@ -439,6 +442,7 @@ func TestResolve_Extractors(t *testing.T) {
 				dpkg.Name,
 				gobinary.Name,
 				nodemodules.Name,
+				imagepackagefilter.Name,
 			},
 		},
 		//
@@ -459,6 +463,7 @@ func TestResolve_Extractors(t *testing.T) {
 				nodemodules.Name,
 				vendored.Name,
 				wheelegg.Name,
+				imagepackagefilter.Name,
 			},
 		},
 		//
@@ -491,6 +496,7 @@ func TestResolve_Extractors(t *testing.T) {
 					wheelegg.Name,
 					gobinary.Name,
 					apk.Name,
+					imagepackagefilter.Name,
 				},
 			},
 			want: []string{
