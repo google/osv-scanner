@@ -422,7 +422,7 @@ func TestResolve_Extractors(t *testing.T) {
 				nodemodules.Name,
 				wheelegg.Name,
 				apkanno.Name,
-				dpkganno.Name
+				dpkganno.Name,
 			},
 		},
 		{
