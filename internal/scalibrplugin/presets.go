@@ -1,10 +1,13 @@
 package scalibrplugin
 
 import (
+	annotatorlist "github.com/google/osv-scalibr/annotator/list"
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	detectors "github.com/google/osv-scalibr/detector/list"
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/baseimage"
 	"github.com/google/osv-scalibr/enricher/enricherlist"
+	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
@@ -40,6 +43,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/datasource"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/imagepackagefilter"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
@@ -57,101 +61,107 @@ var detectorPresets = map[string]detectors.InitMap{
 
 var ExtractorPresets = map[string]extractors.InitMap{
 	"sbom": {
-		spdx.Name: {spdx.New},
-		cdx.Name:  {cdx.New},
+		spdx.Name: {noCFG(spdx.New)},
+		cdx.Name:  {noCFG(cdx.New)},
 	},
 	"lockfile": {
 		// C
-		conanlock.Name: {conanlock.New},
+		conanlock.Name: {noCFG(conanlock.New)},
 
 		// Erlang
-		mixlock.Name: {mixlock.New},
+		mixlock.Name: {noCFG(mixlock.New)},
 
 		// Flutter
-		pubspec.Name: {pubspec.New},
+		pubspec.Name: {noCFG(pubspec.New)},
 
 		// Go
-		gomod.Name: {gomod.New},
+		gomod.Name: {noCFG(gomod.New)},
 
 		// Java
-		gradlelockfile.Name:                {gradlelockfile.New},
-		gradleverificationmetadataxml.Name: {gradleverificationmetadataxml.New},
-		pomxmlenhanceable.Name:             {pomxmlenhanceable.New},
+		gradlelockfile.Name:                {noCFG(gradlelockfile.New)},
+		gradleverificationmetadataxml.Name: {noCFG(gradleverificationmetadataxml.New)},
+		pomxmlenhanceable.Name:             {noCFG(pomxmlenhanceable.New)},
 
 		// Javascript
-		packagelockjson.Name: {packagelockjson.NewDefault},
-		pnpmlock.Name:        {pnpmlock.New},
-		yarnlock.Name:        {yarnlock.New},
-		bunlock.Name:         {bunlock.New},
+		packagelockjson.Name: {noCFG(packagelockjson.NewDefault)},
+		pnpmlock.Name:        {noCFG(pnpmlock.New)},
+		yarnlock.Name:        {noCFG(yarnlock.New)},
+		bunlock.Name:         {noCFG(bunlock.New)},
 
 		// PHP
-		composerlock.Name: {composerlock.New},
+		composerlock.Name: {noCFG(composerlock.New)},
 
 		// Python
-		pipfilelock.Name:            {pipfilelock.New},
-		pdmlock.Name:                {pdmlock.New},
-		poetrylock.Name:             {poetrylock.New},
-		requirementsenhancable.Name: {requirementsenhancable.New},
-		uvlock.Name:                 {uvlock.New},
+		pipfilelock.Name:            {noCFG(pipfilelock.New)},
+		pdmlock.Name:                {noCFG(pdmlock.New)},
+		poetrylock.Name:             {noCFG(poetrylock.New)},
+		requirementsenhancable.Name: {noCFG(requirementsenhancable.New)},
+		uvlock.Name:                 {noCFG(uvlock.New)},
 
 		// R
-		renvlock.Name: {renvlock.New},
+		renvlock.Name: {noCFG(renvlock.New)},
 
 		// Ruby
-		gemfilelock.Name: {gemfilelock.New},
+		gemfilelock.Name: {noCFG(gemfilelock.New)},
 
 		// Rust
-		cargolock.Name: {cargolock.New},
+		cargolock.Name: {noCFG(cargolock.New)},
 
 		// NuGet
-		depsjson.Name:         {depsjson.NewDefault},
-		packagesconfig.Name:   {packagesconfig.NewDefault},
-		packageslockjson.Name: {packageslockjson.NewDefault},
+		depsjson.Name:         {noCFG(depsjson.NewDefault)},
+		packagesconfig.Name:   {noCFG(packagesconfig.NewDefault)},
+		packageslockjson.Name: {noCFG(packageslockjson.NewDefault)},
 
 		// Haskell
-		cabal.Name:     {cabal.NewDefault},
-		stacklock.Name: {stacklock.NewDefault},
+		cabal.Name:     {noCFG(cabal.NewDefault)},
+		stacklock.Name: {noCFG(stacklock.NewDefault)},
 
-		osvscannerjson.Name: {osvscannerjson.New},
+		osvscannerjson.Name: {noCFG(osvscannerjson.New)},
 
 		// --- OS "lockfiles" ---
 		// These have very strict FileRequired paths, so we can safely enable them for source scanning as well.
 		// Alpine
-		apk.Name: {apk.NewDefault},
+		apk.Name: {noCFG(apk.NewDefault)},
 		// Debian
-		dpkg.Name: {dpkg.NewDefault},
+		dpkg.Name: {noCFG(dpkg.NewDefault)},
 	},
 	"directory": {
-		gitrepo.Name:  {gitrepo.New},
-		vendored.Name: {vendored.New},
+		gitrepo.Name:  {noCFG(gitrepo.New)},
+		vendored.Name: {noCFG(vendored.New)},
 	},
 	"artifact": {
 		// --- Project artifacts ---
 		// Python
-		wheelegg.Name: {wheelegg.NewDefault},
+		wheelegg.Name: {noCFG(wheelegg.NewDefault)},
 		// Java
-		archive.Name: {archive.NewDefault},
+		archive.Name: {noCFG(archive.NewDefault)},
 		// Go
-		gobinary.Name: {gobinary.NewDefault},
+		gobinary.Name: {gobinary.New},
 		// Javascript
-		nodemodules.Name: {nodemodules.New},
+		nodemodules.Name: {noCFG(nodemodules.New)},
 		// Rust
-		cargoauditable.Name: {cargoauditable.NewDefault},
+		cargoauditable.Name: {noCFG(cargoauditable.NewDefault)},
 
 		// --- OS packages ---
 		// Alpine
-		apk.Name: {apk.NewDefault},
+		apk.Name: {noCFG(apk.NewDefault)},
 		// Debian
-		dpkg.Name: {dpkg.NewDefault},
+		dpkg.Name: {noCFG(dpkg.NewDefault)},
 	},
 }
 
 var enricherPresets = map[string]enricherlist.InitMap{
 	"artifact": {
-		baseimage.Name: {baseImageEnricher},
+		baseimage.Name: {noCFGEnricher(baseImageEnricher)},
 	},
 	"vulns":    enricherlist.VulnMatching,
 	"licenses": enricherlist.License,
+}
+
+var annotatorPresets = map[string]annotatorlist.InitMap{
+	"artifact": {
+		imagepackagefilter.Name: {imagepackagefilter.New},
+	},
 }
 
 func baseImageEnricher() enricher.Enricher {
@@ -173,4 +183,18 @@ func baseImageEnricher() enricher.Enricher {
 	}
 
 	return baseImageEnricher
+}
+
+// Wraps initer functions that don't take any config value to initer functions that do.
+// TODO(b/400910349): Remove once all plugins take config values.
+// Copied from osv-scalibr
+func noCFG(f func() filesystem.Extractor) extractors.InitFn {
+	return func(_ *cpb.PluginConfig) filesystem.Extractor { return f() }
+}
+
+// Wraps initer functions that don't take any config value to initer functions that do.
+// TODO(b/400910349): Remove once all plugins take config values.
+// Copied from osv-scalibr
+func noCFGEnricher(f func() enricher.Enricher) enricherlist.InitFn {
+	return func(_ *cpb.PluginConfig) enricher.Enricher { return f() }
 }

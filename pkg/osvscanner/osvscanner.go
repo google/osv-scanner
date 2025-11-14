@@ -9,7 +9,6 @@ import (
 	"os"
 	"slices"
 	"sort"
-	"strings"
 	"time"
 
 	"deps.dev/util/resolve"
@@ -395,17 +394,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResult.PackageScanResults)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
-		}
-	}
-
-	// TODO: This is a set of heuristics,
-	//    - Assume that packages under /usr/ might be a OS package depending on ecosystem
-	//    - Assume python packages under dist-packages is a OS package
-	// Replace this with an actual implementation in OSV-Scalibr (potentially via full filesystem accountability).
-	for _, psr := range scanResult.PackageScanResults {
-		if (strings.HasPrefix(psr.PackageInfo.Location(), "/usr/") && psr.PackageInfo.Ecosystem().Ecosystem == osvconstants.EcosystemGo) ||
-			strings.Contains(psr.PackageInfo.Location(), "dist-packages/") && psr.PackageInfo.Ecosystem().Ecosystem == osvconstants.EcosystemPyPI {
-			psr.PackageInfo.AnnotationsDeprecated = append(psr.PackageInfo.AnnotationsDeprecated, extractor.InsideOSPackage)
 		}
 	}
 

@@ -9,7 +9,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/inventory/vex"
 	"github.com/google/osv-scalibr/semantic"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/identifiers"
@@ -188,8 +188,8 @@ func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 
 RowLoop:
 	for _, packageSource := range vulnResult.Results {
-		for _, annotation := range packageSource.ExperimentalAnnotations {
-			if annotation == extractor.InsideOSPackage {
+		for _, pes := range packageSource.ExperimentalPES {
+			if pes.MatchesAllVulns && pes.Justification == vex.ComponentNotPresent {
 				continue RowLoop
 			}
 		}

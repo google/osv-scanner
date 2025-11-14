@@ -8,6 +8,7 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
+	"github.com/google/osv-scalibr/inventory/vex"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"google.golang.org/protobuf/encoding/protojson"
 )
@@ -185,8 +186,8 @@ func (s SourceInfo) String() string {
 type PackageSource struct {
 	Source SourceInfo `json:"source"`
 	// Place Annotations in PackageSource instead of SourceInfo as we need SourceInfo to be mappable
-	ExperimentalAnnotations []extractor.Annotation `json:"experimental_annotations,omitempty"`
-	Packages                []PackageVulns         `json:"packages"`
+	ExperimentalPES []*vex.PackageExploitabilitySignal `json:"experimental_pes,omitempty"`
+	Packages        []PackageVulns                     `json:"packages"`
 }
 
 // License is an SPDX license.

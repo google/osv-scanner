@@ -28,6 +28,7 @@ baseimage
 go/binary
 java/archive
 javascript/nodemodules
+misc/imagepackagefilter
 os/apk
 os/dpkg
 python/wheelegg
