@@ -1,3 +1,5 @@
+// Package imagepackagefilter filters language packages from the output result if they are
+// located in common OS install areas
 package imagepackagefilter
 
 import (

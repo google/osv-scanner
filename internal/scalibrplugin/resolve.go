@@ -40,7 +40,8 @@ func resolveFromName(name string) (plugin.Plugin, error) {
 		return gitrepo.New(), nil
 	case osvscannerjson.Name:
 		return osvscannerjson.New(), nil
-	case imagepackagefilter.Name: return imagepackagefilter.New(nil), nil
+	case imagepackagefilter.Name:
+		return imagepackagefilter.New(nil), nil
 	default:
 		return nil, fmt.Errorf("not an exact name for a plugin: %q", name)
 	}
