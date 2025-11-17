@@ -11,7 +11,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/python/requirementsenhancable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
@@ -29,9 +28,6 @@ func resolveFromName(name string) (plugin.Plugin, error) {
 	// Javascript
 	case nodemodules.Name:
 		return nodemodules.New(), nil
-	// Python
-	case requirementsenhancable.Name:
-		return requirementsenhancable.New(), nil
 	// Directories
 	case vendored.Name:
 		return vendored.New(), nil

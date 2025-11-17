@@ -1371,15 +1371,15 @@ unsupported output format "unknown" - must be one of: table, html, vertical, jso
 
 [TestCommand/requirements.txt_can_have_all_kinds_of_names - 1]
 Scanning dir ./testdata/locks-requirements
-Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 6 packages
-Scanned <rootdir>/testdata/locks-requirements/requirements-dev.txt file and found 8 packages
-Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 14 packages
-Scanned <rootdir>/testdata/locks-requirements/requirements.prod.txt file and found 3 packages
-Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 13 packages
+Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 1 package
+Scanned <rootdir>/testdata/locks-requirements/requirements-dev.txt file and found 1 package
+Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
+Scanned <rootdir>/testdata/locks-requirements/requirements.prod.txt file and found 1 package
+Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
+failed resolution: no file can be used for parsing requirements for package flask-cors version 1.0
 failed to parse metadata for file Flask-Cors-1.0.tar.gz: sdist: dependencies in setup.py, not in PKG-INFO
-failed to resolve transitive dependencies for "<rootdir>/testdata/locks-requirements/unresolvable-requirements.txt", falling back to offline extraction: failed resolving: no file can be used for parsing requirements for package flask-cors version 1.0
 Total 15 packages affected by 59 known vulnerabilities (5 Critical, 23 High, 28 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
 59 vulnerabilities can be fixed.
 
@@ -1399,12 +1399,12 @@ Total 15 packages affected by 59 known vulnerabilities (5 Critical, 23 High, 28 
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0     | 2.2.5         | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
-| https://osv.dev/PYSEC-2024-60       | 7.5  | PyPI      | idna       | 2.7     | 3.7           | testdata/locks-requirements/requirements-transitive.txt   |
-| https://osv.dev/GHSA-jjg7-2v4v-x38h |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests   | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests   | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests   | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/PYSEC-2024-60       | 7.5  | PyPI      | idna       | 2.7     | 3.7           | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-jjg7-2v4v-x38h |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2020-148      | 6.9  | PyPI      | urllib3    | 1.24.3  | 1.25.9        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-wqvq-5m8c-6g24 |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2021-108      |      | PyPI      | urllib3    | 1.24.3  | 1.26.5        | testdata/locks-requirements/requirements-transitive.txt   |
@@ -1446,12 +1446,12 @@ Total 15 packages affected by 59 known vulnerabilities (5 Critical, 23 High, 28 
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0     | 2.2.5         | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
-| https://osv.dev/PYSEC-2024-60       | 7.5  | PyPI      | idna       | 2.7     | 3.7           | testdata/locks-requirements/requirements.txt              |
-| https://osv.dev/GHSA-jjg7-2v4v-x38h |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests   | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests   | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests   | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt              |
+| https://osv.dev/PYSEC-2024-60       | 7.5  | PyPI      | idna       | 2.7     | 3.7           | testdata/locks-requirements/requirements.txt              |
+| https://osv.dev/GHSA-jjg7-2v4v-x38h |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2020-148      | 6.9  | PyPI      | urllib3    | 1.24.3  | 1.25.9        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-wqvq-5m8c-6g24 |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2021-108      |      | PyPI      | urllib3    | 1.24.3  | 1.26.5        | testdata/locks-requirements/requirements.txt              |
@@ -4891,8 +4891,8 @@ unsupported data-source "github" - must be one of: deps.dev, native
 [TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed - 1]
 Scanning dir ./testdata/locks-requirements/unresolvable-requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
+failed resolution: no file can be used for parsing requirements for package flask-cors version 1.0
 failed to parse metadata for file Flask-Cors-1.0.tar.gz: sdist: dependencies in setup.py, not in PKG-INFO
-failed to resolve transitive dependencies for "<rootdir>/testdata/locks-requirements/unresolvable-requirements.txt", falling back to offline extraction: failed resolving: no file can be used for parsing requirements for package flask-cors version 1.0
 Total 3 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 4 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 8 vulnerabilities can be fixed.
 
@@ -5124,9 +5124,19 @@ Total 1 package affected by 4 known vulnerabilities (2 Critical, 1 High, 1 Mediu
 
 ---
 
+[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 1]
+Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
+
+---
+
+[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 2]
+No package sources found, --help for usage information.
+
+---
+
 [TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1]
 Scanning dir ./testdata/locks-requirements/requirements.txt
-Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 13 packages
+Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Total 5 packages affected by 18 known vulnerabilities (1 Critical, 6 High, 10 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 18 vulnerabilities can be fixed.
 
@@ -5144,12 +5154,12 @@ Total 5 packages affected by 18 known vulnerabilities (1 Critical, 6 High, 10 Me
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0     | 2.2.5         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |               |                                              |
-| https://osv.dev/PYSEC-2024-60       | 7.5  | PyPI      | idna     | 2.7     | 3.7           | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-jjg7-2v4v-x38h |      |           |          |         |               |                                              |
 | https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                              |
 | https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2024-60       | 7.5  | PyPI      | idna     | 2.7     | 3.7           | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-jjg7-2v4v-x38h |      |           |          |         |               |                                              |
 | https://osv.dev/PYSEC-2020-148      | 6.9  | PyPI      | urllib3  | 1.24.3  | 1.25.9        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-wqvq-5m8c-6g24 |      |           |          |         |               |                                              |
 | https://osv.dev/PYSEC-2021-108      |      | PyPI      | urllib3  | 1.24.3  | 1.26.5        | testdata/locks-requirements/requirements.txt |

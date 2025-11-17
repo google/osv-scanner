@@ -290,7 +290,9 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		actions,
 	)
 
-	if len(plugins) == 0 {
+	// technically having one detector enabled would also be sufficient, but we're
+	// not mentioning them to avoid confusion since they're still in their infancy
+	if countNotEnrichers(plugins) == 0 {
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
 
@@ -347,6 +349,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		Plugins:           plugins,
 		Capabilities:      capabilities,
 		StoreAbsolutePath: true,
+		ExplicitPlugins:   true,
 	})
 	if err != nil {
 		return models.VulnerabilityResults{}, fmt.Errorf("failed to scan container image: %w", err)

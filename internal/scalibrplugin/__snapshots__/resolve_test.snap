@@ -65,7 +65,7 @@ php/composerlock
 python/pdmlock
 python/pipfilelock
 python/poetrylock
-python/requirementsenhanceable
+python/requirements
 python/uvlock
 r/renvlock
 ruby/gemfilelock

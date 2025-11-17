@@ -1203,6 +1203,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Args: []string{"", "source", "--no-resolve", "./testdata/locks-requirements/requirements-transitive.txt"},
 			Exit: 1,
 		},
+		{
+			Name: "transitive_requirements_enricher_requires_enabled_requirements_extractor",
+			Args: []string{"", "source", "--experimental-disable-plugins=python/requirements", "./testdata/locks-requirements/requirements-transitive.txt"},
+			Exit: 128,
+		},
 	}
 
 	for _, tt := range tests {
