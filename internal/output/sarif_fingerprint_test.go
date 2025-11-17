@@ -9,9 +9,9 @@ import (
 
 // Common test parameter values used by both test functions
 var (
-	testVulnIDs = []string{"CVE-2021-1234", "CVE-2022-5678"}
+	testVulnIDs       = []string{"CVE-2021-1234", "CVE-2022-5678"}
 	testArtifactPaths = []string{"/path/to/package.json", "/different/path/go.mod"}
-	testPackages = []models.PackageInfo{
+	testPackages      = []models.PackageInfo{
 		{Name: "pkg1", Version: "1.0.0"},
 		{Name: "pkg2", Version: "1.0.0"},
 		{Name: "pkg1", Version: "2.0.0"},
@@ -27,9 +27,6 @@ func Test_createSARIFFingerprint(t *testing.T) {
 		for j, artifactPath := range testArtifactPaths {
 			for k, pkg := range testPackages {
 				testName := fmt.Sprintf("vuln_%d_path_%d_pkg_%d", i, j, k)
-				vulnID := vulnID
-				artifactPath := artifactPath
-				pkg := pkg
 
 				t.Run(testName, func(t *testing.T) {
 					t.Parallel()

@@ -1150,7 +1150,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -1186,7 +1186,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "8a12fe390eb5f4317dfeb2b03b35444e6c319a5dbbe248b8a80101481be52867"
+            "primaryLocationLineHash": "9ce52114a1bbaae16ba52c9a5f39b0a09ccfea0e058f2ad3dfa7d7cf4cafc09c"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -1222,7 +1222,7 @@
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "a800b13ff0c7109024eeb350725db6b3c486c7512eb0f8f3b34c401e4b4e4d35"
+            "primaryLocationLineHash": "12ca665ae79c9d82aaee4ba5dbbd08ea65ac072347e5841eaf91c3805b1ab526"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -1379,7 +1379,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -1415,7 +1415,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "8a12fe390eb5f4317dfeb2b03b35444e6c319a5dbbe248b8a80101481be52867"
+            "primaryLocationLineHash": "9ce52114a1bbaae16ba52c9a5f39b0a09ccfea0e058f2ad3dfa7d7cf4cafc09c"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -1451,7 +1451,7 @@
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "a800b13ff0c7109024eeb350725db6b3c486c7512eb0f8f3b34c401e4b4e4d35"
+            "primaryLocationLineHash": "12ca665ae79c9d82aaee4ba5dbbd08ea65ac072347e5841eaf91c3805b1ab526"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -1608,7 +1608,7 @@
             "text": "Package 'mine1@abcxzy' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "6f9ff24d56be5281295a6d614d5ac45280374eaba5b533d9d9dbfba46f16804b"
+            "primaryLocationLineHash": "40fea9488a45ecd8a6106f67efc154cdcce171d2a61ea54d5e0b51fe9cd6f723"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -1644,7 +1644,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "8a12fe390eb5f4317dfeb2b03b35444e6c319a5dbbe248b8a80101481be52867"
+            "primaryLocationLineHash": "9ce52114a1bbaae16ba52c9a5f39b0a09ccfea0e058f2ad3dfa7d7cf4cafc09c"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -1680,7 +1680,7 @@
             "text": "Package 'mine2@abc123' is vulnerable to 'OSV-2'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "4da5f8c1010f59588bc7b9013f0d8f05c4f9c440b52143dbae23ddedb85981f6"
+            "primaryLocationLineHash": "cf8c4c8d214777685f5f553938737fdebd24374964b0b5d6f81f46854840c8f1"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -1819,7 +1819,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -1938,7 +1938,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2057,7 +2057,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2176,7 +2176,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2295,7 +2295,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2423,7 +2423,7 @@
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "ac57e7c0a8b2f7058c454f6eb547996db821c037407b94173dcdb89d1fc2ca59"
+            "primaryLocationLineHash": "52d3c947a07dfdc42163a2436663f7c363dae43ba6a0e2c22e0e6ba3b6eb4bfa"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2459,7 +2459,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2495,7 +2495,7 @@
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "a800b13ff0c7109024eeb350725db6b3c486c7512eb0f8f3b34c401e4b4e4d35"
+            "primaryLocationLineHash": "12ca665ae79c9d82aaee4ba5dbbd08ea65ac072347e5841eaf91c3805b1ab526"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2531,7 +2531,7 @@
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "dfb70eb59a2e0dbb553261124062c7f5a1946638de41012bb7ae6461917253a3"
+            "primaryLocationLineHash": "0867f8780fe6cf2ce519eef875d1ef34f617eb1e012a062e8299dd855e48e8cc"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2567,7 +2567,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "bdc0a601faf6abe79350c8314efaefdda80b7f6966e9f704c9bd9f6ad96e52f6"
+            "primaryLocationLineHash": "1db804ffa406d3e9b16073f0e7f18183ecf716313a50474071e26ac206cd5c7b"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2603,7 +2603,7 @@
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "1242c403d9fbbafed43d3dcb8d587ee8b8c775ad4e399fd55d0228d3224118c2"
+            "primaryLocationLineHash": "8c43219051c7a9f946bdc50d29725cc4721012aa8083e15c17863ca348ec4b90"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2791,7 +2791,7 @@
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "ac57e7c0a8b2f7058c454f6eb547996db821c037407b94173dcdb89d1fc2ca59"
+            "primaryLocationLineHash": "52d3c947a07dfdc42163a2436663f7c363dae43ba6a0e2c22e0e6ba3b6eb4bfa"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2827,7 +2827,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2863,7 +2863,7 @@
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "a800b13ff0c7109024eeb350725db6b3c486c7512eb0f8f3b34c401e4b4e4d35"
+            "primaryLocationLineHash": "12ca665ae79c9d82aaee4ba5dbbd08ea65ac072347e5841eaf91c3805b1ab526"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2899,7 +2899,7 @@
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "dfb70eb59a2e0dbb553261124062c7f5a1946638de41012bb7ae6461917253a3"
+            "primaryLocationLineHash": "0867f8780fe6cf2ce519eef875d1ef34f617eb1e012a062e8299dd855e48e8cc"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2935,7 +2935,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "bdc0a601faf6abe79350c8314efaefdda80b7f6966e9f704c9bd9f6ad96e52f6"
+            "primaryLocationLineHash": "1db804ffa406d3e9b16073f0e7f18183ecf716313a50474071e26ac206cd5c7b"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -2971,7 +2971,7 @@
             "text": "Package 'mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "1242c403d9fbbafed43d3dcb8d587ee8b8c775ad4e399fd55d0228d3224118c2"
+            "primaryLocationLineHash": "8c43219051c7a9f946bdc50d29725cc4721012aa8083e15c17863ca348ec4b90"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3218,7 +3218,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3254,7 +3254,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "8a12fe390eb5f4317dfeb2b03b35444e6c319a5dbbe248b8a80101481be52867"
+            "primaryLocationLineHash": "9ce52114a1bbaae16ba52c9a5f39b0a09ccfea0e058f2ad3dfa7d7cf4cafc09c"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3290,7 +3290,7 @@
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "a800b13ff0c7109024eeb350725db6b3c486c7512eb0f8f3b34c401e4b4e4d35"
+            "primaryLocationLineHash": "12ca665ae79c9d82aaee4ba5dbbd08ea65ac072347e5841eaf91c3805b1ab526"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3438,7 +3438,7 @@
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "320d3b56bec40418de1e0a44898c8cc95f23456d1ab00ab3d43a8a09f3388143"
+            "primaryLocationLineHash": "ed9bd37eb45d0baf0ac99237c1ab533201783ed1fd05c5704825d3ec29fb065a"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3474,7 +3474,7 @@
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "ac57e7c0a8b2f7058c454f6eb547996db821c037407b94173dcdb89d1fc2ca59"
+            "primaryLocationLineHash": "52d3c947a07dfdc42163a2436663f7c363dae43ba6a0e2c22e0e6ba3b6eb4bfa"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3510,7 +3510,7 @@
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "a800b13ff0c7109024eeb350725db6b3c486c7512eb0f8f3b34c401e4b4e4d35"
+            "primaryLocationLineHash": "12ca665ae79c9d82aaee4ba5dbbd08ea65ac072347e5841eaf91c3805b1ab526"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3546,7 +3546,7 @@
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "b54b4bd1265fbdb2ad913e625fd913ba7befcf18274a4ea1f0da064174900262"
+            "primaryLocationLineHash": "180900b2467582bb75a53b3d283637fe165e739545c4455dd1cd9dfba564fd28"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3582,7 +3582,7 @@
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "3f752fbad64900c1d23275daf789fceb1e26f3e23f7488651f931c3e8e038de4"
+            "primaryLocationLineHash": "66381ed89796465783927f3ceb9389b55ca2482ecc06e079f53982ff8f093e88"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3618,7 +3618,7 @@
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "ba07000924058def7193f768c852112944b94b8453c484403e170fd0b726d539"
+            "primaryLocationLineHash": "661ba6a74b077e3aa5b8a305fa21543f93e7a409a1bac119d14f421e15ce5715"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3806,7 +3806,7 @@
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "320d3b56bec40418de1e0a44898c8cc95f23456d1ab00ab3d43a8a09f3388143"
+            "primaryLocationLineHash": "ed9bd37eb45d0baf0ac99237c1ab533201783ed1fd05c5704825d3ec29fb065a"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3842,7 +3842,7 @@
             "text": "Package 'mine1@1.2.2' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "ac57e7c0a8b2f7058c454f6eb547996db821c037407b94173dcdb89d1fc2ca59"
+            "primaryLocationLineHash": "52d3c947a07dfdc42163a2436663f7c363dae43ba6a0e2c22e0e6ba3b6eb4bfa"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3878,7 +3878,7 @@
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "a800b13ff0c7109024eeb350725db6b3c486c7512eb0f8f3b34c401e4b4e4d35"
+            "primaryLocationLineHash": "12ca665ae79c9d82aaee4ba5dbbd08ea65ac072347e5841eaf91c3805b1ab526"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3914,7 +3914,7 @@
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "b54b4bd1265fbdb2ad913e625fd913ba7befcf18274a4ea1f0da064174900262"
+            "primaryLocationLineHash": "180900b2467582bb75a53b3d283637fe165e739545c4455dd1cd9dfba564fd28"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3950,7 +3950,7 @@
             "text": "Package 'author1/mine1@1.2.3' is vulnerable to 'OSV-5'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "3f752fbad64900c1d23275daf789fceb1e26f3e23f7488651f931c3e8e038de4"
+            "primaryLocationLineHash": "66381ed89796465783927f3ceb9389b55ca2482ecc06e079f53982ff8f093e88"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -3986,7 +3986,7 @@
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "ba07000924058def7193f768c852112944b94b8453c484403e170fd0b726d539"
+            "primaryLocationLineHash": "661ba6a74b077e3aa5b8a305fa21543f93e7a409a1bac119d14f421e15ce5715"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -4174,7 +4174,7 @@
             "text": "Package 'author1/mine1@123abc' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "644ed35132e66c504e2269c1fd43f20f27a157ac9c318f8843ea9e60ed86155a"
+            "primaryLocationLineHash": "2965451535214d6f8947e93b057e70b472eebab3fa282424aefdd8605733e6c6"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -4210,7 +4210,7 @@
             "text": "Package 'mine1@abcxyz' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "93505649f91e3944cacc05e460d6bf4b7a757a3b2adc9b8687cb4400b52a20b9"
+            "primaryLocationLineHash": "8a60aff7a7fa8f7aab8b7cd441289da5fcd47fa3991f51681bb2dd30735cf58a"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -4246,7 +4246,7 @@
             "text": "Package 'mine2@3.2.5' is vulnerable to 'OSV-2'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "a800b13ff0c7109024eeb350725db6b3c486c7512eb0f8f3b34c401e4b4e4d35"
+            "primaryLocationLineHash": "12ca665ae79c9d82aaee4ba5dbbd08ea65ac072347e5841eaf91c3805b1ab526"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -4282,7 +4282,7 @@
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-3'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "b54b4bd1265fbdb2ad913e625fd913ba7befcf18274a4ea1f0da064174900262"
+            "primaryLocationLineHash": "180900b2467582bb75a53b3d283637fe165e739545c4455dd1cd9dfba564fd28"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -4318,7 +4318,7 @@
             "text": "Package 'author1/mine1@123abc' is vulnerable to 'OSV-5'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "37665187aee70c8f28914bce4e7a1243520a0239b26be659eebf1420a1280e08"
+            "primaryLocationLineHash": "bcaf018cd60f51a52a81210d1e2d60865060afcd4f5568080ac7e7fd37805981"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -4354,7 +4354,7 @@
             "text": "Package 'author3/mine3@0.4.1' is vulnerable to 'OSV-5'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "ba07000924058def7193f768c852112944b94b8453c484403e170fd0b726d539"
+            "primaryLocationLineHash": "661ba6a74b077e3aa5b8a305fa21543f93e7a409a1bac119d14f421e15ce5715"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -4733,7 +4733,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'GHSA-123'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "bc25ad32cd99c1b5541a494a1a890344f7c4155f279a07b47fc8c6ff1034a43f"
+            "primaryLocationLineHash": "3b16be4bbde5df041a39afb537f1b0b139cd48b5bd147fe46af1ffa93c912761"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -4769,7 +4769,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -4908,7 +4908,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -5027,7 +5027,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -5146,7 +5146,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -5265,7 +5265,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -5384,7 +5384,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -5503,7 +5503,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -5539,7 +5539,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -5659,7 +5659,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -5695,7 +5695,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -5815,7 +5815,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -5851,7 +5851,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1' (also known as 'GHSA-123')."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -5971,7 +5971,7 @@
             "text": "Package 'mine1@abc123' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "b604b80dd43d3a48a503e693b381998ff2fa065cb4efbd7de03bac59759d5aec"
+            "primaryLocationLineHash": "86e968c425f49e362a73dd1ea10be7af52e09b3151f7257eaf3426de89d9d0a9"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -6090,7 +6090,7 @@
             "text": "Package 'mine1@abc123' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "b604b80dd43d3a48a503e693b381998ff2fa065cb4efbd7de03bac59759d5aec"
+            "primaryLocationLineHash": "86e968c425f49e362a73dd1ea10be7af52e09b3151f7257eaf3426de89d9d0a9"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -6209,7 +6209,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -6245,7 +6245,7 @@
             "text": "Package 'mine3@0.10.2-rc' is vulnerable to 'OSV-2'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "93f87efe2a53a6637fbc467d5548ceb1fb3d0671bc1003d04b7e9e4262c01e3d"
+            "primaryLocationLineHash": "b10c6f908dacaaa2f069715562ca07115ae24fdad628fd3af5df6e60da4cd9f4"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -6384,7 +6384,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -6512,7 +6512,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "0de15a3be0d4a3a068551d368e834b5687435324950c9ddb6c8cbff9143ad013"
+            "primaryLocationLineHash": "4b3f079cd21e0fc03d467195af64ae26bf765a22c78865c7648e74c5ae1e6583"
           },
           "rank": -1,
           "relatedLocations": [],
@@ -6548,7 +6548,7 @@
             "text": "Package 'mine1@1.2.3' is vulnerable to 'OSV-1'."
           },
           "partialFingerprints": {
-            "primaryLocationLineHash": "ce4b3da3e602f23318538c379a9af5c1e9b01c7b190a73cd731269366cc463d4"
+            "primaryLocationLineHash": "48be2450f8d62c5aab3fa307fd89b00ede8dba60b55896099f707eae646acbb2"
           },
           "rank": -1,
           "relatedLocations": [],
