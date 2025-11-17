@@ -8,7 +8,7 @@ interactions:
     proto_minor: 1
     content_length: 300
     host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"},\"version\":\"0.0.8\"},{\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.4.2\"},{\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"},\"version\":\"1.0.2\"},{\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"},\"version\":\"2.0.4\"}]}"
+    body: "{\"queries\":[{\"version\":\"2.4.2\",\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"}},{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}},{\"version\":\"0.0.8\",\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"}},{\"version\":\"1.0.2\",\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"}}]}"
     headers:
       Content-Type:
       - application/json
@@ -39,7 +39,7 @@ interactions:
     proto_minor: 1
     content_length: 300
     host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"},\"version\":\"0.0.8\"},{\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.4.2\"},{\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"},\"version\":\"1.0.2\"},{\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"},\"version\":\"2.0.4\"}]}"
+    body: "{\"queries\":[{\"version\":\"2.4.2\",\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"}},{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}},{\"version\":\"0.0.8\",\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"}},{\"version\":\"1.0.2\",\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"}}]}"
     headers:
       Content-Type:
       - application/json
@@ -70,7 +70,7 @@ interactions:
     proto_minor: 1
     content_length: 300
     host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"},\"version\":\"0.0.8\"},{\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.4.2\"},{\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"},\"version\":\"1.0.2\"},{\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"},\"version\":\"2.0.4\"}]}"
+    body: "{\"queries\":[{\"version\":\"2.4.2\",\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"}},{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}},{\"version\":\"0.0.8\",\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"}},{\"version\":\"1.0.2\",\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"}}]}"
     headers:
       Content-Type:
       - application/json
@@ -101,7 +101,7 @@ interactions:
     proto_minor: 1
     content_length: 231
     host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.4.2\"},{\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"},\"version\":\"1.0.2\"},{\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"},\"version\":\"2.0.4\"}]}"
+    body: "{\"queries\":[{\"version\":\"2.4.2\",\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"}},{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}},{\"version\":\"1.0.2\",\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"}}]}"
     headers:
       Content-Type:
       - application/json
@@ -132,7 +132,7 @@ interactions:
     proto_minor: 1
     content_length: 300
     host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"},\"version\":\"0.0.8\"},{\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"},\"version\":\"2.4.2\"},{\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"},\"version\":\"1.0.2\"},{\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"},\"version\":\"2.0.4\"}]}"
+    body: "{\"queries\":[{\"version\":\"2.4.2\",\"package\":{\"name\":\"ast\",\"ecosystem\":\"RubyGems\"}},{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}},{\"version\":\"0.0.8\",\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"}},{\"version\":\"1.0.2\",\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"}}]}"
     headers:
       Content-Type:
       - application/json
@@ -163,7 +163,7 @@ interactions:
     proto_minor: 1
     content_length: 89
     host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"},\"version\":\"2.0.4\"}]}"
+    body: "{\"queries\":[{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}}]}"
     headers:
       Content-Type:
       - application/json
@@ -194,7 +194,7 @@ interactions:
     proto_minor: 1
     content_length: 82
     host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"},\"version\":\"0.0.8\"}]}"
+    body: "{\"queries\":[{\"version\":\"0.0.8\",\"package\":{\"name\":\"ansi-html\",\"ecosystem\":\"npm\"}}]}"
     headers:
       Content-Type:
       - application/json
