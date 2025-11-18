@@ -89,6 +89,17 @@ var (
 			return "2025-01-01T01:01:01Z"
 		},
 	}
+
+	ReplacePartialFingerprintHash = JSONReplaceRule{
+		Path: "runs.#.results.#.partialFingerprints.primaryLocationLineHash",
+		ReplaceFunc: func(toReplace gjson.Result) any {
+			if len(toReplace.String()) > 0 {
+				return "[line-hash]"
+			}
+
+			return "[empty]"
+		},
+	}
 )
 
 func expandArrayPaths(t *testing.T, jsonInput string, path string) []string {

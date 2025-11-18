@@ -165,11 +165,17 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "Empty sarif output",
 			Args: []string{"", "source", "--format", "sarif", "./testdata/locks-many/composer.lock"},
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.ReplacePartialFingerprintHash,
+			},
 			Exit: 0,
 		},
 		{
 			Name: "Sarif with vulns",
 			Args: []string{"", "source", "--format", "sarif", "./testdata/locks-many-with-insecure/package-lock.json"},
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.ReplacePartialFingerprintHash,
+			},
 			Exit: 1,
 		},
 		// output format: gh-annotations
@@ -881,6 +887,9 @@ func TestCommand_GithubActions(t *testing.T) {
 		{
 			Name: "scanning osv-scanner custom format output json",
 			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.ReplacePartialFingerprintHash,
+			},
 			Exit: 1,
 		},
 	}

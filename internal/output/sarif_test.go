@@ -9,7 +9,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/tidwall/gjson"
 )
 
 func TestPrintSARIFReport(t *testing.T) {
@@ -127,14 +126,8 @@ func buildJSONSarifReport(t *testing.T, res *models.VulnerabilityResults) map[st
 	replacedJSON := testutility.ReplaceJSONInput(
 		t,
 		outputWriter.String(),
-		"runs.#.results.#.partialFingerprints.primaryLocationLineHash",
-		func(toReplace gjson.Result) any {
-			if len(toReplace.String()) > 0 {
-				return "<linehash>"
-			}
-
-			return "<empty>"
-		},
+		testutility.ReplacePartialFingerprintHash.Path,
+		testutility.ReplacePartialFingerprintHash.ReplaceFunc,
 	)
 
 	jsonStructure := map[string]any{}
