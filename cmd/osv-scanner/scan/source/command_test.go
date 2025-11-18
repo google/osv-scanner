@@ -215,16 +215,16 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "Empty spdx 2.3 output",
 			Args: []string{"", "source", "--format", "spdx-2-3", "./testdata/locks-many/composer.lock"},
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.NormalizeCreateDateSPDX,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.NormalizeCreateDateSPDX,
 			},
 			Exit: 0,
 		},
 		{
 			Name: "spdx 2.3 output", // SPDX does not support outputting vulnerabilties
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--format", "spdx-2-3", "--all-packages", "./testdata/locks-insecure"},
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.NormalizeCreateDateSPDX,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.NormalizeCreateDateSPDX,
 			},
 			Exit: 1,
 		},

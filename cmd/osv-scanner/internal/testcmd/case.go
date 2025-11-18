@@ -3,6 +3,8 @@ package testcmd
 
 import (
 	"strings"
+
+	"github.com/google/osv-scanner/v2/internal/testutility"
 )
 
 type Case struct {
@@ -11,7 +13,7 @@ type Case struct {
 	Exit int
 
 	// ReplaceRules are only used for JSON output
-	ReplaceRules []JSONReplaceRule
+	ReplaceRules []testutility.JSONReplaceRule
 }
 
 // findFirstValueOfFlag returns the value of the first instance of the given flag

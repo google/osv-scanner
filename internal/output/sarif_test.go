@@ -9,6 +9,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/tidwall/gjson"
 )
 
 func TestPrintSARIFReport(t *testing.T) {
@@ -123,8 +124,21 @@ func buildJSONSarifReport(t *testing.T, res *models.VulnerabilityResults) map[st
 		t.Errorf("Error writing SARIF output: %s", err)
 	}
 
+	replacedJSON := testutility.ReplaceJSONInput(
+		t,
+		outputWriter.String(),
+		"runs.#.results.#.partialFingerprints.primaryLocationLineHash",
+		func(toReplace gjson.Result) any {
+			if len(toReplace.String()) > 0 {
+				return "<linehash>"
+			}
+
+			return "<empty>"
+		},
+	)
+
 	jsonStructure := map[string]any{}
-	err = json.NewDecoder(outputWriter).Decode(&jsonStructure)
+	err = json.NewDecoder(bytes.NewBufferString(replacedJSON)).Decode(&jsonStructure)
 	if err != nil {
 		t.Errorf("Error decoding SARIF output: %s", err)
 	}

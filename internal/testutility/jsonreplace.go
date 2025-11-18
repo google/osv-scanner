@@ -1,4 +1,4 @@
-package testcmd
+package testutility
 
 import (
 	"strconv"
@@ -130,8 +130,8 @@ func expandArrayPaths(t *testing.T, jsonInput string, path string) []string {
 	return paths
 }
 
-// replaceJSONInput takes a gjson path and replaces all elements the path matches with the output of matcher
-func replaceJSONInput(t *testing.T, jsonInput string, path string, replacer func(toReplace gjson.Result) any) string {
+// ReplaceJSONInput takes a gjson path and replaces all elements the path matches with the output of matcher
+func ReplaceJSONInput(t *testing.T, jsonInput string, path string, replacer func(toReplace gjson.Result) any) string {
 	t.Helper()
 
 	var err error
