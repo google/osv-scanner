@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 
 	"deps.dev/util/resolve"
@@ -19,7 +20,7 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-func Command(_, _ io.Writer) *cli.Command {
+func Command(_, _ io.Writer, _ *http.Client) *cli.Command {
 	return &cli.Command{
 		Hidden: true,
 		Name:   "update",

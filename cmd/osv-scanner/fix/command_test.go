@@ -144,7 +144,7 @@ func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Command,
 	// Then use app.RunAndMatchSnapshots() to parse the flags into the cli.Context, which is returned.
 	t.Helper()
 	appFlags := make([]cli.Flag, 0, len(flags))
-	for _, f := range fix.Command(nil, nil).Flags {
+	for _, f := range fix.Command(nil, nil, nil).Flags {
 		if slices.ContainsFunc(f.Names(), func(s string) bool { return slices.Contains(flags, s) }) {
 			appFlags = append(appFlags, f)
 		}
