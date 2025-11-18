@@ -12,6 +12,7 @@ This release migrates to the new `osv.dev` and `osv-schema` proto bindings for i
 - [Feature #1498 (osv-scalibr)](https://github.com/google/osv-scalibr/pull/1498) Add Cloud Storage HMAC keys validator. (`--experimental-plugins=secrets/gcshmackey`)
 - [Feature #2313](https://github.com/google/osv-scanner/pull/2313) Integrate OSV-Scalibr directly.
 - [Feature #2344](https://github.com/google/osv-scanner/pull/2344) Use `osduplicate` annotators.
+
 ### Fixes:
 
 - [Bug #2329](https://github.com/google/osv-scanner/pull/2329) Add `--ignore-scripts` flag to npm lockfile generation.
