@@ -286,6 +286,9 @@ Total 2 packages affected by 7 known vulnerabilities (3 Critical, 4 High, 0 Medi
       "redactionTokens": [],
       "results": [
         {
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
           "attachments": [],
           "codeFlows": [],
           "fixes": [],
@@ -2698,6 +2701,9 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
       "redactionTokens": [],
       "results": [
         {
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
           "attachments": [],
           "codeFlows": [],
           "fixes": [],
@@ -2731,6 +2737,9 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
           "taxa": []
         },
         {
+          "partialFingerprints": {
+            "primaryLocationLineHash": "[line-hash]"
+          },
           "attachments": [],
           "codeFlows": [],
           "fixes": [],

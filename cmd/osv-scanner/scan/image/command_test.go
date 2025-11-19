@@ -336,49 +336,49 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			Name: "Scanning python image with some packages",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-python-full.tar"},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
-				testcmd.NormalizeHistoryCommand,
-				testcmd.ShortenHistoryCommandLength,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+				testutility.NormalizeHistoryCommand,
+				testutility.ShortenHistoryCommandLength,
 			},
 		},
 		{
 			Name: "scanning node_modules using npm with some packages",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-node_modules-npm-full.tar"},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
-				testcmd.NormalizeHistoryCommand,
-				testcmd.ShortenHistoryCommandLength,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+				testutility.NormalizeHistoryCommand,
+				testutility.ShortenHistoryCommandLength,
 			},
 		},
 		{
 			Name: "scanning image with go binary",
 			Args: []string{"", "image", "--archive", "--all-packages", "--format=json", "./testdata/test-go-binary.tar"},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
-				testcmd.NormalizeHistoryCommand,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+				testutility.NormalizeHistoryCommand,
 			},
 		},
 		{
 			Name: "scanning ubuntu image",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
 			},
 		},
 		{
@@ -386,11 +386,11 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			Name: "ubuntu_image_with_go_OS_packages_json",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-ubuntu-with-packages.tar"},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
 			},
 		},
 		{
@@ -402,11 +402,11 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
 			},
 		},
 		{
@@ -418,11 +418,11 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
 			},
 		},
 	}
