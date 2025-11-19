@@ -7,10 +7,6 @@ This release migrates to the new `osv.dev` and `osv-schema` proto bindings for i
 - [Feature #2321](https://github.com/google/osv-scanner/pull/2321) Add support for license checks for RubyGems.
 - [Feature #2294](https://github.com/google/osv-scanner/pull/2294) Replace `requirementsenhanceable` extractor with transitive enricher.
 - [Feature #1417](https://github.com/google/osv-scanner/issues/1417) Add `packagedeprecation` enricher to check for deprecated packages. (`--experimental-plugins=packagedeprecation`)
-- [Feature #1436 (osv-scalibr)](https://github.com/google/osv-scalibr/pull/1436) Add support for `mysql_config_editor` configuration files. (`--experimental-plugins=secrets/mysqlmylogin`)
-- [Feature #1509 (osv-scalibr)](https://github.com/google/osv-scalibr/pull/1509) Add VAPID keys detector. (`--experimental-plugins=secrets/vapidkey`)
-- [Feature #1498 (osv-scalibr)](https://github.com/google/osv-scalibr/pull/1498) Add Cloud Storage HMAC keys validator. (`--experimental-plugins=secrets/gcshmackey`)
-- [Feature #2313](https://github.com/google/osv-scanner/pull/2313) Integrate OSV-Scalibr directly.
 - [Feature #2344](https://github.com/google/osv-scanner/pull/2344) Use `osduplicate` annotators.
 
 ### Fixes:
