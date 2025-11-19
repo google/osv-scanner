@@ -6,7 +6,6 @@ This release migrates to the new `osv.dev` and `osv-schema` proto bindings for i
 
 - [Feature #2321](https://github.com/google/osv-scanner/pull/2321) Add support for license checks for RubyGems.
 - [Feature #2294](https://github.com/google/osv-scanner/pull/2294) Replace `requirementsenhanceable` extractor with transitive enricher.
-- [Feature #1417](https://github.com/google/osv-scanner/issues/1417) Add `packagedeprecation` enricher to check for deprecated packages. (`--experimental-plugins=packagedeprecation`)
 - [Feature #2344](https://github.com/google/osv-scanner/pull/2344) Use `osduplicate` annotators.
 
 ### Fixes:
