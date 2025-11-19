@@ -14,7 +14,7 @@ This release migrates to the new `osv.dev` and `osv-schema` proto bindings for i
 - [Bug #2329](https://github.com/google/osv-scanner/pull/2329) Add `--ignore-scripts` flag to npm lockfile generation.
 - [Bug #2311](https://github.com/google/osv-scanner/pull/2311) Improve logic for `--all-packages` flag.
 - [Bug #2309](https://github.com/google/osv-scanner/pull/2309) Exit with a non-zero code when showing help.
-- [Bug #2316](https://github.com/google/osv-scanner/pull/2316) Fix pre-commit hook defaults.
+- [Bug #2316](https://github.com/google/osv-scanner/pull/2316) Pre-commit hook now defaults to scanning current directory instead of failing.
 - [Bug #1507 (osv-scalibr)](https://github.com/google/osv-scalibr/pull/1507) Interpolate Maven projects before extracting repositories.
 
 # v2.2.4
