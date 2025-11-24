@@ -100,13 +100,13 @@ func InsertCassette(t *testing.T) *http.Client {
 			}
 
 			delete(i.Request.Headers, "User-Agent")
-			i.Request.ContentLength = int64(len(i.Request.Body))
 
 			body, err := normalizeBody([]byte(i.Request.Body))
 			if err != nil {
 				return err
 			}
 			i.Request.Body = string(body)
+			i.Request.ContentLength = int64(len(i.Request.Body))
 
 			// use a static duration since we don't care about replicating latency
 			i.Response.Duration = 0
@@ -195,7 +195,8 @@ func matchBody(r *http.Request, i cassette.Request) bool {
 
 		body2, err := normalizeBody(buffer.Bytes())
 		if err != nil {
-			return false
+			// This file will only run in tests, and this should be very
+			panic(err)
 		}
 
 		if !bytes.Equal(body2, []byte(i.Body)) {
