@@ -6,9 +6,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 175
+    content_length: 177
     host: api.osv.dev
-    body: "{\"queries\":[{\"commit\":\"4579d5538f06c5ef615a15bc67ebb9ac0523a973\"},{\"commit\":\"9de7a0544457c6aba755ccb65abb41b0dc1db70d\"},{\"commit\":\"5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6\"}]}"
+    body: "{\"queries\":[{\"commit\":\"4579d5538f06c5ef615a15bc67ebb9ac0523a973\"}, {\"commit\":\"9de7a0544457c6aba755ccb65abb41b0dc1db70d\"}, {\"commit\":\"5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -23,7 +23,7 @@ interactions:
     proto_major: 2
     proto_minor: 0
     content_length: 161
-    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"CVE-2023-39137\",\"modified\":\"2025-10-21T13:22:57.391415Z\"},{\"id\":\"CVE-2023-39139\",\"modified\":\"2025-10-21T13:22:57.568653Z\"}]},{}]}"
+    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"CVE-2023-39137\",\"modified\":\"2025-11-20T12:19:03.518975Z\"},{\"id\":\"CVE-2023-39139\",\"modified\":\"2025-11-20T12:19:06.047365Z\"}]},{}]}"
     headers:
       Content-Length:
       - "161"
@@ -37,9 +37,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 175
+    content_length: 177
     host: api.osv.dev
-    body: "{\"queries\":[{\"commit\":\"4579d5538f06c5ef615a15bc67ebb9ac0523a973\"},{\"commit\":\"9de7a0544457c6aba755ccb65abb41b0dc1db70d\"},{\"commit\":\"5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6\"}]}"
+    body: "{\"queries\":[{\"commit\":\"4579d5538f06c5ef615a15bc67ebb9ac0523a973\"}, {\"commit\":\"9de7a0544457c6aba755ccb65abb41b0dc1db70d\"}, {\"commit\":\"5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -54,7 +54,7 @@ interactions:
     proto_major: 2
     proto_minor: 0
     content_length: 161
-    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"CVE-2023-39137\",\"modified\":\"2025-10-21T13:22:57.391415Z\"},{\"id\":\"CVE-2023-39139\",\"modified\":\"2025-10-21T13:22:57.568653Z\"}]},{}]}"
+    body: "{\"results\":[{},{\"vulns\":[{\"id\":\"CVE-2023-39137\",\"modified\":\"2025-11-20T12:19:03.518975Z\"},{\"id\":\"CVE-2023-39139\",\"modified\":\"2025-11-20T12:19:06.047365Z\"}]},{}]}"
     headers:
       Content-Length:
       - "161"
