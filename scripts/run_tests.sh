@@ -17,6 +17,7 @@ if [ "$DOCKER_TEST" = true ]; then
         -v "${GOPATH:-$HOME/go}/pkg/mod:/go/pkg/mod" \
         -e TEST_ACCEPTANCE="$TEST_ACCEPTANCE" \
         -e UPDATE_SNAPS="$UPDATE_SNAPS" \
+        -e TEST_VCR_MODE="$TEST_VCR_MODE" \
         osv-scanner-test \
         sh -c "git config --global --add safe.directory /src && ./scripts/run_tests.sh \"\$@\"" -- "$@"
     exit $?
