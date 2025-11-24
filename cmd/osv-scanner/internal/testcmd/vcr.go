@@ -78,6 +78,7 @@ func InsertCassette(t *testing.T) *http.Client {
 			// endpoint, as those reqs are what results in specific vulns being looked up
 			return strings.HasPrefix(req.URL.Path, "/v1/vulns/")
 		}),
+		recorder.WithMatcher(cassette.NewDefaultMatcher(cassette.WithIgnoreUserAgent())),
 		recorder.WithHook(func(i *cassette.Interaction) error {
 			// remove headers that are not important to reduce cassette size and noise
 			for _, header := range []string{
@@ -93,7 +94,7 @@ func InsertCassette(t *testing.T) *http.Client {
 			} {
 				delete(i.Response.Headers, header)
 			}
-			
+
 			delete(i.Request.Headers, "User-Agent")
 			// use a static duration since we don't care about replicating latency
 			i.Response.Duration = 0
