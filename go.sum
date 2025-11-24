@@ -256,8 +256,8 @@ github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932 h1:5/4TSDzpDnHQ8rKEE
 github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932/go.mod h1:cC6EdPbj/17GFCPDK39NRarlMI+kt+O60S12cNB5J9Y=
 github.com/google/jsonschema-go v0.3.0 h1:6AH2TxVNtk3IlvkkhjrtbUc4S8AvO0Xii0DxIygDg+Q=
 github.com/google/jsonschema-go v0.3.0/go.mod h1:r5quNTdLOYEz95Ru18zA0ydNbBuYoo9tgaYcxEYhJVE=
-github.com/google/osv-scalibr v0.3.7-0.20251118161533-ed0917ecede1 h1:ORtXAjEo6xCsJnH5G+YxK61B5+KCwxEc45we2upW55Q=
-github.com/google/osv-scalibr v0.3.7-0.20251118161533-ed0917ecede1/go.mod h1:9Ze2W6nQmu1WX2s95ezOAVZhPDbcA6ZGuEHgFT/sQEU=
+github.com/google/osv-scalibr v0.4.1-0.20251121140339-e0a209a71974 h1:8JwVysadKZJTjuWkGXPavOhsJvuRq98i79wl056CwgQ=
+github.com/google/osv-scalibr v0.4.1-0.20251121140339-e0a209a71974/go.mod h1:9Ze2W6nQmu1WX2s95ezOAVZhPDbcA6ZGuEHgFT/sQEU=
 github.com/google/pprof v0.0.0-20250403155104-27863c87afa6 h1:BHT72Gu3keYf3ZEu2J0b1vyeLSOYI8bm5wbJM/8yDe8=
 github.com/google/pprof v0.0.0-20250403155104-27863c87afa6/go.mod h1:boTsfXsheKC2y+lKOCMpSfarhxDeIzfZG1jqGcPl3cA=
 github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
@@ -530,8 +530,8 @@ golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550/go.mod h1:yigFU9vqHzYiE8U
 golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9/go.mod h1:LzIPMQfyMNhhGPhUkYOs5KpL4U8rLKemX1yGLhDgUto=
 golang.org/x/crypto v0.0.0-20210921155107-089bfa567519/go.mod h1:GvvjBRRGRdwPK5ydBHafDWAxML/pGHZbMvKqRZ5+Abc=
 golang.org/x/crypto v0.0.0-20220622213112-05595931fe9d/go.mod h1:IxCIyHEi3zRg3s0A5j5BB6A9Jmi73HwBIUl50j+osU4=
-golang.org/x/crypto v0.44.0 h1:A97SsFvM3AIwEEmTBiaxPPTYpDC47w720rdiiUvgoAU=
-golang.org/x/crypto v0.44.0/go.mod h1:013i+Nw79BMiQiMsOPcVCB5ZIJbYkerPrGnOa00tvmc=
+golang.org/x/crypto v0.45.0 h1:jMBrvKuj23MTlT0bQEOBcAE0mjg8mK9RXFhRH6nyF3Q=
+golang.org/x/crypto v0.45.0/go.mod h1:XTGrrkGJve7CYK7J8PEww4aY7gM3qMCElcJQ8n8JdX4=
 golang.org/x/exp v0.0.0-20190121172915-509febef88a4/go.mod h1:CJ0aWSM057203Lf6IL+f9T1iT9GByDxfZKAQTCR3kQA=
 golang.org/x/exp v0.0.0-20250711185948-6ae5c78190dc h1:TS73t7x3KarrNd5qAipmspBDS1rkMcgVG/fS1aRb4Rc=
 golang.org/x/exp v0.0.0-20250711185948-6ae5c78190dc/go.mod h1:A+z0yzpGtvnG90cToK5n2tu8UJVP2XUATh+r+sfOOOc=

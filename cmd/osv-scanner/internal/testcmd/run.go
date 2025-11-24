@@ -87,11 +87,11 @@ func RunAndMatchSnapshots(t *testing.T, tc Case) {
 }
 
 // normalizeJSON runs the given JSONReplaceRules on the given JSON input and returns the normalized JSON string
-func normalizeJSON(t *testing.T, jsonInput string, jsonReplaceRules ...JSONReplaceRule) string {
+func normalizeJSON(t *testing.T, jsonInput string, jsonReplaceRules ...testutility.JSONReplaceRule) string {
 	t.Helper()
 
 	for _, rule := range jsonReplaceRules {
-		jsonInput = replaceJSONInput(t, jsonInput, rule.Path, rule.ReplaceFunc)
+		jsonInput = testutility.ReplaceJSONInput(t, jsonInput, rule.Path, rule.ReplaceFunc)
 	}
 
 	jsonFormatted := bytes.Buffer{}

@@ -1,3 +1,21 @@
+# v2.3.0
+
+This release migrates to the new `osv.dev` and `osv-schema` proto bindings for its internal data models ([#2328](https://github.com/google/osv-scanner/pull/2328)). This is primarily an internal change and should not impact users.
+
+### Features:
+
+- [Feature #2321](https://github.com/google/osv-scanner/pull/2321) Add support for license checks for RubyGems.
+- [Feature #2294](https://github.com/google/osv-scanner/pull/2294) Replace `requirementsenhanceable` extractor with transitive enricher.
+- [Feature #2344](https://github.com/google/osv-scanner/pull/2344) Use `osduplicate` annotators.
+
+### Fixes:
+
+- [Bug #2329](https://github.com/google/osv-scanner/pull/2329) Add `--ignore-scripts` flag to npm lockfile generation.
+- [Bug #2311](https://github.com/google/osv-scanner/pull/2311) Improve logic for `--all-packages` flag.
+- [Bug #2309](https://github.com/google/osv-scanner/pull/2309) Exit with a non-zero code when showing help.
+- [Bug #2316](https://github.com/google/osv-scanner/pull/2316) Pre-commit hook now defaults to scanning current directory instead of failing.
+- [Bug #1507 (osv-scalibr)](https://github.com/google/osv-scalibr/pull/1507) Interpolate Maven projects before extracting repositories.
+
 # v2.2.4
 
 ### Features:

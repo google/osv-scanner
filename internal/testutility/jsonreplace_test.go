@@ -1,4 +1,4 @@
-package testcmd
+package testutility
 
 import (
 	"bytes"
@@ -384,7 +384,7 @@ func Test_replaceJSONInput(t *testing.T) {
 			t.Run(fmt.Sprintf("%d-%s", i, path), func(t *testing.T) {
 				t.Parallel()
 
-				got := replaceJSONInput(t, tt.input, path, matcher)
+				got := ReplaceJSONInput(t, tt.input, path, matcher)
 				if !gjson.Valid(got) {
 					t.Fatalf("Output not valid: \n%s", got)
 				}
@@ -400,7 +400,7 @@ func Test_replaceJSONInput(t *testing.T) {
 				_ = json.Indent(&gotPretty, []byte(got), "", "  ")
 
 				if diff := cmp.Diff(wantPretty.String(), gotPretty.String()); diff != "" {
-					t.Errorf("replaceJSONInput() diff (-want +got): %s", diff)
+					t.Errorf("ReplaceJSONInput() diff (-want +got): %s", diff)
 				}
 			})
 		}
@@ -545,7 +545,7 @@ func Test_replaceJSONInput_More(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := replaceJSONInput(t, tt.args.jsonInput, tt.args.path, tt.args.matcher)
+			got := ReplaceJSONInput(t, tt.args.jsonInput, tt.args.path, tt.args.matcher)
 			if !gjson.Valid(got) {
 				t.Fatalf("Output not valid: \n%s", got)
 			}
@@ -561,7 +561,7 @@ func Test_replaceJSONInput_More(t *testing.T) {
 			_ = json.Indent(&gotPretty, []byte(got), "", "\t")
 
 			if diff := cmp.Diff(wantPretty.String(), gotPretty.String()); diff != "" {
-				t.Errorf("replaceJSONInput() diff (-want +got): %s", diff)
+				t.Errorf("ReplaceJSONInput() diff (-want +got): %s", diff)
 			}
 		})
 	}

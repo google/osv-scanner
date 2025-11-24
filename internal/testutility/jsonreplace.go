@@ -1,4 +1,4 @@
-package testcmd
+package testutility
 
 import (
 	"strconv"
@@ -89,6 +89,17 @@ var (
 			return "2025-01-01T01:01:01Z"
 		},
 	}
+
+	ReplacePartialFingerprintHash = JSONReplaceRule{
+		Path: "runs.#.results.#.partialFingerprints.primaryLocationLineHash",
+		ReplaceFunc: func(toReplace gjson.Result) any {
+			if len(toReplace.String()) > 0 {
+				return "[line-hash]"
+			}
+
+			return "[empty]"
+		},
+	}
 )
 
 func expandArrayPaths(t *testing.T, jsonInput string, path string) []string {
@@ -130,8 +141,8 @@ func expandArrayPaths(t *testing.T, jsonInput string, path string) []string {
 	return paths
 }
 
-// replaceJSONInput takes a gjson path and replaces all elements the path matches with the output of matcher
-func replaceJSONInput(t *testing.T, jsonInput string, path string, replacer func(toReplace gjson.Result) any) string {
+// ReplaceJSONInput takes a gjson path and replaces all elements the path matches with the output of matcher
+func ReplaceJSONInput(t *testing.T, jsonInput string, path string, replacer func(toReplace gjson.Result) any) string {
 	t.Helper()
 
 	var err error

@@ -18,7 +18,7 @@ require (
 	github.com/go-git/go-git/v5 v5.16.3
 	github.com/goccy/go-yaml v1.18.0
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.3.7-0.20251118161533-ed0917ecede1
+	github.com/google/osv-scalibr v0.4.1-0.20251121140339-e0a209a71974
 	github.com/ianlancetaylor/demangle v0.0.0-20251114061303-68c556c8ce09
 	github.com/jedib0t/go-pretty/v6 v6.7.2
 	github.com/modelcontextprotocol/go-sdk v1.1.0
@@ -203,7 +203,7 @@ require (
 	go.uber.org/zap v1.17.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.2 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
-	golang.org/x/crypto v0.44.0 // indirect
+	golang.org/x/crypto v0.45.0 // indirect
 	golang.org/x/exp v0.0.0-20250711185948-6ae5c78190dc // indirect
 	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/oauth2 v0.30.0 // indirect
