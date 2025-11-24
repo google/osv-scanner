@@ -6,14 +6,12 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 168
+    content_length: 163
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"2.0.4\", \"package\":{\"name\":\"sentry/sdk\", \"ecosystem\":\"Packagist\"}}, {\"version\":\"1.0.2\", \"package\":{\"name\":\"balanced-match\", \"ecosystem\":\"npm\"}}]}"
+    body: "{\"queries\":[{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}},{\"version\":\"1.0.2\",\"package\":{\"name\":\"balanced-match\",\"ecosystem\":\"npm\"}}]}"
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - Test_run_SubCommands/scan_with_a_flag
     url: https://api.osv.dev/v1/querybatch
@@ -37,14 +35,12 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 91
+    content_length: 89
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"2.0.4\", \"package\":{\"name\":\"sentry/sdk\", \"ecosystem\":\"Packagist\"}}]}"
+    body: "{\"queries\":[{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}}]}"
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - Test_run_SubCommands/with_no_subcommand
     url: https://api.osv.dev/v1/querybatch
@@ -68,14 +64,12 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 91
+    content_length: 89
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"2.0.4\", \"package\":{\"name\":\"sentry/sdk\", \"ecosystem\":\"Packagist\"}}]}"
+    body: "{\"queries\":[{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}}]}"
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - Test_run_SubCommands/with_scan_subcommand
     url: https://api.osv.dev/v1/querybatch

@@ -12,8 +12,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/.gitignored_files
     url: https://api.osv.dev/v1/querybatch
@@ -43,8 +41,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/Empty_cyclonedx_1.4_output
     url: https://api.osv.dev/v1/querybatch
@@ -74,8 +70,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/Empty_cyclonedx_1.5_output
     url: https://api.osv.dev/v1/querybatch
@@ -105,8 +99,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/Empty_gh-annotations_output
     url: https://api.osv.dev/v1/querybatch
@@ -136,8 +128,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/Empty_sarif_output
     url: https://api.osv.dev/v1/querybatch
@@ -167,8 +157,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/Empty_spdx_2.3_output
     url: https://api.osv.dev/v1/querybatch
@@ -198,8 +186,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/Go_project_with_an_overridden_go_version
     url: https://api.osv.dev/v1/querybatch
@@ -229,8 +215,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/Go_project_with_an_overridden_go_version,_recursive
     url: https://api.osv.dev/v1/querybatch
@@ -260,8 +244,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/Go_project_with_an_overridden_go_version_and_licences
     url: https://api.osv.dev/v1/querybatch
@@ -291,8 +273,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/PURL_SBOM_case_sensitivity_(api)
     url: https://api.osv.dev/v1/querybatch
@@ -322,8 +302,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/Sarif_with_vulns
     url: https://api.osv.dev/v1/querybatch
@@ -353,8 +331,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/Scan_locks-many
     url: https://api.osv.dev/v1/querybatch
@@ -384,8 +360,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/all_supported_lockfiles_in_the_directory_should_be_checked
     url: https://api.osv.dev/v1/querybatch
@@ -415,8 +389,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/config_file_can_be_broad
     url: https://api.osv.dev/v1/querybatch
@@ -446,8 +418,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/config_file_is_invalid
     url: https://api.osv.dev/v1/querybatch
@@ -477,8 +447,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/config_files_should_not_have_multiple_ignores_with_the_same_id
     url: https://api.osv.dev/v1/querybatch
@@ -508,8 +476,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/cyclonedx_1.4_output
     url: https://api.osv.dev/v1/querybatch
@@ -539,8 +505,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/cyclonedx_1.5_output
     url: https://api.osv.dev/v1/querybatch
@@ -570,8 +534,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/folder_of_supported_sbom_with_only_unimportant
     url: https://api.osv.dev/v1/querybatch
@@ -601,8 +563,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - "TestCommand/folder_of_supported_sbom_with_only_unimportant#01"
     url: https://api.osv.dev/v1/querybatch
@@ -632,8 +592,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/folder_of_supported_sbom_with_vulns
     url: https://api.osv.dev/v1/querybatch
@@ -663,8 +621,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/gh-annotations_with_vulns
     url: https://api.osv.dev/v1/querybatch
@@ -694,8 +650,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/go_packages_in_osv-scanner.json_format
     url: https://api.osv.dev/v1/querybatch
@@ -725,8 +679,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/ignores_without_reason_should_be_explicitly_called_out
     url: https://api.osv.dev/v1/querybatch
@@ -756,8 +708,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/ignoring_.gitignore
     url: https://api.osv.dev/v1/querybatch
@@ -787,8 +737,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/json_output
     url: https://api.osv.dev/v1/querybatch
@@ -818,8 +766,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/nested_directories_are_checked_when_`--recursive`_is_passed
     url: https://api.osv.dev/v1/querybatch
@@ -849,8 +795,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine
     url: https://api.osv.dev/v1/querybatch
@@ -880,8 +824,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/no_lockfiles_with_recursion_but_without_allow_flag_are_fine
     url: https://api.osv.dev/v1/querybatch
@@ -911,8 +853,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/one_specific_supported_lockfile
     url: https://api.osv.dev/v1/querybatch
@@ -942,8 +882,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/one_specific_supported_lockfile_with_ignore
     url: https://api.osv.dev/v1/querybatch
@@ -973,8 +911,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/one_specific_supported_lockfile_with_offline_explicitly_false
     url: https://api.osv.dev/v1/querybatch
@@ -1004,8 +940,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/one_specific_supported_sbom_with_duplicate_PURLs
     url: https://api.osv.dev/v1/querybatch
@@ -1035,8 +969,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag
     url: https://api.osv.dev/v1/querybatch
@@ -1066,8 +998,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/one_specific_supported_sbom_with_invalid_PURLs
     url: https://api.osv.dev/v1/querybatch
@@ -1097,8 +1027,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag
     url: https://api.osv.dev/v1/querybatch
@@ -1128,8 +1056,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/one_specific_supported_sbom_with_vulns
     url: https://api.osv.dev/v1/querybatch
@@ -1159,8 +1085,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/one_specific_supported_sbom_with_vulns_using_-L_flag
     url: https://api.osv.dev/v1/querybatch
@@ -1190,8 +1114,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion)
     url: https://api.osv.dev/v1/querybatch
@@ -1221,8 +1143,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/output_format:_markdown_table
     url: https://api.osv.dev/v1/querybatch
@@ -1252,8 +1172,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/requirements.txt_can_have_all_kinds_of_names
     url: https://api.osv.dev/v1/querybatch
@@ -1283,8 +1201,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/spdx_2.3_output
     url: https://api.osv.dev/v1/querybatch
@@ -1314,8 +1230,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/verbosity_level_=_error
     url: https://api.osv.dev/v1/querybatch
@@ -1345,8 +1259,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand/verbosity_level_=_info
     url: https://api.osv.dev/v1/querybatch

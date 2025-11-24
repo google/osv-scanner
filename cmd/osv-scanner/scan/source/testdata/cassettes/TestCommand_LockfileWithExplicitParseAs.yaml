@@ -12,8 +12,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_LockfileWithExplicitParseAs/absolute_paths_are_automatically_escaped_on_windows
     url: https://api.osv.dev/v1/querybatch
@@ -43,8 +41,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_LockfileWithExplicitParseAs/absolute_paths_work_with_explicit_escaping
     url: https://api.osv.dev/v1/querybatch
@@ -74,8 +70,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_LockfileWithExplicitParseAs/empty_is_default
     url: https://api.osv.dev/v1/querybatch
@@ -105,8 +99,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic
     url: https://api.osv.dev/v1/querybatch
@@ -136,8 +128,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2
     url: https://api.osv.dev/v1/querybatch
@@ -167,8 +157,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_LockfileWithExplicitParseAs/one_lockfile_with_local_path
     url: https://api.osv.dev/v1/querybatch
@@ -198,8 +186,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file
     url: https://api.osv.dev/v1/querybatch

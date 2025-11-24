@@ -6,14 +6,12 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 1156
+    content_length: 1197
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"3.1.2-r0\",\"package\":{\"name\":\"alpine-baselayout\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"2.1-r2\",\"package\":{\"name\":\"alpine-keys\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"2.10.6-r0\",\"package\":{\"name\":\"apk-tools\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"1.30.1-r5\",\"package\":{\"name\":\"busybox\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"20191127-r2\",\"package\":{\"name\":\"ca-certificates\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"0.7.1-r0\",\"package\":{\"name\":\"libc-dev\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"1.1.1k-r0\",\"package\":{\"name\":\"openssl\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"1.1.1k-r0\",\"package\":{\"name\":\"openssl\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"2.9.1-r0\",\"package\":{\"name\":\"libtls-standalone\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"1.1.22-r4\",\"package\":{\"name\":\"musl\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"1.1.22-r4\",\"package\":{\"name\":\"musl\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"1.2.3-r0\",\"package\":{\"name\":\"pax-utils\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"1.30.1-r5\",\"package\":{\"name\":\"busybox\",\"ecosystem\":\"Alpine:v3.18\"}},{\"version\":\"1.2.11-r1\",\"package\":{\"name\":\"zlib\",\"ecosystem\":\"Alpine:v3.18\"}}]}"
+    body: "{\"queries\":[{\"version\":\"3.1.2-r0\", \"package\":{\"name\":\"alpine-baselayout\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"2.1-r2\", \"package\":{\"name\":\"alpine-keys\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"2.10.6-r0\", \"package\":{\"name\":\"apk-tools\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"1.30.1-r5\", \"package\":{\"name\":\"busybox\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"20191127-r2\", \"package\":{\"name\":\"ca-certificates\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"0.7.1-r0\", \"package\":{\"name\":\"libc-dev\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"1.1.1k-r0\", \"package\":{\"name\":\"openssl\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"1.1.1k-r0\", \"package\":{\"name\":\"openssl\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"2.9.1-r0\", \"package\":{\"name\":\"libtls-standalone\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"1.1.22-r4\", \"package\":{\"name\":\"musl\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"1.1.22-r4\", \"package\":{\"name\":\"musl\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"1.2.3-r0\", \"package\":{\"name\":\"pax-utils\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"1.30.1-r5\", \"package\":{\"name\":\"busybox\", \"ecosystem\":\"Alpine:v3.18\"}}, {\"version\":\"1.2.11-r1\", \"package\":{\"name\":\"zlib\", \"ecosystem\":\"Alpine:v3.18\"}}]}"
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_HtmlFile
     url: https://api.osv.dev/v1/querybatch

@@ -12,8 +12,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually
     url: https://api.osv.dev/v1/querybatch
@@ -43,8 +41,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together
     url: https://api.osv.dev/v1/querybatch
@@ -74,8 +70,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_an_extractor_that_does_not_exist
     url: https://api.osv.dev/v1/querybatch
@@ -105,8 +99,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_disabled
     url: https://api.osv.dev/v1/querybatch
@@ -136,8 +128,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_enabled_and_the_defaults
     url: https://api.osv.dev/v1/querybatch
@@ -167,8 +157,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_different_extractor_enabled
     url: https://api.osv.dev/v1/querybatch
@@ -198,8 +186,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_specific_extractor_enabled
     url: https://api.osv.dev/v1/querybatch

@@ -12,8 +12,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_MoreLockfiles/cabal.project.freeze
     url: https://api.osv.dev/v1/querybatch
@@ -43,8 +41,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_MoreLockfiles/depsjson
     url: https://api.osv.dev/v1/querybatch
@@ -74,8 +70,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_MoreLockfiles/gems.locked
     url: https://api.osv.dev/v1/querybatch
@@ -105,8 +99,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_MoreLockfiles/packages.config
     url: https://api.osv.dev/v1/querybatch
@@ -136,8 +128,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_MoreLockfiles/packages.lock.json
     url: https://api.osv.dev/v1/querybatch
@@ -167,8 +157,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_MoreLockfiles/stack.yaml.lock
     url: https://api.osv.dev/v1/querybatch
@@ -198,8 +186,6 @@ interactions:
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_MoreLockfiles/uv.lock
     url: https://api.osv.dev/v1/querybatch
