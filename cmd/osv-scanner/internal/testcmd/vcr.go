@@ -100,6 +100,8 @@ func InsertCassette(t *testing.T) *http.Client {
 			}
 
 			delete(i.Request.Headers, "User-Agent")
+			i.Request.ContentLength = int64(len(i.Request.Body))
+
 			body, err := normalizeBody([]byte(i.Request.Body))
 			if err != nil {
 				return err
@@ -151,7 +153,6 @@ func sortCassetteInteractions(t *testing.T, path string) {
 // - URL
 // - Headers
 // - Body
-// - ContentLength
 func matcher(r *http.Request, i cassette.Request) bool {
 	if r.Method != i.Method {
 		return false
@@ -166,6 +167,7 @@ func matcher(r *http.Request, i cassette.Request) bool {
 
 	for _, header := range []string{
 		"User-Agent",
+		"Content-Length",
 	} {
 		delete(requestHeader, header)
 		delete(cassetteRequestHeaders, header)
@@ -176,10 +178,6 @@ func matcher(r *http.Request, i cassette.Request) bool {
 	}
 
 	if !matchBody(r, i) {
-		return false
-	}
-
-	if r.ContentLength != i.ContentLength {
 		return false
 	}
 
