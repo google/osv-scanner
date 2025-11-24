@@ -6,7 +6,7 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 89
+    content_length: 91
     host: api.osv.dev
     body: "{\"queries\":[{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"sentry/sdk\"},\"version\":\"2.0.4\"}]}"
     headers:

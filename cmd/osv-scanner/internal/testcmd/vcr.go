@@ -203,10 +203,8 @@ func matchBody(r *http.Request, i cassette.Request) bool {
 		if !bytes.Equal(body2, []byte(i.Body)) {
 			return false
 		}
-	} else {
-		if len(i.Body) != 0 {
-			return false
-		}
+	} else if len(i.Body) != 0 {
+		return false
 	}
 
 	return true
