@@ -6,9 +6,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 464
+    content_length: 447
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"1.0\", \"package\":{\"name\":\"AC-Angle\", \"ecosystem\":\"Hackage\"}}, {\"version\":\"2.4.0.3\", \"package\":{\"name\":\"ALUT\", \"ecosystem\":\"Hackage\"}}, {\"version\":\"0.2.0.2\", \"package\":{\"name\":\"ANum\", \"ecosystem\":\"Hackage\"}}, {\"version\":\"2.6.4.3\", \"package\":{\"name\":\"Agda\", \"ecosystem\":\"Hackage\"}}, {\"version\":\"0.11.0.0\", \"package\":{\"name\":\"Allure\", \"ecosystem\":\"Hackage\"}}, {\"version\":\"0.3.0.0\", \"package\":{\"name\":\"biscuit-haskell\", \"ecosystem\":\"Hackage\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"Hackage\",\"name\":\"AC-Angle\"},\"version\":\"1.0\"},{\"package\":{\"ecosystem\":\"Hackage\",\"name\":\"ALUT\"},\"version\":\"2.4.0.3\"},{\"package\":{\"ecosystem\":\"Hackage\",\"name\":\"ANum\"},\"version\":\"0.2.0.2\"},{\"package\":{\"ecosystem\":\"Hackage\",\"name\":\"Agda\"},\"version\":\"2.6.4.3\"},{\"package\":{\"ecosystem\":\"Hackage\",\"name\":\"Allure\"},\"version\":\"0.11.0.0\"},{\"package\":{\"ecosystem\":\"Hackage\",\"name\":\"biscuit-haskell\"},\"version\":\"0.3.0.0\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -35,9 +35,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 361
+    content_length: 350
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"3.7.10.6\", \"package\":{\"name\":\"AWSSDK.Core\", \"ecosystem\":\"NuGet\"}}, {\"version\":\"6.0.0\", \"package\":{\"name\":\"Microsoft.Extensions.DependencyInjection\", \"ecosystem\":\"NuGet\"}}, {\"version\":\"1.3.7\", \"package\":{\"name\":\"System.Linq.Dynamic.Core\", \"ecosystem\":\"NuGet\"}}, {\"version\":\"1.0.0\", \"package\":{\"name\":\"TestLibrary\", \"ecosystem\":\"NuGet\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"NuGet\",\"name\":\"AWSSDK.Core\"},\"version\":\"3.7.10.6\"},{\"package\":{\"ecosystem\":\"NuGet\",\"name\":\"Microsoft.Extensions.DependencyInjection\"},\"version\":\"6.0.0\"},{\"package\":{\"ecosystem\":\"NuGet\",\"name\":\"System.Linq.Dynamic.Core\"},\"version\":\"1.3.7\"},{\"package\":{\"ecosystem\":\"NuGet\",\"name\":\"TestLibrary\"},\"version\":\"1.0.0\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -64,9 +64,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 1955
+    content_length: 1881
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"2.23.0\", \"package\":{\"name\":\"async\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"1.4.1\", \"package\":{\"name\":\"async-dns\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"0.87.0\", \"package\":{\"name\":\"async-http\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"0.10.3\", \"package\":{\"name\":\"async-pool\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"1.29.2\", \"package\":{\"name\":\"console\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"0.2.0\", \"package\":{\"name\":\"fiber-annotation\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"1.1.0\", \"package\":{\"name\":\"fiber-local\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"1.0.0\", \"package\":{\"name\":\"fiber-storage\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"1.6.4\", \"package\":{\"name\":\"geoip\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"0.15.1\", \"package\":{\"name\":\"io-endpoint\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"1.9.0\", \"package\":{\"name\":\"io-event\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"0.6.1\", \"package\":{\"name\":\"io-stream\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"2.10.1\", \"package\":{\"name\":\"json\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"0.12.1\", \"package\":{\"name\":\"metrics\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"1.18.2\", \"package\":{\"name\":\"nokogiri\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"1.0.1\", \"package\":{\"name\":\"process-daemon\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"1.5.1\", \"package\":{\"name\":\"protocol-hpack\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"0.49.0\", \"package\":{\"name\":\"protocol-http\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"0.30.0\", \"package\":{\"name\":\"protocol-http1\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"0.22.1\", \"package\":{\"name\":\"protocol-http2\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"1.8.1\", \"package\":{\"name\":\"racc\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"2.2.2\", \"package\":{\"name\":\"rainbow\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"13.2.1\", \"package\":{\"name\":\"rake\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"2.0.2\", \"package\":{\"name\":\"rubydns\", \"ecosystem\":\"RubyGems\"}}, {\"version\":\"0.15.2\", \"package\":{\"name\":\"traces\", \"ecosystem\":\"RubyGems\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"async\"},\"version\":\"2.23.0\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"async-dns\"},\"version\":\"1.4.1\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"async-http\"},\"version\":\"0.87.0\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"async-pool\"},\"version\":\"0.10.3\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"console\"},\"version\":\"1.29.2\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"fiber-annotation\"},\"version\":\"0.2.0\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"fiber-local\"},\"version\":\"1.1.0\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"fiber-storage\"},\"version\":\"1.0.0\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"geoip\"},\"version\":\"1.6.4\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"io-endpoint\"},\"version\":\"0.15.1\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"io-event\"},\"version\":\"1.9.0\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"io-stream\"},\"version\":\"0.6.1\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"json\"},\"version\":\"2.10.1\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"metrics\"},\"version\":\"0.12.1\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"nokogiri\"},\"version\":\"1.18.2\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"process-daemon\"},\"version\":\"1.0.1\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"protocol-hpack\"},\"version\":\"1.5.1\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"protocol-http\"},\"version\":\"0.49.0\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"protocol-http1\"},\"version\":\"0.30.0\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"protocol-http2\"},\"version\":\"0.22.1\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"racc\"},\"version\":\"1.8.1\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"rainbow\"},\"version\":\"2.2.2\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"rake\"},\"version\":\"13.2.1\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"rubydns\"},\"version\":\"2.0.2\"},{\"package\":{\"ecosystem\":\"RubyGems\",\"name\":\"traces\"},\"version\":\"0.15.2\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -93,9 +93,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 215
+    content_length: 210
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"1.0.0\", \"package\":{\"name\":\"Microsoft.CodeDom.Providers.DotNetCompilerPlatform\", \"ecosystem\":\"NuGet\"}}, {\"version\":\"1.0.0\", \"package\":{\"name\":\"Microsoft.Net.Compilers\", \"ecosystem\":\"NuGet\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"NuGet\",\"name\":\"Microsoft.CodeDom.Providers.DotNetCompilerPlatform\"},\"version\":\"1.0.0\"},{\"package\":{\"ecosystem\":\"NuGet\",\"name\":\"Microsoft.Net.Compilers\"},\"version\":\"1.0.0\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -122,9 +122,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 93
+    content_length: 91
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"13.0.3\", \"package\":{\"name\":\"Newtonsoft.Json\", \"ecosystem\":\"NuGet\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"NuGet\",\"name\":\"Newtonsoft.Json\"},\"version\":\"13.0.3\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -151,9 +151,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 326
+    content_length: 315
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"0.2.4\", \"package\":{\"name\":\"fuzzyset\", \"ecosystem\":\"Hackage\"}}, {\"version\":\"1.0.1\", \"package\":{\"name\":\"hasql-pool\", \"ecosystem\":\"Hackage\"}}, {\"version\":\"0.10.0\", \"package\":{\"name\":\"jose-jwt\", \"ecosystem\":\"Hackage\"}}, {\"version\":\"0.10.1.0\", \"package\":{\"name\":\"postgresql-libpq\", \"ecosystem\":\"Hackage\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"Hackage\",\"name\":\"fuzzyset\"},\"version\":\"0.2.4\"},{\"package\":{\"ecosystem\":\"Hackage\",\"name\":\"hasql-pool\"},\"version\":\"1.0.1\"},{\"package\":{\"ecosystem\":\"Hackage\",\"name\":\"jose-jwt\"},\"version\":\"0.10.0\"},{\"package\":{\"ecosystem\":\"Hackage\",\"name\":\"postgresql-libpq\"},\"version\":\"0.10.1.0\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -180,9 +180,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 155
+    content_length: 150
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"2.14.0\", \"package\":{\"name\":\"emoji\", \"ecosystem\":\"PyPI\"}}, {\"version\":\"4.25.5\", \"package\":{\"name\":\"protobuf\", \"ecosystem\":\"PyPI\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"PyPI\",\"name\":\"emoji\"},\"version\":\"2.14.0\"},{\"package\":{\"ecosystem\":\"PyPI\",\"name\":\"protobuf\"},\"version\":\"4.25.5\"}]}"
     headers:
       Content-Type:
       - application/json

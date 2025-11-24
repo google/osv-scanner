@@ -6,9 +6,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 89
+    content_length: 87
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"1.0.2\", \"package\":{\"name\":\"balanced-match\", \"ecosystem\":\"npm\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"npm\",\"name\":\"balanced-match\"},\"version\":\"1.0.2\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -35,9 +35,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 89
+    content_length: 87
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"1.0.2\", \"package\":{\"name\":\"balanced-match\", \"ecosystem\":\"npm\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"npm\",\"name\":\"balanced-match\"},\"version\":\"1.0.2\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -64,9 +64,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 91
+    content_length: 89
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"2.0.4\", \"package\":{\"name\":\"sentry/sdk\", \"ecosystem\":\"Packagist\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"sentry/sdk\"},\"version\":\"2.0.4\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -93,9 +93,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 522
+    content_length: 502
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"4.0.0\", \"package\":{\"name\":\"has-flag\", \"ecosystem\":\"npm\"}}, {\"version\":\"1.0.2\", \"package\":{\"name\":\"wrappy\", \"ecosystem\":\"npm\"}}, {\"version\":\"1.0.8\", \"package\":{\"name\":\"league/flysystem\", \"ecosystem\":\"Packagist\"}}, {\"version\":\"0.0.1\", \"package\":{\"name\":\"ansi-html\", \"ecosystem\":\"npm\"}}, {\"version\":\"0.0.1\", \"package\":{\"name\":\"ansi-html\", \"ecosystem\":\"npm\"}}, {\"version\":\"1.99.9\", \"package\":{\"name\":\"stdlib\", \"ecosystem\":\"Go\"}}, {\"version\":\"1.99.9\", \"package\":{\"name\":\"toolchain\", \"ecosystem\":\"Go\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"npm\",\"name\":\"has-flag\"},\"version\":\"4.0.0\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"wrappy\"},\"version\":\"1.0.2\"},{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"league/flysystem\"},\"version\":\"1.0.8\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"ansi-html\"},\"version\":\"0.0.1\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"ansi-html\"},\"version\":\"0.0.1\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"stdlib\"},\"version\":\"1.99.9\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"toolchain\"},\"version\":\"1.99.9\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -122,9 +122,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 522
+    content_length: 502
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"4.0.0\", \"package\":{\"name\":\"has-flag\", \"ecosystem\":\"npm\"}}, {\"version\":\"1.0.2\", \"package\":{\"name\":\"wrappy\", \"ecosystem\":\"npm\"}}, {\"version\":\"1.0.8\", \"package\":{\"name\":\"league/flysystem\", \"ecosystem\":\"Packagist\"}}, {\"version\":\"0.0.1\", \"package\":{\"name\":\"ansi-html\", \"ecosystem\":\"npm\"}}, {\"version\":\"0.0.1\", \"package\":{\"name\":\"ansi-html\", \"ecosystem\":\"npm\"}}, {\"version\":\"1.99.9\", \"package\":{\"name\":\"stdlib\", \"ecosystem\":\"Go\"}}, {\"version\":\"1.99.9\", \"package\":{\"name\":\"toolchain\", \"ecosystem\":\"Go\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"npm\",\"name\":\"has-flag\"},\"version\":\"4.0.0\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"wrappy\"},\"version\":\"1.0.2\"},{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"league/flysystem\"},\"version\":\"1.0.8\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"ansi-html\"},\"version\":\"0.0.1\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"ansi-html\"},\"version\":\"0.0.1\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"stdlib\"},\"version\":\"1.99.9\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"toolchain\"},\"version\":\"1.99.9\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -180,9 +180,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 450
+    content_length: 433
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"4.0.0\", \"package\":{\"name\":\"has-flag\", \"ecosystem\":\"npm\"}}, {\"version\":\"1.0.2\", \"package\":{\"name\":\"wrappy\", \"ecosystem\":\"npm\"}}, {\"version\":\"1.0.8\", \"package\":{\"name\":\"league/flysystem\", \"ecosystem\":\"Packagist\"}}, {\"version\":\"0.0.1\", \"package\":{\"name\":\"ansi-html\", \"ecosystem\":\"npm\"}}, {\"version\":\"1.99.9\", \"package\":{\"name\":\"stdlib\", \"ecosystem\":\"Go\"}}, {\"version\":\"1.99.9\", \"package\":{\"name\":\"toolchain\", \"ecosystem\":\"Go\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"npm\",\"name\":\"has-flag\"},\"version\":\"4.0.0\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"wrappy\"},\"version\":\"1.0.2\"},{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"league/flysystem\"},\"version\":\"1.0.8\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"ansi-html\"},\"version\":\"0.0.1\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"stdlib\"},\"version\":\"1.99.9\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"toolchain\"},\"version\":\"1.99.9\"}]}"
     headers:
       Content-Type:
       - application/json

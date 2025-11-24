@@ -1,10 +1,14 @@
 package testcmd
 
 import (
+	"bytes"
 	"cmp"
+	"encoding/json"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
+	"reflect"
 	"slices"
 	"strings"
 	"testing"
@@ -78,7 +82,7 @@ func InsertCassette(t *testing.T) *http.Client {
 			// endpoint, as those reqs are what results in specific vulns being looked up
 			return strings.HasPrefix(req.URL.Path, "/v1/vulns/")
 		}),
-		recorder.WithMatcher(cassette.NewDefaultMatcher(cassette.WithIgnoreUserAgent())),
+		recorder.WithMatcher(matcher),
 		recorder.WithHook(func(i *cassette.Interaction) error {
 			// remove headers that are not important to reduce cassette size and noise
 			for _, header := range []string{
@@ -96,6 +100,12 @@ func InsertCassette(t *testing.T) *http.Client {
 			}
 
 			delete(i.Request.Headers, "User-Agent")
+			body, err := normalizeBody([]byte(i.Request.Body))
+			if err != nil {
+				return err
+			}
+			i.Request.Body = string(body)
+
 			// use a static duration since we don't care about replicating latency
 			i.Response.Duration = 0
 
@@ -134,4 +144,84 @@ func sortCassetteInteractions(t *testing.T, path string) {
 	if err = cass.Save(); err != nil {
 		t.Fatalf("failed to write %s: %v", path, err)
 	}
+}
+
+// Simplified matcher, which only looks at:
+// - Method
+// - URL
+// - Headers
+// - Body
+// - ContentLength
+func matcher(r *http.Request, i cassette.Request) bool {
+	if r.Method != i.Method {
+		return false
+	}
+
+	if r.URL.String() != i.URL {
+		return false
+	}
+
+	requestHeader := r.Header.Clone()
+	cassetteRequestHeaders := i.Headers.Clone()
+
+	for _, header := range []string{
+		"User-Agent",
+	} {
+		delete(requestHeader, header)
+		delete(cassetteRequestHeaders, header)
+	}
+
+	if !reflect.DeepEqual(requestHeader, cassetteRequestHeaders) {
+		return false
+	}
+
+	if !matchBody(r, i) {
+		return false
+	}
+
+	if r.ContentLength != i.ContentLength {
+		return false
+	}
+
+	return true
+}
+
+func matchBody(r *http.Request, i cassette.Request) bool {
+	if r.Body != nil {
+		var buffer bytes.Buffer
+		if _, err := buffer.ReadFrom(r.Body); err != nil {
+			return false
+		}
+
+		r.Body = io.NopCloser(bytes.NewBuffer(buffer.Bytes()))
+
+		body2, err := normalizeBody(buffer.Bytes())
+		if err != nil {
+			return false
+		}
+
+		if !bytes.Equal(body2, []byte(i.Body)) {
+			return false
+		}
+	} else {
+		if len(i.Body) != 0 {
+			return false
+		}
+	}
+
+	return true
+}
+
+func normalizeBody(body []byte) ([]byte, error) {
+	var intermediate any
+	if err := json.Unmarshal(body, &intermediate); err != nil {
+		return nil, err
+	}
+
+	buffer2, err := json.Marshal(intermediate)
+	if err != nil {
+		return nil, err
+	}
+
+	return buffer2, nil
 }

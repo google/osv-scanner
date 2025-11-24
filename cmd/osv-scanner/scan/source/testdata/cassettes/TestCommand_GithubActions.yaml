@@ -6,9 +6,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 177
+    content_length: 175
     host: api.osv.dev
-    body: "{\"queries\":[{\"commit\":\"4579d5538f06c5ef615a15bc67ebb9ac0523a973\"}, {\"commit\":\"9de7a0544457c6aba755ccb65abb41b0dc1db70d\"}, {\"commit\":\"5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6\"}]}"
+    body: "{\"queries\":[{\"commit\":\"4579d5538f06c5ef615a15bc67ebb9ac0523a973\"},{\"commit\":\"9de7a0544457c6aba755ccb65abb41b0dc1db70d\"},{\"commit\":\"5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6\"}]}"
     headers:
       Content-Type:
       - application/json
@@ -35,9 +35,9 @@ interactions:
     proto: HTTP/1.1
     proto_major: 1
     proto_minor: 1
-    content_length: 177
+    content_length: 175
     host: api.osv.dev
-    body: "{\"queries\":[{\"commit\":\"4579d5538f06c5ef615a15bc67ebb9ac0523a973\"}, {\"commit\":\"9de7a0544457c6aba755ccb65abb41b0dc1db70d\"}, {\"commit\":\"5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6\"}]}"
+    body: "{\"queries\":[{\"commit\":\"4579d5538f06c5ef615a15bc67ebb9ac0523a973\"},{\"commit\":\"9de7a0544457c6aba755ccb65abb41b0dc1db70d\"},{\"commit\":\"5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6\"}]}"
     headers:
       Content-Type:
       - application/json
