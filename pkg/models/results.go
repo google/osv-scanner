@@ -339,6 +339,7 @@ type PackageInfo struct {
 	Version       string              `json:"version"`
 	Ecosystem     string              `json:"ecosystem"`
 	Commit        string              `json:"commit,omitempty"`
+	Deprecated    bool                `json:"deprecated,omitempty"`
 	ImageOrigin   *ImageOriginDetails `json:"image_origin_details,omitempty"`
 	Inventory     *extractor.Package  `json:"-"`
 }
