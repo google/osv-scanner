@@ -190,7 +190,7 @@ jobs:
       contents: write # to fetch and commit code
       actions: write # to manually dispatch checks on the pull request
       pull-requests: write # Create pull requests
-    runs-on: windows-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
@@ -199,7 +199,7 @@ jobs:
         with:
           go-version: stable
           check-latest: true
-      - run: ./scripts/run_tests.sh || true
+      - run: ./scripts/run_tests.sh
         env:
           TEST_ACCEPTANCE: true
           TEST_VCR_MODE: 0
