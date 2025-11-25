@@ -190,7 +190,7 @@ jobs:
       contents: write # to fetch and commit code
       actions: write # to manually dispatch checks on the pull request
       pull-requests: write # Create pull requests
-    runs-on: macos-latest
+    runs-on: windows-latest
     steps:
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
         with:
@@ -202,7 +202,7 @@ jobs:
       - run: ./scripts/run_tests.sh || true
         env:
           TEST_ACCEPTANCE: true
-          TEST_VCR_MODE: recordonly
+          TEST_VCR_MODE: 0
           UPDATE_SNAPS: always
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
