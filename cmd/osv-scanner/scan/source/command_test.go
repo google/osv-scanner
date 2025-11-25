@@ -1501,13 +1501,31 @@ func TestCommand_ExperimentalPlugins(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "exp_plugins_pkg_deprecated_true_no_vuln",
+			Name: "exp_plugins_packagedeprecation_clean",
 			Args: []string{
 				"", "source", "--format=json",
 				"--experimental-plugins=rust/cargotoml,packagedeprecation/depsdev",
-				"./testdata/exp-plugins-pkgdeprecate/Cargo.toml",
+				"./testdata/exp-plugins-pkgdeprecate/clean/Cargo.toml",
 			},
 			Exit: 0,
+		},
+		{
+			Name: "exp_plugins_packagedeprecation_true_no_vuln",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-plugins=rust/cargotoml,packagedeprecation/depsdev",
+				"./testdata/exp-plugins-pkgdeprecate/novuln-deprecated/Cargo.toml",
+			},
+			Exit: 0,
+		},
+		{
+			Name: "exp_plugins_packagedeprecation_true_with_vuln",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-plugins=rust/cargotoml,packagedeprecation/depsdev",
+				"./testdata/exp-plugins-pkgdeprecate/vuln-deprecated/Cargo.toml",
+			},
+			Exit: 1,
 		},
 	}
 	for _, tt := range tests {

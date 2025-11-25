@@ -1,5 +1,5 @@
 [package]
-name = "rust_url_deprecated"
+name = "rust_novuln_deprecated"
 version = "0.1.0"
 edition = "2021"
 
