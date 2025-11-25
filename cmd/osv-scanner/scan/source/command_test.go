@@ -1487,7 +1487,7 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 
 func TestCommand_WithDetector_OffLinux(t *testing.T) {
 	if runtime.GOOS == "linux" {
-		testutility.Skip(t, "The detector in this test only works on Linux")
+		testutility.Skip(t, "The detector in this test only works on non-linux")
 	}
 
 	testDir := testutility.CreateTestDir(t)

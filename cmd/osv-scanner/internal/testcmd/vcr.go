@@ -195,7 +195,7 @@ func matchBody(r *http.Request, i cassette.Request) bool {
 
 		body2, err := normalizeBody(buffer.Bytes())
 		if err != nil {
-			// This file will only run in tests, and this should be very
+			// This file will only run in tests, and this should be very unlikely
 			panic(err)
 		}
 
