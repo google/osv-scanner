@@ -6,6 +6,8 @@ RUN apk --no-cache add \
   docker-cli \
   git \
   build-base \
-  bash
+  bash \
+  rust \
+  cargo
 
 WORKDIR /src
