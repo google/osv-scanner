@@ -8,12 +8,10 @@ interactions:
     proto_minor: 1
     content_length: 89
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"sentry/sdk\"},\"version\":\"2.0.4\"}]}"
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_WithDetector_OffLinux/ssh_version_errors
     url: https://api.osv.dev/v1/querybatch
@@ -39,12 +37,10 @@ interactions:
     proto_minor: 1
     content_length: 89
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"sentry/sdk\"},\"version\":\"2.0.4\"}]}"
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_WithDetector_OffLinux/ssh_version_is_after_last_vuln_version
     url: https://api.osv.dev/v1/querybatch
@@ -70,12 +66,10 @@ interactions:
     proto_minor: 1
     content_length: 89
     host: api.osv.dev
-    body: "{\"queries\":[{\"version\":\"2.0.4\",\"package\":{\"name\":\"sentry/sdk\",\"ecosystem\":\"Packagist\"}}]}"
+    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"sentry/sdk\"},\"version\":\"2.0.4\"}]}"
     headers:
       Content-Type:
       - application/json
-      User-Agent:
-      - osv-scanner_scan/2.2.4
       X-Test-Name:
       - TestCommand_WithDetector_OffLinux/ssh_version_is_before_first_vuln_version
     url: https://api.osv.dev/v1/querybatch
