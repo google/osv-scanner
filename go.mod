@@ -20,7 +20,7 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/google/osv-scalibr v0.4.1-0.20251124120611-2d912db27794
 	github.com/ianlancetaylor/demangle v0.0.0-20251114061303-68c556c8ce09
-	github.com/jedib0t/go-pretty/v6 v6.7.2
+	github.com/jedib0t/go-pretty/v6 v6.7.5
 	github.com/modelcontextprotocol/go-sdk v1.1.0
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
