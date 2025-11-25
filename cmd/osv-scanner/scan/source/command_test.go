@@ -1495,3 +1495,25 @@ func TestCommand_Filter(t *testing.T) {
 		})
 	}
 }
+
+func TestCommand_ExperimentalPlugins(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "exp_plugins_pkg_deprecated_true_no_vuln",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-plugins=rust/cargotoml,packagedeprecation/depsdev",
+				"./testdata/exp-plugins-pkgdeprecate/Cargo.toml",
+			},
+			Exit: 0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}

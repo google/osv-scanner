@@ -5279,3 +5279,81 @@ No issues found
 [TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2]
 
 ---
+
+[TestCommand_ExperimentalPlugins/exp_plugins_packagedeprecation_true - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/testdata/exp-plugins-pkgdeprecate/Cargo.toml",
+        "type": "unknown"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "url",
+            "version": "2.5.3",
+            "ecosystem": "crates.io",
+            "deprecated": true
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_ExperimentalPlugins/exp_plugins_packagedeprecation_true - 2]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/Cargo.toml
+Package deprecation enricher finished.
+Package deprecation enricher starting, 2 packages to enrich.
+Package deprecation enricher: Finished querying deps.dev for deprecation status. Number of results: 1
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/Cargo.toml file and found 2 packages
+
+---
+
+[TestCommand_ExperimentalPlugins/exp_plugins_pkg_deprecated_true_no_vuln - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/testdata/exp-plugins-pkgdeprecate/Cargo.toml",
+        "type": "unknown"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "url",
+            "version": "2.5.3",
+            "ecosystem": "crates.io",
+            "deprecated": true
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_ExperimentalPlugins/exp_plugins_pkg_deprecated_true_no_vuln - 2]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/Cargo.toml
+Package deprecation enricher finished.
+Package deprecation enricher starting, 2 packages to enrich.
+Package deprecation enricher: Finished querying deps.dev for deprecation status. Number of results: 1
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/Cargo.toml file and found 2 packages
+
+---
