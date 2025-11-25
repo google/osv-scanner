@@ -273,8 +273,6 @@ github.com/ianlancetaylor/demangle v0.0.0-20251114061303-68c556c8ce09 h1:FWaBv/P
 github.com/ianlancetaylor/demangle v0.0.0-20251114061303-68c556c8ce09/go.mod h1:gx7rwoVhcfuVKG5uya9Hs3Sxj7EIvldVofAWIUtGouw=
 github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 h1:BQSFePA1RWJOlocH6Fxy8MmwDt+yVQYULKfN0RoTN8A=
 github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99/go.mod h1:1lJo3i6rXxKeerYnT8Nvf0QmHCRC1n8sfWVwXF2Frvo=
-github.com/jedib0t/go-pretty/v6 v6.7.2 h1:EYWgQNIH/+JsyHki7ns9OHyBKuHPkzrBo02uYjran7w=
-github.com/jedib0t/go-pretty/v6 v6.7.2/go.mod h1:YwC5CE4fJ1HFUDeivSV1r//AmANFHyqczZk+U6BDALU=
 github.com/jedib0t/go-pretty/v6 v6.7.5 h1:9dJSWTJnsXJVVAbvxIFxeHf/JxoJd7GUl5o3UzhtuiM=
 github.com/jedib0t/go-pretty/v6 v6.7.5/go.mod h1:YwC5CE4fJ1HFUDeivSV1r//AmANFHyqczZk+U6BDALU=
 github.com/jessevdk/go-flags v1.4.0/go.mod h1:4FA24M0QyGHXBuZZK/XkWh8h0e1EYbRYJSGM75WSRxI=
