@@ -33,5 +33,5 @@ if [ -n "$CI" ]; then
     go test ./... -coverpkg=./... -coverprofile coverage.out "$@"
 else
     # Use gotestsum which has a nicer test output
-    go run gotest.tools/gotestsum@latest ./... "$@"
+    go run gotest.tools/gotestsum@v1.13.0 ./... "$@"
 fi
