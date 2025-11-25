@@ -61,6 +61,13 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 					LicenseViolations: pkg.LicenseViolations,
 				})
 			}
+			if pkg.Package.Deprecated {
+				results = append(results, VulnerabilityFlattened{
+					Source:            res.Source,
+					Package:           pkg.Package,
+					Deprecated:        pkg.Package.Deprecated,
+				})
+			}
 		}
 	}
 
@@ -84,6 +91,7 @@ type VulnerabilityFlattened struct {
 	GroupInfo         GroupInfo
 	Licenses          []License
 	LicenseViolations []License
+	Deprecated        bool
 }
 
 // MarshalJSON implements the json.Marshaler interface.

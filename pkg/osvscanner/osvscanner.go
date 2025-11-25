@@ -106,7 +106,8 @@ type ExternalAccessors struct {
 // ErrNoPackagesFound for when no packages are found during a scan.
 var ErrNoPackagesFound = errors.New("no packages found in scan")
 
-// ErrVulnerabilitiesFound includes both vulnerabilities being found or license violations being found,
+// TODO: Rename to a more generic name
+// ErrVulnerabilitiesFound includes vulnerabilities, license violations, and package deprecation,
 // however, will not be raised if only uncalled vulnerabilities are found.
 var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 
@@ -490,6 +491,7 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 		var vuln bool
 		onlyUnimportantVuln := true
 		var licenseViolation bool
+		deprecated := false
 		for _, vf := range vulnResults.Flatten() {
 			if vf.Vulnerability != nil && vf.Vulnerability.GetId() != "" {
 				vuln = true
@@ -501,13 +503,16 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 			if len(vf.LicenseViolations) > 0 {
 				licenseViolation = true
 			}
+			if vf.Deprecated {
+				deprecated = true
+			}
 		}
 
-		if !vuln && !licenseViolation {
+		if !vuln && !licenseViolation && !deprecated {
 			return nil
 		}
 
-		onlyUnimportantVuln = onlyUnimportantVuln && vuln && !licenseViolation
+		onlyUnimportantVuln = onlyUnimportantVuln && vuln && !licenseViolation && !deprecated
 
 		// If the user didn't enable showing all vulns and we only found unimportant ones,
 		// we should return without error.

@@ -1516,7 +1516,7 @@ func TestCommand_ExperimentalPlugins(t *testing.T) {
 				"--experimental-plugins=rust/cargotoml,packagedeprecation/depsdev",
 				"./testdata/exp-plugins-pkgdeprecate/novuln-deprecated/Cargo.toml",
 			},
-			Exit: 0,
+			Exit: 1,
 		},
 		{
 			Name: "exp_plugins_packagedeprecation_true_with_vuln",
