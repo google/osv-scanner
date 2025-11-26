@@ -175,6 +175,10 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Usage: "report on licenses based on an allowlist",
 			Value: &allowedLicencesFlag{},
 		},
+		&cli.BoolFlag{
+			Name:  "show-deprecated",
+			Usage: "report if package versions are deprecated",
+		},
 		&cli.StringSliceFlag{
 			Name:  "experimental-plugins",
 			Usage: "list of specific plugins and presets of plugins to use",

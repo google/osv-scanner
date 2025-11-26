@@ -12,6 +12,7 @@ import (
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/enricher"
+	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
 	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor"
@@ -122,6 +123,10 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 
 	if actions.CallAnalysisStates["jar"] {
 		plugins = append(plugins, java.NewDefault())
+	}
+
+	if actions.ShowDeprecated {
+		plugins = append(plugins, packagedeprecation.New())
 	}
 
 	scanner := scalibr.New()
