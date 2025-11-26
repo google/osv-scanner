@@ -1496,34 +1496,34 @@ func TestCommand_Filter(t *testing.T) {
 	}
 }
 
-func TestCommand_ExperimentalPlugins(t *testing.T) {
+func TestCommand_ShowDeprecated(t *testing.T) {
 	t.Parallel()
 
 	tests := []testcmd.Case{
 		{
-			Name: "exp_plugins_packagedeprecation_clean",
+			Name: "package_deprecated_false_no_vuln",
 			Args: []string{
 				"", "source", "--format=json",
-				"--experimental-plugins=rust/cargotoml,packagedeprecation/depsdev",
-				"./testdata/exp-plugins-pkgdeprecate/clean/Cargo.toml",
+				"--show-deprecated",
+				"./testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock",
 			},
 			Exit: 0,
 		},
 		{
-			Name: "exp_plugins_packagedeprecation_true_no_vuln",
+			Name: "package_deprecated_true_no_vuln",
 			Args: []string{
 				"", "source", "--format=json",
-				"--experimental-plugins=rust/cargotoml,packagedeprecation/depsdev",
-				"./testdata/exp-plugins-pkgdeprecate/novuln-deprecated/Cargo.toml",
+				"--show-deprecated",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
 			},
 			Exit: 1,
 		},
 		{
-			Name: "exp_plugins_packagedeprecation_true_with_vuln",
+			Name: "package_deprecated_true_with_vuln",
 			Args: []string{
 				"", "source", "--format=json",
-				"--experimental-plugins=rust/cargotoml,packagedeprecation/depsdev",
-				"./testdata/exp-plugins-pkgdeprecate/vuln-deprecated/Cargo.toml",
+				"--show-deprecated",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
 		},

@@ -1,7 +1,0 @@
-[package]
-name = "rust_vuln_deprecated"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-net2 = "0.2.33"
