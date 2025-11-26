@@ -185,27 +185,3 @@ jobs:
               exit $exit_code
             fi
           done
-  update:
-    permissions:
-      contents: write # to fetch and commit code
-      actions: write # to manually dispatch checks on the pull request
-      pull-requests: write # Create pull requests
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-        with:
-          persist-credentials: false
-      - uses: actions/setup-go@d35c59abb061a4a6fb18e82ac0862c26744d6ab5 # v5.5.0
-        with:
-          go-version: stable
-          check-latest: true
-      - run: ./scripts/run_tests.sh
-        env:
-          TEST_ACCEPTANCE: false
-          TEST_VCR_MODE: 0
-          UPDATE_SNAPS: always
-      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
-        with:
-          name: vcr-testdata-${{ github.run_number }}-${{ github.run_attempt }}
-          path: cmd/osv-scanner/**/testdata/cassettes/*.yaml
-          retention-days: 1
