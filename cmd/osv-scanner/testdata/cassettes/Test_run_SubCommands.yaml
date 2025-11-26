@@ -1,90 +1,106 @@
 ---
 version: 2
 interactions:
-- id: 0
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
-    content_length: 163
-    host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"sentry/sdk\"},\"version\":\"2.0.4\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"balanced-match\"},\"version\":\"1.0.2\"}]}"
-    headers:
-      Content-Type:
-      - application/json
-      X-Test-Name:
-      - Test_run_SubCommands/scan_with_a_flag
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 19
-    body: "{\"results\":[{},{}]}"
-    headers:
-      Content-Length:
-      - "19"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
-- id: 1
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
-    content_length: 89
-    host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"sentry/sdk\"},\"version\":\"2.0.4\"}]}"
-    headers:
-      Content-Type:
-      - application/json
-      X-Test-Name:
-      - Test_run_SubCommands/with_no_subcommand
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 16
-    body: "{\"results\":[{}]}"
-    headers:
-      Content-Length:
-      - "16"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
-- id: 2
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
-    content_length: 89
-    host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"sentry/sdk\"},\"version\":\"2.0.4\"}]}"
-    headers:
-      Content-Type:
-      - application/json
-      X-Test-Name:
-      - Test_run_SubCommands/with_scan_subcommand
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 16
-    body: "{\"results\":[{}]}"
-    headers:
-      Content-Length:
-      - "16"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
+  - id: 0
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 163
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"},{"package":{"ecosystem":"npm","name":"balanced-match"},"version":"1.0.2"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - Test_run_SubCommands/scan_with_a_flag
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 19
+      body: |
+        {
+          "results": [
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "19"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 1
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 89
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - Test_run_SubCommands/with_no_subcommand
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 2
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 89
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - Test_run_SubCommands/with_scan_subcommand
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

@@ -38,7 +38,7 @@ require (
 	golang.org/x/vuln v1.1.4
 	google.golang.org/grpc v1.76.0
 	google.golang.org/protobuf v1.36.10
-	gopkg.in/dnaeon/go-vcr.v4 v4.0.5
+	gopkg.in/dnaeon/go-vcr.v4 v4.0.6
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
 	osv.dev/bindings/go v0.0.0-20251114023950-43ef4fb673ff
@@ -203,6 +203,7 @@ require (
 	go.uber.org/zap v1.17.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.2 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
+	go.yaml.in/yaml/v4 v4.0.0-rc.3 // indirect
 	golang.org/x/crypto v0.45.0 // indirect
 	golang.org/x/exp v0.0.0-20250711185948-6ae5c78190dc // indirect
 	golang.org/x/mod v0.29.0 // indirect

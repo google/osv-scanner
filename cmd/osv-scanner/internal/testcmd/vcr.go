@@ -13,6 +13,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/tidwall/pretty"
+	"go.yaml.in/yaml/v4"
 	"gopkg.in/dnaeon/go-vcr.v4/pkg/cassette"
 	"gopkg.in/dnaeon/go-vcr.v4/pkg/recorder"
 )
@@ -110,10 +112,12 @@ func InsertCassette(t *testing.T) *http.Client {
 
 			// use a static duration since we don't care about replicating latency
 			i.Response.Duration = 0
+			i.Response.Body = string(pretty.Pretty([]byte(i.Response.Body)))
 
 			return nil
 		}, recorder.AfterCaptureHook),
 	)
+
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -136,6 +140,16 @@ func sortCassetteInteractions(t *testing.T, path string) {
 	cass, err := cassette.Load(strings.TrimSuffix(path, ".yaml"))
 	if err != nil {
 		t.Fatalf("failed to load %s: %v", path, err)
+	}
+
+	cass.MarshalFunc = func(input any) ([]byte, error) {
+		var buf bytes.Buffer
+		enc := yaml.NewEncoder(&buf)
+		enc.SetIndent(2)
+		if err := enc.Encode(input); err != nil {
+			return nil, err
+		}
+		return buf.Bytes(), nil
 	}
 
 	// we don't need to worry about the interaction ids as they get updated as part of saving

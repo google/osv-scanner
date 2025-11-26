@@ -1,206 +1,310 @@
 ---
 version: 2
 interactions:
-- id: 0
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
-    content_length: 87
-    host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"npm\",\"name\":\"balanced-match\"},\"version\":\"1.0.2\"}]}"
-    headers:
-      Content-Type:
-      - application/json
-      X-Test-Name:
-      - TestCommand_LockfileWithExplicitParseAs/absolute_paths_are_automatically_escaped_on_windows
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 16
-    body: "{\"results\":[{}]}"
-    headers:
-      Content-Length:
-      - "16"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
-- id: 1
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
-    content_length: 87
-    host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"npm\",\"name\":\"balanced-match\"},\"version\":\"1.0.2\"}]}"
-    headers:
-      Content-Type:
-      - application/json
-      X-Test-Name:
-      - TestCommand_LockfileWithExplicitParseAs/absolute_paths_work_with_explicit_escaping
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 16
-    body: "{\"results\":[{}]}"
-    headers:
-      Content-Length:
-      - "16"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
-- id: 2
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
-    content_length: 89
-    host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"sentry/sdk\"},\"version\":\"2.0.4\"}]}"
-    headers:
-      Content-Type:
-      - application/json
-      X-Test-Name:
-      - TestCommand_LockfileWithExplicitParseAs/empty_is_default
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 16
-    body: "{\"results\":[{}]}"
-    headers:
-      Content-Length:
-      - "16"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
-- id: 3
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
-    content_length: 502
-    host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"npm\",\"name\":\"has-flag\"},\"version\":\"4.0.0\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"wrappy\"},\"version\":\"1.0.2\"},{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"league/flysystem\"},\"version\":\"1.0.8\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"ansi-html\"},\"version\":\"0.0.1\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"ansi-html\"},\"version\":\"0.0.1\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"stdlib\"},\"version\":\"1.99.9\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"toolchain\"},\"version\":\"1.99.9\"}]}"
-    headers:
-      Content-Type:
-      - application/json
-      X-Test-Name:
-      - TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 271
-    body: "{\"results\":[{},{},{\"vulns\":[{\"id\":\"GHSA-9f46-5r25-5wfm\",\"modified\":\"2024-02-16T08:21:35.601880Z\"}]},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{},{}]}"
-    headers:
-      Content-Length:
-      - "271"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
-- id: 4
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
-    content_length: 502
-    host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"npm\",\"name\":\"has-flag\"},\"version\":\"4.0.0\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"wrappy\"},\"version\":\"1.0.2\"},{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"league/flysystem\"},\"version\":\"1.0.8\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"ansi-html\"},\"version\":\"0.0.1\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"ansi-html\"},\"version\":\"0.0.1\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"stdlib\"},\"version\":\"1.99.9\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"toolchain\"},\"version\":\"1.99.9\"}]}"
-    headers:
-      Content-Type:
-      - application/json
-      X-Test-Name:
-      - TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 271
-    body: "{\"results\":[{},{},{\"vulns\":[{\"id\":\"GHSA-9f46-5r25-5wfm\",\"modified\":\"2024-02-16T08:21:35.601880Z\"}]},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{},{}]}"
-    headers:
-      Content-Length:
-      - "271"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
-- id: 5
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
-    content_length: 2
-    host: api.osv.dev
-    body: "{}"
-    headers:
-      Content-Type:
-      - application/json
-      X-Test-Name:
-      - TestCommand_LockfileWithExplicitParseAs/one_lockfile_with_local_path
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 2
-    body: "{}"
-    headers:
-      Content-Length:
-      - "2"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
-- id: 6
-  request:
-    proto: HTTP/1.1
-    proto_major: 1
-    proto_minor: 1
-    content_length: 433
-    host: api.osv.dev
-    body: "{\"queries\":[{\"package\":{\"ecosystem\":\"npm\",\"name\":\"has-flag\"},\"version\":\"4.0.0\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"wrappy\"},\"version\":\"1.0.2\"},{\"package\":{\"ecosystem\":\"Packagist\",\"name\":\"league/flysystem\"},\"version\":\"1.0.8\"},{\"package\":{\"ecosystem\":\"npm\",\"name\":\"ansi-html\"},\"version\":\"0.0.1\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"stdlib\"},\"version\":\"1.99.9\"},{\"package\":{\"ecosystem\":\"Go\",\"name\":\"toolchain\"},\"version\":\"1.99.9\"}]}"
-    headers:
-      Content-Type:
-      - application/json
-      X-Test-Name:
-      - TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file
-    url: https://api.osv.dev/v1/querybatch
-    method: POST
-  response:
-    proto: HTTP/2.0
-    proto_major: 2
-    proto_minor: 0
-    content_length: 189
-    body: "{\"results\":[{},{},{\"vulns\":[{\"id\":\"GHSA-9f46-5r25-5wfm\",\"modified\":\"2024-02-16T08:21:35.601880Z\"}]},{\"vulns\":[{\"id\":\"GHSA-whgm-jr23-g3j9\",\"modified\":\"2023-11-08T04:05:08.868477Z\"}]},{},{}]}"
-    headers:
-      Content-Length:
-      - "189"
-      Content-Type:
-      - application/json
-    status: 200 OK
-    code: 200
-    duration: 0s
+  - id: 0
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 87
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"npm","name":"balanced-match"},"version":"1.0.2"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_LockfileWithExplicitParseAs/absolute_paths_are_automatically_escaped_on_windows
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 1
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 87
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"npm","name":"balanced-match"},"version":"1.0.2"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_LockfileWithExplicitParseAs/absolute_paths_work_with_explicit_escaping
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 2
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 89
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_LockfileWithExplicitParseAs/empty_is_default
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 3
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 502
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"npm","name":"has-flag"},"version":"4.0.0"},{"package":{"ecosystem":"npm","name":"wrappy"},"version":"1.0.2"},{"package":{"ecosystem":"Packagist","name":"league/flysystem"},"version":"1.0.8"},{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.1"},{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.1"},{"package":{"ecosystem":"Go","name":"stdlib"},"version":"1.99.9"},{"package":{"ecosystem":"Go","name":"toolchain"},"version":"1.99.9"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 271
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2024-02-16T08:21:35.601880Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "271"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 4
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 502
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"npm","name":"has-flag"},"version":"4.0.0"},{"package":{"ecosystem":"npm","name":"wrappy"},"version":"1.0.2"},{"package":{"ecosystem":"Packagist","name":"league/flysystem"},"version":"1.0.8"},{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.1"},{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.1"},{"package":{"ecosystem":"Go","name":"stdlib"},"version":"1.99.9"},{"package":{"ecosystem":"Go","name":"toolchain"},"version":"1.99.9"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 271
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2024-02-16T08:21:35.601880Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "271"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 5
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 2
+      host: api.osv.dev
+      body: '{}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_LockfileWithExplicitParseAs/one_lockfile_with_local_path
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 2
+      body: |
+        {}
+      headers:
+        Content-Length:
+          - "2"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 6
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 433
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"npm","name":"has-flag"},"version":"4.0.0"},{"package":{"ecosystem":"npm","name":"wrappy"},"version":"1.0.2"},{"package":{"ecosystem":"Packagist","name":"league/flysystem"},"version":"1.0.8"},{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.1"},{"package":{"ecosystem":"Go","name":"stdlib"},"version":"1.99.9"},{"package":{"ecosystem":"Go","name":"toolchain"},"version":"1.99.9"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 189
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2024-02-16T08:21:35.601880Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "189"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
