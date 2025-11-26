@@ -63,9 +63,9 @@ func (vulns *VulnerabilityResults) Flatten() []VulnerabilityFlattened {
 			}
 			if pkg.Package.Deprecated {
 				results = append(results, VulnerabilityFlattened{
-					Source:            res.Source,
-					Package:           pkg.Package,
-					Deprecated:        pkg.Package.Deprecated,
+					Source:     res.Source,
+					Package:   	pkg.Package,
+					Deprecated: pkg.Package.Deprecated,
 				})
 			}
 		}

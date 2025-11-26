@@ -107,7 +107,6 @@ type ExternalAccessors struct {
 // ErrNoPackagesFound for when no packages are found during a scan.
 var ErrNoPackagesFound = errors.New("no packages found in scan")
 
-// TODO: Rename to a more generic name
 // ErrVulnerabilitiesFound includes vulnerabilities, license violations, and package deprecation,
 // however, will not be raised if only uncalled vulnerabilities are found.
 var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
