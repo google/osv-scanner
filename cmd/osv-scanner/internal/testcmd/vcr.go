@@ -149,6 +149,7 @@ func sortCassetteInteractions(t *testing.T, path string) {
 		if err := enc.Encode(input); err != nil {
 			return nil, err
 		}
+
 		return buf.Bytes(), nil
 	}
 
