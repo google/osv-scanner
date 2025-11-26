@@ -17,6 +17,7 @@ import (
 	"github.com/google/osv-scalibr/binary/proto"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
+	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
@@ -299,6 +300,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	if actions.CallAnalysisStates["jar"] {
 		plugins = append(plugins, java.NewDefault())
+	}
+
+	if actions.ShowDeprecated {
+		plugins = append(plugins, packagedeprecation.New())
 	}
 
 	// --- Initialize Image To Scan ---'

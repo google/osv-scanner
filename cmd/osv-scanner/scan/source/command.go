@@ -120,7 +120,6 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 	scannerAction.SBOMPaths = cmd.StringSlice("sbom")
 	scannerAction.Recursive = cmd.Bool("recursive")
 	scannerAction.NoIgnore = cmd.Bool("no-ignore")
-	scannerAction.ShowDeprecated = cmd.Bool("show-deprecated")
 	scannerAction.DirectoryPaths = cmd.Args().Slice()
 	scannerAction.ExperimentalScannerActions = experimentalScannerActions
 
