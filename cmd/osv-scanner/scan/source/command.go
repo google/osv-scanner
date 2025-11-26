@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 
@@ -16,7 +17,7 @@ import (
 	"github.com/urfave/cli/v3"
 )
 
-func Command(stdout, stderr io.Writer) *cli.Command {
+func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 	return &cli.Command{
 		Name:        "source",
 		Usage:       "scans a source project's dependencies for known vulnerabilities using the OSV database.",
@@ -74,12 +75,12 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 		}, helper.BuildCommonScanFlags([]string{"lockfile", "sbom", "directory"})...),
 		ArgsUsage: "[directory1 directory2...]",
 		Action: func(ctx context.Context, cmd *cli.Command) error {
-			return action(ctx, cmd, stdout, stderr)
+			return action(ctx, cmd, stdout, stderr, client)
 		},
 	}
 }
 
-func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error {
+func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, client *http.Client) error {
 	format := cmd.String("format")
 
 	outputPath := cmd.String("output")
@@ -105,7 +106,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 		return err
 	}
 
-	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd)
+	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd, client)
 	// Add `source` specific experimental configs
 	experimentalScannerActions.TransitiveScanningActions = osvscanner.TransitiveScanningActions{
 		Disabled:         cmd.Bool("no-resolve"),

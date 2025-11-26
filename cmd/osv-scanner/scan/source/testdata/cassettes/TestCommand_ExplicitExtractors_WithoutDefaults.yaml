@@ -1,0 +1,211 @@
+---
+version: 2
+interactions:
+  - id: 0
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 158
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"},{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.8"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 19
+      body: |
+        {
+          "results": [
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "19"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 1
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 158
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"},{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.8"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 19
+      body: |
+        {
+          "results": [
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "19"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 2
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 82
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.8"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_an_extractor_that_does_not_exist
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 3
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 231
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"RubyGems","name":"ast"},"version":"2.4.2"},{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"},{"package":{"ecosystem":"npm","name":"balanced-match"},"version":"1.0.2"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_disabled
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 22
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "22"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 4
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 82
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.8"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_enabled_and_no_defaults
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 5
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 82
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.8"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_specific_extractor_enabled
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

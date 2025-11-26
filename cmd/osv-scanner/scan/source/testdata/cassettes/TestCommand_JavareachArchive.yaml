@@ -1,0 +1,631 @@
+---
+version: 2
+interactions:
+  - id: 0
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 2074
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Maven","name":"com.amazonaws:aws-java-sdk-core"},"version":"1.11.327"},{"package":{"ecosystem":"Maven","name":"com.amazonaws:aws-java-sdk-kms"},"version":"1.11.327"},{"package":{"ecosystem":"Maven","name":"com.amazonaws:aws-java-sdk-s3"},"version":"1.11.327"},{"package":{"ecosystem":"Maven","name":"com.amazonaws:jmespath-java"},"version":"1.11.327"},{"package":{"ecosystem":"Maven","name":"com.example:hello-tester"},"version":"1.0-SNAPSHOT"},{"package":{"ecosystem":"Maven","name":"com.fasterxml.jackson.core:jackson-annotations"},"version":"2.6.0"},{"package":{"ecosystem":"Maven","name":"com.fasterxml.jackson.core:jackson-core"},"version":"2.14.0"},{"package":{"ecosystem":"Maven","name":"com.fasterxml.jackson.core:jackson-databind"},"version":"2.6.7.1"},{"package":{"ecosystem":"Maven","name":"com.fasterxml.jackson.dataformat:jackson-dataformat-cbor"},"version":"2.6.7"},{"package":{"ecosystem":"Maven","name":"commons-codec:commons-codec"},"version":"1.10"},{"package":{"ecosystem":"Maven","name":"commons-logging:commons-logging"},"version":"1.1.3"},{"package":{"ecosystem":"Maven","name":"joda-time:joda-time"},"version":"2.8.1"},{"package":{"ecosystem":"Maven","name":"org.apache.commons:commons-lang3"},"version":"3.12.0"},{"package":{"ecosystem":"Maven","name":"org.apache.httpcomponents:httpclient"},"version":"4.5.5"},{"package":{"ecosystem":"Maven","name":"org.apache.httpcomponents:httpcore"},"version":"4.4.9"},{"package":{"ecosystem":"Maven","name":"org.eclipse.jetty:jetty-continuation"},"version":"9.4.40.v20210413"},{"package":{"ecosystem":"Maven","name":"org.eclipse.jetty:jetty-http"},"version":"9.4.40.v20210413"},{"package":{"ecosystem":"Maven","name":"org.eclipse.jetty:jetty-io"},"version":"9.4.40.v20210413"},{"package":{"ecosystem":"Maven","name":"org.eclipse.jetty:jetty-servlets"},"version":"9.4.40.v20210413"},{"package":{"ecosystem":"Maven","name":"org.eclipse.jetty:jetty-util"},"version":"9.4.40.v20210413"},{"package":{"ecosystem":"Maven","name":"software.amazon.ion:ion-java"},"version":"1.0.2"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_JavareachArchive/jars_can_be_scanned_with_call_analysis
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 4278
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-c28r-hw5m-5gv3",
+                  "modified": "2023-11-08T04:09:28.159861Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-h46c-h94j-95f3",
+                  "modified": "2025-06-27T16:03:13.670847Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-288c-cq4h-88gq",
+                  "modified": "2024-10-22T05:28:57.400652Z"
+                },
+                {
+                  "id": "GHSA-4gq5-ch57-c2mg",
+                  "modified": "2024-03-15T05:20:21.411726Z"
+                },
+                {
+                  "id": "GHSA-4w82-r329-3q67",
+                  "modified": "2024-03-16T05:18:54.922179Z"
+                },
+                {
+                  "id": "GHSA-57j2-w4cx-62h2",
+                  "modified": "2024-10-22T05:29:08.356656Z"
+                },
+                {
+                  "id": "GHSA-5949-rw7g-wx7w",
+                  "modified": "2025-09-15T07:42:14.888352Z"
+                },
+                {
+                  "id": "GHSA-5r5r-6hpj-8gg9",
+                  "modified": "2024-02-18T05:42:28.539166Z"
+                },
+                {
+                  "id": "GHSA-5ww9-j83m-q7qx",
+                  "modified": "2024-03-15T01:17:50.016820Z"
+                },
+                {
+                  "id": "GHSA-645p-88qh-w398",
+                  "modified": "2024-03-16T05:19:17.936174Z"
+                },
+                {
+                  "id": "GHSA-6fpp-rgj9-8rwc",
+                  "modified": "2024-03-15T05:18:54.134884Z"
+                },
+                {
+                  "id": "GHSA-85cw-hj65-qqv9",
+                  "modified": "2024-03-15T05:20:15.574552Z"
+                },
+                {
+                  "id": "GHSA-89qr-369f-5m5x",
+                  "modified": "2024-02-18T05:37:27.581808Z"
+                },
+                {
+                  "id": "GHSA-8c4j-34r4-xr8g",
+                  "modified": "2024-02-18T05:31:52.762759Z"
+                },
+                {
+                  "id": "GHSA-8w26-6f25-cm9x",
+                  "modified": "2024-02-18T05:30:48.085017Z"
+                },
+                {
+                  "id": "GHSA-9gph-22xh-8x98",
+                  "modified": "2024-02-18T05:33:27.617261Z"
+                },
+                {
+                  "id": "GHSA-9m6f-7xcq-8vf8",
+                  "modified": "2024-02-18T05:32:25.400029Z"
+                },
+                {
+                  "id": "GHSA-c8hm-7hpq-7jhg",
+                  "modified": "2024-03-15T01:17:19.251183Z"
+                },
+                {
+                  "id": "GHSA-cf6r-3wgc-h863",
+                  "modified": "2024-02-18T05:32:56.325249Z"
+                },
+                {
+                  "id": "GHSA-cggj-fvv3-cqwv",
+                  "modified": "2024-03-15T01:18:46.938616Z"
+                },
+                {
+                  "id": "GHSA-cjjf-94ff-43w7",
+                  "modified": "2024-03-11T05:19:23.395848Z"
+                },
+                {
+                  "id": "GHSA-cmfg-87vq-g5g4",
+                  "modified": "2024-03-15T01:18:17.903231Z"
+                },
+                {
+                  "id": "GHSA-cvm9-fjm9-3572",
+                  "modified": "2024-02-18T05:25:36.165759Z"
+                },
+                {
+                  "id": "GHSA-f3j5-rmmp-3fc5",
+                  "modified": "2024-03-15T05:20:35.120151Z"
+                },
+                {
+                  "id": "GHSA-f9xh-2qgp-cq57",
+                  "modified": "2024-02-18T05:32:05.421673Z"
+                },
+                {
+                  "id": "GHSA-fmmc-742q-jg75",
+                  "modified": "2024-03-16T05:19:55.172981Z"
+                },
+                {
+                  "id": "GHSA-fqwf-pjwf-7vqv",
+                  "modified": "2024-07-03T21:22:37.578162Z"
+                },
+                {
+                  "id": "GHSA-gjmw-vf9h-g25v",
+                  "modified": "2024-03-16T05:19:37.211801Z"
+                },
+                {
+                  "id": "GHSA-gwp4-hfv6-p7hw",
+                  "modified": "2024-03-13T05:27:58.436849Z"
+                },
+                {
+                  "id": "GHSA-gww7-p5w4-wrfv",
+                  "modified": "2024-03-15T01:05:18.790961Z"
+                },
+                {
+                  "id": "GHSA-h3cw-g4mq-c5x2",
+                  "modified": "2024-02-18T05:30:45.329621Z"
+                },
+                {
+                  "id": "GHSA-h592-38cm-4ggp",
+                  "modified": "2024-03-15T01:16:50.905794Z"
+                },
+                {
+                  "id": "GHSA-h822-r4r5-v8jg",
+                  "modified": "2024-07-15T22:00:19.609618Z"
+                },
+                {
+                  "id": "GHSA-jjjh-jjxp-wpff",
+                  "modified": "2024-10-22T05:28:54.705123Z"
+                },
+                {
+                  "id": "GHSA-m6x4-97wx-4q27",
+                  "modified": "2024-02-18T05:21:54.725837Z"
+                },
+                {
+                  "id": "GHSA-mph4-vhrx-mv67",
+                  "modified": "2024-03-15T01:16:21.467932Z"
+                },
+                {
+                  "id": "GHSA-mx7p-6679-8g3q",
+                  "modified": "2024-03-15T01:01:46.432481Z"
+                },
+                {
+                  "id": "GHSA-p43x-xfjf-5jhr",
+                  "modified": "2024-03-15T00:33:14.700288Z"
+                },
+                {
+                  "id": "GHSA-q93h-jc49-78gg",
+                  "modified": "2024-03-16T05:19:47.711015Z"
+                },
+                {
+                  "id": "GHSA-qjw2-hr98-qgfh",
+                  "modified": "2024-02-18T05:20:56.894470Z"
+                },
+                {
+                  "id": "GHSA-qr7j-h6gg-jmgc",
+                  "modified": "2024-03-11T05:21:14.313980Z"
+                },
+                {
+                  "id": "GHSA-r3gr-cxrf-hg25",
+                  "modified": "2024-06-25T14:20:21.323050Z"
+                },
+                {
+                  "id": "GHSA-r695-7vr9-jgc2",
+                  "modified": "2024-02-18T05:30:45.856594Z"
+                },
+                {
+                  "id": "GHSA-rfx6-vp9g-rh7v",
+                  "modified": "2024-03-11T05:17:47.425595Z"
+                },
+                {
+                  "id": "GHSA-rgv9-q543-rqg4",
+                  "modified": "2024-12-02T16:25:52.858445Z"
+                },
+                {
+                  "id": "GHSA-rpr3-cw39-3pxh",
+                  "modified": "2025-04-14T22:28:33.735201Z"
+                },
+                {
+                  "id": "GHSA-v585-23hc-c647",
+                  "modified": "2024-02-18T05:22:38.024460Z"
+                },
+                {
+                  "id": "GHSA-vfqx-33qm-g869",
+                  "modified": "2024-02-18T05:24:26.785781Z"
+                },
+                {
+                  "id": "GHSA-w3f4-3q6j-rh82",
+                  "modified": "2024-03-11T05:18:22.727055Z"
+                },
+                {
+                  "id": "GHSA-wh8g-3j2c-rqj5",
+                  "modified": "2024-03-15T00:31:15.123603Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-j288-q9x7-2f5v",
+                  "modified": "2025-11-05T20:34:04.566048Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2024-03-15T05:19:17.323914Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-cj7v-27pg-wf7q",
+                  "modified": "2024-02-16T08:00:47.277184Z"
+                },
+                {
+                  "id": "GHSA-hmr7-m48g-48f6",
+                  "modified": "2024-02-16T07:59:58.440241Z"
+                },
+                {
+                  "id": "GHSA-qh8g-58pp-2wxh",
+                  "modified": "2025-03-07T14:20:03.913209Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-3gh6-v5v9-6v9j",
+                  "modified": "2025-02-13T19:35:45.539740Z"
+                },
+                {
+                  "id": "GHSA-gwcr-j4wh-j3cq",
+                  "modified": "2024-03-15T05:36:20.374672Z"
+                },
+                {
+                  "id": "GHSA-j26w-f9rq-mr2q",
+                  "modified": "2025-11-03T21:57:43.448096Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-264p-99wq-f4j6",
+                  "modified": "2025-11-04T17:27:43.182813Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "4278"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 1
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 2074
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Maven","name":"com.amazonaws:aws-java-sdk-core"},"version":"1.11.327"},{"package":{"ecosystem":"Maven","name":"com.amazonaws:aws-java-sdk-kms"},"version":"1.11.327"},{"package":{"ecosystem":"Maven","name":"com.amazonaws:aws-java-sdk-s3"},"version":"1.11.327"},{"package":{"ecosystem":"Maven","name":"com.amazonaws:jmespath-java"},"version":"1.11.327"},{"package":{"ecosystem":"Maven","name":"com.example:hello-tester"},"version":"1.0-SNAPSHOT"},{"package":{"ecosystem":"Maven","name":"com.fasterxml.jackson.core:jackson-annotations"},"version":"2.6.0"},{"package":{"ecosystem":"Maven","name":"com.fasterxml.jackson.core:jackson-core"},"version":"2.14.0"},{"package":{"ecosystem":"Maven","name":"com.fasterxml.jackson.core:jackson-databind"},"version":"2.6.7.1"},{"package":{"ecosystem":"Maven","name":"com.fasterxml.jackson.dataformat:jackson-dataformat-cbor"},"version":"2.6.7"},{"package":{"ecosystem":"Maven","name":"commons-codec:commons-codec"},"version":"1.10"},{"package":{"ecosystem":"Maven","name":"commons-logging:commons-logging"},"version":"1.1.3"},{"package":{"ecosystem":"Maven","name":"joda-time:joda-time"},"version":"2.8.1"},{"package":{"ecosystem":"Maven","name":"org.apache.commons:commons-lang3"},"version":"3.12.0"},{"package":{"ecosystem":"Maven","name":"org.apache.httpcomponents:httpclient"},"version":"4.5.5"},{"package":{"ecosystem":"Maven","name":"org.apache.httpcomponents:httpcore"},"version":"4.4.9"},{"package":{"ecosystem":"Maven","name":"org.eclipse.jetty:jetty-continuation"},"version":"9.4.40.v20210413"},{"package":{"ecosystem":"Maven","name":"org.eclipse.jetty:jetty-http"},"version":"9.4.40.v20210413"},{"package":{"ecosystem":"Maven","name":"org.eclipse.jetty:jetty-io"},"version":"9.4.40.v20210413"},{"package":{"ecosystem":"Maven","name":"org.eclipse.jetty:jetty-servlets"},"version":"9.4.40.v20210413"},{"package":{"ecosystem":"Maven","name":"org.eclipse.jetty:jetty-util"},"version":"9.4.40.v20210413"},{"package":{"ecosystem":"Maven","name":"software.amazon.ion:ion-java"},"version":"1.0.2"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_JavareachArchive/jars_can_be_scanned_without_call_analysis
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 4278
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-c28r-hw5m-5gv3",
+                  "modified": "2023-11-08T04:09:28.159861Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-h46c-h94j-95f3",
+                  "modified": "2025-06-27T16:03:13.670847Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-288c-cq4h-88gq",
+                  "modified": "2024-10-22T05:28:57.400652Z"
+                },
+                {
+                  "id": "GHSA-4gq5-ch57-c2mg",
+                  "modified": "2024-03-15T05:20:21.411726Z"
+                },
+                {
+                  "id": "GHSA-4w82-r329-3q67",
+                  "modified": "2024-03-16T05:18:54.922179Z"
+                },
+                {
+                  "id": "GHSA-57j2-w4cx-62h2",
+                  "modified": "2024-10-22T05:29:08.356656Z"
+                },
+                {
+                  "id": "GHSA-5949-rw7g-wx7w",
+                  "modified": "2025-09-15T07:42:14.888352Z"
+                },
+                {
+                  "id": "GHSA-5r5r-6hpj-8gg9",
+                  "modified": "2024-02-18T05:42:28.539166Z"
+                },
+                {
+                  "id": "GHSA-5ww9-j83m-q7qx",
+                  "modified": "2024-03-15T01:17:50.016820Z"
+                },
+                {
+                  "id": "GHSA-645p-88qh-w398",
+                  "modified": "2024-03-16T05:19:17.936174Z"
+                },
+                {
+                  "id": "GHSA-6fpp-rgj9-8rwc",
+                  "modified": "2024-03-15T05:18:54.134884Z"
+                },
+                {
+                  "id": "GHSA-85cw-hj65-qqv9",
+                  "modified": "2024-03-15T05:20:15.574552Z"
+                },
+                {
+                  "id": "GHSA-89qr-369f-5m5x",
+                  "modified": "2024-02-18T05:37:27.581808Z"
+                },
+                {
+                  "id": "GHSA-8c4j-34r4-xr8g",
+                  "modified": "2024-02-18T05:31:52.762759Z"
+                },
+                {
+                  "id": "GHSA-8w26-6f25-cm9x",
+                  "modified": "2024-02-18T05:30:48.085017Z"
+                },
+                {
+                  "id": "GHSA-9gph-22xh-8x98",
+                  "modified": "2024-02-18T05:33:27.617261Z"
+                },
+                {
+                  "id": "GHSA-9m6f-7xcq-8vf8",
+                  "modified": "2024-02-18T05:32:25.400029Z"
+                },
+                {
+                  "id": "GHSA-c8hm-7hpq-7jhg",
+                  "modified": "2024-03-15T01:17:19.251183Z"
+                },
+                {
+                  "id": "GHSA-cf6r-3wgc-h863",
+                  "modified": "2024-02-18T05:32:56.325249Z"
+                },
+                {
+                  "id": "GHSA-cggj-fvv3-cqwv",
+                  "modified": "2024-03-15T01:18:46.938616Z"
+                },
+                {
+                  "id": "GHSA-cjjf-94ff-43w7",
+                  "modified": "2024-03-11T05:19:23.395848Z"
+                },
+                {
+                  "id": "GHSA-cmfg-87vq-g5g4",
+                  "modified": "2024-03-15T01:18:17.903231Z"
+                },
+                {
+                  "id": "GHSA-cvm9-fjm9-3572",
+                  "modified": "2024-02-18T05:25:36.165759Z"
+                },
+                {
+                  "id": "GHSA-f3j5-rmmp-3fc5",
+                  "modified": "2024-03-15T05:20:35.120151Z"
+                },
+                {
+                  "id": "GHSA-f9xh-2qgp-cq57",
+                  "modified": "2024-02-18T05:32:05.421673Z"
+                },
+                {
+                  "id": "GHSA-fmmc-742q-jg75",
+                  "modified": "2024-03-16T05:19:55.172981Z"
+                },
+                {
+                  "id": "GHSA-fqwf-pjwf-7vqv",
+                  "modified": "2024-07-03T21:22:37.578162Z"
+                },
+                {
+                  "id": "GHSA-gjmw-vf9h-g25v",
+                  "modified": "2024-03-16T05:19:37.211801Z"
+                },
+                {
+                  "id": "GHSA-gwp4-hfv6-p7hw",
+                  "modified": "2024-03-13T05:27:58.436849Z"
+                },
+                {
+                  "id": "GHSA-gww7-p5w4-wrfv",
+                  "modified": "2024-03-15T01:05:18.790961Z"
+                },
+                {
+                  "id": "GHSA-h3cw-g4mq-c5x2",
+                  "modified": "2024-02-18T05:30:45.329621Z"
+                },
+                {
+                  "id": "GHSA-h592-38cm-4ggp",
+                  "modified": "2024-03-15T01:16:50.905794Z"
+                },
+                {
+                  "id": "GHSA-h822-r4r5-v8jg",
+                  "modified": "2024-07-15T22:00:19.609618Z"
+                },
+                {
+                  "id": "GHSA-jjjh-jjxp-wpff",
+                  "modified": "2024-10-22T05:28:54.705123Z"
+                },
+                {
+                  "id": "GHSA-m6x4-97wx-4q27",
+                  "modified": "2024-02-18T05:21:54.725837Z"
+                },
+                {
+                  "id": "GHSA-mph4-vhrx-mv67",
+                  "modified": "2024-03-15T01:16:21.467932Z"
+                },
+                {
+                  "id": "GHSA-mx7p-6679-8g3q",
+                  "modified": "2024-03-15T01:01:46.432481Z"
+                },
+                {
+                  "id": "GHSA-p43x-xfjf-5jhr",
+                  "modified": "2024-03-15T00:33:14.700288Z"
+                },
+                {
+                  "id": "GHSA-q93h-jc49-78gg",
+                  "modified": "2024-03-16T05:19:47.711015Z"
+                },
+                {
+                  "id": "GHSA-qjw2-hr98-qgfh",
+                  "modified": "2024-02-18T05:20:56.894470Z"
+                },
+                {
+                  "id": "GHSA-qr7j-h6gg-jmgc",
+                  "modified": "2024-03-11T05:21:14.313980Z"
+                },
+                {
+                  "id": "GHSA-r3gr-cxrf-hg25",
+                  "modified": "2024-06-25T14:20:21.323050Z"
+                },
+                {
+                  "id": "GHSA-r695-7vr9-jgc2",
+                  "modified": "2024-02-18T05:30:45.856594Z"
+                },
+                {
+                  "id": "GHSA-rfx6-vp9g-rh7v",
+                  "modified": "2024-03-11T05:17:47.425595Z"
+                },
+                {
+                  "id": "GHSA-rgv9-q543-rqg4",
+                  "modified": "2024-12-02T16:25:52.858445Z"
+                },
+                {
+                  "id": "GHSA-rpr3-cw39-3pxh",
+                  "modified": "2025-04-14T22:28:33.735201Z"
+                },
+                {
+                  "id": "GHSA-v585-23hc-c647",
+                  "modified": "2024-02-18T05:22:38.024460Z"
+                },
+                {
+                  "id": "GHSA-vfqx-33qm-g869",
+                  "modified": "2024-02-18T05:24:26.785781Z"
+                },
+                {
+                  "id": "GHSA-w3f4-3q6j-rh82",
+                  "modified": "2024-03-11T05:18:22.727055Z"
+                },
+                {
+                  "id": "GHSA-wh8g-3j2c-rqj5",
+                  "modified": "2024-03-15T00:31:15.123603Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-j288-q9x7-2f5v",
+                  "modified": "2025-11-05T20:34:04.566048Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-7r82-7xv7-xcpj",
+                  "modified": "2024-03-15T05:19:17.323914Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-cj7v-27pg-wf7q",
+                  "modified": "2024-02-16T08:00:47.277184Z"
+                },
+                {
+                  "id": "GHSA-hmr7-m48g-48f6",
+                  "modified": "2024-02-16T07:59:58.440241Z"
+                },
+                {
+                  "id": "GHSA-qh8g-58pp-2wxh",
+                  "modified": "2025-03-07T14:20:03.913209Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-3gh6-v5v9-6v9j",
+                  "modified": "2025-02-13T19:35:45.539740Z"
+                },
+                {
+                  "id": "GHSA-gwcr-j4wh-j3cq",
+                  "modified": "2024-03-15T05:36:20.374672Z"
+                },
+                {
+                  "id": "GHSA-j26w-f9rq-mr2q",
+                  "modified": "2025-11-03T21:57:43.448096Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-264p-99wq-f4j6",
+                  "modified": "2025-11-04T17:27:43.182813Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "4278"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
