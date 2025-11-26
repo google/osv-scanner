@@ -35,11 +35,11 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 	callAnalysisStates := CreateCallAnalysisStates(cmd.StringSlice("call-analysis"), cmd.StringSlice("no-call-analysis"))
 
 	return osvscanner.ScannerActions{
-		IncludeGitRoot:     cmd.Bool("include-git-root"),
-		ConfigOverridePath: cmd.String("config"),
-		ShowAllPackages:    cmd.Bool("all-packages"),
-		ShowAllVulns:       cmd.Bool("all-vulns"),
-		ShowDeprecated:     cmd.Bool("show-deprecated"),
+		IncludeGitRoot:        cmd.Bool("include-git-root"),
+		ConfigOverridePath:    cmd.String("config"),
+		ShowAllPackages:       cmd.Bool("all-packages"),
+		ShowAllVulns:          cmd.Bool("all-vulns"),
+		ShowDeprecated:        cmd.Bool("show-deprecated"),
 		CompareOffline:        cmd.Bool("offline-vulnerabilities"),
 		DownloadDatabases:     cmd.Bool("download-offline-databases"),
 		LocalDBPath:           cmd.String("local-db-path"),
