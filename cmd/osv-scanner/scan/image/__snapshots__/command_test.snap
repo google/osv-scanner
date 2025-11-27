@@ -1779,6 +1779,140 @@ Scanning local image tarball "./testdata/test-python-full.tar"
 
 ---
 
+[TestCommand_OCIImage_JSONFormat/scanning_image_with_deprecated_packages - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "/app/rust_novuln_deprecated",
+        "type": "artifact"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "url",
+            "version": "2.5.3",
+            "ecosystem": "crates.io",
+            "deprecated": true,
+            "image_origin_details": {
+              "index": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "source": {
+        "path": "/lib/apk/db/installed",
+        "type": "os"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "busybox",
+            "os_package_name": "busybox",
+            "version": "1.37.0-r19",
+            "ecosystem": "Alpine:v3.22",
+            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALPINE-CVE-2024-58251",
+            "ALPINE-CVE-2025-46394"
+          ]
+        },
+        {
+          "package": {
+            "name": "busybox",
+            "os_package_name": "busybox-binsh",
+            "version": "1.37.0-r19",
+            "ecosystem": "Alpine:v3.22",
+            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALPINE-CVE-2024-58251",
+            "ALPINE-CVE-2025-46394"
+          ]
+        },
+        {
+          "package": {
+            "name": "busybox",
+            "os_package_name": "ssl_client",
+            "version": "1.37.0-r19",
+            "ecosystem": "Alpine:v3.22",
+            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALPINE-CVE-2024-58251",
+            "ALPINE-CVE-2025-46394"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  },
+  "image_metadata": {
+    "os": "Alpine Linux v3.22",
+    "layer_metadata": [
+      {
+        "diff_id": "sha256:...",
+        "command": "ADD alpine-minirootfs-3.22.2-x86_64.tar.gz / # buildkit",
+        "is_empty": false,
+        "base_image_index": 2
+      },
+      {
+        "diff_id": "",
+        "command": "CMD [/"/bin/sh/"]",
+        "is_empty": true,
+        "base_image_index": 1
+      },
+      {
+        "diff_id": "sha256:...",
+        "command": "COPY /app/target/release/rust_novuln_deprecated /app/rust_novuln_deprecated # buildkit",
+        "is_empty": false,
+        "base_image_index": 0
+      }
+    ],
+    "base_images": [
+      {},
+      {
+        "name": "alpine",
+        "tags": null
+      },
+      {
+        "name": "alpine",
+        "tags": null
+      }
+    ]
+  }
+}
+
+---
+
+[TestCommand_OCIImage_JSONFormat/scanning_image_with_deprecated_packages - 2]
+Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
+Package deprecation enricher starting, 49 packages to enrich.
+Package deprecation enricher: Finished querying deps.dev for deprecation status. Number of results: 32
+Package deprecation enricher finished.
+
+---
+
 [TestCommand_OCIImage_JSONFormat/scanning_image_with_go_binary - 1]
 {
   "results": [
