@@ -1579,3 +1579,52 @@ func TestCommand_Filter(t *testing.T) {
 		})
 	}
 }
+
+func TestCommand_ShowDeprecated(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "package_deprecated_false_no_vuln",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock",
+			},
+			Exit: 0,
+		},
+		{
+			Name: "package_deprecated_true_no_vuln",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "package_deprecated_true_with_vuln",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "package_deprecated_npm",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json",
+			},
+			Exit: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}

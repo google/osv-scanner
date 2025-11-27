@@ -1,0 +1,7 @@
+[package]
+name = "rust_novuln_deprecated"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+url = "2.5.3" # This is a deprecated (yanked) version
