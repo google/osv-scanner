@@ -18,8 +18,8 @@ This feature leverages the [deps.dev API](https://docs.deps.dev/api/).
 
 The `deprecated` field is a boolean value indicating if a package is flagged as unsupported. This includes states such as:
 
--   **Deprecated**: Marked as deprecated by the author.
--   **Yanked**: Removed from the registry.
+- **Deprecated**: Marked as deprecated by the author.
+- **Yanked**: Removed from the registry.
 
 ## Usage
 
