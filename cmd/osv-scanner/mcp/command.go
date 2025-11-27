@@ -30,7 +30,7 @@ import (
 var vulnCacheMap = sync.Map{}
 
 // Command is the entry point for the `mcp` subcommand.
-func Command(_, _ io.Writer) *cli.Command {
+func Command(_, _ io.Writer, _ *http.Client) *cli.Command {
 	return &cli.Command{
 		Name:        "experimental-mcp",
 		Usage:       "Run osv-scanner as an MCP service (experimental)",

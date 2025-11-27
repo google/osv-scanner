@@ -1,0 +1,878 @@
+---
+version: 2
+interactions:
+  - id: 0
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 110
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-web"},"version":"2.14.1"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 1
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 218
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"PyPI","name":"django"},"version":"1.11.29"},{"package":{"ecosystem":"PyPI","name":"flask"},"version":"1.0.0"},{"package":{"ecosystem":"PyPI","name":"requests"},"version":"2.20.0"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 1011
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68w8-qjq3-2gfm",
+                  "modified": "2024-09-20T15:46:52.557962Z"
+                },
+                {
+                  "id": "GHSA-6w2r-r2m5-xq5w",
+                  "modified": "2025-11-05T20:52:11.756012Z"
+                },
+                {
+                  "id": "GHSA-7xr5-9hcq-chf9",
+                  "modified": "2025-09-25T09:27:02.969281Z"
+                },
+                {
+                  "id": "GHSA-8x94-hmjh-97hq",
+                  "modified": "2025-01-14T11:27:04.205746Z"
+                },
+                {
+                  "id": "GHSA-frmv-pr5f-9mcr",
+                  "modified": "2025-11-15T02:34:25.379484Z"
+                },
+                {
+                  "id": "GHSA-qw25-v68c-qjf3",
+                  "modified": "2025-11-11T15:28:46.308405Z"
+                },
+                {
+                  "id": "GHSA-rrqc-c2jx-6jgv",
+                  "modified": "2024-10-30T19:23:59.139649Z"
+                },
+                {
+                  "id": "PYSEC-2021-98",
+                  "modified": "2023-12-06T01:01:16.755410Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9hjg-9r4m-mvj7",
+                  "modified": "2025-06-09T19:27:13.389930Z"
+                },
+                {
+                  "id": "GHSA-9wx4-h78v-vm56",
+                  "modified": "2024-07-15T22:12:27.987373Z"
+                },
+                {
+                  "id": "GHSA-j8r2-6x86-q33q",
+                  "modified": "2025-02-13T19:20:45.182158Z"
+                },
+                {
+                  "id": "PYSEC-2023-74",
+                  "modified": "2023-11-08T04:12:35.436175Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "1011"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 2
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 218
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"PyPI","name":"flask"},"version":"1.0.0"},{"package":{"ecosystem":"PyPI","name":"flask-cors"},"version":"1.0.0"},{"package":{"ecosystem":"PyPI","name":"pandas"},"version":"0.23.4"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 795
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-43qf-4rqw-9q2g",
+                  "modified": "2025-11-03T21:57:24.048409Z"
+                },
+                {
+                  "id": "GHSA-7rxf-gvfg-47g4",
+                  "modified": "2025-11-03T21:57:16.624715Z"
+                },
+                {
+                  "id": "GHSA-84pr-m4jr-85g5",
+                  "modified": "2025-11-03T23:01:22.383418Z"
+                },
+                {
+                  "id": "GHSA-8vgw-p6qm-5gr7",
+                  "modified": "2025-11-03T22:02:47.725498Z"
+                },
+                {
+                  "id": "GHSA-hxwh-jpp2-84pm",
+                  "modified": "2025-04-07T20:13:56.570363Z"
+                },
+                {
+                  "id": "GHSA-xc3p-ff3m-f46v",
+                  "modified": "2024-09-20T20:01:25.449661Z"
+                },
+                {
+                  "id": "PYSEC-2020-43",
+                  "modified": "2025-10-09T07:22:50.566622Z"
+                },
+                {
+                  "id": "PYSEC-2024-71",
+                  "modified": "2025-10-09T08:27:44.186589Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "PYSEC-2020-73",
+                  "modified": "2023-11-08T04:02:12.263851Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "795"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 3
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 6169
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Maven","name":"com.android.support:animated-vector-drawable"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:appcompat-v7"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:mediarouter-v7"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:palette-v7"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:support-annotations"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:support-v4"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:support-vector-drawable"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-ads"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-ads-lite"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-analytics"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-analytics-impl"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-appinvite"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-auth"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-auth-base"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-awareness"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-base"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-basement"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-cast"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-cast-framework"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-clearcut"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-drive"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-fitness"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-games"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-gass"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-gcm"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-identity"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-iid"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-instantapps"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-location"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-maps"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-nearby"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-panorama"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-places"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-plus"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-safetynet"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-tagmanager"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-tagmanager-api"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-tagmanager-v4-impl"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-tasks"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-vision"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-wallet"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-wearable"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-analytics"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-analytics-impl"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-appindexing"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-auth"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-common"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-config"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-crash"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-database"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-database-connection"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-iid"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-messaging"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-storage"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-storage-common"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-api"},"version":"2.14.1"},{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-core"},"version":"2.14.1"},{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-web"},"version":"2.14.1"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 558
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-cm6r-892j-jv2g",
+                  "modified": "2023-11-08T04:08:28.014834Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-7rjr-3q55-vv33",
+                  "modified": "2025-10-22T19:37:53.742023Z"
+                },
+                {
+                  "id": "GHSA-8489-44mv-ggj8",
+                  "modified": "2025-05-09T13:12:38.923602Z"
+                },
+                {
+                  "id": "GHSA-jfh8-c2jp-5v3q",
+                  "modified": "2025-10-22T19:37:02.616807Z"
+                },
+                {
+                  "id": "GHSA-p6xc-xr62-6r2g",
+                  "modified": "2025-05-09T13:12:54.089856Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "558"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 4
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 284
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"PyPI","name":"django"},"version":"1.11.29"},{"package":{"ecosystem":"PyPI","name":"flask"},"version":"1.0.0"},{"package":{"ecosystem":"PyPI","name":"requests"},"version":"2.20.0"},{"package":{"ecosystem":"PyPI","name":"numpy"},"version":"2.3.1"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/scan_local_disk_transitive_dependencies
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 1014
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68w8-qjq3-2gfm",
+                  "modified": "2024-09-20T15:46:52.557962Z"
+                },
+                {
+                  "id": "GHSA-6w2r-r2m5-xq5w",
+                  "modified": "2025-11-05T20:52:11.756012Z"
+                },
+                {
+                  "id": "GHSA-7xr5-9hcq-chf9",
+                  "modified": "2025-09-25T09:27:02.969281Z"
+                },
+                {
+                  "id": "GHSA-8x94-hmjh-97hq",
+                  "modified": "2025-01-14T11:27:04.205746Z"
+                },
+                {
+                  "id": "GHSA-frmv-pr5f-9mcr",
+                  "modified": "2025-11-15T02:34:25.379484Z"
+                },
+                {
+                  "id": "GHSA-qw25-v68c-qjf3",
+                  "modified": "2025-11-11T15:28:46.308405Z"
+                },
+                {
+                  "id": "GHSA-rrqc-c2jx-6jgv",
+                  "modified": "2024-10-30T19:23:59.139649Z"
+                },
+                {
+                  "id": "PYSEC-2021-98",
+                  "modified": "2023-12-06T01:01:16.755410Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9hjg-9r4m-mvj7",
+                  "modified": "2025-06-09T19:27:13.389930Z"
+                },
+                {
+                  "id": "GHSA-9wx4-h78v-vm56",
+                  "modified": "2024-07-15T22:12:27.987373Z"
+                },
+                {
+                  "id": "GHSA-j8r2-6x86-q33q",
+                  "modified": "2025-02-13T19:20:45.182158Z"
+                },
+                {
+                  "id": "PYSEC-2023-74",
+                  "modified": "2023-11-08T04:12:35.436175Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "1014"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 5
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 6169
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Maven","name":"com.android.support:animated-vector-drawable"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:appcompat-v7"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:mediarouter-v7"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:palette-v7"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:support-annotations"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:support-v4"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.android.support:support-vector-drawable"},"version":"24.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-ads"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-ads-lite"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-analytics"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-analytics-impl"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-appinvite"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-auth"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-auth-base"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-awareness"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-base"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-basement"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-cast"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-cast-framework"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-clearcut"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-drive"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-fitness"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-games"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-gass"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-gcm"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-identity"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-iid"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-instantapps"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-location"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-maps"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-nearby"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-panorama"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-places"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-plus"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-safetynet"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-tagmanager"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-tagmanager-api"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-tagmanager-v4-impl"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-tasks"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-vision"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-wallet"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.android.gms:play-services-wearable"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-analytics"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-analytics-impl"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-appindexing"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-auth"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-common"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-config"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-crash"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-database"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-database-connection"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-iid"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-messaging"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-storage"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"com.google.firebase:firebase-storage-common"},"version":"10.0.0"},{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-api"},"version":"2.14.1"},{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-core"},"version":"2.14.1"},{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-web"},"version":"2.14.1"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/scans_dependencies_from_multiple_registries
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 558
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-cm6r-892j-jv2g",
+                  "modified": "2023-11-08T04:08:28.014834Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-7rjr-3q55-vv33",
+                  "modified": "2025-10-22T19:37:53.742023Z"
+                },
+                {
+                  "id": "GHSA-8489-44mv-ggj8",
+                  "modified": "2025-05-09T13:12:38.923602Z"
+                },
+                {
+                  "id": "GHSA-jfh8-c2jp-5v3q",
+                  "modified": "2025-10-22T19:37:02.616807Z"
+                },
+                {
+                  "id": "GHSA-p6xc-xr62-6r2g",
+                  "modified": "2025-05-09T13:12:54.089856Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "558"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 6
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 171
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Maven","name":"junit:junit"},"version":"4.12"},{"package":{"ecosystem":"Maven","name":"org.hamcrest:hamcrest-core"},"version":"1.3"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 98
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-269g-pwp5-87pp",
+                  "modified": "2024-03-15T05:20:38.405881Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "98"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 7
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 305
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-api"},"version":"2.14.1"},{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-core"},"version":"2.14.1"},{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-web"},"version":"2.14.1"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 311
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-7rjr-3q55-vv33",
+                  "modified": "2025-10-22T19:37:53.742023Z"
+                },
+                {
+                  "id": "GHSA-8489-44mv-ggj8",
+                  "modified": "2025-05-09T13:12:38.923602Z"
+                },
+                {
+                  "id": "GHSA-jfh8-c2jp-5v3q",
+                  "modified": "2025-10-22T19:37:02.616807Z"
+                },
+                {
+                  "id": "GHSA-p6xc-xr62-6r2g",
+                  "modified": "2025-05-09T13:12:54.089856Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "311"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 8
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 305
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-api"},"version":"2.14.1"},{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-core"},"version":"2.14.1"},{"package":{"ecosystem":"Maven","name":"org.apache.logging.log4j:log4j-web"},"version":"2.14.1"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 311
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-7rjr-3q55-vv33",
+                  "modified": "2025-10-22T19:37:53.742023Z"
+                },
+                {
+                  "id": "GHSA-8489-44mv-ggj8",
+                  "modified": "2025-05-09T13:12:38.923602Z"
+                },
+                {
+                  "id": "GHSA-jfh8-c2jp-5v3q",
+                  "modified": "2025-10-22T19:37:02.616807Z"
+                },
+                {
+                  "id": "GHSA-p6xc-xr62-6r2g",
+                  "modified": "2025-05-09T13:12:54.089856Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "311"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 9
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 901
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"PyPI","name":"certifi"},"version":"2025.11.12"},{"package":{"ecosystem":"PyPI","name":"chardet"},"version":"3.0.4"},{"package":{"ecosystem":"PyPI","name":"click"},"version":"8.3.1"},{"package":{"ecosystem":"PyPI","name":"django"},"version":"1.11.29"},{"package":{"ecosystem":"PyPI","name":"flask"},"version":"1.0"},{"package":{"ecosystem":"PyPI","name":"idna"},"version":"2.7"},{"package":{"ecosystem":"PyPI","name":"itsdangerous"},"version":"2.2.0"},{"package":{"ecosystem":"PyPI","name":"jinja2"},"version":"3.1.6"},{"package":{"ecosystem":"PyPI","name":"markupsafe"},"version":"3.0.3"},{"package":{"ecosystem":"PyPI","name":"pytz"},"version":"2025.2"},{"package":{"ecosystem":"PyPI","name":"requests"},"version":"2.20.0"},{"package":{"ecosystem":"PyPI","name":"urllib3"},"version":"1.24.3"},{"package":{"ecosystem":"PyPI","name":"werkzeug"},"version":"3.1.3"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/uses_native_data_source_for_requirements.txt
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 1803
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68w8-qjq3-2gfm",
+                  "modified": "2024-09-20T15:46:52.557962Z"
+                },
+                {
+                  "id": "GHSA-6w2r-r2m5-xq5w",
+                  "modified": "2025-11-05T20:52:11.756012Z"
+                },
+                {
+                  "id": "GHSA-7xr5-9hcq-chf9",
+                  "modified": "2025-09-25T09:27:02.969281Z"
+                },
+                {
+                  "id": "GHSA-8x94-hmjh-97hq",
+                  "modified": "2025-01-14T11:27:04.205746Z"
+                },
+                {
+                  "id": "GHSA-frmv-pr5f-9mcr",
+                  "modified": "2025-11-15T02:34:25.379484Z"
+                },
+                {
+                  "id": "GHSA-qw25-v68c-qjf3",
+                  "modified": "2025-11-11T15:28:46.308405Z"
+                },
+                {
+                  "id": "GHSA-rrqc-c2jx-6jgv",
+                  "modified": "2024-10-30T19:23:59.139649Z"
+                },
+                {
+                  "id": "PYSEC-2021-98",
+                  "modified": "2023-12-06T01:01:16.755410Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-jjg7-2v4v-x38h",
+                  "modified": "2025-11-05T20:30:45.121847Z"
+                },
+                {
+                  "id": "PYSEC-2024-60",
+                  "modified": "2024-07-11T17:42:33.704488Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9hjg-9r4m-mvj7",
+                  "modified": "2025-06-09T19:27:13.389930Z"
+                },
+                {
+                  "id": "GHSA-9wx4-h78v-vm56",
+                  "modified": "2024-07-15T22:12:27.987373Z"
+                },
+                {
+                  "id": "GHSA-j8r2-6x86-q33q",
+                  "modified": "2025-02-13T19:20:45.182158Z"
+                },
+                {
+                  "id": "PYSEC-2023-74",
+                  "modified": "2023-11-08T04:12:35.436175Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-34jh-p97f-mpxf",
+                  "modified": "2025-11-04T17:17:45.245584Z"
+                },
+                {
+                  "id": "GHSA-g4mx-q9vg-27p4",
+                  "modified": "2025-11-04T17:00:24.358773Z"
+                },
+                {
+                  "id": "GHSA-pq67-6m6q-mj2v",
+                  "modified": "2025-06-19T16:15:11.736637Z"
+                },
+                {
+                  "id": "GHSA-v845-jxx5-vc9f",
+                  "modified": "2025-11-04T17:12:10.974241Z"
+                },
+                {
+                  "id": "GHSA-wqvq-5m8c-6g24",
+                  "modified": "2024-11-18T22:47:07.792720Z"
+                },
+                {
+                  "id": "PYSEC-2020-148",
+                  "modified": "2023-11-08T04:03:14.251187Z"
+                },
+                {
+                  "id": "PYSEC-2021-108",
+                  "modified": "2023-11-08T04:06:04.829992Z"
+                },
+                {
+                  "id": "PYSEC-2023-192",
+                  "modified": "2023-11-08T04:13:33.452167Z"
+                },
+                {
+                  "id": "PYSEC-2023-212",
+                  "modified": "2023-11-08T04:13:39.165450Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "1803"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
