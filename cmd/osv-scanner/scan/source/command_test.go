@@ -1611,6 +1611,15 @@ func TestCommand_ShowDeprecated(t *testing.T) {
 			},
 			Exit: 1,
 		},
+		{
+			Name: "package_deprecated_npm",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json",
+			},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {

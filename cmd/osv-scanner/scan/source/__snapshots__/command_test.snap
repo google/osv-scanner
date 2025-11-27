@@ -4837,6 +4837,42 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock file and fo
 
 ---
 
+[TestCommand_ShowDeprecated/package_deprecated_npm - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "left-pad",
+            "version": "1.3.0",
+            "ecosystem": "npm",
+            "deprecated": true
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_ShowDeprecated/package_deprecated_npm - 2]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json file and found 1 package
+
+---
+
 [TestCommand_ShowDeprecated/package_deprecated_true_no_vuln - 1]
 {
   "results": [
