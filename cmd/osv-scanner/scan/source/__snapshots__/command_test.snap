@@ -4833,9 +4833,6 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 [TestCommand_ShowDeprecated/package_deprecated_false_no_vuln - 2]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock
-Package deprecation enricher finished.
-Package deprecation enricher starting, 5 packages to enrich.
-Package deprecation enricher: Finished querying deps.dev for deprecation status. Number of results: 4
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock file and found 5 packages
 
 ---
@@ -4872,9 +4869,6 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock file and fo
 
 [TestCommand_ShowDeprecated/package_deprecated_true_no_vuln - 2]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
-Package deprecation enricher finished.
-Package deprecation enricher starting, 36 packages to enrich.
-Package deprecation enricher: Finished querying deps.dev for deprecation status. Number of results: 35
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock file and found 36 packages
 
 ---
@@ -5247,9 +5241,6 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
 
 [TestCommand_ShowDeprecated/package_deprecated_true_with_vuln - 2]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
-Package deprecation enricher finished.
-Package deprecation enricher starting, 7 packages to enrich.
-Package deprecation enricher: Finished querying deps.dev for deprecation status. Number of results: 6
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
 
 ---

@@ -1907,9 +1907,6 @@ Scanning local image tarball "./testdata/test-python-full.tar"
 
 [TestCommand_OCIImage_JSONFormat/scanning_image_with_deprecated_packages - 2]
 Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
-Package deprecation enricher starting, 49 packages to enrich.
-Package deprecation enricher: Finished querying deps.dev for deprecation status. Number of results: 32
-Package deprecation enricher finished.
 
 ---
 
