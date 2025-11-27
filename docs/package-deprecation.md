@@ -1,6 +1,6 @@
 ---
 layout: page
-permalink: /experimental/show-deprecated/
+permalink: /experimental/experimental-flag-deprecated-packages/
 parent: Experimental Features
 nav_order: 4
 ---
@@ -23,14 +23,14 @@ The `deprecated` field is a boolean value indicating if a package is flagged as 
 
 ## Usage
 
-To enable package deprecation reporting, use the `--show-deprecated` flag.
+To enable package deprecation reporting, use the `--experimental-flag-deprecated-packages` flag.
 
 > Currently, deprecation information is only available in the JSON output. You must specify `--format=json` to view these results.
 
 ### Project Source Scanning
 
 ```bash
-osv-scanner scan source --format=json --show-deprecated -r /path/to/project
+osv-scanner scan source --format=json --experimental-flag-deprecated-packages -r /path/to/project
 ```
 
 For more details on source scanning, see [Project Source Scanning](./scan-source.md).
@@ -39,10 +39,10 @@ For more details on source scanning, see [Project Source Scanning](./scan-source
 
 ```bash
 # Scan a local or remote image by name
-osv-scanner scan image --format=json --show-deprecated my-image:tag
+osv-scanner scan image --format=json --experimental-flag-deprecated-packages my-image:tag
 
 # Scan an exported image archive
-osv-scanner scan image --format=json --show-deprecated --archive ./path/to/my-image.tar
+osv-scanner scan image --format=json --experimental-flag-deprecated-packages --archive ./path/to/my-image.tar
 ```
 
 For more details on image scanning, see [Container Image Scanning](./scan-image.md).

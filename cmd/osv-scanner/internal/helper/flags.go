@@ -176,7 +176,7 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Value: &allowedLicencesFlag{},
 		},
 		&cli.BoolFlag{
-			Name:  "show-deprecated",
+			Name:  "experimental-flag-deprecated-packages",
 			Usage: "report if package versions are deprecated",
 		},
 		&cli.StringSliceFlag{

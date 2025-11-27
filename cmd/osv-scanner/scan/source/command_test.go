@@ -1588,7 +1588,7 @@ func TestCommand_ShowDeprecated(t *testing.T) {
 			Name: "package_deprecated_false_no_vuln",
 			Args: []string{
 				"", "source", "--format=json",
-				"--show-deprecated",
+				"--experimental-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock",
 			},
 			Exit: 0,
@@ -1597,7 +1597,7 @@ func TestCommand_ShowDeprecated(t *testing.T) {
 			Name: "package_deprecated_true_no_vuln",
 			Args: []string{
 				"", "source", "--format=json",
-				"--show-deprecated",
+				"--experimental-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
 			},
 			Exit: 1,
@@ -1606,7 +1606,7 @@ func TestCommand_ShowDeprecated(t *testing.T) {
 			Name: "package_deprecated_true_with_vuln",
 			Args: []string{
 				"", "source", "--format=json",
-				"--show-deprecated",
+				"--experimental-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,

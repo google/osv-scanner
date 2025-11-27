@@ -40,7 +40,7 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 		ConfigOverridePath:    cmd.String("config"),
 		ShowAllPackages:       cmd.Bool("all-packages"),
 		ShowAllVulns:          cmd.Bool("all-vulns"),
-		ShowDeprecated:        cmd.Bool("show-deprecated"),
+		ShowDeprecated:        cmd.Bool("experimental-flag-deprecated-packages"),
 		CompareOffline:        cmd.Bool("offline-vulnerabilities"),
 		DownloadDatabases:     cmd.Bool("download-offline-databases"),
 		LocalDBPath:           cmd.String("local-db-path"),

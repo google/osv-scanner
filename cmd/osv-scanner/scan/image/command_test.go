@@ -448,7 +448,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			Name: "scanning_image_with_deprecated_packages",
 			Args: []string{
 				"", "image", "--format=json",
-				"--show-deprecated",
+				"--experimental-flag-deprecated-packages",
 				"--archive", "./testdata/test-image-with-deprecated.tar",
 			},
 			Exit: 1,
