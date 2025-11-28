@@ -31,7 +31,7 @@ type Result struct {
 	VulnTypeSummary     VulnTypeSummary
 	PackageTypeCount    AnalysisCount
 	VulnCount           VulnCount
-	PkgDeprecatedCount int
+	PkgDeprecatedCount  int
 }
 
 // EcosystemResult represents the vulnerability scanning results for an ecosystem.
@@ -49,7 +49,7 @@ type SourceResult struct {
 	Packages               []PackageResult
 	VulnCount              VulnCount
 	LicenseViolationsCount int
-	PkgDeprecatedCount int
+	PkgDeprecatedCount     int
 }
 
 // PackageResult represents the vulnerability scanning results for a package.
@@ -69,7 +69,7 @@ type PackageResult struct {
 	Licenses          []models.License
 	LicenseViolations []models.License
 	DepGroups         []string `json:"-"`
-	Deprecated bool
+	Deprecated        bool
 }
 
 // VulnResult represents a single vulnerability.
@@ -431,7 +431,7 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 			if len(pkg.HiddenVulns) != 0 {
 				sourceResult.PackageTypeCount.Hidden += 1
 			}
-			if pkg.Deprecated{
+			if pkg.Deprecated {
 				sourceResult.PkgDeprecatedCount += 1
 			}
 		}
@@ -481,7 +481,7 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 		Licenses:          vulnPkg.Licenses,
 		LicenseViolations: vulnPkg.LicenseViolations,
 		DepGroups:         vulnPkg.DepGroups,
-		Deprecated: vulnPkg.Package.Deprecated,
+		Deprecated:        vulnPkg.Package.Deprecated,
 	}
 
 	return packageResult
@@ -838,7 +838,7 @@ func printSummary(result Result, out io.Writer) {
 
 func printPkgDeprecatedSummary(result Result, out io.Writer) {
 	packageForm := Form(result.PkgDeprecatedCount, "package", "packages")
-	summary := fmt.Sprintf("\n%d %s deprecated.", result.PkgDeprecatedCount, packageForm)
+	summary := fmt.Sprintf("Total %d %s deprecated.\n", result.PkgDeprecatedCount, packageForm)
 	fmt.Fprintln(out, summary)
 }
 
