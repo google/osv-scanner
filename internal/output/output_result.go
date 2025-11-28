@@ -31,6 +31,7 @@ type Result struct {
 	VulnTypeSummary     VulnTypeSummary
 	PackageTypeCount    AnalysisCount
 	VulnCount           VulnCount
+	PkgDeprecatedCount int
 }
 
 // EcosystemResult represents the vulnerability scanning results for an ecosystem.
@@ -48,6 +49,7 @@ type SourceResult struct {
 	Packages               []PackageResult
 	VulnCount              VulnCount
 	LicenseViolationsCount int
+	PkgDeprecatedCount int
 }
 
 // PackageResult represents the vulnerability scanning results for a package.
@@ -67,6 +69,7 @@ type PackageResult struct {
 	Licenses          []models.License
 	LicenseViolations []models.License
 	DepGroups         []string `json:"-"`
+	Deprecated bool
 }
 
 // VulnResult represents a single vulnerability.
@@ -185,6 +188,7 @@ func PrintResults(vulnResult *models.VulnerabilityResults, outputWriter io.Write
 func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 	var ecosystemMap = make(map[string][]SourceResult)
 	var resultCount VulnCount
+	pkgDeprecatedCount := 0
 
 RowLoop:
 	for _, packageSource := range vulnResult.Results {
@@ -199,14 +203,15 @@ RowLoop:
 		for ecosystem, source := range sourceResults {
 			ecosystemMap[ecosystem] = append(ecosystemMap[ecosystem], source)
 			resultCount.Add(source.VulnCount)
+			pkgDeprecatedCount += source.PkgDeprecatedCount
 		}
 	}
 
-	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata, vulnResult.ExperimentalAnalysisConfig.Licenses, vulnResult.LicenseSummary)
+	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata, vulnResult.ExperimentalAnalysisConfig.Licenses, vulnResult.LicenseSummary, pkgDeprecatedCount)
 }
 
 // buildResult builds the final Result object from the ecosystem map and total vulnerability count.
-func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata, licenseConfig models.ExperimentalLicenseConfig, licenseCount []models.LicenseCount) Result {
+func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata, licenseConfig models.ExperimentalLicenseConfig, licenseCount []models.LicenseCount, pkgDeprecatedCount int) Result {
 	result := Result{}
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
@@ -245,6 +250,7 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, 
 	result.VulnTypeSummary = vulnTypeSummary
 	result.PackageTypeCount = packageTypeCount
 	result.VulnCount = resultCount
+	result.PkgDeprecatedCount = pkgDeprecatedCount
 
 	if imageMetadata != nil {
 		populateResultWithImageMetadata(&result, *imageMetadata)
@@ -425,6 +431,9 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 			if len(pkg.HiddenVulns) != 0 {
 				sourceResult.PackageTypeCount.Hidden += 1
 			}
+			if pkg.Deprecated{
+				sourceResult.PkgDeprecatedCount += 1
+			}
 		}
 
 		// Sort packageResults to ensure consistent output
@@ -472,6 +481,7 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 		Licenses:          vulnPkg.Licenses,
 		LicenseViolations: vulnPkg.LicenseViolations,
 		DepGroups:         vulnPkg.DepGroups,
+		Deprecated: vulnPkg.Package.Deprecated,
 	}
 
 	return packageResult
@@ -823,6 +833,12 @@ func printSummary(result Result, out io.Writer) {
 		vulnerabilityForm,
 		fixedVulnForm,
 	)
+	fmt.Fprintln(out, summary)
+}
+
+func printPkgDeprecatedSummary(result Result, out io.Writer) {
+	packageForm := Form(result.PkgDeprecatedCount, "package", "packages")
+	summary := fmt.Sprintf("\n%d %s deprecated.", result.PkgDeprecatedCount, packageForm)
 	fmt.Fprintln(out, summary)
 }
 

@@ -51,6 +51,12 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 		if len(licenseConfig.Allowlist) > 0 {
 			buildLicenseViolationsTable(outputWriter, terminalWidth, vulnResult)
 		}
+
+		// Render deprecated packages if any.
+		if outputResult.PkgDeprecatedCount > 0 {
+			printPkgDeprecatedSummary(outputResult, outputWriter)
+			buildDeprecatedPackagesTable(outputWriter, terminalWidth, vulnResult)
+		}
 	}
 }
 
@@ -405,6 +411,40 @@ func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.
 			}
 			outputTable.AppendRow(table.Row{
 				strings.Join(violations, ", "),
+				pkg.Package.Ecosystem,
+				pkg.Package.Name,
+				pkg.Package.Version,
+				path,
+			})
+		}
+	}
+
+	return outputTable
+}
+
+func buildDeprecatedPackagesTable(outputWriter io.Writer, terminalWidth int, vulnResult *models.VulnerabilityResults) {
+	outputTable := newTable(outputWriter, terminalWidth)
+
+	outputTable = deprecatedPackagesTableBuilder(outputTable, vulnResult)
+	if outputTable.Length() == 0 {
+		return
+	}
+	outputTable.Render()
+}
+
+func deprecatedPackagesTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
+	outputTable.AppendHeader(table.Row{"Ecosystem", "Package", "Version", "Source"})
+	workingDir := mustGetWorkingDirectory()
+	for _, pkgSource := range vulnResult.Results {
+		for _, pkg := range pkgSource.Packages {
+			if !pkg.Package.Deprecated {
+				continue
+			}
+			path := pkgSource.Source.Path
+			if simplifiedPath, err := filepath.Rel(workingDir, pkgSource.Source.Path); err == nil {
+				path = simplifiedPath
+			}
+			outputTable.AppendRow(table.Row{
 				pkg.Package.Ecosystem,
 				pkg.Package.Name,
 				pkg.Package.Version,
