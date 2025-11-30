@@ -4111,6 +4111,472 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
+      content_length: 3305
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"PyPI","name":"click"},"version":"8.3.1"},{"package":{"ecosystem":"PyPI","name":"flask"},"version":"1.0"},{"package":{"ecosystem":"PyPI","name":"itsdangerous"},"version":"2.2.0"},{"package":{"ecosystem":"PyPI","name":"jinja2"},"version":"3.1.6"},{"package":{"ecosystem":"PyPI","name":"markupsafe"},"version":"3.0.3"},{"package":{"ecosystem":"PyPI","name":"werkzeug"},"version":"3.1.4"},{"package":{"ecosystem":"PyPI","name":"black"},"version":"25.1.0"},{"package":{"ecosystem":"PyPI","name":"click"},"version":"8.3.1"},{"package":{"ecosystem":"PyPI","name":"mypy-extensions"},"version":"1.1.0"},{"package":{"ecosystem":"PyPI","name":"packaging"},"version":"25.0"},{"package":{"ecosystem":"PyPI","name":"pathspec"},"version":"0.12.1"},{"package":{"ecosystem":"PyPI","name":"platformdirs"},"version":"4.5.0"},{"package":{"ecosystem":"PyPI","name":"tomli"},"version":"2.3.0"},{"package":{"ecosystem":"PyPI","name":"typing-extensions"},"version":"4.15.0"},{"package":{"ecosystem":"PyPI","name":"django"},"version":"1.11.29"},{"package":{"ecosystem":"PyPI","name":"flask"},"version":"1.0"},{"package":{"ecosystem":"PyPI","name":"requests"},"version":"2.20.0"},{"package":{"ecosystem":"PyPI","name":"certifi"},"version":"2025.11.12"},{"package":{"ecosystem":"PyPI","name":"chardet"},"version":"3.0.4"},{"package":{"ecosystem":"PyPI","name":"click"},"version":"8.3.1"},{"package":{"ecosystem":"PyPI","name":"idna"},"version":"2.7"},{"package":{"ecosystem":"PyPI","name":"itsdangerous"},"version":"2.2.0"},{"package":{"ecosystem":"PyPI","name":"jinja2"},"version":"3.1.6"},{"package":{"ecosystem":"PyPI","name":"markupsafe"},"version":"3.0.3"},{"package":{"ecosystem":"PyPI","name":"numpy"},"version":"2.3.1"},{"package":{"ecosystem":"PyPI","name":"pytz"},"version":"2025.2"},{"package":{"ecosystem":"PyPI","name":"urllib3"},"version":"1.24.3"},{"package":{"ecosystem":"PyPI","name":"werkzeug"},"version":"3.1.4"},{"package":{"ecosystem":"PyPI","name":"django"},"version":"2.2.24"},{"package":{"ecosystem":"PyPI","name":"pytz"},"version":"2025.2"},{"package":{"ecosystem":"PyPI","name":"sqlparse"},"version":"0.5.4"},{"package":{"ecosystem":"PyPI","name":"certifi"},"version":"2025.11.12"},{"package":{"ecosystem":"PyPI","name":"chardet"},"version":"3.0.4"},{"package":{"ecosystem":"PyPI","name":"click"},"version":"8.3.1"},{"package":{"ecosystem":"PyPI","name":"django"},"version":"1.11.29"},{"package":{"ecosystem":"PyPI","name":"flask"},"version":"1.0"},{"package":{"ecosystem":"PyPI","name":"idna"},"version":"2.7"},{"package":{"ecosystem":"PyPI","name":"itsdangerous"},"version":"2.2.0"},{"package":{"ecosystem":"PyPI","name":"jinja2"},"version":"3.1.6"},{"package":{"ecosystem":"PyPI","name":"markupsafe"},"version":"3.0.3"},{"package":{"ecosystem":"PyPI","name":"pytz"},"version":"2025.2"},{"package":{"ecosystem":"PyPI","name":"requests"},"version":"2.20.0"},{"package":{"ecosystem":"PyPI","name":"urllib3"},"version":"1.24.3"},{"package":{"ecosystem":"PyPI","name":"werkzeug"},"version":"3.1.4"},{"package":{"ecosystem":"PyPI","name":"numpy"},"version":"2.3.1"},{"package":{"ecosystem":"PyPI","name":"flask"},"version":"1.0.0"},{"package":{"ecosystem":"PyPI","name":"flask-cors"},"version":"1.0.0"},{"package":{"ecosystem":"PyPI","name":"pandas"},"version":"0.23.4"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/requirements.txt_can_have_all_kinds_of_names
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 6076
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68w8-qjq3-2gfm",
+                  "modified": "2024-09-20T15:46:52.557962Z"
+                },
+                {
+                  "id": "GHSA-6w2r-r2m5-xq5w",
+                  "modified": "2025-11-05T20:52:11.756012Z"
+                },
+                {
+                  "id": "GHSA-7xr5-9hcq-chf9",
+                  "modified": "2025-09-25T09:27:02.969281Z"
+                },
+                {
+                  "id": "GHSA-8x94-hmjh-97hq",
+                  "modified": "2025-01-14T11:27:04.205746Z"
+                },
+                {
+                  "id": "GHSA-frmv-pr5f-9mcr",
+                  "modified": "2025-11-27T09:10:30.649595Z"
+                },
+                {
+                  "id": "GHSA-qw25-v68c-qjf3",
+                  "modified": "2025-11-11T15:28:46.308405Z"
+                },
+                {
+                  "id": "GHSA-rrqc-c2jx-6jgv",
+                  "modified": "2024-10-30T19:23:59.139649Z"
+                },
+                {
+                  "id": "PYSEC-2021-98",
+                  "modified": "2023-12-06T01:01:16.755410Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9hjg-9r4m-mvj7",
+                  "modified": "2025-06-09T19:27:13.389930Z"
+                },
+                {
+                  "id": "GHSA-9wx4-h78v-vm56",
+                  "modified": "2024-07-15T22:12:27.987373Z"
+                },
+                {
+                  "id": "GHSA-j8r2-6x86-q33q",
+                  "modified": "2025-02-13T19:20:45.182158Z"
+                },
+                {
+                  "id": "PYSEC-2023-74",
+                  "modified": "2023-11-08T04:12:35.436175Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-jjg7-2v4v-x38h",
+                  "modified": "2025-11-05T20:30:45.121847Z"
+                },
+                {
+                  "id": "PYSEC-2024-60",
+                  "modified": "2024-07-11T17:42:33.704488Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-34jh-p97f-mpxf",
+                  "modified": "2025-11-04T17:17:45.245584Z"
+                },
+                {
+                  "id": "GHSA-g4mx-q9vg-27p4",
+                  "modified": "2025-11-04T17:00:24.358773Z"
+                },
+                {
+                  "id": "GHSA-pq67-6m6q-mj2v",
+                  "modified": "2025-06-19T16:15:11.736637Z"
+                },
+                {
+                  "id": "GHSA-v845-jxx5-vc9f",
+                  "modified": "2025-11-04T17:12:10.974241Z"
+                },
+                {
+                  "id": "GHSA-wqvq-5m8c-6g24",
+                  "modified": "2024-11-18T22:47:07.792720Z"
+                },
+                {
+                  "id": "PYSEC-2020-148",
+                  "modified": "2023-11-08T04:03:14.251187Z"
+                },
+                {
+                  "id": "PYSEC-2021-108",
+                  "modified": "2023-11-08T04:06:04.829992Z"
+                },
+                {
+                  "id": "PYSEC-2023-192",
+                  "modified": "2023-11-08T04:13:33.452167Z"
+                },
+                {
+                  "id": "PYSEC-2023-212",
+                  "modified": "2023-11-08T04:13:39.165450Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2gwj-7jmv-h26r",
+                  "modified": "2025-02-21T05:41:10.759178Z"
+                },
+                {
+                  "id": "GHSA-53qw-q765-4fww",
+                  "modified": "2024-09-20T16:09:39.890846Z"
+                },
+                {
+                  "id": "GHSA-6cw3-g6wv-c2xv",
+                  "modified": "2024-09-20T15:47:27.155401Z"
+                },
+                {
+                  "id": "GHSA-6w2r-r2m5-xq5w",
+                  "modified": "2025-11-05T20:52:11.756012Z"
+                },
+                {
+                  "id": "GHSA-7xr5-9hcq-chf9",
+                  "modified": "2025-09-25T09:27:02.969281Z"
+                },
+                {
+                  "id": "GHSA-8c5j-9r9f-c6w8",
+                  "modified": "2025-02-21T05:29:59.213830Z"
+                },
+                {
+                  "id": "GHSA-8x94-hmjh-97hq",
+                  "modified": "2025-01-14T11:27:04.205746Z"
+                },
+                {
+                  "id": "GHSA-95rw-fx8r-36v6",
+                  "modified": "2024-09-20T15:47:46.984048Z"
+                },
+                {
+                  "id": "GHSA-frmv-pr5f-9mcr",
+                  "modified": "2025-11-27T09:10:30.649595Z"
+                },
+                {
+                  "id": "GHSA-jrh2-hc4r-7jwx",
+                  "modified": "2024-09-20T12:22:54.101910Z"
+                },
+                {
+                  "id": "GHSA-qw25-v68c-qjf3",
+                  "modified": "2025-11-11T15:28:46.308405Z"
+                },
+                {
+                  "id": "GHSA-rrqc-c2jx-6jgv",
+                  "modified": "2024-10-30T19:23:59.139649Z"
+                },
+                {
+                  "id": "GHSA-v6rh-hp5x-86rv",
+                  "modified": "2024-11-19T05:35:04.095106Z"
+                },
+                {
+                  "id": "GHSA-w24h-v9qh-8gxj",
+                  "modified": "2025-02-21T05:41:01.294618Z"
+                },
+                {
+                  "id": "PYSEC-2021-439",
+                  "modified": "2023-12-06T01:01:41.266810Z"
+                },
+                {
+                  "id": "PYSEC-2022-1",
+                  "modified": "2023-12-06T01:01:43.028018Z"
+                },
+                {
+                  "id": "PYSEC-2022-19",
+                  "modified": "2023-12-06T01:01:58.226668Z"
+                },
+                {
+                  "id": "PYSEC-2022-190",
+                  "modified": "2023-12-06T01:02:11.594317Z"
+                },
+                {
+                  "id": "PYSEC-2022-191",
+                  "modified": "2023-12-06T01:02:11.666037Z"
+                },
+                {
+                  "id": "PYSEC-2022-2",
+                  "modified": "2023-12-06T01:01:43.088680Z"
+                },
+                {
+                  "id": "PYSEC-2022-20",
+                  "modified": "2023-12-06T01:02:02.697371Z"
+                },
+                {
+                  "id": "PYSEC-2022-3",
+                  "modified": "2023-12-06T01:01:43.819827Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68w8-qjq3-2gfm",
+                  "modified": "2024-09-20T15:46:52.557962Z"
+                },
+                {
+                  "id": "GHSA-6w2r-r2m5-xq5w",
+                  "modified": "2025-11-05T20:52:11.756012Z"
+                },
+                {
+                  "id": "GHSA-7xr5-9hcq-chf9",
+                  "modified": "2025-09-25T09:27:02.969281Z"
+                },
+                {
+                  "id": "GHSA-8x94-hmjh-97hq",
+                  "modified": "2025-01-14T11:27:04.205746Z"
+                },
+                {
+                  "id": "GHSA-frmv-pr5f-9mcr",
+                  "modified": "2025-11-27T09:10:30.649595Z"
+                },
+                {
+                  "id": "GHSA-qw25-v68c-qjf3",
+                  "modified": "2025-11-11T15:28:46.308405Z"
+                },
+                {
+                  "id": "GHSA-rrqc-c2jx-6jgv",
+                  "modified": "2024-10-30T19:23:59.139649Z"
+                },
+                {
+                  "id": "PYSEC-2021-98",
+                  "modified": "2023-12-06T01:01:16.755410Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-jjg7-2v4v-x38h",
+                  "modified": "2025-11-05T20:30:45.121847Z"
+                },
+                {
+                  "id": "PYSEC-2024-60",
+                  "modified": "2024-07-11T17:42:33.704488Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9hjg-9r4m-mvj7",
+                  "modified": "2025-06-09T19:27:13.389930Z"
+                },
+                {
+                  "id": "GHSA-9wx4-h78v-vm56",
+                  "modified": "2024-07-15T22:12:27.987373Z"
+                },
+                {
+                  "id": "GHSA-j8r2-6x86-q33q",
+                  "modified": "2025-02-13T19:20:45.182158Z"
+                },
+                {
+                  "id": "PYSEC-2023-74",
+                  "modified": "2023-11-08T04:12:35.436175Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-34jh-p97f-mpxf",
+                  "modified": "2025-11-04T17:17:45.245584Z"
+                },
+                {
+                  "id": "GHSA-g4mx-q9vg-27p4",
+                  "modified": "2025-11-04T17:00:24.358773Z"
+                },
+                {
+                  "id": "GHSA-pq67-6m6q-mj2v",
+                  "modified": "2025-06-19T16:15:11.736637Z"
+                },
+                {
+                  "id": "GHSA-v845-jxx5-vc9f",
+                  "modified": "2025-11-04T17:12:10.974241Z"
+                },
+                {
+                  "id": "GHSA-wqvq-5m8c-6g24",
+                  "modified": "2024-11-18T22:47:07.792720Z"
+                },
+                {
+                  "id": "PYSEC-2020-148",
+                  "modified": "2023-11-08T04:03:14.251187Z"
+                },
+                {
+                  "id": "PYSEC-2021-108",
+                  "modified": "2023-11-08T04:06:04.829992Z"
+                },
+                {
+                  "id": "PYSEC-2023-192",
+                  "modified": "2023-11-08T04:13:33.452167Z"
+                },
+                {
+                  "id": "PYSEC-2023-212",
+                  "modified": "2023-11-08T04:13:39.165450Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-43qf-4rqw-9q2g",
+                  "modified": "2025-11-03T21:57:24.048409Z"
+                },
+                {
+                  "id": "GHSA-7rxf-gvfg-47g4",
+                  "modified": "2025-11-03T21:57:16.624715Z"
+                },
+                {
+                  "id": "GHSA-84pr-m4jr-85g5",
+                  "modified": "2025-11-03T23:01:22.383418Z"
+                },
+                {
+                  "id": "GHSA-8vgw-p6qm-5gr7",
+                  "modified": "2025-11-03T22:02:47.725498Z"
+                },
+                {
+                  "id": "GHSA-hxwh-jpp2-84pm",
+                  "modified": "2025-04-07T20:13:56.570363Z"
+                },
+                {
+                  "id": "GHSA-xc3p-ff3m-f46v",
+                  "modified": "2024-09-20T20:01:25.449661Z"
+                },
+                {
+                  "id": "PYSEC-2020-43",
+                  "modified": "2025-10-09T07:22:50.566622Z"
+                },
+                {
+                  "id": "PYSEC-2024-71",
+                  "modified": "2025-10-09T08:27:44.186589Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "PYSEC-2020-73",
+                  "modified": "2023-11-08T04:02:12.263851Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "6076"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 42
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
       content_length: 364
       host: api.osv.dev
       body: '{"queries":[{"package":{"ecosystem":"npm","name":"has-flag"},"version":"4.0.0"},{"package":{"ecosystem":"npm","name":"wrappy"},"version":"1.0.2"},{"package":{"ecosystem":"Packagist","name":"league/flysystem"},"version":"1.0.8"},{"package":{"ecosystem":"Go","name":"stdlib"},"version":"1.99.9"},{"package":{"ecosystem":"Go","name":"toolchain"},"version":"1.99.9"}]}'
@@ -4151,7 +4617,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 42
+  - id: 43
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -4185,7 +4651,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 43
+  - id: 44
     request:
       proto: HTTP/1.1
       proto_major: 1

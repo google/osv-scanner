@@ -31,7 +31,7 @@ type Result struct {
 	VulnTypeSummary     VulnTypeSummary
 	PackageTypeCount    AnalysisCount
 	VulnCount           VulnCount
-	PkgDeprecatedCount  int
+	PkgDeprecatedCount  int `json:",omitempty"`
 }
 
 // EcosystemResult represents the vulnerability scanning results for an ecosystem.
@@ -49,7 +49,7 @@ type SourceResult struct {
 	Packages               []PackageResult
 	VulnCount              VulnCount
 	LicenseViolationsCount int
-	PkgDeprecatedCount     int
+	PkgDeprecatedCount     int `json:",omitempty"`
 }
 
 // PackageResult represents the vulnerability scanning results for a package.
@@ -69,7 +69,7 @@ type PackageResult struct {
 	Licenses          []models.License
 	LicenseViolations []models.License
 	DepGroups         []string `json:"-"`
-	Deprecated        bool
+	Deprecated        bool     `json:",omitempty"`
 }
 
 // VulnResult represents a single vulnerability.
