@@ -118,6 +118,9 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 		fmt.Fprint(outputWriter, "Scanning Result (package view):\n")
 	}
 	printSummary(result, outputWriter)
+	if result.PkgDeprecatedCount > 0 {
+		printPkgDeprecatedSummary(result, outputWriter)
+	}
 	// Add a newline
 	fmt.Fprintln(outputWriter)
 
@@ -131,7 +134,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 		}
 
 		for _, source := range eco.Sources {
-			if source.PackageTypeCount.Regular == 0 {
+			if source.PackageTypeCount.Regular == 0 && source.PkgDeprecatedCount == 0 {
 				continue
 			}
 			outputTable := newTable(outputWriter, terminalWidth)
@@ -155,9 +158,13 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 				tableHeader = append(tableHeader, "License Violations")
 			}
 
+			if source.PkgDeprecatedCount > 0 {
+				tableHeader = append(tableHeader, "Deprecated")
+			}
+
 			outputTable.AppendHeader(tableHeader)
 			for _, pkg := range source.Packages {
-				if pkg.VulnCount.AnalysisCount.Regular == 0 && len(pkg.LicenseViolations) == 0 {
+				if pkg.VulnCount.AnalysisCount.Regular == 0 && len(pkg.LicenseViolations) == 0 && !pkg.Deprecated {
 					continue
 				}
 				outputRow := table.Row{}
@@ -197,6 +204,15 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 						outputRow = append(outputRow, pkg.LicenseViolations)
 					}
 				}
+
+				if source.PkgDeprecatedCount > 0 {
+					if pkg.Deprecated {
+						outputRow = append(outputRow, "True")
+					} else {
+						outputRow = append(outputRow, "----")
+					}
+				}
+
 				outputTable.AppendRow(outputRow)
 			}
 			outputTable.Render()
