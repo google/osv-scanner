@@ -16,7 +16,9 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 	fmt.Fprintln(outputWriter)
 	outputResult := BuildResults(vulnResult)
 	printSummary(outputResult, outputWriter)
-	printPkgDeprecatedSummary(outputResult, outputWriter)
+	if outputResult.PkgDeprecatedCount > 0 {
+		printPkgDeprecatedSummary(outputResult, outputWriter)
+	}
 	if outputResult.IsContainerScanning {
 		printBaseImages(outputResult.ImageInfo, outputWriter)
 	}

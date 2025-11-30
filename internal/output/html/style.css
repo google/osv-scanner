@@ -664,6 +664,10 @@ div.title {
   margin-left: 30px;
 }
 
+#deprecated-packages-details {
+  margin-left: 30px;
+}
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
