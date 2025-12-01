@@ -11,7 +11,8 @@ import (
 )
 
 // createSourceRemediationTable creates a vulnerability table which includes the fixed versions for a specific source file
-func createSourceRemediationTable(source models.PackageSource, groupedFixedVersions map[string][]string) table.Writer {
+func createSourceRemediationTable(source models.PackageSource, groupedFixedVersions map[string][]string) (table.Writer, bool) {
+	hasRow := false
 	remediationTable := table.NewWriter()
 	remediationTable.AppendHeader(table.Row{"Package", "Vulnerability ID", "CVSS", "Current Version", "Fixed Version"})
 
@@ -29,10 +30,30 @@ func createSourceRemediationTable(source models.PackageSource, groupedFixedVersi
 				group.MaxSeverity,
 				pv.Package.Version,
 				strings.Join(fixedVersions, "\n")})
+			hasRow = true
 		}
 	}
 
-	return remediationTable
+	return remediationTable, hasRow
+}
+
+func createDeprecationTable(source models.PackageSource) (table.Writer, bool) {
+	hasRow := false
+	deprecationTable := table.NewWriter()
+	deprecationTable.AppendHeader(table.Row{"Package", "Current Version", "Deprecated"})
+
+	for _, pv := range source.Packages {
+		if pv.Package.Deprecated {
+			deprecationTable.AppendRow(table.Row{
+				pv.Package.Name,
+				pv.Package.Version,
+				pv.Package.Deprecated,
+			})
+			hasRow = true
+		}
+	}
+
+	return deprecationTable, hasRow
 }
 
 // PrintGHAnnotationReport prints Github specific annotations to outputWriter
@@ -55,14 +76,24 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 
 		artifactPath = filepath.ToSlash(artifactPath)
 
-		remediationTable := createSourceRemediationTable(source, groupedFixedVersions)
+		remediationTable, hasVulnTable := createSourceRemediationTable(source, groupedFixedVersions)
+		if hasVulnTable {
+			renderedTable := remediationTable.Render()
+			// This is required as github action annotations must be on the same terminal line
+			// so we URL encode the new line character
+			renderedTable = strings.ReplaceAll(renderedTable, "\n", "%0A")
 
-		renderedTable := remediationTable.Render()
-		// This is required as github action annotations must be on the same terminal line
-		// so we URL encode the new line character
-		renderedTable = strings.ReplaceAll(renderedTable, "\n", "%0A")
-		// Prepend the table with a new line to look nicer in the output
-		fmt.Fprintf(outputWriter, "::error file=%s::%s%s", artifactPath, artifactPath, "%0A"+renderedTable)
+			// Prepend the table with a new line to look nicer in the output
+			fmt.Fprintf(outputWriter, "::error file=%s::%s%s", artifactPath, artifactPath, "%0A"+renderedTable)
+		}
+
+		// Create and render package deprecation table
+		deprecationTable, hasDeprecationTable := createDeprecationTable(source)
+		if hasDeprecationTable {
+			renderedDeprecationTable := deprecationTable.Render()
+			renderedDeprecationTable = strings.ReplaceAll(renderedDeprecationTable, "\n", "%0A")
+			fmt.Fprintf(outputWriter, "::error file=%s::%s%s", artifactPath, artifactPath, "%0A"+renderedDeprecationTable)
+		}
 	}
 
 	return nil
