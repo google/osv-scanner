@@ -37,9 +37,7 @@ EXAMPLES:
 
 	For full usage details, please refer to the help command of each subcommand (e.g. {{.Name}} scan --help).
 
-	Alternatively, you can access the README or detailed documentation below:
-	README: https://github.com/google/osv-scanner/blob/main/README.md
-	Detailed Documentation: https://google.github.io/osv-scanner/
+	Alternatively, you can access the detailed documentation here: https://google.github.io/osv-scanner/
 
 VERSION:
 	{{.Version}}
