@@ -4130,7 +4130,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
       },
       {
         "diff_id": "sha256:...",
-        "command": "COPY /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb /tmp # buildkit",
+        "command": "COPY ./sample-pkgs/fzf_0.29.0-1ubuntu0.1_amd64.deb /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb # buildkit",
         "is_empty": false,
         "base_image_index": 0
       },
