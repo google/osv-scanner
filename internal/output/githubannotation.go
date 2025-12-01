@@ -65,6 +65,9 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 	workingDir := mustGetWorkingDirectory()
 
 	for _, source := range vulnResult.Results {
+		if len(source.Packages) == 0 {
+			continue
+		}
 		// TODO: Support docker images
 
 		var artifactPath string
