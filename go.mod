@@ -18,9 +18,9 @@ require (
 	github.com/go-git/go-git/v5 v5.16.3
 	github.com/goccy/go-yaml v1.18.0
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.4.1-0.20251120133224-d7ca2d75c4e9
+	github.com/google/osv-scalibr v0.4.1-0.20251128095640-e2e0b4db9a14
 	github.com/ianlancetaylor/demangle v0.0.0-20251114061303-68c556c8ce09
-	github.com/jedib0t/go-pretty/v6 v6.7.2
+	github.com/jedib0t/go-pretty/v6 v6.7.5
 	github.com/modelcontextprotocol/go-sdk v1.1.0
 	github.com/muesli/reflow v0.3.0
 	github.com/opencontainers/go-digest v1.0.0
@@ -32,12 +32,14 @@ require (
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
 	github.com/urfave/cli/v3 v3.6.1
+	go.yaml.in/yaml/v4 v4.0.0-rc.3
 	golang.org/x/net v0.47.0
 	golang.org/x/sync v0.18.0
 	golang.org/x/term v0.37.0
 	golang.org/x/vuln v1.1.4
 	google.golang.org/grpc v1.76.0
 	google.golang.org/protobuf v1.36.10
+	gopkg.in/dnaeon/go-vcr.v4 v4.0.6
 	gopkg.in/ini.v1 v1.67.0
 	gopkg.in/yaml.v3 v3.0.1
 	osv.dev/bindings/go v0.0.0-20251114023950-43ef4fb673ff

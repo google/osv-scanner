@@ -85,6 +85,7 @@ func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 		// TODO(another-rex): We should allow overriding of these values to avoid this issue.
 		"VERSION_ID not set in os-release",
 		"VERSION_CODENAME and VERSION_ID not set in os-release",
+		"VERSION_CODENAME not set in os-release, fallback to VERSION_ID",
 		"osrelease.ParseOsRelease(): file does not exist",
 		"Status: new inodes:",
 		"Created image content file:",
