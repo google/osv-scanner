@@ -35,6 +35,7 @@ func Group(packageSources []models.PackageSource) (map[string]models.PackageVuln
 						Name:      pkg.Package.Name,
 						Version:   pkg.Package.Version,
 						Ecosystem: pkg.Package.Ecosystem,
+						Deprecated: pkg.Package.Deprecated,
 					},
 					DepGroups:         slices.Clone(pkg.DepGroups),
 					Vulnerabilities:   slices.Clone(pkg.Vulnerabilities),

@@ -209,7 +209,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 					if pkg.Deprecated {
 						outputRow = append(outputRow, "True")
 					} else {
-						outputRow = append(outputRow, "----")
+						outputRow = append(outputRow, "--")
 					}
 				}
 
