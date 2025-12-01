@@ -1,0 +1,325 @@
+---
+version: 2
+interactions:
+  - id: 0
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 447
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Hackage","name":"AC-Angle"},"version":"1.0"},{"package":{"ecosystem":"Hackage","name":"ALUT"},"version":"2.4.0.3"},{"package":{"ecosystem":"Hackage","name":"ANum"},"version":"0.2.0.2"},{"package":{"ecosystem":"Hackage","name":"Agda"},"version":"2.6.4.3"},{"package":{"ecosystem":"Hackage","name":"Allure"},"version":"0.11.0.0"},{"package":{"ecosystem":"Hackage","name":"biscuit-haskell"},"version":"0.3.0.0"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_MoreLockfiles/cabal.project.freeze
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 105
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "HSEC-2024-0009",
+                  "modified": "2025-11-14T18:15:43.110342Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "105"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 1
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 350
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"NuGet","name":"AWSSDK.Core"},"version":"3.7.10.6"},{"package":{"ecosystem":"NuGet","name":"Microsoft.Extensions.DependencyInjection"},"version":"6.0.0"},{"package":{"ecosystem":"NuGet","name":"System.Linq.Dynamic.Core"},"version":"1.3.7"},{"package":{"ecosystem":"NuGet","name":"TestLibrary"},"version":"1.0.0"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_MoreLockfiles/depsjson
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 104
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-4cv2-4hjh-77rx",
+                  "modified": "2025-01-27T19:00:52.634361Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "104"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 2
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1881
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"RubyGems","name":"async"},"version":"2.23.0"},{"package":{"ecosystem":"RubyGems","name":"async-dns"},"version":"1.4.1"},{"package":{"ecosystem":"RubyGems","name":"async-http"},"version":"0.87.0"},{"package":{"ecosystem":"RubyGems","name":"async-pool"},"version":"0.10.3"},{"package":{"ecosystem":"RubyGems","name":"console"},"version":"1.29.2"},{"package":{"ecosystem":"RubyGems","name":"fiber-annotation"},"version":"0.2.0"},{"package":{"ecosystem":"RubyGems","name":"fiber-local"},"version":"1.1.0"},{"package":{"ecosystem":"RubyGems","name":"fiber-storage"},"version":"1.0.0"},{"package":{"ecosystem":"RubyGems","name":"geoip"},"version":"1.6.4"},{"package":{"ecosystem":"RubyGems","name":"io-endpoint"},"version":"0.15.1"},{"package":{"ecosystem":"RubyGems","name":"io-event"},"version":"1.9.0"},{"package":{"ecosystem":"RubyGems","name":"io-stream"},"version":"0.6.1"},{"package":{"ecosystem":"RubyGems","name":"json"},"version":"2.10.1"},{"package":{"ecosystem":"RubyGems","name":"metrics"},"version":"0.12.1"},{"package":{"ecosystem":"RubyGems","name":"nokogiri"},"version":"1.18.2"},{"package":{"ecosystem":"RubyGems","name":"process-daemon"},"version":"1.0.1"},{"package":{"ecosystem":"RubyGems","name":"protocol-hpack"},"version":"1.5.1"},{"package":{"ecosystem":"RubyGems","name":"protocol-http"},"version":"0.49.0"},{"package":{"ecosystem":"RubyGems","name":"protocol-http1"},"version":"0.30.0"},{"package":{"ecosystem":"RubyGems","name":"protocol-http2"},"version":"0.22.1"},{"package":{"ecosystem":"RubyGems","name":"racc"},"version":"1.8.1"},{"package":{"ecosystem":"RubyGems","name":"rainbow"},"version":"2.2.2"},{"package":{"ecosystem":"RubyGems","name":"rake"},"version":"13.2.1"},{"package":{"ecosystem":"RubyGems","name":"rubydns"},"version":"2.0.2"},{"package":{"ecosystem":"RubyGems","name":"traces"},"version":"0.15.2"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_MoreLockfiles/gems.locked
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 456
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9m3q-rhmv-5q44",
+                  "modified": "2025-03-13T21:49:32.847007Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-353f-x4gh-cqq8",
+                  "modified": "2025-07-21T19:42:17.531986Z"
+                },
+                {
+                  "id": "GHSA-5w6v-399v-w3cc",
+                  "modified": "2025-04-21T22:04:45.823585Z"
+                },
+                {
+                  "id": "GHSA-mrxw-mxhj-p664",
+                  "modified": "2025-03-21T15:52:20.761884Z"
+                },
+                {
+                  "id": "GHSA-vvfq-8hwr-qm4m",
+                  "modified": "2025-03-10T22:51:07.538402Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "456"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 3
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 210
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"NuGet","name":"Microsoft.CodeDom.Providers.DotNetCompilerPlatform"},"version":"1.0.0"},{"package":{"ecosystem":"NuGet","name":"Microsoft.Net.Compilers"},"version":"1.0.0"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_MoreLockfiles/packages.config
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 19
+      body: |
+        {
+          "results": [
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "19"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 4
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 91
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"NuGet","name":"Newtonsoft.Json"},"version":"13.0.3"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_MoreLockfiles/packages.lock.json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 5
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 315
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"Hackage","name":"fuzzyset"},"version":"0.2.4"},{"package":{"ecosystem":"Hackage","name":"hasql-pool"},"version":"1.0.1"},{"package":{"ecosystem":"Hackage","name":"jose-jwt"},"version":"0.10.0"},{"package":{"ecosystem":"Hackage","name":"postgresql-libpq"},"version":"0.10.1.0"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_MoreLockfiles/stack.yaml.lock
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 25
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "25"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 6
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 150
+      host: api.osv.dev
+      body: '{"queries":[{"package":{"ecosystem":"PyPI","name":"emoji"},"version":"2.14.0"},{"package":{"ecosystem":"PyPI","name":"protobuf"},"version":"4.25.5"}]}'
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_MoreLockfiles/uv.lock
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 98
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-8qvm-5x2c-j2w7",
+                  "modified": "2025-06-16T16:27:17.848804Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "98"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

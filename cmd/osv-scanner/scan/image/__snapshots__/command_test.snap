@@ -317,7 +317,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 20 packages affected by 39 known vulnerabilities (2 Critical, 12 High, 21 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+Total 20 packages affected by 40 known vulnerabilities (2 Critical, 12 High, 21 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
 19 vulnerabilities can be fixed.
 
 
@@ -332,7 +332,7 @@ Ubuntu:22.04
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          2 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
@@ -363,7 +363,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 20 packages affected by 39 known vulnerabilities (2 Critical, 12 High, 21 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+Total 20 packages affected by 40 known vulnerabilities (2 Critical, 12 High, 21 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
 19 vulnerabilities can be fixed.
 
 
@@ -378,7 +378,7 @@ Ubuntu:22.04
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          2 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
@@ -428,7 +428,7 @@ failed to load image from tarball with path "../../testdata/locks-manyoci-image/
 Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 20 packages affected by 39 known vulnerabilities (2 Critical, 12 High, 21 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+Total 20 packages affected by 40 known vulnerabilities (2 Critical, 12 High, 21 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
 19 vulnerabilities can be fixed.
 
 
@@ -443,7 +443,7 @@ Ubuntu:22.04
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          3 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          2 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
@@ -474,8 +474,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 21 packages affected by 36 known vulnerabilities (3 Critical, 14 High, 18 Medium, 0 Low, 1 Unknown) from 2 ecosystems.
-36 vulnerabilities can be fixed.
+Total 22 packages affected by 38 known vulnerabilities (3 Critical, 14 High, 18 Medium, 2 Low, 1 Unknown) from 2 ecosystems.
+38 vulnerabilities can be fixed.
 
 
 Maven
@@ -507,6 +507,7 @@ Alpine:v3.21
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT)    | INTRODUCED LAYER | IN BASE IMAGE   |
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
+| busybox        | 1.37.0-r9         | Fix Available |          2 | busybox... (3)             | # 0 Layer        | alpine          |
 | expat          | 2.6.4-r0          | Fix Available |          2 | libexpat                   | # 5 Layer        | eclipse-temurin |
 | libtasn1       | 4.19.0-r2         | Fix Available |          1 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          1 | musl, musl-utils           | # 0 Layer        | alpine          |
@@ -690,8 +691,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 8 packages affected by 141 known vulnerabilities (1 Critical, 3 High, 5 Medium, 0 Low, 132 Unknown) from 2 ecosystems.
-141 vulnerabilities can be fixed.
+Total 9 packages affected by 143 known vulnerabilities (1 Critical, 3 High, 5 Medium, 2 Low, 132 Unknown) from 2 ecosystems.
+143 vulnerabilities can be fixed.
 
 
 Go
@@ -743,6 +744,7 @@ Alpine:v3.20
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| busybox        | 1.36.1-r29        | Fix Available |          2 | busybox... (3)          | # 0 Layer        | alpine        |
 | musl           | 1.2.5-r0          | Fix Available |          1 | musl, musl-utils        | # 0 Layer        | alpine        |
 | openssl        | 3.3.1-r0          | Fix Available |          8 | libcrypto3, libssl3     | # 0 Layer        | alpine        |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
@@ -864,8 +866,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-npm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 13 known vulnerabilities (1 Critical, 3 High, 9 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-13 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (1 Critical, 3 High, 9 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
+15 vulnerabilities can be fixed.
 
 
 Alpine:v3.19
@@ -874,7 +876,7 @@ Alpine:v3.19
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
-| busybox        | 1.36.1-r15        | Fix Available |          4 | busybox... (3)          | # 0 Layer        | alpine        |
+| busybox        | 1.36.1-r15        | Fix Available |          6 | busybox... (3)          | # 0 Layer        | alpine        |
 | openssl        | 3.1.4-r5          | Fix Available |          9 | libcrypto3, libssl3     | # 0 Layer        | alpine        |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 
@@ -891,8 +893,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 4 packages affected by 16 known vulnerabilities (3 Critical, 3 High, 10 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-15 vulnerabilities can be fixed.
+Total 4 packages affected by 18 known vulnerabilities (3 Critical, 3 High, 10 Medium, 2 Low, 0 Unknown) from 2 ecosystems.
+17 vulnerabilities can be fixed.
 
 
 npm
@@ -910,7 +912,7 @@ Alpine:v3.19
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
-| busybox        | 1.36.1-r15        | Fix Available |          4 | busybox... (3)          | # 0 Layer        | alpine        |
+| busybox        | 1.36.1-r15        | Fix Available |          6 | busybox... (3)          | # 0 Layer        | alpine        |
 | openssl        | 3.1.4-r5          | Fix Available |          9 | libcrypto3, libssl3     | # 0 Layer        | alpine        |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 
@@ -927,8 +929,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-pnpm-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 13 known vulnerabilities (1 Critical, 3 High, 9 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-13 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (1 Critical, 3 High, 9 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
+15 vulnerabilities can be fixed.
 
 
 Alpine:v3.19
@@ -937,7 +939,7 @@ Alpine:v3.19
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
-| busybox        | 1.36.1-r15        | Fix Available |          4 | busybox... (3)          | # 0 Layer        | alpine        |
+| busybox        | 1.36.1-r15        | Fix Available |          6 | busybox... (3)          | # 0 Layer        | alpine        |
 | openssl        | 3.1.4-r5          | Fix Available |          9 | libcrypto3, libssl3     | # 0 Layer        | alpine        |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 
@@ -954,8 +956,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-pnpm-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 13 known vulnerabilities (1 Critical, 3 High, 9 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-13 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (1 Critical, 3 High, 9 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
+15 vulnerabilities can be fixed.
 
 
 Alpine:v3.19
@@ -964,7 +966,7 @@ Alpine:v3.19
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
-| busybox        | 1.36.1-r15        | Fix Available |          4 | busybox... (3)          | # 0 Layer        | alpine        |
+| busybox        | 1.36.1-r15        | Fix Available |          6 | busybox... (3)          | # 0 Layer        | alpine        |
 | openssl        | 3.1.4-r5          | Fix Available |          9 | libcrypto3, libssl3     | # 0 Layer        | alpine        |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 
@@ -981,8 +983,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-yarn-empty.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 13 known vulnerabilities (1 Critical, 3 High, 9 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-13 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (1 Critical, 3 High, 9 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
+15 vulnerabilities can be fixed.
 
 
 Alpine:v3.19
@@ -991,7 +993,7 @@ Alpine:v3.19
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
-| busybox        | 1.36.1-r15        | Fix Available |          4 | busybox... (3)          | # 0 Layer        | alpine        |
+| busybox        | 1.36.1-r15        | Fix Available |          6 | busybox... (3)          | # 0 Layer        | alpine        |
 | openssl        | 3.1.4-r5          | Fix Available |          9 | libcrypto3, libssl3     | # 0 Layer        | alpine        |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 
@@ -1008,8 +1010,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-node_modules-yarn-full.tar"
 
 Container Scanning Result (Alpine Linux v3.19):
-Total 2 packages affected by 13 known vulnerabilities (1 Critical, 3 High, 9 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-13 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (1 Critical, 3 High, 9 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
+15 vulnerabilities can be fixed.
 
 
 Alpine:v3.19
@@ -1018,7 +1020,7 @@ Alpine:v3.19
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 | SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
-| busybox        | 1.36.1-r15        | Fix Available |          4 | busybox... (3)          | # 0 Layer        | alpine        |
+| busybox        | 1.36.1-r15        | Fix Available |          6 | busybox... (3)          | # 0 Layer        | alpine        |
 | openssl        | 3.1.4-r5          | Fix Available |          9 | libcrypto3, libssl3     | # 0 Layer        | alpine        |
 +----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
 
@@ -1907,7 +1909,12 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALPINE-CVE-2024-58251",
+            "ALPINE-CVE-2025-46394"
+          ]
         },
         {
           "package": {
@@ -1919,7 +1926,12 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALPINE-CVE-2024-58251",
+            "ALPINE-CVE-2025-46394"
+          ]
         },
         {
           "package": {
@@ -2033,7 +2045,12 @@ Scanning local image tarball "./testdata/test-python-full.tar"
             "image_origin_details": {
               "index": 0
             }
-          }
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "ALPINE-CVE-2024-58251",
+            "ALPINE-CVE-2025-46394"
+          ]
         },
         {
           "package": {
@@ -2319,12 +2336,14 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 4,
+          "groups": 6,
           "vulnerabilities": [
             "ALPINE-CVE-2023-42363",
             "ALPINE-CVE-2023-42364",
             "ALPINE-CVE-2023-42365",
-            "ALPINE-CVE-2023-42366"
+            "ALPINE-CVE-2023-42366",
+            "ALPINE-CVE-2024-58251",
+            "ALPINE-CVE-2025-46394"
           ]
         },
         {
@@ -2338,12 +2357,14 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 4,
+          "groups": 6,
           "vulnerabilities": [
             "ALPINE-CVE-2023-42363",
             "ALPINE-CVE-2023-42364",
             "ALPINE-CVE-2023-42365",
-            "ALPINE-CVE-2023-42366"
+            "ALPINE-CVE-2023-42366",
+            "ALPINE-CVE-2024-58251",
+            "ALPINE-CVE-2025-46394"
           ]
         },
         {
@@ -2405,12 +2426,14 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 0
             }
           },
-          "groups": 4,
+          "groups": 6,
           "vulnerabilities": [
             "ALPINE-CVE-2023-42363",
             "ALPINE-CVE-2023-42364",
             "ALPINE-CVE-2023-42365",
-            "ALPINE-CVE-2023-42366"
+            "ALPINE-CVE-2023-42366",
+            "ALPINE-CVE-2024-58251",
+            "ALPINE-CVE-2025-46394"
           ]
         }
       ]
@@ -2764,7 +2787,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "USN-7635-1",
             "USN-7281-1",
@@ -2772,7 +2795,8 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2025-32988",
             "UBUNTU-CVE-2025-32989",
             "UBUNTU-CVE-2025-32990",
-            "UBUNTU-CVE-2025-6395"
+            "UBUNTU-CVE-2025-6395",
+            "UBUNTU-CVE-2025-9820"
           ]
         },
         {
@@ -3584,7 +3608,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 2,
+          "groups": 3,
           "vulnerabilities": [
             "USN-7635-1",
             "USN-7281-1",
@@ -3592,7 +3616,8 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2025-32988",
             "UBUNTU-CVE-2025-32989",
             "UBUNTU-CVE-2025-32990",
-            "UBUNTU-CVE-2025-6395"
+            "UBUNTU-CVE-2025-6395",
+            "UBUNTU-CVE-2025-9820"
           ]
         },
         {
@@ -4105,7 +4130,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
       },
       {
         "diff_id": "sha256:...",
-        "command": "COPY /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb /tmp # buildkit",
+        "command": "COPY ./sample-pkgs/fzf_0.29.0-1ubuntu0.1_amd64.deb /tmp/fzf_0.29.0-1ubuntu0.1_amd64.deb # buildkit",
         "is_empty": false,
         "base_image_index": 0
       },
