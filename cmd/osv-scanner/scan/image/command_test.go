@@ -14,6 +14,8 @@ import (
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
 
+	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
+
 	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
@@ -67,6 +69,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 
 func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	t.Parallel()
+
+	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
 
 	client := testcmd.InsertCassette(t)
 
@@ -188,7 +192,7 @@ func TestCommand_Docker(t *testing.T) {
 func TestCommand_OCIImage(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+	// testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
 	client := testcmd.InsertCassette(t)
 

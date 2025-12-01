@@ -376,6 +376,8 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 func TestCommand_JavareachArchive(t *testing.T) {
 	t.Parallel()
 
+	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+
 	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
@@ -949,6 +951,8 @@ func TestCommand_GithubActions(t *testing.T) {
 func TestCommand_LocalDatabases(t *testing.T) {
 	t.Parallel()
 
+	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+
 	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
@@ -1067,6 +1071,8 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 func TestCommand_CommitSupport(t *testing.T) {
 	t.Parallel()
+
+	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
 	tests := []testcmd.Case{
 		{
@@ -1201,6 +1207,8 @@ func TestCommand_Licenses(t *testing.T) {
 
 func TestCommand_Transitive(t *testing.T) {
 	t.Parallel()
+
+	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
 
 	client := testcmd.InsertCassette(t)
 
