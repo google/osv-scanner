@@ -5,11 +5,14 @@ requests==2.20.0  # Vulnerable to CVE-2018-18074
 # Transitive deps
 certifi==2025.11.12
 chardet==3.0.4
-click==8.3.1
+click==8.1.8
+Django==1.11.29
+Flask==0.12.2
 idna==2.7
 itsdangerous==2.2.0
 Jinja2==3.1.6
 MarkupSafe==3.0.3
 pytz==2025.2
+requests==2.20.0
 urllib3==1.24.3
 Werkzeug==3.1.4
