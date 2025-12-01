@@ -192,8 +192,6 @@ func TestCommand_Docker(t *testing.T) {
 func TestCommand_OCIImage(t *testing.T) {
 	t.Parallel()
 
-	// testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
-
 	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
