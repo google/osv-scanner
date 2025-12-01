@@ -273,6 +273,21 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 ---
 
+[TestPrintTableResults_LongTerminalWidth_WithMixedIssues/one_source_with_one_deprecated_package - 1]
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+Total 1 package deprecated.
+
+╭───────────┬────────────────┬─────────┬──────────────────╮
+│ ECOSYSTEM │ PACKAGE        │ VERSION │ SOURCE           │
+├───────────┼────────────────┼─────────┼──────────────────┤
+│ npm       │ deprecated-pkg │ 1.0.0   │ path/to/lockfile │
+╰───────────┴────────────────┴─────────┴──────────────────╯
+
+---
+
 [TestPrintTableResults_LongTerminalWidth_WithMixedIssues/one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation - 1]
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -964,6 +979,21 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 ---
 
+[TestPrintTableResults_NoTerminalWidth_WithMixedIssues/one_source_with_one_deprecated_package - 1]
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+Total 1 package deprecated.
+
++-----------+----------------+---------+------------------+
+| ECOSYSTEM | PACKAGE        | VERSION | SOURCE           |
++-----------+----------------+---------+------------------+
+| npm       | deprecated-pkg | 1.0.0   | path/to/lockfile |
++-----------+----------------+---------+------------------+
+
+---
+
 [TestPrintTableResults_NoTerminalWidth_WithMixedIssues/one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation - 1]
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -1652,6 +1682,21 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 ├───────────────────┼───────────┼─────────┼─────────┼───────────────────────── ≈
 │ MIT               │ npm       │ mine1   │ 1.2.3   │ path/to/my/first/lockfil ≈
 ╰───────────────────┴───────────┴─────────┴─────────┴───────────────────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithMixedIssues/one_source_with_one_deprecated_package - 1]
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+Total 1 package deprecated.
+
+╭───────────┬────────────────┬─────────┬──────────────────╮
+│ ECOSYSTEM │ PACKAGE        │ VERSION │ SOURCE           │
+├───────────┼────────────────┼─────────┼──────────────────┤
+│ npm       │ deprecated-pkg │ 1.0.0   │ path/to/lockfile │
+╰───────────┴────────────────┴─────────┴──────────────────╯
 
 ---
 
