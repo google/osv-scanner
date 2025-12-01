@@ -78,7 +78,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-frmv-pr5f-9mcr",
-                  "modified": "2025-11-15T02:34:25.379484Z"
+                  "modified": "2025-11-27T09:10:30.649595Z"
                 },
                 {
                   "id": "GHSA-qw25-v68c-qjf3",
@@ -386,7 +386,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-frmv-pr5f-9mcr",
-                  "modified": "2025-11-15T02:34:25.379484Z"
+                  "modified": "2025-11-27T09:10:30.649595Z"
                 },
                 {
                   "id": "GHSA-qw25-v68c-qjf3",
@@ -722,7 +722,7 @@ interactions:
       proto_minor: 1
       content_length: 901
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"PyPI","name":"certifi"},"version":"2025.11.12"},{"package":{"ecosystem":"PyPI","name":"chardet"},"version":"3.0.4"},{"package":{"ecosystem":"PyPI","name":"click"},"version":"8.3.1"},{"package":{"ecosystem":"PyPI","name":"django"},"version":"1.11.29"},{"package":{"ecosystem":"PyPI","name":"flask"},"version":"1.0"},{"package":{"ecosystem":"PyPI","name":"idna"},"version":"2.7"},{"package":{"ecosystem":"PyPI","name":"itsdangerous"},"version":"2.2.0"},{"package":{"ecosystem":"PyPI","name":"jinja2"},"version":"3.1.6"},{"package":{"ecosystem":"PyPI","name":"markupsafe"},"version":"3.0.3"},{"package":{"ecosystem":"PyPI","name":"pytz"},"version":"2025.2"},{"package":{"ecosystem":"PyPI","name":"requests"},"version":"2.20.0"},{"package":{"ecosystem":"PyPI","name":"urllib3"},"version":"1.24.3"},{"package":{"ecosystem":"PyPI","name":"werkzeug"},"version":"3.1.3"}]}'
+      body: '{"queries":[{"package":{"ecosystem":"PyPI","name":"certifi"},"version":"2025.11.12"},{"package":{"ecosystem":"PyPI","name":"chardet"},"version":"3.0.4"},{"package":{"ecosystem":"PyPI","name":"click"},"version":"8.3.1"},{"package":{"ecosystem":"PyPI","name":"django"},"version":"1.11.29"},{"package":{"ecosystem":"PyPI","name":"flask"},"version":"1.0"},{"package":{"ecosystem":"PyPI","name":"idna"},"version":"2.7"},{"package":{"ecosystem":"PyPI","name":"itsdangerous"},"version":"2.2.0"},{"package":{"ecosystem":"PyPI","name":"jinja2"},"version":"3.1.6"},{"package":{"ecosystem":"PyPI","name":"markupsafe"},"version":"3.0.3"},{"package":{"ecosystem":"PyPI","name":"pytz"},"version":"2025.2"},{"package":{"ecosystem":"PyPI","name":"requests"},"version":"2.20.0"},{"package":{"ecosystem":"PyPI","name":"urllib3"},"version":"1.24.3"},{"package":{"ecosystem":"PyPI","name":"werkzeug"},"version":"3.1.4"}]}'
       headers:
         Content-Type:
           - application/json
@@ -761,7 +761,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-frmv-pr5f-9mcr",
-                  "modified": "2025-11-15T02:34:25.379484Z"
+                  "modified": "2025-11-27T09:10:30.649595Z"
                 },
                 {
                   "id": "GHSA-qw25-v68c-qjf3",
