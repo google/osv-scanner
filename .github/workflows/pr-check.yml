@@ -22,6 +22,7 @@ on:
       - edited
       - reopened
 
+# modify this...
 permissions:
   pull-requests: read
 
