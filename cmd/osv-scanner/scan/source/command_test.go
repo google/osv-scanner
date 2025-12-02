@@ -1585,7 +1585,7 @@ func TestCommand_ShowDeprecated(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "package_deprecated_false_no_vuln",
+			Name: "package_deprecated_false_no_vuln_json",
 			Args: []string{
 				"", "source", "--format=json",
 				"--experimental-flag-deprecated-packages",
@@ -1594,29 +1594,59 @@ func TestCommand_ShowDeprecated(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "package_deprecated_true_no_vuln",
+			Name: "package_deprecated_true_no_vuln_json",
 			Args: []string{
 				"", "source", "--format=json",
 				"--experimental-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
 			},
 			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+			},
 		},
 		{
-			Name: "package_deprecated_true_with_vuln",
+			Name: "package_deprecated_true_with_vuln_json",
 			Args: []string{
 				"", "source", "--format=json",
 				"--experimental-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+			},
 		},
 		{
-			Name: "package_deprecated_npm",
+			Name: "package_deprecated_npm_json",
 			Args: []string{
 				"", "source", "--format=json",
 				"--experimental-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json",
+			},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+			},
+		},
+		{
+			Name: "package_deprecated_true_no_vuln_table",
+			Args: []string{
+				"", "source", "--format=table",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "package_deprecated_true_with_vuln_table",
+			Args: []string{
+				"", "source", "--format=table",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
 		},

@@ -4818,7 +4818,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 ---
 
-[TestCommand_ShowDeprecated/package_deprecated_false_no_vuln - 1]
+[TestCommand_ShowDeprecated/package_deprecated_false_no_vuln_json - 1]
 {
   "results": [],
   "experimental_config": {
@@ -4831,13 +4831,13 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 ---
 
-[TestCommand_ShowDeprecated/package_deprecated_false_no_vuln - 2]
+[TestCommand_ShowDeprecated/package_deprecated_false_no_vuln_json - 2]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock file and found 5 packages
 
 ---
 
-[TestCommand_ShowDeprecated/package_deprecated_npm - 1]
+[TestCommand_ShowDeprecated/package_deprecated_npm_json - 1]
 {
   "results": [
     {
@@ -4867,13 +4867,13 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock file and fo
 
 ---
 
-[TestCommand_ShowDeprecated/package_deprecated_npm - 2]
+[TestCommand_ShowDeprecated/package_deprecated_npm_json - 2]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json file and found 1 package
 
 ---
 
-[TestCommand_ShowDeprecated/package_deprecated_true_no_vuln - 1]
+[TestCommand_ShowDeprecated/package_deprecated_true_no_vuln_json - 1]
 {
   "results": [
     {
@@ -4903,13 +4903,36 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.
 
 ---
 
-[TestCommand_ShowDeprecated/package_deprecated_true_no_vuln - 2]
+[TestCommand_ShowDeprecated/package_deprecated_true_no_vuln_json - 2]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock file and found 36 packages
 
 ---
 
-[TestCommand_ShowDeprecated/package_deprecated_true_with_vuln - 1]
+[TestCommand_ShowDeprecated/package_deprecated_true_no_vuln_table - 1]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock file and found 36 packages
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+Total 1 package deprecated.
+
++------------------------------------------------------------------------------------------------+
+| Deprecated packages                                                                            |
++-----------+---------+---------+----------------------------------------------------------------+
+| ECOSYSTEM | PACKAGE | VERSION | SOURCE                                                         |
++-----------+---------+---------+----------------------------------------------------------------+
+| crates.io | url     | 2.5.3   | testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock |
++-----------+---------+---------+----------------------------------------------------------------+
+
+---
+
+[TestCommand_ShowDeprecated/package_deprecated_true_no_vuln_table - 2]
+
+---
+
+[TestCommand_ShowDeprecated/package_deprecated_true_with_vuln_json - 1]
 {
   "results": [
     {
@@ -4925,341 +4948,12 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
             "ecosystem": "crates.io",
             "deprecated": true
           },
-          "groups": [
-            {
-              "ids": [
-                "RUSTSEC-2020-0016"
-              ],
-              "aliases": [
-                "RUSTSEC-2020-0016"
-              ],
-              "max_severity": ""
-            },
-            {
-              "ids": [
-                "RUSTSEC-2020-0078",
-                "GHSA-458v-4hrf-g3m4",
-                "GHSA-c79c-gwph-gqfm"
-              ],
-              "aliases": [
-                "CVE-2020-35919",
-                "CVE-2020-35920",
-                "GHSA-458v-4hrf-g3m4",
-                "GHSA-c79c-gwph-gqfm",
-                "RUSTSEC-2020-0078",
-                "RUSTSEC-2020-0079"
-              ],
-              "max_severity": "5.5"
-            }
-          ],
+          "groups": 2,
           "vulnerabilities": [
-            {
-              "affected": [
-                {
-                  "database_specific": {
-                    "categories": [],
-                    "cvss": null,
-                    "informational": "unmaintained",
-                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2020-0016.json"
-                  },
-                  "ecosystem_specific": {
-                    "affected_functions": null,
-                    "affects": {
-                      "arch": [],
-                      "functions": [],
-                      "os": []
-                    }
-                  },
-                  "package": {
-                    "ecosystem": "crates.io",
-                    "name": "net2",
-                    "purl": "pkg:cargo/net2"
-                  },
-                  "ranges": [
-                    {
-                      "events": [
-                        {
-                          "introduced": "0.0.0-0"
-                        }
-                      ],
-                      "type": "SEMVER"
-                    }
-                  ]
-                }
-              ],
-              "database_specific": {
-                "license": "CC0-1.0"
-              },
-              "details": "The [`net2`](https://crates.io/crates/net2) crate has been deprecated/nand users are encouraged to considered [`socket2`](https://crates.io/crates/socket2) instead.",
-              "id": "RUSTSEC-2020-0016",
-              "modified": "2020-10-02T01:29:11Z",
-              "published": "2020-05-01T12:00:00Z",
-              "references": [
-                {
-                  "type": "PACKAGE",
-                  "url": "https://crates.io/crates/net2"
-                },
-                {
-                  "type": "ADVISORY",
-                  "url": "https://rustsec.org/advisories/RUSTSEC-2020-0016.html"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://github.com/deprecrated/net2-rs/commit/3350e3819adf151709047e93f25583a5df681091"
-                }
-              ],
-              "schema_version": "1.7.3",
-              "summary": "`net2` crate has been deprecated; use `socket2` instead"
-            },
-            {
-              "affected": [
-                {
-                  "database_specific": {
-                    "categories": [],
-                    "cvss": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-                    "informational": "unsound",
-                    "source": "https://github.com/rustsec/advisory-db/blob/osv/crates/RUSTSEC-2020-0078.json"
-                  },
-                  "ecosystem_specific": {
-                    "affected_functions": null,
-                    "affects": {
-                      "arch": [],
-                      "functions": [],
-                      "os": []
-                    }
-                  },
-                  "package": {
-                    "ecosystem": "crates.io",
-                    "name": "net2",
-                    "purl": "pkg:cargo/net2"
-                  },
-                  "ranges": [
-                    {
-                      "events": [
-                        {
-                          "introduced": "0.0.0-0"
-                        },
-                        {
-                          "fixed": "0.2.36"
-                        }
-                      ],
-                      "type": "SEMVER"
-                    }
-                  ]
-                }
-              ],
-              "aliases": [
-                "CVE-2020-35919",
-                "CVE-2020-35920",
-                "GHSA-458v-4hrf-g3m4",
-                "GHSA-c79c-gwph-gqfm",
-                "RUSTSEC-2020-0079"
-              ],
-              "database_specific": {
-                "license": "CC0-1.0"
-              },
-              "details": "The [`net2`](https://crates.io/crates/net2) crate has assumed `std::net::SocketAddrV4`\nand `std::net::SocketAddrV6` have the same memory layout as the system C representation\n`sockaddr`. It has simply casted the pointers to convert the socket addresses to the\nsystem representation. The standard library does not say anything about the memory\nlayout, and this will cause invalid memory access if the standard library\nchanges the implementation. No warnings or errors will be emitted once the\nchange happens.",
-              "id": "RUSTSEC-2020-0078",
-              "modified": "2023-11-08T04:03:39.408679Z",
-              "published": "2020-11-07T12:00:00Z",
-              "references": [
-                {
-                  "type": "PACKAGE",
-                  "url": "https://crates.io/crates/net2"
-                },
-                {
-                  "type": "ADVISORY",
-                  "url": "https://rustsec.org/advisories/RUSTSEC-2020-0078.html"
-                },
-                {
-                  "type": "REPORT",
-                  "url": "https://github.com/deprecrated/net2-rs/issues/105"
-                }
-              ],
-              "schema_version": "1.7.3",
-              "severity": [
-                {
-                  "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-                  "type": "CVSS_V3"
-                }
-              ],
-              "summary": "`net2` invalidly assumes the memory layout of std::net::SocketAddr"
-            },
-            {
-              "affected": [
-                {
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-458v-4hrf-g3m4/GHSA-458v-4hrf-g3m4.json"
-                  },
-                  "package": {
-                    "ecosystem": "crates.io",
-                    "name": "socket2",
-                    "purl": "pkg:cargo/socket2"
-                  },
-                  "ranges": [
-                    {
-                      "events": [
-                        {
-                          "introduced": "0"
-                        },
-                        {
-                          "fixed": "0.3.16"
-                        }
-                      ],
-                      "type": "SEMVER"
-                    }
-                  ]
-                },
-                {
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2021/08/GHSA-458v-4hrf-g3m4/GHSA-458v-4hrf-g3m4.json"
-                  },
-                  "package": {
-                    "ecosystem": "crates.io",
-                    "name": "net2",
-                    "purl": "pkg:cargo/net2"
-                  },
-                  "ranges": [
-                    {
-                      "events": [
-                        {
-                          "introduced": "0"
-                        },
-                        {
-                          "fixed": "0.2.36"
-                        }
-                      ],
-                      "type": "SEMVER"
-                    }
-                  ]
-                }
-              ],
-              "aliases": [
-                "CVE-2020-35919",
-                "CVE-2020-35920",
-                "GHSA-c79c-gwph-gqfm",
-                "RUSTSEC-2020-0078",
-                "RUSTSEC-2020-0079"
-              ],
-              "database_specific": {
-                "cwe_ids": [
-                  "CWE-188"
-                ],
-                "github_reviewed": true,
-                "github_reviewed_at": "2021-08-19T18:53:58Z",
-                "nvd_published_at": "2020-12-31T09:15:16Z",
-                "severity": "MODERATE"
-              },
-              "details": "The socket2 crate has assumed `std::net::SocketAddrV4` and `std::net::SocketAddrV6` have the same memory layout as the system C representation `sockaddr`. It has simply casted the pointers to convert the socket addresses to the system representation. The standard library does not say anything about the memory layout, and this will cause invalid memory access if the standard library changes the implementation. No warnings or errors will be emitted once the change happens.\n",
-              "id": "GHSA-458v-4hrf-g3m4",
-              "modified": "2024-02-12T15:55:27Z",
-              "published": "2021-08-25T20:50:37Z",
-              "references": [
-                {
-                  "type": "ADVISORY",
-                  "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-35920"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://github.com/deprecrated/net2-rs/issues/105"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://github.com/rust-lang/socket2-rs/issues/119"
-                },
-                {
-                  "type": "PACKAGE",
-                  "url": "https://github.com/rust-lang/socket2-rs"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://rustsec.org/advisories/RUSTSEC-2020-0078.html"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://rustsec.org/advisories/RUSTSEC-2020-0079.html"
-                }
-              ],
-              "schema_version": "1.7.3",
-              "severity": [
-                {
-                  "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-                  "type": "CVSS_V3"
-                }
-              ],
-              "summary": "socket2 invalidly assumes the memory layout of std::net::SocketAddr"
-            },
-            {
-              "affected": [
-                {
-                  "database_specific": {
-                    "source": "https://github.com/github/advisory-database/blob/main/advisories/github-reviewed/2022/05/GHSA-c79c-gwph-gqfm/GHSA-c79c-gwph-gqfm.json"
-                  },
-                  "package": {
-                    "ecosystem": "crates.io",
-                    "name": "net2",
-                    "purl": "pkg:cargo/net2"
-                  },
-                  "ranges": [
-                    {
-                      "events": [
-                        {
-                          "introduced": "0"
-                        },
-                        {
-                          "fixed": "0.2.36"
-                        }
-                      ],
-                      "type": "SEMVER"
-                    }
-                  ]
-                }
-              ],
-              "aliases": [
-                "CVE-2020-35919",
-                "CVE-2020-35920",
-                "GHSA-458v-4hrf-g3m4",
-                "RUSTSEC-2020-0078",
-                "RUSTSEC-2020-0079"
-              ],
-              "database_specific": {
-                "cwe_ids": [],
-                "github_reviewed": true,
-                "github_reviewed_at": "2023-06-14T16:02:27Z",
-                "nvd_published_at": "2020-12-31T09:15:00Z",
-                "severity": "MODERATE"
-              },
-              "details": "The net2 crate has assumed std::net::SocketAddrV4 and std::net::SocketAddrV6 have the same memory layout as the system C representation sockaddr. It has simply casted the pointers to convert the socket addresses to the system representation. The standard library does not say anything about the memory layout, and this will cause invalid memory access if the standard library changes the implementation. No warnings or errors will be emitted once the change happens.",
-              "id": "GHSA-c79c-gwph-gqfm",
-              "modified": "2023-11-08T04:03:39.408679Z",
-              "published": "2022-05-24T17:37:49Z",
-              "references": [
-                {
-                  "type": "ADVISORY",
-                  "url": "https://nvd.nist.gov/vuln/detail/CVE-2020-35919"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://github.com/deprecrated/net2-rs/issues/105"
-                },
-                {
-                  "type": "PACKAGE",
-                  "url": "https://github.com/deprecrated/net2-rs"
-                },
-                {
-                  "type": "WEB",
-                  "url": "https://rustsec.org/advisories/RUSTSEC-2020-0078.html"
-                }
-              ],
-              "schema_version": "1.7.3",
-              "severity": [
-                {
-                  "score": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-                  "type": "CVSS_V3"
-                }
-              ],
-              "summary": "`net2` invalidly assumes the memory layout of std::net::SocketAddr"
-            }
+            "RUSTSEC-2020-0016",
+            "RUSTSEC-2020-0078",
+            "GHSA-458v-4hrf-g3m4",
+            "GHSA-c79c-gwph-gqfm"
           ]
         }
       ]
@@ -5275,9 +4969,40 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
 
 ---
 
-[TestCommand_ShowDeprecated/package_deprecated_true_with_vuln - 2]
+[TestCommand_ShowDeprecated/package_deprecated_true_with_vuln_json - 2]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
+
+---
+
+[TestCommand_ShowDeprecated/package_deprecated_true_with_vuln_table - 1]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                                       |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| https://osv.dev/RUSTSEC-2020-0016   |      | crates.io | net2    | 0.2.33  | --            | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/RUSTSEC-2020-0078   | 5.5  | crates.io | net2    | 0.2.33  | 0.2.36        | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/GHSA-458v-4hrf-g3m4 |      |           |         |         |               |                                                              |
+| https://osv.dev/GHSA-c79c-gwph-gqfm |      |           |         |         |               |                                                              |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+Total 1 package deprecated.
+
++----------------------------------------------------------------------------------------------+
+| Deprecated packages                                                                          |
++-----------+---------+---------+--------------------------------------------------------------+
+| ECOSYSTEM | PACKAGE | VERSION | SOURCE                                                       |
++-----------+---------+---------+--------------------------------------------------------------+
+| crates.io | net2    | 0.2.33  | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
++-----------+---------+---------+--------------------------------------------------------------+
+
+---
+
+[TestCommand_ShowDeprecated/package_deprecated_true_with_vuln_table - 2]
 
 ---
 

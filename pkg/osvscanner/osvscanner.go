@@ -57,7 +57,6 @@ type ScannerActions struct {
 	CallAnalysisStates map[string]bool
 	ShowAllPackages    bool
 	ShowAllVulns       bool
-	ShowDeprecated     bool
 
 	// local databases
 	CompareOffline    bool
@@ -84,6 +83,9 @@ type ExperimentalScannerActions struct {
 	StatsCollector stats.Collector
 
 	HTTPClient *http.Client
+
+	// Report deprecated packages as findings
+	ShowDeprecated bool
 }
 
 type TransitiveScanningActions struct {

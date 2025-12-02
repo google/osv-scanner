@@ -241,6 +241,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 Total 1 package deprecated.
 
+# Deprecated packages
 | Ecosystem | Package | Version | Source |
 | --- | --- | --- | --- |
 | npm | deprecated-pkg | 1.0.0 | path/to/lockfile |

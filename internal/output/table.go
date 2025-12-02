@@ -440,8 +440,8 @@ func licenseViolationsTableBuilder(outputTable table.Writer, vulnResult *models.
 
 func buildDeprecatedPackagesTable(outputWriter io.Writer, terminalWidth int, vulnResult *models.VulnerabilityResults) {
 	outputTable := newTable(outputWriter, terminalWidth)
-
 	outputTable = deprecatedPackagesTableBuilder(outputTable, vulnResult)
+
 	if outputTable.Length() == 0 {
 		return
 	}
@@ -449,6 +449,7 @@ func buildDeprecatedPackagesTable(outputWriter io.Writer, terminalWidth int, vul
 }
 
 func deprecatedPackagesTableBuilder(outputTable table.Writer, vulnResult *models.VulnerabilityResults) table.Writer {
+	outputTable.SetTitle("Deprecated packages")
 	outputTable.AppendHeader(table.Row{"Ecosystem", "Package", "Version", "Source"})
 	workingDir := mustGetWorkingDirectory()
 	for _, pkgSource := range vulnResult.Results {

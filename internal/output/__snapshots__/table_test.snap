@@ -280,7 +280,9 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 Total 1 package deprecated.
 
-╭───────────┬────────────────┬─────────┬──────────────────╮
+╭─────────────────────────────────────────────────────────╮
+│ Deprecated packages                                     │
+├───────────┬────────────────┬─────────┬──────────────────┤
 │ ECOSYSTEM │ PACKAGE        │ VERSION │ SOURCE           │
 ├───────────┼────────────────┼─────────┼──────────────────┤
 │ npm       │ deprecated-pkg │ 1.0.0   │ path/to/lockfile │
@@ -986,6 +988,8 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 Total 1 package deprecated.
 
++---------------------------------------------------------+
+| Deprecated packages                                     |
 +-----------+----------------+---------+------------------+
 | ECOSYSTEM | PACKAGE        | VERSION | SOURCE           |
 +-----------+----------------+---------+------------------+
@@ -1692,7 +1696,9 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 Total 1 package deprecated.
 
-╭───────────┬────────────────┬─────────┬──────────────────╮
+╭─────────────────────────────────────────────────────────╮
+│ Deprecated packages                                     │
+├───────────┬────────────────┬─────────┬──────────────────┤
 │ ECOSYSTEM │ PACKAGE        │ VERSION │ SOURCE           │
 ├───────────┼────────────────┼─────────┼──────────────────┤
 │ npm       │ deprecated-pkg │ 1.0.0   │ path/to/lockfile │
