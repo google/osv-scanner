@@ -18,6 +18,7 @@ import (
 	"github.com/google/osv-scalibr/binary/proto"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
+	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
@@ -82,6 +83,9 @@ type ExperimentalScannerActions struct {
 	StatsCollector stats.Collector
 
 	HTTPClient *http.Client
+
+	// Report deprecated packages as findings
+	FlagDeprecatedPackages bool
 }
 
 type TransitiveScanningActions struct {
@@ -109,7 +113,7 @@ type ExternalAccessors struct {
 // ErrNoPackagesFound for when no packages are found during a scan.
 var ErrNoPackagesFound = errors.New("no packages found in scan")
 
-// ErrVulnerabilitiesFound includes both vulnerabilities being found or license violations being found,
+// ErrVulnerabilitiesFound includes vulnerabilities, license violations, and package deprecation,
 // however, will not be raised if only uncalled vulnerabilities are found.
 var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 
@@ -303,6 +307,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		plugins = append(plugins, java.NewDefault())
 	}
 
+	if actions.FlagDeprecatedPackages {
+		plugins = append(plugins, packagedeprecation.New())
+	}
+
 	// --- Initialize Image To Scan ---'
 
 	// TODO: Setup context at the start of the run
@@ -493,6 +501,7 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 		var vuln bool
 		onlyUnimportantVuln := true
 		var licenseViolation bool
+		deprecated := false
 		for _, vf := range vulnResults.Flatten() {
 			if vf.Vulnerability != nil && vf.Vulnerability.GetId() != "" {
 				vuln = true
@@ -504,13 +513,16 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 			if len(vf.LicenseViolations) > 0 {
 				licenseViolation = true
 			}
+			if vf.Deprecated {
+				deprecated = true
+			}
 		}
 
-		if !vuln && !licenseViolation {
+		if !vuln && !licenseViolation && !deprecated {
 			return nil
 		}
 
-		onlyUnimportantVuln = onlyUnimportantVuln && vuln && !licenseViolation
+		onlyUnimportantVuln = onlyUnimportantVuln && vuln && !licenseViolation && !deprecated
 
 		// If the user didn't enable showing all vulns and we only found unimportant ones,
 		// we should return without error.

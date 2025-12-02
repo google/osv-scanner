@@ -500,6 +500,24 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
 ---
 
+[TestPrintVerticalResults_WithMixedIssues/one_source_with_one_deprecated_package - 1]
+
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+Total 1 package deprecated.
+
+npm
+
+lockfile:<rootdir>/path/to/lockfile: found 0 packages with issues
+  no known vulnerabilities found
+
+ 1 deprecated packages found:
+    deprecated-pkg@1.0.0
+
+
+---
+
 [TestPrintVerticalResults_WithMixedIssues/one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation - 1]
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.

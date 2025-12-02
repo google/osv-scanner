@@ -103,18 +103,35 @@ reason = "Your reason for ignoring this vulnerability"
 // createSARIFAffectedPkgTable creates a vulnerability table which includes the affected versions for a specific source file
 func createSARIFAffectedPkgTable(pkgWithSrc []pkgWithSource) table.Writer {
 	helpTable := table.NewWriter()
-	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
+	headerRow := table.Row{"Source", "Package Name", "Package Version"}
+
+	hasDeprecated := false
+	for _, ps := range pkgWithSrc {
+		if ps.Package.Deprecated {
+			hasDeprecated = true
+			break
+		}
+	}
+
+	if hasDeprecated {
+		headerRow = append(headerRow, "Deprecated")
+	}
+	helpTable.AppendHeader(headerRow)
 
 	for _, ps := range pkgWithSrc {
 		ver := ps.Package.Version
 		if ps.Package.Commit != "" {
 			ver = ps.Package.Commit
 		}
-		helpTable.AppendRow(table.Row{
+		row := table.Row{
 			ps.Source.String(),
 			ps.Package.Name,
 			ver,
-		})
+		}
+		if hasDeprecated {
+			row = append(row, ps.Package.Deprecated)
+		}
+		helpTable.AppendRow(row)
 	}
 
 	return helpTable

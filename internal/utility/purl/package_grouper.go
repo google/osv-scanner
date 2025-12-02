@@ -32,9 +32,10 @@ func Group(packageSources []models.PackageSource) (map[string]models.PackageVuln
 				// Entry does not exist yet, lets create it
 				newPackageVuln := models.PackageVulns{
 					Package: models.PackageInfo{
-						Name:      pkg.Package.Name,
-						Version:   pkg.Package.Version,
-						Ecosystem: pkg.Package.Ecosystem,
+						Name:       pkg.Package.Name,
+						Version:    pkg.Package.Version,
+						Ecosystem:  pkg.Package.Ecosystem,
+						Deprecated: pkg.Package.Deprecated,
 					},
 					DepGroups:         slices.Clone(pkg.DepGroups),
 					Vulnerabilities:   slices.Clone(pkg.Vulnerabilities),

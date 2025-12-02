@@ -48,6 +48,10 @@
         {{ template "license_summary_template.gohtml" .LicenseSummary.LicenseCount }}
         {{ end }}
 
+        {{ if gt .PkgDeprecatedCount 0 }}
+        {{ template "deprecated_package_template.gohtml" . }}
+        {{ end }}
+
         <div class="search-box">
           <div class="search-icon">
             <i class="material-icons">search</i>

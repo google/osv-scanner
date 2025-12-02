@@ -16,6 +16,9 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 	fmt.Fprintln(outputWriter)
 	outputResult := BuildResults(vulnResult)
 	printSummary(outputResult, outputWriter)
+	if outputResult.PkgDeprecatedCount > 0 {
+		printPkgDeprecatedSummary(outputResult, outputWriter)
+	}
 	if outputResult.IsContainerScanning {
 		printBaseImages(outputResult.ImageInfo, outputWriter)
 	}
@@ -31,6 +34,9 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 			printVerticalVulnerabilities(source, outputResult.IsContainerScanning, outputWriter, showAllVulns)
 			if outputResult.LicenseSummary.ShowViolations {
 				printVerticalLicenseViolations(source, outputWriter)
+			}
+			if source.PkgDeprecatedCount > 0 {
+				printVerticalPkgDeprecatedSummary(source, outputWriter)
 			}
 			if j < len(ecosystem.Sources)-1 {
 				fmt.Fprintln(outputWriter)
@@ -94,6 +100,21 @@ func printVerticalLicenseViolations(source SourceResult, out io.Writer) {
 			source.Name,
 		),
 	)
+}
+
+func printVerticalPkgDeprecatedSummary(source SourceResult, out io.Writer) {
+	fmt.Fprintf(out, "\n %d %s\n", source.PkgDeprecatedCount, text.FgRed.Sprintf("deprecated packages found:"))
+
+	for _, pkg := range source.Packages {
+		if !pkg.Deprecated {
+			continue
+		}
+
+		fmt.Fprintf(out,
+			"    %s\n",
+			text.FgYellow.Sprintf("%s@%s", pkg.Name, pkg.InstalledVersion),
+		)
+	}
 }
 
 func printBaseImages(imageResult ImageInfo, out io.Writer) {

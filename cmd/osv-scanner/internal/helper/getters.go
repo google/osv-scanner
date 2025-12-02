@@ -36,11 +36,10 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 	callAnalysisStates := CreateCallAnalysisStates(cmd.StringSlice("call-analysis"), cmd.StringSlice("no-call-analysis"))
 
 	return osvscanner.ScannerActions{
-		IncludeGitRoot:     cmd.Bool("include-git-root"),
-		ConfigOverridePath: cmd.String("config"),
-		ShowAllPackages:    cmd.Bool("all-packages"),
-		ShowAllVulns:       cmd.Bool("all-vulns"),
-
+		IncludeGitRoot:        cmd.Bool("include-git-root"),
+		ConfigOverridePath:    cmd.String("config"),
+		ShowAllPackages:       cmd.Bool("all-packages"),
+		ShowAllVulns:          cmd.Bool("all-vulns"),
 		CompareOffline:        cmd.Bool("offline-vulnerabilities"),
 		DownloadDatabases:     cmd.Bool("download-offline-databases"),
 		LocalDBPath:           cmd.String("local-db-path"),
@@ -52,9 +51,10 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 
 func GetExperimentalScannerActions(cmd *cli.Command, client *http.Client) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
-		PluginsEnabled:    cmd.StringSlice("experimental-plugins"),
-		PluginsDisabled:   cmd.StringSlice("experimental-disable-plugins"),
-		PluginsNoDefaults: cmd.Bool("experimental-no-default-plugins"),
-		HTTPClient:        client,
+		PluginsEnabled:         cmd.StringSlice("experimental-plugins"),
+		PluginsDisabled:        cmd.StringSlice("experimental-disable-plugins"),
+		PluginsNoDefaults:      cmd.Bool("experimental-no-default-plugins"),
+		HTTPClient:             client,
+		FlagDeprecatedPackages: cmd.Bool("experimental-flag-deprecated-packages"),
 	}
 }

@@ -2650,6 +2650,194 @@ Filtered 1 local/unscannable package/s from the scan.
 
 ---
 
+[TestCommand_FlagDeprecatedPackages/package_deprecated_false_no_vuln_json - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_false_no_vuln_json - 2]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock file and found 5 packages
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_npm_json - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "left-pad",
+            "version": "1.3.0",
+            "ecosystem": "npm",
+            "deprecated": true
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_npm_json - 2]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json file and found 1 package
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_json - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "url",
+            "version": "2.5.3",
+            "ecosystem": "crates.io",
+            "deprecated": true
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_json - 2]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock file and found 36 packages
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_table - 1]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock file and found 36 packages
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+Total 1 package deprecated.
+
++------------------------------------------------------------------------------------------------+
+| Deprecated packages                                                                            |
++-----------+---------+---------+----------------------------------------------------------------+
+| ECOSYSTEM | PACKAGE | VERSION | SOURCE                                                         |
++-----------+---------+---------+----------------------------------------------------------------+
+| crates.io | url     | 2.5.3   | testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock |
++-----------+---------+---------+----------------------------------------------------------------+
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_table - 2]
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_json - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "net2",
+            "version": "0.2.33",
+            "ecosystem": "crates.io",
+            "deprecated": true
+          },
+          "groups": 2,
+          "vulnerabilities": [
+            "RUSTSEC-2020-0016",
+            "RUSTSEC-2020-0078",
+            "GHSA-458v-4hrf-g3m4",
+            "GHSA-c79c-gwph-gqfm"
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_json - 2]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table - 1]
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                                       |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| https://osv.dev/RUSTSEC-2020-0016   |      | crates.io | net2    | 0.2.33  | --            | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/RUSTSEC-2020-0078   | 5.5  | crates.io | net2    | 0.2.33  | 0.2.36        | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/GHSA-458v-4hrf-g3m4 |      |           |         |         |               |                                                              |
+| https://osv.dev/GHSA-c79c-gwph-gqfm |      |           |         |         |               |                                                              |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+Total 1 package deprecated.
+
++----------------------------------------------------------------------------------------------+
+| Deprecated packages                                                                          |
++-----------+---------+---------+--------------------------------------------------------------+
+| ECOSYSTEM | PACKAGE | VERSION | SOURCE                                                       |
++-----------+---------+---------+--------------------------------------------------------------+
+| crates.io | net2    | 0.2.33  | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
++-----------+---------+---------+--------------------------------------------------------------+
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table - 2]
+
+---
+
 [TestCommand_GithubActions/scanning_osv-scanner_custom_format - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file and found 3 packages
 Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.

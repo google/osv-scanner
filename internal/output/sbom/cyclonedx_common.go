@@ -26,6 +26,7 @@ func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns) *cyclonedx
 		component.Name = packageDetail.Package.Name
 		component.Version = packageDetail.Package.Version
 
+		addDeprecatedProperty(&component, packageDetail)
 		fillLicenses(&component, packageDetail)
 		addVulnerabilities(vulnerabilities, packageDetail)
 
@@ -85,6 +86,20 @@ func addVulnerabilities(vulnerabilities map[string]cyclonedx.Vulnerability, pack
 			Credits:     buildCredits(vulnerability),
 		}
 	}
+}
+
+func addDeprecatedProperty(component *cyclonedx.Component, packageDetail models.PackageVulns) {
+	if !packageDetail.Package.Deprecated {
+		return
+	}
+
+	properties := make([]cyclonedx.Property, 0)
+	properties = append(properties, cyclonedx.Property{
+		Name:  "deprecated",
+		Value: "true",
+	})
+
+	component.Properties = &properties
 }
 
 func formatDateIfExists(ts *timestamppb.Timestamp) string {

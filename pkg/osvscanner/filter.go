@@ -119,7 +119,7 @@ func filterResults(vulnResults *models.VulnerabilityResults, configManager *conf
 		for _, pkgVulns := range pkgSrc.Packages {
 			newVulns := filterPackageVulns(pkgVulns, configToUse)
 			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
-			if allPackages || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 {
+			if allPackages || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 || pkgVulns.Package.Deprecated {
 				newPackages = append(newPackages, newVulns)
 			}
 		}

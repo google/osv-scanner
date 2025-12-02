@@ -1473,6 +1473,36 @@
 
 ---
 
+[TestPrintJSONResults_WithMixedIssues/one_source_with_one_deprecated_package - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/path/to/lockfile",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "deprecated-pkg",
+            "version": "1.0.0",
+            "ecosystem": "npm",
+            "deprecated": true
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
 [TestPrintJSONResults_WithMixedIssues/one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation - 1]
 {
   "results": [
