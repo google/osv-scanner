@@ -125,7 +125,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 		plugins = append(plugins, java.NewDefault())
 	}
 
-	if actions.ShowDeprecated {
+	if actions.FlagDeprecatedPackages {
 		plugins = append(plugins, packagedeprecation.New())
 	}
 

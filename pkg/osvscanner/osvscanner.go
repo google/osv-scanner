@@ -85,7 +85,7 @@ type ExperimentalScannerActions struct {
 	HTTPClient *http.Client
 
 	// Report deprecated packages as findings
-	ShowDeprecated bool
+	FlagDeprecatedPackages bool
 }
 
 type TransitiveScanningActions struct {
@@ -307,7 +307,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		plugins = append(plugins, java.NewDefault())
 	}
 
-	if actions.ShowDeprecated {
+	if actions.FlagDeprecatedPackages {
 		plugins = append(plugins, packagedeprecation.New())
 	}
 

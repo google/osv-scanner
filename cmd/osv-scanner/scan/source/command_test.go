@@ -1580,7 +1580,7 @@ func TestCommand_Filter(t *testing.T) {
 	}
 }
 
-func TestCommand_ShowDeprecated(t *testing.T) {
+func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 	t.Parallel()
 
 	tests := []testcmd.Case{

@@ -55,6 +55,6 @@ func GetExperimentalScannerActions(cmd *cli.Command, client *http.Client) osvsca
 		PluginsDisabled:   cmd.StringSlice("experimental-disable-plugins"),
 		PluginsNoDefaults: cmd.Bool("experimental-no-default-plugins"),
 		HTTPClient:        client,
-		ShowDeprecated:    cmd.Bool("experimental-flag-deprecated-packages"),
+		FlagDeprecatedPackages:    cmd.Bool("experimental-flag-deprecated-packages"),
 	}
 }
