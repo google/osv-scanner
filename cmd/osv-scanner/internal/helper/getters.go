@@ -51,10 +51,10 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 
 func GetExperimentalScannerActions(cmd *cli.Command, client *http.Client) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
-		PluginsEnabled:    cmd.StringSlice("experimental-plugins"),
-		PluginsDisabled:   cmd.StringSlice("experimental-disable-plugins"),
-		PluginsNoDefaults: cmd.Bool("experimental-no-default-plugins"),
-		HTTPClient:        client,
-		FlagDeprecatedPackages:    cmd.Bool("experimental-flag-deprecated-packages"),
+		PluginsEnabled:         cmd.StringSlice("experimental-plugins"),
+		PluginsDisabled:        cmd.StringSlice("experimental-disable-plugins"),
+		PluginsNoDefaults:      cmd.Bool("experimental-no-default-plugins"),
+		HTTPClient:             client,
+		FlagDeprecatedPackages: cmd.Bool("experimental-flag-deprecated-packages"),
 	}
 }
