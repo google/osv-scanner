@@ -1811,9 +1811,9 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           "package": {
             "name": "busybox",
             "os_package_name": "busybox",
-            "version": "1.37.0-r19",
-            "ecosystem": "Alpine:v3.22",
-            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
+            "version": "1.36.1-r29",
+            "ecosystem": "Alpine:v3.20",
+            "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
             "image_origin_details": {
               "index": 0
             }
@@ -1828,9 +1828,9 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           "package": {
             "name": "busybox",
             "os_package_name": "busybox-binsh",
-            "version": "1.37.0-r19",
-            "ecosystem": "Alpine:v3.22",
-            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
+            "version": "1.36.1-r29",
+            "ecosystem": "Alpine:v3.20",
+            "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
             "image_origin_details": {
               "index": 0
             }
@@ -1843,11 +1843,85 @@ Scanning local image tarball "./testdata/test-python-full.tar"
         },
         {
           "package": {
+            "name": "openssl",
+            "os_package_name": "libcrypto3",
+            "version": "3.3.2-r0",
+            "ecosystem": "Alpine:v3.20",
+            "commit": "f81b26d0708cf0a8149e2caf8e5bc3e7fda1225b",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 6,
+          "vulnerabilities": [
+            "ALPINE-CVE-2024-12797",
+            "ALPINE-CVE-2024-13176",
+            "ALPINE-CVE-2024-9143",
+            "ALPINE-CVE-2025-9230",
+            "ALPINE-CVE-2025-9231",
+            "ALPINE-CVE-2025-9232"
+          ]
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "libssl3",
+            "version": "3.3.2-r0",
+            "ecosystem": "Alpine:v3.20",
+            "commit": "f81b26d0708cf0a8149e2caf8e5bc3e7fda1225b",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 6,
+          "vulnerabilities": [
+            "ALPINE-CVE-2024-12797",
+            "ALPINE-CVE-2024-13176",
+            "ALPINE-CVE-2024-9143",
+            "ALPINE-CVE-2025-9230",
+            "ALPINE-CVE-2025-9231",
+            "ALPINE-CVE-2025-9232"
+          ]
+        },
+        {
+          "package": {
+            "name": "musl",
+            "os_package_name": "musl",
+            "version": "1.2.5-r0",
+            "ecosystem": "Alpine:v3.20",
+            "commit": "4fe5bdbe47b100daa6380f81c4c8ea3f99b61362",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALPINE-CVE-2025-26519"
+          ]
+        },
+        {
+          "package": {
+            "name": "musl",
+            "os_package_name": "musl-utils",
+            "version": "1.2.5-r0",
+            "ecosystem": "Alpine:v3.20",
+            "commit": "4fe5bdbe47b100daa6380f81c4c8ea3f99b61362",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 1,
+          "vulnerabilities": [
+            "ALPINE-CVE-2025-26519"
+          ]
+        },
+        {
+          "package": {
             "name": "busybox",
             "os_package_name": "ssl_client",
-            "version": "1.37.0-r19",
-            "ecosystem": "Alpine:v3.22",
-            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
+            "version": "1.36.1-r29",
+            "ecosystem": "Alpine:v3.20",
+            "commit": "1747c01fb96905f101c25609011589d28e01cbb8",
             "image_origin_details": {
               "index": 0
             }
@@ -1868,17 +1942,17 @@ Scanning local image tarball "./testdata/test-python-full.tar"
     }
   },
   "image_metadata": {
-    "os": "Alpine Linux v3.22",
+    "os": "Alpine Linux v3.20",
     "layer_metadata": [
       {
         "diff_id": "sha256:...",
-        "command": "ADD alpine-minirootfs-3.22.2-x86_64.tar.gz / # buildkit",
+        "command": "/bin/sh -c #(nop) ADD file:5758b97d8301c84a204a6e516241275d785a7cade40b2fb99f01fe122482e283 in / ",
         "is_empty": false,
         "base_image_index": 2
       },
       {
         "diff_id": "",
-        "command": "CMD [/"/bin/sh/"]",
+        "command": "/bin/sh -c #(nop)  CMD [/"/bin/sh/"]",
         "is_empty": true,
         "base_image_index": 1
       },
