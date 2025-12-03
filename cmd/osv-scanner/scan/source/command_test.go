@@ -348,6 +348,8 @@ func TestCommand(t *testing.T) {
 func TestCommand_Config_UnusedIgnores(t *testing.T) {
 	t.Parallel()
 
+	client := testcmd.InsertCassette(t)
+
 	tests := []testcmd.Case{
 		{
 			Name: "unused_ignores_are_reported_with_specific_config_and_file",
@@ -368,6 +370,9 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
