@@ -98,6 +98,7 @@ func normalizeJSON(t *testing.T, jsonInput string, jsonReplaceRules ...testutili
 	err := json.Indent(&jsonFormatted, []byte(jsonInput), "", "  ")
 
 	if err != nil {
+		fmt.Printf("normalize: json is %s\n", jsonInput)
 		t.Fatalf("Failed to marshal JSON: %s", err)
 	}
 

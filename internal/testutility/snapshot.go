@@ -2,6 +2,7 @@ package testutility
 
 import (
 	"encoding/json"
+	"fmt"
 	"testing"
 
 	"github.com/gkampitakis/go-snaps/snaps"
@@ -40,6 +41,7 @@ func (s Snapshot) MatchJSON(t *testing.T, got any) {
 	j, err := json.MarshalIndent(got, "", "  ")
 
 	if err != nil {
+		fmt.Printf("snapshots: json is %s\n", got)
 		t.Fatalf("Failed to marshal JSON: %s", err)
 	}
 
