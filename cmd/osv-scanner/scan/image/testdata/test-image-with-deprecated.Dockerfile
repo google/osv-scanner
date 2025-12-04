@@ -1,4 +1,4 @@
-FROM rust:latest AS builder
+FROM rust:1.91.1-alpine3.22@sha256:8efbfb788786eeb127adc581394349c5fb567712156e0f8c2e499acadbc23756 AS builder
 
 RUN cargo install cargo-auditable
 
