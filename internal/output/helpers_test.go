@@ -31,6 +31,7 @@ type pkginfo struct {
 	OSPackageName string
 	Version       string
 	Ecosystem     string
+	Deprecated    bool
 	Commit        string
 	ImageOrigin   *models.ImageOriginDetails
 	Extractor     extractor.Extractor
@@ -57,6 +58,7 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 		Ecosystem:     pi.Ecosystem,
 		Commit:        pi.Commit,
 		ImageOrigin:   pi.ImageOrigin,
+		Deprecated:    pi.Deprecated,
 		Inventory: &extractor.Package{
 			Name:      pi.Name,
 			Version:   pi.Version,
@@ -2554,6 +2556,30 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 									},
 									Licenses:          []models.License{"Apache-2.0"},
 									LicenseViolations: []models.License{"Apache-2.0"},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			name: "one_source_with_one_deprecated_package",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/path/to/lockfile", Type: models.SourceTypeProjectPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/path/to/lockfile", pkginfo{
+										Name:       "deprecated-pkg",
+										Version:    "1.0.0",
+										Ecosystem:  "npm",
+										Deprecated: true,
+										Extractor:  packagelockjson.Extractor{},
+									}),
+									Vulnerabilities: []*osvschema.Vulnerability{},
 								},
 							},
 						},

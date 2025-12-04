@@ -348,6 +348,8 @@ func TestCommand(t *testing.T) {
 func TestCommand_Config_UnusedIgnores(t *testing.T) {
 	t.Parallel()
 
+	client := testcmd.InsertCassette(t)
+
 	tests := []testcmd.Case{
 		{
 			Name: "unused_ignores_are_reported_with_specific_config_and_file",
@@ -368,6 +370,9 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -1580,6 +1585,85 @@ func TestCommand_Filter(t *testing.T) {
 		},
 	}
 
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
+func TestCommand_FlagDeprecatedPackages(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "package_deprecated_false_no_vuln_json",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock",
+			},
+			Exit: 0,
+		},
+		{
+			Name: "package_deprecated_true_no_vuln_json",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
+			},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+			},
+		},
+		{
+			Name: "package_deprecated_true_with_vuln_json",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+			},
+		},
+		{
+			Name: "package_deprecated_npm_json",
+			Args: []string{
+				"", "source", "--format=json",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json",
+			},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+			},
+		},
+		{
+			Name: "package_deprecated_true_no_vuln_table",
+			Args: []string{
+				"", "source", "--format=table",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "package_deprecated_true_with_vuln_table",
+			Args: []string{
+				"", "source", "--format=table",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()

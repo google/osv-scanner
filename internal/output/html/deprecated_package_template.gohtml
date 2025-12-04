@@ -1,0 +1,30 @@
+<div id="deprecated-packages-section" class="summary-section">
+  <table onclick="toggleDetails('deprecated-packages')">
+    <tr class="clickable">
+      <td class="expand-icon">
+        <i id="deprecated-packages-icon" class="material-icons">play_arrow</i>
+      </td>
+      <td>View deprecated packages</td>
+    <tr>
+  </table>
+  <table id="deprecated-packages-details" class="hide-block vuln-table">
+    <tr>
+      <th>Ecosystem</th>
+      <th>Package Name</th>
+      <th>Version</th>
+    </tr>
+    {{ range $ecosystem := .Ecosystems }}
+      {{ range $source := $ecosystem.Sources }}
+        {{ range $package := $source.Packages }}
+          {{ if $package.Deprecated }}
+            <tr class="table-tr">
+              <td>{{ $ecosystem.Name }}</td>
+              <td>{{ $package.Name }}</td>
+              <td>{{ $package.InstalledVersion }}</td>
+            </tr>
+          {{ end }}
+        {{ end }}
+      {{ end }}
+    {{ end }}
+  </table>
+</div>

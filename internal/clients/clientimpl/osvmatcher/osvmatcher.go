@@ -7,8 +7,10 @@ import (
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
 	"osv.dev/bindings/go/api"
@@ -19,6 +21,17 @@ import (
 const (
 	maxConcurrentRequests = 1000
 )
+
+// goVersionSuffixRegexp matches a Golang major suffix in a PURL's subpath.
+//
+// Matches:
+//   - v4 - v4
+//   - /v5/sdk/internal - v5
+//
+// Does not match:
+//   - sdk/internal
+//   - /sdk/resourcemanager/iothub/armiothub
+var goVersionSuffixRegexp = cachedregexp.MustCompile(`^/?(v\d+)`)
 
 // OSVMatcher implements the VulnerabilityMatcher interface with an osv.dev client.
 // It sends out requests for every package version and does not perform caching.
@@ -121,9 +134,24 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 
 func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
 	if pkg.Name() != "" && !pkg.Ecosystem().IsEmpty() && pkg.Version() != "" {
+		name := pkg.Name()
+
+		// Tools like Syft create Go PURLs where the module's major suffix is part
+		// of the subpath as opposed to the package name:
+		//
+		// pkg:golang/github.com/go-jose/go-jose@v4.1.3#v4
+		//
+		// For a correct match we need to add the major suffix back
+		if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo && pkg.PURL().Subpath != "" {
+			match := goVersionSuffixRegexp.FindStringSubmatch(pkg.PURL().Subpath)
+			if match != nil {
+				name += "/" + match[1]
+			}
+		}
+
 		return &api.Query{
 			Package: &osvschema.Package{
-				Name:      pkg.Name(),
+				Name:      name,
 				Ecosystem: pkg.Ecosystem().String(),
 			},
 			Param: &api.Query_Version{

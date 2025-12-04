@@ -47,4 +47,13 @@ func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWr
 			outputLicenseViolationsTable.RenderMarkdown()
 		}
 	}
+
+	if outputResult.PkgDeprecatedCount > 0 {
+		outputDeprecatedPackagesTable := table.NewWriter()
+		outputDeprecatedPackagesTable.SetOutputMirror(outputWriter)
+		outputDeprecatedPackagesTable = deprecatedPackagesTableBuilder(outputDeprecatedPackagesTable, vulnResult)
+
+		printPkgDeprecatedSummary(outputResult, outputWriter)
+		outputDeprecatedPackagesTable.RenderMarkdown()
+	}
 }
