@@ -37,6 +37,8 @@ EXAMPLES:
 
 	For full usage details, please refer to the help command of each subcommand (e.g. {{.Name}} scan --help).
 
+	Alternatively, you can access the detailed documentation here: https://google.github.io/osv-scanner/
+
 VERSION:
 	{{.Version}}
 
