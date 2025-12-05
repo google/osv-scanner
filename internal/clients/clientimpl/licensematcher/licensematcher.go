@@ -96,8 +96,12 @@ func (matcher *DepsDevLicenseMatcher) makeVersionRequest(ctx context.Context, qu
 }
 
 func versionQuery(system depsdevpb.System, name string, version string) *depsdevpb.GetVersionRequest {
-	if system == depsdevpb.System_GO && name != "stdlib" {
-		version = "v" + version
+	if system == depsdevpb.System_GO {
+		if name == "stdlib" {
+			version = "go" + version
+		} else {
+			version = "v" + version
+		}
 	}
 
 	return &depsdevpb.GetVersionRequest{
