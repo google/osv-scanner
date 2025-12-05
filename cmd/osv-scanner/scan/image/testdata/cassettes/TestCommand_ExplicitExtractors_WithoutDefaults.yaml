@@ -6,9 +6,20 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 84
+      content_length: 146
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"Alpine","name":"zlib"},"version":"1.2.12-r1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "zlib"
+              },
+              "version": "1.2.12-r1"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
