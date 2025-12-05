@@ -6,9 +6,34 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 259
+      content_length: 427
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"Go","name":"github.com/gogo/protobuf"},"version":"1.3.1"},{"package":{"ecosystem":"Go","name":"github.com/ipfs/go-bitfield"},"version":"1.0.0"},{"package":{"ecosystem":"Go","name":"golang.org/x/image"},"version":"0.4.0"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "version": "1.3.1",
+              "package": {
+                "name": "github.com/gogo/protobuf",
+                "ecosystem": "Go"
+              }
+            },
+            {
+              "version": "1.0.0",
+              "package": {
+                "name": "github.com/ipfs/go-bitfield",
+                "ecosystem": "Go"
+              }
+            },
+            {
+              "version": "0.4.0",
+              "package": {
+                "name": "golang.org/x/image",
+                "ecosystem": "Go"
+              }
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -99,9 +124,20 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 96
+      content_length: 158
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"Go","name":"github.com/gogo/protobuf"},"version":"1.3.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "version": "1.3.1",
+              "package": {
+                "name": "github.com/gogo/protobuf",
+                "ecosystem": "Go"
+              }
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -144,9 +180,20 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 96
+      content_length: 158
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"Go","name":"github.com/gogo/protobuf"},"version":"1.3.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "version": "1.3.1",
+              "package": {
+                "name": "github.com/gogo/protobuf",
+                "ecosystem": "Go"
+              }
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
