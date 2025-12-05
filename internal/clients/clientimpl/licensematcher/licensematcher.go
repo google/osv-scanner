@@ -97,6 +97,8 @@ func (matcher *DepsDevLicenseMatcher) makeVersionRequest(ctx context.Context, qu
 
 func versionQuery(system depsdevpb.System, name string, version string) *depsdevpb.GetVersionRequest {
 	if system == depsdevpb.System_GO {
+		// deps.dev uses native go versioning, which includes prepending v for package versions
+		// and go for stdlib
 		if name == "stdlib" {
 			version = "go" + version
 		} else {
