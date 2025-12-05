@@ -97,7 +97,6 @@ func SkipIfShort(t *testing.T) {
 	}
 }
 
-
 func ValueIfOnWindows(win, or string) string {
 	if runtime.GOOS == "windows" {
 		return win
