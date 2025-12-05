@@ -69,6 +69,10 @@ func RunAndNormalize(t *testing.T, tc Case) (string, string) {
 	stderr = normalizeDirScanOrder(t, stderr)
 
 	if len(tc.ReplaceRules) > 0 {
+		if len(stdout) == 0 || !json.Valid([]byte(stdout)) {
+			t.Fatalf("invalid JSON when expecting json\n stdout: %s\n stderr: %s", stdout, stderr)
+		}
+
 		stdout = normalizeJSON(t, stdout, tc.ReplaceRules...)
 	}
 
