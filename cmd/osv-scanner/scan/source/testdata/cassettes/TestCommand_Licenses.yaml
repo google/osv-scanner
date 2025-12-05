@@ -6,9 +6,41 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 284
+      content_length: 505
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"npm","name":"babel"},"version":"6.23.0"},{"package":{"ecosystem":"npm","name":"human-signals"},"version":"5.0.0"},{"package":{"ecosystem":"npm","name":"ms"},"version":"2.1.3"},{"package":{"ecosystem":"npm","name":"type-fest"},"version":"4.26.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "babel"
+              },
+              "version": "6.23.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "human-signals"
+              },
+              "version": "5.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ms"
+              },
+              "version": "2.1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "type-fest"
+              },
+              "version": "4.26.1"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -43,9 +75,41 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 284
+      content_length: 505
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"npm","name":"babel"},"version":"6.23.0"},{"package":{"ecosystem":"npm","name":"human-signals"},"version":"5.0.0"},{"package":{"ecosystem":"npm","name":"ms"},"version":"2.1.3"},{"package":{"ecosystem":"npm","name":"type-fest"},"version":"4.26.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "babel"
+              },
+              "version": "6.23.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "human-signals"
+              },
+              "version": "5.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ms"
+              },
+              "version": "2.1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "type-fest"
+              },
+              "version": "4.26.1"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -80,9 +144,41 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 284
+      content_length: 505
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"npm","name":"babel"},"version":"6.23.0"},{"package":{"ecosystem":"npm","name":"human-signals"},"version":"5.0.0"},{"package":{"ecosystem":"npm","name":"ms"},"version":"2.1.3"},{"package":{"ecosystem":"npm","name":"type-fest"},"version":"4.26.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "babel"
+              },
+              "version": "6.23.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "human-signals"
+              },
+              "version": "5.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ms"
+              },
+              "version": "2.1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "type-fest"
+              },
+              "version": "4.26.1"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -117,9 +213,41 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 284
+      content_length: 505
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"npm","name":"babel"},"version":"6.23.0"},{"package":{"ecosystem":"npm","name":"human-signals"},"version":"5.0.0"},{"package":{"ecosystem":"npm","name":"ms"},"version":"2.1.3"},{"package":{"ecosystem":"npm","name":"type-fest"},"version":"4.26.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "babel"
+              },
+              "version": "6.23.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "human-signals"
+              },
+              "version": "5.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ms"
+              },
+              "version": "2.1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "type-fest"
+              },
+              "version": "4.26.1"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -154,9 +282,20 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 87
+      content_length: 149
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"npm","name":"balanced-match"},"version":"1.0.2"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -188,9 +327,41 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 300
+      content_length: 521
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"RubyGems","name":"ast"},"version":"2.4.2"},{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"},{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.8"},{"package":{"ecosystem":"npm","name":"balanced-match"},"version":"1.0.2"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -225,9 +396,41 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 300
+      content_length: 521
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"RubyGems","name":"ast"},"version":"2.4.2"},{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"},{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.8"},{"package":{"ecosystem":"npm","name":"balanced-match"},"version":"1.0.2"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -262,9 +465,41 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 284
+      content_length: 505
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"npm","name":"babel"},"version":"6.23.0"},{"package":{"ecosystem":"npm","name":"human-signals"},"version":"5.0.0"},{"package":{"ecosystem":"npm","name":"ms"},"version":"2.1.3"},{"package":{"ecosystem":"npm","name":"type-fest"},"version":"4.26.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "babel"
+              },
+              "version": "6.23.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "human-signals"
+              },
+              "version": "5.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ms"
+              },
+              "version": "2.1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "type-fest"
+              },
+              "version": "4.26.1"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -299,9 +534,48 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 374
+      content_length: 648
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"Packagist","name":"league/flysystem"},"version":"1.0.8"},{"package":{"ecosystem":"Go","name":"stdlib"},"version":"1.99.9"},{"package":{"ecosystem":"Go","name":"toolchain"},"version":"1.99.9"},{"package":{"ecosystem":"RubyGems","name":"ast"},"version":"2.4.2"},{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "stdlib"
+              },
+              "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -344,9 +618,41 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 284
+      content_length: 505
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"npm","name":"babel"},"version":"6.23.0"},{"package":{"ecosystem":"npm","name":"human-signals"},"version":"5.0.0"},{"package":{"ecosystem":"npm","name":"ms"},"version":"2.1.3"},{"package":{"ecosystem":"npm","name":"type-fest"},"version":"4.26.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "babel"
+              },
+              "version": "6.23.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "human-signals"
+              },
+              "version": "5.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ms"
+              },
+              "version": "2.1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "type-fest"
+              },
+              "version": "4.26.1"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -381,9 +687,41 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 284
+      content_length: 505
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"npm","name":"babel"},"version":"6.23.0"},{"package":{"ecosystem":"npm","name":"human-signals"},"version":"5.0.0"},{"package":{"ecosystem":"npm","name":"ms"},"version":"2.1.3"},{"package":{"ecosystem":"npm","name":"type-fest"},"version":"4.26.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "babel"
+              },
+              "version": "6.23.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "human-signals"
+              },
+              "version": "5.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ms"
+              },
+              "version": "2.1.3"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "type-fest"
+              },
+              "version": "4.26.1"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -418,9 +756,20 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 82
+      content_length: 144
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -459,9 +808,20 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 82
+      content_length: 144
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -500,9 +860,20 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 82
+      content_length: 144
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"npm","name":"ansi-html"},"version":"0.0.1"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
