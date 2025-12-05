@@ -1902,9 +1902,9 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           "package": {
             "name": "busybox",
             "os_package_name": "busybox",
-            "version": "1.37.0-r18",
+            "version": "1.37.0-r19",
             "ecosystem": "Alpine:v3.22",
-            "commit": "28ab379633dca30ff5d3ebd36b274d15a2f15719",
+            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
             "image_origin_details": {
               "index": 0
             }
@@ -1919,9 +1919,9 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           "package": {
             "name": "busybox",
             "os_package_name": "busybox-binsh",
-            "version": "1.37.0-r18",
+            "version": "1.37.0-r19",
             "ecosystem": "Alpine:v3.22",
-            "commit": "28ab379633dca30ff5d3ebd36b274d15a2f15719",
+            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
             "image_origin_details": {
               "index": 0
             }
@@ -1934,49 +1934,11 @@ Scanning local image tarball "./testdata/test-python-full.tar"
         },
         {
           "package": {
-            "name": "openssl",
-            "os_package_name": "libcrypto3",
-            "version": "3.5.0-r0",
-            "ecosystem": "Alpine:v3.22",
-            "commit": "790ab16b6d8d8ac4d6686261a975bbbbd0664e8d",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 4,
-          "vulnerabilities": [
-            "ALPINE-CVE-2025-4575",
-            "ALPINE-CVE-2025-9230",
-            "ALPINE-CVE-2025-9231",
-            "ALPINE-CVE-2025-9232"
-          ]
-        },
-        {
-          "package": {
-            "name": "openssl",
-            "os_package_name": "libssl3",
-            "version": "3.5.0-r0",
-            "ecosystem": "Alpine:v3.22",
-            "commit": "790ab16b6d8d8ac4d6686261a975bbbbd0664e8d",
-            "image_origin_details": {
-              "index": 0
-            }
-          },
-          "groups": 4,
-          "vulnerabilities": [
-            "ALPINE-CVE-2025-4575",
-            "ALPINE-CVE-2025-9230",
-            "ALPINE-CVE-2025-9231",
-            "ALPINE-CVE-2025-9232"
-          ]
-        },
-        {
-          "package": {
             "name": "busybox",
             "os_package_name": "ssl_client",
-            "version": "1.37.0-r18",
+            "version": "1.37.0-r19",
             "ecosystem": "Alpine:v3.22",
-            "commit": "28ab379633dca30ff5d3ebd36b274d15a2f15719",
+            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
             "image_origin_details": {
               "index": 0
             }
@@ -2001,7 +1963,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
     "layer_metadata": [
       {
         "diff_id": "sha256:...",
-        "command": "ADD alpine-minirootfs-3.22.0-x86_64.tar.gz / # buildkit",
+        "command": "ADD alpine-minirootfs-3.22.2-x86_64.tar.gz / # buildkit",
         "is_empty": false,
         "base_image_index": 2
       },

@@ -1362,35 +1362,35 @@ interactions:
                 "ecosystem": "Alpine:v3.22",
                 "name": "alpine-base"
               },
-              "version": "3.22.0-r0"
+              "version": "3.22.2-r0"
             },
             {
               "package": {
                 "ecosystem": "Alpine:v3.22",
                 "name": "apk-tools"
               },
-              "version": "2.14.9-r2"
+              "version": "2.14.9-r3"
             },
             {
               "package": {
                 "ecosystem": "Alpine:v3.22",
                 "name": "busybox"
               },
-              "version": "1.37.0-r18"
+              "version": "1.37.0-r19"
             },
             {
               "package": {
                 "ecosystem": "Alpine:v3.22",
                 "name": "busybox"
               },
-              "version": "1.37.0-r18"
+              "version": "1.37.0-r19"
             },
             {
               "package": {
                 "ecosystem": "Alpine:v3.22",
                 "name": "ca-certificates"
               },
-              "version": "20241121-r2"
+              "version": "20250911-r0"
             },
             {
               "package": {
@@ -1474,21 +1474,21 @@ interactions:
                 "ecosystem": "Alpine:v3.22",
                 "name": "apk-tools"
               },
-              "version": "2.14.9-r2"
+              "version": "2.14.9-r3"
             },
             {
               "package": {
                 "ecosystem": "Alpine:v3.22",
                 "name": "openssl"
               },
-              "version": "3.5.0-r0"
+              "version": "3.5.4-r0"
             },
             {
               "package": {
                 "ecosystem": "Alpine:v3.22",
                 "name": "openssl"
               },
-              "version": "3.5.0-r0"
+              "version": "3.5.4-r0"
             },
             {
               "package": {
@@ -1565,7 +1565,7 @@ interactions:
                 "ecosystem": "Alpine:v3.22",
                 "name": "busybox"
               },
-              "version": "1.37.0-r18"
+              "version": "1.37.0-r19"
             },
             {
               "package": {
@@ -1692,7 +1692,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1205
+      content_length: 619
       body: |
         {
           "results": [
@@ -1738,46 +1738,8 @@ interactions:
             {},
             {},
             {},
-            {
-              "vulns": [
-                {
-                  "id": "ALPINE-CVE-2025-4575",
-                  "modified": "2025-12-03T22:59:13.229818Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2025-9230",
-                  "modified": "2025-12-03T23:00:22.789476Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2025-9231",
-                  "modified": "2025-12-03T23:00:26.184987Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2025-9232",
-                  "modified": "2025-12-03T23:00:27.900024Z"
-                }
-              ]
-            },
-            {
-              "vulns": [
-                {
-                  "id": "ALPINE-CVE-2025-4575",
-                  "modified": "2025-12-03T22:59:13.229818Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2025-9230",
-                  "modified": "2025-12-03T23:00:22.789476Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2025-9231",
-                  "modified": "2025-12-03T23:00:26.184987Z"
-                },
-                {
-                  "id": "ALPINE-CVE-2025-9232",
-                  "modified": "2025-12-03T23:00:27.900024Z"
-                }
-              ]
-            },
+            {},
+            {},
             {},
             {},
             {},
@@ -1820,7 +1782,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "1205"
+          - "619"
         Content-Type:
           - application/json
       status: 200 OK

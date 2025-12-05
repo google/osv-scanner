@@ -392,7 +392,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 		},
 		{
 			Name: "scanning node_modules using npm with some packages",
-			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-node_modules-npm-full.tar"},	
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-node_modules-npm-full.tar"},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.GroupsAsArrayLen,
