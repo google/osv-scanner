@@ -13,6 +13,7 @@ import (
 
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
 	client := testcmd.InsertCassette(t)
 
@@ -76,6 +77,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 
 func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	t.Parallel()
+
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
 	client := testcmd.InsertCassette(t)
 
@@ -145,6 +148,7 @@ func TestCommand_Docker(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker (also takes a long time to pull images)")
+	testutility.SkipIfShort(t)
 
 	client := testcmd.InsertCassette(t)
 
@@ -211,6 +215,7 @@ func TestCommand_Docker(t *testing.T) {
 
 func TestCommand_OCIImage(t *testing.T) {
 	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
 	client := testcmd.InsertCassette(t)
 
@@ -367,6 +372,7 @@ func TestCommand_OCIImage(t *testing.T) {
 
 func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
 	client := testcmd.InsertCassette(t)
 
@@ -386,7 +392,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 		},
 		{
 			Name: "scanning node_modules using npm with some packages",
-			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-node_modules-npm-full.tar"},
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-node_modules-npm-full.tar"},	
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.GroupsAsArrayLen,
