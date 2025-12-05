@@ -1,8 +1,8 @@
-name: Snapshots
+name: Cassettes
 
 on:
   schedule:
-    - cron: "47 18 * * *"
+    - cron: "47 20 * * *"
   workflow_dispatch:
 concurrency:
   # Pushing new changes to a branch will cancel any in-progress CI runs
@@ -31,15 +31,16 @@ jobs:
       - run: ./scripts/run_tests.sh || true
         env:
           TEST_ACCEPTANCE: true
+          TEST_VCR_MODE: recordonly
           UPDATE_SNAPS: always
       - uses: peter-evans/create-pull-request@84ae59a2cdc2258d6fa0732dd66352dddae2a412 # v7.0.9
         with:
           token: ${{ secrets.PR_TOKEN_BOT }}
-          title: "test: update snapshots"
+          title: "test: update cassettes"
           body: >
-            The snapshots have changed, probably due to OSV advisories being changed.
+            The cassettes have changed, probably due to OSV advisories being changed.
 
             Please review the differences to make sure that they're expected!
-          branch: "bot/update-snapshots"
+          branch: "bot/update-cassettes"
           author: "osv-robot <osv-robot@google.com>"
-          commit-message: "test: update snapshots"
+          commit-message: "test: update cassettes"
