@@ -368,8 +368,6 @@ func TestCommand_OCIImage(t *testing.T) {
 func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
-
 	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
@@ -504,7 +502,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 
 func TestCommand_HtmlFile(t *testing.T) {
 	t.Parallel()
-	testutility.SkipIfNotAcceptanceTesting(t, "Needs container image")
+	testutility.SkipIfNotAcceptanceTesting(t, "Needs built container images")
 
 	testDir := testutility.CreateTestDir(t)
 	client := testcmd.InsertCassette(t)

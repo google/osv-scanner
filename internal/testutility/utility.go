@@ -93,7 +93,7 @@ func SkipIfShort(t *testing.T) {
 	t.Helper()
 
 	if testing.Short() && !isThisTestRunTarget(t) {
-		Skip(t, "Skipping long test")
+		Skip(t, "Skipping long test: ", "Takes a while to run")
 	}
 }
 

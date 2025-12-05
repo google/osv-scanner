@@ -25,7 +25,7 @@ func matchFile(t *testing.T, file string) {
 func TestCommand(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run (10s)")
+	testutility.SkipIfShort(t)
 
 	tests := []testcmd.Case{
 		{
@@ -134,7 +134,7 @@ func TestCommand(t *testing.T) {
 func TestCommandOffline(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run (45s)")
+	testutility.SkipIfShort(t)
 
 	tests := []testcmd.Case{
 		{
