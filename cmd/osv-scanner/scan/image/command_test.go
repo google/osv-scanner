@@ -13,50 +13,60 @@ import (
 
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
 	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
+			Name: "add_extractors",
+			Args: []string{
+				"", "image",
+				"--archive",
+				"--experimental-plugins=sbom/spdx",
+				"--experimental-plugins=sbom/cdx",
+				"testdata/test-alpine-sbom.tar",
+			},
+			Exit: 1,
+		},
+		{
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom/spdx",
 				"--experimental-plugins=sbom/cdx",
 				"--experimental-disable-plugins=sbom",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
-			Exit: 127,
+			Exit: 1,
 		},
 		{
 			Name: "extractors_cancelled_out_with_presets",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom",
 				"--experimental-disable-plugins=sbom",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
-			Exit: 127,
+			Exit: 1,
 		},
 		{
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom/spdx,sbom/cdx",
 				"--experimental-disable-plugins=sbom",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
-			Exit: 127,
+			Exit: 1,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-
-			// Only test on linux, and mac/windows CI/CD does not come with docker preinstalled
-			if runtime.GOOS != "linux" {
-				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
-			}
 
 			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
@@ -68,18 +78,33 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	t.Parallel()
 
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
+
 	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
+			Name: "add_extractors",
+			Args: []string{
+				"", "image",
+				"--archive",
+				"--experimental-plugins=sbom/spdx",
+				"--experimental-plugins=sbom/cdx",
+				"--experimental-no-default-plugins",
+				"testdata/test-alpine-sbom.tar",
+			},
+			Exit: 1,
+		},
+		{
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom/spdx",
 				"--experimental-plugins=sbom/cdx",
 				"--experimental-disable-plugins=sbom",
 				"--experimental-no-default-plugins",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
 		},
@@ -87,10 +112,11 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out_with_presets",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom",
 				"--experimental-disable-plugins=sbom",
 				"--experimental-no-default-plugins",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
 		},
@@ -98,10 +124,11 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom/spdx,sbom/cdx",
 				"--experimental-disable-plugins=sbom",
 				"--experimental-no-default-plugins",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
 		},
@@ -120,7 +147,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 func TestCommand_Docker(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker (also takes a long time to pull images)")
+	testutility.SkipIfShort(t)
 
 	client := testcmd.InsertCassette(t)
 
@@ -187,8 +215,7 @@ func TestCommand_Docker(t *testing.T) {
 
 func TestCommand_OCIImage(t *testing.T) {
 	t.Parallel()
-
-	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
 	client := testcmd.InsertCassette(t)
 
@@ -345,8 +372,7 @@ func TestCommand_OCIImage(t *testing.T) {
 
 func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	t.Parallel()
-
-	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
 	client := testcmd.InsertCassette(t)
 
@@ -482,7 +508,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 
 func TestCommand_HtmlFile(t *testing.T) {
 	t.Parallel()
-	testutility.SkipIfNotAcceptanceTesting(t, "Needs container image")
+	testutility.SkipIfNotAcceptanceTesting(t, "Needs built container images")
 
 	testDir := testutility.CreateTestDir(t)
 	client := testcmd.InsertCassette(t)

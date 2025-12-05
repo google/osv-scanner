@@ -11206,7 +11206,83 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1]
+[TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 1]
+Resolving <tempdir>/pom.xml...
+Found 12 vulnerabilities matching the filter
+Can fix 12/12 matching vulnerabilities by overriding 4 dependencies
+OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
+OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,3.0.24
+OVERRIDE-PACKAGE: commons-io:commons-io,2.14.0
+OVERRIDE-PACKAGE: org.jsoup:jsoup,1.15.3
+FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-78wr-2p64-hpwj,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
+REMAINING-VULNS: 0
+UNFIXABLE-VULNS: 0
+Rewriting <tempdir>/pom.xml...
+
+---
+
+[TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 2]
+
+---
+
+[TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 3]
+<project>
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>dev.osv</groupId>
+  <artifactId>osv-fix</artifactId>
+  <version>1</version>
+
+  <properties>
+    <httpclient.version>4.5.13</httpclient.version>
+  </properties>
+
+    <dependencyManagement>
+      <dependencies>
+        <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>2.14.0</version>
+        </dependency>
+        <dependency>
+          <groupId>org.jsoup</groupId>
+          <artifactId>jsoup</artifactId>
+          <version>1.15.3</version>
+        </dependency>
+        <dependency>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient</artifactId>
+          <version>${httpclient.version}</version>
+        </dependency>
+      </dependencies>
+    </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven.wagon</groupId>
+      <artifactId>wagon-http</artifactId>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>3.0.24</version>
+    </dependency>
+  </dependencies>
+</project>
+
+---
+
+[TestCommand/no_args_provided - 1]
+
+---
+
+[TestCommand/no_args_provided - 2]
+manifest or lockfile is required
+
+---
+
+[TestCommandOffline/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1]
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Scanning <tempdir>/package-lock.json...
 Found 9 vulnerabilities matching the filter
@@ -11221,11 +11297,11 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 2]
+[TestCommandOffline/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 2]
 
 ---
 
-[TestCommand/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 3]
+[TestCommandOffline/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
@@ -12951,74 +13027,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 1]
-Resolving <tempdir>/pom.xml...
-Found 12 vulnerabilities matching the filter
-Can fix 12/12 matching vulnerabilities by overriding 4 dependencies
-OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
-OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,3.0.24
-OVERRIDE-PACKAGE: commons-io:commons-io,2.14.0
-OVERRIDE-PACKAGE: org.jsoup:jsoup,1.15.3
-FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-78wr-2p64-hpwj,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
-REMAINING-VULNS: 0
-UNFIXABLE-VULNS: 0
-Rewriting <tempdir>/pom.xml...
-
----
-
-[TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 2]
-
----
-
-[TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 3]
-<project>
-  <modelVersion>4.0.0</modelVersion>
-
-  <groupId>dev.osv</groupId>
-  <artifactId>osv-fix</artifactId>
-  <version>1</version>
-
-  <properties>
-    <httpclient.version>4.5.13</httpclient.version>
-  </properties>
-
-    <dependencyManagement>
-      <dependencies>
-        <dependency>
-          <groupId>commons-io</groupId>
-          <artifactId>commons-io</artifactId>
-          <version>2.14.0</version>
-        </dependency>
-        <dependency>
-          <groupId>org.jsoup</groupId>
-          <artifactId>jsoup</artifactId>
-          <version>1.15.3</version>
-        </dependency>
-        <dependency>
-          <groupId>org.apache.httpcomponents</groupId>
-          <artifactId>httpclient</artifactId>
-          <version>${httpclient.version}</version>
-        </dependency>
-      </dependencies>
-    </dependencyManagement>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.maven.wagon</groupId>
-      <artifactId>wagon-http</artifactId>
-      <version>3.0.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.codehaus.plexus</groupId>
-      <artifactId>plexus-utils</artifactId>
-      <version>3.0.24</version>
-    </dependency>
-  </dependencies>
-</project>
-
----
-
-[TestCommand/fix_non_interactive_relax_package_json_with_offline_vulns - 1]
+[TestCommandOffline/fix_non_interactive_relax_package_json_with_offline_vulns - 1]
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Resolving <tempdir>/package.json...
 Found 6 vulnerabilities matching the filter
@@ -13031,11 +13040,11 @@ Rewriting <tempdir>/package.json...
 
 ---
 
-[TestCommand/fix_non_interactive_relax_package_json_with_offline_vulns - 2]
+[TestCommandOffline/fix_non_interactive_relax_package_json_with_offline_vulns - 2]
 
 ---
 
-[TestCommand/fix_non_interactive_relax_package_json_with_offline_vulns - 3]
+[TestCommandOffline/fix_non_interactive_relax_package_json_with_offline_vulns - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
@@ -13050,14 +13059,5 @@ Rewriting <tempdir>/package.json...
     "npm-registry-client": "^7.5.0"
   }
 }
-
----
-
-[TestCommand/no_args_provided - 1]
-
----
-
-[TestCommand/no_args_provided - 2]
-manifest or lockfile is required
 
 ---
