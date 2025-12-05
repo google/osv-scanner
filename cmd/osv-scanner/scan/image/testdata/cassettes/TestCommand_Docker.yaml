@@ -36,11 +36,11 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2024-13176",
-                  "modified": "2025-11-19T06:11:21.935709Z"
+                  "modified": "2025-12-03T22:55:07.817006Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-9143",
-                  "modified": "2025-11-19T06:21:15.538783Z"
+                  "modified": "2025-12-03T22:57:50.413061Z"
                 }
               ]
             },
@@ -48,11 +48,11 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2024-13176",
-                  "modified": "2025-11-19T06:11:21.935709Z"
+                  "modified": "2025-12-03T22:55:07.817006Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-9143",
-                  "modified": "2025-11-19T06:21:15.538783Z"
+                  "modified": "2025-12-03T22:57:50.413061Z"
                 }
               ]
             },
@@ -60,7 +60,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-11-19T06:21:21.194626Z"
+                  "modified": "2025-12-03T22:58:36.705692Z"
                 }
               ]
             },
@@ -68,7 +68,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-11-19T06:21:21.194626Z"
+                  "modified": "2025-12-03T22:58:36.705692Z"
                 }
               ]
             },

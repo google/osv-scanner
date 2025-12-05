@@ -53,6 +53,8 @@ func run(t *testing.T, tc Case) (string, string) {
 
 	if ec != tc.Exit {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.Exit)
+		t.Errorf("stdout: %s", stdout.String())
+		t.Errorf("stderr: %s", stderr.String())
 	}
 
 	return stdout.String(), stderr.String()

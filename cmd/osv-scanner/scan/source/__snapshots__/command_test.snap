@@ -1001,8 +1001,8 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and f
 
 [TestCommand/go_packages_in_osv-scanner.json_format - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner.json file and found 2 packages
-Total 2 packages affected by 13 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 13 Unknown) from 1 ecosystem.
-13 vulnerabilities can be fixed.
+Total 2 packages affected by 15 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 15 Unknown) from 1 ecosystem.
+15 vulnerabilities can be fixed.
 
 
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
@@ -1020,6 +1020,8 @@ Total 2 packages affected by 13 known vulnerabilities (0 Critical, 0 High, 0 Med
 | https://osv.dev/GO-2025-4013 |      | Go        | stdlib    | 1.24.4  | 1.24.8        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2025-4014 |      | Go        | stdlib    | 1.24.4  | 1.24.8        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2025-4015 |      | Go        | stdlib    | 1.24.4  | 1.24.8        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2025-4155 |      | Go        | stdlib    | 1.24.4  | 1.24.11       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2025-4175 |      | Go        | stdlib    | 1.24.4  | 1.24.11       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2025-3828 |      | Go        | toolchain | 1.24.4  | 1.24.5        | testdata/locks-insecure/osv-scanner.json |
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 

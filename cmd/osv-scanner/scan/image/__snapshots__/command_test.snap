@@ -109,42 +109,133 @@ No issues found
 
 ---
 
+[TestCommand_ExplicitExtractors_WithDefaults/add_extractors - 1]
+Scanning local image tarball "testdata/test-alpine-sbom.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 2 packages affected by 2 known vulnerabilities (2 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+1 vulnerability can be fixed.
+
+
+Alpine
++------------------------------------------------------------------------------------------------+
+| Source:sbom:/data/alpine-zlib-16.cdx.json:lib/apk/db/installed                                 |
++---------+-------------------+------------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+------------------+------------+------------------+---------------+
+| zlib    | 1.2.12-r1         | No fix available |          1 | # 2 Layer        | --            |
++---------+-------------------+------------------+------------+------------------+---------------+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/lib/apk/db/installed                                                                                              |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/add_extractors - 2]
+
+---
+
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out - 1]
-Checking if docker image ("alpine:non-existent-tag") exists locally...
+Scanning local image tarball "testdata/test-alpine-sbom.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/lib/apk/db/installed                                                                                              |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
 
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out - 2]
-Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
-STDERR:
-> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
-failed to pull container image: failed to run docker command
 
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out#01 - 1]
-Checking if docker image ("alpine:non-existent-tag") exists locally...
+Scanning local image tarball "testdata/test-alpine-sbom.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/lib/apk/db/installed                                                                                              |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
 
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out#01 - 2]
-Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
-STDERR:
-> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
-failed to pull container image: failed to run docker command
 
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 1]
-Checking if docker image ("alpine:non-existent-tag") exists locally...
+Scanning local image tarball "testdata/test-alpine-sbom.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/lib/apk/db/installed                                                                                              |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
 
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 2]
-Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
-STDERR:
-> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
-failed to pull container image: failed to run docker command
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/add_extractors - 1]
+Scanning local image tarball "testdata/test-alpine-sbom.tar"
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
++---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------------------+
+| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                            |
++---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------------------+
+| https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.12-r1 | --            | data/alpine-zlib-16.cdx.json:lib/apk/db/installed |
++---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------------------+
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/add_extractors - 2]
 
 ---
 
@@ -691,8 +782,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-package-tracing.tar"
 
 Container Scanning Result (Alpine Linux v3.20):
-Total 9 packages affected by 143 known vulnerabilities (1 Critical, 3 High, 5 Medium, 2 Low, 132 Unknown) from 2 ecosystems.
-143 vulnerabilities can be fixed.
+Total 9 packages affected by 155 known vulnerabilities (1 Critical, 3 High, 5 Medium, 2 Low, 144 Unknown) from 2 ecosystems.
+155 vulnerabilities can be fixed.
 
 
 Go
@@ -701,42 +792,42 @@ Go
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         22 | # 9 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         24 | # 9 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.2.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         22 | # 2 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         24 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.3.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         22 | # 4 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         24 | # 4 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.3.0-moved                                                     |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         22 | # 3 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         24 | # 3 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-1.4.0                                                           |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         22 | # 2 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         24 | # 2 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 +---------------------------------------------------------------------------------------------+
 | Source:artifact:/go/bin/ptf-vulnerable                                                      |
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| stdlib  | 1.22.4            | Fix Available |         22 | # 7 Layer        | --            |
+| stdlib  | 1.22.4            | Fix Available |         24 | # 7 Layer        | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Alpine:v3.20
 +------------------------------------------------------------------------------------------------------------------------------+
@@ -1811,9 +1902,9 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           "package": {
             "name": "busybox",
             "os_package_name": "busybox",
-            "version": "1.37.0-r19",
+            "version": "1.37.0-r18",
             "ecosystem": "Alpine:v3.22",
-            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
+            "commit": "28ab379633dca30ff5d3ebd36b274d15a2f15719",
             "image_origin_details": {
               "index": 0
             }
@@ -1828,9 +1919,9 @@ Scanning local image tarball "./testdata/test-python-full.tar"
           "package": {
             "name": "busybox",
             "os_package_name": "busybox-binsh",
-            "version": "1.37.0-r19",
+            "version": "1.37.0-r18",
             "ecosystem": "Alpine:v3.22",
-            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
+            "commit": "28ab379633dca30ff5d3ebd36b274d15a2f15719",
             "image_origin_details": {
               "index": 0
             }
@@ -1843,11 +1934,49 @@ Scanning local image tarball "./testdata/test-python-full.tar"
         },
         {
           "package": {
+            "name": "openssl",
+            "os_package_name": "libcrypto3",
+            "version": "3.5.0-r0",
+            "ecosystem": "Alpine:v3.22",
+            "commit": "790ab16b6d8d8ac4d6686261a975bbbbd0664e8d",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 4,
+          "vulnerabilities": [
+            "ALPINE-CVE-2025-4575",
+            "ALPINE-CVE-2025-9230",
+            "ALPINE-CVE-2025-9231",
+            "ALPINE-CVE-2025-9232"
+          ]
+        },
+        {
+          "package": {
+            "name": "openssl",
+            "os_package_name": "libssl3",
+            "version": "3.5.0-r0",
+            "ecosystem": "Alpine:v3.22",
+            "commit": "790ab16b6d8d8ac4d6686261a975bbbbd0664e8d",
+            "image_origin_details": {
+              "index": 0
+            }
+          },
+          "groups": 4,
+          "vulnerabilities": [
+            "ALPINE-CVE-2025-4575",
+            "ALPINE-CVE-2025-9230",
+            "ALPINE-CVE-2025-9231",
+            "ALPINE-CVE-2025-9232"
+          ]
+        },
+        {
+          "package": {
             "name": "busybox",
             "os_package_name": "ssl_client",
-            "version": "1.37.0-r19",
+            "version": "1.37.0-r18",
             "ecosystem": "Alpine:v3.22",
-            "commit": "bd8ab811155a6087ba7480103d89e2500e3cb0eb",
+            "commit": "28ab379633dca30ff5d3ebd36b274d15a2f15719",
             "image_origin_details": {
               "index": 0
             }
@@ -1872,7 +2001,7 @@ Scanning local image tarball "./testdata/test-python-full.tar"
     "layer_metadata": [
       {
         "diff_id": "sha256:...",
-        "command": "ADD alpine-minirootfs-3.22.2-x86_64.tar.gz / # buildkit",
+        "command": "ADD alpine-minirootfs-3.22.0-x86_64.tar.gz / # buildkit",
         "is_empty": false,
         "base_image_index": 2
       },
@@ -1938,7 +2067,7 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
               "index": 2
             }
           },
-          "groups": 22,
+          "groups": 24,
           "vulnerabilities": [
             "GO-2024-2963",
             "GO-2024-3105",
@@ -1961,7 +2090,9 @@ Scanning local image tarball "./testdata/test-image-with-deprecated.tar"
             "GO-2025-4012",
             "GO-2025-4013",
             "GO-2025-4014",
-            "GO-2025-4015"
+            "GO-2025-4015",
+            "GO-2025-4155",
+            "GO-2025-4175"
           ]
         },
         {
@@ -3486,7 +3617,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 7
             }
           },
-          "groups": 74,
+          "groups": 76,
           "vulnerabilities": [
             "GO-2022-0477",
             "GO-2022-0493",
@@ -3561,7 +3692,9 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "GO-2025-4012",
             "GO-2025-4013",
             "GO-2025-4014",
-            "GO-2025-4015"
+            "GO-2025-4015",
+            "GO-2025-4155",
+            "GO-2025-4175"
           ]
         }
       ]

@@ -78,6 +78,7 @@ func IsAcceptanceTesting() bool {
 // SkipIfNotAcceptanceTesting marks the test as skipped unless the test suite is
 // being run with acceptance tests enabled, as indicated by IsAcceptanceTesting,
 // or the test is being run specifically with the -run flag
+// This is used to skip tests that could require external dependencies other than go
 func SkipIfNotAcceptanceTesting(t *testing.T, reason string) {
 	t.Helper()
 
@@ -85,6 +86,17 @@ func SkipIfNotAcceptanceTesting(t *testing.T, reason string) {
 		Skip(t, "Skipping extended test: ", reason)
 	}
 }
+
+// SkipIfShort marks the test as skipped if the short flag is set
+// or the test is being run specifically with the -run flag
+func SkipIfShort(t *testing.T) {
+	t.Helper()
+
+	if testing.Short() && !isThisTestRunTarget(t) {
+		Skip(t, "Skipping long test")
+	}
+}
+
 
 func ValueIfOnWindows(win, or string) string {
 	if runtime.GOOS == "windows" {
