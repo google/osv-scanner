@@ -12,102 +12,102 @@ interactions:
         {
           "queries": [
             {
+              "version": "3.1.2-r0",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "alpine-baselayout"
-              },
-              "version": "3.1.2-r0"
+                "name": "alpine-baselayout",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "2.1-r2",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "alpine-keys"
-              },
-              "version": "2.1-r2"
+                "name": "alpine-keys",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "2.10.6-r0",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "apk-tools"
-              },
-              "version": "2.10.6-r0"
+                "name": "apk-tools",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "1.30.1-r5",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "busybox"
-              },
-              "version": "1.30.1-r5"
+                "name": "busybox",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "20191127-r2",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "ca-certificates"
-              },
-              "version": "20191127-r2"
+                "name": "ca-certificates",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "0.7.1-r0",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "libc-dev"
-              },
-              "version": "0.7.1-r0"
+                "name": "libc-dev",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "1.1.1k-r0",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "openssl"
-              },
-              "version": "1.1.1k-r0"
+                "name": "openssl",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "1.1.1k-r0",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "openssl"
-              },
-              "version": "1.1.1k-r0"
+                "name": "openssl",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "2.9.1-r0",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "libtls-standalone"
-              },
-              "version": "2.9.1-r0"
+                "name": "libtls-standalone",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "1.1.22-r4",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "musl"
-              },
-              "version": "1.1.22-r4"
+                "name": "musl",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "1.1.22-r4",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "musl"
-              },
-              "version": "1.1.22-r4"
+                "name": "musl",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "1.2.3-r0",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "pax-utils"
-              },
-              "version": "1.2.3-r0"
+                "name": "pax-utils",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "1.30.1-r5",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "busybox"
-              },
-              "version": "1.30.1-r5"
+                "name": "busybox",
+                "ecosystem": "Alpine:v3.18"
+              }
             },
             {
+              "version": "1.2.11-r1",
               "package": {
-                "ecosystem": "Alpine:v3.18",
-                "name": "zlib"
-              },
-              "version": "1.2.11-r1"
+                "name": "zlib",
+                "ecosystem": "Alpine:v3.18"
+              }
             }
           ]
         }
@@ -132,11 +132,11 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-30139",
-                  "modified": "2025-11-19T06:23:57.762519Z"
+                  "modified": "2025-12-03T22:50:14.655691Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-36159",
-                  "modified": "2025-11-19T06:24:01.223586Z"
+                  "modified": "2025-12-03T22:50:23.251262Z"
                 }
               ]
             },
@@ -144,79 +144,79 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-28831",
-                  "modified": "2025-11-19T06:18:58.945031Z"
+                  "modified": "2025-12-03T22:48:35.192485Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42374",
-                  "modified": "2025-11-19T06:19:09.641521Z"
+                  "modified": "2025-12-03T22:49:03.048460Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42375",
-                  "modified": "2025-11-19T06:19:09.513318Z"
+                  "modified": "2025-12-03T22:49:02.368046Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42378",
-                  "modified": "2025-11-19T06:19:11.443342Z"
+                  "modified": "2025-12-03T22:49:02.812229Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42379",
-                  "modified": "2025-11-19T06:19:11.544591Z"
+                  "modified": "2025-12-03T22:49:03.820223Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42380",
-                  "modified": "2025-11-19T06:19:11.880615Z"
+                  "modified": "2025-12-03T22:49:02.273108Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42381",
-                  "modified": "2025-11-19T06:19:09.859787Z"
+                  "modified": "2025-12-03T22:49:03.051591Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42382",
-                  "modified": "2025-11-19T06:19:09.961363Z"
+                  "modified": "2025-12-03T22:49:04.080847Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42383",
-                  "modified": "2025-11-19T06:19:11.785164Z"
+                  "modified": "2025-12-03T22:44:20.740566Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42384",
-                  "modified": "2025-11-19T06:19:11.734177Z"
+                  "modified": "2025-12-03T22:49:04.436301Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42385",
-                  "modified": "2025-11-19T06:19:11.992937Z"
+                  "modified": "2025-12-03T22:49:10.217079Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42386",
-                  "modified": "2025-11-19T06:19:11.733649Z"
+                  "modified": "2025-12-03T22:49:10.486445Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-28391",
-                  "modified": "2025-11-19T06:20:08.996475Z"
+                  "modified": "2025-12-03T22:49:51.276555Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-30065",
-                  "modified": "2025-11-19T06:20:12.472322Z"
+                  "modified": "2025-12-03T22:50:17.721153Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-48174",
-                  "modified": "2025-11-19T06:20:30.892588Z"
+                  "modified": "2025-12-03T22:51:16.750993Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-42363",
-                  "modified": "2025-11-19T06:20:46.860775Z"
+                  "modified": "2025-12-03T22:53:19.595031Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-42364",
-                  "modified": "2025-11-19T06:20:47.596491Z"
+                  "modified": "2025-12-03T22:53:16.639859Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-42365",
-                  "modified": "2025-11-19T06:20:47.825033Z"
+                  "modified": "2025-12-03T22:53:18.372883Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-42366",
-                  "modified": "2025-11-19T06:20:47.393398Z"
+                  "modified": "2025-12-03T22:53:21.200830Z"
                 }
               ]
             },
@@ -226,159 +226,159 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-3711",
-                  "modified": "2025-11-19T06:19:03.837721Z"
+                  "modified": "2025-12-03T22:48:47.560805Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-3712",
-                  "modified": "2025-11-19T06:19:03.844625Z"
+                  "modified": "2025-12-03T22:48:49.466816Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-4044",
-                  "modified": "2025-11-19T06:19:06.093965Z"
+                  "modified": "2025-12-03T22:48:53.587104Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-0778",
-                  "modified": "2025-11-19T06:20:55.796693Z"
+                  "modified": "2025-12-03T22:51:07.769542Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-1343",
-                  "modified": "2025-11-19T06:19:37.259474Z"
+                  "modified": "2025-12-03T22:49:45.912660Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-1434",
-                  "modified": "2025-11-19T06:19:36.461424Z"
+                  "modified": "2025-12-03T22:49:45.753526Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-1473",
-                  "modified": "2025-11-19T06:19:37.842187Z"
+                  "modified": "2025-12-03T22:49:45.860197Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-2097",
-                  "modified": "2025-11-19T06:19:43.814857Z"
+                  "modified": "2025-12-03T22:49:52.265196Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-3358",
-                  "modified": "2025-11-19T06:20:14.541634Z"
+                  "modified": "2025-12-03T22:50:26.362856Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-3602",
-                  "modified": "2025-11-19T06:20:19.393927Z"
+                  "modified": "2025-12-03T22:49:29.680146Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-3786",
-                  "modified": "2025-11-19T06:20:21.480003Z"
+                  "modified": "2025-12-03T22:49:30.746181Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-3996",
-                  "modified": "2025-11-19T06:20:21.727658Z"
+                  "modified": "2025-12-03T22:49:49.550771Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-4203",
-                  "modified": "2025-11-19T06:20:24.175909Z"
+                  "modified": "2025-12-03T22:50:09.259826Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-4304",
-                  "modified": "2025-11-19T06:20:26.963753Z"
+                  "modified": "2025-12-03T22:50:48.258567Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-4450",
-                  "modified": "2025-11-19T06:20:28.511965Z"
+                  "modified": "2025-12-03T22:50:58.174496Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0215",
-                  "modified": "2025-11-19T06:20:31.364602Z"
+                  "modified": "2025-12-03T22:51:20.776116Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0216",
-                  "modified": "2025-11-19T06:20:30.822411Z"
+                  "modified": "2025-12-03T22:51:17.381381Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0217",
-                  "modified": "2025-11-19T06:20:30.895650Z"
+                  "modified": "2025-12-03T22:51:22.400597Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0286",
-                  "modified": "2025-11-19T06:20:30.801521Z"
+                  "modified": "2025-12-03T22:51:24.172927Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0401",
-                  "modified": "2025-11-19T06:20:31.241586Z"
+                  "modified": "2025-12-03T22:51:23.275814Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0464",
-                  "modified": "2025-11-19T06:20:31.207270Z"
+                  "modified": "2025-12-03T22:51:31.741129Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0465",
-                  "modified": "2025-11-19T06:20:31.664484Z"
+                  "modified": "2025-12-03T22:51:25.194508Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-1255",
-                  "modified": "2025-11-19T06:20:33.292508Z"
+                  "modified": "2025-12-03T22:51:44.316240Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-2650",
-                  "modified": "2025-11-19T06:20:39.015342Z"
+                  "modified": "2025-12-03T22:52:10.812098Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-2975",
-                  "modified": "2025-11-19T06:20:41.735480Z"
+                  "modified": "2025-12-03T22:52:35.084843Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-3446",
-                  "modified": "2025-11-19T06:20:37.838934Z"
+                  "modified": "2025-12-03T22:52:52.082224Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-3817",
-                  "modified": "2025-11-19T06:20:38.085131Z"
+                  "modified": "2025-12-03T22:52:53.211969Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-5363",
-                  "modified": "2025-11-19T06:20:56.467034Z"
+                  "modified": "2025-12-03T22:54:35.065257Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-5678",
-                  "modified": "2025-11-19T06:20:57.019137Z"
+                  "modified": "2025-12-03T22:54:30.066451Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-6129",
-                  "modified": "2025-11-19T06:20:57.674628Z"
+                  "modified": "2025-12-03T22:54:41.708177Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-6237",
-                  "modified": "2025-11-19T06:20:48.791272Z"
+                  "modified": "2025-12-03T22:54:40.422752Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-0727",
-                  "modified": "2025-11-19T06:20:49.201611Z"
+                  "modified": "2025-12-03T22:54:44.266485Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-13176",
-                  "modified": "2025-11-19T06:11:21.935709Z"
+                  "modified": "2025-12-03T22:55:07.817006Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-2511",
-                  "modified": "2025-11-19T06:21:05.375681Z"
+                  "modified": "2025-12-03T22:55:31.105344Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-4603",
-                  "modified": "2025-11-19T06:21:12.728683Z"
+                  "modified": "2025-12-03T22:57:04.661877Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-4741",
-                  "modified": "2025-11-19T06:21:14.086798Z"
+                  "modified": "2025-12-03T22:57:09.616922Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-5535",
-                  "modified": "2025-11-19T06:21:19.406685Z"
+                  "modified": "2025-12-03T22:57:32.699825Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-6119",
-                  "modified": "2025-11-19T06:21:19.490779Z"
+                  "modified": "2025-12-03T22:57:47.097001Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-9143",
-                  "modified": "2025-11-19T06:21:15.538783Z"
+                  "modified": "2025-12-03T22:57:50.413061Z"
                 }
               ]
             },
@@ -386,159 +386,159 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-3711",
-                  "modified": "2025-11-19T06:19:03.837721Z"
+                  "modified": "2025-12-03T22:48:47.560805Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-3712",
-                  "modified": "2025-11-19T06:19:03.844625Z"
+                  "modified": "2025-12-03T22:48:49.466816Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-4044",
-                  "modified": "2025-11-19T06:19:06.093965Z"
+                  "modified": "2025-12-03T22:48:53.587104Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-0778",
-                  "modified": "2025-11-19T06:20:55.796693Z"
+                  "modified": "2025-12-03T22:51:07.769542Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-1343",
-                  "modified": "2025-11-19T06:19:37.259474Z"
+                  "modified": "2025-12-03T22:49:45.912660Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-1434",
-                  "modified": "2025-11-19T06:19:36.461424Z"
+                  "modified": "2025-12-03T22:49:45.753526Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-1473",
-                  "modified": "2025-11-19T06:19:37.842187Z"
+                  "modified": "2025-12-03T22:49:45.860197Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-2097",
-                  "modified": "2025-11-19T06:19:43.814857Z"
+                  "modified": "2025-12-03T22:49:52.265196Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-3358",
-                  "modified": "2025-11-19T06:20:14.541634Z"
+                  "modified": "2025-12-03T22:50:26.362856Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-3602",
-                  "modified": "2025-11-19T06:20:19.393927Z"
+                  "modified": "2025-12-03T22:49:29.680146Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-3786",
-                  "modified": "2025-11-19T06:20:21.480003Z"
+                  "modified": "2025-12-03T22:49:30.746181Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-3996",
-                  "modified": "2025-11-19T06:20:21.727658Z"
+                  "modified": "2025-12-03T22:49:49.550771Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-4203",
-                  "modified": "2025-11-19T06:20:24.175909Z"
+                  "modified": "2025-12-03T22:50:09.259826Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-4304",
-                  "modified": "2025-11-19T06:20:26.963753Z"
+                  "modified": "2025-12-03T22:50:48.258567Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-4450",
-                  "modified": "2025-11-19T06:20:28.511965Z"
+                  "modified": "2025-12-03T22:50:58.174496Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0215",
-                  "modified": "2025-11-19T06:20:31.364602Z"
+                  "modified": "2025-12-03T22:51:20.776116Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0216",
-                  "modified": "2025-11-19T06:20:30.822411Z"
+                  "modified": "2025-12-03T22:51:17.381381Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0217",
-                  "modified": "2025-11-19T06:20:30.895650Z"
+                  "modified": "2025-12-03T22:51:22.400597Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0286",
-                  "modified": "2025-11-19T06:20:30.801521Z"
+                  "modified": "2025-12-03T22:51:24.172927Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0401",
-                  "modified": "2025-11-19T06:20:31.241586Z"
+                  "modified": "2025-12-03T22:51:23.275814Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0464",
-                  "modified": "2025-11-19T06:20:31.207270Z"
+                  "modified": "2025-12-03T22:51:31.741129Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-0465",
-                  "modified": "2025-11-19T06:20:31.664484Z"
+                  "modified": "2025-12-03T22:51:25.194508Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-1255",
-                  "modified": "2025-11-19T06:20:33.292508Z"
+                  "modified": "2025-12-03T22:51:44.316240Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-2650",
-                  "modified": "2025-11-19T06:20:39.015342Z"
+                  "modified": "2025-12-03T22:52:10.812098Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-2975",
-                  "modified": "2025-11-19T06:20:41.735480Z"
+                  "modified": "2025-12-03T22:52:35.084843Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-3446",
-                  "modified": "2025-11-19T06:20:37.838934Z"
+                  "modified": "2025-12-03T22:52:52.082224Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-3817",
-                  "modified": "2025-11-19T06:20:38.085131Z"
+                  "modified": "2025-12-03T22:52:53.211969Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-5363",
-                  "modified": "2025-11-19T06:20:56.467034Z"
+                  "modified": "2025-12-03T22:54:35.065257Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-5678",
-                  "modified": "2025-11-19T06:20:57.019137Z"
+                  "modified": "2025-12-03T22:54:30.066451Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-6129",
-                  "modified": "2025-11-19T06:20:57.674628Z"
+                  "modified": "2025-12-03T22:54:41.708177Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-6237",
-                  "modified": "2025-11-19T06:20:48.791272Z"
+                  "modified": "2025-12-03T22:54:40.422752Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-0727",
-                  "modified": "2025-11-19T06:20:49.201611Z"
+                  "modified": "2025-12-03T22:54:44.266485Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-13176",
-                  "modified": "2025-11-19T06:11:21.935709Z"
+                  "modified": "2025-12-03T22:55:07.817006Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-2511",
-                  "modified": "2025-11-19T06:21:05.375681Z"
+                  "modified": "2025-12-03T22:55:31.105344Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-4603",
-                  "modified": "2025-11-19T06:21:12.728683Z"
+                  "modified": "2025-12-03T22:57:04.661877Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-4741",
-                  "modified": "2025-11-19T06:21:14.086798Z"
+                  "modified": "2025-12-03T22:57:09.616922Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-5535",
-                  "modified": "2025-11-19T06:21:19.406685Z"
+                  "modified": "2025-12-03T22:57:32.699825Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-6119",
-                  "modified": "2025-11-19T06:21:19.490779Z"
+                  "modified": "2025-12-03T22:57:47.097001Z"
                 },
                 {
                   "id": "ALPINE-CVE-2024-9143",
-                  "modified": "2025-11-19T06:21:15.538783Z"
+                  "modified": "2025-12-03T22:57:50.413061Z"
                 }
               ]
             },
@@ -547,15 +547,15 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2019-14697",
-                  "modified": "2025-11-19T06:15:11.257652Z"
+                  "modified": "2025-12-03T22:44:35.333781Z"
                 },
                 {
                   "id": "ALPINE-CVE-2020-28928",
-                  "modified": "2025-11-19T06:17:57.729401Z"
+                  "modified": "2025-12-03T22:47:06.985001Z"
                 },
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-11-19T06:21:21.194626Z"
+                  "modified": "2025-12-03T22:58:36.705692Z"
                 }
               ]
             },
@@ -563,15 +563,15 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2019-14697",
-                  "modified": "2025-11-19T06:15:11.257652Z"
+                  "modified": "2025-12-03T22:44:35.333781Z"
                 },
                 {
                   "id": "ALPINE-CVE-2020-28928",
-                  "modified": "2025-11-19T06:17:57.729401Z"
+                  "modified": "2025-12-03T22:47:06.985001Z"
                 },
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-11-19T06:21:21.194626Z"
+                  "modified": "2025-12-03T22:58:36.705692Z"
                 }
               ]
             },
@@ -580,79 +580,79 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-28831",
-                  "modified": "2025-11-19T06:18:58.945031Z"
+                  "modified": "2025-12-03T22:48:35.192485Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42374",
-                  "modified": "2025-11-19T06:19:09.641521Z"
+                  "modified": "2025-12-03T22:49:03.048460Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42375",
-                  "modified": "2025-11-19T06:19:09.513318Z"
+                  "modified": "2025-12-03T22:49:02.368046Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42378",
-                  "modified": "2025-11-19T06:19:11.443342Z"
+                  "modified": "2025-12-03T22:49:02.812229Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42379",
-                  "modified": "2025-11-19T06:19:11.544591Z"
+                  "modified": "2025-12-03T22:49:03.820223Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42380",
-                  "modified": "2025-11-19T06:19:11.880615Z"
+                  "modified": "2025-12-03T22:49:02.273108Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42381",
-                  "modified": "2025-11-19T06:19:09.859787Z"
+                  "modified": "2025-12-03T22:49:03.051591Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42382",
-                  "modified": "2025-11-19T06:19:09.961363Z"
+                  "modified": "2025-12-03T22:49:04.080847Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42383",
-                  "modified": "2025-11-19T06:19:11.785164Z"
+                  "modified": "2025-12-03T22:44:20.740566Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42384",
-                  "modified": "2025-11-19T06:19:11.734177Z"
+                  "modified": "2025-12-03T22:49:04.436301Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42385",
-                  "modified": "2025-11-19T06:19:11.992937Z"
+                  "modified": "2025-12-03T22:49:10.217079Z"
                 },
                 {
                   "id": "ALPINE-CVE-2021-42386",
-                  "modified": "2025-11-19T06:19:11.733649Z"
+                  "modified": "2025-12-03T22:49:10.486445Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-28391",
-                  "modified": "2025-11-19T06:20:08.996475Z"
+                  "modified": "2025-12-03T22:49:51.276555Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-30065",
-                  "modified": "2025-11-19T06:20:12.472322Z"
+                  "modified": "2025-12-03T22:50:17.721153Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-48174",
-                  "modified": "2025-11-19T06:20:30.892588Z"
+                  "modified": "2025-12-03T22:51:16.750993Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-42363",
-                  "modified": "2025-11-19T06:20:46.860775Z"
+                  "modified": "2025-12-03T22:53:19.595031Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-42364",
-                  "modified": "2025-11-19T06:20:47.596491Z"
+                  "modified": "2025-12-03T22:53:16.639859Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-42365",
-                  "modified": "2025-11-19T06:20:47.825033Z"
+                  "modified": "2025-12-03T22:53:18.372883Z"
                 },
                 {
                   "id": "ALPINE-CVE-2023-42366",
-                  "modified": "2025-11-19T06:20:47.393398Z"
+                  "modified": "2025-12-03T22:53:21.200830Z"
                 }
               ]
             },
@@ -660,11 +660,11 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2018-25032",
-                  "modified": "2025-11-19T06:20:59.474598Z"
+                  "modified": "2025-12-03T22:47:03.844688Z"
                 },
                 {
                   "id": "ALPINE-CVE-2022-37434",
-                  "modified": "2025-11-19T06:21:17.394860Z"
+                  "modified": "2025-12-03T22:50:43.469206Z"
                 }
               ]
             }
