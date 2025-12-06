@@ -12,46 +12,46 @@ interactions:
         {
           "queries": [
             {
+              "version": "1.0",
               "package": {
-                "ecosystem": "Hackage",
-                "name": "AC-Angle"
-              },
-              "version": "1.0"
+                "name": "AC-Angle",
+                "ecosystem": "Hackage"
+              }
             },
             {
+              "version": "2.4.0.3",
               "package": {
-                "ecosystem": "Hackage",
-                "name": "ALUT"
-              },
-              "version": "2.4.0.3"
+                "name": "ALUT",
+                "ecosystem": "Hackage"
+              }
             },
             {
+              "version": "0.2.0.2",
               "package": {
-                "ecosystem": "Hackage",
-                "name": "ANum"
-              },
-              "version": "0.2.0.2"
+                "name": "ANum",
+                "ecosystem": "Hackage"
+              }
             },
             {
+              "version": "2.6.4.3",
               "package": {
-                "ecosystem": "Hackage",
-                "name": "Agda"
-              },
-              "version": "2.6.4.3"
+                "name": "Agda",
+                "ecosystem": "Hackage"
+              }
             },
             {
+              "version": "0.11.0.0",
               "package": {
-                "ecosystem": "Hackage",
-                "name": "Allure"
-              },
-              "version": "0.11.0.0"
+                "name": "Allure",
+                "ecosystem": "Hackage"
+              }
             },
             {
+              "version": "0.3.0.0",
               "package": {
-                "ecosystem": "Hackage",
-                "name": "biscuit-haskell"
-              },
-              "version": "0.3.0.0"
+                "name": "biscuit-haskell",
+                "ecosystem": "Hackage"
+              }
             }
           ]
         }
@@ -104,32 +104,32 @@ interactions:
         {
           "queries": [
             {
+              "version": "3.7.10.6",
               "package": {
-                "ecosystem": "NuGet",
-                "name": "AWSSDK.Core"
-              },
-              "version": "3.7.10.6"
+                "name": "AWSSDK.Core",
+                "ecosystem": "NuGet"
+              }
             },
             {
+              "version": "6.0.0",
               "package": {
-                "ecosystem": "NuGet",
-                "name": "Microsoft.Extensions.DependencyInjection"
-              },
-              "version": "6.0.0"
+                "name": "Microsoft.Extensions.DependencyInjection",
+                "ecosystem": "NuGet"
+              }
             },
             {
+              "version": "1.3.7",
               "package": {
-                "ecosystem": "NuGet",
-                "name": "System.Linq.Dynamic.Core"
-              },
-              "version": "1.3.7"
+                "name": "System.Linq.Dynamic.Core",
+                "ecosystem": "NuGet"
+              }
             },
             {
+              "version": "1.0.0",
               "package": {
-                "ecosystem": "NuGet",
-                "name": "TestLibrary"
-              },
-              "version": "1.0.0"
+                "name": "TestLibrary",
+                "ecosystem": "NuGet"
+              }
             }
           ]
         }
@@ -180,179 +180,179 @@ interactions:
         {
           "queries": [
             {
+              "version": "2.23.0",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "async"
-              },
-              "version": "2.23.0"
+                "name": "async",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "1.4.1",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "async-dns"
-              },
-              "version": "1.4.1"
+                "name": "async-dns",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "0.87.0",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "async-http"
-              },
-              "version": "0.87.0"
+                "name": "async-http",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "0.10.3",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "async-pool"
-              },
-              "version": "0.10.3"
+                "name": "async-pool",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "1.29.2",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "console"
-              },
-              "version": "1.29.2"
+                "name": "console",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "0.2.0",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "fiber-annotation"
-              },
-              "version": "0.2.0"
+                "name": "fiber-annotation",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "1.1.0",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "fiber-local"
-              },
-              "version": "1.1.0"
+                "name": "fiber-local",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "1.0.0",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "fiber-storage"
-              },
-              "version": "1.0.0"
+                "name": "fiber-storage",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "1.6.4",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "geoip"
-              },
-              "version": "1.6.4"
+                "name": "geoip",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "0.15.1",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "io-endpoint"
-              },
-              "version": "0.15.1"
+                "name": "io-endpoint",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "1.9.0",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "io-event"
-              },
-              "version": "1.9.0"
+                "name": "io-event",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "0.6.1",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "io-stream"
-              },
-              "version": "0.6.1"
+                "name": "io-stream",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "2.10.1",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "json"
-              },
-              "version": "2.10.1"
+                "name": "json",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "0.12.1",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "metrics"
-              },
-              "version": "0.12.1"
+                "name": "metrics",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "1.18.2",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "nokogiri"
-              },
-              "version": "1.18.2"
+                "name": "nokogiri",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "1.0.1",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "process-daemon"
-              },
-              "version": "1.0.1"
+                "name": "process-daemon",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "1.5.1",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "protocol-hpack"
-              },
-              "version": "1.5.1"
+                "name": "protocol-hpack",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "0.49.0",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "protocol-http"
-              },
-              "version": "0.49.0"
+                "name": "protocol-http",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "0.30.0",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "protocol-http1"
-              },
-              "version": "0.30.0"
+                "name": "protocol-http1",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "0.22.1",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "protocol-http2"
-              },
-              "version": "0.22.1"
+                "name": "protocol-http2",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "1.8.1",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "racc"
-              },
-              "version": "1.8.1"
+                "name": "racc",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "2.2.2",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "rainbow"
-              },
-              "version": "2.2.2"
+                "name": "rainbow",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "13.2.1",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "rake"
-              },
-              "version": "13.2.1"
+                "name": "rake",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "2.0.2",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "rubydns"
-              },
-              "version": "2.0.2"
+                "name": "rubydns",
+                "ecosystem": "RubyGems"
+              }
             },
             {
+              "version": "0.15.2",
               "package": {
-                "ecosystem": "RubyGems",
-                "name": "traces"
-              },
-              "version": "0.15.2"
+                "name": "traces",
+                "ecosystem": "RubyGems"
+              }
             }
           ]
         }
@@ -443,18 +443,18 @@ interactions:
         {
           "queries": [
             {
+              "version": "1.0.0",
               "package": {
-                "ecosystem": "NuGet",
-                "name": "Microsoft.CodeDom.Providers.DotNetCompilerPlatform"
-              },
-              "version": "1.0.0"
+                "name": "Microsoft.CodeDom.Providers.DotNetCompilerPlatform",
+                "ecosystem": "NuGet"
+              }
             },
             {
+              "version": "1.0.0",
               "package": {
-                "ecosystem": "NuGet",
-                "name": "Microsoft.Net.Compilers"
-              },
-              "version": "1.0.0"
+                "name": "Microsoft.Net.Compilers",
+                "ecosystem": "NuGet"
+              }
             }
           ]
         }
@@ -496,11 +496,11 @@ interactions:
         {
           "queries": [
             {
+              "version": "13.0.3",
               "package": {
-                "ecosystem": "NuGet",
-                "name": "Newtonsoft.Json"
-              },
-              "version": "13.0.3"
+                "name": "Newtonsoft.Json",
+                "ecosystem": "NuGet"
+              }
             }
           ]
         }
@@ -541,32 +541,32 @@ interactions:
         {
           "queries": [
             {
+              "version": "0.2.4",
               "package": {
-                "ecosystem": "Hackage",
-                "name": "fuzzyset"
-              },
-              "version": "0.2.4"
+                "name": "fuzzyset",
+                "ecosystem": "Hackage"
+              }
             },
             {
+              "version": "1.0.1",
               "package": {
-                "ecosystem": "Hackage",
-                "name": "hasql-pool"
-              },
-              "version": "1.0.1"
+                "name": "hasql-pool",
+                "ecosystem": "Hackage"
+              }
             },
             {
+              "version": "0.10.0",
               "package": {
-                "ecosystem": "Hackage",
-                "name": "jose-jwt"
-              },
-              "version": "0.10.0"
+                "name": "jose-jwt",
+                "ecosystem": "Hackage"
+              }
             },
             {
+              "version": "0.10.1.0",
               "package": {
-                "ecosystem": "Hackage",
-                "name": "postgresql-libpq"
-              },
-              "version": "0.10.1.0"
+                "name": "postgresql-libpq",
+                "ecosystem": "Hackage"
+              }
             }
           ]
         }
@@ -610,18 +610,18 @@ interactions:
         {
           "queries": [
             {
+              "version": "2.14.0",
               "package": {
-                "ecosystem": "PyPI",
-                "name": "emoji"
-              },
-              "version": "2.14.0"
+                "name": "emoji",
+                "ecosystem": "PyPI"
+              }
             },
             {
+              "version": "4.25.5",
               "package": {
-                "ecosystem": "PyPI",
-                "name": "protobuf"
-              },
-              "version": "4.25.5"
+                "name": "protobuf",
+                "ecosystem": "PyPI"
+              }
             }
           ]
         }

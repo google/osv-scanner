@@ -12,11 +12,11 @@ interactions:
         {
           "queries": [
             {
+              "version": "2.0.4",
               "package": {
-                "ecosystem": "Packagist",
-                "name": "sentry/sdk"
-              },
-              "version": "2.0.4"
+                "name": "sentry/sdk",
+                "ecosystem": "Packagist"
+              }
             }
           ]
         }
