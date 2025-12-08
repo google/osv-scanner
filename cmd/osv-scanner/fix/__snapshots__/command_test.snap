@@ -11282,7 +11282,7 @@ manifest or lockfile is required
 
 ---
 
-[TestCommandOffline/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1]
+[TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1]
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Scanning <tempdir>/package-lock.json...
 Found 9 vulnerabilities matching the filter
@@ -11297,11 +11297,11 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommandOffline/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 2]
+[TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 2]
 
 ---
 
-[TestCommandOffline/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 3]
+[TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
@@ -13027,7 +13027,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommandOffline/fix_non_interactive_relax_package_json_with_offline_vulns - 1]
+[TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 1]
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Resolving <tempdir>/package.json...
 Found 6 vulnerabilities matching the filter
@@ -13040,11 +13040,11 @@ Rewriting <tempdir>/package.json...
 
 ---
 
-[TestCommandOffline/fix_non_interactive_relax_package_json_with_offline_vulns - 2]
+[TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 2]
 
 ---
 
-[TestCommandOffline/fix_non_interactive_relax_package_json_with_offline_vulns - 3]
+[TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 3]
 {
   "name": "osv-fix",
   "version": "1.0.0",
