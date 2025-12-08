@@ -3,7 +3,6 @@ package testcmd
 import (
 	"bytes"
 	"cmp"
-	"encoding/json"
 	"io"
 	"net/http"
 	"os"
@@ -103,11 +102,7 @@ func InsertCassette(t *testing.T) *http.Client {
 
 			delete(i.Request.Headers, "User-Agent")
 
-			body, err := normalizeBody([]byte(i.Request.Body))
-			if err != nil {
-				return err
-			}
-			i.Request.Body = string(body)
+			i.Request.Body = string(pretty.Pretty([]byte(i.Request.Body)))
 			i.Request.ContentLength = int64(len(i.Request.Body))
 
 			// use a static duration since we don't care about replicating latency
@@ -208,13 +203,10 @@ func matchBody(r *http.Request, i cassette.Request) bool {
 
 		r.Body = io.NopCloser(bytes.NewBuffer(buffer.Bytes()))
 
-		body2, err := normalizeBody(buffer.Bytes())
-		if err != nil {
-			// This file will only run in tests, and this should be very unlikely
-			panic(err)
-		}
-
-		if !bytes.Equal(body2, []byte(i.Body)) {
+		if !bytes.Equal(
+			pretty.PrettyOptions(buffer.Bytes(), &pretty.Options{SortKeys: true}),
+			pretty.PrettyOptions([]byte(i.Body), &pretty.Options{SortKeys: true}),
+		) {
 			return false
 		}
 	} else if len(i.Body) != 0 {
@@ -222,18 +214,4 @@ func matchBody(r *http.Request, i cassette.Request) bool {
 	}
 
 	return true
-}
-
-func normalizeBody(body []byte) ([]byte, error) {
-	var intermediate any
-	if err := json.Unmarshal(body, &intermediate); err != nil {
-		return nil, err
-	}
-
-	buffer2, err := json.Marshal(intermediate)
-	if err != nil {
-		return nil, err
-	}
-
-	return buffer2, nil
 }

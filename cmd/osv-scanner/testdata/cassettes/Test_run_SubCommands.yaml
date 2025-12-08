@@ -6,9 +6,27 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 163
+      content_length: 278
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"},{"package":{"ecosystem":"npm","name":"balanced-match"},"version":"1.0.2"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "version": "2.0.4",
+              "package": {
+                "name": "sentry/sdk",
+                "ecosystem": "Packagist"
+              }
+            },
+            {
+              "version": "1.0.2",
+              "package": {
+                "name": "balanced-match",
+                "ecosystem": "npm"
+              }
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -41,9 +59,20 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 89
+      content_length: 151
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "version": "2.0.4",
+              "package": {
+                "name": "sentry/sdk",
+                "ecosystem": "Packagist"
+              }
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
@@ -75,9 +104,20 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 89
+      content_length: 151
       host: api.osv.dev
-      body: '{"queries":[{"package":{"ecosystem":"Packagist","name":"sentry/sdk"},"version":"2.0.4"}]}'
+      body: |
+        {
+          "queries": [
+            {
+              "version": "2.0.4",
+              "package": {
+                "name": "sentry/sdk",
+                "ecosystem": "Packagist"
+              }
+            }
+          ]
+        }
       headers:
         Content-Type:
           - application/json
