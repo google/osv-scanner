@@ -441,7 +441,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4175",
-                  "modified": "2025-12-03T19:43:47.587932Z"
+                  "modified": "2025-12-06T12:28:55.617219Z"
                 }
               ]
             }
@@ -624,7 +624,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4175",
-                  "modified": "2025-12-03T19:43:47.587932Z"
+                  "modified": "2025-12-06T12:28:55.617219Z"
                 }
               ]
             },
@@ -756,7 +756,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4175",
-                  "modified": "2025-12-03T19:43:47.587932Z"
+                  "modified": "2025-12-06T12:28:55.617219Z"
                 }
               ]
             }
@@ -932,7 +932,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4175",
-                  "modified": "2025-12-03T19:43:47.587932Z"
+                  "modified": "2025-12-06T12:28:55.617219Z"
                 }
               ]
             }
@@ -3206,7 +3206,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 20127
+      content_length: 20199
       body: |
         {
           "results": [
@@ -4534,6 +4534,10 @@ interactions:
                   "modified": "2025-11-20T10:17:41.612682Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2025-14104",
+                  "modified": "2025-12-06T11:17:09.332893Z"
+                },
+                {
                   "id": "DLA-3782-1",
                   "modified": "2025-05-26T07:22:30.567107Z"
                 },
@@ -4609,7 +4613,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "20127"
+          - "20199"
         Content-Type:
           - application/json
       status: 200 OK
@@ -4764,7 +4768,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4175",
-                  "modified": "2025-12-03T19:43:47.587932Z"
+                  "modified": "2025-12-06T12:28:55.617219Z"
                 }
               ]
             },
@@ -6328,7 +6332,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "platformdirs"
               },
-              "version": "4.5.0"
+              "version": "4.5.1"
             },
             {
               "package": {
@@ -6595,7 +6599,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 6076
+      content_length: 6356
       body: |
         {
           "results": [
@@ -6715,12 +6719,20 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GHSA-2xpw-w6gg-jr37",
+                  "modified": "2025-12-05T18:52:26.581492Z"
+                },
+                {
                   "id": "GHSA-34jh-p97f-mpxf",
                   "modified": "2025-11-04T17:17:45.245584Z"
                 },
                 {
                   "id": "GHSA-g4mx-q9vg-27p4",
                   "modified": "2025-11-04T17:00:24.358773Z"
+                },
+                {
+                  "id": "GHSA-gm62-xv2j-4w53",
+                  "modified": "2025-12-05T18:52:50.341818Z"
                 },
                 {
                   "id": "GHSA-pq67-6m6q-mj2v",
@@ -6937,12 +6949,20 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GHSA-2xpw-w6gg-jr37",
+                  "modified": "2025-12-05T18:52:26.581492Z"
+                },
+                {
                   "id": "GHSA-34jh-p97f-mpxf",
                   "modified": "2025-11-04T17:17:45.245584Z"
                 },
                 {
                   "id": "GHSA-g4mx-q9vg-27p4",
                   "modified": "2025-11-04T17:00:24.358773Z"
+                },
+                {
+                  "id": "GHSA-gm62-xv2j-4w53",
+                  "modified": "2025-12-05T18:52:50.341818Z"
                 },
                 {
                   "id": "GHSA-pq67-6m6q-mj2v",
@@ -7036,7 +7056,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "6076"
+          - "6356"
         Content-Type:
           - application/json
       status: 200 OK

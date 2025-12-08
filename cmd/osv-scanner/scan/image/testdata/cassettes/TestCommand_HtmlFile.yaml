@@ -12,102 +12,102 @@ interactions:
         {
           "queries": [
             {
-              "version": "3.1.2-r0",
               "package": {
-                "name": "alpine-baselayout",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "alpine-baselayout"
+              },
+              "version": "3.1.2-r0"
             },
             {
-              "version": "2.1-r2",
               "package": {
-                "name": "alpine-keys",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "alpine-keys"
+              },
+              "version": "2.1-r2"
             },
             {
-              "version": "2.10.6-r0",
               "package": {
-                "name": "apk-tools",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "apk-tools"
+              },
+              "version": "2.10.6-r0"
             },
             {
-              "version": "1.30.1-r5",
               "package": {
-                "name": "busybox",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "busybox"
+              },
+              "version": "1.30.1-r5"
             },
             {
-              "version": "20191127-r2",
               "package": {
-                "name": "ca-certificates",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "ca-certificates"
+              },
+              "version": "20191127-r2"
             },
             {
-              "version": "0.7.1-r0",
               "package": {
-                "name": "libc-dev",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "libc-dev"
+              },
+              "version": "0.7.1-r0"
             },
             {
-              "version": "1.1.1k-r0",
               "package": {
-                "name": "openssl",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "openssl"
+              },
+              "version": "1.1.1k-r0"
             },
             {
-              "version": "1.1.1k-r0",
               "package": {
-                "name": "openssl",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "openssl"
+              },
+              "version": "1.1.1k-r0"
             },
             {
-              "version": "2.9.1-r0",
               "package": {
-                "name": "libtls-standalone",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "libtls-standalone"
+              },
+              "version": "2.9.1-r0"
             },
             {
-              "version": "1.1.22-r4",
               "package": {
-                "name": "musl",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "musl"
+              },
+              "version": "1.1.22-r4"
             },
             {
-              "version": "1.1.22-r4",
               "package": {
-                "name": "musl",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "musl"
+              },
+              "version": "1.1.22-r4"
             },
             {
-              "version": "1.2.3-r0",
               "package": {
-                "name": "pax-utils",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "pax-utils"
+              },
+              "version": "1.2.3-r0"
             },
             {
-              "version": "1.30.1-r5",
               "package": {
-                "name": "busybox",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "busybox"
+              },
+              "version": "1.30.1-r5"
             },
             {
-              "version": "1.2.11-r1",
               "package": {
-                "name": "zlib",
-                "ecosystem": "Alpine:v3.18"
-              }
+                "ecosystem": "Alpine:v3.18",
+                "name": "zlib"
+              },
+              "version": "1.2.11-r1"
             }
           ]
         }
