@@ -9,8 +9,12 @@ lint:
 format:
 	scripts/run_formatters.sh
 
+test-short:
+	scripts/run_tests.sh -short
+
 test:
 	scripts/run_tests.sh
+
 
 clean:
 	rm -f osv-scanner

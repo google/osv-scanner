@@ -12,11 +12,11 @@ interactions:
         {
           "queries": [
             {
-              "version": "1.0.2",
               "package": {
-                "name": "balanced-match",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
             }
           ]
         }
@@ -57,11 +57,11 @@ interactions:
         {
           "queries": [
             {
-              "version": "1.0.2",
               "package": {
-                "name": "balanced-match",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
             }
           ]
         }
@@ -102,11 +102,11 @@ interactions:
         {
           "queries": [
             {
-              "version": "2.0.4",
               "package": {
-                "name": "sentry/sdk",
-                "ecosystem": "Packagist"
-              }
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             }
           ]
         }
@@ -147,53 +147,53 @@ interactions:
         {
           "queries": [
             {
-              "version": "4.0.0",
               "package": {
-                "name": "has-flag",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
             },
             {
-              "version": "1.0.2",
               "package": {
-                "name": "wrappy",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
             },
             {
-              "version": "1.0.8",
               "package": {
-                "name": "league/flysystem",
-                "ecosystem": "Packagist"
-              }
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
             },
             {
-              "version": "0.0.1",
               "package": {
-                "name": "ansi-html",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
             },
             {
-              "version": "0.0.1",
               "package": {
-                "name": "ansi-html",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
             },
             {
-              "version": "1.99.9",
               "package": {
-                "name": "stdlib",
-                "ecosystem": "Go"
-              }
+                "ecosystem": "Go",
+                "name": "stdlib"
+              },
+              "version": "1.99.9"
             },
             {
-              "version": "1.99.9",
               "package": {
-                "name": "toolchain",
-                "ecosystem": "Go"
-              }
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
             }
           ]
         }
@@ -261,53 +261,53 @@ interactions:
         {
           "queries": [
             {
-              "version": "4.0.0",
               "package": {
-                "name": "has-flag",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
             },
             {
-              "version": "1.0.2",
               "package": {
-                "name": "wrappy",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
             },
             {
-              "version": "1.0.8",
               "package": {
-                "name": "league/flysystem",
-                "ecosystem": "Packagist"
-              }
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
             },
             {
-              "version": "0.0.1",
               "package": {
-                "name": "ansi-html",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
             },
             {
-              "version": "0.0.1",
               "package": {
-                "name": "ansi-html",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
             },
             {
-              "version": "1.99.9",
               "package": {
-                "name": "stdlib",
-                "ecosystem": "Go"
-              }
+                "ecosystem": "Go",
+                "name": "stdlib"
+              },
+              "version": "1.99.9"
             },
             {
-              "version": "1.99.9",
               "package": {
-                "name": "toolchain",
-                "ecosystem": "Go"
-              }
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
             }
           ]
         }
@@ -406,46 +406,46 @@ interactions:
         {
           "queries": [
             {
-              "version": "4.0.0",
               "package": {
-                "name": "has-flag",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
             },
             {
-              "version": "1.0.2",
               "package": {
-                "name": "wrappy",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
             },
             {
-              "version": "1.0.8",
               "package": {
-                "name": "league/flysystem",
-                "ecosystem": "Packagist"
-              }
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
             },
             {
-              "version": "0.0.1",
               "package": {
-                "name": "ansi-html",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
             },
             {
-              "version": "1.99.9",
               "package": {
-                "name": "stdlib",
-                "ecosystem": "Go"
-              }
+                "ecosystem": "Go",
+                "name": "stdlib"
+              },
+              "version": "1.99.9"
             },
             {
-              "version": "1.99.9",
               "package": {
-                "name": "toolchain",
-                "ecosystem": "Go"
-              }
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
             }
           ]
         }

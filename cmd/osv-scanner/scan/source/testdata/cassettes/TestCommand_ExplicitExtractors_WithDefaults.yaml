@@ -12,32 +12,32 @@ interactions:
         {
           "queries": [
             {
-              "version": "2.4.2",
               "package": {
-                "name": "ast",
-                "ecosystem": "RubyGems"
-              }
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
             },
             {
-              "version": "2.0.4",
               "package": {
-                "name": "sentry/sdk",
-                "ecosystem": "Packagist"
-              }
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             },
             {
-              "version": "0.0.8",
               "package": {
-                "name": "ansi-html",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.8"
             },
             {
-              "version": "1.0.2",
               "package": {
-                "name": "balanced-match",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
             }
           ]
         }
@@ -81,32 +81,32 @@ interactions:
         {
           "queries": [
             {
-              "version": "2.4.2",
               "package": {
-                "name": "ast",
-                "ecosystem": "RubyGems"
-              }
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
             },
             {
-              "version": "2.0.4",
               "package": {
-                "name": "sentry/sdk",
-                "ecosystem": "Packagist"
-              }
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             },
             {
-              "version": "0.0.8",
               "package": {
-                "name": "ansi-html",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.8"
             },
             {
-              "version": "1.0.2",
               "package": {
-                "name": "balanced-match",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
             }
           ]
         }
@@ -150,32 +150,32 @@ interactions:
         {
           "queries": [
             {
-              "version": "2.4.2",
               "package": {
-                "name": "ast",
-                "ecosystem": "RubyGems"
-              }
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
             },
             {
-              "version": "2.0.4",
               "package": {
-                "name": "sentry/sdk",
-                "ecosystem": "Packagist"
-              }
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             },
             {
-              "version": "0.0.8",
               "package": {
-                "name": "ansi-html",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.8"
             },
             {
-              "version": "1.0.2",
               "package": {
-                "name": "balanced-match",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
             }
           ]
         }
@@ -219,25 +219,25 @@ interactions:
         {
           "queries": [
             {
-              "version": "2.4.2",
               "package": {
-                "name": "ast",
-                "ecosystem": "RubyGems"
-              }
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
             },
             {
-              "version": "2.0.4",
               "package": {
-                "name": "sentry/sdk",
-                "ecosystem": "Packagist"
-              }
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             },
             {
-              "version": "1.0.2",
               "package": {
-                "name": "balanced-match",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
             }
           ]
         }
@@ -280,32 +280,32 @@ interactions:
         {
           "queries": [
             {
-              "version": "2.4.2",
               "package": {
-                "name": "ast",
-                "ecosystem": "RubyGems"
-              }
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
             },
             {
-              "version": "2.0.4",
               "package": {
-                "name": "sentry/sdk",
-                "ecosystem": "Packagist"
-              }
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             },
             {
-              "version": "0.0.8",
               "package": {
-                "name": "ansi-html",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.8"
             },
             {
-              "version": "1.0.2",
               "package": {
-                "name": "balanced-match",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
             }
           ]
         }
@@ -349,11 +349,11 @@ interactions:
         {
           "queries": [
             {
-              "version": "2.0.4",
               "package": {
-                "name": "sentry/sdk",
-                "ecosystem": "Packagist"
-              }
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
             }
           ]
         }
@@ -394,11 +394,11 @@ interactions:
         {
           "queries": [
             {
-              "version": "0.0.8",
               "package": {
-                "name": "ansi-html",
-                "ecosystem": "npm"
-              }
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.8"
             }
           ]
         }

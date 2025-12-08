@@ -109,42 +109,133 @@ No issues found
 
 ---
 
+[TestCommand_ExplicitExtractors_WithDefaults/add_extractors - 1]
+Scanning local image tarball "testdata/test-alpine-sbom.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 2 packages affected by 2 known vulnerabilities (2 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+1 vulnerability can be fixed.
+
+
+Alpine
++------------------------------------------------------------------------------------------------+
+| Source:sbom:/data/alpine-zlib-16.cdx.json:lib/apk/db/installed                                 |
++---------+-------------------+------------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+------------------+------------+------------------+---------------+
+| zlib    | 1.2.12-r1         | No fix available |          1 | # 2 Layer        | --            |
++---------+-------------------+------------------+------------+------------------+---------------+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/lib/apk/db/installed                                                                                              |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/add_extractors - 2]
+
+---
+
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out - 1]
-Checking if docker image ("alpine:non-existent-tag") exists locally...
+Scanning local image tarball "testdata/test-alpine-sbom.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/lib/apk/db/installed                                                                                              |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
 
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out - 2]
-Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
-STDERR:
-> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
-failed to pull container image: failed to run docker command
 
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out#01 - 1]
-Checking if docker image ("alpine:non-existent-tag") exists locally...
+Scanning local image tarball "testdata/test-alpine-sbom.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/lib/apk/db/installed                                                                                              |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
 
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out#01 - 2]
-Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
-STDERR:
-> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
-failed to pull container image: failed to run docker command
 
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 1]
-Checking if docker image ("alpine:non-existent-tag") exists locally...
+Scanning local image tarball "testdata/test-alpine-sbom.tar"
+
+Container Scanning Result (Alpine Linux v3.10):
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+
+Alpine:v3.10
++------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/lib/apk/db/installed                                                                                              |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+| apk-tools      | 2.10.6-r0         | Fix Available |          1 | apk-tools               | # 0 Layer        | alpine        |
++----------------+-------------------+---------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
 
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 2]
-Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
-STDERR:
-> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
-failed to pull container image: failed to run docker command
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/add_extractors - 1]
+Scanning local image tarball "testdata/test-alpine-sbom.tar"
+Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
++---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------------------+
+| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                            |
++---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------------------+
+| https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.12-r1 | --            | data/alpine-zlib-16.cdx.json:lib/apk/db/installed |
++---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------------------+
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/add_extractors - 2]
 
 ---
 

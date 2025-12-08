@@ -381,6 +381,8 @@ func TestCommand_Config_UnusedIgnores(t *testing.T) {
 func TestCommand_JavareachArchive(t *testing.T) {
 	t.Parallel()
 
+	testutility.SkipIfShort(t)
+
 	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
@@ -700,8 +702,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 func TestCommand_CallAnalysis(t *testing.T) {
 	t.Parallel()
 
-	// Switch to acceptance test if this takes too long, or when we add rust tests
-	// testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+	// This does require Go toolchain, but the whole project requires go toolchain,
+	// so not an external dependency
 
 	client := testcmd.InsertCassette(t)
 
@@ -954,6 +956,8 @@ func TestCommand_GithubActions(t *testing.T) {
 func TestCommand_LocalDatabases(t *testing.T) {
 	t.Parallel()
 
+	testutility.SkipIfShort(t)
+
 	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
@@ -1072,6 +1076,8 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 func TestCommand_CommitSupport(t *testing.T) {
 	t.Parallel()
+
+	testutility.SkipIfShort(t)
 
 	tests := []testcmd.Case{
 		{
@@ -1206,6 +1212,8 @@ func TestCommand_Licenses(t *testing.T) {
 
 func TestCommand_Transitive(t *testing.T) {
 	t.Parallel()
+
+	testutility.SkipIfShort(t)
 
 	client := testcmd.InsertCassette(t)
 

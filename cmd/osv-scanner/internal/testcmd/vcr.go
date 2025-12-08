@@ -102,12 +102,16 @@ func InsertCassette(t *testing.T) *http.Client {
 
 			delete(i.Request.Headers, "User-Agent")
 
-			i.Request.Body = string(pretty.Pretty([]byte(i.Request.Body)))
+			// Force copy of default options, as we don't want to change the global variable
+			prettyOptions := *pretty.DefaultOptions
+			prettyOptions.SortKeys = true
+
+			i.Request.Body = string(pretty.PrettyOptions([]byte(i.Request.Body), &prettyOptions))
 			i.Request.ContentLength = int64(len(i.Request.Body))
 
 			// use a static duration since we don't care about replicating latency
 			i.Response.Duration = 0
-			i.Response.Body = string(pretty.Pretty([]byte(i.Response.Body)))
+			i.Response.Body = string(pretty.PrettyOptions([]byte(i.Response.Body), &prettyOptions))
 
 			return nil
 		}, recorder.AfterCaptureHook),
