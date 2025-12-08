@@ -683,8 +683,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-python-full.tar"
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)):
-Total 19 packages affected by 44 known vulnerabilities (1 Critical, 14 High, 14 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
-44 vulnerabilities can be fixed.
+Total 19 packages affected by 46 known vulnerabilities (1 Critical, 16 High, 14 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
+46 vulnerabilities can be fixed.
 
 
 PyPI
@@ -749,7 +749,7 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+---------------+------------+------------------+---------------+
-| urllib3 | 1.24.3            | Fix Available |          6 | # 17 Layer       | --            |
+| urllib3 | 1.24.3            | Fix Available |          8 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
 Debian:10
 +-----------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1346,14 +1346,16 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
               "index": 17
             }
           },
-          "groups": 6,
+          "groups": 8,
           "vulnerabilities": [
             "PYSEC-2020-148",
             "PYSEC-2021-108",
             "PYSEC-2023-192",
             "PYSEC-2023-212",
+            "GHSA-2xpw-w6gg-jr37",
             "GHSA-34jh-p97f-mpxf",
             "GHSA-g4mx-q9vg-27p4",
+            "GHSA-gm62-xv2j-4w53",
             "GHSA-pq67-6m6q-mj2v",
             "GHSA-v845-jxx5-vc9f",
             "GHSA-wqvq-5m8c-6g24"
