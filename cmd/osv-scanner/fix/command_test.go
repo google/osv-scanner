@@ -131,7 +131,7 @@ func TestCommand(t *testing.T) {
 	}
 }
 
-func TestCommandOffline(t *testing.T) {
+func TestCommand_OfflineDatabase(t *testing.T) {
 	t.Parallel()
 
 	testutility.SkipIfShort(t)

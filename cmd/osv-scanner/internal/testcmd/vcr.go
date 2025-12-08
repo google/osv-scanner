@@ -102,7 +102,7 @@ func InsertCassette(t *testing.T) *http.Client {
 
 			delete(i.Request.Headers, "User-Agent")
 
-			// Force copy of default options
+			// Force copy of default options, as we don't want to change the global variable
 			prettyOptions := *pretty.DefaultOptions
 			prettyOptions.SortKeys = true
 
