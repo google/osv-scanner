@@ -1,3 +1,15 @@
+# v2.3.1
+
+### Features:
+
+- [Feature #2370](https://github.com/google/osv-scanner/pull/2370) Add support for the `packagedeprecation` plugin via the new `--experimental-flag-deprecated-packages` flag. The result is available in all output formats except SPDX.
+
+### Fixes:
+
+- [Bug #2395](https://github.com/google/osv-scanner/pull/2395) Fix license scanning to correctly match new `deps.dev` package names.
+- [Bug #2333](https://github.com/google/osv-scanner/pull/2333) Deduplicate SARIF outputs for GitHub.
+- [Bug #2259](https://github.com/google/osv-scanner/pull/2259) Fix lookup of Go packages with major versions by including the subpath of Go PURLs, preventing false positives.
+
 # v2.3.0
 
 This release migrates to the new `osv.dev` and `osv-schema` proto bindings for its internal data models ([#2328](https://github.com/google/osv-scanner/pull/2328)). This is primarily an internal change and should not impact users.
