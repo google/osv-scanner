@@ -8043,7 +8043,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4626
+      content_length: 4995
       body: |
         {
           "results": [
@@ -8310,7 +8310,30 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-64505",
+                  "modified": "2025-12-08T15:11:42.598503Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-64506",
+                  "modified": "2025-12-08T15:14:01.131553Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-64720",
+                  "modified": "2025-12-08T15:14:12.627370Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-65018",
+                  "modified": "2025-12-08T15:14:18.487828Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-66293",
+                  "modified": "2025-12-08T15:17:27.019257Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -8548,7 +8571,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4626"
+          - "4995"
         Content-Type:
           - application/json
       status: 200 OK
