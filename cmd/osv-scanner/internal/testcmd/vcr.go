@@ -100,6 +100,12 @@ func InsertCassette(t *testing.T) *http.Client {
 				delete(i.Response.Headers, header)
 			}
 
+			for header := range i.Response.Headers {
+				if strings.HasPrefix(header, "X-Google-") {
+					delete(i.Response.Headers, header)
+				}
+			}
+
 			delete(i.Request.Headers, "User-Agent")
 
 			// Force copy of default options, as we don't want to change the global variable
