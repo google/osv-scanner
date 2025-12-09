@@ -172,36 +172,35 @@
     },
     {
       "name": "drupal/simple_sitemap",
-      "version": "4.2.2",
+      "version": "4.2.1",
       "source": {
         "type": "git",
         "url": "https://git.drupalcode.org/project/simple_sitemap.git",
-        "reference": "4.2.2"
+        "reference": "4.2.1"
       },
       "dist": {
         "type": "zip",
-        "url": "https://ftp.drupal.org/files/projects/simple_sitemap-4.2.2.zip",
-        "reference": "4.2.2",
-        "shasum": "1f9c9197d37450fb347a4fa3f10191f5f4b5ef13"
+        "url": "https://ftp.drupal.org/files/projects/simple_sitemap-4.2.1.zip",
+        "reference": "4.2.1",
+        "shasum": "d96b481571ca2fecdb305e87d2557f9338116864"
       },
       "require": {
         "drupal/core": "^10.2 || ^11",
         "ext-xmlwriter": "*"
       },
-      "conflict": {
-        "drush/drush": "<12.5.1"
-      },
-      "require-dev": {
-        "drupal/paragraphs": "^1.18"
-      },
       "type": "drupal-module",
       "extra": {
         "drupal": {
-          "version": "4.2.2",
-          "datestamp": "1750876597",
+          "version": "4.2.1",
+          "datestamp": "1723802052",
           "security-coverage": {
             "status": "covered",
             "message": "Covered by Drupal's security advisory policy"
+          }
+        },
+        "drush": {
+          "services": {
+            "drush.services.yml": ">=9"
           }
         }
       },

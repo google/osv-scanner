@@ -456,7 +456,7 @@ overriding license for package Alpine/scanelf/1.3.5-r1 with MIT
 overriding license for package Alpine/ssl_client/1.36.1-r27 with MIT
 overriding license for package Alpine/zlib/1.2.13-r0 with MIT
 overriding license for package Packagist/drupal/core/10.4.5 with 0BSD
-overriding license for package Packagist/drupal/simple_sitemap/4.2.2 with 0BSD
+overriding license for package Packagist/drupal/simple_sitemap/4.2.1 with 0BSD
 overriding license for package Packagist/drupal/tfa/2.0.0-alpha4 with 0BSD
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
@@ -493,7 +493,7 @@ Total 4 packages affected by 7 known vulnerabilities (2 Critical, 1 High, 1 Medi
 | UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |              | testdata/locks-insecure/osv-scanner-flutter-deps.json |
 | UNKNOWN           |           | https://github.com/flutter/buildroot.git       |              | testdata/locks-insecure/osv-scanner-flutter-deps.json |
 | 0BSD              | Packagist | drupal/core                                    | 10.4.5       | testdata/locks-many-with-insecure/composer.lock       |
-| 0BSD              | Packagist | drupal/simple_sitemap                          | 4.2.2        | testdata/locks-many-with-insecure/composer.lock       |
+| 0BSD              | Packagist | drupal/simple_sitemap                          | 4.2.1        | testdata/locks-many-with-insecure/composer.lock       |
 | 0BSD              | Packagist | drupal/tfa                                     | 2.0.0-alpha4 | testdata/locks-many-with-insecure/composer.lock       |
 | 0BSD              | Packagist | league/flysystem                               | 1.0.8        | testdata/locks-many-with-insecure/composer.lock       |
 | 0BSD              | Packagist | sentry/sdk                                     | 2.0.4        | testdata/locks-many-with-insecure/composer.lock       |
