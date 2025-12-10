@@ -10,6 +10,10 @@
 - [Bug #2333](https://github.com/google/osv-scanner/pull/2333) Deduplicate SARIF outputs for GitHub.
 - [Bug #2259](https://github.com/google/osv-scanner/pull/2259) Fix lookup of Go packages with major versions by including the subpath of Go PURLs, preventing false positives.
 
+### Misc:
+
+- Updated Go version to the latest to support reachability analysis.
+
 # v2.3.0
 
 This release migrates to the new `osv.dev` and `osv-schema` proto bindings for its internal data models ([#2328](https://github.com/google/osv-scanner/pull/2328)). This is primarily an internal change and should not impact users.
