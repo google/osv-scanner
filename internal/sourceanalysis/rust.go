@@ -267,6 +267,9 @@ func rustBuildSource(source models.SourceInfo) ([]string, error) {
 
 	resultBinaryPaths := []string{}
 	for _, de := range entries {
+		// We only want .d files, which is generated for each output binary from cargo
+		// These files contains a string to the full path of output binary/library file.
+		// This is a reasonably reliable way to identify the output in a cross-platform way.
 		if de.IsDir() || !strings.HasSuffix(de.Name(), ".d") {
 			continue
 		}
