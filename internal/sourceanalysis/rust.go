@@ -226,6 +226,15 @@ func extractRlibArchive(rlibPath string) (bytes.Buffer, error) {
 }
 
 func rustBuildSource(source models.SourceInfo) ([]string, error) {
+	// PREVENT ARBITRARY CODE EXECUTION 
+	
+	if os.Getenv("OSV_SCANNER_ALLOW_UNSAFE_BUILD") != "true" {
+		cmdlogger.Warnf("Skipping Rust analysis: 'cargo build' executes untrusted code.")
+		cmdlogger.Warnf("To enable (RISKY), set OSV_SCANNER_ALLOW_UNSAFE_BUILD=true")
+		return nil, nil
+	}
+	// -------------------------------------------------------------------------
+
 	projectBaseDir := filepath.Dir(source.Path)
 
 	// TODO: This will be moved to enrichers which does have context.
@@ -258,9 +267,6 @@ func rustBuildSource(source models.SourceInfo) ([]string, error) {
 
 	resultBinaryPaths := []string{}
 	for _, de := range entries {
-		// We only want .d files, which is generated for each output binary from cargo
-		// These files contains a string to the full path of output binary/library file.
-		// This is a reasonably reliable way to identify the output in a cross-platform way.
 		if de.IsDir() || !strings.HasSuffix(de.Name(), ".d") {
 			continue
 		}
