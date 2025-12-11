@@ -137,6 +137,7 @@ require (
 	github.com/mattn/go-localereader v0.0.1 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
 	github.com/mattn/go-shellwords v1.0.12 // indirect
+	github.com/michaelkedar/xml v0.0.0-20250501021638-021a7b1a061e // indirect
 	github.com/microcosm-cc/bluemonday v1.0.27 // indirect
 	github.com/micromdm/plist v0.2.1 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
