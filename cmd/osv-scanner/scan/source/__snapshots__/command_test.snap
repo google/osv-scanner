@@ -218,7 +218,7 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
@@ -241,7 +241,7 @@ Total 2 packages affected by 7 known vulnerabilities (3 Critical, 4 High, 0 Medi
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2016-9840  | 8.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2016-9841  | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2016-9842  | 8.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
@@ -474,7 +474,7 @@ Total 4 packages affected by 7 known vulnerabilities (2 Critical, 1 High, 1 Medi
 | https://osv.dev/GHSA-m6vv-vcj8-w8m7   | 5.9  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/GHSA-mhpg-hpj5-73r2   | 3.7  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+------------------+----------+---------------+--------------------------------------------------+
 +---------+-------------------------+
 | LICENSE | NO. OF PACKAGE VERSIONS |
@@ -813,10 +813,10 @@ Total 26 packages affected by 163 known vulnerabilities (20 Critical, 71 High, 4
 | https://osv.dev/GO-2022-0493          | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |           |                                |                                    |                                   |                                                                     |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/DSA-4685-1            | 5.5  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1235,7 +1235,7 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                         |
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
@@ -1256,7 +1256,7 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                         |
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
@@ -1301,7 +1301,7 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
@@ -1322,7 +1322,7 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
@@ -3919,7 +3919,7 @@ Total 4 packages affected by 7 known vulnerabilities (1 Critical, 2 High, 1 Medi
 | https://osv.dev/GHSA-mhpg-hpj5-73r2   |      |           |                  |          |               |                                                     |
 | https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/GHSA-whgm-jr23-g3j9   | 7.5  | npm       | ansi-html        | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
 +---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
 
 ---
@@ -3957,7 +3957,7 @@ Total 4 packages affected by 7 known vulnerabilities (1 Critical, 2 High, 1 Medi
 | https://osv.dev/GHSA-mhpg-hpj5-73r2   |      |           |                  |          |               |                                                     |
 | https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/GHSA-whgm-jr23-g3j9   | 7.5  | npm       | ansi-html        | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
-| https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
+| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
 +---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
 
 ---
