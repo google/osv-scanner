@@ -3909,10 +3909,14 @@ Total 4 packages affected by 7 known vulnerabilities (1 Critical, 2 High, 1 Medi
 +---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                              |
 +---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
-| https://osv.dev/GHSA-83v7-c2cf-p9c2   | 2.7  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
-| https://osv.dev/GHSA-h89p-5896-f4q8   | 2.1  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
-| https://osv.dev/GHSA-m6vv-vcj8-w8m7   | 5.9  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
-| https://osv.dev/GHSA-mhpg-hpj5-73r2   | 3.7  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/DRUPAL-CORE-2025-005  | 2.7  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/GHSA-83v7-c2cf-p9c2   |      |           |                  |          |               |                                                     |
+| https://osv.dev/DRUPAL-CORE-2025-006  | 5.9  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/GHSA-m6vv-vcj8-w8m7   |      |           |                  |          |               |                                                     |
+| https://osv.dev/DRUPAL-CORE-2025-007  | 2.1  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/GHSA-h89p-5896-f4q8   |      |           |                  |          |               |                                                     |
+| https://osv.dev/DRUPAL-CORE-2025-008  | 3.7  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/GHSA-mhpg-hpj5-73r2   |      |           |                  |          |               |                                                     |
 | https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/GHSA-whgm-jr23-g3j9   | 7.5  | npm       | ansi-html        | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
 | https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
@@ -3943,10 +3947,14 @@ Total 4 packages affected by 7 known vulnerabilities (1 Critical, 2 High, 1 Medi
 +---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                              |
 +---------------------------------------+------+-----------+------------------+----------+---------------+-----------------------------------------------------+
-| https://osv.dev/GHSA-83v7-c2cf-p9c2   | 2.7  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
-| https://osv.dev/GHSA-h89p-5896-f4q8   | 2.1  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
-| https://osv.dev/GHSA-m6vv-vcj8-w8m7   | 5.9  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
-| https://osv.dev/GHSA-mhpg-hpj5-73r2   | 3.7  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/DRUPAL-CORE-2025-005  | 2.7  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/GHSA-83v7-c2cf-p9c2   |      |           |                  |          |               |                                                     |
+| https://osv.dev/DRUPAL-CORE-2025-006  | 5.9  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/GHSA-m6vv-vcj8-w8m7   |      |           |                  |          |               |                                                     |
+| https://osv.dev/DRUPAL-CORE-2025-007  | 2.1  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/GHSA-h89p-5896-f4q8   |      |           |                  |          |               |                                                     |
+| https://osv.dev/DRUPAL-CORE-2025-008  | 3.7  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock     |
+| https://osv.dev/GHSA-mhpg-hpj5-73r2   |      |           |                  |          |               |                                                     |
 | https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/GHSA-whgm-jr23-g3j9   | 7.5  | npm       | ansi-html        | 0.0.1    | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
 | https://osv.dev/ALPINE-CVE-2025-26519 | 8.1  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
