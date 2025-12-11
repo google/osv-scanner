@@ -180,7 +180,7 @@ osv-scanner scan --format json -L path/to/lockfile > /path/to/file.json
           "groups": [
             {
               "ids": ["GHSA-c3h9-896r-86jm", "GO-2021-0053"],
-              // Call stack analysis is done using the `--experimental-call-analysis` flag
+              // Call stack analysis is done using the `--call-analysis=<lang>` flag
               // and result is matched against data provided by the advisory to check if
               // affected code is actually being executed.
               "experimentalAnalysis": {
@@ -602,7 +602,7 @@ You can also specify cyclonedx 1.4 using `--format cyclonedx-1.4`.
 
 ## Call analysis
 
-With `--call-analysis` flag enabled, call information will be included in the output.
+With `--call-analysis=<lang>` flag enabled, call information will be included in the output. See [Scanning with call analysis](./scan-source.md#scanning-with-call-analysis) for more details on how to enable call analysis.
 
 ### Table
 
@@ -611,7 +611,7 @@ affects code called by your project, and vulnerabilities that only affect code p
 your code.
 
 ```bash
-osv-scanner scan --format table --call-analysis your/project/dir
+osv-scanner scan --format table --call-analysis=rust your/project/dir
 ```
 
 <details markdown="1">
@@ -640,7 +640,7 @@ osv-scanner scan --format table --call-analysis your/project/dir
 The JSON output will include analysis results for each vulnerability group.
 
 ```bash
-osv-scanner scan --format json --call-analysis -L path/to/lockfile > /path/to/file.json
+osv-scanner scan --format json --call-analysis=rust -L path/to/lockfile > /path/to/file.json
 ```
 
 <details markdown="1">
