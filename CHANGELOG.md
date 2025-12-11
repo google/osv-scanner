@@ -12,7 +12,7 @@
 
 ### Misc:
 
-- Updated Go version to the latest to support reachability analysis.
+- Updated Go version to v1.25.5 to support Go reachability analysis for the latest version.
 
 # v2.3.0
 
