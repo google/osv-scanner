@@ -782,7 +782,7 @@ Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 pac
 Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
-Filtered 9 local/unscannable package/s from the scan.
+Filtered 10 local/unscannable package/s from the scan.
 Total 26 packages affected by 163 known vulnerabilities (20 Critical, 71 High, 49 Medium, 1 Low, 22 Unknown) from 4 ecosystems.
 11 vulnerabilities can be fixed.
 
@@ -1904,7 +1904,7 @@ Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 pac
 Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
-Filtered 9 local/unscannable package/s from the scan.
+Filtered 10 local/unscannable package/s from the scan.
 CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
 CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
 CVE-2022-1304 and 2 aliases have been filtered out because: (no reason given)
@@ -2122,7 +2122,7 @@ Scanning dir testdata/sbom-insecure/alpine.cdx.xml
 Scanning dir testdata/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
-Filtered 1 local/unscannable package/s from the scan.
+Filtered 2 local/unscannable package/s from the scan.
 CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
 CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
 CVE-2022-1304 and 2 aliases have been filtered out because: (no reason given)
@@ -4121,9 +4121,9 @@ No issues found
 [TestCommand_LocalDatabases/one_specific_supported_sbom_with_vulns - 1]
 Scanning dir ./testdata/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
+Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
-Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 Total 21 packages affected by 156 known vulnerabilities (17 Critical, 67 High, 49 Medium, 1 Low, 22 Unknown) from 2 ecosystems.
 11 vulnerabilities can be fixed.
 
@@ -4327,9 +4327,9 @@ Total 21 packages affected by 156 known vulnerabilities (17 Critical, 67 High, 4
 [TestCommand_LocalDatabases/one_specific_supported_sbom_with_vulns - 3]
 Scanning dir ./testdata/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
+Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
-Loaded OSS-Fuzz local db from <tempdir>/osv-scanner/OSS-Fuzz/all.zip
 Total 21 packages affected by 156 known vulnerabilities (17 Critical, 67 High, 49 Medium, 1 Low, 22 Unknown) from 2 ecosystems.
 11 vulnerabilities can be fixed.
 
