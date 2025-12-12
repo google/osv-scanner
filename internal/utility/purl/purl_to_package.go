@@ -9,21 +9,29 @@ import (
 // used like so: purlEcosystems[PkgURL.Type][PkgURL.Namespace]
 // * means it should match any namespace string
 var purlEcosystems = map[string]map[string]osvconstants.Ecosystem{
-	"apk":   {"alpine": osvconstants.EcosystemAlpine},
-	"cargo": {"*": osvconstants.EcosystemCratesIO},
+	"apk":      {"alpine": osvconstants.EcosystemAlpine},
+	"cargo":    {"*": osvconstants.EcosystemCratesIO},
+	"composer": {"*": osvconstants.EcosystemPackagist},
+	"conan":    {"*": osvconstants.EcosystemConanCenter},
+	"cran":     {"*": osvconstants.EcosystemCRAN},
 	"deb": {
 		"debian": osvconstants.EcosystemDebian,
 		"ubuntu": osvconstants.EcosystemUbuntu,
 	},
-	"hex":      {"*": osvconstants.EcosystemHex},
-	"golang":   {"*": osvconstants.EcosystemGo},
-	"maven":    {"*": osvconstants.EcosystemMaven},
-	"nuget":    {"*": osvconstants.EcosystemNuGet},
-	"npm":      {"*": osvconstants.EcosystemNPM},
-	"composer": {"*": osvconstants.EcosystemPackagist},
-	"generic":  {"*": osvconstants.EcosystemOSSFuzz},
-	"pypi":     {"*": osvconstants.EcosystemPyPI},
-	"gem":      {"*": osvconstants.EcosystemRubyGems},
+	"gem": {"*": osvconstants.EcosystemRubyGems},
+	// We don't yet have a GIT ecosystem which aligns with the generic type better.
+	// "generic": {"*": osvconstants.EcosystemOSSFuzz},
+	"github":  {"*": osvconstants.EcosystemGitHubActions},
+	"golang":  {"*": osvconstants.EcosystemGo},
+	"hackage": {"*": osvconstants.EcosystemHackage},
+	"hex":     {"*": osvconstants.EcosystemHex},
+	"k8s":     {"*": osvconstants.EcosystemKubernetes},
+	"maven":   {"*": osvconstants.EcosystemMaven},
+	"npm":     {"*": osvconstants.EcosystemNPM},
+	"nuget":   {"*": osvconstants.EcosystemNuGet},
+	"pub":     {"*": osvconstants.EcosystemPub},
+	"pypi":    {"*": osvconstants.EcosystemPyPI},
+	"swift":   {"*": osvconstants.EcosystemSwiftURL},
 }
 
 func getPURLEcosystem(pkgURL packageurl.PackageURL) osvconstants.Ecosystem {
