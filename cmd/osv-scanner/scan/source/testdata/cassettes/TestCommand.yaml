@@ -3222,7 +3222,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 20196
+      content_length: 20257
       body: |
         {
           "results": [
@@ -4507,6 +4507,10 @@ interactions:
                 {
                   "id": "DLA-4105-1",
                   "modified": "2025-05-26T07:02:13.921097Z"
+                },
+                {
+                  "id": "DLA-4403-1",
+                  "modified": "2025-12-12T10:13:37.154747Z"
                 }
               ]
             },
@@ -4628,7 +4632,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "20196"
+          - "20257"
         Content-Type:
           - application/json
       status: 200 OK

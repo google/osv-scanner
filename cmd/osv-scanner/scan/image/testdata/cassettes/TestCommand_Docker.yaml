@@ -169,7 +169,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -177,7 +177,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
