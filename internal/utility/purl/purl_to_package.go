@@ -18,8 +18,9 @@ var purlEcosystems = map[string]map[string]osvconstants.Ecosystem{
 		"debian": osvconstants.EcosystemDebian,
 		"ubuntu": osvconstants.EcosystemUbuntu,
 	},
-	"gem":     {"*": osvconstants.EcosystemRubyGems},
-	"generic": {"*": osvconstants.EcosystemOSSFuzz},
+	"gem": {"*": osvconstants.EcosystemRubyGems},
+	// We don't yet have a GIT ecosystem which aligns with the generic type better.
+	// "generic": {"*": osvconstants.EcosystemOSSFuzz},
 	"github":  {"*": osvconstants.EcosystemGitHubActions},
 	"golang":  {"*": osvconstants.EcosystemGo},
 	"hackage": {"*": osvconstants.EcosystemHackage},
