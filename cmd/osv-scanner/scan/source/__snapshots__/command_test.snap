@@ -461,21 +461,26 @@ overriding license for package Packagist/drupal/tfa/2.0.0-alpha4 with 0BSD
 overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Packagist/theseer/tokenizer/1.1.3 with 0BSD
-Total 4 packages affected by 7 known vulnerabilities (2 Critical, 1 High, 1 Medium, 3 Low, 0 Unknown) from 4 ecosystems.
+Total 5 packages affected by 8 known vulnerabilities (2 Critical, 1 High, 1 Medium, 3 Low, 1 Unknown) from 4 ecosystems.
 6 vulnerabilities can be fixed.
 
 
-+---------------------------------------+------+-----------+------------------+----------+---------------+--------------------------------------------------+
-| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE          | VERSION  | FIXED VERSION | SOURCE                                           |
-+---------------------------------------+------+-----------+------------------+----------+---------------+--------------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-insecure/composer.lock            |
-| https://osv.dev/GHSA-83v7-c2cf-p9c2   | 2.7  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/GHSA-h89p-5896-f4q8   | 2.1  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/GHSA-m6vv-vcj8-w8m7   | 5.9  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/GHSA-mhpg-hpj5-73r2   | 3.7  | Packagist | drupal/core      | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/GHSA-9f46-5r25-5wfm   | 9.8  | Packagist | league/flysystem | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl             | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
-+---------------------------------------+------+-----------+------------------+----------+---------------+--------------------------------------------------+
++-----------------------------------------+------+-----------+-----------------------+----------+---------------+--------------------------------------------------+
+| OSV URL                                 | CVSS | ECOSYSTEM | PACKAGE               | VERSION  | FIXED VERSION | SOURCE                                           |
++-----------------------------------------+------+-----------+-----------------------+----------+---------------+--------------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist | league/flysystem      | 1.0.8    | 1.1.4         | testdata/locks-insecure/composer.lock            |
+| https://osv.dev/DRUPAL-CORE-2025-005    | 2.7  | Packagist | drupal/core           | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/GHSA-83v7-c2cf-p9c2     |      |           |                       |          |               |                                                  |
+| https://osv.dev/DRUPAL-CORE-2025-006    | 5.9  | Packagist | drupal/core           | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/GHSA-m6vv-vcj8-w8m7     |      |           |                       |          |               |                                                  |
+| https://osv.dev/DRUPAL-CORE-2025-007    | 2.1  | Packagist | drupal/core           | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/GHSA-h89p-5896-f4q8     |      |           |                       |          |               |                                                  |
+| https://osv.dev/DRUPAL-CORE-2025-008    | 3.7  | Packagist | drupal/core           | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/GHSA-mhpg-hpj5-73r2     |      |           |                       |          |               |                                                  |
+| https://osv.dev/DRUPAL-CONTRIB-2025-083 |      | Packagist | drupal/simple_sitemap | 4.2.1    | --            | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist | league/flysystem      | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/ALPINE-CVE-2025-26519   | 7.0  | Alpine    | musl                  | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
++-----------------------------------------+------+-----------+-----------------------+----------+---------------+--------------------------------------------------+
 +---------+-------------------------+
 | LICENSE | NO. OF PACKAGE VERSIONS |
 +---------+-------------------------+

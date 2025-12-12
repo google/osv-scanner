@@ -139,7 +139,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -173,7 +173,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 23151
+      content_length: 23023
       host: api.osv.dev
       body: |
         {
@@ -1181,13 +1181,6 @@ interactions:
             },
             {
               "package": {
-                "ecosystem": "OSS-Fuzz",
-                "name": "postgresql"
-              },
-              "version": "11.15"
-            },
-            {
-              "package": {
                 "ecosystem": "Debian",
                 "name": "postgresql-11"
               },
@@ -1409,7 +1402,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 20199
+      content_length: 20196
       body: |
         {
           "results": [
@@ -1434,7 +1427,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -2570,7 +2563,6 @@ interactions:
             {},
             {},
             {},
-            {},
             {
               "vulns": [
                 {
@@ -2793,7 +2785,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -2816,7 +2808,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "20199"
+          - "20196"
         Content-Type:
           - application/json
       status: 200 OK
@@ -2827,7 +2819,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 20012
+      content_length: 19884
       host: api.osv.dev
       body: |
         {
@@ -3765,13 +3757,6 @@ interactions:
             },
             {
               "package": {
-                "ecosystem": "OSS-Fuzz",
-                "name": "postgresql"
-              },
-              "version": "11.15"
-            },
-            {
-              "package": {
                 "ecosystem": "Debian",
                 "name": "postgresql-11"
               },
@@ -3895,7 +3880,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 19738
+      content_length: 19735
       body: |
         {
           "results": [
@@ -3912,7 +3897,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -5032,7 +5017,6 @@ interactions:
             {},
             {},
             {},
-            {},
             {
               "vulns": [
                 {
@@ -5246,7 +5230,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "19738"
+          - "19735"
         Content-Type:
           - application/json
       status: 200 OK

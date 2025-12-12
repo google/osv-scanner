@@ -1084,7 +1084,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -1487,7 +1487,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 761
+      content_length: 1128
       body: |
         {
           "results": [
@@ -1529,7 +1529,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -1540,24 +1540,47 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "DRUPAL-CORE-2025-005",
+                  "modified": "2025-12-10T23:41:07.744028Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2025-006",
+                  "modified": "2025-12-10T23:41:16.689525Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2025-007",
+                  "modified": "2025-12-10T23:41:19.050806Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2025-008",
+                  "modified": "2025-12-10T23:41:00.167393Z"
+                },
+                {
                   "id": "GHSA-83v7-c2cf-p9c2",
-                  "modified": "2025-11-25T18:42:33.163940Z"
+                  "modified": "2025-12-10T23:41:07.744028Z"
                 },
                 {
                   "id": "GHSA-h89p-5896-f4q8",
-                  "modified": "2025-11-25T18:42:45.454425Z"
+                  "modified": "2025-12-10T23:41:19.050806Z"
                 },
                 {
                   "id": "GHSA-m6vv-vcj8-w8m7",
-                  "modified": "2025-11-25T18:42:42.709841Z"
+                  "modified": "2025-12-10T23:41:16.689525Z"
                 },
                 {
                   "id": "GHSA-mhpg-hpj5-73r2",
-                  "modified": "2025-11-25T18:42:24.545801Z"
+                  "modified": "2025-12-10T23:41:00.167393Z"
                 }
               ]
             },
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "DRUPAL-CONTRIB-2025-083",
+                  "modified": "2025-12-10T23:41:32.857305Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -1573,7 +1596,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "761"
+          - "1128"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1970,7 +1993,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 23151
+      content_length: 23023
       host: api.osv.dev
       body: |
         {
@@ -2978,13 +3001,6 @@ interactions:
             },
             {
               "package": {
-                "ecosystem": "OSS-Fuzz",
-                "name": "postgresql"
-              },
-              "version": "11.15"
-            },
-            {
-              "package": {
                 "ecosystem": "Debian",
                 "name": "postgresql-11"
               },
@@ -3206,7 +3222,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 20199
+      content_length: 20196
       body: |
         {
           "results": [
@@ -3231,7 +3247,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -4367,7 +4383,6 @@ interactions:
             {},
             {},
             {},
-            {},
             {
               "vulns": [
                 {
@@ -4590,7 +4605,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -4613,7 +4628,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "20199"
+          - "20196"
         Content-Type:
           - application/json
       status: 200 OK
@@ -5411,7 +5426,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -5578,7 +5593,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -5947,7 +5962,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -6114,7 +6129,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
