@@ -788,7 +788,7 @@ Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and fou
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 10 local/unscannable package/s from the scan.
-Total 26 packages affected by 163 known vulnerabilities (20 Critical, 71 High, 49 Medium, 1 Low, 22 Unknown) from 4 ecosystems.
+Total 26 packages affected by 164 known vulnerabilities (20 Critical, 71 High, 49 Medium, 1 Low, 23 Unknown) from 4 ecosystems.
 11 vulnerabilities can be fixed.
 
 
@@ -979,6 +979,7 @@ Total 26 packages affected by 163 known vulnerabilities (20 Critical, 71 High, 4
 | https://osv.dev/DLA-3972-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-4085-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-4105-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DLA-4403-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-4016-1            |      | Debian    | ucf                            | 3.0036                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5055-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5650-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1923,7 +1924,7 @@ testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - GO-2022-0274
  - CVE-2019-5188
  - CVE-2022-1304
-Total 24 packages affected by 157 known vulnerabilities (20 Critical, 66 High, 48 Medium, 1 Low, 22 Unknown) from 4 ecosystems.
+Total 24 packages affected by 158 known vulnerabilities (20 Critical, 66 High, 48 Medium, 1 Low, 23 Unknown) from 4 ecosystems.
 10 vulnerabilities can be fixed.
 
 
@@ -2106,6 +2107,7 @@ Total 24 packages affected by 157 known vulnerabilities (20 Critical, 66 High, 4
 | https://osv.dev/DLA-3972-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-4085-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-4105-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DLA-4403-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-4016-1            |      | Debian    | ucf                            | 3.0036                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5055-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5650-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2139,7 +2141,7 @@ testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - GO-2022-0274
  - CVE-2019-5188
  - CVE-2022-1304
-Total 22 packages affected by 155 known vulnerabilities (18 Critical, 66 High, 48 Medium, 1 Low, 22 Unknown) from 3 ecosystems.
+Total 22 packages affected by 156 known vulnerabilities (18 Critical, 66 High, 48 Medium, 1 Low, 23 Unknown) from 3 ecosystems.
 10 vulnerabilities can be fixed.
 
 
@@ -2320,6 +2322,7 @@ Total 22 packages affected by 155 known vulnerabilities (18 Critical, 66 High, 4
 | https://osv.dev/DLA-3972-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4085-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4105-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DLA-4403-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-4016-1            |      | Debian    | ucf                            | 3.0036                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5055-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5650-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -5231,8 +5234,8 @@ Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/
 Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j/2.14.1/log4j-2.14.1.pom
 Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 59 packages
-Total 2 packages affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-5 vulnerabilities can be fixed.
+Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+6 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
@@ -5243,6 +5246,7 @@ Total 2 packages affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medi
 | https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.1        | testdata/maven-transitive/registry.xml |
 | https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.15.0        | testdata/maven-transitive/registry.xml |
 | https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.0        | testdata/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.25.3        | testdata/maven-transitive/registry.xml |
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
 
 ---
@@ -5285,8 +5289,8 @@ Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Med
 
 [TestCommand_Transitive/scans_dependencies_from_multiple_registries - 1]
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 59 packages
-Total 2 packages affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-5 vulnerabilities can be fixed.
+Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+6 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
@@ -5297,6 +5301,7 @@ Total 2 packages affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medi
 | https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.1        | testdata/maven-transitive/registry.xml |
 | https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.15.0        | testdata/maven-transitive/registry.xml |
 | https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.0        | testdata/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.25.3        | testdata/maven-transitive/registry.xml |
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
 
 ---
@@ -5325,8 +5330,8 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 
 [TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
 Scanned <rootdir>/testdata/maven-transitive/abc.xml file and found 3 packages
-Total 1 package affected by 4 known vulnerabilities (2 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-4 vulnerabilities can be fixed.
+Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+5 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
@@ -5336,6 +5341,7 @@ Total 1 package affected by 4 known vulnerabilities (2 Critical, 1 High, 1 Mediu
 | https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.1        | testdata/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.15.0        | testdata/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.0        | testdata/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.3        | testdata/maven-transitive/abc.xml |
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
 
 ---
@@ -5347,8 +5353,8 @@ Total 1 package affected by 4 known vulnerabilities (2 Critical, 1 High, 1 Mediu
 [TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 3 packages
-Total 1 package affected by 4 known vulnerabilities (2 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-4 vulnerabilities can be fixed.
+Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+5 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
@@ -5358,6 +5364,7 @@ Total 1 package affected by 4 known vulnerabilities (2 Critical, 1 High, 1 Mediu
 | https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.1        | testdata/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.15.0        | testdata/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.0        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.3        | testdata/maven-transitive/pom.xml |
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
 
 ---
