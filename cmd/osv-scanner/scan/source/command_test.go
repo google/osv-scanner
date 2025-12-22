@@ -323,6 +323,7 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		// a bunch of requirements.txt files with different names
+		// --no-resolve is used as transitive resolution tests are in a separate section
 		{
 			Name: "requirements.txt can have all kinds of names",
 			Args: []string{"", "source", "./testdata/locks-requirements", "--no-resolve"},
