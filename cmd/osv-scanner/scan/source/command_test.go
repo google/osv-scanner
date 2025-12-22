@@ -325,7 +325,7 @@ func TestCommand(t *testing.T) {
 		// a bunch of requirements.txt files with different names
 		{
 			Name: "requirements.txt can have all kinds of names",
-			Args: []string{"", "source", "./testdata/locks-requirements"},
+			Args: []string{"", "source", "./testdata/locks-requirements", "--no-resolve"},
 			Exit: 1,
 		},
 		{

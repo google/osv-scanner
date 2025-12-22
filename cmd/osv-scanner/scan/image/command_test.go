@@ -248,6 +248,8 @@ func TestCommand_OCIImage(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			// This tests that unimportant vulns are hidden properly
+			// If the test is failing (reporting new important vulns), add it as ignore=true to the config.toml
 			Name: "Empty Ubuntu 20.04 image tar with no vulns shown",
 			Args: []string{"", "image", "--archive",
 				"--config=./testdata/ubuntu20-04-unimportant-config.toml",
