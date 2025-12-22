@@ -555,7 +555,7 @@ interactions:
                 },
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -571,7 +571,7 @@ interactions:
                 },
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -683,7 +683,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 8885
+      content_length: 7587
       host: api.osv.dev
       body: |
         {
@@ -726,13 +726,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "1:2.34-0.1ubuntu9.6"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
                 "name": "bzip2"
               },
               "version": "1.0.8-2"
@@ -771,13 +764,6 @@ interactions:
                 "name": "e2fsprogs"
               },
               "version": "1.45.5-2ubuntu1.2"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
             },
             {
               "package": {
@@ -852,13 +838,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
                 "name": "bzip2"
               },
               "version": "1.0.8-2"
@@ -908,13 +887,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
                 "name": "libffi"
               },
               "version": "3.3-4"
@@ -953,13 +925,6 @@ interactions:
                 "name": "xz-utils"
               },
               "version": "5.2.4-1ubuntu1.1"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
             },
             {
               "package": {
@@ -1027,13 +992,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
                 "name": "e2fsprogs"
               },
               "version": "1.45.5-2ubuntu1.2"
@@ -1044,13 +1002,6 @@ interactions:
                 "name": "libunistring"
               },
               "version": "0.9.10-2"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
             },
             {
               "package": {
@@ -1079,13 +1030,6 @@ interactions:
                 "name": "mawk"
               },
               "version": "1.3.4.20200120-2"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
             },
             {
               "package": {
@@ -1121,13 +1065,6 @@ interactions:
                 "name": "ubuntu-keyring"
               },
               "version": "2020.02.11.4"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
             },
             {
               "package": {
@@ -1149,15 +1086,10 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 279
+      content_length: 252
       body: |
         {
           "results": [
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -1219,16 +1151,12 @@ interactions:
             {},
             {},
             {},
-            {},
-            {},
-            {},
-            {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "279"
+          - "252"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1239,7 +1167,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 8885
+      content_length: 7587
       host: api.osv.dev
       body: |
         {
@@ -1282,13 +1210,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "1:2.34-0.1ubuntu9.6"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
                 "name": "bzip2"
               },
               "version": "1.0.8-2"
@@ -1327,13 +1248,6 @@ interactions:
                 "name": "e2fsprogs"
               },
               "version": "1.45.5-2ubuntu1.2"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
             },
             {
               "package": {
@@ -1408,13 +1322,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
                 "name": "bzip2"
               },
               "version": "1.0.8-2"
@@ -1464,13 +1371,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
                 "name": "libffi"
               },
               "version": "3.3-4"
@@ -1509,13 +1409,6 @@ interactions:
                 "name": "xz-utils"
               },
               "version": "5.2.4-1ubuntu1.1"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
             },
             {
               "package": {
@@ -1583,13 +1476,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
                 "name": "e2fsprogs"
               },
               "version": "1.45.5-2ubuntu1.2"
@@ -1600,13 +1486,6 @@ interactions:
                 "name": "libunistring"
               },
               "version": "0.9.10-2"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
             },
             {
               "package": {
@@ -1635,13 +1514,6 @@ interactions:
                 "name": "mawk"
               },
               "version": "1.3.4.20200120-2"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
             },
             {
               "package": {
@@ -1681,13 +1553,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "Ubuntu:20.04",
-                "name": "util-linux"
-              },
-              "version": "2.34-0.1ubuntu9.6"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
                 "name": "zlib"
               },
               "version": "1:1.2.11.dfsg-2ubuntu1.5"
@@ -1705,15 +1570,10 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 279
+      content_length: 252
       body: |
         {
           "results": [
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -1775,16 +1635,12 @@ interactions:
             {},
             {},
             {},
-            {},
-            {},
-            {},
-            {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "279"
+          - "252"
         Content-Type:
           - application/json
       status: 200 OK
@@ -2520,7 +2376,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 8997
+      content_length: 9578
       body: |
         {
           "results": [
@@ -2529,7 +2385,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -2564,7 +2427,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-02T10:46:50.529908Z"
+                  "modified": "2025-12-11T08:34:13.011003Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -2580,11 +2443,11 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-3219",
-                  "modified": "2025-10-24T04:53:08Z"
+                  "modified": "2025-12-10T08:17:47.423186Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-30258",
-                  "modified": "2025-10-24T05:18:10Z"
+                  "modified": "2025-12-10T08:31:04.696765Z"
                 },
                 {
                   "id": "USN-7412-1",
@@ -2605,7 +2468,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -2694,7 +2564,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-02T10:46:50.529908Z"
+                  "modified": "2025-12-11T08:34:13.011003Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -2924,7 +2794,14 @@ interactions:
               ]
             },
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -3054,7 +2931,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -3092,7 +2976,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-02T10:46:50.529908Z"
+                  "modified": "2025-12-11T08:34:13.011003Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -3167,7 +3051,14 @@ interactions:
               ]
             },
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -3192,7 +3083,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -3271,13 +3169,20 @@ interactions:
             },
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {}
           ]
         }
       headers:
         Content-Length:
-          - "8997"
+          - "9578"
         Content-Type:
           - application/json
       status: 200 OK
@@ -4013,7 +3918,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 8997
+      content_length: 9578
       body: |
         {
           "results": [
@@ -4022,7 +3927,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -4057,7 +3969,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-02T10:46:50.529908Z"
+                  "modified": "2025-12-11T08:34:13.011003Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -4073,11 +3985,11 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-3219",
-                  "modified": "2025-10-24T04:53:08Z"
+                  "modified": "2025-12-10T08:17:47.423186Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-30258",
-                  "modified": "2025-10-24T05:18:10Z"
+                  "modified": "2025-12-10T08:31:04.696765Z"
                 },
                 {
                   "id": "USN-7412-1",
@@ -4098,7 +4010,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -4187,7 +4106,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-02T10:46:50.529908Z"
+                  "modified": "2025-12-11T08:34:13.011003Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -4417,7 +4336,14 @@ interactions:
               ]
             },
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -4547,7 +4473,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -4585,7 +4518,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-02T10:46:50.529908Z"
+                  "modified": "2025-12-11T08:34:13.011003Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -4660,7 +4593,14 @@ interactions:
               ]
             },
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -4685,7 +4625,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -4764,13 +4711,20 @@ interactions:
             },
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {}
           ]
         }
       headers:
         Content-Length:
-          - "8997"
+          - "9578"
         Content-Type:
           - application/json
       status: 200 OK
@@ -5520,7 +5474,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 13503
+      content_length: 14084
       body: |
         {
           "results": [
@@ -5529,7 +5483,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -5565,7 +5526,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-02T10:46:50.529908Z"
+                  "modified": "2025-12-11T08:34:13.011003Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -5837,7 +5798,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4006",
-                  "modified": "2025-11-06T13:59:37.802519Z"
+                  "modified": "2025-12-09T17:35:58.036871Z"
                 },
                 {
                   "id": "GO-2025-4007",
@@ -5889,11 +5850,11 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-3219",
-                  "modified": "2025-10-24T04:53:08Z"
+                  "modified": "2025-12-10T08:17:47.423186Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-30258",
-                  "modified": "2025-10-24T05:18:10Z"
+                  "modified": "2025-12-10T08:31:04.696765Z"
                 },
                 {
                   "id": "USN-7412-1",
@@ -5914,7 +5875,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -6003,7 +5971,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-02T10:46:50.529908Z"
+                  "modified": "2025-12-11T08:34:13.011003Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -6233,7 +6201,14 @@ interactions:
               ]
             },
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -6363,7 +6338,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -6401,7 +6383,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-02T10:46:50.529908Z"
+                  "modified": "2025-12-11T08:34:13.011003Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -6476,7 +6458,14 @@ interactions:
               ]
             },
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {},
             {
               "vulns": [
@@ -6501,7 +6490,14 @@ interactions:
             {},
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -6580,13 +6576,20 @@ interactions:
             },
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14104",
+                  "modified": "2025-12-16T19:58:36.369406Z"
+                }
+              ]
+            },
             {}
           ]
         }
       headers:
         Content-Length:
-          - "13503"
+          - "14084"
         Content-Type:
           - application/json
       status: 200 OK
@@ -8043,7 +8046,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4995
+      content_length: 5065
       body: |
         {
           "results": [
@@ -8193,6 +8196,10 @@ interactions:
                 {
                   "id": "GHSA-5jpm-x58v-624v",
                   "modified": "2024-10-22T05:29:03.483949Z"
+                },
+                {
+                  "id": "GHSA-84h7-rjj3-6jx4",
+                  "modified": "2025-12-20T03:07:15.208917Z"
                 },
                 {
                   "id": "GHSA-fghv-69vj-qj49",
@@ -8373,7 +8380,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -8383,7 +8390,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -8571,7 +8578,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4995"
+          - "5065"
         Content-Type:
           - application/json
       status: 200 OK
@@ -9548,7 +9555,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-4xh5-x5gv-qwph",
-                  "modified": "2025-11-03T19:51:02.757999Z"
+                  "modified": "2025-12-19T16:53:47.066592Z"
                 },
                 {
                   "id": "GHSA-mq26-g339-26xf",
@@ -9564,7 +9571,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-4xh5-x5gv-qwph",
-                  "modified": "2025-11-03T19:51:02.757999Z"
+                  "modified": "2025-12-19T16:53:47.066592Z"
                 },
                 {
                   "id": "GHSA-mq26-g339-26xf",
@@ -10812,7 +10819,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-4xh5-x5gv-qwph",
-                  "modified": "2025-11-03T19:51:02.757999Z"
+                  "modified": "2025-12-19T16:53:47.066592Z"
                 },
                 {
                   "id": "GHSA-mq26-g339-26xf",
@@ -10828,7 +10835,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-4xh5-x5gv-qwph",
-                  "modified": "2025-11-03T19:51:02.757999Z"
+                  "modified": "2025-12-19T16:53:47.066592Z"
                 },
                 {
                   "id": "GHSA-mq26-g339-26xf",
@@ -11338,7 +11345,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4006",
-                  "modified": "2025-11-06T13:59:37.802519Z"
+                  "modified": "2025-12-09T17:35:58.036871Z"
                 },
                 {
                   "id": "GO-2025-4007",
@@ -11438,7 +11445,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4006",
-                  "modified": "2025-11-06T13:59:37.802519Z"
+                  "modified": "2025-12-09T17:35:58.036871Z"
                 },
                 {
                   "id": "GO-2025-4007",
@@ -11538,7 +11545,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4006",
-                  "modified": "2025-11-06T13:59:37.802519Z"
+                  "modified": "2025-12-09T17:35:58.036871Z"
                 },
                 {
                   "id": "GO-2025-4007",
@@ -11638,7 +11645,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4006",
-                  "modified": "2025-11-06T13:59:37.802519Z"
+                  "modified": "2025-12-09T17:35:58.036871Z"
                 },
                 {
                   "id": "GO-2025-4007",
@@ -11738,7 +11745,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4006",
-                  "modified": "2025-11-06T13:59:37.802519Z"
+                  "modified": "2025-12-09T17:35:58.036871Z"
                 },
                 {
                   "id": "GO-2025-4007",
@@ -11838,7 +11845,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4006",
-                  "modified": "2025-11-06T13:59:37.802519Z"
+                  "modified": "2025-12-09T17:35:58.036871Z"
                 },
                 {
                   "id": "GO-2025-4007",
@@ -11962,7 +11969,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
@@ -11970,7 +11977,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2025-26519",
-                  "modified": "2025-12-03T22:58:36.705692Z"
+                  "modified": "2025-12-11T11:16:21.978419Z"
                 }
               ]
             },
