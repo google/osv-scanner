@@ -35,7 +35,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
-	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
@@ -86,6 +85,9 @@ type ExperimentalScannerActions struct {
 
 	// Report deprecated packages as findings
 	FlagDeprecatedPackages bool
+
+	// Allows specifying user agent
+	RequestUserAgent string
 }
 
 type TransitiveScanningActions struct {
@@ -121,9 +123,6 @@ var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 // TODO(v2): Actually use this error
 var ErrAPIFailed = errors.New("API query failed")
 
-// RequestUserAgent allows users to specify a user agent
-var RequestUserAgent = ""
-
 func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, error) {
 	ctx := context.Background()
 	externalAccessors := ExternalAccessors{
@@ -131,9 +130,9 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	}
 	var err error
 
-	userAgent := "osv-scanner_scan/" + version.OSVVersion
-	if RequestUserAgent != "" {
-		userAgent = RequestUserAgent
+	userAgent := "osv-scanner-api"
+	if actions.RequestUserAgent != "" {
+		userAgent = actions.RequestUserAgent
 	}
 
 	// Offline Mode
