@@ -169,6 +169,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// --- OSV.dev Client ---
 	// We create a separate client from VulnMatcher to keep things clean.
 	externalAccessors.OSVDevClient = osvdev.DefaultClient()
+	externalAccessors.OSVDevClient.Config.UserAgent = userAgent
 
 	// --- No Transitive Scanning ---
 	if actions.Disabled {
