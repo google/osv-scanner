@@ -57,20 +57,16 @@ test:
 
 # Alias for full tests (not short)
 test-full:
-    just short=false test
+    just short=false vcr="{{vcr}}" snaps="{{snaps}}" acc="{{acc}}" test
 
 # Alias for acceptance tests
 test-acceptance:
-    just acc=true test
+    just acc=true vcr="{{vcr}}" snaps="{{snaps}}" short="{{short}}" test
 
 # Alias for updating snapshots
-update-snapshots:
-    just snaps=true test
+update-snaps:
+    just snaps=true vcr="{{vcr}}" acc="{{acc}}" short="{{short}}" test
 
-# Alias for recording VCR cassettes
-test-record:
-    just vcr=RecordOnly test
-
-# Alias for replaying VCR cassettes
-test-replay:
-    just vcr=ReplayOnly test
+# Alias for updating snapshots
+update-snaps-vcr:
+    just snaps=true vcr="RecordOnly" acc="{{acc}}" short="{{short}}" test
