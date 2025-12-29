@@ -683,7 +683,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 7587
+      content_length: 7442
       host: api.osv.dev
       body: |
         {
@@ -1065,13 +1065,6 @@ interactions:
                 "name": "ubuntu-keyring"
               },
               "version": "2020.02.11.4"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "zlib"
-              },
-              "version": "1:1.2.11.dfsg-2ubuntu1.5"
             }
           ]
         }
@@ -1086,7 +1079,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 252
+      content_length: 249
       body: |
         {
           "results": [
@@ -1150,13 +1143,12 @@ interactions:
             {},
             {},
             {},
-            {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "252"
+          - "249"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1167,7 +1159,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 7587
+      content_length: 7442
       host: api.osv.dev
       body: |
         {
@@ -1549,13 +1541,6 @@ interactions:
                 "name": "ubuntu-keyring"
               },
               "version": "2020.02.11.4"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "zlib"
-              },
-              "version": "1:1.2.11.dfsg-2ubuntu1.5"
             }
           ]
         }
@@ -1570,7 +1555,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 252
+      content_length: 249
       body: |
         {
           "results": [
@@ -1634,13 +1619,12 @@ interactions:
             {},
             {},
             {},
-            {},
             {}
           ]
         }
       headers:
         Content-Length:
-          - "252"
+          - "249"
         Content-Type:
           - application/json
       status: 200 OK
@@ -2376,7 +2360,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 9578
+      content_length: 9659
       body: |
         {
           "results": [
@@ -3177,12 +3161,19 @@ interactions:
                 }
               ]
             },
-            {}
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14847",
+                  "modified": "2025-12-26T08:25:05.686502Z"
+                }
+              ]
+            }
           ]
         }
       headers:
         Content-Length:
-          - "9578"
+          - "9659"
         Content-Type:
           - application/json
       status: 200 OK
@@ -3918,7 +3909,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 9578
+      content_length: 9659
       body: |
         {
           "results": [
@@ -4719,12 +4710,19 @@ interactions:
                 }
               ]
             },
-            {}
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14847",
+                  "modified": "2025-12-26T08:25:05.686502Z"
+                }
+              ]
+            }
           ]
         }
       headers:
         Content-Length:
-          - "9578"
+          - "9659"
         Content-Type:
           - application/json
       status: 200 OK
@@ -5474,7 +5472,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 14084
+      content_length: 14165
       body: |
         {
           "results": [
@@ -6584,12 +6582,19 @@ interactions:
                 }
               ]
             },
-            {}
+            {
+              "vulns": [
+                {
+                  "id": "UBUNTU-CVE-2025-14847",
+                  "modified": "2025-12-26T08:25:05.686502Z"
+                }
+              ]
+            }
           ]
         }
       headers:
         Content-Length:
-          - "14084"
+          - "14165"
         Content-Type:
           - application/json
       status: 200 OK
@@ -10959,7 +10964,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-pq67-6m6q-mj2v",
-                  "modified": "2025-06-19T16:15:11.736637Z"
+                  "modified": "2025-12-22T21:47:12.568920Z"
                 },
                 {
                   "id": "GHSA-v845-jxx5-vc9f",
