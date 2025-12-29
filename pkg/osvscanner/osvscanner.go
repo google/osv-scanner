@@ -121,6 +121,9 @@ var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 // TODO(v2): Actually use this error
 var ErrAPIFailed = errors.New("API query failed")
 
+// RequestUserAgent allows users to specify a user agent
+var RequestUserAgent = ""
+
 func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, error) {
 	ctx := context.Background()
 	externalAccessors := ExternalAccessors{
@@ -128,13 +131,18 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	}
 	var err error
 
+	userAgent := "osv-scanner_scan/" + version.OSVVersion
+	if RequestUserAgent != "" {
+		userAgent = RequestUserAgent
+	}
+
 	// Offline Mode
 	// ------------
 	if actions.CompareOffline {
 		// --- Vulnerability Matcher ---
 		externalAccessors.VulnMatcher, err =
 			localmatcher.NewLocalMatcher(actions.LocalDBPath,
-				"osv-scanner_scan/"+version.OSVVersion, actions.DownloadDatabases)
+				userAgent, actions.DownloadDatabases)
 		if err != nil {
 			return ExternalAccessors{}, err
 		}
@@ -145,11 +153,11 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// Online Mode
 	// -----------
 	// --- Vulnerability Matcher ---
-	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, "osv-scanner_scan/"+version.OSVVersion, actions.HTTPClient)
+	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, userAgent, actions.HTTPClient)
 
 	// --- License Matcher ---
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		depsDevAPIClient, err := datasource.NewCachedInsightsClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		depsDevAPIClient, err := datasource.NewCachedInsightsClient(depsdev.DepsdevAPI, userAgent)
 		if err != nil {
 			return ExternalAccessors{}, err
 		}
@@ -179,7 +187,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	}
 
 	if !actions.NativeDataSource {
-		externalAccessors.DependencyClients[osvconstants.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		externalAccessors.DependencyClients[osvconstants.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
 	} else {
 		externalAccessors.DependencyClients[osvconstants.EcosystemMaven], err = resolution.NewMavenRegistryClient(ctx, actions.MavenRegistry, "", false)
 	}
