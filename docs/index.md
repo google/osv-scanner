@@ -18,6 +18,7 @@ Use OSV-Scanner to find existing vulnerabilities affecting your project's depend
 OSV-Scanner provides an officially supported frontend to the [OSV database](https://osv.dev/) that connects a project’s list of dependencies with the vulnerabilities that affect them.
 
 You can use OSV-scanner in two ways:
+
 1. **As a CLI tool:** Run directly in a terminal or CI/CD pipeline to scan projects. See the [Installation Guide](./installation.md) to get started.
 2. **As a Go library:** Import the [Go package](https://pkg.go.dev/github.com/google/osv-scanner/v2/pkg/osvscanner) to integrate vulnerability scanning logic into Go applications.
 
