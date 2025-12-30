@@ -2,9 +2,17 @@
 
 export PATH := env_var('PATH') + ':' + `go env GOPATH` + '/bin'
 
+# List available commands
+default:
+    @just --list
+
 # Build scanner
-scanner:
+build:
     scripts/build.sh
+
+# Run osv-scanner {args}
+scanner *args:
+    go run ./cmd/osv-scanner {{args}}
 
 # Run lints
 lint:
@@ -23,17 +31,15 @@ clean:
 local-docs:
     scripts/run_local_docs.sh
 
-# Default values for test configuration
-vcr := "ReplayWithNewEpisodes"
-snaps := "false"
-acc := "false"
-short := "true"
-
-# Run tests with configurable modes
-# Usage: just vcr=RecordOnly test
-#        just acc=true snaps=true test
-test:
+# Run tests
+test snaps="false" acc="false" short="true" vcr="ReplayWithNewEpisodes":
     #!/usr/bin/env bash
+
+    # vcr: ReplayWithNewEpisodes | RecordOnly | ReplayOnly
+    # snaps: true | false
+    # acc: true | false
+    # short: true | false
+
     export TEST_VCR_MODE="{{vcr}}"
     if [ "{{snaps}}" = "true" ]; then
         export UPDATE_SNAPS=true
@@ -54,19 +60,3 @@ test:
 
     # execute with constructed args
     scripts/run_tests.sh $ARGS
-
-# Alias for full tests (not short)
-test-full:
-    just short=false vcr="{{vcr}}" snaps="{{snaps}}" acc="{{acc}}" test
-
-# Alias for acceptance tests
-test-acceptance:
-    just acc=true vcr="{{vcr}}" snaps="{{snaps}}" short="{{short}}" test
-
-# Alias for updating snapshots
-update-snaps:
-    just snaps=true vcr="{{vcr}}" acc="{{acc}}" short="{{short}}" test
-
-# Alias for updating snapshots
-update-snaps-vcr:
-    just snaps=true vcr="RecordOnly" acc="{{acc}}" short="{{short}}" test
