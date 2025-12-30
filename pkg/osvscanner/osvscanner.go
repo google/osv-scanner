@@ -35,7 +35,6 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/internal/output"
-	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
@@ -86,6 +85,9 @@ type ExperimentalScannerActions struct {
 
 	// Report deprecated packages as findings
 	FlagDeprecatedPackages bool
+
+	// Allows specifying user agent
+	RequestUserAgent string
 }
 
 type TransitiveScanningActions struct {
@@ -128,13 +130,18 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	}
 	var err error
 
+	userAgent := "osv-scanner-api"
+	if actions.RequestUserAgent != "" {
+		userAgent = actions.RequestUserAgent
+	}
+
 	// Offline Mode
 	// ------------
 	if actions.CompareOffline {
 		// --- Vulnerability Matcher ---
 		externalAccessors.VulnMatcher, err =
 			localmatcher.NewLocalMatcher(actions.LocalDBPath,
-				"osv-scanner_scan/"+version.OSVVersion, actions.DownloadDatabases)
+				userAgent, actions.DownloadDatabases)
 		if err != nil {
 			return ExternalAccessors{}, err
 		}
@@ -145,11 +152,11 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// Online Mode
 	// -----------
 	// --- Vulnerability Matcher ---
-	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, "osv-scanner_scan/"+version.OSVVersion, actions.HTTPClient)
+	externalAccessors.VulnMatcher = osvmatcher.New(5*time.Minute, userAgent, actions.HTTPClient)
 
 	// --- License Matcher ---
 	if len(actions.ScanLicensesAllowlist) > 0 || actions.ScanLicensesSummary {
-		depsDevAPIClient, err := datasource.NewCachedInsightsClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		depsDevAPIClient, err := datasource.NewCachedInsightsClient(depsdev.DepsdevAPI, userAgent)
 		if err != nil {
 			return ExternalAccessors{}, err
 		}
@@ -162,6 +169,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// --- OSV.dev Client ---
 	// We create a separate client from VulnMatcher to keep things clean.
 	externalAccessors.OSVDevClient = osvdev.DefaultClient()
+	externalAccessors.OSVDevClient.Config.UserAgent = userAgent
 
 	// --- No Transitive Scanning ---
 	if actions.Disabled {
@@ -179,7 +187,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	}
 
 	if !actions.NativeDataSource {
-		externalAccessors.DependencyClients[osvconstants.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+		externalAccessors.DependencyClients[osvconstants.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
 	} else {
 		externalAccessors.DependencyClients[osvconstants.EcosystemMaven], err = resolution.NewMavenRegistryClient(ctx, actions.MavenRegistry, "", false)
 	}
