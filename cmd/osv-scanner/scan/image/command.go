@@ -77,7 +77,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	scannerAction.Image = cmd.Args().First()
 	scannerAction.IsImageArchive = cmd.Bool("archive")
 	scannerAction.ExperimentalScannerActions = helper.GetExperimentalScannerActions(cmd, client)
-	scannerAction.RequestUserAgent = "osv-scanner_scan/" + version.OSVVersion
+	scannerAction.RequestUserAgent = "osv-scanner_scan-image/" + version.OSVVersion
 	var vulnResult models.VulnerabilityResults
 	//nolint:contextcheck // passing the context in would be a breaking change
 	vulnResult, err = osvscanner.DoContainerScan(scannerAction)
