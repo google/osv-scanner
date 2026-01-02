@@ -31,32 +31,44 @@ clean:
 local-docs:
     scripts/run_local_docs.sh
 
-# Run tests
-test snaps="false" acc="false" short="true" vcr="ReplayWithNewEpisodes":
+# Run tests: snaps=(true|*false), acc=(true|*false), short=(*true|false), vcr=(0[RecordOnly]|1[ReplayOnly]|*2[ReplayWithNewEpisodes])
+test *args:
     #!/usr/bin/env bash
+    set -e
 
-    # vcr: ReplayWithNewEpisodes | RecordOnly | ReplayOnly
-    # snaps: true | false
-    # acc: true | false
-    # short: true | false
-
-    export TEST_VCR_MODE="{{vcr}}"
-    if [ "{{snaps}}" = "true" ]; then
-        export UPDATE_SNAPS=true
-    else
-        unset UPDATE_SNAPS
-    fi
+    # Defaults
+    SHORT="true"
+    VCR="ReplayWithNewEpisodes"
     
-    if [ "{{acc}}" = "true" ]; then
-        export TEST_ACCEPTANCE=true
-    else
-        unset TEST_ACCEPTANCE
-    fi
+    # Parse args
+    for arg in {{args}}; do
+        case $arg in
+            snaps=true) export UPDATE_SNAPS=true ;;
+            snaps=false) unset UPDATE_SNAPS ;;
+            acc=true) export TEST_ACCEPTANCE=true ;;
+            acc=false) unset TEST_ACCEPTANCE ;;
+            short=true) SHORT="true" ;;
+            short=false) SHORT="false" ;;
+            vcr=*) VCR="${arg#vcr=}" ;;
+        esac
+    done
+
+    export TEST_VCR_MODE="$VCR"
 
     ARGS=""
-    if [ "{{short}}" = "true" ]; then
+    if [ "$SHORT" = "true" ]; then
         ARGS="$ARGS -short"
     fi
 
     # execute with constructed args
     scripts/run_tests.sh $ARGS
+
+# Refresh all snaps, matching CI test.
+refresh-all rebuild-images="false":
+    #!/usr/bin/env bash
+    set -e
+    if [ "{{rebuild-images}}" = "true" ]; then
+        just clean
+    fi
+
+    just test acc=true short=false vcr=0
