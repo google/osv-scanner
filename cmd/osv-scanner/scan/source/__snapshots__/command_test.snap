@@ -5358,49 +5358,18 @@ No package sources found, --help for usage information.
 [TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1]
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
-Total 5 packages affected by 20 known vulnerabilities (1 Critical, 8 High, 10 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
-20 vulnerabilities can be fixed.
-
-
-+-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
-| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                              |
-| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-frmv-pr5f-9mcr | 9.1  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-qw25-v68c-qjf3 | 7.5  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0     | 2.2.5         | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |               |                                              |
-| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                              |
-| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/PYSEC-2024-60       | 7.5  | PyPI      | idna     | 2.7     | 3.7           | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-jjg7-2v4v-x38h |      |           |          |         |               |                                              |
-| https://osv.dev/PYSEC-2020-148      | 6.9  | PyPI      | urllib3  | 1.24.3  | 1.25.9        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-wqvq-5m8c-6g24 |      |           |          |         |               |                                              |
-| https://osv.dev/PYSEC-2021-108      |      | PyPI      | urllib3  | 1.24.3  | 1.26.5        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/PYSEC-2023-192      | 8.1  | PyPI      | urllib3  | 1.24.3  | 1.26.17       | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-v845-jxx5-vc9f |      |           |          |         |               |                                              |
-| https://osv.dev/PYSEC-2023-212      | 5.7  | PyPI      | urllib3  | 1.24.3  | 1.26.18       | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-g4mx-q9vg-27p4 |      |           |          |         |               |                                              |
-| https://osv.dev/GHSA-2xpw-w6gg-jr37 | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.6.0         | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-34jh-p97f-mpxf | 4.4  | PyPI      | urllib3  | 1.24.3  | 1.26.19       | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-gm62-xv2j-4w53 | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.6.0         | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3  | 1.24.3  | 2.5.0         | testdata/locks-requirements/requirements.txt |
-+-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 
 ---
 
 [TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
+error when retrieving vulns: max retries exceeded: attempt 4: request failed: Post "https://api.osv.dev/v1/querybatch": Post "https://api.osv.dev/v1/querybatch": requested interaction not found
+max retries exceeded: attempt 4: request failed: Post "https://api.osv.dev/v1/querybatch": Post "https://api.osv.dev/v1/querybatch": requested interaction not found
 
 ---
 
 [TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
+error when retrieving vulns: max retries exceeded: attempt 4: request failed: Post "https://api.osv.dev/v1/querybatch": Post "https://api.osv.dev/v1/querybatch": requested interaction not found
+max retries exceeded: attempt 4: request failed: Post "https://api.osv.dev/v1/querybatch": Post "https://api.osv.dev/v1/querybatch": requested interaction not found
 
 ---
 
