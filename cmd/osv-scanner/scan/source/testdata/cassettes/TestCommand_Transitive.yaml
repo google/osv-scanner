@@ -1731,7 +1731,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1599
+      content_length: 1597
       host: api.osv.dev
       body: |
         {
@@ -1741,7 +1741,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "certifi"
               },
-              "version": "2025.11.12"
+              "version": "2026.1.4"
             },
             {
               "package": {
