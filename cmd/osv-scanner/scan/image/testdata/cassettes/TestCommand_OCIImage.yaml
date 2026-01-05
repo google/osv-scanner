@@ -8046,7 +8046,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 5065
+      content_length: 6748
       body: |
         {
           "results": [
@@ -8166,18 +8166,139 @@ interactions:
             {},
             {},
             {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-68972",
+                  "modified": "2026-01-02T07:09:40.802515Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68973",
+                  "modified": "2026-01-02T07:09:43.560182Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-68972",
+                  "modified": "2026-01-02T07:09:40.802515Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68973",
+                  "modified": "2026-01-02T07:09:43.560182Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-68972",
+                  "modified": "2026-01-02T07:09:40.802515Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68973",
+                  "modified": "2026-01-02T07:09:43.560182Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-68972",
+                  "modified": "2026-01-02T07:09:40.802515Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68973",
+                  "modified": "2026-01-02T07:09:43.560182Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-68972",
+                  "modified": "2026-01-02T07:09:40.802515Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68973",
+                  "modified": "2026-01-02T07:09:43.560182Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-68972",
+                  "modified": "2026-01-02T07:09:40.802515Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68973",
+                  "modified": "2026-01-02T07:09:43.560182Z"
+                }
+              ]
+            },
             {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-68972",
+                  "modified": "2026-01-02T07:09:40.802515Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68973",
+                  "modified": "2026-01-02T07:09:43.560182Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-68972",
+                  "modified": "2026-01-02T07:09:40.802515Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68973",
+                  "modified": "2026-01-02T07:09:43.560182Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-68972",
+                  "modified": "2026-01-02T07:09:40.802515Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68973",
+                  "modified": "2026-01-02T07:09:43.560182Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-68972",
+                  "modified": "2026-01-02T07:09:40.802515Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68973",
+                  "modified": "2026-01-02T07:09:43.560182Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-68972",
+                  "modified": "2026-01-02T07:09:40.802515Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2025-68973",
+                  "modified": "2026-01-02T07:09:43.560182Z"
+                }
+              ]
+            },
             {},
             {},
             {},
@@ -8578,7 +8699,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "5065"
+          - "6748"
         Content-Type:
           - application/json
       status: 200 OK
