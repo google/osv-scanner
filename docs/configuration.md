@@ -103,5 +103,6 @@ Use the `GoVersionOverride` key to override the Go version used for scanning. Th
 ### Example
 
 ```toml
+# Do not add a prefix (e.g. go1.20.0 is just 1.20.0)
 GoVersionOverride = "1.20.0"
 ```
