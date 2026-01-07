@@ -4,6 +4,7 @@ package pomxmlenhanceable
 import (
 	"context"
 
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
@@ -77,23 +78,25 @@ func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (i
 var _ filesystem.Extractor = &Extractor{}
 
 type enhanceable interface {
-	Enhance(config pomxmlnet.Config)
+	Enhance(config *cpb.PluginConfig) error
 }
 
 // Enhance uses the given config to improve the abilities of this extractor,
 // at the cost of additional requirements such as networking and direct fs access
-func (e *Extractor) Enhance(config pomxmlnet.Config) {
-	e.online = pomxmlnet.New(config)
+func (e *Extractor) Enhance(config *cpb.PluginConfig) (err error) {
+	e.online, err = pomxmlnet.New(config)
+	return
 }
 
 var _ enhanceable = &Extractor{}
 
 // EnhanceIfPossible calls Extractor.Enhance with the given config if the
 // provided plug(in) is an Extractor
-func EnhanceIfPossible(plug plugin.Plugin, config pomxmlnet.Config) {
+func EnhanceIfPossible(plug plugin.Plugin, config *cpb.PluginConfig) error {
 	us, ok := plug.(enhanceable)
 
 	if ok {
-		us.Enhance(config)
+		return us.Enhance(config)
 	}
+	return nil
 }
