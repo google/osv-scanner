@@ -95,3 +95,13 @@ ignore = true
 
 # ... and so on
 ```
+
+## Go Version Override
+
+Use the `GoVersionOverride` key to override the Go version used for scanning. This is useful when the scanner fails to detect the correct Go version or when you want to force a specific version.
+
+### Example
+
+```toml
+GoVersionOverride = "1.20.0"
+```
