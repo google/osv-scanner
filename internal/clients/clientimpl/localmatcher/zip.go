@@ -150,7 +150,6 @@ func (db *ZipDB) fetchZip(ctx context.Context) (*os.File, int64, error) {
 		return nil, 0, fmt.Errorf("could not create cache directory: %w", err)
 	}
 
-	//nolint:gosec // being world readable is fine
 	f, err = os.OpenFile(db.StoredAt, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0644)
 
 	if err != nil {
