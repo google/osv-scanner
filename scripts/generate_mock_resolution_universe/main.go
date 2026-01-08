@@ -41,9 +41,9 @@ import (
 	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"go.yaml.in/yaml/v3"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/encoding/protojson"
-	"gopkg.in/yaml.v3"
 	"osv.dev/bindings/go/api"
 	"osv.dev/bindings/go/osvdev"
 )
