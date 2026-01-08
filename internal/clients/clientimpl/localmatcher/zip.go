@@ -77,56 +77,49 @@ func fetchRemoteArchiveCRC32CHash(ctx context.Context, url string) (uint32, erro
 	return 0, errors.New("could not find crc32c= checksum")
 }
 
-func fetchLocalArchiveCRC32CHash(f *os.File) (uint32, int64, error) {
+func fetchLocalArchiveCRC32CHash(f *os.File) (uint32, error) {
 	h := crc32.New(crc32.MakeTable(crc32.Castagnoli))
-	size, err := io.Copy(h, f)
 
-	if err != nil {
-		return 0, 0, err
+	if _, err := io.Copy(h, f); err != nil {
+		return 0, err
 	}
 
-	return h.Sum32(), size, nil
+	return h.Sum32(), nil
 }
 
-func (db *ZipDB) fetchZip(ctx context.Context) (*os.File, int64, error) {
+func (db *ZipDB) fetchZip(ctx context.Context) (*os.File, error) {
 	f, err := os.Open(db.StoredAt)
 
 	if db.Offline {
 		if err != nil {
-			return nil, 0, ErrOfflineDatabaseNotFound
+			return nil, ErrOfflineDatabaseNotFound
 		}
 
-		s, err := f.Stat()
-
-		if err != nil {
-			return nil, 0, err
-		}
-
-		return f, s.Size(), nil
+		return f, nil
 	}
 
 	if err == nil {
 		remoteHash, err := fetchRemoteArchiveCRC32CHash(ctx, db.ArchiveURL)
 
 		if err != nil {
-			return nil, 0, err
+			return nil, err
 		}
 
-		localHash, size, err := fetchLocalArchiveCRC32CHash(f)
+		localHash, err := fetchLocalArchiveCRC32CHash(f)
 
 		if err != nil {
-			return nil, 0, err
+			return nil, err
 		}
 
 		if remoteHash == localHash {
-			return f, size, nil
+			return f, nil
 		}
 	}
 
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, db.ArchiveURL, nil)
 
 	if err != nil {
-		return nil, 0, fmt.Errorf("could not retrieve OSV database archive: %w", err)
+		return nil, fmt.Errorf("could not retrieve OSV database archive: %w", err)
 	}
 
 	if db.UserAgent != "" {
@@ -135,36 +128,36 @@ func (db *ZipDB) fetchZip(ctx context.Context) (*os.File, int64, error) {
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		return nil, 0, fmt.Errorf("could not retrieve OSV database archive: %w", err)
+		return nil, fmt.Errorf("could not retrieve OSV database archive: %w", err)
 	}
 
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, 0, fmt.Errorf("db host returned %s", resp.Status)
+		return nil, fmt.Errorf("db host returned %s", resp.Status)
 	}
 
 	err = os.MkdirAll(path.Dir(db.StoredAt), 0750)
 
 	if err != nil {
-		return nil, 0, fmt.Errorf("could not create cache directory: %w", err)
+		return nil, fmt.Errorf("could not create cache directory: %w", err)
 	}
 
 	f, err = os.OpenFile(db.StoredAt, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0644)
 
 	if err != nil {
-		return nil, 0, fmt.Errorf("could not create cache file: %w", err)
+		return nil, fmt.Errorf("could not create cache file: %w", err)
 	}
 
-	size, err := io.Copy(f, resp.Body)
+	_, err = io.Copy(f, resp.Body)
 
 	if err != nil {
-		return nil, 0, fmt.Errorf("could not write cache file: %w", err)
+		return nil, fmt.Errorf("could not write cache file: %w", err)
 	}
 
 	_, _ = f.Seek(0, io.SeekStart)
 
-	return f, size, nil
+	return f, nil
 }
 
 func mightAffectPackages(v *osvschema.Vulnerability, names []string) bool {
@@ -230,7 +223,7 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File, names []string) {
 func (db *ZipDB) load(ctx context.Context, names []string) error {
 	db.Vulnerabilities = []*osvschema.Vulnerability{}
 
-	f, size, err := db.fetchZip(ctx)
+	f, err := db.fetchZip(ctx)
 
 	if err != nil {
 		return err
@@ -238,7 +231,13 @@ func (db *ZipDB) load(ctx context.Context, names []string) error {
 
 	defer f.Close()
 
-	zipReader, err := zip.NewReader(f, size)
+	s, err := f.Stat()
+
+	if err != nil {
+		return err
+	}
+
+	zipReader, err := zip.NewReader(f, s.Size())
 	if err != nil {
 		return fmt.Errorf("could not read OSV database archive: %w", err)
 	}
