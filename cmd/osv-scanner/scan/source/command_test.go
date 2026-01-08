@@ -1027,12 +1027,11 @@ func TestCommand_LocalDatabases(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-			if testutility.IsAcceptanceTesting() {
-				testDir := testutility.CreateTestDir(t)
-				old := tt.Args
-				tt.Args = []string{"", "source", "--local-db-path", testDir}
-				tt.Args = append(tt.Args, old[2:]...)
-			}
+
+			testDir := testutility.CreateTestDir(t)
+			old := tt.Args
+			tt.Args = []string{"", "source", "--local-db-path", testDir}
+			tt.Args = append(tt.Args, old[2:]...)
 
 			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
