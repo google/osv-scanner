@@ -162,40 +162,22 @@ func (db *ZipDB) fetchZip(ctx context.Context) (*os.File, error) {
 	return f, nil
 }
 
-func getAffectedPackageNamesQuickly(content []byte) []string {
-	var names []string
-
-	for _, r := range gjson.GetBytes(content, "affected.#.package.name").Array() {
-		names = append(names, r.String())
-	}
-
-	return names
-}
-
-func getAffectedRepoNamesQuickly(content []byte) []string {
-	var names []string
-
-	for _, r := range gjson.GetBytes(content, "affected.#.ranges.#.repo").Array() {
-		for _, repo := range r.Array() {
-			names = append(names, repo.String())
-		}
-	}
-
-	return names
-}
-
 func mightAffectPackagesBytes(content []byte, names []string) bool {
-	for _, name := range getAffectedPackageNamesQuickly(content) {
-		if slices.Contains(names, name) {
+	affected := gjson.GetBytes(content, "affected")
+
+	for _, name := range affected.Get("#.package.name").Array() {
+		if slices.Contains(names, name.String()) {
 			return true
 		}
 	}
 
-	for _, repo := range getAffectedRepoNamesQuickly(content) {
-		for _, name := range names {
-			// "name" will be the git repository in the case of the GIT ecosystem
-			if vulns.NormalizeRepo(repo) == vulns.NormalizeRepo(name) {
-				return true
+	for _, repos := range affected.Get("#.ranges.#.repo").Array() {
+		for _, repo := range repos.Array() {
+			for _, name := range names {
+				// "name" will be the git repository in the case of the GIT ecosystem
+				if vulns.NormalizeRepo(repo.String()) == vulns.NormalizeRepo(name) {
+					return true
+				}
 			}
 		}
 	}
