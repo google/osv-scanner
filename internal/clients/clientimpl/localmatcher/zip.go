@@ -173,9 +173,11 @@ func mightAffectPackagesBytes(content []byte, names []string) bool {
 
 	for _, repos := range affected.Get("#.ranges.#.repo").Array() {
 		for _, repo := range repos.Array() {
+			repoName := vulns.NormalizeRepo(repo.String())
+
 			for _, name := range names {
 				// "name" will be the git repository in the case of the GIT ecosystem
-				if vulns.NormalizeRepo(repo.String()) == vulns.NormalizeRepo(name) {
+				if repoName == vulns.NormalizeRepo(name) {
 					return true
 				}
 			}
