@@ -88,6 +88,14 @@ type ExperimentalScannerActions struct {
 
 	// Allows specifying user agent
 	RequestUserAgent string
+
+	// Controls the loading of MAL advisories when using local databases
+	// - "" means all advisories will be loaded
+	// - "only" means all other advisories will be skipped
+	// - "skip" means all MAL advisories will be skipped
+	//
+	// (any other non-blank value is treated as "skip")
+	MalwareBehaviour string
 }
 
 type TransitiveScanningActions struct {
@@ -140,8 +148,12 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	if actions.CompareOffline {
 		// --- Vulnerability Matcher ---
 		externalAccessors.VulnMatcher, err =
-			localmatcher.NewLocalMatcher(actions.LocalDBPath,
-				userAgent, actions.DownloadDatabases)
+			localmatcher.NewLocalMatcher(
+				actions.LocalDBPath,
+				userAgent,
+				actions.DownloadDatabases,
+				actions.MalwareBehaviour,
+			)
 		if err != nil {
 			return ExternalAccessors{}, err
 		}

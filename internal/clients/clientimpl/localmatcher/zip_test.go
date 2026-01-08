@@ -148,7 +148,7 @@ func TestNewZippedDB_Offline_WithoutCache(t *testing.T) {
 		t.Errorf("a server request was made when running offline")
 	})
 
-	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, true, nil)
+	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, true, nil, "")
 
 	if !errors.Is(err, localmatcher.ErrOfflineDatabaseNotFound) {
 		t.Errorf("expected \"%v\" error but got \"%v\"", localmatcher.ErrOfflineDatabaseNotFound, err)
@@ -180,7 +180,7 @@ func TestNewZippedDB_Offline_WithCache(t *testing.T) {
 		"GHSA-5.json": {Id: "GHSA-5"},
 	}))
 
-	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, true, nil)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, true, nil, "")
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -201,7 +201,7 @@ func TestNewZippedDB_BadZip(t *testing.T) {
 		_, _ = w.Write([]byte("this is not a zip"))
 	})
 
-	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil, "")
 
 	if err == nil {
 		t.Errorf("expected an error but did not get one")
@@ -213,7 +213,7 @@ func TestNewZippedDB_UnsupportedProtocol(t *testing.T) {
 
 	testDir := testutility.CreateTestDir(t)
 
-	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", "file://hello-world", userAgent, false, nil)
+	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", "file://hello-world", userAgent, false, nil, "")
 
 	if err == nil {
 		t.Errorf("expected an error but did not get one")
@@ -243,7 +243,7 @@ func TestNewZippedDB_Online_WithoutCache(t *testing.T) {
 		})
 	})
 
-	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil, "")
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -278,7 +278,7 @@ func TestNewZippedDB_Online_WithoutCacheAndNoHashHeader(t *testing.T) {
 		}))
 	})
 
-	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil, "")
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -319,7 +319,7 @@ func TestNewZippedDB_Online_WithSameCache(t *testing.T) {
 
 	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), cache)
 
-	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil, "")
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -360,7 +360,7 @@ func TestNewZippedDB_Online_WithDifferentCache(t *testing.T) {
 		"GHSA-3.json": {Id: "GHSA-3"},
 	}))
 
-	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil, "")
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -393,7 +393,7 @@ func TestNewZippedDB_Online_WithCacheButNoHashHeader(t *testing.T) {
 		"GHSA-3.json": {Id: "GHSA-3"},
 	}))
 
-	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil, "")
 
 	if err == nil {
 		t.Errorf("expected an error but did not get one")
@@ -421,7 +421,7 @@ func TestNewZippedDB_Online_WithBadCache(t *testing.T) {
 
 	cacheWriteBad(t, determineStoredAtPath(testDir, "my-db"), "this is not json!")
 
-	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil, "")
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -450,7 +450,7 @@ func TestNewZippedDB_FileChecks(t *testing.T) {
 		})
 	})
 
-	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil, "")
 
 	if err != nil {
 		t.Fatalf("unexpected error \"%v\"", err)
@@ -541,6 +541,7 @@ func TestNewZippedDB_WithSpecificPackages(t *testing.T) {
 		userAgent,
 		false,
 		[]*extractor.Package{{Name: "pkg-1"}, {Name: "pkg-3"}, {Name: "https://github.com/org/repo"}},
+		"",
 	)
 
 	if err != nil {
@@ -590,4 +591,91 @@ func TestNewZippedDB_WithSpecificPackages(t *testing.T) {
 			},
 		},
 	})
+}
+
+func TestNewZippedDB_WithMalware(t *testing.T) {
+	t.Parallel()
+
+	testDir := testutility.CreateTestDir(t)
+
+	ts := createZipServer(t, func(w http.ResponseWriter, _ *http.Request) {
+		_, _ = writeOSVsZip(t, w, map[string]*osvschema.Vulnerability{
+			"GHSA-1234.json":           {Id: "GHSA-1234"},
+			"GHSA-6rw7-MALM-498p.json": {Id: "GHSA-6rw7-MALM-498p"},
+			"MAL-123.json":             {Id: "MAL-123"},
+		})
+	})
+
+	tests := []struct {
+		name     string
+		expected []string
+		malware  string
+	}{
+		{
+			// an empty string means all advisories should be loaded
+			name: "includes_malware_advisories",
+			expected: []string{
+				"GHSA-1234",
+				"GHSA-6rw7-MALM-498p",
+				"MAL-123",
+			},
+			malware: "",
+		},
+		{
+			// a value of "only" means that only MAL advisories should be loaded
+			name:     "only_means_only_malware_advisories",
+			expected: []string{"MAL-123"},
+			malware:  "only",
+		},
+		{
+			// a value of "skip" means that MAL advisories should be skipped
+			name: "skip_means_no_malware_advisories_are_loaded",
+			expected: []string{
+				"GHSA-1234",
+				"GHSA-6rw7-MALM-498p",
+			},
+			malware: "skip",
+		},
+		{
+			// any non-blank string other than "only" is treated as "skip"
+			name: "anything_else_means_skip",
+			expected: []string{
+				"GHSA-1234",
+				"GHSA-6rw7-MALM-498p",
+			},
+			malware: "ignore",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			db, err := localmatcher.NewZippedDB(
+				t.Context(),
+				testDir,
+				"my-db",
+				ts.URL,
+				userAgent,
+				false,
+				nil,
+				tt.malware,
+			)
+
+			if err != nil {
+				t.Fatalf("unexpected error \"%v\"", err)
+			}
+
+			if db.Partial != false {
+				t.Errorf("db is incorrectly marked as partially loaded")
+			}
+
+			osvs := make([]*osvschema.Vulnerability, 0, len(tt.expected))
+
+			for _, osv := range tt.expected {
+				osvs = append(osvs, &osvschema.Vulnerability{Id: osv})
+			}
+
+			expectDBToHaveOSVs(t, db, osvs)
+		})
+	}
 }

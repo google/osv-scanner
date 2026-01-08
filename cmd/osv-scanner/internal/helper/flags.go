@@ -192,5 +192,17 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Name:  "experimental-no-default-plugins",
 			Usage: "disable default plugins, instead using only those enabled by --experimental-plugins",
 		},
+		&cli.StringFlag{
+			Name:  "experimental-malware-behaviour",
+			Usage: "controls the loading of MAL advisories; value can be blank, skip, or only",
+			Value: "",
+			Action: func(_ context.Context, _ *cli.Command, s string) error {
+				if s != "" && s != "skip" && s != "only" {
+					return fmt.Errorf("unsupported malware behaviour: \"%s\" - must be blank, skip, or only", s)
+				}
+
+				return nil
+			},
+		},
 	}
 }
