@@ -589,8 +589,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-java-full.tar"
 
 Container Scanning Result (Alpine Linux v3.21):
-Total 23 packages affected by 44 known vulnerabilities (3 Critical, 17 High, 21 Medium, 2 Low, 1 Unknown) from 2 ecosystems.
-44 vulnerabilities can be fixed.
+Total 24 packages affected by 46 known vulnerabilities (3 Critical, 18 High, 22 Medium, 2 Low, 1 Unknown) from 2 ecosystems.
+46 vulnerabilities can be fixed.
 
 
 Maven
@@ -624,6 +624,7 @@ Alpine:v3.21
 +----------------+-------------------+---------------+------------+----------------------------+------------------+-----------------+
 | busybox        | 1.37.0-r9         | Fix Available |          2 | busybox... (3)             | # 0 Layer        | alpine          |
 | expat          | 2.6.4-r0          | Fix Available |          2 | libexpat                   | # 5 Layer        | eclipse-temurin |
+| gnupg          | 2.4.7-r0          | Fix Available |          2 | gnupg... (11)              | # 5 Layer        | eclipse-temurin |
 | libpng         | 1.6.44-r0         | Fix Available |          5 | libpng                     | # 5 Layer        | eclipse-temurin |
 | libtasn1       | 4.19.0-r2         | Fix Available |          1 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          1 | musl, musl-utils           | # 0 Layer        | alpine          |
