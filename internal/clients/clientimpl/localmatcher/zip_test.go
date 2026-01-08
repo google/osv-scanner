@@ -603,6 +603,8 @@ func TestNewZippedDB_WithMalware(t *testing.T) {
 			"GHSA-1234.json":           {Id: "GHSA-1234"},
 			"GHSA-6rw7-MALM-498p.json": {Id: "GHSA-6rw7-MALM-498p"},
 			"MAL-123.json":             {Id: "MAL-123"},
+			"nested/MAL-567.json":      {Id: "MAL-567"},
+			"nested/ABC-123.json":      {Id: "ABC-123"},
 		})
 	})
 
@@ -618,19 +620,22 @@ func TestNewZippedDB_WithMalware(t *testing.T) {
 				"GHSA-1234",
 				"GHSA-6rw7-MALM-498p",
 				"MAL-123",
+				"MAL-567",
+				"ABC-123",
 			},
 			malware: "",
 		},
 		{
 			// a value of "only" means that only MAL advisories should be loaded
 			name:     "only_means_only_malware_advisories",
-			expected: []string{"MAL-123"},
+			expected: []string{"MAL-123", "MAL-567"},
 			malware:  "only",
 		},
 		{
 			// a value of "skip" means that MAL advisories should be skipped
 			name: "skip_means_no_malware_advisories_are_loaded",
 			expected: []string{
+				"ABC-123",
 				"GHSA-1234",
 				"GHSA-6rw7-MALM-498p",
 			},
@@ -640,6 +645,7 @@ func TestNewZippedDB_WithMalware(t *testing.T) {
 			// any non-blank string other than "only" is treated as "skip"
 			name: "anything_else_means_skip",
 			expected: []string{
+				"ABC-123",
 				"GHSA-1234",
 				"GHSA-6rw7-MALM-498p",
 			},

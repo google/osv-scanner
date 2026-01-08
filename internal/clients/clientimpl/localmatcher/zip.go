@@ -261,8 +261,12 @@ func (db *ZipDB) load(ctx context.Context, names []string) error {
 			continue
 		}
 
-		if db.malwareBehaviour != "" && strings.HasPrefix(zipFile.Name, "MAL-") != (db.malwareBehaviour == "only") {
-			continue
+		if db.malwareBehaviour != "" {
+			// if there is a malware behaviour set, only load MAL advisories if the behaviour is "only"
+			// otherwise, skip loading MAL advisories (which we officially call "skip", but can be any value)
+			if strings.HasPrefix(path.Base(zipFile.Name), "MAL-") != (db.malwareBehaviour == "only") {
+				continue
+			}
 		}
 
 		db.loadZipFile(zipFile, names)
