@@ -30,17 +30,6 @@ func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 				Usage:     "scan package lockfile on this path",
 				TakesFile: true,
 			},
-			&cli.StringSliceFlag{
-				Name:    "sbom",
-				Aliases: []string{"S"},
-				Usage:   "[DEPRECATED] scan sbom file on this path, the sbom file name must follow the relevant spec",
-				Action: func(_ context.Context, _ *cli.Command, _ []string) error {
-					cmdlogger.Warnf("Warning: --sbom has been deprecated in favor of -L")
-
-					return nil
-				},
-				TakesFile: true,
-			},
 			&cli.BoolFlag{
 				Name:    "recursive",
 				Aliases: []string{"r"},
@@ -124,8 +113,6 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	scannerAction := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
 
 	scannerAction.LockfilePaths = cmd.StringSlice("lockfile")
-	//nolint:staticcheck // ignore our own deprecated field
-	scannerAction.SBOMPaths = cmd.StringSlice("sbom")
 	scannerAction.Recursive = cmd.Bool("recursive")
 	scannerAction.NoIgnore = cmd.Bool("no-ignore")
 	scannerAction.DirectoryPaths = cmd.Args().Slice()
