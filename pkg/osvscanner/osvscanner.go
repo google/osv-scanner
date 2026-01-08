@@ -63,9 +63,6 @@ type ScannerActions struct {
 	// license scanning
 	ScanLicensesSummary   bool
 	ScanLicensesAllowlist []string
-
-	// Deprecated: in favor of LockfilePaths
-	SBOMPaths []string
 }
 
 type ExperimentalScannerActions struct {
