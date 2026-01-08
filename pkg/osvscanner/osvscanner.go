@@ -21,7 +21,6 @@ import (
 	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
-	"github.com/google/osv-scalibr/log"
 	scalibrlog "github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/stats"
@@ -160,6 +159,7 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// We create a separate client from VulnMatcher to keep things clean.
 	externalAccessors.OSVDevClient = osvdev.DefaultClient()
 	externalAccessors.OSVDevClient.Config.UserAgent = userAgent
+
 	return externalAccessors, nil
 }
 
@@ -281,7 +281,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 			UserAgent: actions.RequestUserAgent,
 		})
 		if err != nil {
-			log.Errorf("failed to make packagedeprecation enricher: %v", err)
+			cmdlogger.Errorf("Failed to make packagedeprecation enricher: %v", err)
 		} else {
 			plugins = append(plugins, p)
 		}

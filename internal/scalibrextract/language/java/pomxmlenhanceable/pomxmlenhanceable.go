@@ -98,5 +98,6 @@ func EnhanceIfPossible(plug plugin.Plugin, config *cpb.PluginConfig) error {
 	if ok {
 		return us.Enhance(config)
 	}
+
 	return nil
 }
