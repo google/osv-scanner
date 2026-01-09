@@ -502,6 +502,34 @@ func TestNewZippedDB_WithSpecificPackages(t *testing.T) {
 					{Package: &osvschema.Package{Name: "pkg-2"}},
 				},
 			},
+			"GHSA-7.json": {
+				Id: "GHSA-7",
+				Affected: []*osvschema.Affected{
+					{
+						Ranges: []*osvschema.Range{
+							{Type: osvschema.Range_SEMVER},
+							{Type: osvschema.Range_GIT, Repo: "https://github.com/org/repo"},
+						},
+					},
+				},
+			},
+			"GHSA-8.json": {
+				Id: "GHSA-8",
+				Affected: []*osvschema.Affected{
+					{Ranges: []*osvschema.Range{{Type: osvschema.Range_SEMVER}}},
+					{Ranges: []*osvschema.Range{{Type: osvschema.Range_GIT, Repo: "git://github.com/org/repo.git"}}},
+				},
+			},
+			"GHSA-9.json": {
+				Id: "GHSA-9",
+				Affected: []*osvschema.Affected{
+					{
+						Ranges: []*osvschema.Range{
+							{Type: osvschema.Range_GIT, Repo: "https://github.com/anotherorg/anotherrepo"},
+						},
+					},
+				},
+			},
 		})
 	})
 
@@ -512,7 +540,7 @@ func TestNewZippedDB_WithSpecificPackages(t *testing.T) {
 		ts.URL,
 		userAgent,
 		false,
-		[]*extractor.Package{{Name: "pkg-1"}, {Name: "pkg-3"}},
+		[]*extractor.Package{{Name: "pkg-1"}, {Name: "pkg-3"}, {Name: "https://github.com/org/repo"}},
 	)
 
 	if err != nil {
@@ -543,6 +571,22 @@ func TestNewZippedDB_WithSpecificPackages(t *testing.T) {
 			Affected: []*osvschema.Affected{
 				{Package: &osvschema.Package{Name: "pkg-3"}},
 				{Package: &osvschema.Package{Name: "pkg-2"}},
+			},
+		},
+		{
+			Id: "GHSA-7",
+			Affected: []*osvschema.Affected{
+				{Ranges: []*osvschema.Range{
+					{Type: osvschema.Range_SEMVER},
+					{Type: osvschema.Range_GIT, Repo: "https://github.com/org/repo"},
+				}},
+			},
+		},
+		{
+			Id: "GHSA-8",
+			Affected: []*osvschema.Affected{
+				{Ranges: []*osvschema.Range{{Type: osvschema.Range_SEMVER}}},
+				{Ranges: []*osvschema.Range{{Type: osvschema.Range_GIT, Repo: "git://github.com/org/repo.git"}}},
 			},
 		},
 	})
