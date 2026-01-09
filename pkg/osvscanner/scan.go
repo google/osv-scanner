@@ -11,17 +11,18 @@ import (
 	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
 	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxmlnet"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
+	"github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
@@ -32,18 +33,29 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
 	"github.com/google/osv-scanner/v2/internal/testlogger"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/scanners"
-	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 )
 
 var ErrExtractorNotFound = errors.New("could not determine extractor suitable to this file")
 
 func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
 	for _, plug := range plugins {
-		if accessors.DependencyClients[osvconstants.EcosystemMaven] != nil && accessors.MavenRegistryAPIClient != nil {
-			pomxmlenhanceable.EnhanceIfPossible(plug, pomxmlnet.Config{
-				DependencyClient:       accessors.DependencyClients[osvconstants.EcosystemMaven],
-				MavenRegistryAPIClient: accessors.MavenRegistryAPIClient,
+		if !actions.TransitiveScanning.Disabled {
+			err := pomxmlenhanceable.EnhanceIfPossible(plug, &cpb.PluginConfig{
+				UserAgent: actions.RequestUserAgent,
+				PluginSpecific: []*cpb.PluginSpecificConfig{
+					{
+						Config: &cpb.PluginSpecificConfig_PomXmlNet{
+							PomXmlNet: &cpb.POMXMLNetConfig{
+								UpstreamRegistry:    actions.TransitiveScanning.MavenRegistry,
+								DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
+							},
+						},
+					},
+				},
 			})
+			if err != nil {
+				log.Errorf("Failed to enhance pomxml extractor: %v", err)
+			}
 		}
 
 		vendored.Configure(plug, vendored.Config{
@@ -81,9 +93,16 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled)
 
-	// todo: use Enricher.RequiredPlugins to check this generically
-	if accessors.DependencyClients[osvconstants.EcosystemPyPI] != nil && isRequirementsExtractorEnabled(plugins) {
-		plugins = append(plugins, transitivedependencyrequirements.NewEnricher(accessors.DependencyClients[osvconstants.EcosystemPyPI]))
+	// TODO: Use Enricher.RequiredPlugins to check this generically
+	if !actions.TransitiveScanning.Disabled && isRequirementsExtractorEnabled(plugins) {
+		p, err := transitivedependencyrequirements.New(&cpb.PluginConfig{
+			UserAgent: actions.RequestUserAgent,
+		})
+		if err != nil {
+			log.Errorf("Failed to make transitivedependencyrequirements enricher: %v", err)
+		} else {
+			plugins = append(plugins, p)
+		}
 	}
 
 	configurePlugins(plugins, accessors, actions)
@@ -126,7 +145,14 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanRes
 	}
 
 	if actions.FlagDeprecatedPackages {
-		plugins = append(plugins, packagedeprecation.New())
+		p, err := packagedeprecation.New(&cpb.PluginConfig{
+			UserAgent: actions.RequestUserAgent,
+		})
+		if err != nil {
+			log.Errorf("Failed to make packagedeprecation enricher: %v", err)
+		} else {
+			plugins = append(plugins, p)
+		}
 	}
 
 	scanner := scalibr.New()

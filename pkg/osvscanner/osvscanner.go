@@ -12,12 +12,11 @@ import (
 	"sort"
 	"time"
 
-	"deps.dev/util/resolve"
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/binary/proto"
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/clients/datasource"
-	"github.com/google/osv-scalibr/clients/resolution"
 	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
@@ -71,7 +70,7 @@ type ScannerActions struct {
 }
 
 type ExperimentalScannerActions struct {
-	TransitiveScanningActions
+	TransitiveScanning TransitiveScanningActions
 
 	PluginsEnabled    []string
 	PluginsDisabled   []string
@@ -101,15 +100,8 @@ type ExternalAccessors struct {
 	VulnMatcher    clientinterfaces.VulnerabilityMatcher
 	LicenseMatcher clientinterfaces.LicenseMatcher
 
-	// Required for pomxmlnet Extractor
-	MavenRegistryAPIClient *datasource.MavenRegistryAPIClient
 	// Required for vendored Extractor
 	OSVDevClient *osvdev.OSVClient
-
-	// DependencyClients is a map of implementations of DependencyClient
-	// for each ecosystem, the following is currently implemented:
-	// - [osvschema.EcosystemMaven] required for pomxmlnet Extractor
-	DependencyClients map[osvconstants.Ecosystem]resolve.Client
 }
 
 // ErrNoPackagesFound for when no packages are found during a scan.
@@ -124,10 +116,7 @@ var ErrVulnerabilitiesFound = errors.New("vulnerabilities found")
 var ErrAPIFailed = errors.New("API query failed")
 
 func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, error) {
-	ctx := context.Background()
-	externalAccessors := ExternalAccessors{
-		DependencyClients: map[osvconstants.Ecosystem]resolve.Client{},
-	}
+	externalAccessors := ExternalAccessors{}
 	var err error
 
 	userAgent := "osv-scanner-api"
@@ -170,34 +159,6 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// We create a separate client from VulnMatcher to keep things clean.
 	externalAccessors.OSVDevClient = osvdev.DefaultClient()
 	externalAccessors.OSVDevClient.Config.UserAgent = userAgent
-
-	// --- No Transitive Scanning ---
-	if actions.Disabled {
-		return externalAccessors, nil
-	}
-
-	// --- Transitive Scanning Clients ---
-	externalAccessors.MavenRegistryAPIClient, err = datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
-		URL:             actions.MavenRegistry,
-		ReleasesEnabled: true,
-	}, "", false)
-
-	if err != nil {
-		return ExternalAccessors{}, err
-	}
-
-	if !actions.NativeDataSource {
-		externalAccessors.DependencyClients[osvconstants.EcosystemMaven], err = resolution.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
-	} else {
-		externalAccessors.DependencyClients[osvconstants.EcosystemMaven], err = resolution.NewMavenRegistryClient(ctx, actions.MavenRegistry, "", false)
-	}
-
-	// We only support native registry client for PyPI.
-	externalAccessors.DependencyClients[osvconstants.EcosystemPyPI] = resolution.NewPyPIRegistryClient("", "")
-
-	if err != nil {
-		return ExternalAccessors{}, err
-	}
 
 	return externalAccessors, nil
 }
@@ -316,7 +277,14 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	if actions.FlagDeprecatedPackages {
-		plugins = append(plugins, packagedeprecation.New())
+		p, err := packagedeprecation.New(&cpb.PluginConfig{
+			UserAgent: actions.RequestUserAgent,
+		})
+		if err != nil {
+			cmdlogger.Errorf("Failed to enable packagedeprecation enricher: %v", err)
+		} else {
+			plugins = append(plugins, p)
+		}
 	}
 
 	// --- Initialize Image To Scan ---'
