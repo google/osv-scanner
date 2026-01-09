@@ -1569,7 +1569,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-mhpg-hpj5-73r2",
-                  "modified": "2025-12-10T23:41:00.167393Z"
+                  "modified": "2026-01-08T21:43:33.587386Z"
                 }
               ]
             },
@@ -3222,7 +3222,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 20257
+      content_length: 20329
       body: |
         {
           "results": [
@@ -3648,6 +3648,10 @@ interactions:
                 {
                   "id": "DEBIAN-CVE-2024-12133",
                   "modified": "2025-11-20T10:17:02.620233Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2025-13151",
+                  "modified": "2026-01-08T11:30:09.647171Z"
                 },
                 {
                   "id": "DLA-3263-1",
@@ -4632,7 +4636,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "20257"
+          - "20329"
         Content-Type:
           - application/json
       status: 200 OK
