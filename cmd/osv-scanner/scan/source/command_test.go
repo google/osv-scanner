@@ -1022,6 +1022,31 @@ func TestCommand_LocalDatabases(t *testing.T) {
 			Args: []string{"", "source", "--download-offline-databases", "./testdata/locks-many"},
 			Exit: 127,
 		},
+
+		{
+			Name: "supports_not_loading_malware_advisories",
+			Args: []string{
+				"",
+				"source",
+				"--offline",
+				"--download-offline-databases",
+				"--experimental-malware-behaviour=skip",
+				"-L", "package-lock.json:./testdata/locks-malware/my-nasty-package-lock.json",
+			},
+			Exit: 0,
+		},
+		{
+			Name: "supports_only_loading_malware_advisories",
+			Args: []string{
+				"",
+				"source",
+				"--offline",
+				"--download-offline-databases",
+				"--experimental-malware-behaviour=only",
+				"-L", "package-lock.json:./testdata/locks-malware/my-nasty-package-lock.json",
+			},
+			Exit: 1,
+		},
 	}
 
 	for _, tt := range tests {

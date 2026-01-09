@@ -317,6 +317,7 @@ func action(ctx context.Context, cmd *cli.Command, stdout, stderr io.Writer) err
 			cmd.String("local-db-path"),
 			userAgent,
 			cmd.Bool("download-offline-databases"),
+			"",
 		)
 		if err != nil {
 			return err
