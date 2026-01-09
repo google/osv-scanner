@@ -131,7 +131,7 @@ func Test_tryLoadConfig(t *testing.T) {
 			},
 			want: Config{
 				LoadPath: "./testdata/testdatainner/osv-scanner.toml",
-				IgnoredVulns: []IgnoreEntry{
+				IgnoredVulns: []*IgnoreEntry{
 					{
 						ID: "GO-2022-0968",
 					},
@@ -261,7 +261,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 		{
 			name: "",
 			config: Config{
-				IgnoredVulns: []IgnoreEntry{
+				IgnoredVulns: []*IgnoreEntry{
 					{
 						ID:          "GHSA-123",
 						IgnoreUntil: time.Time{},
@@ -283,7 +283,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 		{
 			name: "",
 			config: Config{
-				IgnoredVulns: []IgnoreEntry{
+				IgnoredVulns: []*IgnoreEntry{
 					{
 						ID:          "GHSA-123",
 						IgnoreUntil: time.Time{},
@@ -301,7 +301,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 		{
 			name: "",
 			config: Config{
-				IgnoredVulns: []IgnoreEntry{
+				IgnoredVulns: []*IgnoreEntry{
 					{
 						ID:          "GHSA-123",
 						IgnoreUntil: time.Now().Add(-time.Hour).Round(time.Second),
@@ -323,7 +323,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 		{
 			name: "",
 			config: Config{
-				IgnoredVulns: []IgnoreEntry{
+				IgnoredVulns: []*IgnoreEntry{
 					{
 						ID:          "GHSA-123",
 						IgnoreUntil: time.Now().Add(time.Hour).Round(time.Second),
