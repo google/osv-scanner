@@ -143,7 +143,7 @@ func filterPackageVulns(pkgVulns models.PackageVulns, configToUse config.Config)
 	for _, group := range pkgVulns.Groups {
 		ignore := false
 		for _, id := range group.Aliases {
-			var ignoreLine config.IgnoreEntry
+			var ignoreLine *config.IgnoreEntry
 			if ignore, ignoreLine = configToUse.ShouldIgnore(id); ignore {
 				for _, id := range group.Aliases {
 					ignoredVulns[id] = struct{}{}
