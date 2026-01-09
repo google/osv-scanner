@@ -226,6 +226,15 @@ func extractRlibArchive(rlibPath string) (bytes.Buffer, error) {
 }
 
 func rustBuildSource(source models.SourceInfo) ([]string, error) {
+	// PREVENT ARBITRARY CODE EXECUTION 
+	
+	if os.Getenv("OSV_SCANNER_ALLOW_UNSAFE_BUILD") != "true" {
+		cmdlogger.Warnf("Skipping Rust analysis: 'cargo build' executes untrusted code.")
+		cmdlogger.Warnf("To enable (RISKY), set OSV_SCANNER_ALLOW_UNSAFE_BUILD=true")
+		return nil, nil
+	}
+	// -------------------------------------------------------------------------
+
 	projectBaseDir := filepath.Dir(source.Path)
 
 	// TODO: This will be moved to enrichers which does have context.
