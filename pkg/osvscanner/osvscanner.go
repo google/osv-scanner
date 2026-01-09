@@ -281,7 +281,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 			UserAgent: actions.RequestUserAgent,
 		})
 		if err != nil {
-			cmdlogger.Errorf("Failed to make packagedeprecation enricher: %v", err)
+			cmdlogger.Errorf("Failed to enable packagedeprecation enricher: %v", err)
 		} else {
 			plugins = append(plugins, p)
 		}
