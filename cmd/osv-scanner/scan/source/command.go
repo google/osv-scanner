@@ -57,6 +57,11 @@ func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 				Usage: "include scanning git root (non-submoduled) repositories",
 				Value: false,
 			},
+			&cli.StringSliceFlag{
+				Name:    "exclude",
+				Aliases: []string{"e"},
+				Usage:   "exclude paths matching glob or regex pattern; use /regex/ for regex (can be repeated)",
+			},
 			&cli.StringFlag{
 				Name:  "data-source",
 				Usage: "source to fetch package information from; value can be: deps.dev, native",
@@ -123,6 +128,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	scannerAction.SBOMPaths = cmd.StringSlice("sbom")
 	scannerAction.Recursive = cmd.Bool("recursive")
 	scannerAction.NoIgnore = cmd.Bool("no-ignore")
+	scannerAction.ExcludePatterns = cmd.StringSlice("exclude")
 	scannerAction.DirectoryPaths = cmd.Args().Slice()
 	scannerAction.ExperimentalScannerActions = experimentalScannerActions
 

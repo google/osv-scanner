@@ -6,9 +6,12 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"slices"
 	"strings"
+
+	"github.com/gobwas/glob"
 
 	scalibr "github.com/google/osv-scalibr"
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
@@ -237,6 +240,16 @@ SBOMLoop:
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
 
+	// Parse exclude patterns (supports both glob and /regex/ patterns)
+	var excludePatterns *ExcludePatterns
+	if len(actions.ExcludePatterns) > 0 {
+		var err error
+		excludePatterns, err = ParseExcludePatterns(actions.ExcludePatterns)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
+		}
+	}
+
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
@@ -250,6 +263,14 @@ SBOMLoop:
 			capabilities.Network = plugin.NetworkOffline
 		}
 
+		// Prepare skip patterns for this scan
+		var skipDirGlob glob.Glob
+		var skipDirRegex *regexp.Regexp
+		if excludePatterns != nil {
+			skipDirGlob = excludePatterns.GlobPattern
+			skipDirRegex = excludePatterns.RegexPattern
+		}
+
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
 			Plugins:               append(plugin.FilterByCapabilities(plugins, &capabilities), gitDirectPlugin),
 			Capabilities:          &capabilities,
@@ -257,8 +278,8 @@ SBOMLoop:
 			PathsToExtract:        paths,
 			IgnoreSubDirs:         !actions.Recursive,
 			DirsToSkip:            nil,
-			SkipDirRegex:          nil,
-			SkipDirGlob:           nil,
+			SkipDirRegex:          skipDirRegex,
+			SkipDirGlob:           skipDirGlob,
 			UseGitignore:          !actions.NoIgnore,
 			Stats:                 &statsCollector,
 			ReadSymlinks:          false,
