@@ -37,6 +37,22 @@ There is a [known issue](https://github.com/google/osv-scanner/issues/209) that 
 
 The `--no-ignore` flag can be used to force the scanner to scan ignored files.
 
+## Excluding files and directories
+
+You can exclude specific files or directories from scanning using the `--exclude` flag with glob patterns:
+
+```bash
+osv-scanner scan source -r --exclude="**/test/**" --exclude="**/docs/**" /path/to/your/dir
+```
+
+The `--exclude` flag can be specified multiple times to exclude multiple patterns. Common use cases include:
+
+- Excluding test directories: `--exclude="**/test/**"`
+- Excluding documentation: `--exclude="**/docs/**"`
+- Excluding vendor directories: `--exclude="**/vendor/**"`
+
+Alternatively, you can use the `osv-scanner.toml` configuration file with `[[PackageOverrides]]` to ignore specific packages or directories. See [Configuration](./configuration.md) for more details.
+
 ## SBOM scanning
 
 SBOMs will be automatically identified so long as their name follows the specification for the particular format:

@@ -258,7 +258,7 @@ SBOMLoop:
 			IgnoreSubDirs:         !actions.Recursive,
 			DirsToSkip:            nil,
 			SkipDirRegex:          nil,
-			SkipDirGlob:           nil,
+			SkipDirGlob:           actions.ExcludePatterns,
 			UseGitignore:          !actions.NoIgnore,
 			Stats:                 &statsCollector,
 			ReadSymlinks:          false,
