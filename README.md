@@ -140,6 +140,39 @@ $ osv-scanner fix \
 
 <img src="https://google.github.io/osv-scanner/images/guided-remediation-relock-patches.png" alt="Screenshot of the interactive relock results screen with some relaxation patches selected">
 
+## Data Sources and Privacy
+
+OSV-Scanner communicates with the following external services during operation:
+
+### [OSV.dev API](https://osv.dev/)
+
+| Endpoint               | Purpose                              | Data Sent                           | Data Received                                            |
+| ---------------------- | ------------------------------------ | ----------------------------------- | -------------------------------------------------------- |
+| `/v1/querybatch`       | Query vulnerabilities for packages   | Package names, versions, ecosystems | Vulnerability details (IDs, severity, affected versions) |
+| `/v1/determineversion` | Identify vendored C/C++ dependencies | File hashes from repository         | Estimated package version and commit                     |
+
+This is the primary data source for vulnerability information. Use `--offline` mode to disable network requests and scan against a local database instead.
+
+### [deps.dev API](https://docs.deps.dev/api/)
+
+Used for supplementary package information:
+
+- **License scanning** (`--licenses` flag): Retrieves license information for packages
+- **Guided remediation**: Resolves dependency graphs for vulnerability remediation
+- **Package deprecation**: Checks if packages are deprecated
+
+Data sent includes package names, versions, and ecosystems. No source code is transmitted.
+
+### Package Registries
+
+When using native registry resolution (instead of deps.dev), OSV-Scanner may query:
+
+| Registry           | URL                  | Used For                             |
+| ------------------ | -------------------- | ------------------------------------ |
+| Maven Central      | `repo1.maven.org`    | Maven package metadata and POM files |
+| npm Registry       | `registry.npmjs.org` | npm package metadata                 |
+| Private Registries | User-configured      | Same as above, if configured         |
+
 ## Contribute
 
 ### Report Problems
