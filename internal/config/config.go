@@ -27,7 +27,7 @@ type Manager struct {
 }
 
 type Config struct {
-	IgnoredVulns      []IgnoreEntry          `toml:"IgnoredVulns"`
+	IgnoredVulns      []*IgnoreEntry         `toml:"IgnoredVulns"`
 	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides"`
 	GoVersionOverride string                 `toml:"GoVersionOverride"`
 	// The path to config file that this config was loaded from,
@@ -35,8 +35,8 @@ type Config struct {
 	LoadPath string `toml:"-"`
 }
 
-func (c *Config) UnusedIgnoredVulns() []IgnoreEntry {
-	unused := make([]IgnoreEntry, 0, len(c.IgnoredVulns))
+func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
+	unused := make([]*IgnoreEntry, 0, len(c.IgnoredVulns))
 
 	for _, entry := range c.IgnoredVulns {
 		if !entry.Used {
@@ -101,10 +101,10 @@ type License struct {
 	Ignore   bool     `toml:"ignore"`
 }
 
-func (c *Config) ShouldIgnore(vulnID string) (bool, IgnoreEntry) {
-	index := slices.IndexFunc(c.IgnoredVulns, func(e IgnoreEntry) bool { return e.ID == vulnID })
+func (c *Config) ShouldIgnore(vulnID string) (bool, *IgnoreEntry) {
+	index := slices.IndexFunc(c.IgnoredVulns, func(e *IgnoreEntry) bool { return e.ID == vulnID })
 	if index == -1 {
-		return false, IgnoreEntry{}
+		return false, &IgnoreEntry{}
 	}
 	ignoredLine := c.IgnoredVulns[index]
 
@@ -203,8 +203,8 @@ func (c *Manager) Get(targetPath string) Config {
 	return config
 }
 
-func (c *Manager) GetUnusedIgnoreEntries() map[string][]IgnoreEntry {
-	m := make(map[string][]IgnoreEntry)
+func (c *Manager) GetUnusedIgnoreEntries() map[string][]*IgnoreEntry {
+	m := make(map[string][]*IgnoreEntry)
 
 	for _, config := range c.ConfigMap {
 		unusedEntries := config.UnusedIgnoredVulns()
