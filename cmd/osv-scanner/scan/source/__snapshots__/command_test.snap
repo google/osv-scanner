@@ -3024,6 +3024,61 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file and
 
 ---
 
+[TestCommand_GithubActions/scanning_osv-scanner_custom_format_with_git_tag - 1]
+Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom-git-tag.json file and found 1 package
+Total 1 package affected by 38 known vulnerabilities (4 Critical, 14 High, 20 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
++--------------------------------+------+-----------+----------------------------+---------------+---------------+---------------------------------------------------------+
+| OSV URL                        | CVSS | ECOSYSTEM | PACKAGE                    | VERSION       | FIXED VERSION | SOURCE                                                  |
++--------------------------------+------+-----------+----------------------------+---------------+---------------+---------------------------------------------------------+
+| https://osv.dev/CVE-2016-2177  | 9.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2016-2182  | 9.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2021-3449  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2022-2097  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2022-2274  | 9.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2022-3358  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2022-3602  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2022-3786  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2022-3996  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2022-4203  | 4.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2022-4304  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2022-4450  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-0215  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-0217  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-0286  | 7.4  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-0464  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-0465  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-0466  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-1255  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-2650  | 6.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-2975  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-3446  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-3817  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-4807  | 7.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-5363  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-5678  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-6129  | 6.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-6237  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2024-0727  | 5.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2024-13176 | 4.1  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2024-2511  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2024-4603  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2024-4741  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2024-5535  | 9.1  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2024-6119  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2024-9143  | 4.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2025-9230  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2025-9232  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
++--------------------------------+------+-----------+----------------------------+---------------+---------------+---------------------------------------------------------+
+
+---
+
+[TestCommand_GithubActions/scanning_osv-scanner_custom_format_with_git_tag - 2]
+
+---
+
 [TestCommand_HtmlFile - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
