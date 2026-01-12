@@ -131,7 +131,7 @@ func Test_tryLoadConfig(t *testing.T) {
 			},
 			want: Config{
 				LoadPath: "./testdata/testdatainner/osv-scanner.toml",
-				IgnoredVulns: []IgnoreEntry{
+				IgnoredVulns: []*IgnoreEntry{
 					{
 						ID: "GO-2022-0968",
 					},
@@ -255,13 +255,13 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 		config    Config
 		args      args
 		wantOk    bool
-		wantEntry IgnoreEntry
+		wantEntry *IgnoreEntry
 	}{
 		// entry exists
 		{
 			name: "",
 			config: Config{
-				IgnoredVulns: []IgnoreEntry{
+				IgnoredVulns: []*IgnoreEntry{
 					{
 						ID:          "GHSA-123",
 						IgnoreUntil: time.Time{},
@@ -273,7 +273,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 				vulnID: "GHSA-123",
 			},
 			wantOk: true,
-			wantEntry: IgnoreEntry{
+			wantEntry: &IgnoreEntry{
 				ID:          "GHSA-123",
 				IgnoreUntil: time.Time{},
 				Reason:      "",
@@ -283,7 +283,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 		{
 			name: "",
 			config: Config{
-				IgnoredVulns: []IgnoreEntry{
+				IgnoredVulns: []*IgnoreEntry{
 					{
 						ID:          "GHSA-123",
 						IgnoreUntil: time.Time{},
@@ -295,13 +295,13 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 				vulnID: "nonexistent",
 			},
 			wantOk:    false,
-			wantEntry: IgnoreEntry{},
+			wantEntry: &IgnoreEntry{},
 		},
 		// ignored until a time in the past
 		{
 			name: "",
 			config: Config{
-				IgnoredVulns: []IgnoreEntry{
+				IgnoredVulns: []*IgnoreEntry{
 					{
 						ID:          "GHSA-123",
 						IgnoreUntil: time.Now().Add(-time.Hour).Round(time.Second),
@@ -313,7 +313,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 				vulnID: "GHSA-123",
 			},
 			wantOk: false,
-			wantEntry: IgnoreEntry{
+			wantEntry: &IgnoreEntry{
 				ID:          "GHSA-123",
 				IgnoreUntil: time.Now().Add(-time.Hour).Round(time.Second),
 				Reason:      "",
@@ -323,7 +323,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 		{
 			name: "",
 			config: Config{
-				IgnoredVulns: []IgnoreEntry{
+				IgnoredVulns: []*IgnoreEntry{
 					{
 						ID:          "GHSA-123",
 						IgnoreUntil: time.Now().Add(time.Hour).Round(time.Second),
@@ -335,7 +335,7 @@ func TestConfig_ShouldIgnore(t *testing.T) {
 				vulnID: "GHSA-123",
 			},
 			wantOk: true,
-			wantEntry: IgnoreEntry{
+			wantEntry: &IgnoreEntry{
 				ID:          "GHSA-123",
 				IgnoreUntil: time.Now().Add(time.Hour).Round(time.Second),
 				Reason:      "",
