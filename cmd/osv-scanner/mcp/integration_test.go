@@ -193,7 +193,7 @@ func waitForServer(t *testing.T, url string) {
 	t.Helper()
 	deadline := time.Now().Add(10 * time.Second)
 	for time.Now().Before(deadline) {
-		//nolint:gosec // This is a test with a local URL
+		//nolint:gosec,noctx // This is a test with a local URL
 		resp, err := http.Get(url)
 		if err == nil {
 			resp.Body.Close()
