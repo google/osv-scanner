@@ -1,0 +1,30 @@
+
+[TestIntegration_MCP_SSE_Subprocess - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+Go
+
+lockfile:<rootdir>/testdata/go-project/go.mod: found 1 package with issues
+
+  github.com/ipfs/go-bitfield@1.0.0 has the following known vulnerabilities:
+    GO-2023-1558: Denial of service via malformed size parameters in github.com/ipfs/go-bitfield
+      Severity: '5.9'; Minimal Fix Version: '1.1.0';
+
+  1 known vulnerability found in lockfile:<rootdir>/testdata/go-project/go.mod
+Hiding 2 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
+
+
+---
+
+[TestIntegration_MCP_SSE_Subprocess - 2]
+{
+  "content": [
+    {
+      "type": "text",
+      "text": "{\"schema_version\":\"1.7.3\", \"id\":\"GO-2023-1558\", \"published\":\"2023-02-14T19:41:21Z\", \"modified\":\"2024-05-20T16:03:47Z\", \"aliases\":[\"CVE-2023-23626\", \"GHSA-2h6c-j3gf-xp9r\"], \"summary\":\"Denial of service via malformed size parameters in github.com/ipfs/go-bitfield\", \"details\":\"When feeding untrusted user input into the size parameter of NewBitfield and FromBytes functions, an attacker can trigger panics.\\n\\nThis happens when the size is a not a multiple of 8 or is negative.\\n\\nA workaround is to ensure size%8 == 0 \u0026\u0026 size \u003e= 0 yourself before calling NewBitfield or FromBytes.\", \"affected\":[{\"package\":{\"name\":\"github.com/ipfs/go-bitfield\", \"ecosystem\":\"Go\", \"purl\":\"pkg:golang/github.com/ipfs/go-bitfield\"}, \"ranges\":[{\"type\":\"SEMVER\", \"events\":[{\"introduced\":\"0\"}, {\"fixed\":\"1.1.0\"}]}], \"ecosystem_specific\":{\"imports\":[{\"path\":\"github.com/ipfs/go-bitfield\", \"symbols\":[\"FromBytes\", \"NewBitfield\"]}]}, \"database_specific\":{\"source\":\"https://vuln.go.dev/ID/GO-2023-1558.json\"}}], \"references\":[{\"type\":\"ADVISORY\", \"url\":\"https://github.com/ipfs/go-bitfield/security/advisories/GHSA-2h6c-j3gf-xp9r\"}, {\"type\":\"FIX\", \"url\":\"https://github.com/ipfs/go-bitfield/commit/5e1d256fe043fc4163343ccca83862c69c52e579\"}], \"database_specific\":{\"review_status\":\"REVIEWED\", \"url\":\"https://pkg.go.dev/vuln/GO-2023-1558\"}, \"credits\":[{\"name\":\"Jorropo\"}]}"
+    }
+  ]
+}
+---

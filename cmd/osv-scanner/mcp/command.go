@@ -21,6 +21,7 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"github.com/urfave/cli/v3"
+	"google.golang.org/protobuf/encoding/protojson"
 	"osv.dev/bindings/go/osvdev"
 )
 
@@ -168,7 +169,7 @@ type getVulnerabilityDetailsInput struct {
 	VulnID string `json:"vuln_id" jsonschema:"The OSV vulnerability ID to retrieve details for."`
 }
 
-func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *getVulnerabilityDetailsInput) (*mcp.CallToolResult, *osvschema.Vulnerability, error) {
+func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *getVulnerabilityDetailsInput) (*mcp.CallToolResult, any, error) {
 	vulnCacheMu.RLock()
 	vuln, found := vulnCacheMap[input.VulnID]
 	vulnCacheMu.RUnlock()
@@ -184,7 +185,18 @@ func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *g
 		vulnCacheMu.Unlock()
 	}
 
-	return &mcp.CallToolResult{}, vuln, nil
+	jsonBytes, err := protojson.Marshal(vuln)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return &mcp.CallToolResult{
+		Content: []mcp.Content{
+			&mcp.TextContent{
+				Text: string(jsonBytes),
+			},
+		},
+	}, nil, nil
 }
 
 // ignoreVulnerabilityInput is a placeholder to enable the tool call,
