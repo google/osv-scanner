@@ -20,6 +20,7 @@ import (
 	"github.com/jedib0t/go-pretty/v6/text"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"github.com/tidwall/pretty"
 	"github.com/urfave/cli/v3"
 	"google.golang.org/protobuf/encoding/protojson"
 	"osv.dev/bindings/go/osvdev"
@@ -189,11 +190,12 @@ func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *g
 	if err != nil {
 		return nil, nil, err
 	}
+	prettyJSON := pretty.Pretty(jsonBytes)
 
 	return &mcp.CallToolResult{
 		Content: []mcp.Content{
 			&mcp.TextContent{
-				Text: string(jsonBytes),
+				Text: string(prettyJSON),
 			},
 		},
 	}, nil, nil

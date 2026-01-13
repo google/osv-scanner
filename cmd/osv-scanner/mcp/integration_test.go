@@ -7,10 +7,10 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"regexp"
 	"testing"
 	"time"
 
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -20,9 +20,11 @@ import (
 // 2. Starting it as an MCP server.
 // 3. Connecting a client.
 // 4. Running tools (scan_vulnerable_dependencies, get_vulnerability_details).
+//
+//nolint:paralleltest // This test is not parallelizable
 func TestIntegration_MCP_SSE_Subprocess(t *testing.T) {
 	if testing.Short() {
-		t.Skip("skipping integration test in short mode")
+		testutility.Skip(t, "skipping integration test in short mode")
 	}
 
 	binPath := buildTestBinary(t)
@@ -86,7 +88,7 @@ func TestIntegration_MCP_SSE_Subprocess(t *testing.T) {
 
 		// Extract a vulnerability ID for the next step.
 		// Example: GHSA-f682-3w9h-r22r or GO-2023-1558
-		re := regexp.MustCompile(`(GHSA-[a-zA-Z0-9-]+|GO-\d{4}-\d+)`)
+		re := cachedregexp.MustCompile(`(GHSA-[a-zA-Z0-9-]+|GO-\d{4}-\d+)`)
 		vulnID = re.FindString(output)
 	})
 
@@ -124,7 +126,7 @@ func buildTestBinary(t *testing.T) string {
 	binPath := filepath.Join(tempDir, "osv-scanner-mcp-test")
 
 	// We use the full package path to ensure we build the correct main package.
-	cmdBuild := exec.Command("go", "build", "-o", binPath, "github.com/google/osv-scanner/v2/cmd/osv-scanner")
+	cmdBuild := exec.CommandContext(context.Background(), "go", "build", "-o", binPath, "github.com/google/osv-scanner/v2/cmd/osv-scanner")
 	cmdBuild.Stdout = os.Stdout
 	cmdBuild.Stderr = os.Stderr
 	if err := cmdBuild.Run(); err != nil {
@@ -137,7 +139,8 @@ func buildTestBinary(t *testing.T) string {
 // findFreePort lets the OS choose a free port and returns the address string (e.g. "127.0.0.1:12345").
 func findFreePort(t *testing.T) string {
 	t.Helper()
-	ln, err := net.Listen("tcp", "localhost:0")
+	var lc net.ListenConfig
+	ln, err := lc.Listen(context.Background(), "tcp", "localhost:0")
 	if err != nil {
 		t.Fatalf("failed to listen: %v", err)
 	}
@@ -148,6 +151,8 @@ func findFreePort(t *testing.T) string {
 }
 
 // startMCPServer starts the mcp server in a subprocess.
+//
+//nolint:revive // t should be the first argument
 func startMCPServer(t *testing.T, ctx context.Context, binPath, addr string) *exec.Cmd {
 	t.Helper()
 	cmdRun := exec.CommandContext(ctx, binPath, "experimental-mcp", "--sse", addr)
@@ -163,6 +168,8 @@ func startMCPServer(t *testing.T, ctx context.Context, binPath, addr string) *ex
 }
 
 // connectMCPClient connects to the MCP server via SSE.
+//
+//nolint:revive // t should be the first argument
 func connectMCPClient(t *testing.T, ctx context.Context, baseURL string) *mcp.ClientSession {
 	t.Helper()
 	transport := &mcp.SSEClientTransport{
@@ -186,6 +193,7 @@ func waitForServer(t *testing.T, url string) {
 	t.Helper()
 	deadline := time.Now().Add(10 * time.Second)
 	for time.Now().Before(deadline) {
+		//nolint:gosec // This is a test with a local URL
 		resp, err := http.Get(url)
 		if err == nil {
 			resp.Body.Close()
