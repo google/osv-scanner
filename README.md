@@ -146,7 +146,7 @@ OSV-Scanner communicates with the following external services during operation:
 
 ### [OSV.dev API](https://osv.dev/)
 
-The primary data source for vulnerability information. OSV-Scanner queries this API to check packages for known vulnerabilities and to identify vendored C/C++ dependencies. Data sent includes package names, versions, ecosystems, and file hashes. Use `--offline` mode to disable network requests and scan against a local database instead.
+The primary data source for vulnerability information. OSV-Scanner queries this API to check packages for known vulnerabilities and to identify vendored C/C++ dependencies. Data sent includes package names, versions, ecosystems, and file hashes. Use [`--offline` mode](https://google.github.io/osv-scanner/usage/offline-mode/) to disable network requests and scan against a local database instead.
 
 ### [deps.dev API](https://docs.deps.dev/api/)
 
@@ -161,7 +161,7 @@ Data sent includes package names, versions, and ecosystems. No source code is tr
 
 ### Package Registries
 
-When using native registry resolution (instead of deps.dev), OSV-Scanner may query:
+When using native registry for dependency resolution (instead of deps.dev), OSV-Scanner may query:
 
 | Registry      | URL                            | Used For                             |
 | ------------- | ------------------------------ | ------------------------------------ |
