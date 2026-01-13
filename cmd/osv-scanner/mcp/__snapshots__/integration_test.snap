@@ -1,5 +1,5 @@
 
-[TestIntegration_MCP_SSE_Subprocess - 1]
+[TestIntegration_MCP_SSE_Subprocess/ScanVulnerableDependencies - 1]
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -18,7 +18,7 @@ Hiding 2 number of vulnerabilities deemed unimportant, use --all-vulns to show t
 
 ---
 
-[TestIntegration_MCP_SSE_Subprocess - 2]
+[TestIntegration_MCP_SSE_Subprocess/GetVulnerabilityDetails - 1]
 {
   "content": [
     {
