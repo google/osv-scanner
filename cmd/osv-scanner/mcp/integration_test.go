@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"testing"
 	"time"
 
@@ -124,6 +125,9 @@ func buildTestBinary(t *testing.T) string {
 	t.Helper()
 	tempDir := t.TempDir()
 	binPath := filepath.Join(tempDir, "osv-scanner-mcp-test")
+	if runtime.GOOS == "windows" {
+		binPath += ".exe"
+	}
 
 	// We use the full package path to ensure we build the correct main package.
 	cmdBuild := exec.CommandContext(context.Background(), "go", "build", "-o", binPath, "github.com/google/osv-scanner/v2/cmd/osv-scanner")
