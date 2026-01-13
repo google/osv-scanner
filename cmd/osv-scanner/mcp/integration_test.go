@@ -11,7 +11,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 )
@@ -87,10 +86,7 @@ func TestIntegration_MCP_SSE_Subprocess(t *testing.T) {
 		t.Logf("Scan completed. Output length: %d", len(output))
 		testutility.NewSnapshot().MatchText(t, output)
 
-		// Extract a vulnerability ID for the next step.
-		// Example: GHSA-f682-3w9h-r22r or GO-2023-1558
-		re := cachedregexp.MustCompile(`(GHSA-[a-zA-Z0-9-]+|GO-\d{4}-\d+)`)
-		vulnID = re.FindString(output)
+		vulnID = "GO-2023-1558"
 	})
 
 	if vulnID == "" {
