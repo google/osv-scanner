@@ -1,0 +1,16 @@
+{
+  "results": [
+    {
+      "source": {},
+      "packages": [
+        {
+          "package": {
+            "name": "github.com/openssl/openssl",
+            "version": "openssl-3.0.4",
+            "ecosystem": "GIT"
+          }
+        }
+      ]
+    }
+  ]
+}
