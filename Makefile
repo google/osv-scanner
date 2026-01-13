@@ -6,6 +6,9 @@ scanner:
 lint:
 	scripts/run_lints.sh
 
+lint-fix:
+	scripts/run_lints.sh --fix
+
 format:
 	scripts/run_formatters.sh
 
