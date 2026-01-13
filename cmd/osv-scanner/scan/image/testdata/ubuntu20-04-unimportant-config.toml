@@ -77,3 +77,8 @@ ignore = true
 name = "lz4"
 reason = "Just want to test only unimportant vulns"
 ignore = true
+
+[[PackageOverrides]]
+name = "util-linux"
+reason = "Just want to test only unimportant vulns"
+ignore = true

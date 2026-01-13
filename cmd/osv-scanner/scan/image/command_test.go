@@ -248,6 +248,9 @@ func TestCommand_OCIImage(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			// This tests that unimportant vulns are hidden properly
+			// If the test is failing (reporting new important vulns), add the package that introduced the vuln as ignore=true to the config.toml
+			// The package with unimportant vulns is pcre3, so if a new vulnerability appears for that package, don't ignore the entire package, just ignore the important vulnerability specifically.
 			Name: "Empty Ubuntu 20.04 image tar with no vulns shown",
 			Args: []string{"", "image", "--archive",
 				"--config=./testdata/ubuntu20-04-unimportant-config.toml",

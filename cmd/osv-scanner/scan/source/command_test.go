@@ -323,9 +323,10 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		// a bunch of requirements.txt files with different names
+		// --no-resolve is used as transitive resolution tests are in a separate section
 		{
 			Name: "requirements.txt can have all kinds of names",
-			Args: []string{"", "source", "./testdata/locks-requirements"},
+			Args: []string{"", "source", "./testdata/locks-requirements", "--no-resolve"},
 			Exit: 1,
 		},
 		{
@@ -934,6 +935,11 @@ func TestCommand_GithubActions(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "scanning osv-scanner custom format with git tag",
+			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-custom-git-tag.json"},
+			Exit: 1,
+		},
+		{
 			Name: "scanning osv-scanner custom format output json",
 			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
 			ReplaceRules: []testutility.JSONReplaceRule{
@@ -1026,12 +1032,11 @@ func TestCommand_LocalDatabases(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-			if testutility.IsAcceptanceTesting() {
-				testDir := testutility.CreateTestDir(t)
-				old := tt.Args
-				tt.Args = []string{"", "source", "--local-db-path", testDir}
-				tt.Args = append(tt.Args, old[2:]...)
-			}
+
+			testDir := testutility.CreateTestDir(t)
+			old := tt.Args
+			tt.Args = []string{"", "source", "--local-db-path", testDir}
+			tt.Args = append(tt.Args, old[2:]...)
 
 			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 

@@ -1569,7 +1569,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-mhpg-hpj5-73r2",
-                  "modified": "2025-12-10T23:41:00.167393Z"
+                  "modified": "2026-01-08T21:43:33.587386Z"
                 }
               ]
             },
@@ -3222,7 +3222,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 20196
+      content_length: 20329
       body: |
         {
           "results": [
@@ -3650,6 +3650,10 @@ interactions:
                   "modified": "2025-11-20T10:17:02.620233Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2025-13151",
+                  "modified": "2026-01-08T11:30:09.647171Z"
+                },
+                {
                   "id": "DLA-3263-1",
                   "modified": "2025-05-26T07:22:42.617563Z"
                 },
@@ -3867,11 +3871,11 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2025-8732",
-                  "modified": "2025-11-20T10:18:28.450401Z"
+                  "modified": "2025-12-14T10:13:26.467517Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2025-9714",
-                  "modified": "2025-11-20T10:18:28.938756Z"
+                  "modified": "2026-01-10T14:08:12.148171Z"
                 },
                 {
                   "id": "DLA-3012-1",
@@ -4138,7 +4142,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2024-13176",
-                  "modified": "2025-11-20T10:17:03.124812Z"
+                  "modified": "2026-01-10T14:06:53.941794Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2024-2511",
@@ -4507,6 +4511,10 @@ interactions:
                 {
                   "id": "DLA-4105-1",
                   "modified": "2025-05-26T07:02:13.921097Z"
+                },
+                {
+                  "id": "DLA-4403-1",
+                  "modified": "2025-12-12T10:13:37.154747Z"
                 }
               ]
             },
@@ -4550,7 +4558,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2025-14104",
-                  "modified": "2025-12-06T11:17:09.332893Z"
+                  "modified": "2025-12-29T10:11:41.788817Z"
                 },
                 {
                   "id": "DLA-3782-1",
@@ -4628,7 +4636,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "20196"
+          - "20329"
         Content-Type:
           - application/json
       status: 200 OK
@@ -6260,7 +6268,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 5858
+      content_length: 1712
       host: api.osv.dev
       body: |
         {
@@ -6268,44 +6276,9 @@ interactions:
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "click"
-              },
-              "version": "8.3.1"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
                 "name": "flask"
               },
-              "version": "1.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "itsdangerous"
-              },
-              "version": "2.2.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "jinja2"
-              },
-              "version": "3.1.6"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "markupsafe"
-              },
-              "version": "3.0.3"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "werkzeug"
-              },
-              "version": "3.1.4"
+              "version": "1.0.0"
             },
             {
               "package": {
@@ -6317,55 +6290,6 @@ interactions:
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "click"
-              },
-              "version": "8.3.1"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "mypy-extensions"
-              },
-              "version": "1.1.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "packaging"
-              },
-              "version": "25.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "pathspec"
-              },
-              "version": "0.12.1"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "platformdirs"
-              },
-              "version": "4.5.1"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "tomli"
-              },
-              "version": "2.3.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "typing-extensions"
-              },
-              "version": "4.15.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
                 "name": "django"
               },
               "version": "1.11.29"
@@ -6375,7 +6299,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "flask"
               },
-              "version": "1.0"
+              "version": "1.0.0"
             },
             {
               "package": {
@@ -6383,55 +6307,6 @@ interactions:
                 "name": "requests"
               },
               "version": "2.20.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "certifi"
-              },
-              "version": "2025.11.12"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "chardet"
-              },
-              "version": "3.0.4"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "click"
-              },
-              "version": "8.3.1"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "idna"
-              },
-              "version": "2.7"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "itsdangerous"
-              },
-              "version": "2.2.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "jinja2"
-              },
-              "version": "3.1.6"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "markupsafe"
-              },
-              "version": "3.0.3"
             },
             {
               "package": {
@@ -6443,65 +6318,9 @@ interactions:
             {
               "package": {
                 "ecosystem": "PyPI",
-                "name": "pytz"
-              },
-              "version": "2025.2"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "urllib3"
-              },
-              "version": "1.24.3"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "werkzeug"
-              },
-              "version": "3.1.4"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
                 "name": "django"
               },
               "version": "2.2.24"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "pytz"
-              },
-              "version": "2025.2"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "sqlparse"
-              },
-              "version": "0.5.4"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "certifi"
-              },
-              "version": "2025.11.12"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "chardet"
-              },
-              "version": "3.0.4"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "click"
-              },
-              "version": "8.3.1"
             },
             {
               "package": {
@@ -6515,42 +6334,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "flask"
               },
-              "version": "1.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "idna"
-              },
-              "version": "2.7"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "itsdangerous"
-              },
-              "version": "2.2.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "jinja2"
-              },
-              "version": "3.1.6"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "markupsafe"
-              },
-              "version": "3.0.3"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "pytz"
-              },
-              "version": "2025.2"
+              "version": "1.0.0"
             },
             {
               "package": {
@@ -6558,20 +6342,6 @@ interactions:
                 "name": "requests"
               },
               "version": "2.20.0"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "urllib3"
-              },
-              "version": "1.24.3"
-            },
-            {
-              "package": {
-                "ecosystem": "PyPI",
-                "name": "werkzeug"
-              },
-              "version": "3.1.4"
             },
             {
               "package": {
@@ -6614,11 +6384,10 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 6356
+      content_length: 4450
       body: |
         {
           "results": [
-            {},
             {
               "vulns": [
                 {
@@ -6631,17 +6400,6 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {
               "vulns": [
@@ -6708,74 +6466,6 @@ interactions:
                 {
                   "id": "PYSEC-2023-74",
                   "modified": "2023-11-08T04:12:35.436175Z"
-                }
-              ]
-            },
-            {},
-            {},
-            {},
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-jjg7-2v4v-x38h",
-                  "modified": "2025-11-05T20:30:45.121847Z"
-                },
-                {
-                  "id": "PYSEC-2024-60",
-                  "modified": "2024-07-11T17:42:33.704488Z"
-                }
-              ]
-            },
-            {},
-            {},
-            {},
-            {},
-            {},
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-2xpw-w6gg-jr37",
-                  "modified": "2025-12-05T18:52:26.581492Z"
-                },
-                {
-                  "id": "GHSA-34jh-p97f-mpxf",
-                  "modified": "2025-11-04T17:17:45.245584Z"
-                },
-                {
-                  "id": "GHSA-g4mx-q9vg-27p4",
-                  "modified": "2025-11-04T17:00:24.358773Z"
-                },
-                {
-                  "id": "GHSA-gm62-xv2j-4w53",
-                  "modified": "2025-12-05T18:52:50.341818Z"
-                },
-                {
-                  "id": "GHSA-pq67-6m6q-mj2v",
-                  "modified": "2025-06-19T16:15:11.736637Z"
-                },
-                {
-                  "id": "GHSA-v845-jxx5-vc9f",
-                  "modified": "2025-11-04T17:12:10.974241Z"
-                },
-                {
-                  "id": "GHSA-wqvq-5m8c-6g24",
-                  "modified": "2024-11-18T22:47:07.792720Z"
-                },
-                {
-                  "id": "PYSEC-2020-148",
-                  "modified": "2023-11-08T04:03:14.251187Z"
-                },
-                {
-                  "id": "PYSEC-2021-108",
-                  "modified": "2023-11-08T04:06:04.829992Z"
-                },
-                {
-                  "id": "PYSEC-2023-192",
-                  "modified": "2023-11-08T04:13:33.452167Z"
-                },
-                {
-                  "id": "PYSEC-2023-212",
-                  "modified": "2023-11-08T04:13:39.165450Z"
                 }
               ]
             },
@@ -6872,11 +6562,6 @@ interactions:
                 }
               ]
             },
-            {},
-            {},
-            {},
-            {},
-            {},
             {
               "vulns": [
                 {
@@ -6928,22 +6613,6 @@ interactions:
             {
               "vulns": [
                 {
-                  "id": "GHSA-jjg7-2v4v-x38h",
-                  "modified": "2025-11-05T20:30:45.121847Z"
-                },
-                {
-                  "id": "PYSEC-2024-60",
-                  "modified": "2024-07-11T17:42:33.704488Z"
-                }
-              ]
-            },
-            {},
-            {},
-            {},
-            {},
-            {
-              "vulns": [
-                {
                   "id": "GHSA-9hjg-9r4m-mvj7",
                   "modified": "2025-06-09T19:27:13.389930Z"
                 },
@@ -6961,55 +6630,6 @@ interactions:
                 }
               ]
             },
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-2xpw-w6gg-jr37",
-                  "modified": "2025-12-05T18:52:26.581492Z"
-                },
-                {
-                  "id": "GHSA-34jh-p97f-mpxf",
-                  "modified": "2025-11-04T17:17:45.245584Z"
-                },
-                {
-                  "id": "GHSA-g4mx-q9vg-27p4",
-                  "modified": "2025-11-04T17:00:24.358773Z"
-                },
-                {
-                  "id": "GHSA-gm62-xv2j-4w53",
-                  "modified": "2025-12-05T18:52:50.341818Z"
-                },
-                {
-                  "id": "GHSA-pq67-6m6q-mj2v",
-                  "modified": "2025-06-19T16:15:11.736637Z"
-                },
-                {
-                  "id": "GHSA-v845-jxx5-vc9f",
-                  "modified": "2025-11-04T17:12:10.974241Z"
-                },
-                {
-                  "id": "GHSA-wqvq-5m8c-6g24",
-                  "modified": "2024-11-18T22:47:07.792720Z"
-                },
-                {
-                  "id": "PYSEC-2020-148",
-                  "modified": "2023-11-08T04:03:14.251187Z"
-                },
-                {
-                  "id": "PYSEC-2021-108",
-                  "modified": "2023-11-08T04:06:04.829992Z"
-                },
-                {
-                  "id": "PYSEC-2023-192",
-                  "modified": "2023-11-08T04:13:33.452167Z"
-                },
-                {
-                  "id": "PYSEC-2023-212",
-                  "modified": "2023-11-08T04:13:39.165450Z"
-                }
-              ]
-            },
-            {},
             {},
             {
               "vulns": [
@@ -7071,7 +6691,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "6356"
+          - "4450"
         Content-Type:
           - application/json
       status: 200 OK

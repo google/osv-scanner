@@ -722,7 +722,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 558
+      content_length: 628
       body: |
         {
           "results": [
@@ -807,6 +807,10 @@ interactions:
                 {
                   "id": "GHSA-p6xc-xr62-6r2g",
                   "modified": "2025-05-09T13:12:54.089856Z"
+                },
+                {
+                  "id": "GHSA-vc5p-v9hr-52mj",
+                  "modified": "2025-12-19T22:39:27.874039Z"
                 }
               ]
             },
@@ -815,7 +819,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "558"
+          - "628"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1391,7 +1395,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 558
+      content_length: 628
       body: |
         {
           "results": [
@@ -1476,6 +1480,10 @@ interactions:
                 {
                   "id": "GHSA-p6xc-xr62-6r2g",
                   "modified": "2025-05-09T13:12:54.089856Z"
+                },
+                {
+                  "id": "GHSA-vc5p-v9hr-52mj",
+                  "modified": "2025-12-19T22:39:27.874039Z"
                 }
               ]
             },
@@ -1484,7 +1492,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "558"
+          - "628"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1594,7 +1602,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 311
+      content_length: 381
       body: |
         {
           "results": [
@@ -1616,6 +1624,10 @@ interactions:
                 {
                   "id": "GHSA-p6xc-xr62-6r2g",
                   "modified": "2025-05-09T13:12:54.089856Z"
+                },
+                {
+                  "id": "GHSA-vc5p-v9hr-52mj",
+                  "modified": "2025-12-19T22:39:27.874039Z"
                 }
               ]
             },
@@ -1624,7 +1636,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "311"
+          - "381"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1674,7 +1686,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 311
+      content_length: 381
       body: |
         {
           "results": [
@@ -1696,6 +1708,10 @@ interactions:
                 {
                   "id": "GHSA-p6xc-xr62-6r2g",
                   "modified": "2025-05-09T13:12:54.089856Z"
+                },
+                {
+                  "id": "GHSA-vc5p-v9hr-52mj",
+                  "modified": "2025-12-19T22:39:27.874039Z"
                 }
               ]
             },
@@ -1704,7 +1720,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "311"
+          - "381"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1715,7 +1731,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1599
+      content_length: 1597
       host: api.osv.dev
       body: |
         {
@@ -1725,7 +1741,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "certifi"
               },
-              "version": "2025.11.12"
+              "version": "2026.1.4"
             },
             {
               "package": {
@@ -1809,7 +1825,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "werkzeug"
               },
-              "version": "3.1.4"
+              "version": "3.1.5"
             }
           ]
         }
@@ -1824,7 +1840,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1943
+      content_length: 2013
       body: |
         {
           "results": [
@@ -1926,6 +1942,10 @@ interactions:
                   "modified": "2025-11-04T17:17:45.245584Z"
                 },
                 {
+                  "id": "GHSA-38jv-5279-wg99",
+                  "modified": "2026-01-08T20:13:04.476098Z"
+                },
+                {
                   "id": "GHSA-g4mx-q9vg-27p4",
                   "modified": "2025-11-04T17:00:24.358773Z"
                 },
@@ -1935,7 +1955,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-pq67-6m6q-mj2v",
-                  "modified": "2025-06-19T16:15:11.736637Z"
+                  "modified": "2025-12-22T21:47:12.568920Z"
                 },
                 {
                   "id": "GHSA-v845-jxx5-vc9f",
@@ -1968,7 +1988,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "1943"
+          - "2013"
         Content-Type:
           - application/json
       status: 200 OK

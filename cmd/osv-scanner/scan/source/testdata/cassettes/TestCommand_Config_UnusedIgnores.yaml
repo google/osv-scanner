@@ -1402,7 +1402,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 20196
+      content_length: 20329
       body: |
         {
           "results": [
@@ -1830,6 +1830,10 @@ interactions:
                   "modified": "2025-11-20T10:17:02.620233Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2025-13151",
+                  "modified": "2026-01-08T11:30:09.647171Z"
+                },
+                {
                   "id": "DLA-3263-1",
                   "modified": "2025-05-26T07:22:42.617563Z"
                 },
@@ -2047,11 +2051,11 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2025-8732",
-                  "modified": "2025-11-20T10:18:28.450401Z"
+                  "modified": "2025-12-14T10:13:26.467517Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2025-9714",
-                  "modified": "2025-11-20T10:18:28.938756Z"
+                  "modified": "2026-01-10T14:08:12.148171Z"
                 },
                 {
                   "id": "DLA-3012-1",
@@ -2318,7 +2322,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2024-13176",
-                  "modified": "2025-11-20T10:17:03.124812Z"
+                  "modified": "2026-01-10T14:06:53.941794Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2024-2511",
@@ -2687,6 +2691,10 @@ interactions:
                 {
                   "id": "DLA-4105-1",
                   "modified": "2025-05-26T07:02:13.921097Z"
+                },
+                {
+                  "id": "DLA-4403-1",
+                  "modified": "2025-12-12T10:13:37.154747Z"
                 }
               ]
             },
@@ -2730,7 +2738,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2025-14104",
-                  "modified": "2025-12-06T11:17:09.332893Z"
+                  "modified": "2025-12-29T10:11:41.788817Z"
                 },
                 {
                   "id": "DLA-3782-1",
@@ -2808,7 +2816,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "20196"
+          - "20329"
         Content-Type:
           - application/json
       status: 200 OK
@@ -3880,7 +3888,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 19735
+      content_length: 19868
       body: |
         {
           "results": [
@@ -4284,6 +4292,10 @@ interactions:
                   "modified": "2025-11-20T10:17:02.620233Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2025-13151",
+                  "modified": "2026-01-08T11:30:09.647171Z"
+                },
+                {
                   "id": "DLA-3263-1",
                   "modified": "2025-05-26T07:22:42.617563Z"
                 },
@@ -4501,11 +4513,11 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2025-8732",
-                  "modified": "2025-11-20T10:18:28.450401Z"
+                  "modified": "2025-12-14T10:13:26.467517Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2025-9714",
-                  "modified": "2025-11-20T10:18:28.938756Z"
+                  "modified": "2026-01-10T14:08:12.148171Z"
                 },
                 {
                   "id": "DLA-3012-1",
@@ -4772,7 +4784,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2024-13176",
-                  "modified": "2025-11-20T10:17:03.124812Z"
+                  "modified": "2026-01-10T14:06:53.941794Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2024-2511",
@@ -5141,6 +5153,10 @@ interactions:
                 {
                   "id": "DLA-4105-1",
                   "modified": "2025-05-26T07:02:13.921097Z"
+                },
+                {
+                  "id": "DLA-4403-1",
+                  "modified": "2025-12-12T10:13:37.154747Z"
                 }
               ]
             },
@@ -5184,7 +5200,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2025-14104",
-                  "modified": "2025-12-06T11:17:09.332893Z"
+                  "modified": "2025-12-29T10:11:41.788817Z"
                 },
                 {
                   "id": "DLA-3782-1",
@@ -5230,7 +5246,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "19735"
+          - "19868"
         Content-Type:
           - application/json
       status: 200 OK

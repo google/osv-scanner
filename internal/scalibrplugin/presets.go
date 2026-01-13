@@ -192,16 +192,19 @@ func baseImageEnricher() enricher.Enricher {
 // TODO(b/400910349): Remove once all plugins take config values.
 // Copied from osv-scalibr
 func noCFG(f func() filesystem.Extractor) extractors.InitFn {
-	return func(_ *cpb.PluginConfig) filesystem.Extractor { return f() }
+	return func(_ *cpb.PluginConfig) (filesystem.Extractor, error) { return f(), nil }
 }
 
 // Wraps initer functions that don't take any config value to initer functions that do.
 // TODO(b/400910349): Remove once all plugins take config values.
 // Copied from osv-scalibr
 func noCFGEnricher(f func() enricher.Enricher) enricherlist.InitFn {
-	return func(_ *cpb.PluginConfig) enricher.Enricher { return f() }
+	return func(_ *cpb.PluginConfig) (enricher.Enricher, error) { return f(), nil }
 }
 
+// Wraps initer functions that don't take any config value to initer functions that do.
+// TODO(b/400910349): Remove once all plugins take config values.
+// Copied from osv-scalibr
 func noCFGAnnotator(f func() annotator.Annotator) annotatorlist.InitFn {
-	return func(_ *cpb.PluginConfig) annotator.Annotator { return f() }
+	return func(_ *cpb.PluginConfig) (annotator.Annotator, error) { return f(), nil }
 }
