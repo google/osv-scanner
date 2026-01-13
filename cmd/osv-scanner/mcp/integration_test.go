@@ -61,7 +61,7 @@ func TestIntegration_MCP_SSE_Subprocess(t *testing.T) {
 	t.Run("ScanVulnerableDependencies", func(t *testing.T) {
 		scanResult, err := client.CallTool(ctx, &mcp.CallToolParams{
 			Name: "scan_vulnerable_dependencies",
-			Arguments: map[string]interface{}{
+			Arguments: map[string]any{
 				"paths":                []string{testDataPath},
 				"recursive":            true,
 				"ignore_glob_patterns": []string{},
@@ -130,6 +130,7 @@ func buildTestBinary(t *testing.T) string {
 	if err := cmdBuild.Run(); err != nil {
 		t.Fatalf("failed to build binary: %v", err)
 	}
+
 	return binPath
 }
 
@@ -142,6 +143,7 @@ func findFreePort(t *testing.T) string {
 	}
 	addr := ln.Addr().String()
 	ln.Close()
+
 	return addr
 }
 
@@ -156,6 +158,7 @@ func startMCPServer(t *testing.T, ctx context.Context, binPath, addr string) *ex
 	if err := cmdRun.Start(); err != nil {
 		t.Fatalf("failed to start server: %v", err)
 	}
+
 	return cmdRun
 }
 
@@ -175,6 +178,7 @@ func connectMCPClient(t *testing.T, ctx context.Context, baseURL string) *mcp.Cl
 	if err != nil {
 		t.Fatalf("failed to connect to MCP server: %v", err)
 	}
+
 	return session
 }
 
