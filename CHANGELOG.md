@@ -1,3 +1,31 @@
+# v2.3.2
+
+This release includes performance improvements for local scanning, reducing memory usage and avoiding unnecessary advisory loading. It also fixes issues with MCP type enforcement, git queries in `osv-scanner.json`, and ignore entry tracking, along with documentation updates.
+
+### Features:
+
+- [Feature #2415](https://github.com/google/osv-scanner/pull/2415) Add more PURL-to-ecosystem mappings
+
+### Fixes:
+
+- [Bug #2422](https://github.com/google/osv-scanner/pull/2422) MCP error because types are not enforced.
+- [Bug #2460](https://github.com/google/osv-scanner/pull/2460) Update osv-scanner.json git queries
+- [Bug #2456](https://github.com/google/osv-scanner/pull/2456) Properly track if an ignore entry has been used
+- [Bug #2459](https://github.com/google/osv-scanner/pull/2459) Update dependencies
+- [Bug #2450](https://github.com/google/osv-scanner/pull/2450) **Performance:** Avoid loading the entire advisory unless it will actually be used
+- [Bug #2445](https://github.com/google/osv-scanner/pull/2445) **Performance:** Don't read the entire zip into memory
+- [Bug #2433](https://github.com/google/osv-scanner/pull/2433) Allow specifying user agent in v2 osvscanner package
+
+### Misc:
+
+- [Misc #2457](https://github.com/google/osv-scanner/pull/2457) Document data sources and external services
+- [Misc #2451](https://github.com/google/osv-scanner/pull/2451) Always use a unique directory for local advisory cases
+- [Misc #2453](https://github.com/google/osv-scanner/pull/2453) Switch from gopkg.in/yaml.v3 to go.yaml.in/yaml/v3
+- [Misc #2447](https://github.com/google/osv-scanner/pull/2447) Include `bun.lock` as a supported lockfile
+- [Misc #2444](https://github.com/google/osv-scanner/pull/2444) Document GoVersionOverride in configuration.md
+- [Misc #2437](https://github.com/google/osv-scanner/pull/2437) Update OSV scanner reusable workflow references to v2.3.1
+- [Misc #2408](https://github.com/google/osv-scanner/pull/2408) Have vulnerable Drupal contrib module
+
 # v2.3.1
 
 ### Features:
