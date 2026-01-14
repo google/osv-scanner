@@ -8,7 +8,6 @@ This release includes performance improvements for local scanning, reducing memo
 - [Bug #2422](https://github.com/google/osv-scanner/pull/2422) MCP error for get_vulnerability_id because type definition is incorrect.
 - [Bug #2460](https://github.com/google/osv-scanner/pull/2460) Enable osv-scanner.json git queries
 - [Bug #2456](https://github.com/google/osv-scanner/pull/2456) Properly track if an ignore entry has been used
-- [Bug #2459](https://github.com/google/osv-scanner/pull/2459) Update dependencies
 - [Bug #2450](https://github.com/google/osv-scanner/pull/2450) **Performance:** Avoid loading the entire advisory unless it will actually be used
 - [Bug #2445](https://github.com/google/osv-scanner/pull/2445) **Performance:** Don't read the entire zip into memory
 - [Bug #2433](https://github.com/google/osv-scanner/pull/2433) Allow specifying user agent in v2 osvscanner package
