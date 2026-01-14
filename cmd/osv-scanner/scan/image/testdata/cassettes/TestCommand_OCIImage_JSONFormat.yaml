@@ -3612,7 +3612,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 9882
+      content_length: 9862
       body: |
         {
           "results": [
@@ -3691,7 +3691,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-68973",
-                  "modified": "2026-01-08T06:17:52.660259Z"
+                  "modified": "2026-01-14T03:16:56.206118Z"
                 },
                 {
                   "id": "USN-7412-1",
@@ -3700,6 +3700,10 @@ interactions:
                 {
                   "id": "USN-7412-2",
                   "modified": "2025-10-13T04:41:00Z"
+                },
+                {
+                  "id": "USN-7946-1",
+                  "modified": "2026-01-14T01:31:50.517317Z"
                 }
               ]
             },
@@ -4425,19 +4429,12 @@ interactions:
                 }
               ]
             },
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2026-22184",
-                  "modified": "2026-01-08T06:15:02.303582Z"
-                }
-              ]
-            }
+            {}
           ]
         }
       headers:
         Content-Length:
-          - "9882"
+          - "9862"
         Content-Type:
           - application/json
       status: 200 OK
@@ -5187,7 +5184,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 14388
+      content_length: 14368
       body: |
         {
           "results": [
@@ -5575,7 +5572,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-68973",
-                  "modified": "2026-01-08T06:17:52.660259Z"
+                  "modified": "2026-01-14T03:16:56.206118Z"
                 },
                 {
                   "id": "USN-7412-1",
@@ -5584,6 +5581,10 @@ interactions:
                 {
                   "id": "USN-7412-2",
                   "modified": "2025-10-13T04:41:00Z"
+                },
+                {
+                  "id": "USN-7946-1",
+                  "modified": "2026-01-14T01:31:50.517317Z"
                 }
               ]
             },
@@ -6309,19 +6310,12 @@ interactions:
                 }
               ]
             },
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2026-22184",
-                  "modified": "2026-01-08T06:15:02.303582Z"
-                }
-              ]
-            }
+            {}
           ]
         }
       headers:
         Content-Length:
-          - "14388"
+          - "14368"
         Content-Type:
           - application/json
       status: 200 OK
