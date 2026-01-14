@@ -1,15 +1,12 @@
 # v2.3.2
 
-This release includes performance improvements for local scanning, reducing memory usage and avoiding unnecessary advisory loading. It also fixes issues with MCP type enforcement, git queries in `osv-scanner.json`, and ignore entry tracking, along with documentation updates.
-
-### Features:
-
-- [Feature #2415](https://github.com/google/osv-scanner/pull/2415) Add more PURL-to-ecosystem mappings
+This release includes performance improvements for local scanning, reducing memory usage and avoiding unnecessary advisory loading. It also fixes issues with MCP's get_vulnerability_details tool, git queries in `osv-scanner.json`, and ignore entry tracking, along with documentation updates.
 
 ### Fixes:
 
-- [Bug #2422](https://github.com/google/osv-scanner/pull/2422) MCP error because types are not enforced.
-- [Bug #2460](https://github.com/google/osv-scanner/pull/2460) Update osv-scanner.json git queries
+- [Bug #2415](https://github.com/google/osv-scanner/pull/2415) Add more PURL-to-ecosystem mappings
+- [Bug #2422](https://github.com/google/osv-scanner/pull/2422) MCP error for get_vulnerability_id because type definition is incorrect.
+- [Bug #2460](https://github.com/google/osv-scanner/pull/2460) Enable osv-scanner.json git queries
 - [Bug #2456](https://github.com/google/osv-scanner/pull/2456) Properly track if an ignore entry has been used
 - [Bug #2459](https://github.com/google/osv-scanner/pull/2459) Update dependencies
 - [Bug #2450](https://github.com/google/osv-scanner/pull/2450) **Performance:** Avoid loading the entire advisory unless it will actually be used
