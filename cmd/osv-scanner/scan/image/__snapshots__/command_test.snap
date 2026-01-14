@@ -341,21 +341,14 @@ Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out becau
 Package Ubuntu:20.04/perl/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/tar/1.30+dfsg-7ubuntu0.20.04.4 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Filtered 37 ignored package/s from the scan.
+Package Ubuntu:20.04/zlib/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
+Filtered 38 ignored package/s from the scan.
 
 Container Scanning Result (Ubuntu 20.04.6 LTS):
-Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
-Ubuntu:20.04
-+----------------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:/var/lib/dpkg/status                                                                                                         |
-+----------------+--------------------------+------------------+------------+-------------------------+------------------+---------------+
-| SOURCE PACKAGE | INSTALLED VERSION        | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
-+----------------+--------------------------+------------------+------------+-------------------------+------------------+---------------+
-| zlib           | 1:1.2.11.dfsg-2ubuntu1.5 | No fix available |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
-+----------------+--------------------------+------------------+------------+-------------------------+------------------+---------------+
 
 Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -406,21 +399,14 @@ Package Ubuntu:20.04/shadow/1:4.8.1-1ubuntu5.20.04.5 has been filtered out becau
 Package Ubuntu:20.04/perl/5.30.0-9ubuntu0.5 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/tar/1.30+dfsg-7ubuntu0.20.04.4 has been filtered out because: Just want to test only unimportant vulns
 Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because: Just want to test only unimportant vulns
-Filtered 37 ignored package/s from the scan.
+Package Ubuntu:20.04/zlib/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
+Filtered 38 ignored package/s from the scan.
 
 Container Scanning Result (Ubuntu 20.04.6 LTS):
-Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
-Ubuntu:20.04
-+----------------------------------------------------------------------------------------------------------------------------------------+
-| Source:os:/var/lib/dpkg/status                                                                                                         |
-+----------------+--------------------------+------------------+------------+-------------------------+------------------+---------------+
-| SOURCE PACKAGE | INSTALLED VERSION        | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
-+----------------+--------------------------+------------------+------------+-------------------------+------------------+---------------+
-| zlib           | 1:1.2.11.dfsg-2ubuntu1.5 | No fix available |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
-+----------------+--------------------------+------------------+------------+-------------------------+------------------+---------------+
 
 Filtered Vulnerabilities:
 +---------+--------------+--------------------+---------------------+----------------+

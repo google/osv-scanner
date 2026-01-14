@@ -683,7 +683,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 7587
+      content_length: 7442
       host: api.osv.dev
       body: |
         {
@@ -1065,13 +1065,6 @@ interactions:
                 "name": "ubuntu-keyring"
               },
               "version": "2020.02.11.4"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "zlib"
-              },
-              "version": "1:1.2.11.dfsg-2ubuntu1.5"
             }
           ]
         }
@@ -1086,7 +1079,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 333
+      content_length: 249
       body: |
         {
           "results": [
@@ -1150,20 +1143,12 @@ interactions:
             {},
             {},
             {},
-            {},
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2026-22184",
-                  "modified": "2026-01-08T06:15:02.303582Z"
-                }
-              ]
-            }
+            {}
           ]
         }
       headers:
         Content-Length:
-          - "333"
+          - "249"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1174,7 +1159,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 7587
+      content_length: 7442
       host: api.osv.dev
       body: |
         {
@@ -1556,13 +1541,6 @@ interactions:
                 "name": "ubuntu-keyring"
               },
               "version": "2020.02.11.4"
-            },
-            {
-              "package": {
-                "ecosystem": "Ubuntu:20.04",
-                "name": "zlib"
-              },
-              "version": "1:1.2.11.dfsg-2ubuntu1.5"
             }
           ]
         }
@@ -1577,7 +1555,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 333
+      content_length: 249
       body: |
         {
           "results": [
@@ -1641,20 +1619,12 @@ interactions:
             {},
             {},
             {},
-            {},
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2026-22184",
-                  "modified": "2026-01-08T06:15:02.303582Z"
-                }
-              ]
-            }
+            {}
           ]
         }
       headers:
         Content-Length:
-          - "333"
+          - "249"
         Content-Type:
           - application/json
       status: 200 OK
