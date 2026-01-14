@@ -20,7 +20,6 @@ This release includes performance improvements for local scanning, reducing memo
 - [Misc #2447](https://github.com/google/osv-scanner/pull/2447) Include `bun.lock` as a supported lockfile
 - [Misc #2444](https://github.com/google/osv-scanner/pull/2444) Document GoVersionOverride in configuration.md
 - [Misc #2437](https://github.com/google/osv-scanner/pull/2437) Update OSV scanner reusable workflow references to v2.3.1
-- [Misc #2408](https://github.com/google/osv-scanner/pull/2408) Have vulnerable Drupal contrib module
 
 # v2.3.1
 
