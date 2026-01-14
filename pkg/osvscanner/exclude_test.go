@@ -5,6 +5,7 @@ import (
 )
 
 func TestIsRegexPattern(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name     string
 		pattern  string
@@ -26,6 +27,7 @@ func TestIsRegexPattern(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			result := isRegexPattern(tt.pattern)
 			if result != tt.expected {
 				t.Errorf("isRegexPattern(%q) = %v, want %v", tt.pattern, result, tt.expected)
@@ -35,6 +37,7 @@ func TestIsRegexPattern(t *testing.T) {
 }
 
 func TestParseExcludePatterns(t *testing.T) {
+	t.Parallel()
 	tests := []struct {
 		name           string
 		patterns       []string
@@ -103,6 +106,7 @@ func TestParseExcludePatterns(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
 			result, err := ParseExcludePatterns(tt.patterns)
 
 			if (err != nil) != tt.wantErr {

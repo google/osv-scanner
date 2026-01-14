@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"regexp"
 	"runtime"
 	"slices"
 	"strings"
@@ -27,6 +26,7 @@ import (
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -265,7 +265,7 @@ SBOMLoop:
 
 		// Prepare skip patterns for this scan
 		var skipDirGlob glob.Glob
-		var skipDirRegex *regexp.Regexp
+		var skipDirRegex *cachedregexp.Regexp
 		if excludePatterns != nil {
 			skipDirGlob = excludePatterns.GlobPattern
 			skipDirRegex = excludePatterns.RegexPattern

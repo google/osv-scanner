@@ -1,18 +1,17 @@
-// Package osvscanner provides the core scanning functionality.
 package osvscanner
 
 import (
 	"fmt"
-	"regexp"
 	"strings"
 
 	"github.com/gobwas/glob"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 )
 
 // ExcludePatterns holds compiled patterns for excluding directories/files
 type ExcludePatterns struct {
-	GlobPattern  glob.Glob      // Combined glob pattern using {p1,p2,...} syntax
-	RegexPattern *regexp.Regexp // Combined regex pattern using (p1|p2|...) syntax
+	GlobPattern  glob.Glob            // Combined glob pattern using {p1,p2,...} syntax
+	RegexPattern *cachedregexp.Regexp // Combined regex pattern using (p1|p2|...) syntax
 }
 
 // ParseExcludePatterns separates and compiles glob and regex patterns.
@@ -56,7 +55,7 @@ func ParseExcludePatterns(patterns []string) (*ExcludePatterns, error) {
 		} else {
 			combined = "(" + strings.Join(regexPatterns, "|") + ")"
 		}
-		r, err := regexp.Compile(combined)
+		r, err := cachedregexp.Compile(combined)
 		if err != nil {
 			return nil, fmt.Errorf("invalid regex pattern %q: %w", combined, err)
 		}
@@ -79,5 +78,6 @@ func isRegexPattern(pattern string) bool {
 	if strings.HasSuffix(pattern, "\\/") {
 		return false
 	}
+
 	return true
 }
