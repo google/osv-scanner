@@ -428,8 +428,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 23 packages affected by 46 known vulnerabilities (3 Critical, 14 High, 24 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
-19 vulnerabilities can be fixed.
+Total 22 packages affected by 46 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 3 Unknown) from 1 ecosystem.
+21 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -442,7 +442,7 @@ Ubuntu:22.04
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
-| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          6 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
@@ -460,7 +460,6 @@ Ubuntu:22.04
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          1 | tar                     | # 4 Layer        | ubuntu        |
 | util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
 | util-linux     | 2.37.2-4ubuntu3.4            | No fix available        |          1 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
-| zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Hiding 5 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
@@ -477,8 +476,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 23 packages affected by 46 known vulnerabilities (3 Critical, 14 High, 24 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
-19 vulnerabilities can be fixed.
+Total 22 packages affected by 46 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 3 Unknown) from 1 ecosystem.
+21 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -491,7 +490,7 @@ Ubuntu:22.04
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
-| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          6 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
@@ -509,7 +508,6 @@ Ubuntu:22.04
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          1 | tar                     | # 4 Layer        | ubuntu        |
 | util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
 | util-linux     | 2.37.2-4ubuntu3.4            | No fix available        |          1 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
-| zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Filtered Vulnerabilities:
@@ -545,8 +543,8 @@ failed to load image from tarball with path "../../testdata/locks-manyoci-image/
 Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS):
-Total 23 packages affected by 46 known vulnerabilities (3 Critical, 14 High, 24 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
-19 vulnerabilities can be fixed.
+Total 22 packages affected by 46 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 3 Unknown) from 1 ecosystem.
+21 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -559,7 +557,7 @@ Ubuntu:22.04
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
-| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
+| gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          6 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
@@ -577,7 +575,6 @@ Ubuntu:22.04
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          1 | tar                     | # 4 Layer        | ubuntu        |
 | util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
 | util-linux     | 2.37.2-4ubuntu3.4            | No fix available        |          1 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
-| zlib           | 1:1.2.11.dfsg-2ubuntu9.2     | No fix available        |          1 | zlib1g                  | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Hiding 5 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
@@ -2981,14 +2978,15 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 5,
+          "groups": 6,
           "vulnerabilities": [
             "USN-7412-1",
             "UBUNTU-CVE-2022-3219",
             "UBUNTU-CVE-2025-30258",
             "UBUNTU-CVE-2025-68972",
             "UBUNTU-CVE-2025-68973",
-            "USN-7412-2"
+            "USN-7412-2",
+            "USN-7946-1"
           ]
         },
         {
@@ -3652,21 +3650,6 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
           "groups": 1,
           "vulnerabilities": [
             "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
-            "name": "zlib",
-            "os_package_name": "zlib1g",
-            "version": "1:1.2.11.dfsg-2ubuntu9.2",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2026-22184"
           ]
         }
       ]
@@ -3927,14 +3910,15 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 5,
+          "groups": 6,
           "vulnerabilities": [
             "USN-7412-1",
             "UBUNTU-CVE-2022-3219",
             "UBUNTU-CVE-2025-30258",
             "UBUNTU-CVE-2025-68972",
             "UBUNTU-CVE-2025-68973",
-            "USN-7412-2"
+            "USN-7412-2",
+            "USN-7946-1"
           ]
         },
         {
@@ -4598,21 +4582,6 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "groups": 1,
           "vulnerabilities": [
             "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
-            "name": "zlib",
-            "os_package_name": "zlib1g",
-            "version": "1:1.2.11.dfsg-2ubuntu9.2",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2026-22184"
           ]
         }
       ]
