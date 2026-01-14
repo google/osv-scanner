@@ -89,11 +89,6 @@ func TestIntegration_MCP_SSE_Subprocess(t *testing.T) {
 		vulnID = "GO-2023-1558"
 	})
 
-	if vulnID == "" {
-		t.Fatal("cannot test get_vulnerability_details without a valid ID found in scan output")
-	}
-	t.Logf("Found Vuln ID: %s", vulnID)
-
 	// Step 2: Get details for the found vulnerability
 	t.Run("GetVulnerabilityDetails", func(t *testing.T) {
 		detailsResult, err := client.CallTool(ctx, &mcp.CallToolParams{
