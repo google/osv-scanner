@@ -14,7 +14,6 @@ This release includes performance improvements for local scanning, reducing memo
 
 ### Misc:
 
-- [Misc #2457](https://github.com/google/osv-scanner/pull/2457) Document data sources and external services
 - [Misc #2451](https://github.com/google/osv-scanner/pull/2451) Always use a unique directory for local advisory cases
 - [Misc #2453](https://github.com/google/osv-scanner/pull/2453) Switch from gopkg.in/yaml.v3 to go.yaml.in/yaml/v3
 - [Misc #2447](https://github.com/google/osv-scanner/pull/2447) Include `bun.lock` as a supported lockfile
