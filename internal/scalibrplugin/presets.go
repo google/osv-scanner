@@ -123,9 +123,9 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		// --- OS "lockfiles" ---
 		// These have very strict FileRequired paths, so we can safely enable them for source scanning as well.
 		// Alpine
-		apk.Name: {noCFG(apk.NewDefault)},
+		apk.Name: {apk.New},
 		// Debian
-		dpkg.Name: {noCFG(dpkg.NewDefault)},
+		dpkg.Name: {dpkg.New},
 	},
 	"directory": {
 		gitrepo.Name:  {noCFG(gitrepo.New)},
@@ -146,9 +146,9 @@ var ExtractorPresets = map[string]extractors.InitMap{
 
 		// --- OS packages ---
 		// Alpine
-		apk.Name: {noCFG(apk.NewDefault)},
+		apk.Name: {apk.New},
 		// Debian
-		dpkg.Name: {noCFG(dpkg.NewDefault)},
+		dpkg.Name: {dpkg.New},
 	},
 }
 
