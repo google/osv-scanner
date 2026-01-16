@@ -15,9 +15,11 @@ import (
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
+	transitivedependencypomxml "github.com/google/osv-scalibr/enricher/transitivedependency/pomxml"
 	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/fs"
@@ -26,7 +28,6 @@ import (
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 	"github.com/google/osv-scanner/v2/internal/scalibrplugin"
@@ -38,25 +39,6 @@ var ErrExtractorNotFound = errors.New("could not determine extractor suitable to
 
 func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
 	for _, plug := range plugins {
-		if !actions.TransitiveScanning.Disabled {
-			err := pomxmlenhanceable.EnhanceIfPossible(plug, &cpb.PluginConfig{
-				UserAgent: actions.RequestUserAgent,
-				PluginSpecific: []*cpb.PluginSpecificConfig{
-					{
-						Config: &cpb.PluginSpecificConfig_PomXmlNet{
-							PomXmlNet: &cpb.POMXMLNetConfig{
-								UpstreamRegistry:    actions.TransitiveScanning.MavenRegistry,
-								DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
-							},
-						},
-					},
-				},
-			})
-			if err != nil {
-				log.Errorf("Failed to enhance pomxml extractor: %v", err)
-			}
-		}
-
 		vendored.Configure(plug, vendored.Config{
 			// Only attempt to vendor check git directories if we are not skipping scanning root git directories
 			ScanGitDir: !actions.IncludeGitRoot,
@@ -68,6 +50,18 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 func isRequirementsExtractorEnabled(plugins []plugin.Plugin) bool {
 	for _, plug := range plugins {
 		_, ok := plug.(*requirements.Extractor)
+
+		if ok {
+			return true
+		}
+	}
+
+	return false
+}
+
+func isPomXMLExtractorEnabled(plugins []plugin.Plugin) bool {
+	for _, plug := range plugins {
+		_, ok := plug.(*pomxml.Extractor)
 
 		if ok {
 			return true
@@ -92,15 +86,39 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled)
 
-	// TODO: Use Enricher.RequiredPlugins to check this generically
-	if !actions.TransitiveScanning.Disabled && isRequirementsExtractorEnabled(plugins) {
-		p, err := transitivedependencyrequirements.New(&cpb.PluginConfig{
-			UserAgent: actions.RequestUserAgent,
-		})
-		if err != nil {
-			log.Errorf("Failed to make transitivedependencyrequirements enricher: %v", err)
-		} else {
-			plugins = append(plugins, p)
+	if !actions.TransitiveScanning.Disabled {
+		// TODO: Use Enricher.RequiredPlugins to check this generically
+		if isRequirementsExtractorEnabled(plugins) {
+			p, err := transitivedependencyrequirements.New(&cpb.PluginConfig{
+				UserAgent: actions.RequestUserAgent,
+			})
+			if err != nil {
+				log.Errorf("Failed to make transitivedependencyrequirements enricher: %v", err)
+			} else {
+				plugins = append(plugins, p)
+			}
+		}
+
+		// TODO: Use Enricher.RequiredPlugins to check this generically
+		if isPomXMLExtractorEnabled(plugins) {
+			p, err := transitivedependencypomxml.New(&cpb.PluginConfig{
+				UserAgent: actions.RequestUserAgent,
+				PluginSpecific: []*cpb.PluginSpecificConfig{
+					{
+						Config: &cpb.PluginSpecificConfig_PomXmlNet{
+							PomXmlNet: &cpb.POMXMLNetConfig{
+								UpstreamRegistry:    actions.TransitiveScanning.MavenRegistry,
+								DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
+							},
+						},
+					},
+				},
+			})
+			if err != nil {
+				log.Errorf("Failed to make transitivedependencypomxml enricher: %v", err)
+			} else {
+				plugins = append(plugins, p)
+			}
 		}
 	}
 

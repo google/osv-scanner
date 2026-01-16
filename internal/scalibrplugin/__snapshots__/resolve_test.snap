@@ -53,7 +53,7 @@ haskell/cabal
 haskell/stacklock
 java/gradlelockfile
 java/gradleverificationmetadataxml
-java/pomxmlenhanceable
+java/pomxml
 javascript/bunlock
 javascript/packagelockjson
 javascript/pnpmlock

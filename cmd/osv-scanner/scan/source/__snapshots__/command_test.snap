@@ -5626,6 +5626,16 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 
 ---
 
+[TestCommand_Transitive/transitive_pomxml_enricher_requires_enabled_pomxml_extractor - 1]
+Scanning dir ./testdata/maven-transitive/abc.xml
+
+---
+
+[TestCommand_Transitive/transitive_pomxml_enricher_requires_enabled_pomxml_extractor - 2]
+No package sources found, --help for usage information.
+
+---
+
 [TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 1]
 Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
 
