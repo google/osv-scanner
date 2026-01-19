@@ -686,16 +686,16 @@ Debian:10
 +------------------------+------------------------+---------------+------------+-----------------------------+------------------+---------------+
 | SOURCE PACKAGE         | INSTALLED VERSION      | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT)     | INTRODUCED LAYER | IN BASE IMAGE |
 +------------------------+------------------------+---------------+------------+-----------------------------+------------------+---------------+
-| debian-archive-keyring | 2019.1+deb10u1         | Fix Available |          1 | debian-archive-keyri... (1) | # 0 Layer        | python        |
+| debian-archive-keyring | 2019.1+deb10u1         | Fix Available |          1 | debian-archive-keyri... (1) | # 0 Layer        | debian        |
 | expat                  | 2.2.6-2+deb10u6        | Fix Available |          1 | libexpat1                   | # 7 Layer        | python        |
-| glibc                  | 2.28-10+deb10u2        | Fix Available |          2 | libc-bin, libc6             | # 0 Layer        | python        |
-| gnutls28               | 3.6.7-4+deb10u10       | Fix Available |          2 | libgnutls30                 | # 0 Layer        | python        |
-| ncurses                | 6.1+20181013-2+deb10u3 | Fix Available |          2 | libncursesw6... (4)         | # 0 Layer        | python        |
+| glibc                  | 2.28-10+deb10u2        | Fix Available |          2 | libc-bin, libc6             | # 0 Layer        | debian        |
+| gnutls28               | 3.6.7-4+deb10u10       | Fix Available |          2 | libgnutls30                 | # 0 Layer        | debian        |
+| ncurses                | 6.1+20181013-2+deb10u3 | Fix Available |          2 | libncursesw6... (4)         | # 0 Layer        | debian        |
 | openssl                | 1.1.1n-0+deb10u5       | Fix Available |          1 | libssl1.1, openssl          | # 4 Layer        | python        |
-| systemd                | 241-7~deb10u9          | Fix Available |          1 | libsystemd0... (2)          | # 0 Layer        | python        |
-| tar                    | 1.30+dfsg-6            | Fix Available |          1 | tar                         | # 0 Layer        | python        |
-| tzdata                 | 2021a-0+deb10u11       | Fix Available |          2 | tzdata                      | # 0 Layer        | python        |
-| util-linux             | 2.33.1-0.1             | Fix Available |          1 | fdisk, libblkid1... (8)     | # 0 Layer        | python        |
+| systemd                | 241-7~deb10u9          | Fix Available |          1 | libsystemd0... (2)          | # 0 Layer        | debian        |
+| tar                    | 1.30+dfsg-6            | Fix Available |          1 | tar                         | # 0 Layer        | debian        |
+| tzdata                 | 2021a-0+deb10u11       | Fix Available |          2 | tzdata                      | # 0 Layer        | debian        |
+| util-linux             | 2.33.1-0.1             | Fix Available |          1 | fdisk, libblkid1... (8)     | # 0 Layer        | debian        |
 +------------------------+------------------------+---------------+------------+-----------------------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -792,16 +792,16 @@ Debian:10
 +------------------------+------------------------+---------------+------------+-----------------------------+------------------+---------------+
 | SOURCE PACKAGE         | INSTALLED VERSION      | FIX AVAILABLE | VULN COUNT | BINARY PACKAGES (COUNT)     | INTRODUCED LAYER | IN BASE IMAGE |
 +------------------------+------------------------+---------------+------------+-----------------------------+------------------+---------------+
-| debian-archive-keyring | 2019.1+deb10u1         | Fix Available |          1 | debian-archive-keyri... (1) | # 0 Layer        | python        |
+| debian-archive-keyring | 2019.1+deb10u1         | Fix Available |          1 | debian-archive-keyri... (1) | # 0 Layer        | debian        |
 | expat                  | 2.2.6-2+deb10u6        | Fix Available |          1 | libexpat1                   | # 7 Layer        | python        |
-| glibc                  | 2.28-10+deb10u2        | Fix Available |          2 | libc-bin, libc6             | # 0 Layer        | python        |
-| gnutls28               | 3.6.7-4+deb10u10       | Fix Available |          2 | libgnutls30                 | # 0 Layer        | python        |
-| ncurses                | 6.1+20181013-2+deb10u3 | Fix Available |          2 | libncursesw6... (4)         | # 0 Layer        | python        |
+| glibc                  | 2.28-10+deb10u2        | Fix Available |          2 | libc-bin, libc6             | # 0 Layer        | debian        |
+| gnutls28               | 3.6.7-4+deb10u10       | Fix Available |          2 | libgnutls30                 | # 0 Layer        | debian        |
+| ncurses                | 6.1+20181013-2+deb10u3 | Fix Available |          2 | libncursesw6... (4)         | # 0 Layer        | debian        |
 | openssl                | 1.1.1n-0+deb10u5       | Fix Available |          1 | libssl1.1, openssl          | # 4 Layer        | python        |
-| systemd                | 241-7~deb10u9          | Fix Available |          1 | libsystemd0... (2)          | # 0 Layer        | python        |
-| tar                    | 1.30+dfsg-6            | Fix Available |          1 | tar                         | # 0 Layer        | python        |
-| tzdata                 | 2021a-0+deb10u11       | Fix Available |          2 | tzdata                      | # 0 Layer        | python        |
-| util-linux             | 2.33.1-0.1             | Fix Available |          1 | fdisk, libblkid1... (8)     | # 0 Layer        | python        |
+| systemd                | 241-7~deb10u9          | Fix Available |          1 | libsystemd0... (2)          | # 0 Layer        | debian        |
+| tar                    | 1.30+dfsg-6            | Fix Available |          1 | tar                         | # 0 Layer        | debian        |
+| tzdata                 | 2021a-0+deb10u11       | Fix Available |          2 | tzdata                      | # 0 Layer        | debian        |
+| util-linux             | 2.33.1-0.1             | Fix Available |          1 | fdisk, libblkid1... (8)     | # 0 Layer        | debian        |
 +------------------------+------------------------+---------------+------------+-----------------------------+------------------+---------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
@@ -1796,13 +1796,13 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
         "diff_id": "sha256:...",
         "command": "ADD file:2818e508d01da218...",
         "is_empty": false,
-        "base_image_index": 1
+        "base_image_index": 2
       },
       {
         "diff_id": "",
         "command": "CMD [/"bash/"]",
         "is_empty": true,
-        "base_image_index": 1
+        "base_image_index": 2
       },
       {
         "diff_id": "",
@@ -1917,6 +1917,10 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
       {},
       {
         "name": "python",
+        "tags": null
+      },
+      {
+        "name": "debian",
         "tags": null
       }
     ]
