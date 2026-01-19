@@ -30,7 +30,7 @@ Checking if docker image ("alpine:3.18.9") exists locally...
 Saving docker image ("alpine:3.18.9") to temporary file...
 Scanning image "alpine:3.18.9"
 
-Container Scanning Result (Alpine Linux v3.18):
+Container Scanning Result (Alpine Linux v3.18) (Based on "alpine" image):
 Total 2 packages affected by 3 known vulnerabilities (0 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 3 vulnerabilities can be fixed.
 
@@ -112,7 +112,7 @@ No issues found
 [TestCommand_ExplicitExtractors_WithDefaults/add_extractors - 1]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
-Container Scanning Result (Alpine Linux v3.10):
+Container Scanning Result (Alpine Linux v3.10) (Based on "alpine" image):
 Total 2 packages affected by 2 known vulnerabilities (2 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 1 vulnerability can be fixed.
 
@@ -146,7 +146,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out - 1]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
-Container Scanning Result (Alpine Linux v3.10):
+Container Scanning Result (Alpine Linux v3.10) (Based on "alpine" image):
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
@@ -172,7 +172,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out#01 - 1]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
-Container Scanning Result (Alpine Linux v3.10):
+Container Scanning Result (Alpine Linux v3.10) (Based on "alpine" image):
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
@@ -198,7 +198,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 1]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
-Container Scanning Result (Alpine Linux v3.10):
+Container Scanning Result (Alpine Linux v3.10) (Based on "alpine" image):
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
@@ -275,7 +275,7 @@ HTML output available at: <tempdir>/report.html
 [TestCommand_OCIImage/Alpine_3.10_image_tar_with_3.18_version_file - 1]
 Scanning local image tarball "./testdata/test-alpine.tar"
 
-Container Scanning Result (Alpine Linux v3.18):
+Container Scanning Result (Alpine Linux v3.18) (Based on "alpine" image):
 Total 5 packages affected by 65 known vulnerabilities (6 Critical, 33 High, 26 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 65 vulnerabilities can be fixed.
 
@@ -344,7 +344,7 @@ Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because:
 Package Ubuntu:20.04/zlib/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
 Filtered 38 ignored package/s from the scan.
 
-Container Scanning Result (Ubuntu 20.04.6 LTS):
+Container Scanning Result (Ubuntu 20.04.6 LTS) (Based on "ubuntu" image):
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
@@ -402,7 +402,7 @@ Package Ubuntu:20.04/util-linux/2.34-0.1ubuntu9.6 has been filtered out because:
 Package Ubuntu:20.04/zlib/1:1.2.11.dfsg-2ubuntu1.5 has been filtered out because: Just want to test only unimportant vulns
 Filtered 38 ignored package/s from the scan.
 
-Container Scanning Result (Ubuntu 20.04.6 LTS):
+Container Scanning Result (Ubuntu 20.04.6 LTS) (Based on "ubuntu" image):
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
@@ -427,7 +427,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar - 1]
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
-Container Scanning Result (Ubuntu 22.04.5 LTS):
+Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 22 packages affected by 46 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 3 Unknown) from 1 ecosystem.
 23 vulnerabilities can be fixed.
 
@@ -475,7 +475,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns - 1]
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
-Container Scanning Result (Ubuntu 22.04.5 LTS):
+Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 22 packages affected by 46 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 3 Unknown) from 1 ecosystem.
 23 vulnerabilities can be fixed.
 
@@ -542,7 +542,7 @@ failed to load image from tarball with path "../../testdata/locks-manyoci-image/
 [TestCommand_OCIImage/Scanning_Ubuntu_image_with_go_OS_packages_json - 1]
 Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
-Container Scanning Result (Ubuntu 22.04.5 LTS):
+Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 22 packages affected by 46 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 3 Unknown) from 1 ecosystem.
 23 vulnerabilities can be fixed.
 
@@ -590,7 +590,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/Scanning_java_image_with_some_packages - 1]
 Scanning local image tarball "./testdata/test-java-full.tar"
 
-Container Scanning Result (Alpine Linux v3.21):
+Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
 Total 24 packages affected by 47 known vulnerabilities (3 Critical, 19 High, 22 Medium, 2 Low, 1 Unknown) from 2 ecosystems.
 47 vulnerabilities can be fixed.
 
@@ -646,7 +646,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/Scanning_python_image_with_no_packages - 1]
 Scanning local image tarball "./testdata/test-python-empty.tar"
 
-Container Scanning Result (Debian GNU/Linux 10 (buster)):
+Container Scanning Result (Debian GNU/Linux 10 (buster)) (Based on "python" image):
 Total 14 packages affected by 24 known vulnerabilities (0 Critical, 6 High, 4 Medium, 0 Low, 14 Unknown) from 2 ecosystems.
 24 vulnerabilities can be fixed.
 
@@ -710,7 +710,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/Scanning_python_image_with_some_packages - 1]
 Scanning local image tarball "./testdata/test-python-full.tar"
 
-Container Scanning Result (Debian GNU/Linux 10 (buster)):
+Container Scanning Result (Debian GNU/Linux 10 (buster)) (Based on "python" image):
 Total 20 packages affected by 48 known vulnerabilities (1 Critical, 17 High, 15 Medium, 0 Low, 15 Unknown) from 2 ecosystems.
 48 vulnerabilities can be fixed.
 
@@ -816,7 +816,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/scanning_image_with_go_binary - 1]
 Scanning local image tarball "./testdata/test-package-tracing.tar"
 
-Container Scanning Result (Alpine Linux v3.20):
+Container Scanning Result (Alpine Linux v3.20) (Based on "alpine" image):
 Total 9 packages affected by 155 known vulnerabilities (1 Critical, 3 High, 5 Medium, 2 Low, 144 Unknown) from 2 ecosystems.
 155 vulnerabilities can be fixed.
 
@@ -887,7 +887,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/scanning_insecure_alpine_image_with_detector_preset - 1]
 Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
-Container Scanning Result (Alpine Linux v3.10):
+Container Scanning Result (Alpine Linux v3.10) (Based on "alpine" image):
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
@@ -913,7 +913,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_disabled - 1]
 Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
-Container Scanning Result (Alpine Linux v3.10):
+Container Scanning Result (Alpine Linux v3.10) (Based on "alpine" image):
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
@@ -939,7 +939,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/scanning_insecure_alpine_image_with_specific_detector_enabled - 1]
 Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
-Container Scanning Result (Alpine Linux v3.10):
+Container Scanning Result (Alpine Linux v3.10) (Based on "alpine" image):
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
@@ -965,7 +965,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/scanning_insecure_alpine_image_without_detectors - 1]
 Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
 
-Container Scanning Result (Alpine Linux v3.10):
+Container Scanning Result (Alpine Linux v3.10) (Based on "alpine" image):
 Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
@@ -991,7 +991,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/scanning_node_modules_using_npm_with_no_packages - 1]
 Scanning local image tarball "./testdata/test-node_modules-npm-empty.tar"
 
-Container Scanning Result (Alpine Linux v3.19):
+Container Scanning Result (Alpine Linux v3.19) (Based on "library/node" image):
 Total 2 packages affected by 15 known vulnerabilities (1 Critical, 3 High, 9 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
 15 vulnerabilities can be fixed.
 
@@ -1018,7 +1018,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/scanning_node_modules_using_npm_with_some_packages - 1]
 Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
 
-Container Scanning Result (Alpine Linux v3.19):
+Container Scanning Result (Alpine Linux v3.19) (Based on "library/node" image):
 Total 4 packages affected by 18 known vulnerabilities (3 Critical, 3 High, 10 Medium, 2 Low, 0 Unknown) from 2 ecosystems.
 17 vulnerabilities can be fixed.
 
@@ -1054,7 +1054,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_no_packages - 1]
 Scanning local image tarball "./testdata/test-node_modules-pnpm-empty.tar"
 
-Container Scanning Result (Alpine Linux v3.19):
+Container Scanning Result (Alpine Linux v3.19) (Based on "library/node" image):
 Total 2 packages affected by 15 known vulnerabilities (1 Critical, 3 High, 9 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
 15 vulnerabilities can be fixed.
 
@@ -1081,7 +1081,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/scanning_node_modules_using_pnpm_with_some_packages - 1]
 Scanning local image tarball "./testdata/test-node_modules-pnpm-full.tar"
 
-Container Scanning Result (Alpine Linux v3.19):
+Container Scanning Result (Alpine Linux v3.19) (Based on "library/node" image):
 Total 2 packages affected by 15 known vulnerabilities (1 Critical, 3 High, 9 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
 15 vulnerabilities can be fixed.
 
@@ -1108,7 +1108,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/scanning_node_modules_using_yarn_with_no_packages - 1]
 Scanning local image tarball "./testdata/test-node_modules-yarn-empty.tar"
 
-Container Scanning Result (Alpine Linux v3.19):
+Container Scanning Result (Alpine Linux v3.19) (Based on "library/node" image):
 Total 2 packages affected by 15 known vulnerabilities (1 Critical, 3 High, 9 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
 15 vulnerabilities can be fixed.
 
@@ -1135,7 +1135,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_OCIImage/scanning_node_modules_using_yarn_with_some_packages - 1]
 Scanning local image tarball "./testdata/test-node_modules-yarn-full.tar"
 
-Container Scanning Result (Alpine Linux v3.19):
+Container Scanning Result (Alpine Linux v3.19) (Based on "library/node" image):
 Total 2 packages affected by 15 known vulnerabilities (1 Critical, 3 High, 9 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
 15 vulnerabilities can be fixed.
 
