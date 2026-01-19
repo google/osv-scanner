@@ -32,6 +32,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pdmlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pylock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/uvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
@@ -97,6 +98,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		pipfilelock.Name:  {pipfilelock.New},
 		pdmlock.Name:      {pdmlock.New},
 		poetrylock.Name:   {poetrylock.New},
+		pylock.Name:       {pylock.New},
 		requirements.Name: {noCFG(requirements.NewDefault)},
 		uvlock.Name:       {uvlock.New},
 
