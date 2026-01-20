@@ -3,11 +3,11 @@ package osvscanner
 import (
 	"fmt"
 	"path/filepath"
-	"regexp"
 	"runtime"
 	"strings"
 
 	"github.com/gobwas/glob"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 )
 
 // SkipDirPatterns holds parsed patterns for skipping directories during scanning.
@@ -16,9 +16,9 @@ import (
 //   - GlobPattern: glob patterns (g:pattern syntax)
 //   - RegexPattern: regex patterns (r:pattern syntax)
 type SkipDirPatterns struct {
-	DirsToSkip   []string       // Exact directory names to skip
-	GlobPattern  glob.Glob      // Combined glob pattern using {p1,p2,...} syntax
-	RegexPattern *regexp.Regexp // Combined regex pattern using (p1|p2|...) syntax
+	DirsToSkip   []string             // Exact directory names to skip
+	GlobPattern  glob.Glob            // Combined glob pattern using {p1,p2,...} syntax
+	RegexPattern *cachedregexp.Regexp // Combined regex pattern using (p1|p2|...) syntax
 }
 
 // ParseSkipDirPatterns parses the skip directory patterns from command line.
@@ -76,7 +76,7 @@ func ParseSkipDirPatterns(patterns []string) (*SkipDirPatterns, error) {
 		} else {
 			combined = "(" + strings.Join(regexPatterns, "|") + ")"
 		}
-		r, err := regexp.Compile(combined)
+		r, err := cachedregexp.Compile(combined)
 		if err != nil {
 			return nil, fmt.Errorf("invalid regex pattern %q: %w", combined, err)
 		}

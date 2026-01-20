@@ -1471,6 +1471,50 @@ Total 11 packages affected by 45 known vulnerabilities (5 Critical, 19 High, 20 
 
 ---
 
+[TestCommand/skip-dir_with_exact_directory_name - 1]
+Scanning dir ./testdata/locks-one-with-nested
+Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
+No issues found
+
+---
+
+[TestCommand/skip-dir_with_exact_directory_name - 2]
+
+---
+
+[TestCommand/skip-dir_with_glob_pattern - 1]
+Scanning dir ./testdata/locks-one-with-nested
+Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
+No issues found
+
+---
+
+[TestCommand/skip-dir_with_glob_pattern - 2]
+
+---
+
+[TestCommand/skip-dir_with_invalid_regex_returns_error - 1]
+Scanning dir ./testdata/locks-many
+---
+
+[TestCommand/skip-dir_with_invalid_regex_returns_error - 2]
+failed to parse skip directory patterns: invalid regex pattern "[invalid": error parsing regexp: missing closing ]: `[invalid`
+
+---
+
+[TestCommand/skip-dir_with_regex_pattern - 1]
+Scanning dir ./testdata/locks-one-with-nested
+Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
+No issues found
+
+---
+
+[TestCommand/skip-dir_with_regex_pattern - 2]
+
+---
+
 [TestCommand/spdx_2.3_output - 1]
 {
   "spdxVersion": "SPDX-2.3",
@@ -5529,48 +5573,5 @@ No issues found
 ---
 
 [TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2]
-
----
-
-[TestCommand/skip-dir_with_invalid_regex_returns_error - 1]
-Scanning dir ./testdata/locks-many
----
-
-[TestCommand/skip-dir_with_invalid_regex_returns_error - 2]
-failed to parse skip directory patterns: invalid regex pattern "[invalid": error parsing regexp: missing closing ]: `[invalid`
-
----
-
-[TestCommand/skip-dir_with_regex_pattern - 1]
-Scanning dir ./testdata/locks-one-with-nested
-
----
-
-[TestCommand/skip-dir_with_regex_pattern - 2]
-No package sources found, --help for usage information.
-
----
-
-[TestCommand/skip-dir_with_glob_pattern - 1]
-Scanning dir ./testdata/locks-one-with-nested
-Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestCommand/skip-dir_with_glob_pattern - 2]
-
----
-
-[TestCommand/skip-dir_with_exact_directory_name - 1]
-Scanning dir ./testdata/locks-one-with-nested
-Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestCommand/skip-dir_with_exact_directory_name - 2]
 
 ---

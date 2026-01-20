@@ -6,12 +6,12 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"regexp"
 	"runtime"
 	"slices"
 	"strings"
 
 	"github.com/gobwas/glob"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 
 	scalibr "github.com/google/osv-scalibr"
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
@@ -266,7 +266,7 @@ SBOMLoop:
 		// Prepare skip patterns for this scan
 		var dirsToSkip []string
 		var skipDirGlob glob.Glob
-		var skipDirRegex *regexp.Regexp
+		var skipDirRegex *cachedregexp.Regexp
 		if skipDirPatterns != nil {
 			dirsToSkip = skipDirPatterns.DirsToSkip
 			skipDirGlob = skipDirPatterns.GlobPattern

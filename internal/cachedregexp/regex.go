@@ -8,6 +8,9 @@ import (
 
 var cache sync.Map
 
+// Regexp is an alias for regexp.Regexp, allowing packages to use this type without importing regexp directly.
+type Regexp = regexp.Regexp
+
 func MustCompile(exp string) *regexp.Regexp {
 	compiled, ok := cache.Load(exp)
 	if !ok {

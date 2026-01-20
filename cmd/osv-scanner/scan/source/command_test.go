@@ -172,7 +172,7 @@ func TestCommand(t *testing.T) {
 		},
 		{
 			Name: "skip-dir with regex pattern",
-			Args: []string{"", "source", "--recursive", "--experimental-skip-dir=r:nested", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--experimental-skip-dir=r:/nested$", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
