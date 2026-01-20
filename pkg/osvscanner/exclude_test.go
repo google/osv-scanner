@@ -38,7 +38,7 @@ func Test_parseExcludeArg(t *testing.T) {
 	}
 }
 
-func TestParseExcludePatterns(t *testing.T) {
+func Test_parseExcludePatterns(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name           string
