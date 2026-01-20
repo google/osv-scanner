@@ -162,22 +162,22 @@ func TestCommand(t *testing.T) {
 		// experimental skip-dir flag tests
 		{
 			Name: "skip-dir with exact directory name",
-			Args: []string{"", "source", "--recursive", "--experimental-skip-dir=nested", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
 			Name: "skip-dir with glob pattern",
-			Args: []string{"", "source", "--recursive", "--experimental-skip-dir=g:**/nested/**", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--experimental-exclude=g:**/nested/**", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
 			Name: "skip-dir with regex pattern",
-			Args: []string{"", "source", "--recursive", "--experimental-skip-dir=r:/nested$", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--experimental-exclude=r:/nested$", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
 			Name: "skip-dir with invalid regex returns error",
-			Args: []string{"", "source", "--experimental-skip-dir=r:[invalid", "./testdata/locks-many"},
+			Args: []string{"", "source", "--experimental-exclude=r:[invalid", "./testdata/locks-many"},
 			Exit: 127,
 		},
 		{

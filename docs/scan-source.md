@@ -37,14 +37,14 @@ There is a [known issue](https://github.com/google/osv-scanner/issues/209) that 
 
 The `--no-ignore` flag can be used to force the scanner to scan ignored files.
 
-## Skipping directories
+## Excluding Paths
 
 Experimental
 {: .label }
 
-You can skip specific directories from scanning using the `--experimental-skip-dir` flag. This is useful for excluding test directories, documentation, or vendor directories from vulnerability scans.
+You can exclude specific paths from scanning using the `--experimental-exclude` flag. This is useful for excluding test directories, documentation, or vendor directories from vulnerability scans.
 
-**Note:** This flag only skips directories, not individual files. This is an experimental feature and the syntax may change in future versions.
+**Note:** This flag currently only excludes directories, not individual files. This is an experimental feature and the syntax may change in future versions.
 
 ### Syntax
 
@@ -57,27 +57,27 @@ The flag supports three pattern types, matching the `--lockfile` flag syntax:
 ### Examples
 
 ```bash
-# Skip directories named "test" or "docs" (exact match)
-osv-scanner scan source -r --experimental-skip-dir=test --experimental-skip-dir=docs /path/to/your/dir
+# Exclude directories named "test" or "docs" (exact match)
+osv-scanner scan source -r --experimental-exclude=test --experimental-exclude=docs /path/to/your/dir
 
-# Skip using glob patterns
-osv-scanner scan source -r --experimental-skip-dir="g:**/test/**" --experimental-skip-dir="g:**/docs/**" /path/to/your/dir
+# Exclude using glob patterns
+osv-scanner scan source -r --experimental-exclude="g:**/test/**" --experimental-exclude="g:**/docs/**" /path/to/your/dir
 
-# Skip using regex patterns
-osv-scanner scan source -r --experimental-skip-dir="r:.*_test$" /path/to/your/dir
+# Exclude using regex patterns
+osv-scanner scan source -r --experimental-exclude="r:.*_test$" /path/to/your/dir
 
 # Mix different pattern types
-osv-scanner scan source -r --experimental-skip-dir=vendor --experimental-skip-dir="g:**/test/**" --experimental-skip-dir="r:\\.cache" /path/to/your/dir
+osv-scanner scan source -r --experimental-exclude=vendor --experimental-exclude="g:**/test/**" --experimental-exclude="r:\\.cache" /path/to/your/dir
 
 # Escape directory names containing colons using : prefix
-osv-scanner scan source -r --experimental-skip-dir=":my:project" /path/to/your/dir
+osv-scanner scan source -r --experimental-exclude=":my:project" /path/to/your/dir
 ```
 
 ### Common use cases
 
-- Excluding test directories: `--experimental-skip-dir=test` or `--experimental-skip-dir="g:**/test/**"`
-- Excluding documentation: `--experimental-skip-dir=docs`
-- Excluding vendor directories: `--experimental-skip-dir=vendor`
+- Excluding test directories: `--experimental-exclude=test` or `--experimental-exclude="g:**/test/**"`
+- Excluding documentation: `--experimental-exclude=docs`
+- Excluding vendor directories: `--experimental-exclude=vendor`
 
 Alternatively, you can use the `osv-scanner.toml` configuration file with `[[PackageOverrides]]` to ignore specific packages or directories. See [Configuration](./configuration.md) for more details.
 

@@ -58,8 +58,8 @@ func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 				Value: false,
 			},
 			&cli.StringSliceFlag{
-				Name:  "experimental-skip-dir",
-				Usage: "skip directories during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)",
+				Name:  "experimental-exclude",
+				Usage: "exclude paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)",
 			},
 			&cli.StringFlag{
 				Name:  "data-source",
@@ -113,6 +113,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 
 	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd, client)
 	experimentalScannerActions.RequestUserAgent = "osv-scanner_scan-source/" + version.OSVVersion
+	experimentalScannerActions.ExcludePatterns = cmd.StringSlice("experimental-exclude")
 	// Add `source` specific experimental configs
 	experimentalScannerActions.TransitiveScanning = osvscanner.TransitiveScanningActions{
 		Disabled:         cmd.Bool("no-resolve"),
@@ -127,7 +128,6 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	scannerAction.SBOMPaths = cmd.StringSlice("sbom")
 	scannerAction.Recursive = cmd.Bool("recursive")
 	scannerAction.NoIgnore = cmd.Bool("no-ignore")
-	experimentalScannerActions.ExcludePatterns = cmd.StringSlice("experimental-skip-dir")
 	scannerAction.DirectoryPaths = cmd.Args().Slice()
 	scannerAction.ExperimentalScannerActions = experimentalScannerActions
 
