@@ -147,10 +147,10 @@ func TestParseExcludePatterns(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			result, err := ParseExcludePatterns(tt.patterns)
+			result, err := parseExcludePatterns(tt.patterns)
 
 			if (err != nil) != tt.wantErr {
-				t.Errorf("ParseExcludePatterns() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("parseExcludePatterns() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 
@@ -158,35 +158,35 @@ func TestParseExcludePatterns(t *testing.T) {
 				return
 			}
 
-			if (len(result.DirsToSkip) > 0) != tt.wantDirs {
-				t.Errorf("ParseExcludePatterns() DirsToSkip present = %v, want %v", len(result.DirsToSkip) > 0, tt.wantDirs)
+			if (len(result.dirsToSkip) > 0) != tt.wantDirs {
+				t.Errorf("parseExcludePatterns() dirsToSkip present = %v, want %v", len(result.dirsToSkip) > 0, tt.wantDirs)
 			}
 
-			if tt.wantDirs && len(result.DirsToSkip) != tt.dirsCount {
-				t.Errorf("ParseExcludePatterns() DirsToSkip count = %d, want %d", len(result.DirsToSkip), tt.dirsCount)
+			if tt.wantDirs && len(result.dirsToSkip) != tt.dirsCount {
+				t.Errorf("parseExcludePatterns() dirsToSkip count = %d, want %d", len(result.dirsToSkip), tt.dirsCount)
 			}
 
-			if (result.GlobPattern != nil) != tt.wantGlob {
-				t.Errorf("ParseExcludePatterns() GlobPattern present = %v, want %v", result.GlobPattern != nil, tt.wantGlob)
+			if (result.globPattern != nil) != tt.wantGlob {
+				t.Errorf("parseExcludePatterns() globPattern present = %v, want %v", result.globPattern != nil, tt.wantGlob)
 			}
 
-			if (result.RegexPattern != nil) != tt.wantRegex {
-				t.Errorf("ParseExcludePatterns() RegexPattern present = %v, want %v", result.RegexPattern != nil, tt.wantRegex)
+			if (result.regexPattern != nil) != tt.wantRegex {
+				t.Errorf("parseExcludePatterns() regexPattern present = %v, want %v", result.regexPattern != nil, tt.wantRegex)
 			}
 
 			// Test glob matching
 			if tt.wantGlob && tt.globTestPath != "" {
-				match := result.GlobPattern.Match(tt.globTestPath)
+				match := result.globPattern.Match(tt.globTestPath)
 				if match != tt.globTestMatch {
-					t.Errorf("GlobPattern.Match(%q) = %v, want %v", tt.globTestPath, match, tt.globTestMatch)
+					t.Errorf("globPattern.Match(%q) = %v, want %v", tt.globTestPath, match, tt.globTestMatch)
 				}
 			}
 
 			// Test regex matching
 			if tt.wantRegex && tt.regexTestPath != "" {
-				match := result.RegexPattern.MatchString(tt.regexTestPath)
+				match := result.regexPattern.MatchString(tt.regexTestPath)
 				if match != tt.regexTestMatch {
-					t.Errorf("RegexPattern.MatchString(%q) = %v, want %v", tt.regexTestPath, match, tt.regexTestMatch)
+					t.Errorf("regexPattern.MatchString(%q) = %v, want %v", tt.regexTestPath, match, tt.regexTestMatch)
 				}
 			}
 		})

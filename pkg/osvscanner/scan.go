@@ -238,7 +238,7 @@ SBOMLoop:
 	osCapability := determineOS()
 
 	// Parse exclude patterns (supports exact names, glob, and regex)
-	excludePatterns, err := ParseExcludePatterns(actions.ExcludePatterns)
+	excludePatterns, err := parseExcludePatterns(actions.ExcludePatterns)
 	if err != nil {
 		return nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
 	}
@@ -262,9 +262,9 @@ SBOMLoop:
 			ScanRoots:             fs.RealFSScanRoots(root),
 			PathsToExtract:        paths,
 			IgnoreSubDirs:         !actions.Recursive,
-			DirsToSkip:            excludePatterns.DirsToSkip,
-			SkipDirRegex:          excludePatterns.RegexPattern,
-			SkipDirGlob:           excludePatterns.GlobPattern,
+			DirsToSkip:            excludePatterns.dirsToSkip,
+			SkipDirRegex:          excludePatterns.regexPattern,
+			SkipDirGlob:           excludePatterns.globPattern,
 			UseGitignore:          !actions.NoIgnore,
 			Stats:                 &statsCollector,
 			ReadSymlinks:          false,

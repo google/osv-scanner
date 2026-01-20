@@ -11,25 +11,25 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 )
 
-// ExcludePatterns holds parsed patterns for excluding paths during scanning.
+// excludePatterns holds parsed patterns for excluding paths during scanning.
 // Supports three types of patterns:
-//   - DirsToSkip: exact directory names to skip
-//   - GlobPattern: glob patterns (g:pattern syntax)
-//   - RegexPattern: regex patterns (r:pattern syntax)
-type ExcludePatterns struct {
-	DirsToSkip   []string       // Exact directory names to skip
-	GlobPattern  glob.Glob      // Combined glob pattern using {p1,p2,...} syntax
-	RegexPattern *regexp.Regexp // Combined regex pattern using (p1|p2|...) syntax
+//   - dirsToSkip: exact directory names to skip
+//   - globPattern: glob patterns (g:pattern syntax)
+//   - regexPattern: regex patterns (r:pattern syntax)
+type excludePatterns struct {
+	dirsToSkip   []string       // Exact directory names to skip
+	globPattern  glob.Glob      // Combined glob pattern using {p1,p2,...} syntax
+	regexPattern *regexp.Regexp // Combined regex pattern using (p1|p2|...) syntax
 }
 
-// ParseExcludePatterns parses the exclude patterns from command line.
+// parseExcludePatterns parses the exclude patterns from command line.
 // Pattern syntax (matching --lockfile flag style):
-//   - "dirname" or ":dirname" -> exact directory name (DirsToSkip)
-//   - "g:pattern" -> glob pattern (SkipDirGlob)
-//   - "r:pattern" -> regex pattern (SkipDirRegex)
+//   - "dirname" or ":dirname" -> exact directory name (dirsToSkip)
+//   - "g:pattern" -> glob pattern (globPattern)
+//   - "r:pattern" -> regex pattern (regexPattern)
 //
 // The ":" prefix is an escape hatch for directory names containing colons.
-func ParseExcludePatterns(patterns []string) (*ExcludePatterns, error) {
+func parseExcludePatterns(patterns []string) (*excludePatterns, error) {
 	var dirsToSkip []string
 	var globPatterns []string
 	var regexPatterns []string
@@ -50,8 +50,8 @@ func ParseExcludePatterns(patterns []string) (*ExcludePatterns, error) {
 		}
 	}
 
-	result := &ExcludePatterns{
-		DirsToSkip: dirsToSkip,
+	result := &excludePatterns{
+		dirsToSkip: dirsToSkip,
 	}
 
 	// Compile glob patterns using {p1,p2,...} syntax
@@ -66,7 +66,7 @@ func ParseExcludePatterns(patterns []string) (*ExcludePatterns, error) {
 		if err != nil {
 			return nil, fmt.Errorf("invalid glob pattern %q: %w", combined, err)
 		}
-		result.GlobPattern = g
+		result.globPattern = g
 	}
 
 	// Compile regex patterns using (p1|p2|...) syntax
@@ -81,7 +81,7 @@ func ParseExcludePatterns(patterns []string) (*ExcludePatterns, error) {
 		if err != nil {
 			return nil, fmt.Errorf("invalid regex pattern %q: %w", combined, err)
 		}
-		result.RegexPattern = r
+		result.regexPattern = r
 	}
 
 	return result, nil
