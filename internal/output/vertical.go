@@ -15,6 +15,9 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 	// Add a newline to separate results from logs.
 	fmt.Fprintln(outputWriter)
 	outputResult := BuildResults(vulnResult)
+	if outputResult.IsContainerScanning {
+		fmt.Fprintf(outputWriter, "%s:\n", GetContainerScanningHeader(outputResult))
+	}
 	printSummary(outputResult, outputWriter)
 	if outputResult.PkgDeprecatedCount > 0 {
 		printPkgDeprecatedSummary(outputResult, outputWriter)

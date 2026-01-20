@@ -889,3 +889,25 @@ func removeVariants(ecosystem string) string {
 func formatHiddenVulnsPrompt(hiddenVulns int) string {
 	return fmt.Sprintf("Hiding %d number of vulnerabilities deemed unimportant, use --all-vulns to show them.", hiddenVulns)
 }
+
+func GetContainerScanningHeader(result Result) string {
+	if !result.IsContainerScanning {
+		return ""
+	}
+
+	header := fmt.Sprintf("Container Scanning Result (%s)", result.ImageInfo.OS)
+
+	var baseImageName string
+	for _, baseImage := range result.ImageInfo.AllBaseImages {
+		if baseImage.Index == 1 {
+			baseImageName = getBaseImageName(baseImage)
+			break
+		}
+	}
+
+	if baseImageName != "" {
+		header += fmt.Sprintf(" (Based on \"%s\" image)", baseImageName)
+	}
+
+	return header
+}

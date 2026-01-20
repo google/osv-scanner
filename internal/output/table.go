@@ -113,7 +113,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 	// Add a newline to separate results from logs.
 	fmt.Fprintln(outputWriter)
 	if result.IsContainerScanning {
-		fmt.Fprintf(outputWriter, "Container Scanning Result (%s):\n", result.ImageInfo.OS)
+		fmt.Fprintf(outputWriter, "%s:\n", GetContainerScanningHeader(result))
 	} else {
 		fmt.Fprint(outputWriter, "Scanning Result (package view):\n")
 	}
