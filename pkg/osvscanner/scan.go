@@ -238,13 +238,9 @@ SBOMLoop:
 	osCapability := determineOS()
 
 	// Parse exclude patterns (supports exact names, glob, and regex)
-	excludePatterns := &ExcludePatterns{}
-	if len(actions.ExcludePatterns) > 0 {
-		var err error
-		excludePatterns, err = ParseExcludePatterns(actions.ExcludePatterns)
-		if err != nil {
-			return nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
-		}
+	excludePatterns, err := ParseExcludePatterns(actions.ExcludePatterns)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
 	}
 
 	// For each root, run scalibr's scan() once.
