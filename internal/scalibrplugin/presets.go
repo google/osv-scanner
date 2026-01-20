@@ -68,46 +68,46 @@ var ExtractorPresets = map[string]extractors.InitMap{
 	},
 	"lockfile": {
 		// C
-		conanlock.Name: {noCFG(conanlock.New)},
+		conanlock.Name: {conanlock.New},
 
 		// Erlang
-		mixlock.Name: {noCFG(mixlock.New)},
+		mixlock.Name: {mixlock.New},
 
 		// Flutter
-		pubspec.Name: {noCFG(pubspec.New)},
+		pubspec.Name: {pubspec.New},
 
 		// Go
 		gomod.Name: {noCFG(gomod.New)},
 
 		// Java
-		gradlelockfile.Name:                {noCFG(gradlelockfile.New)},
-		gradleverificationmetadataxml.Name: {noCFG(gradleverificationmetadataxml.New)},
-		pomxmlenhanceable.Name:             {noCFG(pomxmlenhanceable.New)},
+		gradlelockfile.Name:                {gradlelockfile.New},
+		gradleverificationmetadataxml.Name: {gradleverificationmetadataxml.New},
+		pomxmlenhanceable.Name:             {pomxmlenhanceable.New},
 
 		// Javascript
 		packagelockjson.Name: {noCFG(packagelockjson.NewDefault)},
-		pnpmlock.Name:        {noCFG(pnpmlock.New)},
-		yarnlock.Name:        {noCFG(yarnlock.New)},
-		bunlock.Name:         {noCFG(bunlock.New)},
+		pnpmlock.Name:        {pnpmlock.New},
+		yarnlock.Name:        {yarnlock.New},
+		bunlock.Name:         {bunlock.New},
 
 		// PHP
-		composerlock.Name: {noCFG(composerlock.New)},
+		composerlock.Name: {composerlock.New},
 
 		// Python
-		pipfilelock.Name:  {noCFG(pipfilelock.New)},
-		pdmlock.Name:      {noCFG(pdmlock.New)},
-		poetrylock.Name:   {noCFG(poetrylock.New)},
+		pipfilelock.Name:  {pipfilelock.New},
+		pdmlock.Name:      {pdmlock.New},
+		poetrylock.Name:   {poetrylock.New},
 		requirements.Name: {noCFG(requirements.NewDefault)},
-		uvlock.Name:       {noCFG(uvlock.New)},
+		uvlock.Name:       {uvlock.New},
 
 		// R
-		renvlock.Name: {noCFG(renvlock.New)},
+		renvlock.Name: {renvlock.New},
 
 		// Ruby
-		gemfilelock.Name: {noCFG(gemfilelock.New)},
+		gemfilelock.Name: {gemfilelock.New},
 
 		// Rust
-		cargolock.Name: {noCFG(cargolock.New)},
+		cargolock.Name: {cargolock.New},
 
 		// NuGet
 		depsjson.Name:         {noCFG(depsjson.NewDefault)},
@@ -123,9 +123,9 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		// --- OS "lockfiles" ---
 		// These have very strict FileRequired paths, so we can safely enable them for source scanning as well.
 		// Alpine
-		apk.Name: {noCFG(apk.NewDefault)},
+		apk.Name: {apk.New},
 		// Debian
-		dpkg.Name: {noCFG(dpkg.NewDefault)},
+		dpkg.Name: {dpkg.New},
 	},
 	"directory": {
 		gitrepo.Name:  {noCFG(gitrepo.New)},
@@ -146,9 +146,9 @@ var ExtractorPresets = map[string]extractors.InitMap{
 
 		// --- OS packages ---
 		// Alpine
-		apk.Name: {noCFG(apk.NewDefault)},
+		apk.Name: {apk.New},
 		// Debian
-		dpkg.Name: {noCFG(dpkg.NewDefault)},
+		dpkg.Name: {dpkg.New},
 	},
 }
 

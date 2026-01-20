@@ -46,8 +46,8 @@ OPTIONS:
 ---
 
 [Test_run/version - 1]
-osv-scanner version: 2.3.1
-osv-scalibr version: 0.4.1
+osv-scanner version: 2.3.2
+osv-scalibr version: 0.4.2
 commit: n/a
 built at: n/a
 

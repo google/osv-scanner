@@ -935,6 +935,11 @@ func TestCommand_GithubActions(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "scanning osv-scanner custom format with git tag",
+			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-custom-git-tag.json"},
+			Exit: 1,
+		},
+		{
 			Name: "scanning osv-scanner custom format output json",
 			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
 			ReplaceRules: []testutility.JSONReplaceRule{

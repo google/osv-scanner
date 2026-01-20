@@ -1,3 +1,23 @@
+# v2.3.2
+
+This release includes performance improvements for local scanning, reducing memory usage and avoiding unnecessary advisory loading. It also fixes issues with MCP's get_vulnerability_details tool, git queries in `osv-scanner.json`, and ignore entry tracking, along with documentation updates.
+
+### Fixes:
+
+- [Bug #2415](https://github.com/google/osv-scanner/pull/2415) Add more PURL-to-ecosystem mappings
+- [Bug #2422](https://github.com/google/osv-scanner/pull/2422) MCP error for get_vulnerability_id because type definition is incorrect.
+- [Bug #2460](https://github.com/google/osv-scanner/pull/2460) Enable osv-scanner.json git queries
+- [Bug #2456](https://github.com/google/osv-scanner/pull/2456) Properly track if an ignore entry has been used
+- [Bug #2450](https://github.com/google/osv-scanner/pull/2450) **Performance:** Avoid loading the entire advisory unless it will actually be used
+- [Bug #2445](https://github.com/google/osv-scanner/pull/2445) **Performance:** Don't read the entire zip into memory
+- [Bug #2433](https://github.com/google/osv-scanner/pull/2433) Allow specifying user agent in v2 osvscanner package
+
+### Misc:
+
+- [Misc #2453](https://github.com/google/osv-scanner/pull/2453) Switch from gopkg.in/yaml.v3 to go.yaml.in/yaml/v3
+- [Misc #2447](https://github.com/google/osv-scanner/pull/2447) Include `bun.lock` as a supported lockfile
+- [Misc #2444](https://github.com/google/osv-scanner/pull/2444) Document GoVersionOverride in configuration.md
+
 # v2.3.1
 
 ### Features:

@@ -25,9 +25,9 @@ type Extractor struct {
 }
 
 // New returns a new instance of the extractor.
-func New() filesystem.Extractor {
-	base := pomxml.New()
-	return &Extractor{offline: base, online: base}
+func New(config *cpb.PluginConfig) (filesystem.Extractor, error) {
+	base, err := pomxml.New(config)
+	return &Extractor{offline: base, online: base}, err
 }
 
 // Name of the extractor
