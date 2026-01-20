@@ -159,26 +159,36 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--recursive", "--no-ignore", "./testdata/locks-gitignore"},
 			Exit: 0,
 		},
-		// experimental skip-dir flag tests
+		// experimental exclude flag tests
 		{
-			Name: "skip-dir with exact directory name",
+			Name: "exclude_with_exact_directory_name",
 			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
-			Name: "skip-dir with glob pattern",
+			Name: "exclude_with_glob_pattern",
 			Args: []string{"", "source", "--recursive", "--experimental-exclude=g:**/nested/**", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
-			Name: "skip-dir with regex pattern",
+			Name: "exclude_with_regex_pattern",
 			Args: []string{"", "source", "--recursive", "--experimental-exclude=r:/nested$", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
-			Name: "skip-dir with invalid regex returns error",
+			Name: "exclude_with_invalid_regex_returns_error",
 			Args: []string{"", "source", "--experimental-exclude=r:[invalid", "./testdata/locks-many"},
 			Exit: 127,
+		},
+		{
+			Name: "exclude_with_multiple_exact_directories",
+			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "--experimental-exclude=other", "./testdata/locks-one-with-nested"},
+			Exit: 0,
+		},
+		{
+			Name: "exclude_with_multiple_pattern_types",
+			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "--experimental-exclude=g:**/vendor/**", "--experimental-exclude=r:\\.cache$", "./testdata/locks-one-with-nested"},
+			Exit: 0,
 		},
 		{
 			Name: "json output",
