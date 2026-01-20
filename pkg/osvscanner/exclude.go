@@ -88,8 +88,10 @@ func ParseSkipDirPatterns(patterns []string) (*SkipDirPatterns, error) {
 
 // parseSkipDirArg parses a single skip directory argument.
 // Returns (patternType, pattern) where:
-//   - patternType is "" for exact match, "g" for glob, "r" for regex
+//   - patternType is "" for exact match, "g" for glob, "r" for regex, or the unknown prefix
 //   - pattern is the actual pattern to use
+//
+// Unknown prefixes are returned as-is so the caller can provide appropriate error messages.
 func parseSkipDirArg(arg string) (string, string) {
 	// Handle Windows absolute paths (e.g., C:\path)
 	if runtime.GOOS == "windows" && filepath.IsAbs(arg) {
@@ -105,12 +107,6 @@ func parseSkipDirArg(arg string) (string, string) {
 	// Empty prefix means exact match (escape hatch for paths with colons)
 	// "g" prefix means glob pattern
 	// "r" prefix means regex pattern
-	switch patternType {
-	case "", "g", "r":
-		return patternType, pattern
-	default:
-		// Unknown prefix, treat whole string as directory name
-		// This handles cases like "g" being a directory name
-		return "", arg
-	}
+	// Return all prefixes (including unknown ones) to let the caller handle validation
+	return patternType, pattern
 }

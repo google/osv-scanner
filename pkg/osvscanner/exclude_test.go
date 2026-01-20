@@ -21,6 +21,7 @@ func TestParseSkipDirArg(t *testing.T) {
 		{"directory with colon escape", ":my:project", "", "my:project"},
 		{"single letter dir", "g", "", "g"},
 		{"path like glob", "test/path", "", "test/path"},
+		{"unknown prefix returns prefix", "x:pattern", "x", "pattern"},
 	}
 
 	for _, tt := range tests {
@@ -135,6 +136,11 @@ func TestParseSkipDirPatterns(t *testing.T) {
 			wantGlob:  false,
 			wantRegex: false,
 			dirsCount: 1,
+		},
+		{
+			name:     "unknown prefix returns error",
+			patterns: []string{"x:pattern"},
+			wantErr:  true,
 		},
 	}
 

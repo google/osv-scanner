@@ -8,6 +8,7 @@ import (
 	"os/exec"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
 	"time"
 
@@ -86,7 +87,11 @@ func TestIntegration_MCP_SSE_Subprocess(t *testing.T) {
 		t.Logf("Scan completed. Output length: %d", len(output))
 		testutility.NewSnapshot().MatchText(t, output)
 
+		// Verify the expected vulnerability is present in the output before using it
 		vulnID = "GO-2023-1558"
+		if !strings.Contains(output, vulnID) {
+			t.Fatalf("expected vulnerability %s not found in scan output", vulnID)
+		}
 	})
 
 	// Step 2: Get details for the found vulnerability
