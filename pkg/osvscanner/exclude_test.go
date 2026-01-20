@@ -12,16 +12,16 @@ func TestParseExcludeArg(t *testing.T) {
 		wantPatternType string
 		wantPattern     string
 	}{
-		{"exact directory name", "test", "", "test"},
-		{"exact with colon escape", ":test", "", "test"},
-		{"glob pattern", "g:**/test/**", "g", "**/test/**"},
-		{"regex pattern", "r:\\.git", "r", "\\.git"},
-		{"regex with pipe", "r:node_modules|vendor", "r", "node_modules|vendor"},
-		{"empty string", "", "", ""},
-		{"directory with colon escape", ":my:project", "", "my:project"},
-		{"single letter dir", "g", "", "g"},
-		{"path like glob", "test/path", "", "test/path"},
-		{"unknown prefix returns prefix", "x:pattern", "x", "pattern"},
+		{"exact_directory_name", "test", "", "test"},
+		{"exact_with_colon_escape", ":test", "", "test"},
+		{"glob_pattern", "g:**/test/**", "g", "**/test/**"},
+		{"regex_pattern", "r:\\.git", "r", "\\.git"},
+		{"regex_with_pipe", "r:node_modules|vendor", "r", "node_modules|vendor"},
+		{"empty_string", "", "", ""},
+		{"directory_with_colon_escape", ":my:project", "", "my:project"},
+		{"single_letter_dir", "g", "", "g"},
+		{"path_like_glob", "test/path", "", "test/path"},
+		{"unknown_prefix_returns_prefix", "x:pattern", "x", "pattern"},
 	}
 
 	for _, tt := range tests {
@@ -54,7 +54,7 @@ func TestParseExcludePatterns(t *testing.T) {
 		regexTestMatch bool
 	}{
 		{
-			name:      "single exact directory",
+			name:      "single_exact_directory",
 			patterns:  []string{"test"},
 			wantDirs:  true,
 			wantGlob:  false,
@@ -62,7 +62,7 @@ func TestParseExcludePatterns(t *testing.T) {
 			dirsCount: 1,
 		},
 		{
-			name:      "multiple exact directories",
+			name:      "multiple_exact_directories",
 			patterns:  []string{"test", "docs", "vendor"},
 			wantDirs:  true,
 			wantGlob:  false,
@@ -70,7 +70,7 @@ func TestParseExcludePatterns(t *testing.T) {
 			dirsCount: 3,
 		},
 		{
-			name:          "single glob pattern",
+			name:          "single_glob_pattern",
 			patterns:      []string{"g:**/test/**"},
 			wantDirs:      false,
 			wantGlob:      true,
@@ -79,7 +79,7 @@ func TestParseExcludePatterns(t *testing.T) {
 			globTestMatch: true,
 		},
 		{
-			name:           "single regex pattern",
+			name:           "single_regex_pattern",
 			patterns:       []string{"r:\\.git"},
 			wantDirs:       false,
 			wantGlob:       false,
@@ -88,7 +88,7 @@ func TestParseExcludePatterns(t *testing.T) {
 			regexTestMatch: true,
 		},
 		{
-			name:           "mixed patterns",
+			name:           "mixed_patterns",
 			patterns:       []string{"vendor", "g:**/test/**", "r:node_modules"},
 			wantDirs:       true,
 			wantGlob:       true,
@@ -100,7 +100,7 @@ func TestParseExcludePatterns(t *testing.T) {
 			regexTestMatch: true,
 		},
 		{
-			name:          "multiple glob patterns",
+			name:          "multiple_glob_patterns",
 			patterns:      []string{"g:**/test/**", "g:**/docs/**"},
 			wantDirs:      false,
 			wantGlob:      true,
@@ -109,7 +109,7 @@ func TestParseExcludePatterns(t *testing.T) {
 			globTestMatch: true,
 		},
 		{
-			name:           "multiple regex patterns",
+			name:           "multiple_regex_patterns",
 			patterns:       []string{"r:\\.git", "r:\\.cache"},
 			wantDirs:       false,
 			wantGlob:       false,
@@ -118,19 +118,19 @@ func TestParseExcludePatterns(t *testing.T) {
 			regexTestMatch: true,
 		},
 		{
-			name:      "empty patterns",
+			name:      "empty_patterns",
 			patterns:  []string{},
 			wantDirs:  false,
 			wantGlob:  false,
 			wantRegex: false,
 		},
 		{
-			name:     "invalid regex",
+			name:     "invalid_regex",
 			patterns: []string{"r:[invalid"},
 			wantErr:  true,
 		},
 		{
-			name:      "colon escape for exact match",
+			name:      "colon_escape_for_exact_match",
 			patterns:  []string{":my:project"},
 			wantDirs:  true,
 			wantGlob:  false,
@@ -138,7 +138,7 @@ func TestParseExcludePatterns(t *testing.T) {
 			dirsCount: 1,
 		},
 		{
-			name:     "unknown prefix returns error",
+			name:     "unknown_prefix_returns_error",
 			patterns: []string{"x:pattern"},
 			wantErr:  true,
 		},
