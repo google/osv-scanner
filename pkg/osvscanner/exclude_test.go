@@ -4,54 +4,74 @@ import (
 	"testing"
 )
 
-func TestIsRegexPattern(t *testing.T) {
+func TestParseSkipDirArg(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
-		name     string
-		pattern  string
-		expected bool
+		name            string
+		arg             string
+		wantPatternType string
+		wantPattern     string
 	}{
-		{"simple regex", "/test/", true},
-		{"complex regex", "/\\.git/", true},
-		{"regex with pipe", "/node_modules|vendor/", true},
-		{"glob pattern", "**/test/**", false},
-		{"glob with stars", "*.go", false},
-		{"empty string", "", false},
-		{"single slash", "/", false},
-		{"two slashes", "//", false},
-		{"path starting with slash", "/usr/local", false},
-		{"escaped trailing slash", "/test\\/", false},
-		{"path ending with slash", "test/", false},
-		{"path with slashes", "a/b/c", false},
+		{"exact directory name", "test", "", "test"},
+		{"exact with colon escape", ":test", "", "test"},
+		{"glob pattern", "g:**/test/**", "g", "**/test/**"},
+		{"regex pattern", "r:\\.git", "r", "\\.git"},
+		{"regex with pipe", "r:node_modules|vendor", "r", "node_modules|vendor"},
+		{"empty string", "", "", ""},
+		{"directory with colon escape", ":my:project", "", "my:project"},
+		{"single letter dir", "g", "", "g"},
+		{"path like glob", "test/path", "", "test/path"},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			result := isRegexPattern(tt.pattern)
-			if result != tt.expected {
-				t.Errorf("isRegexPattern(%q) = %v, want %v", tt.pattern, result, tt.expected)
+			patternType, pattern := parseSkipDirArg(tt.arg)
+			if patternType != tt.wantPatternType {
+				t.Errorf("parseSkipDirArg(%q) patternType = %q, want %q", tt.arg, patternType, tt.wantPatternType)
+			}
+			if pattern != tt.wantPattern {
+				t.Errorf("parseSkipDirArg(%q) pattern = %q, want %q", tt.arg, pattern, tt.wantPattern)
 			}
 		})
 	}
 }
 
-func TestParseExcludePatterns(t *testing.T) {
+func TestParseSkipDirPatterns(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name           string
 		patterns       []string
+		wantDirs       bool
 		wantGlob       bool
 		wantRegex      bool
 		wantErr        bool
+		dirsCount      int
 		globTestPath   string
 		globTestMatch  bool
 		regexTestPath  string
 		regexTestMatch bool
 	}{
 		{
+			name:      "single exact directory",
+			patterns:  []string{"test"},
+			wantDirs:  true,
+			wantGlob:  false,
+			wantRegex: false,
+			dirsCount: 1,
+		},
+		{
+			name:      "multiple exact directories",
+			patterns:  []string{"test", "docs", "vendor"},
+			wantDirs:  true,
+			wantGlob:  false,
+			wantRegex: false,
+			dirsCount: 3,
+		},
+		{
 			name:          "single glob pattern",
-			patterns:      []string{"**/test/**"},
+			patterns:      []string{"g:**/test/**"},
+			wantDirs:      false,
 			wantGlob:      true,
 			wantRegex:     false,
 			globTestPath:  "foo/test/bar",
@@ -59,7 +79,8 @@ func TestParseExcludePatterns(t *testing.T) {
 		},
 		{
 			name:           "single regex pattern",
-			patterns:       []string{"/\\.git/"},
+			patterns:       []string{"r:\\.git"},
+			wantDirs:       false,
 			wantGlob:       false,
 			wantRegex:      true,
 			regexTestPath:  ".git",
@@ -67,17 +88,20 @@ func TestParseExcludePatterns(t *testing.T) {
 		},
 		{
 			name:           "mixed patterns",
-			patterns:       []string{"**/vendor/**", "/node_modules/"},
+			patterns:       []string{"vendor", "g:**/test/**", "r:node_modules"},
+			wantDirs:       true,
 			wantGlob:       true,
 			wantRegex:      true,
-			globTestPath:   "foo/vendor/bar",
+			dirsCount:      1,
+			globTestPath:   "foo/test/bar",
 			globTestMatch:  true,
 			regexTestPath:  "node_modules",
 			regexTestMatch: true,
 		},
 		{
 			name:          "multiple glob patterns",
-			patterns:      []string{"**/test/**", "**/docs/**"},
+			patterns:      []string{"g:**/test/**", "g:**/docs/**"},
+			wantDirs:      false,
 			wantGlob:      true,
 			wantRegex:     false,
 			globTestPath:  "foo/docs/readme",
@@ -85,7 +109,8 @@ func TestParseExcludePatterns(t *testing.T) {
 		},
 		{
 			name:           "multiple regex patterns",
-			patterns:       []string{"/\\.git/", "/\\.cache/"},
+			patterns:       []string{"r:\\.git", "r:\\.cache"},
+			wantDirs:       false,
 			wantGlob:       false,
 			wantRegex:      true,
 			regexTestPath:  ".cache",
@@ -94,23 +119,32 @@ func TestParseExcludePatterns(t *testing.T) {
 		{
 			name:      "empty patterns",
 			patterns:  []string{},
+			wantDirs:  false,
 			wantGlob:  false,
 			wantRegex: false,
 		},
 		{
 			name:     "invalid regex",
-			patterns: []string{"/[invalid/"},
+			patterns: []string{"r:[invalid"},
 			wantErr:  true,
+		},
+		{
+			name:      "colon escape for exact match",
+			patterns:  []string{":my:project"},
+			wantDirs:  true,
+			wantGlob:  false,
+			wantRegex: false,
+			dirsCount: 1,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			result, err := ParseExcludePatterns(tt.patterns)
+			result, err := ParseSkipDirPatterns(tt.patterns)
 
 			if (err != nil) != tt.wantErr {
-				t.Errorf("ParseExcludePatterns() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("ParseSkipDirPatterns() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 
@@ -118,12 +152,20 @@ func TestParseExcludePatterns(t *testing.T) {
 				return
 			}
 
+			if (len(result.DirsToSkip) > 0) != tt.wantDirs {
+				t.Errorf("ParseSkipDirPatterns() DirsToSkip present = %v, want %v", len(result.DirsToSkip) > 0, tt.wantDirs)
+			}
+
+			if tt.wantDirs && len(result.DirsToSkip) != tt.dirsCount {
+				t.Errorf("ParseSkipDirPatterns() DirsToSkip count = %d, want %d", len(result.DirsToSkip), tt.dirsCount)
+			}
+
 			if (result.GlobPattern != nil) != tt.wantGlob {
-				t.Errorf("ParseExcludePatterns() GlobPattern present = %v, want %v", result.GlobPattern != nil, tt.wantGlob)
+				t.Errorf("ParseSkipDirPatterns() GlobPattern present = %v, want %v", result.GlobPattern != nil, tt.wantGlob)
 			}
 
 			if (result.RegexPattern != nil) != tt.wantRegex {
-				t.Errorf("ParseExcludePatterns() RegexPattern present = %v, want %v", result.RegexPattern != nil, tt.wantRegex)
+				t.Errorf("ParseSkipDirPatterns() RegexPattern present = %v, want %v", result.RegexPattern != nil, tt.wantRegex)
 			}
 
 			// Test glob matching

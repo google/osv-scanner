@@ -49,7 +49,7 @@ type ScannerActions struct {
 	Recursive          bool
 	IncludeGitRoot     bool
 	NoIgnore           bool
-	ExcludePatterns    []string
+	SkipDirPatterns    []string
 	Image              string
 	IsImageArchive     bool
 	ConfigOverridePath string

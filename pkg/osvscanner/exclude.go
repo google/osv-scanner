@@ -2,35 +2,56 @@ package osvscanner
 
 import (
 	"fmt"
+	"path/filepath"
+	"regexp"
+	"runtime"
 	"strings"
 
 	"github.com/gobwas/glob"
-	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 )
 
-// ExcludePatterns holds compiled patterns for excluding directories/files
-type ExcludePatterns struct {
-	GlobPattern  glob.Glob            // Combined glob pattern using {p1,p2,...} syntax
-	RegexPattern *cachedregexp.Regexp // Combined regex pattern using (p1|p2|...) syntax
+// SkipDirPatterns holds parsed patterns for skipping directories during scanning.
+// Supports three types of patterns:
+//   - DirsToSkip: exact directory names to skip
+//   - GlobPattern: glob patterns (g:pattern syntax)
+//   - RegexPattern: regex patterns (r:pattern syntax)
+type SkipDirPatterns struct {
+	DirsToSkip   []string       // Exact directory names to skip
+	GlobPattern  glob.Glob      // Combined glob pattern using {p1,p2,...} syntax
+	RegexPattern *regexp.Regexp // Combined regex pattern using (p1|p2|...) syntax
 }
 
-// ParseExcludePatterns separates and compiles glob and regex patterns.
-// Regex patterns are identified by /.../ syntax (like JavaScript).
-func ParseExcludePatterns(patterns []string) (*ExcludePatterns, error) {
+// ParseSkipDirPatterns parses the skip directory patterns from command line.
+// Pattern syntax (matching --lockfile flag style):
+//   - "dirname" or ":dirname" -> exact directory name (DirsToSkip)
+//   - "g:pattern" -> glob pattern (SkipDirGlob)
+//   - "r:pattern" -> regex pattern (SkipDirRegex)
+//
+// The ":" prefix is an escape hatch for directory names containing colons.
+func ParseSkipDirPatterns(patterns []string) (*SkipDirPatterns, error) {
+	var dirsToSkip []string
 	var globPatterns []string
 	var regexPatterns []string
 
 	for _, p := range patterns {
-		if isRegexPattern(p) {
-			// Strip the leading and trailing slashes
-			regex := p[1 : len(p)-1]
-			regexPatterns = append(regexPatterns, regex)
-		} else {
-			globPatterns = append(globPatterns, p)
+		patternType, pattern := parseSkipDirArg(p)
+
+		switch patternType {
+		case "":
+			// Exact directory name
+			dirsToSkip = append(dirsToSkip, pattern)
+		case "g":
+			globPatterns = append(globPatterns, pattern)
+		case "r":
+			regexPatterns = append(regexPatterns, pattern)
+		default:
+			return nil, fmt.Errorf("unknown pattern type %q in %q; use g: for glob or r: for regex", patternType, p)
 		}
 	}
 
-	result := &ExcludePatterns{}
+	result := &SkipDirPatterns{
+		DirsToSkip: dirsToSkip,
+	}
 
 	// Compile glob patterns using {p1,p2,...} syntax
 	if len(globPatterns) > 0 {
@@ -55,7 +76,7 @@ func ParseExcludePatterns(patterns []string) (*ExcludePatterns, error) {
 		} else {
 			combined = "(" + strings.Join(regexPatterns, "|") + ")"
 		}
-		r, err := cachedregexp.Compile(combined)
+		r, err := regexp.Compile(combined)
 		if err != nil {
 			return nil, fmt.Errorf("invalid regex pattern %q: %w", combined, err)
 		}
@@ -65,19 +86,31 @@ func ParseExcludePatterns(patterns []string) (*ExcludePatterns, error) {
 	return result, nil
 }
 
-// isRegexPattern checks if a pattern is wrapped in /.../ (JavaScript-style regex).
-// Returns true if pattern starts and ends with '/' and has length >= 3.
-func isRegexPattern(pattern string) bool {
-	if len(pattern) < 3 {
-		return false
-	}
-	if !strings.HasPrefix(pattern, "/") || !strings.HasSuffix(pattern, "/") {
-		return false
-	}
-	// Check that the trailing slash is not escaped
-	if strings.HasSuffix(pattern, "\\/") {
-		return false
+// parseSkipDirArg parses a single skip directory argument.
+// Returns (patternType, pattern) where:
+//   - patternType is "" for exact match, "g" for glob, "r" for regex
+//   - pattern is the actual pattern to use
+func parseSkipDirArg(arg string) (string, string) {
+	// Handle Windows absolute paths (e.g., C:\path)
+	if runtime.GOOS == "windows" && filepath.IsAbs(arg) {
+		return "", arg
 	}
 
-	return true
+	patternType, pattern, found := strings.Cut(arg, ":")
+	if !found {
+		// No colon found, treat as exact directory name
+		return "", arg
+	}
+
+	// Empty prefix means exact match (escape hatch for paths with colons)
+	// "g" prefix means glob pattern
+	// "r" prefix means regex pattern
+	switch patternType {
+	case "", "g", "r":
+		return patternType, pattern
+	default:
+		// Unknown prefix, treat whole string as directory name
+		// This handles cases like "g" being a directory name
+		return "", arg
+	}
 }

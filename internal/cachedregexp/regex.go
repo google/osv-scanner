@@ -6,26 +6,23 @@ import (
 	"sync"
 )
 
-// Regexp is an alias for regexp.Regexp so other packages don't need to import regexp directly.
-type Regexp = regexp.Regexp
-
 var cache sync.Map
 
-func MustCompile(exp string) *Regexp {
+func MustCompile(exp string) *regexp.Regexp {
 	compiled, ok := cache.Load(exp)
 	if !ok {
 		compiled, _ = cache.LoadOrStore(exp, regexp.MustCompile(exp))
 	}
 
-	return compiled.(*Regexp)
+	return compiled.(*regexp.Regexp)
 }
 
 // Compile returns a compiled regexp or an error if the pattern is invalid.
 // Results are cached for performance.
-func Compile(exp string) (*Regexp, error) {
+func Compile(exp string) (*regexp.Regexp, error) {
 	compiled, ok := cache.Load(exp)
 	if ok {
-		return compiled.(*Regexp), nil
+		return compiled.(*regexp.Regexp), nil
 	}
 
 	r, err := regexp.Compile(exp)
