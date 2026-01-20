@@ -16,6 +16,7 @@ require (
 	github.com/charmbracelet/lipgloss v1.1.1-0.20250404203927-76690c660834
 	github.com/gkampitakis/go-snaps v0.5.19
 	github.com/go-git/go-git/v5 v5.16.4
+	github.com/gobwas/glob v0.2.3
 	github.com/goccy/go-yaml v1.19.2
 	github.com/google/go-cmp v0.7.0
 	github.com/google/osv-scalibr v0.4.3-0.20260119170449-c743cb685a10
@@ -115,7 +116,6 @@ require (
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/go-restruct/restruct v1.2.0-alpha // indirect
 	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
-	github.com/gobwas/glob v0.2.3 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
 	github.com/google/go-containerregistry v0.20.6 // indirect

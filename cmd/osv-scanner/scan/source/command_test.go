@@ -159,6 +159,27 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--recursive", "--no-ignore", "./testdata/locks-gitignore"},
 			Exit: 0,
 		},
+		// experimental skip-dir flag tests
+		{
+			Name: "skip-dir with exact directory name",
+			Args: []string{"", "source", "--recursive", "--experimental-skip-dir=nested", "./testdata/locks-one-with-nested"},
+			Exit: 0,
+		},
+		{
+			Name: "skip-dir with glob pattern",
+			Args: []string{"", "source", "--recursive", "--experimental-skip-dir=g:**/nested/**", "./testdata/locks-one-with-nested"},
+			Exit: 0,
+		},
+		{
+			Name: "skip-dir with regex pattern",
+			Args: []string{"", "source", "--recursive", "--experimental-skip-dir=r:nested", "./testdata/locks-one-with-nested"},
+			Exit: 0,
+		},
+		{
+			Name: "skip-dir with invalid regex returns error",
+			Args: []string{"", "source", "--experimental-skip-dir=r:[invalid", "./testdata/locks-many"},
+			Exit: 127,
+		},
 		{
 			Name: "json output",
 			Args: []string{"", "source", "--format", "json", "./testdata/locks-many/composer.lock"},
