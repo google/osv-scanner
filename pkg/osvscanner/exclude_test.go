@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestParseSkipDirArg(t *testing.T) {
+func TestParseExcludeArg(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name            string
@@ -27,18 +27,18 @@ func TestParseSkipDirArg(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			patternType, pattern := parseSkipDirArg(tt.arg)
+			patternType, pattern := parseExcludeArg(tt.arg)
 			if patternType != tt.wantPatternType {
-				t.Errorf("parseSkipDirArg(%q) patternType = %q, want %q", tt.arg, patternType, tt.wantPatternType)
+				t.Errorf("parseExcludeArg(%q) patternType = %q, want %q", tt.arg, patternType, tt.wantPatternType)
 			}
 			if pattern != tt.wantPattern {
-				t.Errorf("parseSkipDirArg(%q) pattern = %q, want %q", tt.arg, pattern, tt.wantPattern)
+				t.Errorf("parseExcludeArg(%q) pattern = %q, want %q", tt.arg, pattern, tt.wantPattern)
 			}
 		})
 	}
 }
 
-func TestParseSkipDirPatterns(t *testing.T) {
+func TestParseExcludePatterns(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name           string
@@ -147,10 +147,10 @@ func TestParseSkipDirPatterns(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			result, err := ParseSkipDirPatterns(tt.patterns)
+			result, err := ParseExcludePatterns(tt.patterns)
 
 			if (err != nil) != tt.wantErr {
-				t.Errorf("ParseSkipDirPatterns() error = %v, wantErr %v", err, tt.wantErr)
+				t.Errorf("ParseExcludePatterns() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 
@@ -159,19 +159,19 @@ func TestParseSkipDirPatterns(t *testing.T) {
 			}
 
 			if (len(result.DirsToSkip) > 0) != tt.wantDirs {
-				t.Errorf("ParseSkipDirPatterns() DirsToSkip present = %v, want %v", len(result.DirsToSkip) > 0, tt.wantDirs)
+				t.Errorf("ParseExcludePatterns() DirsToSkip present = %v, want %v", len(result.DirsToSkip) > 0, tt.wantDirs)
 			}
 
 			if tt.wantDirs && len(result.DirsToSkip) != tt.dirsCount {
-				t.Errorf("ParseSkipDirPatterns() DirsToSkip count = %d, want %d", len(result.DirsToSkip), tt.dirsCount)
+				t.Errorf("ParseExcludePatterns() DirsToSkip count = %d, want %d", len(result.DirsToSkip), tt.dirsCount)
 			}
 
 			if (result.GlobPattern != nil) != tt.wantGlob {
-				t.Errorf("ParseSkipDirPatterns() GlobPattern present = %v, want %v", result.GlobPattern != nil, tt.wantGlob)
+				t.Errorf("ParseExcludePatterns() GlobPattern present = %v, want %v", result.GlobPattern != nil, tt.wantGlob)
 			}
 
 			if (result.RegexPattern != nil) != tt.wantRegex {
-				t.Errorf("ParseSkipDirPatterns() RegexPattern present = %v, want %v", result.RegexPattern != nil, tt.wantRegex)
+				t.Errorf("ParseExcludePatterns() RegexPattern present = %v, want %v", result.RegexPattern != nil, tt.wantRegex)
 			}
 
 			// Test glob matching

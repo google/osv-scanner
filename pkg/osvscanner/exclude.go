@@ -3,6 +3,7 @@ package osvscanner
 import (
 	"fmt"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strings"
 
@@ -10,31 +11,31 @@ import (
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 )
 
-// SkipDirPatterns holds parsed patterns for skipping directories during scanning.
+// ExcludePatterns holds parsed patterns for excluding paths during scanning.
 // Supports three types of patterns:
 //   - DirsToSkip: exact directory names to skip
 //   - GlobPattern: glob patterns (g:pattern syntax)
 //   - RegexPattern: regex patterns (r:pattern syntax)
-type SkipDirPatterns struct {
-	DirsToSkip   []string             // Exact directory names to skip
-	GlobPattern  glob.Glob            // Combined glob pattern using {p1,p2,...} syntax
-	RegexPattern *cachedregexp.Regexp // Combined regex pattern using (p1|p2|...) syntax
+type ExcludePatterns struct {
+	DirsToSkip   []string       // Exact directory names to skip
+	GlobPattern  glob.Glob      // Combined glob pattern using {p1,p2,...} syntax
+	RegexPattern *regexp.Regexp // Combined regex pattern using (p1|p2|...) syntax
 }
 
-// ParseSkipDirPatterns parses the skip directory patterns from command line.
+// ParseExcludePatterns parses the exclude patterns from command line.
 // Pattern syntax (matching --lockfile flag style):
 //   - "dirname" or ":dirname" -> exact directory name (DirsToSkip)
 //   - "g:pattern" -> glob pattern (SkipDirGlob)
 //   - "r:pattern" -> regex pattern (SkipDirRegex)
 //
 // The ":" prefix is an escape hatch for directory names containing colons.
-func ParseSkipDirPatterns(patterns []string) (*SkipDirPatterns, error) {
+func ParseExcludePatterns(patterns []string) (*ExcludePatterns, error) {
 	var dirsToSkip []string
 	var globPatterns []string
 	var regexPatterns []string
 
 	for _, p := range patterns {
-		patternType, pattern := parseSkipDirArg(p)
+		patternType, pattern := parseExcludeArg(p)
 
 		switch patternType {
 		case "":
@@ -49,7 +50,7 @@ func ParseSkipDirPatterns(patterns []string) (*SkipDirPatterns, error) {
 		}
 	}
 
-	result := &SkipDirPatterns{
+	result := &ExcludePatterns{
 		DirsToSkip: dirsToSkip,
 	}
 
@@ -86,13 +87,13 @@ func ParseSkipDirPatterns(patterns []string) (*SkipDirPatterns, error) {
 	return result, nil
 }
 
-// parseSkipDirArg parses a single skip directory argument.
+// parseExcludeArg parses a single exclude argument.
 // Returns (patternType, pattern) where:
 //   - patternType is "" for exact match, "g" for glob, "r" for regex, or the unknown prefix
 //   - pattern is the actual pattern to use
 //
 // Unknown prefixes are returned as-is so the caller can provide appropriate error messages.
-func parseSkipDirArg(arg string) (string, string) {
+func parseExcludeArg(arg string) (string, string) {
 	// Handle Windows absolute paths (e.g., C:\path)
 	if runtime.GOOS == "windows" && filepath.IsAbs(arg) {
 		return "", arg

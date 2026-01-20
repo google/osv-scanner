@@ -10,9 +10,6 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/gobwas/glob"
-	"github.com/google/osv-scanner/v2/internal/cachedregexp"
-
 	scalibr "github.com/google/osv-scalibr"
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/enricher"
@@ -240,13 +237,13 @@ SBOMLoop:
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
 
-	// Parse skip directory patterns (supports exact names, glob, and regex)
-	var skipDirPatterns *SkipDirPatterns
-	if len(actions.SkipDirPatterns) > 0 {
+	// Parse exclude patterns (supports exact names, glob, and regex)
+	excludePatterns := &ExcludePatterns{}
+	if len(actions.ExcludePatterns) > 0 {
 		var err error
-		skipDirPatterns, err = ParseSkipDirPatterns(actions.SkipDirPatterns)
+		excludePatterns, err = ParseExcludePatterns(actions.ExcludePatterns)
 		if err != nil {
-			return nil, fmt.Errorf("failed to parse skip directory patterns: %w", err)
+			return nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
 		}
 	}
 
@@ -263,25 +260,15 @@ SBOMLoop:
 			capabilities.Network = plugin.NetworkOffline
 		}
 
-		// Prepare skip patterns for this scan
-		var dirsToSkip []string
-		var skipDirGlob glob.Glob
-		var skipDirRegex *cachedregexp.Regexp
-		if skipDirPatterns != nil {
-			dirsToSkip = skipDirPatterns.DirsToSkip
-			skipDirGlob = skipDirPatterns.GlobPattern
-			skipDirRegex = skipDirPatterns.RegexPattern
-		}
-
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
 			Plugins:               append(plugin.FilterByCapabilities(plugins, &capabilities), gitDirectPlugin),
 			Capabilities:          &capabilities,
 			ScanRoots:             fs.RealFSScanRoots(root),
 			PathsToExtract:        paths,
 			IgnoreSubDirs:         !actions.Recursive,
-			DirsToSkip:            dirsToSkip,
-			SkipDirRegex:          skipDirRegex,
-			SkipDirGlob:           skipDirGlob,
+			DirsToSkip:            excludePatterns.DirsToSkip,
+			SkipDirRegex:          excludePatterns.RegexPattern,
+			SkipDirGlob:           excludePatterns.GlobPattern,
 			UseGitignore:          !actions.NoIgnore,
 			Stats:                 &statsCollector,
 			ReadSymlinks:          false,

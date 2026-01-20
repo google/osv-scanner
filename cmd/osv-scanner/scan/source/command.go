@@ -127,7 +127,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	scannerAction.SBOMPaths = cmd.StringSlice("sbom")
 	scannerAction.Recursive = cmd.Bool("recursive")
 	scannerAction.NoIgnore = cmd.Bool("no-ignore")
-	scannerAction.SkipDirPatterns = cmd.StringSlice("experimental-skip-dir")
+	experimentalScannerActions.ExcludePatterns = cmd.StringSlice("experimental-skip-dir")
 	scannerAction.DirectoryPaths = cmd.Args().Slice()
 	scannerAction.ExperimentalScannerActions = experimentalScannerActions
 
