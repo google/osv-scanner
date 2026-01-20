@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestParseExcludeArg(t *testing.T) {
+func Test_parseExcludeArg(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name            string
