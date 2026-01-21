@@ -28,14 +28,14 @@ func resolveFromName(name string) (plugin.Plugin, error) {
 		return pomxmlenhanceable.New(&cpb.PluginConfig{})
 	// Javascript
 	case nodemodules.Name:
-		return nodemodules.New(), nil
+		return nodemodules.New(&cpb.PluginConfig{})
 	// Directories
 	case vendored.Name:
-		return vendored.New(), nil
+		return vendored.New(&cpb.PluginConfig{})
 	case gitrepo.Name:
-		return gitrepo.New(), nil
+		return gitrepo.New(&cpb.PluginConfig{})
 	case osvscannerjson.Name:
-		return osvscannerjson.New(), nil
+		return osvscannerjson.New(&cpb.PluginConfig{})
 	default:
 		return nil, fmt.Errorf("not an exact name for a plugin: %q", name)
 	}
