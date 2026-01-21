@@ -1042,6 +1042,52 @@ Total 2 packages affected by 15 known vulnerabilities (0 Critical, 0 High, 0 Med
 
 ---
 
+[TestCommand/help - 1]
+NAME:
+   osv-scanner source - scans a source project's dependencies for known vulnerabilities using the OSV database.
+
+USAGE:
+   osv-scanner source [options] [directory1 directory2...]
+
+DESCRIPTION:
+   scans a source project's dependencies for known vulnerabilities using the OSV database.
+
+OPTIONS:
+   --lockfile string, -L string [ --lockfile string, -L string ]                    scan package lockfile on this path
+   --sbom string, -S string [ --sbom string, -S string ]                            [DEPRECATED] scan sbom file on this path, the sbom file name must follow the relevant spec
+   --recursive, -r                                                                  check subdirectories
+   --no-ignore                                                                      also scan files that would be ignored by .gitignore
+   --include-git-root                                                               include scanning git root (non-submoduled) repositories
+   --data-source string                                                             source to fetch package information from; value can be: deps.dev, native (default: "deps.dev")
+   --maven-registry string                                                          URL of the default registry to fetch Maven metadata
+   --config string                                                                  set/override config file
+   --format string, -f string                                                       sets the output format; value can be: table, html, vertical, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5, spdx-2-3 (default: "table")
+   --serve                                                                          output as HTML result and serve it locally
+   --port string                                                                    port number to use when serving HTML report (default: 8000)
+   --output string                                                                  saves the result to the given file path
+   --verbosity string                                                               specify the level of information that should be provided during runtime; value can be: error, warn, info (default: "info")
+   --offline                                                                        run in offline mode, disabling any features requiring network access
+   --offline-vulnerabilities                                                        checks for vulnerabilities using local databases that are already cached
+   --download-offline-databases                                                     downloads vulnerability databases for offline comparison
+   --call-analysis string [ --call-analysis string ]                                Enable call analysis for specific languages (e.g. --call-analysis=go). Supported: go, rust (*). (*) May run build scripts.
+   --no-call-analysis string [ --no-call-analysis string ]                          disables call graph analysis
+   --no-resolve                                                                     disable transitive dependency resolution of manifest files
+   --allow-no-lockfiles                                                             has the scanner consider no lockfiles being found as ok
+   --all-packages                                                                   when json output is selected, prints all packages
+   --all-vulns                                                                      show all vulnerabilities including unimportant and uncalled ones
+   --licenses value                                                                 report on licenses based on an allowlist
+   --experimental-flag-deprecated-packages                                          report if package versions are deprecated
+   --experimental-plugins string [ --experimental-plugins string ]                  list of specific plugins and presets of plugins to use (default: "lockfile", "sbom", "directory")
+   --experimental-disable-plugins string [ --experimental-disable-plugins string ]  list of specific plugins and presets of plugins to not use
+   --experimental-no-default-plugins                                                disable default plugins, instead using only those enabled by --experimental-plugins
+   --help, -h                                                                       show help
+
+---
+
+[TestCommand/help - 2]
+
+---
+
 [TestCommand/ignores_without_reason_should_be_explicitly_called_out - 1]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanning dir ./testdata/locks-many/composer.lock

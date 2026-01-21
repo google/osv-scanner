@@ -334,6 +334,11 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner.json"},
 			Exit: 1,
 		},
+		{
+			Name: "help",
+			Args: []string{"", "source", "--help"},
+			Exit: 127,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
