@@ -119,6 +119,7 @@ Experimental
 Call analysis in Rust is still considered experimental.
 
 {: .warning }
+
 > Running call analysis for Rust will execute build scripts (`build.rs`) in your dependencies as part of the compilation.
 > This may execute arbitrary code.
 
