@@ -120,7 +120,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		cabal.Name:     {noCFG(cabal.NewDefault)},
 		stacklock.Name: {noCFG(stacklock.NewDefault)},
 
-		osvscannerjson.Name: {noCFG(osvscannerjson.New)},
+		osvscannerjson.Name: {osvscannerjson.New},
 
 		// --- OS "lockfiles" ---
 		// These have very strict FileRequired paths, so we can safely enable them for source scanning as well.
@@ -130,8 +130,8 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		dpkg.Name: {dpkg.New},
 	},
 	"directory": {
-		gitrepo.Name:  {noCFG(gitrepo.New)},
-		vendored.Name: {noCFG(vendored.New)},
+		gitrepo.Name:  {gitrepo.New},
+		vendored.Name: {vendored.New},
 	},
 	"artifact": {
 		// --- Project artifacts ---
@@ -142,7 +142,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		// Go
 		gobinary.Name: {gobinary.New},
 		// Javascript
-		nodemodules.Name: {noCFG(nodemodules.New)},
+		nodemodules.Name: {nodemodules.New},
 		// Rust
 		cargoauditable.Name: {noCFG(cargoauditable.NewDefault)},
 
