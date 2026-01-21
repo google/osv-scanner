@@ -1069,7 +1069,7 @@ OPTIONS:
    --offline                                                                        run in offline mode, disabling any features requiring network access
    --offline-vulnerabilities                                                        checks for vulnerabilities using local databases that are already cached
    --download-offline-databases                                                     downloads vulnerability databases for offline comparison
-   --call-analysis string [ --call-analysis string ]                                Enable call analysis for specific languages (e.g. --call-analysis=go). Supported: go, rust (*). (*) May run build scripts.
+   --call-analysis string [ --call-analysis string ]                                Enable call analysis for specific languages (e.g. --call-analysis=go). Supported: go, rust (*). (*) Will run build scripts.
    --no-call-analysis string [ --no-call-analysis string ]                          disables call graph analysis
    --no-resolve                                                                     disable transitive dependency resolution of manifest files
    --allow-no-lockfiles                                                             has the scanner consider no lockfiles being found as ok
