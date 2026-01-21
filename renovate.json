@@ -12,7 +12,8 @@
   "packageRules": [
     {
       "matchUpdateTypes": ["major"],
-      "groupName": "Major Updates"
+      "groupName": "Major Updates",
+      "enabled": true
     },
     {
       "matchCategories": ["golang"],
