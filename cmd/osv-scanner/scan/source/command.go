@@ -59,7 +59,7 @@ func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 			},
 			&cli.StringSliceFlag{
 				Name:  "experimental-exclude",
-				Usage: "exclude paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)",
+				Usage: "exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)",
 			},
 			&cli.StringFlag{
 				Name:  "data-source",
