@@ -10,7 +10,6 @@ import (
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/baseimage"
 	"github.com/google/osv-scalibr/enricher/enricherlist"
-	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
@@ -64,8 +63,8 @@ var detectorPresets = map[string]detectors.InitMap{
 
 var ExtractorPresets = map[string]extractors.InitMap{
 	"sbom": {
-		spdx.Name: {noCFG(spdx.New)},
-		cdx.Name:  {noCFG(cdx.New)},
+		spdx.Name: {spdx.New},
+		cdx.Name:  {cdx.New},
 	},
 	"lockfile": {
 		// C
@@ -78,7 +77,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		pubspec.Name: {pubspec.New},
 
 		// Go
-		gomod.Name: {noCFG(gomod.New)},
+		gomod.Name: {gomod.New},
 
 		// Java
 		gradlelockfile.Name:                {gradlelockfile.New},
@@ -86,7 +85,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		pomxmlenhanceable.Name:             {pomxmlenhanceable.New},
 
 		// Javascript
-		packagelockjson.Name: {noCFG(packagelockjson.NewDefault)},
+		packagelockjson.Name: {packagelockjson.New},
 		pnpmlock.Name:        {pnpmlock.New},
 		yarnlock.Name:        {yarnlock.New},
 		bunlock.Name:         {bunlock.New},
@@ -99,7 +98,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		pdmlock.Name:      {pdmlock.New},
 		poetrylock.Name:   {poetrylock.New},
 		pylock.Name:       {pylock.New},
-		requirements.Name: {noCFG(requirements.NewDefault)},
+		requirements.Name: {requirements.New},
 		uvlock.Name:       {uvlock.New},
 
 		// R
@@ -112,13 +111,13 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		cargolock.Name: {cargolock.New},
 
 		// NuGet
-		depsjson.Name:         {noCFG(depsjson.NewDefault)},
-		packagesconfig.Name:   {noCFG(packagesconfig.NewDefault)},
-		packageslockjson.Name: {noCFG(packageslockjson.NewDefault)},
+		depsjson.Name:         {depsjson.New},
+		packagesconfig.Name:   {packagesconfig.New},
+		packageslockjson.Name: {packageslockjson.New},
 
 		// Haskell
-		cabal.Name:     {noCFG(cabal.NewDefault)},
-		stacklock.Name: {noCFG(stacklock.NewDefault)},
+		cabal.Name:     {cabal.New},
+		stacklock.Name: {stacklock.New},
 
 		osvscannerjson.Name: {osvscannerjson.New},
 
@@ -136,15 +135,15 @@ var ExtractorPresets = map[string]extractors.InitMap{
 	"artifact": {
 		// --- Project artifacts ---
 		// Python
-		wheelegg.Name: {noCFG(wheelegg.NewDefault)},
+		wheelegg.Name: {wheelegg.New},
 		// Java
-		archive.Name: {noCFG(archive.NewDefault)},
+		archive.Name: {archive.New},
 		// Go
 		gobinary.Name: {gobinary.New},
 		// Javascript
 		nodemodules.Name: {nodemodules.New},
 		// Rust
-		cargoauditable.Name: {noCFG(cargoauditable.NewDefault)},
+		cargoauditable.Name: {cargoauditable.New},
 
 		// --- OS packages ---
 		// Alpine
@@ -188,13 +187,6 @@ func baseImageEnricher() enricher.Enricher {
 	}
 
 	return baseImageEnricher
-}
-
-// Wraps initer functions that don't take any config value to initer functions that do.
-// TODO(b/400910349): Remove once all plugins take config values.
-// Copied from osv-scalibr
-func noCFG(f func() filesystem.Extractor) extractors.InitFn {
-	return func(_ *cpb.PluginConfig) (filesystem.Extractor, error) { return f(), nil }
 }
 
 // Wraps initer functions that don't take any config value to initer functions that do.
