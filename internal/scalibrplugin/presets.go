@@ -1,7 +1,6 @@
 package scalibrplugin
 
 import (
-	"github.com/google/osv-scalibr/annotator"
 	annotatorlist "github.com/google/osv-scalibr/annotator/list"
 	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
 	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
@@ -163,8 +162,8 @@ var enricherPresets = map[string]enricherlist.InitMap{
 
 var annotatorPresets = map[string]annotatorlist.InitMap{
 	"artifact": {
-		apkanno.Name:  {noCFGAnnotator(apkanno.New)},
-		dpkganno.Name: {noCFGAnnotator(dpkganno.New)},
+		apkanno.Name:  {apkanno.New},
+		dpkganno.Name: {dpkganno.New},
 	},
 }
 
@@ -194,11 +193,4 @@ func baseImageEnricher() enricher.Enricher {
 // Copied from osv-scalibr
 func noCFGEnricher(f func() enricher.Enricher) enricherlist.InitFn {
 	return func(_ *cpb.PluginConfig) (enricher.Enricher, error) { return f(), nil }
-}
-
-// Wraps initer functions that don't take any config value to initer functions that do.
-// TODO(b/400910349): Remove once all plugins take config values.
-// Copied from osv-scalibr
-func noCFGAnnotator(f func() annotator.Annotator) annotatorlist.InitFn {
-	return func(_ *cpb.PluginConfig) (annotator.Annotator, error) { return f(), nil }
 }
