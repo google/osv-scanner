@@ -1,6 +1,8 @@
 package scalibrplugin
 
 import (
+	"fmt"
+
 	annotatorlist "github.com/google/osv-scalibr/annotator/list"
 	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
 	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
@@ -173,16 +175,15 @@ func baseImageEnricher(_ *cpb.PluginConfig) (enricher.Enricher, error) {
 	// and the enricher plugin will be filtered out in offline mode.
 	insightsClient, err := datasource.NewInsightsAlphaClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	if err != nil {
-		panic("unable to connect to insights server")
+		return nil, fmt.Errorf("unable to connect to insights server: %w", err)
 	}
 
 	baseImageEnricher, err := baseimage.New(&baseimage.Config{
 		Client: baseimage.NewClientGRPC(insightsClient),
 	})
 
-	// These panics should be very unlikely to happen. Does **not** happen when network is not available.
 	if err != nil {
-		panic("unable to initialize base image enricher")
+		return nil, fmt.Errorf("unable to initialize base image enricher: %w", err)
 	}
 
 	return baseImageEnricher, nil
