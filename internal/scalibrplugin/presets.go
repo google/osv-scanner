@@ -154,7 +154,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 
 var enricherPresets = map[string]enricherlist.InitMap{
 	"artifact": {
-		baseimage.Name: {noCFGEnricher(baseImageEnricher)},
+		baseimage.Name: {baseImageEnricher},
 	},
 	"vulns":    enricherlist.VulnMatching,
 	"licenses": enricherlist.License,
@@ -167,7 +167,7 @@ var annotatorPresets = map[string]annotatorlist.InitMap{
 	},
 }
 
-func baseImageEnricher() enricher.Enricher {
+func baseImageEnricher(_ *cpb.PluginConfig) (enricher.Enricher, error) {
 	// The grpc client **does not** make any requests. It starts in an IDLE state until
 	// the first function call is made. This means we can safely initialize the client even in offline mode,
 	// and the enricher plugin will be filtered out in offline mode.
@@ -185,12 +185,5 @@ func baseImageEnricher() enricher.Enricher {
 		panic("unable to initialize base image enricher")
 	}
 
-	return baseImageEnricher
-}
-
-// Wraps initer functions that don't take any config value to initer functions that do.
-// TODO(b/400910349): Remove once all plugins take config values.
-// Copied from osv-scalibr
-func noCFGEnricher(f func() enricher.Enricher) enricherlist.InitFn {
-	return func(_ *cpb.PluginConfig) (enricher.Enricher, error) { return f(), nil }
+	return baseImageEnricher, nil
 }
