@@ -1,6 +1,8 @@
 package scalibrplugin
 
 import (
+	"fmt"
+
 	annotatorlist "github.com/google/osv-scalibr/annotator/list"
 	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
 	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
@@ -154,7 +156,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 
 var enricherPresets = map[string]enricherlist.InitMap{
 	"artifact": {
-		baseimage.Name: {noCFGEnricher(baseImageEnricher)},
+		baseimage.Name: {baseImageEnricher},
 	},
 	"vulns":    enricherlist.VulnMatching,
 	"licenses": enricherlist.License,
@@ -167,30 +169,22 @@ var annotatorPresets = map[string]annotatorlist.InitMap{
 	},
 }
 
-func baseImageEnricher() enricher.Enricher {
+func baseImageEnricher(_ *cpb.PluginConfig) (enricher.Enricher, error) {
 	// The grpc client **does not** make any requests. It starts in an IDLE state until
 	// the first function call is made. This means we can safely initialize the client even in offline mode,
 	// and the enricher plugin will be filtered out in offline mode.
 	insightsClient, err := datasource.NewInsightsAlphaClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	if err != nil {
-		panic("unable to connect to insights server")
+		return nil, fmt.Errorf("unable to connect to insights server: %w", err)
 	}
 
 	baseImageEnricher, err := baseimage.New(&baseimage.Config{
 		Client: baseimage.NewClientGRPC(insightsClient),
 	})
 
-	// These panics should be very unlikely to happen. Does **not** happen when network is not available.
 	if err != nil {
-		panic("unable to initialize base image enricher")
+		return nil, fmt.Errorf("unable to initialize base image enricher: %w", err)
 	}
 
-	return baseImageEnricher
-}
-
-// Wraps initer functions that don't take any config value to initer functions that do.
-// TODO(b/400910349): Remove once all plugins take config values.
-// Copied from osv-scalibr
-func noCFGEnricher(f func() enricher.Enricher) enricherlist.InitFn {
-	return func(_ *cpb.PluginConfig) (enricher.Enricher, error) { return f(), nil }
+	return baseImageEnricher, nil
 }
