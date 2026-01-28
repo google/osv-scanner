@@ -200,7 +200,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-288c-cq4h-88gq",
-                  "modified": "2024-10-22T05:28:57.400652Z"
+                  "modified": "2026-01-28T03:41:22.507349Z"
                 },
                 {
                   "id": "GHSA-4gq5-ch57-c2mg",
@@ -212,7 +212,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-57j2-w4cx-62h2",
-                  "modified": "2024-10-22T05:29:08.356656Z"
+                  "modified": "2026-01-28T03:41:22.440740Z"
                 },
                 {
                   "id": "GHSA-5949-rw7g-wx7w",
@@ -324,7 +324,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-jjjh-jjxp-wpff",
-                  "modified": "2024-10-22T05:28:54.705123Z"
+                  "modified": "2026-01-28T03:41:23.012241Z"
                 },
                 {
                   "id": "GHSA-m6x4-97wx-4q27",
@@ -368,7 +368,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-rgv9-q543-rqg4",
-                  "modified": "2024-12-02T16:25:52.858445Z"
+                  "modified": "2026-01-28T03:27:33.928738Z"
                 },
                 {
                   "id": "GHSA-rpr3-cw39-3pxh",
@@ -665,7 +665,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-288c-cq4h-88gq",
-                  "modified": "2024-10-22T05:28:57.400652Z"
+                  "modified": "2026-01-28T03:41:22.507349Z"
                 },
                 {
                   "id": "GHSA-4gq5-ch57-c2mg",
@@ -677,7 +677,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-57j2-w4cx-62h2",
-                  "modified": "2024-10-22T05:29:08.356656Z"
+                  "modified": "2026-01-28T03:41:22.440740Z"
                 },
                 {
                   "id": "GHSA-5949-rw7g-wx7w",
@@ -789,7 +789,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-jjjh-jjxp-wpff",
-                  "modified": "2024-10-22T05:28:54.705123Z"
+                  "modified": "2026-01-28T03:41:23.012241Z"
                 },
                 {
                   "id": "GHSA-m6x4-97wx-4q27",
@@ -833,7 +833,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-rgv9-q543-rqg4",
-                  "modified": "2024-12-02T16:25:52.858445Z"
+                  "modified": "2026-01-28T03:27:33.928738Z"
                 },
                 {
                   "id": "GHSA-rpr3-cw39-3pxh",
