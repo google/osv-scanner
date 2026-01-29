@@ -11,7 +11,7 @@ func TestVulnerabilities_Includes(t *testing.T) {
 	t.Parallel()
 
 	type args struct {
-		osv osvschema.Vulnerability
+		osv *osvschema.Vulnerability
 	}
 	tests := []struct {
 		name string
@@ -23,13 +23,13 @@ func TestVulnerabilities_Includes(t *testing.T) {
 			name: "",
 			vs: []*osvschema.Vulnerability{
 				{
-					ID:      "GHSA-1",
+					Id:      "GHSA-1",
 					Aliases: []string{},
 				},
 			},
 			args: args{
-				osv: osvschema.Vulnerability{
-					ID:      "GHSA-2",
+				osv: &osvschema.Vulnerability{
+					Id:      "GHSA-2",
 					Aliases: []string{},
 				},
 			},
@@ -39,13 +39,13 @@ func TestVulnerabilities_Includes(t *testing.T) {
 			name: "",
 			vs: []*osvschema.Vulnerability{
 				{
-					ID:      "GHSA-1",
+					Id:      "GHSA-1",
 					Aliases: []string{},
 				},
 			},
 			args: args{
-				osv: osvschema.Vulnerability{
-					ID:      "GHSA-1",
+				osv: &osvschema.Vulnerability{
+					Id:      "GHSA-1",
 					Aliases: []string{},
 				},
 			},
@@ -55,13 +55,13 @@ func TestVulnerabilities_Includes(t *testing.T) {
 			name: "",
 			vs: []*osvschema.Vulnerability{
 				{
-					ID:      "GHSA-1",
+					Id:      "GHSA-1",
 					Aliases: []string{"GHSA-2"},
 				},
 			},
 			args: args{
-				osv: osvschema.Vulnerability{
-					ID:      "GHSA-2",
+				osv: &osvschema.Vulnerability{
+					Id:      "GHSA-2",
 					Aliases: []string{},
 				},
 			},
@@ -71,13 +71,13 @@ func TestVulnerabilities_Includes(t *testing.T) {
 			name: "",
 			vs: []*osvschema.Vulnerability{
 				{
-					ID:      "GHSA-1",
+					Id:      "GHSA-1",
 					Aliases: []string{},
 				},
 			},
 			args: args{
-				osv: osvschema.Vulnerability{
-					ID:      "GHSA-2",
+				osv: &osvschema.Vulnerability{
+					Id:      "GHSA-2",
 					Aliases: []string{"GHSA-1"},
 				},
 			},
@@ -87,13 +87,13 @@ func TestVulnerabilities_Includes(t *testing.T) {
 			name: "",
 			vs: []*osvschema.Vulnerability{
 				{
-					ID:      "GHSA-1",
+					Id:      "GHSA-1",
 					Aliases: []string{"CVE-1"},
 				},
 			},
 			args: args{
-				osv: osvschema.Vulnerability{
-					ID:      "GHSA-2",
+				osv: &osvschema.Vulnerability{
+					Id:      "GHSA-2",
 					Aliases: []string{"CVE-1"},
 				},
 			},
@@ -103,13 +103,13 @@ func TestVulnerabilities_Includes(t *testing.T) {
 			name: "",
 			vs: []*osvschema.Vulnerability{
 				{
-					ID:      "GHSA-1",
+					Id:      "GHSA-1",
 					Aliases: []string{"CVE-2"},
 				},
 			},
 			args: args{
-				osv: osvschema.Vulnerability{
-					ID:      "GHSA-2",
+				osv: &osvschema.Vulnerability{
+					Id:      "GHSA-2",
 					Aliases: []string{"CVE-2"},
 				},
 			},

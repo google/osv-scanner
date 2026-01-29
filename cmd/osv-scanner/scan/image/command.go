@@ -6,18 +6,20 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner"
 	"github.com/urfave/cli/v3"
 )
 
-func Command(stdout, stderr io.Writer) *cli.Command {
+func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 	return &cli.Command{
 		Name:        "image",
 		Usage:       "detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally",
@@ -30,12 +32,12 @@ func Command(stdout, stderr io.Writer) *cli.Command {
 		}, helper.BuildCommonScanFlags([]string{"artifact"})...),
 		ArgsUsage: "[image imageNameWithTag]",
 		Action: func(ctx context.Context, cmd *cli.Command) error {
-			return action(ctx, cmd, stdout, stderr)
+			return action(ctx, cmd, stdout, stderr, client)
 		},
 	}
 }
 
-func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error {
+func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, client *http.Client) error {
 	if cmd.Args().Len() == 0 {
 		return errors.New("please provide an image name or see the help document")
 	}
@@ -74,8 +76,8 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer) error
 
 	scannerAction.Image = cmd.Args().First()
 	scannerAction.IsImageArchive = cmd.Bool("archive")
-	scannerAction.ExperimentalScannerActions = helper.GetExperimentalScannerActions(cmd)
-
+	scannerAction.ExperimentalScannerActions = helper.GetExperimentalScannerActions(cmd, client)
+	scannerAction.RequestUserAgent = "osv-scanner_scan-image/" + version.OSVVersion
 	var vulnResult models.VulnerabilityResults
 	//nolint:contextcheck // passing the context in would be a breaking change
 	vulnResult, err = osvscanner.DoContainerScan(scannerAction)

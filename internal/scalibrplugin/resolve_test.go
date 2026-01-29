@@ -6,6 +6,8 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
+	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
 	"github.com/google/osv-scalibr/detector/cis/generic_linux/etcpasswdpermissions"
 	"github.com/google/osv-scalibr/detector/govulncheck/binary"
 	"github.com/google/osv-scalibr/detector/weakcredentials/codeserver"
@@ -400,6 +402,8 @@ func TestResolve_Extractors(t *testing.T) {
 				gobinary.Name,
 				nodemodules.Name,
 				wheelegg.Name,
+				apkanno.Name,
+				dpkganno.Name,
 			},
 		},
 		{
@@ -417,6 +421,8 @@ func TestResolve_Extractors(t *testing.T) {
 				gobinary.Name,
 				nodemodules.Name,
 				wheelegg.Name,
+				apkanno.Name,
+				dpkganno.Name,
 			},
 		},
 		{
@@ -439,6 +445,8 @@ func TestResolve_Extractors(t *testing.T) {
 				dpkg.Name,
 				gobinary.Name,
 				nodemodules.Name,
+				apkanno.Name,
+				dpkganno.Name,
 			},
 		},
 		//
@@ -459,6 +467,8 @@ func TestResolve_Extractors(t *testing.T) {
 				nodemodules.Name,
 				vendored.Name,
 				wheelegg.Name,
+				apkanno.Name,
+				dpkganno.Name,
 			},
 		},
 		//
@@ -491,6 +501,8 @@ func TestResolve_Extractors(t *testing.T) {
 					wheelegg.Name,
 					gobinary.Name,
 					apk.Name,
+					apkanno.Name,
+					dpkganno.Name,
 				},
 			},
 			want: []string{

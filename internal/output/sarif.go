@@ -1,6 +1,8 @@
 package output
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"io"
 	"log"
@@ -101,18 +103,35 @@ reason = "Your reason for ignoring this vulnerability"
 // createSARIFAffectedPkgTable creates a vulnerability table which includes the affected versions for a specific source file
 func createSARIFAffectedPkgTable(pkgWithSrc []pkgWithSource) table.Writer {
 	helpTable := table.NewWriter()
-	helpTable.AppendHeader(table.Row{"Source", "Package Name", "Package Version"})
+	headerRow := table.Row{"Source", "Package Name", "Package Version"}
+
+	hasDeprecated := false
+	for _, ps := range pkgWithSrc {
+		if ps.Package.Deprecated {
+			hasDeprecated = true
+			break
+		}
+	}
+
+	if hasDeprecated {
+		headerRow = append(headerRow, "Deprecated")
+	}
+	helpTable.AppendHeader(headerRow)
 
 	for _, ps := range pkgWithSrc {
 		ver := ps.Package.Version
 		if ps.Package.Commit != "" {
 			ver = ps.Package.Commit
 		}
-		helpTable.AppendRow(table.Row{
+		row := table.Row{
 			ps.Source.String(),
 			ps.Package.Name,
 			ver,
-		})
+		}
+		if hasDeprecated {
+			row = append(row, ps.Package.Deprecated)
+		}
+		helpTable.AppendRow(row)
 	}
 
 	return helpTable
@@ -143,6 +162,31 @@ func stripGitHubWorkspace(path string) string {
 	return strings.TrimPrefix(path, "/github/workspace/")
 }
 
+// createSARIFFingerprint generates a stable fingerprint for a SARIF result
+// to help GitHub deduplicate findings across scans.
+//
+// The fingerprint is computed from three components to ensure uniqueness while maintaining stability:
+//  1. vulnID: The vulnerability identifier (e.g., "CVE-2022-24713") - ensures different vulnerabilities
+//     produce different fingerprints even for the same package
+//  2. artifactPath: The path to the lockfile (e.g., "/path/to/package.json") - distinguishes the same
+//     vulnerability in different parts of a monorepo or different projects
+//  3. pkg: The package information (name, version, or commit) - differentiates the same vulnerability
+//     across different versions or instances of a package
+//
+// These three components are combined because they uniquely identify a specific vulnerability finding:
+// the same vulnerability (vulnID) in the same package (pkg) detected in the same location (artifactPath)
+// should always be considered the same finding and produce the same fingerprint across scans.
+func createSARIFFingerprint(vulnID string, artifactPath string, pkg models.PackageInfo) string {
+	// Create a stable string representation
+	pkgStr := results.PkgToString(pkg)
+	fingerprintData := fmt.Sprintf("%s:%s:%s", vulnID, artifactPath, pkgStr)
+
+	// Hash the data to create a stable fingerprint
+	hash := sha256.Sum256([]byte(fingerprintData))
+
+	return hex.EncodeToString(hash[:])
+}
+
 // createSARIFHelpText returns the text for SARIF rule's help field
 func createSARIFHelpText(gv *groupedSARIFFinding) string {
 	backtickSARIFTemplate := strings.ReplaceAll(strings.TrimSpace(SARIFTemplate), `""`, "`")
@@ -156,19 +200,22 @@ func createSARIFHelpText(gv *groupedSARIFFinding) string {
 
 	hasFixedVersion := false
 	for _, v := range gv.AliasedVulns {
+		if v == nil {
+			continue
+		}
 		for p, v2 := range vulns.GetFixedVersions(v) {
 			slices.Sort(v2)
 			fixedPkgTableData = append(fixedPkgTableData, FixedPkgTableData{
 				PackageName:  p.Name,
 				FixedVersion: strings.Join(slices.Compact(v2), ", "),
-				VulnID:       v.ID,
+				VulnID:       v.GetId(),
 			})
 			hasFixedVersion = true
 		}
 
 		vulnDescriptions = append(vulnDescriptions, VulnDescription{
-			ID:      v.ID,
-			Details: strings.ReplaceAll(v.Details, "\n", "\n> "),
+			ID:      v.GetId(),
+			Details: strings.ReplaceAll(v.GetDetails(), "\n", "\n> "),
 		})
 	}
 	slices.SortFunc(vulnDescriptions, func(a, b VulnDescription) int { return identifiers.IDSortFunc(a.ID, b.ID) })
@@ -219,6 +266,9 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	for _, vulnID := range vulnIDs {
 		gv := vulnIDMap[vulnID]
+		if gv == nil {
+			continue
+		}
 
 		helpText := createSARIFHelpText(gv)
 
@@ -232,9 +282,12 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 		for _, id := range ids {
 			v := gv.AliasedVulns[id]
-			longDescription = v.Details
-			if v.Summary != "" {
-				shortDescription = fmt.Sprintf("%s: %s", gv.DisplayID, v.Summary)
+			if v == nil {
+				continue
+			}
+			longDescription = v.GetDetails()
+			if v.GetSummary() != "" {
+				shortDescription = fmt.Sprintf("%s: %s", gv.DisplayID, v.GetSummary())
 				break
 			}
 		}
@@ -245,8 +298,12 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			shortDescription = gv.DisplayID
 		}
 
-		rule := run.AddRule(gv.DisplayID).
-			WithName(gv.DisplayID).
+		rule := run.AddRule(gv.DisplayID)
+		if rule == nil {
+			// Skipping SARIF rule for empty ID
+			continue
+		}
+		rule.WithName(gv.DisplayID).
 			WithShortDescription(sarif.NewMultiformatMessageString().WithText(shortDescription).WithMarkdown(shortDescription)).
 			WithFullDescription(sarif.NewMultiformatMessageString().WithText(longDescription).WithMarkdown(longDescription)).
 			WithMarkdownHelp(helpText)
@@ -254,7 +311,10 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 		// Find the worst severity score
 		var worstScore float64 = -1
 		for _, v := range gv.AliasedVulns {
-			score, _, _ := severity.CalculateOverallScore(v.Severity)
+			if v == nil || v.GetSeverity() == nil {
+				continue
+			}
+			score, _, _ := severity.CalculateOverallScore(v.GetSeverity())
 			if score > worstScore {
 				worstScore = score
 			}
@@ -266,6 +326,9 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			rule.WithProperties(bag)
 		}
 
+		if gv.AliasedIDList == nil {
+			gv.AliasedIDList = []string{}
+		}
 		rule.DeprecatedIds = gv.AliasedIDList
 
 		for _, pws := range gv.PkgSource.StableKeys() {
@@ -273,9 +336,10 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			if filepath.IsAbs(artifactPath) {
 				// this only errors if the file path is not absolute,
 				// which we've already confirmed is not the case
-				p, _ := url.FromFilePath(artifactPath)
-
-				artifactPath = p.String()
+				p, err := url.FromFilePath(artifactPath)
+				if err == nil && p != nil {
+					artifactPath = p.String()
+				}
 			}
 
 			run.AddDistinctArtifact(artifactPath)
@@ -284,6 +348,9 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 			if len(gv.AliasedIDList) > 1 {
 				alsoKnownAsStr = fmt.Sprintf(" (also known as '%s')", strings.Join(gv.AliasedIDList[1:], "', '"))
 			}
+
+			// Generate a stable fingerprint for deduplication
+			fingerprint := createSARIFFingerprint(gv.DisplayID, artifactPath, pws.Package)
 
 			run.CreateResultForRule(gv.DisplayID).
 				WithLevel("warning").
@@ -299,7 +366,23 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 					sarif.NewLocationWithPhysicalLocation(
 						sarif.NewPhysicalLocation().
 							WithArtifactLocation(sarif.NewSimpleArtifactLocation(artifactPath)),
-					))
+					)).
+				WithPartialFingerprints(map[string]string{
+					// Use "primaryLocationLineHash" as the key for the fingerprint.
+					// This is the standard key that GitHub Advanced Security uses to deduplicate
+					// code scanning alerts across multiple runs.
+					//
+					// Reference: https://docs.github.com/en/code-security/code-scanning/integrating-with-code-scanning/sarif-support-for-code-scanning#preventing-duplicate-alerts-using-fingerprints
+					//
+					// GitHub's documentation states: "GitHub uses the primaryLocationLineHash property
+					// to detect results that are logically the same, so they can be shown only once,
+					// in the correct branch and pull request."
+					//
+					// For dependency scanning (as opposed to source code analysis), we don't have
+					// line numbers in the traditional sense, so our fingerprint is based on the
+					// combination of vulnerability ID, package, and location rather than source code lines.
+					"primaryLocationLineHash": fingerprint,
+				})
 		}
 	}
 

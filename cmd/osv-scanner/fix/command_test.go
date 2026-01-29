@@ -25,6 +25,8 @@ func matchFile(t *testing.T, file string) {
 func TestCommand(t *testing.T) {
 	t.Parallel()
 
+	testutility.SkipIfShort(t)
+
 	tests := []testcmd.Case{
 		{
 			Name: "no_args_provided",
@@ -37,11 +39,6 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "fix_non_interactive_in_place_package_lock_json_with_offline_vulns",
-			Args: []string{"", "fix", "--strategy=in-place", "--offline-vulnerabilities", "--download-offline-databases", "-L", "./testdata/in-place-npm/package-lock.json"},
-			Exit: 0,
-		},
-		{
 			Name: "fix_non_interactive_in_place_package_lock_json_with_native_data_source",
 			Args: []string{"", "fix", "--strategy=in-place", "--data-source", "native", "-L", "./testdata/in-place-npm/package-lock.json"},
 			Exit: 0,
@@ -49,11 +46,6 @@ func TestCommand(t *testing.T) {
 		{
 			Name: "fix non-interactive relax package.json",
 			Args: []string{"", "fix", "--strategy=relax", "-M", "./testdata/relax-npm/package.json"},
-			Exit: 0,
-		},
-		{
-			Name: "fix_non_interactive_relax_package_json_with_offline_vulns",
-			Args: []string{"", "fix", "--strategy=relax", "--offline-vulnerabilities", "--download-offline-databases", "-M", "./testdata/relax-npm/package.json"},
 			Exit: 0,
 		},
 		{
@@ -139,12 +131,51 @@ func TestCommand(t *testing.T) {
 	}
 }
 
+func TestCommand_OfflineDatabase(t *testing.T) {
+	t.Parallel()
+
+	testutility.SkipIfShort(t)
+
+	tests := []testcmd.Case{
+		{
+			Name: "fix_non_interactive_in_place_package_lock_json_with_offline_vulns",
+			Args: []string{"", "fix", "--strategy=in-place", "--offline-vulnerabilities", "--download-offline-databases", "-L", "./testdata/in-place-npm/package-lock.json"},
+			Exit: 0,
+		},
+		{
+			Name: "fix_non_interactive_relax_package_json_with_offline_vulns",
+			Args: []string{"", "fix", "--strategy=relax", "--offline-vulnerabilities", "--download-offline-databases", "-M", "./testdata/relax-npm/package.json"},
+			Exit: 0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			// fix action overwrites files, copy them to a temporary directory
+			testDir := testutility.CreateTestDir(t)
+
+			lockfile := testcmd.CopyFileFlagTo(t, tt, "-L", testDir)
+			manifest := testcmd.CopyFileFlagTo(t, tt, "-M", testDir)
+
+			testcmd.RunAndMatchSnapshots(t, tt)
+
+			if lockfile != "" {
+				matchFile(t, lockfile)
+			}
+			if manifest != "" {
+				matchFile(t, manifest)
+			}
+		})
+	}
+}
+
 func parseFlags(t *testing.T, flags []string, arguments []string) (*cli.Command, error) {
 	// This is a bit hacky: make a mock App with only the flags we care about.
 	// Then use app.RunAndMatchSnapshots() to parse the flags into the cli.Context, which is returned.
 	t.Helper()
 	appFlags := make([]cli.Flag, 0, len(flags))
-	for _, f := range fix.Command(nil, nil).Flags {
+	for _, f := range fix.Command(nil, nil, nil).Flags {
 		if slices.ContainsFunc(f.Names(), func(s string) bool { return slices.Contains(flags, s) }) {
 			appFlags = append(appFlags, f)
 		}

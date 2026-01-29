@@ -9,14 +9,16 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/imodels/results"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // filterUnscannablePackages removes packages that don't have enough information to be scanned or
-// are not a supported ecosystem
+// are not a supported ecosystem, and returns the list of removed packages (if --all-packages flag is passed in)
 // e,g, local packages that specified by path
-func filterUnscannablePackages(scanResults *results.ScanResults) {
+func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []imodels.PackageScanResult {
 	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+	filteredPsr := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		p := psr.PackageInfo
 
@@ -25,13 +27,21 @@ func filterUnscannablePackages(scanResults *results.ScanResults) {
 		case !p.Ecosystem().IsEmpty() && p.Name() != "" && p.Version() != "":
 		case p.Commit() != "":
 		default:
+			if actions.ShowAllPackages {
+				filteredPsr = append(filteredPsr, psr)
+			}
+
 			continue
 		}
 
 		switch {
 		// If **any** of the following cases are true, skip this package
-		case p.Ecosystem().Ecosystem == osvschema.EcosystemMaven && p.Name() == "unknown", // Is Maven with package name unknown
+		case p.Ecosystem().Ecosystem == osvconstants.EcosystemMaven && p.Name() == "unknown", // Is Maven with package name unknown
 			p.Ecosystem().GetValidity() != nil && !p.Ecosystem().IsEmpty(): // Is invalid and not empty
+			if actions.ShowAllPackages {
+				filteredPsr = append(filteredPsr, psr)
+			}
+
 			continue
 		}
 
@@ -43,6 +53,8 @@ func filterUnscannablePackages(scanResults *results.ScanResults) {
 	}
 
 	scanResults.PackageScanResults = packageResults
+
+	return filteredPsr
 }
 
 // filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
@@ -107,7 +119,7 @@ func filterResults(vulnResults *models.VulnerabilityResults, configManager *conf
 		for _, pkgVulns := range pkgSrc.Packages {
 			newVulns := filterPackageVulns(pkgVulns, configToUse)
 			removedCount += len(pkgVulns.Vulnerabilities) - len(newVulns.Vulnerabilities)
-			if allPackages || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 {
+			if allPackages || len(newVulns.Vulnerabilities) > 0 || len(pkgVulns.LicenseViolations) > 0 || pkgVulns.Package.Deprecated {
 				newPackages = append(newPackages, newVulns)
 			}
 		}
@@ -131,7 +143,7 @@ func filterPackageVulns(pkgVulns models.PackageVulns, configToUse config.Config)
 	for _, group := range pkgVulns.Groups {
 		ignore := false
 		for _, id := range group.Aliases {
-			var ignoreLine config.IgnoreEntry
+			var ignoreLine *config.IgnoreEntry
 			if ignore, ignoreLine = configToUse.ShouldIgnore(id); ignore {
 				for _, id := range group.Aliases {
 					ignoredVulns[id] = struct{}{}
@@ -163,10 +175,10 @@ func filterPackageVulns(pkgVulns models.PackageVulns, configToUse config.Config)
 		}
 	}
 
-	var newVulns []osvschema.Vulnerability
+	var newVulns []*osvschema.Vulnerability
 	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
 		for _, vuln := range pkgVulns.Vulnerabilities {
-			if _, filtered := ignoredVulns[vuln.ID]; !filtered {
+			if _, filtered := ignoredVulns[vuln.GetId()]; !filtered {
 				newVulns = append(newVulns, vuln)
 			}
 		}

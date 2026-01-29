@@ -6,11 +6,18 @@ scanner:
 lint:
 	scripts/run_lints.sh
 
+lint-fix:
+	scripts/run_lints.sh --fix
+
 format:
 	scripts/run_formatters.sh
 
+test-short:
+	scripts/run_tests.sh -short
+
 test:
 	scripts/run_tests.sh
+
 
 clean:
 	rm -f osv-scanner

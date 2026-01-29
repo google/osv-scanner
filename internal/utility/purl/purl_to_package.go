@@ -2,32 +2,42 @@ package purl
 
 import (
 	"github.com/google/osv-scanner/v2/pkg/models"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/package-url/packageurl-go"
 )
 
 // used like so: purlEcosystems[PkgURL.Type][PkgURL.Namespace]
 // * means it should match any namespace string
-var purlEcosystems = map[string]map[string]osvschema.Ecosystem{
-	"apk":   {"alpine": osvschema.EcosystemAlpine},
-	"cargo": {"*": osvschema.EcosystemCratesIO},
-	"deb": {"debian": osvschema.EcosystemDebian,
-		"ubuntu": osvschema.EcosystemUbuntu},
-	"hex":      {"*": osvschema.EcosystemHex},
-	"golang":   {"*": osvschema.EcosystemGo},
-	"maven":    {"*": osvschema.EcosystemMaven},
-	"nuget":    {"*": osvschema.EcosystemNuGet},
-	"npm":      {"*": osvschema.EcosystemNPM},
-	"composer": {"*": osvschema.EcosystemPackagist},
-	"generic":  {"*": osvschema.EcosystemOSSFuzz},
-	"pypi":     {"*": osvschema.EcosystemPyPI},
-	"gem":      {"*": osvschema.EcosystemRubyGems},
+var purlEcosystems = map[string]map[string]osvconstants.Ecosystem{
+	"apk":      {"alpine": osvconstants.EcosystemAlpine},
+	"cargo":    {"*": osvconstants.EcosystemCratesIO},
+	"composer": {"*": osvconstants.EcosystemPackagist},
+	"conan":    {"*": osvconstants.EcosystemConanCenter},
+	"cran":     {"*": osvconstants.EcosystemCRAN},
+	"deb": {
+		"debian": osvconstants.EcosystemDebian,
+		"ubuntu": osvconstants.EcosystemUbuntu,
+	},
+	"gem": {"*": osvconstants.EcosystemRubyGems},
+	// We don't yet have a GIT ecosystem which aligns with the generic type better.
+	// "generic": {"*": osvconstants.EcosystemOSSFuzz},
+	"github":  {"*": osvconstants.EcosystemGitHubActions},
+	"golang":  {"*": osvconstants.EcosystemGo},
+	"hackage": {"*": osvconstants.EcosystemHackage},
+	"hex":     {"*": osvconstants.EcosystemHex},
+	"k8s":     {"*": osvconstants.EcosystemKubernetes},
+	"maven":   {"*": osvconstants.EcosystemMaven},
+	"npm":     {"*": osvconstants.EcosystemNPM},
+	"nuget":   {"*": osvconstants.EcosystemNuGet},
+	"pub":     {"*": osvconstants.EcosystemPub},
+	"pypi":    {"*": osvconstants.EcosystemPyPI},
+	"swift":   {"*": osvconstants.EcosystemSwiftURL},
 }
 
-func getPURLEcosystem(pkgURL packageurl.PackageURL) osvschema.Ecosystem {
+func getPURLEcosystem(pkgURL packageurl.PackageURL) osvconstants.Ecosystem {
 	ecoMap, ok := purlEcosystems[pkgURL.Type]
 	if !ok {
-		return osvschema.Ecosystem("")
+		return osvconstants.Ecosystem("")
 	}
 
 	wildcardRes, hasWildcard := ecoMap["*"]
@@ -37,7 +47,7 @@ func getPURLEcosystem(pkgURL packageurl.PackageURL) osvschema.Ecosystem {
 
 	ecosystem, ok := ecoMap[pkgURL.Namespace]
 	if !ok {
-		return osvschema.Ecosystem("")
+		return osvconstants.Ecosystem("")
 	}
 
 	return ecosystem
@@ -55,10 +65,10 @@ func ToPackage(purl string) (models.PackageInfo, error) {
 	name := parsedPURL.Name
 	if parsedPURL.Namespace != "" {
 		switch ecosystem {
-		case osvschema.EcosystemMaven:
+		case osvconstants.EcosystemMaven:
 			// Maven uses : to separate namespace and package
 			name = parsedPURL.Namespace + ":" + parsedPURL.Name
-		case osvschema.EcosystemDebian, osvschema.EcosystemAlpine, osvschema.EcosystemUbuntu:
+		case osvconstants.EcosystemDebian, osvconstants.EcosystemAlpine, osvconstants.EcosystemUbuntu:
 			// Debian and Alpine repeats their namespace in PURL, so don't add it to the name
 			name = parsedPURL.Name
 		default:

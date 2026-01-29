@@ -19,7 +19,7 @@ func regenerateLockfileCmd(ctx context.Context, opts osvFixOptions) (*exec.Cmd, 
 	}
 	// TODO: need to also remove node_modules/ in workspace packages
 
-	c := exec.CommandContext(ctx, "npm", "install", "--package-lock-only")
+	c := exec.CommandContext(ctx, "npm", "install", "--package-lock-only", "--ignore-scripts")
 	c.Dir = dir
 
 	return c, nil

@@ -20,17 +20,19 @@ import (
 	"github.com/jedib0t/go-pretty/v6/text"
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"github.com/tidwall/pretty"
 	"github.com/urfave/cli/v3"
+	"google.golang.org/protobuf/encoding/protojson"
 	"osv.dev/bindings/go/osvdev"
 )
 
-// vulnCacheMap is a cache of vulnerability details that have been retrieved from the OSV API during normal scanning.
-// This avoids unnecessary double queries to the osv.dev API.
-// vulnCacheMap: map[string]*osvschema.Vulnerability
-var vulnCacheMap = sync.Map{}
+var (
+	vulnCacheMu  sync.RWMutex
+	vulnCacheMap = make(map[string]*osvschema.Vulnerability)
+)
 
 // Command is the entry point for the `mcp` subcommand.
-func Command(_, _ io.Writer) *cli.Command {
+func Command(_, _ io.Writer, _ *http.Client) *cli.Command {
 	return &cli.Command{
 		Name:        "experimental-mcp",
 		Usage:       "Run osv-scanner as an MCP service (experimental)",
@@ -133,9 +135,11 @@ func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *scanVulnerable
 		return nil, nil, fmt.Errorf("failed to run scanner: %w", err)
 	}
 
+	vulnCacheMu.Lock()
 	for _, vuln := range scanResults.Flatten() {
-		vulnCacheMap.Store(vuln.Vulnerability.ID, &vuln.Vulnerability)
+		vulnCacheMap[vuln.Vulnerability.GetId()] = vuln.Vulnerability
 	}
+	vulnCacheMu.Unlock()
 
 	if err == nil {
 		return &mcp.CallToolResult{
@@ -166,9 +170,10 @@ type getVulnerabilityDetailsInput struct {
 	VulnID string `json:"vuln_id" jsonschema:"The OSV vulnerability ID to retrieve details for."`
 }
 
-func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *getVulnerabilityDetailsInput) (*mcp.CallToolResult, *osvschema.Vulnerability, error) {
-	vulnAny, found := vulnCacheMap.Load(input.VulnID)
-	vuln := vulnAny.(*osvschema.Vulnerability)
+func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *getVulnerabilityDetailsInput) (*mcp.CallToolResult, any, error) {
+	vulnCacheMu.RLock()
+	vuln, found := vulnCacheMap[input.VulnID]
+	vulnCacheMu.RUnlock()
 	if !found {
 		var err error
 		vuln, err = osvdev.DefaultClient().GetVulnByID(ctx, input.VulnID)
@@ -176,10 +181,24 @@ func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *g
 			return nil, nil, fmt.Errorf("vulnerability with ID %s not found: %w", input.VulnID, err)
 		}
 
-		vulnCacheMap.Store(input.VulnID, vuln)
+		vulnCacheMu.Lock()
+		vulnCacheMap[input.VulnID] = vuln
+		vulnCacheMu.Unlock()
 	}
 
-	return &mcp.CallToolResult{}, vuln, nil
+	jsonBytes, err := protojson.Marshal(vuln)
+	if err != nil {
+		return nil, nil, err
+	}
+	prettyJSON := pretty.Pretty(jsonBytes)
+
+	return &mcp.CallToolResult{
+		Content: []mcp.Content{
+			&mcp.TextContent{
+				Text: string(prettyJSON),
+			},
+		},
+	}, nil, nil
 }
 
 // ignoreVulnerabilityInput is a placeholder to enable the tool call,

@@ -14,11 +14,11 @@ func TestMatchVuln(t *testing.T) {
 	var (
 		// ID: VULN-001, Dev: false, Severity: 6.6, Depth: 3, Aliases: CVE-111, OSV-2
 		vuln1 = resolution.Vulnerability{
-			OSV: osvschema.Vulnerability{
-				ID: "VULN-001",
-				Severity: []osvschema.Severity{
-					{Type: osvschema.SeverityCVSSV3, Score: "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:H"}, // 6.6
-					{Type: osvschema.SeverityCVSSV2, Score: "AV:L/AC:L/Au:S/C:P/I:P/A:C"},                   // 5.7
+			OSV: &osvschema.Vulnerability{
+				Id: "VULN-001",
+				Severity: []*osvschema.Severity{
+					{Type: osvschema.Severity_CVSS_V3, Score: "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:H"}, // 6.6
+					{Type: osvschema.Severity_CVSS_V2, Score: "AV:L/AC:L/Au:S/C:P/I:P/A:C"},                   // 5.7
 				},
 				Aliases: []string{"CVE-111", "OSV-2"},
 			},
@@ -51,8 +51,8 @@ func TestMatchVuln(t *testing.T) {
 		}
 		// ID: VULN-002, Dev: true, Severity: N/A, Depth: 2
 		vuln2 = resolution.Vulnerability{
-			OSV: osvschema.Vulnerability{
-				ID: "VULN-002",
+			OSV: &osvschema.Vulnerability{
+				Id: "VULN-002",
 				// No severity
 			},
 			DevOnly: true,

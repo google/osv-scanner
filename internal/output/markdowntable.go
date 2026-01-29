@@ -16,6 +16,11 @@ func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWr
 
 	outputResult := BuildResults(vulnResult)
 
+	// Add a newline to separate results from logs.
+	fmt.Fprintln(outputWriter)
+	if outputResult.IsContainerScanning {
+		fmt.Fprintf(outputWriter, "%s:\n", GetContainerScanningHeader(outputResult))
+	}
 	printSummary(outputResult, outputWriter)
 	fmt.Fprintln(outputWriter)
 
@@ -46,5 +51,14 @@ func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWr
 		if outputLicenseViolationsTable.Length() > 0 {
 			outputLicenseViolationsTable.RenderMarkdown()
 		}
+	}
+
+	if outputResult.PkgDeprecatedCount > 0 {
+		outputDeprecatedPackagesTable := table.NewWriter()
+		outputDeprecatedPackagesTable.SetOutputMirror(outputWriter)
+		outputDeprecatedPackagesTable = deprecatedPackagesTableBuilder(outputDeprecatedPackagesTable, vulnResult)
+
+		printPkgDeprecatedSummary(outputResult, outputWriter)
+		outputDeprecatedPackagesTable.RenderMarkdown()
 	}
 }

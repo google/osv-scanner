@@ -9,7 +9,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/inventory/vex"
 	"github.com/google/osv-scalibr/semantic"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/identifiers"
@@ -31,6 +31,7 @@ type Result struct {
 	VulnTypeSummary     VulnTypeSummary
 	PackageTypeCount    AnalysisCount
 	VulnCount           VulnCount
+	PkgDeprecatedCount  int `json:",omitempty"`
 }
 
 // EcosystemResult represents the vulnerability scanning results for an ecosystem.
@@ -48,6 +49,7 @@ type SourceResult struct {
 	Packages               []PackageResult
 	VulnCount              VulnCount
 	LicenseViolationsCount int
+	PkgDeprecatedCount     int `json:",omitempty"`
 }
 
 // PackageResult represents the vulnerability scanning results for a package.
@@ -67,6 +69,7 @@ type PackageResult struct {
 	Licenses          []models.License
 	LicenseViolations []models.License
 	DepGroups         []string `json:"-"`
+	Deprecated        bool     `json:",omitempty"`
 }
 
 // VulnResult represents a single vulnerability.
@@ -185,11 +188,12 @@ func PrintResults(vulnResult *models.VulnerabilityResults, outputWriter io.Write
 func BuildResults(vulnResult *models.VulnerabilityResults) Result {
 	var ecosystemMap = make(map[string][]SourceResult)
 	var resultCount VulnCount
+	pkgDeprecatedCount := 0
 
 RowLoop:
 	for _, packageSource := range vulnResult.Results {
-		for _, annotation := range packageSource.ExperimentalAnnotations {
-			if annotation == extractor.InsideOSPackage {
+		for _, pes := range packageSource.ExperimentalPES {
+			if pes.MatchesAllVulns && pes.Justification == vex.ComponentNotPresent {
 				continue RowLoop
 			}
 		}
@@ -199,14 +203,15 @@ RowLoop:
 		for ecosystem, source := range sourceResults {
 			ecosystemMap[ecosystem] = append(ecosystemMap[ecosystem], source)
 			resultCount.Add(source.VulnCount)
+			pkgDeprecatedCount += source.PkgDeprecatedCount
 		}
 	}
 
-	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata, vulnResult.ExperimentalAnalysisConfig.Licenses, vulnResult.LicenseSummary)
+	return buildResult(ecosystemMap, resultCount, vulnResult.ImageMetadata, vulnResult.ExperimentalAnalysisConfig.Licenses, vulnResult.LicenseSummary, pkgDeprecatedCount)
 }
 
 // buildResult builds the final Result object from the ecosystem map and total vulnerability count.
-func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata, licenseConfig models.ExperimentalLicenseConfig, licenseCount []models.LicenseCount) Result {
+func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, imageMetadata *models.ImageMetadata, licenseConfig models.ExperimentalLicenseConfig, licenseCount []models.LicenseCount, pkgDeprecatedCount int) Result {
 	result := Result{}
 	var ecosystemResults []EcosystemResult
 	var osResults []EcosystemResult
@@ -245,6 +250,7 @@ func buildResult(ecosystemMap map[string][]SourceResult, resultCount VulnCount, 
 	result.VulnTypeSummary = vulnTypeSummary
 	result.PackageTypeCount = packageTypeCount
 	result.VulnCount = resultCount
+	result.PkgDeprecatedCount = pkgDeprecatedCount
 
 	if imageMetadata != nil {
 		populateResultWithImageMetadata(&result, *imageMetadata)
@@ -425,6 +431,9 @@ func processSource(packageSource models.PackageSource) map[string]SourceResult {
 			if len(pkg.HiddenVulns) != 0 {
 				sourceResult.PackageTypeCount.Hidden += 1
 			}
+			if pkg.Deprecated {
+				sourceResult.PkgDeprecatedCount += 1
+			}
 		}
 
 		// Sort packageResults to ensure consistent output
@@ -472,6 +481,7 @@ func processPackage(vulnPkg models.PackageVulns) PackageResult {
 		Licenses:          vulnPkg.Licenses,
 		LicenseViolations: vulnPkg.LicenseViolations,
 		DepGroups:         vulnPkg.DepGroups,
+		Deprecated:        vulnPkg.Package.Deprecated,
 	}
 
 	return packageResult
@@ -528,15 +538,15 @@ func processVulnGroups(vulnPkg models.PackageVulns) (map[string]VulnResult, map[
 // updateVuln updates each vulnerability info in vulnMap from the details of vulnPkg.Vulnerabilities.
 func updateVuln(vulnMap map[string]VulnResult, vulnPkg models.PackageVulns) {
 	for _, vuln := range vulnPkg.Vulnerabilities {
-		fixable, fixedVersion := getNextFixVersion(vuln.Affected, vulnPkg.Package.Version, vulnPkg.Package.Name, vulnPkg.Package.Ecosystem)
-		if outputVuln, exist := vulnMap[vuln.ID]; exist {
+		fixable, fixedVersion := getNextFixVersion(vuln.GetAffected(), vulnPkg.Package.Version, vulnPkg.Package.Name, vulnPkg.Package.Ecosystem)
+		if outputVuln, exist := vulnMap[vuln.GetId()]; exist {
 			outputVuln.FixedVersion = fixedVersion
 			outputVuln.IsFixable = fixable
-			outputVuln.Description = vuln.Summary
+			outputVuln.Description = vuln.GetSummary()
 			if outputVuln.Description == "" {
-				outputVuln.Description = vuln.Details
+				outputVuln.Description = vuln.GetDetails()
 			}
-			vulnMap[vuln.ID] = outputVuln
+			vulnMap[vuln.GetId()] = outputVuln
 		}
 	}
 }
@@ -557,7 +567,7 @@ func getVulnList(vulnMap map[string]VulnResult) []VulnResult {
 
 // getNextFixVersion finds the next fixed version for a given vulnerability.
 // returns a boolean value indicating whether a fixed version is available.
-func getNextFixVersion(allAffected []osvschema.Affected, installedVersion string, installedPackage string, ecosystem string) (bool, string) {
+func getNextFixVersion(allAffected []*osvschema.Affected, installedVersion string, installedPackage string, ecosystem string) (bool, string) {
 	ecosystemPrefix := strings.Split(ecosystem, ":")[0]
 	vp, err := semantic.Parse(installedVersion, ecosystemPrefix)
 	if err != nil {
@@ -566,21 +576,21 @@ func getNextFixVersion(allAffected []osvschema.Affected, installedVersion string
 
 	minFixVersion := UnfixedDescription
 	for _, affected := range allAffected {
-		if affected.Package.Name != installedPackage || removeVariants(affected.Package.Ecosystem) != ecosystem {
+		if affected.GetPackage().GetName() != installedPackage || removeVariants(affected.GetPackage().GetEcosystem()) != ecosystem {
 			continue
 		}
-		for _, affectedRange := range affected.Ranges {
-			for _, affectedEvent := range affectedRange.Events {
-				order, _ := vp.CompareStr(affectedEvent.Fixed)
+		for _, affectedRange := range affected.GetRanges() {
+			for _, affectedEvent := range affectedRange.GetEvents() {
+				order, _ := vp.CompareStr(affectedEvent.GetFixed())
 				// Skip if it's not a fix version event or the installed version is greater than the fix version.
-				if affectedEvent.Fixed == "" || order > 0 {
+				if affectedEvent.GetFixed() == "" || order > 0 {
 					continue
 				}
 
-				order, _ = semantic.MustParse(affectedEvent.Fixed, ecosystemPrefix).CompareStr(minFixVersion)
+				order, _ = semantic.MustParse(affectedEvent.GetFixed(), ecosystemPrefix).CompareStr(minFixVersion)
 				// Find the minimum fix version
 				if minFixVersion == UnfixedDescription || order < 0 {
-					minFixVersion = affectedEvent.Fixed
+					minFixVersion = affectedEvent.GetFixed()
 				}
 			}
 		}
@@ -826,6 +836,12 @@ func printSummary(result Result, out io.Writer) {
 	fmt.Fprintln(out, summary)
 }
 
+func printPkgDeprecatedSummary(result Result, out io.Writer) {
+	packageForm := Form(result.PkgDeprecatedCount, "package", "packages")
+	summary := fmt.Sprintf("Total %d %s deprecated.\n", result.PkgDeprecatedCount, packageForm)
+	fmt.Fprintln(out, summary)
+}
+
 func getInstalledVersionOrCommit(pkg PackageResult) string {
 	result := pkg.InstalledVersion
 	if result == "" && pkg.Commit != "" {
@@ -872,4 +888,26 @@ func removeVariants(ecosystem string) string {
 
 func formatHiddenVulnsPrompt(hiddenVulns int) string {
 	return fmt.Sprintf("Hiding %d number of vulnerabilities deemed unimportant, use --all-vulns to show them.", hiddenVulns)
+}
+
+func GetContainerScanningHeader(result Result) string {
+	if !result.IsContainerScanning {
+		return ""
+	}
+
+	header := fmt.Sprintf("Container Scanning Result (%s)", result.ImageInfo.OS)
+
+	var baseImageName string
+	for _, baseImage := range result.ImageInfo.AllBaseImages {
+		if baseImage.Index == 1 {
+			baseImageName = getBaseImageName(baseImage)
+			break
+		}
+	}
+
+	if baseImageName != "" {
+		header += fmt.Sprintf(" (Based on \"%s\" image)", baseImageName)
+	}
+
+	return header
 }

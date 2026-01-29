@@ -4,6 +4,73 @@
 
 - Rebuild Docker images with explicit `apk upgrade` steps so published artifacts pick up patched Alpine base packages.
 - Remove legacy repository-level ignores for `GHSA-j288-q9x7-2f5v` / `CVE-2023-45853` now that the test fixture jar is no longer committed.
+# v2.3.2
+
+This release includes performance improvements for local scanning, reducing memory usage and avoiding unnecessary advisory loading. It also fixes issues with MCP's get_vulnerability_details tool, git queries in `osv-scanner.json`, and ignore entry tracking, along with documentation updates.
+
+### Fixes:
+
+- [Bug #2415](https://github.com/google/osv-scanner/pull/2415) Add more PURL-to-ecosystem mappings
+- [Bug #2422](https://github.com/google/osv-scanner/pull/2422) MCP error for get_vulnerability_id because type definition is incorrect.
+- [Bug #2460](https://github.com/google/osv-scanner/pull/2460) Enable osv-scanner.json git queries
+- [Bug #2456](https://github.com/google/osv-scanner/pull/2456) Properly track if an ignore entry has been used
+- [Bug #2450](https://github.com/google/osv-scanner/pull/2450) **Performance:** Avoid loading the entire advisory unless it will actually be used
+- [Bug #2445](https://github.com/google/osv-scanner/pull/2445) **Performance:** Don't read the entire zip into memory
+- [Bug #2433](https://github.com/google/osv-scanner/pull/2433) Allow specifying user agent in v2 osvscanner package
+
+### Misc:
+
+- [Misc #2453](https://github.com/google/osv-scanner/pull/2453) Switch from gopkg.in/yaml.v3 to go.yaml.in/yaml/v3
+- [Misc #2447](https://github.com/google/osv-scanner/pull/2447) Include `bun.lock` as a supported lockfile
+- [Misc #2444](https://github.com/google/osv-scanner/pull/2444) Document GoVersionOverride in configuration.md
+
+# v2.3.1
+
+### Features:
+
+- [Feature #2370](https://github.com/google/osv-scanner/pull/2370) Add support for the `packagedeprecation` plugin via the new `--experimental-flag-deprecated-packages` flag. The result is available in all output formats except SPDX.
+
+### Fixes:
+
+- [Bug #2395](https://github.com/google/osv-scanner/pull/2395) Fix license scanning to correctly match new `deps.dev` package names.
+- [Bug #2333](https://github.com/google/osv-scanner/pull/2333) Deduplicate SARIF outputs for GitHub.
+- [Bug #2259](https://github.com/google/osv-scanner/pull/2259) Fix lookup of Go packages with major versions by including the subpath of Go PURLs, preventing false positives.
+
+### Misc:
+
+- Updated Go version to v1.25.5 to support Go reachability analysis for the latest version.
+
+# v2.3.0
+
+This release migrates to the new `osv.dev` and `osv-schema` proto bindings for its internal data models ([#2328](https://github.com/google/osv-scanner/pull/2328)). This is primarily an internal change and should not impact users.
+
+### Features:
+
+- [Feature #2321](https://github.com/google/osv-scanner/pull/2321) Add support for license checks for RubyGems.
+- [Feature #2294](https://github.com/google/osv-scanner/pull/2294) Replace `requirementsenhanceable` extractor with transitive enricher.
+- [Feature #2344](https://github.com/google/osv-scanner/pull/2344) Use `osduplicate` annotators.
+
+### Fixes:
+
+- [Bug #2329](https://github.com/google/osv-scanner/pull/2329) Add `--ignore-scripts` flag to npm lockfile generation.
+- [Bug #2311](https://github.com/google/osv-scanner/pull/2311) Improve logic for `--all-packages` flag.
+- [Bug #2309](https://github.com/google/osv-scanner/pull/2309) Exit with a non-zero code when showing help.
+- [Bug #2316](https://github.com/google/osv-scanner/pull/2316) Pre-commit hook now defaults to scanning current directory instead of failing.
+- [Bug #1507 (osv-scalibr)](https://github.com/google/osv-scalibr/pull/1507) Interpolate Maven projects before extracting repositories.
+
+# v2.2.4
+
+### Features:
+
+- [Feature #2256](https://github.com/google/osv-scanner/pull/2256) Add experimental OSV-Scanner MCP server. (`osv-scanner experimental-mcp`)
+- [Feature #2284](https://github.com/google/osv-scanner/pull/2284) Update `osv-scalibr` integration, replacing `baseimagematch` with the base image enricher.
+- [Feature #2216](https://github.com/google/osv-scanner/pull/2216) Warn when vulnerabilities specified in the ignore config are not found during a scan (fixes \#2206).
+
+### Fixes:
+
+- [Bug #2305](https://github.com/google/osv-scanner/pull/2305) Ignore common protocols and `.git` suffix when checking if an advisory affects a git repository (fixes \#2291).
+- [Bug #2300](https://github.com/google/osv-scanner/pull/2300) Ensure the global logger is used in `cmdlogger` and `osv-scalibr` when set (fixes \#2081).
+- [Bug #2295](https://github.com/google/osv-scanner/pull/2295) Fix Go stdlib license result matching (fixes \#2191).
 
 # v2.2.3
 

@@ -1,0 +1,233 @@
+---
+version: 2
+interactions:
+  - id: 0
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 427
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "github.com/gogo/protobuf"
+              },
+              "version": "1.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "github.com/ipfs/go-bitfield"
+              },
+              "version": "1.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "golang.org/x/image"
+              },
+              "version": "0.4.0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_CallAnalysis/Run_with_govulncheck
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 784
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-c3h9-896r-86jm",
+                  "modified": "2023-12-06T01:01:11.322262Z"
+                },
+                {
+                  "id": "GO-2021-0053",
+                  "modified": "2024-05-20T16:03:47Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2h6c-j3gf-xp9r",
+                  "modified": "2023-11-08T04:11:41.796349Z"
+                },
+                {
+                  "id": "GO-2023-1558",
+                  "modified": "2024-05-20T16:03:47Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9phm-fm57-rhg8",
+                  "modified": "2024-08-02T15:50:53Z"
+                },
+                {
+                  "id": "GHSA-j3p8-6mrq-6g7h",
+                  "modified": "2024-05-20T21:54:17Z"
+                },
+                {
+                  "id": "GHSA-qgc7-mgm3-q253",
+                  "modified": "2024-05-20T21:46:58Z"
+                },
+                {
+                  "id": "GHSA-x92r-3vfx-4cv3",
+                  "modified": "2024-05-20T21:54:21Z"
+                },
+                {
+                  "id": "GO-2023-1572",
+                  "modified": "2024-05-20T16:03:47Z"
+                },
+                {
+                  "id": "GO-2023-1989",
+                  "modified": "2024-05-20T16:03:47Z"
+                },
+                {
+                  "id": "GO-2023-1990",
+                  "modified": "2024-05-20T16:03:47Z"
+                },
+                {
+                  "id": "GO-2024-2937",
+                  "modified": "2024-07-15T22:12:27.099111Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "784"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 1
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 158
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "github.com/gogo/protobuf"
+              },
+              "version": "1.3.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 151
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-c3h9-896r-86jm",
+                  "modified": "2023-12-06T01:01:11.322262Z"
+                },
+                {
+                  "id": "GO-2021-0053",
+                  "modified": "2024-05-20T16:03:47Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "151"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 2
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 158
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "github.com/gogo/protobuf"
+              },
+              "version": "1.3.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled_but_enabled_all-vulns_flag
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 151
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-c3h9-896r-86jm",
+                  "modified": "2023-12-06T01:01:11.322262Z"
+                },
+                {
+                  "id": "GO-2021-0053",
+                  "modified": "2024-05-20T16:03:47Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "151"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

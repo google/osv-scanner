@@ -3,13 +3,17 @@ package osvmatcher
 import (
 	"context"
 	"errors"
+	"net/http"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"golang.org/x/sync/errgroup"
+	"osv.dev/bindings/go/api"
 	"osv.dev/bindings/go/osvdev"
 	"osv.dev/bindings/go/osvdevexperimental"
 )
@@ -17,6 +21,17 @@ import (
 const (
 	maxConcurrentRequests = 1000
 )
+
+// goVersionSuffixRegexp matches a Golang major suffix in a PURL's subpath.
+//
+// Matches:
+//   - v4 - v4
+//   - /v5/sdk/internal - v5
+//
+// Does not match:
+//   - sdk/internal
+//   - /sdk/resourcemanager/iothub/armiothub
+var goVersionSuffixRegexp = cachedregexp.MustCompile(`^/?(v\d+)`)
 
 // OSVMatcher implements the VulnerabilityMatcher interface with an osv.dev client.
 // It sends out requests for every package version and does not perform caching.
@@ -28,19 +43,27 @@ type OSVMatcher struct {
 	InitialQueryTimeout time.Duration
 }
 
-func New(initialQueryTimeout time.Duration, userAgent string) *OSVMatcher {
-	client := *osvdev.DefaultClient()
-	client.Config.UserAgent = userAgent
+func New(initialQueryTimeout time.Duration, userAgent string, httpClient *http.Client) *OSVMatcher {
+	if httpClient == nil {
+		httpClient = http.DefaultClient
+	}
+
+	config := osvdev.DefaultConfig()
+	config.UserAgent = userAgent
 
 	return &OSVMatcher{
-		Client:              client,
+		Client: osvdev.OSVClient{
+			HTTPClient:  httpClient,
+			Config:      config,
+			BaseHostURL: osvdev.DefaultBaseURL,
+		},
 		InitialQueryTimeout: initialQueryTimeout,
 	}
 }
 
 // MatchVulnerabilities matches vulnerabilities for a list of packages.
 func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
-	var batchResp *osvdev.BatchedResponse
+	var batchResp *api.BatchVulnerabilityList
 	deadlineExceeded := false
 
 	{
@@ -74,20 +97,20 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 		}
 	}
 
-	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.Results))
+	vulnerabilities := make([][]*osvschema.Vulnerability, len(batchResp.GetResults()))
 	g, ctx := errgroup.WithContext(ctx)
 	g.SetLimit(maxConcurrentRequests)
 
-	for batchIdx, resp := range batchResp.Results {
-		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.Vulns))
-		for resultIdx, vuln := range resp.Vulns {
+	for batchIdx, resp := range batchResp.GetResults() {
+		vulnerabilities[batchIdx] = make([]*osvschema.Vulnerability, len(resp.GetVulns()))
+		for resultIdx, vuln := range resp.GetVulns() {
 			g.Go(func() error {
 				// exit early if another hydration request has already failed
 				// results are thrown away later, so avoid needless work
 				if ctx.Err() != nil {
 					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
-				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.ID)
+				vuln, err := matcher.Client.GetVulnByID(ctx, vuln.GetId())
 				if err != nil {
 					return err
 				}
@@ -109,20 +132,39 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 	return vulnerabilities, nil
 }
 
-func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {
+func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
 	if pkg.Name() != "" && !pkg.Ecosystem().IsEmpty() && pkg.Version() != "" {
-		return &osvdev.Query{
-			Package: osvdev.Package{
-				Name:      pkg.Name(),
+		name := pkg.Name()
+
+		// Tools like Syft create Go PURLs where the module's major suffix is part
+		// of the subpath as opposed to the package name:
+		//
+		// pkg:golang/github.com/go-jose/go-jose@v4.1.3#v4
+		//
+		// For a correct match we need to add the major suffix back
+		if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo && pkg.PURL().Subpath != "" {
+			match := goVersionSuffixRegexp.FindStringSubmatch(pkg.PURL().Subpath)
+			if match != nil {
+				name += "/" + match[1]
+			}
+		}
+
+		return &api.Query{
+			Package: &osvschema.Package{
+				Name:      name,
 				Ecosystem: pkg.Ecosystem().String(),
 			},
-			Version: pkg.Version(),
+			Param: &api.Query_Version{
+				Version: pkg.Version(),
+			},
 		}
 	}
 
 	if pkg.Commit() != "" {
-		return &osvdev.Query{
-			Commit: pkg.Commit(),
+		return &api.Query{
+			Param: &api.Query_Commit{
+				Commit: pkg.Commit(),
+			},
 		}
 	}
 
@@ -134,8 +176,8 @@ func pkgToQuery(pkg imodels.PackageInfo) *osvdev.Query {
 
 // invsToQueries converts inventories to queries via the osv-scanner internal imodels
 // to perform the necessary transformations
-func invsToQueries(invs []*extractor.Package) []*osvdev.Query {
-	queries := make([]*osvdev.Query, len(invs))
+func invsToQueries(invs []*extractor.Package) []*api.Query {
+	queries := make([]*api.Query, len(invs))
 
 	for i, inv := range invs {
 		pkg := imodels.FromInventory(inv)

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"io"
 	"log/slog"
-	"os"
+	"net/http"
 	"testing"
 
 	scalibr "github.com/google/osv-scalibr/version"
@@ -21,17 +21,9 @@ var (
 	date   = "n/a"
 )
 
-type CommandBuilder = func(stdout, stderr io.Writer) *cli.Command
+type CommandBuilder = func(stdout, stderr io.Writer, client *http.Client) *cli.Command
 
-func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int {
-	// urfave/cli uses a global for its help flag which makes it possible for a nil
-	// pointer dereference if running in a parallel setting, which our test suite
-	// does, so this is used to hide the help flag so the global won't be used
-	// unless a particular env variable is set
-	//
-	// see https://github.com/urfave/cli/issues/2176
-	shouldHideHelp := testing.Testing() && os.Getenv("TEST_SHOW_HELP") != "true"
-
+func Run(args []string, stdout, stderr io.Writer, client *http.Client, commands []CommandBuilder) int {
 	// --- Setup Logger ---
 	logHandler := cmdlogger.New(stdout, stderr)
 
@@ -50,6 +42,11 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 	}
 	// ---
 
+	cli.HelpPrinter = func(w io.Writer, templ string, data any) {
+		cmdlogger.SetHasErrored()
+		cli.HelpPrinterCustom(w, templ, data, nil)
+	}
+
 	cli.VersionPrinter = func(cmd *cli.Command) {
 		cmdlogger.Infof("osv-scanner version: %s", cmd.Version)
 		cmdlogger.Infof("osv-scalibr version: %s", scalibr.ScannerVersion)
@@ -59,10 +56,7 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 
 	cmds := make([]*cli.Command, 0, len(commands))
 	for _, cmd := range commands {
-		c := cmd(stdout, stderr)
-		c.HideHelp = shouldHideHelp
-
-		cmds = append(cmds, c)
+		cmds = append(cmds, cmd(stdout, stderr, client))
 	}
 
 	app := &cli.Command{
@@ -70,7 +64,6 @@ func Run(args []string, stdout, stderr io.Writer, commands []CommandBuilder) int
 		Version:        version.OSVVersion,
 		Usage:          "scans various mediums for dependencies and checks them against the OSV database",
 		Suggest:        true,
-		HideHelp:       shouldHideHelp,
 		Writer:         stdout,
 		ErrWriter:      stderr,
 		DefaultCommand: "scan",

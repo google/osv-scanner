@@ -2,11 +2,9 @@ package localmatcher
 
 import (
 	"archive/zip"
-	"bytes"
 	"context"
 	"encoding/base64"
 	"encoding/binary"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"hash/crc32"
@@ -14,6 +12,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"slices"
 	"strings"
 
 	"github.com/google/osv-scalibr/extractor"
@@ -21,6 +20,8 @@ import (
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/utility/vulns"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
+	"github.com/tidwall/gjson"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
 type ZipDB struct {
@@ -33,7 +34,7 @@ type ZipDB struct {
 	// the path to the zip archive on disk
 	StoredAt string
 	// the vulnerabilities that are loaded into this database
-	Vulnerabilities []osvschema.Vulnerability
+	Vulnerabilities []*osvschema.Vulnerability
 	// User agent to query with
 	UserAgent string
 
@@ -63,8 +64,8 @@ func fetchRemoteArchiveCRC32CHash(ctx context.Context, url string) (uint32, erro
 	}
 
 	for _, value := range resp.Header.Values("X-Goog-Hash") {
-		if strings.HasPrefix(value, "crc32c=") {
-			value = strings.TrimPrefix(value, "crc32c=")
+		if after, ok := strings.CutPrefix(value, "crc32c="); ok {
+			value = after
 			out, err := base64.StdEncoding.DecodeString(value)
 
 			if err != nil {
@@ -78,19 +79,25 @@ func fetchRemoteArchiveCRC32CHash(ctx context.Context, url string) (uint32, erro
 	return 0, errors.New("could not find crc32c= checksum")
 }
 
-func fetchLocalArchiveCRC32CHash(data []byte) uint32 {
-	return crc32.Checksum(data, crc32.MakeTable(crc32.Castagnoli))
+func fetchLocalArchiveCRC32CHash(f *os.File) (uint32, error) {
+	h := crc32.New(crc32.MakeTable(crc32.Castagnoli))
+
+	if _, err := io.Copy(h, f); err != nil {
+		return 0, err
+	}
+
+	return h.Sum32(), nil
 }
 
-func (db *ZipDB) fetchZip(ctx context.Context) ([]byte, error) {
-	cache, err := os.ReadFile(db.StoredAt)
+func (db *ZipDB) fetchZip(ctx context.Context) (*os.File, error) {
+	f, err := os.Open(db.StoredAt)
 
 	if db.Offline {
 		if err != nil {
 			return nil, ErrOfflineDatabaseNotFound
 		}
 
-		return cache, nil
+		return f, nil
 	}
 
 	if err == nil {
@@ -100,8 +107,14 @@ func (db *ZipDB) fetchZip(ctx context.Context) ([]byte, error) {
 			return nil, err
 		}
 
-		if fetchLocalArchiveCRC32CHash(cache) == remoteHash {
-			return cache, nil
+		localHash, err := fetchLocalArchiveCRC32CHash(f)
+
+		if err != nil {
+			return nil, err
+		}
+
+		if remoteHash == localHash {
+			return f, nil
 		}
 	}
 
@@ -126,38 +139,45 @@ func (db *ZipDB) fetchZip(ctx context.Context) ([]byte, error) {
 		return nil, fmt.Errorf("db host returned %s", resp.Status)
 	}
 
-	var body []byte
-
-	body, err = io.ReadAll(resp.Body)
-
-	if err != nil {
-		return nil, fmt.Errorf("could not read OSV database archive from response: %w", err)
-	}
-
 	err = os.MkdirAll(path.Dir(db.StoredAt), 0750)
 
-	if err == nil {
-		//nolint:gosec // being world readable is fine
-		err = os.WriteFile(db.StoredAt, body, 0644)
+	if err != nil {
+		return nil, fmt.Errorf("could not create cache directory: %w", err)
 	}
+
+	f, err = os.OpenFile(db.StoredAt, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0644)
 
 	if err != nil {
-		cmdlogger.Warnf("Failed to save database to %s: %v", db.StoredAt, err)
+		return nil, fmt.Errorf("could not create cache file: %w", err)
 	}
 
-	return body, nil
+	_, err = io.Copy(f, resp.Body)
+
+	if err != nil {
+		return nil, fmt.Errorf("could not write cache file: %w", err)
+	}
+
+	_, _ = f.Seek(0, io.SeekStart)
+
+	return f, nil
 }
 
-func mightAffectPackages(v osvschema.Vulnerability, names []string) bool {
-	for _, affected := range v.Affected {
-		for _, name := range names {
-			if affected.Package.Name == name {
-				return true
-			}
+func mightAffectPackagesBytes(content []byte, names []string) bool {
+	affected := gjson.GetBytes(content, "affected")
 
-			// "name" will be the git repository in the case of the GIT ecosystem
-			for _, ran := range affected.Ranges {
-				if ran.Repo == name {
+	for _, name := range affected.Get("#.package.name").Array() {
+		if slices.Contains(names, name.String()) {
+			return true
+		}
+	}
+
+	for _, repos := range affected.Get("#.ranges.#.repo").Array() {
+		for _, repo := range repos.Array() {
+			repoName := vulns.NormalizeRepo(repo.String())
+
+			for _, name := range names {
+				// "name" will be the git repository in the case of the GIT ecosystem
+				if repoName == vulns.NormalizeRepo(name) {
 					return true
 				}
 			}
@@ -185,19 +205,20 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File, names []string) {
 		return
 	}
 
-	var vulnerability osvschema.Vulnerability
+	// if we have been provided a list of package names, only load advisories
+	// that might actually affect those packages, rather than all advisories
+	if len(names) > 0 && !mightAffectPackagesBytes(content, names) {
+		return
+	}
 
-	if err := json.Unmarshal(content, &vulnerability); err != nil {
+	vulnerability := &osvschema.Vulnerability{}
+	if err := protojson.Unmarshal(content, vulnerability); err != nil {
 		cmdlogger.Warnf("%s is not a valid JSON file: %v", zipFile.Name, err)
 
 		return
 	}
 
-	// if we have been provided a list of package names, only load advisories
-	// that might actually affect those packages, rather than all advisories
-	if len(names) == 0 || mightAffectPackages(vulnerability, names) {
-		db.Vulnerabilities = append(db.Vulnerabilities, vulnerability)
-	}
+	db.Vulnerabilities = append(db.Vulnerabilities, vulnerability)
 }
 
 // load fetches a zip archive of the OSV database and loads known vulnerabilities
@@ -210,15 +231,23 @@ func (db *ZipDB) loadZipFile(zipFile *zip.File, names []string) {
 // so that a new version of the archive is only downloaded if it has been
 // modified, per HTTP caching standards.
 func (db *ZipDB) load(ctx context.Context, names []string) error {
-	db.Vulnerabilities = []osvschema.Vulnerability{}
+	db.Vulnerabilities = []*osvschema.Vulnerability{}
 
-	body, err := db.fetchZip(ctx)
+	f, err := db.fetchZip(ctx)
 
 	if err != nil {
 		return err
 	}
 
-	zipReader, err := zip.NewReader(bytes.NewReader(body), int64(len(body)))
+	defer f.Close()
+
+	s, err := f.Stat()
+
+	if err != nil {
+		return err
+	}
+
+	zipReader, err := zip.NewReader(f, s.Size())
 	if err != nil {
 		return fmt.Errorf("could not read OSV database archive: %w", err)
 	}
@@ -265,12 +294,12 @@ func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, o
 // VulnerabilitiesAffectingPackage returns the vulnerabilities that affects the provided package
 //
 // TODO: Move this to another file.
-func VulnerabilitiesAffectingPackage(allVulns []osvschema.Vulnerability, pkg imodels.PackageInfo) []*osvschema.Vulnerability {
+func VulnerabilitiesAffectingPackage(allVulns []*osvschema.Vulnerability, pkg imodels.PackageInfo) []*osvschema.Vulnerability {
 	var vulnerabilities []*osvschema.Vulnerability
 
 	for _, vulnerability := range allVulns {
-		if vulnerability.Withdrawn.IsZero() && vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
-			vulnerabilities = append(vulnerabilities, &vulnerability)
+		if vulnerability.GetWithdrawn() == nil && vulns.IsAffected(vulnerability, pkg) && !vulns.Include(vulnerabilities, vulnerability) {
+			vulnerabilities = append(vulnerabilities, vulnerability)
 		}
 	}
 

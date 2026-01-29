@@ -15,12 +15,14 @@ import (
 	"slices"
 	"strings"
 
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	scalibrfs "github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/purl"
+	"osv.dev/bindings/go/api"
 	"osv.dev/bindings/go/osvdev"
 )
 
@@ -75,8 +77,8 @@ type Extractor struct {
 }
 
 // New returns a new instance of the extractor.
-func New() filesystem.Extractor {
-	return &Extractor{}
+func New(_ *cpb.PluginConfig) (filesystem.Extractor, error) {
+	return &Extractor{}, nil
 }
 
 // Name of the extractor.
@@ -121,12 +123,12 @@ func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (i
 		return inventory.Inventory{}, err
 	}
 
-	if len(results.Matches) > 0 && results.Matches[0].Score > determineVersionThreshold {
-		match := results.Matches[0]
+	if len(results.GetMatches()) > 0 && results.GetMatches()[0].GetScore() > determineVersionThreshold {
+		match := results.GetMatches()[0]
 		// r.Infof("Identified %s as %s at %s.\n", libPath, match.RepoInfo.Address, match.RepoInfo.Commit)
 		packages = append(packages, &extractor.Package{
 			SourceCode: &extractor.SourceCodeIdentifier{
-				Commit: match.RepoInfo.Commit,
+				Commit: match.GetRepoInfo().GetCommit(),
 			},
 			Locations: []string{input.Path},
 		})
@@ -147,8 +149,8 @@ func (e *Extractor) Ecosystem(_ *extractor.Package) string {
 	return ""
 }
 
-func (e *Extractor) queryDetermineVersions(ctx context.Context, repoDir string, fsys scalibrfs.FS, scanGitDir bool) (*osvdev.DetermineVersionResponse, error) {
-	var hashes []osvdev.DetermineVersionHash
+func (e *Extractor) queryDetermineVersions(ctx context.Context, repoDir string, fsys scalibrfs.FS, scanGitDir bool) (*api.VersionMatchList, error) {
+	var hashes []*api.FileHash
 
 	err := fs.WalkDir(fsys, repoDir, func(p string, d fs.DirEntry, _ error) error {
 		if d.IsDir() {
@@ -182,9 +184,9 @@ func (e *Extractor) queryDetermineVersions(ctx context.Context, repoDir string, 
 			return err
 		}
 		hash := md5.Sum(buf.Bytes()) //nolint:gosec
-		hashes = append(hashes, osvdev.DetermineVersionHash{
-			Path: strings.ReplaceAll(p, repoDir, ""),
-			Hash: hash[:],
+		hashes = append(hashes, &api.FileHash{
+			FilePath: strings.ReplaceAll(p, repoDir, ""),
+			Hash:     hash[:],
 		})
 		if len(hashes) > maxDetermineVersionFiles {
 			return errors.New("too many files to hash")
@@ -197,9 +199,11 @@ func (e *Extractor) queryDetermineVersions(ctx context.Context, repoDir string, 
 		return nil, fmt.Errorf("failed during hashing: %w", err)
 	}
 
-	result, err := e.OSVClient.ExperimentalDetermineVersion(ctx, &osvdev.DetermineVersionsRequest{
-		Name:       filepath.Base(repoDir),
-		FileHashes: hashes,
+	result, err := e.OSVClient.ExperimentalDetermineVersion(ctx, &api.DetermineVersionParameters{
+		Query: &api.VersionQuery{
+			Name:       filepath.Base(repoDir),
+			FileHashes: hashes,
+		},
 	})
 
 	if err != nil {

@@ -148,7 +148,7 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 		},
 		&cli.StringSliceFlag{
 			Name:  "call-analysis",
-			Usage: "attempt call analysis on code to detect only active vulnerabilities",
+			Usage: "Enable call analysis for specific languages (e.g. --call-analysis=go). Supported: go, rust (*). (*) Will run build scripts.",
 		},
 		&cli.StringSliceFlag{
 			Name:  "no-call-analysis",
@@ -174,6 +174,10 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Name:  "licenses",
 			Usage: "report on licenses based on an allowlist",
 			Value: &allowedLicencesFlag{},
+		},
+		&cli.BoolFlag{
+			Name:  "experimental-flag-deprecated-packages",
+			Usage: "report if package versions are deprecated",
 		},
 		&cli.StringSliceFlag{
 			Name:  "experimental-plugins",

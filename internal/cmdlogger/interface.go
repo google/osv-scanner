@@ -5,6 +5,7 @@ import "log/slog"
 type CmdLogger interface {
 	slog.Handler
 	SendEverythingToStderr()
+	SetHasErrored()
 	HasErrored() bool
 	HasErroredBecauseInvalidConfig() bool
 	SetLevel(level slog.Leveler)

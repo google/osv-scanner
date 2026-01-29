@@ -114,7 +114,7 @@ file not found: ./testdata/does_not_exist.xml
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>2.20.0</version>
+      <version>2.21.0</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -185,7 +185,7 @@ file not found: ./testdata/does_not_exist.xml
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>2.20.0</version>
+      <version>2.21.0</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -256,7 +256,7 @@ file not found: ./testdata/does_not_exist.xml
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
-      <version>2.20.0</version>
+      <version>2.21.0</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
@@ -290,5 +290,26 @@ file not found: ./testdata/does_not_exist.xml
   </profiles>
 
 </project>
+
+---
+
+[TestCommand/with_no_arguments - 1]
+NAME:
+   osv-scanner update - [EXPERIMENTAL] scans a manifest file then updates dependencies
+
+USAGE:
+   osv-scanner update
+
+OPTIONS:
+   --manifest string, -M string                                                     path to manifest file (required)
+   --ignore-dev                                                                     whether to ignore development dependencies for updates
+   --upgrade-config [package-name:]level [ --upgrade-config [package-name:]level ]  the allowed package upgrades, in the format [package-name:]level. If package-name is omitted, level is applied to all packages. level must be one of (major, minor, patch, none). (default: major)
+   --data-source string                                                             source to fetch package information from; value can be: deps.dev, native (default: "deps.dev")
+   --help, -h                                                                       show help
+
+---
+
+[TestCommand/with_no_arguments - 2]
+Required flag "manifest" not set
 
 ---

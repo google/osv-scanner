@@ -1,0 +1,323 @@
+---
+version: 2
+interactions:
+  - id: 0
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 238
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "commit": "4579d5538f06c5ef615a15bc67ebb9ac0523a973"
+            },
+            {
+              "commit": "9de7a0544457c6aba755ccb65abb41b0dc1db70d"
+            },
+            {
+              "commit": "5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_GithubActions/scanning_osv-scanner_custom_format
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 161
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "CVE-2023-39137",
+                  "modified": "2025-11-20T12:19:03.518975Z"
+                },
+                {
+                  "id": "CVE-2023-39139",
+                  "modified": "2025-11-20T12:19:06.047365Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "161"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 1
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 238
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "commit": "4579d5538f06c5ef615a15bc67ebb9ac0523a973"
+            },
+            {
+              "commit": "9de7a0544457c6aba755ccb65abb41b0dc1db70d"
+            },
+            {
+              "commit": "5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_GithubActions/scanning_osv-scanner_custom_format_output_json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 161
+      body: |
+        {
+          "results": [
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "CVE-2023-39137",
+                  "modified": "2025-11-20T12:19:03.518975Z"
+                },
+                {
+                  "id": "CVE-2023-39139",
+                  "modified": "2025-11-20T12:19:06.047365Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "161"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 2
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 169
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "GIT",
+                "name": "github.com/openssl/openssl"
+              },
+              "version": "openssl-3.0.4"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_GithubActions/scanning_osv-scanner_custom_format_with_git_tag
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 2458
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "CVE-2016-2177",
+                  "modified": "2025-12-09T16:46:12.318619Z"
+                },
+                {
+                  "id": "CVE-2016-2182",
+                  "modified": "2025-12-09T16:46:26.631815Z"
+                },
+                {
+                  "id": "CVE-2021-3449",
+                  "modified": "2025-12-10T10:07:59.632202Z"
+                },
+                {
+                  "id": "CVE-2022-2097",
+                  "modified": "2025-11-20T11:58:52.675121Z"
+                },
+                {
+                  "id": "CVE-2022-2274",
+                  "modified": "2025-11-20T12:02:14.751377Z"
+                },
+                {
+                  "id": "CVE-2022-3358",
+                  "modified": "2025-11-20T12:07:23.511908Z"
+                },
+                {
+                  "id": "CVE-2022-3602",
+                  "modified": "2025-12-06T07:03:58.914583Z"
+                },
+                {
+                  "id": "CVE-2022-3786",
+                  "modified": "2025-12-10T10:09:17.892841Z"
+                },
+                {
+                  "id": "CVE-2022-3996",
+                  "modified": "2025-11-20T12:10:00.375284Z"
+                },
+                {
+                  "id": "CVE-2022-4203",
+                  "modified": "2025-11-20T12:11:14.835736Z"
+                },
+                {
+                  "id": "CVE-2022-4304",
+                  "modified": "2025-11-20T12:10:27.150998Z"
+                },
+                {
+                  "id": "CVE-2022-4450",
+                  "modified": "2025-11-20T12:10:56.411256Z"
+                },
+                {
+                  "id": "CVE-2023-0215",
+                  "modified": "2025-11-20T12:12:12.402377Z"
+                },
+                {
+                  "id": "CVE-2023-0217",
+                  "modified": "2025-11-20T12:12:13.492583Z"
+                },
+                {
+                  "id": "CVE-2023-0286",
+                  "modified": "2025-11-20T12:12:17.064221Z"
+                },
+                {
+                  "id": "CVE-2023-0464",
+                  "modified": "2025-11-20T12:12:18.734998Z"
+                },
+                {
+                  "id": "CVE-2023-0465",
+                  "modified": "2025-11-20T12:12:19.093875Z"
+                },
+                {
+                  "id": "CVE-2023-0466",
+                  "modified": "2025-11-20T12:12:19.957706Z"
+                },
+                {
+                  "id": "CVE-2023-1255",
+                  "modified": "2025-11-20T12:12:40.724347Z"
+                },
+                {
+                  "id": "CVE-2023-2650",
+                  "modified": "2025-11-20T12:16:52.866359Z"
+                },
+                {
+                  "id": "CVE-2023-2975",
+                  "modified": "2025-11-20T12:17:30.162527Z"
+                },
+                {
+                  "id": "CVE-2023-3446",
+                  "modified": "2025-11-20T12:18:13.491842Z"
+                },
+                {
+                  "id": "CVE-2023-3817",
+                  "modified": "2025-11-20T12:19:02.198369Z"
+                },
+                {
+                  "id": "CVE-2023-4807",
+                  "modified": "2025-11-20T12:22:30.032710Z"
+                },
+                {
+                  "id": "CVE-2023-5363",
+                  "modified": "2025-12-05T03:06:05.983850Z"
+                },
+                {
+                  "id": "CVE-2023-5678",
+                  "modified": "2025-12-05T03:10:25.366442Z"
+                },
+                {
+                  "id": "CVE-2023-6129",
+                  "modified": "2025-11-20T12:22:57.734531Z"
+                },
+                {
+                  "id": "CVE-2023-6237",
+                  "modified": "2025-11-20T12:23:07.333431Z"
+                },
+                {
+                  "id": "CVE-2024-0727",
+                  "modified": "2025-11-20T12:23:31.205630Z"
+                },
+                {
+                  "id": "CVE-2024-13176",
+                  "modified": "2025-11-20T12:24:35.236055Z"
+                },
+                {
+                  "id": "CVE-2024-2511",
+                  "modified": "2025-11-20T12:26:42.817521Z"
+                },
+                {
+                  "id": "CVE-2024-4603",
+                  "modified": "2025-11-20T12:28:59.998868Z"
+                },
+                {
+                  "id": "CVE-2024-4741",
+                  "modified": "2025-11-20T12:31:20.836244Z"
+                },
+                {
+                  "id": "CVE-2024-5535",
+                  "modified": "2025-11-20T12:32:28.603392Z"
+                },
+                {
+                  "id": "CVE-2024-6119",
+                  "modified": "2025-12-05T12:32:36.014822Z"
+                },
+                {
+                  "id": "CVE-2024-9143",
+                  "modified": "2025-11-20T12:29:52.602673Z"
+                },
+                {
+                  "id": "CVE-2025-9230",
+                  "modified": "2025-11-20T12:41:41.279262Z"
+                },
+                {
+                  "id": "CVE-2025-9232",
+                  "modified": "2025-11-20T12:41:41.107151Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "2458"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

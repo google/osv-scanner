@@ -140,6 +140,35 @@ $ osv-scanner fix \
 
 <img src="https://google.github.io/osv-scanner/images/guided-remediation-relock-patches.png" alt="Screenshot of the interactive relock results screen with some relaxation patches selected">
 
+## Data Sources and Privacy
+
+OSV-Scanner communicates with the following external services during operation:
+
+### [OSV.dev API](https://osv.dev/)
+
+The primary data source for vulnerability information. OSV-Scanner queries this API to check packages for known vulnerabilities and to identify vendored C/C++ dependencies. Data sent includes package names, versions, ecosystems, and file hashes. Use [`--offline` mode](https://google.github.io/osv-scanner/usage/offline-mode/) to disable network requests and scan against a local database instead.
+
+### [deps.dev API](https://docs.deps.dev/api/)
+
+Used for supplementary package information:
+
+- **Dependency resolution**: Resolves dependency graphs for vulnerability scanning and remediation
+- **Container image scanning**: Queries container image metadata for vulnerability detection
+- **License scanning** (`--licenses` flag): Retrieves license information for packages
+- **Package deprecation**: Checks if packages are deprecated
+
+Data sent includes package names, versions, and ecosystems. No source code is transmitted.
+
+### Package Registries
+
+When using native registry for dependency resolution (instead of deps.dev), OSV-Scanner may query:
+
+| Registry      | URL                            | Used For                             |
+| ------------- | ------------------------------ | ------------------------------------ |
+| Maven Central | `repo.maven.apache.org/maven2` | Maven package metadata and POM files |
+| npm Registry  | `registry.npmjs.org`           | npm package metadata                 |
+| PyPI          | `pypi.org`                     | Python package metadata              |
+
 ## Contribute
 
 ### Report Problems

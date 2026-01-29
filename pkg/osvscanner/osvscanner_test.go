@@ -1,0 +1,96 @@
+package osvscanner_test
+
+import (
+	"bytes"
+	"errors"
+	"log/slog"
+	"testing"
+
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/google/osv-scanner/v2/pkg/osvscanner"
+)
+
+// TestDoScan_LogHandlerOverride tests that the SetLogger override works correctly
+//
+//nolint:paralleltest // No parallel test since slog.SetDefault sets global behavior
+func TestDoScan_LogHandlerOverride(t *testing.T) {
+	// Restore default slog behavior at the ned of the test
+	defaultHandler := slog.Default()
+	defer func() {
+		slog.SetDefault(defaultHandler)
+	}()
+
+	actions := osvscanner.ScannerActions{
+		DirectoryPaths: []string{"../../cmd/osv-scanner/testdata/locks-many/Gemfile.lock"},
+	}
+
+	output := bytes.NewBuffer(nil)
+	slog.SetDefault(slog.New(slog.NewTextHandler(output, nil)))
+
+	_, _ = osvscanner.DoScan(actions)
+
+	// Test that normally logging is output correctly to the default slog handler.
+	if output.Len() == 0 {
+		t.Errorf("output.Len() = %d, want %d", output.Len(), 0)
+	}
+
+	// Clear output buffer for next run
+	output.Truncate(0)
+
+	// Test if output is overridden
+	altOutput := bytes.NewBuffer(nil)
+	osvscanner.SetLogger(slog.NewTextHandler(altOutput, nil))
+
+	_, _ = osvscanner.DoScan(actions)
+
+	// Normal slog output should be empty.
+	if output.Len() != 0 {
+		t.Errorf("output.Len() = %d, want %d", output.Len(), 0)
+		t.Errorf("Got: %s", output.String())
+	}
+
+	// altOutput should contain data now instead.
+	if altOutput.Len() == 0 {
+		t.Errorf("altOutput.Len() = %d, want %d", altOutput.Len(), 0)
+	}
+}
+
+func TestDoScan(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		actions osvscanner.ScannerActions
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    models.VulnerabilityResults
+		wantErr error
+	}{
+		{
+			name: "Test curl git scanning",
+			args: args{
+				actions: osvscanner.ScannerActions{
+					GitCommits: []string{"33dffa3909a67e1b5d22647128ab7eb6e53fd0c7"},
+				},
+			},
+			want:    models.VulnerabilityResults{},
+			wantErr: osvscanner.ErrVulnerabilitiesFound,
+		},
+		// TODO: Add test cases.
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			got, err := osvscanner.DoScan(tt.args.actions)
+			if !errors.Is(err, tt.wantErr) {
+				t.Errorf("DoScan() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+
+			snap := testutility.NewSnapshot()
+			snap.MatchJSON(t, got)
+		})
+	}
+}

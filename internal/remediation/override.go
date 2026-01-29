@@ -58,7 +58,7 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 	toProcess := 0
 	for _, v := range result.Vulns {
 		// TODO: limit the number of goroutines
-		go doOverride([]string{v.OSV.ID})
+		go doOverride([]string{v.OSV.GetId()})
 		toProcess++
 	}
 
@@ -99,8 +99,8 @@ func ComputeOverridePatches(ctx context.Context, cl client.ResolutionClient, res
 		// If there are any new vulns, try override them as well
 		var newlyAdded []string
 		for _, v := range diff.AddedVulns {
-			if !slices.Contains(res.vulnIDs, v.OSV.ID) {
-				newlyAdded = append(newlyAdded, v.OSV.ID)
+			if !slices.Contains(res.vulnIDs, v.OSV.GetId()) {
+				newlyAdded = append(newlyAdded, v.OSV.GetId())
 			}
 		}
 
@@ -127,7 +127,7 @@ func overridePatchVulns(ctx context.Context, cl client.ResolutionClient, result 
 		// Find the relevant vulns affecting each version key.
 		vkVulns := make(map[resolve.VersionKey][]*resolution.Vulnerability)
 		for i, v := range result.Vulns {
-			if !slices.Contains(vulnIDs, v.OSV.ID) {
+			if !slices.Contains(vulnIDs, v.OSV.GetId()) {
 				continue
 			}
 			// Keep track of VersionKeys we've seen for this vuln to avoid duplicates.

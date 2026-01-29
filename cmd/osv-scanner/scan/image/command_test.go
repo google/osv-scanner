@@ -13,48 +13,62 @@ import (
 
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
+		{
+			Name: "add_extractors",
+			Args: []string{
+				"", "image",
+				"--archive",
+				"--experimental-plugins=sbom/spdx",
+				"--experimental-plugins=sbom/cdx",
+				"testdata/test-alpine-sbom.tar",
+			},
+			Exit: 1,
+		},
 		{
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom/spdx",
 				"--experimental-plugins=sbom/cdx",
 				"--experimental-disable-plugins=sbom",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
-			Exit: 127,
+			Exit: 1,
 		},
 		{
 			Name: "extractors_cancelled_out_with_presets",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom",
 				"--experimental-disable-plugins=sbom",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
-			Exit: 127,
+			Exit: 1,
 		},
 		{
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom/spdx,sbom/cdx",
 				"--experimental-disable-plugins=sbom",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
-			Exit: 127,
+			Exit: 1,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 
-			// Only test on linux, and mac/windows CI/CD does not come with docker preinstalled
-			if runtime.GOOS != "linux" {
-				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
-			}
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
@@ -64,16 +78,33 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	t.Parallel()
 
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
+
+	client := testcmd.InsertCassette(t)
+
 	tests := []testcmd.Case{
+		{
+			Name: "add_extractors",
+			Args: []string{
+				"", "image",
+				"--archive",
+				"--experimental-plugins=sbom/spdx",
+				"--experimental-plugins=sbom/cdx",
+				"--experimental-no-default-plugins",
+				"testdata/test-alpine-sbom.tar",
+			},
+			Exit: 1,
+		},
 		{
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom/spdx",
 				"--experimental-plugins=sbom/cdx",
 				"--experimental-disable-plugins=sbom",
 				"--experimental-no-default-plugins",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
 		},
@@ -81,10 +112,11 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out_with_presets",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom",
 				"--experimental-disable-plugins=sbom",
 				"--experimental-no-default-plugins",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
 		},
@@ -92,10 +124,11 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out",
 			Args: []string{
 				"", "image",
+				"--archive",
 				"--experimental-plugins=sbom/spdx,sbom/cdx",
 				"--experimental-disable-plugins=sbom",
 				"--experimental-no-default-plugins",
-				"alpine:non-existent-tag",
+				"testdata/test-alpine-sbom.tar",
 			},
 			Exit: 127,
 		},
@@ -103,6 +136,9 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -111,7 +147,10 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 func TestCommand_Docker(t *testing.T) {
 	t.Parallel()
 
-	testutility.SkipIfNotAcceptanceTesting(t, "Takes a long time to pull down images")
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker (also takes a long time to pull images)")
+	testutility.SkipIfShort(t)
+
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -167,6 +206,8 @@ func TestCommand_Docker(t *testing.T) {
 				testutility.Skip(t, "Skipping Docker-based test as only Linux has Docker installed in CI")
 			}
 
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -174,8 +215,9 @@ func TestCommand_Docker(t *testing.T) {
 
 func TestCommand_OCIImage(t *testing.T) {
 	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
-	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
@@ -206,11 +248,20 @@ func TestCommand_OCIImage(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			// This tests that unimportant vulns are hidden properly
+			// If the test is failing (reporting new important vulns), add the package that introduced the vuln as ignore=true to the config.toml
+			// The package with unimportant vulns is pcre3, so if a new vulnerability appears for that package, don't ignore the entire package, just ignore the important vulnerability specifically.
 			Name: "Empty Ubuntu 20.04 image tar with no vulns shown",
 			Args: []string{"", "image", "--archive",
 				"--config=./testdata/ubuntu20-04-unimportant-config.toml",
 				"./testdata/test-ubuntu-20-04.tar"},
 			Exit: 0,
+		},
+		{
+			// This tests that the fzf go binary is not being reported because it's a OS package
+			Name: "Scanning_Ubuntu_image_with_go_OS_packages_json",
+			Args: []string{"", "image", "--archive", "./testdata/test-ubuntu-with-packages.tar"},
+			Exit: 1,
 		},
 		{
 			Name: "Scanning python image with some packages",
@@ -315,6 +366,8 @@ func TestCommand_OCIImage(t *testing.T) {
 				}
 			}
 
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -322,57 +375,70 @@ func TestCommand_OCIImage(t *testing.T) {
 
 func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 	t.Parallel()
+	testutility.SkipIfNotAcceptanceTesting(t, "Requires docker to build the images")
 
-	testutility.SkipIfNotAcceptanceTesting(t, "Takes a while to run")
+	client := testcmd.InsertCassette(t)
 
 	tests := []testcmd.Case{
 		{
 			Name: "Scanning python image with some packages",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-python-full.tar"},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
-				testcmd.NormalizeHistoryCommand,
-				testcmd.ShortenHistoryCommandLength,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+				testutility.NormalizeHistoryCommand,
+				testutility.ShortenHistoryCommandLength,
 			},
 		},
 		{
 			Name: "scanning node_modules using npm with some packages",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-node_modules-npm-full.tar"},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
-				testcmd.NormalizeHistoryCommand,
-				testcmd.ShortenHistoryCommandLength,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+				testutility.NormalizeHistoryCommand,
+				testutility.ShortenHistoryCommandLength,
 			},
 		},
 		{
 			Name: "scanning image with go binary",
 			Args: []string{"", "image", "--archive", "--all-packages", "--format=json", "./testdata/test-go-binary.tar"},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
-				testcmd.NormalizeHistoryCommand,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+				testutility.NormalizeHistoryCommand,
 			},
 		},
 		{
 			Name: "scanning ubuntu image",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+			},
+		},
+		{
+			// This tests that the fzf go binary is not being reported because it's a OS package
+			Name: "ubuntu_image_with_go_OS_packages_json",
+			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-ubuntu-with-packages.tar"},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
 			},
 		},
 		{
@@ -384,11 +450,11 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
 			},
 		},
 		{
@@ -400,11 +466,26 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				"--archive", "./testdata/test-alpine-etcshadow.tar",
 			},
 			Exit: 1,
-			ReplaceRules: []testcmd.JSONReplaceRule{
-				testcmd.GroupsAsArrayLen,
-				testcmd.OnlyIDVulnsRule,
-				testcmd.OnlyFirstBaseImage,
-				testcmd.AnyDiffID,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+			},
+		},
+		{
+			Name: "scanning_image_with_deprecated_packages",
+			Args: []string{
+				"", "image", "--format=json",
+				"--experimental-flag-deprecated-packages",
+				"--archive", "./testdata/test-image-with-deprecated.tar",
+			},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
 			},
 		},
 	}
@@ -421,6 +502,8 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				}
 			}
 
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
@@ -428,9 +511,10 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 
 func TestCommand_HtmlFile(t *testing.T) {
 	t.Parallel()
-	testutility.SkipIfNotAcceptanceTesting(t, "Needs container image")
+	testutility.SkipIfNotAcceptanceTesting(t, "Needs built container images")
 
 	testDir := testutility.CreateTestDir(t)
+	client := testcmd.InsertCassette(t)
 
 	_, stderr := testcmd.RunAndNormalize(t, testcmd.Case{
 		Name: "one specific supported lockfile",
@@ -439,6 +523,8 @@ func TestCommand_HtmlFile(t *testing.T) {
 			"--archive", "./testdata/test-alpine.tar",
 		},
 		Exit: 1,
+
+		HTTPClient: testcmd.WithTestNameHeader(t, *client),
 	})
 
 	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{

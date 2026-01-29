@@ -23,8 +23,8 @@ const (
 
 const libraryComponentType = "library"
 
-var SeverityMapper = map[osvschema.SeverityType]cyclonedx.ScoringMethod{
-	osvschema.SeverityCVSSV2: cyclonedx.ScoringMethodCVSSv2,
-	osvschema.SeverityCVSSV3: cyclonedx.ScoringMethodCVSSv3,
-	osvschema.SeverityCVSSV4: cyclonedx.ScoringMethodCVSSv4,
+var SeverityMapper = map[osvschema.Severity_Type]cyclonedx.ScoringMethod{
+	osvschema.Severity_CVSS_V2: cyclonedx.ScoringMethodCVSSv2,
+	osvschema.Severity_CVSS_V3: cyclonedx.ScoringMethodCVSSv3,
+	osvschema.Severity_CVSS_V4: cyclonedx.ScoringMethodCVSSv4,
 }

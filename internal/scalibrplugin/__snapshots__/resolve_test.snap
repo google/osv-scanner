@@ -32,6 +32,8 @@ os/apk
 os/dpkg
 python/wheelegg
 rust/cargoauditable
+vex/os-duplicate/apk
+vex/os-duplicate/dpkg
 ---
 
 [TestResolve_Extractors_Presets/directory - 1]
@@ -56,12 +58,15 @@ javascript/bunlock
 javascript/packagelockjson
 javascript/pnpmlock
 javascript/yarnlock
+os/apk
+os/dpkg
 osv/osvscannerjson
 php/composerlock
 python/pdmlock
 python/pipfilelock
 python/poetrylock
-python/requirementsenhanceable
+python/pylock
+python/requirements
 python/uvlock
 r/renvlock
 ruby/gemfilelock

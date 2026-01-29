@@ -123,8 +123,15 @@ func buildJSONSarifReport(t *testing.T, res *models.VulnerabilityResults) map[st
 		t.Errorf("Error writing SARIF output: %s", err)
 	}
 
+	replacedJSON := testutility.ReplaceJSONInput(
+		t,
+		outputWriter.String(),
+		testutility.ReplacePartialFingerprintHash.Path,
+		testutility.ReplacePartialFingerprintHash.ReplaceFunc,
+	)
+
 	jsonStructure := map[string]any{}
-	err = json.NewDecoder(outputWriter).Decode(&jsonStructure)
+	err = json.NewDecoder(bytes.NewBufferString(replacedJSON)).Decode(&jsonStructure)
 	if err != nil {
 		t.Errorf("Error decoding SARIF output: %s", err)
 	}

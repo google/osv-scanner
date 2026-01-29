@@ -76,7 +76,7 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 
 		for _, pv := range pkgs {
 			for _, v := range pv.Vulnerabilities {
-				for _, a := range v.Affected {
+				for _, a := range v.GetAffected() {
 					// Example of RUSTSEC function level information:
 					//
 					// "affects": {
@@ -86,10 +86,15 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 					//     ],
 					//     "arch": []
 					// }
-					ecosystemAffects, ok := a.EcosystemSpecific["affects"].(map[string]any)
-					if !ok {
+					ecosystemSpecific := a.GetEcosystemSpecific()
+					if ecosystemSpecific == nil {
 						continue
 					}
+					ecosystemAffectsVal, ok := ecosystemSpecific.GetFields()["affects"]
+					if !ok || ecosystemAffectsVal == nil || ecosystemAffectsVal.GetStructValue() == nil {
+						continue
+					}
+					ecosystemAffects := ecosystemAffectsVal.GetStructValue().AsMap()
 					affectedFunctions, ok := ecosystemAffects["functions"].([]any)
 					if !ok {
 						continue
@@ -98,7 +103,7 @@ func rustAnalysis(pkgs []models.PackageVulns, source models.SourceInfo) {
 						if funcName, ok := f.(string); ok {
 							_, called := calls[funcName]
 							// Once one advisory marks this vuln as called, always mark as called
-							isCalledVulnMap[v.ID] = isCalledVulnMap[v.ID] || called
+							isCalledVulnMap[v.GetId()] = isCalledVulnMap[v.GetId()] || called
 						}
 					}
 				}

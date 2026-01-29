@@ -33,6 +33,63 @@
             "commit": "aea7aaf2abb04789f5868cbabec406ea43aa84bf",
             "version": "openssl-3.5.0"
           }
+        },
+        {
+          "//1": "commit is for a completely different repository that does have vulns",
+          "package": {
+            "name": "https://github.com/apache/orc",
+            "commit": "17b30e96476be70b8773b2b807bab857fd3ceb39",
+            "version": "v3.19.0"
+          }
+        },
+        {
+          "//1": "matches an advisory whose repo url does not start with the http protocol, which should not matter",
+          "package": {
+            "name": "http://github.com/boostorg/boost",
+            "commit": "1a9dda41fbfb0dfbec17ab6afeba8138265395f7",
+            "version": "boost-1.67.0"
+          }
+        },
+        {
+          "//1": "matches an advisory whose repo url does not start with the git protocol, which should not matter",
+          "package": {
+            "name": "git://github.com/boostorg/boost",
+            "commit": "1a9dda41fbfb0dfbec17ab6afeba8138265395f7",
+            "version": "boost-1.67.0"
+          }
+        },
+        {
+          "//1": "matches an advisory even though the repo url has no protocol, which should not matter",
+          "package": {
+            "name": "github.com/boostorg/boost",
+            "commit": "1a9dda41fbfb0dfbec17ab6afeba8138265395f7",
+            "version": "boost-1.67.0"
+          }
+        },
+        {
+          "//1": "matches an advisory whose repo url ends with .git, which should not matter",
+          "package": {
+            "name": "https://github.com/boostorg/boost",
+            "commit": "1a9dda41fbfb0dfbec17ab6afeba8138265395f7",
+            "version": "boost-1.67.0"
+          }
+        },
+        {
+          "//1": "matches an advisory whose repo url does not end .git, which should not matter",
+          "package": {
+            "name": "https://github.com/capricorn86/happy-dom.git",
+            "commit": "f82211036f434593c69b8e3680ea65203a46d315",
+            "version": "v11.1.0"
+          }
+        },
+        {
+          "//1": "matches advisories whose repo urls are a different case, which should be respected",
+          "//2": "note in future this might change for github and gitlab, as they are not case-sensitive",
+          "package": {
+            "name": "https://github.com/Exiv2/exiv2",
+            "commit": "931a40a746f5678dcc4625b06a2eb25fa4f00b34",
+            "version": "v0.28.0"
+          }
         }
       ]
     }

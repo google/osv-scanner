@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"net/http"
 	"sort"
 	"strings"
 	"testing"
@@ -25,14 +26,14 @@ var CommandsUnderTest []cmd.CommandBuilder
 // the default "scan" command is included to avoid a panic
 func fetchCommandsToTest() []cmd.CommandBuilder {
 	for _, builder := range CommandsUnderTest {
-		command := builder(nil, nil)
+		command := builder(nil, nil, nil)
 
 		if command.Name == "scan" {
 			return CommandsUnderTest
 		}
 	}
 
-	return append(CommandsUnderTest, func(_, _ io.Writer) *cli.Command {
+	return append(CommandsUnderTest, func(_, _ io.Writer, _ *http.Client) *cli.Command {
 		return &cli.Command{
 			Name: "scan",
 			Action: func(_ context.Context, _ *cli.Command) error {
@@ -48,10 +49,12 @@ func run(t *testing.T, tc Case) (string, string) {
 	stdout := &bytes.Buffer{}
 	stderr := &bytes.Buffer{}
 
-	ec := cmd.Run(tc.Args, stdout, stderr, fetchCommandsToTest())
+	ec := cmd.Run(tc.Args, stdout, stderr, tc.HTTPClient, fetchCommandsToTest())
 
 	if ec != tc.Exit {
 		t.Errorf("cli exited with code %d, not %d", ec, tc.Exit)
+		t.Errorf("stdout: %s", stdout.String())
+		t.Errorf("stderr: %s", stderr.String())
 	}
 
 	return stdout.String(), stderr.String()
@@ -66,6 +69,10 @@ func RunAndNormalize(t *testing.T, tc Case) (string, string) {
 	stderr = normalizeDirScanOrder(t, stderr)
 
 	if len(tc.ReplaceRules) > 0 {
+		if len(stdout) == 0 || !json.Valid([]byte(stdout)) {
+			t.Fatalf("invalid JSON when expecting json\n stdout: %s\n stderr: %s", stdout, stderr)
+		}
+
 		stdout = normalizeJSON(t, stdout, tc.ReplaceRules...)
 	}
 
@@ -86,11 +93,11 @@ func RunAndMatchSnapshots(t *testing.T, tc Case) {
 }
 
 // normalizeJSON runs the given JSONReplaceRules on the given JSON input and returns the normalized JSON string
-func normalizeJSON(t *testing.T, jsonInput string, jsonReplaceRules ...JSONReplaceRule) string {
+func normalizeJSON(t *testing.T, jsonInput string, jsonReplaceRules ...testutility.JSONReplaceRule) string {
 	t.Helper()
 
 	for _, rule := range jsonReplaceRules {
-		jsonInput = replaceJSONInput(t, jsonInput, rule.Path, rule.ReplaceFunc)
+		jsonInput = testutility.ReplaceJSONInput(t, jsonInput, rule.Path, rule.ReplaceFunc)
 	}
 
 	jsonFormatted := bytes.Buffer{}

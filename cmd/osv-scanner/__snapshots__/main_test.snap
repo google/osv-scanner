@@ -22,9 +22,32 @@ OPTIONS:
 
 ---
 
+[Test_run/#01 - 1]
+NAME:
+   osv-scanner scan - scans projects and container images for dependencies, and checks them against the OSV database.
+
+USAGE:
+   osv-scanner scan [command [command options]]
+
+DESCRIPTION:
+   scans projects and container images for dependencies, and checks them against the OSV database.
+
+COMMANDS:
+   source  scans a source project's dependencies for known vulnerabilities using the OSV database.
+   image   detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally
+
+OPTIONS:
+   --help, -h  show help
+
+---
+
+[Test_run/#01 - 2]
+
+---
+
 [Test_run/version - 1]
-osv-scanner version: 2.2.3
-osv-scalibr version: 0.3.6
+osv-scanner version: 2.3.2
+osv-scalibr version: 0.4.2
 commit: n/a
 built at: n/a
 

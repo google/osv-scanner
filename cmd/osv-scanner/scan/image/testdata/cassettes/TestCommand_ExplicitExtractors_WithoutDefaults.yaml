@@ -1,0 +1,55 @@
+---
+version: 2
+interactions:
+  - id: 0
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 146
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "zlib"
+              },
+              "version": "1.2.12-r1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_ExplicitExtractors_WithoutDefaults/add_extractors
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 97
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2022-37434",
+                  "modified": "2025-12-03T22:50:43.469206Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "97"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
