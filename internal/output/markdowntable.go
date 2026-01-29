@@ -16,6 +16,11 @@ func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWr
 
 	outputResult := BuildResults(vulnResult)
 
+	// Add a newline to separate results from logs.
+	fmt.Fprintln(outputWriter)
+	if outputResult.IsContainerScanning {
+		fmt.Fprintf(outputWriter, "%s:\n", GetContainerScanningHeader(outputResult))
+	}
 	printSummary(outputResult, outputWriter)
 	fmt.Fprintln(outputWriter)
 

@@ -4,6 +4,7 @@ package scalibrplugin
 import (
 	"fmt"
 
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/plugin/list"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -24,17 +25,17 @@ func resolveFromName(name string) (plugin.Plugin, error) {
 	switch name {
 	// Java
 	case pomxmlenhanceable.Name:
-		return pomxmlenhanceable.New(), nil
+		return pomxmlenhanceable.New(&cpb.PluginConfig{})
 	// Javascript
 	case nodemodules.Name:
-		return nodemodules.New(), nil
+		return nodemodules.New(&cpb.PluginConfig{})
 	// Directories
 	case vendored.Name:
-		return vendored.New(), nil
+		return vendored.New(&cpb.PluginConfig{})
 	case gitrepo.Name:
-		return gitrepo.New(), nil
+		return gitrepo.New(&cpb.PluginConfig{})
 	case osvscannerjson.Name:
-		return osvscannerjson.New(), nil
+		return osvscannerjson.New(&cpb.PluginConfig{})
 	default:
 		return nil, fmt.Errorf("not an exact name for a plugin: %q", name)
 	}

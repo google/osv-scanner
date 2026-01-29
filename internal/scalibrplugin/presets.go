@@ -1,7 +1,8 @@
 package scalibrplugin
 
 import (
-	"github.com/google/osv-scalibr/annotator"
+	"fmt"
+
 	annotatorlist "github.com/google/osv-scalibr/annotator/list"
 	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
 	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
@@ -10,7 +11,6 @@ import (
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/baseimage"
 	"github.com/google/osv-scalibr/enricher/enricherlist"
-	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
@@ -32,6 +32,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pdmlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pipfilelock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/pylock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/uvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
@@ -63,62 +64,63 @@ var detectorPresets = map[string]detectors.InitMap{
 
 var ExtractorPresets = map[string]extractors.InitMap{
 	"sbom": {
-		spdx.Name: {noCFG(spdx.New)},
-		cdx.Name:  {noCFG(cdx.New)},
+		spdx.Name: {spdx.New},
+		cdx.Name:  {cdx.New},
 	},
 	"lockfile": {
 		// C
-		conanlock.Name: {noCFG(conanlock.New)},
+		conanlock.Name: {conanlock.New},
 
 		// Erlang
-		mixlock.Name: {noCFG(mixlock.New)},
+		mixlock.Name: {mixlock.New},
 
 		// Flutter
-		pubspec.Name: {noCFG(pubspec.New)},
+		pubspec.Name: {pubspec.New},
 
 		// Go
-		gomod.Name: {noCFG(gomod.New)},
+		gomod.Name: {gomod.New},
 
 		// Java
-		gradlelockfile.Name:                {noCFG(gradlelockfile.New)},
-		gradleverificationmetadataxml.Name: {noCFG(gradleverificationmetadataxml.New)},
-		pomxmlenhanceable.Name:             {noCFG(pomxmlenhanceable.New)},
+		gradlelockfile.Name:                {gradlelockfile.New},
+		gradleverificationmetadataxml.Name: {gradleverificationmetadataxml.New},
+		pomxmlenhanceable.Name:             {pomxmlenhanceable.New},
 
 		// Javascript
-		packagelockjson.Name: {noCFG(packagelockjson.NewDefault)},
-		pnpmlock.Name:        {noCFG(pnpmlock.New)},
-		yarnlock.Name:        {noCFG(yarnlock.New)},
-		bunlock.Name:         {noCFG(bunlock.New)},
+		packagelockjson.Name: {packagelockjson.New},
+		pnpmlock.Name:        {pnpmlock.New},
+		yarnlock.Name:        {yarnlock.New},
+		bunlock.Name:         {bunlock.New},
 
 		// PHP
-		composerlock.Name: {noCFG(composerlock.New)},
+		composerlock.Name: {composerlock.New},
 
 		// Python
-		pipfilelock.Name:  {noCFG(pipfilelock.New)},
-		pdmlock.Name:      {noCFG(pdmlock.New)},
-		poetrylock.Name:   {noCFG(poetrylock.New)},
-		requirements.Name: {noCFG(requirements.NewDefault)},
-		uvlock.Name:       {noCFG(uvlock.New)},
+		pipfilelock.Name:  {pipfilelock.New},
+		pdmlock.Name:      {pdmlock.New},
+		poetrylock.Name:   {poetrylock.New},
+		pylock.Name:       {pylock.New},
+		requirements.Name: {requirements.New},
+		uvlock.Name:       {uvlock.New},
 
 		// R
-		renvlock.Name: {noCFG(renvlock.New)},
+		renvlock.Name: {renvlock.New},
 
 		// Ruby
-		gemfilelock.Name: {noCFG(gemfilelock.New)},
+		gemfilelock.Name: {gemfilelock.New},
 
 		// Rust
-		cargolock.Name: {noCFG(cargolock.New)},
+		cargolock.Name: {cargolock.New},
 
 		// NuGet
-		depsjson.Name:         {noCFG(depsjson.NewDefault)},
-		packagesconfig.Name:   {noCFG(packagesconfig.NewDefault)},
-		packageslockjson.Name: {noCFG(packageslockjson.NewDefault)},
+		depsjson.Name:         {depsjson.New},
+		packagesconfig.Name:   {packagesconfig.New},
+		packageslockjson.Name: {packageslockjson.New},
 
 		// Haskell
-		cabal.Name:     {noCFG(cabal.NewDefault)},
-		stacklock.Name: {noCFG(stacklock.NewDefault)},
+		cabal.Name:     {cabal.New},
+		stacklock.Name: {stacklock.New},
 
-		osvscannerjson.Name: {noCFG(osvscannerjson.New)},
+		osvscannerjson.Name: {osvscannerjson.New},
 
 		// --- OS "lockfiles" ---
 		// These have very strict FileRequired paths, so we can safely enable them for source scanning as well.
@@ -128,21 +130,21 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		dpkg.Name: {dpkg.New},
 	},
 	"directory": {
-		gitrepo.Name:  {noCFG(gitrepo.New)},
-		vendored.Name: {noCFG(vendored.New)},
+		gitrepo.Name:  {gitrepo.New},
+		vendored.Name: {vendored.New},
 	},
 	"artifact": {
 		// --- Project artifacts ---
 		// Python
-		wheelegg.Name: {noCFG(wheelegg.NewDefault)},
+		wheelegg.Name: {wheelegg.New},
 		// Java
-		archive.Name: {noCFG(archive.NewDefault)},
+		archive.Name: {archive.New},
 		// Go
 		gobinary.Name: {gobinary.New},
 		// Javascript
-		nodemodules.Name: {noCFG(nodemodules.New)},
+		nodemodules.Name: {nodemodules.New},
 		// Rust
-		cargoauditable.Name: {noCFG(cargoauditable.NewDefault)},
+		cargoauditable.Name: {cargoauditable.New},
 
 		// --- OS packages ---
 		// Alpine
@@ -154,7 +156,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 
 var enricherPresets = map[string]enricherlist.InitMap{
 	"artifact": {
-		baseimage.Name: {noCFGEnricher(baseImageEnricher)},
+		baseimage.Name: {baseImageEnricher},
 	},
 	"vulns":    enricherlist.VulnMatching,
 	"licenses": enricherlist.License,
@@ -162,49 +164,27 @@ var enricherPresets = map[string]enricherlist.InitMap{
 
 var annotatorPresets = map[string]annotatorlist.InitMap{
 	"artifact": {
-		apkanno.Name:  {noCFGAnnotator(apkanno.New)},
-		dpkganno.Name: {noCFGAnnotator(dpkganno.New)},
+		apkanno.Name:  {apkanno.New},
+		dpkganno.Name: {dpkganno.New},
 	},
 }
 
-func baseImageEnricher() enricher.Enricher {
+func baseImageEnricher(_ *cpb.PluginConfig) (enricher.Enricher, error) {
 	// The grpc client **does not** make any requests. It starts in an IDLE state until
 	// the first function call is made. This means we can safely initialize the client even in offline mode,
 	// and the enricher plugin will be filtered out in offline mode.
 	insightsClient, err := datasource.NewInsightsAlphaClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	if err != nil {
-		panic("unable to connect to insights server")
+		return nil, fmt.Errorf("unable to connect to insights server: %w", err)
 	}
 
 	baseImageEnricher, err := baseimage.New(&baseimage.Config{
 		Client: baseimage.NewClientGRPC(insightsClient),
 	})
 
-	// These panics should be very unlikely to happen. Does **not** happen when network is not available.
 	if err != nil {
-		panic("unable to initialize base image enricher")
+		return nil, fmt.Errorf("unable to initialize base image enricher: %w", err)
 	}
 
-	return baseImageEnricher
-}
-
-// Wraps initer functions that don't take any config value to initer functions that do.
-// TODO(b/400910349): Remove once all plugins take config values.
-// Copied from osv-scalibr
-func noCFG(f func() filesystem.Extractor) extractors.InitFn {
-	return func(_ *cpb.PluginConfig) (filesystem.Extractor, error) { return f(), nil }
-}
-
-// Wraps initer functions that don't take any config value to initer functions that do.
-// TODO(b/400910349): Remove once all plugins take config values.
-// Copied from osv-scalibr
-func noCFGEnricher(f func() enricher.Enricher) enricherlist.InitFn {
-	return func(_ *cpb.PluginConfig) (enricher.Enricher, error) { return f(), nil }
-}
-
-// Wraps initer functions that don't take any config value to initer functions that do.
-// TODO(b/400910349): Remove once all plugins take config values.
-// Copied from osv-scalibr
-func noCFGAnnotator(f func() annotator.Annotator) annotatorlist.InitFn {
-	return func(_ *cpb.PluginConfig) (annotator.Annotator, error) { return f(), nil }
+	return baseImageEnricher, nil
 }
