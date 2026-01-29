@@ -428,8 +428,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 22 packages affected by 45 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
-22 vulnerabilities can be fixed.
+Total 20 packages affected by 44 known vulnerabilities (2 Critical, 15 High, 23 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+21 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -441,13 +441,13 @@ Ubuntu:22.04
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          5 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
-| libtasn1-6     | 4.18.0-4build1               | Fix Available           |          3 | libtasn1-6              | # 4 Layer        | ubuntu        |
+| libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          2 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
@@ -458,8 +458,6 @@ Ubuntu:22.04
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          1 | tar                     | # 4 Layer        | ubuntu        |
-| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
-| util-linux     | 2.37.2-4ubuntu3.4            | No fix available        |          1 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Hiding 5 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
@@ -476,8 +474,8 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 22 packages affected by 45 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
-22 vulnerabilities can be fixed.
+Total 20 packages affected by 44 known vulnerabilities (2 Critical, 15 High, 23 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+21 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -489,13 +487,13 @@ Ubuntu:22.04
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          5 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
-| libtasn1-6     | 4.18.0-4build1               | Fix Available           |          3 | libtasn1-6              | # 4 Layer        | ubuntu        |
+| libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          2 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
@@ -506,8 +504,6 @@ Ubuntu:22.04
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          1 | tar                     | # 4 Layer        | ubuntu        |
-| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
-| util-linux     | 2.37.2-4ubuntu3.4            | No fix available        |          1 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Filtered Vulnerabilities:
@@ -543,8 +539,8 @@ failed to load image from tarball with path "../../testdata/locks-manyoci-image/
 Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 22 packages affected by 45 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
-22 vulnerabilities can be fixed.
+Total 20 packages affected by 44 known vulnerabilities (2 Critical, 15 High, 23 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+21 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -556,13 +552,13 @@ Ubuntu:22.04
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Fix Available           |          1 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8              | Fix Available           |          3 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          5 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          5 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          1 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
-| libtasn1-6     | 4.18.0-4build1               | Fix Available           |          3 | libtasn1-6              | # 4 Layer        | ubuntu        |
+| libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
 | ncurses        | 6.3-2ubuntu0.1               | No fix available        |          2 | libncurses6... (5)      | # 4 Layer        | ubuntu        |
@@ -573,8 +569,6 @@ Ubuntu:22.04
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          2 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          1 | tar                     | # 4 Layer        | ubuntu        |
-| util-linux     | 1:2.37.2-4ubuntu3.4          | No fix available        |          1 | bsdutils                | # 4 Layer        | ubuntu        |
-| util-linux     | 2.37.2-4ubuntu3.4            | No fix available        |          1 | libblkid1... (6)        | # 4 Layer        | ubuntu        |
 +----------------+------------------------------+-------------------------+------------+-------------------------+------------------+---------------+
 
 Hiding 5 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
@@ -2910,21 +2904,6 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
       "packages": [
         {
           "package": {
-            "name": "util-linux",
-            "os_package_name": "bsdutils",
-            "version": "1:2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
             "name": "coreutils",
             "os_package_name": "coreutils",
             "version": "8.32-4.1ubuntu1.2",
@@ -2995,21 +2974,6 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
         },
         {
           "package": {
-            "name": "util-linux",
-            "os_package_name": "libblkid1",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
             "name": "glibc",
             "os_package_name": "libc-bin",
             "version": "2.35-0ubuntu3.8",
@@ -3018,7 +2982,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 4,
+          "groups": 6,
           "vulnerabilities": [
             "USN-7259-1",
             "USN-7541-1",
@@ -3026,7 +2990,9 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-4802",
-            "UBUNTU-CVE-2025-8058"
+            "UBUNTU-CVE-2025-8058",
+            "UBUNTU-CVE-2026-0861",
+            "UBUNTU-CVE-2026-0915"
           ]
         },
         {
@@ -3039,7 +3005,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 4,
+          "groups": 6,
           "vulnerabilities": [
             "USN-7259-1",
             "USN-7541-1",
@@ -3047,7 +3013,9 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-4802",
-            "UBUNTU-CVE-2025-8058"
+            "UBUNTU-CVE-2025-8058",
+            "UBUNTU-CVE-2026-0861",
+            "UBUNTU-CVE-2026-0915"
           ]
         },
         {
@@ -3229,21 +3197,6 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
         },
         {
           "package": {
-            "name": "util-linux",
-            "os_package_name": "libmount1",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
             "name": "ncurses",
             "os_package_name": "libncurses6",
             "version": "6.3-2ubuntu0.1",
@@ -3378,21 +3331,6 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
         },
         {
           "package": {
-            "name": "util-linux",
-            "os_package_name": "libsmartcols1",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
             "name": "openssl",
             "os_package_name": "libssl3",
             "version": "3.0.2-0ubuntu1.18",
@@ -3456,8 +3394,9 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 3,
+          "groups": 2,
           "vulnerabilities": [
+            "USN-7954-1",
             "USN-7275-1",
             "UBUNTU-CVE-2021-46848",
             "UBUNTU-CVE-2024-12133",
@@ -3499,21 +3438,6 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
         },
         {
           "package": {
-            "name": "util-linux",
-            "os_package_name": "libuuid1",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
             "name": "libzstd",
             "os_package_name": "libzstd1",
             "version": "1.4.8+dfsg-3build1",
@@ -3541,21 +3465,6 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
           "vulnerabilities": [
             "UBUNTU-CVE-2023-29383",
             "UBUNTU-CVE-2024-56433"
-          ]
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "mount",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
           ]
         },
         {
@@ -3639,21 +3548,6 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
           "groups": 1,
           "vulnerabilities": [
             "UBUNTU-CVE-2025-45582"
-          ]
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "util-linux",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
           ]
         }
       ]
@@ -3842,21 +3736,6 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
       "packages": [
         {
           "package": {
-            "name": "util-linux",
-            "os_package_name": "bsdutils",
-            "version": "1:2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
             "name": "coreutils",
             "os_package_name": "coreutils",
             "version": "8.32-4.1ubuntu1.2",
@@ -3927,21 +3806,6 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
         },
         {
           "package": {
-            "name": "util-linux",
-            "os_package_name": "libblkid1",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
             "name": "glibc",
             "os_package_name": "libc-bin",
             "version": "2.35-0ubuntu3.8",
@@ -3950,7 +3814,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 4,
+          "groups": 6,
           "vulnerabilities": [
             "USN-7259-1",
             "USN-7541-1",
@@ -3958,7 +3822,9 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-4802",
-            "UBUNTU-CVE-2025-8058"
+            "UBUNTU-CVE-2025-8058",
+            "UBUNTU-CVE-2026-0861",
+            "UBUNTU-CVE-2026-0915"
           ]
         },
         {
@@ -3971,7 +3837,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 4,
+          "groups": 6,
           "vulnerabilities": [
             "USN-7259-1",
             "USN-7541-1",
@@ -3979,7 +3845,9 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2016-20013",
             "UBUNTU-CVE-2025-0395",
             "UBUNTU-CVE-2025-4802",
-            "UBUNTU-CVE-2025-8058"
+            "UBUNTU-CVE-2025-8058",
+            "UBUNTU-CVE-2026-0861",
+            "UBUNTU-CVE-2026-0915"
           ]
         },
         {
@@ -4161,21 +4029,6 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
         },
         {
           "package": {
-            "name": "util-linux",
-            "os_package_name": "libmount1",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
             "name": "ncurses",
             "os_package_name": "libncurses6",
             "version": "6.3-2ubuntu0.1",
@@ -4310,21 +4163,6 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
         },
         {
           "package": {
-            "name": "util-linux",
-            "os_package_name": "libsmartcols1",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
             "name": "openssl",
             "os_package_name": "libssl3",
             "version": "3.0.2-0ubuntu1.18",
@@ -4388,8 +4226,9 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 3,
+          "groups": 2,
           "vulnerabilities": [
+            "USN-7954-1",
             "USN-7275-1",
             "UBUNTU-CVE-2021-46848",
             "UBUNTU-CVE-2024-12133",
@@ -4431,21 +4270,6 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
         },
         {
           "package": {
-            "name": "util-linux",
-            "os_package_name": "libuuid1",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
-          ]
-        },
-        {
-          "package": {
             "name": "libzstd",
             "os_package_name": "libzstd1",
             "version": "1.4.8+dfsg-3build1",
@@ -4473,21 +4297,6 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "vulnerabilities": [
             "UBUNTU-CVE-2023-29383",
             "UBUNTU-CVE-2024-56433"
-          ]
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "mount",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
           ]
         },
         {
@@ -4571,21 +4380,6 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           "groups": 1,
           "vulnerabilities": [
             "UBUNTU-CVE-2025-45582"
-          ]
-        },
-        {
-          "package": {
-            "name": "util-linux",
-            "os_package_name": "util-linux",
-            "version": "2.37.2-4ubuntu3.4",
-            "ecosystem": "Ubuntu:22.04",
-            "image_origin_details": {
-              "index": 4
-            }
-          },
-          "groups": 1,
-          "vulnerabilities": [
-            "UBUNTU-CVE-2025-14104"
           ]
         }
       ]

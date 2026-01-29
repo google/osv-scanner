@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 
 	"github.com/go-git/go-git/v5"
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/inventory"
@@ -62,8 +63,8 @@ func createCommitQueryInventory(commit string, location string) *extractor.Packa
 }
 
 // New returns a new instance of the extractor.
-func New() filesystem.Extractor {
-	return &Extractor{}
+func New(_ *cpb.PluginConfig) (filesystem.Extractor, error) {
+	return &Extractor{}, nil
 }
 
 // Name of the extractor.

@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"path/filepath"
 
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/inventory"
@@ -33,8 +34,8 @@ func (e Extractor) Requirements() *plugin.Capabilities {
 	return &plugin.Capabilities{}
 }
 
-func New() filesystem.Extractor {
-	return Extractor{}
+func New(_ *cpb.PluginConfig) (filesystem.Extractor, error) {
+	return Extractor{}, nil
 }
 
 // FileRequired returns true only for osv-scanner-custom.json files,
