@@ -4,12 +4,10 @@ package scalibrplugin
 import (
 	"fmt"
 
-	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/plugin/list"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -23,9 +21,6 @@ func resolveFromName(name string) (plugin.Plugin, error) {
 	}
 
 	switch name {
-	// Java
-	case pomxmlenhanceable.Name:
-		return pomxmlenhanceable.New(&cpb.PluginConfig{})
 	// Javascript
 	case nodemodules.Name:
 		return nodemodules.New(&cpb.PluginConfig{})

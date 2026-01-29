@@ -47,8 +47,8 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/datasource"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
+	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/language/java/pomxml"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
-	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -83,7 +83,7 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		// Java
 		gradlelockfile.Name:                {gradlelockfile.New},
 		gradleverificationmetadataxml.Name: {gradleverificationmetadataxml.New},
-		pomxmlenhanceable.Name:             {pomxmlenhanceable.New},
+		pomxml.Name:                        {noCFG(pomxml.New)},
 
 		// Javascript
 		packagelockjson.Name: {packagelockjson.New},
