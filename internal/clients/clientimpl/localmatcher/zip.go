@@ -41,6 +41,9 @@ type ZipDB struct {
 	// whether this database only has some of the advisories
 	// loaded from the underlying zip file
 	Partial bool
+
+	// whether malware should be loaded, skipped or, be the only advisories loaded
+	malwareBehaviour string
 }
 
 var ErrOfflineDatabaseNotFound = errors.New("no offline version of the OSV database is available")
@@ -258,13 +261,27 @@ func (db *ZipDB) load(ctx context.Context, names []string) error {
 			continue
 		}
 
+		if db.malwareBehaviour != "" {
+			// if there is a malware behaviour set, only load MAL advisories if the behaviour is "only"
+			// otherwise, skip loading MAL advisories (which we officially call "skip", but can be any value)
+			if strings.HasPrefix(path.Base(zipFile.Name), "MAL-") != (db.malwareBehaviour == "only") {
+				continue
+			}
+		}
+
 		db.loadZipFile(zipFile, names)
 	}
 
 	return nil
 }
 
-func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, offline bool, invs []*extractor.Package) (*ZipDB, error) {
+func NewZippedDB(
+	ctx context.Context,
+	dbBasePath, name, url, userAgent string,
+	offline bool,
+	invs []*extractor.Package,
+	malwareBehaviour string,
+) (*ZipDB, error) {
 	db := &ZipDB{
 		Name:       name,
 		ArchiveURL: url,
@@ -274,6 +291,8 @@ func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, o
 
 		// we only fully load the database if we're not provided a list of packages
 		Partial: len(invs) != 0,
+
+		malwareBehaviour: malwareBehaviour,
 	}
 	names := make([]string, 0, len(invs))
 

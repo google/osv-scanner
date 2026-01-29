@@ -30,9 +30,11 @@ type LocalMatcher struct {
 	failedDBs map[osvconstants.Ecosystem]error
 	// userAgent sets the user agent requests for db zips are made with
 	userAgent string
+
+	malwareBehaviour string
 }
 
-func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*LocalMatcher, error) {
+func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool, malwareBehaviour string) (*LocalMatcher, error) {
 	dbBasePath, err := setupLocalDBDirectory(localDBPath)
 	if err != nil {
 		return nil, fmt.Errorf("could not create %s: %w", dbBasePath, err)
@@ -44,6 +46,8 @@ func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*Lo
 		downloadDB: downloadDB,
 		userAgent:  userAgent,
 		failedDBs:  make(map[osvconstants.Ecosystem]error),
+
+		malwareBehaviour: malwareBehaviour,
 	}, nil
 }
 
@@ -129,6 +133,7 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvconstan
 		matcher.userAgent,
 		!matcher.downloadDB,
 		invs,
+		matcher.malwareBehaviour,
 	)
 
 	if err != nil {
