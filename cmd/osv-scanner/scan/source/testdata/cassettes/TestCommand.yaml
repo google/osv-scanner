@@ -1569,7 +1569,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-mhpg-hpj5-73r2",
-                  "modified": "2025-12-10T23:41:00.167393Z"
+                  "modified": "2026-01-08T21:43:33.587386Z"
                 }
               ]
             },
@@ -1914,7 +1914,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 90
+      content_length: 97
       body: |
         {
           "results": [
@@ -1922,7 +1922,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2017-11164",
-                  "modified": "2025-10-24T04:46:24Z"
+                  "modified": "2026-01-20T16:49:00.053545Z"
                 }
               ]
             }
@@ -1930,7 +1930,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "90"
+          - "97"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1966,7 +1966,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 90
+      content_length: 97
       body: |
         {
           "results": [
@@ -1974,7 +1974,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2017-11164",
-                  "modified": "2025-10-24T04:46:24Z"
+                  "modified": "2026-01-20T16:49:00.053545Z"
                 }
               ]
             }
@@ -1982,7 +1982,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "90"
+          - "97"
         Content-Type:
           - application/json
       status: 200 OK
@@ -3222,7 +3222,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 20257
+      content_length: 20549
       body: |
         {
           "results": [
@@ -3278,7 +3278,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2017-11164",
-                  "modified": "2025-10-24T04:46:24Z"
+                  "modified": "2026-01-20T16:49:00.053545Z"
                 }
               ]
             },
@@ -3650,6 +3650,10 @@ interactions:
                   "modified": "2025-11-20T10:17:02.620233Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2025-13151",
+                  "modified": "2026-01-20T05:13:20.502324Z"
+                },
+                {
                   "id": "DLA-3263-1",
                   "modified": "2025-05-26T07:22:42.617563Z"
                 },
@@ -3871,7 +3875,19 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2025-9714",
-                  "modified": "2025-11-20T10:18:28.938756Z"
+                  "modified": "2026-01-10T14:08:12.148171Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-0989",
+                  "modified": "2026-01-16T11:05:07.928323Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-0990",
+                  "modified": "2026-01-16T11:05:23.527352Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-0992",
+                  "modified": "2026-01-16T11:05:10.515041Z"
                 },
                 {
                   "id": "DLA-3012-1",
@@ -4138,7 +4154,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2024-13176",
-                  "modified": "2025-11-20T10:17:03.124812Z"
+                  "modified": "2026-01-10T14:06:53.941794Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2024-2511",
@@ -4554,7 +4570,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2025-14104",
-                  "modified": "2025-12-06T11:17:09.332893Z"
+                  "modified": "2025-12-29T10:11:41.788817Z"
                 },
                 {
                   "id": "DLA-3782-1",
@@ -4632,7 +4648,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "20257"
+          - "20549"
         Content-Type:
           - application/json
       status: 200 OK
@@ -6453,7 +6469,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-9wx4-h78v-vm56",
-                  "modified": "2024-07-15T22:12:27.987373Z"
+                  "modified": "2026-01-16T00:17:43.184646Z"
                 },
                 {
                   "id": "GHSA-j8r2-6x86-q33q",
@@ -6614,7 +6630,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-9wx4-h78v-vm56",
-                  "modified": "2024-07-15T22:12:27.987373Z"
+                  "modified": "2026-01-16T00:17:43.184646Z"
                 },
                 {
                   "id": "GHSA-j8r2-6x86-q33q",

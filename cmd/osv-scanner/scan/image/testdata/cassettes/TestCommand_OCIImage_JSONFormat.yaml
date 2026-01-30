@@ -801,7 +801,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 5732
+      content_length: 5881
       body: |
         {
           "results": [
@@ -871,7 +871,14 @@ interactions:
             },
             {},
             {},
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-87hc-h4r5-73f7",
+                  "modified": "2026-01-08T22:01:40.408683Z"
+                }
+              ]
+            },
             {},
             {},
             {},
@@ -1184,7 +1191,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-9wx4-h78v-vm56",
-                  "modified": "2024-07-15T22:12:27.987373Z"
+                  "modified": "2026-01-16T00:17:43.184646Z"
                 },
                 {
                   "id": "GHSA-j8r2-6x86-q33q",
@@ -1277,6 +1284,10 @@ interactions:
                   "modified": "2025-11-04T17:17:45.245584Z"
                 },
                 {
+                  "id": "GHSA-38jv-5279-wg99",
+                  "modified": "2026-01-08T20:13:04.476098Z"
+                },
+                {
                   "id": "GHSA-g4mx-q9vg-27p4",
                   "modified": "2025-11-04T17:00:24.358773Z"
                 },
@@ -1328,7 +1339,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "5732"
+          - "5881"
         Content-Type:
           - application/json
       status: 200 OK
@@ -3601,7 +3612,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 9659
+      content_length: 10172
       body: |
         {
           "results": [
@@ -3610,23 +3621,16 @@ interactions:
             {},
             {},
             {},
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
-                }
-              ]
-            },
+            {},
             {
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2016-2781",
-                  "modified": "2025-10-24T04:45:39Z"
+                  "modified": "2026-01-20T16:45:42.494092Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-5278",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:50:39.520044Z"
                 }
               ]
             },
@@ -3638,11 +3642,11 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2025-6297",
-                  "modified": "2025-10-24T05:16:34Z"
+                  "modified": "2026-01-20T18:13:49.366319Z"
                 },
                 {
                   "id": "USN-7768-1",
-                  "modified": "2025-10-13T04:42:23Z"
+                  "modified": "2026-01-20T16:28:24.443473Z"
                 }
               ]
             },
@@ -3652,7 +3656,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-11T08:34:13.011003Z"
+                  "modified": "2026-01-20T19:02:52.626241Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -3668,11 +3672,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-3219",
-                  "modified": "2025-12-10T08:17:47.423186Z"
+                  "modified": "2026-01-20T17:26:42.776809Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-30258",
-                  "modified": "2025-12-10T08:31:04.696765Z"
+                  "modified": "2026-01-20T18:54:05.525239Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2025-68972",
+                  "modified": "2026-01-20T19:15:15.770361Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2025-68973",
+                  "modified": "2026-01-20T19:15:33.485683Z"
                 },
                 {
                   "id": "USN-7412-1",
@@ -3680,37 +3692,34 @@ interactions:
                 },
                 {
                   "id": "USN-7412-2",
-                  "modified": "2025-10-13T04:41:00Z"
-                }
-              ]
-            },
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {
-              "vulns": [
+                  "modified": "2026-01-20T16:13:40.098332Z"
+                },
                 {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
+                  "id": "USN-7946-1",
+                  "modified": "2026-01-20T16:33:18.233083Z"
                 }
               ]
             },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
             {},
             {
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2016-20013",
-                  "modified": "2025-10-24T04:46:01Z"
+                  "modified": "2026-01-20T16:43:31.598452Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-0395",
-                  "modified": "2025-09-08T17:06:47Z"
+                  "modified": "2026-01-20T19:05:26.494058Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-4802",
@@ -3718,7 +3727,15 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8058",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:45:49.710699Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-0861",
+                  "modified": "2026-01-20T19:30:07.220684Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-0915",
+                  "modified": "2026-01-20T19:30:07.738864Z"
                 },
                 {
                   "id": "USN-7259-1",
@@ -3730,7 +3747,7 @@ interactions:
                 },
                 {
                   "id": "USN-7760-1",
-                  "modified": "2025-10-13T04:42:23Z"
+                  "modified": "2026-01-20T16:28:18.117690Z"
                 }
               ]
             },
@@ -3738,11 +3755,11 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2016-20013",
-                  "modified": "2025-10-24T04:46:01Z"
+                  "modified": "2026-01-20T16:43:31.598452Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-0395",
-                  "modified": "2025-09-08T17:06:47Z"
+                  "modified": "2026-01-20T19:05:26.494058Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-4802",
@@ -3750,7 +3767,15 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8058",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:45:49.710699Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-0861",
+                  "modified": "2026-01-20T19:30:07.220684Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-0915",
+                  "modified": "2026-01-20T19:30:07.738864Z"
                 },
                 {
                   "id": "USN-7259-1",
@@ -3762,7 +3787,7 @@ interactions:
                 },
                 {
                   "id": "USN-7760-1",
-                  "modified": "2025-10-13T04:42:23Z"
+                  "modified": "2026-01-20T16:28:18.117690Z"
                 }
               ]
             },
@@ -3789,7 +3814,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-11T08:34:13.011003Z"
+                  "modified": "2026-01-20T19:02:52.626241Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -3805,7 +3830,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-2236",
-                  "modified": "2025-10-30T05:11:27Z"
+                  "modified": "2026-01-20T17:51:42.649938Z"
                 }
               ]
             },
@@ -3814,27 +3839,27 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-12243",
-                  "modified": "2025-10-30T05:11:31Z"
+                  "modified": "2026-01-20T17:49:29.660156Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-32988",
-                  "modified": "2025-10-30T05:20:40Z"
+                  "modified": "2026-01-20T18:32:26.855693Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-32989",
-                  "modified": "2025-10-30T05:20:40Z"
+                  "modified": "2026-01-20T18:32:31.404974Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-32990",
-                  "modified": "2025-10-30T05:20:40Z"
+                  "modified": "2026-01-20T18:32:36.025704Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6395",
-                  "modified": "2025-10-30T05:19:17Z"
+                  "modified": "2026-01-20T19:16:09.354679Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-9820",
-                  "modified": "2025-11-25T05:19:37Z"
+                  "modified": "2026-01-20T19:17:05.904450Z"
                 },
                 {
                   "id": "USN-7281-1",
@@ -3842,7 +3867,7 @@ interactions:
                 },
                 {
                   "id": "USN-7635-1",
-                  "modified": "2025-10-13T04:42:07Z"
+                  "modified": "2026-01-20T16:23:38.007320Z"
                 }
               ]
             },
@@ -3855,19 +3880,19 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26458",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:14.804631Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26461",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:32.997412Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-3596",
-                  "modified": "2025-10-24T05:06:43Z"
+                  "modified": "2026-01-20T19:11:21.125918Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-24528",
-                  "modified": "2025-10-10T15:26:14Z"
+                  "modified": "2026-01-20T18:16:48.208715Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-3576",
@@ -3879,7 +3904,7 @@ interactions:
                 },
                 {
                   "id": "USN-7314-1",
-                  "modified": "2025-10-13T04:40:30Z"
+                  "modified": "2026-01-20T16:13:09.322537Z"
                 },
                 {
                   "id": "USN-7542-1",
@@ -3897,19 +3922,19 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26458",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:14.804631Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26461",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:32.997412Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-3596",
-                  "modified": "2025-10-24T05:06:43Z"
+                  "modified": "2026-01-20T19:11:21.125918Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-24528",
-                  "modified": "2025-10-10T15:26:14Z"
+                  "modified": "2026-01-20T18:16:48.208715Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-3576",
@@ -3921,7 +3946,7 @@ interactions:
                 },
                 {
                   "id": "USN-7314-1",
-                  "modified": "2025-10-13T04:40:30Z"
+                  "modified": "2026-01-20T16:13:09.322537Z"
                 },
                 {
                   "id": "USN-7542-1",
@@ -3938,19 +3963,19 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26458",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:14.804631Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26461",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:32.997412Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-3596",
-                  "modified": "2025-10-24T05:06:43Z"
+                  "modified": "2026-01-20T19:11:21.125918Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-24528",
-                  "modified": "2025-10-10T15:26:14Z"
+                  "modified": "2026-01-20T18:16:48.208715Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-3576",
@@ -3962,7 +3987,7 @@ interactions:
                 },
                 {
                   "id": "USN-7314-1",
-                  "modified": "2025-10-13T04:40:30Z"
+                  "modified": "2026-01-20T16:13:09.322537Z"
                 },
                 {
                   "id": "USN-7542-1",
@@ -3978,19 +4003,19 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26458",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:14.804631Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26461",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:32.997412Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-3596",
-                  "modified": "2025-10-24T05:06:43Z"
+                  "modified": "2026-01-20T19:11:21.125918Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-24528",
-                  "modified": "2025-10-10T15:26:14Z"
+                  "modified": "2026-01-20T18:16:48.208715Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-3576",
@@ -4002,7 +4027,7 @@ interactions:
                 },
                 {
                   "id": "USN-7314-1",
-                  "modified": "2025-10-13T04:40:30Z"
+                  "modified": "2026-01-20T16:13:09.322537Z"
                 },
                 {
                   "id": "USN-7542-1",
@@ -4019,11 +4044,16 @@ interactions:
               ]
             },
             {},
+            {},
             {
               "vulns": [
                 {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
+                  "id": "UBUNTU-CVE-2023-50495",
+                  "modified": "2025-10-24T05:02:22Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2025-6141",
+                  "modified": "2026-01-20T18:35:03.980742Z"
                 }
               ]
             },
@@ -4035,19 +4065,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6141",
-                  "modified": "2025-10-24T05:16:33Z"
-                }
-              ]
-            },
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2023-50495",
-                  "modified": "2025-10-24T05:02:22Z"
-                },
-                {
-                  "id": "UBUNTU-CVE-2025-6141",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:35:03.980742Z"
                 }
               ]
             },
@@ -4058,19 +4076,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-10041",
-                  "modified": "2025-10-24T05:06:47Z"
+                  "modified": "2026-01-20T19:07:32.667161Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6020",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:34:41.982610Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8941",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:46:31.526274Z"
                 },
                 {
                   "id": "USN-7580-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:24:20.704153Z"
                 }
               ]
             },
@@ -4078,19 +4096,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-10041",
-                  "modified": "2025-10-24T05:06:47Z"
+                  "modified": "2026-01-20T19:07:32.667161Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6020",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:34:41.982610Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8941",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:46:31.526274Z"
                 },
                 {
                   "id": "USN-7580-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:24:20.704153Z"
                 }
               ]
             },
@@ -4098,19 +4116,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-10041",
-                  "modified": "2025-10-24T05:06:47Z"
+                  "modified": "2026-01-20T19:07:32.667161Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6020",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:34:41.982610Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8941",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:46:31.526274Z"
                 },
                 {
                   "id": "USN-7580-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:24:20.704153Z"
                 }
               ]
             },
@@ -4118,19 +4136,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-10041",
-                  "modified": "2025-10-24T05:06:47Z"
+                  "modified": "2026-01-20T19:07:32.667161Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6020",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:34:41.982610Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8941",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:46:31.526274Z"
                 },
                 {
                   "id": "USN-7580-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:24:20.704153Z"
                 }
               ]
             },
@@ -4146,7 +4164,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2017-11164",
-                  "modified": "2025-10-24T04:46:24Z"
+                  "modified": "2026-01-20T16:49:00.053545Z"
                 }
               ]
             },
@@ -4156,24 +4174,17 @@ interactions:
             {},
             {},
             {},
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
-                }
-              ]
-            },
+            {},
             {},
             {
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-13176",
-                  "modified": "2025-11-27T08:08:55.011541Z"
+                  "modified": "2026-01-20T17:49:38.437286Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-41996",
-                  "modified": "2025-12-01T07:36:42.094949Z"
+                  "modified": "2026-01-14T21:34:58.796731Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-9143",
@@ -4181,11 +4192,11 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-27587",
-                  "modified": "2025-10-24T05:18:10Z"
+                  "modified": "2026-01-14T21:30:34.228650Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-9230",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:47:00.933847Z"
                 },
                 {
                   "id": "USN-7278-1",
@@ -4193,7 +4204,7 @@ interactions:
                 },
                 {
                   "id": "USN-7786-1",
-                  "modified": "2025-10-13T04:42:44Z"
+                  "modified": "2026-01-20T16:28:42.782409Z"
                 }
               ]
             },
@@ -4201,7 +4212,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-11T08:34:13.011003Z"
+                  "modified": "2026-01-20T19:02:52.626241Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -4221,11 +4232,11 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-4598",
-                  "modified": "2025-09-08T17:06:50Z"
+                  "modified": "2026-01-20T18:58:54.878524Z"
                 },
                 {
                   "id": "USN-7559-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:23:19.708747Z"
                 }
               ]
             },
@@ -4233,15 +4244,23 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2021-46848",
-                  "modified": "2025-10-24T04:50:41Z"
+                  "modified": "2026-01-14T20:39:47.247028Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-12133",
                   "modified": "2025-10-24T05:06:48Z"
                 },
                 {
+                  "id": "UBUNTU-CVE-2025-13151",
+                  "modified": "2026-01-20T19:01:40.152898Z"
+                },
+                {
                   "id": "USN-7275-1",
                   "modified": "2025-10-13T04:39:42Z"
+                },
+                {
+                  "id": "USN-7954-1",
+                  "modified": "2026-01-20T16:33:32.004228Z"
                 }
               ]
             },
@@ -4253,7 +4272,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6141",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:35:03.980742Z"
                 }
               ]
             },
@@ -4267,23 +4286,16 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-4598",
-                  "modified": "2025-09-08T17:06:50Z"
+                  "modified": "2026-01-20T18:58:54.878524Z"
                 },
                 {
                   "id": "USN-7559-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:23:19.708747Z"
                 }
               ]
             },
             {},
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
-                }
-              ]
-            },
+            {},
             {},
             {
               "vulns": [
@@ -4301,18 +4313,23 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-56433",
-                  "modified": "2025-10-24T05:15:07Z"
+                  "modified": "2026-01-20T18:02:13.226633Z"
                 }
               ]
             },
             {},
             {},
             {},
+            {},
             {
               "vulns": [
                 {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
+                  "id": "UBUNTU-CVE-2023-50495",
+                  "modified": "2025-10-24T05:02:22Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2025-6141",
+                  "modified": "2026-01-20T18:35:03.980742Z"
                 }
               ]
             },
@@ -4324,19 +4341,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6141",
-                  "modified": "2025-10-24T05:16:33Z"
-                }
-              ]
-            },
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2023-50495",
-                  "modified": "2025-10-24T05:02:22Z"
-                },
-                {
-                  "id": "UBUNTU-CVE-2025-6141",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:35:03.980742Z"
                 }
               ]
             },
@@ -4348,7 +4353,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-56433",
-                  "modified": "2025-10-24T05:15:07Z"
+                  "modified": "2026-01-20T18:02:13.226633Z"
                 }
               ]
             },
@@ -4364,11 +4369,11 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-56406",
-                  "modified": "2025-10-21T05:15:41Z"
+                  "modified": "2026-01-20T18:02:43.323915Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-40909",
-                  "modified": "2025-10-24T05:23:32Z"
+                  "modified": "2026-01-20T18:57:51.579519Z"
                 },
                 {
                   "id": "USN-7434-1",
@@ -4376,7 +4381,7 @@ interactions:
                 },
                 {
                   "id": "USN-7678-1",
-                  "modified": "2025-10-13T04:42:15Z"
+                  "modified": "2026-01-20T16:13:46.016666Z"
                 }
               ]
             },
@@ -4388,33 +4393,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2025-45582",
-                  "modified": "2025-10-24T05:23:32Z"
+                  "modified": "2026-01-20T18:59:29.811906Z"
                 }
               ]
             },
             {},
             {},
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
-                }
-              ]
-            },
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2025-14847",
-                  "modified": "2025-12-26T08:25:05.686502Z"
-                }
-              ]
-            }
+            {},
+            {}
           ]
         }
       headers:
         Content-Length:
-          - "9659"
+          - "10172"
         Content-Type:
           - application/json
       status: 200 OK
@@ -5164,7 +5155,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 14165
+      content_length: 14678
       body: |
         {
           "results": [
@@ -5173,23 +5164,16 @@ interactions:
             {},
             {},
             {},
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
-                }
-              ]
-            },
+            {},
             {
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2016-2781",
-                  "modified": "2025-10-24T04:45:39Z"
+                  "modified": "2026-01-20T16:45:42.494092Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-5278",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:50:39.520044Z"
                 }
               ]
             },
@@ -5201,11 +5185,11 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2025-6297",
-                  "modified": "2025-10-24T05:16:34Z"
+                  "modified": "2026-01-20T18:13:49.366319Z"
                 },
                 {
                   "id": "USN-7768-1",
-                  "modified": "2025-10-13T04:42:23Z"
+                  "modified": "2026-01-20T16:28:24.443473Z"
                 }
               ]
             },
@@ -5216,7 +5200,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-11T08:34:13.011003Z"
+                  "modified": "2026-01-20T19:02:52.626241Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -5540,11 +5524,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-3219",
-                  "modified": "2025-12-10T08:17:47.423186Z"
+                  "modified": "2026-01-20T17:26:42.776809Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-30258",
-                  "modified": "2025-12-10T08:31:04.696765Z"
+                  "modified": "2026-01-20T18:54:05.525239Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2025-68972",
+                  "modified": "2026-01-20T19:15:15.770361Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2025-68973",
+                  "modified": "2026-01-20T19:15:33.485683Z"
                 },
                 {
                   "id": "USN-7412-1",
@@ -5552,37 +5544,34 @@ interactions:
                 },
                 {
                   "id": "USN-7412-2",
-                  "modified": "2025-10-13T04:41:00Z"
-                }
-              ]
-            },
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {
-              "vulns": [
+                  "modified": "2026-01-20T16:13:40.098332Z"
+                },
                 {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
+                  "id": "USN-7946-1",
+                  "modified": "2026-01-20T16:33:18.233083Z"
                 }
               ]
             },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
             {},
             {
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2016-20013",
-                  "modified": "2025-10-24T04:46:01Z"
+                  "modified": "2026-01-20T16:43:31.598452Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-0395",
-                  "modified": "2025-09-08T17:06:47Z"
+                  "modified": "2026-01-20T19:05:26.494058Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-4802",
@@ -5590,7 +5579,15 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8058",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:45:49.710699Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-0861",
+                  "modified": "2026-01-20T19:30:07.220684Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-0915",
+                  "modified": "2026-01-20T19:30:07.738864Z"
                 },
                 {
                   "id": "USN-7259-1",
@@ -5602,7 +5599,7 @@ interactions:
                 },
                 {
                   "id": "USN-7760-1",
-                  "modified": "2025-10-13T04:42:23Z"
+                  "modified": "2026-01-20T16:28:18.117690Z"
                 }
               ]
             },
@@ -5610,11 +5607,11 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2016-20013",
-                  "modified": "2025-10-24T04:46:01Z"
+                  "modified": "2026-01-20T16:43:31.598452Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-0395",
-                  "modified": "2025-09-08T17:06:47Z"
+                  "modified": "2026-01-20T19:05:26.494058Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-4802",
@@ -5622,7 +5619,15 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8058",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:45:49.710699Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-0861",
+                  "modified": "2026-01-20T19:30:07.220684Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2026-0915",
+                  "modified": "2026-01-20T19:30:07.738864Z"
                 },
                 {
                   "id": "USN-7259-1",
@@ -5634,7 +5639,7 @@ interactions:
                 },
                 {
                   "id": "USN-7760-1",
-                  "modified": "2025-10-13T04:42:23Z"
+                  "modified": "2026-01-20T16:28:18.117690Z"
                 }
               ]
             },
@@ -5661,7 +5666,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-11T08:34:13.011003Z"
+                  "modified": "2026-01-20T19:02:52.626241Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -5677,7 +5682,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-2236",
-                  "modified": "2025-10-30T05:11:27Z"
+                  "modified": "2026-01-20T17:51:42.649938Z"
                 }
               ]
             },
@@ -5686,27 +5691,27 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-12243",
-                  "modified": "2025-10-30T05:11:31Z"
+                  "modified": "2026-01-20T17:49:29.660156Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-32988",
-                  "modified": "2025-10-30T05:20:40Z"
+                  "modified": "2026-01-20T18:32:26.855693Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-32989",
-                  "modified": "2025-10-30T05:20:40Z"
+                  "modified": "2026-01-20T18:32:31.404974Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-32990",
-                  "modified": "2025-10-30T05:20:40Z"
+                  "modified": "2026-01-20T18:32:36.025704Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6395",
-                  "modified": "2025-10-30T05:19:17Z"
+                  "modified": "2026-01-20T19:16:09.354679Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-9820",
-                  "modified": "2025-11-25T05:19:37Z"
+                  "modified": "2026-01-20T19:17:05.904450Z"
                 },
                 {
                   "id": "USN-7281-1",
@@ -5714,7 +5719,7 @@ interactions:
                 },
                 {
                   "id": "USN-7635-1",
-                  "modified": "2025-10-13T04:42:07Z"
+                  "modified": "2026-01-20T16:23:38.007320Z"
                 }
               ]
             },
@@ -5727,19 +5732,19 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26458",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:14.804631Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26461",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:32.997412Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-3596",
-                  "modified": "2025-10-24T05:06:43Z"
+                  "modified": "2026-01-20T19:11:21.125918Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-24528",
-                  "modified": "2025-10-10T15:26:14Z"
+                  "modified": "2026-01-20T18:16:48.208715Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-3576",
@@ -5751,7 +5756,7 @@ interactions:
                 },
                 {
                   "id": "USN-7314-1",
-                  "modified": "2025-10-13T04:40:30Z"
+                  "modified": "2026-01-20T16:13:09.322537Z"
                 },
                 {
                   "id": "USN-7542-1",
@@ -5769,19 +5774,19 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26458",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:14.804631Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26461",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:32.997412Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-3596",
-                  "modified": "2025-10-24T05:06:43Z"
+                  "modified": "2026-01-20T19:11:21.125918Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-24528",
-                  "modified": "2025-10-10T15:26:14Z"
+                  "modified": "2026-01-20T18:16:48.208715Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-3576",
@@ -5793,7 +5798,7 @@ interactions:
                 },
                 {
                   "id": "USN-7314-1",
-                  "modified": "2025-10-13T04:40:30Z"
+                  "modified": "2026-01-20T16:13:09.322537Z"
                 },
                 {
                   "id": "USN-7542-1",
@@ -5810,19 +5815,19 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26458",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:14.804631Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26461",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:32.997412Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-3596",
-                  "modified": "2025-10-24T05:06:43Z"
+                  "modified": "2026-01-20T19:11:21.125918Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-24528",
-                  "modified": "2025-10-10T15:26:14Z"
+                  "modified": "2026-01-20T18:16:48.208715Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-3576",
@@ -5834,7 +5839,7 @@ interactions:
                 },
                 {
                   "id": "USN-7314-1",
-                  "modified": "2025-10-13T04:40:30Z"
+                  "modified": "2026-01-20T16:13:09.322537Z"
                 },
                 {
                   "id": "USN-7542-1",
@@ -5850,19 +5855,19 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26458",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:14.804631Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-26461",
-                  "modified": "2025-10-10T15:16:53Z"
+                  "modified": "2026-01-20T18:37:32.997412Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-3596",
-                  "modified": "2025-10-24T05:06:43Z"
+                  "modified": "2026-01-20T19:11:21.125918Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-24528",
-                  "modified": "2025-10-10T15:26:14Z"
+                  "modified": "2026-01-20T18:16:48.208715Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-3576",
@@ -5874,7 +5879,7 @@ interactions:
                 },
                 {
                   "id": "USN-7314-1",
-                  "modified": "2025-10-13T04:40:30Z"
+                  "modified": "2026-01-20T16:13:09.322537Z"
                 },
                 {
                   "id": "USN-7542-1",
@@ -5891,11 +5896,16 @@ interactions:
               ]
             },
             {},
+            {},
             {
               "vulns": [
                 {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
+                  "id": "UBUNTU-CVE-2023-50495",
+                  "modified": "2025-10-24T05:02:22Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2025-6141",
+                  "modified": "2026-01-20T18:35:03.980742Z"
                 }
               ]
             },
@@ -5907,19 +5917,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6141",
-                  "modified": "2025-10-24T05:16:33Z"
-                }
-              ]
-            },
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2023-50495",
-                  "modified": "2025-10-24T05:02:22Z"
-                },
-                {
-                  "id": "UBUNTU-CVE-2025-6141",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:35:03.980742Z"
                 }
               ]
             },
@@ -5930,19 +5928,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-10041",
-                  "modified": "2025-10-24T05:06:47Z"
+                  "modified": "2026-01-20T19:07:32.667161Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6020",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:34:41.982610Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8941",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:46:31.526274Z"
                 },
                 {
                   "id": "USN-7580-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:24:20.704153Z"
                 }
               ]
             },
@@ -5950,19 +5948,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-10041",
-                  "modified": "2025-10-24T05:06:47Z"
+                  "modified": "2026-01-20T19:07:32.667161Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6020",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:34:41.982610Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8941",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:46:31.526274Z"
                 },
                 {
                   "id": "USN-7580-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:24:20.704153Z"
                 }
               ]
             },
@@ -5970,19 +5968,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-10041",
-                  "modified": "2025-10-24T05:06:47Z"
+                  "modified": "2026-01-20T19:07:32.667161Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6020",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:34:41.982610Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8941",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:46:31.526274Z"
                 },
                 {
                   "id": "USN-7580-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:24:20.704153Z"
                 }
               ]
             },
@@ -5990,19 +5988,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-10041",
-                  "modified": "2025-10-24T05:06:47Z"
+                  "modified": "2026-01-20T19:07:32.667161Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6020",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:34:41.982610Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-8941",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:46:31.526274Z"
                 },
                 {
                   "id": "USN-7580-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:24:20.704153Z"
                 }
               ]
             },
@@ -6018,7 +6016,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2017-11164",
-                  "modified": "2025-10-24T04:46:24Z"
+                  "modified": "2026-01-20T16:49:00.053545Z"
                 }
               ]
             },
@@ -6028,24 +6026,17 @@ interactions:
             {},
             {},
             {},
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
-                }
-              ]
-            },
+            {},
             {},
             {
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2024-13176",
-                  "modified": "2025-11-27T08:08:55.011541Z"
+                  "modified": "2026-01-20T17:49:38.437286Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-41996",
-                  "modified": "2025-12-01T07:36:42.094949Z"
+                  "modified": "2026-01-14T21:34:58.796731Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-9143",
@@ -6053,11 +6044,11 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-27587",
-                  "modified": "2025-10-24T05:18:10Z"
+                  "modified": "2026-01-14T21:30:34.228650Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-9230",
-                  "modified": "2025-10-24T05:16:35Z"
+                  "modified": "2026-01-20T18:47:00.933847Z"
                 },
                 {
                   "id": "USN-7278-1",
@@ -6065,7 +6056,7 @@ interactions:
                 },
                 {
                   "id": "USN-7786-1",
-                  "modified": "2025-10-13T04:42:44Z"
+                  "modified": "2026-01-20T16:28:42.782409Z"
                 }
               ]
             },
@@ -6073,7 +6064,7 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2022-27943",
-                  "modified": "2025-12-11T08:34:13.011003Z"
+                  "modified": "2026-01-20T19:02:52.626241Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2023-4039",
@@ -6093,11 +6084,11 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-4598",
-                  "modified": "2025-09-08T17:06:50Z"
+                  "modified": "2026-01-20T18:58:54.878524Z"
                 },
                 {
                   "id": "USN-7559-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:23:19.708747Z"
                 }
               ]
             },
@@ -6105,15 +6096,23 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2021-46848",
-                  "modified": "2025-10-24T04:50:41Z"
+                  "modified": "2026-01-14T20:39:47.247028Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2024-12133",
                   "modified": "2025-10-24T05:06:48Z"
                 },
                 {
+                  "id": "UBUNTU-CVE-2025-13151",
+                  "modified": "2026-01-20T19:01:40.152898Z"
+                },
+                {
                   "id": "USN-7275-1",
                   "modified": "2025-10-13T04:39:42Z"
+                },
+                {
+                  "id": "USN-7954-1",
+                  "modified": "2026-01-20T16:33:32.004228Z"
                 }
               ]
             },
@@ -6125,7 +6124,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6141",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:35:03.980742Z"
                 }
               ]
             },
@@ -6139,23 +6138,16 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-4598",
-                  "modified": "2025-09-08T17:06:50Z"
+                  "modified": "2026-01-20T18:58:54.878524Z"
                 },
                 {
                   "id": "USN-7559-1",
-                  "modified": "2025-10-13T04:41:31Z"
+                  "modified": "2026-01-20T16:23:19.708747Z"
                 }
               ]
             },
             {},
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
-                }
-              ]
-            },
+            {},
             {},
             {
               "vulns": [
@@ -6173,18 +6165,23 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-56433",
-                  "modified": "2025-10-24T05:15:07Z"
+                  "modified": "2026-01-20T18:02:13.226633Z"
                 }
               ]
             },
             {},
             {},
             {},
+            {},
             {
               "vulns": [
                 {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
+                  "id": "UBUNTU-CVE-2023-50495",
+                  "modified": "2025-10-24T05:02:22Z"
+                },
+                {
+                  "id": "UBUNTU-CVE-2025-6141",
+                  "modified": "2026-01-20T18:35:03.980742Z"
                 }
               ]
             },
@@ -6196,19 +6193,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2025-6141",
-                  "modified": "2025-10-24T05:16:33Z"
-                }
-              ]
-            },
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2023-50495",
-                  "modified": "2025-10-24T05:02:22Z"
-                },
-                {
-                  "id": "UBUNTU-CVE-2025-6141",
-                  "modified": "2025-10-24T05:16:33Z"
+                  "modified": "2026-01-20T18:35:03.980742Z"
                 }
               ]
             },
@@ -6220,7 +6205,7 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-56433",
-                  "modified": "2025-10-24T05:15:07Z"
+                  "modified": "2026-01-20T18:02:13.226633Z"
                 }
               ]
             },
@@ -6236,11 +6221,11 @@ interactions:
                 },
                 {
                   "id": "UBUNTU-CVE-2024-56406",
-                  "modified": "2025-10-21T05:15:41Z"
+                  "modified": "2026-01-20T18:02:43.323915Z"
                 },
                 {
                   "id": "UBUNTU-CVE-2025-40909",
-                  "modified": "2025-10-24T05:23:32Z"
+                  "modified": "2026-01-20T18:57:51.579519Z"
                 },
                 {
                   "id": "USN-7434-1",
@@ -6248,7 +6233,7 @@ interactions:
                 },
                 {
                   "id": "USN-7678-1",
-                  "modified": "2025-10-13T04:42:15Z"
+                  "modified": "2026-01-20T16:13:46.016666Z"
                 }
               ]
             },
@@ -6260,33 +6245,19 @@ interactions:
               "vulns": [
                 {
                   "id": "UBUNTU-CVE-2025-45582",
-                  "modified": "2025-10-24T05:23:32Z"
+                  "modified": "2026-01-20T18:59:29.811906Z"
                 }
               ]
             },
             {},
             {},
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2025-14104",
-                  "modified": "2025-12-16T19:58:36.369406Z"
-                }
-              ]
-            },
-            {
-              "vulns": [
-                {
-                  "id": "UBUNTU-CVE-2025-14847",
-                  "modified": "2025-12-26T08:25:05.686502Z"
-                }
-              ]
-            }
+            {},
+            {}
           ]
         }
       headers:
         Content-Length:
-          - "14165"
+          - "14678"
         Content-Type:
           - application/json
       status: 200 OK

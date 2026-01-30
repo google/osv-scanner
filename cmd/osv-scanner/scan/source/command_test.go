@@ -334,6 +334,11 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner.json"},
 			Exit: 1,
 		},
+		{
+			Name: "help",
+			Args: []string{"", "source", "--help"},
+			Exit: 127,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -935,6 +940,11 @@ func TestCommand_GithubActions(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "scanning osv-scanner custom format with git tag",
+			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-custom-git-tag.json"},
+			Exit: 1,
+		},
+		{
 			Name: "scanning osv-scanner custom format output json",
 			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
 			ReplaceRules: []testutility.JSONReplaceRule{
@@ -1027,12 +1037,11 @@ func TestCommand_LocalDatabases(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
-			if testutility.IsAcceptanceTesting() {
-				testDir := testutility.CreateTestDir(t)
-				old := tt.Args
-				tt.Args = []string{"", "source", "--local-db-path", testDir}
-				tt.Args = append(tt.Args, old[2:]...)
-			}
+
+			testDir := testutility.CreateTestDir(t)
+			old := tt.Args
+			tt.Args = []string{"", "source", "--local-db-path", testDir}
+			tt.Args = append(tt.Args, old[2:]...)
 
 			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
