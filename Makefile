@@ -14,6 +14,9 @@ help: ## Show this help message
 		/^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2 } \
 		/^## / { printf "  %-20s %s\n", "", substr($$0, 4) }' $(MAKEFILE_LIST)
 
+## Prevents make from trying to interpret the targets as files
+.PHONY: build scanner lint lint-fix format clean local-docs test update-snapshots refresh-all help
+
 build: ## Build scanner
 	scripts/build.sh
 
@@ -38,13 +41,13 @@ local-docs: ## Run local docs
 
 test: ## Run tests
 ##  Options:
-##    SNAPS=false   Update snapshots
-##    ACC=false     Run acceptance tests
-##    SHORT=true  Run full tests
-##    VCR=mode     VCR mode:
+##    SNAPS=true   Update snapshots (Default: false)
+##    ACC=true     Run acceptance tests (Default: false)
+##    SHORT=false  Run full tests (Default: true)
+##    VCR=mode     VCR mode (Default: ReplayWithNewEpisodes):
 ##      - 0|RecordOnly:            Record new cassettes
 ##      - 1|ReplayOnly:            Replay cassettes, error if missing
-##      - 2|ReplayWithNewEpisodes: Replay, record if missing (Default)
+##      - 2|ReplayWithNewEpisodes: Replay, record if missing
 ##      - 3|RecordOnce:            Record if missing
 ##      - 4|Passthrough:           Disable VCR
 	@export TEST_VCR_MODE=$(VCR); \
