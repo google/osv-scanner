@@ -6,6 +6,7 @@ import (
 
 func Test_parseExcludeArg(t *testing.T) {
 	t.Parallel()
+
 	tests := []struct {
 		name            string
 		arg             string
@@ -22,6 +23,11 @@ func Test_parseExcludeArg(t *testing.T) {
 		{"single_letter_dir", "g", "", "g"},
 		{"path_like_glob", "test/path", "", "test/path"},
 		{"unknown_prefix_returns_prefix", "x:pattern", "x", "pattern"},
+		// Windows specific tests - these will run on Linux too but result might depend on OS
+		// We expect r: to be regex on ALL platforms now with the fix (since it falls through on Linux, and matches explicit check on Windows)
+		{"windows_regex_lower_r", `r:pattern`, "r", "pattern"},
+		{"windows_glob_lower_g", `g:pattern`, "g", "pattern"},
+		{"windows_regex_simple", `r:foo`, "r", "foo"},
 	}
 
 	for _, tt := range tests {

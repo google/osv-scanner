@@ -9,6 +9,7 @@ import (
 
 	"github.com/gobwas/glob"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 )
 
 // excludePatterns holds parsed patterns for excluding paths during scanning.
@@ -95,8 +96,12 @@ func parseExcludePatterns(patterns []string) (*excludePatterns, error) {
 // Unknown prefixes are returned as-is so the caller can provide appropriate error messages.
 func parseExcludeArg(arg string) (string, string) {
 	// Handle Windows absolute paths (e.g., C:\path)
-	if runtime.GOOS == "windows" && filepath.IsAbs(arg) {
-		return "", arg
+	if runtime.GOOS == "windows" {
+		if strings.HasPrefix(arg, "r:") || strings.HasPrefix(arg, "g:") {
+			cmdlogger.Warnf("interpreting as regex/glob and not absolute path: %s", arg)
+		} else if filepath.IsAbs(arg) {
+			return "", arg
+		}
 	}
 
 	patternType, pattern, found := strings.Cut(arg, ":")
