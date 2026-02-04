@@ -627,7 +627,7 @@ No issues found
         }
       ],
       "published": "2021-06-29T03:13:28Z",
-      "updated": "2024-02-16T08:21:35Z",
+      "updated": "2026-02-04T03:17:54Z",
       "credits": {
         "organizations": []
       },
@@ -721,7 +721,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
         }
       ],
       "published": "2021-06-29T03:13:28Z",
-      "updated": "2024-02-16T08:21:35Z",
+      "updated": "2026-02-04T03:17:54Z",
       "credits": {
         "organizations": []
       },
@@ -1801,7 +1801,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 Loaded GIT local db from <tempdir>/osv-scanner/GIT/all.zip
 Skipping commit scanning for: 45fda76bc1b9fd74d10e85e0ce9b65a12dcc58b0
-Total 8 packages affected by 29 known vulnerabilities (5 Critical, 6 High, 11 Medium, 0 Low, 7 Unknown) from 1 ecosystem.
+Total 8 packages affected by 29 known vulnerabilities (5 Critical, 7 High, 11 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -1828,7 +1828,7 @@ Total 8 packages affected by 29 known vulnerabilities (5 Critical, 6 High, 11 Me
 | https://osv.dev/CVE-2025-69418 | 4.0  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-69419 | 7.4  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-69420 | 7.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2025-69421 |      | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-69421 | 7.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9230  | 7.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9231  | 6.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9232  | 5.9  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
@@ -1847,7 +1847,7 @@ Total 8 packages affected by 29 known vulnerabilities (5 Critical, 6 High, 11 Me
 
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
-Total 11 packages affected by 53 known vulnerabilities (7 Critical, 11 High, 24 Medium, 4 Low, 7 Unknown) from 1 ecosystem.
+Total 11 packages affected by 53 known vulnerabilities (7 Critical, 12 High, 24 Medium, 4 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -1893,7 +1893,7 @@ Total 11 packages affected by 53 known vulnerabilities (7 Critical, 11 High, 24 
 | https://osv.dev/CVE-2025-69418 | 4.0  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-69419 | 7.4  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-69420 | 7.5  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2025-69421 |      | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-69421 | 7.5  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9230  | 7.5  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9231  | 6.5  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9232  | 5.9  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
