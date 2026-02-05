@@ -20,7 +20,7 @@ func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	}
 
 	// TODO(#1783): Allow user configuration
-	doc := spdx.ToSPDX23(scanResult, spdx.Config{})
+	doc := spdx.ToSPDX23(scanResult.Inventory, spdx.Config{})
 
 	encoder := json.NewEncoder(outputWriter)
 	encoder.SetIndent("", "  ")

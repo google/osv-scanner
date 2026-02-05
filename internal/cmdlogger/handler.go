@@ -57,6 +57,13 @@ func (c *Handler) Enabled(ctx context.Context, level slog.Level) bool {
 }
 
 func (c *Handler) Handle(ctx context.Context, record slog.Record) error {
+	// todo: we probably want to be reporting disabled plugins in some way,
+	//  but currently our snapshot-based tests cannot handle os-dependent
+	//  output and we've got some plugins that are only available for linux
+	if strings.HasPrefix(record.Message, "Disabling plugin ") {
+		return nil
+	}
+
 	if record.Level == slog.LevelError {
 		c.SetHasErrored()
 
