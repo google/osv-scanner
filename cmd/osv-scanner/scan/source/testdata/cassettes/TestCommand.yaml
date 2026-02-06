@@ -1889,6 +1889,263 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
+      content_length: 278
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/exclude_with_exact_directory_name
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 19
+      body: |
+        {
+          "results": [
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "19"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 19
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 278
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/exclude_with_glob_pattern
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 19
+      body: |
+        {
+          "results": [
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "19"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 20
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 278
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/exclude_with_multiple_exact_directories
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 19
+      body: |
+        {
+          "results": [
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "19"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 21
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 278
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/exclude_with_multiple_pattern_types
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 19
+      body: |
+        {
+          "results": [
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "19"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 22
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 149
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/exclude_with_regex_pattern
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 23
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
       content_length: 156
       host: api.osv.dev
       body: |
@@ -1936,7 +2193,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 19
+  - id: 24
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -1988,7 +2245,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 20
+  - id: 25
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -4654,7 +4911,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 21
+  - id: 26
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -4706,7 +4963,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 22
+  - id: 27
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -4825,7 +5082,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 23
+  - id: 28
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -4877,7 +5134,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 24
+  - id: 29
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -4978,7 +5235,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 25
+  - id: 30
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -5023,7 +5280,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 26
+  - id: 31
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -5076,7 +5333,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 27
+  - id: 32
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -5121,7 +5378,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 28
+  - id: 33
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -5166,7 +5423,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 29
+  - id: 34
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -5211,7 +5468,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 30
+  - id: 35
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -5263,7 +5520,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 31
+  - id: 36
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -5308,7 +5565,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 32
+  - id: 37
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -5475,7 +5732,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 33
+  - id: 38
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -5642,7 +5899,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 34
+  - id: 39
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -5743,7 +6000,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 35
+  - id: 40
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -5844,7 +6101,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 36
+  - id: 41
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6011,7 +6268,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 37
+  - id: 42
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6178,7 +6435,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 38
+  - id: 43
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6223,7 +6480,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 39
+  - id: 44
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6275,7 +6532,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 40
+  - id: 45
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6709,7 +6966,158 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 41
+  - id: 46
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 278
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/skip-dir_with_exact_directory_name
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 19
+      body: |
+        {
+          "results": [
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "19"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 47
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 278
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/skip-dir_with_glob_pattern
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 19
+      body: |
+        {
+          "results": [
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "19"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 48
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 149
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/skip-dir_with_regex_pattern
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 16
+      body: |
+        {
+          "results": [
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "16"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 49
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6793,7 +7201,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 42
+  - id: 50
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6838,7 +7246,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 43
+  - id: 51
     request:
       proto: HTTP/1.1
       proto_major: 1

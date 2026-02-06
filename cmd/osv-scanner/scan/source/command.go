@@ -57,6 +57,10 @@ func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 				Usage: "include scanning git root (non-submoduled) repositories",
 				Value: false,
 			},
+			&cli.StringSliceFlag{
+				Name:  "experimental-exclude",
+				Usage: "exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)",
+			},
 			&cli.StringFlag{
 				Name:  "data-source",
 				Usage: "source to fetch package information from; value can be: deps.dev, native",
@@ -109,6 +113,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 
 	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd, client)
 	experimentalScannerActions.RequestUserAgent = "osv-scanner_scan-source/" + version.OSVVersion
+	experimentalScannerActions.ExcludePatterns = cmd.StringSlice("experimental-exclude")
 	// Add `source` specific experimental configs
 	experimentalScannerActions.TransitiveScanning = osvscanner.TransitiveScanningActions{
 		Disabled:         cmd.Bool("no-resolve"),
