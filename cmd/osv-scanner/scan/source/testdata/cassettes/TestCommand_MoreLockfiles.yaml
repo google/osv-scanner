@@ -387,7 +387,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9m3q-rhmv-5q44",
-                  "modified": "2025-03-13T21:49:32.847007Z"
+                  "modified": "2026-02-04T03:22:18.343631Z"
                 }
               ]
             },
@@ -396,19 +396,19 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-353f-x4gh-cqq8",
-                  "modified": "2025-07-21T19:42:17.531986Z"
+                  "modified": "2026-02-04T03:08:45.682451Z"
                 },
                 {
                   "id": "GHSA-5w6v-399v-w3cc",
-                  "modified": "2025-04-21T22:04:45.823585Z"
+                  "modified": "2026-02-04T02:49:28.572138Z"
                 },
                 {
                   "id": "GHSA-mrxw-mxhj-p664",
-                  "modified": "2025-03-21T15:52:20.761884Z"
+                  "modified": "2026-02-04T04:34:58.905946Z"
                 },
                 {
                   "id": "GHSA-vvfq-8hwr-qm4m",
-                  "modified": "2025-03-10T22:51:07.538402Z"
+                  "modified": "2026-02-04T03:58:31.466756Z"
                 }
               ]
             },
@@ -636,7 +636,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 98
+      content_length: 168
       body: |
         {
           "results": [
@@ -644,8 +644,12 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GHSA-7gcm-g887-7qv7",
+                  "modified": "2026-02-05T16:35:34.839005Z"
+                },
+                {
                   "id": "GHSA-8qvm-5x2c-j2w7",
-                  "modified": "2025-06-16T16:27:17.848804Z"
+                  "modified": "2026-02-04T03:00:07.684118Z"
                 }
               ]
             }
@@ -653,7 +657,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "98"
+          - "168"
         Content-Type:
           - application/json
       status: 200 OK
