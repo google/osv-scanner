@@ -1847,7 +1847,7 @@ Total 8 packages affected by 29 known vulnerabilities (5 Critical, 7 High, 11 Me
 
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
-Total 11 packages affected by 53 known vulnerabilities (7 Critical, 12 High, 24 Medium, 4 Low, 6 Unknown) from 1 ecosystem.
+Total 11 packages affected by 53 known vulnerabilities (7 Critical, 13 High, 23 Medium, 4 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -1868,11 +1868,11 @@ Total 11 packages affected by 53 known vulnerabilities (7 Critical, 12 High, 24 
 | https://osv.dev/OSV-2023-1161  |      | GIT       |          https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/OSV-2024-340   |      | GIT       |          https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2021-22569 | 5.5  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2022-3171  | 7.5  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2022-3509  | 7.5  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2022-3510  | 7.5  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2024-2410  | 9.8  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2024-7254  | 7.5  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2025-4565  | 5.3  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/OSV-2018-389   |      | GIT       |        https://github.com/boostorg/boost@1a9dda41        | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2024-51757 | 9.3  | GIT       |   https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-61927 | 7.2  | GIT       |   https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
