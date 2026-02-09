@@ -3,13 +3,13 @@ package main
 import (
 	"archive/tar"
 	"bufio"
+	"bytes"
 	"compress/gzip"
 	"context"
 	"flag"
 	"fmt"
 	"io"
 	"log"
-	"net/http"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -40,8 +40,6 @@ type LibraryInfo struct {
 	Modules      []*ModuleInfo // Specific modules or functions imported from this library
 	Dependencies []string      // Direct dependencies declared in library's metadata
 }
-
-// Constants for terminal output formatting
 
 // safeOpenFile safely opens a file and returns a closer function
 func safeOpenFile(filePath string) (*os.File, func(), error) {
@@ -175,10 +173,9 @@ func findMainEntryPoint(dir string) ([]string, error) {
 	return mainFiles, nil
 }
 
-// findManifest searches a directory for a supported manifest file.
+// findManifest searches for supported manifest file in a directory.
 func findManifestFiles(dir string) ([]string, error) {
 	supportedManifests := []string{"poetry.lock"}
-	unsupportedManifests := []string{"requirements.txt", "Pipfile", "Pipefile.lock", "pyproject.toml"}
 	absDir, err := filepath.Abs(dir)
 	if err != nil {
 		return nil, fmt.Errorf("could not get absolute path for %s: %w", dir, err)
@@ -197,15 +194,17 @@ func findManifestFiles(dir string) ([]string, error) {
 		fileName := file.Name()
 		if slices.Contains(supportedManifests, fileName) {
 			manifestFiles = append(manifestFiles, fileName)
-		} else if slices.Contains(unsupportedManifests, fileName) {
-			return nil, fmt.Errorf("unsupported manifest file found: %s", fileName)
 		}
+	}
+
+	if len(manifestFiles) == 0 {
+		return nil, fmt.Errorf("no supported manifest files found in %s", absDir)
 	}
 
 	return manifestFiles, nil
 }
 
-// parsePoetryLock reads the poetry lock file and updates  libraryInfo with versions.
+// parsePoetryLock reads the poetry lock file and updates libraryInfo with versions.
 func parsePoetryLock(ctx context.Context, fpath string) ([]*LibraryInfo, error) {
 	dir := filepath.Dir(fpath)
 	fsys := scalibrfs.DirFS(dir)
@@ -291,7 +290,7 @@ func findImportedLibraries(file io.Reader) ([]*LibraryInfo, error) {
 	return fileLibraryInfos, nil
 }
 
-// libraryFinder scans the Python file for import statements and returns a list of LibraryInfo,
+// findLibrariesPoetryLock scans the Python file for import statements and returns a list of LibraryInfo,
 // filtered to only include libraries present in the poetry.lock file.
 func findLibrariesPoetryLock(file io.Reader, poetryLibraryInfos []*LibraryInfo) ([]*LibraryInfo, error) {
 	// Create a map of poetry libraries for quick lookup
@@ -321,46 +320,8 @@ func findLibrariesPoetryLock(file io.Reader, poetryLibraryInfos []*LibraryInfo) 
 	return filteredLibraries, nil
 }
 
-// downloadPackageSource downloads the source code of a package from PyPI.
-func downloadPackageSource(downloadLink string) (string, error) {
-	filename := filepath.Base(downloadLink)
-	tempFile, err := os.CreateTemp(".", filename)
-	if err != nil {
-		return "", fmt.Errorf("failed to create temp file: %w", err)
-	}
-	defer tempFile.Close()
-
-	// Get the HTTP response
-	resp, err := http.Get(downloadLink)
-	if err != nil {
-		os.Remove(tempFile.Name())
-		return "", fmt.Errorf("failed to get URL: %w", err)
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		os.Remove(tempFile.Name())
-		return "", fmt.Errorf("HTTP error: %d", resp.StatusCode)
-	}
-
-	_, err = io.Copy(tempFile, resp.Body)
-	if err != nil {
-		os.Remove(tempFile.Name())
-		return "", fmt.Errorf("failed to copy: %w", err)
-	}
-
-	fmt.Printf("Downloaded %s to %s\n", filename, tempFile.Name())
-	return tempFile.Name(), nil
-}
-
 // extractCompressedPackageSource extracts a .tar.gz file to a specified destination directory.
-func extractCompressedPackageSource(sourceFile string) error {
-	file, err := os.Open(sourceFile)
-	if err != nil {
-		return fmt.Errorf("failed to open source file %s: %w", sourceFile, err)
-	}
-	defer file.Close()
-
+func extractCompressedPackageSource(file *os.File) error {
 	// Create a gzip reader to decompress the stream
 	gzipReader, err := gzip.NewReader(file)
 	if err != nil {
@@ -420,46 +381,53 @@ func extractCompressedPackageSource(sourceFile string) error {
 // collect dependencies of the imported library.
 func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *LibraryInfo) error {
 	reg := datasource.NewPyPIRegistryAPIClient("")
-	response, _ := reg.GetIndex(ctx, libraryInfo.Name)
+	response, err := reg.GetIndex(ctx, libraryInfo.Name)
+	if err != nil {
+		return fmt.Errorf("failed to get package info from PyPI: %w", err)
+	}
+
+	// Find the source distribution (.tar.gz) file URL
 	downloadURL := ""
 	fileName := strings.ToLower(fmt.Sprintf(`%s-%s.tar.gz`, libraryInfo.Name, libraryInfo.Version))
 	for _, file := range response.Files {
-		//fmt.Printf("Found file %s with URL %s\n", file.Name, file.URL)
-
-		//fmt.Printf("Looking for file %s\n", fileName)
 		if file.Name == fileName {
 			downloadURL = file.URL
+			break
 		}
 	}
 
-	downloadFileSource, err := downloadPackageSource(downloadURL)
+	sourceFile, err := reg.GetFile(ctx, downloadURL)
 	if err != nil {
 		return fmt.Errorf("failed to download package source: %w", err)
 	}
 
+	reader := bytes.NewReader(sourceFile)
 	// Open the downloaded file to collect dependencies of the imported library.
-	fileSource, err := os.Open(downloadFileSource)
+	metadata, err := pypi.SdistMetadata(ctx, fileName, reader)
 	if err != nil {
-		log.Printf("failed to open downloaded file %s: %v", downloadFileSource, err)
-	}
-	defer fileSource.Close()
-	metadata, err := pypi.SdistMetadata(ctx, fileName, fileSource)
-	if err != nil {
-		log.Printf("failed to parse metadata from %s: %v", downloadFileSource, err)
+		log.Printf("failed to parse metadata from %s: %v", sourceFile, err)
 	}
 	for _, dep := range metadata.Dependencies {
 		libraryInfo.Dependencies = append(libraryInfo.Dependencies, dep.Name)
 
 	}
 
-	err = extractCompressedPackageSource(downloadFileSource)
+	tmpFile, err := os.CreateTemp("", "source-*.tar.gz")
+	if err != nil {
+		return fmt.Errorf("failed to create temp file: %w", err)
+	}
+	defer tmpFile.Close()
+	defer os.Remove(tmpFile.Name()) // Clean up the temp file after extraction
+
+	_, err = io.Copy(tmpFile, reader)
+	if err != nil {
+		return fmt.Errorf("failed to write to temp file: %w", err)
+	}
+	err = extractCompressedPackageSource(tmpFile)
 	if err != nil {
 		return err
 	}
-	err = os.Remove(downloadFileSource)
-	if err != nil {
-		return fmt.Errorf("failed to remove file: %w", err)
-	}
+
 	return nil
 }
 
@@ -578,7 +546,7 @@ func main() {
 		switch manifestFile {
 		case "poetry.lock":
 			// Parse the poetry.lock file to get library information.
-			poetryLibraryInfos, err = parsePoetryLock(ctx, filepath.Join(*directory, manifestFile))
+			poetryLibraryInfos, err = parsePoetryLock(ctx, filepath.Join(*directory))
 			if err != nil {
 				log.Printf("Error collecting libraries in poetry.lock: %v\n", err)
 			}
