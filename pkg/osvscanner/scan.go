@@ -124,8 +124,7 @@ func countNotEnrichers(plugins []plugin.Plugin) int {
 
 // scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
 func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inventory, error) {
-	var scannedPackages []*extractor.Package
-	var genericFindings []*inventory.GenericFinding
+	var inv inventory.Inventory
 
 	plugins := getPlugins(
 		[]string{"lockfile", "sbom", "directory"},
@@ -310,8 +309,8 @@ SBOMLoop:
 		})
 		sr.Inventory.Packages = invsCompact
 
-		genericFindings = append(genericFindings, sr.Inventory.GenericFindings...)
-		scannedPackages = append(scannedPackages, sr.Inventory.Packages...)
+		inv.GenericFindings = append(inv.GenericFindings, sr.Inventory.GenericFindings...)
+		inv.Packages = append(inv.Packages, sr.Inventory.Packages...)
 	}
 
 	testlogger.EndDirScanMarker()
@@ -324,14 +323,11 @@ SBOMLoop:
 		}
 	}
 
-	if len(scannedPackages) == 0 {
+	if len(inv.Packages) == 0 {
 		return nil, ErrNoPackagesFound
 	}
 
-	return &inventory.Inventory{
-		Packages:        scannedPackages,
-		GenericFindings: genericFindings,
-	}, nil
+	return &inv, nil
 }
 
 // pathToRootMap saves the absolute path into the root map, and returns the absolute path.
