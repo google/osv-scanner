@@ -428,7 +428,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 20 packages affected by 44 known vulnerabilities (2 Critical, 15 High, 23 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+Total 20 packages affected by 44 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
 22 vulnerabilities can be fixed.
 
 
@@ -474,7 +474,7 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 20 packages affected by 44 known vulnerabilities (2 Critical, 15 High, 23 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+Total 20 packages affected by 44 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
 22 vulnerabilities can be fixed.
 
 
@@ -539,7 +539,7 @@ failed to load image from tarball with path "../../testdata/locks-manyoci-image/
 Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 20 packages affected by 44 known vulnerabilities (2 Critical, 15 High, 23 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
+Total 20 packages affected by 44 known vulnerabilities (2 Critical, 14 High, 24 Medium, 3 Low, 1 Unknown) from 1 ecosystem.
 22 vulnerabilities can be fixed.
 
 
