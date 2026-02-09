@@ -197,7 +197,7 @@ func findManifestFiles(dir string) ([]string, error) {
 		fileName := file.Name()
 		if slices.Contains(supportedManifests, fileName) {
 			manifestFiles = append(manifestFiles, fileName)
-		} else if slices.Contains(unsupportedManifests, fileName) {
+} else if slices.Contains(unsupportedManifests, fileName) {
 			return nil, fmt.Errorf("unsupported manifest file found: %s", fileName)
 		}
 	}
