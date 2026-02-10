@@ -24,7 +24,7 @@ lockfile:<rootdir>/testdata/go-project/go.mod: found 1 package with issues
       Severity: '5.9'; Minimal Fix Version: '1.1.0';
 
   1 known vulnerability found in lockfile:<rootdir>/testdata/go-project/go.mod
-Hiding 5 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
+Hiding 6 number of vulnerabilities deemed unimportant, use --all-vulns to show them.
 
 
 ---
