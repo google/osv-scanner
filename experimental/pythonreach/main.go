@@ -11,6 +11,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"path"
 	"path/filepath"
 	"regexp"
 	"slices"
@@ -194,7 +195,7 @@ func findManifestFiles(dir string) ([]string, error) {
 		}
 		fileName := file.Name()
 		if slices.Contains(supportedManifests, fileName) {
-			manifestFiles = append(manifestFiles, fileName)
+			manifestFiles = append(manifestFiles, path.Join(absDir, fileName))
 		}
 	}
 
@@ -393,7 +394,7 @@ func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *Libr
 	// Find the source distribution (.tar.gz) file URL
 	downloadURL, fileName := "", ""
 	for _, file := range response.Files {
-		if strings.Contains(file.Name, libraryInfo.Version) {
+		if strings.Contains(file.Name, libraryInfo.Version) && strings.HasSuffix(file.Name, ".tar.gz") {
 			downloadURL = file.URL
 			fileName = file.Name
 			break
@@ -579,21 +580,18 @@ func main() {
 	}
 
 	// 2. Collect libraries from supported manifest files.
-	manifestFiles, err := findManifestFiles(*directory)
-	if err != nil || len(manifestFiles) == 0 {
+	manifestFilePaths, err := findManifestFiles(*directory)
+	if err != nil || len(manifestFilePaths) == 0 {
 		fmt.Fprintf(os.Stderr, "Error finding manifest files: %v\n", err)
 		os.Exit(1)
 	}
 
 	poetryLibraryInfos := []*LibraryInfo{}
-	for _, manifestFile := range manifestFiles {
-		switch manifestFile {
-		case "poetry.lock":
-			// Parse the poetry.lock file to get library information.
-			poetryLibraryInfos, err = parsePoetryLock(ctx, filepath.Join(*directory))
-			if err != nil {
-				log.Printf("Error collecting libraries in poetry.lock: %v\n", err)
-			}
+	for _, manifestFilePath := range manifestFilePaths {
+		// Parse the poetry.lock file to get library information.
+		poetryLibraryInfos, err = parsePoetryLock(ctx, manifestFilePath)
+		if err != nil {
+			log.Printf("Error collecting libraries in poetry.lock: %v\n", err)
 		}
 	}
 
