@@ -102,7 +102,7 @@ func walkPythonFiles(root string, processPythonFile func(path string, info os.Fi
 }
 
 var (
-	directory = flag.String("directory", "directory", "directory to scan")
+	directory = flag.String("directory", "", "directory to scan (required)")
 	// TODO: Find alternative ways for these regexes.
 	mainEntryRegex    = regexp.MustCompile(`^\s*if\s+__name__\s*==\s*['"]__main__['"]\s*:`)
 	importRegex       = regexp.MustCompile(`^\s*import\s+([a-zA-Z0-9_.]+)(?:\s+as\s+([a-zA-Z0-9_]+))?`)
