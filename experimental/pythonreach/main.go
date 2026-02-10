@@ -386,18 +386,16 @@ func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *Libr
 	if err != nil {
 		return fmt.Errorf("failed to get package info from PyPI: %w", err)
 	}
-
-	// Defensive: ensure response is non-nil before accessing its fields.
 	if len(response.Files) == 0 {
 		return fmt.Errorf("no package info returned for %s from PyPI", libraryInfo.Name)
 	}
 
 	// Find the source distribution (.tar.gz) file URL
-	downloadURL := ""
-	fileName := strings.ToLower(fmt.Sprintf(`%s-%s.tar.gz`, libraryInfo.Name, libraryInfo.Version))
+	downloadURL, fileName := "", ""
 	for _, file := range response.Files {
-		if file.Name == fileName {
+		if strings.Contains(file.Name, libraryInfo.Version) {
 			downloadURL = file.URL
+			fileName = file.Name
 			break
 		}
 	}
@@ -542,6 +540,20 @@ func main() {
 	flag.Parse()
 	ctx := context.Background()
 
+	// Collect temporary directories created for package sources so we can
+	// ensure cleanup on program exit (even on unexpected returns).
+	var tempDirs []string
+	defer func() {
+		for _, d := range tempDirs {
+			if d == "" {
+				continue
+			}
+			if err := os.RemoveAll(d); err != nil {
+				log.Printf("failed to remove temp dir %s: %v", d, err)
+			}
+		}
+	}()
+
 	// Check if the flag was actually set by the user.
 	fileFlagProvided := false
 	flag.Visit(func(f *flag.Flag) {
@@ -558,19 +570,19 @@ func main() {
 	// 1. Looking for files with main entry point
 	pythonFiles, err := findMainEntryPoint(*directory)
 	if err != nil {
-		log.Printf("Error finding main entry point: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error finding main entry point: %v\n", err)
 	}
 
 	if len(pythonFiles) == 0 {
-		log.Println("No Python files with a main entry point found.")
-		return
+		fmt.Fprintf(os.Stderr, "No Python files with a main entry point found in %s\n", *directory)
+		os.Exit(1)
 	}
 
 	// 2. Collect libraries from supported manifest files.
 	manifestFiles, err := findManifestFiles(*directory)
-	if err != nil {
-		log.Printf("Error finding manifest files: %v\n", err)
-		return
+	if err != nil || len(manifestFiles) == 0 {
+		fmt.Fprintf(os.Stderr, "Error finding manifest files: %v\n", err)
+		os.Exit(1)
 	}
 
 	poetryLibraryInfos := []*LibraryInfo{}
@@ -606,7 +618,11 @@ func main() {
 			}
 			err = retrieveSourceAndCollectDependencies(ctx, lib)
 			if err != nil {
-				log.Printf("Get source of lib error: %v\n", err)
+				log.Printf("Get source of lib error: %v", err)
+				continue
+			}
+			if lib.SourceDir != "" {
+				tempDirs = append(tempDirs, lib.SourceDir)
 			}
 		}
 
@@ -627,13 +643,6 @@ func main() {
 				log.Printf("Error finding imported items: %v", err)
 			}
 
-			// Clean up the temporary extracted source directory if present.
-			if lib.SourceDir != "" {
-				if err := os.RemoveAll(lib.SourceDir); err != nil {
-					log.Printf("failed to remove temp dir %s: %v", lib.SourceDir, err)
-				}
-				lib.SourceDir = ""
-			}
 		}
 
 		// 6. Comparison between the collected imported libraries and the PYPI dependencies of the libraries

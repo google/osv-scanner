@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
+	"os"
 	"path/filepath"
 	"reflect"
 	"sort"
+	"strings"
 	"testing"
 )
 
@@ -13,6 +15,15 @@ func sortLibraries(libs []*LibraryInfo) {
 	sort.Slice(libs, func(i, j int) bool {
 		return libs[i].Name < libs[j].Name
 	})
+}
+
+func findLibByName(libs []*LibraryInfo, name string) *LibraryInfo {
+	for _, l := range libs {
+		if l.Name == name {
+			return l
+		}
+	}
+	return nil
 }
 
 func TestFindMainEntryPoint(t *testing.T) {
@@ -134,5 +145,133 @@ func TestParsePoetryLibrary(t *testing.T) {
 				t.Errorf("Expected result %v, but got %v", tc.expectedResult, actualResult)
 			}
 		})
+	}
+}
+
+func TestFindImportedLibraries_BasicStyles(t *testing.T) {
+	src := `import os
+import numpy as np
+from pkg import a, b as beta
+import pkg.module
+from starpkg import *
+`
+
+	libs, err := findImportedLibraries(strings.NewReader(src))
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	// Expect at least these libraries
+	if findLibByName(libs, "os") == nil {
+		t.Errorf("expected os to be found")
+	}
+	np := findLibByName(libs, "numpy")
+	if np == nil || np.Alias != "np" {
+		t.Errorf("expected numpy with alias np, got %+v", np)
+	}
+	pkgLib := findLibByName(libs, "pkg")
+	if pkgLib == nil {
+		t.Fatalf("expected pkg to be found")
+	}
+	// Expect modules a and b (alias beta)
+	foundA, foundB := false, false
+	for _, m := range pkgLib.Modules {
+		if m.Name == "a" {
+			foundA = true
+		}
+		if m.Name == "b" && m.Alias == "beta" {
+			foundB = true
+		}
+	}
+	if !foundA || !foundB {
+		t.Errorf("expected modules a and b as beta in pkg, got %+v", pkgLib.Modules)
+	}
+
+	// starpkg should have a Module with Name="*"
+	star := findLibByName(libs, "starpkg")
+	if star == nil || len(star.Modules) == 0 || star.Modules[0].Name != "*" {
+		t.Errorf("expected star import for starpkg, got %+v", star)
+	}
+}
+
+func TestFindLibrariesPoetryLock_Filtering(t *testing.T) {
+	src := `import os
+import numpy as np
+from pkg import a, b
+import unrelated
+`
+
+	poetry := []*LibraryInfo{
+		{Name: "numpy", Version: "1.2.3"},
+		{Name: "pkg", Version: "0.1.0"},
+	}
+
+	libs, err := findLibrariesPoetryLock(strings.NewReader(src), poetry)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+
+	// Expect only numpy and pkg (unrelated and os excluded)
+	if len(libs) != 2 {
+		t.Fatalf("expected 2 libraries, got %d: %+v", len(libs), libs)
+	}
+	// Ensure versions are populated from poetry
+	names := []string{libs[0].Name, libs[1].Name}
+	sort.Strings(names)
+	if !reflect.DeepEqual(names, []string{"numpy", "pkg"}) {
+		t.Fatalf("unexpected names: %v", names)
+	}
+}
+
+func TestGetImportedItemsFilePathsAndFindImportedLibrary(t *testing.T) {
+	tmp := t.TempDir()
+
+	// Create package folder like mypkg-1.0.0
+	pkgDir := filepath.Join(tmp, "mypkg-1.0.0")
+	if err := os.MkdirAll(pkgDir, 0o755); err != nil {
+		t.Fatalf("mkdir: %v", err)
+	}
+
+	// Create a file with a function definition and imports
+	fpath := filepath.Join(pkgDir, "module_a.py")
+	content := `import os\nfrom otherpkg import sub\ndef func1(arg):\n    pass\n`
+	if err := os.WriteFile(fpath, []byte(content), 0o644); err != nil {
+		t.Fatalf("write file: %v", err)
+	}
+
+	lib := &LibraryInfo{
+		Name:    "mypkg",
+		Version: "1.0.0",
+		Modules: []*ModuleInfo{{Name: "func1"}},
+	}
+
+	if err := getImportedItemsFilePaths(lib, tmp); err != nil {
+		t.Fatalf("getImportedItemsFilePaths failed: %v", err)
+	}
+
+	// The module should have recorded the path
+	if len(lib.Modules[0].SourceDefinedPaths) == 0 {
+		t.Fatalf("expected SourceDefinedPaths to be set, got %+v", lib.Modules[0])
+	}
+	if !strings.HasSuffix(lib.Modules[0].SourceDefinedPaths[0], "module_a.py") {
+		t.Fatalf("unexpected path: %s", lib.Modules[0].SourceDefinedPaths[0])
+	}
+
+	// Now test findImportedLibrary: it should detect imports inside that file
+	if err := findImportedLibrary(lib); err != nil {
+		t.Fatalf("findImportedLibrary failed: %v", err)
+	}
+	// Expect imported libraries to contain os and otherpkg
+	foundOs, foundOther := false, false
+	for _, name := range lib.Modules[0].ImportedLibraryNames {
+		if name == "os" {
+			foundOs = true
+		}
+		if name == "otherpkg" {
+			foundOther = true
+		}
+	}
+	if !foundOs || !foundOther {
+		t.Fatalf("expected imported libs os and otherpkg, got: %v", lib.Modules[0].ImportedLibraryNames)
 	}
 }
