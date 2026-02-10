@@ -744,74 +744,6 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
 
 ---
 
-[TestCommand/exclude_with_exact_directory_name - 1]
-Scanning dir ./testdata/locks-one-with-nested
-Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestCommand/exclude_with_exact_directory_name - 2]
-
----
-
-[TestCommand/exclude_with_glob_pattern - 1]
-Scanning dir ./testdata/locks-one-with-nested
-Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestCommand/exclude_with_glob_pattern - 2]
-
----
-
-[TestCommand/exclude_with_invalid_regex_returns_error - 1]
-Scanning dir ./testdata/locks-many
----
-
-[TestCommand/exclude_with_invalid_regex_returns_error - 2]
-failed to parse exclude patterns: invalid regex pattern "[invalid": error parsing regexp: missing closing ]: `[invalid`
-
----
-
-[TestCommand/exclude_with_multiple_exact_directories - 1]
-Scanning dir ./testdata/locks-one-with-nested
-Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestCommand/exclude_with_multiple_exact_directories - 2]
-
----
-
-[TestCommand/exclude_with_multiple_pattern_types - 1]
-Scanning dir ./testdata/locks-one-with-nested
-Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
-Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestCommand/exclude_with_multiple_pattern_types - 2]
-
----
-
-[TestCommand/exclude_with_regex_pattern - 1]
-Scanning dir ./testdata/locks-one-with-nested
-Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-No issues found
-
----
-
-[TestCommand/exclude_with_regex_pattern - 2]
-
----
-
 [TestCommand/folder_of_supported_sbom_with_only_unimportant - 1]
 Scanning dir ./testdata/sbom-insecure/only-unimportant.spdx.json
 Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
@@ -1126,7 +1058,6 @@ OPTIONS:
    --recursive, -r                                                                  check subdirectories
    --no-ignore                                                                      also scan files that would be ignored by .gitignore
    --include-git-root                                                               include scanning git root (non-submoduled) repositories
-   --experimental-exclude string [ --experimental-exclude string ]                  exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)
    --data-source string                                                             source to fetch package information from; value can be: deps.dev, native (default: "deps.dev")
    --maven-registry string                                                          URL of the default registry to fetch Maven metadata
    --config string                                                                  set/override config file
@@ -1916,7 +1847,7 @@ Total 8 packages affected by 29 known vulnerabilities (5 Critical, 7 High, 11 Me
 
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
-Total 11 packages affected by 53 known vulnerabilities (7 Critical, 13 High, 23 Medium, 4 Low, 6 Unknown) from 1 ecosystem.
+Total 11 packages affected by 52 known vulnerabilities (7 Critical, 13 High, 22 Medium, 4 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -1947,7 +1878,6 @@ Total 11 packages affected by 53 known vulnerabilities (7 Critical, 13 High, 23 
 | https://osv.dev/CVE-2025-61927 | 7.2  | GIT       |   https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-62410 | 9.4  | GIT       |   https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2024-12797 | 6.3  | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-13176 | 4.1  | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2024-9143  | 4.3  | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9230  | 7.5  | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9231  | 6.5  | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
