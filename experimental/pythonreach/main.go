@@ -39,6 +39,7 @@ type LibraryInfo struct {
 	Version      string        // Version from poetry.lock
 	Modules      []*ModuleInfo // Specific modules or functions imported from this library
 	Dependencies []string      // Direct dependencies declared in library's metadata
+	SourceDir    string        // Path to extracted source files (temporary)
 }
 
 // safeOpenFile safely opens a file and returns a closer function
@@ -106,7 +107,7 @@ var (
 	importRegex       = regexp.MustCompile(`^\s*import\s+([a-zA-Z0-9_.]+)(?:\s+as\s+([a-zA-Z0-9_]+))?`)
 	fromImportRegex   = regexp.MustCompile(`^\s*from\s+([a-zA-Z0-9_.]+)\s+import\s+(.+)`)
 	importItemRegex   = regexp.MustCompile(`([a-zA-Z0-9_.*]+)(?:\s+as\s+([a-zA-Z0-9_]+))?`)
-	memberImportRegex = regexp.MustCompile(`import (\w+)\.(\w+)`)
+	memberImportRegex = regexp.MustCompile(`^\s*import (\w+)\.(\w+)`)
 )
 
 const (
@@ -194,8 +195,6 @@ func findManifestFiles(dir string) ([]string, error) {
 		fileName := file.Name()
 		if slices.Contains(supportedManifests, fileName) {
 			manifestFiles = append(manifestFiles, fileName)
-		} else if slices.Contains(unsupportedManifests, fileName) {
-			return nil, fmt.Errorf("unsupported manifest file found: %s", fileName)
 		}
 	}
 
@@ -323,7 +322,7 @@ func findLibrariesPoetryLock(file io.Reader, poetryLibraryInfos []*LibraryInfo) 
 }
 
 // extractCompressedPackageSource extracts a .tar.gz file to a specified destination directory.
-func extractCompressedPackageSource(file *os.File) error {
+func extractCompressedPackageSource(file *os.File, destDir string) error {
 	// Create a gzip reader to decompress the stream
 	gzipReader, err := gzip.NewReader(file)
 	if err != nil {
@@ -341,7 +340,7 @@ func extractCompressedPackageSource(file *os.File) error {
 		if err != nil {
 			return fmt.Errorf("failed to read tar header: %w", err)
 		}
-		targetPath := filepath.Join(".", header.Name)
+		targetPath := filepath.Join(destDir, header.Name)
 
 		// Handle different file types (directories, regular files)
 		switch header.Typeflag {
@@ -388,6 +387,11 @@ func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *Libr
 		return fmt.Errorf("failed to get package info from PyPI: %w", err)
 	}
 
+	// Defensive: ensure response is non-nil before accessing its fields.
+	if len(response.Files) == 0 {
+		return fmt.Errorf("no package info returned for %s from PyPI", libraryInfo.Name)
+	}
+
 	// Find the source distribution (.tar.gz) file URL
 	downloadURL := ""
 	fileName := strings.ToLower(fmt.Sprintf(`%s-%s.tar.gz`, libraryInfo.Name, libraryInfo.Version))
@@ -398,37 +402,63 @@ func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *Libr
 		}
 	}
 
+	// Ensure we found a source distribution to download.
+	if downloadURL == "" {
+		return fmt.Errorf("no source distribution found for %s==%s", libraryInfo.Name, libraryInfo.Version)
+	}
+
 	sourceFile, err := reg.GetFile(ctx, downloadURL)
 	if err != nil {
 		return fmt.Errorf("failed to download package source: %w", err)
 	}
 
-	reader := bytes.NewReader(sourceFile)
-	// Open the downloaded file to collect dependencies of the imported library.
-	metadata, err := pypi.SdistMetadata(ctx, fileName, reader)
+	// Use separate readers for metadata parsing and for writing to disk.
+	metadataReader := bytes.NewReader(sourceFile)
+	metadata, err := pypi.SdistMetadata(ctx, fileName, metadataReader)
 	if err != nil {
-		log.Printf("failed to parse metadata from %s: %v", sourceFile, err)
+		log.Printf("failed to parse metadata from %s: %v", fileName, err)
 	}
 	for _, dep := range metadata.Dependencies {
 		libraryInfo.Dependencies = append(libraryInfo.Dependencies, dep.Name)
-
 	}
 
-	tmpFile, err := os.CreateTemp("", "source-*.tar.gz")
+	// Create a dedicated temporary directory.
+	tmpDir, err := os.MkdirTemp("", "pythonreach-src-")
 	if err != nil {
+		return fmt.Errorf("failed to create temp dir: %w", err)
+	}
+
+	tmpFile, err := os.CreateTemp(tmpDir, fileName)
+	if err != nil {
+		_ = os.RemoveAll(tmpDir)
 		return fmt.Errorf("failed to create temp file: %w", err)
 	}
-	defer tmpFile.Close()
-	defer os.Remove(tmpFile.Name()) // Clean up the temp file after extraction
 
-	_, err = io.Copy(tmpFile, reader)
-	if err != nil {
+	if _, err := io.Copy(tmpFile, bytes.NewReader(sourceFile)); err != nil {
+		tmpFile.Close()
+		_ = os.RemoveAll(tmpDir)
 		return fmt.Errorf("failed to write to temp file: %w", err)
 	}
-	err = extractCompressedPackageSource(tmpFile)
+	if err := tmpFile.Close(); err != nil {
+		_ = os.RemoveAll(tmpDir)
+		return fmt.Errorf("failed to close temp file: %w", err)
+	}
+
+	// Re-open the temp file for extraction.
+	f, err := os.Open(tmpFile.Name())
 	if err != nil {
+		_ = os.RemoveAll(tmpDir)
+		return fmt.Errorf("failed to open temp file for extraction: %w", err)
+	}
+	defer f.Close()
+
+	if err := extractCompressedPackageSource(f, tmpDir); err != nil {
+		_ = os.RemoveAll(tmpDir)
 		return err
 	}
+
+	// Record the extracted source dir on the library info for later processing.
+	libraryInfo.SourceDir = tmpDir
 
 	return nil
 }
@@ -440,8 +470,8 @@ func findFolder(root, folderName string) (string, error) {
 		if err != nil {
 			return err
 		}
-		if d.IsDir() && strings.Contains(d.Name(), folderName) {
-			name = d.Name()
+		if d.IsDir() && strings.HasPrefix(d.Name(), folderName) {
+			name = path
 			return filepath.SkipAll
 		}
 		return nil
@@ -455,8 +485,8 @@ func findFolder(root, folderName string) (string, error) {
 
 // getImportedItemsFilePaths finds the paths of the files where the imported items are defined.
 // It traverses the library directory and checks each Python file for definitions of the imported items.
-func getImportedItemsFilePaths(libraryInfo *LibraryInfo) error {
-	libraryFolder, err := findFolder(".", fmt.Sprintf("%s-%s", libraryInfo.Name, libraryInfo.Version))
+func getImportedItemsFilePaths(libraryInfo *LibraryInfo, rootDir string) error {
+	libraryFolder, err := findFolder(rootDir, fmt.Sprintf("%s-%s", libraryInfo.Name, libraryInfo.Version))
 	if err != nil {
 		return err
 	}
@@ -586,15 +616,23 @@ func main() {
 			if lib.Version == "" || len(lib.Modules) == 0 {
 				continue
 			}
-			err := getImportedItemsFilePaths(lib)
+			err := getImportedItemsFilePaths(lib, lib.SourceDir)
 			if err != nil {
-				log.Printf("get imported items file paths error: %v\n", err)
+				log.Printf("get imported items file paths error: %v", err)
 			}
 
 			// Find the imported libraries in the files where the imported items are defined.
 			err = findImportedLibrary(lib)
 			if err != nil {
-				log.Printf("Error finding imported items: %v\n", err)
+				log.Printf("Error finding imported items: %v", err)
+			}
+
+			// Clean up the temporary extracted source directory if present.
+			if lib.SourceDir != "" {
+				if err := os.RemoveAll(lib.SourceDir); err != nil {
+					log.Printf("failed to remove temp dir %s: %v", lib.SourceDir, err)
+				}
+				lib.SourceDir = ""
 			}
 		}
 

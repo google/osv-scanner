@@ -1,0 +1,198 @@
+# This file is protected via CODEOWNERS
+
+[build-system]
+requires = ["hatchling>=1.6.0,<2", "hatch-vcs>=0.4.0,<0.6.0", "setuptools-scm>=8,<9"]
+build-backend = "hatchling.build"
+
+[project]
+name = "urllib3"
+description = "HTTP library with thread-safe connection pooling, file post, and more."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE.txt"]
+keywords = ["urllib", "httplib", "threadsafe", "filepost", "http", "https", "ssl", "pooling"]
+authors = [
+  {name = "Andrey Petrov", email = "andrey.petrov@shazow.net"}
+]
+maintainers = [
+  {name = "Seth Michael Larson", email="sethmichaellarson@gmail.com"},
+  {name = "Quentin Pradet", email="quentin@pradet.me"},
+  {name = "Illia Volochii", email = "illia.volochii@gmail.com"},
+]
+classifiers = [
+  "Environment :: Web Environment",
+  "Intended Audience :: Developers",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Software Development :: Libraries",
+]
+requires-python = ">=3.9"
+dynamic = ["version"]
+
+[project.optional-dependencies]
+brotli = [
+  "brotli>=1.0.9; platform_python_implementation == 'CPython'",
+  "brotlicffi>=0.8.0; platform_python_implementation != 'CPython'"
+]
+# Once we drop support for Python 3.13 this extra can be removed.
+# We'll need a deprecation period for the 'zstandard' module support
+# so that folks using Python without the 'compression.zstd' module
+# compiled will know to start doing so (although it'll likely be rare).
+zstd = [
+  "zstandard>=0.18.0",
+]
+socks = [
+  "PySocks>=1.5.6,<2.0,!=1.5.7",
+]
+h2 = [
+  "h2>=4,<5"
+]
+
+[dependency-groups]
+dev = [
+    "anyio[trio]>=4.8.0",
+    "build>=1.2.2.post1",
+    "coverage>=7.8.0",
+    "cryptography>=44.0.2",
+    "h2>=4.1.0",
+    "httpx>=0.28.1",
+    "hypercorn",
+    "idna>=3.10",
+    "pyopenssl>=25.0.0",
+    "pysocks>=1.7.1",
+    "pytest>=8.3.4",
+    "pytest-memray==1.7.0 ; python_full_version < '3.14' and implementation_name == 'cpython' and sys_platform != 'win32'",
+    "pytest-socket>=0.7.0",
+    "pytest-timeout>=2.3.1",
+    "quart>=0.20.0",
+    "quart-trio>=0.12.0",
+    "towncrier>=24.8.0",
+    "trustme>=1.2.1",
+    "trio>=0.27.0",
+]
+mypy = [
+    "anyio[trio]>=4.8.0",
+    "cryptography>=44.0.2",
+    "httpx>=0.28.1",
+    "hypercorn>=0.15.0",
+    "idna>=3.10",
+    "mypy>=1.14.1",
+    "pytest>=8.3.4",
+    "quart>=0.20.0",
+    "quart-trio>=0.12.0",
+    "trio>=0.27.0",
+    "trustme>=1.2.1",
+    "types-requests>=2.32.0.20241016",
+    "nox>=2024.10.9",
+    "zstandard>=0.23.0",
+]
+emscripten = [
+    "build>=1.2.2.post1",
+    "pytest-pyodide>=0.58.4 ; python_full_version >= '3.10'",
+    "selenium>=4.27.1",
+]
+docs = [
+    "furo>=2024.8.6",
+    "requests>=2.32.3",
+    "sphinx>=7.2.6",
+    "sphinx-copybutton>=0.5.2",
+    "sphinxext-opengraph>=0.9.1",
+]
+
+[project.urls]
+"Changelog" = "https://github.com/urllib3/urllib3/blob/main/CHANGES.rst"
+"Documentation" = "https://urllib3.readthedocs.io"
+"Code" = "https://github.com/urllib3/urllib3"
+"Issue tracker" = "https://github.com/urllib3/urllib3/issues"
+
+[tool.hatch.version]
+source = "vcs"
+[tool.hatch.version.raw-options]
+local_scheme = "no-local-version"
+[tool.hatch.build.hooks.vcs]
+version-file = "src/urllib3/_version.py"
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "/docs",
+  "/dummyserver",
+  "/src",
+  "/test",
+  "/uv.lock",
+  "/CHANGES.rst",
+  "/README.md",
+  "/LICENSE.txt",
+]
+
+[tool.pytest.ini_options]
+xfail_strict = true
+python_classes = ["Test", "*TestCase"]
+markers = [
+    "limit_memory: Limit memory with memray",
+    "requires_network: This test needs access to the Internet",
+    "integration: Slow integrations tests not run by default",
+    "in_webbrowser: Emscripten - run only in browser (not in Node.js)",
+    "with_jspi: Emscripten - run only if WebAssembly JavaScript Promise Integration is supported",
+    "without_jspi: Emscripten - run only if this platform works without  WebAssembly JavaScript Promise Integration",
+    "webworkers: Emscripten - run only if this platform can test web workers",
+    "node_without_jspi: Emscripten - run in node with jspi enabled (for failure testing only)",
+]
+log_level = "DEBUG"
+filterwarnings = [
+    "error",
+    '''default:urllib3 v2 only supports OpenSSL 1.1.1+.*''',
+    '''default:No IPv6 support. Falling back to IPv4:urllib3.exceptions.HTTPWarning''',
+    '''default:No IPv6 support. skipping:urllib3.exceptions.HTTPWarning''',
+    '''default:ssl\.TLSVersion\.TLSv1 is deprecated:DeprecationWarning''',
+    '''default:ssl\.PROTOCOL_TLS is deprecated:DeprecationWarning''',
+    '''default:ssl\.PROTOCOL_TLSv1 is deprecated:DeprecationWarning''',
+    '''default:ssl\.TLSVersion\.TLSv1_1 is deprecated:DeprecationWarning''',
+    '''default:ssl\.PROTOCOL_TLSv1_1 is deprecated:DeprecationWarning''',
+    '''default:ssl\.PROTOCOL_TLSv1_2 is deprecated:DeprecationWarning''',
+    '''default:ssl NPN is deprecated, use ALPN instead:DeprecationWarning''',
+    # https://github.com/SeleniumHQ/selenium/issues/13328
+    '''default:unclosed file <_io\.BufferedWriter name='/dev/null'>:ResourceWarning''',
+    # https://github.com/SeleniumHQ/selenium/issues/14686
+    '''default:setting remote_server_addr in RemoteConnection\(\) is deprecated, set in ClientConfig instance instead:DeprecationWarning'''
+]
+
+[tool.isort]
+profile = "black"
+add_imports = "from __future__ import annotations"
+
+[tool.mypy]
+mypy_path = "src"
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
+no_implicit_optional = true
+no_implicit_reexport = true
+show_error_codes = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+enable_error_code = [
+  "ignore-without-code",
+]
+
+[tool.uv]
+package = true
+
+[tool.uv.sources]
+hypercorn = { git = "https://github.com/urllib3/hypercorn", rev = "urllib3-changes" }

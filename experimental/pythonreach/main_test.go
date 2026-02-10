@@ -102,7 +102,7 @@ func TestParsePoetryLibrary(t *testing.T) {
 		},
 		{
 			name:           "Malformed poetry.lock - Parser error",
-			fpathInTestDir: "./testdata/tmultifileswithentrypoint/poetry.lock",
+			fpathInTestDir: "./testdata/multifileswithentrypoint/poetry.lock",
 			expectedResult: nil,
 			expectError:    true,
 		},
