@@ -226,7 +226,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
-		err = makeVulnRequestWithMatcher(scanResult.PackageScanResults, accessors.VulnMatcher)
+		err = makeVulnRequestWithMatcher(&scanResult, accessors.VulnMatcher)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -382,7 +382,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
-		err = makeVulnRequestWithMatcher(scanResult.PackageScanResults, accessors.VulnMatcher)
+		err = makeVulnRequestWithMatcher(&scanResult, accessors.VulnMatcher)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -524,8 +524,9 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 
 // TODO(V2): Add context
 func makeVulnRequestWithMatcher(
-	packages []imodels.PackageScanResult,
+	scanResults *results.ScanResults,
 	matcher clientinterfaces.VulnerabilityMatcher) error {
+	packages := scanResults.PackageScanResults
 	invs := make([]*extractor.Package, 0, len(packages))
 	for _, pkgs := range packages {
 		invs = append(invs, pkgs.PackageInfo.Package)
@@ -539,8 +540,16 @@ func makeVulnRequestWithMatcher(
 		}
 	}
 
+	// we know the length of this should be at least the number of res'
+	scanResults.PackageVulns = make([]*inventory.PackageVuln, 0, len(res))
+
 	for i, vulns := range res {
-		packages[i].Vulnerabilities = vulns
+		for _, vuln := range vulns {
+			scanResults.PackageVulns = append(scanResults.PackageVulns, &inventory.PackageVuln{
+				Vulnerability: vuln,
+				Package:       packages[i].PackageInfo.Package,
+			})
+		}
 	}
 
 	return nil

@@ -24,5 +24,7 @@ type ScanResults struct {
 	// For container scanning, metadata including layer information
 	ImageMetadata *spb.ContainerImageMetadata
 
+	PackageVulns []*inventory.PackageVuln
+
 	GenericFindings []*inventory.GenericFinding
 }
