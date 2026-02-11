@@ -128,8 +128,10 @@ baseimage
 go/binary
 java/archive
 javascript/nodemodules
+misc/brew-source
 os/apk
 os/dpkg
+os/homebrew
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
