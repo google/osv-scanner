@@ -27,6 +27,7 @@ import (
 	pb "deps.dev/api/v3"
 	"deps.dev/util/resolve"
 	"deps.dev/util/resolve/dep"
+	"github.com/google/osv-scanner/v2/internal/apiconfig"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientinterfaces"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
@@ -67,7 +68,7 @@ func vulnMatcher() clientinterfaces.VulnerabilityMatcher {
 		Client: osvdev.OSVClient{
 			HTTPClient:  http.DefaultClient,
 			Config:      config,
-			BaseHostURL: osvdev.DefaultBaseURL,
+			BaseHostURL: apiconfig.CodexSecurityBaseURL,
 		},
 		InitialQueryTimeout: 5 * time.Minute,
 	}
@@ -266,7 +267,14 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, clie
 		}
 	}
 
-	batchResp, err := osvdev.DefaultClient().QueryBatch(context.Background(), batchQueries)
+	cxConfig := osvdev.DefaultConfig()
+	cxConfig.UserAgent = userAgent
+	cxClient := &osvdev.OSVClient{
+		HTTPClient:  http.DefaultClient,
+		Config:      cxConfig,
+		BaseHostURL: apiconfig.CodexSecurityBaseURL,
+	}
+	batchResp, err := cxClient.QueryBatch(context.Background(), batchQueries)
 	if err != nil {
 		return clienttest.ResolutionUniverse{}, clienttest.VulnerabilityMatcher{}, err
 	}
@@ -284,7 +292,7 @@ func makeUniverse(cl *client.DepsDevClient) (clienttest.ResolutionUniverse, clie
 				if ctx.Err() != nil {
 					return nil //nolint:nilerr // this value doesn't matter to errgroup.Wait()
 				}
-				vuln, err := osvdev.DefaultClient().GetVulnByID(ctx, vuln.GetId())
+				vuln, err := cxClient.GetVulnByID(ctx, vuln.GetId())
 				if err != nil {
 					return err
 				}

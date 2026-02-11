@@ -13,6 +13,7 @@ import (
 
 	"net/http"
 
+	"github.com/google/osv-scanner/v2/internal/apiconfig"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/version"
@@ -176,7 +177,14 @@ func handleVulnIDRetrieval(ctx context.Context, _ *mcp.CallToolRequest, input *g
 	vulnCacheMu.RUnlock()
 	if !found {
 		var err error
-		vuln, err = osvdev.DefaultClient().GetVulnByID(ctx, input.VulnID)
+		cxConfig := osvdev.DefaultConfig()
+		cxConfig.UserAgent = "osv-scanner_mcp/" + version.OSVVersion
+		cxClient := &osvdev.OSVClient{
+			HTTPClient:  http.DefaultClient,
+			Config:      cxConfig,
+			BaseHostURL: apiconfig.CodexSecurityBaseURL,
+		}
+		vuln, err = cxClient.GetVulnByID(ctx, input.VulnID)
 		if err != nil {
 			return nil, nil, fmt.Errorf("vulnerability with ID %s not found: %w", input.VulnID, err)
 		}

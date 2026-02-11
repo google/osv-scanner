@@ -24,6 +24,7 @@ import (
 	scalibrlog "github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/stats"
+	"github.com/google/osv-scanner/v2/internal/apiconfig"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/licensematcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
@@ -158,7 +159,14 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 
 	// --- OSV.dev Client ---
 	// We create a separate client from VulnMatcher to keep things clean.
-	externalAccessors.OSVDevClient = osvdev.DefaultClient()
+	// Use Codex Security endpoint instead of upstream api.osv.dev
+	config := osvdev.DefaultConfig()
+	config.UserAgent = userAgent
+	externalAccessors.OSVDevClient = &osvdev.OSVClient{
+		HTTPClient:  http.DefaultClient,
+		Config:      config,
+		BaseHostURL: apiconfig.CodexSecurityBaseURL,
+	}
 	externalAccessors.OSVDevClient.Config.UserAgent = userAgent
 
 	return externalAccessors, nil
