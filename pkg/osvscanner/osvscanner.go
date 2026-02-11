@@ -206,7 +206,15 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		return models.VulnerabilityResults{}, err
 	}
 
-	scanResult.PackageScanResults = packagesAndFindings.PackageResults
+	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
+	for _, pkg := range packagesAndFindings.Packages {
+		pi := imodels.FromInventory(pkg)
+
+		scanResult.PackageScanResults = append(
+			scanResult.PackageScanResults,
+			imodels.PackageScanResult{PackageInfo: pi},
+		)
+	}
 	scanResult.GenericFindings = packagesAndFindings.GenericFindings
 
 	// ----- Filtering -----

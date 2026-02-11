@@ -11,7 +11,6 @@ import (
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
 	dpkgmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
-	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/inventory/osvecosystem"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -199,6 +198,8 @@ func (pkg *PackageInfo) OSPackageName() string {
 }
 
 // FromInventory converts an extractor.Package into a PackageInfo.
+//
+// todo: this should really be named `FromPackage`...
 func FromInventory(inv *extractor.Package) PackageInfo {
 	pi := PackageInfo{Package: inv}
 	if pi.SourceType() == models.SourceTypeSBOM {
@@ -222,11 +223,4 @@ type PackageScanResult struct {
 	// TODO(v2):
 	// SourceAnalysis *SourceAnalysis
 	// Any additional scan enrichment steps
-}
-
-// ScanResult represents the result of a scan, which will generally have packages
-// but can also have more generic findings that are not related to packages
-type ScanResult struct {
-	PackageResults  []PackageScanResult
-	GenericFindings []*inventory.GenericFinding
 }

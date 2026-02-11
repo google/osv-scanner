@@ -1120,6 +1120,8 @@ func TestCommand_CommitSupport(t *testing.T) {
 
 	testutility.SkipIfShort(t)
 
+	client := testcmd.InsertCassette(t)
+
 	tests := []testcmd.Case{
 		{
 			Name: "online_uses_git_commits",
@@ -1136,6 +1138,8 @@ func TestCommand_CommitSupport(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})

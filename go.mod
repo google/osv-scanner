@@ -1,6 +1,6 @@
 module github.com/google/osv-scanner/v2
 
-go 1.25.6
+go 1.25.7
 
 require (
 	deps.dev/api/v3 v3.0.0-20260112033243-1270359b191b
@@ -15,7 +15,7 @@ require (
 	github.com/charmbracelet/glamour v0.10.0
 	github.com/charmbracelet/lipgloss v1.1.1-0.20250404203927-76690c660834
 	github.com/gkampitakis/go-snaps v0.5.19
-	github.com/go-git/go-git/v5 v5.16.4
+	github.com/go-git/go-git/v5 v5.16.5
 	github.com/gobwas/glob v0.2.3
 	github.com/goccy/go-yaml v1.19.2
 	github.com/google/go-cmp v0.7.0

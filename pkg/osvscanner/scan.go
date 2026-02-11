@@ -25,7 +25,6 @@ import (
 	"github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
-	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/java/pomxmlenhanceable"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
@@ -124,9 +123,8 @@ func countNotEnrichers(plugins []plugin.Plugin) int {
 }
 
 // scan essentially converts ScannerActions into imodels.ScanResult by performing the extractions
-func scan(accessors ExternalAccessors, actions ScannerActions) (*imodels.ScanResult, error) {
-	var scannedInventories []*extractor.Package
-	var genericFindings []*inventory.GenericFinding
+func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inventory, error) {
+	var inv inventory.Inventory
 
 	plugins := getPlugins(
 		[]string{"lockfile", "sbom", "directory"},
@@ -317,8 +315,8 @@ SBOMLoop:
 		})
 		sr.Inventory.Packages = invsCompact
 
-		genericFindings = append(genericFindings, sr.Inventory.GenericFindings...)
-		scannedInventories = append(scannedInventories, sr.Inventory.Packages...)
+		inv.GenericFindings = append(inv.GenericFindings, sr.Inventory.GenericFindings...)
+		inv.Packages = append(inv.Packages, sr.Inventory.Packages...)
 	}
 
 	testlogger.EndDirScanMarker()
@@ -331,23 +329,11 @@ SBOMLoop:
 		}
 	}
 
-	if len(scannedInventories) == 0 {
+	if len(inv.Packages) == 0 {
 		return nil, ErrNoPackagesFound
 	}
 
-	scanResult := imodels.ScanResult{GenericFindings: genericFindings}
-
-	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
-	for _, inv := range scannedInventories {
-		pi := imodels.FromInventory(inv)
-
-		scanResult.PackageResults = append(
-			scanResult.PackageResults,
-			imodels.PackageScanResult{PackageInfo: pi},
-		)
-	}
-
-	return &scanResult, nil
+	return &inv, nil
 }
 
 // pathToRootMap saves the absolute path into the root map, and returns the absolute path.
