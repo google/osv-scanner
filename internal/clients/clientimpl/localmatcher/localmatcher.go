@@ -11,13 +11,14 @@ import (
 
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory/osvecosystem"
+	"github.com/google/osv-scanner/v2/internal/apiconfig"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-const zippedDBRemoteHost = "https://data-api.codexsecurity.io/osv-vulnerabilities"
+const zippedDBRemoteHost = apiconfig.VulnDBRemoteHost
 const envKeyLocalDBCacheDirectory = "OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY"
 
 // LocalMatcher implements the VulnerabilityMatcher interface by downloading the osv export zip files,
