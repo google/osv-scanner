@@ -215,6 +215,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 			imodels.PackageScanResult{PackageInfo: pi},
 		)
 	}
+	scanResult.Inventory = *packagesAndFindings
 	scanResult.GenericFindings = packagesAndFindings.GenericFindings
 
 	// ----- Filtering -----
@@ -373,6 +374,8 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	} else {
 		cmdlogger.Warnf("No container image metadata found in scan results")
 	}
+
+	scanResult.Inventory = scalibrSR.Inventory
 
 	// ----- Filtering -----
 	unscannablePackages := filterUnscannablePackages(&scanResult, actions)
