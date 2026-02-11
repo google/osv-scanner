@@ -10,6 +10,7 @@ import (
 	archivemetadata "github.com/google/osv-scalibr/extractor/filesystem/language/java/archive/metadata"
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
 	dpkgmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/dpkg/metadata"
+	homebrewmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/homebrew/metadata"
 	rpmmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/rpm/metadata"
 	"github.com/google/osv-scalibr/inventory/osvecosystem"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
@@ -96,6 +97,21 @@ func (pkg *PackageInfo) Ecosystem() osvecosystem.Parsed {
 		}
 
 		eco = newEco
+	}
+
+	// Special case for Homebrew where we check if the source code repo is set, and if so, we set the ecosystem to GIT
+	// since Homebrew doesn't have a defined ecosystem in OSV, but if we have a source code repo,
+	// it's likely that the vulnerabilities will be associated with the source code repo and not the Homebrew package itself
+	if _, ok := pkg.Metadata.(*homebrewmetadata.Metadata); ok {
+		if pkg.SourceCode != nil {
+			newEco, err := osvecosystem.Parse("GIT")
+			if err != nil {
+				cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
+				return eco
+			}
+
+			eco = newEco
+		}
 	}
 
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
