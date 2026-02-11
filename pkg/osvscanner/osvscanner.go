@@ -540,12 +540,9 @@ func makeVulnRequestWithMatcher(
 		}
 	}
 
-	// we know the length of this should be at least the number of res'
-	scanResults.PackageVulns = make([]*inventory.PackageVuln, 0, len(res))
-
 	for i, vulns := range res {
 		for _, vuln := range vulns {
-			scanResults.PackageVulns = append(scanResults.PackageVulns, &inventory.PackageVuln{
+			scanResults.Inventory.PackageVulns = append(scanResults.Inventory.PackageVulns, &inventory.PackageVuln{
 				Vulnerability: vuln,
 				Package:       packages[i].PackageInfo.Package,
 			})
