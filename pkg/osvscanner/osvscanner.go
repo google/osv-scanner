@@ -216,7 +216,6 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		)
 	}
 	scanResult.Inventory = *packagesAndFindings
-	scanResult.GenericFindings = packagesAndFindings.GenericFindings
 
 	// ----- Filtering -----
 	unscannablePackages := filterUnscannablePackages(&scanResult, actions)
@@ -398,8 +397,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 			return models.VulnerabilityResults{}, err
 		}
 	}
-
-	scanResult.GenericFindings = scalibrSR.Inventory.GenericFindings
 
 	if len(unscannablePackages) > 0 {
 		scanResult.PackageScanResults = slices.Concat(scanResult.PackageScanResults, unscannablePackages)

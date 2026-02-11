@@ -27,6 +27,4 @@ type ScanResults struct {
 	ImageMetadata *spb.ContainerImageMetadata
 
 	PackageVulns []*inventory.PackageVuln
-
-	GenericFindings []*inventory.GenericFinding
 }
