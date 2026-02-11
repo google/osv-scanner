@@ -1,3 +1,16 @@
+# v2.3.3
+
+### Features:
+
+- [Feature #2458](https://github.com/google/osv-scanner/pull/2458) Add `--exclude` flag to skip paths during scanning.
+- [Feature #2477](https://github.com/google/osv-scanner/pull/2477) Add `pylock` extractor.
+- [Feature #2475](https://github.com/google/osv-scanner/pull/2475) Add base image info to container scanning output header (in table, markdown and vertical formats).
+
+### Misc:
+
+- Update Go version to 1.25.7.
+- Refactor to better align with osv-scalibr plugins and inventory data structure.
+
 # v2.3.2
 
 This release includes performance improvements for local scanning, reducing memory usage and avoiding unnecessary advisory loading. It also fixes issues with MCP's get_vulnerability_details tool, git queries in `osv-scanner.json`, and ignore entry tracking, along with documentation updates.
