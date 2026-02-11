@@ -70,6 +70,7 @@ type ScannerActions struct {
 }
 
 type ExperimentalScannerActions struct {
+	ExcludePatterns    []string
 	TransitiveScanning TransitiveScanningActions
 
 	PluginsEnabled    []string

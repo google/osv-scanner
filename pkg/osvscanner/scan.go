@@ -235,6 +235,12 @@ SBOMLoop:
 	testlogger.BeginDirScanMarker()
 	osCapability := determineOS()
 
+	// Parse exclude patterns (supports exact names, glob, and regex)
+	excludePatterns, err := parseExcludePatterns(actions.ExcludePatterns)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
+	}
+
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
@@ -254,9 +260,9 @@ SBOMLoop:
 			ScanRoots:             fs.RealFSScanRoots(root),
 			PathsToExtract:        paths,
 			IgnoreSubDirs:         !actions.Recursive,
-			DirsToSkip:            nil,
-			SkipDirRegex:          nil,
-			SkipDirGlob:           nil,
+			DirsToSkip:            excludePatterns.dirsToSkip,
+			SkipDirRegex:          excludePatterns.regexPattern,
+			SkipDirGlob:           excludePatterns.globPattern,
 			UseGitignore:          !actions.NoIgnore,
 			Stats:                 &statsCollector,
 			ReadSymlinks:          false,

@@ -36,6 +36,7 @@ linters:
           files:
             - "!**/internal/cachedregexp/**"
             - "!**/internal/testutility/normalize.go"
+            - "!**/pkg/osvscanner/exclude.go"
           deny:
             - pkg: regexp
               desc: Use github.com/google/osv-scanner/v2/internal/cachedregexp instead
