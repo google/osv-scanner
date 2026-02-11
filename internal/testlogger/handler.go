@@ -89,6 +89,7 @@ func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 		"osrelease.ParseOsRelease(): file does not exist",
 		"Status: new inodes:",
 		"Created image content file:",
+		"interpreting as regex/glob and not absolute path",
 	} {
 		if strings.HasPrefix(record.Message, prefix) {
 			return nil
