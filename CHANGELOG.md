@@ -9,6 +9,7 @@
 ### Misc:
 
 - Update Go version to 1.25.7.
+- Update osv-scalibr from v0.4.2 to v0.4.3. [Release note](https://github.com/google/osv-scalibr/releases/tag/v0.4.3).
 - Refactor to better align with osv-scalibr plugins and inventory data structure.
 
 # v2.3.2
