@@ -1,0 +1,139 @@
+---
+version: 2
+interactions:
+  - id: 0
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 170
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "GIT",
+                "name": "https://github.com/libssh2/libssh2"
+              },
+              "version": "1.11.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_HomebrewWithAnnotators/homebrew_extractor_explicitly_enabled_with_annotator
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 337
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "OSV-2022-24",
+                  "modified": "2025-02-01T14:16:58.476563Z"
+                },
+                {
+                  "id": "OSV-2024-847",
+                  "modified": "2025-02-01T14:27:03.602163Z"
+                },
+                {
+                  "id": "OSV-2025-433",
+                  "modified": "2025-06-05T00:02:57.200566Z"
+                },
+                {
+                  "id": "OSV-2025-90",
+                  "modified": "2025-12-20T14:15:39.033263Z"
+                },
+                {
+                  "id": "OSV-2025-92",
+                  "modified": "2025-12-20T14:25:09.128654Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "337"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 1
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 170
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "GIT",
+                "name": "https://github.com/libssh2/libssh2"
+              },
+              "version": "1.11.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_HomebrewWithAnnotators/homebrew_extractor_via_artifact_plugin
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 337
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "OSV-2022-24",
+                  "modified": "2025-02-01T14:16:58.476563Z"
+                },
+                {
+                  "id": "OSV-2024-847",
+                  "modified": "2025-02-01T14:27:03.602163Z"
+                },
+                {
+                  "id": "OSV-2025-433",
+                  "modified": "2025-06-05T00:02:57.200566Z"
+                },
+                {
+                  "id": "OSV-2025-90",
+                  "modified": "2025-12-20T14:15:39.033263Z"
+                },
+                {
+                  "id": "OSV-2025-92",
+                  "modified": "2025-12-20T14:25:09.128654Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "337"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s

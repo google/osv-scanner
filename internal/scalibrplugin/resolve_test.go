@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/osv-scalibr/annotator/misc/brewsource"
 	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
 	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
@@ -25,6 +26,7 @@ import (
 	chromeextensions "github.com/google/osv-scalibr/extractor/filesystem/misc/chrome/extensions"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -400,11 +402,13 @@ func TestResolve_Extractors(t *testing.T) {
 				baseimage.Name,
 				cargoauditable.Name,
 				dpkg.Name,
+				homebrew.Name,
 				gobinary.Name,
 				nodemodules.Name,
 				wheelegg.Name,
 				apkanno.Name,
 				dpkganno.Name,
+				brewsource.Name,
 			},
 		},
 		{
@@ -419,11 +423,13 @@ func TestResolve_Extractors(t *testing.T) {
 				baseimage.Name,
 				cargoauditable.Name,
 				dpkg.Name,
+				homebrew.Name,
 				gobinary.Name,
 				nodemodules.Name,
 				wheelegg.Name,
 				apkanno.Name,
 				dpkganno.Name,
+				brewsource.Name,
 			},
 		},
 		{
@@ -445,9 +451,11 @@ func TestResolve_Extractors(t *testing.T) {
 				baseimage.Name,
 				dpkg.Name,
 				gobinary.Name,
+				homebrew.Name,
 				nodemodules.Name,
 				apkanno.Name,
 				dpkganno.Name,
+				brewsource.Name,
 			},
 		},
 		//
@@ -463,6 +471,7 @@ func TestResolve_Extractors(t *testing.T) {
 				baseimage.Name,
 				cargoauditable.Name,
 				dpkg.Name,
+				homebrew.Name,
 				gitrepo.Name,
 				gobinary.Name,
 				nodemodules.Name,
@@ -470,6 +479,7 @@ func TestResolve_Extractors(t *testing.T) {
 				wheelegg.Name,
 				apkanno.Name,
 				dpkganno.Name,
+				brewsource.Name,
 			},
 		},
 		//
