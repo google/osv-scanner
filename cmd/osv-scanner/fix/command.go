@@ -15,6 +15,7 @@ import (
 
 	"deps.dev/util/resolve"
 	"github.com/google/osv-scalibr/inventory/osvecosystem"
+	"github.com/google/osv-scanner/v2/internal/apiconfig"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -339,7 +340,7 @@ func action(ctx context.Context, cmd *cli.Command, stdout, stderr io.Writer) err
 			Client: osvdev.OSVClient{
 				HTTPClient:  http.DefaultClient,
 				Config:      config,
-				BaseHostURL: osvdev.DefaultBaseURL,
+				BaseHostURL: apiconfig.CodexSecurityBaseURL,
 			},
 			InitialQueryTimeout: 5 * time.Minute,
 		}

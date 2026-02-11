@@ -17,7 +17,7 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-const zippedDBRemoteHost = "https://osv-vulnerabilities.storage.googleapis.com"
+const zippedDBRemoteHost = "https://data-api.codexsecurity.io/osv-vulnerabilities"
 const envKeyLocalDBCacheDirectory = "OSV_SCANNER_LOCAL_DB_CACHE_DIRECTORY"
 
 // LocalMatcher implements the VulnerabilityMatcher interface by downloading the osv export zip files,

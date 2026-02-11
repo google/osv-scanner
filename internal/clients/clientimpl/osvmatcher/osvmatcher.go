@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scanner/v2/internal/apiconfig"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
@@ -55,7 +56,7 @@ func New(initialQueryTimeout time.Duration, userAgent string, httpClient *http.C
 		Client: osvdev.OSVClient{
 			HTTPClient:  httpClient,
 			Config:      config,
-			BaseHostURL: osvdev.DefaultBaseURL,
+			BaseHostURL: apiconfig.CodexSecurityBaseURL,
 		},
 		InitialQueryTimeout: initialQueryTimeout,
 	}
