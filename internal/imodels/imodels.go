@@ -96,6 +96,12 @@ func (pkg *PackageInfo) Ecosystem() osvecosystem.Parsed {
 		eco = newEco
 	}
 
+	// If ecosystem is empty and the source code repo is set we set the ecosystem to GIT
+	// since it's likely that the vulnerabilities will be associated with the source code repo
+	if eco.Ecosystem == "" && pkg.SourceCode != nil {
+		eco = osvecosystem.MustParse("GIT")
+	}
+
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 	if pkg.purlCache != nil {
 		newEco, err := osvecosystem.Parse(pkg.purlCache.Ecosystem)
