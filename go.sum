@@ -256,8 +256,8 @@ github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932 h1:5/4TSDzpDnHQ8rKEE
 github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932/go.mod h1:cC6EdPbj/17GFCPDK39NRarlMI+kt+O60S12cNB5J9Y=
 github.com/google/jsonschema-go v0.3.0 h1:6AH2TxVNtk3IlvkkhjrtbUc4S8AvO0Xii0DxIygDg+Q=
 github.com/google/jsonschema-go v0.3.0/go.mod h1:r5quNTdLOYEz95Ru18zA0ydNbBuYoo9tgaYcxEYhJVE=
-github.com/google/osv-scalibr v0.4.3-0.20260204140443-347932c398c6 h1:NvsjChpuS0lgaS0iA8vtylMK93VrIIk4BQY7iTCwfV4=
-github.com/google/osv-scalibr v0.4.3-0.20260204140443-347932c398c6/go.mod h1:+4bTgeaPiKtZrJqYEnVB//YJw95dUXMjeqW+HKEWEkM=
+github.com/google/osv-scalibr v0.4.4-0.20260212003701-e800f5ce8e3d h1:a6D3QCwYhbn1WbFng9YZXOvGaahB2gfvD8cCnm/my9c=
+github.com/google/osv-scalibr v0.4.4-0.20260212003701-e800f5ce8e3d/go.mod h1:F3dTthxoim++igvt4goo+UBXWtwdHL1BqHUu3QSbajE=
 github.com/google/pprof v0.0.0-20250403155104-27863c87afa6 h1:BHT72Gu3keYf3ZEu2J0b1vyeLSOYI8bm5wbJM/8yDe8=
 github.com/google/pprof v0.0.0-20250403155104-27863c87afa6/go.mod h1:boTsfXsheKC2y+lKOCMpSfarhxDeIzfZG1jqGcPl3cA=
 github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
@@ -362,8 +362,8 @@ github.com/opencontainers/runtime-spec v1.2.1 h1:S4k4ryNgEpxW1dzyqffOmhI1BHYcjzU
 github.com/opencontainers/runtime-spec v1.2.1/go.mod h1:jwyrGlmzljRJv/Fgzds9SsS/C5hL+LL3ko9hs6T5lQ0=
 github.com/opencontainers/selinux v1.13.0 h1:Zza88GWezyT7RLql12URvoxsbLfjFx988+LGaWfbL84=
 github.com/opencontainers/selinux v1.13.0/go.mod h1:XxWTed+A/s5NNq4GmYScVy+9jzXhGBVEOAyucdRUY8s=
-github.com/ossf/osv-schema/bindings/go v0.0.0-20260114034825-230b4a2f4d73 h1:4MhPgj2Ro1qUDoUXFC1gH1DJkLWmKpA7Vpe5pFAGM10=
-github.com/ossf/osv-schema/bindings/go v0.0.0-20260114034825-230b4a2f4d73/go.mod h1:Eo7R19vlnflsCRdHW1ynyNUyoRwxdaTmTWD9MtKnJTc=
+github.com/ossf/osv-schema/bindings/go v0.0.0-20260129002236-09a17f85b44a h1:XHKiGf7vsACh43gFCBb5lOxDjnY6CQYNoQXsO/SlI6k=
+github.com/ossf/osv-schema/bindings/go v0.0.0-20260129002236-09a17f85b44a/go.mod h1:Eo7R19vlnflsCRdHW1ynyNUyoRwxdaTmTWD9MtKnJTc=
 github.com/owenrumney/go-sarif/v3 v3.3.0 h1:p5oSxEV0uPWBRpAspTmwWr4t1YZyKUpdoFzSB7WE90A=
 github.com/owenrumney/go-sarif/v3 v3.3.0/go.mod h1:72MaugkExDexbSauRuPq6BvUAAqAX0TwoNYMIQyZCMw=
 github.com/package-url/packageurl-go v0.1.3 h1:4juMED3hHiz0set3Vq3KeQ75KD1avthoXLtmE3I0PLs=
