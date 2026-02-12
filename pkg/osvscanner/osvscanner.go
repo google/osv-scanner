@@ -440,9 +440,9 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount {
 	var licenseSummary []models.LicenseCount
 
-	counts := make(map[models.License]int)
+	counts := make(map[string]int)
 	for _, pkg := range scanResult.PackageScanResults {
-		for _, l := range pkg.Licenses {
+		for _, l := range pkg.PackageInfo.Licenses {
 			counts[l] += 1
 		}
 	}
@@ -452,7 +452,7 @@ func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount 
 		return []models.LicenseCount{}
 	}
 
-	licenses := slices.AppendSeq(make([]models.License, 0, len(counts)), maps.Keys(counts))
+	licenses := slices.AppendSeq(make([]string, 0, len(counts)), maps.Keys(counts))
 
 	// Sort the license count in descending count order with the UNKNOWN
 	// license last.
@@ -472,7 +472,7 @@ func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount 
 
 	licenseSummary = make([]models.LicenseCount, len(licenses))
 	for i, license := range licenses {
-		licenseSummary[i].Name = license
+		licenseSummary[i].Name = models.License(license)
 		licenseSummary[i].Count = counts[license]
 	}
 

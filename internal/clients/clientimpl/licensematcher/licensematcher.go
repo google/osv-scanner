@@ -36,13 +36,17 @@ func (matcher *DepsDevLicenseMatcher) MatchLicenses(ctx context.Context, package
 		queries[i] = versionQuery(system, pkg.Name(), pkg.Version())
 	}
 
-	licenses, err := matcher.makeVersionRequest(ctx, queries)
+	pkgLicenses, err := matcher.makeVersionRequest(ctx, queries)
 	if err != nil {
 		return err
 	}
 
-	for i, license := range licenses {
-		packages[i].Licenses = license
+	for i, licenses := range pkgLicenses {
+		packages[i].PackageInfo.Licenses = make([]string, len(licenses))
+
+		for j, license := range licenses {
+			packages[i].PackageInfo.Licenses[j] = string(license)
+		}
 	}
 
 	return nil
