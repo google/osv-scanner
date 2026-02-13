@@ -302,7 +302,14 @@ SBOMLoop:
 						criticalError = true
 					}
 				}
-				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, builder.String())
+
+				msg := status.Status.FailureReason
+
+				if len(status.Status.FileErrors) > 0 {
+					msg = builder.String()
+				}
+
+				cmdlogger.Errorf("Error during extraction: (extracting as %s) %s", status.Name, msg)
 				if criticalError {
 					return nil, errors.New("extraction failed on specified lockfile")
 				}
