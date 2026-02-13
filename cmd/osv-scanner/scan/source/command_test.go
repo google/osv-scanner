@@ -47,12 +47,6 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--all-vulns", "./testdata/sbom-insecure/only-unimportant.spdx.json"},
 			Exit: 1,
 		},
-		// one specific supported sbom with vulns
-		{
-			Name: "one specific supported sbom with vulns",
-			Args: []string{"", "source", "--sbom", "./testdata/sbom-insecure/alpine.cdx.xml"},
-			Exit: 1,
-		},
 		{
 			Name: "one specific supported sbom with vulns using -L flag",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/alpine.cdx.xml"},
@@ -60,34 +54,19 @@ func TestCommand(t *testing.T) {
 		},
 		// one specific supported sbom with vulns and invalid PURLs
 		{
-			Name: "one specific supported sbom with invalid PURLs",
-			Args: []string{"", "source", "--sbom", "./testdata/sbom-insecure/bad-purls.cdx.xml"},
-			Exit: 0,
-		},
-		{
-			Name: "one specific supported sbom with invalid PURLs using -L flag",
+			Name: "one_specific_supported_sbom_with_invalid_purls",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/bad-purls.cdx.xml"},
 			Exit: 0,
 		},
 		// one specific supported sbom with duplicate PURLs
 		{
-			Name: "one specific supported sbom with duplicate PURLs",
-			Args: []string{"", "source", "--sbom", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
-			Exit: 1,
-		},
-		{
-			Name: "one specific supported sbom with duplicate PURLs using -L flag",
+			Name: "one_specific_supported_sbom_with_duplicate_purls",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
 		},
 		// one file that does not match the supported sbom file names
 		{
-			Name: "one file that does not match the supported sbom file names",
-			Args: []string{"", "source", "--sbom", "./testdata/locks-many/composer.lock"},
-			Exit: 127,
-		},
-		{
-			Name: "one file that does not match the supported sbom file names using -L flag",
+			Name: "one_file_that_does_not_match_the_supported_sbom_file_names",
 			Args: []string{"", "source", "-L", "spdx:./testdata/locks-many/composer.lock"},
 			Exit: 127,
 		},

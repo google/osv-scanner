@@ -1141,7 +1141,6 @@ DESCRIPTION:
 
 OPTIONS:
    --lockfile string, -L string [ --lockfile string, -L string ]                    scan package lockfile on this path
-   --sbom string, -S string [ --sbom string, -S string ]                            [DEPRECATED] scan sbom file on this path, the sbom file name must follow the relevant spec
    --recursive, -r                                                                  check subdirectories
    --no-ignore                                                                      also scan files that would be ignored by .gitignore
    --include-git-root                                                               include scanning git root (non-submoduled) repositories
@@ -1306,22 +1305,10 @@ No package sources found, --help for usage information.
 ---
 
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 1]
-Warning: --sbom has been deprecated in favor of -L
 
 ---
 
 [TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 2]
-Failed to parse SBOM "./testdata/locks-many/composer.lock": Invalid SBOM filename.
-If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.
-invalid SBOM filename: ./testdata/locks-many/composer.lock
-
----
-
-[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 1]
-
----
-
-[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 2]
 could not determine extractor, requested spdx
 
 ---
@@ -1364,8 +1351,7 @@ No issues found
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs - 1]
-Warning: --sbom has been deprecated in favor of -L
+[TestCommand/one_specific_supported_sbom_with_duplicate_purls - 1]
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 1 local/unscannable package/s from the scan.
 Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -1382,73 +1368,18 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs - 2]
+[TestCommand/one_specific_supported_sbom_with_duplicate_purls - 2]
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 1]
-Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
-Filtered 1 local/unscannable package/s from the scan.
-Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-0 vulnerabilities can be fixed.
-
-
-+---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
-| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                         |
-+---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
-| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
-+---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
-
----
-
-[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 2]
-
----
-
-[TestCommand/one_specific_supported_sbom_with_invalid_PURLs - 1]
-Warning: --sbom has been deprecated in favor of -L
+[TestCommand/one_specific_supported_sbom_with_invalid_purls - 1]
 Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
 Filtered 7 local/unscannable package/s from the scan.
 No issues found
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_invalid_PURLs - 2]
-
----
-
-[TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag - 1]
-Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
-Filtered 7 local/unscannable package/s from the scan.
-No issues found
-
----
-
-[TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag - 2]
-
----
-
-[TestCommand/one_specific_supported_sbom_with_vulns - 1]
-Warning: --sbom has been deprecated in favor of -L
-Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
-Filtered 1 local/unscannable package/s from the scan.
-Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-0 vulnerabilities can be fixed.
-
-
-+---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
-| OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
-+---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
-| https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
-+---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
-
----
-
-[TestCommand/one_specific_supported_sbom_with_vulns - 2]
+[TestCommand/one_specific_supported_sbom_with_invalid_purls - 2]
 
 ---
 

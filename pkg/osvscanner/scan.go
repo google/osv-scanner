@@ -19,7 +19,6 @@ import (
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
-	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/log"
@@ -163,7 +162,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inven
 	// map[path]parseAs
 	overrideMap := map[string]filesystem.Extractor{}
 	// List of specific paths the user passes in so that we can check that they all get processed.
-	specificPaths := make([]string, 0, len(actions.LockfilePaths)+len(actions.SBOMPaths))
+	specificPaths := make([]string, 0, len(actions.LockfilePaths))
 
 	statsCollector := fileOpenedPrinter{
 		filesExtracted: make(map[string]struct{}),
@@ -194,32 +193,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inven
 			}
 			overrideMap[absPath] = plug
 		}
-	}
-
-	// --- SBOMs (Deprecated) ---
-	// none of the SBOM extractors need configuring
-	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{})
-
-SBOMLoop:
-	for _, sbomPath := range actions.SBOMPaths {
-		absPath, err := pathToRootMap(rootMap, sbomPath, actions.Recursive)
-		if err != nil {
-			return nil, err
-		}
-		specificPaths = append(specificPaths, absPath)
-
-		for _, se := range sbomExtractors {
-			// All sbom extractors are filesystem extractors
-			sbomExtractor := se.(filesystem.Extractor)
-			if sbomExtractor.FileRequired(simplefileapi.New(absPath, nil)) {
-				overrideMap[absPath] = sbomExtractor
-				continue SBOMLoop
-			}
-		}
-		cmdlogger.Errorf("Failed to parse SBOM %q: Invalid SBOM filename.", sbomPath)
-		cmdlogger.Errorf("If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.")
-
-		return nil, fmt.Errorf("invalid SBOM filename: %s", sbomPath)
 	}
 
 	// --- Add git commits directly ---
