@@ -11,6 +11,8 @@ import (
 // ScanResults represents the complete results of a scan.
 // This includes information that affect multiple packages.
 type ScanResults struct {
+	Inventory inventory.Inventory
+
 	PackageScanResults []imodels.PackageScanResult
 
 	// TODO(v2): Temporarily commented out until ScanParameters is moved
@@ -23,6 +25,4 @@ type ScanResults struct {
 
 	// For container scanning, metadata including layer information
 	ImageMetadata *spb.ContainerImageMetadata
-
-	GenericFindings []*inventory.GenericFinding
 }
