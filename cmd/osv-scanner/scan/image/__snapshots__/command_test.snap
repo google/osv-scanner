@@ -7,7 +7,7 @@ Checking if docker image ("alpine:non-existent-tag") exists locally...
 [TestCommand_Docker/Fake_alpine_image - 2]
 Docker command exited with code ("/usr/bin/docker pull -q alpine:non-existent-tag"): 1
 STDERR:
-> Error response from daemon: manifest for alpine:non-existent-tag not found: manifest unknown: manifest unknown
+> Error response from daemon: failed to resolve reference "docker.io/library/alpine:non-existent-tag": docker.io/library/alpine:non-existent-tag: not found
 failed to pull container image: failed to run docker command
 
 ---
@@ -20,7 +20,7 @@ Checking if docker image ("this-image-definitely-does-not-exist-abcde:with-tag")
 [TestCommand_Docker/Fake_image_entirely - 2]
 Docker command exited with code ("/usr/bin/docker pull -q this-image-definitely-does-not-exist-abcde:with-tag"): 1
 STDERR:
-> Error response from daemon: pull access denied for this-image-definitely-does-not-exist-abcde, repository does not exist or may require 'docker login': denied: requested access to the resource is denied
+> Error response from daemon: pull access denied for this-image-definitely-does-not-exist-abcde, repository does not exist or may require 'docker login'
 failed to pull container image: failed to run docker command
 
 ---
