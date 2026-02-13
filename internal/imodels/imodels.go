@@ -20,11 +20,9 @@ import (
 	"github.com/google/osv-scanner/v2/internal/utility/purl"
 	"github.com/google/osv-scanner/v2/internal/utility/semverlike"
 
+	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
-
-	scalibrosv "github.com/google/osv-scalibr/extractor/filesystem/osv"
 )
 
 var gitExtractors = map[string]struct{}{
@@ -216,9 +214,8 @@ func FromInventory(inv *extractor.Package) PackageInfo {
 // PackageScanResult represents a package and its associated vulnerabilities and licenses.
 // This struct is used to store the results of a scan at a per package level.
 type PackageScanResult struct {
-	PackageInfo     PackageInfo
-	Vulnerabilities []*osvschema.Vulnerability
-	Licenses        []models.License
+	PackageInfo PackageInfo
+	Licenses    []models.License
 
 	// TODO(v2):
 	// SourceAnalysis *SourceAnalysis
