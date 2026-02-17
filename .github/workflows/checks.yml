@@ -129,8 +129,15 @@ jobs:
         with:
           persist-credentials: false
       - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        id: download-latest-image-testdata
+        continue-on-error: true
         with:
           name: image-testdata-${{ github.run_number }}-${{ github.run_attempt }}
+          path: cmd/osv-scanner/scan/image/testdata/
+      - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        if: ${{ steps.download-latest-image-testdata.outcome == 'failure' }}
+        with:
+          pattern: image-testdata-${{ github.run_number }}-*
           path: cmd/osv-scanner/scan/image/testdata/
       - name: Set up Go
         uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5 # v6.2.0
