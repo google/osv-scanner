@@ -215,7 +215,6 @@ func FromInventory(inv *extractor.Package) PackageInfo {
 // This struct is used to store the results of a scan at a per package level.
 type PackageScanResult struct {
 	PackageInfo PackageInfo
-	Licenses    []models.License
 
 	// TODO(v2):
 	// SourceAnalysis *SourceAnalysis
