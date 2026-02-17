@@ -2,8 +2,6 @@
 package main
 
 import (
-	"os"
-	"runtime"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
@@ -11,10 +9,6 @@ import (
 
 //nolint:paralleltest
 func Test_run(t *testing.T) {
-	if runtime.GOOS == "linux" && os.Getenv("GITHUB_RUN_ATTEMPT") == "1" {
-		t.Fail()
-	}
-
 	tests := []testcmd.Case{
 		{
 			Name: "",
