@@ -83,7 +83,7 @@ func (st *stateInitialize) View(m model) string {
 	if m.options.Lockfile == "" {
 		s.WriteString("No lockfile provided. Assuming re-lock.\n")
 	} else {
-		s.WriteString(fmt.Sprintf("Scanning %s ", tui.SelectedTextStyle.Render(m.options.Lockfile)))
+		fmt.Fprintf(&s, "Scanning %s ", tui.SelectedTextStyle.Render(m.options.Lockfile))
 		if m.inPlaceResult == nil {
 			s.WriteString(st.spinner.View())
 			s.WriteString("\n")
@@ -93,7 +93,7 @@ func (st *stateInitialize) View(m model) string {
 		s.WriteString("✓\n")
 	}
 
-	s.WriteString(fmt.Sprintf("Resolving %s ", tui.SelectedTextStyle.Render(m.options.Manifest)))
+	fmt.Fprintf(&s, "Resolving %s ", tui.SelectedTextStyle.Render(m.options.Manifest))
 	if m.relockBaseRes == nil {
 		s.WriteString(st.spinner.View())
 		s.WriteString("\n")

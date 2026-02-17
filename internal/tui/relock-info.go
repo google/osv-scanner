@@ -25,8 +25,8 @@ func NewRelockInfo(change resolution.Difference) *relockInfo {
 	preamble := strings.Builder{}
 	preamble.WriteString("The following upgrades:\n")
 	for _, dep := range change.Deps {
-		preamble.WriteString(fmt.Sprintf("  %s@%s (%s) → @%s (%s)\n", // TODO: styling
-			dep.Pkg.Name, dep.OrigRequire, dep.OrigResolved, dep.NewRequire, dep.NewResolved))
+		fmt.Fprintf(&preamble, "  %s@%s (%s) → @%s (%s)\n",
+			dep.Pkg.Name, dep.OrigRequire, dep.OrigResolved, dep.NewRequire, dep.NewResolved)
 	}
 	preamble.WriteString("Will resolve the following:")
 	fixedVulns := make([]*resolution.Vulnerability, len(change.RemovedVulns))
