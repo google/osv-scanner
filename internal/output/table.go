@@ -281,7 +281,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 	for _, eco := range result.Ecosystems {
 		for _, source := range eco.Sources {
 			for _, pkg := range source.Packages {
-				var everything []VulnResult
+				everything := make([]VulnResult, 0, len(pkg.RegularVulns)+len(pkg.HiddenVulns))
 
 				everything = append(everything, pkg.RegularVulns...)
 				everything = append(everything, pkg.HiddenVulns...)

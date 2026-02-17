@@ -206,7 +206,7 @@ func buildPropertiesWithOrigins(project maven.Project, originPrefix string) []Pr
 }
 
 func buildOriginalRequirements(project maven.Project, originPrefix string) []DependencyWithOrigin {
-	var dependencies []DependencyWithOrigin //nolint:prealloc
+	var dependencies []DependencyWithOrigin
 	if project.Parent.GroupID != "" && project.Parent.ArtifactID != "" {
 		dependencies = append(dependencies, DependencyWithOrigin{
 			Dependency: maven.Dependency{

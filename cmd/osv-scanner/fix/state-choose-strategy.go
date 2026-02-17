@@ -94,7 +94,6 @@ func (st *stateChooseStrategy) Init(m model) tea.Cmd {
 }
 
 func (st *stateChooseStrategy) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
-	var cmds []tea.Cmd
 	switch msg := msg.(type) {
 	case tui.ViewModelCloseMsg:
 		// info view wants to quit, just unfocus it
@@ -143,6 +142,7 @@ func (st *stateChooseStrategy) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd)
 		}
 	}
 
+	cmds := make([]tea.Cmd, 0, 2)
 	var cmd tea.Cmd
 	st.depthInput, cmd = st.depthInput.Update(msg)
 	cmds = append(cmds, cmd)

@@ -70,57 +70,49 @@ func TestEnricher(t *testing.T) {
 }
 
 func setupPackages() []*extractor.Package {
-	pkgs := []*extractor.Package{}
-
-	pkgs = append(pkgs, &extractor.Package{
-		Name:      "stdlib",
-		Version:   "1.19",
-		PURLType:  purl.TypeGolang,
-		Locations: []string{filepath.Join(".", "go.mod")},
-		Plugins:   []string{gomod.Name},
-	})
-
-	pkgs = append(pkgs, &extractor.Package{
-		Name:      "github.com/gogo/protobuf",
-		Version:   "1.3.1",
-		PURLType:  purl.TypeGolang,
-		Locations: []string{filepath.Join(".", "go.mod")},
-		Plugins:   []string{gomod.Name},
-	})
-
-	pkgs = append(pkgs, &extractor.Package{
-		Name:      "github.com/ipfs/go-bitfield",
-		Version:   "1.0.0",
-		PURLType:  purl.TypeGolang,
-		Locations: []string{filepath.Join(".", "go.mod")},
-		Plugins:   []string{gomod.Name},
-	})
-
-	pkgs = append(pkgs, &extractor.Package{
-		Name:      "golang.org/x/image",
-		Version:   "0.4.0",
-		PURLType:  purl.TypeGolang,
-		Locations: []string{filepath.Join(".", "go.mod")},
-		Plugins:   []string{gomod.Name},
-	})
-
-	return pkgs
+	return []*extractor.Package{
+		{
+			Name:      "stdlib",
+			Version:   "1.19",
+			PURLType:  purl.TypeGolang,
+			Locations: []string{filepath.Join(".", "go.mod")},
+			Plugins:   []string{gomod.Name},
+		},
+		{
+			Name:      "github.com/gogo/protobuf",
+			Version:   "1.3.1",
+			PURLType:  purl.TypeGolang,
+			Locations: []string{filepath.Join(".", "go.mod")},
+			Plugins:   []string{gomod.Name},
+		},
+		{
+			Name:      "github.com/ipfs/go-bitfield",
+			Version:   "1.0.0",
+			PURLType:  purl.TypeGolang,
+			Locations: []string{filepath.Join(".", "go.mod")},
+			Plugins:   []string{gomod.Name},
+		},
+		{
+			Name:      "golang.org/x/image",
+			Version:   "0.4.0",
+			PURLType:  purl.TypeGolang,
+			Locations: []string{filepath.Join(".", "go.mod")},
+			Plugins:   []string{gomod.Name},
+		},
+	}
 }
 
 func setupPackageVulns() []*inventory.PackageVuln {
-	vulns := []*inventory.PackageVuln{}
-
-	vulns = append(vulns, &inventory.PackageVuln{
-		Vulnerability: &osvschema.Vulnerability{
-			Id: reachableVulnID,
+	return []*inventory.PackageVuln{
+		{
+			Vulnerability: &osvschema.Vulnerability{
+				Id: reachableVulnID,
+			},
 		},
-	})
-
-	vulns = append(vulns, &inventory.PackageVuln{
-		Vulnerability: &osvschema.Vulnerability{
-			Id: unreachableVulnID,
+		{
+			Vulnerability: &osvschema.Vulnerability{
+				Id: unreachableVulnID,
+			},
 		},
-	})
-
-	return vulns
+	}
 }
