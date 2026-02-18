@@ -295,7 +295,7 @@ SBOMLoop:
 						// If there is more than 1 file error, write them on new lines
 						builder.WriteString("\n\t")
 					}
-					builder.WriteString(fmt.Sprintf("%s: %s", fileError.FilePath, fileError.ErrorMessage))
+					fmt.Fprintf(&builder, "%s: %s", fileError.FilePath, fileError.ErrorMessage)
 
 					// Check if the erroring file was a path specifically passed in (not a result of a file walk)
 					if slices.Contains(specificPaths, filepath.Join(root, fileError.FilePath)) {
