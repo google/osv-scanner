@@ -353,9 +353,9 @@ func findLibrariesPoetryLock(file io.Reader, poetryLibraryInfos []*LibraryInfo) 
 }
 
 // extractCompressedPackageSource extracts a .tar.gz file to a specified destination directory.
-func extractCompressedPackageSource(file *os.File, destDir string) error {
+func extractCompressedPackageSource(reader io.Reader, destDir string) error {
 	// Create a gzip reader to decompress the stream
-	gzipReader, err := gzip.NewReader(file)
+	gzipReader, err := gzip.NewReader(reader)
 	if err != nil {
 		return fmt.Errorf("failed to create gzip reader: %w", err)
 	}
@@ -465,39 +465,8 @@ func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *Libr
 		return fmt.Errorf("failed to create temp dir: %w", err)
 	}
 
-	tmpFile, err := os.CreateTemp(tmpDir, fileName)
-	if err != nil {
-		if err := os.RemoveAll(tmpDir); err != nil {
-			log.Printf("failed to remove temp dir %s: %v", tmpDir, err)
-		}
-		return fmt.Errorf("failed to create temp file: %w", err)
-	}
-
-	if _, err := io.Copy(tmpFile, bytes.NewReader(sourceFile)); err != nil {
-		tmpFile.Close()
-		if err := os.RemoveAll(tmpDir); err != nil {
-			log.Printf("failed to remove temp dir %s: %v", tmpDir, err)
-		}
-		return fmt.Errorf("failed to write to temp file: %w", err)
-	}
-	if err := tmpFile.Close(); err != nil {
-		if err := os.RemoveAll(tmpDir); err != nil {
-			log.Printf("failed to remove temp dir %s: %v", tmpDir, err)
-		}
-		return fmt.Errorf("failed to close temp file: %w", err)
-	}
-
-	// Re-open the temp file for extraction.
-	f, err := os.Open(tmpFile.Name())
-	if err != nil {
-		if err := os.RemoveAll(tmpDir); err != nil {
-			log.Printf("failed to remove temp dir %s: %v", tmpDir, err)
-		}
-		return fmt.Errorf("failed to open temp file for extraction: %w", err)
-	}
-	defer f.Close()
-
-	if err := extractCompressedPackageSource(f, tmpDir); err != nil {
+	// Extract directly from the downloaded bytes without writing to disk first
+	if err := extractCompressedPackageSource(bytes.NewReader(sourceFile), tmpDir); err != nil {
 		if err := os.RemoveAll(tmpDir); err != nil {
 			log.Printf("failed to remove temp dir %s: %v", tmpDir, err)
 		}
