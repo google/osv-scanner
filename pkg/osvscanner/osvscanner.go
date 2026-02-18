@@ -37,6 +37,7 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"osv.dev/bindings/go/osvdev"
 )
 
@@ -421,6 +422,8 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		)
 	}
 
+	updateConfigs(&vulnerabilityResults, &scanResult.ConfigManager)
+
 	if unusedIgnoredEntries := scanResult.ConfigManager.GetUnusedIgnoreEntries(); len(unusedIgnoredEntries) != 0 {
 		configFiles := slices.Collect(maps.Keys(unusedIgnoredEntries))
 		slices.Sort(configFiles)
@@ -435,6 +438,21 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 	}
 
 	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)
+}
+
+func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *config.Manager) {
+	for _, pkgSrc := range vulnResults.Results {
+		configToUse := configManager.Get(pkgSrc.Source.Path)
+
+		var vulns []*osvschema.Vulnerability //nolint:prealloc
+
+		for _, pkgVulns := range pkgSrc.Packages {
+			vulns = append(vulns, pkgVulns.Vulnerabilities...)
+		}
+
+		// todo: is it possible to have results using the same file?
+		configToUse.UpdateFile(vulns)
+	}
 }
 
 func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount {

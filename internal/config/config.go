@@ -2,11 +2,14 @@
 package config
 
 import (
+	"os"
 	"slices"
 	"time"
 
+	"github.com/BurntSushi/toml"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 var OSVScannerConfigName = "osv-scanner.toml"
@@ -14,7 +17,7 @@ var OSVScannerConfigName = "osv-scanner.toml"
 type Config struct {
 	IgnoredVulns      []*IgnoreEntry         `toml:"IgnoredVulns"`
 	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides"`
-	GoVersionOverride string                 `toml:"GoVersionOverride"`
+	GoVersionOverride string                 `toml:"GoVersionOverride,omitempty"`
 	// The path to config file that this config was loaded from,
 	// set by the scanner after having successfully parsed the file
 	LoadPath string `toml:"-"`
@@ -22,8 +25,8 @@ type Config struct {
 
 type IgnoreEntry struct {
 	ID          string    `toml:"id"`
-	IgnoreUntil time.Time `toml:"ignoreUntil"`
-	Reason      string    `toml:"reason"`
+	IgnoreUntil time.Time `toml:"ignoreUntil,omitempty"`
+	Reason      string    `toml:"reason,omitempty"`
 
 	Used bool `toml:"-"`
 }
@@ -72,6 +75,35 @@ type Vulnerability struct {
 type License struct {
 	Override []string `toml:"override"`
 	Ignore   bool     `toml:"ignore"`
+}
+
+func (c *Config) UpdateFile(vulns []*osvschema.Vulnerability) error {
+	existingIgnores := make(map[string]*IgnoreEntry, len(c.IgnoredVulns))
+	for _, ignoredVuln := range c.IgnoredVulns {
+		existingIgnores[ignoredVuln.ID] = ignoredVuln
+	}
+
+	c.IgnoredVulns = make([]*IgnoreEntry, 0, len(vulns))
+
+	for _, vuln := range vulns {
+		ignore, ok := existingIgnores[vuln.GetId()]
+
+		if !ok {
+			ignore = &IgnoreEntry{ID: vuln.GetId()}
+		}
+
+		c.IgnoredVulns = append(c.IgnoredVulns, ignore)
+	}
+
+	b, err := toml.Marshal(c)
+
+	if err != nil {
+		return err
+	}
+
+	os.WriteFile(c.LoadPath, b, 0600)
+
+	return nil
 }
 
 func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
