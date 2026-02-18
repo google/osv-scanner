@@ -168,7 +168,7 @@ jobs:
           version: "~> v2"
           args: release --clean --snapshot
       - run: |
-          echo '${{ steps.run-goreleaser.outputs.artifacts }}' > output.json
+          echo '${STEPS_RUN_GORELEASER_OUTPUTS_ARTIFACTS}' > output.json
           jq -r '.[] | select(
             .type == "Docker Image" and
             .goarch == "amd64" and
@@ -185,3 +185,5 @@ jobs:
               exit $exit_code
             fi
           done
+        env:
+          STEPS_RUN_GORELEASER_OUTPUTS_ARTIFACTS: ${{ steps.run-goreleaser.outputs.artifacts }}
