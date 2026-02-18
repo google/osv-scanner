@@ -2,6 +2,8 @@ package config
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
 	"reflect"
 	"strings"
 	"testing"
@@ -13,6 +15,8 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/osv"
 	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/testutility"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -1199,6 +1203,146 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
 				t.Errorf("ShouldOverridePackageLicense() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
 			}
+		})
+	}
+}
+
+func TestConfig_UpdateFile(t *testing.T) {
+	t.Parallel()
+	tests := []struct {
+		name    string
+		args    []*osvschema.Vulnerability
+		input   string
+		wantErr bool
+	}{
+		{
+			name:  "nothing_happens_when_everything_is_empty",
+			args:  []*osvschema.Vulnerability{},
+			input: "",
+		},
+		{
+			name: "empty_file_with_one_vuln",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+			},
+		},
+		{
+			name: "empty_file_with_two_vulns",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+			},
+		},
+		{
+			name: "existing_properties_are_preserved",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+			},
+			input: `
+GoVersionOverride = "1.20.0"
+
+[[PackageOverrides]]
+name = "lib"
+version = "1.0.0"
+ecosystem = "Go"
+group = "dev"
+
+vulnerability.ignore = true
+license.override = ["MIT", "0BSD"]
+
+[[IgnoredVulns]]
+id = "GHSA-123"
+reason = "No ssh servers are connected to or hosted in Go lang"
+`,
+		},
+		{
+			name: "comments_are_not_preserved",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+			},
+			input: `
+# TODO: we should patch this
+[[IgnoredVulns]]
+id = "GHSA-123"
+`,
+		},
+		{
+			name: "missing_vulns_are_removed",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+			},
+			input: `
+[[IgnoredVulns]]
+id = "GHSA-789"
+`,
+		},
+		{
+			name: "ids_are_deduplicated",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+			},
+		},
+		{
+			name: "ids_are_deduplicated_including_already_existing",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-456"},
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+				{Id: "GHSA-789"},
+			},
+			input: `
+[[IgnoredVulns]]
+id = "GHSA-456"
+
+[[IgnoredVulns]]
+id = "GHSA-456"
+`,
+		},
+		{
+			name: "aliases_are_deduplicated",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+				{Id: "GHSA-789", Aliases: []string{"GHSA-123"}},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			dir := testutility.CreateTestDir(t)
+
+			err := os.WriteFile(filepath.Join(dir, OSVScannerConfigName), []byte(tt.input), 0600)
+
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			c, err := tryLoadConfig(filepath.Join(dir, OSVScannerConfigName))
+
+			if err != nil {
+				t.Fatalf("failed to load config: %v", err)
+			}
+
+			err = c.UpdateFile(tt.args)
+
+			if (err != nil) != tt.wantErr {
+				t.Errorf("UpdateFile() error = %v, wantErr %v", err, tt.wantErr)
+			}
+
+			b, err := os.ReadFile(c.LoadPath)
+
+			if err != nil {
+				t.Fatalf("failed to read file: %v", err)
+			}
+
+			testutility.NewSnapshot().MatchText(t, string(b))
 		})
 	}
 }
