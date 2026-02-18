@@ -253,9 +253,9 @@ func TestGetImportedItemsFilePathsAndFindImportedLibrary(t *testing.T) {
 		t.Fatalf("unexpected path: %s", lib.Modules[0].SourceDefinedPaths[0])
 	}
 
-	// Now test findImportedLibrary: it should detect imports inside that file
-	if err := findImportedLibrary(lib); err != nil {
-		t.Fatalf("findImportedLibrary failed: %v", err)
+	// Now test findImportsInModuleSourceFiles: it should detect imports inside that file
+	if err := findImportsInModuleSourceFiles(lib); err != nil {
+		t.Fatalf("findImportsInModuleSourceFiles failed: %v", err)
 	}
 	// Expect imported libraries to contain os and otherpkg
 	foundOs, foundOther := false, false

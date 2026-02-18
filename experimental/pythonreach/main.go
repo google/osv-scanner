@@ -467,30 +467,40 @@ func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *Libr
 
 	tmpFile, err := os.CreateTemp(tmpDir, fileName)
 	if err != nil {
-		_ = os.RemoveAll(tmpDir)
+		if err := os.RemoveAll(tmpDir); err != nil {
+			log.Printf("failed to remove temp dir %s: %v", tmpDir, err)
+		}
 		return fmt.Errorf("failed to create temp file: %w", err)
 	}
 
 	if _, err := io.Copy(tmpFile, bytes.NewReader(sourceFile)); err != nil {
 		tmpFile.Close()
-		_ = os.RemoveAll(tmpDir)
+		if err := os.RemoveAll(tmpDir); err != nil {
+			log.Printf("failed to remove temp dir %s: %v", tmpDir, err)
+		}
 		return fmt.Errorf("failed to write to temp file: %w", err)
 	}
 	if err := tmpFile.Close(); err != nil {
-		_ = os.RemoveAll(tmpDir)
+		if err := os.RemoveAll(tmpDir); err != nil {
+			log.Printf("failed to remove temp dir %s: %v", tmpDir, err)
+		}
 		return fmt.Errorf("failed to close temp file: %w", err)
 	}
 
 	// Re-open the temp file for extraction.
 	f, err := os.Open(tmpFile.Name())
 	if err != nil {
-		_ = os.RemoveAll(tmpDir)
+		if err := os.RemoveAll(tmpDir); err != nil {
+			log.Printf("failed to remove temp dir %s: %v", tmpDir, err)
+		}
 		return fmt.Errorf("failed to open temp file for extraction: %w", err)
 	}
 	defer f.Close()
 
 	if err := extractCompressedPackageSource(f, tmpDir); err != nil {
-		_ = os.RemoveAll(tmpDir)
+		if err := os.RemoveAll(tmpDir); err != nil {
+			log.Printf("failed to remove temp dir %s: %v", tmpDir, err)
+		}
 		return err
 	}
 
@@ -547,8 +557,8 @@ func getImportedItemsFilePaths(libraryInfo *LibraryInfo, rootDir string) error {
 	})
 }
 
-// findImportedItemPaths finds libraries in import statements in the files.
-func findImportedLibrary(libraryInfo *LibraryInfo) error {
+// findImportsInModuleSourceFiles finds libraries in import statements in the files.
+func findImportsInModuleSourceFiles(libraryInfo *LibraryInfo) error {
 	for _, module := range libraryInfo.Modules {
 		for _, path := range module.SourceDefinedPaths {
 			absPath, err := filepath.Abs(path)
@@ -784,7 +794,7 @@ func main() {
 			}
 
 			// Find the imported libraries in the files where the imported items are defined.
-			err = findImportedLibrary(lib)
+			err = findImportsInModuleSourceFiles(lib)
 			if err != nil {
 				log.Printf("Error finding imported items: %v", err)
 			}
