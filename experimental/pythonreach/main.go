@@ -20,6 +20,8 @@ import (
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
+
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 )
 
 // ModuleInfo represents a Python module or function imported from a library
@@ -246,7 +248,10 @@ func parsePoetryLock(ctx context.Context, fpath string) ([]*LibraryInfo, error) 
 		Path:   fpath,
 		Reader: r,
 	}
-	extractor := poetrylock.New()
+	extractor, err := poetrylock.New(&cpb.PluginConfig{})
+	if err != nil {
+		return nil, fmt.Errorf("failed to create poetry lock extractor: %w", err)
+	}
 	inventory, err := extractor.Extract(ctx, input)
 	if err != nil {
 		return nil, fmt.Errorf("failed to extract from %s: %w", fpath, err)
@@ -407,7 +412,7 @@ func extractCompressedPackageSource(file *os.File, destDir string) error {
 // retrieveSourceAndCollectDependencies fetches the source code of a library from PyPI, extracts the compressed source file and
 // collect dependencies of the imported library.
 func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *LibraryInfo) error {
-	reg := datasource.NewPyPIRegistryAPIClient("")
+	reg := datasource.NewPyPIRegistryAPIClient("", "")
 	response, err := reg.GetIndex(ctx, libraryInfo.Name)
 	if err != nil {
 		return fmt.Errorf("failed to get package info from PyPI: %w", err)
@@ -419,11 +424,6 @@ func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *Libr
 	// Find the source distribution (.tar.gz) file URL
 	downloadURL, fileName := "", ""
 	for _, file := range response.Files {
-		// if strings.Contains(file.Name, libraryInfo.Version) && strings.HasSuffix(file.Name, ".tar.gz") {
-		// 	downloadURL = file.URL
-		// 	fileName = file.Name
-		// 	break
-		// }
 		if filepath.Ext(file.Name) == ".gz" {
 			_, version, err := pypi.SdistVersion(response.Name, file.Name)
 			if err != nil {
