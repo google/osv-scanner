@@ -258,7 +258,7 @@ func PrintSARIFReport(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	vulnIDMap := mapIDsToGroupedSARIFFinding(vulnResult)
 	// Sort the IDs to have deterministic loop of vulnIDMap
-	vulnIDs := []string{}
+	vulnIDs := make([]string, 0, len(vulnIDMap))
 	for vulnID := range vulnIDMap {
 		vulnIDs = append(vulnIDs, vulnID)
 	}

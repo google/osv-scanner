@@ -60,7 +60,7 @@ func Test_createSARIFFingerprint_DifferentInputs(t *testing.T) {
 		fingerprint  string
 	}
 
-	var testCases []testCase
+	testCases := make([]testCase, 0, len(testPackages)*len(testArtifactPaths)*len(testVulnIDs))
 	for _, vulnID := range testVulnIDs {
 		for _, artifactPath := range testArtifactPaths {
 			for _, pkg := range testPackages {

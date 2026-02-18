@@ -26,7 +26,7 @@ func (ms *MavenSuggester) Suggest(ctx context.Context, cl resolve.Client, mf man
 		return manifest.Patch{}, errors.New("invalid MavenManifestSpecific data")
 	}
 
-	var changedDeps []manifest.DependencyPatch //nolint:prealloc
+	var changedDeps []manifest.DependencyPatch
 	for _, req := range append(mf.Requirements, specific.RequirementsForUpdates...) {
 		if opts.UpgradeConfig.Get(req.Name) == upgrade.None {
 			continue

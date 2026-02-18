@@ -54,7 +54,7 @@ GLOBAL OPTIONS:
 // Gets all valid commands and global options for OSV-Scanner.
 func getAllCommands(commands []*cli.Command) []string {
 	// Adding all subcommands
-	allCommands := make([]string, 0)
+	allCommands := make([]string, 0, len(commands))
 	for _, command := range commands {
 		allCommands = append(allCommands, command.Name)
 	}

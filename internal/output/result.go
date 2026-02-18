@@ -47,7 +47,7 @@ func (pss *pkgSourceSet) StableKeys() []pkgWithSource {
 }
 
 func (pss *pkgSourceSet) MarshalJSON() ([]byte, error) {
-	res := []pkgWithSource{}
+	res := make([]pkgWithSource, 0, len(*pss))
 
 	for v := range *pss {
 		res = append(res, v)

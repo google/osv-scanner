@@ -20,7 +20,7 @@ func createSourceRemediationTable(source models.PackageSource, groupedFixedVersi
 		for _, group := range pv.Groups {
 			fixedVersions := groupedFixedVersions[source.Source.String()+":"+group.IndexString()]
 
-			vulnIDs := []string{}
+			vulnIDs := make([]string, 0, len(group.IDs))
 			for _, id := range group.IDs {
 				vulnIDs = append(vulnIDs, "https://osv.dev/"+id)
 			}
