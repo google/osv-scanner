@@ -11,7 +11,6 @@ import (
 	"io"
 	"log"
 	"os"
-	"path"
 	"path/filepath"
 	"regexp"
 	"slices"
@@ -21,7 +20,6 @@ import (
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/poetrylock"
-	scalibrfs "github.com/google/osv-scalibr/fs"
 )
 
 // ModuleInfo represents a Python module or function imported from a library
@@ -41,6 +39,28 @@ type LibraryInfo struct {
 	Modules      []*ModuleInfo // Specific modules or functions imported from this library
 	Dependencies []string      // Direct dependencies declared in library's metadata
 	SourceDir    string        // Path to extracted source files (temporary)
+}
+
+// DependencyReachability represents the reachability status of a single dependency.
+type DependencyReachability struct {
+	Name      string // Name of the dependency
+	Reachable bool   // True if the dependency is reachable
+}
+
+// ModuleReachability represents reachability analysis results for a single module.
+type ModuleReachability struct {
+	Name             string                    // Name of the module/function
+	Dependencies     []*DependencyReachability // Reachability status for each dependency
+	SourceDefinedAt  []string                  // File paths where this module is defined
+	ImportsLibraries []string                  // Libraries imported by this module
+}
+
+// LibraryReachabilityResult represents the complete reachability analysis for a library.
+type LibraryReachabilityResult struct {
+	Name         string                    // Library name
+	Version      string                    // Library version
+	Modules      []*ModuleReachability     // Reachability analysis per module
+	Dependencies []*DependencyReachability // Reachability for each dependency (when no modules specified)
 }
 
 // safeOpenFile safely opens a file and returns a closer function
@@ -195,7 +215,8 @@ func findManifestFiles(dir string) ([]string, error) {
 		}
 		fileName := file.Name()
 		if slices.Contains(supportedManifests, fileName) {
-			manifestFiles = append(manifestFiles, path.Join(absDir, fileName))
+			// Return full path to the manifest file
+			manifestFiles = append(manifestFiles, filepath.Join(absDir, fileName))
 		}
 	}
 
@@ -206,18 +227,22 @@ func findManifestFiles(dir string) ([]string, error) {
 	return manifestFiles, nil
 }
 
-// parsePoetryLock reads the poetry lock file and updates libraryInfo with versions.
+// parsePoetryLock reads the specified poetry lock file and extracts library information.
 func parsePoetryLock(ctx context.Context, fpath string) ([]*LibraryInfo, error) {
-	dir := filepath.Dir(fpath)
-	fsys := scalibrfs.DirFS(dir)
-	r, err := fsys.Open("poetry.lock")
+	// Validate that the file exists and is readable
+	if _, err := os.Stat(fpath); err != nil {
+		return nil, fmt.Errorf("failed to stat %s: %w", fpath, err)
+	}
+
+	// Open the poetry.lock file directly
+	r, err := os.Open(fpath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open %s: %w", fpath, err)
 	}
 	defer r.Close()
 
 	input := &filesystem.ScanInput{
-		FS:     fsys,
+		FS:     nil, // Not used when Reader is provided
 		Path:   fpath,
 		Reader: r,
 	}
@@ -394,10 +419,23 @@ func retrieveSourceAndCollectDependencies(ctx context.Context, libraryInfo *Libr
 	// Find the source distribution (.tar.gz) file URL
 	downloadURL, fileName := "", ""
 	for _, file := range response.Files {
-		if strings.Contains(file.Name, libraryInfo.Version) && strings.HasSuffix(file.Name, ".tar.gz") {
-			downloadURL = file.URL
-			fileName = file.Name
-			break
+		// if strings.Contains(file.Name, libraryInfo.Version) && strings.HasSuffix(file.Name, ".tar.gz") {
+		// 	downloadURL = file.URL
+		// 	fileName = file.Name
+		// 	break
+		// }
+		if filepath.Ext(file.Name) == ".gz" {
+			_, version, err := pypi.SdistVersion(response.Name, file.Name)
+			if err != nil {
+				log.Printf("failed to extract version from sdist file name %s: %v", file.Name, err)
+				continue
+			}
+			// If the version matches, set downloadURL and fileName
+			if version == libraryInfo.Version {
+				downloadURL = file.URL
+				fileName = file.Name
+				break
+			}
 		}
 	}
 
@@ -537,6 +575,116 @@ func findImportedLibrary(libraryInfo *LibraryInfo) error {
 	return nil
 }
 
+// computeReachability analyzes a library and returns a ReachabilityResult
+// with the reachability status of its dependencies.
+func computeReachability(library *LibraryInfo) *LibraryReachabilityResult {
+	result := &LibraryReachabilityResult{
+		Name:    library.Name,
+		Version: library.Version,
+	}
+
+	// Case 1: No modules specified - all dependencies are reachable
+	if len(library.Modules) == 0 {
+		for _, dep := range library.Dependencies {
+			result.Dependencies = append(result.Dependencies, &DependencyReachability{
+				Name:      dep,
+				Reachable: true,
+			})
+		}
+		return result
+	}
+
+	// Case 2: Modules specified - analyze reachability per module
+	for _, module := range library.Modules {
+		moduleResult := &ModuleReachability{
+			Name:            module.Name,
+			SourceDefinedAt: module.SourceDefinedPaths,
+		}
+
+		// If module source paths not found, assume all deps are reachable
+		if len(module.SourceDefinedPaths) == 0 {
+			for _, dep := range library.Dependencies {
+				moduleResult.Dependencies = append(moduleResult.Dependencies, &DependencyReachability{
+					Name:      dep,
+					Reachable: true,
+				})
+			}
+			result.Modules = append(result.Modules, moduleResult)
+			continue
+		}
+
+		// Deduplicate and sort imported libraries for comparison
+		slices.Sort(module.ImportedLibraryNames)
+		importedLibs := slices.Compact(module.ImportedLibraryNames)
+		moduleResult.ImportsLibraries = importedLibs
+
+		// Check reachability of each dependency
+		for _, dep := range library.Dependencies {
+			reachable := false
+			for _, importedLib := range importedLibs {
+				if strings.Contains(importedLib, dep) {
+					reachable = true
+					break
+				}
+			}
+			moduleResult.Dependencies = append(moduleResult.Dependencies, &DependencyReachability{
+				Name:      dep,
+				Reachable: reachable,
+			})
+		}
+
+		result.Modules = append(result.Modules, moduleResult)
+	}
+
+	return result
+}
+
+// printReachabilityResult prints a LibraryReachabilityResult in human-readable format
+func printReachabilityResult(result *LibraryReachabilityResult) {
+	fmt.Printf("%sLibrary:%s %s%s%s, %sVersion:%s %s%s%s\n",
+		ColorCyan, ColorReset,
+		ColorYellow,
+		result.Name,
+		ColorReset,
+		ColorCyan, ColorReset,
+		ColorYellow,
+		result.Version,
+		ColorReset)
+
+	// Case: No module-level analysis
+	if len(result.Modules) == 0 {
+		for _, dep := range result.Dependencies {
+			status := "Reachable"
+			if !dep.Reachable {
+				status = "Unreachable"
+			}
+			fmt.Printf("  %sPyPI Dependencies:%s %s%s%s --> %s\n",
+				ColorCyan, ColorReset, ColorYellow, dep.Name, ColorReset, status)
+		}
+		return
+	}
+
+	// Case: Module-level analysis
+	for _, module := range result.Modules {
+		fmt.Printf("  %sImported Item:%s %s%s%s\n",
+			ColorCyan, ColorReset, ColorYellow, module.Name, ColorReset)
+		fmt.Printf("    %sSource Locations:%s %v\n",
+			ColorCyan, ColorReset, module.SourceDefinedAt)
+		fmt.Printf("    %sImports:%s %v\n",
+			ColorCyan, ColorReset, module.ImportsLibraries)
+		fmt.Println("    Reachability:")
+
+		for _, dep := range module.Dependencies {
+			status := "Reachable"
+			if !dep.Reachable {
+				status = "Unreachable"
+			}
+			fmt.Printf("      %s%s%s --> %s\n",
+				ColorYellow, dep.Name, ColorReset, status)
+		}
+	}
+}
+
 func main() {
 	flag.Parse()
 	ctx := context.Background()
@@ -591,7 +739,7 @@ func main() {
 		// Parse the poetry.lock file to get library information.
 		poetryLibraryInfos, err = parsePoetryLock(ctx, manifestFilePath)
 		if err != nil {
-			log.Printf("Error collecting libraries in poetry.lock: %v\n", err)
+			log.Printf("Error collecting libraries from %s: %v\n", manifestFilePath, err)
 		}
 	}
 
@@ -643,57 +791,10 @@ func main() {
 
 		}
 
-		// 6. Comparison between the collected imported libraries and the PYPI dependencies of the libraries
-		// to find the reachability of the PYPI dependencies.
+		// 6. Compute and display reachability analysis results
 		for _, library := range importedLibraries {
-			fmt.Printf("%sLibrary:%s %s%s%s, %sVersion:%s %s%s%s\n",
-				ColorCyan, ColorReset,
-				ColorYellow,
-				library.Name,
-				ColorReset,
-				ColorCyan, ColorReset,
-				ColorYellow,
-				library.Version,
-				ColorReset)
-			if len(library.Modules) == 0 {
-				for _, dep := range library.Dependencies {
-					fmt.Printf("  %sPyPI Dependencies:%s %s%s%s --> Reachable\n", ColorCyan, ColorReset, ColorYellow, dep, ColorReset)
-				}
-				continue
-			}
-
-			for _, module := range library.Modules {
-				if module.SourceDefinedPaths == nil {
-					for _, dep := range library.Dependencies {
-						fmt.Printf("  %sPyPI Dependencies:%s %s%s%s --> Reachable\n", ColorCyan, ColorReset, ColorYellow, dep, ColorReset)
-					}
-					continue
-				}
-				fmt.Printf("  %sImported Item:%s %s%s%s\n", ColorCyan, ColorReset, ColorYellow, module.Name, ColorReset)
-				for _, dep := range library.Dependencies {
-					fmt.Printf("  %sPyPI Dependencies:%s %s%s%s\n", ColorCyan, ColorReset, ColorYellow, dep, ColorReset)
-				}
-				fmt.Println("Reachability:")
-				for _, dep := range library.Dependencies {
-					reachable := false
-					slices.Sort(module.ImportedLibraryNames)
-					importedLibs := slices.Compact(module.ImportedLibraryNames)
-					for _, importedLib := range importedLibs {
-						if strings.Contains(importedLib, dep) {
-							module.ReachableDeps = append(module.ReachableDeps, dep)
-							reachable = true
-							break
-						}
-
-					}
-
-					if !reachable {
-						fmt.Printf("   %sPyPI Dependencies:%s %s%s%s --> Unreachable\n", ColorCyan, ColorReset, ColorYellow, dep, ColorReset)
-					} else {
-						fmt.Printf("   %sPyPI Dependencies:%s %s%s%s --> Reachable\n", ColorCyan, ColorReset, ColorYellow, dep, ColorReset)
-					}
-				}
-			}
+			result := computeReachability(library)
+			printReachabilityResult(result)
 		}
 
 	}

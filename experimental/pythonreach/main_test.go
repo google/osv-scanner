@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -72,9 +71,6 @@ func TestFindMainEntryPoint(t *testing.T) {
 				expectedFullPaths = append(expectedFullPaths, absPath)
 			}
 
-			sort.Strings(actualPaths)
-			sort.Strings(expectedFullPaths)
-
 			if !reflect.DeepEqual(actualPaths, expectedFullPaths) {
 				t.Errorf("Expected paths %v, but got %v", expectedFullPaths, actualPaths)
 			}
@@ -121,7 +117,7 @@ func TestParsePoetryLibrary(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			ctx := context.Background()
+			ctx := t.Context()
 			absDir, err := filepath.Abs(tc.fpathInTestDir)
 			if err != nil {
 				t.Errorf("Failed to get absolute path for %s: %v", tc.fpathInTestDir, err)
@@ -234,7 +230,7 @@ func TestGetImportedItemsFilePathsAndFindImportedLibrary(t *testing.T) {
 
 	// Create a file with a function definition and imports
 	fpath := filepath.Join(pkgDir, "module_a.py")
-	content := `import os\nfrom otherpkg import sub\ndef func1(arg):\n    pass\n`
+	content := "import os\nfrom otherpkg import sub\n\ndef func1(arg):\n    pass\n"
 	if err := os.WriteFile(fpath, []byte(content), 0o644); err != nil {
 		t.Fatalf("write file: %v", err)
 	}
@@ -273,5 +269,131 @@ func TestGetImportedItemsFilePathsAndFindImportedLibrary(t *testing.T) {
 	}
 	if !foundOs || !foundOther {
 		t.Fatalf("expected imported libs os and otherpkg, got: %v", lib.Modules[0].ImportedLibraryNames)
+	}
+}
+func TestComputeReachability_NoModules(t *testing.T) {
+	lib := &LibraryInfo{
+		Name:         "testlib",
+		Version:      "1.0.0",
+		Dependencies: []string{"dep1", "dep2"},
+		Modules:      nil,
+	}
+
+	result := computeReachability(lib)
+
+	if result.Name != "testlib" || result.Version != "1.0.0" {
+		t.Fatalf("expected name=testlib version=1.0.0, got %s %s", result.Name, result.Version)
+	}
+	if len(result.Modules) != 0 {
+		t.Fatalf("expected no modules, got %d", len(result.Modules))
+	}
+	if len(result.Dependencies) != 2 {
+		t.Fatalf("expected 2 dependencies, got %d", len(result.Dependencies))
+	}
+	// When no modules, all deps should be reachable
+	for _, dep := range result.Dependencies {
+		if !dep.Reachable {
+			t.Fatalf("expected all deps reachable when no modules, got unreachable: %s", dep.Name)
+		}
+	}
+}
+
+func TestComputeReachability_WithModules(t *testing.T) {
+	lib := &LibraryInfo{
+		Name:         "testlib",
+		Version:      "1.0.0",
+		Dependencies: []string{"requests", "json"},
+		Modules: []*ModuleInfo{
+			{
+				Name:                 "fetch_data",
+				SourceDefinedPaths:   []string{"/path/to/module.py"},
+				ImportedLibraryNames: []string{"requests", "urllib"},
+			},
+			{
+				Name:                 "parse_json",
+				SourceDefinedPaths:   []string{"/path/to/parser.py"},
+				ImportedLibraryNames: []string{"json"},
+			},
+		},
+	}
+
+	result := computeReachability(lib)
+
+	if len(result.Modules) != 2 {
+		t.Fatalf("expected 2 modules, got %d", len(result.Modules))
+	}
+
+	// Check fetch_data module: requests should be reachable, json should not
+	fetchModule := result.Modules[0]
+	if fetchModule.Name != "fetch_data" {
+		t.Fatalf("expected module name fetch_data, got %s", fetchModule.Name)
+	}
+	if len(fetchModule.Dependencies) != 2 {
+		t.Fatalf("expected 2 dependencies in module, got %d", len(fetchModule.Dependencies))
+	}
+
+	foundReachableRequests := false
+	foundUnreachableJson := false
+	for _, dep := range fetchModule.Dependencies {
+		if dep.Name == "requests" && dep.Reachable {
+			foundReachableRequests = true
+		}
+		if dep.Name == "json" && !dep.Reachable {
+			foundUnreachableJson = true
+		}
+	}
+	if !foundReachableRequests || !foundUnreachableJson {
+		t.Fatalf("fetch_data: expected requests reachable and json unreachable, got %+v", fetchModule.Dependencies)
+	}
+
+	// Check parse_json module: json should be reachable, requests should not
+	parseModule := result.Modules[1]
+	if parseModule.Name != "parse_json" {
+		t.Fatalf("expected module name parse_json, got %s", parseModule.Name)
+	}
+
+	foundReachableJson := false
+	foundUnreachableRequests := false
+	for _, dep := range parseModule.Dependencies {
+		if dep.Name == "json" && dep.Reachable {
+			foundReachableJson = true
+		}
+		if dep.Name == "requests" && !dep.Reachable {
+			foundUnreachableRequests = true
+		}
+	}
+	if !foundReachableJson || !foundUnreachableRequests {
+		t.Fatalf("parse_json: expected json reachable and requests unreachable, got %+v", parseModule.Dependencies)
+	}
+}
+
+func TestComputeReachability_ModuleWithoutSourcePaths(t *testing.T) {
+	lib := &LibraryInfo{
+		Name:         "testlib",
+		Version:      "1.0.0",
+		Dependencies: []string{"dep1", "dep2"},
+		Modules: []*ModuleInfo{
+			{
+				Name:                 "wildcard_import",
+				SourceDefinedPaths:   nil,
+				ImportedLibraryNames: nil,
+			},
+		},
+	}
+
+	result := computeReachability(lib)
+
+	if len(result.Modules) != 1 {
+		t.Fatalf("expected 1 module, got %d", len(result.Modules))
+	}
+	moduleResult := result.Modules[0]
+	if len(moduleResult.Dependencies) != 2 {
+		t.Fatalf("expected 2 dependencies, got %d", len(moduleResult.Dependencies))
+	}
+	// When source paths not found, assume all deps reachable
+	for _, dep := range moduleResult.Dependencies {
+		if !dep.Reachable {
+			t.Fatalf("expected all deps reachable when no source paths, got unreachable: %s", dep.Name)
+		}
 	}
 }
