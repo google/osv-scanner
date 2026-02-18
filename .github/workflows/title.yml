@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-name: OSV PR format check
+name: Title
 
 on:
   # `pull_request_target` is only required when editing PRs from forks.
@@ -26,8 +26,7 @@ permissions:
   pull-requests: read
 
 jobs:
-  title-check:
-    name: Validate PR title
+  check:
     runs-on: ubuntu-latest
     steps:
       - uses: amannn/action-semantic-pull-request@48f256284bd46cdaab1048c3721360e808335d50 # v6.1.1
