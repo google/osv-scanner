@@ -148,3 +148,205 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 979
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.18.9"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 1495
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-09-10T03:50:33.716487Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-09-10T03:50:33.716487Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-09-10T03:50:33.716487Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-09-10T03:50:33.716487Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-5prr-v3j2-97mh",
+                  "modified": "2026-09-10T03:51:07.875324Z"
+                },
+                {
+                  "id": "GHSA-5v8h-3h3q-446p",
+                  "modified": "2026-09-10T03:50:48.442454Z"
+                },
+                {
+                  "id": "GHSA-8678-w3jw-xfc2",
+                  "modified": "2026-09-10T03:51:08.233410Z"
+                },
+                {
+                  "id": "GHSA-9cv2-cfxc-v4v2",
+                  "modified": "2026-09-10T03:50:49.239685Z"
+                },
+                {
+                  "id": "GHSA-c4rq-3m3g-8wgx",
+                  "modified": "2026-09-10T03:50:46.628632Z"
+                },
+                {
+                  "id": "GHSA-p67v-3w7g-wjg7",
+                  "modified": "2026-09-10T03:51:09.256741Z"
+                },
+                {
+                  "id": "GHSA-phwj-rprq-35pp",
+                  "modified": "2026-09-10T03:51:09.239115Z"
+                },
+                {
+                  "id": "GHSA-v2fc-qm4h-8hqv",
+                  "modified": "2026-09-10T03:50:47.698230Z"
+                },
+                {
+                  "id": "GHSA-wfpw-mmfh-qq69",
+                  "modified": "2026-09-10T03:51:09.647017Z"
+                },
+                {
+                  "id": "GHSA-wjv4-x9w8-wm3h",
+                  "modified": "2026-09-10T03:50:50.907992Z"
+                },
+                {
+                  "id": "GHSA-wx95-c6cv-8532",
+                  "modified": "2026-09-10T03:50:36.054145Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "1495"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
