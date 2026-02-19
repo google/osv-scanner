@@ -5673,16 +5673,18 @@ Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Me
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated - 1]
 Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
-Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-1 vulnerability can be fixed.
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+2 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
 +-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock      |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json |
 +-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
 
@@ -5695,6 +5697,9 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 [TestCommand_UpdateConfigIgnores/config_gets_updated - 3]
 [[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
+
+[[IgnoredVulns]]
+id = "GHSA-wx95-c6cv-8532"
 
 ---
 
@@ -5721,11 +5726,13 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated - 7]
 Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 No issues found
 
 ---
@@ -5736,27 +5743,29 @@ No issues found
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 1]
 Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
+Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
 warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
-Loaded filter from: <tempdir>/osv-scanner-test.toml
 CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (package-lock.json)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 Filtered 3 vulnerabilities from output
 <tempdir>/nested-2/osv-scanner-test.toml has unused ignores:
  - GHSA-2g4f-4pwh-qvx6
-Total 5 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-6 vulnerabilities can be fixed.
+Total 6 packages affected by 7 known vulnerabilities (0 Critical, 2 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+7 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
 +-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock               |
 | https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
@@ -5774,6 +5783,9 @@ Total 5 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 4 Medi
 [TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 3]
 [[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
+
+[[IgnoredVulns]]
+id = "GHSA-wx95-c6cv-8532"
 
 ---
 
@@ -5808,13 +5820,15 @@ id = "GHSA-whgm-jr23-g3j9"
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 7]
 Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
+Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
-Loaded filter from: <tempdir>/osv-scanner-test.toml
+GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
@@ -5824,7 +5838,7 @@ GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 9 vulnerabilities from output
+Filtered 10 vulnerabilities from output
 No issues found
 
 ---
@@ -5835,15 +5849,17 @@ No issues found
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 1]
 Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-1 vulnerability can be fixed.
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+2 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
 +-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock      |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json |
 +-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
 
@@ -5862,6 +5878,9 @@ GoVersionOverride = "1.20.0"
 
 [[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
+
+[[IgnoredVulns]]
+id = "GHSA-wx95-c6cv-8532"
 
 ---
 
@@ -5883,10 +5902,12 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 7]
 Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
+GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 1 vulnerability from output
+Filtered 2 vulnerabilities from output
 No issues found
 
 ---

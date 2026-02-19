@@ -1785,6 +1785,7 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 				"composer.lock",
 				"custom-config.toml",
 				"osv-scanner-test.toml",
+				"Gemfile.lock",
 				"package-lock.json",
 				"nested-1/package-lock.json",
 				"nested-1/osv-scanner-test.toml",

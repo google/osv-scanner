@@ -450,18 +450,30 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 }
 
 func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *config.Manager) error {
-	for _, pkgSrc := range vulnResults.Results {
-		configToUse := configManager.Get(pkgSrc.Source.Path)
+	m := make(map[string][]*osvschema.Vulnerability)
 
-		var vulns []*osvschema.Vulnerability //nolint:prealloc
+	// todo: explore how we might be able to clean this whole thing up...
+	for _, pkgSrc := range vulnResults.Results {
+		configToUsePath := configManager.Get(pkgSrc.Source.Path).LoadPath
+
+		vulns, _ := m[configToUsePath]
 
 		for _, pkgVulns := range pkgSrc.Packages {
 			vulns = append(vulns, pkgVulns.Vulnerabilities...)
 		}
 
-		// todo: is it possible to have results using the same file?
-		err := configToUse.UpdateFile(vulns)
+		m[configToUsePath] = vulns
+	}
 
+	for p, vulns := range m {
+		c, ok := configManager.ConfigMap[p]
+
+		// todo: this is probably not safe...
+		if !ok {
+			c = *configManager.OverrideConfig
+		}
+
+		err := c.UpdateFile(vulns)
 		if err != nil {
 			return err
 		}
