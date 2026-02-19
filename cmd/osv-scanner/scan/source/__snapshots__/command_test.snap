@@ -6015,6 +6015,141 @@ No issues found
 
 ---
 
+[TestCommand_UpdateConfigIgnores/global_config_deep - 1]
+Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
+Scanned <tempdir>/composer.lock file and found 0 packages
+Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
+Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
+Scanned <tempdir>/package-lock.json file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
+Total 8 packages affected by 10 known vulnerabilities (0 Critical, 3 High, 7 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+10 vulnerabilities can be fixed.
+
+RubyGems
+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/nested-1/package-lock.json: found 3 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '6.14.0';
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ajv@8.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '8.18.0';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  4 known vulnerabilities found in lockfile:<tempdir>/nested-1/package-lock.json
+
+lockfile:<tempdir>/nested-2/package-lock.json: found 3 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '6.14.0';
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ajv@8.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '8.18.0';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  4 known vulnerabilities found in lockfile:<tempdir>/nested-2/package-lock.json
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
+
+---
+
+[TestCommand_UpdateConfigIgnores/global_config_deep - 2]
+
+---
+
+[TestCommand_UpdateConfigIgnores/global_config_deep - 3]
+
+---
+
+[TestCommand_UpdateConfigIgnores/global_config_deep - 4]
+GoVersionOverride = "1.20.0"
+
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
+
+[[IgnoredVulns]]
+id = "GHSA-v88g-cgmw-v5xw"
+
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"
+
+[[IgnoredVulns]]
+id = "GHSA-wx95-c6cv-8532"
+
+---
+
+[TestCommand_UpdateConfigIgnores/global_config_deep - 5]
+[[IgnoredVulns]]
+id = "CVE-2021-23424"
+reason = "Test manifest file (package-lock.json)"
+
+---
+
+[TestCommand_UpdateConfigIgnores/global_config_deep - 6]
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
+
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
+
+---
+
+[TestCommand_UpdateConfigIgnores/global_config_deep - 7]
+Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
+Scanned <tempdir>/composer.lock file and found 0 packages
+Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
+Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
+Scanned <tempdir>/package-lock.json file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
+GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
+GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
+GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
+GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
+GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
+GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
+Filtered 10 vulnerabilities from output
+No issues found
+
+---
+
+[TestCommand_UpdateConfigIgnores/global_config_deep - 8]
+
+---
+
 [TestCommand_UpdateConfigIgnores/global_config_shallow - 1]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
