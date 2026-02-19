@@ -1779,29 +1779,10 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 
 			// action overwrites files, copy them to a temporary directory.
 			testDir := testutility.CreateTestDir(t)
-			var err error
 
-			for _, file := range []string{
-				"composer.lock",
-				"custom-config.toml",
-				"osv-scanner-test.toml",
-				"Gemfile.lock",
-				"package-lock.json",
-				"nested-1/package-lock.json",
-				"nested-1/osv-scanner-test.toml",
-				"nested-2/package-lock.json",
-				"nested-2/osv-scanner-test.toml",
-			} {
-				err = os.MkdirAll(testDir+"/"+filepath.Dir(file), 0750)
-				if err != nil {
-					t.Fatal(err)
-				}
-
-				_, err = testcmd.CopyFile("testdata/locks-with-invalid-and-configs/"+file, testDir+"/"+file)
-
-				if err != nil {
-					t.Fatal(err)
-				}
+			err := os.CopyFS(testDir, os.DirFS("./testdata/locks-with-invalid-and-configs"))
+			if err != nil {
+				t.Fatal(err)
 			}
 
 			tt.Args = append(tt.Args, testDir)
