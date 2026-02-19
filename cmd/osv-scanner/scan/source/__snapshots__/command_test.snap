@@ -5902,7 +5902,7 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated - 3]
 [[IgnoredVulns]]
-  id = "GHSA-whgm-jr23-g3j9"
+id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
@@ -6002,31 +6002,31 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 3]
 [[IgnoredVulns]]
-  id = "GHSA-whgm-jr23-g3j9"
+id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 4]
 [[IgnoredVulns]]
-  id = "GHSA-2g4f-4pwh-qvx6"
+id = "GHSA-2g4f-4pwh-qvx6"
 
 [[IgnoredVulns]]
-  id = "GHSA-v88g-cgmw-v5xw"
+id = "GHSA-v88g-cgmw-v5xw"
 
 [[IgnoredVulns]]
-  id = "GHSA-whgm-jr23-g3j9"
+id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 5]
 [[IgnoredVulns]]
-  id = "GHSA-2g4f-4pwh-qvx6"
+id = "GHSA-2g4f-4pwh-qvx6"
 
 [[IgnoredVulns]]
-  id = "GHSA-v88g-cgmw-v5xw"
+id = "GHSA-v88g-cgmw-v5xw"
 
 [[IgnoredVulns]]
-  id = "GHSA-whgm-jr23-g3j9"
+id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
