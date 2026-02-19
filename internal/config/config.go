@@ -83,9 +83,17 @@ func (c *Config) UpdateFile(vulns []*osvschema.Vulnerability) error {
 		existingIgnores[ignoredVuln.ID] = ignoredVuln
 	}
 
+	// use a fresh slice to ensure vulns that are no longer present are removed
 	c.IgnoredVulns = make([]*IgnoreEntry, 0, len(vulns))
 
+	seen := make(map[string]struct{}, len(vulns))
+
 	for _, vuln := range vulns {
+		if _, ok := seen[vuln.GetId()]; ok {
+			continue
+		}
+
+		// if the vuln was already ignored, we want to persist its other fields
 		ignore, ok := existingIgnores[vuln.GetId()]
 
 		if !ok {
@@ -93,6 +101,7 @@ func (c *Config) UpdateFile(vulns []*osvschema.Vulnerability) error {
 		}
 
 		c.IgnoredVulns = append(c.IgnoredVulns, ignore)
+		seen[vuln.GetId()] = struct{}{}
 	}
 
 	b, err := toml.Marshal(c)
