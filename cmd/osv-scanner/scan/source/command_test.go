@@ -1,7 +1,6 @@
 package source_test
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -1826,19 +1825,6 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 	}
 }
 
-func copyFile(from, to string) (string, error) {
-	b, err := os.ReadFile(from)
-	if err != nil {
-		return "", fmt.Errorf("could not read test file: %w", err)
-	}
-
-	if err := os.WriteFile(to, b, 0600); err != nil {
-		return "", fmt.Errorf("could not copy test file: %w", err)
-	}
-
-	return to, nil
-}
-
 func TestCommand_UpdateConfigIgnores(t *testing.T) {
 	t.Parallel()
 
@@ -1880,7 +1866,7 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 					t.Fatal(err)
 				}
 
-				_, err = copyFile("testdata/locks-with-many-configs/"+file, testDir+"/"+file)
+				_, err = testcmd.CopyFile("testdata/locks-with-many-configs/"+file, testDir+"/"+file)
 
 				if err != nil {
 					t.Fatal(err)
