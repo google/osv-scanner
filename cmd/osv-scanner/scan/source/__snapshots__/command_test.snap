@@ -5908,13 +5908,18 @@ id = "GHSA-whgm-jr23-g3j9"
 ---
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated - 4]
+GoVersionOverride = "1.20.0"
+
+---
+
+[TestCommand_UpdateConfigIgnores/config_gets_updated - 5]
 [[IgnoredVulns]]
 id = "CVE-2021-23424"
 reason = "Test manifest file (package-lock.json)"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 5]
+[TestCommand_UpdateConfigIgnores/config_gets_updated - 6]
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -5923,7 +5928,7 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 6]
+[TestCommand_UpdateConfigIgnores/config_gets_updated - 7]
 Scanning dir <tempdir>
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
@@ -5935,7 +5940,7 @@ No issues found
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 7]
+[TestCommand_UpdateConfigIgnores/config_gets_updated - 8]
 
 ---
 
@@ -6008,14 +6013,7 @@ id = "GHSA-whgm-jr23-g3j9"
 ---
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 4]
-[[IgnoredVulns]]
-id = "GHSA-2g4f-4pwh-qvx6"
-
-[[IgnoredVulns]]
-id = "GHSA-v88g-cgmw-v5xw"
-
-[[IgnoredVulns]]
-id = "GHSA-whgm-jr23-g3j9"
+GoVersionOverride = "1.20.0"
 
 ---
 
@@ -6032,6 +6030,18 @@ id = "GHSA-whgm-jr23-g3j9"
 ---
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 6]
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
+
+[[IgnoredVulns]]
+id = "GHSA-v88g-cgmw-v5xw"
+
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"
+
+---
+
+[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 7]
 Scanning dir <tempdir>
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
@@ -6055,7 +6065,76 @@ No issues found
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 7]
+[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 8]
+
+---
+
+[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 1]
+Scanning dir <tempdir>
+Scanned <tempdir>/composer.lock file and found 0 packages
+Scanned <tempdir>/package-lock.json file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
+npm
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
+
+---
+
+[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 2]
+
+---
+
+[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 3]
+
+---
+
+[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 4]
+GoVersionOverride = "1.20.0"
+
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"
+
+---
+
+[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 5]
+[[IgnoredVulns]]
+id = "CVE-2021-23424"
+reason = "Test manifest file (package-lock.json)"
+
+---
+
+[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 6]
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
+
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
+
+---
+
+[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 7]
+Scanning dir <tempdir>
+Scanned <tempdir>/composer.lock file and found 0 packages
+Scanned <tempdir>/package-lock.json file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
+Filtered 1 vulnerability from output
+No issues found
+
+---
+
+[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 8]
 
 ---
 
