@@ -6016,11 +6016,20 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 [[IgnoredVulns]]
   id = "GHSA-2g4f-4pwh-qvx6"
 
+[[IgnoredVulns]]
+  id = "GHSA-whgm-jr23-g3j9"
+
 ---
 
 [TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 5]
 [[IgnoredVulns]]
+  id = "GHSA-2g4f-4pwh-qvx6"
+
+[[IgnoredVulns]]
   id = "GHSA-v88g-cgmw-v5xw"
+
+[[IgnoredVulns]]
+  id = "GHSA-2g4f-4pwh-qvx6"
 
 [[IgnoredVulns]]
   id = "GHSA-whgm-jr23-g3j9"
@@ -6036,42 +6045,24 @@ Scanned <tempdir>/package-lock.json file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 warning: <tempdir>/nested-1/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
+warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
+GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
+GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 6 vulnerabilities from output
+Filtered 9 vulnerabilities from output
 <tempdir>/nested-1/osv-scanner-test.toml has unused ignores:
  - GHSA-2g4f-4pwh-qvx6
-
-Total 3 packages affected by 3 known vulnerabilities (0 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-3 vulnerabilities can be fixed.
-
-npm
-
-lockfile:<tempdir>/nested-1/package-lock.json: found 1 package with issues
-
-  ansi-html@0.0.1 has the following known vulnerabilities:
-    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
-      Severity: '7.5'; Minimal Fix Version: '0.0.8';
-
-  1 known vulnerability found in lockfile:<tempdir>/nested-1/package-lock.json
-
-lockfile:<tempdir>/nested-2/package-lock.json: found 2 packages with issues
-
-  ajv@6.0.0 has the following known vulnerabilities:
-    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
-      Severity: '5.5'; Minimal Fix Version: '6.14.0';
-  ajv@8.0.0 has the following known vulnerabilities:
-    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
-      Severity: '5.5'; Minimal Fix Version: '8.18.0';
-
-  2 known vulnerabilities found in lockfile:<tempdir>/nested-2/package-lock.json
-
+<tempdir>/nested-2/osv-scanner-test.toml has unused ignores:
+ - GHSA-2g4f-4pwh-qvx6
+No issues found
 
 ---
 
