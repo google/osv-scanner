@@ -5779,9 +5779,6 @@ Total 5 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 4 Medi
   id = "GHSA-v88g-cgmw-v5xw"
 
 [[IgnoredVulns]]
-  id = "GHSA-2g4f-4pwh-qvx6"
-
-[[IgnoredVulns]]
   id = "GHSA-whgm-jr23-g3j9"
 
 ---
@@ -5794,9 +5791,6 @@ Total 5 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 4 Medi
   id = "GHSA-v88g-cgmw-v5xw"
 
 [[IgnoredVulns]]
-  id = "GHSA-2g4f-4pwh-qvx6"
-
-[[IgnoredVulns]]
   id = "GHSA-whgm-jr23-g3j9"
 
 ---
@@ -5807,9 +5801,7 @@ Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-warning: <tempdir>/nested-1/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
-warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
@@ -5822,10 +5814,6 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 Filtered 9 vulnerabilities from output
-<tempdir>/nested-1/osv-scanner-test.toml has unused ignores:
- - GHSA-2g4f-4pwh-qvx6
-<tempdir>/nested-2/osv-scanner-test.toml has unused ignores:
- - GHSA-2g4f-4pwh-qvx6
 No issues found
 
 ---
