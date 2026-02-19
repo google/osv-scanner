@@ -90,7 +90,7 @@ type ExperimentalScannerActions struct {
 	FlagDeprecatedPackages bool
 
 	// Update config file(s) to ignore all found vulnerabilities
-	UpdateConfigIgnoreVulns bool
+	UpdateConfigIgnores bool
 
 	// Allows specifying user agent
 	RequestUserAgent string
@@ -306,7 +306,7 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
-	if actions.UpdateConfigIgnoreVulns {
+	if actions.UpdateConfigIgnores {
 		err := updateConfigs(&vulnerabilityResults, &scanResult.ConfigManager)
 
 		if err != nil {
