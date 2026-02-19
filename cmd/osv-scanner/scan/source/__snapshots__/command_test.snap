@@ -1161,6 +1161,7 @@ OPTIONS:
    --experimental-plugins string [ --experimental-plugins string ]                  list of specific plugins and presets of plugins to use (default: "lockfile", "sbom", "directory")
    --experimental-disable-plugins string [ --experimental-disable-plugins string ]  list of specific plugins and presets of plugins to not use
    --experimental-no-default-plugins                                                disable default plugins, instead using only those enabled by --experimental-plugins
+   --experimental-update-config-ignores                                             update config file(s) to ignore all found vulnerabilities
    --help, -h                                                                       show help
 
 ---

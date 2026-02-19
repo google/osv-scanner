@@ -203,7 +203,7 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Usage: "disable default plugins, instead using only those enabled by --experimental-plugins",
 		},
 		&cli.BoolFlag{
-			Name:  "experimental-update-config-ignore-vulns",
+			Name:  "experimental-update-config-ignores",
 			Usage: "update config file(s) to ignore all found vulnerabilities",
 		},
 	}
