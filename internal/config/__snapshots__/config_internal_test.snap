@@ -66,9 +66,6 @@ GoVersionOverride = "1.20.0"
   id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-123"
-
-[[IgnoredVulns]]
   id = "GHSA-456"
 
 ---
@@ -79,9 +76,6 @@ GoVersionOverride = "1.20.0"
 
 [[IgnoredVulns]]
   id = "GHSA-123"
-
-[[IgnoredVulns]]
-  id = "GHSA-456"
 
 [[IgnoredVulns]]
   id = "GHSA-789"
