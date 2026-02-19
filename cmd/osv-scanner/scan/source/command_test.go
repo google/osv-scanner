@@ -1753,21 +1753,21 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "config_gets_updated",
+			Name: "shallow",
 			Args: []string{
 				"", "source", "--experimental-update-config-ignores",
 			},
 			Exit: 1,
 		},
 		{
-			Name: "config_gets_updated_recursively",
+			Name: "deep",
 			Args: []string{
 				"", "source", "--experimental-update-config-ignores", "-r",
 			},
 			Exit: 1,
 		},
 		{
-			Name: "config_gets_updated_with_explicit_config",
+			Name: "global_config_shallow",
 			Args: []string{
 				"", "source", "--experimental-update-config-ignores", "--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
 			},

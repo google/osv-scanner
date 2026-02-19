@@ -5671,77 +5671,7 @@ Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Me
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 1]
-Scanning dir <tempdir>
-Scanned <tempdir>/Gemfile.lock file and found 1 package
-Scanned <tempdir>/composer.lock file and found 0 packages
-Scanned <tempdir>/package-lock.json file and found 1 package
-Loaded filter from: <tempdir>/osv-scanner-test.toml
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
-
-
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock      |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 2]
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 3]
-[[IgnoredVulns]]
-id = "GHSA-whgm-jr23-g3j9"
-
-[[IgnoredVulns]]
-id = "GHSA-wx95-c6cv-8532"
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 4]
-GoVersionOverride = "1.20.0"
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 5]
-[[IgnoredVulns]]
-id = "CVE-2021-23424"
-reason = "Test manifest file (package-lock.json)"
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 6]
-[[IgnoredVulns]]
-id = "GHSA-2g4f-4pwh-qvx6"
-
-[[IgnoredVulns]]
-id = "GHSA-2g4f-4pwh-qvx6"
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 7]
-Scanning dir <tempdir>
-Scanned <tempdir>/Gemfile.lock file and found 1 package
-Scanned <tempdir>/composer.lock file and found 0 packages
-Scanned <tempdir>/package-lock.json file and found 1 package
-Loaded filter from: <tempdir>/osv-scanner-test.toml
-GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 2 vulnerabilities from output
-No issues found
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 8]
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 1]
+[TestCommand_UpdateConfigIgnores/deep - 1]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
@@ -5776,11 +5706,11 @@ Total 6 packages affected by 7 known vulnerabilities (0 Critical, 2 High, 5 Medi
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 2]
+[TestCommand_UpdateConfigIgnores/deep - 2]
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 3]
+[TestCommand_UpdateConfigIgnores/deep - 3]
 [[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
 
@@ -5789,12 +5719,12 @@ id = "GHSA-wx95-c6cv-8532"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 4]
+[TestCommand_UpdateConfigIgnores/deep - 4]
 GoVersionOverride = "1.20.0"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 5]
+[TestCommand_UpdateConfigIgnores/deep - 5]
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -5806,7 +5736,7 @@ id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 6]
+[TestCommand_UpdateConfigIgnores/deep - 6]
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -5818,7 +5748,7 @@ id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 7]
+[TestCommand_UpdateConfigIgnores/deep - 7]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
@@ -5843,11 +5773,11 @@ No issues found
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 8]
+[TestCommand_UpdateConfigIgnores/deep - 8]
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 1]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 1]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
@@ -5865,15 +5795,15 @@ Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medi
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 2]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 2]
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 3]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 3]
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 4]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 4]
 GoVersionOverride = "1.20.0"
 
 [[IgnoredVulns]]
@@ -5884,14 +5814,14 @@ id = "GHSA-wx95-c6cv-8532"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 5]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 5]
 [[IgnoredVulns]]
 id = "CVE-2021-23424"
 reason = "Test manifest file (package-lock.json)"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 6]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 6]
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -5900,7 +5830,7 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 7]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 7]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
@@ -5912,7 +5842,77 @@ No issues found
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 8]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 8]
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 1]
+Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
+Scanned <tempdir>/composer.lock file and found 0 packages
+Scanned <tempdir>/package-lock.json file and found 1 package
+Loaded filter from: <tempdir>/osv-scanner-test.toml
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+2 vulnerabilities can be fixed.
+
+
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock      |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json |
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 2]
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 3]
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"
+
+[[IgnoredVulns]]
+id = "GHSA-wx95-c6cv-8532"
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 4]
+GoVersionOverride = "1.20.0"
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 5]
+[[IgnoredVulns]]
+id = "CVE-2021-23424"
+reason = "Test manifest file (package-lock.json)"
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 6]
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
+
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 7]
+Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
+Scanned <tempdir>/composer.lock file and found 0 packages
+Scanned <tempdir>/package-lock.json file and found 1 package
+Loaded filter from: <tempdir>/osv-scanner-test.toml
+GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
+Filtered 2 vulnerabilities from output
+No issues found
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 8]
 
 ---
 
