@@ -3,13 +3,13 @@
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 [[IgnoredVulns]]
-  id = "GHSA-789"
+id = "GHSA-789"
 
 ---
 
@@ -17,10 +17,10 @@ ScanGoModVersion = false
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 ---
 
@@ -28,7 +28,7 @@ ScanGoModVersion = false
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 ---
 
@@ -36,10 +36,10 @@ ScanGoModVersion = false
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 ---
 
@@ -48,26 +48,26 @@ GoVersionOverride = "1.20.0"
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
-  id = "GHSA-123"
-  reason = "No ssh servers are connected to or hosted in Go lang"
+id = "GHSA-123"
+reason = "No ssh servers are connected to or hosted in Go lang"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 [[PackageOverrides]]
-  name = "lib"
-  version = "1.0.0"
-  ecosystem = "Go"
-  group = "dev"
-  nameIsRegex = false
-  ignore = false
-  effectiveUntil = 0001-01-01T00:00:00Z
-  reason = ""
-  [PackageOverrides.vulnerability]
-    ignore = true
-  [PackageOverrides.license]
-    override = ["MIT", "0BSD"]
-    ignore = false
+name = "lib"
+version = "1.0.0"
+ecosystem = "Go"
+group = "dev"
+nameIsRegex = false
+ignore = false
+effectiveUntil = 0001-01-01T00:00:00Z
+reason = ""
+[PackageOverrides.vulnerability]
+ignore = true
+[PackageOverrides.license]
+override = ["MIT", "0BSD"]
+ignore = false
 
 ---
 
@@ -75,10 +75,10 @@ ScanGoModVersion = false
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 ---
 
@@ -86,13 +86,13 @@ ScanGoModVersion = false
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-789"
+id = "GHSA-789"
 
 ---
 
@@ -100,10 +100,10 @@ ScanGoModVersion = false
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 ---
 
