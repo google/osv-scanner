@@ -86,10 +86,10 @@ id = "GHSA-456"
 ScanGoModVersion = false
 
 [[IgnoredVulns]]
-id = "GHSA-456"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-id = "GHSA-123"
+id = "GHSA-456"
 
 [[IgnoredVulns]]
 id = "GHSA-789"
