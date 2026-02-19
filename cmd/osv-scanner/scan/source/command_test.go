@@ -1972,14 +1972,14 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 		{
 			Name: "config_gets_updated",
 			Args: []string{
-				"", "source", "--x-update-config-ignore-vulns",
+				"", "source", "--x-update-config-ignores",
 			},
 			Exit: 1,
 		},
 		{
 			Name: "config_gets_updated_recursively",
 			Args: []string{
-				"", "source", "--x-update-config-ignore-vulns", "-r",
+				"", "source", "--x-update-config-ignores", "-r",
 			},
 			Exit: 1,
 		},
@@ -2034,8 +2034,8 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 			// re-running the cli now should have no vulnerabilities,
 			// as everything should be marked as ignored
 			for i, arg := range tt.Args {
-				if arg == "--x-update-config-ignore-vulns" {
-					tt.Args[i] = "--x-update-config-ignore-vulns=false"
+				if arg == "--x-update-config-ignores" {
+					tt.Args[i] = "--x-update-config-ignores=false"
 				}
 			}
 
