@@ -5874,93 +5874,7 @@ Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Me
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 1]
-Scanning dir <tempdir>
-Scanned <tempdir>/Gemfile.lock file and found 1 package
-Scanned <tempdir>/composer.lock file and found 0 packages
-Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
-Loaded filter from: <tempdir>/osv-scanner-test.toml
-
-Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
-2 vulnerabilities can be fixed.
-
-RubyGems
-
-lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
-
-  nokogiri@1.18.9 has the following known vulnerabilities:
-    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
-      Severity: '5.3'; Minimal Fix Version: '1.19.1';
-
-  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
-
-npm
-
-lockfile:<tempdir>/package-lock.json: found 1 package with issues
-
-  ansi-html@0.0.1 has the following known vulnerabilities:
-    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
-      Severity: '7.5'; Minimal Fix Version: '0.0.8';
-
-  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
-
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 2]
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 3]
-[[IgnoredVulns]]
-id = "GHSA-whgm-jr23-g3j9"
-
-[[IgnoredVulns]]
-id = "GHSA-wx95-c6cv-8532"
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 4]
-GoVersionOverride = "1.20.0"
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 5]
-[[IgnoredVulns]]
-id = "CVE-2021-23424"
-reason = "Test manifest file (package-lock.json)"
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 6]
-[[IgnoredVulns]]
-id = "GHSA-2g4f-4pwh-qvx6"
-
-[[IgnoredVulns]]
-id = "GHSA-2g4f-4pwh-qvx6"
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 7]
-Scanning dir <tempdir>
-Scanned <tempdir>/Gemfile.lock file and found 1 package
-Scanned <tempdir>/composer.lock file and found 0 packages
-Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
-Loaded filter from: <tempdir>/osv-scanner-test.toml
-GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
-GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
-Filtered 2 vulnerabilities from output
-No issues found
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated - 8]
-
----
-
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 1]
+[TestCommand_UpdateConfigIgnores/deep - 1]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
@@ -6029,11 +5943,11 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 2]
+[TestCommand_UpdateConfigIgnores/deep - 2]
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 3]
+[TestCommand_UpdateConfigIgnores/deep - 3]
 [[IgnoredVulns]]
 id = "GHSA-whgm-jr23-g3j9"
 
@@ -6042,12 +5956,12 @@ id = "GHSA-wx95-c6cv-8532"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 4]
+[TestCommand_UpdateConfigIgnores/deep - 4]
 GoVersionOverride = "1.20.0"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 5]
+[TestCommand_UpdateConfigIgnores/deep - 5]
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -6059,7 +5973,7 @@ id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 6]
+[TestCommand_UpdateConfigIgnores/deep - 6]
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -6071,7 +5985,7 @@ id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 7]
+[TestCommand_UpdateConfigIgnores/deep - 7]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
@@ -6097,11 +6011,11 @@ No issues found
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_recursively - 8]
+[TestCommand_UpdateConfigIgnores/deep - 8]
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 1]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 1]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
@@ -6134,15 +6048,15 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 2]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 2]
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 3]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 3]
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 4]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 4]
 GoVersionOverride = "1.20.0"
 
 [[IgnoredVulns]]
@@ -6153,14 +6067,14 @@ id = "GHSA-wx95-c6cv-8532"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 5]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 5]
 [[IgnoredVulns]]
 id = "CVE-2021-23424"
 reason = "Test manifest file (package-lock.json)"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 6]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 6]
 [[IgnoredVulns]]
 id = "GHSA-2g4f-4pwh-qvx6"
 
@@ -6169,7 +6083,7 @@ id = "GHSA-2g4f-4pwh-qvx6"
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 7]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 7]
 Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
@@ -6182,7 +6096,93 @@ No issues found
 
 ---
 
-[TestCommand_UpdateConfigIgnores/config_gets_updated_with_explicit_config - 8]
+[TestCommand_UpdateConfigIgnores/global_config_shallow - 8]
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 1]
+Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
+Scanned <tempdir>/composer.lock file and found 0 packages
+Scanned <tempdir>/package-lock.json file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+Loaded filter from: <tempdir>/osv-scanner-test.toml
+
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+2 vulnerabilities can be fixed.
+
+RubyGems
+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 2]
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 3]
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"
+
+[[IgnoredVulns]]
+id = "GHSA-wx95-c6cv-8532"
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 4]
+GoVersionOverride = "1.20.0"
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 5]
+[[IgnoredVulns]]
+id = "CVE-2021-23424"
+reason = "Test manifest file (package-lock.json)"
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 6]
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
+
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 7]
+Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
+Scanned <tempdir>/composer.lock file and found 0 packages
+Scanned <tempdir>/package-lock.json file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+Loaded filter from: <tempdir>/osv-scanner-test.toml
+GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
+GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
+Filtered 2 vulnerabilities from output
+No issues found
+
+---
+
+[TestCommand_UpdateConfigIgnores/shallow - 8]
 
 ---
 
