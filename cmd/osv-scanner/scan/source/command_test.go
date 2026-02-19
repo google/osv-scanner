@@ -1765,6 +1765,13 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 			},
 			Exit: 1,
 		},
+		{
+			Name: "config_gets_updated_with_explicit_config",
+			Args: []string{
+				"", "source", "--experimental-update-config-ignores", "--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
+			},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -1776,6 +1783,7 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 
 			for _, file := range []string{
 				"composer.lock",
+				"custom-config.toml",
 				"osv-scanner-test.toml",
 				"package-lock.json",
 				"nested-1/package-lock.json",
@@ -1797,10 +1805,13 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 
 			tt.Args = append(tt.Args, testDir)
 
+			testcmd.CopyFileFlagTo(t, tt, "--config", testDir)
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 
 			for _, file := range []string{
 				"osv-scanner-test.toml",
+				"custom-config.toml",
 				"nested-1/osv-scanner-test.toml",
 				"nested-2/osv-scanner-test.toml",
 			} {
