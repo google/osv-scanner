@@ -87,6 +87,9 @@ type ExperimentalScannerActions struct {
 	// Report deprecated packages as findings
 	FlagDeprecatedPackages bool
 
+	// Update config file(s) to ignore all found vulnerabilities
+	UpdateConfigIgnoreVulns bool
+
 	// Allows specifying user agent
 	RequestUserAgent string
 }
@@ -422,7 +425,9 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		)
 	}
 
-	updateConfigs(&vulnerabilityResults, &scanResult.ConfigManager)
+	if actions.UpdateConfigIgnoreVulns {
+		updateConfigs(&vulnerabilityResults, &scanResult.ConfigManager)
+	}
 
 	if unusedIgnoredEntries := scanResult.ConfigManager.GetUnusedIgnoreEntries(); len(unusedIgnoredEntries) != 0 {
 		configFiles := slices.Collect(maps.Keys(unusedIgnoredEntries))
