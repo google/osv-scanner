@@ -1773,6 +1773,13 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 			},
 			Exit: 1,
 		},
+		{
+			Name: "global_config_deep",
+			Args: []string{
+				"", "source", "--experimental-update-config-ignores", "-r", "--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
+			},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
