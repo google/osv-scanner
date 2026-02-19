@@ -1832,44 +1832,90 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 func TestCommand_UpdateConfigIgnores_WithNoConfig(t *testing.T) {
 	t.Parallel()
 
-	// action overwrites files, copy them to a temporary directory.
-	testDir := testutility.CreateTestDir(t)
-	var err error
+	type withFilesToRemove struct {
+		Name string
+		Args []string
+		Exit int
 
-	err = os.CopyFS(testDir, os.DirFS("./testdata/locks-with-invalid-and-configs"))
-	if err != nil {
-		t.Fatal(err)
+		Remove []string
 	}
 
-	// the test suite sets "osv-scanner-test.toml" as the default config name,
-	// but we might as well remove the "ignore all" config we have in our testdata
-	// for tools like scorecard, to be extra sure it can't interfere with our tests
-	err = os.Remove(testDir + "/osv-scanner.toml")
-	if err != nil {
-		t.Fatal(err)
+	tests := []withFilesToRemove{
+		{
+			Name: "shallow",
+			Args: []string{
+				"", "source", "--experimental-update-config-ignores",
+			},
+			Exit: 1,
+
+			Remove: []string{"osv-scanner-test.toml"},
+		},
+		{
+			Name: "deep",
+			Args: []string{
+				"", "source", "--experimental-update-config-ignores", "-r",
+			},
+			Exit:   1,
+			Remove: []string{"nested-1/osv-scanner-test.toml"},
+		},
+		{
+			Name: "deep2",
+			Args: []string{
+				"", "source", "--experimental-update-config-ignores", "-r",
+			},
+			Exit:   1,
+			Remove: []string{"nested-2/osv-scanner-test.toml"},
+		},
+		{
+			Name: "all",
+			Args: []string{
+				"", "source", "--experimental-update-config-ignores", "-r",
+			},
+			Exit: 1,
+			Remove: []string{
+				"osv-scanner-test.toml",
+				"nested-1/osv-scanner-test.toml",
+				"nested-2/osv-scanner-test.toml",
+			},
+		},
 	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
 
-	// remove the expected config file
-	err = os.Remove(testDir + "/osv-scanner-test.toml")
-	if err != nil {
-		t.Fatal(err)
-	}
+			// action overwrites files, copy them to a temporary directory.
+			testDir := testutility.CreateTestDir(t)
 
-	// the "update config ignores" flag should not create a config file
-	testcmd.RunAndMatchSnapshots(t, testcmd.Case{
-		Args: []string{"", "source", "--experimental-update-config-ignores", testDir},
-		Exit: 1,
-	})
+			err := os.CopyFS(testDir, os.DirFS("./testdata/locks-with-invalid-and-configs"))
+			if err != nil {
+				t.Fatal(err)
+			}
 
-	_, err = os.Stat(testDir + "/osv-scanner.toml")
+			// remove our config files
+			for _, file := range tt.Remove {
+				err = os.Remove(testDir + "/" + file)
+				if err != nil {
+					t.Fatal(err)
+				}
+			}
 
-	if !errors.Is(err, os.ErrNotExist) {
-		t.Errorf("expected osv-scanner.toml not to be created")
-	}
+			tt.Args = append(tt.Args, testDir)
 
-	_, err = os.Stat(testDir + "/osv-scanner-test.toml")
+			// the "update config ignores" flag should not create a config file
+			testcmd.RunAndMatchSnapshots(t, testcmd.Case{
+				Name: tt.Name,
+				Args: tt.Args,
+				Exit: 1,
+			})
 
-	if !errors.Is(err, os.ErrNotExist) {
-		t.Errorf("expected osv-scanner-test.toml not to be created")
+			for _, file := range tt.Remove {
+				p := testDir + "/" + file
+				_, err = os.Stat(p)
+
+				if !errors.Is(err, os.ErrNotExist) {
+					t.Errorf("expected %s not to exist", p)
+				}
+			}
+		})
 	}
 }
