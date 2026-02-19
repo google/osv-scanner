@@ -1,6 +1,7 @@
 package source_test
 
 import (
+	"fmt"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -1742,6 +1743,100 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
+func copyFile(from, to string) (string, error) {
+	b, err := os.ReadFile(from)
+	if err != nil {
+		return "", fmt.Errorf("could not read test file: %w", err)
+	}
+
+	if err := os.WriteFile(to, b, 0600); err != nil {
+		return "", fmt.Errorf("could not copy test file: %w", err)
+	}
+
+	return to, nil
+}
+
+func TestCommand_UpdateConfigIgnores(t *testing.T) {
+	t.Parallel()
+
+	tests := []testcmd.Case{
+		{
+			Name: "config_gets_updated",
+			Args: []string{
+				"", "source", "--experimental-update-config-ignore-vulns",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "config_gets_updated_recursively",
+			Args: []string{
+				"", "source", "--experimental-update-config-ignore-vulns", "-r",
+			},
+			Exit: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			// action overwrites files, copy them to a temporary directory.
+			testDir := testutility.CreateTestDir(t)
+			var err error
+
+			for _, file := range []string{
+				"composer.lock",
+				"osv-scanner-test.toml",
+				"package-lock.json",
+				"nested-1/package-lock.json",
+				"nested-1/osv-scanner-test.toml",
+				"nested-2/package-lock.json",
+				"nested-2/osv-scanner-test.toml",
+			} {
+				err = os.MkdirAll(testDir+"/"+filepath.Dir(file), 0750)
+				if err != nil {
+					t.Fatal(err)
+				}
+
+				_, err = copyFile("testdata/locks-with-invalid-and-configs/"+file, testDir+"/"+file)
+
+				if err != nil {
+					t.Fatal(err)
+				}
+			}
+
+			tt.Args = append(tt.Args, testDir)
+
+			testcmd.RunAndMatchSnapshots(t, tt)
+
+			for _, file := range []string{
+				"osv-scanner-test.toml",
+				"nested-1/osv-scanner-test.toml",
+				"nested-2/osv-scanner-test.toml",
+			} {
+				b, err := os.ReadFile(testDir + "/" + file)
+
+				if err != nil {
+					t.Fatal(err)
+				}
+
+				testutility.NewSnapshot().MatchText(t, string(b))
+			}
+
+			// re-running the cli now should have no vulnerabilities,
+			// as everything should be marked as ignored
+			for i, arg := range tt.Args {
+				if arg == "--experimental-update-config-ignore-vulns" {
+					tt.Args[i] = "--experimental-update-config-ignore-vulns=false"
+				}
+			}
+
+			tt.Exit = 0
+
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
