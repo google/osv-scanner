@@ -61,9 +61,10 @@ func FallbackToDeprecatedName(cmd *cli.Command, name, old string) string {
 
 func GetExperimentalScannerActions(cmd *cli.Command) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
-		PluginsEnabled:         cmd.StringSlice(FallbackToDeprecatedName(cmd, "x-plugins", "experimental-plugins")),
-		PluginsDisabled:        cmd.StringSlice(FallbackToDeprecatedName(cmd, "x-disable-plugins", "experimental-disable-plugins")),
-		PluginsNoDefaults:      cmd.Bool(FallbackToDeprecatedName(cmd, "x-no-default-plugins", "experimental-no-default-plugins")),
-		FlagDeprecatedPackages: cmd.Bool(FallbackToDeprecatedName(cmd, "x-flag-deprecated-packages", "experimental-flag-deprecated-packages")),
+		PluginsEnabled:          cmd.StringSlice(FallbackToDeprecatedName(cmd, "x-plugins", "experimental-plugins")),
+		PluginsDisabled:         cmd.StringSlice(FallbackToDeprecatedName(cmd, "x-disable-plugins", "experimental-disable-plugins")),
+		PluginsNoDefaults:       cmd.Bool(FallbackToDeprecatedName(cmd, "x-no-default-plugins", "experimental-no-default-plugins")),
+		FlagDeprecatedPackages:  cmd.Bool(FallbackToDeprecatedName(cmd, "x-flag-deprecated-packages", "experimental-flag-deprecated-packages")),
+		UpdateConfigIgnoreVulns: cmd.Bool("x-update-config-ignore-vulns"),
 	}
 }

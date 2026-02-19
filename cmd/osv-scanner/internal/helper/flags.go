@@ -245,5 +245,9 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Name:  "x-no-default-plugins",
 			Usage: "disable default plugins, instead using only those enabled by --x-plugins",
 		},
+		&cli.BoolFlag{
+			Name:  "x-update-config-ignore-vulns",
+			Usage: "update config file(s) to ignore all found vulnerabilities",
+		},
 	}
 }
