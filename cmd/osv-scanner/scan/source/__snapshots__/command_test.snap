@@ -5916,6 +5916,28 @@ No issues found
 
 ---
 
+[TestCommand_UpdateConfigIgnores_WithNoConfig - 1]
+Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
+Scanned <tempdir>/composer.lock file and found 0 packages
+Scanned <tempdir>/package-lock.json file and found 1 package
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+2 vulnerabilities can be fixed.
+
+
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock      |
+| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json |
++-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+
+---
+
+[TestCommand_UpdateConfigIgnores_WithNoConfig - 2]
+
+---
+
 [TestCommand_WithDetector_OffLinux/ssh_version_errors - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package

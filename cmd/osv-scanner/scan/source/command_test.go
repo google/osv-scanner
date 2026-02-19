@@ -1,6 +1,7 @@
 package source_test
 
 import (
+	"errors"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -1818,5 +1819,50 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
+	}
+}
+
+func TestCommand_UpdateConfigIgnores_WithNoConfig(t *testing.T) {
+	t.Parallel()
+
+	// action overwrites files, copy them to a temporary directory.
+	testDir := testutility.CreateTestDir(t)
+	var err error
+
+	err = os.CopyFS(testDir, os.DirFS("./testdata/locks-with-invalid-and-configs"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// the test suite sets "osv-scanner-test.toml" as the default config name,
+	// but we might as well remove the "ignore all" config we have in our testdata
+	// for tools like scorecard, to be extra sure it can't interfere with our tests
+	err = os.Remove(testDir + "/osv-scanner.toml")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// remove the expected config file
+	err = os.Remove(testDir + "/osv-scanner-test.toml")
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// the "update config ignores" flag should not create a config file
+	testcmd.RunAndMatchSnapshots(t, testcmd.Case{
+		Args: []string{"", "source", "--experimental-update-config-ignores", testDir},
+		Exit: 1,
+	})
+
+	_, err = os.Stat(testDir + "/osv-scanner.toml")
+
+	if !errors.Is(err, os.ErrNotExist) {
+		t.Errorf("expected osv-scanner.toml not to be created")
+	}
+
+	_, err = os.Stat(testDir + "/osv-scanner-test.toml")
+
+	if !errors.Is(err, os.ErrNotExist) {
+		t.Errorf("expected osv-scanner-test.toml not to be created")
 	}
 }
