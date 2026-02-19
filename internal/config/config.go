@@ -8,6 +8,7 @@ import (
 
 	"github.com/BurntSushi/toml"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -103,6 +104,10 @@ func (c *Config) UpdateFile(vulns []*osvschema.Vulnerability) error {
 		c.IgnoredVulns = append(c.IgnoredVulns, ignore)
 		seen[vuln.GetId()] = struct{}{}
 	}
+
+	slices.SortFunc(c.IgnoredVulns, func(a, b *IgnoreEntry) int {
+		return identifiers.IDSortFunc(a.ID, b.ID)
+	})
 
 	f, err := os.OpenFile(c.LoadPath, os.O_TRUNC|os.O_WRONLY, os.ModePerm)
 

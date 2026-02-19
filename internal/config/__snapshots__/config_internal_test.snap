@@ -72,10 +72,10 @@ id = "GHSA-456"
 
 [TestConfig_UpdateFile/ids_are_deduplicated_including_already_existing - 1]
 [[IgnoredVulns]]
-id = "GHSA-456"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-id = "GHSA-123"
+id = "GHSA-456"
 
 [[IgnoredVulns]]
 id = "GHSA-789"
