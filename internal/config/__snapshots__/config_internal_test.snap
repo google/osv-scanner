@@ -1,37 +1,37 @@
 
 [TestConfig_UpdateFile/aliases_are_deduplicated - 1]
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 [[IgnoredVulns]]
-  id = "GHSA-789"
+id = "GHSA-789"
 
 ---
 
 [TestConfig_UpdateFile/comments_are_not_preserved - 1]
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 ---
 
 [TestConfig_UpdateFile/empty_file_with_one_vuln - 1]
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 ---
 
 [TestConfig_UpdateFile/empty_file_with_two_vulns - 1]
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 ---
 
@@ -39,55 +39,55 @@
 GoVersionOverride = "1.20.0"
 
 [[IgnoredVulns]]
-  id = "GHSA-123"
-  reason = "No ssh servers are connected to or hosted in Go lang"
+id = "GHSA-123"
+reason = "No ssh servers are connected to or hosted in Go lang"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 [[PackageOverrides]]
-  name = "lib"
-  version = "1.0.0"
-  ecosystem = "Go"
-  group = "dev"
-  ignore = false
-  effectiveUntil = 0001-01-01T00:00:00Z
-  reason = ""
-  [PackageOverrides.vulnerability]
-    ignore = true
-  [PackageOverrides.license]
-    override = ["MIT", "0BSD"]
-    ignore = false
+name = "lib"
+version = "1.0.0"
+ecosystem = "Go"
+group = "dev"
+ignore = false
+effectiveUntil = 0001-01-01T00:00:00Z
+reason = ""
+[PackageOverrides.vulnerability]
+ignore = true
+[PackageOverrides.license]
+override = ["MIT", "0BSD"]
+ignore = false
 
 ---
 
 [TestConfig_UpdateFile/ids_are_deduplicated - 1]
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 ---
 
 [TestConfig_UpdateFile/ids_are_deduplicated_including_already_existing - 1]
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-789"
+id = "GHSA-789"
 
 ---
 
 [TestConfig_UpdateFile/missing_vulns_are_removed - 1]
 [[IgnoredVulns]]
-  id = "GHSA-123"
+id = "GHSA-123"
 
 [[IgnoredVulns]]
-  id = "GHSA-456"
+id = "GHSA-456"
 
 ---
 
