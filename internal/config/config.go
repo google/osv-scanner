@@ -104,13 +104,16 @@ func (c *Config) UpdateFile(vulns []*osvschema.Vulnerability) error {
 		seen[vuln.GetId()] = struct{}{}
 	}
 
-	b, err := toml.Marshal(c)
+	f, err := os.OpenFile(c.LoadPath, os.O_TRUNC|os.O_WRONLY, os.ModePerm)
 
 	if err != nil {
 		return err
 	}
 
-	return os.WriteFile(c.LoadPath, b, 0600)
+	encoder := toml.NewEncoder(f)
+	encoder.Indent = ""
+
+	return encoder.Encode(c)
 }
 
 func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
