@@ -110,9 +110,7 @@ func (c *Config) UpdateFile(vulns []*osvschema.Vulnerability) error {
 		return err
 	}
 
-	os.WriteFile(c.LoadPath, b, 0600)
-
-	return nil
+	return os.WriteFile(c.LoadPath, b, 0600)
 }
 
 func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {

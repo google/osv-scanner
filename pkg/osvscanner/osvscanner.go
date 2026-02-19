@@ -417,7 +417,11 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 	}
 
 	if actions.UpdateConfigIgnoreVulns {
-		updateConfigs(&vulnerabilityResults, &scanResult.ConfigManager)
+		err := updateConfigs(&vulnerabilityResults, &scanResult.ConfigManager)
+
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
 	}
 
 	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
@@ -445,7 +449,7 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)
 }
 
-func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *config.Manager) {
+func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *config.Manager) error {
 	for _, pkgSrc := range vulnResults.Results {
 		configToUse := configManager.Get(pkgSrc.Source.Path)
 
@@ -456,8 +460,14 @@ func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *conf
 		}
 
 		// todo: is it possible to have results using the same file?
-		configToUse.UpdateFile(vulns)
+		err := configToUse.UpdateFile(vulns)
+
+		if err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
 
 func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount {
