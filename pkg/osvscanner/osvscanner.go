@@ -450,31 +450,28 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 }
 
 func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *config.Manager) error {
-	m := make(map[string][]*osvschema.Vulnerability)
+	configVulns := make(map[string][]*osvschema.Vulnerability)
+	configPaths := make(map[string]config.Config)
 
-	// todo: explore how we might be able to clean this whole thing up...
 	for _, pkgSrc := range vulnResults.Results {
-		configToUsePath := configManager.Get(pkgSrc.Source.Path).LoadPath
+		c := configManager.Get(pkgSrc.Source.Path)
 
 		// skip the default config
-		if configToUsePath == "" {
+		if c.LoadPath == "" {
 			continue
 		}
-		vulns, _ := m[configToUsePath]
+
+		configPaths[c.LoadPath] = c
 
 		for _, pkgVulns := range pkgSrc.Packages {
-			vulns = append(vulns, pkgVulns.Vulnerabilities...)
+			configVulns[c.LoadPath] = append(configVulns[c.LoadPath], pkgVulns.Vulnerabilities...)
 		}
-
-		m[configToUsePath] = vulns
 	}
 
-	for p, vulns := range m {
-		c, ok := configManager.ConfigMap[p]
-
-		if !ok && configManager.OverrideConfig != nil {
-			c = *configManager.OverrideConfig
-		}
+	// update each config to ignore all the vulnerabilities
+	// found across all packages that are using that config
+	for p, vulns := range configVulns {
+		c := configPaths[p]
 
 		err := c.UpdateFile(vulns)
 		if err != nil {
