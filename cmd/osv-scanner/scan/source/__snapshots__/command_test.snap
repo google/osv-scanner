@@ -6186,6 +6186,43 @@ No issues found
 
 ---
 
+[TestCommand_UpdateConfigIgnores_WithNoConfig - 1]
+Scanning dir <tempdir>
+Scanned <tempdir>/Gemfile.lock file and found 1 package
+Scanned <tempdir>/composer.lock file and found 0 packages
+Scanned <tempdir>/package-lock.json file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
+Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+2 vulnerabilities can be fixed.
+
+RubyGems
+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
+
+---
+
+[TestCommand_UpdateConfigIgnores_WithNoConfig - 2]
+
+---
+
 [TestCommand_WithDetector_OffLinux/ssh_version_errors - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
