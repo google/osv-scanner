@@ -363,6 +363,10 @@ func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *conf
 	for _, pkgSrc := range vulnResults.Results {
 		configToUsePath := configManager.Get(pkgSrc.Source.Path).LoadPath
 
+		// skip the default config
+		if configToUsePath == "" {
+			continue
+		}
 		vulns, _ := m[configToUsePath]
 
 		for _, pkgVulns := range pkgSrc.Packages {
@@ -375,8 +379,7 @@ func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *conf
 	for p, vulns := range m {
 		c, ok := configManager.ConfigMap[p]
 
-		// todo: this is probably not safe...
-		if !ok {
+		if !ok && configManager.OverrideConfig != nil {
 			c = *configManager.OverrideConfig
 		}
 
