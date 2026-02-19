@@ -6014,9 +6014,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
   id = "GHSA-v88g-cgmw-v5xw"
 
 [[IgnoredVulns]]
-  id = "GHSA-2g4f-4pwh-qvx6"
-
-[[IgnoredVulns]]
   id = "GHSA-whgm-jr23-g3j9"
 
 ---
@@ -6027,9 +6024,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 
 [[IgnoredVulns]]
   id = "GHSA-v88g-cgmw-v5xw"
-
-[[IgnoredVulns]]
-  id = "GHSA-2g4f-4pwh-qvx6"
 
 [[IgnoredVulns]]
   id = "GHSA-whgm-jr23-g3j9"
@@ -6043,9 +6037,7 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
-warning: <tempdir>/nested-1/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
-warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
@@ -6058,10 +6050,6 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 Filtered 9 vulnerabilities from output
-<tempdir>/nested-1/osv-scanner-test.toml has unused ignores:
- - GHSA-2g4f-4pwh-qvx6
-<tempdir>/nested-2/osv-scanner-test.toml has unused ignores:
- - GHSA-2g4f-4pwh-qvx6
 No issues found
 
 ---
