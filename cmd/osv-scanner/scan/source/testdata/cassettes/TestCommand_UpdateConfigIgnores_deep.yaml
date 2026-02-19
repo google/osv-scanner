@@ -5,7 +5,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 144
+      content_length: 979
       host: api.osv.dev
       body: |
         {
@@ -13,52 +13,45 @@ interactions:
             {
               "package": {
                 "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
                 "name": "ansi-html"
               },
               "version": "0.0.1"
-            }
-          ]
-        }
-      headers:
-        Content-Type:
-          - application/json
-      url: https://api.osv.dev/v1/querybatch
-      method: POST
-    response:
-      proto: HTTP/2.0
-      proto_major: 2
-      proto_minor: 0
-      content_length: 95
-      body: |
-        {
-          "results": [
+            },
             {
-              "vulns": [
-                {
-                  "id": "GHSA-whgm-jr23-g3j9",
-                  "modified": "2023-11-08T04:05:08.868477Z"
-                }
-              ]
-            }
-          ]
-        }
-      headers:
-        Content-Length:
-          - "95"
-        Content-Type:
-          - application/json
-      status: 200 OK
-      code: 200
-      duration: 0s
-  - request:
-      proto: HTTP/1.1
-      proto_major: 1
-      proto_minor: 1
-      content_length: 271
-      host: api.osv.dev
-      body: |
-        {
-          "queries": [
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
             {
               "package": {
                 "ecosystem": "npm",
@@ -84,10 +77,66 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 877
+      content_length: 1495
       body: |
         {
           "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-09-10T03:50:33.716487Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-09-10T03:50:33.716487Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-09-10T03:50:33.716487Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-09-10T03:50:33.716487Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -148,7 +197,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "877"
+          - "1495"
         Content-Type:
           - application/json
       status: 200 OK
