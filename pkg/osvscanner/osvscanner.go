@@ -295,6 +295,10 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
+	if actions.UpdateConfigIgnoreVulns {
+		updateConfigs(&vulnerabilityResults, &scanResult.ConfigManager)
+	}
+
 	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		cmdlogger.Infof(
@@ -302,10 +306,6 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 			filtered,
 			output.Form(filtered, "vulnerability", "vulnerabilities"),
 		)
-	}
-
-	if actions.UpdateConfigIgnoreVulns {
-		updateConfigs(&vulnerabilityResults, &scanResult.ConfigManager)
 	}
 
 	if unusedIgnoredEntries := scanResult.ConfigManager.GetUnusedIgnoreEntries(); len(unusedIgnoredEntries) != 0 {
