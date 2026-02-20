@@ -1335,6 +1335,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Args: []string{"", "source", "--experimental-disable-plugins=python/requirements", "./testdata/locks-requirements/requirements-transitive.txt"},
 			Exit: 128,
 		},
+		{
+			Name: "transitive_pomxml_enricher_requires_enabled_pomxml_extractor",
+			Args: []string{"", "source", "--experimental-disable-plugins=java/pomxml", "./testdata/maven-transitive/abc.xml"},
+			Exit: 128,
+		},
 	}
 
 	for _, tt := range tests {

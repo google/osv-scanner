@@ -430,7 +430,7 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and foun
 Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found 6 packages
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
-Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 3 packages
+Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
@@ -5444,7 +5444,7 @@ Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/
 Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom
 Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j/2.14.1/log4j-2.14.1.pom
 Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom
-Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 59 packages
+Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
 Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 6 vulnerabilities can be fixed.
 
@@ -5499,7 +5499,7 @@ Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Med
 ---
 
 [TestCommand_Transitive/scans_dependencies_from_multiple_registries - 1]
-Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 59 packages
+Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
 Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 6 vulnerabilities can be fixed.
 
@@ -5522,7 +5522,7 @@ Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medi
 ---
 
 [TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 1]
-Scanned <rootdir>/testdata/maven-transitive/encoding.xml file and found 2 packages
+Scanned <rootdir>/testdata/maven-transitive/encoding.xml file and found 1 package
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
 
@@ -5540,7 +5540,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 ---
 
 [TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
-Scanned <rootdir>/testdata/maven-transitive/abc.xml file and found 3 packages
+Scanned <rootdir>/testdata/maven-transitive/abc.xml file and found 1 package
 Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
 
@@ -5563,7 +5563,7 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 
 [TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
 Scanning dir ./testdata/maven-transitive/pom.xml
-Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 3 packages
+Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
 Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
 
@@ -5581,6 +5581,16 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 ---
 
 [TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 2]
+
+---
+
+[TestCommand_Transitive/transitive_pomxml_enricher_requires_enabled_pomxml_extractor - 1]
+Scanning dir ./testdata/maven-transitive/abc.xml
+
+---
+
+[TestCommand_Transitive/transitive_pomxml_enricher_requires_enabled_pomxml_extractor - 2]
+No package sources found, --help for usage information.
 
 ---
 
