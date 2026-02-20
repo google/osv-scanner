@@ -1,5 +1,5 @@
 
-[Test_run/#00 - 1]
+[Test_run/#00 - 1 - stdout]
 NAME:
    osv-scanner scan - scans projects and container images for dependencies, and checks them against the OSV database.
 
@@ -18,11 +18,11 @@ OPTIONS:
 
 ---
 
-[Test_run/#00 - 2]
+[Test_run/#00 - 2 - stderr]
 
 ---
 
-[Test_run/#01 - 1]
+[Test_run/#01 - 1 - stdout]
 NAME:
    osv-scanner scan - scans projects and container images for dependencies, and checks them against the OSV database.
 
@@ -41,11 +41,11 @@ OPTIONS:
 
 ---
 
-[Test_run/#01 - 2]
+[Test_run/#01 - 2 - stderr]
 
 ---
 
-[Test_run/version - 1]
+[Test_run/version - 1 - stdout]
 osv-scanner version: 2.3.3
 osv-scalibr version: 0.4.3
 commit: n/a
@@ -53,11 +53,11 @@ built at: n/a
 
 ---
 
-[Test_run/version - 2]
+[Test_run/version - 2 - stderr]
 
 ---
 
-[Test_run_SubCommands/scan_with_a_flag - 1]
+[Test_run_SubCommands/scan_with_a_flag - 1 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -65,30 +65,30 @@ No issues found
 
 ---
 
-[Test_run_SubCommands/scan_with_a_flag - 2]
+[Test_run_SubCommands/scan_with_a_flag - 2 - stderr]
 Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
 
 ---
 
-[Test_run_SubCommands/with_no_subcommand - 1]
+[Test_run_SubCommands/with_no_subcommand - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 No issues found
 
 ---
 
-[Test_run_SubCommands/with_no_subcommand - 2]
+[Test_run_SubCommands/with_no_subcommand - 2 - stderr]
 
 ---
 
-[Test_run_SubCommands/with_scan_subcommand - 1]
+[Test_run_SubCommands/with_scan_subcommand - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 No issues found
 
 ---
 
-[Test_run_SubCommands/with_scan_subcommand - 2]
+[Test_run_SubCommands/with_scan_subcommand - 2 - stderr]
 Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the filesystem. `scan` is assumed to be a subcommand here. If you intended for `scan` to be an argument to `scan`, you must specify `scan scan` in your command line.
 
 ---
