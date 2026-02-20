@@ -1,5 +1,5 @@
 
-[TestCommand_SubCommands/scan_with_a_flag - 1]
+[TestCommand_SubCommands/scan_with_a_flag - 1 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -7,11 +7,11 @@ No issues found
 
 ---
 
-[TestCommand_SubCommands/scan_with_a_flag - 2]
+[TestCommand_SubCommands/scan_with_a_flag - 2 - stderr]
 
 ---
 
-[TestCommand_SubCommands/with_no_arguments - 1]
+[TestCommand_SubCommands/with_no_arguments - 1 - stdout]
 NAME:
    osv-scanner scan - scans projects and container images for dependencies, and checks them against the OSV database.
 
@@ -30,28 +30,28 @@ OPTIONS:
 
 ---
 
-[TestCommand_SubCommands/with_no_arguments - 2]
+[TestCommand_SubCommands/with_no_arguments - 2 - stderr]
 
 ---
 
-[TestCommand_SubCommands/with_no_subcommand - 1]
+[TestCommand_SubCommands/with_no_subcommand - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 No issues found
 
 ---
 
-[TestCommand_SubCommands/with_no_subcommand - 2]
+[TestCommand_SubCommands/with_no_subcommand - 2 - stderr]
 
 ---
 
-[TestCommand_SubCommands/with_scan_subcommand - 1]
+[TestCommand_SubCommands/with_scan_subcommand - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 No issues found
 
 ---
 
-[TestCommand_SubCommands/with_scan_subcommand - 2]
+[TestCommand_SubCommands/with_scan_subcommand - 2 - stderr]
 
 ---

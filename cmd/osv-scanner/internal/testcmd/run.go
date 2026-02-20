@@ -86,8 +86,8 @@ func RunAndMatchSnapshots(t *testing.T, tc Case) {
 
 	stdout, stderr := RunAndNormalize(t, tc)
 
-	testutility.NewSnapshot().MatchText(t, stdout)
-	testutility.NewSnapshot().WithWindowsReplacements(map[string]string{
+	testutility.NewSnapshot().WithLabel("stdout").MatchText(t, stdout)
+	testutility.NewSnapshot().WithLabel("stderr").WithWindowsReplacements(map[string]string{
 		"CreateFile": "stat",
 	}).MatchText(t, stderr)
 }

@@ -1,5 +1,5 @@
 
-[TestCommand/.gitignored_files - 1]
+[TestCommand/.gitignored_files - 1 - stdout]
 Scanning dir ./testdata/locks-gitignore
 Scanned <rootdir>/testdata/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/subdir/yarn.lock file and found 1 package
@@ -7,11 +7,11 @@ No issues found
 
 ---
 
-[TestCommand/.gitignored_files - 2]
+[TestCommand/.gitignored_files - 2 - stderr]
 
 ---
 
-[TestCommand/Empty_cyclonedx_1.4_output - 1]
+[TestCommand/Empty_cyclonedx_1.4_output - 1 - stdout]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
@@ -23,14 +23,14 @@ No issues found
 
 ---
 
-[TestCommand/Empty_cyclonedx_1.4_output - 2]
+[TestCommand/Empty_cyclonedx_1.4_output - 2 - stderr]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
-[TestCommand/Empty_cyclonedx_1.5_output - 1]
+[TestCommand/Empty_cyclonedx_1.5_output - 1 - stdout]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
@@ -42,25 +42,25 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
-[TestCommand/Empty_cyclonedx_1.5_output - 2]
+[TestCommand/Empty_cyclonedx_1.5_output - 2 - stderr]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
-[TestCommand/Empty_gh-annotations_output - 1]
+[TestCommand/Empty_gh-annotations_output - 1 - stdout]
 
 ---
 
-[TestCommand/Empty_gh-annotations_output - 2]
+[TestCommand/Empty_gh-annotations_output - 2 - stderr]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
-[TestCommand/Empty_sarif_output - 1]
+[TestCommand/Empty_sarif_output - 1 - stdout]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "version": "2.1.0",
@@ -111,14 +111,14 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
-[TestCommand/Empty_sarif_output - 2]
+[TestCommand/Empty_sarif_output - 2 - stderr]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
-[TestCommand/Empty_spdx_2.3_output - 1]
+[TestCommand/Empty_spdx_2.3_output - 1 - stdout]
 {
   "spdxVersion": "SPDX-2.3",
   "dataLicense": "CC0-1.0",
@@ -152,14 +152,14 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
-[TestCommand/Empty_spdx_2.3_output - 2]
+[TestCommand/Empty_spdx_2.3_output - 2 - stderr]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
-[TestCommand/Go_project_with_an_overridden_go_version - 1]
+[TestCommand/Go_project_with_an_overridden_go_version - 1 - stdout]
 Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -169,11 +169,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand/Go_project_with_an_overridden_go_version - 2]
+[TestCommand/Go_project_with_an_overridden_go_version - 2 - stderr]
 
 ---
 
-[TestCommand/Go_project_with_an_overridden_go_version,_recursive - 1]
+[TestCommand/Go_project_with_an_overridden_go_version,_recursive - 1 - stdout]
 Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
 Scanned <rootdir>/testdata/go-project/nested/go.mod file and found 1 package
@@ -184,11 +184,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand/Go_project_with_an_overridden_go_version,_recursive - 2]
+[TestCommand/Go_project_with_an_overridden_go_version,_recursive - 2 - stderr]
 
 ---
 
-[TestCommand/Go_project_with_an_overridden_go_version_and_licences - 1]
+[TestCommand/Go_project_with_an_overridden_go_version_and_licences - 1 - stdout]
 Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -203,11 +203,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand/Go_project_with_an_overridden_go_version_and_licences - 2]
+[TestCommand/Go_project_with_an_overridden_go_version_and_licences - 2 - stderr]
 
 ---
 
-[TestCommand/PURL_SBOM_case_sensitivity_(api) - 1]
+[TestCommand/PURL_SBOM_case_sensitivity_(api) - 1 - stdout]
 Scanning dir ./testdata/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
@@ -225,11 +225,11 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand/PURL_SBOM_case_sensitivity_(api) - 2]
+[TestCommand/PURL_SBOM_case_sensitivity_(api) - 2 - stderr]
 
 ---
 
-[TestCommand/PURL_SBOM_case_sensitivity_(local) - 1]
+[TestCommand/PURL_SBOM_case_sensitivity_(local) - 1 - stdout]
 Scanning dir ./testdata/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
@@ -252,11 +252,11 @@ Total 2 packages affected by 7 known vulnerabilities (3 Critical, 4 High, 0 Medi
 
 ---
 
-[TestCommand/PURL_SBOM_case_sensitivity_(local) - 2]
+[TestCommand/PURL_SBOM_case_sensitivity_(local) - 2 - stderr]
 
 ---
 
-[TestCommand/Sarif_with_vulns - 1]
+[TestCommand/Sarif_with_vulns - 1 - stdout]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "version": "2.1.0",
@@ -380,13 +380,13 @@ Total 2 packages affected by 7 known vulnerabilities (3 Critical, 4 High, 0 Medi
 
 ---
 
-[TestCommand/Sarif_with_vulns - 2]
+[TestCommand/Sarif_with_vulns - 2 - stderr]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 
 ---
 
-[TestCommand/Scan_locks-many - 1]
+[TestCommand/Scan_locks-many - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
@@ -397,11 +397,11 @@ No issues found
 
 ---
 
-[TestCommand/Scan_locks-many - 2]
+[TestCommand/Scan_locks-many - 2 - stderr]
 
 ---
 
-[TestCommand/all_supported_lockfiles_in_the_directory_should_be_checked - 1]
+[TestCommand/all_supported_lockfiles_in_the_directory_should_be_checked - 1 - stdout]
 Scanning dir ./testdata/locks-many-with-invalid
 Scanned <rootdir>/testdata/locks-many-with-invalid/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-invalid/yarn.lock file and found 1 package
@@ -412,12 +412,12 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand/all_supported_lockfiles_in_the_directory_should_be_checked - 2]
+[TestCommand/all_supported_lockfiles_in_the_directory_should_be_checked - 2 - stderr]
 Error during extraction: (extracting as php/composerlock) <rootdir>/testdata/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
-[TestCommand/config_file_can_be_broad - 1]
+[TestCommand/config_file_can_be_broad - 1 - stdout]
 Scanning dir ./testdata/locks-many-with-insecure
 Scanning dir ./testdata/locks-insecure
 Scanning dir ./testdata/maven-transitive
@@ -507,11 +507,11 @@ Total 5 packages affected by 8 known vulnerabilities (2 Critical, 1 High, 1 Medi
 
 ---
 
-[TestCommand/config_file_can_be_broad - 2]
+[TestCommand/config_file_can_be_broad - 2 - stderr]
 
 ---
 
-[TestCommand/config_file_is_invalid - 1]
+[TestCommand/config_file_is_invalid - 1 - stdout]
 Scanning dir ./testdata/config-invalid
 Scanned <rootdir>/testdata/config-invalid/composer.lock file and found 1 package
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
@@ -521,22 +521,22 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand/config_file_is_invalid - 2]
+[TestCommand/config_file_is_invalid - 2 - stderr]
 Ignored invalid config file at <rootdir>/testdata/config-invalid/osv-scanner-test.toml because: toml: line 1: expected '.' or '=', but got '!' instead
 
 ---
 
-[TestCommand/config_files_cannot_have_unknown_keys - 1]
+[TestCommand/config_files_cannot_have_unknown_keys - 1 - stdout]
 
 ---
 
-[TestCommand/config_files_cannot_have_unknown_keys - 2]
+[TestCommand/config_files_cannot_have_unknown_keys - 2 - stderr]
 Failed to read config file: unknown keys in config file: RustVersionOverride, PackageOverrides.skip, PackageOverrides.license.skip
 unknown keys in config file: RustVersionOverride, PackageOverrides.skip, PackageOverrides.license.skip
 
 ---
 
-[TestCommand/config_files_should_not_have_multiple_ignores_with_the_same_id - 1]
+[TestCommand/config_files_should_not_have_multiple_ignores_with_the_same_id - 1 - stdout]
 warning: ./testdata/osv-scanner-duplicate-config.toml has multiple ignores for GO-2022-0274 - only the first will be used!
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
@@ -552,11 +552,11 @@ No issues found
 
 ---
 
-[TestCommand/config_files_should_not_have_multiple_ignores_with_the_same_id - 2]
+[TestCommand/config_files_should_not_have_multiple_ignores_with_the_same_id - 2 - stderr]
 
 ---
 
-[TestCommand/cyclonedx_1.4_output - 1]
+[TestCommand/cyclonedx_1.4_output - 1 - stdout]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
   "bomFormat": "CycloneDX",
@@ -642,7 +642,7 @@ No issues found
 
 ---
 
-[TestCommand/cyclonedx_1.4_output - 2]
+[TestCommand/cyclonedx_1.4_output - 2 - stderr]
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
@@ -650,7 +650,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
 
 ---
 
-[TestCommand/cyclonedx_1.5_output - 1]
+[TestCommand/cyclonedx_1.5_output - 1 - stdout]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
   "bomFormat": "CycloneDX",
@@ -736,7 +736,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
 
 ---
 
-[TestCommand/cyclonedx_1.5_output - 2]
+[TestCommand/cyclonedx_1.5_output - 2 - stderr]
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
@@ -744,7 +744,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
 
 ---
 
-[TestCommand/exclude_with_exact_directory_name - 1]
+[TestCommand/exclude_with_exact_directory_name - 1 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -752,11 +752,11 @@ No issues found
 
 ---
 
-[TestCommand/exclude_with_exact_directory_name - 2]
+[TestCommand/exclude_with_exact_directory_name - 2 - stderr]
 
 ---
 
-[TestCommand/exclude_with_glob_pattern - 1]
+[TestCommand/exclude_with_glob_pattern - 1 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -764,20 +764,20 @@ No issues found
 
 ---
 
-[TestCommand/exclude_with_glob_pattern - 2]
+[TestCommand/exclude_with_glob_pattern - 2 - stderr]
 
 ---
 
-[TestCommand/exclude_with_invalid_regex_returns_error - 1]
+[TestCommand/exclude_with_invalid_regex_returns_error - 1 - stdout]
 Scanning dir ./testdata/locks-many
 ---
 
-[TestCommand/exclude_with_invalid_regex_returns_error - 2]
+[TestCommand/exclude_with_invalid_regex_returns_error - 2 - stderr]
 failed to parse exclude patterns: invalid regex pattern "[invalid": error parsing regexp: missing closing ]: `[invalid`
 
 ---
 
-[TestCommand/exclude_with_multiple_exact_directories - 1]
+[TestCommand/exclude_with_multiple_exact_directories - 1 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -785,11 +785,11 @@ No issues found
 
 ---
 
-[TestCommand/exclude_with_multiple_exact_directories - 2]
+[TestCommand/exclude_with_multiple_exact_directories - 2 - stderr]
 
 ---
 
-[TestCommand/exclude_with_multiple_pattern_types - 1]
+[TestCommand/exclude_with_multiple_pattern_types - 1 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -797,22 +797,22 @@ No issues found
 
 ---
 
-[TestCommand/exclude_with_multiple_pattern_types - 2]
+[TestCommand/exclude_with_multiple_pattern_types - 2 - stderr]
 
 ---
 
-[TestCommand/exclude_with_regex_pattern - 1]
+[TestCommand/exclude_with_regex_pattern - 1 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 No issues found
 
 ---
 
-[TestCommand/exclude_with_regex_pattern - 2]
+[TestCommand/exclude_with_regex_pattern - 2 - stderr]
 
 ---
 
-[TestCommand/folder_of_supported_sbom_with_only_unimportant - 1]
+[TestCommand/folder_of_supported_sbom_with_only_unimportant - 1 - stdout]
 Scanning dir ./testdata/sbom-insecure/only-unimportant.spdx.json
 Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -822,11 +822,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand/folder_of_supported_sbom_with_only_unimportant - 2]
+[TestCommand/folder_of_supported_sbom_with_only_unimportant - 2 - stderr]
 
 ---
 
-[TestCommand/folder_of_supported_sbom_with_only_unimportant#01 - 1]
+[TestCommand/folder_of_supported_sbom_with_only_unimportant#01 - 1 - stdout]
 Scanning dir ./testdata/sbom-insecure/only-unimportant.spdx.json
 Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -843,11 +843,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand/folder_of_supported_sbom_with_only_unimportant#01 - 2]
+[TestCommand/folder_of_supported_sbom_with_only_unimportant#01 - 2 - stderr]
 
 ---
 
-[TestCommand/folder_of_supported_sbom_with_vulns - 1]
+[TestCommand/folder_of_supported_sbom_with_vulns - 1 - stdout]
 Scanning dir ./testdata/sbom-insecure/
 Scanned <rootdir>/testdata/sbom-insecure/alpine-zlib-16.cdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
@@ -1069,21 +1069,21 @@ Total 26 packages affected by 173 known vulnerabilities (21 Critical, 72 High, 5
 
 ---
 
-[TestCommand/folder_of_supported_sbom_with_vulns - 2]
+[TestCommand/folder_of_supported_sbom_with_vulns - 2 - stderr]
 
 ---
 
-[TestCommand/gh-annotations_with_vulns - 1]
+[TestCommand/gh-annotations_with_vulns - 1 - stdout]
 
 ---
 
-[TestCommand/gh-annotations_with_vulns - 2]
+[TestCommand/gh-annotations_with_vulns - 2 - stderr]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 ::error file=testdata/locks-many-with-insecure/package-lock.json::testdata/locks-many-with-insecure/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
 ---
 
-[TestCommand/go_packages_in_osv-scanner.json_format - 1]
+[TestCommand/go_packages_in_osv-scanner.json_format - 1 - stdout]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner.json file and found 2 packages
 Total 2 packages affected by 21 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 21 Unknown) from 1 ecosystem.
 21 vulnerabilities can be fixed.
@@ -1117,11 +1117,11 @@ Total 2 packages affected by 21 known vulnerabilities (0 Critical, 0 High, 0 Med
 
 ---
 
-[TestCommand/go_packages_in_osv-scanner.json_format - 2]
+[TestCommand/go_packages_in_osv-scanner.json_format - 2 - stderr]
 
 ---
 
-[TestCommand/help - 1]
+[TestCommand/help - 1 - stdout]
 NAME:
    osv-scanner source - scans a source project's dependencies for known vulnerabilities using the OSV database.
 
@@ -1164,11 +1164,11 @@ OPTIONS:
 
 ---
 
-[TestCommand/help - 2]
+[TestCommand/help - 2 - stderr]
 
 ---
 
-[TestCommand/ignores_without_reason_should_be_explicitly_called_out - 1]
+[TestCommand/ignores_without_reason_should_be_explicitly_called_out - 1 - stdout]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
@@ -1181,11 +1181,11 @@ No issues found
 
 ---
 
-[TestCommand/ignores_without_reason_should_be_explicitly_called_out - 2]
+[TestCommand/ignores_without_reason_should_be_explicitly_called_out - 2 - stderr]
 
 ---
 
-[TestCommand/ignoring_.gitignore - 1]
+[TestCommand/ignoring_.gitignore - 1 - stdout]
 Scanning dir ./testdata/locks-gitignore
 Scanned <rootdir>/testdata/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/composer.lock file and found 1 package
@@ -1199,20 +1199,20 @@ No issues found
 
 ---
 
-[TestCommand/ignoring_.gitignore - 2]
+[TestCommand/ignoring_.gitignore - 2 - stderr]
 
 ---
 
-[TestCommand/invalid_--verbosity_value - 1]
+[TestCommand/invalid_--verbosity_value - 1 - stdout]
 
 ---
 
-[TestCommand/invalid_--verbosity_value - 2]
+[TestCommand/invalid_--verbosity_value - 2 - stderr]
 invalid verbosity level "unknown" - must be one of: error, warn, info
 
 ---
 
-[TestCommand/json_output - 1]
+[TestCommand/json_output - 1 - stdout]
 {
   "results": [],
   "experimental_config": {
@@ -1225,14 +1225,14 @@ invalid verbosity level "unknown" - must be one of: error, warn, info
 
 ---
 
-[TestCommand/json_output - 2]
+[TestCommand/json_output - 2 - stderr]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
 
-[TestCommand/nested_directories_are_checked_when_`--recursive`_is_passed - 1]
+[TestCommand/nested_directories_are_checked_when_`--recursive`_is_passed - 1 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -1240,85 +1240,85 @@ No issues found
 
 ---
 
-[TestCommand/nested_directories_are_checked_when_`--recursive`_is_passed - 2]
+[TestCommand/nested_directories_are_checked_when_`--recursive`_is_passed - 2 - stderr]
 
 ---
 
-[TestCommand/no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine - 1]
+[TestCommand/no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine - 1 - stdout]
 Scanning dir ./testdata/locks-none-does-not-exist
 
 ---
 
-[TestCommand/no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine - 2]
+[TestCommand/no_lockfiles_with_allow_flag_but_another_error_happens_is_not_fine - 2 - stderr]
 failed to resolve path: stat <rootdir>/testdata/locks-none-does-not-exist: no such file or directory
 
 ---
 
-[TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine - 1]
+[TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine - 1 - stdout]
 Scanning dir ./testdata/locks-none
 Scanned <rootdir>/testdata/locks-none/nested/composer.lock file and found 1 package
 No issues found
 
 ---
 
-[TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine - 2]
+[TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine - 2 - stderr]
 
 ---
 
-[TestCommand/no_lockfiles_with_recursion_but_without_allow_flag_are_fine - 1]
+[TestCommand/no_lockfiles_with_recursion_but_without_allow_flag_are_fine - 1 - stdout]
 Scanning dir ./testdata/locks-none
 Scanned <rootdir>/testdata/locks-none/nested/composer.lock file and found 1 package
 No issues found
 
 ---
 
-[TestCommand/no_lockfiles_with_recursion_but_without_allow_flag_are_fine - 2]
+[TestCommand/no_lockfiles_with_recursion_but_without_allow_flag_are_fine - 2 - stderr]
 
 ---
 
-[TestCommand/no_lockfiles_without_recursion_but_with_allow_flag_are_fine - 1]
+[TestCommand/no_lockfiles_without_recursion_but_with_allow_flag_are_fine - 1 - stdout]
 Scanning dir ./testdata/locks-none
 No package sources found
 No issues found
 
 ---
 
-[TestCommand/no_lockfiles_without_recursion_but_with_allow_flag_are_fine - 2]
+[TestCommand/no_lockfiles_without_recursion_but_with_allow_flag_are_fine - 2 - stderr]
 
 ---
 
-[TestCommand/no_lockfiles_without_recursion_or_allow_flag_give_an_error - 1]
+[TestCommand/no_lockfiles_without_recursion_or_allow_flag_give_an_error - 1 - stdout]
 Scanning dir ./testdata/locks-none
 
 ---
 
-[TestCommand/no_lockfiles_without_recursion_or_allow_flag_give_an_error - 2]
+[TestCommand/no_lockfiles_without_recursion_or_allow_flag_give_an_error - 2 - stderr]
 No package sources found, --help for usage information.
 
 ---
 
-[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 1]
+[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 1 - stdout]
 Warning: --sbom has been deprecated in favor of -L
 
 ---
 
-[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 2]
+[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names - 2 - stderr]
 Failed to parse SBOM "./testdata/locks-many/composer.lock": Invalid SBOM filename.
 If you believe this is a valid SBOM, make sure the filename follows format per your SBOMs specification.
 invalid SBOM filename: ./testdata/locks-many/composer.lock
 
 ---
 
-[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 1]
+[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 1 - stdout]
 
 ---
 
-[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 2]
+[TestCommand/one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag - 2 - stderr]
 could not determine extractor, requested spdx
 
 ---
 
-[TestCommand/one_specific_supported_lockfile - 1]
+[TestCommand/one_specific_supported_lockfile - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -1326,11 +1326,11 @@ No issues found
 
 ---
 
-[TestCommand/one_specific_supported_lockfile - 2]
+[TestCommand/one_specific_supported_lockfile - 2 - stderr]
 
 ---
 
-[TestCommand/one_specific_supported_lockfile_with_ignore - 1]
+[TestCommand/one_specific_supported_lockfile_with_ignore - 1 - stdout]
 Scanning dir ./testdata/locks-test-ignore/package-lock.json
 Scanned <rootdir>/testdata/locks-test-ignore/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-test-ignore/osv-scanner-test.toml
@@ -1340,11 +1340,11 @@ No issues found
 
 ---
 
-[TestCommand/one_specific_supported_lockfile_with_ignore - 2]
+[TestCommand/one_specific_supported_lockfile_with_ignore - 2 - stderr]
 
 ---
 
-[TestCommand/one_specific_supported_lockfile_with_offline_explicitly_false - 1]
+[TestCommand/one_specific_supported_lockfile_with_offline_explicitly_false - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -1352,11 +1352,11 @@ No issues found
 
 ---
 
-[TestCommand/one_specific_supported_lockfile_with_offline_explicitly_false - 2]
+[TestCommand/one_specific_supported_lockfile_with_offline_explicitly_false - 2 - stderr]
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs - 1]
+[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs - 1 - stdout]
 Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 1 local/unscannable package/s from the scan.
@@ -1374,11 +1374,11 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs - 2]
+[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs - 2 - stderr]
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 1]
+[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 1 - stdout]
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 1 local/unscannable package/s from the scan.
 Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -1395,11 +1395,11 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 2]
+[TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 2 - stderr]
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_invalid_PURLs - 1]
+[TestCommand/one_specific_supported_sbom_with_invalid_PURLs - 1 - stdout]
 Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
 Filtered 7 local/unscannable package/s from the scan.
@@ -1407,22 +1407,22 @@ No issues found
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_invalid_PURLs - 2]
+[TestCommand/one_specific_supported_sbom_with_invalid_PURLs - 2 - stderr]
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag - 1]
+[TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag - 1 - stdout]
 Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
 Filtered 7 local/unscannable package/s from the scan.
 No issues found
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag - 2]
+[TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag - 2 - stderr]
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_vulns - 1]
+[TestCommand/one_specific_supported_sbom_with_vulns - 1 - stdout]
 Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
@@ -1440,11 +1440,11 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_vulns - 2]
+[TestCommand/one_specific_supported_sbom_with_vulns - 2 - stderr]
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_vulns_using_-L_flag - 1]
+[TestCommand/one_specific_supported_sbom_with_vulns_using_-L_flag - 1 - stdout]
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -1461,32 +1461,32 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand/one_specific_supported_sbom_with_vulns_using_-L_flag - 2]
+[TestCommand/one_specific_supported_sbom_with_vulns_using_-L_flag - 2 - stderr]
 
 ---
 
-[TestCommand/one_specific_unsupported_lockfile - 1]
+[TestCommand/one_specific_unsupported_lockfile - 1 - stdout]
 Scanning dir ./testdata/locks-many/not-a-lockfile.toml
 
 ---
 
-[TestCommand/one_specific_unsupported_lockfile - 2]
+[TestCommand/one_specific_unsupported_lockfile - 2 - stderr]
 No package sources found, --help for usage information.
 
 ---
 
-[TestCommand/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1]
+[TestCommand/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 No issues found
 
 ---
 
-[TestCommand/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2]
+[TestCommand/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2 - stderr]
 
 ---
 
-[TestCommand/output_format:_markdown_table - 1]
+[TestCommand/output_format:_markdown_table - 1 - stdout]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 
@@ -1500,20 +1500,20 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 ---
 
-[TestCommand/output_format:_markdown_table - 2]
+[TestCommand/output_format:_markdown_table - 2 - stderr]
 
 ---
 
-[TestCommand/output_format:_unsupported - 1]
+[TestCommand/output_format:_unsupported - 1 - stdout]
 
 ---
 
-[TestCommand/output_format:_unsupported - 2]
+[TestCommand/output_format:_unsupported - 2 - stderr]
 unsupported output format "unknown" - must be one of: table, html, vertical, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5, spdx-2-3
 
 ---
 
-[TestCommand/requirements.txt_can_have_all_kinds_of_names - 1]
+[TestCommand/requirements.txt_can_have_all_kinds_of_names - 1 - stdout]
 Scanning dir ./testdata/locks-requirements
 Scanned <rootdir>/testdata/locks-requirements/my-requirements.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/requirements-dev.txt file and found 1 package
@@ -1596,11 +1596,11 @@ Total 11 packages affected by 45 known vulnerabilities (5 Critical, 19 High, 20 
 
 ---
 
-[TestCommand/requirements.txt_can_have_all_kinds_of_names - 2]
+[TestCommand/requirements.txt_can_have_all_kinds_of_names - 2 - stderr]
 
 ---
 
-[TestCommand/spdx_2.3_output - 1]
+[TestCommand/spdx_2.3_output - 1 - stdout]
 {
   "spdxVersion": "SPDX-2.3",
   "dataLicense": "CC0-1.0",
@@ -1774,7 +1774,7 @@ Total 11 packages affected by 45 known vulnerabilities (5 Critical, 19 High, 20 
 
 ---
 
-[TestCommand/spdx_2.3_output - 2]
+[TestCommand/spdx_2.3_output - 2 - stderr]
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
@@ -1782,16 +1782,16 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
 
 ---
 
-[TestCommand/verbosity_level_=_error - 1]
+[TestCommand/verbosity_level_=_error - 1 - stdout]
 No issues found
 
 ---
 
-[TestCommand/verbosity_level_=_error - 2]
+[TestCommand/verbosity_level_=_error - 2 - stderr]
 
 ---
 
-[TestCommand/verbosity_level_=_info - 1]
+[TestCommand/verbosity_level_=_info - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -1799,11 +1799,11 @@ No issues found
 
 ---
 
-[TestCommand/verbosity_level_=_info - 2]
+[TestCommand/verbosity_level_=_info - 2 - stderr]
 
 ---
 
-[TestCommandNonGit/one_specific_supported_lockfile - 1]
+[TestCommandNonGit/one_specific_supported_lockfile - 1 - stdout]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
@@ -1811,11 +1811,11 @@ No issues found
 
 ---
 
-[TestCommandNonGit/one_specific_supported_lockfile - 2]
+[TestCommandNonGit/one_specific_supported_lockfile - 2 - stderr]
 
 ---
 
-[TestCommand_CallAnalysis/Run_with_govulncheck - 1]
+[TestCommand_CallAnalysis/Run_with_govulncheck - 1 - stdout]
 Scanning dir ./testdata/call-analysis-go-project
 Scanned <rootdir>/testdata/call-analysis-go-project/go.mod file and found 4 packages
 Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
@@ -1833,11 +1833,11 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 
 ---
 
-[TestCommand_CallAnalysis/Run_with_govulncheck - 2]
+[TestCommand_CallAnalysis/Run_with_govulncheck - 2 - stderr]
 
 ---
 
-[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 1]
+[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 1 - stdout]
 Scanning dir ./testdata/call-analysis-go-project-all-uncalled
 Scanned <rootdir>/testdata/call-analysis-go-project-all-uncalled/go.mod file and found 2 packages
 Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
@@ -1849,11 +1849,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 2]
+[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 2 - stderr]
 
 ---
 
-[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled_but_enabled_all-vulns_flag - 1]
+[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled_but_enabled_all-vulns_flag - 1 - stdout]
 Scanning dir ./testdata/call-analysis-go-project-all-uncalled
 Scanned <rootdir>/testdata/call-analysis-go-project-all-uncalled/go.mod file and found 2 packages
 Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
@@ -1873,15 +1873,15 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled_but_enabled_all-vulns_flag - 2]
+[TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled_but_enabled_all-vulns_flag - 2 - stderr]
 
 ---
 
-[TestCommand_CommitSupport/offline_uses_git_tags - 1]
+[TestCommand_CommitSupport/offline_uses_git_tags - 1 - stdout]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 Loaded GIT local db from <tempdir>/osv-scanner/GIT/all.zip
 Skipping commit scanning for: 45fda76bc1b9fd74d10e85e0ce9b65a12dcc58b0
-Total 8 packages affected by 27 known vulnerabilities (5 Critical, 6 High, 10 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
+Total 8 packages affected by 28 known vulnerabilities (5 Critical, 6 High, 11 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -1897,14 +1897,15 @@ Total 8 packages affected by 27 known vulnerabilities (5 Critical, 6 High, 10 Me
 | https://osv.dev/CVE-2024-51757 | 9.3  | GIT       |  https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-61927 | 7.2  | GIT       |  https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-62410 | 9.4  | GIT       |  https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2016-2183  | 7.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-11187 | 6.1  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-15467 | 9.8  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-15468 | 5.9  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-15469 | 5.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-4575  | 6.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-66199 | 5.9  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-68160 | 4.7  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-69418 | 4.0  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2025-69419 | 7.4  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-69420 | 7.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-69421 | 7.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9230  | 7.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
@@ -1919,11 +1920,11 @@ Total 8 packages affected by 27 known vulnerabilities (5 Critical, 6 High, 10 Me
 
 ---
 
-[TestCommand_CommitSupport/offline_uses_git_tags - 2]
+[TestCommand_CommitSupport/offline_uses_git_tags - 2 - stderr]
 
 ---
 
-[TestCommand_CommitSupport/online_uses_git_commits - 1]
+[TestCommand_CommitSupport/online_uses_git_commits - 1 - stdout]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 Total 11 packages affected by 53 known vulnerabilities (7 Critical, 13 High, 23 Medium, 4 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -1990,11 +1991,11 @@ Total 11 packages affected by 53 known vulnerabilities (7 Critical, 13 High, 23 
 
 ---
 
-[TestCommand_CommitSupport/online_uses_git_commits - 2]
+[TestCommand_CommitSupport/online_uses_git_commits - 2 - stderr]
 
 ---
 
-[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_file - 1]
+[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_file - 1 - stdout]
 Scanning dir testdata/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
@@ -2017,11 +2018,11 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 
 ---
 
-[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_file - 2]
+[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_file - 2 - stderr]
 
 ---
 
-[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_file#01 - 1]
+[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_file#01 - 1 - stdout]
 Scanning dir testdata/sbom-insecure
 Scanned <rootdir>/testdata/sbom-insecure/alpine-zlib-16.cdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
@@ -2244,11 +2245,11 @@ Total 24 packages affected by 167 known vulnerabilities (21 Critical, 67 High, 5
 
 ---
 
-[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_file#01 - 2]
+[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_file#01 - 2 - stderr]
 
 ---
 
-[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_multiple_files - 1]
+[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_multiple_files - 1 - stdout]
 Scanning dir testdata/sbom-insecure/alpine.cdx.xml
 Scanning dir testdata/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
@@ -2464,49 +2465,49 @@ Total 22 packages affected by 165 known vulnerabilities (19 Critical, 67 High, 5
 
 ---
 
-[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_multiple_files - 2]
+[TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_multiple_files - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/empty_plugins_flag_does_nothing - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/empty_plugins_flag_does_nothing - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/empty_plugins_flag_does_nothing - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/empty_plugins_flag_does_nothing - 2 - stderr]
 Incorrect Usage: flag needs an argument: --experimental-plugins=
 
 flag needs an argument: --experimental-plugins=
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_individually - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_individually - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_individually - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_individually - 2 - stderr]
 No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_together - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_together - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_together - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_together - 2 - stderr]
 No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 2 - stderr]
 No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
@@ -2517,11 +2518,11 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
@@ -2532,11 +2533,11 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
@@ -2550,12 +2551,12 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 2 - stderr]
 not an exact name for a plugin: "custom/extractor"
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_disabled - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_disabled - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
@@ -2565,11 +2566,11 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_disabled - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_disabled - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_enabled_and_the_defaults - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_enabled_and_the_defaults - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
@@ -2580,11 +2581,11 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_enabled_and_the_defaults - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_directory_with_one_specific_extractor_enabled_and_the_defaults - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_different_extractor_enabled - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_different_extractor_enabled - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -2592,11 +2593,11 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_different_extractor_enabled - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_different_extractor_enabled - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_specific_extractor_enabled - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_specific_extractor_enabled - 1 - stdout]
 Scanning dir ./testdata/locks-many/package-lock.json
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -2604,58 +2605,58 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_specific_extractor_enabled - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_specific_extractor_enabled - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 1]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 2]
+[TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 2 - stderr]
 could not determine extractor, requested package-lock.json
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/empty_plugins_flag_does_nothing - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/empty_plugins_flag_does_nothing - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/empty_plugins_flag_does_nothing - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/empty_plugins_flag_does_nothing - 2 - stderr]
 Incorrect Usage: flag needs an argument: --experimental-plugins=
 
 flag needs an argument: --experimental-plugins=
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_individually - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_individually - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_individually - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_individually - 2 - stderr]
 at least one extractor must be enabled
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_together - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_together - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_together - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_specified_together - 2 - stderr]
 at least one extractor must be enabled
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/extractors_cancelled_out_with_presets - 2 - stderr]
 at least one extractor must be enabled
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
@@ -2664,11 +2665,11 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_individually - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
@@ -2677,11 +2678,11 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -2692,12 +2693,12 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_an_extractor_that_does_not_exist - 2 - stderr]
 not an exact name for a plugin: "custom/extractor"
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_disabled - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_disabled - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
@@ -2707,11 +2708,11 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_disabled - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_disabled - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_enabled_and_no_defaults - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_enabled_and_no_defaults - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -2719,21 +2720,21 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_enabled_and_no_defaults - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_directory_with_one_specific_extractor_enabled_and_no_defaults - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_different_extractor_enabled - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_different_extractor_enabled - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_different_extractor_enabled - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_different_extractor_enabled - 2 - stderr]
 No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_specific_extractor_enabled - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_specific_extractor_enabled - 1 - stdout]
 Scanning dir ./testdata/locks-many/package-lock.json
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -2741,20 +2742,20 @@ No issues found
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_specific_extractor_enabled - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_one_specific_extractor_enabled - 2 - stderr]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 1]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 1 - stdout]
 
 ---
 
-[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 2]
+[TestCommand_ExplicitExtractors_WithoutDefaults/scanning_file_with_parse_as_but_specific_extractor_disabled - 2 - stderr]
 could not determine extractor, requested package-lock.json
 
 ---
 
-[TestCommand_Filter/Show_all_Packages_with_empty_config - 1]
+[TestCommand_Filter/Show_all_Packages_with_empty_config - 1 - stdout]
 {
   "results": [
     {
@@ -2790,13 +2791,13 @@ could not determine extractor, requested package-lock.json
 
 ---
 
-[TestCommand_Filter/Show_all_Packages_with_empty_config - 2]
+[TestCommand_Filter/Show_all_Packages_with_empty_config - 2 - stderr]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-with-unscannables.json file and found 2 packages
 Filtered 1 local/unscannable package/s from the scan.
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_false_no_vuln_json - 1]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_false_no_vuln_json - 1 - stdout]
 {
   "results": [],
   "experimental_config": {
@@ -2809,13 +2810,13 @@ Filtered 1 local/unscannable package/s from the scan.
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_false_no_vuln_json - 2]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_false_no_vuln_json - 2 - stderr]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock file and found 5 packages
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_npm_json - 1]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_npm_json - 1 - stdout]
 {
   "results": [
     {
@@ -2845,13 +2846,13 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock file and fo
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_npm_json - 2]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_npm_json - 2 - stderr]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json file and found 1 package
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_json - 1]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_json - 1 - stdout]
 {
   "results": [
     {
@@ -2881,13 +2882,13 @@ Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_json - 2]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_json - 2 - stderr]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock file and found 36 packages
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_table - 1]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_table - 1 - stdout]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock file and found 36 packages
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -2906,11 +2907,11 @@ Total 1 package deprecated.
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_table - 2]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_table - 2 - stderr]
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_json - 1]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_json - 1 - stdout]
 {
   "results": [
     {
@@ -2947,13 +2948,13 @@ Total 1 package deprecated.
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_json - 2]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_json - 2 - stderr]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table - 1]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table - 1 - stdout]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
 Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
@@ -2980,11 +2981,11 @@ Total 1 package deprecated.
 
 ---
 
-[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table - 2]
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table - 2 - stderr]
 
 ---
 
-[TestCommand_GithubActions/scanning_osv-scanner_custom_format - 1]
+[TestCommand_GithubActions/scanning_osv-scanner_custom_format - 1 - stdout]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file and found 3 packages
 Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -2999,11 +3000,11 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
 
 ---
 
-[TestCommand_GithubActions/scanning_osv-scanner_custom_format - 2]
+[TestCommand_GithubActions/scanning_osv-scanner_custom_format - 2 - stderr]
 
 ---
 
-[TestCommand_GithubActions/scanning_osv-scanner_custom_format_output_json - 1]
+[TestCommand_GithubActions/scanning_osv-scanner_custom_format_output_json - 1 - stdout]
 {
   "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/main/sarif-2.1/schema/sarif-schema-2.1.0.json",
   "version": "2.1.0",
@@ -3187,12 +3188,12 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
 
 ---
 
-[TestCommand_GithubActions/scanning_osv-scanner_custom_format_output_json - 2]
+[TestCommand_GithubActions/scanning_osv-scanner_custom_format_output_json - 2 - stderr]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file and found 3 packages
 
 ---
 
-[TestCommand_GithubActions/scanning_osv-scanner_custom_format_with_git_tag - 1]
+[TestCommand_GithubActions/scanning_osv-scanner_custom_format_with_git_tag - 1 - stdout]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom-git-tag.json file and found 1 package
 Total 1 package affected by 45 known vulnerabilities (5 Critical, 17 High, 23 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -3250,7 +3251,7 @@ Total 1 package affected by 45 known vulnerabilities (5 Critical, 17 High, 23 Me
 
 ---
 
-[TestCommand_GithubActions/scanning_osv-scanner_custom_format_with_git_tag - 2]
+[TestCommand_GithubActions/scanning_osv-scanner_custom_format_with_git_tag - 2 - stderr]
 
 ---
 
@@ -3262,7 +3263,7 @@ HTML output available at: <tempdir>/report.html
 
 ---
 
-[TestCommand_JavareachArchive/jars_can_be_scanned_with_call_analysis - 1]
+[TestCommand_JavareachArchive/jars_can_be_scanned_with_call_analysis - 1 - stdout]
 Scanning dir ./testdata/artifact/javareach_test.jar
 Java reachability enricher marked 14 packages as unreachable
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
@@ -3340,11 +3341,11 @@ Total 4 packages affected by 53 known vulnerabilities (18 Critical, 29 High, 5 M
 
 ---
 
-[TestCommand_JavareachArchive/jars_can_be_scanned_with_call_analysis - 2]
+[TestCommand_JavareachArchive/jars_can_be_scanned_with_call_analysis - 2 - stderr]
 
 ---
 
-[TestCommand_JavareachArchive/jars_can_be_scanned_without_call_analysis - 1]
+[TestCommand_JavareachArchive/jars_can_be_scanned_without_call_analysis - 1 - stdout]
 Scanning dir ./testdata/artifact/javareach_test.jar
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
 Total 8 packages affected by 59 known vulnerabilities (18 Critical, 31 High, 8 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
@@ -3417,11 +3418,11 @@ Total 8 packages affected by 59 known vulnerabilities (18 Critical, 31 High, 8 M
 
 ---
 
-[TestCommand_JavareachArchive/jars_can_be_scanned_without_call_analysis - 2]
+[TestCommand_JavareachArchive/jars_can_be_scanned_without_call_analysis - 2 - stderr]
 
 ---
 
-[TestCommand_Licenses/Licenses_in_summary_mode_json - 1]
+[TestCommand_Licenses/Licenses_in_summary_mode_json - 1 - stdout]
 {
   "results": [],
   "experimental_config": {
@@ -3448,13 +3449,13 @@ Total 8 packages affected by 59 known vulnerabilities (18 Critical, 31 High, 8 M
 
 ---
 
-[TestCommand_Licenses/Licenses_in_summary_mode_json - 2]
+[TestCommand_Licenses/Licenses_in_summary_mode_json - 2 - stderr]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
-[TestCommand_Licenses/Licenses_with_expressions - 1]
+[TestCommand_Licenses/Licenses_with_expressions - 1 - stdout]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
 overriding license for package npm/babel/6.23.0 with MIT AND (LGPL-2.1-or-later OR BSD-3-Clause)
@@ -3480,11 +3481,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_Licenses/Licenses_with_expressions - 2]
+[TestCommand_Licenses/Licenses_with_expressions - 2 - stderr]
 
 ---
 
-[TestCommand_Licenses/Licenses_with_invalid_expression_in_config - 1]
+[TestCommand_Licenses/Licenses_with_invalid_expression_in_config - 1 - stdout]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
 overriding license for package npm/babel/6.23.0 with MIT AND (LGPL-2.1-or-later OR BSD-3-Clause))
@@ -3511,22 +3512,22 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_Licenses/Licenses_with_invalid_expression_in_config - 2]
+[TestCommand_Licenses/Licenses_with_invalid_expression_in_config - 2 - stderr]
 license LGPL-2.1-only OR OR BSD-3-Clause for package npm/human-signals/5.0.0 is invalid: unexpected OR after OR
 license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.3 is invalid: unexpected ( after WITH
 
 ---
 
-[TestCommand_Licenses/Licenses_with_invalid_licenses_in_flag - 1]
+[TestCommand_Licenses/Licenses_with_invalid_licenses_in_flag - 1 - stdout]
 
 ---
 
-[TestCommand_Licenses/Licenses_with_invalid_licenses_in_flag - 2]
+[TestCommand_Licenses/Licenses_with_invalid_licenses_in_flag - 2 - stderr]
 --licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: something-something
 
 ---
 
-[TestCommand_Licenses/No_license_violations_and_show-all-packages_in_json - 1]
+[TestCommand_Licenses/No_license_violations_and_show-all-packages_in_json - 1 - stdout]
 {
   "results": [
     {
@@ -3605,13 +3606,13 @@ license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.
 
 ---
 
-[TestCommand_Licenses/No_license_violations_and_show-all-packages_in_json - 2]
+[TestCommand_Licenses/No_license_violations_and_show-all-packages_in_json - 2 - stderr]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
-[TestCommand_Licenses/No_vulnerabilities_but_license_violations_with_allowlist - 1]
+[TestCommand_Licenses/No_vulnerabilities_but_license_violations_with_allowlist - 1 - stdout]
 Scanning dir ./testdata/locks-many/yarn.lock
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -3631,11 +3632,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_Licenses/No_vulnerabilities_but_license_violations_with_allowlist - 2]
+[TestCommand_Licenses/No_vulnerabilities_but_license_violations_with_allowlist - 2 - stderr]
 
 ---
 
-[TestCommand_Licenses/No_vulnerabilities_with_license_summary - 1]
+[TestCommand_Licenses/No_vulnerabilities_with_license_summary - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
@@ -3656,11 +3657,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_Licenses/No_vulnerabilities_with_license_summary - 2]
+[TestCommand_Licenses/No_vulnerabilities_with_license_summary - 2 - stderr]
 
 ---
 
-[TestCommand_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 1]
+[TestCommand_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
@@ -3680,11 +3681,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 2]
+[TestCommand_Licenses/No_vulnerabilities_with_license_summary_in_markdown - 2 - stderr]
 
 ---
 
-[TestCommand_Licenses/Show_all_Packages_with_license_summary_in_json - 1]
+[TestCommand_Licenses/Show_all_Packages_with_license_summary_in_json - 1 - stdout]
 {
   "results": [
     {
@@ -3760,13 +3761,13 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_Licenses/Show_all_Packages_with_license_summary_in_json - 2]
+[TestCommand_Licenses/Show_all_Packages_with_license_summary_in_json - 2 - stderr]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
-[TestCommand_Licenses/Some_packages_with_ignored_licenses - 1]
+[TestCommand_Licenses/Some_packages_with_ignored_licenses - 1 - stdout]
 Scanning dir ./testdata/locks-many
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
@@ -3810,11 +3811,11 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 
 ---
 
-[TestCommand_Licenses/Some_packages_with_ignored_licenses - 2]
+[TestCommand_Licenses/Some_packages_with_ignored_licenses - 2 - stderr]
 
 ---
 
-[TestCommand_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 1]
+[TestCommand_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 1 - stdout]
 {
   "results": [
     {
@@ -3895,13 +3896,13 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 
 ---
 
-[TestCommand_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 2]
+[TestCommand_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 2 - stderr]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
-[TestCommand_Licenses/Some_packages_with_license_violations_in_json - 1]
+[TestCommand_Licenses/Some_packages_with_license_violations_in_json - 1 - stdout]
 {
   "results": [
     {
@@ -3952,13 +3953,13 @@ Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 pac
 
 ---
 
-[TestCommand_Licenses/Some_packages_with_license_violations_in_json - 2]
+[TestCommand_Licenses/Some_packages_with_license_violations_in_json - 2 - stderr]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
 
 ---
 
-[TestCommand_Licenses/Vulnerabilities_and_all_license_violations_allowlisted - 1]
+[TestCommand_Licenses/Vulnerabilities_and_all_license_violations_allowlisted - 1 - stdout]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -3978,11 +3979,11 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 ---
 
-[TestCommand_Licenses/Vulnerabilities_and_all_license_violations_allowlisted - 2]
+[TestCommand_Licenses/Vulnerabilities_and_all_license_violations_allowlisted - 2 - stderr]
 
 ---
 
-[TestCommand_Licenses/Vulnerabilities_and_license_summary - 1]
+[TestCommand_Licenses/Vulnerabilities_and_license_summary - 1 - stdout]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -4002,11 +4003,11 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 ---
 
-[TestCommand_Licenses/Vulnerabilities_and_license_summary - 2]
+[TestCommand_Licenses/Vulnerabilities_and_license_summary - 2 - stderr]
 
 ---
 
-[TestCommand_Licenses/Vulnerabilities_and_license_violations_with_allowlist - 1]
+[TestCommand_Licenses/Vulnerabilities_and_license_violations_with_allowlist - 1 - stdout]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -4031,38 +4032,38 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 
 ---
 
-[TestCommand_Licenses/Vulnerabilities_and_license_violations_with_allowlist - 2]
+[TestCommand_Licenses/Vulnerabilities_and_license_violations_with_allowlist - 2 - stderr]
 
 ---
 
-[TestCommand_Licenses/When_offline_licenses_are_still_validated - 1]
+[TestCommand_Licenses/When_offline_licenses_are_still_validated - 1 - stdout]
 
 ---
 
-[TestCommand_Licenses/When_offline_licenses_are_still_validated - 2]
+[TestCommand_Licenses/When_offline_licenses_are_still_validated - 2 - stderr]
 --licenses requires comma-separated spdx licenses. The following license(s) are not recognized as spdx: something-something
 
 ---
 
-[TestCommand_Licenses/When_offline_licenses_cannot_be_checked - 1]
+[TestCommand_Licenses/When_offline_licenses_cannot_be_checked - 1 - stdout]
 
 ---
 
-[TestCommand_Licenses/When_offline_licenses_cannot_be_checked - 2]
+[TestCommand_Licenses/When_offline_licenses_cannot_be_checked - 2 - stderr]
 cannot retrieve licenses locally
 
 ---
 
-[TestCommand_Licenses/When_offline_licenses_summary_cannot_be_printed - 1]
+[TestCommand_Licenses/When_offline_licenses_summary_cannot_be_printed - 1 - stdout]
 
 ---
 
-[TestCommand_Licenses/When_offline_licenses_summary_cannot_be_printed - 2]
+[TestCommand_Licenses/When_offline_licenses_summary_cannot_be_printed - 2 - stderr]
 cannot retrieve licenses locally
 
 ---
 
-[TestCommand_LocalDatabases/.gitignored_files - 1]
+[TestCommand_LocalDatabases/.gitignored_files - 1 - stdout]
 Scanning dir ./testdata/locks-gitignore
 Scanned <rootdir>/testdata/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/subdir/yarn.lock file and found 1 package
@@ -4072,11 +4073,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/.gitignored_files - 2]
+[TestCommand_LocalDatabases/.gitignored_files - 2 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/.gitignored_files - 3]
+[TestCommand_LocalDatabases/.gitignored_files - 3 - stdout]
 Scanning dir ./testdata/locks-gitignore
 Scanned <rootdir>/testdata/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/subdir/yarn.lock file and found 1 package
@@ -4086,11 +4087,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/.gitignored_files - 4]
+[TestCommand_LocalDatabases/.gitignored_files - 4 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 1]
+[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 1 - stdout]
 Scanning dir ./testdata/locks-many-with-insecure
 Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
@@ -4125,11 +4126,11 @@ Total 5 packages affected by 8 known vulnerabilities (1 Critical, 2 High, 1 Medi
 
 ---
 
-[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 2]
+[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 2 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 3]
+[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 3 - stdout]
 Scanning dir ./testdata/locks-many-with-insecure
 Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/alpine.cdx.xml file and found 15 packages
@@ -4164,11 +4165,11 @@ Total 5 packages affected by 8 known vulnerabilities (1 Critical, 2 High, 1 Medi
 
 ---
 
-[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 4]
+[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked - 4 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 1]
+[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 1 - stdout]
 Scanning dir ./testdata/locks-many-with-invalid
 Scanned <rootdir>/testdata/locks-many-with-invalid/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-invalid/yarn.lock file and found 1 package
@@ -4181,12 +4182,12 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 2]
+[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 2 - stderr]
 Error during extraction: (extracting as php/composerlock) <rootdir>/testdata/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
-[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 3]
+[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 3 - stdout]
 Scanning dir ./testdata/locks-many-with-invalid
 Scanned <rootdir>/testdata/locks-many-with-invalid/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-invalid/yarn.lock file and found 1 package
@@ -4199,30 +4200,30 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 4]
+[TestCommand_LocalDatabases/all_supported_lockfiles_in_the_directory_should_be_checked#01 - 4 - stderr]
 Error during extraction: (extracting as php/composerlock) <rootdir>/testdata/locks-many-with-invalid/composer.lock: could not extract: invalid character ',' looking for beginning of object key string
 
 ---
 
-[TestCommand_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 1]
+[TestCommand_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 1 - stdout]
 
 ---
 
-[TestCommand_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 2]
+[TestCommand_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 2 - stderr]
 databases can only be downloaded when running in offline mode
 
 ---
 
-[TestCommand_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 3]
+[TestCommand_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 3 - stdout]
 
 ---
 
-[TestCommand_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 4]
+[TestCommand_LocalDatabases/database_should_be_downloaded_only_when_offline_is_set - 4 - stderr]
 databases can only be downloaded when running in offline mode
 
 ---
 
-[TestCommand_LocalDatabases/ignoring_.gitignore - 1]
+[TestCommand_LocalDatabases/ignoring_.gitignore - 1 - stdout]
 Scanning dir ./testdata/locks-gitignore
 Scanned <rootdir>/testdata/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/composer.lock file and found 1 package
@@ -4239,11 +4240,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/ignoring_.gitignore - 2]
+[TestCommand_LocalDatabases/ignoring_.gitignore - 2 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/ignoring_.gitignore - 3]
+[TestCommand_LocalDatabases/ignoring_.gitignore - 3 - stdout]
 Scanning dir ./testdata/locks-gitignore
 Scanned <rootdir>/testdata/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/composer.lock file and found 1 package
@@ -4260,11 +4261,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/ignoring_.gitignore - 4]
+[TestCommand_LocalDatabases/ignoring_.gitignore - 4 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 1]
+[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 1 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -4274,11 +4275,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 2]
+[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 2 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 3]
+[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 3 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
@@ -4288,11 +4289,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 4]
+[TestCommand_LocalDatabases/nested_directories_are_checked_when_`--recursive`_is_passed - 4 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_supported_lockfile - 1]
+[TestCommand_LocalDatabases/one_specific_supported_lockfile - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -4301,11 +4302,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_supported_lockfile - 2]
+[TestCommand_LocalDatabases/one_specific_supported_lockfile - 2 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_supported_lockfile - 3]
+[TestCommand_LocalDatabases/one_specific_supported_lockfile - 3 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -4314,11 +4315,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_supported_lockfile - 4]
+[TestCommand_LocalDatabases/one_specific_supported_lockfile - 4 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_supported_sbom_with_vulns - 1]
+[TestCommand_LocalDatabases/one_specific_supported_sbom_with_vulns - 1 - stdout]
 Scanning dir ./testdata/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Filtered 1 local/unscannable package/s from the scan.
@@ -4530,11 +4531,11 @@ Total 21 packages affected by 166 known vulnerabilities (18 Critical, 68 High, 5
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_supported_sbom_with_vulns - 2]
+[TestCommand_LocalDatabases/one_specific_supported_sbom_with_vulns - 2 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_supported_sbom_with_vulns - 3]
+[TestCommand_LocalDatabases/one_specific_supported_sbom_with_vulns - 3 - stdout]
 Scanning dir ./testdata/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Filtered 1 local/unscannable package/s from the scan.
@@ -4746,31 +4747,31 @@ Total 21 packages affected by 166 known vulnerabilities (18 Critical, 68 High, 5
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_supported_sbom_with_vulns - 4]
+[TestCommand_LocalDatabases/one_specific_supported_sbom_with_vulns - 4 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_unsupported_lockfile - 1]
+[TestCommand_LocalDatabases/one_specific_unsupported_lockfile - 1 - stdout]
 Scanning dir ./testdata/locks-many/not-a-lockfile.toml
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_unsupported_lockfile - 2]
+[TestCommand_LocalDatabases/one_specific_unsupported_lockfile - 2 - stderr]
 No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_unsupported_lockfile - 3]
+[TestCommand_LocalDatabases/one_specific_unsupported_lockfile - 3 - stdout]
 Scanning dir ./testdata/locks-many/not-a-lockfile.toml
 
 ---
 
-[TestCommand_LocalDatabases/one_specific_unsupported_lockfile - 4]
+[TestCommand_LocalDatabases/one_specific_unsupported_lockfile - 4 - stderr]
 No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1]
+[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
@@ -4778,11 +4779,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2]
+[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 2 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 3]
+[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 3 - stdout]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
@@ -4790,11 +4791,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 4]
+[TestCommand_LocalDatabases/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 4 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/output_format:_markdown_table - 1]
+[TestCommand_LocalDatabases/output_format:_markdown_table - 1 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -4803,11 +4804,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/output_format:_markdown_table - 2]
+[TestCommand_LocalDatabases/output_format:_markdown_table - 2 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/output_format:_markdown_table - 3]
+[TestCommand_LocalDatabases/output_format:_markdown_table - 3 - stdout]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -4816,11 +4817,11 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/output_format:_markdown_table - 4]
+[TestCommand_LocalDatabases/output_format:_markdown_table - 4 - stderr]
 
 ---
 
-[TestCommand_LocalDatabases/output_with_json - 1]
+[TestCommand_LocalDatabases/output_with_json - 1 - stdout]
 {
   "results": [],
   "experimental_config": {
@@ -4833,7 +4834,7 @@ No issues found
 
 ---
 
-[TestCommand_LocalDatabases/output_with_json - 2]
+[TestCommand_LocalDatabases/output_with_json - 2 - stderr]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -4841,7 +4842,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestCommand_LocalDatabases/output_with_json - 3]
+[TestCommand_LocalDatabases/output_with_json - 3 - stdout]
 {
   "results": [],
   "experimental_config": {
@@ -4854,7 +4855,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestCommand_LocalDatabases/output_with_json - 4]
+[TestCommand_LocalDatabases/output_with_json - 4 - stderr]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
@@ -4862,7 +4863,7 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
-[TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 1]
+[TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 1 - stdout]
 Scanning dir ./testdata/locks-requirements
 Scanning dir ./testdata/locks-many-with-insecure
 Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
@@ -4885,7 +4886,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 2]
+[TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 2 - stderr]
 could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
@@ -4894,7 +4895,7 @@ could not load db for PyPI ecosystem: unable to fetch OSV database: no offline v
 
 ---
 
-[TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 3]
+[TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 3 - stdout]
 Scanning dir ./testdata/locks-requirements
 Scanning dir ./testdata/locks-many-with-insecure
 Scanned <rootdir>/testdata/locks-many-with-insecure/Gemfile.lock file and found 1 package
@@ -4917,7 +4918,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
-[TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 4]
+[TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 4 - stderr]
 could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
@@ -4926,101 +4927,101 @@ could not load db for PyPI ecosystem: unable to fetch OSV database: no offline v
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/"apk-installed"_is_supported - 1]
+[TestCommand_LockfileWithExplicitParseAs/"apk-installed"_is_supported - 1 - stdout]
 Scanned <rootdir>/testdata/locks-many/installed file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 No issues found
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/"apk-installed"_is_supported - 2]
+[TestCommand_LockfileWithExplicitParseAs/"apk-installed"_is_supported - 2 - stderr]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/"dpkg-status"_is_supported - 1]
+[TestCommand_LockfileWithExplicitParseAs/"dpkg-status"_is_supported - 1 - stdout]
 Scanned <rootdir>/testdata/locks-many/status file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 No issues found
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/"dpkg-status"_is_supported - 2]
+[TestCommand_LockfileWithExplicitParseAs/"dpkg-status"_is_supported - 2 - stderr]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/absolute_paths_are_automatically_escaped_on_windows - 1]
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_are_automatically_escaped_on_windows - 1 - stdout]
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 No issues found
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/absolute_paths_are_automatically_escaped_on_windows - 2]
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_are_automatically_escaped_on_windows - 2 - stderr]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/absolute_paths_can_have_explicit_parse_as - 1]
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_can_have_explicit_parse_as - 1 - stdout]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/absolute_paths_can_have_explicit_parse_as - 2]
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_can_have_explicit_parse_as - 2 - stderr]
 Error during extraction: (extracting as javascript/packagelockjson) <rootdir>/testdata/locks-many/yarn.lock: could not extract: invalid character '#' looking for beginning of value
 extraction failed on specified lockfile
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/absolute_paths_work_with_explicit_escaping - 1]
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_work_with_explicit_escaping - 1 - stdout]
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 No issues found
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/absolute_paths_work_with_explicit_escaping - 2]
+[TestCommand_LockfileWithExplicitParseAs/absolute_paths_work_with_explicit_escaping - 2 - stderr]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/empty_is_default - 1]
+[TestCommand_LockfileWithExplicitParseAs/empty_is_default - 1 - stdout]
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 No issues found
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/empty_is_default - 2]
+[TestCommand_LockfileWithExplicitParseAs/empty_is_default - 2 - stderr]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 1]
+[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 1 - stdout]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 2]
+[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows) - 2 - stderr]
 failed to resolve path: stat <rootdir>/path/to/my:file: no such file or directory
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 1]
+[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 1 - stdout]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 2]
+[TestCommand_LockfileWithExplicitParseAs/empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)#01 - 2 - stderr]
 failed to resolve path: stat <rootdir>/path/to/my:project/package-lock.json: no such file or directory
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 1]
+[TestCommand_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 1 - stdout]
 Scanning dir ./testdata/locks-insecure
 Scanning dir ./testdata/locks-many
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 2]
+[TestCommand_LockfileWithExplicitParseAs/files_that_error_on_parsing_stop_parsable_files_from_being_checked - 2 - stderr]
 Error during extraction: (extracting as rust/cargolock) <rootdir>/testdata/locks-insecure/my-package-lock.json: could not extract: toml: line 1: expected '.' or '=', but got '{' instead
 extraction failed on specified lockfile
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic - 1]
+[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic - 1 - stdout]
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
@@ -5041,11 +5042,11 @@ Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic - 2]
+[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic - 2 - stderr]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2 - 1]
+[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2 - 1 - stdout]
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
@@ -5066,41 +5067,41 @@ Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2 - 2]
+[TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2 - 2 - stderr]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1]
+[TestCommand_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1 - stdout]
 Scanned <rootdir>/testdata/locks-many/replace-local.mod file and found 1 package
 Filtered 1 local/unscannable package/s from the scan.
 No issues found
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2]
+[TestCommand_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 2 - stderr]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 1]
+[TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 1 - stdout]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2]
+[TestCommand_LockfileWithExplicitParseAs/parse-as_takes_priority,_even_if_it's_wrong - 2 - stderr]
 Error during extraction: (extracting as javascript/packagelockjson) <rootdir>/testdata/locks-many/yarn.lock: could not extract: invalid character '#' looking for beginning of value
 extraction failed on specified lockfile
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/unsupported_parse-as - 1]
+[TestCommand_LockfileWithExplicitParseAs/unsupported_parse-as - 1 - stdout]
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/unsupported_parse-as - 2]
+[TestCommand_LockfileWithExplicitParseAs/unsupported_parse-as - 2 - stderr]
 could not determine extractor, requested my-file
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file - 1]
+[TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file - 1 - stdout]
 Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
@@ -5119,29 +5120,29 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 
 ---
 
-[TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file - 2]
+[TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file - 2 - stderr]
 
 ---
 
-[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 1]
+[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 1 - stdout]
 
 ---
 
-[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 2]
+[TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 2 - stderr]
 could not determine extractor suitable to this file: "<rootdir>/testdata/locks-scalibr/Package.resolved"
 
 ---
 
-[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 1]
+[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 1 - stdout]
 
 ---
 
-[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 2]
+[TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 2 - stderr]
 could not determine extractor suitable to this file: "<rootdir>/testdata/locks-scalibr/Podfile.lock"
 
 ---
 
-[TestCommand_MoreLockfiles/cabal.project.freeze - 1]
+[TestCommand_MoreLockfiles/cabal.project.freeze - 1 - stdout]
 Scanned <rootdir>/testdata/locks-scalibr/cabal.project.freeze file and found 6 packages
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -5155,11 +5156,11 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 ---
 
-[TestCommand_MoreLockfiles/cabal.project.freeze - 2]
+[TestCommand_MoreLockfiles/cabal.project.freeze - 2 - stderr]
 
 ---
 
-[TestCommand_MoreLockfiles/depsjson - 1]
+[TestCommand_MoreLockfiles/depsjson - 1 - stdout]
 Scanned <rootdir>/testdata/locks-scalibr/depsjson file and found 4 packages
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -5173,11 +5174,11 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 ---
 
-[TestCommand_MoreLockfiles/depsjson - 2]
+[TestCommand_MoreLockfiles/depsjson - 2 - stderr]
 
 ---
 
-[TestCommand_MoreLockfiles/gems.locked - 1]
+[TestCommand_MoreLockfiles/gems.locked - 1 - stdout]
 Scanned <rootdir>/testdata/locks-scalibr/gems.locked file and found 26 packages
 Total 2 packages affected by 5 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
@@ -5195,41 +5196,41 @@ Total 2 packages affected by 5 known vulnerabilities (0 Critical, 2 High, 0 Medi
 
 ---
 
-[TestCommand_MoreLockfiles/gems.locked - 2]
+[TestCommand_MoreLockfiles/gems.locked - 2 - stderr]
 
 ---
 
-[TestCommand_MoreLockfiles/packages.config - 1]
+[TestCommand_MoreLockfiles/packages.config - 1 - stdout]
 Scanned <rootdir>/testdata/locks-scalibr/packages.config file and found 2 packages
 No issues found
 
 ---
 
-[TestCommand_MoreLockfiles/packages.config - 2]
+[TestCommand_MoreLockfiles/packages.config - 2 - stderr]
 
 ---
 
-[TestCommand_MoreLockfiles/packages.lock.json - 1]
+[TestCommand_MoreLockfiles/packages.lock.json - 1 - stdout]
 Scanned <rootdir>/testdata/locks-scalibr/packages.lock.json file and found 1 package
 No issues found
 
 ---
 
-[TestCommand_MoreLockfiles/packages.lock.json - 2]
+[TestCommand_MoreLockfiles/packages.lock.json - 2 - stderr]
 
 ---
 
-[TestCommand_MoreLockfiles/stack.yaml.lock - 1]
+[TestCommand_MoreLockfiles/stack.yaml.lock - 1 - stdout]
 Scanned <rootdir>/testdata/locks-scalibr/stack.yaml.lock file and found 4 packages
 No issues found
 
 ---
 
-[TestCommand_MoreLockfiles/stack.yaml.lock - 2]
+[TestCommand_MoreLockfiles/stack.yaml.lock - 2 - stderr]
 
 ---
 
-[TestCommand_MoreLockfiles/uv.lock - 1]
+[TestCommand_MoreLockfiles/uv.lock - 1 - stdout]
 Scanned <rootdir>/testdata/locks-scalibr/uv.lock file and found 2 packages
 Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 2 vulnerabilities can be fixed.
@@ -5244,22 +5245,22 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
 
 ---
 
-[TestCommand_MoreLockfiles/uv.lock - 2]
+[TestCommand_MoreLockfiles/uv.lock - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 1]
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 1 - stdout]
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
 No issues found
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 2]
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 1]
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 1 - stdout]
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
 Loaded Maven local db from <tempdir>/osv-scanner/Maven/all.zip
@@ -5267,11 +5268,11 @@ No issues found
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 2]
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 1]
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 1 - stdout]
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -5299,11 +5300,11 @@ Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Med
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 2]
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode - 1]
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode - 1 - stdout]
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Loaded PyPI local db from <tempdir>/osv-scanner/PyPI/all.zip
@@ -5331,20 +5332,20 @@ Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Med
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode - 2]
+[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/errors_with_invalid_data_source - 1]
+[TestCommand_Transitive/errors_with_invalid_data_source - 1 - stdout]
 
 ---
 
-[TestCommand_Transitive/errors_with_invalid_data_source - 2]
+[TestCommand_Transitive/errors_with_invalid_data_source - 2 - stderr]
 unsupported data-source "github" - must be one of: deps.dev, native
 
 ---
 
-[TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed - 1]
+[TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed - 1 - stdout]
 Scanning dir ./testdata/locks-requirements/unresolvable-requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 failed resolution: no file can be used for parsing requirements for package flask-cors version 1.0
@@ -5371,11 +5372,11 @@ Total 3 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 4 Medi
 
 ---
 
-[TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed - 2]
+[TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 1]
+[TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 1 - stdout]
 Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/animated-vector-drawable/24.0.0/animated-vector-drawable-24.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/appcompat-v7/24.0.0/appcompat-v7-24.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/mediarouter-v7/24.0.0/mediarouter-v7-24.0.0.pom
@@ -5462,11 +5463,11 @@ Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medi
 
 ---
 
-[TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 2]
+[TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/scan_local_disk_transitive_dependencies - 1]
+[TestCommand_Transitive/scan_local_disk_transitive_dependencies - 1 - stdout]
 Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
 Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -5494,11 +5495,11 @@ Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Med
 
 ---
 
-[TestCommand_Transitive/scan_local_disk_transitive_dependencies - 2]
+[TestCommand_Transitive/scan_local_disk_transitive_dependencies - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/scans_dependencies_from_multiple_registries - 1]
+[TestCommand_Transitive/scans_dependencies_from_multiple_registries - 1 - stdout]
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 59 packages
 Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 6 vulnerabilities can be fixed.
@@ -5517,11 +5518,11 @@ Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medi
 
 ---
 
-[TestCommand_Transitive/scans_dependencies_from_multiple_registries - 2]
+[TestCommand_Transitive/scans_dependencies_from_multiple_registries - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 1]
+[TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 1 - stdout]
 Scanned <rootdir>/testdata/maven-transitive/encoding.xml file and found 2 packages
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -5535,11 +5536,11 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 
 ---
 
-[TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 2]
+[TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
+[TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 1 - stdout]
 Scanned <rootdir>/testdata/maven-transitive/abc.xml file and found 3 packages
 Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
@@ -5557,11 +5558,11 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 
 ---
 
-[TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 2]
+[TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
+[TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 1 - stdout]
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 3 packages
 Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
@@ -5580,21 +5581,21 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 
 ---
 
-[TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 2]
+[TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 2 - stderr]
 
 ---
 
-[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 1]
+[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 1 - stdout]
 Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
 
 ---
 
-[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 2]
+[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 2 - stderr]
 No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1]
+[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1 - stdout]
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Total 5 packages affected by 21 known vulnerabilities (1 Critical, 9 High, 10 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
@@ -5636,11 +5637,7 @@ Total 5 packages affected by 21 known vulnerabilities (1 Critical, 9 High, 10 Me
 
 ---
 
-[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
-
----
-
-[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
+[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2 - stderr]
 
 ---
 
@@ -5680,7 +5677,7 @@ No issues found
 
 ---
 
-[TestCommand_WithDetector_OnLinux/ssh_version_errors - 1]
+[TestCommand_WithDetector_OnLinux/ssh_version_errors - 1 - stdout]
 Scanning dir <tempdir>/composer.lock
 Command "ssh -V": exit status 1
 Scanned <tempdir>/composer.lock file and found 1 package
@@ -5689,11 +5686,11 @@ No issues found
 
 ---
 
-[TestCommand_WithDetector_OnLinux/ssh_version_errors - 2]
+[TestCommand_WithDetector_OnLinux/ssh_version_errors - 2 - stderr]
 
 ---
 
-[TestCommand_WithDetector_OnLinux/ssh_version_is_after_last_vuln_version - 1]
+[TestCommand_WithDetector_OnLinux/ssh_version_is_after_last_vuln_version - 1 - stdout]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
@@ -5701,11 +5698,11 @@ No issues found
 
 ---
 
-[TestCommand_WithDetector_OnLinux/ssh_version_is_after_last_vuln_version - 2]
+[TestCommand_WithDetector_OnLinux/ssh_version_is_after_last_vuln_version - 2 - stderr]
 
 ---
 
-[TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 1]
+[TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 1 - stdout]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
@@ -5713,6 +5710,6 @@ No issues found
 
 ---
 
-[TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2]
+[TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2 - stderr]
 
 ---

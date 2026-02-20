@@ -2,6 +2,8 @@ module github.com/google/osv-scanner/v2
 
 go 1.25.7
 
+replace github.com/gkampitakis/go-snaps v0.5.19 => github.com/g-rath/go-snaps v0.5.15-0.20260220025016-8594986f8217
+
 require (
 	deps.dev/api/v3 v3.0.0-20260112033243-1270359b191b
 	deps.dev/api/v3alpha v0.0.0-20260112033243-1270359b191b

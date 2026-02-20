@@ -1,9 +1,9 @@
 
-[TestCommand/errors_when_in_place_used_without_lockfile - 1]
+[TestCommand/errors_when_in_place_used_without_lockfile - 1 - stdout]
 
 ---
 
-[TestCommand/errors_when_in_place_used_without_lockfile - 2]
+[TestCommand/errors_when_in_place_used_without_lockfile - 2 - stderr]
 in-place strategy requires lockfile
 
 ---
@@ -26,11 +26,11 @@ in-place strategy requires lockfile
 
 ---
 
-[TestCommand/errors_when_override_used_without_manifest - 1]
+[TestCommand/errors_when_override_used_without_manifest - 1 - stdout]
 
 ---
 
-[TestCommand/errors_when_override_used_without_manifest - 2]
+[TestCommand/errors_when_override_used_without_manifest - 2 - stderr]
 override strategy requires manifest file
 
 ---
@@ -1761,11 +1761,11 @@ override strategy requires manifest file
 
 ---
 
-[TestCommand/errors_when_relax_used_without_manifest - 1]
+[TestCommand/errors_when_relax_used_without_manifest - 1 - stdout]
 
 ---
 
-[TestCommand/errors_when_relax_used_without_manifest - 2]
+[TestCommand/errors_when_relax_used_without_manifest - 2 - stderr]
 relax strategy requires manifest file
 
 ---
@@ -3496,11 +3496,11 @@ relax strategy requires manifest file
 
 ---
 
-[TestCommand/errors_when_relock_used_without_manifest - 1]
+[TestCommand/errors_when_relock_used_without_manifest - 1 - stdout]
 
 ---
 
-[TestCommand/errors_when_relock_used_without_manifest - 2]
+[TestCommand/errors_when_relock_used_without_manifest - 2 - stderr]
 relax strategy requires manifest file
 
 ---
@@ -5231,34 +5231,34 @@ relax strategy requires manifest file
 
 ---
 
-[TestCommand/errors_with_invalid_data_source - 1]
+[TestCommand/errors_with_invalid_data_source - 1 - stdout]
 
 ---
 
-[TestCommand/errors_with_invalid_data_source - 2]
+[TestCommand/errors_with_invalid_data_source - 2 - stderr]
 unsupported data-source "github" - must be one of: deps.dev, native
 
 ---
 
-[TestCommand/errors_with_unsupported_format - 1]
+[TestCommand/errors_with_unsupported_format - 1 - stdout]
 
 ---
 
-[TestCommand/errors_with_unsupported_format - 2]
+[TestCommand/errors_with_unsupported_format - 2 - stderr]
 unsupported output format "yaml" - must be one of: text, json
 
 ---
 
-[TestCommand/errors_with_unsupported_strategy - 1]
+[TestCommand/errors_with_unsupported_strategy - 1 - stdout]
 
 ---
 
-[TestCommand/errors_with_unsupported_strategy - 2]
+[TestCommand/errors_with_unsupported_strategy - 2 - stderr]
 unsupported strategy "force" - must be one of: in-place, relax, override
 
 ---
 
-[TestCommand/fix_non-interactive_in-place_package-lock.json - 1]
+[TestCommand/fix_non-interactive_in-place_package-lock.json - 1 - stdout]
 Scanning <tempdir>/package-lock.json...
 Found 11 vulnerabilities matching the filter
 Can fix 3/11 matching vulnerabilities by changing 3 dependencies
@@ -5272,7 +5272,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand/fix_non-interactive_in-place_package-lock.json - 2]
+[TestCommand/fix_non-interactive_in-place_package-lock.json - 2 - stderr]
 
 ---
 
@@ -7002,7 +7002,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand/fix_non-interactive_json_in-place_package-lock.json - 1]
+[TestCommand/fix_non-interactive_json_in-place_package-lock.json - 1 - stdout]
 {
   "path": "<tempdir>/package-lock.json",
   "ecosystem": "npm",
@@ -7185,7 +7185,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand/fix_non-interactive_json_in-place_package-lock.json - 2]
+[TestCommand/fix_non-interactive_json_in-place_package-lock.json - 2 - stderr]
 Scanning <tempdir>/package-lock.json...
 Rewriting <tempdir>/package-lock.json...
 
@@ -8917,7 +8917,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand/fix_non-interactive_json_override_pom.xml - 1]
+[TestCommand/fix_non-interactive_json_override_pom.xml - 1 - stdout]
 {
   "path": "<tempdir>/pom.xml",
   "ecosystem": "Maven",
@@ -9194,7 +9194,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand/fix_non-interactive_json_override_pom.xml - 2]
+[TestCommand/fix_non-interactive_json_override_pom.xml - 2 - stderr]
 Resolving <tempdir>/pom.xml...
 Rewriting <tempdir>/pom.xml...
 
@@ -9248,7 +9248,7 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[TestCommand/fix_non-interactive_json_relax_package.json - 1]
+[TestCommand/fix_non-interactive_json_relax_package.json - 1 - stdout]
 {
   "path": "<tempdir>/package.json",
   "ecosystem": "npm",
@@ -9377,7 +9377,7 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[TestCommand/fix_non-interactive_json_relax_package.json - 2]
+[TestCommand/fix_non-interactive_json_relax_package.json - 2 - stderr]
 Resolving <tempdir>/package.json...
 Rewriting <tempdir>/package.json...
 
@@ -9401,7 +9401,7 @@ Rewriting <tempdir>/package.json...
 
 ---
 
-[TestCommand/fix_non-interactive_override_pom.xml - 1]
+[TestCommand/fix_non-interactive_override_pom.xml - 1 - stdout]
 Resolving <tempdir>/pom.xml...
 Found 12 vulnerabilities matching the filter
 Can fix 12/12 matching vulnerabilities by overriding 4 dependencies
@@ -9416,7 +9416,7 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[TestCommand/fix_non-interactive_override_pom.xml - 2]
+[TestCommand/fix_non-interactive_override_pom.xml - 2 - stderr]
 
 ---
 
@@ -9468,7 +9468,7 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[TestCommand/fix_non-interactive_relax_package.json - 1]
+[TestCommand/fix_non-interactive_relax_package.json - 1 - stdout]
 Resolving <tempdir>/package.json...
 Found 8 vulnerabilities matching the filter
 Can fix 3/8 matching vulnerabilities by changing 1 dependencies
@@ -9480,7 +9480,7 @@ Rewriting <tempdir>/package.json...
 
 ---
 
-[TestCommand/fix_non-interactive_relax_package.json - 2]
+[TestCommand/fix_non-interactive_relax_package.json - 2 - stderr]
 
 ---
 
@@ -9502,7 +9502,7 @@ Rewriting <tempdir>/package.json...
 
 ---
 
-[TestCommand/fix_non_interactive_in_place_package_lock_json_with_native_data_source - 1]
+[TestCommand/fix_non_interactive_in_place_package_lock_json_with_native_data_source - 1 - stdout]
 Scanning <tempdir>/package-lock.json...
 Found 11 vulnerabilities matching the filter
 Can fix 3/11 matching vulnerabilities by changing 3 dependencies
@@ -9516,7 +9516,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand/fix_non_interactive_in_place_package_lock_json_with_native_data_source - 2]
+[TestCommand/fix_non_interactive_in_place_package_lock_json_with_native_data_source - 2 - stderr]
 
 ---
 
@@ -11246,7 +11246,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 1]
+[TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 1 - stdout]
 Resolving <tempdir>/pom.xml...
 Found 12 vulnerabilities matching the filter
 Can fix 12/12 matching vulnerabilities by overriding 4 dependencies
@@ -11261,7 +11261,7 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 2]
+[TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 2 - stderr]
 
 ---
 
@@ -11313,16 +11313,16 @@ Rewriting <tempdir>/pom.xml...
 
 ---
 
-[TestCommand/no_args_provided - 1]
+[TestCommand/no_args_provided - 1 - stdout]
 
 ---
 
-[TestCommand/no_args_provided - 2]
+[TestCommand/no_args_provided - 2 - stderr]
 manifest or lockfile is required
 
 ---
 
-[TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1]
+[TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1 - stdout]
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Scanning <tempdir>/package-lock.json...
 Found 11 vulnerabilities matching the filter
@@ -11337,7 +11337,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 2]
+[TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 2 - stderr]
 
 ---
 
@@ -13067,7 +13067,7 @@ Rewriting <tempdir>/package-lock.json...
 
 ---
 
-[TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 1]
+[TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 1 - stdout]
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Resolving <tempdir>/package.json...
 Found 8 vulnerabilities matching the filter
@@ -13080,7 +13080,7 @@ Rewriting <tempdir>/package.json...
 
 ---
 
-[TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 2]
+[TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 2 - stderr]
 
 ---
 
