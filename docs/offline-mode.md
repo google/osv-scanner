@@ -75,7 +75,7 @@ This bucket contains zip files containing all vulnerabilities for each ecosystem
 E.g. for PyPI vulnerabilities:
 
 ```bash
-gsutil cp gs://osv-vulnerabilities/PyPI/all.zip .
+gcloud storage cp gs://osv-vulnerabilities/PyPI/all.zip .
 ```
 
 You can also download over HTTP via `https://osv-vulnerabilities.storage.googleapis.com/<ECOSYSTEM>/all.zip`.

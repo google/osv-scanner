@@ -119,9 +119,9 @@ func (st *stateRelockResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 		}
 		st.currRes = msg.res
 		// recreate the vuln list info view
-		var vulns []*resolution.Vulnerability
+		vulns := make([]*resolution.Vulnerability, len(st.currRes.Vulns))
 		for i := range st.currRes.Vulns {
-			vulns = append(vulns, &st.currRes.Vulns[i])
+			vulns[i] = &st.currRes.Vulns[i]
 		}
 		st.vulnList = tui.NewVulnList(vulns, "")
 		st.currErrs = st.currRes.Errors()
@@ -298,9 +298,9 @@ func (st *stateRelockResult) relaxChoice(m model) (model, tea.Cmd) {
 			st.currErrs = st.currRes.Errors()
 			st.resolveErrors = resolutionErrorView(st.currRes, st.currErrs)
 			// recreate vuln list view
-			var vulns []*resolution.Vulnerability
+			vulns := make([]*resolution.Vulnerability, len(st.currRes.Vulns))
 			for i := range st.currRes.Vulns {
-				vulns = append(vulns, &st.currRes.Vulns[i])
+				vulns[i] = &st.currRes.Vulns[i]
 			}
 			st.vulnList = tui.NewVulnList(vulns, "")
 			// Need to compute the possible patches from here

@@ -14,7 +14,7 @@ type IDAliases struct {
 }
 
 func ConvertVulnerabilityToIDAliases(c []*osvschema.Vulnerability) []IDAliases {
-	output := []IDAliases{}
+	output := make([]IDAliases, 0, len(c))
 
 	slices.SortFunc(c, identifiers.MostUpstreamsOrder)
 

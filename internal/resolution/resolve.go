@@ -50,7 +50,7 @@ type NodeError struct {
 }
 
 func (res *Result) Errors() []NodeError {
-	var errs []NodeError
+	var errs []NodeError //nolint:prealloc
 	for i, n := range res.Graph.Nodes {
 		for _, err := range n.Errors {
 			errs = append(errs, NodeError{

@@ -13,8 +13,7 @@ import (
 
 func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns) *cyclonedx.BOM {
 	bom := cyclonedx.NewBOM()
-	components := make([]cyclonedx.Component, 0)
-	bomVulnerabilities := make([]cyclonedx.Vulnerability, 0)
+	components := make([]cyclonedx.Component, 0, len(uniquePackages))
 	vulnerabilities := make(map[string]cyclonedx.Vulnerability)
 
 	for packageURL, packageDetail := range uniquePackages {
@@ -36,6 +35,8 @@ func buildCycloneDXBom(uniquePackages map[string]models.PackageVulns) *cyclonedx
 	slices.SortFunc(components, func(a, b cyclonedx.Component) int {
 		return strings.Compare(a.PackageURL, b.PackageURL)
 	})
+
+	bomVulnerabilities := make([]cyclonedx.Vulnerability, 0, len(vulnerabilities))
 
 	for _, vulnerability := range vulnerabilities {
 		bomVulnerabilities = append(bomVulnerabilities, vulnerability)
@@ -93,13 +94,12 @@ func addDeprecatedProperty(component *cyclonedx.Component, packageDetail models.
 		return
 	}
 
-	properties := make([]cyclonedx.Property, 0)
-	properties = append(properties, cyclonedx.Property{
-		Name:  "deprecated",
-		Value: "true",
-	})
-
-	component.Properties = &properties
+	component.Properties = &[]cyclonedx.Property{
+		{
+			Name:  "deprecated",
+			Value: "true",
+		},
+	}
 }
 
 func formatDateIfExists(ts *timestamppb.Timestamp) string {

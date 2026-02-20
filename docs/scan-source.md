@@ -37,6 +37,50 @@ There is a [known issue](https://github.com/google/osv-scanner/issues/209) that 
 
 The `--no-ignore` flag can be used to force the scanner to scan ignored files.
 
+## Excluding Paths
+
+Experimental
+{: .label }
+
+You can exclude specific paths from scanning using the `--experimental-exclude` flag. This is useful for excluding test directories, documentation, or vendor directories from vulnerability scans.
+
+**Note:** This flag currently only excludes directories, not individual files. This is an experimental feature and the syntax may change in future versions.
+
+### Syntax
+
+The flag supports three pattern types, matching the `--lockfile` flag syntax:
+
+- **Exact directory name** (no prefix or `:` prefix): Matches directories with the exact name
+- **Glob pattern** (`g:` prefix): Matches using glob patterns
+- **Regex pattern** (`r:` prefix): Matches using regular expressions
+
+### Examples
+
+```bash
+# Exclude directories named "test" or "docs" (exact match)
+osv-scanner scan source -r --experimental-exclude=test --experimental-exclude=docs /path/to/your/dir
+
+# Exclude using glob patterns
+osv-scanner scan source -r --experimental-exclude="g:**/test/**" --experimental-exclude="g:**/docs/**" /path/to/your/dir
+
+# Exclude using regex patterns
+osv-scanner scan source -r --experimental-exclude="r:.*_test$" /path/to/your/dir
+
+# Mix different pattern types
+osv-scanner scan source -r --experimental-exclude=vendor --experimental-exclude="g:**/test/**" --experimental-exclude="r:\\.cache" /path/to/your/dir
+
+# Escape directory names containing colons using : prefix
+osv-scanner scan source -r --experimental-exclude=":my:project" /path/to/your/dir
+```
+
+### Common use cases
+
+- Excluding test directories: `--experimental-exclude=test` or `--experimental-exclude="g:**/test/**"`
+- Excluding documentation: `--experimental-exclude=docs`
+- Excluding vendor directories: `--experimental-exclude=vendor`
+
+Alternatively, you can use the `osv-scanner.toml` configuration file with `[[PackageOverrides]]` to ignore specific packages or directories. See [Configuration](./configuration.md) for more details.
+
 ## SBOM scanning
 
 SBOMs will be automatically identified so long as their name follows the specification for the particular format:

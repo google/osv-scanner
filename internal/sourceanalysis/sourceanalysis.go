@@ -16,7 +16,7 @@ func vulnsFromAllPkgs(pkgs []models.PackageVulns) ([]*osvschema.Vulnerability, m
 		}
 	}
 
-	vulns := []*osvschema.Vulnerability{}
+	vulns := make([]*osvschema.Vulnerability, 0, len(flatVulns))
 	for _, v := range flatVulns {
 		vulns = append(vulns, v)
 	}
