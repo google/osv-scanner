@@ -31,6 +31,7 @@ jobs:
       - run: ./scripts/run_tests.sh || true
         env:
           TEST_ACCEPTANCE: true
+          TEST_VCR_MODE: replaywithnewepisodes
           UPDATE_SNAPS: always
       - uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8.0.0
         with:
