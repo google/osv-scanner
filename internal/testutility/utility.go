@@ -3,7 +3,9 @@ package testutility
 import (
 	"flag"
 	"fmt"
+	"math/rand"
 	"os"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"testing"
@@ -105,14 +107,23 @@ func ValueIfOnWindows(win, or string) string {
 	return or
 }
 
+func fixedLengthTempDir(parent string) (string, error) {
+	n := rand.Int63n(1_000_000_000_000) //nolint:gosec // 10^12
+	suffix := fmt.Sprintf("%0*d", 12, n)
+
+	name := "osv-scanner-test-" + suffix
+	path := filepath.Join(parent, name)
+
+	return path, os.Mkdir(path, 0o700)
+}
+
 // CreateTestDir makes a temporary directory for use in testing that involves
 // writing and reading files from disk, which is automatically cleaned up
 // when testing finishes
 func CreateTestDir(t *testing.T) string {
 	t.Helper()
 
-	//nolint:usetesting // we need to customize the directory name to replace in snapshots
-	p, err := os.MkdirTemp("", "osv-scanner-test-*")
+	p, err := fixedLengthTempDir(os.TempDir())
 	if err != nil {
 		t.Fatalf("could not create test directory: %v", err)
 	}
