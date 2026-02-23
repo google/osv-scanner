@@ -72,6 +72,20 @@ func isPomXMLExtractorEnabled(plugins []plugin.Plugin) bool {
 }
 
 func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
+	cfg := &cpb.PluginConfig{
+		UserAgent: actions.RequestUserAgent,
+		PluginSpecific: []*cpb.PluginSpecificConfig{
+			{
+				Config: &cpb.PluginSpecificConfig_PomXmlNet{
+					PomXmlNet: &cpb.POMXMLNetConfig{
+						UpstreamRegistry:    actions.TransitiveScanning.MavenRegistry,
+						DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
+					},
+				},
+			},
+		},
+	}
+
 	if !actions.PluginsNoDefaults {
 		actions.PluginsEnabled = append(actions.PluginsEnabled, defaultPlugins...)
 	}
@@ -84,14 +98,12 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 		actions.PluginsDisabled = append(actions.PluginsDisabled, vendored.Name)
 	}
 
-	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled)
+	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg)
 
 	if !actions.TransitiveScanning.Disabled {
 		// TODO: Use Enricher.RequiredPlugins to check this generically
 		if isRequirementsExtractorEnabled(plugins) {
-			p, err := transitivedependencyrequirements.New(&cpb.PluginConfig{
-				UserAgent: actions.RequestUserAgent,
-			})
+			p, err := transitivedependencyrequirements.New(cfg)
 			if err != nil {
 				log.Errorf("Failed to make transitivedependencyrequirements enricher: %v", err)
 			} else {
@@ -101,19 +113,7 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 
 		// TODO: Use Enricher.RequiredPlugins to check this generically
 		if isPomXMLExtractorEnabled(plugins) {
-			p, err := transitivedependencypomxml.New(&cpb.PluginConfig{
-				UserAgent: actions.RequestUserAgent,
-				PluginSpecific: []*cpb.PluginSpecificConfig{
-					{
-						Config: &cpb.PluginSpecificConfig_PomXmlNet{
-							PomXmlNet: &cpb.POMXMLNetConfig{
-								UpstreamRegistry:    actions.TransitiveScanning.MavenRegistry,
-								DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
-							},
-						},
-					},
-				},
-			})
+			p, err := transitivedependencypomxml.New(cfg)
 			if err != nil {
 				log.Errorf("Failed to make transitivedependencypomxml enricher: %v", err)
 			} else {
@@ -216,7 +216,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inven
 
 	// --- SBOMs (Deprecated) ---
 	// none of the SBOM extractors need configuring
-	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{})
+	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{}, &cpb.PluginConfig{})
 
 SBOMLoop:
 	for _, sbomPath := range actions.SBOMPaths {

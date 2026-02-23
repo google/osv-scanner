@@ -14,8 +14,8 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
 )
 
-func resolveFromName(name string) (plugin.Plugin, error) {
-	plug, err := list.FromName(name, nil)
+func resolveFromName(name string, cfg *cpb.PluginConfig) (plugin.Plugin, error) {
+	plug, err := list.FromName(name, cfg)
 
 	if err == nil {
 		return plug, nil
@@ -24,20 +24,20 @@ func resolveFromName(name string) (plugin.Plugin, error) {
 	switch name {
 	// Javascript
 	case nodemodules.Name:
-		return nodemodules.New(&cpb.PluginConfig{})
+		return nodemodules.New(cfg)
 	// Directories
 	case vendored.Name:
-		return vendored.New(&cpb.PluginConfig{})
+		return vendored.New(cfg)
 	case gitrepo.Name:
-		return gitrepo.New(&cpb.PluginConfig{})
+		return gitrepo.New(cfg)
 	case osvscannerjson.Name:
-		return osvscannerjson.New(&cpb.PluginConfig{})
+		return osvscannerjson.New(cfg)
 	default:
 		return nil, fmt.Errorf("not an exact name for a plugin: %q", name)
 	}
 }
 
-func Resolve(enabledPlugins []string, disabledPlugins []string) []plugin.Plugin {
+func Resolve(enabledPlugins []string, disabledPlugins []string, cfg *cpb.PluginConfig) []plugin.Plugin {
 	plugins := make(map[string]bool)
 
 	for i, exts := range [][]string{enabledPlugins, disabledPlugins} {
@@ -83,7 +83,7 @@ func Resolve(enabledPlugins []string, disabledPlugins []string) []plugin.Plugin 
 
 	for name, value := range plugins {
 		if name != "" && value {
-			plug, err := resolveFromName(name)
+			plug, err := resolveFromName(name, cfg)
 
 			if err != nil {
 				cmdlogger.Errorf("%s", err)
