@@ -1881,7 +1881,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 Loaded GIT local db from <tempdir>/osv-scanner/GIT/all.zip
 Skipping commit scanning for: 45fda76bc1b9fd74d10e85e0ce9b65a12dcc58b0
-Total 8 packages affected by 27 known vulnerabilities (5 Critical, 6 High, 10 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
+Total 8 packages affected by 29 known vulnerabilities (5 Critical, 7 High, 11 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 
@@ -1897,8 +1897,10 @@ Total 8 packages affected by 27 known vulnerabilities (5 Critical, 6 High, 10 Me
 | https://osv.dev/CVE-2024-51757 | 9.3  | GIT       |  https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-61927 | 7.2  | GIT       |  https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-62410 | 9.4  | GIT       |  https://github.com/capricorn86/happy-dom.git@f8221103  | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2016-2183  | 7.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-11187 | 6.1  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-15467 | 9.8  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2025-15468 | 5.9  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-15469 | 5.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-4575  | 6.5  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-66199 | 5.9  | GIT       |       https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
@@ -5307,8 +5309,8 @@ Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Med
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Loaded PyPI local db from <tempdir>/osv-scanner/PyPI/all.zip
-Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-11 vulnerabilities can be fixed.
+Total 3 packages affected by 12 known vulnerabilities (1 Critical, 4 High, 6 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+12 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
@@ -5322,6 +5324,7 @@ Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Med
 | https://osv.dev/GHSA-frmv-pr5f-9mcr | 9.1  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-qw25-v68c-qjf3 | 7.5  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask    | 1.0.0   | 3.1.3         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq | 8.7  | PyPI      | flask    | 1.0.0   | 2.2.5         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                              |
@@ -5607,8 +5610,8 @@ No package sources found, --help for usage information.
 [TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1]
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
-Total 5 packages affected by 21 known vulnerabilities (1 Critical, 9 High, 10 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
-21 vulnerabilities can be fixed.
+Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
+22 vulnerabilities can be fixed.
 
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
@@ -5624,6 +5627,7 @@ Total 5 packages affected by 21 known vulnerabilities (1 Critical, 9 High, 10 Me
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0     | 2.2.5         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask    | 1.0     | 3.1.3         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                              |
 | https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt |
