@@ -1764,33 +1764,36 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 		{
 			Name: "shallow",
 			Args: []string{
-				"", "source", "--experimental-update-config-ignores",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores",
 			},
 		},
 		{
 			Name: "shallow_with_removed_config",
 			Args: []string{
-				"", "source", "--experimental-update-config-ignores",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores",
 			},
 			Remove: []string{"osv-scanner-test.toml"},
 		},
 		{
 			Name: "deep",
 			Args: []string{
-				"", "source", "--experimental-update-config-ignores", "-r",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"-r",
 			},
 		},
 		{
 			Name: "deep_with_removed_config",
 			Args: []string{
-				"", "source", "--experimental-update-config-ignores", "-r",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"-r",
 			},
 			Remove: []string{"nested-1/osv-scanner-test.toml"},
 		},
 		{
 			Name: "deep_with_no_configs",
 			Args: []string{
-				"", "source", "--experimental-update-config-ignores", "-r",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"-r",
 			},
 			Remove: []string{
 				"osv-scanner-test.toml",
@@ -1801,13 +1804,15 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 		{
 			Name: "global_config_shallow",
 			Args: []string{
-				"", "source", "--experimental-update-config-ignores", "--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
 			},
 		},
 		{
 			Name: "global_config_deep",
 			Args: []string{
-				"", "source", "--experimental-update-config-ignores", "-r", "--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"-r", "--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
 			},
 		},
 	}

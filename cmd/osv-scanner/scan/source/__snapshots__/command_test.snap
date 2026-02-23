@@ -5688,21 +5688,54 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 Filtered 3 vulnerabilities from output
 <tempdir>/nested-2/osv-scanner-test.toml has unused ignores:
  - GHSA-2g4f-4pwh-qvx6
+
 Total 6 packages affected by 7 known vulnerabilities (0 Critical, 2 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 7 vulnerabilities can be fixed.
 
+RubyGems
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock               |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json          |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/nested-1/package-lock.json: found 2 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '6.14.0';
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ajv@8.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '8.18.0';
+
+  3 known vulnerabilities found in lockfile:<tempdir>/nested-1/package-lock.json
+
+lockfile:<tempdir>/nested-2/package-lock.json: found 2 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  2 known vulnerabilities found in lockfile:<tempdir>/nested-2/package-lock.json
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
 
 ---
 
@@ -5784,24 +5817,62 @@ Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
+
 Total 8 packages affected by 10 known vulnerabilities (0 Critical, 3 High, 7 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 10 vulnerabilities can be fixed.
 
+RubyGems
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock               |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json          |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/nested-1/package-lock.json: found 3 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '6.14.0';
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ajv@8.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '8.18.0';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  4 known vulnerabilities found in lockfile:<tempdir>/nested-1/package-lock.json
+
+lockfile:<tempdir>/nested-2/package-lock.json: found 3 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '6.14.0';
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ajv@8.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '8.18.0';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  4 known vulnerabilities found in lockfile:<tempdir>/nested-2/package-lock.json
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
 
 ---
 
@@ -5833,24 +5904,62 @@ Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
+
 Total 8 packages affected by 10 known vulnerabilities (0 Critical, 3 High, 7 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 10 vulnerabilities can be fixed.
 
+RubyGems
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock               |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json          |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/nested-1/package-lock.json: found 3 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '6.14.0';
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ajv@8.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '8.18.0';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  4 known vulnerabilities found in lockfile:<tempdir>/nested-1/package-lock.json
+
+lockfile:<tempdir>/nested-2/package-lock.json: found 3 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '6.14.0';
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ajv@8.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '8.18.0';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  4 known vulnerabilities found in lockfile:<tempdir>/nested-2/package-lock.json
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
 
 ---
 
@@ -5873,22 +5982,57 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 Filtered 2 vulnerabilities from output
 <tempdir>/nested-2/osv-scanner-test.toml has unused ignores:
  - GHSA-2g4f-4pwh-qvx6
+
 Total 7 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
 
+RubyGems
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock               |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json          |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/nested-1/package-lock.json: found 3 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '6.14.0';
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ajv@8.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '8.18.0';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  4 known vulnerabilities found in lockfile:<tempdir>/nested-1/package-lock.json
+
+lockfile:<tempdir>/nested-2/package-lock.json: found 2 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  2 known vulnerabilities found in lockfile:<tempdir>/nested-2/package-lock.json
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
 
 ---
 
@@ -5942,18 +6086,28 @@ GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 Filtered 6 vulnerabilities from output
+
 Total 3 packages affected by 4 known vulnerabilities (0 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 4 vulnerabilities can be fixed.
 
+npm
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-1/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
+lockfile:<tempdir>/nested-1/package-lock.json: found 3 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '6.14.0';
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ajv@8.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '8.18.0';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  4 known vulnerabilities found in lockfile:<tempdir>/nested-1/package-lock.json
+
 
 ---
 
@@ -5968,24 +6122,62 @@ Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
+
 Total 8 packages affected by 10 known vulnerabilities (0 Critical, 3 High, 7 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 10 vulnerabilities can be fixed.
 
+RubyGems
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock               |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-2/package-lock.json |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json          |
-+-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/nested-1/package-lock.json: found 3 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '6.14.0';
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ajv@8.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '8.18.0';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  4 known vulnerabilities found in lockfile:<tempdir>/nested-1/package-lock.json
+
+lockfile:<tempdir>/nested-2/package-lock.json: found 3 packages with issues
+
+  ajv@6.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '6.14.0';
+    GHSA-v88g-cgmw-v5xw: Prototype Pollution in Ajv
+      Severity: '5.6'; Minimal Fix Version: '6.12.3';
+  ajv@8.0.0 has the following known vulnerabilities:
+    GHSA-2g4f-4pwh-qvx6: ajv has ReDoS when using `$data` option
+      Severity: '5.5'; Minimal Fix Version: '8.18.0';
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  4 known vulnerabilities found in lockfile:<tempdir>/nested-2/package-lock.json
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
 
 ---
 
@@ -6061,16 +6253,30 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
+
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
 
+RubyGems
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock      |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
 
 ---
 
@@ -6131,16 +6337,30 @@ Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
 
+RubyGems
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock      |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
 
 ---
 
@@ -6200,16 +6420,30 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
+
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
 
+RubyGems
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock      |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
 
 ---
 
@@ -6247,16 +6481,30 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
+
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
 
+RubyGems
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock      |
-| https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
+lockfile:<tempdir>/Gemfile.lock: found 1 package with issues
+
+  nokogiri@1.18.9 has the following known vulnerabilities:
+    GHSA-wx95-c6cv-8532: Nokogiri does not check the return value from xmlC14NExecute
+      Severity: '5.3'; Minimal Fix Version: '1.19.1';
+
+  1 known vulnerability found in lockfile:<tempdir>/Gemfile.lock
+
+npm
+
+lockfile:<tempdir>/package-lock.json: found 1 package with issues
+
+  ansi-html@0.0.1 has the following known vulnerabilities:
+    GHSA-whgm-jr23-g3j9: Uncontrolled Resource Consumption in ansi-html
+      Severity: '7.5'; Minimal Fix Version: '0.0.8';
+
+  1 known vulnerability found in lockfile:<tempdir>/package-lock.json
+
 
 ---
 
