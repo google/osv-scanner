@@ -1751,6 +1751,8 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 func TestCommand_UpdateConfigIgnores(t *testing.T) {
 	t.Parallel()
 
+	client := testcmd.InsertCassette(t)
+
 	type withFilesToRemove struct {
 		Name string
 		Args []string
@@ -1833,6 +1835,8 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 				Name: tt.Name,
 				Args: tt.Args,
 				Exit: 1,
+
+				HTTPClient: testcmd.WithTestNameHeader(t, *client),
 			}
 
 			tc.Args = append(tc.Args, testDir)

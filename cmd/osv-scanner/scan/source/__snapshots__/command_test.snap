@@ -5692,17 +5692,17 @@ Total 6 packages affected by 7 known vulnerabilities (0 Critical, 2 High, 5 Medi
 7 vulnerabilities can be fixed.
 
 
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                              |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
++-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
++-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
 | https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock               |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
+| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-2/package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-2/package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/package-lock.json          |
-+-------------------------------------+------+-----------+-----------+---------+---------------+-----------------------------------------------------+
++-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
 
 ---
 
@@ -5792,11 +5792,11 @@ Total 8 packages affected by 10 known vulnerabilities (0 Critical, 3 High, 7 Med
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
 +-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
 | https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock               |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
+| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 8.18.0        | <tempdir>/nested-2/package-lock.json |
+| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-2/package-lock.json |
 | https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-2/package-lock.json |
 | https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-2/package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-2/package-lock.json |
@@ -5841,11 +5841,11 @@ Total 8 packages affected by 10 known vulnerabilities (0 Critical, 3 High, 7 Med
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
 +-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
 | https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock               |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
+| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 8.18.0        | <tempdir>/nested-2/package-lock.json |
+| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-2/package-lock.json |
 | https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-2/package-lock.json |
 | https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-2/package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-2/package-lock.json |
@@ -5881,7 +5881,7 @@ Total 7 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 5 Medi
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
 +-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
 | https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock               |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
+| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-1/package-lock.json |
@@ -5949,7 +5949,7 @@ Total 3 packages affected by 4 known vulnerabilities (0 Critical, 1 High, 3 Medi
 +-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
 +-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
+| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-1/package-lock.json |
@@ -5976,11 +5976,11 @@ Total 8 packages affected by 10 known vulnerabilities (0 Critical, 3 High, 7 Med
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                                       |
 +-------------------------------------+------+-----------+-----------+---------+---------------+--------------------------------------------------------------+
 | https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri  | 1.18.9  | 1.19.1        | <tempdir>/Gemfile.lock               |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
+| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-1/package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-1/package-lock.json |
-| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 8.18.0        | <tempdir>/nested-2/package-lock.json |
+| https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 6.0.0   | 6.14.0        | <tempdir>/nested-2/package-lock.json |
 | https://osv.dev/GHSA-v88g-cgmw-v5xw | 5.6  | npm       | ajv       | 6.0.0   | 6.12.3        | <tempdir>/nested-2/package-lock.json |
 | https://osv.dev/GHSA-2g4f-4pwh-qvx6 | 5.5  | npm       | ajv       | 8.0.0   | 8.18.0        | <tempdir>/nested-2/package-lock.json |
 | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | npm       | ansi-html | 0.0.1   | 0.0.8         | <tempdir>/nested-2/package-lock.json |
