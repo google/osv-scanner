@@ -19,9 +19,11 @@ import (
 	"github.com/charmbracelet/lipgloss"
 	"osv.dev/bindings/go/osvdev"
 
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
-	scalibrOsvdev "github.com/google/osv-scalibr/enricher/vulnmatch/osvdev"
+	scalibrosvdev "github.com/google/osv-scalibr/enricher/vulnmatch/osvdev"
+	"github.com/google/osv-scalibr/enricher/vulnmatch/osvlocal"
 	"github.com/google/osv-scalibr/guidedremediation"
 	"github.com/google/osv-scalibr/guidedremediation/options"
 	"github.com/google/osv-scalibr/guidedremediation/strategy"
@@ -42,7 +44,7 @@ const (
 	autoModeCategory = "non-interactive options:" // intentionally lowercase to force it to sort after the other categories
 )
 
-func Command(stdout, stderr io.Writer, _ *http.Client) *cli.Command {
+func Command(stdout, _ io.Writer, _ *http.Client) *cli.Command {
 	return &cli.Command{
 		Name:        "fix",
 		Usage:       "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
@@ -205,12 +207,12 @@ func Command(stdout, stderr io.Writer, _ *http.Client) *cli.Command {
 			},
 		},
 		Action: func(ctx context.Context, cmd *cli.Command) error {
-			return action(ctx, cmd, stdout, stderr)
+			return action(ctx, cmd, stdout)
 		},
 	}
 }
 
-func action(ctx context.Context, cmd *cli.Command, stdout, stderr io.Writer) error {
+func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
 	if !cmd.IsSet("manifest") && !cmd.IsSet("lockfile") {
 		return errors.New("manifest or lockfile is required")
 	}
@@ -275,32 +277,26 @@ func action(ctx context.Context, cmd *cli.Command, stdout, stderr io.Writer) err
 		opts.ResolveClient = cl
 	}
 
-	
 	if cmd.Bool("offline-vulnerabilities") {
-		return errors.New("not implemented")
-		// matcher, err := localmatcher.NewLocalMatcher(
-		// 	cmd.String("local-db-path"),
-		// 	userAgent,
-		// 	cmd.Bool("download-offline-databases"),
-		// )
-		// if err != nil {
-		// 	return err
-		// }
-
-		// eco, ok := util.OSVEcosystem[system]
-		// if !ok {
-		// 	// Something's very wrong if we hit this
-		// 	panic("unhandled resolve.Ecosystem: " + system.String())
-		// }
-		// if err := matcher.LoadEcosystem(ctx, osvecosystem.Parsed{Ecosystem: eco}); err != nil {
-		// 	return err
-		// }
-
-		// opts.Client.VulnerabilityMatcher = matcher
+		cfg := &cpb.PluginConfig{
+			UserAgent: userAgent,
+			PluginSpecific: []*cpb.PluginSpecificConfig{
+				{Config: &cpb.PluginSpecificConfig_Osvlocal{Osvlocal: &cpb.OSVLocalConfig{
+					Download:   cmd.Bool("download-offline-databases"),
+					LocalPath:  cmd.String("local-db-path"),
+					RemoteHost: "https://osv-vulnerabilities.storage.googleapis.com",
+				}}},
+			},
+		}
+		enricher, err := osvlocal.New(cfg)
+		if err != nil {
+			return err
+		}
+		opts.VulnEnricher = enricher
 	} else {
 		osvdevCl := osvdev.DefaultClient()
 		osvdevCl.Config.UserAgent = userAgent
-		opts.VulnEnricher = scalibrOsvdev.NewWithClient(osvdevCl, 5*time.Minute)
+		opts.VulnEnricher = scalibrosvdev.NewWithClient(osvdevCl, 5*time.Minute)
 	}
 
 	if cmd.Bool("interactive") {
@@ -313,6 +309,7 @@ func action(ctx context.Context, cmd *cli.Command, stdout, stderr io.Writer) err
 	}
 
 	outputJSON := cmd.String("format") == "json"
+
 	return printResult(res, outputJSON, stdout)
 }
 
@@ -335,5 +332,6 @@ func (GlamourRenderer) Render(details string, width int) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
 	return r.Render(details)
 }
