@@ -1,4 +1,17 @@
 
+[TestResolve_Annotators_Presets/artifact - 1]
+baseimage
+go/binary
+java/archive
+javascript/nodemodules
+os/apk
+os/dpkg
+python/wheelegg
+rust/cargoauditable
+vex/os-duplicate/apk
+vex/os-duplicate/dpkg
+---
+
 [TestResolve_Detectors_Presets/cis - 1]
 cis/generic-linux/etcpasswdpermissions
 ---
@@ -21,6 +34,33 @@ weakcredentials/codeserver
 weakcredentials/etcshadow
 weakcredentials/filebrowser
 weakcredentials/winlocal
+---
+
+[TestResolve_Enrichers_Presets/artifact - 1]
+baseimage
+go/binary
+java/archive
+javascript/nodemodules
+os/apk
+os/dpkg
+python/wheelegg
+rust/cargoauditable
+vex/os-duplicate/apk
+vex/os-duplicate/dpkg
+---
+
+[TestResolve_Enrichers_Presets/licenses - 1]
+license/depsdev
+---
+
+[TestResolve_Enrichers_Presets/transitive - 1]
+transitivedependency/pomxml
+transitivedependency/requirements
+---
+
+[TestResolve_Enrichers_Presets/vulns - 1]
+vulnmatch/osvdev
+vulnmatch/osvlocal
 ---
 
 [TestResolve_Extractors_Presets/artifact - 1]

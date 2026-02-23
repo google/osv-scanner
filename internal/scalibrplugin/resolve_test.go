@@ -576,3 +576,45 @@ func TestResolve_Extractors_Presets(t *testing.T) {
 		})
 	}
 }
+
+func TestResolve_Enrichers_Presets(t *testing.T) {
+	t.Parallel()
+
+	for _, preset := range []string{"artifact", "vulns", "licenses", "transitive"} {
+		t.Run(preset, func(t *testing.T) {
+			t.Parallel()
+
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{})
+
+			gotNames := make([]string, 0, len(got))
+			for _, detector := range got {
+				gotNames = append(gotNames, detector.Name())
+			}
+
+			slices.Sort(gotNames)
+
+			testutility.NewSnapshot().MatchText(t, strings.Join(gotNames, "\n"))
+		})
+	}
+}
+
+func TestResolve_Annotators_Presets(t *testing.T) {
+	t.Parallel()
+
+	for _, preset := range []string{"artifact"} {
+		t.Run(preset, func(t *testing.T) {
+			t.Parallel()
+
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{})
+
+			gotNames := make([]string, 0, len(got))
+			for _, detector := range got {
+				gotNames = append(gotNames, detector.Name())
+			}
+
+			slices.Sort(gotNames)
+
+			testutility.NewSnapshot().MatchText(t, strings.Join(gotNames, "\n"))
+		})
+	}
+}
