@@ -72,6 +72,8 @@ func isPomXMLExtractorEnabled(plugins []plugin.Plugin) bool {
 }
 
 func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
+	cfg := &cpb.PluginConfig{}
+
 	if !actions.PluginsNoDefaults {
 		actions.PluginsEnabled = append(actions.PluginsEnabled, defaultPlugins...)
 	}
@@ -84,7 +86,7 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 		actions.PluginsDisabled = append(actions.PluginsDisabled, vendored.Name)
 	}
 
-	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled)
+	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg)
 
 	if !actions.TransitiveScanning.Disabled {
 		// TODO: Use Enricher.RequiredPlugins to check this generically
@@ -216,7 +218,7 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inven
 
 	// --- SBOMs (Deprecated) ---
 	// none of the SBOM extractors need configuring
-	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{})
+	sbomExtractors := scalibrplugin.Resolve([]string{"sbom"}, []string{}, &cpb.PluginConfig{})
 
 SBOMLoop:
 	for _, sbomPath := range actions.SBOMPaths {

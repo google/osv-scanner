@@ -8,6 +8,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
 	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/detector/cis/generic_linux/etcpasswdpermissions"
 	"github.com/google/osv-scalibr/detector/govulncheck/binary"
 	"github.com/google/osv-scalibr/detector/weakcredentials/codeserver"
@@ -161,7 +162,7 @@ func TestResolve(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled)
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{})
 
 			slices.Sort(tt.want)
 
@@ -331,7 +332,7 @@ func TestResolve_Detectors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled)
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{})
 
 			slices.Sort(tt.want)
 
@@ -516,7 +517,7 @@ func TestResolve_Extractors(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled)
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{})
 
 			slices.Sort(tt.want)
 
@@ -541,7 +542,7 @@ func TestResolve_Detectors_Presets(t *testing.T) {
 		t.Run(preset, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve([]string{preset}, []string{})
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{})
 
 			gotNames := make([]string, 0, len(got))
 			for _, detector := range got {
@@ -562,7 +563,7 @@ func TestResolve_Extractors_Presets(t *testing.T) {
 		t.Run(preset, func(t *testing.T) {
 			t.Parallel()
 
-			got := scalibrplugin.Resolve([]string{preset}, []string{})
+			got := scalibrplugin.Resolve([]string{preset}, []string{}, &cpb.PluginConfig{})
 
 			gotNames := make([]string, 0, len(got))
 			for _, extractor := range got {
