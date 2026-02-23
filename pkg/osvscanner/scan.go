@@ -19,8 +19,6 @@ import (
 	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
-	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
@@ -47,28 +45,20 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 	}
 }
 
-func isRequirementsExtractorEnabled(plugins []plugin.Plugin) bool {
-	for _, plug := range plugins {
-		_, ok := plug.(*requirements.Extractor)
+func areRequiredPluginsEnabled(plugins []plugin.Plugin, enr enricher.Enricher) bool {
+	enabled := make(map[string]struct{}, len(plugins))
 
-		if ok {
-			return true
+	for _, plug := range plugins {
+		enabled[plug.Name()] = struct{}{}
+	}
+
+	for _, required := range enr.RequiredPlugins() {
+		if _, ok := enabled[required]; !ok {
+			return false
 		}
 	}
 
-	return false
-}
-
-func isPomXMLExtractorEnabled(plugins []plugin.Plugin) bool {
-	for _, plug := range plugins {
-		_, ok := plug.(*pomxml.Extractor)
-
-		if ok {
-			return true
-		}
-	}
-
-	return false
+	return true
 }
 
 func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
@@ -101,8 +91,7 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg)
 
 	if !actions.TransitiveScanning.Disabled {
-		// TODO: Use Enricher.RequiredPlugins to check this generically
-		if isRequirementsExtractorEnabled(plugins) {
+		if areRequiredPluginsEnabled(plugins, transitivedependencyrequirements.Enricher{}) {
 			p, err := transitivedependencyrequirements.New(cfg)
 			if err != nil {
 				log.Errorf("Failed to make transitivedependencyrequirements enricher: %v", err)
@@ -111,8 +100,7 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 			}
 		}
 
-		// TODO: Use Enricher.RequiredPlugins to check this generically
-		if isPomXMLExtractorEnabled(plugins) {
+		if areRequiredPluginsEnabled(plugins, transitivedependencypomxml.Enricher{}) {
 			p, err := transitivedependencypomxml.New(cfg)
 			if err != nil {
 				log.Errorf("Failed to make transitivedependencypomxml enricher: %v", err)
