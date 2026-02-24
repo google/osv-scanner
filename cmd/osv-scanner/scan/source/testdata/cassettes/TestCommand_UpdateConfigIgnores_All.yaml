@@ -72,7 +72,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/deep
+          - TestCommand_UpdateConfigIgnores_All/deep
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -236,7 +236,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/deep
+          - TestCommand_UpdateConfigIgnores_All/deep
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -400,7 +400,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/deep_with_no_configs
+          - TestCommand_UpdateConfigIgnores_All/deep_with_no_configs
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -564,7 +564,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/deep_with_no_configs
+          - TestCommand_UpdateConfigIgnores_All/deep_with_no_configs
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -728,7 +728,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/deep_with_removed_config
+          - TestCommand_UpdateConfigIgnores_All/deep_with_removed_config
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -892,7 +892,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/deep_with_removed_config
+          - TestCommand_UpdateConfigIgnores_All/deep_with_removed_config
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -1056,7 +1056,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/global_config_deep
+          - TestCommand_UpdateConfigIgnores_All/global_config_deep
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -1220,7 +1220,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/global_config_deep
+          - TestCommand_UpdateConfigIgnores_All/global_config_deep
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -1342,7 +1342,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/global_config_shallow
+          - TestCommand_UpdateConfigIgnores_All/global_config_shallow
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -1408,7 +1408,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/global_config_shallow
+          - TestCommand_UpdateConfigIgnores_All/global_config_shallow
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -1474,7 +1474,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/shallow
+          - TestCommand_UpdateConfigIgnores_All/shallow
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -1540,7 +1540,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/shallow
+          - TestCommand_UpdateConfigIgnores_All/shallow
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -1606,7 +1606,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/shallow_with_removed_config
+          - TestCommand_UpdateConfigIgnores_All/shallow_with_removed_config
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -1672,7 +1672,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores/shallow_with_removed_config
+          - TestCommand_UpdateConfigIgnores_All/shallow_with_removed_config
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
