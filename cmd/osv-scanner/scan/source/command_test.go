@@ -1750,7 +1750,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 	}
 }
 
-func TestCommand_UpdateConfigIgnores(t *testing.T) {
+func TestCommand_UpdateConfigIgnores_All(t *testing.T) {
 	t.Parallel()
 
 	client := testcmd.InsertCassette(t)
@@ -1766,27 +1766,27 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 		{
 			Name: "shallow",
 			Args: []string{
-				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
 			},
 		},
 		{
 			Name: "shallow_with_removed_config",
 			Args: []string{
-				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
 			},
 			Remove: []string{"osv-scanner-test.toml"},
 		},
 		{
 			Name: "deep",
 			Args: []string{
-				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
 				"-r",
 			},
 		},
 		{
 			Name: "deep_with_removed_config",
 			Args: []string{
-				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
 				"-r",
 			},
 			Remove: []string{"nested-1/osv-scanner-test.toml"},
@@ -1794,7 +1794,7 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 		{
 			Name: "deep_with_no_configs",
 			Args: []string{
-				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
 				"-r",
 			},
 			Remove: []string{
@@ -1806,14 +1806,14 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 		{
 			Name: "global_config_shallow",
 			Args: []string{
-				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
 				"--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
 			},
 		},
 		{
 			Name: "global_config_deep",
 			Args: []string{
-				"", "source", "--format=vertical", "--experimental-update-config-ignores",
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
 				"-r", "--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
 			},
 		},
@@ -1872,8 +1872,8 @@ func TestCommand_UpdateConfigIgnores(t *testing.T) {
 			}
 
 			for i, arg := range tc.Args {
-				if arg == "--experimental-update-config-ignores" {
-					tc.Args[i] = "--experimental-update-config-ignores=false"
+				if arg == "--experimental-update-config-ignores=all" {
+					tc.Args[i] = "--experimental-update-config-ignores=none"
 				}
 			}
 

@@ -207,9 +207,19 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Name:  "experimental-no-default-plugins",
 			Usage: "disable default plugins, instead using only those enabled by --experimental-plugins",
 		},
-		&cli.BoolFlag{
+		&cli.StringFlag{
 			Name:  "experimental-update-config-ignores",
-			Usage: "update config file(s) to ignore all found vulnerabilities",
+			Usage: "update config file(s) to ignore vulnerabilities - must be one of: none, unused, or all",
+			Action: func(_ context.Context, _ *cli.Command, s string) error {
+				// todo: can we do something other than "none"?
+				//  - feels like that might mean "remove all ignores"
+				//  - ideally empty string would be nice, but might not work properly as a flag default?
+				if s == "none" || s == "unused" || s == "all" {
+					return nil
+				}
+
+				return fmt.Errorf("unsupported option \"%s\" - must be none, unused, or all", s)
+			},
 		},
 	}
 }
