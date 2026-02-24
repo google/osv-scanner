@@ -1,0 +1,9 @@
+GoVersionOverride = "1.20.0"
+
+# this is unused always
+[[IgnoredVulns]]
+id = "CVE-123-456-789"
+
+# this is unused unless --recursive is enabled
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"
