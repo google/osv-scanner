@@ -2,6 +2,8 @@ module github.com/google/osv-scanner/v2
 
 go 1.25.7
 
+replace github.com/google/osv-scalibr v0.4.4-0.20260222225712-389e544033d1 => github.com/ackama/osv-scalibr v0.0.0-20260222225712-389e544033d1
+
 require (
 	deps.dev/api/v3 v3.0.0-20260112033243-1270359b191b
 	deps.dev/api/v3alpha v0.0.0-20260112033243-1270359b191b
