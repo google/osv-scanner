@@ -56,6 +56,6 @@ func GetExperimentalScannerActions(cmd *cli.Command, client *http.Client) osvsca
 		PluginsNoDefaults:      cmd.Bool("experimental-no-default-plugins"),
 		HTTPClient:             client,
 		FlagDeprecatedPackages: cmd.Bool("experimental-flag-deprecated-packages"),
-		UpdateConfigIgnores:    cmd.Bool("experimental-update-config-ignores"),
+		UpdateConfigIgnores:    cmd.String("experimental-update-config-ignores"),
 	}
 }
