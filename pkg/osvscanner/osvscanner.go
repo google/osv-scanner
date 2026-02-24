@@ -433,6 +433,14 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		)
 	}
 
+	if actions.UpdateConfigIgnores == "unused" {
+		err := updateConfigsToRemoveUnusedIgnores(&scanResult.ConfigManager)
+
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
+	}
+
 	if unusedIgnoredEntries := scanResult.ConfigManager.GetUnusedIgnoreEntries(); len(unusedIgnoredEntries) != 0 {
 		configFiles := slices.Collect(maps.Keys(unusedIgnoredEntries))
 		slices.Sort(configFiles)
@@ -474,6 +482,33 @@ func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *conf
 		c := configPaths[p]
 
 		err := c.UpdateFile(vulns)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
+}
+
+func updateConfigsToRemoveUnusedIgnores(configManager *config.Manager) error {
+	if configManager.OverrideConfig != nil {
+		configManager.OverrideConfig.RemoveUnusedIgnores()
+
+		err := configManager.OverrideConfig.Save()
+		if err != nil {
+			return err
+		}
+	}
+
+	for _, c := range configManager.ConfigMap {
+		// skip the default config
+		if c.LoadPath == "" {
+			continue
+		}
+
+		c.RemoveUnusedIgnores()
+
+		err := c.Save()
 		if err != nil {
 			return err
 		}

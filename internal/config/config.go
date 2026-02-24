@@ -109,6 +109,11 @@ func (c *Config) UpdateFile(vulns []*osvschema.Vulnerability) error {
 		return identifiers.IDSortFunc(a.ID, b.ID)
 	})
 
+	return c.Save()
+}
+
+// Save writes the configuration file to disk, overriding the existing content
+func (c *Config) Save() error {
 	f, err := os.OpenFile(c.LoadPath, os.O_TRUNC|os.O_WRONLY, os.ModePerm)
 
 	if err != nil {
@@ -131,6 +136,19 @@ func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
 	}
 
 	return unused
+}
+
+func (c *Config) RemoveUnusedIgnores() {
+	// todo: see if this is a more optimized way to do this?
+	ignoredVulns := make([]*IgnoreEntry, 0, len(c.IgnoredVulns))
+
+	for _, iv := range c.IgnoredVulns {
+		if iv.Used {
+			ignoredVulns = append(ignoredVulns, iv)
+		}
+	}
+
+	c.IgnoredVulns = ignoredVulns
 }
 
 func (c *Config) ShouldIgnore(vulnID string) (bool, *IgnoreEntry) {
