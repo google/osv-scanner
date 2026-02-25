@@ -19,7 +19,7 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/goccy/go-yaml v1.19.2
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.4.4-0.20260222225712-389e544033d1
+	github.com/google/osv-scalibr v0.4.5-0.20260225182154-1096bd50c2a4
 	github.com/ianlancetaylor/demangle v0.0.0-20251118225945-96ee0021ea0f
 	github.com/jedib0t/go-pretty/v6 v6.7.8
 	github.com/modelcontextprotocol/go-sdk v1.2.0
@@ -58,6 +58,7 @@ require (
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/Microsoft/hcsshim v0.13.0 // indirect
 	github.com/ProtonMail/go-crypto v1.3.0 // indirect
+	github.com/aead/serpent v0.0.0-20160714141033-fba169763ea6 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/alecthomas/chroma/v2 v2.19.0 // indirect
 	github.com/anchore/go-lzo v0.1.0 // indirect
@@ -172,7 +173,6 @@ require (
 	github.com/shirou/gopsutil v3.21.11+incompatible // indirect
 	github.com/sirupsen/logrus v1.9.4-0.20230606125235-dd1b4c2e81af // indirect
 	github.com/skeema/knownhosts v1.3.1 // indirect
-	github.com/smacker/go-tree-sitter v0.0.0-20240827094217-dd81d9e9be82 // indirect
 	github.com/spdx/gordf v0.0.0-20250128162952-000978ccd6fb // indirect
 	github.com/spdx/tools-golang v0.5.5 // indirect
 	github.com/thoas/go-funk v0.9.3 // indirect
