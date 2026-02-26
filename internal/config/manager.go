@@ -22,20 +22,20 @@ type Manager struct {
 
 // UseOverride updates the Manager to use the config at the given path in place
 // of any other config files that would be loaded when calling Get
-func (c *Manager) UseOverride(configPath string) error {
+func (m *Manager) UseOverride(configPath string) error {
 	config, configErr := tryLoadConfig(configPath)
 	if configErr != nil {
 		return configErr
 	}
-	c.OverrideConfig = &config
+	m.OverrideConfig = &config
 
 	return nil
 }
 
 // Get returns the appropriate config to use based on the targetPath
-func (c *Manager) Get(targetPath string) Config {
-	if c.OverrideConfig != nil {
-		return *c.OverrideConfig
+func (m *Manager) Get(targetPath string) Config {
+	if m.OverrideConfig != nil {
+		return *m.OverrideConfig
 	}
 
 	configPath, err := normalizeConfigLoadPath(targetPath)
@@ -46,7 +46,7 @@ func (c *Manager) Get(targetPath string) Config {
 		return Config{}
 	}
 
-	config, alreadyExists := c.ConfigMap[configPath]
+	config, alreadyExists := m.ConfigMap[configPath]
 	if alreadyExists {
 		return config
 	}
@@ -60,33 +60,33 @@ func (c *Manager) Get(targetPath string) Config {
 			cmdlogger.Errorf("Ignored invalid config file at %s because: %v", configPath, configErr)
 		}
 		// If config doesn't exist, use the default config
-		config = c.DefaultConfig
+		config = m.DefaultConfig
 	}
-	c.ConfigMap[configPath] = config
+	m.ConfigMap[configPath] = config
 
 	return config
 }
 
-func (c *Manager) GetUnusedIgnoreEntries() map[string][]*IgnoreEntry {
-	m := make(map[string][]*IgnoreEntry)
+func (m *Manager) GetUnusedIgnoreEntries() map[string][]*IgnoreEntry {
+	entries := make(map[string][]*IgnoreEntry)
 
-	for _, config := range c.ConfigMap {
+	for _, config := range m.ConfigMap {
 		unusedEntries := config.UnusedIgnoredVulns()
 
 		if len(unusedEntries) > 0 {
-			m[config.LoadPath] = unusedEntries
+			entries[config.LoadPath] = unusedEntries
 		}
 	}
 
-	if c.OverrideConfig != nil {
-		unusedEntries := c.OverrideConfig.UnusedIgnoredVulns()
+	if m.OverrideConfig != nil {
+		unusedEntries := m.OverrideConfig.UnusedIgnoredVulns()
 
 		if len(unusedEntries) > 0 {
-			m[c.OverrideConfig.LoadPath] = unusedEntries
+			entries[m.OverrideConfig.LoadPath] = unusedEntries
 		}
 	}
 
-	return m
+	return entries
 }
 
 // Finds the containing folder of `target`, then appends osvScannerConfigName
@@ -111,9 +111,9 @@ func normalizeConfigLoadPath(target string) (string, error) {
 // returning the Config object if successful or otherwise the error
 func tryLoadConfig(configPath string) (Config, error) {
 	config := Config{}
-	m, err := toml.DecodeFile(configPath, &config)
+	c, err := toml.DecodeFile(configPath, &config)
 	if err == nil {
-		unknownKeys := m.Undecoded()
+		unknownKeys := c.Undecoded()
 
 		if len(unknownKeys) > 0 {
 			keys := make([]string, 0, len(unknownKeys))
