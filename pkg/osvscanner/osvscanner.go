@@ -416,7 +416,12 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
+	// todo: consider moving this after filtering
+	//  - p: should allow deduplicating some logic
+	//  - p: might be a better UX to present the vulns we're ignoring
+	//  - c: filtering removes vulns from results, so need to account for that
 	if actions.UpdateConfigIgnores == "all" {
+		// todo: add output about having ignored vulns
 		err := updateConfigs(&vulnerabilityResults, &scanResult.ConfigManager)
 
 		if err != nil {
@@ -434,6 +439,7 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 	}
 
 	if actions.UpdateConfigIgnores == "unused" {
+		// todo: add output about having ignored vulns
 		err := updateConfigsToRemoveUnusedIgnores(&scanResult.ConfigManager)
 
 		if err != nil {
