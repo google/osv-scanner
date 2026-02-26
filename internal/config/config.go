@@ -20,18 +20,6 @@ type Config struct {
 	LoadPath string `toml:"-"`
 }
 
-func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
-	unused := make([]*IgnoreEntry, 0, len(c.IgnoredVulns))
-
-	for _, entry := range c.IgnoredVulns {
-		if !entry.Used {
-			unused = append(unused, entry)
-		}
-	}
-
-	return unused
-}
-
 type IgnoreEntry struct {
 	ID          string    `toml:"id"`
 	IgnoreUntil time.Time `toml:"ignoreUntil"`
@@ -84,6 +72,18 @@ type Vulnerability struct {
 type License struct {
 	Override []string `toml:"override"`
 	Ignore   bool     `toml:"ignore"`
+}
+
+func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
+	unused := make([]*IgnoreEntry, 0, len(c.IgnoredVulns))
+
+	for _, entry := range c.IgnoredVulns {
+		if !entry.Used {
+			unused = append(unused, entry)
+		}
+	}
+
+	return unused
 }
 
 func (c *Config) ShouldIgnore(vulnID string) (bool, *IgnoreEntry) {
