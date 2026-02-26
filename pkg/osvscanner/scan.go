@@ -246,6 +246,7 @@ SBOMLoop:
 			Stats:                 &statsCollector,
 			ReadSymlinks:          false,
 			MaxInodes:             0,
+			StoreAbsolutePath:     true,
 			PrintDurationAnalysis: false,
 			ErrorOnFSErrors:       false,
 			ExplicitPlugins:       true,
@@ -291,14 +292,6 @@ SBOMLoop:
 				if criticalError {
 					return nil, errors.New("extraction failed on specified lockfile")
 				}
-			}
-		}
-
-		// todo: ideally we'd have scalibr make package locations absolute this via StoreAbsolutePath,
-		//  but currently that can break plugins that don't support absolute paths, like the pomxml enricher
-		for _, pkg := range sr.Inventory.Packages {
-			for i, loc := range pkg.Locations {
-				pkg.Locations[i] = filepath.Join(root, loc)
 			}
 		}
 
