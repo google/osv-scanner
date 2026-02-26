@@ -1847,6 +1847,7 @@ func TestCommand_UpdateConfigIgnores_All(t *testing.T) {
 				"custom-config.toml",
 				"nested-1/osv-scanner-test.toml",
 				"nested-2/osv-scanner-test.toml",
+				"nested-3/osv-scanner-test.toml",
 			} {
 				b, err := os.ReadFile(testDir + "/" + file)
 
@@ -1985,6 +1986,7 @@ func TestCommand_UpdateConfigIgnores_Unused(t *testing.T) {
 				"custom-config.toml",
 				"nested-1/osv-scanner-test.toml",
 				"nested-2/osv-scanner-test.toml",
+				"nested-3/osv-scanner-test.toml",
 			} {
 				b, err := os.ReadFile(testDir + "/" + file)
 
