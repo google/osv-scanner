@@ -75,15 +75,25 @@ func run(args []string, stdout, stderr io.Writer) int {
 				Required:  true,
 			},
 			&cli.StringSliceFlag{
-				Name: "output",
-				Usage: "used to save files to various formats (--output=[format]:[path],[format]:[path]...).\n" +
+				Name: "output-files",
+				Usage: "used to save files to various formats (--output-files=[format]:[path],[format]:[path]...).\n" +
 					"See available formats in osv-scanner (default output 'sarif').\n" +
 					"In output paths, there are two special options to output to terminal - '#stdout' and '#stderr'.",
 				TakesFile: true,
 			},
+			&cli.StringSliceFlag{
+				Name:      "output",
+				Usage:     "[DEPRECATED] (Use \"--output-files\" instead)",
+				TakesFile: true,
+				Action: func(_ context.Context, _ *cli.Command, _ []string) error {
+					cmdlogger.Warnf("Warning: --output has been deprecated in favor of --output-files")
+
+					return nil
+				},
+			},
 			&cli.BoolFlag{
 				Name:  "gh-annotations",
-				Usage: "[Deprecated] (Use `--output=gh-annotations:#stderr`) prints github action annotations",
+				Usage: "[DEPRECATED] (Use `--output-files=gh-annotations:#stderr`) prints github action annotations",
 			},
 			&cli.BoolFlag{
 				Name:        "fail-on-vuln",
@@ -148,7 +158,12 @@ func run(args []string, stdout, stderr io.Writer) int {
 			showAllVulns := cmd.Bool("all-vulns")
 
 			stdoutTaken := false
-			outputPaths := cmd.StringSlice("output")
+			outputPaths := cmd.StringSlice("output-files")
+
+			if len(outputPaths) == 0 {
+				outputPaths = cmd.StringSlice("output")
+			}
+
 			if len(outputPaths) != 0 {
 				for _, outputPath := range outputPaths {
 					format := "sarif"
