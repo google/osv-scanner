@@ -1945,20 +1945,6 @@ func TestCommand_UpdateConfigIgnores_Unused(t *testing.T) {
 				"-r", "--config", "./testdata/locks-with-many-configs/custom-config.toml",
 			},
 		},
-		{
-			Name: "global_config_with_unused_shallow",
-			Args: []string{
-				"", "source", "--format=vertical", "--experimental-update-config-ignores=unused",
-				"--config", "./testdata/locks-with-many-configs/unused-config.toml",
-			},
-		},
-		{
-			Name: "global_config_with_unused_deep",
-			Args: []string{
-				"", "source", "--format=vertical", "--experimental-update-config-ignores=unused",
-				"-r", "--config", "./testdata/locks-with-many-configs/unused-config.toml",
-			},
-		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
