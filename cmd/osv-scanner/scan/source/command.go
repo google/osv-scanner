@@ -88,7 +88,11 @@ func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, client *http.Client) error {
 	format := cmd.String("format")
 
-	outputPath := cmd.String("output")
+	outputPath := cmd.String("output-file")
+
+	if outputPath == "" {
+		outputPath = cmd.String("output")
+	}
 	serve := cmd.Bool("serve")
 	if serve {
 		format = "html"
@@ -97,7 +101,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 			tmpDir, err := os.MkdirTemp("", "osv-scanner-result")
 			if err != nil {
 				return fmt.Errorf("failed creating temporary directory: %w\n"+
-					"Please use `--output result.html` to specify the output path", err)
+					"Please use `--output-file result.html` to specify the output path", err)
 			}
 
 			// Remove the created temporary directory after

@@ -1144,7 +1144,8 @@ OPTIONS:
    --format string, -f string                                                       sets the output format; value can be: table, html, vertical, json, markdown, sarif, gh-annotations, cyclonedx-1-4, cyclonedx-1-5, spdx-2-3 (default: "table")
    --serve                                                                          output as HTML result and serve it locally
    --port string                                                                    port number to use when serving HTML report (default: 8000)
-   --output string                                                                  saves the result to the given file path
+   --output string                                                                  [DEPRECATED] (Use "--output-file" instead) saves the result to the given file path
+   --output-file string                                                             saves the result to the given file path
    --verbosity string                                                               specify the level of information that should be provided during runtime; value can be: error, warn, info (default: "info")
    --offline                                                                        run in offline mode, disabling any features requiring network access
    --offline-vulnerabilities                                                        checks for vulnerabilities using local databases that are already cached
@@ -3257,6 +3258,15 @@ Total 1 package affected by 45 known vulnerabilities (5 Critical, 17 High, 23 Me
 ---
 
 [TestCommand_HtmlFile - 1]
+Scanning dir ./testdata/locks-many/composer.lock
+Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
+Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+HTML output available at: <tempdir>/report.html
+
+---
+
+[TestCommand_HtmlFile_Deprecated - 1]
+Warning: --output has been deprecated in favor of --output-file
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
