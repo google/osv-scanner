@@ -519,7 +519,7 @@ func TestCommand_HtmlFile(t *testing.T) {
 	_, stderr := testcmd.RunAndNormalize(t, testcmd.Case{
 		Name: "one specific supported lockfile",
 		Args: []string{"",
-			"image", "--format=html", "--output", testDir + "/report.html",
+			"image", "--format=html", "--output-file", testDir + "/report.html",
 			"--archive", "./testdata/test-alpine.tar",
 		},
 		Exit: 1,

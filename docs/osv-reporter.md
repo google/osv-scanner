@@ -23,7 +23,7 @@ $ osv-reporter --old previous-osv-scanner.json --new current-osv-scanner.json
 - Output multiple different formats from a single set of scan results.
 
 ```bash
-$ osv-reporter --new osv-scanner.json --output=[format]:[output-path],[format2]:[output-path2]
+$ osv-reporter --new osv-scanner.json --output-files=[format]:[output-path],[format2]:[output-path2]
 ```
 
 ## How to install
