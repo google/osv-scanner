@@ -88,6 +88,16 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 		},
 		&cli.StringFlag{
 			Name:      "output",
+			Usage:     "[DEPRECATED] (Use \"--output-file\" instead) saves the result to the given file path",
+			TakesFile: true,
+			Action: func(_ context.Context, _ *cli.Command, _ string) error {
+				cmdlogger.Warnf("Warning: --output has been deprecated in favor of --output-file")
+
+				return nil
+			},
+		},
+		&cli.StringFlag{
+			Name:      "output-file",
 			Usage:     "saves the result to the given file path",
 			TakesFile: true,
 		},
