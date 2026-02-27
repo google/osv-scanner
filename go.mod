@@ -19,7 +19,7 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/goccy/go-yaml v1.19.2
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.4.5-0.20260225182154-1096bd50c2a4
+	github.com/google/osv-scalibr v0.4.5-0.20260226162747-ce4730b4eeb8
 	github.com/ianlancetaylor/demangle v0.0.0-20251118225945-96ee0021ea0f
 	github.com/jedib0t/go-pretty/v6 v6.7.8
 	github.com/modelcontextprotocol/go-sdk v1.2.0
