@@ -5261,14 +5261,14 @@ unsupported strategy "force" - must be one of: in-place, relax, override
 [TestCommand/fix_non-interactive_in-place_package-lock.json - 1]
 Scanning <tempdir>/package-lock.json...
 Found 12 vulnerabilities matching the filter
-Can fix 5/12 matching vulnerabilities by changing 5 dependencies
+Can fix 7/12 matching vulnerabilities by changing 5 dependencies
+UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: ajv,6.12.6,6.14.0
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.12
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
-FIXED-VULN-IDS: GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
-REMAINING-VULNS: 7
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
+REMAINING-VULNS: 5
 UNFIXABLE-VULNS: 7
 Rewriting <tempdir>/package-lock.json...
 
@@ -7011,20 +7011,20 @@ Rewriting <tempdir>/package-lock.json...
   "strategy": "in-place",
   "vulnerabilities": [
     {
+      "id": "GHSA-23c5-xmqv-rm74",
+      "packages": [
+        {
+          "name": "minimatch",
+          "version": "3.1.2"
+        }
+      ]
+    },
+    {
       "id": "GHSA-2g4f-4pwh-qvx6",
       "packages": [
         {
           "name": "ajv",
           "version": "6.12.6"
-        }
-      ]
-    },
-    {
-      "id": "GHSA-3ppc-4f35-3m26",
-      "packages": [
-        {
-          "name": "minimatch",
-          "version": "3.1.2"
         }
       ]
     },
@@ -7130,6 +7130,45 @@ Rewriting <tempdir>/package-lock.json...
     {
       "packageUpdates": [
         {
+          "name": "minimatch",
+          "versionFrom": "3.1.2",
+          "versionTo": "3.1.5",
+          "transitive": true
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-23c5-xmqv-rm74",
+          "packages": [
+            {
+              "name": "minimatch",
+              "version": "3.1.2"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-3ppc-4f35-3m26",
+          "packages": [
+            {
+              "name": "minimatch",
+              "version": "3.1.2"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-7r86-cg39-jmmj",
+          "packages": [
+            {
+              "name": "minimatch",
+              "version": "3.1.2"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
           "name": "ajv",
           "versionFrom": "6.12.6",
           "versionTo": "6.14.0",
@@ -7206,27 +7245,6 @@ Rewriting <tempdir>/package-lock.json...
             {
               "name": "hosted-git-info",
               "version": "2.1.4"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "packageUpdates": [
-        {
-          "name": "minimatch",
-          "versionFrom": "3.1.2",
-          "versionTo": "3.1.5",
-          "transitive": true
-        }
-      ],
-      "fixed": [
-        {
-          "id": "GHSA-3ppc-4f35-3m26",
-          "packages": [
-            {
-              "name": "minimatch",
-              "version": "3.1.2"
             }
           ]
         }
@@ -9547,14 +9565,14 @@ Rewriting <tempdir>/package.json...
 [TestCommand/fix_non_interactive_in_place_package_lock_json_with_native_data_source - 1]
 Scanning <tempdir>/package-lock.json...
 Found 12 vulnerabilities matching the filter
-Can fix 5/12 matching vulnerabilities by changing 5 dependencies
+Can fix 7/12 matching vulnerabilities by changing 5 dependencies
+UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: ajv,6.12.6,6.14.0
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.12
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
-FIXED-VULN-IDS: GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
-REMAINING-VULNS: 7
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
+REMAINING-VULNS: 5
 UNFIXABLE-VULNS: 7
 Rewriting <tempdir>/package-lock.json...
 
@@ -11370,14 +11388,14 @@ manifest or lockfile is required
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 Scanning <tempdir>/package-lock.json...
 Found 12 vulnerabilities matching the filter
-Can fix 5/12 matching vulnerabilities by changing 5 dependencies
+Can fix 7/12 matching vulnerabilities by changing 5 dependencies
+UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: ajv,6.12.6,6.14.0
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.12
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
-FIXED-VULN-IDS: GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
-REMAINING-VULNS: 7
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
+REMAINING-VULNS: 5
 UNFIXABLE-VULNS: 7
 Rewriting <tempdir>/package-lock.json...
 
