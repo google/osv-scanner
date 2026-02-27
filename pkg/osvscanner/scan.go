@@ -73,6 +73,13 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 					},
 				},
 			},
+			{
+				Config: &cpb.PluginSpecificConfig_PythonRequirementsTransitive{
+					PythonRequirementsTransitive: &cpb.PythonRequirementsTransitiveConfig{
+						DepsDevRequirements: !actions.TransitiveScanning.NativeDataSource,
+					},
+				},
+			},
 		},
 	}
 

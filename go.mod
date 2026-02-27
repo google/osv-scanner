@@ -3,10 +3,10 @@ module github.com/google/osv-scanner/v2
 go 1.25.7
 
 require (
-	deps.dev/api/v3 v3.0.0-20260112033243-1270359b191b
+	deps.dev/api/v3 v3.0.0-20260225062937-bb3cf65ba738
 	deps.dev/api/v3alpha v0.0.0-20260112033243-1270359b191b
 	deps.dev/util/maven v0.0.0-20260112033243-1270359b191b
-	deps.dev/util/resolve v0.0.0-20260112033243-1270359b191b
+	deps.dev/util/resolve v0.0.0-20260225225317-765e10b45d5b
 	deps.dev/util/semver v0.0.0-20260112033243-1270359b191b
 	github.com/BurntSushi/toml v1.6.0
 	github.com/CycloneDX/cyclonedx-go v0.9.3
@@ -19,7 +19,7 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/goccy/go-yaml v1.19.2
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.4.5-0.20260226162747-ce4730b4eeb8
+	github.com/google/osv-scalibr v0.4.5-0.20260226235319-7ed9566bdba4
 	github.com/ianlancetaylor/demangle v0.0.0-20251118225945-96ee0021ea0f
 	github.com/jedib0t/go-pretty/v6 v6.7.8
 	github.com/modelcontextprotocol/go-sdk v1.3.1
