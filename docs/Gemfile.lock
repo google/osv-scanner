@@ -282,5 +282,8 @@ DEPENDENCIES
   wdm (~> 0.2.0)
   webrick (~> 1.7)
 
+RUBY VERSION
+   ruby 3.4.8p72
+
 BUNDLED WITH
    2.5.11
