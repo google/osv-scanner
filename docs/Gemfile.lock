@@ -103,7 +103,7 @@ GEM
     html-pipeline (2.14.3)
       activesupport (>= 2)
       nokogiri (>= 1.4)
-    http_parser.rb (0.8.0)
+    http_parser.rb (0.8.1)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     jekyll (3.10.0)
