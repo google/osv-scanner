@@ -445,6 +445,38 @@ func TestCommand_JavareachArchive(t *testing.T) {
 	}
 }
 
+func TestCommand_HomebrewWithAnnotators(t *testing.T) {
+	t.Parallel()
+
+	if runtime.GOOS != "darwin" {
+		testutility.Skip(t, "The detector in this test only works on Darwin")
+	}
+
+	client := testcmd.InsertCassette(t)
+
+	tests := []testcmd.Case{
+		{
+			Name: "homebrew_extractor_via_artifact_plugin",
+			Args: []string{"", "source", "-r", "--no-ignore", "--experimental-plugins=artifact", "./testdata/homebrew/Cellar/"},
+			Exit: 1,
+		},
+		{
+			Name: "homebrew_extractor_explicitly_enabled_with_annotator",
+			Args: []string{"", "source", "-r", "--no-ignore", "--experimental-plugins=os/homebrew", "--experimental-plugins=misc/brew-source", "./testdata/homebrew/Cellar/"},
+			Exit: 1,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			tt.HTTPClient = testcmd.WithTestNameHeader(t, *client)
+
+			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
 func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	t.Parallel()
 

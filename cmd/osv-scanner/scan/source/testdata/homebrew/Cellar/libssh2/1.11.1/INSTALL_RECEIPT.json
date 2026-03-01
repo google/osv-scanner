@@ -1,0 +1,57 @@
+{
+  "homebrew_version": "4.4.1-34-gaf958b2",
+  "used_options": [],
+  "unused_options": [],
+  "built_as_bottle": true,
+  "poured_from_bottle": true,
+  "loaded_from_api": true,
+  "installed_as_dependency": true,
+  "installed_on_request": false,
+  "changed_files": [
+    "NEWS",
+    "lib/pkgconfig/libssh2.pc"
+  ],
+  "time": 1765466145,
+  "source_modified_time": 1729065801,
+  "compiler": "clang",
+  "aliases": [],
+  "runtime_dependencies": [
+    {
+      "full_name": "ca-certificates",
+      "version": "2025-12-02",
+      "revision": 0,
+      "bottle_rebuild": 0,
+      "pkg_version": "2025-12-02",
+      "declared_directly": false
+    },
+    {
+      "full_name": "openssl@3",
+      "version": "3.6.0",
+      "revision": 0,
+      "bottle_rebuild": 0,
+      "pkg_version": "3.6.0",
+      "declared_directly": true
+    }
+  ],
+  "source": {
+    "spec": "stable",
+    "versions": {
+      "stable": "1.11.1",
+      "head": null,
+      "version_scheme": 0,
+      "compatibility_version": null
+    },
+    "path": "/Users/user/Library/Caches/Homebrew/api/formula.jws.json",
+    "tap_git_head": null,
+    "tap": "homebrew/core"
+  },
+  "arch": "arm64",
+  "built_on": {
+    "os": "Macintosh",
+    "os_version": "macOS 15",
+    "cpu_family": "dunno",
+    "xcode": "16.0",
+    "clt": "16.0.0.0.1.1724870825",
+    "preferred_perl": "5.34"
+  }
+}

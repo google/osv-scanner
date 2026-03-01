@@ -3257,6 +3257,64 @@ Total 1 package affected by 45 known vulnerabilities (5 Critical, 17 High, 23 Me
 
 ---
 
+[TestCommand_HomebrewWithAnnotators/homebrew_extractor_explicitly_enabled_with_annotator - 1]
+Scanning dir ./testdata/homebrew/Cellar/
+Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json file and found 1 package
+
+Scanning Result (package view):
+Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+GIT
++----------------------------------------------------------------------------------------------+
+| Source:os:<rootdir>/testdata/homebrew/Cell |
+| ar/libssh2/1.11.1/INSTALL_RECEIPT.json                                                       |
++----------------+-------------------+------------------+------------+-------------------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) |
++----------------+-------------------+------------------+------------+-------------------------+
+| libssh2        | 1.11.1            | No fix available |          5 |                         |
++----------------+-------------------+------------------+------------+-------------------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_HomebrewWithAnnotators/homebrew_extractor_explicitly_enabled_with_annotator - 2]
+
+---
+
+[TestCommand_HomebrewWithAnnotators/homebrew_extractor_via_artifact_plugin - 1]
+Scanning dir ./testdata/homebrew/Cellar/
+Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/.brew/libssh2.rb file and found 0 packages
+Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/.brew/libssh2.rb file and found 0 packages
+Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json file and found 1 package
+
+Scanning Result (package view):
+Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+GIT
++----------------------------------------------------------------------------------------------+
+| Source:os:<rootdir>/testdata/homebrew/Cell |
+| ar/libssh2/1.11.1/INSTALL_RECEIPT.json                                                       |
++----------------+-------------------+------------------+------------+-------------------------+
+| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) |
++----------------+-------------------+------------------+------------+-------------------------+
+| libssh2        | 1.11.1            | No fix available |          5 |                         |
++----------------+-------------------+------------------+------------+-------------------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_HomebrewWithAnnotators/homebrew_extractor_via_artifact_plugin - 2]
+
+---
+
 [TestCommand_HtmlFile - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
