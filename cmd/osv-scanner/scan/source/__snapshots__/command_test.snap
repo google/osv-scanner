@@ -4876,6 +4876,66 @@ Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 
 ---
 
+[TestCommand_LocalDatabases/supports_not_loading_malware_advisories - 1]
+Scanned <rootdir>/testdata/locks-malware/my-nasty-package-lock.json file and found 2 packages
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestCommand_LocalDatabases/supports_not_loading_malware_advisories - 2]
+
+---
+
+[TestCommand_LocalDatabases/supports_not_loading_malware_advisories - 3]
+Scanned <rootdir>/testdata/locks-malware/my-nasty-package-lock.json file and found 2 packages
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+No issues found
+
+---
+
+[TestCommand_LocalDatabases/supports_not_loading_malware_advisories - 4]
+
+---
+
+[TestCommand_LocalDatabases/supports_only_loading_malware_advisories - 1]
+Scanned <rootdir>/testdata/locks-malware/my-nasty-package-lock.json file and found 2 packages
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
++-------------------------------+------+-----------+----------------+---------+---------------+---------------------------------------------------+
+| OSV URL                       | CVSS | ECOSYSTEM | PACKAGE        | VERSION | FIXED VERSION | SOURCE                                            |
++-------------------------------+------+-----------+----------------+---------+---------------+---------------------------------------------------+
+| https://osv.dev/MAL-2025-1051 |      | npm       | spicy-sections | 1.0.0   | --            | testdata/locks-malware/my-nasty-package-lock.json |
++-------------------------------+------+-----------+----------------+---------+---------------+---------------------------------------------------+
+
+---
+
+[TestCommand_LocalDatabases/supports_only_loading_malware_advisories - 2]
+
+---
+
+[TestCommand_LocalDatabases/supports_only_loading_malware_advisories - 3]
+Scanned <rootdir>/testdata/locks-malware/my-nasty-package-lock.json file and found 2 packages
+Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
++-------------------------------+------+-----------+----------------+---------+---------------+---------------------------------------------------+
+| OSV URL                       | CVSS | ECOSYSTEM | PACKAGE        | VERSION | FIXED VERSION | SOURCE                                            |
++-------------------------------+------+-----------+----------------+---------+---------------+---------------------------------------------------+
+| https://osv.dev/MAL-2025-1051 |      | npm       | spicy-sections | 1.0.0   | --            | testdata/locks-malware/my-nasty-package-lock.json |
++-------------------------------+------+-----------+----------------+---------+---------------+---------------------------------------------------+
+
+---
+
+[TestCommand_LocalDatabases/supports_only_loading_malware_advisories - 4]
+
+---
+
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 1]
 Scanning dir ./testdata/locks-requirements
 Scanning dir ./testdata/locks-many-with-insecure
