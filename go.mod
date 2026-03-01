@@ -10,10 +10,10 @@ require (
 	deps.dev/util/semver v0.0.0-20260112033243-1270359b191b
 	github.com/BurntSushi/toml v1.6.0
 	github.com/CycloneDX/cyclonedx-go v0.9.3
-	github.com/charmbracelet/bubbles v0.21.0
-	github.com/charmbracelet/bubbletea v1.3.10
+	github.com/charmbracelet/bubbles/v2 v2.0.0
+	github.com/charmbracelet/bubbletea/v2 v2.0.0
 	github.com/charmbracelet/glamour v0.10.0
-	github.com/charmbracelet/lipgloss v1.1.1-0.20250404203927-76690c660834
+	github.com/charmbracelet/lipgloss/v2 v2.0.0
 	github.com/gkampitakis/go-snaps v0.5.19
 	github.com/go-git/go-git/v5 v5.16.5
 	github.com/gobwas/glob v0.2.3
