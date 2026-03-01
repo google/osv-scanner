@@ -314,6 +314,8 @@ github.com/mattn/go-runewidth v0.0.16 h1:E5ScNMtiwvlvB5paMFdw9p4kSQzbXFikJ5SQO6T
 github.com/mattn/go-runewidth v0.0.16/go.mod h1:Jdepj2loyihRzMpdS35Xk/zdY8IAYHsh153qUoGf23w=
 github.com/mattn/go-shellwords v1.0.12 h1:M2zGm7EW6UQJvDeQxo4T51eKPurbeFbe8WtebGE2xrk=
 github.com/mattn/go-shellwords v1.0.12/go.mod h1:EZzvwXDESEeg03EKmM+RmDnNOPKG4lLtQsUlTZDWQ8Y=
+github.com/michaelkedar/xml v0.0.0-20250501021638-021a7b1a061e h1:wAq84z83n895uvsZIoSNdzw0NbhP08NiIq8/JOlrJ6Y=
+github.com/michaelkedar/xml v0.0.0-20250501021638-021a7b1a061e/go.mod h1:KUAB0Nhc2O/lzyPLuWF6Jm/HVC4GIRHWpxTWpy14WHM=
 github.com/microcosm-cc/bluemonday v1.0.27 h1:MpEUotklkwCSLeH+Qdx1VJgNqLlpY2KXwXFM08ygZfk=
 github.com/microcosm-cc/bluemonday v1.0.27/go.mod h1:jFi9vgW+H7c3V0lb6nR74Ib/DIB5OBs92Dimizgw2cA=
 github.com/micromdm/plist v0.2.1 h1:4SoSMOVAyzv1ThT8IKLgXLJEKezLkcVDN6wivqTTFdo=

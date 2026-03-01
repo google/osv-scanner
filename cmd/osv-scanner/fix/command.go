@@ -13,34 +13,30 @@ import (
 	"strings"
 	"time"
 
-	"deps.dev/util/resolve"
-	"github.com/google/osv-scalibr/inventory/osvecosystem"
-	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
-	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/osvmatcher"
+	"github.com/charmbracelet/glamour"
+	"github.com/charmbracelet/glamour/ansi"
+	"github.com/charmbracelet/glamour/styles"
+	"github.com/charmbracelet/lipgloss"
+	"osv.dev/bindings/go/osvdev"
+
+	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
+	"github.com/google/osv-scalibr/clients/datasource"
+	"github.com/google/osv-scalibr/clients/resolution"
+	scalibrosvdev "github.com/google/osv-scalibr/enricher/vulnmatch/osvdev"
+	"github.com/google/osv-scalibr/enricher/vulnmatch/osvlocal"
+	"github.com/google/osv-scalibr/guidedremediation"
+	"github.com/google/osv-scalibr/guidedremediation/options"
+	"github.com/google/osv-scalibr/guidedremediation/strategy"
+	"github.com/google/osv-scalibr/guidedremediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
-	"github.com/google/osv-scanner/v2/internal/remediation"
-	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
-	"github.com/google/osv-scanner/v2/internal/resolution/lockfile"
-	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
-	"github.com/google/osv-scanner/v2/internal/resolution/util"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/urfave/cli/v3"
 	"golang.org/x/term"
-	"osv.dev/bindings/go/osvdev"
 )
 
-type strategy string
-
-const (
-	strategyInPlace  strategy = "in-place"
-	strategyRelax    strategy = "relax"
-	strategyOverride strategy = "override"
-)
-
-var strategies = []string{string(strategyInPlace), string(strategyRelax), string(strategyOverride)}
+var strategies = []string{string(strategy.StrategyInPlace), string(strategy.StrategyRelax), string(strategy.StrategyOverride)}
 
 const (
 	vulnCategory     = "Vulnerability Selection Options:"
@@ -48,21 +44,7 @@ const (
 	autoModeCategory = "non-interactive options:" // intentionally lowercase to force it to sort after the other categories
 )
 
-type osvFixOptions struct {
-	remediation.Options
-
-	Client      client.ResolutionClient
-	Manifest    string
-	ManifestRW  manifest.ReadWriter
-	Lockfile    string
-	LockfileRW  lockfile.ReadWriter
-	NoIntroduce bool
-	OutputJSON  bool
-	Stdout      io.Writer
-	Stderr      io.Writer
-}
-
-func Command(stdout, stderr io.Writer, _ *http.Client) *cli.Command {
+func Command(stdout, _ io.Writer, _ *http.Client) *cli.Command {
 	return &cli.Command{
 		Name:        "fix",
 		Usage:       "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
@@ -135,20 +117,20 @@ func Command(stdout, stderr io.Writer, _ *http.Client) *cli.Command {
 				Name:     "strategy",
 				Usage:    "remediation approach to use; value can be: " + strings.Join(strategies, ", "),
 				Action: func(_ context.Context, cmd *cli.Command, s string) error {
-					switch strategy(s) {
-					case strategyInPlace:
+					switch strategy.Strategy(s) {
+					case strategy.StrategyInPlace:
 						if !cmd.IsSet("lockfile") {
-							return fmt.Errorf("%s strategy requires lockfile", strategyInPlace)
+							return fmt.Errorf("%s strategy requires lockfile", strategy.StrategyInPlace)
 						}
-					case strategy("relock"): // renamed
+					case strategy.Strategy("relock"): // renamed
 						fallthrough
-					case strategyRelax:
+					case strategy.StrategyRelax:
 						if !cmd.IsSet("manifest") {
-							return fmt.Errorf("%s strategy requires manifest file", strategyRelax)
+							return fmt.Errorf("%s strategy requires manifest file", strategy.StrategyRelax)
 						}
-					case strategyOverride:
+					case strategy.StrategyOverride:
 						if !cmd.IsSet("manifest") {
-							return fmt.Errorf("%s strategy requires manifest file", strategyOverride)
+							return fmt.Errorf("%s strategy requires manifest file", strategy.StrategyOverride)
 						}
 					default:
 						return fmt.Errorf("unsupported strategy \"%s\" - must be one of: %s", s, strings.Join(strategies, ", "))
@@ -225,19 +207,19 @@ func Command(stdout, stderr io.Writer, _ *http.Client) *cli.Command {
 			},
 		},
 		Action: func(ctx context.Context, cmd *cli.Command) error {
-			return action(ctx, cmd, stdout, stderr)
+			return action(ctx, cmd, stdout)
 		},
 	}
 }
 
-func action(ctx context.Context, cmd *cli.Command, stdout, stderr io.Writer) error {
+func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
 	if !cmd.IsSet("manifest") && !cmd.IsSet("lockfile") {
 		return errors.New("manifest or lockfile is required")
 	}
 
-	opts := osvFixOptions{
-		Options: remediation.Options{
-			ResolveOpts: resolution.ResolveOpts{
+	opts := options.FixVulnsOptions{
+		RemediationOptions: options.RemediationOptions{
+			ResolutionOptions: options.ResolutionOptions{
 				MavenManagement: cmd.Bool("maven-fix-management"),
 			},
 			IgnoreVulns:   cmd.StringSlice("ignore-vulns"),
@@ -245,140 +227,111 @@ func action(ctx context.Context, cmd *cli.Command, stdout, stderr io.Writer) err
 			DevDeps:       !cmd.Bool("ignore-dev"),
 			MinSeverity:   cmd.Float64("min-severity"),
 			MaxDepth:      cmd.Int("max-depth"),
-			UpgradeConfig: upgrade.ParseUpgradeConfig(cmd.StringSlice("upgrade-config")),
+			UpgradeConfig: upgrade.NewConfigFromStrings(cmd.StringSlice("upgrade-config")),
 		},
-		Manifest:    cmd.String("manifest"),
-		Lockfile:    cmd.String("lockfile"),
-		NoIntroduce: cmd.Bool("no-introduce"),
-		OutputJSON:  cmd.String("format") == "json",
-		Stdout:      stdout,
-		Stderr:      stderr,
+		Manifest:          cmd.String("manifest"),
+		Lockfile:          cmd.String("lockfile"),
+		Strategy:          strategy.Strategy(cmd.String("strategy")),
+		MaxUpgrades:       cmd.Int("apply-top"),
+		NoIntroduce:       cmd.Bool("no-introduce"),
+		NoMavenNewDepMgmt: false,
 	}
 
-	system := resolve.UnknownSystem
-	if opts.Lockfile != "" {
-		rw, err := lockfile.GetReadWriter(opts.Lockfile)
-		if err != nil {
-			return err
-		}
-		opts.LockfileRW = rw
-		system = rw.System()
+	if opts.Strategy == "relock" {
+		opts.Strategy = strategy.StrategyRelax
 	}
 
-	if opts.Manifest != "" {
-		rw, err := manifest.GetReadWriter(opts.Manifest, cmd.String("maven-registry"))
-		if err != nil {
-			return err
-		}
-		opts.ManifestRW = rw
-		// Prefer the manifest's system over the lockfile's.
-		// TODO: make sure they match
-		system = rw.System()
+	// MavenClient is required for Maven projects
+	mc, err := datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
+		URL:             cmd.String("maven-registry"),
+		ReleasesEnabled: true,
+	}, "", false)
+	if err != nil {
+		return err
 	}
-
+	opts.MavenClient = mc
+	userAgent := "osv-scanner_fix/" + version.OSVVersion
 	switch cmd.String("data-source") {
 	case "deps.dev":
-		cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_fix/"+version.OSVVersion)
+		cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
 		if err != nil {
 			return err
 		}
-		opts.Client.DependencyClient = cl
+		opts.ResolveClient = cl
+
 	case "native":
-		switch system {
-		case resolve.NPM:
-			var workDir string
-			// Prefer to use the manifest's directory if available.
-			if opts.Manifest != "" {
-				workDir = filepath.Dir(opts.Manifest)
-			} else {
-				workDir = filepath.Dir(opts.Lockfile)
-			}
-			cl, err := client.NewNpmRegistryClient(workDir)
-			if err != nil {
-				return err
-			}
-			opts.Client.DependencyClient = cl
-		case resolve.Maven:
-			cl, err := client.NewMavenRegistryClient(cmd.String("maven-registry"))
-			if err != nil {
-				return err
-			}
-			opts.Client.DependencyClient = cl
-		case resolve.UnknownSystem:
-			fallthrough
-		default:
-			return fmt.Errorf("native data-source currently unsupported for %s ecosystem", system.String())
+		var workDir string
+		// Prefer to use the manifest's directory if available.
+		if opts.Manifest != "" {
+			workDir = filepath.Dir(opts.Manifest)
+		} else {
+			workDir = filepath.Dir(opts.Lockfile)
 		}
+		cl, err := resolution.NewCombinedNativeClient(resolution.CombinedNativeClientOptions{
+			ProjectDir:    workDir,
+			MavenRegistry: cmd.String("maven-registry"),
+		})
+		if err != nil {
+			return err
+		}
+		opts.ResolveClient = cl
 	}
 
-	userAgent := "osv-scanner_fix/" + version.OSVVersion
 	if cmd.Bool("offline-vulnerabilities") {
-		matcher, err := localmatcher.NewLocalMatcher(
-			cmd.String("local-db-path"),
-			userAgent,
-			cmd.Bool("download-offline-databases"),
-		)
+		cfg := &cpb.PluginConfig{
+			UserAgent: userAgent,
+			PluginSpecific: []*cpb.PluginSpecificConfig{
+				{Config: &cpb.PluginSpecificConfig_Osvlocal{Osvlocal: &cpb.OSVLocalConfig{
+					Download:   cmd.Bool("download-offline-databases"),
+					LocalPath:  cmd.String("local-db-path"),
+					RemoteHost: "https://osv-vulnerabilities.storage.googleapis.com",
+				}}},
+			},
+		}
+		enricher, err := osvlocal.New(cfg)
 		if err != nil {
 			return err
 		}
-
-		eco, ok := util.OSVEcosystem[system]
-		if !ok {
-			// Something's very wrong if we hit this
-			panic("unhandled resolve.Ecosystem: " + system.String())
-		}
-		if err := matcher.LoadEcosystem(ctx, osvecosystem.Parsed{Ecosystem: eco}); err != nil {
-			return err
-		}
-
-		opts.Client.VulnerabilityMatcher = matcher
+		opts.VulnEnricher = enricher
 	} else {
-		config := osvdev.DefaultConfig()
-		config.UserAgent = userAgent
-		opts.Client.VulnerabilityMatcher = &osvmatcher.CachedOSVMatcher{
-			Client: osvdev.OSVClient{
-				HTTPClient:  http.DefaultClient,
-				Config:      config,
-				BaseHostURL: osvdev.DefaultBaseURL,
-			},
-			InitialQueryTimeout: 5 * time.Minute,
-		}
+		osvdevCl := osvdev.DefaultClient()
+		osvdevCl.Config.UserAgent = userAgent
+		opts.VulnEnricher = scalibrosvdev.NewWithClient(osvdevCl, 5*time.Minute)
 	}
 
 	if cmd.Bool("interactive") {
-		return interactiveMode(ctx, opts)
+		return guidedremediation.FixVulnsInteractive(opts, GlamourRenderer{})
 	}
 
-	maxUpgrades := cmd.Int("apply-top")
-
-	strategy := strategy(cmd.String("strategy"))
-	if strategy == "relock" { // renamed
-		strategy = strategyRelax
+	res, err := guidedremediation.FixVulns(opts)
+	if err != nil {
+		return err
 	}
 
-	if !cmd.IsSet("strategy") {
-		// Choose a default strategy based on the manifest/lockfile provided.
-		switch {
-		case remediation.SupportsRelax(opts.ManifestRW):
-			strategy = strategyRelax
-		case remediation.SupportsOverride(opts.ManifestRW):
-			strategy = strategyOverride
-		case remediation.SupportsInPlace(opts.LockfileRW):
-			strategy = strategyInPlace
-		default:
-			return errors.New("no supported remediation strategies for manifest/lockfile")
-		}
+	outputJSON := cmd.String("format") == "json"
+
+	return printResult(res, outputJSON, stdout)
+}
+
+type GlamourRenderer struct{}
+
+func (GlamourRenderer) Render(details string, width int) (string, error) {
+	var style ansi.StyleConfig
+	if lipgloss.HasDarkBackground() {
+		style = styles.DarkStyleConfig
+	} else {
+		style = styles.LightStyleConfig
+	}
+	*style.Document.Margin = 0
+	style.Document.BlockPrefix = ""
+
+	r, err := glamour.NewTermRenderer(
+		glamour.WithStyles(style),
+		glamour.WithWordWrap(width),
+	)
+	if err != nil {
+		return "", err
 	}
 
-	switch strategy {
-	case strategyRelax:
-		return autoRelax(ctx, opts, maxUpgrades)
-	case strategyInPlace:
-		return autoInPlace(ctx, opts, maxUpgrades)
-	case strategyOverride:
-		return autoOverride(ctx, opts, maxUpgrades)
-	default:
-		// The strategy flag should already be validated by this point.
-		panic(fmt.Sprintf("non-interactive mode attempted to run with unhandled strategy: \"%s\"", cmd.String("strategy")))
-	}
+	return r.Render(details)
 }
