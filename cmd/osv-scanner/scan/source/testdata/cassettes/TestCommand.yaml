@@ -6060,6 +6060,173 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
+      content_length: 1852
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-baselayout"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-baselayout-data"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-keys"
+              },
+              "version": "2.4-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "apk-tools"
+              },
+              "version": "2.12.10-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "busybox-binsh"
+              },
+              "version": "1.36.1-r27"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "ca-certificates-bundle"
+              },
+              "version": "20220614-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libc-utils"
+              },
+              "version": "0.7.2-r3"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libcrypto3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libssl3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "musl"
+              },
+              "version": "1.2.3-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "musl-utils"
+              },
+              "version": "1.2.3-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "scanelf"
+              },
+              "version": "1.3.5-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "ssl_client"
+              },
+              "version": "1.36.1-r27"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "zlib"
+              },
+              "version": "1.2.10-r0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/one_specific_supported_sbom_with_duplicate_purls
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 289
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-26519",
+                  "modified": "2025-12-11T11:16:21.978419Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2018-25032",
+                  "modified": "2025-12-03T22:47:03.844688Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2022-37434",
+                  "modified": "2025-12-03T22:50:43.469206Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "289"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 40
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
       content_length: 1073
       host: api.osv.dev
       body: |
@@ -6156,7 +6323,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 40
+  - id: 41
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6257,7 +6424,108 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 41
+  - id: 42
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1073
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-baselayout"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-baselayout-data"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "apk-tools"
+              },
+              "version": "2.12.10-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "busybox-binsh"
+              },
+              "version": "1.36.1-r27"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libcrypto3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libssl3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "musl-utils"
+              },
+              "version": "1.2.3-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "scanelf"
+              },
+              "version": "1.3.5-r1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/one_specific_supported_sbom_with_invalid_purls
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 37
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "37"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 43
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6424,7 +6692,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 42
+  - id: 44
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6591,7 +6859,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 43
+  - id: 45
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6636,7 +6904,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 44
+  - id: 46
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -6688,7 +6956,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 45
+  - id: 47
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -7122,7 +7390,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 46
+  - id: 48
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -7206,7 +7474,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 47
+  - id: 49
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -7251,7 +7519,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 48
+  - id: 50
     request:
       proto: HTTP/1.1
       proto_major: 1
