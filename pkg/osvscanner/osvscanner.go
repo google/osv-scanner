@@ -487,7 +487,9 @@ func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *conf
 	for p, vulns := range configVulns {
 		c := configPaths[p]
 
-		err := c.UpdateFile(vulns)
+		c.IgnoreVulns(vulns)
+
+		err := c.Save()
 		if err != nil {
 			return err
 		}
