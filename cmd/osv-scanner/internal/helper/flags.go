@@ -202,5 +202,17 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Name:  "experimental-no-default-plugins",
 			Usage: "disable default plugins, instead using only those enabled by --experimental-plugins",
 		},
+		&cli.StringFlag{
+			Name:  "experimental-update-config-ignores",
+			Usage: "update config file(s) to ignore found vulnerabilities",
+			Action: func(_ context.Context, _ *cli.Command, s string) error {
+				// todo: how to deal with "none" as the default...?
+				if s == "none" || s == "unused" || s == "all" {
+					return nil
+				}
+
+				return fmt.Errorf("unsupported option \"%s\" - must be none, unused, or all", s)
+			},
+		},
 	}
 }

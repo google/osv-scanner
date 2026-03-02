@@ -86,6 +86,9 @@ type ExperimentalScannerActions struct {
 	// Report deprecated packages as findings
 	FlagDeprecatedPackages bool
 
+	// Update config file(s) to ignore all found vulnerabilities
+	UpdateConfigIgnores string
+
 	// Allows specifying user agent
 	RequestUserAgent string
 }
@@ -412,6 +415,15 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
+	// todo: consider moving this after filtering
+	//  - p: should allow deduplicating some logic
+	//  - p: might be a better UX to present the vulns we're ignoring
+	//  - c: filtering removes vulns from results, so need to account for that
+	if actions.UpdateConfigIgnores == "all" {
+		// todo: add output about having ignored vulns
+		addVulnConfigIgnores(&vulnerabilityResults, &scanResult.ConfigManager)
+	}
+
 	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
 	if filtered > 0 {
 		cmdlogger.Infof(
@@ -419,6 +431,19 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 			filtered,
 			output.Form(filtered, "vulnerability", "vulnerabilities"),
 		)
+	}
+
+	if actions.UpdateConfigIgnores == "unused" {
+		// todo: add output about having ignored vulns
+		removeAllUnusedConfigIgnores(&scanResult.ConfigManager)
+	}
+
+	if actions.UpdateConfigIgnores != "" && actions.UpdateConfigIgnores != "none" {
+		err := saveAllConfigs(&scanResult.ConfigManager)
+
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
 	}
 
 	if unusedIgnoredEntries := scanResult.ConfigManager.GetUnusedIgnoreEntries(); len(unusedIgnoredEntries) != 0 {

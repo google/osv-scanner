@@ -1,0 +1,6 @@
+[[PackageOverrides]]
+name = "ajv"
+ignore = true
+
+[[IgnoredVulns]]
+id = "GHSA-2g4f-4pwh-qvx6"

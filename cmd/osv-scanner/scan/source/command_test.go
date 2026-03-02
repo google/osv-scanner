@@ -1,6 +1,7 @@
 package source_test
 
 import (
+	"errors"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -1743,6 +1744,279 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 		t.Run(tt.Name, func(t *testing.T) {
 			t.Parallel()
 			testcmd.RunAndMatchSnapshots(t, tt)
+		})
+	}
+}
+
+func TestCommand_UpdateConfigIgnores_All(t *testing.T) {
+	t.Parallel()
+
+	client := testcmd.InsertCassette(t)
+
+	type withFilesToRemove struct {
+		Name string
+		Args []string
+
+		Remove []string
+	}
+
+	tests := []withFilesToRemove{
+		{
+			Name: "shallow",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
+			},
+		},
+		{
+			Name: "shallow_with_removed_config",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
+			},
+			Remove: []string{"osv-scanner-test.toml"},
+		},
+		{
+			Name: "deep",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
+				"-r",
+			},
+		},
+		{
+			Name: "deep_with_removed_config",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
+				"-r",
+			},
+			Remove: []string{"nested-1/osv-scanner-test.toml"},
+		},
+		{
+			Name: "deep_with_no_configs",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
+				"-r",
+			},
+			Remove: []string{
+				"osv-scanner-test.toml",
+				"nested-1/osv-scanner-test.toml",
+				"nested-2/osv-scanner-test.toml",
+			},
+		},
+		{
+			Name: "global_config_shallow",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
+				"--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
+			},
+		},
+		{
+			Name: "global_config_deep",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=all",
+				"-r", "--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			// action overwrites files, copy them to a temporary directory.
+			testDir := testutility.CreateTestDir(t)
+
+			err := os.CopyFS(testDir, os.DirFS("./testdata/locks-with-invalid-and-configs"))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			// remove specified files
+			for _, file := range tt.Remove {
+				err = os.Remove(testDir + "/" + file)
+				if err != nil {
+					t.Fatal(err)
+				}
+			}
+
+			tc := testcmd.Case{
+				Name: tt.Name,
+				Args: tt.Args,
+				Exit: 1,
+
+				HTTPClient: testcmd.WithTestNameHeader(t, *client),
+			}
+
+			tc.Args = append(tc.Args, testDir)
+
+			testcmd.CopyFileFlagTo(t, tc, "--config", testDir)
+
+			testcmd.RunAndMatchSnapshots(t, tc)
+
+			for _, file := range []string{
+				"osv-scanner-test.toml",
+				"custom-config.toml",
+				"nested-1/osv-scanner-test.toml",
+				"nested-2/osv-scanner-test.toml",
+				"nested-3/osv-scanner-test.toml",
+			} {
+				b, err := os.ReadFile(testDir + "/" + file)
+
+				if err != nil {
+					if !errors.Is(err, os.ErrNotExist) {
+						t.Fatal(err)
+					}
+
+					b = []byte("(does not exist)")
+				}
+
+				testutility.NewSnapshot().MatchText(t, string(b))
+			}
+
+			for i, arg := range tc.Args {
+				if arg == "--experimental-update-config-ignores=all" {
+					tc.Args[i] = "--experimental-update-config-ignores=none"
+				}
+			}
+
+			// if there were no (config) files removed, then re-running the cli
+			// should have no vulnerabilities as everything should be ignored
+			if len(tt.Remove) == 0 {
+				tc.Exit = 0
+			}
+
+			testcmd.RunAndMatchSnapshots(t, tc)
+		})
+	}
+}
+
+func TestCommand_UpdateConfigIgnores_Unused(t *testing.T) {
+	t.Parallel()
+
+	client := testcmd.InsertCassette(t)
+
+	type withFilesToRemove struct {
+		Name string
+		Args []string
+
+		Remove []string
+	}
+
+	tests := []withFilesToRemove{
+		{
+			Name: "shallow",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=unused",
+			},
+		},
+		{
+			Name: "shallow_with_removed_config",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=unused",
+			},
+			Remove: []string{"osv-scanner-test.toml"},
+		},
+		{
+			Name: "deep",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=unused",
+				"-r",
+			},
+		},
+		{
+			Name: "deep_with_removed_config",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=unused",
+				"-r",
+			},
+			Remove: []string{"nested-1/osv-scanner-test.toml"},
+		},
+		{
+			Name: "deep_with_no_configs",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=unused",
+				"-r",
+			},
+			Remove: []string{
+				"osv-scanner-test.toml",
+				"nested-1/osv-scanner-test.toml",
+				"nested-2/osv-scanner-test.toml",
+			},
+		},
+		{
+			Name: "global_config_shallow",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=unused",
+				"--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
+			},
+		},
+		{
+			Name: "global_config_deep",
+			Args: []string{
+				"", "source", "--format=vertical", "--experimental-update-config-ignores=unused",
+				"-r", "--config", "./testdata/locks-with-invalid-and-configs/custom-config.toml",
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.Name, func(t *testing.T) {
+			t.Parallel()
+
+			// action overwrites files, copy them to a temporary directory.
+			testDir := testutility.CreateTestDir(t)
+
+			err := os.CopyFS(testDir, os.DirFS("./testdata/locks-with-invalid-and-configs"))
+			if err != nil {
+				t.Fatal(err)
+			}
+
+			// remove specified files
+			for _, file := range tt.Remove {
+				err = os.Remove(testDir + "/" + file)
+				if err != nil {
+					t.Fatal(err)
+				}
+			}
+
+			tc := testcmd.Case{
+				Name: tt.Name,
+				Args: tt.Args,
+				Exit: 1,
+
+				HTTPClient: testcmd.WithTestNameHeader(t, *client),
+			}
+
+			tc.Args = append(tc.Args, testDir)
+
+			testcmd.CopyFileFlagTo(t, tc, "--config", testDir)
+
+			testcmd.RunAndMatchSnapshots(t, tc)
+
+			for _, file := range []string{
+				"osv-scanner-test.toml",
+				"custom-config.toml",
+				"nested-1/osv-scanner-test.toml",
+				"nested-2/osv-scanner-test.toml",
+				"nested-3/osv-scanner-test.toml",
+			} {
+				b, err := os.ReadFile(testDir + "/" + file)
+
+				if err != nil {
+					if !errors.Is(err, os.ErrNotExist) {
+						t.Fatal(err)
+					}
+
+					b = []byte("(does not exist)")
+				}
+
+				testutility.NewSnapshot().MatchText(t, string(b))
+			}
+
+			for i, arg := range tc.Args {
+				if arg == "--experimental-update-config-ignores=unused" {
+					tc.Args[i] = "--experimental-update-config-ignores=none"
+				}
+			}
+
+			// re-running the cli should have vulnerabilities as not everything was ignored
+			testcmd.RunAndMatchSnapshots(t, tc)
 		})
 	}
 }
