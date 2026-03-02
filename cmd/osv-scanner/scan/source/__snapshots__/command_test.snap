@@ -5362,8 +5362,8 @@ unsupported data-source "github" - must be one of: deps.dev, native
 [TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed - 1]
 Scanning dir ./testdata/locks-requirements/unresolvable-requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
-failed resolution: no file can be used for parsing requirements for package flask-cors version 1.0
-failed to parse metadata for file Flask-Cors-1.0.tar.gz: sdist: dependencies in setup.py, not in PKG-INFO
+failed resolution: resolution impossible:
+no candidates at all for: pytz ">=2011k"
 Total 3 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 4 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 8 vulnerabilities can be fixed.
 
@@ -5599,6 +5599,38 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 
 ---
 
+[TestCommand_Transitive/scans_transitive_dependencies_in_requirements.txt_with_deps.dev_API_by_default - 1]
+Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
+Total 3 packages affected by 12 known vulnerabilities (1 Critical, 4 High, 6 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+12 vulnerabilities can be fixed.
+
+
++-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-frmv-pr5f-9mcr | 9.1  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-qw25-v68c-qjf3 | 7.5  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0.0   | 2.2.5         | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask    | 1.0.0   | 3.1.3         | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt |
++-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
+
+---
+
+[TestCommand_Transitive/scans_transitive_dependencies_in_requirements.txt_with_deps.dev_API_by_default - 2]
+
+---
+
 [TestCommand_Transitive/transitive_pomxml_enricher_requires_enabled_pomxml_extractor - 1]
 Scanning dir ./testdata/maven-transitive/abc.xml
 
@@ -5620,7 +5652,6 @@ No package sources found, --help for usage information.
 ---
 
 [TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1]
-Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
 22 vulnerabilities can be fixed.
@@ -5659,10 +5690,6 @@ Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Me
 | https://osv.dev/GHSA-gm62-xv2j-4w53 | 8.9  | PyPI      | urllib3  | 1.24.3  | 2.6.0         | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-pq67-6m6q-mj2v | 5.3  | PyPI      | urllib3  | 1.24.3  | 2.5.0         | testdata/locks-requirements/requirements.txt |
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
-
----
-
-[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
 
 ---
 

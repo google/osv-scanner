@@ -830,6 +830,278 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
+      content_length: 1598
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "certifi"
+              },
+              "version": "2026.2.25"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "chardet"
+              },
+              "version": "3.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "click"
+              },
+              "version": "8.3.1"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "django"
+              },
+              "version": "1.11.29"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "flask"
+              },
+              "version": "1.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "idna"
+              },
+              "version": "2.7"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "itsdangerous"
+              },
+              "version": "2.2.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "jinja2"
+              },
+              "version": "3.1.6"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "markupsafe"
+              },
+              "version": "3.0.3"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "pytz"
+              },
+              "version": "2025.2"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "requests"
+              },
+              "version": "2.20.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "urllib3"
+              },
+              "version": "1.24.3"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "werkzeug"
+              },
+              "version": "3.1.6"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source_for_Python_requirements.txt
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 2083
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68w8-qjq3-2gfm",
+                  "modified": "2024-09-20T15:46:52.557962Z"
+                },
+                {
+                  "id": "GHSA-6w2r-r2m5-xq5w",
+                  "modified": "2026-02-04T04:00:06.061990Z"
+                },
+                {
+                  "id": "GHSA-7xr5-9hcq-chf9",
+                  "modified": "2026-02-04T03:48:05.224740Z"
+                },
+                {
+                  "id": "GHSA-8x94-hmjh-97hq",
+                  "modified": "2026-02-04T02:45:55.690257Z"
+                },
+                {
+                  "id": "GHSA-frmv-pr5f-9mcr",
+                  "modified": "2025-11-27T09:10:30.649595Z"
+                },
+                {
+                  "id": "GHSA-qw25-v68c-qjf3",
+                  "modified": "2026-02-04T04:08:30.303132Z"
+                },
+                {
+                  "id": "GHSA-rrqc-c2jx-6jgv",
+                  "modified": "2024-10-30T19:23:59.139649Z"
+                },
+                {
+                  "id": "PYSEC-2021-98",
+                  "modified": "2023-12-06T01:01:16.755410Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68rp-wp8r-4726",
+                  "modified": "2026-02-23T23:43:45.778179Z"
+                },
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-jjg7-2v4v-x38h",
+                  "modified": "2026-02-04T03:49:45.087439Z"
+                },
+                {
+                  "id": "PYSEC-2024-60",
+                  "modified": "2024-07-11T17:42:33.704488Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9hjg-9r4m-mvj7",
+                  "modified": "2026-02-04T03:44:00.676479Z"
+                },
+                {
+                  "id": "GHSA-9wx4-h78v-vm56",
+                  "modified": "2026-02-04T02:43:42.271895Z"
+                },
+                {
+                  "id": "GHSA-j8r2-6x86-q33q",
+                  "modified": "2026-02-04T03:34:13.807518Z"
+                },
+                {
+                  "id": "PYSEC-2023-74",
+                  "modified": "2023-11-08T04:12:35.436175Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2xpw-w6gg-jr37",
+                  "modified": "2026-02-04T02:36:12.983430Z"
+                },
+                {
+                  "id": "GHSA-34jh-p97f-mpxf",
+                  "modified": "2026-02-04T03:37:44.850742Z"
+                },
+                {
+                  "id": "GHSA-38jv-5279-wg99",
+                  "modified": "2026-02-04T03:51:36.162029Z"
+                },
+                {
+                  "id": "GHSA-g4mx-q9vg-27p4",
+                  "modified": "2026-02-04T03:30:16.767903Z"
+                },
+                {
+                  "id": "GHSA-gm62-xv2j-4w53",
+                  "modified": "2026-02-04T03:37:15.919661Z"
+                },
+                {
+                  "id": "GHSA-pq67-6m6q-mj2v",
+                  "modified": "2026-02-04T04:38:01.163387Z"
+                },
+                {
+                  "id": "GHSA-v845-jxx5-vc9f",
+                  "modified": "2026-02-04T02:58:30.152562Z"
+                },
+                {
+                  "id": "GHSA-wqvq-5m8c-6g24",
+                  "modified": "2024-11-18T22:47:07.792720Z"
+                },
+                {
+                  "id": "PYSEC-2020-148",
+                  "modified": "2023-11-08T04:03:14.251187Z"
+                },
+                {
+                  "id": "PYSEC-2021-108",
+                  "modified": "2023-11-08T04:06:04.829992Z"
+                },
+                {
+                  "id": "PYSEC-2023-192",
+                  "modified": "2023-11-08T04:13:33.452167Z"
+                },
+                {
+                  "id": "PYSEC-2023-212",
+                  "modified": "2023-11-08T04:13:39.165450Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "2083"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 5
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
       content_length: 505
       host: api.osv.dev
       body: |
@@ -959,7 +1231,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 5
+  - id: 6
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -1498,7 +1770,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 6
+  - id: 7
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -1558,7 +1830,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 7
+  - id: 8
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -1642,7 +1914,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 8
+  - id: 9
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -1726,7 +1998,283 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 9
+  - id: 10
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 507
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "django"
+              },
+              "version": "1.11.29"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "flask"
+              },
+              "version": "1.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "pytz"
+              },
+              "version": "2025.2.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "requests"
+              },
+              "version": "2.20.0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/scans_transitive_dependencies_in_requirements.txt_by_default
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 1084
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68w8-qjq3-2gfm",
+                  "modified": "2024-09-20T15:46:52.557962Z"
+                },
+                {
+                  "id": "GHSA-6w2r-r2m5-xq5w",
+                  "modified": "2026-02-04T04:00:06.061990Z"
+                },
+                {
+                  "id": "GHSA-7xr5-9hcq-chf9",
+                  "modified": "2026-02-04T03:48:05.224740Z"
+                },
+                {
+                  "id": "GHSA-8x94-hmjh-97hq",
+                  "modified": "2026-02-04T02:45:55.690257Z"
+                },
+                {
+                  "id": "GHSA-frmv-pr5f-9mcr",
+                  "modified": "2025-11-27T09:10:30.649595Z"
+                },
+                {
+                  "id": "GHSA-qw25-v68c-qjf3",
+                  "modified": "2026-02-04T04:08:30.303132Z"
+                },
+                {
+                  "id": "GHSA-rrqc-c2jx-6jgv",
+                  "modified": "2024-10-30T19:23:59.139649Z"
+                },
+                {
+                  "id": "PYSEC-2021-98",
+                  "modified": "2023-12-06T01:01:16.755410Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68rp-wp8r-4726",
+                  "modified": "2026-02-23T23:43:45.778179Z"
+                },
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9hjg-9r4m-mvj7",
+                  "modified": "2026-02-04T03:44:00.676479Z"
+                },
+                {
+                  "id": "GHSA-9wx4-h78v-vm56",
+                  "modified": "2026-02-04T02:43:42.271895Z"
+                },
+                {
+                  "id": "GHSA-j8r2-6x86-q33q",
+                  "modified": "2026-02-04T03:34:13.807518Z"
+                },
+                {
+                  "id": "PYSEC-2023-74",
+                  "modified": "2023-11-08T04:12:35.436175Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "1084"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 11
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 507
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "django"
+              },
+              "version": "1.11.29"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "flask"
+              },
+              "version": "1.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "pytz"
+              },
+              "version": "2025.2.0"
+            },
+            {
+              "package": {
+                "ecosystem": "PyPI",
+                "name": "requests"
+              },
+              "version": "2.20.0"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_Transitive/scans_transitive_dependencies_in_requirements.txt_with_deps.dev_API_by_default
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 1084
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68w8-qjq3-2gfm",
+                  "modified": "2024-09-20T15:46:52.557962Z"
+                },
+                {
+                  "id": "GHSA-6w2r-r2m5-xq5w",
+                  "modified": "2026-02-04T04:00:06.061990Z"
+                },
+                {
+                  "id": "GHSA-7xr5-9hcq-chf9",
+                  "modified": "2026-02-04T03:48:05.224740Z"
+                },
+                {
+                  "id": "GHSA-8x94-hmjh-97hq",
+                  "modified": "2026-02-04T02:45:55.690257Z"
+                },
+                {
+                  "id": "GHSA-frmv-pr5f-9mcr",
+                  "modified": "2025-11-27T09:10:30.649595Z"
+                },
+                {
+                  "id": "GHSA-qw25-v68c-qjf3",
+                  "modified": "2026-02-04T04:08:30.303132Z"
+                },
+                {
+                  "id": "GHSA-rrqc-c2jx-6jgv",
+                  "modified": "2024-10-30T19:23:59.139649Z"
+                },
+                {
+                  "id": "PYSEC-2021-98",
+                  "modified": "2023-12-06T01:01:16.755410Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-68rp-wp8r-4726",
+                  "modified": "2026-02-23T23:43:45.778179Z"
+                },
+                {
+                  "id": "GHSA-m2qf-hxjv-5gpq",
+                  "modified": "2025-02-21T05:42:17.337040Z"
+                },
+                {
+                  "id": "PYSEC-2023-62",
+                  "modified": "2023-11-08T04:12:28.231927Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9hjg-9r4m-mvj7",
+                  "modified": "2026-02-04T03:44:00.676479Z"
+                },
+                {
+                  "id": "GHSA-9wx4-h78v-vm56",
+                  "modified": "2026-02-04T02:43:42.271895Z"
+                },
+                {
+                  "id": "GHSA-j8r2-6x86-q33q",
+                  "modified": "2026-02-04T03:34:13.807518Z"
+                },
+                {
+                  "id": "PYSEC-2023-74",
+                  "modified": "2023-11-08T04:12:35.436175Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "1084"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 12
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -1994,7 +2542,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 10
+  - id: 13
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -2266,7 +2814,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 11
+  - id: 14
     request:
       proto: HTTP/1.1
       proto_major: 1
