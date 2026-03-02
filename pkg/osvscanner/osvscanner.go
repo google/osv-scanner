@@ -37,7 +37,6 @@ import (
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/google/osv-scanner/v2/pkg/osvscanner/internal/imagehelpers"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
-	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"osv.dev/bindings/go/osvdev"
 )
 
@@ -422,11 +421,7 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 	//  - c: filtering removes vulns from results, so need to account for that
 	if actions.UpdateConfigIgnores == "all" {
 		// todo: add output about having ignored vulns
-		err := updateConfigs(&vulnerabilityResults, &scanResult.ConfigManager)
-
-		if err != nil {
-			return models.VulnerabilityResults{}, err
-		}
+		addVulnConfigIgnores(&vulnerabilityResults, &scanResult.ConfigManager)
 	}
 
 	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
@@ -440,7 +435,11 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 
 	if actions.UpdateConfigIgnores == "unused" {
 		// todo: add output about having ignored vulns
-		err := updateConfigsToRemoveUnusedIgnores(&scanResult.ConfigManager)
+		removeAllUnusedConfigIgnores(&scanResult.ConfigManager)
+	}
+
+	if actions.UpdateConfigIgnores != "" && actions.UpdateConfigIgnores != "none" {
+		err := saveAllConfigs(&scanResult.ConfigManager)
 
 		if err != nil {
 			return models.VulnerabilityResults{}, err
@@ -461,68 +460,6 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 	}
 
 	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)
-}
-
-func updateConfigs(vulnResults *models.VulnerabilityResults, configManager *config.Manager) error {
-	configVulns := make(map[string][]*osvschema.Vulnerability)
-	configPaths := make(map[string]config.Config)
-
-	for _, pkgSrc := range vulnResults.Results {
-		c := configManager.Get(pkgSrc.Source.Path)
-
-		// skip the default config
-		if c.LoadPath == "" {
-			continue
-		}
-
-		configPaths[c.LoadPath] = c
-
-		for _, pkgVulns := range pkgSrc.Packages {
-			configVulns[c.LoadPath] = append(configVulns[c.LoadPath], pkgVulns.Vulnerabilities...)
-		}
-	}
-
-	// update each config to ignore all the vulnerabilities
-	// found across all packages that are using that config
-	for p, vulns := range configVulns {
-		c := configPaths[p]
-
-		c.IgnoreVulns(vulns)
-
-		err := c.Save()
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-func updateConfigsToRemoveUnusedIgnores(configManager *config.Manager) error {
-	if configManager.OverrideConfig != nil {
-		configManager.OverrideConfig.RemoveUnusedIgnores()
-
-		err := configManager.OverrideConfig.Save()
-		if err != nil {
-			return err
-		}
-	}
-
-	for _, c := range configManager.ConfigMap {
-		// skip the default config
-		if c.LoadPath == "" {
-			continue
-		}
-
-		c.RemoveUnusedIgnores()
-
-		err := c.Save()
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
 }
 
 func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount {
