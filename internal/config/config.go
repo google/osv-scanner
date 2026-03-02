@@ -78,7 +78,7 @@ type License struct {
 	Ignore   bool     `toml:"ignore"`
 }
 
-func (c *Config) UpdateFile(vulns []*osvschema.Vulnerability) error {
+func (c *Config) IgnoreVulns(vulns []*osvschema.Vulnerability) {
 	existingIgnores := make(map[string]*IgnoreEntry, len(c.IgnoredVulns))
 	for _, ignoredVuln := range c.IgnoredVulns {
 		existingIgnores[ignoredVuln.ID] = ignoredVuln
@@ -108,6 +108,10 @@ func (c *Config) UpdateFile(vulns []*osvschema.Vulnerability) error {
 	slices.SortFunc(c.IgnoredVulns, func(a, b *IgnoreEntry) int {
 		return identifiers.IDSortFunc(a.ID, b.ID)
 	})
+}
+
+func (c *Config) UpdateFile(vulns []*osvschema.Vulnerability) error {
+	c.IgnoreVulns(vulns)
 
 	return c.Save()
 }
