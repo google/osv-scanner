@@ -30,9 +30,20 @@ ga_tracking: G-60SWD6J0TM
 remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-feed
+  - jekyll-coffeescript
+  - jekyll-gist
+  - jekyll-github-metadata
+  - jekyll-paginate
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
 
 color_scheme: custom_dark
 markdown: kramdown
+
+theme: just-the-docs
 
 kramdown:
   toc_levels: 1..3
