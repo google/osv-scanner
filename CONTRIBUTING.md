@@ -82,13 +82,30 @@ using the same Go version as the one used during the actual release (see gorelea
 To run tests:
 
 ```shell
-./scripts/run_tests.sh
+make test
+```
+
+To see a list of all tests and other available Makefile targets, you can run:
+
+```shell
+make help
 ```
 
 To get consistent test results, please run with `GOTOOLCHAIN=go<go version in go.mod>`.
 
+The `Makefile` defines several modes you can use to change how tests run:
+
+- `SNAPS=true`: Update snapshot tests.
+- `ACC=true`: Run acceptance tests.
+- `SHORT=false`: Run the full test suite instead of the default short suite.
+- `VCR=<mode>`: Set the VCR recording mode (see below).
+
 By default, tests that require additional dependencies beyond the go toolchain are skipped.
-Enable these tests by setting the env variable `TEST_ACCEPTANCE=true`.
+Enable these tests by running:
+
+```shell
+make test ACC=true
+```
 
 You can generate an HTML coverage report by running:
 
@@ -96,18 +113,25 @@ You can generate an HTML coverage report by running:
 ./scripts/generate_coverage_report.sh
 ```
 
-You can regenerate snapshots by setting `UPDATE_SNAPS=true` when running tests:
+You can regenerate snapshots by running tests with `SNAPS=true`:
 
 ```shell
-UPDATE_SNAPS=true ./scripts/run_tests.sh
+make test SNAPS=true
+# Or use the equivalent: make update-snapshots
 ```
 
 `cmd` tests use [`go-vcr`](https://github.com/dnaeon/go-vcr) to provide a custom `http.Client` for osv.dev requests to the `querybulk` endpoint which uses
 snapshots of requests called cassettes to reduce noise from changes to advisories while still providing a high degree
 of confidence.
 
-You can control the recording behaviour by setting the `TEST_VCR_MODE` environment variable to one of the [supported modes](https://github.com/dnaeon/go-vcr/blob/v4/pkg/recorder/recorder.go#L51),
+You can control the recording behaviour by passing `VCR=<mode>` as an argument to `make test`.
+The `<mode>` can be one of the [supported modes](https://github.com/dnaeon/go-vcr/blob/v4/pkg/recorder/recorder.go#L51),
 specified either by [its name without the `Mode` suffix or by its int value](./cmd/osv-scanner/internal/testcmd/vcr.go#L16).
+
+```shell
+# Example: Disable VCR tests to passthrough network requests
+make test VCR=Passthrough
+```
 
 The default mode locally is `ReplayWithNewEpisodes`, meaning existing interactions will be replayed while any new ones will
 be recorded and added to the existing cassette; when running in CI, the default mode is `ReplayOnly` meaning an error will be
