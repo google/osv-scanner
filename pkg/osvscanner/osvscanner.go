@@ -397,7 +397,11 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 	//  - c: filtering removes vulns from results, so need to account for that
 	if actions.UpdateConfigIgnores == "all" {
 		// todo: add output about having ignored vulns
-		addVulnConfigIgnores(&vulnerabilityResults, &scanResult.ConfigManager)
+		err := addVulnConfigIgnoresAndSave(&vulnerabilityResults, &scanResult.ConfigManager)
+
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
 	}
 
 	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
@@ -411,11 +415,7 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 
 	if actions.UpdateConfigIgnores == "unused" {
 		// todo: add output about having ignored vulns
-		removeAllUnusedConfigIgnores(&scanResult.ConfigManager)
-	}
-
-	if actions.UpdateConfigIgnores != "" && actions.UpdateConfigIgnores != "none" {
-		err := saveAllConfigs(&scanResult.ConfigManager)
+		err := removeAllUnusedConfigIgnoresAndSave(&scanResult.ConfigManager)
 
 		if err != nil {
 			return models.VulnerabilityResults{}, err
