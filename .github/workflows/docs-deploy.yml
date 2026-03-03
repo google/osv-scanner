@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ github.workspace }}/docs
+        working-directory: ./docs
     steps:
       - name: Checkout
         uses: actions/checkout@v4
