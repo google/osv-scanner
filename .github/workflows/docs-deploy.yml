@@ -26,16 +26,15 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-defaults:
-  run:
-    working-directory: ./docs
-
 jobs:
-  env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
-    BUNDLE_GEMFILE: ${{ github.workspace }}/docs/Gemfile
   # Build job
   build:
+    env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
+      BUNDLE_GEMFILE: ${{ github.workspace }}/docs/Gemfile
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./docs
     steps:
       - name: Checkout
         uses: actions/checkout@v4
