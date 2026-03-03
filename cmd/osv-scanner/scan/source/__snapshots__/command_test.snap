@@ -3270,11 +3270,11 @@ HTML output available at: <tempdir>/report.html
 ---
 
 [TestCommand_HtmlFile_Deprecated - 1]
-Warning: --output has been deprecated in favor of --output-file
 
 ---
 
 [TestCommand_HtmlFile_Deprecated - 2]
+Warning: --output has been deprecated in favor of --output-file
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml

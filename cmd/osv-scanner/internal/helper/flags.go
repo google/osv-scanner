@@ -62,9 +62,13 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Aliases: []string{"f"},
 			Usage:   "sets the output format; value can be: " + strings.Join(reporter.Format(), ", "),
 			Value:   "table",
-			Action: func(_ context.Context, _ *cli.Command, s string) error {
+			Validator: func(s string) error {
 				if slices.Contains(reporter.Format(), s) {
 					if s != "vertical" && s != "table" && s != "markdown" {
+						// technically this is a side effect, which shouldn't be part of "validation"
+						// but we need to ensure this is set before any logging happens, which could
+						// be in the "action" of other flags (such as for deprecations), but should
+						// not happen in other "validator" functions (as they return errors)
 						cmdlogger.SendEverythingToStderr()
 					}
 
