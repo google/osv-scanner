@@ -30,8 +30,9 @@ jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
-    env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
-      BUNDLE_GEMFILE: ${{ github.workspace }}/docs/Gemfile
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/docs
     steps:
       - name: Checkout
         uses: actions/checkout@v4
