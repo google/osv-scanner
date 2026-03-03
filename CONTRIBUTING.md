@@ -96,7 +96,7 @@ To get consistent test results, please run with `GOTOOLCHAIN=go<go version in go
 The `Makefile` defines several modes you can use to change how tests run:
 
 - `SNAPS=true`: Update snapshot tests.
-- `ACC=true`: Run acceptance tests.
+- `ACC=true`: Run acceptance tests that require additional dependencies.
 - `SHORT=false`: Run the full test suite instead of the default short suite.
 - `VCR=<mode>`: Set the VCR recording mode (see below).
 
