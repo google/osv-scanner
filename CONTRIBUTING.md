@@ -120,6 +120,12 @@ make test SNAPS=true
 # Or use the equivalent: make update-snapshots
 ```
 
+To update all snapshots for all tests, matching the CI test environment, use:
+
+```shell
+make refresh-all
+```
+
 `cmd` tests use [`go-vcr`](https://github.com/dnaeon/go-vcr) to provide a custom `http.Client` for osv.dev requests to the `querybulk` endpoint which uses
 snapshots of requests called cassettes to reduce noise from changes to advisories while still providing a high degree
 of confidence.
