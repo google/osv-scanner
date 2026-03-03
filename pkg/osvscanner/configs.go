@@ -6,7 +6,7 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-func addVulnConfigIgnores(vulnResults *models.VulnerabilityResults, manager *config.Manager) {
+func addVulnConfigIgnoresAndSave(vulnResults *models.VulnerabilityResults, manager *config.Manager) error {
 	configVulns := make(map[string][]*osvschema.Vulnerability)
 	configPaths := make(map[string]config.Config)
 
@@ -31,26 +31,20 @@ func addVulnConfigIgnores(vulnResults *models.VulnerabilityResults, manager *con
 		c := configPaths[p]
 
 		c.IgnoreVulns(vulns)
+
+		err := c.Save()
+		if err != nil {
+			return err
+		}
 	}
+
+	return nil
 }
 
-func removeAllUnusedConfigIgnores(manager *config.Manager) {
+func removeAllUnusedConfigIgnoresAndSave(manager *config.Manager) error {
 	if manager.OverrideConfig != nil {
 		manager.OverrideConfig.RemoveUnusedIgnores()
-	}
 
-	for _, c := range manager.ConfigMap {
-		// skip the default config
-		if c.LoadPath == "" {
-			continue
-		}
-
-		c.RemoveUnusedIgnores()
-	}
-}
-
-func saveAllConfigs(manager *config.Manager) error {
-	if manager.OverrideConfig != nil {
 		err := manager.OverrideConfig.Save()
 		if err != nil {
 			return err
@@ -62,6 +56,8 @@ func saveAllConfigs(manager *config.Manager) error {
 		if c.LoadPath == "" {
 			continue
 		}
+
+		c.RemoveUnusedIgnores()
 
 		err := c.Save()
 		if err != nil {
