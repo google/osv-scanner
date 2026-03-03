@@ -92,11 +92,10 @@ func action(ctx context.Context, cmd *cli.Command) error {
 			return s
 		}, nil)
 		srv := &http.Server{
-			Addr:         sseAddr,
-			Handler:      handler,
-			ReadTimeout:  30 * time.Second,
-			WriteTimeout: 30 * time.Second,
-			IdleTimeout:  120 * time.Second,
+			Addr:              sseAddr,
+			Handler:           handler,
+			ReadHeaderTimeout: 30 * time.Second,
+			IdleTimeout:       120 * time.Second,
 		}
 		if err := srv.ListenAndServe(); err != nil {
 			cmdlogger.Errorf("mcp error: %s", err)
