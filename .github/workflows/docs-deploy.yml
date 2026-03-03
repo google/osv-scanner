@@ -31,6 +31,8 @@ defaults:
     working-directory: ./docs
 
 jobs:
+  env: # $BUNDLE_GEMFILE must be set at the job level, so it is set for all steps
+    BUNDLE_GEMFILE: ${{ github.workspace }}/docs/Gemfile
   # Build job
   build:
     runs-on: ubuntu-latest
