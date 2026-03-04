@@ -11,6 +11,8 @@ import (
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/baseimage"
 	"github.com/google/osv-scalibr/enricher/enricherlist"
+	transitivedependencypomxml "github.com/google/osv-scalibr/enricher/transitivedependency/pomxml"
+	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/cpp/conanlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dart/pubspec"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/depsjson"
@@ -160,6 +162,10 @@ var enricherPresets = map[string]enricherlist.InitMap{
 	},
 	"vulns":    enricherlist.VulnMatching,
 	"licenses": enricherlist.License,
+	"transitive": {
+		transitivedependencyrequirements.Name: {transitivedependencyrequirements.New},
+		transitivedependencypomxml.Name:       {transitivedependencypomxml.New},
+	},
 }
 
 var annotatorPresets = map[string]annotatorlist.InitMap{
