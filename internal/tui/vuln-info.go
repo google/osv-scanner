@@ -2,6 +2,7 @@ package tui
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"charm.land/bubbles/v2/key"
@@ -59,7 +60,7 @@ func NewVulnInfo(vuln *resolution.Vulnerability) *vulnInfo {
 	}
 
 	// remove the padding/margins from the default markdown style
-	if lipgloss.HasDarkBackground() {
+	if lipgloss.HasDarkBackground(os.Stdin, os.Stdout) {
 		v.mdStyle = styles.DarkStyleConfig
 	} else {
 		v.mdStyle = styles.LightStyleConfig
