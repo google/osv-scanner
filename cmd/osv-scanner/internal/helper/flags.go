@@ -191,20 +191,57 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Value: &allowedLicencesFlag{},
 		},
 		&cli.BoolFlag{
-			Name:  "experimental-flag-deprecated-packages",
+			Name:  "x-flag-deprecated-packages",
 			Usage: "report if package versions are deprecated",
+		},
+		&cli.BoolFlag{
+			Name:  "experimental-flag-deprecated-packages",
+			Usage: "[DEPRECATED] (use \"--x-flag-deprecated-packages\" instead) report if package versions are deprecated",
+			Action: func(_ context.Context, _ *cli.Command, _ bool) error {
+				cmdlogger.Warnf("Warning: --experimental-flag-deprecated-packages has been deprecated in favor of --x-flag-deprecated-packages")
+
+				return nil
+			},
 		},
 		&cli.StringSliceFlag{
 			Name:  "experimental-plugins",
+			Usage: "[DEPRECATED] (use \"--x-plugins\" instead) list of specific plugins and presets of plugins to use",
+			Action: func(_ context.Context, _ *cli.Command, _ []string) error {
+				cmdlogger.Warnf("Warning: --experimental-plugins has been deprecated in favor of --x-plugins")
+
+				return nil
+			},
+			Value: defaultExtractors,
+		},
+		&cli.StringSliceFlag{
+			Name:  "x-plugins",
 			Usage: "list of specific plugins and presets of plugins to use",
 			Value: defaultExtractors,
 		},
 		&cli.StringSliceFlag{
 			Name:  "experimental-disable-plugins",
+			Usage: "[DEPRECATED] (use \"--x-disable-plugins\" instead) list of specific plugins and presets of plugins to not use",
+			Action: func(_ context.Context, _ *cli.Command, _ []string) error {
+				cmdlogger.Warnf("Warning: --experimental-disable-plugins has been deprecated in favor of --x-disable-plugins")
+
+				return nil
+			},
+		},
+		&cli.StringSliceFlag{
+			Name:  "x-disable-plugins",
 			Usage: "list of specific plugins and presets of plugins to not use",
 		},
 		&cli.BoolFlag{
 			Name:  "experimental-no-default-plugins",
+			Usage: "[DEPRECATED] (use \"--x-no-default-plugins\" instead) disable default plugins, instead using only those enabled by --x-plugins",
+			Action: func(_ context.Context, _ *cli.Command, _ bool) error {
+				cmdlogger.Warnf("Warning: --experimental-no-default-plugins has been deprecated in favor of --x-no-default-plugins")
+
+				return nil
+			},
+		},
+		&cli.BoolFlag{
+			Name:  "x-no-default-plugins",
 			Usage: "disable default plugins, instead using only those enabled by --experimental-plugins",
 		},
 	}

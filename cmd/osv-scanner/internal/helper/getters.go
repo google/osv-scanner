@@ -49,12 +49,22 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 	}
 }
 
+// FallbackToDeprecatedName returns the preferred cli flag name if set,
+// otherwise falling back to the deprecated name
+func FallbackToDeprecatedName(cmd *cli.Command, name, old string) string {
+	if cmd.IsSet(name) {
+		return name
+	}
+
+	return old
+}
+
 func GetExperimentalScannerActions(cmd *cli.Command, client *http.Client) osvscanner.ExperimentalScannerActions {
 	return osvscanner.ExperimentalScannerActions{
-		PluginsEnabled:         cmd.StringSlice("experimental-plugins"),
-		PluginsDisabled:        cmd.StringSlice("experimental-disable-plugins"),
-		PluginsNoDefaults:      cmd.Bool("experimental-no-default-plugins"),
+		PluginsEnabled:         cmd.StringSlice(FallbackToDeprecatedName(cmd, "x-plugins", "experimental-plugins")),
+		PluginsDisabled:        cmd.StringSlice(FallbackToDeprecatedName(cmd, "x-disable-plugins", "experimental-disable-plugins")),
+		PluginsNoDefaults:      cmd.Bool(FallbackToDeprecatedName(cmd, "x-no-default-plugins", "experimental-no-default-plugins")),
 		HTTPClient:             client,
-		FlagDeprecatedPackages: cmd.Bool("experimental-flag-deprecated-packages"),
+		FlagDeprecatedPackages: cmd.Bool(FallbackToDeprecatedName(cmd, "x-flag-deprecated-packages", "experimental-flag-deprecated-packages")),
 	}
 }
