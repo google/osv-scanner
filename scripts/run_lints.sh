@@ -3,4 +3,4 @@
 set -ex
 
 export GOTOOLCHAIN="${GOTOOLCHAIN:-go1.25.7}"
-go run github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.9.0 run ./... "$@"
+go run github.com/golangci/golangci-lint/v2/cmd/golangci-lint@$(cat .golangci-lint-version) run ./... "$@"
