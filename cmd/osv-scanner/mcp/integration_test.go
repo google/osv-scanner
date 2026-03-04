@@ -64,6 +64,7 @@ func TestIntegration_MCP_SSE_Subprocess(t *testing.T) {
 		scanResult, err := client.CallTool(ctx, &mcp.CallToolParams{
 			Name: "scan_vulnerable_dependencies",
 			Arguments: map[string]any{
+				"config":               testDataPath + "/osv-scanner-test.toml",
 				"paths":                []string{testDataPath},
 				"recursive":            true,
 				"ignore_glob_patterns": []string{},
