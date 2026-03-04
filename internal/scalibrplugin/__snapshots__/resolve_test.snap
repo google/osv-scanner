@@ -1,4 +1,65 @@
 
+[TestResolve_AllPresets - 1]
+baseimage
+cis/generic-linux/etcpasswdpermissions
+cpp/conanlock
+cve/cve-2020-11978
+cve/cve-2020-16846
+cve/cve-2022-33891
+cve/cve-2023-38408
+cve/cve-2023-6019
+cve/cve-2024-2912
+dart/pubspec
+dotnet/depsjson
+dotnet/packagesconfig
+dotnet/packageslockjson
+erlang/mixlock
+filesystem/vendored
+go/binary
+go/gomod
+govulncheck/binary
+haskell/cabal
+haskell/stacklock
+java/archive
+java/gradlelockfile
+java/gradleverificationmetadataxml
+java/pomxml
+javascript/bunlock
+javascript/nodemodules
+javascript/packagelockjson
+javascript/pnpmlock
+javascript/yarnlock
+license/depsdev
+os/apk
+os/dpkg
+osv/osvscannerjson
+php/composerlock
+python/pdmlock
+python/pipfilelock
+python/poetrylock
+python/pylock
+python/requirements
+python/uvlock
+python/wheelegg
+r/renvlock
+ruby/gemfilelock
+rust/cargoauditable
+rust/cargolock
+sbom/cdx
+sbom/spdx
+transitivedependency/pomxml
+transitivedependency/requirements
+vcs/gitrepo
+vex/os-duplicate/apk
+vex/os-duplicate/dpkg
+vulnmatch/osvdev
+vulnmatch/osvlocal
+weakcredentials/codeserver
+weakcredentials/etcshadow
+weakcredentials/filebrowser
+weakcredentials/winlocal
+---
+
 [TestResolve_Annotators_Presets/artifact - 1]
 baseimage
 go/binary
@@ -54,8 +115,7 @@ license/depsdev
 ---
 
 [TestResolve_Enrichers_Presets/transitive - 1]
-transitivedependency/pomxml
-transitivedependency/requirements
+
 ---
 
 [TestResolve_Enrichers_Presets/vulns - 1]

@@ -16,10 +16,14 @@ import (
 	"github.com/google/osv-scalibr/detector/weakcredentials/filebrowser"
 	"github.com/google/osv-scalibr/detector/weakcredentials/winlocal"
 	"github.com/google/osv-scalibr/enricher/baseimage"
+	transitivedependencypomxml "github.com/google/osv-scalibr/enricher/transitivedependency/pomxml"
+	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/dotnet/packageslockjson"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/golang/gobinary"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/java/archive"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/pomxml"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/php/composerlock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/python/requirements"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
 	chromeextensions "github.com/google/osv-scalibr/extractor/filesystem/misc/chrome/extensions"
@@ -348,6 +352,118 @@ func TestResolve_Detectors(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestResolve_RequiredPlugins(t *testing.T) {
+	t.Parallel()
+
+	type args struct {
+		enabled  []string
+		disabled []string
+	}
+	tests := []struct {
+		name string
+		args args
+		want []string
+	}{
+		{
+			name: "one_enricher_without_its_required_plugin",
+			args: args{
+				enabled:  []string{transitivedependencyrequirements.Name},
+				disabled: nil,
+			},
+			want: []string{},
+		},
+		{
+			name: "one_enricher_with_its_required_plugin_disabled",
+			args: args{
+				enabled:  []string{transitivedependencyrequirements.Name},
+				disabled: []string{requirements.Name},
+			},
+			want: []string{},
+		},
+		//
+		{
+			name: "transitive_enrichers_preset_without_any_required_plugin_enabled",
+			args: args{
+				enabled:  []string{"transitive"},
+				disabled: nil,
+			},
+			want: []string{},
+		},
+		{
+			name: "transitive_enrichers_preset_without_one_required_plugin_enabled",
+			args: args{
+				enabled:  []string{"transitive", requirements.Name},
+				disabled: nil,
+			},
+			want: []string{transitivedependencyrequirements.Name, requirements.Name},
+		},
+		{
+			name: "transitive_enrichers_preset_with_all_required_plugin_enabled",
+			args: args{
+				enabled: []string{
+					"transitive",
+					requirements.Name,
+					pomxml.Name,
+				},
+				disabled: nil,
+			},
+			want: []string{
+				transitivedependencyrequirements.Name,
+				requirements.Name,
+				transitivedependencypomxml.Name,
+				pomxml.Name,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			got := scalibrplugin.Resolve(tt.args.enabled, tt.args.disabled, &cpb.PluginConfig{})
+
+			slices.Sort(tt.want)
+
+			gotNames := make([]string, 0, len(got))
+			for _, plug := range got {
+				gotNames = append(gotNames, plug.Name())
+			}
+
+			slices.Sort(gotNames)
+
+			if diff := cmp.Diff(tt.want, gotNames); diff != "" {
+				t.Errorf("Resolve() diff (-want +got): %s", diff)
+			}
+		})
+	}
+}
+
+func TestResolve_AllPresets(t *testing.T) {
+	t.Parallel()
+
+	got := scalibrplugin.Resolve([]string{
+		"cis",
+		"govulncheck",
+		"untested",
+		"weakcreds",
+		"sbom",
+		"lockfile",
+		"directory",
+		"artifact",
+		"vulns",
+		"licenses",
+		"transitive",
+	}, []string{}, &cpb.PluginConfig{})
+
+	gotNames := make([]string, 0, len(got))
+	for _, detector := range got {
+		gotNames = append(gotNames, detector.Name())
+	}
+
+	slices.Sort(gotNames)
+
+	testutility.NewSnapshot().MatchText(t, strings.Join(gotNames, "\n"))
 }
 
 func TestResolve_Extractors(t *testing.T) {

@@ -3,8 +3,10 @@ package scalibrplugin
 
 import (
 	"fmt"
+	"slices"
 
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
+	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scalibr/plugin/list"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
@@ -95,5 +97,25 @@ func Resolve(enabledPlugins []string, disabledPlugins []string, cfg *cpb.PluginC
 		}
 	}
 
-	return asSlice
+	return withoutPluginsMissingRequiredPlugins(plugins, asSlice)
+}
+
+func withoutPluginsMissingRequiredPlugins(pluginStatues map[string]bool, loaded []plugin.Plugin) []plugin.Plugin {
+	plugins := make([]plugin.Plugin, 0, len(loaded))
+
+	for _, plug := range loaded {
+		en, ok := plug.(enricher.Enricher)
+
+		// if the "loaded" status of any plugin required by an enricher "contains" false,
+		// then that plugin is disabled and so the enricher requirements are not met
+		if ok && slices.ContainsFunc(en.RequiredPlugins(), func(name string) bool {
+			return !pluginStatues[name]
+		}) {
+			continue
+		}
+
+		plugins = append(plugins, plug)
+	}
+
+	return plugins
 }
