@@ -1881,9 +1881,9 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 Loaded GIT local db from <tempdir>/osv-scanner/GIT/all.zip
 Skipping commit scanning for: 45fda76bc1b9fd74d10e85e0ce9b65a12dcc58b0
+
 Total 8 packages affected by 29 known vulnerabilities (5 Critical, 7 High, 11 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
-
 
 +--------------------------------+------+-----------+----------------------------+----------------------------+---------------+-------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE                    | VERSION                    | FIXED VERSION | SOURCE                              |
@@ -1927,9 +1927,9 @@ Total 8 packages affected by 29 known vulnerabilities (5 Critical, 7 High, 11 Me
 
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
+
 Total 11 packages affected by 53 known vulnerabilities (7 Critical, 13 High, 23 Medium, 4 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
-
 
 +--------------------------------+------+-----------+----------------------------+-----------------------------+---------------+-------------------------------------+
 | OSV URL                        | CVSS | ECOSYSTEM | PACKAGE                    | VERSION                     | FIXED VERSION | SOURCE                              |
@@ -3286,9 +3286,9 @@ Scanning dir ./testdata/artifact/javareach_test.jar
 Java reachability enricher marked 14 packages as unreachable
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
 failed to download package err jar not found: https://repo1.maven.org/maven2/com/example/hello-tester/1.0-SNAPSHOT/hello-tester-1.0-SNAPSHOT.jar
+
 Total 4 packages affected by 53 known vulnerabilities (18 Critical, 29 High, 5 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
 53 vulnerabilities can be fixed.
-
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
@@ -3366,9 +3366,9 @@ Total 4 packages affected by 53 known vulnerabilities (18 Critical, 29 High, 5 M
 [TestCommand_JavareachArchive/jars_can_be_scanned_without_call_analysis - 1]
 Scanning dir ./testdata/artifact/javareach_test.jar
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
+
 Total 8 packages affected by 59 known vulnerabilities (18 Critical, 31 High, 8 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
 58 vulnerabilities can be fixed.
-
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
@@ -4120,9 +4120,9 @@ Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 Total 5 packages affected by 8 known vulnerabilities (1 Critical, 2 High, 1 Medium, 3 Low, 1 Unknown) from 3 ecosystems.
 6 vulnerabilities can be fixed.
-
 
 +-----------------------------------------+------+-----------+-----------------------+----------+---------------+-----------------------------------------------------+
 | OSV URL                                 | CVSS | ECOSYSTEM | PACKAGE               | VERSION  | FIXED VERSION | SOURCE                                              |
@@ -4159,9 +4159,9 @@ Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 Total 5 packages affected by 8 known vulnerabilities (1 Critical, 2 High, 1 Medium, 3 Low, 1 Unknown) from 3 ecosystems.
 6 vulnerabilities can be fixed.
-
 
 +-----------------------------------------+------+-----------+-----------------------+----------+---------------+-----------------------------------------------------+
 | OSV URL                                 | CVSS | ECOSYSTEM | PACKAGE               | VERSION  | FIXED VERSION | SOURCE                                              |
@@ -4192,9 +4192,9 @@ Scanned <rootdir>/testdata/locks-many-with-invalid/Gemfile.lock file and found 1
 Scanned <rootdir>/testdata/locks-many-with-invalid/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
-
 
 
 ---
@@ -4210,9 +4210,9 @@ Scanned <rootdir>/testdata/locks-many-with-invalid/Gemfile.lock file and found 1
 Scanned <rootdir>/testdata/locks-many-with-invalid/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
-
 
 
 ---
@@ -4342,9 +4342,9 @@ Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found
 Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
+
 Total 21 packages affected by 167 known vulnerabilities (18 Critical, 68 High, 54 Medium, 3 Low, 24 Unknown) from 2 ecosystems.
 11 vulnerabilities can be fixed.
-
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | FIXED VERSION                     | SOURCE                                          |
@@ -4559,9 +4559,9 @@ Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found
 Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
+
 Total 21 packages affected by 167 known vulnerabilities (18 Critical, 68 High, 54 Medium, 3 Low, 24 Unknown) from 2 ecosystems.
 11 vulnerabilities can be fixed.
-
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE                        | VERSION                            | FIXED VERSION                     | SOURCE                                          |
@@ -5294,9 +5294,9 @@ No issues found
 [TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 1]
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
+
 Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
-
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
@@ -5327,9 +5327,9 @@ Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Med
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Loaded PyPI local db from <tempdir>/osv-scanner/PyPI/all.zip
+
 Total 3 packages affected by 12 known vulnerabilities (1 Critical, 4 High, 6 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
 12 vulnerabilities can be fixed.
-
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
@@ -5370,9 +5370,9 @@ Scanning dir ./testdata/locks-requirements/unresolvable-requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 failed resolution: no file can be used for parsing requirements for package flask-cors version 1.0
 failed to parse metadata for file Flask-Cors-1.0.tar.gz: sdist: dependencies in setup.py, not in PKG-INFO
+
 Total 3 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 4 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 8 vulnerabilities can be fixed.
-
 
 +-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | FIXED VERSION | SOURCE                                                    |
@@ -5466,9 +5466,9 @@ Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/
 Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j/2.14.1/log4j-2.14.1.pom
 Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
+
 Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 6 vulnerabilities can be fixed.
-
 
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | FIXED VERSION | SOURCE                                 |
@@ -5490,9 +5490,9 @@ Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medi
 [TestCommand_Transitive/scan_local_disk_transitive_dependencies - 1]
 Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
+
 Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 11 vulnerabilities can be fixed.
-
 
 +-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                                  |
@@ -5521,9 +5521,9 @@ Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Med
 
 [TestCommand_Transitive/scans_dependencies_from_multiple_registries - 1]
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
+
 Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 6 vulnerabilities can be fixed.
-
 
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | FIXED VERSION | SOURCE                                 |
@@ -5544,9 +5544,9 @@ Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medi
 
 [TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 1]
 Scanned <rootdir>/testdata/maven-transitive/encoding.xml file and found 1 package
+
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
-
 
 +-------------------------------------+------+-----------+-------------+---------+---------------+----------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE     | VERSION | FIXED VERSION | SOURCE                                 |
@@ -5562,9 +5562,9 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 
 [TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
 Scanned <rootdir>/testdata/maven-transitive/abc.xml file and found 1 package
+
 Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
-
 
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | FIXED VERSION | SOURCE                            |
@@ -5585,9 +5585,9 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 [TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
+
 Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
-
 
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | FIXED VERSION | SOURCE                            |
@@ -5628,9 +5628,9 @@ No package sources found, --help for usage information.
 [TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1]
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
+
 Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
 22 vulnerabilities can be fixed.
-
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
