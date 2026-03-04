@@ -48,7 +48,7 @@ func (st *stateChooseStrategy) Init(m model) tea.Cmd {
 
 	// make a slice of vuln pointers for the all vulnerabilities list
 	// TODO: be consistent & efficient with how we pass resolution.Vulnerabilities around
-	var allVulns []*resolution.Vulnerability //nolint:prealloc // it's a bit annoying to count beforehand
+	var allVulns []*resolution.Vulnerability
 	for _, p := range m.inPlaceResult.Patches {
 		for i := range p.ResolvedVulns {
 			allVulns = append(allVulns, &p.ResolvedVulns[i])
