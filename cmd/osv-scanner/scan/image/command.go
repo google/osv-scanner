@@ -49,11 +49,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	}
 
 	format := cmd.String("format")
-	outputPath := cmd.String("output-file")
-
-	if outputPath == "" {
-		outputPath = cmd.String("output")
-	}
+	outputPath := cmd.String(helper.FallbackToDeprecatedName(cmd, "output-file", "output"))
 	serve := cmd.Bool("serve")
 	if serve {
 		format = "html"
