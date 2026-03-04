@@ -21,7 +21,7 @@ func interactiveMode(ctx context.Context, opts osvFixOptions) error {
 	}
 
 	cl := opts.Client
-	p := tea.NewProgram(newModel(ctx, opts, cl), tea.WithAltScreen())
+	p := tea.NewProgram(newModel(ctx, opts, cl))
 	m, err := p.Run()
 	if err != nil {
 		return err

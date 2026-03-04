@@ -141,7 +141,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m.st.Update(m, msg)
 }
 
-func (m model) View() string {
+func (m model) View() tea.View {
 	// render both views side-by-side
 	mainStyle, infoStyle := m.getBorderStyles()
 	mainView := mainStyle.Render(m.st.View(m))
@@ -160,7 +160,10 @@ func (m model) View() string {
 	// add the help to the bottom
 	view = lipgloss.JoinVertical(lipgloss.Center, view, m.help.View(tui.Keys))
 
-	return lipgloss.Place(m.termWidth, m.termHeight, lipgloss.Center, lipgloss.Center, view)
+	v := tea.NewView(lipgloss.Place(m.termWidth, m.termHeight, lipgloss.Center, lipgloss.Center, view))
+	v.AltScreen = true
+
+	return v
 }
 
 type modelState interface {
