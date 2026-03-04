@@ -50,7 +50,7 @@ func (st *stateChooseInPlacePatches) Init(m model) tea.Cmd {
 
 func (st *stateChooseInPlacePatches) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
-	if msg, ok := msg.(tea.KeyMsg); ok {
+	if msg, ok := msg.(tea.KeyPressMsg); ok {
 		switch {
 		case key.Matches(msg, tui.Keys.SwitchView):
 			if st.IsInfoFocused() {

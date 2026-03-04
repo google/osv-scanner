@@ -84,7 +84,7 @@ func (v *vulnInfo) Resize(w, h int) {
 
 func (v *vulnInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 	if v.onlyDetails || v.onlyGraphs {
-		if msg, ok := msg.(tea.KeyMsg); ok {
+		if msg, ok := msg.(tea.KeyPressMsg); ok {
 			if key.Matches(msg, Keys.Quit) {
 				v.onlyDetails = false
 				v.onlyGraphs = false
@@ -97,7 +97,7 @@ func (v *vulnInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 
 		return v, cmd
 	}
-	if msg, ok := msg.(tea.KeyMsg); ok {
+	if msg, ok := msg.(tea.KeyPressMsg); ok {
 		switch {
 		case key.Matches(msg, Keys.Quit):
 			return nil, nil

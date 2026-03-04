@@ -115,7 +115,7 @@ func (ip *inPlaceInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 		ip.currVulnInfo, cmd = ip.currVulnInfo.Update(msg)
 		return ip, cmd
 	}
-	if msg, ok := msg.(tea.KeyMsg); ok {
+	if msg, ok := msg.(tea.KeyPressMsg); ok {
 		switch {
 		case key.Matches(msg, Keys.Quit):
 			return ip, CloseViewModel

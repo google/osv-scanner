@@ -127,9 +127,9 @@ func (m model) Init() tea.Cmd {
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-	case tea.KeyMsg:
+	case tea.KeyPressMsg:
 		switch {
-		case msg.Type == tea.KeyCtrlC: // always quit on ctrl+c
+		case msg.String() == "ctrl+c": // always quit on ctrl+c
 			return m, tea.Quit
 		case key.Matches(msg, tui.Keys.Help): // toggle help
 			m.help.ShowAll = !m.help.ShowAll

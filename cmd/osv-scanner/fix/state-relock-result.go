@@ -159,7 +159,7 @@ func (st *stateRelockResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tui.ViewModelCloseMsg:
 		// info view wants to quit, just unfocus it
 		st.focusedInfo = nil
-	case tea.KeyMsg:
+	case tea.KeyPressMsg:
 		if !st.patchesDone { // Don't accept input in the middle of computation
 			return m, nil
 		}

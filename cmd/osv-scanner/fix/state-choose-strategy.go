@@ -98,7 +98,7 @@ func (st *stateChooseStrategy) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd)
 	case tui.ViewModelCloseMsg:
 		// info view wants to quit, just unfocus it
 		st.focusedInfo = nil
-	case tea.KeyMsg:
+	case tea.KeyPressMsg:
 		switch {
 		case key.Matches(msg, tui.Keys.SwitchView):
 			if st.IsInfoFocused() {

@@ -110,7 +110,7 @@ func (v *vulnList) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 		v.currVulnInfo, cmd = v.currVulnInfo.Update(msg)
 		return v, cmd
 	}
-	if msg, ok := msg.(tea.KeyMsg); ok {
+	if msg, ok := msg.(tea.KeyPressMsg); ok {
 		switch {
 		case key.Matches(msg, Keys.Quit):
 			return v, CloseViewModel
