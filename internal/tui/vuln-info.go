@@ -50,7 +50,7 @@ func NewVulnInfo(vuln *resolution.Vulnerability) *vulnInfo {
 		height:         ViewMinHeight,
 		cursor:         0,
 		numDetailLines: 5,
-		viewport:       viewport.New(ViewMinWidth, 20),
+		viewport:       viewport.New(viewport.WithWidth(ViewMinWidth), viewport.WithHeight(20)),
 	}
 	v.viewport.KeyMap = viewport.KeyMap{
 		Up:       Keys.Up,
@@ -76,8 +76,8 @@ func NewVulnInfo(vuln *resolution.Vulnerability) *vulnInfo {
 func (v *vulnInfo) Resize(w, h int) {
 	v.width = w
 	v.height = h
-	v.viewport.Width = w
-	v.viewport.Height = h
+	v.viewport.SetWidth(w)
+	v.viewport.SetHeight(h)
 	if v.onlyDetails {
 		v.viewport.SetContent(v.detailsOnlyView())
 	}
