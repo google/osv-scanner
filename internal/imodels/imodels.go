@@ -80,6 +80,10 @@ func (pkg *PackageInfo) Name() string {
 		}
 	}
 
+	if pkg.Ecosystem().String() == "GIT" && pkg.Package.SourceCode != nil && pkg.Package.SourceCode.Repo != "" {
+		return pkg.Package.SourceCode.Repo
+	}
+
 	return pkg.Package.Name
 }
 
