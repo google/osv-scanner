@@ -42,7 +42,7 @@ The `--no-ignore` flag can be used to force the scanner to scan ignored files.
 Experimental
 {: .label }
 
-You can exclude specific paths from scanning using the `--experimental-exclude` flag. This is useful for excluding test directories, documentation, or vendor directories from vulnerability scans.
+You can exclude specific paths from scanning using the `--x-exclude` flag. This is useful for excluding test directories, documentation, or vendor directories from vulnerability scans.
 
 **Note:** This flag currently only excludes directories, not individual files. This is an experimental feature and the syntax may change in future versions.
 
@@ -58,26 +58,26 @@ The flag supports three pattern types, matching the `--lockfile` flag syntax:
 
 ```bash
 # Exclude directories named "test" or "docs" (exact match)
-osv-scanner scan source -r --experimental-exclude=test --experimental-exclude=docs /path/to/your/dir
+osv-scanner scan source -r --x-exclude=test --x-exclude=docs /path/to/your/dir
 
 # Exclude using glob patterns
-osv-scanner scan source -r --experimental-exclude="g:**/test/**" --experimental-exclude="g:**/docs/**" /path/to/your/dir
+osv-scanner scan source -r --x-exclude="g:**/test/**" --x-exclude="g:**/docs/**" /path/to/your/dir
 
 # Exclude using regex patterns
-osv-scanner scan source -r --experimental-exclude="r:.*_test$" /path/to/your/dir
+osv-scanner scan source -r --x-exclude="r:.*_test$" /path/to/your/dir
 
 # Mix different pattern types
-osv-scanner scan source -r --experimental-exclude=vendor --experimental-exclude="g:**/test/**" --experimental-exclude="r:\\.cache" /path/to/your/dir
+osv-scanner scan source -r --x-exclude=vendor --x-exclude="g:**/test/**" --x-exclude="r:\\.cache" /path/to/your/dir
 
 # Escape directory names containing colons using : prefix
-osv-scanner scan source -r --experimental-exclude=":my:project" /path/to/your/dir
+osv-scanner scan source -r --x-exclude=":my:project" /path/to/your/dir
 ```
 
 ### Common use cases
 
-- Excluding test directories: `--experimental-exclude=test` or `--experimental-exclude="g:**/test/**"`
-- Excluding documentation: `--experimental-exclude=docs`
-- Excluding vendor directories: `--experimental-exclude=vendor`
+- Excluding test directories: `--x-exclude=test` or `--x-exclude="g:**/test/**"`
+- Excluding documentation: `--x-exclude=docs`
+- Excluding vendor directories: `--x-exclude=vendor`
 
 Alternatively, you can use the `osv-scanner.toml` configuration file with `[[PackageOverrides]]` to ignore specific packages or directories. See [Configuration](./configuration.md) for more details.
 
