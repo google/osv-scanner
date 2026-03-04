@@ -1,10 +1,16 @@
 package tui
 
-import "charm.land/lipgloss/v2"
+import (
+	"charm.land/lipgloss/v2"
+	"charm.land/lipgloss/v2/compat"
+)
 
 var (
-	ColorPrimary  = lipgloss.Color("#e62129")                         // Red, from the OSV logo :)
-	ColorDisabled = lipgloss.AdaptiveColor{Light: "250", Dark: "238"} // Grey
+	ColorPrimary  = lipgloss.Color("#e62129") // Red, from the OSV logo :)
+	ColorDisabled = compat.AdaptiveColor{     // Grey
+		Light: lipgloss.Color("250"),
+		Dark:  lipgloss.Color("238"),
+	}
 )
 
 var (
