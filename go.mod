@@ -1,6 +1,6 @@
 module github.com/google/osv-scanner/v2
 
-go 1.25.7
+go 1.26.0
 
 require (
 	deps.dev/api/v3 v3.0.0-20260112033243-1270359b191b
