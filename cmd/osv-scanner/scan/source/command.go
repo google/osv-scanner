@@ -59,6 +59,15 @@ func Command(stdout, stderr io.Writer, clientFactories scalibrconfig.ClientFacto
 			},
 			&cli.StringSliceFlag{
 				Name:  "experimental-exclude",
+				Usage: "[DEPRECATED] (use \"--x-exclude\" instead) exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)",
+				Action: func(_ context.Context, _ *cli.Command, _ []string) error {
+					cmdlogger.Warnf("Warning: --experimental-exclude has been deprecated in favor of --x-exclude")
+
+					return nil
+				},
+			},
+			&cli.StringSliceFlag{
+				Name:  "x-exclude",
 				Usage: "exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)",
 			},
 			&cli.StringFlag{
@@ -127,7 +136,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 
 	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd)
 	experimentalScannerActions.RequestUserAgent = userAgent
-	experimentalScannerActions.ExcludePatterns = cmd.StringSlice("experimental-exclude")
+	experimentalScannerActions.ExcludePatterns = cmd.StringSlice(helper.FallbackToDeprecatedName(cmd, "x-exclude", "experimental-exclude"))
 	// Add `source` specific experimental configs
 	experimentalScannerActions.TransitiveScanning = osvscanner.TransitiveScanningActions{
 		Disabled:         cmd.Bool("no-resolve"),
