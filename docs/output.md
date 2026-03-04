@@ -101,6 +101,44 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 
 ---
 
+### Vertical
+
+```bash
+osv-scanner scan --format vertical your/project/dir
+```
+
+<details markdown="1">
+<summary><b>Sample vertical output</b></summary>
+
+```bash
+Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+1 vulnerability can be fixed.
+
+Go
+
+path/to/go.mod: found 1 package with issues
+
+  github.com/gogo/protobuf@1.3.1 has the following known vulnerabilities:
+    GHSA-c3h9-896r-86jm: Improper Input Validation in GoGo Protobuf
+      Severity: '8.6'; Minimal Fix Version: '1.3.2';
+
+  1 known vulnerability found in path/to/go.mod
+
+crates.io
+
+path/to/Cargo.lock: found 1 package with issues
+
+  regex@1.5.1 has the following known vulnerabilities:
+    GHSA-m5pq-gvj9-9vr8: Rust's regex crate vulnerable to regular expression denial of service
+      Severity: '7.5'; Minimal Fix Version: '1.5.5';
+
+  1 known vulnerability found in path/to/Cargo.lock
+```
+
+</details>
+
+---
+
 ### HTML
 
 ```bash
