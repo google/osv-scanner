@@ -101,10 +101,10 @@ func Resolve(enabledPlugins []string, disabledPlugins []string, cfg *cpb.PluginC
 		}
 	}
 
-	return withoutPluginsMissingRequiredPlugins(plugins, asSlice)
+	return filterPluginsMissingRequiredPlugins(plugins, asSlice)
 }
 
-func withoutPluginsMissingRequiredPlugins(pluginStatues map[string]bool, loaded []plugin.Plugin) []plugin.Plugin {
+func filterPluginsMissingRequiredPlugins(pluginStatues map[string]bool, loaded []plugin.Plugin) []plugin.Plugin {
 	plugins := make([]plugin.Plugin, 0, len(loaded))
 
 	for _, plug := range loaded {
