@@ -30,9 +30,9 @@ you can manually enable or disable them.
 
 You can control which plugins to run using the following flags:
 
-- `--experimental-plugins`: Enables a comma-separated list of specific plugins that will be used along with the default plugins for the command being run
-- `--experimental-disable-plugins`: Disables a comma-separated list of specific plugins.
-- `--experimental-no-default-plugins`: Excludes the default plugins for the command being run from being automatically included
+- `--x-plugins`: Enables a comma-separated list of specific plugins that will be used along with the default plugins for the command being run
+- `--x-disable-plugins`: Disables a comma-separated list of specific plugins.
+- `--x-no-default-plugins`: Excludes the default plugins for the command being run from being automatically included
 
 For a full list of available plugin names, see OSV-Scalibr's documentation here:
 https://github.com/google/osv-scalibr/blob/main/docs/supported_inventory_types.md
@@ -45,10 +45,10 @@ You can also enable or disable various presets, which group multiple plugins tog
 
 ```bash
 # This will enable all sbom plugins + cargolock extractor + requirements extractor
-osv-scanner scan source --experimental-plugins sbom,rust/cargolock,python/requirements
+osv-scanner scan source --x-plugins sbom,rust/cargolock,python/requirements
 
 # This will enable all lockfile plugins, except the cargolock and requirements extractors
-osv-scanner scan source --experimental-plugins lockfile --experimental-disable-plugins rust/cargolock,python/requirements
+osv-scanner scan source --x-plugins lockfile --x-disable-plugins rust/cargolock,python/requirements
 ```
 
 **Available Presets:**
@@ -81,7 +81,7 @@ Example detector run
 </summary>
 
 ```bash
-osv-scanner scan image <img> --experimental-plugins=os/apk,weakcredentials/etcshadow --format=json
+osv-scanner scan image <img> --x-plugins=os/apk,weakcredentials/etcshadow --format=json
 ```
 
 ```json
