@@ -3,7 +3,7 @@ package tui
 import (
 	"fmt"
 
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/lipgloss/v2"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
