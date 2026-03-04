@@ -90,6 +90,10 @@ func Resolve(enabledPlugins []string, disabledPlugins []string, cfg *cpb.PluginC
 			if err != nil {
 				cmdlogger.Errorf("%s", err)
 
+				// mark the plugin as disabled in case
+				// it is required by any other plugins
+				plugins[name] = false
+
 				continue
 			}
 
