@@ -36,7 +36,7 @@ var (
 	}
 	// OnlyFirstBaseImage simplifies the array of base images to only the first one
 	OnlyFirstBaseImage = JSONReplaceRule{
-		Path: "image_metadata.base_images.#",
+		Path: "results.#.image_metadata.base_images.#",
 		ReplaceFunc: func(toReplace gjson.Result) any {
 			if toReplace.IsArray() && len(toReplace.Array()) >= 1 {
 				return toReplace.Array()[0].Value()
@@ -47,7 +47,7 @@ var (
 	}
 	// AnyDiffID truncates diff ids in image layer metadata to just `sha256:...`
 	AnyDiffID = JSONReplaceRule{
-		Path: "image_metadata.layer_metadata.#.diff_id",
+		Path: "results.#.image_metadata.layer_metadata.#.diff_id",
 		ReplaceFunc: func(toReplace gjson.Result) any {
 			if len(toReplace.String()) > 7 {
 				return toReplace.String()[:7] + "..."
@@ -58,7 +58,7 @@ var (
 	}
 	// ShortenHistoryCommandLength truncates COMMAND data to 28 characters
 	ShortenHistoryCommandLength = JSONReplaceRule{
-		Path: "image_metadata.layer_metadata.#.command",
+		Path: "results.#.image_metadata.layer_metadata.#.command",
 		ReplaceFunc: func(toReplace gjson.Result) any {
 			if len(toReplace.String()) > 28 {
 				return toReplace.String()[:25] + "..."
@@ -70,7 +70,7 @@ var (
 	// NormalizeHistoryCommand replaces COMMAND data to be consistent
 	// across different versions of docker
 	NormalizeHistoryCommand = JSONReplaceRule{
-		Path: "image_metadata.layer_metadata.#.command",
+		Path: "results.#.image_metadata.layer_metadata.#.command",
 		ReplaceFunc: func(toReplace gjson.Result) any {
 			str := toReplace.String()
 			nopMatcher := cachedregexp.MustCompile(`^/bin/sh -c #\(nop\)\s+`)
