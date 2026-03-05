@@ -1,10 +1,7 @@
 name: GitHub Actions Security Analysis with zizmor 🌈
 
 on:
-  pull_request:
-    paths: [".github/workflows/**"]
   push:
-    paths: [".github/workflows/**"]
     branches: ["main"]
 
 permissions: {}
