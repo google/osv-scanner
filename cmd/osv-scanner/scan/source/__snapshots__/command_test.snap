@@ -5268,18 +5268,78 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 1]
+[TestCommand_Transitive/invalid_data_source_error - 1]
+
+---
+
+[TestCommand_Transitive/invalid_data_source_error - 2]
+unsupported data-source "github" - must be one of: deps.dev, native
+
+---
+
+[TestCommand_Transitive/pom.xml_enricher_requires_extractor - 1]
+Scanning dir ./testdata/maven-transitive/abc.xml
+
+---
+
+[TestCommand_Transitive/pom.xml_enricher_requires_extractor - 2]
+No package sources found, --help for usage information.
+
+---
+
+[TestCommand_Transitive/pom.xml_multiple_registries - 1]
+Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
+
+Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+6 vulnerabilities can be fixed.
+
++-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | FIXED VERSION | SOURCE                                 |
++-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
+| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | 18.0.2        | testdata/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.16.0        | testdata/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.1        | testdata/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.15.0        | testdata/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.0        | testdata/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.25.3        | testdata/maven-transitive/registry.xml |
++-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
+
+---
+
+[TestCommand_Transitive/pom.xml_multiple_registries - 2]
+
+---
+
+[TestCommand_Transitive/pom.xml_no_resolve_no_transitive - 1]
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
 No issues found
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve - 2]
+[TestCommand_Transitive/pom.xml_no_resolve_no_transitive - 2]
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 1]
+[TestCommand_Transitive/pom.xml_non_utf8_encoding - 1]
+Scanned <rootdir>/testdata/maven-transitive/encoding.xml file and found 1 package
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+-------------+---------+---------------+----------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE     | VERSION | FIXED VERSION | SOURCE                                 |
++-------------------------------------+------+-----------+-------------+---------+---------------+----------------------------------------+
+| https://osv.dev/GHSA-269g-pwp5-87pp | 4.4  | Maven     | junit:junit | 4.12    | 4.13.1        | testdata/maven-transitive/encoding.xml |
++-------------------------------------+------+-----------+-------------+---------+---------------+----------------------------------------+
+
+---
+
+[TestCommand_Transitive/pom.xml_non_utf8_encoding - 2]
+
+---
+
+[TestCommand_Transitive/pom.xml_offline_no_transitive - 1]
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
 Loaded Maven local db from <tempdir>/osv-scanner/Maven/all.zip
@@ -5287,115 +5347,56 @@ No issues found
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode - 2]
+[TestCommand_Transitive/pom.xml_offline_no_transitive - 2]
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 1]
-Scanning dir ./testdata/locks-requirements/requirements.txt
-Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
+[TestCommand_Transitive/pom.xml_transitive_default - 1]
+Scanning dir ./testdata/maven-transitive/pom.xml
+Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
 
-Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-11 vulnerabilities can be fixed.
+Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+5 vulnerabilities can be fixed.
 
-+-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
-| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                              |
-| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-frmv-pr5f-9mcr | 9.1  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-qw25-v68c-qjf3 | 7.5  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0.0   | 2.2.5         | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |               |                                              |
-| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                              |
-| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt |
-+-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
++-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | FIXED VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.16.0        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.1        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.15.0        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.0        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.3        | testdata/maven-transitive/pom.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve - 2]
+[TestCommand_Transitive/pom.xml_transitive_default - 2]
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode - 1]
-Scanning dir ./testdata/locks-requirements/requirements.txt
-Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
-Loaded PyPI local db from <tempdir>/osv-scanner/PyPI/all.zip
+[TestCommand_Transitive/pom.xml_transitive_explicit_lockfile - 1]
+Scanned <rootdir>/testdata/maven-transitive/abc.xml file and found 1 package
 
-Total 3 packages affected by 12 known vulnerabilities (1 Critical, 4 High, 6 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
-12 vulnerabilities can be fixed.
+Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+5 vulnerabilities can be fixed.
 
-+-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
-+-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
-| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                              |
-| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-frmv-pr5f-9mcr | 9.1  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-qw25-v68c-qjf3 | 7.5  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask    | 1.0.0   | 3.1.3         | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-m2qf-hxjv-5gpq | 8.7  | PyPI      | flask    | 1.0.0   | 2.2.5         | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                              |
-| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt |
-| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt |
-+-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
++-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | FIXED VERSION | SOURCE                            |
++-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
+| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.16.0        | testdata/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.1        | testdata/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.15.0        | testdata/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.0        | testdata/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.3        | testdata/maven-transitive/abc.xml |
++-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
 
 ---
 
-[TestCommand_Transitive/does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode - 2]
+[TestCommand_Transitive/pom.xml_transitive_explicit_lockfile - 2]
 
 ---
 
-[TestCommand_Transitive/errors_with_invalid_data_source - 1]
-
----
-
-[TestCommand_Transitive/errors_with_invalid_data_source - 2]
-unsupported data-source "github" - must be one of: deps.dev, native
-
----
-
-[TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed - 1]
-Scanning dir ./testdata/locks-requirements/unresolvable-requirements.txt
-Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
-
-Total 3 packages affected by 9 known vulnerabilities (0 Critical, 3 High, 4 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
-9 vulnerabilities can be fixed.
-
-+-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | FIXED VERSION | SOURCE                                                    |
-+-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
-| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | 2.2.5         | testdata/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
-| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask      | 1.0.0   | 3.1.3         | testdata/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/PYSEC-2020-43       | 8.7  | PyPI      | flask-cors | 1.0.0   | 3.0.9         | testdata/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-xc3p-ff3m-f46v |      |           |            |         |               |                                                           |
-| https://osv.dev/PYSEC-2024-71       | 8.7  | PyPI      | flask-cors | 1.0.0   | 4.0.2         | testdata/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-hxwh-jpp2-84pm |      |           |            |         |               |                                                           |
-| https://osv.dev/GHSA-43qf-4rqw-9q2g | 5.3  | PyPI      | flask-cors | 1.0.0   | 6.0.0         | testdata/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-7rxf-gvfg-47g4 | 4.3  | PyPI      | flask-cors | 1.0.0   | 6.0.0         | testdata/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-84pr-m4jr-85g5 | 5.3  | PyPI      | flask-cors | 1.0.0   | 4.0.1         | testdata/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/GHSA-8vgw-p6qm-5gr7 | 5.3  | PyPI      | flask-cors | 1.0.0   | 6.0.0         | testdata/locks-requirements/unresolvable-requirements.txt |
-| https://osv.dev/PYSEC-2020-73       |      | PyPI      | pandas     | 0.23.4  | 1.0.4         | testdata/locks-requirements/unresolvable-requirements.txt |
-+-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
-
----
-
-[TestCommand_Transitive/fall_back_to_the_offline_extractor_if_resolution_failed - 2]
-
----
-
-[TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 1]
+[TestCommand_Transitive/pom.xml_transitive_native_source - 1]
 Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/animated-vector-drawable/24.0.0/animated-vector-drawable-24.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/appcompat-v7/24.0.0/appcompat-v7-24.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/mediarouter-v7/24.0.0/mediarouter-v7-24.0.0.pom
@@ -5482,129 +5483,117 @@ Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medi
 
 ---
 
-[TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 2]
+[TestCommand_Transitive/pom.xml_transitive_native_source - 2]
 
 ---
 
-[TestCommand_Transitive/scan_local_disk_transitive_dependencies - 1]
+[TestCommand_Transitive/requirements.txt_enricher_requires_extractor - 1]
 Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
-Scanned <rootdir>/testdata/locks-requirements/requirements-transitive.txt file and found 4 packages
-
-Total 3 packages affected by 11 known vulnerabilities (1 Critical, 4 High, 6 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-11 vulnerabilities can be fixed.
-
-+-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                                  |
-+-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
-| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements-transitive.txt |
-| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                                         |
-| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements-transitive.txt |
-| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements-transitive.txt |
-| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements-transitive.txt |
-| https://osv.dev/GHSA-frmv-pr5f-9mcr | 9.1  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements-transitive.txt |
-| https://osv.dev/GHSA-qw25-v68c-qjf3 | 7.5  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements-transitive.txt |
-| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements-transitive.txt |
-| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0.0   | 2.2.5         | testdata/locks-requirements/requirements-transitive.txt |
-| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |               |                                                         |
-| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements-transitive.txt |
-| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                                         |
-| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements-transitive.txt |
-| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements-transitive.txt |
-+-------------------------------------+------+-----------+----------+---------+---------------+---------------------------------------------------------+
 
 ---
 
-[TestCommand_Transitive/scan_local_disk_transitive_dependencies - 2]
+[TestCommand_Transitive/requirements.txt_enricher_requires_extractor - 2]
+No package sources found, --help for usage information.
 
 ---
 
-[TestCommand_Transitive/scans_dependencies_from_multiple_registries - 1]
-Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
+[TestCommand_Transitive/requirements.txt_no_resolve_no_transitive - 1]
+Scanning dir ./testdata/locks-requirements/requirements.txt
+Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 
-Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-6 vulnerabilities can be fixed.
+Total 3 packages affected by 12 known vulnerabilities (1 Critical, 4 High, 6 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+12 vulnerabilities can be fixed.
 
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | FIXED VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
-| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | 18.0.2        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.16.0        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.1        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.15.0        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.0        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.25.3        | testdata/maven-transitive/registry.xml |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
-
----
-
-[TestCommand_Transitive/scans_dependencies_from_multiple_registries - 2]
-
----
-
-[TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 1]
-Scanned <rootdir>/testdata/maven-transitive/encoding.xml file and found 1 package
-
-Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-1 vulnerability can be fixed.
-
-+-------------------------------------+------+-----------+-------------+---------+---------------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE     | VERSION | FIXED VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-------------+---------+---------------+----------------------------------------+
-| https://osv.dev/GHSA-269g-pwp5-87pp | 4.4  | Maven     | junit:junit | 4.12    | 4.13.1        | testdata/maven-transitive/encoding.xml |
-+-------------------------------------+------+-----------+-------------+---------+---------------+----------------------------------------+
++-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-frmv-pr5f-9mcr | 9.1  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-qw25-v68c-qjf3 | 7.5  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask    | 1.0.0   | 2.2.5         | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask    | 1.0.0   | 3.1.3         | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt |
++-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 
 ---
 
-[TestCommand_Transitive/scans_pom.xml_with_non_UTF-8_encoding - 2]
+[TestCommand_Transitive/requirements.txt_no_resolve_no_transitive - 2]
 
 ---
 
-[TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 1]
-Scanned <rootdir>/testdata/maven-transitive/abc.xml file and found 1 package
+[TestCommand_Transitive/requirements.txt_offline_no_transitive - 1]
+Scanning dir ./testdata/locks-requirements/requirements.txt
+Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
+Loaded PyPI local db from <tempdir>/osv-scanner/PyPI/all.zip
 
-Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-5 vulnerabilities can be fixed.
+Total 3 packages affected by 12 known vulnerabilities (1 Critical, 4 High, 6 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+12 vulnerabilities can be fixed.
 
-+-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | FIXED VERSION | SOURCE                            |
-+-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.16.0        | testdata/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.1        | testdata/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.15.0        | testdata/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.0        | testdata/maven-transitive/abc.xml |
-| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.3        | testdata/maven-transitive/abc.xml |
-+-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
-
----
-
-[TestCommand_Transitive/scans_transitive_dependencies_by_specifying_pom.xml - 2]
-
----
-
-[TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 1]
-Scanning dir ./testdata/maven-transitive/pom.xml
-Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
-
-Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-5 vulnerabilities can be fixed.
-
-+-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | FIXED VERSION | SOURCE                            |
-+-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.16.0        | testdata/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.1        | testdata/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.15.0        | testdata/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.0        | testdata/maven-transitive/pom.xml |
-| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.3        | testdata/maven-transitive/pom.xml |
-+-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
++-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
++-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
+| https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django   | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django   | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-7xr5-9hcq-chf9 | 4.0  | PyPI      | django   | 1.11.29 | 4.2.22        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-8x94-hmjh-97hq | 8.8  | PyPI      | django   | 1.11.29 | 3.2.15        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-frmv-pr5f-9mcr | 9.1  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-qw25-v68c-qjf3 | 7.5  | PyPI      | django   | 1.11.29 | 4.2.26        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django   | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask    | 1.0.0   | 3.1.3         | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq | 8.7  | PyPI      | flask    | 1.0.0   | 2.2.5         | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                              |
+| https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt |
++-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 
 ---
 
-[TestCommand_Transitive/scans_transitive_dependencies_for_pom.xml_by_default - 2]
+[TestCommand_Transitive/requirements.txt_offline_no_transitive - 2]
 
 ---
 
-[TestCommand_Transitive/scans_transitive_dependencies_in_requirements.txt_with_deps.dev_API_by_default - 1]
+[TestCommand_Transitive/requirements.txt_resolution_fallback - 1]
+Scanning dir ./testdata/locks-requirements/unresolvable-requirements.txt
+Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
+
+Total 3 packages affected by 9 known vulnerabilities (0 Critical, 3 High, 4 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
+9 vulnerabilities can be fixed.
+
++-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | FIXED VERSION | SOURCE                                                    |
++-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
+| https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | 2.2.5         | testdata/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask      | 1.0.0   | 3.1.3         | testdata/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/PYSEC-2020-43       | 8.7  | PyPI      | flask-cors | 1.0.0   | 3.0.9         | testdata/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-xc3p-ff3m-f46v |      |           |            |         |               |                                                           |
+| https://osv.dev/PYSEC-2024-71       | 8.7  | PyPI      | flask-cors | 1.0.0   | 4.0.2         | testdata/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-hxwh-jpp2-84pm |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-43qf-4rqw-9q2g | 5.3  | PyPI      | flask-cors | 1.0.0   | 6.0.0         | testdata/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-7rxf-gvfg-47g4 | 4.3  | PyPI      | flask-cors | 1.0.0   | 6.0.0         | testdata/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-84pr-m4jr-85g5 | 5.3  | PyPI      | flask-cors | 1.0.0   | 4.0.1         | testdata/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/GHSA-8vgw-p6qm-5gr7 | 5.3  | PyPI      | flask-cors | 1.0.0   | 6.0.0         | testdata/locks-requirements/unresolvable-requirements.txt |
+| https://osv.dev/PYSEC-2020-73       |      | PyPI      | pandas     | 0.23.4  | 1.0.4         | testdata/locks-requirements/unresolvable-requirements.txt |
++-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
+
+---
+
+[TestCommand_Transitive/requirements.txt_resolution_fallback - 2]
+
+---
+
+[TestCommand_Transitive/requirements.txt_transitive_default - 1]
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 
 Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
@@ -5646,31 +5635,11 @@ Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Me
 
 ---
 
-[TestCommand_Transitive/scans_transitive_dependencies_in_requirements.txt_with_deps.dev_API_by_default - 2]
+[TestCommand_Transitive/requirements.txt_transitive_default - 2]
 
 ---
 
-[TestCommand_Transitive/transitive_pomxml_enricher_requires_enabled_pomxml_extractor - 1]
-Scanning dir ./testdata/maven-transitive/abc.xml
-
----
-
-[TestCommand_Transitive/transitive_pomxml_enricher_requires_enabled_pomxml_extractor - 2]
-No package sources found, --help for usage information.
-
----
-
-[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 1]
-Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
-
----
-
-[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 2]
-No package sources found, --help for usage information.
-
----
-
-[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 1]
+[TestCommand_Transitive/requirements.txt_transitive_native_source - 1]
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 
 Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
@@ -5712,7 +5681,7 @@ Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Me
 
 ---
 
-[TestCommand_Transitive/uses_native_data_source_for_requirements.txt - 2]
+[TestCommand_Transitive/requirements.txt_transitive_native_source - 2]
 
 ---
 
