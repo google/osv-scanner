@@ -433,6 +433,11 @@ func TestCommand_JavareachArchive(t *testing.T) {
 			Args: []string{"", "source", "--call-analysis=jar", "--all-vulns", "--experimental-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
 			Exit: 1,
 		},
+		{
+			Name: "jars_can_be_scanned_with_call_analysis_and_disabled_enricher",
+			Args: []string{"", "source", "--call-analysis=jar", "--experimental-disable-plugins=reachability/java", "--all-vulns", "--experimental-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {

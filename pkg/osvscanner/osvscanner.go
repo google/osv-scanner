@@ -18,7 +18,6 @@ import (
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/enricher/packagedeprecation"
-	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	scalibrlog "github.com/google/osv-scalibr/log"
@@ -279,10 +278,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	// not mentioning them to avoid confusion since they're still in their infancy
 	if countNotEnrichers(plugins) == 0 {
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
-	}
-
-	if actions.CallAnalysisStates["jar"] {
-		plugins = append(plugins, java.NewDefault())
 	}
 
 	if actions.FlagDeprecatedPackages {
