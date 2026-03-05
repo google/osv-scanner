@@ -53,7 +53,7 @@ func (vm *VulnerabilityMatcher) UnmarshalJSON(data []byte) error {
 func (vm *VulnerabilityMatcher) MatchVulnerabilities(_ context.Context, invs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	result := make([][]*osvschema.Vulnerability, len(invs))
 	for i, inv := range invs {
-		result[i] = localmatcher.VulnerabilitiesAffectingPackage(vm.Vulns, imodels.FromInventory(inv))
+		result[i] = localmatcher.VulnerabilitiesAffectingPackage(vm.Vulns, imodels.FromPackage(inv))
 	}
 
 	return result, nil

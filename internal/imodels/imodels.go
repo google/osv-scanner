@@ -199,10 +199,8 @@ func (pkg *PackageInfo) OSPackageName() string {
 	return ""
 }
 
-// FromInventory converts an extractor.Package into a PackageInfo.
-//
-// todo: this should really be named `FromPackage`...
-func FromInventory(inv *extractor.Package) PackageInfo {
+// FromPackage converts an extractor.Package into a PackageInfo.
+func FromPackage(inv *extractor.Package) PackageInfo {
 	pi := PackageInfo{Package: inv}
 	if pi.SourceType() == models.SourceTypeSBOM {
 		purlStruct := converter.ToPURL(pi.Package)

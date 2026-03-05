@@ -180,7 +180,7 @@ func invsToQueries(invs []*extractor.Package) []*api.Query {
 	queries := make([]*api.Query, len(invs))
 
 	for i, inv := range invs {
-		pkg := imodels.FromInventory(inv)
+		pkg := imodels.FromPackage(inv)
 		queries[i] = pkgToQuery(pkg)
 	}
 
