@@ -34,7 +34,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@19a43a6a2428d455dbd1b85344698725179c9d8c # v1.289.0
         with:
-          ruby-version: '4' # Not needed with a .ruby-version file
+          ruby-version: "4" # Not needed with a .ruby-version file
           bundler-cache: true # runs 'bundle install' and caches installed gems automatically
           cache-version: 0 # Increment this number if you need to re-download cached gems
       - name: Setup Pages
