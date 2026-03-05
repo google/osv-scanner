@@ -15,8 +15,6 @@ import (
 	"github.com/google/osv-scalibr/enricher"
 	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/enricher/reachability/java"
-	transitivedependencypomxml "github.com/google/osv-scalibr/enricher/transitivedependency/pomxml"
-	transitivedependencyrequirements "github.com/google/osv-scalibr/enricher/transitivedependency/requirements"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/extractor/filesystem"
 	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
@@ -45,22 +43,6 @@ func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, acti
 	}
 }
 
-func areRequiredPluginsEnabled(plugins []plugin.Plugin, enr enricher.Enricher) bool {
-	enabled := make(map[string]struct{}, len(plugins))
-
-	for _, plug := range plugins {
-		enabled[plug.Name()] = struct{}{}
-	}
-
-	for _, required := range enr.RequiredPlugins() {
-		if _, ok := enabled[required]; !ok {
-			return false
-		}
-	}
-
-	return true
-}
-
 func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions ScannerActions) []plugin.Plugin {
 	cfg := &cpb.PluginConfig{
 		UserAgent: actions.RequestUserAgent,
@@ -87,6 +69,10 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 		actions.PluginsEnabled = append(actions.PluginsEnabled, defaultPlugins...)
 	}
 
+	if !actions.TransitiveScanning.Disabled {
+		actions.PluginsEnabled = append(actions.PluginsEnabled, "transitive")
+	}
+
 	if !actions.IncludeGitRoot {
 		actions.PluginsDisabled = append(actions.PluginsDisabled, gitrepo.Name)
 	}
@@ -96,26 +82,6 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 	}
 
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg)
-
-	if !actions.TransitiveScanning.Disabled {
-		if areRequiredPluginsEnabled(plugins, transitivedependencyrequirements.Enricher{}) {
-			p, err := transitivedependencyrequirements.New(cfg)
-			if err != nil {
-				log.Errorf("Failed to make transitivedependencyrequirements enricher: %v", err)
-			} else {
-				plugins = append(plugins, p)
-			}
-		}
-
-		if areRequiredPluginsEnabled(plugins, transitivedependencypomxml.Enricher{}) {
-			p, err := transitivedependencypomxml.New(cfg)
-			if err != nil {
-				log.Errorf("Failed to make transitivedependencypomxml enricher: %v", err)
-			} else {
-				plugins = append(plugins, p)
-			}
-		}
-	}
 
 	configurePlugins(plugins, accessors, actions)
 

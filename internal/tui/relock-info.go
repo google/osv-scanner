@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/charmbracelet/bubbles/key"
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/bubbles/v2/key"
+	tea "charm.land/bubbletea/v2"
+	"charm.land/lipgloss/v2"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 )
 
@@ -75,7 +75,7 @@ func (r *relockInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 	var cmds []tea.Cmd
 
 	// check if we're trying to scroll past the end of one of the lists
-	if msg, ok := msg.(tea.KeyMsg); ok && r.addedList != nil {
+	if msg, ok := msg.(tea.KeyPressMsg); ok && r.addedList != nil {
 		// scrolling up out of the added list
 		if r.addedFocused &&
 			r.addedList.Index() == 0 &&

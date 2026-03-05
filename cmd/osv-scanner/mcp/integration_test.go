@@ -121,7 +121,16 @@ func buildTestBinary(t *testing.T) string {
 	}
 
 	// We use the full package path to ensure we build the correct main package.
-	cmdBuild := exec.CommandContext(context.Background(), "go", "build", "-o", binPath, "github.com/google/osv-scanner/v2/cmd/osv-scanner")
+	cmdBuild := exec.CommandContext(
+		context.Background(),
+		"go",
+		"build",
+		"-ldflags",
+		"-X 'github.com/google/osv-scanner/v2/internal/config.OSVScannerConfigName=osv-scanner-test.toml'",
+		"-o",
+		binPath,
+		"github.com/google/osv-scanner/v2/cmd/osv-scanner",
+	)
 	cmdBuild.Stdout = os.Stdout
 	cmdBuild.Stderr = os.Stderr
 	if err := cmdBuild.Run(); err != nil {

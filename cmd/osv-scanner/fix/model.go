@@ -6,11 +6,11 @@ import (
 	"os"
 	"strings"
 
+	"charm.land/bubbles/v2/help"
+	"charm.land/bubbles/v2/key"
+	tea "charm.land/bubbletea/v2"
+	"charm.land/lipgloss/v2"
 	"deps.dev/util/resolve"
-	"github.com/charmbracelet/bubbles/help"
-	"github.com/charmbracelet/bubbles/key"
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
@@ -127,9 +127,9 @@ func (m model) Init() tea.Cmd {
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
-	case tea.KeyMsg:
+	case tea.KeyPressMsg:
 		switch {
-		case msg.Type == tea.KeyCtrlC: // always quit on ctrl+c
+		case msg.String() == "ctrl+c": // always quit on ctrl+c
 			return m, tea.Quit
 		case key.Matches(msg, tui.Keys.Help): // toggle help
 			m.help.ShowAll = !m.help.ShowAll
@@ -141,7 +141,7 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	return m.st.Update(m, msg)
 }
 
-func (m model) View() string {
+func (m model) View() tea.View {
 	// render both views side-by-side
 	mainStyle, infoStyle := m.getBorderStyles()
 	mainView := mainStyle.Render(m.st.View(m))
@@ -160,7 +160,10 @@ func (m model) View() string {
 	// add the help to the bottom
 	view = lipgloss.JoinVertical(lipgloss.Center, view, m.help.View(tui.Keys))
 
-	return lipgloss.Place(m.termWidth, m.termHeight, lipgloss.Center, lipgloss.Center, view)
+	v := tea.NewView(lipgloss.Place(m.termWidth, m.termHeight, lipgloss.Center, lipgloss.Center, view))
+	v.AltScreen = true
+
+	return v
 }
 
 type modelState interface {
