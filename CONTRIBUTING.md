@@ -117,7 +117,13 @@ You can regenerate snapshots by running tests with `SNAPS=true`:
 
 ```shell
 make test SNAPS=true
-# Or use the equivalent: make update-snapshots
+```
+
+Note that some long-running tests may be skipped and their snapshots will not be updated. To update all snapshots, use:
+
+```shell
+make update-snapshots
+# Equivalent to: make test SNAPS=true SHORT=false
 ```
 
 To update all snapshots for all tests, matching the CI test environment, use:
