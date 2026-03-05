@@ -1301,8 +1301,13 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "scans transitive dependencies in requirements.txt with deps.dev API by default",
+			Args: []string{"", "source", "-L", "./testdata/locks-requirements/requirements.txt"},
+			Exit: 1,
+		},
+		{
 			Name: "uses native data source for requirements.txt",
-			Args: []string{"", "source", "./testdata/locks-requirements/requirements.txt"},
+			Args: []string{"", "source", "--data-source=native", "-L", "requirements.txt:./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 		{
