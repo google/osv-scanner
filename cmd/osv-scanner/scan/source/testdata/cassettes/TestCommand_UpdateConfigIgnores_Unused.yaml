@@ -516,7 +516,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 979
+      content_length: 1101
       host: api.osv.dev
       body: |
         {
@@ -576,6 +576,13 @@ interactions:
                 "name": "ansi-html"
               },
               "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
             }
           ]
         }
@@ -583,14 +590,14 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores_Unused/deep_with_no_configs
+          - TestCommand_UpdateConfigIgnores_Unused/deep
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 795
+      content_length: 877
       body: |
         {
           "results": [
@@ -598,7 +605,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-wx95-c6cv-8532",
-                  "modified": "2026-02-18T22:11:44.575445Z"
+                  "modified": "2026-02-25T10:44:01.279701Z"
                 }
               ]
             },
@@ -606,7 +613,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-2g4f-4pwh-qvx6",
-                  "modified": "2026-02-23T23:27:04.622012Z"
+                  "modified": "2026-03-04T15:06:32.662074Z"
                 },
                 {
                   "id": "GHSA-v88g-cgmw-v5xw",
@@ -618,7 +625,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-2g4f-4pwh-qvx6",
-                  "modified": "2026-02-23T23:27:04.622012Z"
+                  "modified": "2026-03-04T15:06:32.662074Z"
                 }
               ]
             },
@@ -634,7 +641,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-2g4f-4pwh-qvx6",
-                  "modified": "2026-02-23T23:27:04.622012Z"
+                  "modified": "2026-03-04T15:06:32.662074Z"
                 },
                 {
                   "id": "GHSA-v88g-cgmw-v5xw",
@@ -646,7 +653,15 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-2g4f-4pwh-qvx6",
-                  "modified": "2026-02-23T23:27:04.622012Z"
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
                 }
               ]
             },
@@ -670,7 +685,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "795"
+          - "877"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1093,7 +1108,7 @@ interactions:
         Content-Type:
           - application/json
         X-Test-Name:
-          - TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config
+          - TestCommand_UpdateConfigIgnores_Unused/deep_with_no_configs
       url: https://api.osv.dev/v1/querybatch
       method: POST
     response:
@@ -1187,6 +1202,351 @@ interactions:
       code: 200
       duration: 0s
   - id: 7
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1101
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.18.9"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_UpdateConfigIgnores_Unused/deep_with_no_configs
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 877
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-wx95-c6cv-8532",
+                  "modified": "2026-02-25T10:44:01.279701Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "877"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 8
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 979
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.18.9"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 795
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-wx95-c6cv-8532",
+                  "modified": "2026-02-18T22:11:44.575445Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-02-23T23:27:04.622012Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-02-23T23:27:04.622012Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-02-23T23:27:04.622012Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-02-23T23:27:04.622012Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "795"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 9
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -1351,7 +1711,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 8
+  - id: 10
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -1531,7 +1891,187 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 9
+  - id: 11
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1101
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.18.9"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 877
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-wx95-c6cv-8532",
+                  "modified": "2026-02-25T10:44:01.279701Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "877"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 12
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -1696,7 +2236,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 10
+  - id: 13
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -1910,7 +2450,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 11
+  - id: 14
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -2075,7 +2615,221 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 12
+  - id: 15
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 1333
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.18.9"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "6.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ajv"
+              },
+              "version": "8.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_UpdateConfigIgnores_Unused/global_config_deep
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 1104
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-wx95-c6cv-8532",
+                  "modified": "2026-02-25T10:44:01.279701Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                },
+                {
+                  "id": "GHSA-v88g-cgmw-v5xw",
+                  "modified": "2024-06-21T21:33:48Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-2g4f-4pwh-qvx6",
+                  "modified": "2026-03-04T15:06:32.662074Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "1104"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 16
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -2142,7 +2896,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 13
+  - id: 17
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -2209,7 +2963,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 14
+  - id: 18
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -2374,7 +3128,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 15
+  - id: 19
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -2441,74 +3195,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 16
-    request:
-      proto: HTTP/1.1
-      proto_major: 1
-      proto_minor: 1
-      content_length: 271
-      host: api.osv.dev
-      body: |
-        {
-          "queries": [
-            {
-              "package": {
-                "ecosystem": "RubyGems",
-                "name": "nokogiri"
-              },
-              "version": "1.18.9"
-            },
-            {
-              "package": {
-                "ecosystem": "npm",
-                "name": "ansi-html"
-              },
-              "version": "0.0.1"
-            }
-          ]
-        }
-      headers:
-        Content-Type:
-          - application/json
-        X-Test-Name:
-          - TestCommand_UpdateConfigIgnores_Unused/shallow
-      url: https://api.osv.dev/v1/querybatch
-      method: POST
-    response:
-      proto: HTTP/2.0
-      proto_major: 2
-      proto_minor: 0
-      content_length: 177
-      body: |
-        {
-          "results": [
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-wx95-c6cv-8532",
-                  "modified": "2026-02-18T22:11:44.575445Z"
-                }
-              ]
-            },
-            {
-              "vulns": [
-                {
-                  "id": "GHSA-whgm-jr23-g3j9",
-                  "modified": "2023-11-08T04:05:08.868477Z"
-                }
-              ]
-            }
-          ]
-        }
-      headers:
-        Content-Length:
-          - "177"
-        Content-Type:
-          - application/json
-      status: 200 OK
-      code: 200
-      duration: 0s
-  - id: 17
+  - id: 20
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -2575,7 +3262,74 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 18
+  - id: 21
+    request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 271
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "nokogiri"
+              },
+              "version": "1.18.9"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_UpdateConfigIgnores_Unused/shallow
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 177
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-wx95-c6cv-8532",
+                  "modified": "2026-02-18T22:11:44.575445Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "177"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - id: 22
     request:
       proto: HTTP/1.1
       proto_major: 1
@@ -2642,7 +3396,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 19
+  - id: 23
     request:
       proto: HTTP/1.1
       proto_major: 1
