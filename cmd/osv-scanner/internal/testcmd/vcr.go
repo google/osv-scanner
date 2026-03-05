@@ -66,6 +66,18 @@ func WithTestNameHeader(t *testing.T, client http.Client) *http.Client {
 	}}
 }
 
+// custom marshaller to make cassettes pretty
+func marshalCassettes(input any) (out []byte, err error) {
+	var buf bytes.Buffer
+	enc := yaml.NewEncoder(&buf)
+	enc.SetIndent(2)
+	if err := enc.Encode(input); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
+}
+
 // InsertCassette returns an http.Client backed by a [recorder.Recorder] which
 // will record and (re)play responses from a cassette based on the tests name
 func InsertCassette(t *testing.T) *http.Client {
@@ -75,6 +87,7 @@ func InsertCassette(t *testing.T) *http.Client {
 
 	r, err := recorder.New(
 		path,
+		recorder.WithMarshalFunc(marshalCassettes),
 		recorder.WithSkipRequestLatency(true),
 		recorder.WithMode(determineRecorderMode()),
 		recorder.WithPassthrough(func(req *http.Request) bool {
@@ -147,16 +160,7 @@ func sortCassetteInteractions(t *testing.T, path string) {
 		t.Fatalf("failed to load %s: %v", path, err)
 	}
 
-	cass.MarshalFunc = func(input any) ([]byte, error) {
-		var buf bytes.Buffer
-		enc := yaml.NewEncoder(&buf)
-		enc.SetIndent(2)
-		if err := enc.Encode(input); err != nil {
-			return nil, err
-		}
-
-		return buf.Bytes(), nil
-	}
+	cass.MarshalFunc = marshalCassettes
 
 	// we don't need to worry about the interaction ids as they get updated as part of saving
 	slices.SortFunc(cass.Interactions, func(a, b *cassette.Interaction) int {
