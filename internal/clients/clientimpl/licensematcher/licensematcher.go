@@ -27,9 +27,8 @@ type DepsDevLicenseMatcher struct {
 func (matcher *DepsDevLicenseMatcher) MatchLicenses(ctx context.Context, packages []imodels.PackageInfo) error {
 	queries := make([]*depsdevpb.GetVersionRequest, len(packages))
 
-	for i, psr := range packages {
-		pkg := psr
-		system, ok := depsdev.System[psr.Ecosystem().Ecosystem]
+	for i, pkg := range packages {
+		system, ok := depsdev.System[pkg.Ecosystem().Ecosystem]
 		if !ok || pkg.Name() == "" || pkg.Version() == "" {
 			continue
 		}
