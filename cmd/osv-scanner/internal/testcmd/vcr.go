@@ -3,6 +3,7 @@ package testcmd
 import (
 	"bytes"
 	"cmp"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -66,8 +67,33 @@ func WithTestNameHeader(t *testing.T, client http.Client) *http.Client {
 	}}
 }
 
-// custom marshaller to make cassettes pretty
-func marshalCassettes(input any) (out []byte, err error) {
+// this is cassette.Interaction without its ID field
+type withoutID struct {
+	Request  cassette.Request  `yaml:"request"`
+	Response cassette.Response `yaml:"response"`
+}
+
+// custom marshaller to make cassettes pretty and to omit the "id" field from interactions
+// for a smaller diff since we don't care about their order
+func marshalCassettes(in any) (out []byte, err error) {
+	cass, ok := in.(*cassette.Cassette)
+	if !ok {
+		return nil, fmt.Errorf("expected *cassette.Cassette, got %T", in)
+	}
+
+	interactions := make([]withoutID, len(cass.Interactions))
+	for i, interaction := range cass.Interactions {
+		interactions[i] = withoutID{
+			Request:  interaction.Request,
+			Response: interaction.Response,
+		}
+	}
+
+	input := struct {
+		Version      int         `yaml:"version"`
+		Interactions []withoutID `yaml:"interactions"`
+	}{Version: cass.Version, Interactions: interactions}
+
 	var buf bytes.Buffer
 	enc := yaml.NewEncoder(&buf)
 	enc.SetIndent(2)
