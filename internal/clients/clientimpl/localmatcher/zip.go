@@ -264,7 +264,7 @@ func (db *ZipDB) load(ctx context.Context, names []string) error {
 	return nil
 }
 
-func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, offline bool, invs []*extractor.Package) (*ZipDB, error) {
+func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, offline bool, pkgs []*extractor.Package) (*ZipDB, error) {
 	db := &ZipDB{
 		Name:       name,
 		ArchiveURL: url,
@@ -273,14 +273,14 @@ func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, o
 		UserAgent:  userAgent,
 
 		// we only fully load the database if we're not provided a list of packages
-		Partial: len(invs) != 0,
+		Partial: len(pkgs) != 0,
 	}
-	names := make([]string, 0, len(invs))
+	names := make([]string, 0, len(pkgs))
 
 	// map the packages to their names ahead of loading,
 	// to make things simpler and reduce double working
-	for _, inv := range invs {
-		in := imodels.FromPackage(inv)
+	for _, pkg := range pkgs {
+		in := imodels.FromPackage(pkg)
 		names = append(names, in.Name())
 	}
 

@@ -200,8 +200,8 @@ func (pkg *PackageInfo) OSPackageName() string {
 }
 
 // FromPackage converts an extractor.Package into a PackageInfo.
-func FromPackage(inv *extractor.Package) PackageInfo {
-	pi := PackageInfo{Package: inv}
+func FromPackage(pkg *extractor.Package) PackageInfo {
+	pi := PackageInfo{Package: pkg}
 	if pi.SourceType() == models.SourceTypeSBOM {
 		purlStruct := converter.ToPURL(pi.Package)
 		if purlStruct != nil {
