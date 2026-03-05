@@ -3,10 +3,10 @@ package tui
 import (
 	"fmt"
 
-	"github.com/charmbracelet/bubbles/key"
-	"github.com/charmbracelet/bubbles/table"
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/bubbles/v2/key"
+	"charm.land/bubbles/v2/table"
+	tea "charm.land/bubbletea/v2"
+	"charm.land/lipgloss/v2"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 )
@@ -115,7 +115,7 @@ func (ip *inPlaceInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 		ip.currVulnInfo, cmd = ip.currVulnInfo.Update(msg)
 		return ip, cmd
 	}
-	if msg, ok := msg.(tea.KeyMsg); ok {
+	if msg, ok := msg.(tea.KeyPressMsg); ok {
 		switch {
 		case key.Matches(msg, Keys.Quit):
 			return ip, CloseViewModel

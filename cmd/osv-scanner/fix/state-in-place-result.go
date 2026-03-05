@@ -5,8 +5,8 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/charmbracelet/bubbles/key"
-	tea "github.com/charmbracelet/bubbletea"
+	"charm.land/bubbles/v2/key"
+	tea "charm.land/bubbletea/v2"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	lockf "github.com/google/osv-scanner/v2/internal/resolution/lockfile"
@@ -95,7 +95,7 @@ func (st *stateInPlaceResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) 
 	case tui.ViewModelCloseMsg:
 		// info view wants to quit, just unfocus it
 		st.focusedInfo = nil
-	case tea.KeyMsg:
+	case tea.KeyPressMsg:
 		switch {
 		case key.Matches(msg, tui.Keys.SwitchView):
 			if st.IsInfoFocused() {

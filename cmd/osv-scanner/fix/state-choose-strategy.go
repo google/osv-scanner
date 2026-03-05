@@ -6,9 +6,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/charmbracelet/bubbles/key"
-	"github.com/charmbracelet/bubbles/textinput"
-	tea "github.com/charmbracelet/bubbletea"
+	"charm.land/bubbles/v2/key"
+	"charm.land/bubbles/v2/textinput"
+	tea "charm.land/bubbletea/v2"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/tui"
@@ -98,7 +98,7 @@ func (st *stateChooseStrategy) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd)
 	case tui.ViewModelCloseMsg:
 		// info view wants to quit, just unfocus it
 		st.focusedInfo = nil
-	case tea.KeyMsg:
+	case tea.KeyPressMsg:
 		switch {
 		case key.Matches(msg, tui.Keys.SwitchView):
 			if st.IsInfoFocused() {
