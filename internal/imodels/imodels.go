@@ -214,13 +214,3 @@ func FromInventory(inv *extractor.Package) PackageInfo {
 
 	return pi
 }
-
-// PackageScanResult represents a package and its associated vulnerabilities and licenses.
-// This struct is used to store the results of a scan at a per package level.
-type PackageScanResult struct {
-	PackageInfo PackageInfo
-
-	// TODO(v2):
-	// SourceAnalysis *SourceAnalysis
-	// Any additional scan enrichment steps
-}

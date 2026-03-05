@@ -16,11 +16,11 @@ import (
 // filterUnscannablePackages removes packages that don't have enough information to be scanned or
 // are not a supported ecosystem, and returns the list of removed packages (if --all-packages flag is passed in)
 // e,g, local packages that specified by path
-func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []imodels.PackageScanResult {
-	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
-	filteredPsr := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []imodels.PackageInfo {
+	packageResults := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
+	filteredPsr := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
-		p := psr.PackageInfo
+		p := psr
 
 		switch {
 		// If **none** of the cases match, skip this package since it's not scannable
@@ -59,9 +59,9 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 
 // filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
 func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
-	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+	packageResults := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
-		p := psr.PackageInfo
+		p := psr
 
 		// Almost all packages with linux as a SourceName are kernel packages
 		// which does not apply within a container, as containers use the host's kernel
@@ -83,9 +83,9 @@ func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
 func filterIgnoredPackages(scanResults *results.ScanResults) {
 	configManager := &scanResults.ConfigManager
 
-	out := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+	out := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
-		p := psr.PackageInfo
+		p := psr
 		configToUse := configManager.Get(p.Location())
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(p); ignore {
