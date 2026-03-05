@@ -1,5 +1,5 @@
 # Use an official Ruby runtime as a parent image.
-FROM ruby:3
+FROM ruby:4
 
 # Set the working directory in the container.
 WORKDIR /usr/src/app
