@@ -648,7 +648,7 @@ var marshalTests = []struct {
 	{Value: &Generic[int]{1}, ExpectXML: `<Generic><X>1</X></Generic>`},
 	{
 		Value: &Ship{
-			Name:  "Heart_of_Gold",
+			Name:  "Heart of Gold",
 			Pilot: "Computer",
 			Age:   1,
 			Drive: ImprobabilityDrive,

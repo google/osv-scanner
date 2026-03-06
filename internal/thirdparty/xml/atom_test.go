@@ -11,7 +11,7 @@ var atomValue = &Feed{
 	Title:   "Example Feed",
 	Link:    []Link{{Href: "http://example.org/"}},
 	Updated: ParseTime("2003-12-13T18:30:02Z"),
-	Author:  Person{Name: "John_Doe"},
+	Author:  Person{Name: "John Doe"},
 	ID:      "urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6",
 
 	Entry: []Entry{
