@@ -133,8 +133,8 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 }
 
 func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
-	if pkg.Name() != "" && !imodels.Ecosystem(pkg).IsEmpty() && imodels.Version(pkg) != "" {
-		name := pkg.Name()
+	if imodels.Name(pkg) != "" && !imodels.Ecosystem(pkg).IsEmpty() && imodels.Version(pkg) != "" {
+		name := imodels.Name(pkg)
 
 		// Tools like Syft create Go PURLs where the module's major suffix is part
 		// of the subpath as opposed to the package name:

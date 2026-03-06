@@ -22,7 +22,7 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 	for _, psr := range scanResults.PackageScanResults {
 		switch {
 		// If **none** of the cases match, skip this package since it's not scannable
-		case !imodels.Ecosystem(psr).IsEmpty() && psr.Name() != "" && imodels.Version(psr) != "":
+		case !imodels.Ecosystem(psr).IsEmpty() && imodels.Name(psr) != "" && imodels.Version(psr) != "":
 		case imodels.Commit(psr) != "":
 		default:
 			if actions.ShowAllPackages {
@@ -34,7 +34,7 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 
 		switch {
 		// If **any** of the following cases are true, skip this package
-		case imodels.Ecosystem(psr).Ecosystem == osvconstants.EcosystemMaven && psr.Name() == "unknown", // Is Maven with package name unknown
+		case imodels.Ecosystem(psr).Ecosystem == osvconstants.EcosystemMaven && imodels.Name(psr) == "unknown", // Is Maven with package name unknown
 			imodels.Ecosystem(psr).GetValidity() != nil && !imodels.Ecosystem(psr).IsEmpty(): // Is invalid and not empty
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
@@ -61,7 +61,7 @@ func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
 	for _, psr := range scanResults.PackageScanResults {
 		// Almost all packages with linux as a SourceName are kernel packages
 		// which does not apply within a container, as containers use the host's kernel
-		if psr.Name() == "linux" {
+		if imodels.Name(psr) == "linux" {
 			continue
 		}
 
@@ -84,7 +84,7 @@ func filterIgnoredPackages(scanResults *results.ScanResults) {
 		configToUse := configManager.Get(imodels.Location(psr))
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", imodels.Ecosystem(psr).String(), psr.Name(), imodels.Version(psr))
+			pkgString := fmt.Sprintf("%s/%s/%s", imodels.Ecosystem(psr).String(), imodels.Name(psr), imodels.Version(psr))
 
 			reason := ignoreLine.Reason
 			if reason == "" {
