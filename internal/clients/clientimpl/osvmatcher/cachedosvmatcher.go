@@ -36,20 +36,20 @@ type CachedOSVMatcher struct {
 	vulnCache sync.Map // map[PackageKey][]osvschema.Vulnerability
 }
 
-func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
+func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	// populate vulnCache with missing packages
-	if err := matcher.doQueries(ctx, invs); err != nil {
+	if err := matcher.doQueries(ctx, pkgs); err != nil {
 		return nil, err
 	}
 
-	results := make([][]*osvschema.Vulnerability, len(invs))
+	results := make([][]*osvschema.Vulnerability, len(pkgs))
 
-	for i, inv := range invs {
+	for i, pkg := range pkgs {
 		if ctx.Err() != nil {
 			return nil, ctx.Err()
 		}
 
-		pkgInfo := imodels.FromInventory(inv)
+		pkgInfo := imodels.FromPackage(pkg)
 		cachedVulns, ok := matcher.vulnCache.Load(
 			vulns.NewPackageKey(&osvschema.Package{
 				Name:      pkgInfo.Name(),
@@ -73,7 +73,7 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 	// convert Package to Query for each pkgs element
 	toQuery := make(map[*api.Query]struct{})
 	for _, inv := range invs {
-		pkgInfo := imodels.FromInventory(inv)
+		pkgInfo := imodels.FromPackage(inv)
 		if pkgInfo.Name() == "" || pkgInfo.Ecosystem().IsEmpty() {
 			continue
 		}
