@@ -159,7 +159,7 @@ func (pkg *PackageInfo) Commit() string {
 	return ""
 }
 
-func (pkg *PackageInfo) SourceType() models.SourceType {
+func SourceType(pkg PackageInfo) models.SourceType {
 	for _, extractorName := range pkg.Plugins {
 		if strings.HasPrefix(extractorName, "os/") {
 			return models.SourceTypeOSPackage
@@ -202,7 +202,7 @@ func OSPackageName(pkg PackageInfo) string {
 // FromPackage converts an extractor.Package into a PackageInfo.
 func FromPackage(pkg *extractor.Package) PackageInfo {
 	pi := PackageInfo{Package: pkg}
-	if pi.SourceType() == models.SourceTypeSBOM {
+	if SourceType(pi) == models.SourceTypeSBOM {
 		purlStruct := converter.ToPURL(pi.Package)
 		if purlStruct != nil {
 			purlCache, _ := purl.ToPackage(purlStruct.String())
