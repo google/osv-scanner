@@ -22,8 +22,8 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 	for _, psr := range scanResults.PackageScanResults {
 		switch {
 		// If **none** of the cases match, skip this package since it's not scannable
-		case !psr.Ecosystem().IsEmpty() && psr.Name() != "" && psr.Version() != "":
-		case psr.Commit() != "":
+		case !imodels.Ecosystem(psr).IsEmpty() && imodels.Name(psr) != "" && imodels.Version(psr) != "":
+		case imodels.Commit(psr) != "":
 		default:
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
@@ -34,8 +34,8 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 
 		switch {
 		// If **any** of the following cases are true, skip this package
-		case psr.Ecosystem().Ecosystem == osvconstants.EcosystemMaven && psr.Name() == "unknown", // Is Maven with package name unknown
-			psr.Ecosystem().GetValidity() != nil && !psr.Ecosystem().IsEmpty(): // Is invalid and not empty
+		case imodels.Ecosystem(psr).Ecosystem == osvconstants.EcosystemMaven && imodels.Name(psr) == "unknown", // Is Maven with package name unknown
+			imodels.Ecosystem(psr).GetValidity() != nil && !imodels.Ecosystem(psr).IsEmpty(): // Is invalid and not empty
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
 			}
@@ -61,7 +61,7 @@ func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
 	for _, psr := range scanResults.PackageScanResults {
 		// Almost all packages with linux as a SourceName are kernel packages
 		// which does not apply within a container, as containers use the host's kernel
-		if psr.Name() == "linux" {
+		if imodels.Name(psr) == "linux" {
 			continue
 		}
 
@@ -81,10 +81,10 @@ func filterIgnoredPackages(scanResults *results.ScanResults) {
 
 	out := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
-		configToUse := configManager.Get(psr.Location())
+		configToUse := configManager.Get(imodels.Location(psr))
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", psr.Ecosystem().String(), psr.Name(), psr.Version())
+			pkgString := fmt.Sprintf("%s/%s/%s", imodels.Ecosystem(psr).String(), imodels.Name(psr), imodels.Version(psr))
 
 			reason := ignoreLine.Reason
 			if reason == "" {

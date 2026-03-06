@@ -133,8 +133,8 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 }
 
 func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
-	if pkg.Name() != "" && !pkg.Ecosystem().IsEmpty() && pkg.Version() != "" {
-		name := pkg.Name()
+	if imodels.Name(pkg) != "" && !imodels.Ecosystem(pkg).IsEmpty() && imodels.Version(pkg) != "" {
+		name := imodels.Name(pkg)
 
 		// Tools like Syft create Go PURLs where the module's major suffix is part
 		// of the subpath as opposed to the package name:
@@ -142,7 +142,7 @@ func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
 		// pkg:golang/github.com/go-jose/go-jose@v4.1.3#v4
 		//
 		// For a correct match we need to add the major suffix back
-		if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo && pkg.PURL().Subpath != "" {
+		if imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.PURL().Subpath != "" {
 			match := goVersionSuffixRegexp.FindStringSubmatch(pkg.PURL().Subpath)
 			if match != nil {
 				name += "/" + match[1]
@@ -152,18 +152,18 @@ func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
 		return &api.Query{
 			Package: &osvschema.Package{
 				Name:      name,
-				Ecosystem: pkg.Ecosystem().String(),
+				Ecosystem: imodels.Ecosystem(pkg).String(),
 			},
 			Param: &api.Query_Version{
-				Version: pkg.Version(),
+				Version: imodels.Version(pkg),
 			},
 		}
 	}
 
-	if pkg.Commit() != "" {
+	if imodels.Commit(pkg) != "" {
 		return &api.Query{
 			Param: &api.Query_Commit{
-				Commit: pkg.Commit(),
+				Commit: imodels.Commit(pkg),
 			},
 		}
 	}
