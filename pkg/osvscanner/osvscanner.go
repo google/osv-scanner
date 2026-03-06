@@ -537,7 +537,7 @@ func overrideGoVersion(scanResults *results.ScanResults) {
 		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
 			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 			if configToUse.GoVersionOverride != "" {
-				scanResults.PackageScanResults[i].Package.Version = configToUse.GoVersionOverride
+				scanResults.PackageScanResults[i].Version = configToUse.GoVersionOverride
 			}
 
 			continue

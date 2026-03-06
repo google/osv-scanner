@@ -47,7 +47,7 @@ func Name(pkg PackageInfo) string {
 
 	// --- Make specific patches to names as necessary ---
 	// Patch Go package to stdlib
-	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Package.Name == "go" {
+	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Name == "go" {
 		return "stdlib"
 	}
 
@@ -55,7 +55,7 @@ func Name(pkg PackageInfo) string {
 	// Patch python package names to be normalized
 	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
-		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Package.Name, "-"))
+		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Name, "-"))
 	}
 
 	// Patch Maven archive extractor package names
@@ -84,11 +84,11 @@ func Name(pkg PackageInfo) string {
 		return pkg.SourceCode.Repo
 	}
 
-	return pkg.Package.Name
+	return pkg.Name
 }
 
 func Ecosystem(pkg PackageInfo) osvecosystem.Parsed {
-	eco := pkg.Package.Ecosystem()
+	eco := pkg.Ecosystem()
 
 	if metadata, ok := pkg.Metadata.(*osvscannerjson.Metadata); ok {
 		newEco, err := osvecosystem.Parse(metadata.Ecosystem)
@@ -129,7 +129,7 @@ func Version(pkg PackageInfo) string {
 	// false positives. This compromise still allows osv-scanner to pick up
 	// when the user is using a minor version that is out-of-support.
 	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && Name(pkg) == "stdlib" {
-		v := semverlike.ParseSemverLikeVersion(pkg.Package.Version, 3)
+		v := semverlike.ParseSemverLikeVersion(pkg.Version, 3)
 		if len(v.Components) == 2 {
 			return fmt.Sprintf(
 				"%d.%d.%d",
@@ -140,7 +140,7 @@ func Version(pkg PackageInfo) string {
 		}
 	}
 
-	return pkg.Package.Version
+	return pkg.Version
 }
 
 func Location(pkg PackageInfo) string {
