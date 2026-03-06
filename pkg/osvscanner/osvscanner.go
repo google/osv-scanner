@@ -15,9 +15,7 @@ import (
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/binary/proto"
-	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/clients/datasource"
-	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	scalibrlog "github.com/google/osv-scalibr/log"
@@ -275,17 +273,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	// not mentioning them to avoid confusion since they're still in their infancy
 	if countNotEnrichers(plugins) == 0 {
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
-	}
-
-	if actions.FlagDeprecatedPackages {
-		p, err := packagedeprecation.New(&cpb.PluginConfig{
-			UserAgent: actions.RequestUserAgent,
-		})
-		if err != nil {
-			cmdlogger.Errorf("Failed to enable packagedeprecation enricher: %v", err)
-		} else {
-			plugins = append(plugins, p)
-		}
 	}
 
 	// --- Initialize Image To Scan ---'

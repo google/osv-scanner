@@ -20,7 +20,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/simplefileapi"
 	"github.com/google/osv-scalibr/fs"
 	"github.com/google/osv-scalibr/inventory"
-	"github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -85,6 +84,10 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 		actions.PluginsEnabled = append(actions.PluginsEnabled, java.Name)
 	}
 
+	if actions.FlagDeprecatedPackages {
+		actions.PluginsEnabled = append(actions.PluginsEnabled, packagedeprecation.Name)
+	}
+
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg)
 
 	configurePlugins(plugins, accessors, actions)
@@ -119,17 +122,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inven
 	// not mentioning them to avoid confusion since they're still in their infancy
 	if countNotEnrichers(plugins) == 0 {
 		return nil, errors.New("at least one extractor must be enabled")
-	}
-
-	if actions.FlagDeprecatedPackages {
-		p, err := packagedeprecation.New(&cpb.PluginConfig{
-			UserAgent: actions.RequestUserAgent,
-		})
-		if err != nil {
-			log.Errorf("Failed to make packagedeprecation enricher: %v", err)
-		} else {
-			plugins = append(plugins, p)
-		}
 	}
 
 	scanner := scalibr.New()
