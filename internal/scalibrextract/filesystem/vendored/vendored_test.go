@@ -27,43 +27,43 @@ func TestExtractor_FileRequired(t *testing.T) {
 		wantRequired bool
 	}{
 		{
-			name:         "Empty path",
+			name:         "Empty_path",
 			path:         filepath.FromSlash(""),
 			isDir:        false,
 			wantRequired: false,
 		},
 		{
-			name:         "single directory not under vendor dir",
+			name:         "single_directory_not_under_vendor_dir",
 			path:         filepath.FromSlash("test_dir/"),
 			isDir:        true,
 			wantRequired: false,
 		},
 		{
-			name:         "vendored dir itself should not match",
+			name:         "vendored_dir_itself_should_not_match",
 			path:         filepath.FromSlash("vendor/"),
 			isDir:        true,
 			wantRequired: false,
 		},
 		{
-			name:         "vendored dir itself should not match (no trailing slash)",
+			name:         "vendored_dir_itself_should_not_match_(no_trailing_slash)",
 			path:         filepath.FromSlash("vendor"),
 			isDir:        true,
 			wantRequired: false,
 		},
 		{
-			name:         "vendored dir with child non directory should not match",
+			name:         "vendored_dir_with_child_non_directory_should_not_match",
 			path:         filepath.FromSlash("vendor/abcd"),
 			isDir:        false,
 			wantRequired: false,
 		},
 		{
-			name:         "vendored dir with child directory should match",
+			name:         "vendored_dir_with_child_directory_should_match",
 			path:         filepath.FromSlash("vendor/abcd/"),
 			isDir:        true,
 			wantRequired: true,
 		},
 		{
-			name:         "vendored dir with child directory should match",
+			name:         "vendored_dir_with_child_directory_should_match",
 			path:         filepath.FromSlash("thirdparty/efgh/"),
 			isDir:        true,
 			wantRequired: true,
@@ -104,7 +104,7 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []extracttest.TestTableEntry{
 		{
-			Name: "zlib test",
+			Name: "zlib_test",
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path:         "testdata/thirdparty/zlib",
 				FakeScanRoot: cwd,

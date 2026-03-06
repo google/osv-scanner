@@ -19,93 +19,93 @@ func TestCommand(t *testing.T) {
 	tests := []testcmd.Case{
 		// one specific supported lockfile
 		{
-			Name: "one specific supported lockfile",
+			Name: "one_specific_supported_lockfile",
 			Args: []string{"", "source", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		// one specific supported lockfile, explicitly not offline
 		{
-			Name: "one specific supported lockfile with offline explicitly false",
+			Name: "one_specific_supported_lockfile_with_offline_explicitly_false",
 			Args: []string{"", "source", "--offline=false", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		// one specific supported sbom with vulns
 		{
-			Name: "folder of supported sbom with vulns",
+			Name: "folder_of_supported_sbom_with_vulns",
 			Args: []string{"", "source", "./testdata/sbom-insecure/"},
 			Exit: 1,
 		},
 		// one specific supported sbom with only unimportant
 		{
-			Name: "folder of supported sbom with only unimportant",
+			Name: "folder_of_supported_sbom_with_only_unimportant",
 			Args: []string{"", "source", "./testdata/sbom-insecure/only-unimportant.spdx.json"},
 			Exit: 0,
 		},
 		// one specific supported sbom with only unimportant but with --all-vulns
 		{
-			Name: "folder of supported sbom with only unimportant",
+			Name: "folder_of_supported_sbom_with_only_unimportant",
 			Args: []string{"", "source", "--all-vulns", "./testdata/sbom-insecure/only-unimportant.spdx.json"},
 			Exit: 1,
 		},
 		// one specific supported sbom with vulns
 		{
-			Name: "one specific supported sbom with vulns",
+			Name: "one_specific_supported_sbom_with_vulns",
 			Args: []string{"", "source", "--sbom", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "one specific supported sbom with vulns using -L flag",
+			Name: "one_specific_supported_sbom_with_vulns_using_-L_flag",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
 		// one specific supported sbom with vulns and invalid PURLs
 		{
-			Name: "one specific supported sbom with invalid PURLs",
+			Name: "one_specific_supported_sbom_with_invalid_PURLs",
 			Args: []string{"", "source", "--sbom", "./testdata/sbom-insecure/bad-purls.cdx.xml"},
 			Exit: 0,
 		},
 		{
-			Name: "one specific supported sbom with invalid PURLs using -L flag",
+			Name: "one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/bad-purls.cdx.xml"},
 			Exit: 0,
 		},
 		// one specific supported sbom with duplicate PURLs
 		{
-			Name: "one specific supported sbom with duplicate PURLs",
+			Name: "one_specific_supported_sbom_with_duplicate_PURLs",
 			Args: []string{"", "source", "--sbom", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "one specific supported sbom with duplicate PURLs using -L flag",
+			Name: "one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag",
 			Args: []string{"", "source", "-L", "./testdata/sbom-insecure/with-duplicates.cdx.xml"},
 			Exit: 1,
 		},
 		// one file that does not match the supported sbom file names
 		{
-			Name: "one file that does not match the supported sbom file names",
+			Name: "one_file_that_does_not_match_the_supported_sbom_file_names",
 			Args: []string{"", "source", "--sbom", "./testdata/locks-many/composer.lock"},
 			Exit: 127,
 		},
 		{
-			Name: "one file that does not match the supported sbom file names using -L flag",
+			Name: "one_file_that_does_not_match_the_supported_sbom_file_names_using_-L_flag",
 			Args: []string{"", "source", "-L", "spdx:./testdata/locks-many/composer.lock"},
 			Exit: 127,
 		},
 		// one specific unsupported lockfile
 		{
-			Name: "one specific unsupported lockfile",
+			Name: "one_specific_unsupported_lockfile",
 			Args: []string{"", "source", "./testdata/locks-many/not-a-lockfile.toml"},
 			Exit: 128,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
-			Name: "Scan locks-many",
+			Name: "Scan_locks-many",
 			Args: []string{"", "source", "./testdata/locks-many"},
 			Exit: 0,
 		},
 		// all supported lockfiles in the directory should be checked
 		{
-			Name: "all supported lockfiles in the directory should be checked",
+			Name: "all_supported_lockfiles_in_the_directory_should_be_checked",
 			Args: []string{"", "source", "./testdata/locks-many-with-invalid"},
 			Exit: 127,
 		},
@@ -137,25 +137,25 @@ func TestCommand(t *testing.T) {
 		},
 		// only the files in the given directories are checked by default (no recursion)
 		{
-			Name: "only the files in the given directories are checked by default (no recursion)",
+			Name: "only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion)",
 			Args: []string{"", "source", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		// nested directories are checked when `--recursive` is passed
 		{
-			Name: "nested directories are checked when `--recursive` is passed",
+			Name: "nested_directories_are_checked_when_`--recursive`_is_passed",
 			Args: []string{"", "source", "--recursive", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		// .gitignored files
 		{
-			Name: ".gitignored files",
+			Name: ".gitignored_files",
 			Args: []string{"", "source", "--recursive", "./testdata/locks-gitignore"},
 			Exit: 0,
 		},
 		// ignoring .gitignore
 		{
-			Name: "ignoring .gitignore",
+			Name: "ignoring_.gitignore",
 			Args: []string{"", "source", "--recursive", "--no-ignore", "./testdata/locks-gitignore"},
 			Exit: 0,
 		},
@@ -191,13 +191,13 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "json output",
+			Name: "json_output",
 			Args: []string{"", "source", "--format", "json", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		// output format: sarif
 		{
-			Name: "Empty sarif output",
+			Name: "Empty_sarif_output",
 			Args: []string{"", "source", "--format", "sarif", "./testdata/locks-many/composer.lock"},
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.ReplacePartialFingerprintHash,
@@ -205,7 +205,7 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "Sarif with vulns",
+			Name: "Sarif_with_vulns",
 			Args: []string{"", "source", "--format", "sarif", "./testdata/locks-many-with-insecure/package-lock.json"},
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.ReplacePartialFingerprintHash,
@@ -214,46 +214,46 @@ func TestCommand(t *testing.T) {
 		},
 		// output format: gh-annotations
 		{
-			Name: "Empty gh-annotations output",
+			Name: "Empty_gh-annotations_output",
 			Args: []string{"", "source", "--format", "gh-annotations", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "gh-annotations with vulns",
+			Name: "gh-annotations_with_vulns",
 			Args: []string{"", "source", "--format", "gh-annotations", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
 		// output format: markdown table
 		{
-			Name: "output format: markdown table",
+			Name: "output_format:_markdown_table",
 			Args: []string{"", "source", "--format", "markdown", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
 		// output format: cyclonedx 1.4
 		{
-			Name: "Empty cyclonedx 1.4 output",
+			Name: "Empty_cyclonedx_1.4_output",
 			Args: []string{"", "source", "--format", "cyclonedx-1-4", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "cyclonedx 1.4 output",
+			Name: "cyclonedx_1.4_output",
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-4", "--all-packages", "./testdata/locks-insecure"},
 			Exit: 1,
 		},
 		// output format: cyclonedx 1.5
 		{
-			Name: "Empty cyclonedx 1.5 output",
+			Name: "Empty_cyclonedx_1.5_output",
 			Args: []string{"", "source", "--format", "cyclonedx-1-5", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "cyclonedx 1.5 output",
+			Name: "cyclonedx_1.5_output",
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--format", "cyclonedx-1-5", "--all-packages", "./testdata/locks-insecure"},
 			Exit: 1,
 		},
 		// output format: spdx 2.3
 		{
-			Name: "Empty spdx 2.3 output",
+			Name: "Empty_spdx_2.3_output",
 			Args: []string{"", "source", "--format", "spdx-2-3", "./testdata/locks-many/composer.lock"},
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.NormalizeCreateDateSPDX,
@@ -261,7 +261,7 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "spdx 2.3 output", // SPDX does not support outputting vulnerabilties
+			Name: "spdx_2.3_output", // SPDX does not support outputting vulnerabilties
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-empty-config.toml", "--format", "spdx-2-3", "--all-packages", "./testdata/locks-insecure"},
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.NormalizeCreateDateSPDX,
@@ -270,93 +270,93 @@ func TestCommand(t *testing.T) {
 		},
 		// output format: unsupported
 		{
-			Name: "output format: unsupported",
+			Name: "output_format:_unsupported",
 			Args: []string{"", "source", "--format", "unknown", "./testdata/locks-many/composer.lock"},
 			Exit: 127,
 		},
 		// one specific supported lockfile with ignore
 		{
-			Name: "one specific supported lockfile with ignore",
+			Name: "one_specific_supported_lockfile_with_ignore",
 			Args: []string{"", "source", "./testdata/locks-test-ignore/package-lock.json"},
 			Exit: 0,
 		},
 		{
-			Name: "invalid --verbosity value",
+			Name: "invalid_--verbosity_value",
 			Args: []string{"", "source", "--verbosity", "unknown", "./testdata/locks-many/composer.lock"},
 			Exit: 127,
 		},
 		{
-			Name: "verbosity level = error",
+			Name: "verbosity_level_=_error",
 			Args: []string{"", "source", "--verbosity", "error", "--format", "table", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "verbosity level = info",
+			Name: "verbosity_level_=_info",
 			Args: []string{"", "source", "--verbosity", "info", "--format", "table", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "PURL SBOM case sensitivity (api)",
+			Name: "PURL_SBOM_case_sensitivity_(api)",
 			Args: []string{"", "source", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "PURL SBOM case sensitivity (local)",
+			Name: "PURL_SBOM_case_sensitivity_(local)",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "table", "./testdata/sbom-insecure/alpine.cdx.xml"},
 			Exit: 1,
 		},
 		// Go project with an overridden go version and licenses
 		{
-			Name: "Go project with an overridden go version and licences",
+			Name: "Go_project_with_an_overridden_go_version_and_licences",
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "--licenses", "./testdata/go-project"},
 			Exit: 0,
 		},
 		// Go project with an overridden go version
 		{
-			Name: "Go project with an overridden go version",
+			Name: "Go_project_with_an_overridden_go_version",
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "./testdata/go-project"},
 			Exit: 0,
 		},
 		// Go project with an overridden go version, recursive
 		{
-			Name: "Go project with an overridden go version, recursive",
+			Name: "Go_project_with_an_overridden_go_version,_recursive",
 			Args: []string{"", "source", "--config=./testdata/go-project/go-version-config.toml", "-r", "./testdata/go-project"},
 			Exit: 0,
 		},
 		// broad config file that overrides a whole ecosystem
 		{
-			Name: "config file can be broad",
+			Name: "config_file_can_be_broad",
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-composite-config.toml", "--licenses=MIT", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "./testdata/locks-many-with-insecure", "./testdata/locks-insecure", "./testdata/maven-transitive"},
 			Exit: 1,
 		},
 		// ignored vulnerabilities and packages without a reason should be called out
 		{
-			Name: "ignores without reason should be explicitly called out",
+			Name: "ignores_without_reason_should_be_explicitly_called_out",
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-reasonless-ignores-config.toml", "./testdata/locks-many-with-insecure/package-lock.json", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		// invalid config file
 		{
-			Name: "config file is invalid",
+			Name: "config_file_is_invalid",
 			Args: []string{"", "source", "./testdata/config-invalid"},
 			Exit: 130,
 		},
 		// config file with unknown keys
 		{
-			Name: "config files cannot have unknown keys",
+			Name: "config_files_cannot_have_unknown_keys",
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-unknown-config.toml", "./testdata/locks-many"},
 			Exit: 127,
 		},
 		// config file with multiple ignores with the same id
 		{
-			Name: "config files should not have multiple ignores with the same id",
+			Name: "config_files_should_not_have_multiple_ignores_with_the_same_id",
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-duplicate-config.toml", "./testdata/locks-many"},
 			Exit: 0,
 		},
 		// a bunch of requirements.txt files with different names
 		// --no-resolve is used as transitive resolution tests are in a separate section
 		{
-			Name: "requirements.txt can have all kinds of names",
+			Name: "requirements.txt_can_have_all_kinds_of_names",
 			Args: []string{"", "source", "./testdata/locks-requirements", "--no-resolve"},
 			Exit: 1,
 		},
@@ -751,7 +751,7 @@ func TestCommand_CallAnalysis(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "Run with govulncheck",
+			Name: "Run_with_govulncheck",
 			Args: []string{"", "source",
 				"--call-analysis=go",
 				"--config=./testdata/osv-scanner-call-analysis-config.toml",
@@ -759,7 +759,7 @@ func TestCommand_CallAnalysis(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "Run with govulncheck all uncalled",
+			Name: "Run_with_govulncheck_all_uncalled",
 			Args: []string{"", "source",
 				"--call-analysis=go",
 				"--config=./testdata/osv-scanner-call-analysis-config.toml",
@@ -767,7 +767,7 @@ func TestCommand_CallAnalysis(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "Run with govulncheck all uncalled but enabled all-vulns flag",
+			Name: "Run_with_govulncheck_all_uncalled_but_enabled_all-vulns_flag",
 			Args: []string{"", "source",
 				"--call-analysis=go",
 				"--all-vulns",
@@ -795,12 +795,12 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "unsupported parse-as",
+			Name: "unsupported_parse-as",
 			Args: []string{"", "source", "-L", "my-file:./testdata/locks-many/composer.lock"},
 			Exit: 127,
 		},
 		{
-			Name: "empty is default",
+			Name: "empty_is_default",
 			Args: []string{
 				"",
 				"source",
@@ -810,7 +810,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "empty works as an escape (no fixture because it's not valid on Windows)",
+			Name: "empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)",
 			Args: []string{
 				"",
 				"source",
@@ -820,7 +820,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "empty works as an escape (no fixture because it's not valid on Windows)",
+			Name: "empty_works_as_an_escape_(no_fixture_because_it's_not_valid_on_Windows)",
 			Args: []string{
 				"",
 				"source",
@@ -830,12 +830,12 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "one lockfile with local path",
+			Name: "one_lockfile_with_local_path",
 			Args: []string{"", "source", "--lockfile=go.mod:./testdata/locks-many/replace-local.mod"},
 			Exit: 0,
 		},
 		{
-			Name: "when an explicit parse-as is given, it's applied to that file",
+			Name: "when_an_explicit_parse-as_is_given,_it's_applied_to_that_file",
 			Args: []string{
 				"",
 				"source",
@@ -846,7 +846,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "multiple, + output order is deterministic",
+			Name: "multiple,_+_output_order_is_deterministic",
 			Args: []string{
 				"",
 				"source",
@@ -857,7 +857,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "multiple, + output order is deterministic 2",
+			Name: "multiple,_+_output_order_is_deterministic_2",
 			Args: []string{
 				"",
 				"source",
@@ -868,7 +868,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "files that error on parsing stop parsable files from being checked",
+			Name: "files_that_error_on_parsing_stop_parsable_files_from_being_checked",
 			Args: []string{
 				"",
 				"source",
@@ -880,7 +880,7 @@ func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "parse-as takes priority, even if it's wrong",
+			Name: "parse-as_takes_priority,_even_if_it's_wrong",
 			Args: []string{
 				"",
 				"source",
@@ -971,17 +971,17 @@ func TestCommand_GithubActions(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "scanning osv-scanner custom format",
+			Name: "scanning_osv-scanner_custom_format",
 			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json"},
 			Exit: 1,
 		},
 		{
-			Name: "scanning osv-scanner custom format with git tag",
+			Name: "scanning_osv-scanner_custom_format_with_git_tag",
 			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-custom-git-tag.json"},
 			Exit: 1,
 		},
 		{
-			Name: "scanning osv-scanner custom format output json",
+			Name: "scanning_osv-scanner_custom_format_output_json",
 			Args: []string{"", "source", "-L", "osv-scanner:./testdata/locks-insecure/osv-scanner-flutter-deps.json", "--format=sarif"},
 			ReplaceRules: []testutility.JSONReplaceRule{
 				testutility.ReplacePartialFingerprintHash,
@@ -1009,62 +1009,62 @@ func TestCommand_LocalDatabases(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "one specific supported lockfile",
+			Name: "one_specific_supported_lockfile",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "one specific supported sbom with vulns",
+			Name: "one_specific_supported_sbom_with_vulns",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/sbom-insecure/postgres-stretch.cdx.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "one specific unsupported lockfile",
+			Name: "one_specific_unsupported_lockfile",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-many/not-a-lockfile.toml"},
 			Exit: 128,
 		},
 		{
-			Name: "all supported lockfiles in the directory should be checked",
+			Name: "all_supported_lockfiles_in_the_directory_should_be_checked",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-many-with-insecure"},
 			Exit: 1,
 		},
 		{
-			Name: "all supported lockfiles in the directory should be checked",
+			Name: "all_supported_lockfiles_in_the_directory_should_be_checked",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-many-with-invalid"},
 			Exit: 127,
 		},
 		{
-			Name: "only the files in the given directories are checked by default (no recursion)",
+			Name: "only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion)",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
-			Name: "nested directories are checked when `--recursive` is passed",
+			Name: "nested_directories_are_checked_when_`--recursive`_is_passed",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--recursive", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
-			Name: ".gitignored files",
+			Name: ".gitignored_files",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--recursive", "./testdata/locks-gitignore"},
 			Exit: 0,
 		},
 		{
-			Name: "ignoring .gitignore",
+			Name: "ignoring_.gitignore",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--recursive", "--no-ignore", "./testdata/locks-gitignore"},
 			Exit: 0,
 		},
 		{
-			Name: "output with json",
+			Name: "output_with_json",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "json", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "output format: markdown table",
+			Name: "output_format:_markdown_table",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "--format", "markdown", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		{
-			Name: "database should be downloaded only when offline is set",
+			Name: "database_should_be_downloaded_only_when_offline_is_set",
 			Args: []string{"", "source", "--download-offline-databases", "./testdata/locks-many"},
 			Exit: 127,
 		},
@@ -1096,7 +1096,7 @@ func TestCommand_LocalDatabases_AlwaysOffline(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "a bunch of different lockfiles and ecosystem",
+			Name: "a_bunch_of_different_lockfiles_and_ecosystem",
 			Args: []string{"", "source", "--offline", "./testdata/locks-requirements", "./testdata/locks-many-with-insecure"},
 			Exit: 127,
 		},
@@ -1158,92 +1158,92 @@ func TestCommand_Licenses(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "No vulnerabilities with license summary",
+			Name: "No_vulnerabilities_with_license_summary",
 			Args: []string{"", "source", "--licenses", "./testdata/locks-many"},
 			Exit: 0,
 		},
 		{
-			Name: "No vulnerabilities with license summary in markdown",
+			Name: "No_vulnerabilities_with_license_summary_in_markdown",
 			Args: []string{"", "source", "--licenses", "--format=markdown", "./testdata/locks-many"},
 			Exit: 0,
 		},
 		{
-			Name: "Vulnerabilities and license summary",
+			Name: "Vulnerabilities_and_license_summary",
 			Args: []string{"", "source", "--licenses", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
 		{
-			Name: "Vulnerabilities and license violations with allowlist",
+			Name: "Vulnerabilities_and_license_violations_with_allowlist",
 			Args: []string{"", "source", "--licenses=MIT", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
 		{
-			Name: "No vulnerabilities but license violations with allowlist",
+			Name: "No_vulnerabilities_but_license_violations_with_allowlist",
 			Args: []string{"", "source", "--licenses=Apache-2.0", "--config=./testdata/osv-scanner-empty-config.toml", "./testdata/locks-many/yarn.lock"},
 			Exit: 1,
 		},
 		{
-			Name: "Vulnerabilities and all license violations allowlisted",
+			Name: "Vulnerabilities_and_all_license_violations_allowlisted",
 			Args: []string{"", "source", "--licenses=Apache-2.0", "./testdata/locks-many-with-insecure/package-lock.json"},
 			Exit: 1,
 		},
 		{
-			Name: "Some packages with license violations and show-all-packages in json",
+			Name: "Some_packages_with_license_violations_and_show-all-packages_in_json",
 			Args: []string{"", "source", "--format=json", "--licenses=MIT", "--all-packages", "./testdata/locks-licenses/package-lock.json"},
 			Exit: 1,
 		},
 		{
-			Name: "Some packages with ignored licenses",
+			Name: "Some_packages_with_ignored_licenses",
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-complex-licenses-config.toml", "--licenses=MIT", "./testdata/locks-many", "./testdata/locks-insecure"},
 			Exit: 1,
 		},
 		{
-			Name: "Some packages with license violations in json",
+			Name: "Some_packages_with_license_violations_in_json",
 			Args: []string{"", "source", "--format=json", "--licenses=MIT", "./testdata/locks-licenses/package-lock.json"},
 			Exit: 1,
 		},
 		{
-			Name: "No license violations and show-all-packages in json",
+			Name: "No_license_violations_and_show-all-packages_in_json",
 			Args: []string{"", "source", "--format=json", "--licenses=MIT,Apache-2.0", "--all-packages", "./testdata/locks-licenses/package-lock.json"},
 			Exit: 0,
 		},
 		{
-			Name: "Show all Packages with license summary in json",
+			Name: "Show_all_Packages_with_license_summary_in_json",
 			Args: []string{"", "source", "--format=json", "--licenses", "--all-packages", "./testdata/locks-licenses/package-lock.json"},
 			Exit: 0,
 		},
 		{
-			Name: "Licenses in summary mode json",
+			Name: "Licenses_in_summary_mode_json",
 			Args: []string{"", "source", "--format=json", "--licenses", "./testdata/locks-licenses/package-lock.json"},
 			Exit: 0,
 		},
 		{
-			Name: "Licenses with expressions",
+			Name: "Licenses_with_expressions",
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-expressive-licenses-config.toml", "--licenses=MIT,BSD-3-Clause", "./testdata/locks-licenses/package-lock.json"},
 			Exit: 1,
 		},
 		{
-			Name: "Licenses with invalid licenses in flag",
+			Name: "Licenses_with_invalid_licenses_in_flag",
 			Args: []string{"", "source", "--licenses=MIT,something-something", "./testdata/locks-licenses/package-lock.json"},
 			Exit: 127,
 		},
 		{
-			Name: "Licenses with invalid expression in config",
+			Name: "Licenses_with_invalid_expression_in_config",
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-invalid-licenses-config.toml", "--licenses=MIT,BSD-3-Clause", "./testdata/locks-licenses/package-lock.json"},
 			Exit: 1,
 		},
 		{
-			Name: "When offline licenses summary cannot be printed",
+			Name: "When_offline_licenses_summary_cannot_be_printed",
 			Args: []string{"", "source", "--offline", "--licenses", "./testdata/locks-many/package-lock.json"},
 			Exit: 127,
 		},
 		{
-			Name: "When offline licenses cannot be checked",
+			Name: "When_offline_licenses_cannot_be_checked",
 			Args: []string{"", "source", "--offline", "--licenses=MIT", "./testdata/locks-many/package-lock.json"},
 			Exit: 127,
 		},
 		{
-			Name: "When offline licenses are still validated",
+			Name: "When_offline_licenses_are_still_validated",
 			Args: []string{"", "source", "--offline", "--licenses=MIT,something-something", "./testdata/locks-many/package-lock.json"},
 			Exit: 127,
 		},
@@ -1269,64 +1269,64 @@ func TestCommand_Transitive(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "scans transitive dependencies for pom.xml by default",
+			Name: "scans_transitive_dependencies_for_pom.xml_by_default",
 			Args: []string{"", "source", "./testdata/maven-transitive/pom.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "scans transitive dependencies by specifying pom.xml",
+			Name: "scans_transitive_dependencies_by_specifying_pom.xml",
 			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/abc.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "scans pom.xml with non UTF-8 encoding",
+			Name: "scans_pom.xml_with_non_UTF-8_encoding",
 			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/encoding.xml"},
 			Exit: 1,
 		},
 		{
 			// Direct dependencies do not have any vulnerability.
-			Name: "does not scan transitive dependencies for pom.xml with offline mode",
+			Name: "does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/maven-transitive/pom.xml"},
 			Exit: 0,
 		},
 		{
 			// Direct dependencies do not have any vulnerability.
-			Name: "does not scan transitive dependencies for pom.xml with no-resolve",
+			Name: "does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve",
 			Args: []string{"", "source", "--no-resolve", "./testdata/maven-transitive/pom.xml"},
 			Exit: 0,
 		},
 		{
-			Name: "scans dependencies from multiple registries",
+			Name: "scans_dependencies_from_multiple_registries",
 			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "resolves transitive dependencies with native data source",
+			Name: "resolves_transitive_dependencies_with_native_data_source",
 			Args: []string{"", "source", "--data-source=native", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "scans transitive dependencies in requirements.txt with deps.dev API by default",
+			Name: "scans_transitive_dependencies_in_requirements.txt_with_deps.dev_API_by_default",
 			Args: []string{"", "source", "-L", "./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 		{
-			Name: "uses native data source for requirements.txt",
+			Name: "uses_native_data_source_for_requirements.txt",
 			Args: []string{"", "source", "--data-source=native", "-L", "requirements.txt:./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 		{
-			Name: "fall back to the offline extractor if resolution failed",
+			Name: "fall_back_to_the_offline_extractor_if_resolution_failed",
 			Args: []string{"", "source", "./testdata/locks-requirements/unresolvable-requirements.txt"},
 			Exit: 1,
 		},
 		{
-			Name: "does not scan transitive dependencies for requirements.txt with no-resolve",
+			Name: "does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve",
 			Args: []string{"", "source", "--no-resolve", "./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 		{
-			Name: "does not scan transitive dependencies for requirements.txt with offline mode",
+			Name: "does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
@@ -1336,7 +1336,7 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "scan local disk transitive dependencies",
+			Name: "scan_local_disk_transitive_dependencies",
 			Args: []string{"", "source", "--no-resolve", "./testdata/locks-requirements/requirements-transitive.txt"},
 			Exit: 1,
 		},
@@ -1405,12 +1405,12 @@ func TestCommand_MoreLockfiles(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "Podfile.lock - Unsupported ecosystem, should not be scanned",
+			Name: "Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned",
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/Podfile.lock"},
 			Exit: 127,
 		},
 		{
-			Name: "Package.resolved - Unsupported ecosystem, should not be scanned",
+			Name: "Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned",
 			Args: []string{"", "source", "-L", "./testdata/locks-scalibr/Package.resolved"},
 			Exit: 127,
 		},
@@ -1441,7 +1441,7 @@ func TestCommandNonGit(t *testing.T) {
 	tests := []testcmd.Case{
 		// one specific supported lockfile
 		{
-			Name: "one specific supported lockfile",
+			Name: "one_specific_supported_lockfile",
 			Args: []string{"", "source", filepath.Join(testDir, "composer.lock")},
 			Exit: 0,
 		},
@@ -1464,7 +1464,7 @@ func TestCommand_HtmlFile(t *testing.T) {
 	client := testcmd.InsertCassette(t)
 
 	testcmd.RunAndMatchSnapshots(t, testcmd.Case{
-		Name: "one specific supported lockfile",
+		Name: "one_specific_supported_lockfile",
 		Args: []string{"", "source", "--format=html", "--output-file", testDir + "/report.html", "./testdata/locks-many/composer.lock"},
 		Exit: 0,
 
@@ -1485,7 +1485,7 @@ func TestCommand_HtmlFile_Deprecated(t *testing.T) {
 	client := testcmd.InsertCassette(t)
 
 	testcmd.RunAndMatchSnapshots(t, testcmd.Case{
-		Name: "one specific supported lockfile",
+		Name: "one_specific_supported_lockfile",
 		Args: []string{"", "source", "--format=html", "--output", testDir + "/report.html", "./testdata/locks-many/composer.lock"},
 		Exit: 0,
 
@@ -1656,7 +1656,7 @@ func TestCommand_Filter(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "Show all Packages with empty config",
+			Name: "Show_all_Packages_with_empty_config",
 			Args: []string{"", "source", "--format=json", "--all-packages", "--config=./testdata/osv-scanner-empty-config.toml", "--lockfile=osv-scanner:./testdata/locks-insecure/osv-scanner-with-unscannables.json"},
 			Exit: 0,
 		},

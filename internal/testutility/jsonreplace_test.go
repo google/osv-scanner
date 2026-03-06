@@ -457,7 +457,7 @@ func Test_replaceJSONInput_More(t *testing.T) {
 		want string
 	}{
 		{
-			name: "Nested json replacement",
+			name: "Nested_json_replacement",
 			args: args{
 				jsonInput: nestedArray,
 				path:      "items.#.subStruct.subitems.#.anotherSubStruct",
@@ -495,7 +495,7 @@ func Test_replaceJSONInput_More(t *testing.T) {
       }`,
 		},
 		{
-			name: "simple json replacement",
+			name: "simple_json_replacement",
 			args: args{
 				jsonInput: simpleStruct,
 				path:      "test.field",
@@ -510,7 +510,7 @@ func Test_replaceJSONInput_More(t *testing.T) {
       }`,
 		},
 		{
-			name: "nested json array element replacement",
+			name: "nested_json_array_element_replacement",
 			args: args{
 				jsonInput: nestedArray,
 				path:      "items.#.subStruct.subitems.#",

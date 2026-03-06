@@ -159,22 +159,22 @@ func TestCommand_Docker(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "Fake alpine image",
+			Name: "Fake_alpine_image",
 			Args: []string{"", "image", "alpine:non-existent-tag"},
 			Exit: 127,
 		},
 		{
-			Name: "Fake image entirely",
+			Name: "Fake_image_entirely",
 			Args: []string{"", "image", "this-image-definitely-does-not-exist-abcde:with-tag"},
 			Exit: 127,
 		},
 		{
-			Name: "Real empty image with no tag, invalid scan target",
+			Name: "Real_empty_image_with_no_tag,_invalid_scan_target",
 			Args: []string{"", "image", "hello-world"},
 			Exit: 127, // Invalid scan target
 		},
 		{
-			Name: "Real empty image with tag",
+			Name: "Real_empty_image_with_tag",
 			Args: []string{"", "image", "hello-world:linux"},
 			Exit: 128, // No package found
 		},
@@ -184,7 +184,7 @@ func TestCommand_Docker(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "Real Alpine image",
+			Name: "Real_Alpine_image",
 			Args: []string{"", "image", "alpine:3.18.9"},
 			Exit: 1,
 		},
@@ -221,27 +221,27 @@ func TestCommand_OCIImage(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "Invalid path",
+			Name: "Invalid_path",
 			Args: []string{"", "image", "--archive", "../../testdata/locks-manyoci-image/no-file-here.tar"},
 			Exit: 127,
 		},
 		{
-			Name: "Alpine 3.10 image tar with 3.18 version file",
+			Name: "Alpine_3.10_image_tar_with_3.18_version_file",
 			Args: []string{"", "image", "--archive", "./testdata/test-alpine.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "Empty Ubuntu 22.04 image tar",
+			Name: "Empty_Ubuntu_22.04_image_tar",
 			Args: []string{"", "image", "--archive", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "Empty Ubuntu 22.04 image tar with unimportant vulns",
+			Name: "Empty_Ubuntu_22.04_image_tar_with_unimportant_vulns",
 			Args: []string{"", "image", "--all-vulns", "--archive", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "Empty Ubuntu 20.04 image tar with only unimportant vulns shown",
+			Name: "Empty_Ubuntu_20.04_image_tar_with_only_unimportant_vulns_shown",
 			Args: []string{"", "image", "--archive", "--all-vulns",
 				"--config=./testdata/ubuntu20-04-unimportant-config.toml",
 				"--all-vulns", "./testdata/test-ubuntu-20-04.tar"},
@@ -251,7 +251,7 @@ func TestCommand_OCIImage(t *testing.T) {
 			// This tests that unimportant vulns are hidden properly
 			// If the test is failing (reporting new important vulns), add the package that introduced the vuln as ignore=true to the config.toml
 			// The package with unimportant vulns is pcre3, so if a new vulnerability appears for that package, don't ignore the entire package, just ignore the important vulnerability specifically.
-			Name: "Empty Ubuntu 20.04 image tar with no vulns shown",
+			Name: "Empty_Ubuntu_20.04_image_tar_with_no_vulns_shown",
 			Args: []string{"", "image", "--archive",
 				"--config=./testdata/ubuntu20-04-unimportant-config.toml",
 				"./testdata/test-ubuntu-20-04.tar"},
@@ -264,52 +264,52 @@ func TestCommand_OCIImage(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "Scanning python image with some packages",
+			Name: "Scanning_python_image_with_some_packages",
 			Args: []string{"", "image", "--archive", "./testdata/test-python-full.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "Scanning python image with no packages",
+			Name: "Scanning_python_image_with_no_packages",
 			Args: []string{"", "image", "--archive", "./testdata/test-python-empty.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "Scanning java image with some packages",
+			Name: "Scanning_java_image_with_some_packages",
 			Args: []string{"", "image", "--archive", "./testdata/test-java-full.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "scanning node_modules using npm with no packages",
+			Name: "scanning_node_modules_using_npm_with_no_packages",
 			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-npm-empty.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "scanning node_modules using npm with some packages",
+			Name: "scanning_node_modules_using_npm_with_some_packages",
 			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-npm-full.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "scanning node_modules using yarn with no packages",
+			Name: "scanning_node_modules_using_yarn_with_no_packages",
 			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-yarn-empty.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "scanning node_modules using yarn with some packages",
+			Name: "scanning_node_modules_using_yarn_with_some_packages",
 			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-yarn-full.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "scanning node_modules using pnpm with no packages",
+			Name: "scanning_node_modules_using_pnpm_with_no_packages",
 			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-pnpm-empty.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "scanning node_modules using pnpm with some packages",
+			Name: "scanning_node_modules_using_pnpm_with_some_packages",
 			Args: []string{"", "image", "--archive", "./testdata/test-node_modules-pnpm-full.tar"},
 			Exit: 1,
 		},
 		{
-			Name: "scanning image with go binary",
+			Name: "scanning_image_with_go_binary",
 			Args: []string{"", "image", "--archive", "./testdata/test-package-tracing.tar"},
 			Exit: 1,
 		},
@@ -381,7 +381,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "Scanning python image with some packages",
+			Name: "Scanning_python_image_with_some_packages",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-python-full.tar"},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
@@ -394,7 +394,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			},
 		},
 		{
-			Name: "scanning node_modules using npm with some packages",
+			Name: "scanning_node_modules_using_npm_with_some_packages",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-node_modules-npm-full.tar"},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
@@ -407,7 +407,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			},
 		},
 		{
-			Name: "scanning image with go binary",
+			Name: "scanning_image_with_go_binary",
 			Args: []string{"", "image", "--archive", "--all-packages", "--format=json", "./testdata/test-go-binary.tar"},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
@@ -419,7 +419,7 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 			},
 		},
 		{
-			Name: "scanning ubuntu image",
+			Name: "scanning_ubuntu_image",
 			Args: []string{"", "image", "--archive", "--format=json", "./testdata/test-ubuntu.tar"},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
@@ -517,7 +517,7 @@ func TestCommand_HtmlFile(t *testing.T) {
 	client := testcmd.InsertCassette(t)
 
 	_, stderr := testcmd.RunAndNormalize(t, testcmd.Case{
-		Name: "one specific supported lockfile",
+		Name: "one_specific_supported_lockfile",
 		Args: []string{"",
 			"image", "--format=html", "--output-file", testDir + "/report.html",
 			"--archive", "./testdata/test-alpine.tar",

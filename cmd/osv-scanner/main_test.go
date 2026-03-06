@@ -43,19 +43,19 @@ func Test_run_SubCommands(t *testing.T) {
 	tests := []testcmd.Case{
 		// without subcommands
 		{
-			Name: "with no subcommand",
+			Name: "with_no_subcommand",
 			Args: []string{"", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		// with scan subcommand
 		{
-			Name: "with scan subcommand",
+			Name: "with_scan_subcommand",
 			Args: []string{"", "scan", "./testdata/locks-many/composer.lock"},
 			Exit: 0,
 		},
 		// scan with a flag
 		{
-			Name: "scan with a flag",
+			Name: "scan_with_a_flag",
 			Args: []string{"", "scan", "--recursive", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},

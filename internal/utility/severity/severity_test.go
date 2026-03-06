@@ -21,7 +21,7 @@ func TestSeverity_CalculateScore(t *testing.T) {
 		want result
 	}{
 		{
-			name: "Empty Severity Type",
+			name: "Empty_Severity_Type",
 			sev:  &osvschema.Severity{},
 			want: result{
 				score:  -1,
@@ -29,7 +29,7 @@ func TestSeverity_CalculateScore(t *testing.T) {
 			},
 		},
 		{
-			name: "CVSS v2.0",
+			name: "CVSS_v2.0",
 			sev: &osvschema.Severity{
 				Type:  osvschema.Severity_CVSS_V2,
 				Score: "AV:L/AC:M/Au:N/C:N/I:P/A:C/E:H/RL:U/RC:C/CDP:LM/TD:M/CR:L/IR:M/AR:H",
@@ -40,7 +40,7 @@ func TestSeverity_CalculateScore(t *testing.T) {
 			},
 		},
 		{
-			name: "CVSS v3.0",
+			name: "CVSS_v3.0",
 			sev: &osvschema.Severity{
 				Type:  osvschema.Severity_CVSS_V3,
 				Score: "CVSS:3.0/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:U/RL:T/RC:U/CR:L/IR:L/AR:H/MAV:P/MAC:H/MPR:H/MUI:R/MS:C/MC:H/MI:H/MA:H",
@@ -51,7 +51,7 @@ func TestSeverity_CalculateScore(t *testing.T) {
 			},
 		},
 		{
-			name: "CVSS v3.1",
+			name: "CVSS_v3.1",
 			sev: &osvschema.Severity{
 				Type:  osvschema.Severity_CVSS_V3,
 				Score: "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H/E:U/RL:T/RC:U/CR:L/IR:L/AR:H/MAV:P/MAC:H/MPR:H/MUI:R/MS:C/MC:H/MI:H/MA:H",
@@ -62,7 +62,7 @@ func TestSeverity_CalculateScore(t *testing.T) {
 			},
 		},
 		{
-			name: "CVSS v4.0",
+			name: "CVSS_v4.0",
 			sev: &osvschema.Severity{
 				Type:  osvschema.Severity_CVSS_V4,
 				Score: "CVSS:4.0/AV:P/AC:H/AT:P/PR:H/UI:A/VC:N/VI:N/VA:N/SC:N/SI:N/SA:N/E:U/CR:L/IR:L/AR:L/MAV:P/MAC:H/MAT:P/MPR:H/MUI:A/MVC:N/MVI:N/MVA:N/MSC:N/MSI:N/MSA:N/S:N/AU:N/R:A/V:D/RE:L/U:Clear",
