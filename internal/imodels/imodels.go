@@ -143,7 +143,7 @@ func (pkg *PackageInfo) Version() string {
 	return pkg.Package.Version
 }
 
-func (pkg *PackageInfo) Location() string {
+func Location(pkg PackageInfo) string {
 	if len(pkg.Locations) > 0 {
 		return pkg.Locations[0]
 	}

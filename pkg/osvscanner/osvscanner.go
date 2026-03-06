@@ -535,7 +535,7 @@ func makeVulnRequestWithMatcher(
 func overrideGoVersion(scanResults *results.ScanResults) {
 	for i, pkg := range scanResults.PackageScanResults {
 		if pkg.Name() == "stdlib" && pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo {
-			configToUse := scanResults.ConfigManager.Get(pkg.Location())
+			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 			if configToUse.GoVersionOverride != "" {
 				scanResults.PackageScanResults[i].Package.Version = configToUse.GoVersionOverride
 			}
