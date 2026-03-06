@@ -74,7 +74,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*e
 			}
 
 			// matching ecosystem-less versions can only be attempted if we have a version
-			if pkg.Version() == "" {
+			if imodels.Version(pkg) == "" {
 				// Is a commit based query, skip local scanning
 				results = append(results, []*osvschema.Vulnerability{})
 

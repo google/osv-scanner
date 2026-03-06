@@ -114,7 +114,7 @@ func (pkg *PackageInfo) Ecosystem() osvecosystem.Parsed {
 	return eco
 }
 
-func (pkg *PackageInfo) Version() string {
+func Version(pkg PackageInfo) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 	if pkg.purlCache != nil {
 		return pkg.purlCache.Version

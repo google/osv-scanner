@@ -22,7 +22,7 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 	for _, psr := range scanResults.PackageScanResults {
 		switch {
 		// If **none** of the cases match, skip this package since it's not scannable
-		case !psr.Ecosystem().IsEmpty() && psr.Name() != "" && psr.Version() != "":
+		case !psr.Ecosystem().IsEmpty() && psr.Name() != "" && imodels.Version(psr) != "":
 		case imodels.Commit(psr) != "":
 		default:
 			if actions.ShowAllPackages {
@@ -84,7 +84,7 @@ func filterIgnoredPackages(scanResults *results.ScanResults) {
 		configToUse := configManager.Get(imodels.Location(psr))
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", psr.Ecosystem().String(), psr.Name(), psr.Version())
+			pkgString := fmt.Sprintf("%s/%s/%s", psr.Ecosystem().String(), psr.Name(), imodels.Version(psr))
 
 			reason := ignoreLine.Reason
 			if reason == "" {
