@@ -24,12 +24,11 @@ type DepsDevLicenseMatcher struct {
 	Client *datasource.CachedInsightsClient
 }
 
-func (matcher *DepsDevLicenseMatcher) MatchLicenses(ctx context.Context, packages []imodels.PackageScanResult) error {
+func (matcher *DepsDevLicenseMatcher) MatchLicenses(ctx context.Context, packages []imodels.PackageInfo) error {
 	queries := make([]*depsdevpb.GetVersionRequest, len(packages))
 
-	for i, psr := range packages {
-		pkg := psr.PackageInfo
-		system, ok := depsdev.System[psr.PackageInfo.Ecosystem().Ecosystem]
+	for i, pkg := range packages {
+		system, ok := depsdev.System[pkg.Ecosystem().Ecosystem]
 		if !ok || pkg.Name() == "" || pkg.Version() == "" {
 			continue
 		}
@@ -42,10 +41,10 @@ func (matcher *DepsDevLicenseMatcher) MatchLicenses(ctx context.Context, package
 	}
 
 	for i, licenses := range pkgLicenses {
-		packages[i].PackageInfo.Licenses = make([]string, len(licenses))
+		packages[i].Licenses = make([]string, len(licenses))
 
 		for j, license := range licenses {
-			packages[i].PackageInfo.Licenses[j] = string(license)
+			packages[i].Licenses[j] = string(license)
 		}
 	}
 

@@ -33,7 +33,7 @@ func TestOSVMatcher_MatchVulnerabilities(t *testing.T) {
 		wantErr error
 	}{
 		{
-			name: "Timeout returns deadline exceeded error (http.Client code)",
+			name: "Timeout_returns_deadline_exceeded_error_(http.Client_code)",
 			fields: fields{
 				Client: *osvdev.DefaultClient(),
 				// Long enough to not timeout until we enter the http client code
@@ -52,7 +52,7 @@ func TestOSVMatcher_MatchVulnerabilities(t *testing.T) {
 			wantErr: context.DeadlineExceeded,
 		},
 		{
-			name: "Timeout returns deadline exceeded error (osv.dev code)",
+			name: "Timeout_returns_deadline_exceeded_error_(osv.dev_code)",
 			fields: fields{
 				Client: *osvdev.DefaultClient(),
 				// Short enough to test timeouts before reaching the http client

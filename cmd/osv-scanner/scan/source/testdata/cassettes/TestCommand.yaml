@@ -1,8 +1,7 @@
 ---
 version: 2
 interactions:
-  - id: 0
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -54,8 +53,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 1
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -99,8 +97,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 2
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -144,8 +141,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 3
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -189,8 +185,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 4
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -234,8 +229,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 5
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -279,8 +273,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 6
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -475,8 +468,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 7
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -830,8 +822,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 8
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -1026,8 +1017,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 9
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -1193,8 +1183,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 10
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -1245,8 +1234,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 11
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -1314,8 +1302,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 12
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -1367,8 +1354,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 13
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -1682,8 +1668,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 14
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -1727,8 +1712,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 15
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -1796,8 +1780,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 16
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -1880,8 +1863,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 17
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -1964,8 +1946,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 18
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -2017,8 +1998,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 19
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -2070,8 +2050,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 20
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -2123,8 +2102,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 21
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -2176,8 +2154,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 22
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -2221,8 +2198,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 23
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -2273,8 +2249,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 24
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -2325,8 +2300,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 25
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5043,8 +5017,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 26
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5095,8 +5068,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 27
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5238,8 +5210,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 28
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5290,8 +5261,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 29
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5391,8 +5361,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 30
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5436,8 +5405,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 31
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5489,8 +5457,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 32
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5534,8 +5501,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 33
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5579,8 +5545,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 34
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5624,8 +5589,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 35
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5676,8 +5640,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 36
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5721,8 +5684,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 37
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -5888,8 +5850,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 38
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -6055,8 +6016,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 39
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -6156,8 +6116,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 40
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -6257,8 +6216,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 41
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -6424,8 +6382,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 42
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -6591,8 +6548,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 43
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -6636,8 +6592,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 44
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -6688,8 +6643,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 45
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -7122,8 +7076,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 46
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -7206,8 +7159,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 47
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -7251,8 +7203,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 48
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1

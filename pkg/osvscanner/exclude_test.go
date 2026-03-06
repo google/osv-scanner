@@ -96,6 +96,11 @@ func Test_parseExcludePatterns(t *testing.T) {
 			patterns: []string{},
 		},
 		{
+			name:     "invalid_glob",
+			patterns: []string{"g:["},
+			wantErr:  true,
+		},
+		{
 			name:     "invalid_regex",
 			patterns: []string{"r:[invalid"},
 			wantErr:  true,

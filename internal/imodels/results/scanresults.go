@@ -13,7 +13,7 @@ import (
 type ScanResults struct {
 	Inventory inventory.Inventory
 
-	PackageScanResults []imodels.PackageScanResult
+	PackageScanResults []imodels.PackageInfo
 
 	// TODO(v2): Temporarily commented out until ScanParameters is moved
 	// to a shared package to avoid cyclic dependencies

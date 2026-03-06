@@ -34,7 +34,7 @@ func TestCommand(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "fix non-interactive in-place package-lock.json",
+			Name: "fix_non-interactive_in-place_package-lock.json",
 			Args: []string{"", "fix", "--strategy=in-place", "-L", "./testdata/in-place-npm/package-lock.json"},
 			Exit: 0,
 		},
@@ -44,12 +44,12 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "fix non-interactive relax package.json",
+			Name: "fix_non-interactive_relax_package.json",
 			Args: []string{"", "fix", "--strategy=relax", "-M", "./testdata/relax-npm/package.json"},
 			Exit: 0,
 		},
 		{
-			Name: "fix non-interactive override pom.xml",
+			Name: "fix_non-interactive_override_pom.xml",
 			Args: []string{"", "fix", "--strategy=override", "-M", "./testdata/override-maven/pom.xml"},
 			Exit: 0,
 		},
@@ -59,17 +59,17 @@ func TestCommand(t *testing.T) {
 			Exit: 0,
 		},
 		{
-			Name: "fix non-interactive json in-place package-lock.json",
+			Name: "fix_non-interactive_json_in-place_package-lock.json",
 			Args: []string{"", "fix", "--strategy=in-place", "--format=json", "-L", "./testdata/in-place-npm/package-lock.json"},
 			Exit: 0,
 		},
 		{
-			Name: "fix non-interactive json relax package.json",
+			Name: "fix_non-interactive_json_relax_package.json",
 			Args: []string{"", "fix", "--strategy=relax", "--format=json", "-M", "./testdata/relax-npm/package.json"},
 			Exit: 0,
 		},
 		{
-			Name: "fix non-interactive json override pom.xml",
+			Name: "fix_non-interactive_json_override_pom.xml",
 			Args: []string{"", "fix", "--strategy=override", "--format=json", "-M", "./testdata/override-maven/pom.xml"},
 			Exit: 0,
 		},
@@ -206,7 +206,7 @@ func Test_parseUpgradeConfig(t *testing.T) {
 		want map[string]upgrade.Level
 	}{
 		{
-			name: "default behaviour",
+			name: "default_behaviour",
 			args: []string{},
 			want: map[string]upgrade.Level{
 				"foo": upgrade.Major,
@@ -214,7 +214,7 @@ func Test_parseUpgradeConfig(t *testing.T) {
 			},
 		},
 		{
-			name: "general level config",
+			name: "general_level_config",
 			args: []string{"--upgrade-config=minor"},
 			want: map[string]upgrade.Level{
 				"foo": upgrade.Minor,
@@ -222,7 +222,7 @@ func Test_parseUpgradeConfig(t *testing.T) {
 			},
 		},
 		{
-			name: "all levels",
+			name: "all_levels",
 			args: []string{
 				"--upgrade-config", "major:major",
 				"--upgrade-config", "minor:minor",
@@ -238,7 +238,7 @@ func Test_parseUpgradeConfig(t *testing.T) {
 			},
 		},
 		{
-			name: "package takes precedence over general",
+			name: "package_takes_precedence_over_general",
 			args: []string{
 				"--upgrade-config", "pkg1:minor",
 				"--upgrade-config", "none",
@@ -251,7 +251,7 @@ func Test_parseUpgradeConfig(t *testing.T) {
 			},
 		},
 		{
-			name: "package names with colons",
+			name: "package_names_with_colons",
 			args: []string{
 				"--upgrade-config=none:patch:minor:major",
 				"--upgrade-config=none:patch:minor",

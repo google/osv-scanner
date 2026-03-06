@@ -15,15 +15,15 @@ func TestUnrecognized(t *testing.T) {
 		want     []string
 	}{
 		{
-			name:     "all recognized licenses",
+			name:     "all_recognized_licenses",
 			licenses: []string{"agpl-1.0", "MIT", "apache-1.0", "UNKNOWN"},
 			want:     nil,
 		}, {
-			name:     "all unrecognized licenses",
+			name:     "all_unrecognized_licenses",
 			licenses: []string{"agpl1.0", "unrecognized license", "apache1.0"},
 			want:     []string{"agpl1.0", "unrecognized license", "apache1.0"},
 		}, {
-			name:     "some recognized, some unrecognized licenses",
+			name:     "some_recognized,_some_unrecognized_licenses",
 			licenses: []string{"agpl-1.0", "unrecognized license", "apache-1.0"},
 			want:     []string{"unrecognized license"},
 		},

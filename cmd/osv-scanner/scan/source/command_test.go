@@ -433,6 +433,11 @@ func TestCommand_JavareachArchive(t *testing.T) {
 			Args: []string{"", "source", "--call-analysis=jar", "--all-vulns", "--experimental-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
 			Exit: 1,
 		},
+		{
+			Name: "jars_can_be_scanned_with_call_analysis_and_disabled_enricher",
+			Args: []string{"", "source", "--call-analysis=jar", "--experimental-disable-plugins=reachability/java", "--all-vulns", "--experimental-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -1264,41 +1269,41 @@ func TestCommand_Transitive(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "pom.xml_transitive_default",
+			Name: "scans_transitive_dependencies_for_pom.xml_by_default",
 			Args: []string{"", "source", "./testdata/maven-transitive/pom.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "pom.xml_transitive_explicit_lockfile",
+			Name: "scans_transitive_dependencies_by_specifying_pom.xml",
 			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/abc.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "pom.xml_multiple_registries",
-			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
-			Exit: 1,
-		},
-		{
-			Name: "pom.xml_transitive_native_source",
-			Args: []string{"", "source", "--data-source=native", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
-			Exit: 1,
-		},
-		{
-			Name: "pom.xml_non_utf8_encoding",
+			Name: "scans_pom.xml_with_non_UTF-8_encoding",
 			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/encoding.xml"},
 			Exit: 1,
 		},
 		{
-			Name: "pom.xml_no_resolve_no_transitive",
-			Args: []string{"", "source", "--no-resolve", "./testdata/maven-transitive/pom.xml"},
 			// Direct dependencies do not have any vulnerability.
+			Name: "does_not_scan_transitive_dependencies_for_pom.xml_with_offline_mode",
+			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/maven-transitive/pom.xml"},
 			Exit: 0,
 		},
 		{
-			Name: "pom.xml_offline_no_transitive",
-			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/maven-transitive/pom.xml"},
 			// Direct dependencies do not have any vulnerability.
+			Name: "does_not_scan_transitive_dependencies_for_pom.xml_with_no-resolve",
+			Args: []string{"", "source", "--no-resolve", "./testdata/maven-transitive/pom.xml"},
 			Exit: 0,
+		},
+		{
+			Name: "scans_dependencies_from_multiple_registries",
+			Args: []string{"", "source", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
+			Exit: 1,
+		},
+		{
+			Name: "resolves_transitive_dependencies_with_native_data_source",
+			Args: []string{"", "source", "--data-source=native", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
+			Exit: 1,
 		},
 		{
 			Name: "pom.xml_enricher_requires_extractor",
@@ -1306,28 +1311,38 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 128,
 		},
 		{
-			Name: "invalid_data_source_error",
-			Args: []string{"", "source", "--data-source=github", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
-			Exit: 127,
-		},
-		{
-			Name: "requirements.txt_transitive_default",
+			Name: "scans_transitive_dependencies_in_requirements.txt_with_deps.dev_API_by_default",
 			Args: []string{"", "source", "-L", "./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 		{
-			Name: "requirements.txt_transitive_native_source",
+			Name: "uses_native_data_source_for_requirements.txt",
 			Args: []string{"", "source", "--data-source=native", "-L", "requirements.txt:./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 		{
-			Name: "requirements.txt_no_resolve_no_transitive",
+			Name: "fall_back_to_the_offline_extractor_if_resolution_failed",
+			Args: []string{"", "source", "./testdata/locks-requirements/unresolvable-requirements.txt"},
+			Exit: 1,
+		},
+		{
+			Name: "does_not_scan_transitive_dependencies_for_requirements.txt_with_no-resolve",
 			Args: []string{"", "source", "--no-resolve", "./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
 		},
 		{
-			Name: "requirements.txt_offline_no_transitive",
+			Name: "does_not_scan_transitive_dependencies_for_requirements.txt_with_offline_mode",
 			Args: []string{"", "source", "--offline", "--download-offline-databases", "./testdata/locks-requirements/requirements.txt"},
+			Exit: 1,
+		},
+		{
+			Name: "errors_with_invalid_data_source",
+			Args: []string{"", "source", "--data-source=github", "-L", "pom.xml:./testdata/maven-transitive/registry.xml"},
+			Exit: 127,
+		},
+		{
+			Name: "scan_local_disk_transitive_dependencies",
+			Args: []string{"", "source", "--no-resolve", "./testdata/locks-requirements/requirements-transitive.txt"},
 			Exit: 1,
 		},
 		{
@@ -1335,12 +1350,8 @@ func TestCommand_Transitive(t *testing.T) {
 			Args: []string{"", "source", "--experimental-disable-plugins=python/requirements", "./testdata/locks-requirements/requirements-transitive.txt"},
 			Exit: 128,
 		},
-		{
-			Name: "requirements.txt_resolution_fallback",
-			Args: []string{"", "source", "./testdata/locks-requirements/unresolvable-requirements.txt"},
-			Exit: 1,
-		},
 	}
+
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {

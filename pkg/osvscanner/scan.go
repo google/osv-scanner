@@ -81,6 +81,10 @@ func getPlugins(defaultPlugins []string, accessors ExternalAccessors, actions Sc
 		actions.PluginsDisabled = append(actions.PluginsDisabled, vendored.Name)
 	}
 
+	if actions.CallAnalysisStates["jar"] {
+		actions.PluginsEnabled = append(actions.PluginsEnabled, java.Name)
+	}
+
 	plugins := scalibrplugin.Resolve(actions.PluginsEnabled, actions.PluginsDisabled, cfg)
 
 	configurePlugins(plugins, accessors, actions)
@@ -115,10 +119,6 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inven
 	// not mentioning them to avoid confusion since they're still in their infancy
 	if countNotEnrichers(plugins) == 0 {
 		return nil, errors.New("at least one extractor must be enabled")
-	}
-
-	if actions.CallAnalysisStates["jar"] {
-		plugins = append(plugins, java.NewDefault())
 	}
 
 	if actions.FlagDeprecatedPackages {

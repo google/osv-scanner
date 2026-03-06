@@ -69,7 +69,7 @@ func TestDoScan(t *testing.T) {
 		wantErr error
 	}{
 		{
-			name: "Test curl git scanning",
+			name: "Test_curl_git_scanning",
 			args: args{
 				actions: osvscanner.ScannerActions{
 					GitCommits: []string{"33dffa3909a67e1b5d22647128ab7eb6e53fd0c7"},
