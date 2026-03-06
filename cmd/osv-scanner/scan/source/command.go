@@ -59,6 +59,15 @@ func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 			},
 			&cli.StringSliceFlag{
 				Name:  "experimental-exclude",
+				Usage: "[DEPRECATED] (use \"--x-exclude\" instead) exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)",
+				Action: func(_ context.Context, _ *cli.Command, _ []string) error {
+					cmdlogger.Warnf("Warning: --experimental-exclude has been deprecated in favor of --x-exclude")
+
+					return nil
+				},
+			},
+			&cli.StringSliceFlag{
+				Name:  "x-exclude",
 				Usage: "exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)",
 			},
 			&cli.StringFlag{
@@ -88,11 +97,7 @@ func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, client *http.Client) error {
 	format := cmd.String("format")
 
-	outputPath := cmd.String("output-file")
-
-	if outputPath == "" {
-		outputPath = cmd.String("output")
-	}
+	outputPath := cmd.String(helper.FallbackToDeprecatedName(cmd, "output-file", "output"))
 	serve := cmd.Bool("serve")
 	if serve {
 		format = "html"
@@ -117,7 +122,7 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 
 	experimentalScannerActions := helper.GetExperimentalScannerActions(cmd, client)
 	experimentalScannerActions.RequestUserAgent = "osv-scanner_scan-source/" + version.OSVVersion
-	experimentalScannerActions.ExcludePatterns = cmd.StringSlice("experimental-exclude")
+	experimentalScannerActions.ExcludePatterns = cmd.StringSlice(helper.FallbackToDeprecatedName(cmd, "x-exclude", "experimental-exclude"))
 	// Add `source` specific experimental configs
 	experimentalScannerActions.TransitiveScanning = osvscanner.TransitiveScanningActions{
 		Disabled:         cmd.Bool("no-resolve"),
