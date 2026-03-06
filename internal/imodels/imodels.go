@@ -47,13 +47,13 @@ func (pkg *PackageInfo) Name() string {
 
 	// --- Make specific patches to names as necessary ---
 	// Patch Go package to stdlib
-	if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo && pkg.Package.Name == "go" {
+	if Ecosystem(*pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Package.Name == "go" {
 		return "stdlib"
 	}
 
 	// TODO: Move the normalization to another where matching logic happens.
 	// Patch python package names to be normalized
-	if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemPyPI {
+	if Ecosystem(*pkg).Ecosystem == osvconstants.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
 		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Package.Name, "-"))
 	}
@@ -80,14 +80,14 @@ func (pkg *PackageInfo) Name() string {
 		}
 	}
 
-	if pkg.Ecosystem().String() == "GIT" && pkg.SourceCode != nil && pkg.SourceCode.Repo != "" {
+	if Ecosystem(*pkg).String() == "GIT" && pkg.SourceCode != nil && pkg.SourceCode.Repo != "" {
 		return pkg.SourceCode.Repo
 	}
 
 	return pkg.Package.Name
 }
 
-func (pkg *PackageInfo) Ecosystem() osvecosystem.Parsed {
+func Ecosystem(pkg PackageInfo) osvecosystem.Parsed {
 	eco := pkg.Package.Ecosystem()
 
 	if metadata, ok := pkg.Metadata.(*osvscannerjson.Metadata); ok {
@@ -128,7 +128,7 @@ func Version(pkg PackageInfo) string {
 	// However, if we assume patch version as .0, this will cause a lot of
 	// false positives. This compromise still allows osv-scanner to pick up
 	// when the user is using a minor version that is out-of-support.
-	if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo && pkg.Name() == "stdlib" {
+	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Name() == "stdlib" {
 		v := semverlike.ParseSemverLikeVersion(pkg.Package.Version, 3)
 		if len(v.Components) == 2 {
 			return fmt.Sprintf(
