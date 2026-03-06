@@ -177,7 +177,7 @@ func (pkg *PackageInfo) SourceType() models.SourceType {
 	return models.SourceTypeUnknown
 }
 
-func (pkg *PackageInfo) DepGroups() []string {
+func DepGroups(pkg PackageInfo) []string {
 	if dg, ok := pkg.Metadata.(scalibrosv.DepGroups); ok {
 		return dg.DepGroups()
 	}

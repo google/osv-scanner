@@ -58,7 +58,7 @@ func (e PackageOverrideEntry) matches(pkg imodels.PackageInfo) bool {
 	if e.Ecosystem != "" && (e.Ecosystem != pkg.Ecosystem().String() && e.Ecosystem != string(pkg.Ecosystem().Ecosystem)) {
 		return false
 	}
-	if e.Group != "" && !slices.Contains(pkg.DepGroups(), e.Group) {
+	if e.Group != "" && !slices.Contains(imodels.DepGroups(pkg), e.Group) {
 		return false
 	}
 
