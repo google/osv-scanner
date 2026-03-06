@@ -372,6 +372,58 @@ func TestNewZippedDB_Online_WithDifferentCache(t *testing.T) {
 	expectDBToHaveOSVs(t, db, osvs)
 }
 
+func TestNewZippedDB_Online_WithCacheButBadHeadResponse(t *testing.T) {
+	t.Parallel()
+
+	testDir := testutility.CreateTestDir(t)
+
+	ts := createZipServer(t, func(w http.ResponseWriter, _ *http.Request) {
+		w.WriteHeader(http.StatusBadRequest)
+	})
+
+	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), zipOSVs(t, map[string]*osvschema.Vulnerability{
+		"GHSA-1.json": {Id: "GHSA-1"},
+		"GHSA-2.json": {Id: "GHSA-2"},
+		"GHSA-3.json": {Id: "GHSA-3"},
+	}))
+
+	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+
+	if err == nil {
+		t.Errorf("expected an error but did not get one")
+	}
+}
+
+func TestNewZippedDB_Online_WithCacheButBadHashHeader(t *testing.T) {
+	t.Parallel()
+
+	testDir := testutility.CreateTestDir(t)
+
+	ts := createZipServer(t, func(w http.ResponseWriter, _ *http.Request) {
+		_, _ = w.Write(zipOSVs(t, map[string]*osvschema.Vulnerability{
+			"GHSA-1.json": {Id: "GHSA-1"},
+			"GHSA-2.json": {Id: "GHSA-2"},
+			"GHSA-3.json": {Id: "GHSA-3"},
+			"GHSA-4.json": {Id: "GHSA-4"},
+			"GHSA-5.json": {Id: "GHSA-5"},
+		}))
+
+		w.Header().Add("x-goog-hash", "crc32c=bad-value")
+	})
+
+	cacheWrite(t, determineStoredAtPath(testDir, "my-db"), zipOSVs(t, map[string]*osvschema.Vulnerability{
+		"GHSA-1.json": {Id: "GHSA-1"},
+		"GHSA-2.json": {Id: "GHSA-2"},
+		"GHSA-3.json": {Id: "GHSA-3"},
+	}))
+
+	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+
+	if err == nil {
+		t.Errorf("expected an error but did not get one")
+	}
+}
+
 func TestNewZippedDB_Online_WithCacheButNoHashHeader(t *testing.T) {
 	t.Parallel()
 
@@ -431,6 +483,28 @@ func TestNewZippedDB_Online_WithBadCache(t *testing.T) {
 		t.Errorf("db is incorrectly marked as partially loaded")
 	}
 	expectDBToHaveOSVs(t, db, osvs)
+}
+
+func TestNewZippedDB_Online_WithBadGetResponse(t *testing.T) {
+	t.Parallel()
+
+	testDir := testutility.CreateTestDir(t)
+
+	ts := createZipServer(t, func(w http.ResponseWriter, r *http.Request) {
+		if r.Method == http.MethodGet {
+			w.WriteHeader(http.StatusMethodNotAllowed)
+
+			return
+		}
+
+		_, _ = writeOSVsZip(t, w, map[string]*osvschema.Vulnerability{})
+	})
+
+	_, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+
+	if err == nil {
+		t.Errorf("expected an error but did not get one")
+	}
 }
 
 func TestNewZippedDB_FileChecks(t *testing.T) {
