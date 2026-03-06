@@ -16,7 +16,7 @@ func TestExtractor_Extract(t *testing.T) {
 
 	tests := []extracttest.TestTableEntry{
 		{
-			Name: "invalid yaml",
+			Name: "invalid_yaml",
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/not-json.txt",
 			},
@@ -30,7 +30,7 @@ func TestExtractor_Extract(t *testing.T) {
 			WantPackages: []*extractor.Package{},
 		},
 		{
-			Name: "one package",
+			Name: "one_package",
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package.json",
 			},
@@ -52,7 +52,7 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "one package with commit",
+			Name: "one_package_with_commit",
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/one-package-commit.json",
 			},
@@ -74,7 +74,7 @@ func TestExtractor_Extract(t *testing.T) {
 			},
 		},
 		{
-			Name: "multiple packages",
+			Name: "multiple_packages",
 			InputConfig: extracttest.ScanInputMockConfig{
 				Path: "testdata/multiple-packages-with-vulns.json",
 			},

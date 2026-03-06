@@ -195,7 +195,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 		// Auth tests adapted from npm-registry-fetch
 		// https://github.com/npm/npm-registry-fetch/blob/237d33b45396caa00add61e0549cf09fbf9deb4f/test/auth.js
 		{
-			name: "basic auth",
+			name: "basic_auth",
 			config: datasource.NpmrcConfig{
 				"//my.custom.registry/here/:username":  "user",
 				"//my.custom.registry/here/:_password": b64enc("pass"),
@@ -204,7 +204,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 			wantAuth:   "Basic " + b64enc("user:pass"),
 		},
 		{
-			name: "token auth",
+			name: "token_auth",
 			config: datasource.NpmrcConfig{
 				"//my.custom.registry/here/:_authToken": "c0ffee",
 				"//my.custom.registry/here/:token":      "nope",
@@ -215,7 +215,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 			wantAuth:   "Bearer c0ffee",
 		},
 		{
-			name: "_auth auth",
+			name: "_auth_auth",
 			config: datasource.NpmrcConfig{
 				"//my.custom.registry/:_auth":      "decafbad",
 				"//my.custom.registry/here/:_auth": "c0ffee",
@@ -224,7 +224,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 			wantAuth:   "Basic c0ffee",
 		},
 		{
-			name: "_auth username:pass auth",
+			name: "_auth_username:pass_auth",
 			config: datasource.NpmrcConfig{
 				"//my.custom.registry/here/:_auth": b64enc("foo:bar"),
 			},
@@ -232,7 +232,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 			wantAuth:   "Basic " + b64enc("foo:bar"),
 		},
 		{
-			name: "ignore user/pass when _auth is set",
+			name: "ignore_user/pass_when__auth_is_set",
 			config: datasource.NpmrcConfig{
 				"//registry/:_auth":     b64enc("not:foobar"),
 				"//registry/:username":  "foo",
@@ -242,7 +242,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 			wantAuth:   "Basic " + b64enc("not:foobar"),
 		},
 		{
-			name: "different hosts for uri vs registry",
+			name: "different_hosts_for_uri_vs_registry",
 			config: datasource.NpmrcConfig{
 				"//my.custom.registry/here/:_authToken": "c0ffee",
 				"//my.custom.registry/here/:token":      "nope",
@@ -251,7 +251,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 			wantAuth:   "",
 		},
 		{
-			name: "do not be thrown by other weird configs",
+			name: "do_not_be_thrown_by_other_weird_configs",
 			config: datasource.NpmrcConfig{
 				"@asdf:_authToken":                 "does this work?",
 				"//registry.npmjs.org:_authToken":  "do not share this",
@@ -267,7 +267,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 		},
 		// Some extra tests, based on experimentation with npm config
 		{
-			name: "exact package path uri",
+			name: "exact_package_path_uri",
 			config: datasource.NpmrcConfig{
 				"//custom.registry/:_authToken":         "less specific match",
 				"//custom.registry/package:_authToken":  "exact match",
@@ -277,7 +277,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 			wantAuth:   "Bearer exact match",
 		},
 		{
-			name: "percent-encoding case-sensitivity",
+			name: "percent-encoding_case-sensitivity",
 			config: datasource.NpmrcConfig{
 				"//custom.registry/:_authToken":                 "expected",
 				"//custom.registry/@scope%2Fpackage:_authToken": "bad config",
@@ -286,7 +286,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 			wantAuth:   "Bearer expected",
 		},
 		{
-			name: "require both user and pass",
+			name: "require_both_user_and_pass",
 			config: datasource.NpmrcConfig{
 				"//custom.registry/:_authToken":  "fallback",
 				"//custom.registry/foo:username": "user",
@@ -295,7 +295,7 @@ func TestNpmRegistryAuths(t *testing.T) {
 			wantAuth:   "Bearer fallback",
 		},
 		{
-			name: "don't inherit username",
+			name: "don't_inherit_username",
 			config: datasource.NpmrcConfig{
 				"//custom.registry/:_authToken":       "fallback",
 				"//custom.registry/foo:username":      "user",
