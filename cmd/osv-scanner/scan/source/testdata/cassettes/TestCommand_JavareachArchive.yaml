@@ -933,8 +933,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 2
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -1402,8 +1401,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 3
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
