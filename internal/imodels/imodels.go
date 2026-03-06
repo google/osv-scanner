@@ -151,7 +151,7 @@ func (pkg *PackageInfo) Location() string {
 	return ""
 }
 
-func (pkg *PackageInfo) Commit() string {
+func Commit(pkg PackageInfo) string {
 	if pkg.SourceCode != nil {
 		return pkg.SourceCode.Commit
 	}

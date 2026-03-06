@@ -68,7 +68,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*e
 		eco := pkg.Ecosystem().Ecosystem
 
 		if pkg.Ecosystem().IsEmpty() {
-			if pkg.Commit() == "" {
+			if imodels.Commit(pkg) == "" {
 				// This should never happen, as those results will be filtered out before matching
 				return nil, errors.New("ecosystem is empty and there is no commit hash")
 			}
@@ -79,7 +79,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*e
 				results = append(results, []*osvschema.Vulnerability{})
 
 				// TODO (V2 logging):
-				cmdlogger.Infof("Skipping commit scanning for: %s", pkg.Commit())
+				cmdlogger.Infof("Skipping commit scanning for: %s", imodels.Commit(pkg))
 
 				continue
 			}

@@ -23,7 +23,7 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 		switch {
 		// If **none** of the cases match, skip this package since it's not scannable
 		case !psr.Ecosystem().IsEmpty() && psr.Name() != "" && psr.Version() != "":
-		case psr.Commit() != "":
+		case imodels.Commit(psr) != "":
 		default:
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
