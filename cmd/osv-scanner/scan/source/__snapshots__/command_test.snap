@@ -5473,6 +5473,26 @@ Total 3 packages affected by 9 known vulnerabilities (0 Critical, 3 High, 4 Medi
 
 ---
 
+[TestCommand_Transitive/pom.xml_enricher_requires_extractor - 1]
+Scanning dir ./testdata/maven-transitive/abc.xml
+
+---
+
+[TestCommand_Transitive/pom.xml_enricher_requires_extractor - 2]
+No package sources found, --help for usage information.
+
+---
+
+[TestCommand_Transitive/requirements.txt_enricher_requires_extractor - 1]
+Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
+
+---
+
+[TestCommand_Transitive/requirements.txt_enricher_requires_extractor - 2]
+No package sources found, --help for usage information.
+
+---
+
 [TestCommand_Transitive/resolves_transitive_dependencies_with_native_data_source - 1]
 Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/animated-vector-drawable/24.0.0/animated-vector-drawable-24.0.0.pom
 Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/appcompat-v7/24.0.0/appcompat-v7-24.0.0.pom
@@ -5725,26 +5745,6 @@ Total 5 packages affected by 22 known vulnerabilities (1 Critical, 9 High, 10 Me
 ---
 
 [TestCommand_Transitive/scans_transitive_dependencies_in_requirements.txt_with_deps.dev_API_by_default - 2]
-
----
-
-[TestCommand_Transitive/transitive_pomxml_enricher_requires_enabled_pomxml_extractor - 1]
-Scanning dir ./testdata/maven-transitive/abc.xml
-
----
-
-[TestCommand_Transitive/transitive_pomxml_enricher_requires_enabled_pomxml_extractor - 2]
-No package sources found, --help for usage information.
-
----
-
-[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 1]
-Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
-
----
-
-[TestCommand_Transitive/transitive_requirements_enricher_requires_enabled_requirements_extractor - 2]
-No package sources found, --help for usage information.
 
 ---
 

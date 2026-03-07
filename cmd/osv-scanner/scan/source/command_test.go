@@ -1306,6 +1306,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "pom.xml_enricher_requires_extractor",
+			Args: []string{"", "source", "--experimental-disable-plugins=java/pomxml", "./testdata/maven-transitive/abc.xml"},
+			Exit: 128,
+		},
+		{
 			Name: "scans_transitive_dependencies_in_requirements.txt_with_deps.dev_API_by_default",
 			Args: []string{"", "source", "-L", "./testdata/locks-requirements/requirements.txt"},
 			Exit: 1,
@@ -1341,16 +1346,12 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 1,
 		},
 		{
-			Name: "transitive_requirements_enricher_requires_enabled_requirements_extractor",
+			Name: "requirements.txt_enricher_requires_extractor",
 			Args: []string{"", "source", "--experimental-disable-plugins=python/requirements", "./testdata/locks-requirements/requirements-transitive.txt"},
 			Exit: 128,
 		},
-		{
-			Name: "transitive_pomxml_enricher_requires_enabled_pomxml_extractor",
-			Args: []string{"", "source", "--experimental-disable-plugins=java/pomxml", "./testdata/maven-transitive/abc.xml"},
-			Exit: 128,
-		},
 	}
+
 
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
