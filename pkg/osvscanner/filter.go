@@ -18,9 +18,9 @@ import (
 // are not a supported ecosystem, and returns the list of removed packages (if --all-packages flag is passed in)
 // e,g, local packages that specified by path
 func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []*extractor.Package {
-	packageResults := make([]*extractor.Package, 0, len(scanResults.PackageScanResults))
-	filteredPsr := make([]*extractor.Package, 0, len(scanResults.PackageScanResults))
-	for _, psr := range scanResults.PackageScanResults {
+	packageResults := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
+	filteredPsr := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
+	for _, psr := range scanResults.Inventory.Packages {
 		switch {
 		// If **none** of the cases match, skip this package since it's not scannable
 		case !imodels.Ecosystem(psr).IsEmpty() && imodels.Name(psr) != "" && imodels.Version(psr) != "":
@@ -47,19 +47,19 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 		packageResults = append(packageResults, psr)
 	}
 
-	if len(packageResults) != len(scanResults.PackageScanResults) {
-		cmdlogger.Infof("Filtered %d local/unscannable package/s from the scan.", len(scanResults.PackageScanResults)-len(packageResults))
+	if len(packageResults) != len(scanResults.Inventory.Packages) {
+		cmdlogger.Infof("Filtered %d local/unscannable package/s from the scan.", len(scanResults.Inventory.Packages)-len(packageResults))
 	}
 
-	scanResults.PackageScanResults = packageResults
+	scanResults.Inventory.Packages = packageResults
 
 	return filteredPsr
 }
 
 // filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
 func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
-	packageResults := make([]*extractor.Package, 0, len(scanResults.PackageScanResults))
-	for _, psr := range scanResults.PackageScanResults {
+	packageResults := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
+	for _, psr := range scanResults.Inventory.Packages {
 		// Almost all packages with linux as a SourceName are kernel packages
 		// which does not apply within a container, as containers use the host's kernel
 		if imodels.Name(psr) == "linux" {
@@ -69,19 +69,19 @@ func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
 		packageResults = append(packageResults, psr)
 	}
 
-	if len(packageResults) != len(scanResults.PackageScanResults) {
-		cmdlogger.Infof("Filtered %d non container relevant package/s from the scan.", len(scanResults.PackageScanResults)-len(packageResults))
+	if len(packageResults) != len(scanResults.Inventory.Packages) {
+		cmdlogger.Infof("Filtered %d non container relevant package/s from the scan.", len(scanResults.Inventory.Packages)-len(packageResults))
 	}
 
-	scanResults.PackageScanResults = packageResults
+	scanResults.Inventory.Packages = packageResults
 }
 
 // filterIgnoredPackages removes ignore scanned packages according to config. Returns filtered scanned packages.
 func filterIgnoredPackages(scanResults *results.ScanResults) {
 	configManager := &scanResults.ConfigManager
 
-	out := make([]*extractor.Package, 0, len(scanResults.PackageScanResults))
-	for _, psr := range scanResults.PackageScanResults {
+	out := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
+	for _, psr := range scanResults.Inventory.Packages {
 		configToUse := configManager.Get(imodels.Location(psr))
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
@@ -98,11 +98,11 @@ func filterIgnoredPackages(scanResults *results.ScanResults) {
 		out = append(out, psr)
 	}
 
-	if len(out) != len(scanResults.PackageScanResults) {
-		cmdlogger.Infof("Filtered %d ignored package/s from the scan.", len(scanResults.PackageScanResults)-len(out))
+	if len(out) != len(scanResults.Inventory.Packages) {
+		cmdlogger.Infof("Filtered %d ignored package/s from the scan.", len(scanResults.Inventory.Packages)-len(out))
 	}
 
-	scanResults.PackageScanResults = out
+	scanResults.Inventory.Packages = out
 }
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
