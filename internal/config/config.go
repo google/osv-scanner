@@ -49,7 +49,7 @@ func (e PackageOverrideEntry) matches(pkg imodels.PackageInfo) bool {
 	if e.Name != "" && e.Name != imodels.Name(pkg.Package) {
 		return false
 	}
-	if e.Version != "" && e.Version != imodels.Version(pkg) {
+	if e.Version != "" && e.Version != imodels.Version(pkg.Package) {
 		return false
 	}
 	// If there is an ecosystem filter, the filter must not match both the:

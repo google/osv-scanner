@@ -133,7 +133,7 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 }
 
 func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
-	if imodels.Name(pkg.Package) != "" && !imodels.Ecosystem(pkg.Package).IsEmpty() && imodels.Version(pkg) != "" {
+	if imodels.Name(pkg.Package) != "" && !imodels.Ecosystem(pkg.Package).IsEmpty() && imodels.Version(pkg.Package) != "" {
 		name := imodels.Name(pkg.Package)
 
 		// Tools like Syft create Go PURLs where the module's major suffix is part
@@ -155,7 +155,7 @@ func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
 				Ecosystem: imodels.Ecosystem(pkg.Package).String(),
 			},
 			Param: &api.Query_Version{
-				Version: imodels.Version(pkg),
+				Version: imodels.Version(pkg.Package),
 			},
 		}
 	}
