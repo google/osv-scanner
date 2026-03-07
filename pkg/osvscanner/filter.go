@@ -4,6 +4,7 @@ package osvscanner
 import (
 	"fmt"
 
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/imodels"
@@ -16,14 +17,14 @@ import (
 // filterUnscannablePackages removes packages that don't have enough information to be scanned or
 // are not a supported ecosystem, and returns the list of removed packages (if --all-packages flag is passed in)
 // e,g, local packages that specified by path
-func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []imodels.PackageInfo {
-	packageResults := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
-	filteredPsr := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
-	for _, psr := range scanResults.PackageScanResults {
+func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []*extractor.Package {
+	packageResults := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
+	filteredPsr := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
+	for _, psr := range scanResults.Inventory.Packages {
 		switch {
 		// If **none** of the cases match, skip this package since it's not scannable
-		case !psr.Ecosystem().IsEmpty() && psr.Name() != "" && psr.Version() != "":
-		case psr.Commit() != "":
+		case !imodels.Ecosystem(psr).IsEmpty() && imodels.Name(psr) != "" && imodels.Version(psr) != "":
+		case imodels.Commit(psr) != "":
 		default:
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
@@ -34,8 +35,8 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 
 		switch {
 		// If **any** of the following cases are true, skip this package
-		case psr.Ecosystem().Ecosystem == osvconstants.EcosystemMaven && psr.Name() == "unknown", // Is Maven with package name unknown
-			psr.Ecosystem().GetValidity() != nil && !psr.Ecosystem().IsEmpty(): // Is invalid and not empty
+		case imodels.Ecosystem(psr).Ecosystem == osvconstants.EcosystemMaven && imodels.Name(psr) == "unknown", // Is Maven with package name unknown
+			imodels.Ecosystem(psr).GetValidity() != nil && !imodels.Ecosystem(psr).IsEmpty(): // Is invalid and not empty
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
 			}
@@ -46,45 +47,45 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 		packageResults = append(packageResults, psr)
 	}
 
-	if len(packageResults) != len(scanResults.PackageScanResults) {
-		cmdlogger.Infof("Filtered %d local/unscannable package/s from the scan.", len(scanResults.PackageScanResults)-len(packageResults))
+	if len(packageResults) != len(scanResults.Inventory.Packages) {
+		cmdlogger.Infof("Filtered %d local/unscannable package/s from the scan.", len(scanResults.Inventory.Packages)-len(packageResults))
 	}
 
-	scanResults.PackageScanResults = packageResults
+	scanResults.Inventory.Packages = packageResults
 
 	return filteredPsr
 }
 
 // filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
 func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
-	packageResults := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
-	for _, psr := range scanResults.PackageScanResults {
+	packageResults := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
+	for _, psr := range scanResults.Inventory.Packages {
 		// Almost all packages with linux as a SourceName are kernel packages
 		// which does not apply within a container, as containers use the host's kernel
-		if psr.Name() == "linux" {
+		if imodels.Name(psr) == "linux" {
 			continue
 		}
 
 		packageResults = append(packageResults, psr)
 	}
 
-	if len(packageResults) != len(scanResults.PackageScanResults) {
-		cmdlogger.Infof("Filtered %d non container relevant package/s from the scan.", len(scanResults.PackageScanResults)-len(packageResults))
+	if len(packageResults) != len(scanResults.Inventory.Packages) {
+		cmdlogger.Infof("Filtered %d non container relevant package/s from the scan.", len(scanResults.Inventory.Packages)-len(packageResults))
 	}
 
-	scanResults.PackageScanResults = packageResults
+	scanResults.Inventory.Packages = packageResults
 }
 
 // filterIgnoredPackages removes ignore scanned packages according to config. Returns filtered scanned packages.
 func filterIgnoredPackages(scanResults *results.ScanResults) {
 	configManager := &scanResults.ConfigManager
 
-	out := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
-	for _, psr := range scanResults.PackageScanResults {
-		configToUse := configManager.Get(psr.Location())
+	out := make([]*extractor.Package, 0, len(scanResults.Inventory.Packages))
+	for _, psr := range scanResults.Inventory.Packages {
+		configToUse := configManager.Get(imodels.Location(psr))
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", psr.Ecosystem().String(), psr.Name(), psr.Version())
+			pkgString := fmt.Sprintf("%s/%s/%s", imodels.Ecosystem(psr).String(), imodels.Name(psr), imodels.Version(psr))
 
 			reason := ignoreLine.Reason
 			if reason == "" {
@@ -97,11 +98,11 @@ func filterIgnoredPackages(scanResults *results.ScanResults) {
 		out = append(out, psr)
 	}
 
-	if len(out) != len(scanResults.PackageScanResults) {
-		cmdlogger.Infof("Filtered %d ignored package/s from the scan.", len(scanResults.PackageScanResults)-len(out))
+	if len(out) != len(scanResults.Inventory.Packages) {
+		cmdlogger.Infof("Filtered %d ignored package/s from the scan.", len(scanResults.Inventory.Packages)-len(out))
 	}
 
-	scanResults.PackageScanResults = out
+	scanResults.Inventory.Packages = out
 }
 
 // Filters results according to config, preserving order. Returns total number of vulnerabilities removed.
