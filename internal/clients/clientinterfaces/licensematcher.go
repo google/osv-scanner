@@ -4,9 +4,9 @@ package clientinterfaces
 import (
 	"context"
 
-	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scalibr/extractor"
 )
 
 type LicenseMatcher interface {
-	MatchLicenses(ctx context.Context, psr []imodels.PackageInfo) error
+	MatchLicenses(ctx context.Context, psr []*extractor.Package) error
 }

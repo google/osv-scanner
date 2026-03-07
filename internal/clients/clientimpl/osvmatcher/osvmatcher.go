@@ -132,9 +132,9 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 	return vulnerabilities, nil
 }
 
-func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
-	if imodels.Name(pkg.Package) != "" && !imodels.Ecosystem(pkg.Package).IsEmpty() && imodels.Version(pkg.Package) != "" {
-		name := imodels.Name(pkg.Package)
+func pkgToQuery(pkg *extractor.Package) *api.Query {
+	if imodels.Name(pkg) != "" && !imodels.Ecosystem(pkg).IsEmpty() && imodels.Version(pkg) != "" {
+		name := imodels.Name(pkg)
 
 		// Tools like Syft create Go PURLs where the module's major suffix is part
 		// of the subpath as opposed to the package name:
@@ -142,7 +142,7 @@ func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
 		// pkg:golang/github.com/go-jose/go-jose@v4.1.3#v4
 		//
 		// For a correct match we need to add the major suffix back
-		if imodels.Ecosystem(pkg.Package).Ecosystem == osvconstants.EcosystemGo && pkg.PURL().Subpath != "" {
+		if imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.PURL().Subpath != "" {
 			match := goVersionSuffixRegexp.FindStringSubmatch(pkg.PURL().Subpath)
 			if match != nil {
 				name += "/" + match[1]
@@ -152,18 +152,18 @@ func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
 		return &api.Query{
 			Package: &osvschema.Package{
 				Name:      name,
-				Ecosystem: imodels.Ecosystem(pkg.Package).String(),
+				Ecosystem: imodels.Ecosystem(pkg).String(),
 			},
 			Param: &api.Query_Version{
-				Version: imodels.Version(pkg.Package),
+				Version: imodels.Version(pkg),
 			},
 		}
 	}
 
-	if imodels.Commit(pkg.Package) != "" {
+	if imodels.Commit(pkg) != "" {
 		return &api.Query{
 			Param: &api.Query_Commit{
-				Commit: imodels.Commit(pkg.Package),
+				Commit: imodels.Commit(pkg),
 			},
 		}
 	}
@@ -180,7 +180,7 @@ func pkgsToQueries(pkgs []*extractor.Package) []*api.Query {
 	queries := make([]*api.Query, len(pkgs))
 
 	for i, pkg := range pkgs {
-		queries[i] = pkgToQuery(imodels.PackageInfo{Package: pkg})
+		queries[i] = pkgToQuery(pkg)
 	}
 
 	return queries

@@ -293,7 +293,7 @@ func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, o
 // VulnerabilitiesAffectingPackage returns the vulnerabilities that affects the provided package
 //
 // TODO: Move this to another file.
-func VulnerabilitiesAffectingPackage(allVulns []*osvschema.Vulnerability, pkg imodels.PackageInfo) []*osvschema.Vulnerability {
+func VulnerabilitiesAffectingPackage(allVulns []*osvschema.Vulnerability, pkg *extractor.Package) []*osvschema.Vulnerability {
 	var vulnerabilities []*osvschema.Vulnerability
 
 	for _, vulnerability := range allVulns {

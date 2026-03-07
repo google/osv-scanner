@@ -13,7 +13,6 @@ import (
 	"github.com/goccy/go-yaml"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/clients/clientimpl/localmatcher"
-	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -53,7 +52,7 @@ func (vm *VulnerabilityMatcher) UnmarshalJSON(data []byte) error {
 func (vm *VulnerabilityMatcher) MatchVulnerabilities(_ context.Context, pkgs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	result := make([][]*osvschema.Vulnerability, len(pkgs))
 	for i, pkg := range pkgs {
-		result[i] = localmatcher.VulnerabilitiesAffectingPackage(vm.Vulns, imodels.PackageInfo{Package: pkg})
+		result[i] = localmatcher.VulnerabilitiesAffectingPackage(vm.Vulns, pkg)
 	}
 
 	return result, nil
