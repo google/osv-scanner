@@ -218,7 +218,7 @@ func DepGroups(pkg PackageInfo) []string {
 	return []string{}
 }
 
-func OSPackageName(pkg PackageInfo) string {
+func OSPackageName(pkg *extractor.Package) string {
 	if metadata, ok := pkg.Metadata.(*apkmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
