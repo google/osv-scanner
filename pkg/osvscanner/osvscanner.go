@@ -16,7 +16,6 @@ import (
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/binary/proto"
 	"github.com/google/osv-scalibr/clients/datasource"
-	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	scalibrlog "github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
@@ -175,7 +174,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		return models.VulnerabilityResults{}, errors.New("databases can only be downloaded when running in offline mode")
 	}
 
-	scanResult := results.ScanResults{
+	scanResults := results.ScanResults{
 		ConfigManager: config.Manager{
 			DefaultConfig: config.Config{},
 			ConfigMap:     make(map[string]config.Config),
@@ -184,7 +183,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 
 	// --- Setup Config ---
 	if actions.ConfigOverridePath != "" {
-		err := scanResult.ConfigManager.UseOverride(actions.ConfigOverridePath)
+		err := scanResults.ConfigManager.UseOverride(actions.ConfigOverridePath)
 		if err != nil {
 			cmdlogger.Errorf("Failed to read config file: %s", err)
 			return models.VulnerabilityResults{}, err
@@ -203,19 +202,18 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		return models.VulnerabilityResults{}, err
 	}
 
-	scanResult.PackageScanResults = packagesAndFindings.Packages
-	scanResult.Inventory = *packagesAndFindings
+	scanResults.Inventory = *packagesAndFindings
 
 	// ----- Filtering -----
-	unscannablePackages := filterUnscannablePackages(&scanResult, actions)
-	filterIgnoredPackages(&scanResult)
+	unscannablePackages := filterUnscannablePackages(&scanResults, actions)
+	filterIgnoredPackages(&scanResults)
 
 	// ----- Custom Overrides -----
-	overrideGoVersion(&scanResult)
+	overrideGoVersion(&scanResults)
 
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
-		err = makeVulnRequestWithMatcher(&scanResult, accessors.VulnMatcher)
+		err = makeVulnRequestWithMatcher(&scanResults, accessors.VulnMatcher)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -223,21 +221,22 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 
 	// --- Make License Requests ---
 	if accessors.LicenseMatcher != nil {
-		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResult.PackageScanResults)
+		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResults.Inventory.Packages)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
 	}
 
+	// todo: this previously wasn't being applied to Inventory - did we have a bug...?
 	if len(unscannablePackages) > 0 {
-		scanResult.PackageScanResults = slices.Concat(scanResult.PackageScanResults, unscannablePackages)
+		scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
 	}
 
-	return finalizeScanResult(scanResult, actions)
+	return finalizeScanResult(scanResults, actions)
 }
 
 func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error) {
-	scanResult := results.ScanResults{
+	scanResults := results.ScanResults{
 		ConfigManager: config.Manager{
 			DefaultConfig: config.Config{},
 			ConfigMap:     make(map[string]config.Config),
@@ -245,7 +244,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	if actions.ConfigOverridePath != "" {
-		err := scanResult.ConfigManager.UseOverride(actions.ConfigOverridePath)
+		err := scanResults.ConfigManager.UseOverride(actions.ConfigOverridePath)
 		if err != nil {
 			cmdlogger.Errorf("Failed to read config file: %s", err)
 			return models.VulnerabilityResults{}, err
@@ -330,11 +329,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	// --- Save Scalibr Scan Results ---
-	scanResult.PackageScanResults = make([]*extractor.Package, len(scalibrSR.Inventory.Packages))
-	for i, pkgs := range scalibrSR.Inventory.Packages {
-		scanResult.PackageScanResults[i] = pkgs
-		scanResult.PackageScanResults[i].ExploitabilitySignals = pkgs.ExploitabilitySignals
-	}
+	scanResults.Inventory = scalibrSR.Inventory
 
 	// --- Fill Image Metadata ---
 	pssr, err := proto.ScanResultToProto(scalibrSR)
@@ -343,22 +338,20 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	if len(pssr.GetInventory().GetContainerImageMetadata()) > 0 {
-		scanResult.ImageMetadata = pssr.GetInventory().GetContainerImageMetadata()[0]
+		scanResults.ImageMetadata = pssr.GetInventory().GetContainerImageMetadata()[0]
 	} else {
 		cmdlogger.Warnf("No container image metadata found in scan results")
 	}
 
-	scanResult.Inventory = scalibrSR.Inventory
-
 	// ----- Filtering -----
-	unscannablePackages := filterUnscannablePackages(&scanResult, actions)
-	filterIgnoredPackages(&scanResult)
+	unscannablePackages := filterUnscannablePackages(&scanResults, actions)
+	filterIgnoredPackages(&scanResults)
 
-	filterNonContainerRelevantPackages(&scanResult)
+	filterNonContainerRelevantPackages(&scanResults)
 
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
-		err = makeVulnRequestWithMatcher(&scanResult, accessors.VulnMatcher)
+		err = makeVulnRequestWithMatcher(&scanResults, accessors.VulnMatcher)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
@@ -366,17 +359,18 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 
 	// --- Make License Requests ---
 	if accessors.LicenseMatcher != nil {
-		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResult.PackageScanResults)
+		err = accessors.LicenseMatcher.MatchLicenses(context.Background(), scanResults.Inventory.Packages)
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
 	}
 
+	// todo: this previously wasn't being applied to Inventory - did we have a bug...?
 	if len(unscannablePackages) > 0 {
-		scanResult.PackageScanResults = slices.Concat(scanResult.PackageScanResults, unscannablePackages)
+		scanResults.Inventory.Packages = slices.Concat(scanResults.Inventory.Packages, unscannablePackages)
 	}
 
-	return finalizeScanResult(scanResult, actions)
+	return finalizeScanResult(scanResults, actions)
 }
 
 func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) (models.VulnerabilityResults, error) {
@@ -411,11 +405,11 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)
 }
 
-func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount {
+func buildLicenseSummary(scanResults *results.ScanResults) []models.LicenseCount {
 	var licenseSummary []models.LicenseCount
 
 	counts := make(map[string]int)
-	for _, pkg := range scanResult.PackageScanResults {
+	for _, pkg := range scanResults.Inventory.Packages {
 		for _, l := range pkg.Licenses {
 			counts[l] += 1
 		}
@@ -501,7 +495,7 @@ func makeVulnRequestWithMatcher(
 	scanResults *results.ScanResults,
 	matcher clientinterfaces.VulnerabilityMatcher,
 ) error {
-	res, err := matcher.MatchVulnerabilities(context.Background(), scanResults.PackageScanResults)
+	res, err := matcher.MatchVulnerabilities(context.Background(), scanResults.Inventory.Packages)
 	if err != nil {
 		cmdlogger.Errorf("error when retrieving vulns: %v", err)
 		if res == nil {
@@ -513,7 +507,7 @@ func makeVulnRequestWithMatcher(
 		for _, vuln := range vulns {
 			scanResults.Inventory.PackageVulns = append(scanResults.Inventory.PackageVulns, &inventory.PackageVuln{
 				Vulnerability: vuln,
-				Package:       scanResults.PackageScanResults[i],
+				Package:       scanResults.Inventory.Packages[i],
 			})
 		}
 	}
@@ -523,11 +517,11 @@ func makeVulnRequestWithMatcher(
 
 // Overrides Go version using osv-scanner.toml
 func overrideGoVersion(scanResults *results.ScanResults) {
-	for i, pkg := range scanResults.PackageScanResults {
+	for i, pkg := range scanResults.Inventory.Packages {
 		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
 			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 			if configToUse.GoVersionOverride != "" {
-				scanResults.PackageScanResults[i].Version = configToUse.GoVersionOverride
+				scanResults.Inventory.Packages[i].Version = configToUse.GoVersionOverride
 			}
 
 			continue
