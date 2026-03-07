@@ -4,6 +4,7 @@ package imodels
 import (
 	"fmt"
 	"strings"
+	"sync"
 
 	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/extractor"
@@ -30,7 +31,7 @@ var gitExtractors = map[string]struct{}{
 }
 
 // todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-var cache = make(map[*extractor.Package]*models.PackageInfo)
+var cache = sync.Map{} // map[*extractor.Package]*models.PackageInfo
 
 func setCache(pkg *extractor.Package) {
 	pi := PackageInfo{Package: pkg}
@@ -44,9 +45,9 @@ func setCache(pkg *extractor.Package) {
 		return
 	}
 
-	if _, ok := cache[pkg]; !ok {
+	if _, ok := cache.Load(pkg); !ok {
 		purlCache, _ := purl.ToPackage(purlStruct.String())
-		cache[pkg] = &purlCache
+		cache.Store(pkg, &purlCache)
 	}
 }
 
@@ -56,7 +57,13 @@ func getCache(pkg *extractor.Package) *models.PackageInfo {
 		return nil
 	}
 
-	return cache[pkg]
+	v, ok := cache.Load(pkg)
+
+	if !ok || v == nil {
+		return nil
+	}
+
+	return v.(*models.PackageInfo)
 }
 
 // PackageInfo provides getter functions for commonly used fields of inventory
