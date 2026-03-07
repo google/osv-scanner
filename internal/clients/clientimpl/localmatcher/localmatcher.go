@@ -65,9 +65,9 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*e
 		}
 
 		pkg := imodels.FromPackage(pkg)
-		eco := imodels.Ecosystem(pkg).Ecosystem
+		eco := imodels.Ecosystem(pkg.Package).Ecosystem
 
-		if imodels.Ecosystem(pkg).IsEmpty() {
+		if imodels.Ecosystem(pkg.Package).IsEmpty() {
 			if imodels.Commit(pkg.Package) == "" {
 				// This should never happen, as those results will be filtered out before matching
 				return nil, errors.New("ecosystem is empty and there is no commit hash")

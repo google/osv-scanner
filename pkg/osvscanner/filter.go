@@ -22,7 +22,7 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 	for _, psr := range scanResults.PackageScanResults {
 		switch {
 		// If **none** of the cases match, skip this package since it's not scannable
-		case !imodels.Ecosystem(psr).IsEmpty() && imodels.Name(psr) != "" && imodels.Version(psr) != "":
+		case !imodels.Ecosystem(psr.Package).IsEmpty() && imodels.Name(psr) != "" && imodels.Version(psr) != "":
 		case imodels.Commit(psr.Package) != "":
 		default:
 			if actions.ShowAllPackages {
@@ -34,8 +34,8 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 
 		switch {
 		// If **any** of the following cases are true, skip this package
-		case imodels.Ecosystem(psr).Ecosystem == osvconstants.EcosystemMaven && imodels.Name(psr) == "unknown", // Is Maven with package name unknown
-			imodels.Ecosystem(psr).GetValidity() != nil && !imodels.Ecosystem(psr).IsEmpty(): // Is invalid and not empty
+		case imodels.Ecosystem(psr.Package).Ecosystem == osvconstants.EcosystemMaven && imodels.Name(psr) == "unknown", // Is Maven with package name unknown
+			imodels.Ecosystem(psr.Package).GetValidity() != nil && !imodels.Ecosystem(psr.Package).IsEmpty(): // Is invalid and not empty
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
 			}
@@ -84,7 +84,7 @@ func filterIgnoredPackages(scanResults *results.ScanResults) {
 		configToUse := configManager.Get(imodels.Location(psr.Package))
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", imodels.Ecosystem(psr).String(), imodels.Name(psr), imodels.Version(psr))
+			pkgString := fmt.Sprintf("%s/%s/%s", imodels.Ecosystem(psr.Package).String(), imodels.Name(psr), imodels.Version(psr))
 
 			reason := ignoreLine.Reason
 			if reason == "" {
