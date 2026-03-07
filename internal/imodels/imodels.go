@@ -33,31 +33,27 @@ var gitExtractors = map[string]struct{}{
 // todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 var cache = sync.Map{} // map[*extractor.Package]*models.PackageInfo
 
-func setCache(pkg *extractor.Package) {
-	if SourceType(pkg) != models.SourceTypeSBOM {
-		return
-	}
-
-	purlStruct := converter.ToPURL(pkg)
-
-	if purlStruct == nil {
-		return
-	}
-
-	if _, ok := cache.Load(pkg); !ok {
-		purlCache, _ := purl.ToPackage(purlStruct.String())
-		cache.Store(pkg, &purlCache)
-	}
-}
-
-func getCache(pkg *extractor.Package) *models.PackageInfo {
+func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
 	if SourceType(pkg) != models.SourceTypeSBOM {
 		return nil
 	}
 
 	v, ok := cache.Load(pkg)
 
-	if !ok || v == nil {
+	if !ok {
+		purlStruct := converter.ToPURL(pkg)
+
+		if purlStruct == nil {
+			return nil
+		}
+
+		purlCache, _ := purl.ToPackage(purlStruct.String())
+		cache.Store(pkg, &purlCache)
+
+		return &purlCache
+	}
+
+	if v == nil {
 		return nil
 	}
 
@@ -72,7 +68,7 @@ type PackageInfo struct {
 
 func Name(pkg *extractor.Package) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := getCache(pkg); purlCache != nil {
+	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
 		return purlCache.Name
 	}
 
@@ -132,7 +128,7 @@ func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 	}
 
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := getCache(pkg); purlCache != nil {
+	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
 		newEco, err := osvecosystem.Parse(purlCache.Ecosystem)
 		if err != nil {
 			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
@@ -147,7 +143,7 @@ func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 
 func Version(pkg *extractor.Package) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := getCache(pkg); purlCache != nil {
+	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
 		return purlCache.Version
 	}
 
@@ -233,8 +229,6 @@ func OSPackageName(pkg *extractor.Package) string {
 // FromPackage converts an extractor.Package into a PackageInfo.
 func FromPackage(pkg *extractor.Package) PackageInfo {
 	pi := PackageInfo{Package: pkg}
-
-	setCache(pkg)
 
 	return pi
 }
