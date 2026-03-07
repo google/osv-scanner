@@ -180,8 +180,7 @@ func pkgsToQueries(pkgs []*extractor.Package) []*api.Query {
 	queries := make([]*api.Query, len(pkgs))
 
 	for i, pkg := range pkgs {
-		pkg := imodels.FromPackage(pkg)
-		queries[i] = pkgToQuery(pkg)
+		queries[i] = pkgToQuery(imodels.PackageInfo{Package: pkg})
 	}
 
 	return queries
