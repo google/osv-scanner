@@ -78,13 +78,13 @@ func Name(pkg PackageInfo) string {
 
 	// --- Make specific patches to names as necessary ---
 	// Patch Go package to stdlib
-	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Name == "go" {
+	if Ecosystem(pkg.Package).Ecosystem == osvconstants.EcosystemGo && pkg.Name == "go" {
 		return "stdlib"
 	}
 
 	// TODO: Move the normalization to another where matching logic happens.
 	// Patch python package names to be normalized
-	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemPyPI {
+	if Ecosystem(pkg.Package).Ecosystem == osvconstants.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
 		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Name, "-"))
 	}
@@ -111,14 +111,14 @@ func Name(pkg PackageInfo) string {
 		}
 	}
 
-	if Ecosystem(pkg).String() == "GIT" && pkg.SourceCode != nil && pkg.SourceCode.Repo != "" {
+	if Ecosystem(pkg.Package).String() == "GIT" && pkg.SourceCode != nil && pkg.SourceCode.Repo != "" {
 		return pkg.SourceCode.Repo
 	}
 
 	return pkg.Name
 }
 
-func Ecosystem(pkg PackageInfo) osvecosystem.Parsed {
+func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 	eco := pkg.Ecosystem()
 
 	if metadata, ok := pkg.Metadata.(*osvscannerjson.Metadata); ok {
@@ -132,7 +132,7 @@ func Ecosystem(pkg PackageInfo) osvecosystem.Parsed {
 	}
 
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := getCache(pkg.Package); purlCache != nil {
+	if purlCache := getCache(pkg); purlCache != nil {
 		newEco, err := osvecosystem.Parse(purlCache.Ecosystem)
 		if err != nil {
 			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
@@ -159,7 +159,7 @@ func Version(pkg PackageInfo) string {
 	// However, if we assume patch version as .0, this will cause a lot of
 	// false positives. This compromise still allows osv-scanner to pick up
 	// when the user is using a minor version that is out-of-support.
-	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && Name(pkg) == "stdlib" {
+	if Ecosystem(pkg.Package).Ecosystem == osvconstants.EcosystemGo && Name(pkg) == "stdlib" {
 		v := semverlike.ParseSemverLikeVersion(pkg.Version, 3)
 		if len(v.Components) == 2 {
 			return fmt.Sprintf(

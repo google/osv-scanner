@@ -55,7 +55,7 @@ func (e PackageOverrideEntry) matches(pkg imodels.PackageInfo) bool {
 	// If there is an ecosystem filter, the filter must not match both the:
 	//  - Full ecosystem + suffix
 	//  - The base ecosystem
-	if e.Ecosystem != "" && (e.Ecosystem != imodels.Ecosystem(pkg).String() && e.Ecosystem != string(imodels.Ecosystem(pkg).Ecosystem)) {
+	if e.Ecosystem != "" && (e.Ecosystem != imodels.Ecosystem(pkg.Package).String() && e.Ecosystem != string(imodels.Ecosystem(pkg.Package).Ecosystem)) {
 		return false
 	}
 	if e.Group != "" && !slices.Contains(imodels.DepGroups(pkg.Package), e.Group) {
