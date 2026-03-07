@@ -203,10 +203,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		return models.VulnerabilityResults{}, err
 	}
 
-	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
-	for _, pkg := range packagesAndFindings.Packages {
-		scanResult.PackageScanResults = append(scanResult.PackageScanResults, pkg)
-	}
+	scanResult.PackageScanResults = packagesAndFindings.Packages
 	scanResult.Inventory = *packagesAndFindings
 
 	// ----- Filtering -----
@@ -502,14 +499,9 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 // TODO(V2): Add context
 func makeVulnRequestWithMatcher(
 	scanResults *results.ScanResults,
-	matcher clientinterfaces.VulnerabilityMatcher) error {
-	packages := scanResults.PackageScanResults
-	invs := make([]*extractor.Package, 0, len(packages))
-	for _, pkgs := range packages {
-		invs = append(invs, pkgs)
-	}
-
-	res, err := matcher.MatchVulnerabilities(context.Background(), invs)
+	matcher clientinterfaces.VulnerabilityMatcher,
+) error {
+	res, err := matcher.MatchVulnerabilities(context.Background(), scanResults.PackageScanResults)
 	if err != nil {
 		cmdlogger.Errorf("error when retrieving vulns: %v", err)
 		if res == nil {
@@ -521,7 +513,7 @@ func makeVulnRequestWithMatcher(
 		for _, vuln := range vulns {
 			scanResults.Inventory.PackageVulns = append(scanResults.Inventory.PackageVulns, &inventory.PackageVuln{
 				Vulnerability: vuln,
-				Package:       packages[i],
+				Package:       scanResults.PackageScanResults[i],
 			})
 		}
 	}
