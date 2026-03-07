@@ -212,47 +212,6 @@ type PackageVulns struct {
 	LicenseViolations []License                  `json:"license_violations,omitempty"`
 }
 
-// MarshalJSON implements the json.Marshaler interface.
-// It is required because the Vulnerabilities field is a slice of proto messages,
-// which requires protojson to marshal, while the rest of the struct uses
-// the standard encoding/json library.
-func (p *PackageVulns) MarshalJSON() ([]byte, error) {
-	// Use alias to avoid recursion.
-	type alias PackageVulns
-
-	// Pre-process the custom field.
-	var rawVulnerabilities []json.RawMessage
-	if len(p.Vulnerabilities) > 0 {
-		rawVulnerabilities = make([]json.RawMessage, 0, len(p.Vulnerabilities))
-		for _, vuln := range p.Vulnerabilities {
-			unstableJSON, err := protojson.Marshal(vuln)
-			if err != nil {
-				return nil, fmt.Errorf("failed to marshal vulnerability: %w", err)
-			}
-			var vuln any
-			if err := json.Unmarshal(unstableJSON, &vuln); err != nil {
-				return nil, err
-			}
-			b, err := json.MarshalIndent(vuln, "", "  ")
-			if err != nil {
-				return nil, err
-			}
-			rawVulnerabilities = append(rawVulnerabilities, b)
-		}
-	}
-
-	// Marshal a temporary struct that combines the standard
-	// fields (from the alias) with the custom-handled field.
-	return json.Marshal(&struct {
-		*alias
-
-		Vulnerabilities []json.RawMessage `json:"vulnerabilities,omitempty"`
-	}{
-		alias:           (*alias)(p),
-		Vulnerabilities: rawVulnerabilities,
-	})
-}
-
 // UnmarshalJSON implements the json.Unmarshaler interface.
 // It is required because the Vulnerabilities field is a slice of proto messages,
 // which requires protojson to unmarshal, while the rest of the struct uses
