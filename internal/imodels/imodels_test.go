@@ -58,7 +58,7 @@ func Test_Name(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			if got := Name(tt.pkg); got != tt.want {
+			if got := Name(tt.pkg.Package); got != tt.want {
 				t.Errorf("Name(PackageInfo) = %v, want %v", got, tt.want)
 			}
 		})

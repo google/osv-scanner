@@ -52,7 +52,7 @@ func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs 
 		pkgInfo := imodels.FromPackage(pkg)
 		cachedVulns, ok := matcher.vulnCache.Load(
 			vulns.NewPackageKey(&osvschema.Package{
-				Name:      imodels.Name(pkgInfo),
+				Name:      imodels.Name(pkgInfo.Package),
 				Ecosystem: imodels.Ecosystem(pkgInfo.Package).String(),
 			}))
 		if !ok {
@@ -74,11 +74,11 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 	toQuery := make(map[*api.Query]struct{})
 	for _, inv := range invs {
 		pkgInfo := imodels.FromPackage(inv)
-		if imodels.Name(pkgInfo) == "" || imodels.Ecosystem(pkgInfo.Package).IsEmpty() {
+		if imodels.Name(pkgInfo.Package) == "" || imodels.Ecosystem(pkgInfo.Package).IsEmpty() {
 			continue
 		}
 		pkg := &osvschema.Package{
-			Name:      imodels.Name(pkgInfo),
+			Name:      imodels.Name(pkgInfo.Package),
 			Ecosystem: imodels.Ecosystem(pkgInfo.Package).String(),
 		}
 		if _, ok := matcher.vulnCache.Load(vulns.NewPackageKey(pkg)); !ok {

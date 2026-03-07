@@ -46,7 +46,7 @@ type PackageOverrideEntry struct {
 }
 
 func (e PackageOverrideEntry) matches(pkg imodels.PackageInfo) bool {
-	if e.Name != "" && e.Name != imodels.Name(pkg) {
+	if e.Name != "" && e.Name != imodels.Name(pkg.Package) {
 		return false
 	}
 	if e.Version != "" && e.Version != imodels.Version(pkg) {
