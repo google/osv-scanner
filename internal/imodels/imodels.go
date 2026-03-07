@@ -34,12 +34,11 @@ var gitExtractors = map[string]struct{}{
 var cache = sync.Map{} // map[*extractor.Package]*models.PackageInfo
 
 func setCache(pkg *extractor.Package) {
-	pi := PackageInfo{Package: pkg}
-	if SourceType(pi) != models.SourceTypeSBOM {
+	if SourceType(pkg) != models.SourceTypeSBOM {
 		return
 	}
 
-	purlStruct := converter.ToPURL(pi.Package)
+	purlStruct := converter.ToPURL(pkg)
 
 	if purlStruct == nil {
 		return
@@ -52,8 +51,7 @@ func setCache(pkg *extractor.Package) {
 }
 
 func getCache(pkg *extractor.Package) *models.PackageInfo {
-	pi := PackageInfo{Package: pkg}
-	if SourceType(pi) != models.SourceTypeSBOM {
+	if SourceType(pkg) != models.SourceTypeSBOM {
 		return nil
 	}
 
@@ -192,7 +190,7 @@ func Commit(pkg PackageInfo) string {
 	return ""
 }
 
-func SourceType(pkg PackageInfo) models.SourceType {
+func SourceType(pkg *extractor.Package) models.SourceType {
 	for _, extractorName := range pkg.Plugins {
 		if strings.HasPrefix(extractorName, "os/") {
 			return models.SourceTypeOSPackage
