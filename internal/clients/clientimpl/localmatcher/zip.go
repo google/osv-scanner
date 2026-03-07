@@ -280,8 +280,7 @@ func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, o
 	// map the packages to their names ahead of loading,
 	// to make things simpler and reduce double working
 	for _, pkg := range pkgs {
-		in := imodels.FromPackage(pkg)
-		names = append(names, imodels.Name(in.Package))
+		names = append(names, imodels.Name(pkg))
 	}
 
 	if err := db.load(ctx, names); err != nil {

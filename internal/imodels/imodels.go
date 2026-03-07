@@ -225,10 +225,3 @@ func OSPackageName(pkg *extractor.Package) string {
 
 	return ""
 }
-
-// FromPackage converts an extractor.Package into a PackageInfo.
-func FromPackage(pkg *extractor.Package) PackageInfo {
-	pi := PackageInfo{Package: pkg}
-
-	return pi
-}

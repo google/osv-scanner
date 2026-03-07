@@ -205,7 +205,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 
 	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
 	for _, pkg := range packagesAndFindings.Packages {
-		pi := imodels.FromPackage(pkg)
+		pi := imodels.PackageInfo{Package: pkg}
 
 		scanResult.PackageScanResults = append(scanResult.PackageScanResults, pi)
 	}
@@ -337,7 +337,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	// --- Save Scalibr Scan Results ---
 	scanResult.PackageScanResults = make([]imodels.PackageInfo, len(scalibrSR.Inventory.Packages))
 	for i, pkgs := range scalibrSR.Inventory.Packages {
-		scanResult.PackageScanResults[i] = imodels.FromPackage(pkgs)
+		scanResult.PackageScanResults[i] = imodels.PackageInfo{Package: pkgs}
 		scanResult.PackageScanResults[i].ExploitabilitySignals = pkgs.ExploitabilitySignals
 	}
 
