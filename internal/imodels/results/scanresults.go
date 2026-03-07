@@ -3,9 +3,9 @@ package results
 
 import (
 	spb "github.com/google/osv-scalibr/binary/proto/scan_result_go_proto"
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scanner/v2/internal/config"
-	"github.com/google/osv-scanner/v2/internal/imodels"
 )
 
 // ScanResults represents the complete results of a scan.
@@ -13,7 +13,7 @@ import (
 type ScanResults struct {
 	Inventory inventory.Inventory
 
-	PackageScanResults []imodels.PackageInfo
+	PackageScanResults []*extractor.Package
 
 	// TODO(v2): Temporarily commented out until ScanParameters is moved
 	// to a shared package to avoid cyclic dependencies
