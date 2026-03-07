@@ -210,7 +210,7 @@ func SourceType(pkg PackageInfo) models.SourceType {
 	return models.SourceTypeUnknown
 }
 
-func DepGroups(pkg PackageInfo) []string {
+func DepGroups(pkg *extractor.Package) []string {
 	if dg, ok := pkg.Metadata.(scalibrosv.DepGroups); ok {
 		return dg.DepGroups()
 	}
