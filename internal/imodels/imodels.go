@@ -182,7 +182,7 @@ func Location(pkg PackageInfo) string {
 	return ""
 }
 
-func Commit(pkg PackageInfo) string {
+func Commit(pkg *extractor.Package) string {
 	if pkg.SourceCode != nil {
 		return pkg.SourceCode.Commit
 	}

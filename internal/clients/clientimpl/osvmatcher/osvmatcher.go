@@ -160,10 +160,10 @@ func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
 		}
 	}
 
-	if imodels.Commit(pkg) != "" {
+	if imodels.Commit(pkg.Package) != "" {
 		return &api.Query{
 			Param: &api.Query_Commit{
-				Commit: imodels.Commit(pkg),
+				Commit: imodels.Commit(pkg.Package),
 			},
 		}
 	}
