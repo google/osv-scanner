@@ -57,10 +57,7 @@ func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs 
 		if !ok {
 			continue
 		}
-		results[i] = localmatcher.VulnerabilitiesAffectingPackage(
-			cachedVulns.([]*osvschema.Vulnerability),
-			imodels.PackageInfo{Package: pkg},
-		)
+		results[i] = localmatcher.VulnerabilitiesAffectingPackage(cachedVulns.([]*osvschema.Vulnerability), pkg)
 	}
 
 	return results, nil

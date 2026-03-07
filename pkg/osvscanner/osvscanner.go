@@ -205,9 +205,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 
 	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
 	for _, pkg := range packagesAndFindings.Packages {
-		pi := imodels.PackageInfo{Package: pkg}
-
-		scanResult.PackageScanResults = append(scanResult.PackageScanResults, pi)
+		scanResult.PackageScanResults = append(scanResult.PackageScanResults, pkg)
 	}
 	scanResult.Inventory = *packagesAndFindings
 
@@ -335,9 +333,9 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	// --- Save Scalibr Scan Results ---
-	scanResult.PackageScanResults = make([]imodels.PackageInfo, len(scalibrSR.Inventory.Packages))
+	scanResult.PackageScanResults = make([]*extractor.Package, len(scalibrSR.Inventory.Packages))
 	for i, pkgs := range scalibrSR.Inventory.Packages {
-		scanResult.PackageScanResults[i] = imodels.PackageInfo{Package: pkgs}
+		scanResult.PackageScanResults[i] = pkgs
 		scanResult.PackageScanResults[i].ExploitabilitySignals = pkgs.ExploitabilitySignals
 	}
 
@@ -508,7 +506,7 @@ func makeVulnRequestWithMatcher(
 	packages := scanResults.PackageScanResults
 	invs := make([]*extractor.Package, 0, len(packages))
 	for _, pkgs := range packages {
-		invs = append(invs, pkgs.Package)
+		invs = append(invs, pkgs)
 	}
 
 	res, err := matcher.MatchVulnerabilities(context.Background(), invs)
@@ -523,7 +521,7 @@ func makeVulnRequestWithMatcher(
 		for _, vuln := range vulns {
 			scanResults.Inventory.PackageVulns = append(scanResults.Inventory.PackageVulns, &inventory.PackageVuln{
 				Vulnerability: vuln,
-				Package:       packages[i].Package,
+				Package:       packages[i],
 			})
 		}
 	}
@@ -534,8 +532,8 @@ func makeVulnRequestWithMatcher(
 // Overrides Go version using osv-scanner.toml
 func overrideGoVersion(scanResults *results.ScanResults) {
 	for i, pkg := range scanResults.PackageScanResults {
-		if imodels.Name(pkg.Package) == "stdlib" && imodels.Ecosystem(pkg.Package).Ecosystem == osvconstants.EcosystemGo {
-			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg.Package))
+		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
+			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 			if configToUse.GoVersionOverride != "" {
 				scanResults.PackageScanResults[i].Version = configToUse.GoVersionOverride
 			}

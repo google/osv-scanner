@@ -60,12 +60,6 @@ func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
 	return v.(*models.PackageInfo)
 }
 
-// PackageInfo provides getter functions for commonly used fields of inventory
-// and applies transformations when required for use in osv-scanner
-type PackageInfo struct {
-	*extractor.Package
-}
-
 func Name(pkg *extractor.Package) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
