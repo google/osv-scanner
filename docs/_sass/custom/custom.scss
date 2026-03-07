@@ -46,6 +46,15 @@ table {
   background: rgba($bg-color, 0.2);
 }
 
-p.note, blockquote.note                { @include callout-fix($purple-000, $purple-300); }
-p.warning, blockquote.warning          { @include callout-fix($red-000, $red-300); }
-p.highlight, blockquote.highlight      { @include callout-fix($yellow-000, $yellow-300); }
+p.note,
+blockquote.note {
+  @include callout-fix($purple-000, $purple-300);
+}
+p.warning,
+blockquote.warning {
+  @include callout-fix($red-000, $red-300);
+}
+p.highlight,
+blockquote.highlight {
+  @include callout-fix($yellow-000, $yellow-300);
+}
