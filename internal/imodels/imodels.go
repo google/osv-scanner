@@ -30,7 +30,7 @@ var gitExtractors = map[string]struct{}{
 }
 
 // todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-var cache = make(map[string]*models.PackageInfo)
+var cache = make(map[*extractor.Package]*models.PackageInfo)
 
 func setCache(pkg *extractor.Package) {
 	pi := PackageInfo{Package: pkg}
@@ -44,9 +44,9 @@ func setCache(pkg *extractor.Package) {
 		return
 	}
 
-	if _, ok := cache[purlStruct.String()]; !ok {
+	if _, ok := cache[pkg]; !ok {
 		purlCache, _ := purl.ToPackage(purlStruct.String())
-		cache[purlStruct.String()] = &purlCache
+		cache[pkg] = &purlCache
 	}
 }
 
@@ -56,13 +56,7 @@ func getCache(pkg *extractor.Package) *models.PackageInfo {
 		return nil
 	}
 
-	purlStruct := converter.ToPURL(pi.Package)
-
-	if purlStruct == nil {
-		return nil
-	}
-
-	return cache[purlStruct.String()]
+	return cache[pkg]
 }
 
 // PackageInfo provides getter functions for commonly used fields of inventory
