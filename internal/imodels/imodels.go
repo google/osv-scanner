@@ -145,9 +145,9 @@ func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 	return eco
 }
 
-func Version(pkg PackageInfo) string {
+func Version(pkg *extractor.Package) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := getCache(pkg.Package); purlCache != nil {
+	if purlCache := getCache(pkg); purlCache != nil {
 		return purlCache.Version
 	}
 
@@ -159,7 +159,7 @@ func Version(pkg PackageInfo) string {
 	// However, if we assume patch version as .0, this will cause a lot of
 	// false positives. This compromise still allows osv-scanner to pick up
 	// when the user is using a minor version that is out-of-support.
-	if Ecosystem(pkg.Package).Ecosystem == osvconstants.EcosystemGo && Name(pkg.Package) == "stdlib" {
+	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && Name(pkg) == "stdlib" {
 		v := semverlike.ParseSemverLikeVersion(pkg.Version, 3)
 		if len(v.Components) == 2 {
 			return fmt.Sprintf(
