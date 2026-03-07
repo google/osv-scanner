@@ -7,7 +7,7 @@ import (
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 )
 
-func TestPackageInfo_Name(t *testing.T) {
+func Test_Name(t *testing.T) {
 	t.Parallel()
 	tests := []struct {
 		name string
@@ -58,8 +58,8 @@ func TestPackageInfo_Name(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			t.Parallel()
-			if got := tt.pkg.Name(); got != tt.want {
-				t.Errorf("PackageInfo.Name() = %v, want %v", got, tt.want)
+			if got := Name(tt.pkg); got != tt.want {
+				t.Errorf("Name(PackageInfo) = %v, want %v", got, tt.want)
 			}
 		})
 	}
