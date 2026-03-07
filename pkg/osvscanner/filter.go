@@ -81,7 +81,7 @@ func filterIgnoredPackages(scanResults *results.ScanResults) {
 
 	out := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
-		configToUse := configManager.Get(imodels.Location(psr))
+		configToUse := configManager.Get(imodels.Location(psr.Package))
 
 		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
 			pkgString := fmt.Sprintf("%s/%s/%s", imodels.Ecosystem(psr).String(), imodels.Name(psr), imodels.Version(psr))

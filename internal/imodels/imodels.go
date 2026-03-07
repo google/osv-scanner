@@ -174,7 +174,7 @@ func Version(pkg PackageInfo) string {
 	return pkg.Version
 }
 
-func Location(pkg PackageInfo) string {
+func Location(pkg *extractor.Package) string {
 	if len(pkg.Locations) > 0 {
 		return pkg.Locations[0]
 	}
