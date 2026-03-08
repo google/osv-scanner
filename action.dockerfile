@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # WARNING, this workflow is for legacy purposes. To view the current workflow see: https://github.com/google/osv-scanner-action
-FROM golang:1.26.0-alpine3.23@sha256:d4c4845f5d60c6a974c6000ce58ae079328d03ab7f721a0734277e69905473e5
+FROM golang:1.26.1-alpine3.23@sha256:2389ebfa5b7f43eeafbd6be0c3700cc46690ef842ad962f6c5bd6be49ed82039
 
 RUN mkdir /src
 WORKDIR /src
