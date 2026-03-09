@@ -3,6 +3,7 @@ package testcmd
 import (
 	"bytes"
 	"cmp"
+	"fmt"
 	"io"
 	"net/http"
 	"os"
@@ -66,6 +67,43 @@ func WithTestNameHeader(t *testing.T, client http.Client) *http.Client {
 	}}
 }
 
+// this is cassette.Interaction without its ID field
+type withoutID struct {
+	Request  cassette.Request  `yaml:"request"`
+	Response cassette.Response `yaml:"response"`
+}
+
+// custom marshaller to make cassettes pretty and to omit the "id" field from interactions
+// for a smaller diff since we don't care about their order
+func marshalCassettes(in any) (out []byte, err error) {
+	cass, ok := in.(*cassette.Cassette)
+	if !ok {
+		return nil, fmt.Errorf("expected *cassette.Cassette, got %T", in)
+	}
+
+	interactions := make([]withoutID, len(cass.Interactions))
+	for i, interaction := range cass.Interactions {
+		interactions[i] = withoutID{
+			Request:  interaction.Request,
+			Response: interaction.Response,
+		}
+	}
+
+	input := struct {
+		Version      int         `yaml:"version"`
+		Interactions []withoutID `yaml:"interactions"`
+	}{Version: cass.Version, Interactions: interactions}
+
+	var buf bytes.Buffer
+	enc := yaml.NewEncoder(&buf)
+	enc.SetIndent(2)
+	if err := enc.Encode(input); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
+}
+
 // InsertCassette returns an http.Client backed by a [recorder.Recorder] which
 // will record and (re)play responses from a cassette based on the tests name
 func InsertCassette(t *testing.T) *http.Client {
@@ -75,6 +113,7 @@ func InsertCassette(t *testing.T) *http.Client {
 
 	r, err := recorder.New(
 		path,
+		recorder.WithMarshalFunc(marshalCassettes),
 		recorder.WithSkipRequestLatency(true),
 		recorder.WithMode(determineRecorderMode()),
 		recorder.WithPassthrough(func(req *http.Request) bool {
@@ -147,16 +186,7 @@ func sortCassetteInteractions(t *testing.T, path string) {
 		t.Fatalf("failed to load %s: %v", path, err)
 	}
 
-	cass.MarshalFunc = func(input any) ([]byte, error) {
-		var buf bytes.Buffer
-		enc := yaml.NewEncoder(&buf)
-		enc.SetIndent(2)
-		if err := enc.Encode(input); err != nil {
-			return nil, err
-		}
-
-		return buf.Bytes(), nil
-	}
+	cass.MarshalFunc = marshalCassettes
 
 	// we don't need to worry about the interaction ids as they get updated as part of saving
 	slices.SortFunc(cass.Interactions, func(a, b *cassette.Interaction) int {

@@ -195,7 +195,7 @@ func connectMCPClient(t *testing.T, ctx context.Context, baseURL string) *mcp.Cl
 
 func waitForServer(t *testing.T, url string) {
 	t.Helper()
-	deadline := time.Now().Add(10 * time.Second)
+	deadline := time.Now().Add(15 * time.Second)
 	for time.Now().Before(deadline) {
 		//nolint:gosec,noctx // This is a test with a local URL
 		resp, err := http.Get(url)

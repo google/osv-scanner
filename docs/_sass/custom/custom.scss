@@ -36,3 +36,25 @@ table {
 .site-title {
   padding-top: 15px !important;
 }
+
+// Fix callout styling regression introduced in just-the-docs v0.11.0 which
+// replaced the colored background fill with an all-sides border outline.
+
+@mixin callout-fix($bg-color, $border-color) {
+  border: none;
+  border-left: $border-radius solid $border-color;
+  background: rgba($bg-color, 0.2);
+}
+
+p.note,
+blockquote.note {
+  @include callout-fix($purple-000, $purple-300);
+}
+p.warning,
+blockquote.warning {
+  @include callout-fix($red-000, $red-300);
+}
+p.highlight,
+blockquote.highlight {
+  @include callout-fix($yellow-000, $yellow-300);
+}

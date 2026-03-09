@@ -50,10 +50,10 @@ func (vm *VulnerabilityMatcher) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (vm *VulnerabilityMatcher) MatchVulnerabilities(_ context.Context, invs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
-	result := make([][]*osvschema.Vulnerability, len(invs))
-	for i, inv := range invs {
-		result[i] = localmatcher.VulnerabilitiesAffectingPackage(vm.Vulns, imodels.FromInventory(inv))
+func (vm *VulnerabilityMatcher) MatchVulnerabilities(_ context.Context, pkgs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
+	result := make([][]*osvschema.Vulnerability, len(pkgs))
+	for i, pkg := range pkgs {
+		result[i] = localmatcher.VulnerabilitiesAffectingPackage(vm.Vulns, imodels.FromPackage(pkg))
 	}
 
 	return result, nil

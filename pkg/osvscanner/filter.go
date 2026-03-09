@@ -16,16 +16,14 @@ import (
 // filterUnscannablePackages removes packages that don't have enough information to be scanned or
 // are not a supported ecosystem, and returns the list of removed packages (if --all-packages flag is passed in)
 // e,g, local packages that specified by path
-func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []imodels.PackageScanResult {
-	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
-	filteredPsr := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []imodels.PackageInfo {
+	packageResults := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
+	filteredPsr := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
-		p := psr.PackageInfo
-
 		switch {
 		// If **none** of the cases match, skip this package since it's not scannable
-		case !p.Ecosystem().IsEmpty() && p.Name() != "" && p.Version() != "":
-		case p.Commit() != "":
+		case !psr.Ecosystem().IsEmpty() && psr.Name() != "" && psr.Version() != "":
+		case psr.Commit() != "":
 		default:
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
@@ -36,8 +34,8 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 
 		switch {
 		// If **any** of the following cases are true, skip this package
-		case p.Ecosystem().Ecosystem == osvconstants.EcosystemMaven && p.Name() == "unknown", // Is Maven with package name unknown
-			p.Ecosystem().GetValidity() != nil && !p.Ecosystem().IsEmpty(): // Is invalid and not empty
+		case psr.Ecosystem().Ecosystem == osvconstants.EcosystemMaven && psr.Name() == "unknown", // Is Maven with package name unknown
+			psr.Ecosystem().GetValidity() != nil && !psr.Ecosystem().IsEmpty(): // Is invalid and not empty
 			if actions.ShowAllPackages {
 				filteredPsr = append(filteredPsr, psr)
 			}
@@ -59,13 +57,11 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 
 // filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
 func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
-	packageResults := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+	packageResults := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
-		p := psr.PackageInfo
-
 		// Almost all packages with linux as a SourceName are kernel packages
 		// which does not apply within a container, as containers use the host's kernel
-		if p.Name() == "linux" {
+		if psr.Name() == "linux" {
 			continue
 		}
 
@@ -83,13 +79,12 @@ func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
 func filterIgnoredPackages(scanResults *results.ScanResults) {
 	configManager := &scanResults.ConfigManager
 
-	out := make([]imodels.PackageScanResult, 0, len(scanResults.PackageScanResults))
+	out := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
-		p := psr.PackageInfo
-		configToUse := configManager.Get(p.Location())
+		configToUse := configManager.Get(psr.Location())
 
-		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(p); ignore {
-			pkgString := fmt.Sprintf("%s/%s/%s", p.Ecosystem().String(), p.Name(), p.Version())
+		if ignore, ignoreLine := configToUse.ShouldIgnorePackage(psr); ignore {
+			pkgString := fmt.Sprintf("%s/%s/%s", psr.Ecosystem().String(), psr.Name(), psr.Version())
 
 			reason := ignoreLine.Reason
 			if reason == "" {

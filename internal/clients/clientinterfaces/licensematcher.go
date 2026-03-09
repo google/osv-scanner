@@ -8,5 +8,5 @@ import (
 )
 
 type LicenseMatcher interface {
-	MatchLicenses(ctx context.Context, psr []imodels.PackageScanResult) error
+	MatchLicenses(ctx context.Context, psr []imodels.PackageInfo) error
 }

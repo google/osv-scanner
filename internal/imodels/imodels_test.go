@@ -15,7 +15,7 @@ func TestPackageInfo_Name(t *testing.T) {
 		want string
 	}{
 		{
-			name: "Regular package",
+			name: "Regular_package",
 			pkg: PackageInfo{
 				Package: &extractor.Package{
 					Name: "regular-pkg",
@@ -24,7 +24,7 @@ func TestPackageInfo_Name(t *testing.T) {
 			want: "regular-pkg",
 		},
 		{
-			name: "GIT ecosystem with repo",
+			name: "GIT_ecosystem_with_repo",
 			pkg: PackageInfo{
 				Package: &extractor.Package{
 					Name: "openssl@3.5",
@@ -39,7 +39,7 @@ func TestPackageInfo_Name(t *testing.T) {
 			want: "github.com/openssl/openssl",
 		},
 		{
-			name: "GIT ecosystem without repo",
+			name: "GIT_ecosystem_without_repo",
 			pkg: PackageInfo{
 				Package: &extractor.Package{
 					Name: "openssl@3.5",
