@@ -9,8 +9,7 @@ SNAPS ?= false
 ACC ?= false
 VCR ?= ReplayWithNewEpisodes
 
-## Show this help message
-help:
+help: ## Show this help message
 	@awk 'BEGIN {FS = ":.*##"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} \
 		/^[a-zA-Z_0-9-]+:.*?##/ { printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2 } \
 		/^## / { printf "  %-20s %s\n", "", substr($$0, 4) }' $(MAKEFILE_LIST)
@@ -18,37 +17,29 @@ help:
 ## Prevents make from trying to interpret the targets as files
 .PHONY: build scanner lint lint-fix format clean local-docs test update-snapshots refresh-all help
 
-## Build scanner
-build:
+build: ## Build scanner
 	scripts/build.sh
 
-## Run scanner (Usage: make scanner ARGS="<args>")
-scanner:
+scanner: ## Run scanner (Usage: make scanner ARGS="<args>")
 	go run ./cmd/osv-scanner $(ARGS)
 
-## Run lints
-lint:
+lint: ## Run lints
 	scripts/run_lints.sh
 
-## Run lints and fix
-lint-fix:
+lint-fix: ## Run lints and fix
 	scripts/run_lints.sh --fix
 
-## Run formatters
-format:
+format: ## Run formatters
 	scripts/run_formatters.sh
 
-## Clean build artifacts
-clean:
+clean: ## Clean build artifacts
 	rm -f osv-scanner
 	rm -f cmd/osv-scanner/scan/image/testdata/test-*.tar
 
-## Run local docs
-local-docs:
+local-docs: ## Run local docs
 	scripts/run_local_docs.sh
 
-## Run tests
-test:
+test: ## Run tests
 ##  Options:
 ##    SNAPS=true   Update snapshots (Default: false)
 ##    ACC=true     Run acceptance tests (Default: false)
@@ -66,11 +57,9 @@ test:
 	if [ "$(SHORT)" = "true" ]; then ARGS="$$ARGS -short"; fi; \
 	scripts/run_tests.sh $$ARGS
 
-## Update all snapshots (Equivalent to make test SNAPS=true SHORT=false)
-update-snapshots:
+update-snapshots: ## Update all snapshots (Equivalent to make test SNAPS=true SHORT=false)
 	$(MAKE) test SNAPS=true SHORT=false
 
-## Refresh all snaps, matching CI test (Usage: make refresh-all REBUILD_IMAGES=true)
-refresh-all:
+refresh-all: ## Refresh all snaps, matching CI test (Usage: make refresh-all REBUILD_IMAGES=true)
 	@if [ "$(REBUILD_IMAGES)" = "true" ]; then $(MAKE) clean; fi
 	$(MAKE) test ACC=true SHORT=false VCR=RecordOnly SNAPS=true
