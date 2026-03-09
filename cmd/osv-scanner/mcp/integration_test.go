@@ -121,7 +121,16 @@ func buildTestBinary(t *testing.T) string {
 	}
 
 	// We use the full package path to ensure we build the correct main package.
-	cmdBuild := exec.CommandContext(context.Background(), "go", "build", "-o", binPath, "github.com/google/osv-scanner/v2/cmd/osv-scanner")
+	cmdBuild := exec.CommandContext(
+		context.Background(),
+		"go",
+		"build",
+		"-ldflags",
+		"-X 'github.com/google/osv-scanner/v2/internal/config.OSVScannerConfigName=osv-scanner-test.toml'",
+		"-o",
+		binPath,
+		"github.com/google/osv-scanner/v2/cmd/osv-scanner",
+	)
 	cmdBuild.Stdout = os.Stdout
 	cmdBuild.Stderr = os.Stderr
 	if err := cmdBuild.Run(); err != nil {
@@ -186,7 +195,7 @@ func connectMCPClient(t *testing.T, ctx context.Context, baseURL string) *mcp.Cl
 
 func waitForServer(t *testing.T, url string) {
 	t.Helper()
-	deadline := time.Now().Add(10 * time.Second)
+	deadline := time.Now().Add(15 * time.Second)
 	for time.Now().Before(deadline) {
 		//nolint:gosec,noctx // This is a test with a local URL
 		resp, err := http.Get(url)

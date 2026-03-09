@@ -23,7 +23,7 @@ var PURLType = map[resolve.System]string{
 }
 
 func VKToPackageInfo(vk resolve.VersionKey) imodels.PackageInfo {
-	return imodels.FromInventory(
+	return imodels.FromPackage(
 		&extractor.Package{
 			Name:     vk.Name,
 			Version:  vk.Version,

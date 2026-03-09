@@ -53,10 +53,10 @@ Both `scan source` and `scan image` share a common set of flags for configuring 
 
 ### Saving to File
 
-The `--output` flag can be used to save the scan results to a file instead of being printed on the stdout:
+The `--output-file` flag can be used to save the scan results to a file instead of being printed on the stdout:
 
 ```bash
-osv-scanner scan -L package-lock.json --output scan-results.txt
+osv-scanner scan -L package-lock.json --output-file scan-results.txt
 ```
 
 ### Setting Output Format

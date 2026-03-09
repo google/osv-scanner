@@ -64,14 +64,19 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Value:   "table",
 			Action: func(_ context.Context, _ *cli.Command, s string) error {
 				if slices.Contains(reporter.Format(), s) {
-					if s != "vertical" && s != "table" && s != "markdown" {
-						cmdlogger.SendEverythingToStderr()
-					}
-
 					return nil
 				}
 
 				return fmt.Errorf("unsupported output format \"%s\" - must be one of: %s", s, strings.Join(reporter.Format(), ", "))
+			},
+			// todo: ideally this should be an action, but we need to ensure it is done first
+			//  currently for some reason flag actions are not always invoked in the same order
+			Validator: func(s string) error {
+				if slices.Contains(reporter.Format(), s) && (s != "vertical" && s != "table" && s != "markdown") {
+					cmdlogger.SendEverythingToStderr()
+				}
+
+				return nil
 			},
 		},
 		&cli.BoolFlag{
@@ -88,6 +93,16 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 		},
 		&cli.StringFlag{
 			Name:      "output",
+			Usage:     "[DEPRECATED] (Use \"--output-file\" instead) saves the result to the given file path",
+			TakesFile: true,
+			Action: func(_ context.Context, _ *cli.Command, _ string) error {
+				cmdlogger.Warnf("Warning: --output has been deprecated in favor of --output-file")
+
+				return nil
+			},
+		},
+		&cli.StringFlag{
+			Name:      "output-file",
 			Usage:     "saves the result to the given file path",
 			TakesFile: true,
 		},

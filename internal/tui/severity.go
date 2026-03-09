@@ -2,14 +2,15 @@ package tui
 
 import (
 	"fmt"
+	"image/color"
 
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/lipgloss/v2"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 var (
-	severityColor = map[string]lipgloss.Color{
+	severityColor = map[string]color.Color{
 		"UNKNOWN":  lipgloss.Color("243"), // grey
 		"NONE":     lipgloss.Color("243"), // grey
 		"LOW":      lipgloss.Color("28"),  // green

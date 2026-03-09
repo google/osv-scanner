@@ -90,7 +90,7 @@ func TestMatchVuln(t *testing.T) {
 		want bool
 	}{
 		{
-			name: "basic match",
+			name: "basic_match",
 			vuln: vuln1,
 			opt: remediation.Options{
 				DevDeps:  true,
@@ -99,7 +99,7 @@ func TestMatchVuln(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "accept depth",
+			name: "accept_depth",
 			vuln: vuln2,
 			opt: remediation.Options{
 				DevDeps:  true,
@@ -108,7 +108,7 @@ func TestMatchVuln(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "reject depth",
+			name: "reject_depth",
 			vuln: vuln2,
 			opt: remediation.Options{
 				DevDeps:  true,
@@ -117,7 +117,7 @@ func TestMatchVuln(t *testing.T) {
 			want: false,
 		},
 		{
-			name: "accept severity",
+			name: "accept_severity",
 			vuln: vuln1,
 			opt: remediation.Options{
 				DevDeps:     true,
@@ -127,7 +127,7 @@ func TestMatchVuln(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "reject severity",
+			name: "reject_severity",
 			vuln: vuln1,
 			opt: remediation.Options{
 				DevDeps:     true,
@@ -137,7 +137,7 @@ func TestMatchVuln(t *testing.T) {
 			want: false,
 		},
 		{
-			name: "accept unknown severity",
+			name: "accept_unknown_severity",
 			vuln: vuln2,
 			opt: remediation.Options{
 				DevDeps:     true,
@@ -147,7 +147,7 @@ func TestMatchVuln(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "accept non-dev",
+			name: "accept_non-dev",
 			vuln: vuln1,
 			opt: remediation.Options{
 				DevDeps:  false,
@@ -156,7 +156,7 @@ func TestMatchVuln(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "reject dev",
+			name: "reject_dev",
 			vuln: vuln2,
 			opt: remediation.Options{
 				DevDeps:  false,
@@ -165,7 +165,7 @@ func TestMatchVuln(t *testing.T) {
 			want: false,
 		},
 		{
-			name: "reject ID excluded",
+			name: "reject_ID_excluded",
 			vuln: vuln1,
 			opt: remediation.Options{
 				DevDeps:     true,
@@ -175,7 +175,7 @@ func TestMatchVuln(t *testing.T) {
 			want: false,
 		},
 		{
-			name: "reject ID not in explicit",
+			name: "reject_ID_not_in_explicit",
 			vuln: vuln1,
 			opt: remediation.Options{
 				DevDeps:       true,
@@ -185,7 +185,7 @@ func TestMatchVuln(t *testing.T) {
 			want: false,
 		},
 		{
-			name: "reject ID in explicit, but not matching other fields",
+			name: "reject_ID_in_explicit,_but_not_matching_other_fields",
 			vuln: vuln2,
 			opt: remediation.Options{
 				DevDeps:       false,
@@ -195,7 +195,7 @@ func TestMatchVuln(t *testing.T) {
 			want: false,
 		},
 		{
-			name: "accept matching multiple 1",
+			name: "accept_matching_multiple_1",
 			vuln: vuln1,
 			opt: remediation.Options{
 				DevDeps:     false,
@@ -206,7 +206,7 @@ func TestMatchVuln(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "accept matching multiple 2",
+			name: "accept_matching_multiple_2",
 			vuln: vuln2,
 			opt: remediation.Options{
 				DevDeps:       true,
@@ -217,7 +217,7 @@ func TestMatchVuln(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "accept explicit ID in alias",
+			name: "accept_explicit_ID_in_alias",
 			vuln: vuln1,
 			opt: remediation.Options{
 				DevDeps:       true,
@@ -227,7 +227,7 @@ func TestMatchVuln(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "reject excluded ID in alias",
+			name: "reject_excluded_ID_in_alias",
 			vuln: vuln1,
 			opt: remediation.Options{
 				DevDeps:     true,

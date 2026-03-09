@@ -22,7 +22,6 @@ func PrintMarkdownTableResults(vulnResult *models.VulnerabilityResults, outputWr
 		fmt.Fprintf(outputWriter, "%s:\n", GetContainerScanningHeader(outputResult))
 	}
 	printSummary(outputResult, outputWriter)
-	fmt.Fprintln(outputWriter)
 
 	outputTable := table.NewWriter()
 	outputTable.SetOutputMirror(outputWriter)
