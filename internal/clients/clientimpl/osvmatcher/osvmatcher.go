@@ -70,7 +70,7 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 		var err error
 
 		// convert Package to Query for each pkgs element
-		queries := invsToQueries(pkgs)
+		queries := pkgsToQueries(pkgs)
 		// If there is a timeout for the initial query, set an additional context deadline here.
 		if matcher.InitialQueryTimeout > 0 {
 			batchQueryCtx, cancelFunc := context.WithDeadline(ctx, time.Now().Add(matcher.InitialQueryTimeout))
@@ -174,13 +174,13 @@ func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
 	return nil
 }
 
-// invsToQueries converts inventories to queries via the osv-scanner internal imodels
+// pkgsToQueries converts packages to queries via the osv-scanner internal imodels
 // to perform the necessary transformations
-func invsToQueries(invs []*extractor.Package) []*api.Query {
-	queries := make([]*api.Query, len(invs))
+func pkgsToQueries(pkgs []*extractor.Package) []*api.Query {
+	queries := make([]*api.Query, len(pkgs))
 
-	for i, inv := range invs {
-		pkg := imodels.FromInventory(inv)
+	for i, pkg := range pkgs {
+		pkg := imodels.FromPackage(pkg)
 		queries[i] = pkgToQuery(pkg)
 	}
 

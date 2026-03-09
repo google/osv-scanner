@@ -15,9 +15,7 @@ import (
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/binary/proto"
-	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/clients/datasource"
-	"github.com/google/osv-scalibr/enricher/packagedeprecation"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	scalibrlog "github.com/google/osv-scalibr/log"
@@ -207,7 +205,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 
 	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
 	for _, pkg := range packagesAndFindings.Packages {
-		pi := imodels.FromInventory(pkg)
+		pi := imodels.FromPackage(pkg)
 
 		scanResult.PackageScanResults = append(scanResult.PackageScanResults, pi)
 	}
@@ -277,17 +275,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
 
-	if actions.FlagDeprecatedPackages {
-		p, err := packagedeprecation.New(&cpb.PluginConfig{
-			UserAgent: actions.RequestUserAgent,
-		})
-		if err != nil {
-			cmdlogger.Errorf("Failed to enable packagedeprecation enricher: %v", err)
-		} else {
-			plugins = append(plugins, p)
-		}
-	}
-
 	// --- Initialize Image To Scan ---'
 
 	// TODO: Setup context at the start of the run
@@ -350,7 +337,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	// --- Save Scalibr Scan Results ---
 	scanResult.PackageScanResults = make([]imodels.PackageInfo, len(scalibrSR.Inventory.Packages))
 	for i, pkgs := range scalibrSR.Inventory.Packages {
-		scanResult.PackageScanResults[i] = imodels.FromInventory(pkgs)
+		scanResult.PackageScanResults[i] = imodels.FromPackage(pkgs)
 		scanResult.PackageScanResults[i].ExploitabilitySignals = pkgs.ExploitabilitySignals
 	}
 
