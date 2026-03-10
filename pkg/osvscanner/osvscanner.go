@@ -181,7 +181,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	scanResult := results.ScanResults{
 		ConfigManager: config.Manager{
 			DefaultConfig: config.Config{},
-			ConfigMap:     make(map[string]config.Config),
+			ConfigMap:     make(map[string]*config.Config),
 		},
 	}
 
@@ -243,7 +243,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	scanResult := results.ScanResults{
 		ConfigManager: config.Manager{
 			DefaultConfig: config.Config{},
-			ConfigMap:     make(map[string]config.Config),
+			ConfigMap:     make(map[string]*config.Config),
 		},
 	}
 

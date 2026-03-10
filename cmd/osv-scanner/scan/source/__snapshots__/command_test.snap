@@ -6970,10 +6970,6 @@ CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (p
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 Filtered 3 vulnerabilities from output
-<tempdir>/nested-2/osv-scanner-test.toml has unused ignores:
- - GHSA-2g4f-4pwh-qvx6
-<tempdir>/nested-3/osv-scanner-test.toml has unused ignores:
- - GHSA-2g4f-4pwh-qvx6
 
 Total 7 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
@@ -7038,7 +7034,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep - 3]
-IgnoredVulns = []
 
 ---
 
@@ -7182,8 +7177,6 @@ Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
-<tempdir>/nested-3/osv-scanner-test.toml has unused ignores:
- - GHSA-2g4f-4pwh-qvx6
 
 Total 9 packages affected by 11 known vulnerabilities (0 Critical, 4 High, 7 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 11 vulnerabilities can be fixed.
@@ -7401,10 +7394,6 @@ Filtered 2 ignored package/s from the scan.
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 Filtered 2 vulnerabilities from output
-<tempdir>/nested-2/osv-scanner-test.toml has unused ignores:
- - GHSA-2g4f-4pwh-qvx6
-<tempdir>/nested-3/osv-scanner-test.toml has unused ignores:
- - GHSA-2g4f-4pwh-qvx6
 
 Total 8 packages affected by 9 known vulnerabilities (0 Critical, 4 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 9 vulnerabilities can be fixed.
@@ -7472,7 +7461,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config - 3]
-IgnoredVulns = []
 
 ---
 
@@ -7948,7 +7936,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/shallow - 3]
-IgnoredVulns = []
 
 ---
 
