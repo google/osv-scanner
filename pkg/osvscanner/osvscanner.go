@@ -391,10 +391,8 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
-	// todo: consider moving this after filtering
-	//  - p: should allow deduplicating some logic
-	//  - p: might be a better UX to present the vulns we're ignoring
-	//  - c: filtering removes vulns from results, so need to account for that
+	// we skip filtering vulns if we're going to ignore everything,
+	// as the output will serve as a list of what actually got ignored
 	if actions.UpdateConfigIgnores == "all" {
 		ignoreEntries, err := addVulnConfigIgnoresAndSave(&vulnerabilityResults, &scanResult.ConfigManager)
 
@@ -407,21 +405,21 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		if err != nil {
 			return models.VulnerabilityResults{}, err
 		}
-	}
+	} else {
+		filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
+		if filtered > 0 {
+			cmdlogger.Infof(
+				"Filtered %d %s from output",
+				filtered,
+				output.Form(filtered, "vulnerability", "vulnerabilities"),
+			)
+		}
 
-	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
-	if filtered > 0 {
-		cmdlogger.Infof(
-			"Filtered %d %s from output",
-			filtered,
-			output.Form(filtered, "vulnerability", "vulnerabilities"),
-		)
-	}
+		err := handleUnusedIgnoreEntries(&scanResult.ConfigManager, actions.UpdateConfigIgnores == "unused")
 
-	err := handleUnusedIgnoreEntries(&scanResult.ConfigManager, actions.UpdateConfigIgnores == "unused")
-
-	if err != nil {
-		return models.VulnerabilityResults{}, err
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
 	}
 
 	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)
