@@ -1,7 +1,9 @@
 package osvscanner
 
 import (
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
+	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -41,11 +43,37 @@ func addVulnConfigIgnoresAndSave(vulnResults *models.VulnerabilityResults, manag
 	return nil
 }
 
+func removeUnusedConfigIgnoresAndSave(conf *config.Config) error {
+	ignoredVulnsCount := len(conf.IgnoredVulns)
+	conf.RemoveUnusedIgnores()
+
+	// don't bother saving if nothing was removed
+	if ignoredVulnsCount == len(conf.IgnoredVulns) {
+		return nil
+	}
+
+	err := conf.Save()
+	if err != nil {
+		return err
+	}
+
+	removed := ignoredVulnsCount-len(conf.IgnoredVulns)
+
+	// todo: might be nice to log what was removed?
+	cmdlogger.Infof(
+		"Removed %d unused ignore %s from %s",
+		removed,
+		output.Form(removed, "entry", "entries"),
+		conf.LoadPath,
+	)
+
+	return nil
+}
+
 func removeAllUnusedConfigIgnoresAndSave(manager *config.Manager) error {
 	if manager.OverrideConfig != nil {
-		manager.OverrideConfig.RemoveUnusedIgnores()
+		err := removeUnusedConfigIgnoresAndSave(manager.OverrideConfig)
 
-		err := manager.OverrideConfig.Save()
 		if err != nil {
 			return err
 		}
@@ -57,9 +85,8 @@ func removeAllUnusedConfigIgnoresAndSave(manager *config.Manager) error {
 			continue
 		}
 
-		c.RemoveUnusedIgnores()
+		err := removeUnusedConfigIgnoresAndSave(c)
 
-		err := c.Save()
 		if err != nil {
 			return err
 		}
