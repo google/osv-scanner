@@ -6970,12 +6970,10 @@ CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (p
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 Filtered 3 vulnerabilities from output
-<tempdir>/nested-1/osv-scanner-test.toml had unused ignores that were removed:
 <tempdir>/nested-2/osv-scanner-test.toml had unused ignores that were removed:
  - GHSA-2g4f-4pwh-qvx6
 <tempdir>/nested-3/osv-scanner-test.toml had unused ignores that were removed:
  - GHSA-2g4f-4pwh-qvx6
-<tempdir>/osv-scanner-test.toml had unused ignores that were removed:
 
 Total 7 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 8 vulnerabilities can be fixed.
@@ -7406,7 +7404,6 @@ Filtered 2 vulnerabilities from output
  - GHSA-2g4f-4pwh-qvx6
 <tempdir>/nested-3/osv-scanner-test.toml had unused ignores that were removed:
  - GHSA-2g4f-4pwh-qvx6
-<tempdir>/osv-scanner-test.toml had unused ignores that were removed:
 
 Total 8 packages affected by 9 known vulnerabilities (0 Critical, 4 High, 5 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 9 vulnerabilities can be fixed.
@@ -7922,7 +7919,6 @@ Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
-<tempdir>/osv-scanner-test.toml had unused ignores that were removed:
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
