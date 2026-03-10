@@ -413,9 +413,26 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		)
 	}
 
+	// todo: this + reporting unused ignores can probably be encapsulated,
+	//  since it should be impossible to have unused ignores if we are updating...
 	if actions.UpdateConfigIgnores == "unused" {
-		// todo: add output about having ignored vulns
-		err := removeAllUnusedConfigIgnoresAndSave(&scanResult.ConfigManager)
+		removedIgnoreEntries, err := removeAllUnusedConfigIgnoresAndSave(&scanResult.ConfigManager)
+
+		// for once, we do this before checking the error as we might have successfully
+		// updated some configs before hitting an error saving, if running recursively
+		if len(removedIgnoreEntries) != 0 {
+			// todo: look at deduplicating this with "warn unused ignores"
+			configFiles := slices.Collect(maps.Keys(removedIgnoreEntries))
+			slices.Sort(configFiles)
+
+			for _, configFile := range configFiles {
+				cmdlogger.Warnf("%s had unused ignores that were removed:", configFile)
+
+				for _, iv := range removedIgnoreEntries[configFile] {
+					cmdlogger.Warnf(" - %s", iv.ID)
+				}
+			}
+		}
 
 		if err != nil {
 			return models.VulnerabilityResults{}, err

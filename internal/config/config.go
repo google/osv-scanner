@@ -138,16 +138,21 @@ func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
 	return unused
 }
 
-func (c *Config) RemoveUnusedIgnores() {
+func (c *Config) RemoveUnusedIgnores() []*IgnoreEntry {
+	var removed []*IgnoreEntry
 	filtered := c.IgnoredVulns[:0]
 
 	for _, iv := range c.IgnoredVulns {
 		if iv.Used {
 			filtered = append(filtered, iv)
+		} else {
+			removed = append(removed, iv)
 		}
 	}
 
 	c.IgnoredVulns = filtered
+
+	return removed
 }
 
 func (c *Config) ShouldIgnore(vulnID string) (bool, *IgnoreEntry) {
