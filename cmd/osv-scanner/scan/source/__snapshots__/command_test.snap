@@ -6576,13 +6576,13 @@ id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
-[TestCommand_UpdateConfigIgnores_All/deep - 7 - stdout]
-[[IgnoredVulns]]
-id = "GHSA-whgm-jr23-g3j9"
-
+[TestCommand_UpdateConfigIgnores_All/deep - 7]
 [[PackageOverrides]]
 name = "ajv"
 ignore = true
+
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
@@ -6734,13 +6734,13 @@ id = "GHSA-2g4f-4pwh-qvx6"
 (does not exist)
 ---
 
-[TestCommand_UpdateConfigIgnores_All/deep_with_no_configs - 7 - stdout]
-[[IgnoredVulns]]
-id = "GHSA-whgm-jr23-g3j9"
-
+[TestCommand_UpdateConfigIgnores_All/deep_with_no_configs - 7]
 [[PackageOverrides]]
 name = "ajv"
 ignore = true
+
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
@@ -6952,13 +6952,13 @@ id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
-[TestCommand_UpdateConfigIgnores_All/deep_with_removed_config - 7 - stdout]
-[[IgnoredVulns]]
-id = "GHSA-whgm-jr23-g3j9"
-
+[TestCommand_UpdateConfigIgnores_All/deep_with_removed_config - 7]
 [[PackageOverrides]]
 name = "ajv"
 ignore = true
+
+[[IgnoredVulns]]
+id = "GHSA-whgm-jr23-g3j9"
 
 ---
 
