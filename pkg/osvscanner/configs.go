@@ -6,15 +6,19 @@ import (
 
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
+	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-func addVulnConfigIgnoresAndSave(vulnResults *models.VulnerabilityResults, manager *config.Manager) (map[string]int, error) {
+func addVulnConfigIgnoresAndSave(
+	vulnResults *models.VulnerabilityResults,
+	manager *config.Manager,
+) (map[string][]*config.IgnoreEntry, error) {
 	configVulns := make(map[string][]*osvschema.Vulnerability)
 	configPaths := make(map[string]config.Config)
 
-	counts := make(map[string]int)
+	entries := make(map[string][]*config.IgnoreEntry)
 
 	for _, pkgSrc := range vulnResults.Results {
 		c := manager.Get(pkgSrc.Source.Path)
@@ -40,13 +44,13 @@ func addVulnConfigIgnoresAndSave(vulnResults *models.VulnerabilityResults, manag
 
 		err := c.Save()
 		if err != nil {
-			return counts, err
+			return entries, err
 		}
 
-		counts[c.LoadPath] = len(c.IgnoredVulns)
+		entries[c.LoadPath] = c.IgnoredVulns
 	}
 
-	return counts, nil
+	return entries, nil
 }
 
 func removeUnusedConfigIgnoresAndSave(conf *config.Config) ([]*config.IgnoreEntry, error) {
@@ -101,11 +105,23 @@ func removeAllUnusedConfigIgnoresAndSave(manager *config.Manager) (map[string][]
 	return entries, nil
 }
 
-func reportOnUnusedIgnoreActions(unusedIgnoreEntries map[string][]*config.IgnoreEntry, action string) {
+func reportOnConfigIgnoreEntriesAction(unusedIgnoreEntries map[string][]*config.IgnoreEntry, action string) {
 	configFiles := slices.Collect(maps.Keys(unusedIgnoreEntries))
 	slices.Sort(configFiles)
 
 	for _, configFile := range configFiles {
+		// don't list the entries if we've ignored all of them, as there might be a lot
+		if action == "has been updated to ignore" {
+			cmdlogger.Warnf(
+				"%s has been updated to ignore %d %s",
+				configFile,
+				len(unusedIgnoreEntries[configFile]),
+				output.Form(len(unusedIgnoreEntries[configFile]), "vulnerability", "vulnerabilities"),
+			)
+
+			continue
+		}
+
 		cmdlogger.Warnf("%s %s:", configFile, action)
 
 		for _, iv := range unusedIgnoreEntries[configFile] {
@@ -121,7 +137,7 @@ func handleUnusedIgnoreEntries(manager *config.Manager, remove bool) error {
 		// for once, we do this before checking the error as we might have successfully
 		// updated some configs before hitting an error saving, if running recursively
 		if len(removedIgnoreEntries) != 0 {
-			reportOnUnusedIgnoreActions(removedIgnoreEntries, "had unused ignores that were removed")
+			reportOnConfigIgnoreEntriesAction(removedIgnoreEntries, "had unused ignores that were removed")
 		}
 
 		if err != nil {
@@ -132,7 +148,7 @@ func handleUnusedIgnoreEntries(manager *config.Manager, remove bool) error {
 	}
 
 	if unusedIgnoredEntries := manager.GetUnusedIgnoreEntries(); len(unusedIgnoredEntries) != 0 {
-		reportOnUnusedIgnoreActions(unusedIgnoredEntries, "has unused ignores")
+		reportOnConfigIgnoreEntriesAction(unusedIgnoredEntries, "has unused ignores")
 	}
 
 	return nil
