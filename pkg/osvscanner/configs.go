@@ -6,9 +6,11 @@ import (
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
-func addVulnConfigIgnoresAndSave(vulnResults *models.VulnerabilityResults, manager *config.Manager) error {
+func addVulnConfigIgnoresAndSave(vulnResults *models.VulnerabilityResults, manager *config.Manager) (map[string]int, error) {
 	configVulns := make(map[string][]*osvschema.Vulnerability)
 	configPaths := make(map[string]config.Config)
+
+	counts := make(map[string]int)
 
 	for _, pkgSrc := range vulnResults.Results {
 		c := manager.Get(pkgSrc.Source.Path)
@@ -34,11 +36,13 @@ func addVulnConfigIgnoresAndSave(vulnResults *models.VulnerabilityResults, manag
 
 		err := c.Save()
 		if err != nil {
-			return err
+			return counts, err
 		}
+
+		counts[c.LoadPath] = len(c.IgnoredVulns)
 	}
 
-	return nil
+	return counts, nil
 }
 
 func removeUnusedConfigIgnoresAndSave(conf *config.Config) ([]*config.IgnoreEntry, error) {

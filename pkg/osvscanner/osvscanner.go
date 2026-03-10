@@ -396,8 +396,23 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 	//  - p: might be a better UX to present the vulns we're ignoring
 	//  - c: filtering removes vulns from results, so need to account for that
 	if actions.UpdateConfigIgnores == "all" {
-		// todo: add output about having ignored vulns
-		err := addVulnConfigIgnoresAndSave(&vulnerabilityResults, &scanResult.ConfigManager)
+		ignoreCounts, err := addVulnConfigIgnoresAndSave(&vulnerabilityResults, &scanResult.ConfigManager)
+
+		// for once, we do this before checking the error as we might have successfully
+		// updated some configs before hitting an error saving, if running recursively
+		if len(ignoreCounts) != 0 {
+			configFiles := slices.Collect(maps.Keys(ignoreCounts))
+			slices.Sort(configFiles)
+
+			for _, configFile := range configFiles {
+				cmdlogger.Warnf(
+					"%s has been updated to ignore %d %s",
+					configFile,
+					ignoreCounts[configFile],
+					output.Form(ignoreCounts[configFile], "vulnerability", "vulnerabilities"),
+				)
+			}
+		}
 
 		if err != nil {
 			return models.VulnerabilityResults{}, err
