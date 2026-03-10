@@ -13,7 +13,7 @@ require (
 	deps.dev/util/semver v0.0.0-20260225225317-765e10b45d5b
 	github.com/BurntSushi/toml v1.6.0
 	github.com/CycloneDX/cyclonedx-go v0.10.0
-	github.com/charmbracelet/glamour v0.10.0
+	github.com/charmbracelet/glamour/v2 v2.0.0
 	github.com/gkampitakis/go-snaps v0.5.20
 	github.com/go-git/go-git/v5 v5.17.0
 	github.com/gobwas/glob v0.2.3
