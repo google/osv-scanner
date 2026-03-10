@@ -1,9 +1,7 @@
 package osvscanner
 
 import (
-	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
-	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -43,40 +41,34 @@ func addVulnConfigIgnoresAndSave(vulnResults *models.VulnerabilityResults, manag
 	return nil
 }
 
-func removeUnusedConfigIgnoresAndSave(conf *config.Config) error {
+func removeUnusedConfigIgnoresAndSave(conf *config.Config) ([]*config.IgnoreEntry, error) {
 	ignoredVulnsCount := len(conf.IgnoredVulns)
-	conf.RemoveUnusedIgnores()
+	removed := conf.RemoveUnusedIgnores()
 
 	// don't bother saving if nothing was removed
 	if ignoredVulnsCount == len(conf.IgnoredVulns) {
-		return nil
+		return nil, nil
 	}
 
 	err := conf.Save()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	removed := ignoredVulnsCount-len(conf.IgnoredVulns)
-
-	// todo: might be nice to log what was removed?
-	cmdlogger.Infof(
-		"Removed %d unused ignore %s from %s",
-		removed,
-		output.Form(removed, "entry", "entries"),
-		conf.LoadPath,
-	)
-
-	return nil
+	return removed, nil
 }
 
-func removeAllUnusedConfigIgnoresAndSave(manager *config.Manager) error {
+func removeAllUnusedConfigIgnoresAndSave(manager *config.Manager) (map[string][]*config.IgnoreEntry, error) {
+	entries := make(map[string][]*config.IgnoreEntry)
+
 	if manager.OverrideConfig != nil {
-		err := removeUnusedConfigIgnoresAndSave(manager.OverrideConfig)
+		removed, err := removeUnusedConfigIgnoresAndSave(manager.OverrideConfig)
 
 		if err != nil {
-			return err
+			return entries, err
 		}
+
+		entries[manager.OverrideConfig.LoadPath] = removed
 	}
 
 	for _, c := range manager.ConfigMap {
@@ -85,12 +77,14 @@ func removeAllUnusedConfigIgnoresAndSave(manager *config.Manager) error {
 			continue
 		}
 
-		err := removeUnusedConfigIgnoresAndSave(c)
+		removed, err := removeUnusedConfigIgnoresAndSave(c)
 
 		if err != nil {
-			return err
+			return entries, err
 		}
+
+		entries[c.LoadPath] = removed
 	}
 
-	return nil
+	return entries, nil
 }
