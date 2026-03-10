@@ -436,17 +436,7 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		// for once, we do this before checking the error as we might have successfully
 		// updated some configs before hitting an error saving, if running recursively
 		if len(removedIgnoreEntries) != 0 {
-			// todo: look at deduplicating this with "warn unused ignores"
-			configFiles := slices.Collect(maps.Keys(removedIgnoreEntries))
-			slices.Sort(configFiles)
-
-			for _, configFile := range configFiles {
-				cmdlogger.Warnf("%s had unused ignores that were removed:", configFile)
-
-				for _, iv := range removedIgnoreEntries[configFile] {
-					cmdlogger.Warnf(" - %s", iv.ID)
-				}
-			}
+			reportOnUnusedIgnoreActions(removedIgnoreEntries, "had unused ignores that were removed")
 		}
 
 		if err != nil {
@@ -455,16 +445,7 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 	}
 
 	if unusedIgnoredEntries := scanResult.ConfigManager.GetUnusedIgnoreEntries(); len(unusedIgnoredEntries) != 0 {
-		configFiles := slices.Collect(maps.Keys(unusedIgnoredEntries))
-		slices.Sort(configFiles)
-
-		for _, configFile := range configFiles {
-			cmdlogger.Warnf("%s has unused ignores:", configFile)
-
-			for _, iv := range unusedIgnoredEntries[configFile] {
-				cmdlogger.Warnf(" - %s", iv.ID)
-			}
-		}
+		reportOnUnusedIgnoreActions(unusedIgnoredEntries, "has unused ignores")
 	}
 
 	return vulnerabilityResults, determineReturnErr(vulnerabilityResults, actions.ShowAllVulns)

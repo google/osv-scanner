@@ -1,6 +1,10 @@
 package osvscanner
 
 import (
+	"maps"
+	"slices"
+
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
@@ -95,4 +99,17 @@ func removeAllUnusedConfigIgnoresAndSave(manager *config.Manager) (map[string][]
 	}
 
 	return entries, nil
+}
+
+func reportOnUnusedIgnoreActions(unusedIgnoreEntries map[string][]*config.IgnoreEntry, action string) {
+	configFiles := slices.Collect(maps.Keys(unusedIgnoreEntries))
+	slices.Sort(configFiles)
+
+	for _, configFile := range configFiles {
+		cmdlogger.Warnf("%s %s:", configFile, action)
+
+		for _, iv := range unusedIgnoreEntries[configFile] {
+			cmdlogger.Warnf(" - %s", iv.ID)
+		}
+	}
 }
