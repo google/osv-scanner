@@ -7616,8 +7616,6 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep - 7]
-IgnoredVulns = []
-
 [[PackageOverrides]]
 name = "ajv"
 ignore = true
@@ -7819,8 +7817,6 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep_with_no_configs - 7]
-IgnoredVulns = []
-
 [[PackageOverrides]]
 name = "ajv"
 ignore = true
@@ -8028,8 +8024,6 @@ id = "GHSA-2g4f-4pwh-qvx6"
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/deep_with_removed_config - 7]
-IgnoredVulns = []
-
 [[PackageOverrides]]
 name = "ajv"
 ignore = true
@@ -8365,7 +8359,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
 ---
 
 [TestCommand_UpdateConfigIgnores_Unused/global_config_shallow - 4]
-IgnoredVulns = []
 GoVersionOverride = "1.20.0"
 
 ---
