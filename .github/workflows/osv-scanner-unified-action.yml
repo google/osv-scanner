@@ -35,11 +35,6 @@ jobs:
     if: ${{ github.event_name == 'push' || github.event_name == 'schedule' }}
     # If you want to copy this config, highly suggest pinning this to a release rather than tracking the nightly branch.
     uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@nightly"
-    with:
-      # Just scan the root directory and docs, since everything else is testdata
-      scan-args: |-
-        ./
-        ./docs/
   scan-pr:
     permissions:
       contents: read # to fetch code (actions/checkout)
@@ -48,8 +43,3 @@ jobs:
     if: ${{ github.event_name == 'pull_request' || github.event_name == 'merge_group' }}
     # If you want to copy this config, highly suggest pinning this to a release rather than tracking the nightly branch.
     uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@nightly"
-    with:
-      # Just scan the root directory and docs, since everything else is testdata
-      scan-args: |-
-        ./
-        ./docs/
