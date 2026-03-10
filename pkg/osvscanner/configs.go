@@ -68,7 +68,9 @@ func removeAllUnusedConfigIgnoresAndSave(manager *config.Manager) (map[string][]
 			return entries, err
 		}
 
-		entries[manager.OverrideConfig.LoadPath] = removed
+		if len(removed) > 0 {
+			entries[manager.OverrideConfig.LoadPath] = removed
+		}
 	}
 
 	for _, c := range manager.ConfigMap {
@@ -83,7 +85,9 @@ func removeAllUnusedConfigIgnoresAndSave(manager *config.Manager) (map[string][]
 			return entries, err
 		}
 
-		entries[c.LoadPath] = removed
+		if len(removed) > 0 {
+			entries[c.LoadPath] = removed
+		}
 	}
 
 	return entries, nil
