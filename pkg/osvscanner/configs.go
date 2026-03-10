@@ -113,3 +113,27 @@ func reportOnUnusedIgnoreActions(unusedIgnoreEntries map[string][]*config.Ignore
 		}
 	}
 }
+
+func handleUnusedIgnoreEntries(manager *config.Manager, remove bool) error {
+	if remove {
+		removedIgnoreEntries, err := removeAllUnusedConfigIgnoresAndSave(manager)
+
+		// for once, we do this before checking the error as we might have successfully
+		// updated some configs before hitting an error saving, if running recursively
+		if len(removedIgnoreEntries) != 0 {
+			reportOnUnusedIgnoreActions(removedIgnoreEntries, "had unused ignores that were removed")
+		}
+
+		if err != nil {
+			return err
+		}
+
+		return nil
+	}
+
+	if unusedIgnoredEntries := manager.GetUnusedIgnoreEntries(); len(unusedIgnoredEntries) != 0 {
+		reportOnUnusedIgnoreActions(unusedIgnoredEntries, "has unused ignores")
+	}
+
+	return nil
+}
