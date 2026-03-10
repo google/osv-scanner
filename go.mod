@@ -5,7 +5,7 @@ go 1.26.1
 require (
 	charm.land/bubbles/v2 v2.0.0
 	charm.land/bubbletea/v2 v2.0.1
-	charm.land/lipgloss/v2 v2.0.0
+	charm.land/lipgloss/v2 v2.0.1
 	deps.dev/api/v3 v3.0.0-20260225225317-765e10b45d5b
 	deps.dev/api/v3alpha v0.0.0-20260225225317-765e10b45d5b
 	deps.dev/util/maven v0.0.0-20260225225317-765e10b45d5b
@@ -221,7 +221,7 @@ require (
 	golang.org/x/exp v0.0.0-20250711185948-6ae5c78190dc // indirect
 	golang.org/x/mod v0.32.0 // indirect
 	golang.org/x/oauth2 v0.34.0 // indirect
-	golang.org/x/sys v0.41.0 // indirect
+	golang.org/x/sys v0.42.0 // indirect
 	golang.org/x/telemetry v0.0.0-20260109210033-bd525da824e2 // indirect
 	golang.org/x/text v0.34.0 // indirect
 	golang.org/x/tools v0.41.0 // indirect
