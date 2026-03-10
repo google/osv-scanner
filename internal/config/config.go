@@ -139,16 +139,15 @@ func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
 }
 
 func (c *Config) RemoveUnusedIgnores() {
-	// todo: see if this is a more optimized way to do this?
-	ignoredVulns := make([]*IgnoreEntry, 0, len(c.IgnoredVulns))
+	filtered := c.IgnoredVulns[:0]
 
 	for _, iv := range c.IgnoredVulns {
 		if iv.Used {
-			ignoredVulns = append(ignoredVulns, iv)
+			filtered = append(filtered, iv)
 		}
 	}
 
-	c.IgnoredVulns = ignoredVulns
+	c.IgnoredVulns = filtered
 }
 
 func (c *Config) ShouldIgnore(vulnID string) (bool, *IgnoreEntry) {
