@@ -38,16 +38,16 @@ func (ie *IgnoreEntry) MarkAsUsed() {
 }
 
 type PackageOverrideEntry struct {
-	Name string `toml:"name"`
+	Name string `toml:"name,omitempty"`
 	// If the version is empty, the entry applies to all versions.
-	Version        string        `toml:"version"`
-	Ecosystem      string        `toml:"ecosystem"`
-	Group          string        `toml:"group"`
-	Ignore         bool          `toml:"ignore"`
-	Vulnerability  Vulnerability `toml:"vulnerability"`
-	License        License       `toml:"license"`
-	EffectiveUntil time.Time     `toml:"effectiveUntil"`
-	Reason         string        `toml:"reason"`
+	Version        string        `toml:"version,omitempty"`
+	Ecosystem      string        `toml:"ecosystem,omitempty"`
+	Group          string        `toml:"group,omitempty"`
+	Ignore         bool          `toml:"ignore,omitempty"`
+	Vulnerability  Vulnerability `toml:"vulnerability,omitempty"`
+	License        License       `toml:"license,omitempty"`
+	EffectiveUntil time.Time     `toml:"effectiveUntil,omitempty"`
+	Reason         string        `toml:"reason,omitempty"`
 }
 
 func (e PackageOverrideEntry) matches(pkg *extractor.Package) bool {

@@ -6018,16 +6018,7 @@ id = "GHSA-whgm-jr23-g3j9"
 
 [[PackageOverrides]]
 name = "ajv"
-version = ""
-ecosystem = ""
-group = ""
 ignore = true
-effectiveUntil = 0001-01-01T00:00:00Z
-reason = ""
-[PackageOverrides.vulnerability]
-ignore = false
-[PackageOverrides.license]
-ignore = false
 
 ---
 
@@ -6185,16 +6176,7 @@ id = "GHSA-whgm-jr23-g3j9"
 
 [[PackageOverrides]]
 name = "ajv"
-version = ""
-ecosystem = ""
-group = ""
 ignore = true
-effectiveUntil = 0001-01-01T00:00:00Z
-reason = ""
-[PackageOverrides.vulnerability]
-ignore = false
-[PackageOverrides.license]
-ignore = false
 
 ---
 
@@ -6412,16 +6394,7 @@ id = "GHSA-whgm-jr23-g3j9"
 
 [[PackageOverrides]]
 name = "ajv"
-version = ""
-ecosystem = ""
-group = ""
 ignore = true
-effectiveUntil = 0001-01-01T00:00:00Z
-reason = ""
-[PackageOverrides.vulnerability]
-ignore = false
-[PackageOverrides.license]
-ignore = false
 
 ---
 
@@ -7083,16 +7056,7 @@ IgnoredVulns = []
 
 [[PackageOverrides]]
 name = "ajv"
-version = ""
-ecosystem = ""
-group = ""
 ignore = true
-effectiveUntil = 0001-01-01T00:00:00Z
-reason = ""
-[PackageOverrides.vulnerability]
-ignore = false
-[PackageOverrides.license]
-ignore = false
 
 ---
 
@@ -7295,16 +7259,7 @@ IgnoredVulns = []
 
 [[PackageOverrides]]
 name = "ajv"
-version = ""
-ecosystem = ""
-group = ""
 ignore = true
-effectiveUntil = 0001-01-01T00:00:00Z
-reason = ""
-[PackageOverrides.vulnerability]
-ignore = false
-[PackageOverrides.license]
-ignore = false
 
 ---
 
@@ -7513,16 +7468,7 @@ IgnoredVulns = []
 
 [[PackageOverrides]]
 name = "ajv"
-version = ""
-ecosystem = ""
-group = ""
 ignore = true
-effectiveUntil = 0001-01-01T00:00:00Z
-reason = ""
-[PackageOverrides.vulnerability]
-ignore = false
-[PackageOverrides.license]
-ignore = false
 
 ---
 
