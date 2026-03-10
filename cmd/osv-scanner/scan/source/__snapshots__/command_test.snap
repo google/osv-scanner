@@ -6485,7 +6485,6 @@ Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
-Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
 warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
@@ -6493,6 +6492,10 @@ Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
+<tempdir>/nested-1/osv-scanner-test.toml has been updated to ignore 3 vulnerabilities
+<tempdir>/nested-2/osv-scanner-test.toml has been updated to ignore 3 vulnerabilities
+<tempdir>/nested-3/osv-scanner-test.toml has been updated to ignore 1 vulnerability
+<tempdir>/osv-scanner-test.toml has been updated to ignore 2 vulnerabilities
 CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (package-lock.json)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
@@ -6556,7 +6559,6 @@ lockfile:<tempdir>/package-lock.json: found 1 package with issues
       Severity: '7.5'; Minimal Fix Version: '0.0.8';
 
   1 known vulnerability found in lockfile:<tempdir>/package-lock.json
-
 
 ---
 
@@ -6638,7 +6640,7 @@ Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
-Loaded filter from: <tempdir>/osv-scanner-test.toml
+warning: <tempdir>/nested-1/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
@@ -6673,11 +6675,11 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
+<tempdir>/nested-3/osv-scanner-test.toml has been updated to ignore 1 vulnerability
 <tempdir>/nested-3/osv-scanner-test.toml has unused ignores:
  - GHSA-2g4f-4pwh-qvx6
 
@@ -6803,7 +6805,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
@@ -6881,7 +6882,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
@@ -6889,6 +6889,9 @@ Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
 Filtered 2 ignored package/s from the scan.
+<tempdir>/nested-2/osv-scanner-test.toml has been updated to ignore 3 vulnerabilities
+<tempdir>/nested-3/osv-scanner-test.toml has been updated to ignore 1 vulnerability
+<tempdir>/osv-scanner-test.toml has been updated to ignore 2 vulnerabilities
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 Filtered 2 vulnerabilities from output
@@ -7027,7 +7030,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
@@ -7079,7 +7081,7 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+<tempdir>/custom-config.toml has been updated to ignore 4 vulnerabilities
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
@@ -7208,7 +7210,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-v88g-cgmw-v5xw and 1 alias have been filtered out because: (no reason given)
@@ -7237,7 +7238,7 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+<tempdir>/custom-config.toml has been updated to ignore 2 vulnerabilities
 <tempdir>/custom-config.toml has unused ignores:
  - CVE-123-456-789
  - GHSA-2g4f-4pwh-qvx6
@@ -7318,7 +7319,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 Filtered 2 vulnerabilities from output
@@ -7335,8 +7335,8 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+<tempdir>/osv-scanner-test.toml has been updated to ignore 2 vulnerabilities
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -7421,7 +7421,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 GHSA-wx95-c6cv-8532 has been filtered out because: (no reason given)
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
@@ -7439,7 +7438,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -7519,7 +7517,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -7559,7 +7556,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
 warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
@@ -7695,7 +7691,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-1/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
@@ -7778,7 +7773,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
@@ -7907,7 +7901,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
 Package npm/ajv/6.0.0 has been filtered out because: (no reason given)
 Package npm/ajv/8.0.0 has been filtered out because: (no reason given)
@@ -7991,7 +7984,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 warning: <tempdir>/nested-2/osv-scanner-test.toml has multiple ignores for GHSA-2g4f-4pwh-qvx6 - only the first will be used!
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
@@ -8125,7 +8117,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-2/osv-scanner-test.toml
 Loaded filter from: <tempdir>/nested-3/osv-scanner-test.toml
@@ -8209,7 +8200,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
@@ -8329,7 +8319,6 @@ Scanned <tempdir>/nested-1/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-2/package-lock.json file and found 3 packages
 Scanned <tempdir>/nested-3/package-lock.json file and found 3 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
 GHSA-2g4f-4pwh-qvx6 and 1 alias have been filtered out because: (no reason given)
@@ -8406,7 +8395,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 <tempdir>/custom-config.toml had unused ignores that were removed:
  - CVE-123-456-789
  - GHSA-2g4f-4pwh-qvx6
@@ -8482,7 +8470,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -8519,7 +8506,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
@@ -8600,7 +8586,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
@@ -8638,7 +8623,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -8718,7 +8702,6 @@ Scanning dir <tempdir>
 Scanned <tempdir>/Gemfile.lock file and found 1 package
 Scanned <tempdir>/composer.lock file and found 0 packages
 Scanned <tempdir>/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 2 known vulnerabilities (0 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
