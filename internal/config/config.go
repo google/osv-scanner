@@ -17,9 +17,9 @@ import (
 var OSVScannerConfigName = "osv-scanner.toml"
 
 type Config struct {
-	IgnoredVulns      []*IgnoreEntry         `toml:"IgnoredVulns,omitempty"`
-	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides,omitempty"`
 	GoVersionOverride string                 `toml:"GoVersionOverride,omitempty"`
+	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides,omitempty"`
+	IgnoredVulns      []*IgnoreEntry         `toml:"IgnoredVulns,omitempty"`
 	// The path to config file that this config was loaded from,
 	// set by the scanner after having successfully parsed the file
 	LoadPath string `toml:"-"`
