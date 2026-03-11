@@ -1048,8 +1048,8 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.19) (Based on "library/node" image):
-Total 4 packages affected by 18 known vulnerabilities (3 Critical, 3 High, 10 Medium, 2 Low, 0 Unknown) from 2 ecosystems.
-17 vulnerabilities can be fixed.
+Total 4 packages affected by 17 known vulnerabilities (3 Critical, 3 High, 9 Medium, 2 Low, 0 Unknown) from 2 ecosystems.
+16 vulnerabilities can be fixed.
 
 
 npm
@@ -1059,7 +1059,7 @@ npm
 | PACKAGE  | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +----------+-------------------+------------------+------------+------------------+---------------+
 | cryo     | 0.0.6             | No fix available |          1 | # 14 Layer       | --            |
-| minimist | 0.0.8             | Fix Available    |          2 | # 13 Layer       | --            |
+| minimist | 0.0.8             | Fix Available    |          1 | # 13 Layer       | --            |
 +----------+-------------------+------------------+------------+------------------+---------------+
 Alpine:v3.19
 +------------------------------------------------------------------------------------------------------------------------------+
@@ -2899,7 +2899,7 @@ Scanning local image tarball "./testdata/test-alpine-etcshadow.tar"
               "index": 13
             }
           },
-          "groups": 2,
+          "groups": 1,
           "vulnerabilities": [
             "GHSA-vh95-rmgr-6w4m",
             "GHSA-xvch-5gv4-984h"
