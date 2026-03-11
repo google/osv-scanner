@@ -537,8 +537,10 @@ func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
 	scanResults.PackageScanResults = slices.DeleteFunc(scanResults.PackageScanResults, func(pkg imodels.PackageInfo) bool {
 		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
 			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
+
 			return !configToUse.ScanGoModVersion
 		}
+
 		return false
 	})
 
@@ -557,8 +559,10 @@ func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
 		if pkg.Name == "stdlib" && string(pkg.Ecosystem().Ecosystem) == string(osvconstants.EcosystemGo) {
 			pi := imodels.FromPackage(pkg)
 			configToUse := scanResults.ConfigManager.Get(imodels.Location(pi))
+
 			return !configToUse.ScanGoModVersion
 		}
+
 		return false
 	})
 
