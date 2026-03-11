@@ -13,10 +13,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/charmbracelet/glamour"
-	"github.com/charmbracelet/glamour/ansi"
-	"github.com/charmbracelet/glamour/styles"
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/glamour/v2"
+	"charm.land/glamour/v2/ansi"
+	"charm.land/glamour/v2/styles"
+	"charm.land/lipgloss/v2"
 	"osv.dev/bindings/go/osvdev"
 
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
@@ -317,7 +317,7 @@ type GlamourRenderer struct{}
 
 func (GlamourRenderer) Render(details string, width int) (string, error) {
 	var style ansi.StyleConfig
-	if lipgloss.HasDarkBackground() {
+	if lipgloss.HasDarkBackground(os.Stdin, os.Stdout) {
 		style = styles.DarkStyleConfig
 	} else {
 		style = styles.LightStyleConfig

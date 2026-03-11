@@ -5,6 +5,7 @@ go 1.26.1
 require (
 	charm.land/bubbles/v2 v2.0.0
 	charm.land/bubbletea/v2 v2.0.1
+	charm.land/glamour/v2 v2.0.0
 	charm.land/lipgloss/v2 v2.0.1
 	deps.dev/api/v3 v3.0.0-20260225225317-765e10b45d5b
 	deps.dev/api/v3alpha v0.0.0-20260225225317-765e10b45d5b
@@ -13,8 +14,6 @@ require (
 	deps.dev/util/semver v0.0.0-20260225225317-765e10b45d5b
 	github.com/BurntSushi/toml v1.6.0
 	github.com/CycloneDX/cyclonedx-go v0.10.0
-	github.com/charmbracelet/glamour v0.10.0
-	github.com/charmbracelet/lipgloss v1.1.1-0.20250404203927-76690c660834
 	github.com/gkampitakis/go-snaps v0.5.20
 	github.com/go-git/go-git/v5 v5.17.0
 	github.com/gobwas/glob v0.2.3
@@ -72,6 +71,7 @@ require (
 	github.com/charmbracelet/bubbles v0.21.0 // indirect
 	github.com/charmbracelet/bubbletea v1.3.5 // indirect
 	github.com/charmbracelet/colorprofile v0.4.2 // indirect
+	github.com/charmbracelet/lipgloss v1.1.1-0.20250404203927-76690c660834 // indirect
 	github.com/charmbracelet/ultraviolet v0.0.0-20260205113103-524a6607adb8 // indirect
 	github.com/charmbracelet/x/ansi v0.11.6 // indirect
 	github.com/charmbracelet/x/cellbuf v0.0.15 // indirect

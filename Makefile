@@ -57,8 +57,8 @@ test: ## Run tests
 	if [ "$(SHORT)" = "true" ]; then ARGS="$$ARGS -short"; fi; \
 	scripts/run_tests.sh $$ARGS
 
-update-snapshots: ## Update snapshots (Equivalent to make test SNAPS=true)
-	$(MAKE) test SNAPS=true
+update-snapshots: ## Update all snapshots (Equivalent to make test SNAPS=true SHORT=false)
+	$(MAKE) test SNAPS=true SHORT=false
 
 refresh-all: ## Refresh all snaps, matching CI test (Usage: make refresh-all REBUILD_IMAGES=true)
 	@if [ "$(REBUILD_IMAGES)" = "true" ]; then $(MAKE) clean; fi
