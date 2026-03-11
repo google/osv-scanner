@@ -1,3 +1,17 @@
+# v2.3.4
+
+### Features:
+
+- [Feature #2571](https://github.com/google/osv-scanner/pull/2571) Enable transitive scanning for Python requirements.txt files using the deps.dev API.
+- [Feature #2606](https://github.com/google/osv-scanner/pull/2606) Update osv-scalibr to include the latest dependency extraction capabilities.
+- [Feature #2559](https://github.com/google/osv-scanner/pull/2559) Update osv-scalibr to include the latest dependency extraction capabilities.
+
+### Fixes:
+
+- [Bug #2630](https://github.com/google/osv-scanner/pull/2630) Improve startup performance on Windows Terminal by updating lipgloss.
+- [Bug #2599](https://github.com/google/osv-scanner/pull/2599) Ensure the package deprecation enricher respects the same configuration as other plugins.
+- [Bug #2600](https://github.com/google/osv-scanner/pull/2600) Ensure the Java extractor plugin for call analysis respects the same configuration as other plugins.
+
 # v2.3.3
 
 ### Features:
