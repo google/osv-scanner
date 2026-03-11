@@ -472,6 +472,36 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
+      content_length: 3
+      host: api.osv.dev
+      body: |
+        {}
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/Go_project_with_an_overridden_go_version
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 2
+      body: |
+        {}
+      headers:
+        Content-Length:
+          - "2"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
       content_length: 260
       host: api.osv.dev
       body: |
@@ -826,6 +856,36 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
+      content_length: 3
+      host: api.osv.dev
+      body: |
+        {}
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/Go_project_with_an_overridden_go_version,_recursive
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 2
+      body: |
+        {}
+      headers:
+        Content-Length:
+          - "2"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
       content_length: 141
       host: api.osv.dev
       body: |
@@ -1012,6 +1072,36 @@ interactions:
       headers:
         Content-Length:
           - "2349"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 3
+      host: api.osv.dev
+      body: |
+        {}
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/Go_project_with_an_overridden_go_version_and_licences
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 2
+      body: |
+        {}
+      headers:
+        Content-Length:
+          - "2"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1672,6 +1762,323 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
+      content_length: 3253
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            },
+            {
+              "commit": "4579d5538f06c5ef615a15bc67ebb9ac0523a973"
+            },
+            {
+              "commit": "9de7a0544457c6aba755ccb65abb41b0dc1db70d"
+            },
+            {
+              "commit": "5d60bd2eb4642b64d00c845e5ca9f1ea41fd6db6"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-baselayout"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-baselayout-data"
+              },
+              "version": "3.4.0-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "alpine-keys"
+              },
+              "version": "2.4-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "apk-tools"
+              },
+              "version": "2.12.10-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "busybox-binsh"
+              },
+              "version": "1.36.1-r27"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "ca-certificates-bundle"
+              },
+              "version": "20220614-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libc-utils"
+              },
+              "version": "0.7.2-r3"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libcrypto3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "libssl3"
+              },
+              "version": "3.0.8-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "musl"
+              },
+              "version": "1.2.3-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "musl-utils"
+              },
+              "version": "1.2.3-r4"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "scanelf"
+              },
+              "version": "1.3.5-r1"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "ssl_client"
+              },
+              "version": "1.36.1-r27"
+            },
+            {
+              "package": {
+                "ecosystem": "Alpine",
+                "name": "zlib"
+              },
+              "version": "1.2.13-r0"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "drupal/core"
+              },
+              "version": "10.4.5"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "drupal/simple_sitemap"
+              },
+              "version": "4.2.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "drupal/tfa"
+              },
+              "version": "2.0.0-alpha4"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "theseer/tokenizer"
+              },
+              "version": "1.1.3"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/config_file_can_be_broad
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 1278
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-10T23:45:30.937461Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "CVE-2023-39137",
+                  "modified": "2025-11-20T12:19:03.518975Z"
+                },
+                {
+                  "id": "CVE-2023-39139",
+                  "modified": "2025-11-20T12:19:06.047365Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2025-26519",
+                  "modified": "2025-12-11T11:01:04.579010Z"
+                }
+              ]
+            },
+            {},
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "ALPINE-CVE-2026-22184",
+                  "modified": "2026-03-09T02:10:12.057314Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-27171",
+                  "modified": "2026-03-09T02:09:33.041671Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "DRUPAL-CORE-2025-005",
+                  "modified": "2025-12-10T23:41:07.744028Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2025-006",
+                  "modified": "2025-12-10T23:41:16.689525Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2025-007",
+                  "modified": "2025-12-10T23:41:19.050806Z"
+                },
+                {
+                  "id": "DRUPAL-CORE-2025-008",
+                  "modified": "2025-12-10T23:41:00.167393Z"
+                },
+                {
+                  "id": "GHSA-83v7-c2cf-p9c2",
+                  "modified": "2025-12-10T23:41:07.744028Z"
+                },
+                {
+                  "id": "GHSA-h89p-5896-f4q8",
+                  "modified": "2025-12-10T23:41:19.050806Z"
+                },
+                {
+                  "id": "GHSA-m6vv-vcj8-w8m7",
+                  "modified": "2025-12-10T23:41:16.689525Z"
+                },
+                {
+                  "id": "GHSA-mhpg-hpj5-73r2",
+                  "modified": "2026-02-03T03:15:35.495869Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "DRUPAL-CONTRIB-2025-083",
+                  "modified": "2025-12-10T23:41:32.857305Z"
+                }
+              ]
+            },
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-10T23:45:30.937461Z"
+                }
+              ]
+            },
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "1278"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
       content_length: 151
       host: api.osv.dev
       body: |
@@ -1775,6 +2182,81 @@ interactions:
       headers:
         Content-Length:
           - "25"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 519
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/cyclonedx_1.4_output
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 104
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-10T23:45:30.937461Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "104"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1941,6 +2423,81 @@ interactions:
       headers:
         Content-Length:
           - "107"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 519
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/cyclonedx_1.5_output
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 104
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-10T23:45:30.937461Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "104"
         Content-Type:
           - application/json
       status: 200 OK
@@ -5221,6 +5778,65 @@ interactions:
           "queries": [
             {
               "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.24.4"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/go_packages_in_osv-scanner.json_format
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 214
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "GO-2025-3828",
+                  "modified": "2026-02-04T03:33:13.542630Z"
+                },
+                {
+                  "id": "GO-2026-4339",
+                  "modified": "2026-02-04T04:20:19.626029Z"
+                },
+                {
+                  "id": "GO-2026-4433",
+                  "modified": "2026-03-02T10:44:08.411132Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "214"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 144
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
                 "ecosystem": "npm",
                 "name": "ansi-html"
               },
@@ -7154,6 +7770,81 @@ interactions:
       headers:
         Content-Length:
           - "107"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 519
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/spdx_2.3_output
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 104
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-10T23:45:30.937461Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "104"
         Content-Type:
           - application/json
       status: 200 OK
