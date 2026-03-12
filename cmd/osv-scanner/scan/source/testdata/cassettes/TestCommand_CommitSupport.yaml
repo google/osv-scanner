@@ -56,7 +56,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 3822
+      content_length: 3758
       body: |
         {
           "results": [
@@ -92,15 +92,15 @@ interactions:
                 },
                 {
                   "id": "CVE-2024-24826",
-                  "modified": "2026-03-03T02:52:56.885639Z"
+                  "modified": "2026-03-12T00:40:16.803846Z"
                 },
                 {
                   "id": "CVE-2024-25112",
-                  "modified": "2026-02-15T08:11:00.778496Z"
+                  "modified": "2026-03-12T00:40:51.498112Z"
                 },
                 {
                   "id": "CVE-2024-39695",
-                  "modified": "2026-03-03T02:55:18.988213Z"
+                  "modified": "2026-03-12T06:12:37.130603Z"
                 },
                 {
                   "id": "CVE-2025-26623",
@@ -132,7 +132,7 @@ interactions:
                 },
                 {
                   "id": "OSV-2024-340",
-                  "modified": "2026-03-11T14:29:37.144225Z"
+                  "modified": "2026-03-12T14:18:46.610750Z"
                 },
                 {
                   "id": "PYSEC-2023-233",
@@ -163,12 +163,8 @@ interactions:
                   "modified": "2026-03-11T00:16:35.285273Z"
                 },
                 {
-                  "id": "CVE-2024-2410",
-                  "modified": "2025-11-23T18:15:05.493990Z"
-                },
-                {
                   "id": "CVE-2024-7254",
-                  "modified": "2026-03-10T14:47:32.823968Z"
+                  "modified": "2026-03-12T17:24:46.870042Z"
                 }
               ]
             },
@@ -184,7 +180,7 @@ interactions:
               "vulns": [
                 {
                   "id": "CVE-2024-51757",
-                  "modified": "2026-03-01T02:52:29.220765Z"
+                  "modified": "2026-03-12T13:41:46.998228Z"
                 },
                 {
                   "id": "CVE-2025-61927",
@@ -240,7 +236,7 @@ interactions:
                 },
                 {
                   "id": "CVE-2025-15469",
-                  "modified": "2026-02-28T07:39:20.726980Z"
+                  "modified": "2026-03-12T17:39:12.082275Z"
                 },
                 {
                   "id": "CVE-2025-66199",
@@ -296,7 +292,7 @@ interactions:
                 },
                 {
                   "id": "CVE-2023-6180",
-                  "modified": "2026-02-04T09:41:59.254101Z"
+                  "modified": "2026-03-12T00:13:54.198009Z"
                 },
                 {
                   "id": "CVE-2025-24898",
@@ -324,7 +320,7 @@ interactions:
                 },
                 {
                   "id": "CVE-2023-6180",
-                  "modified": "2026-02-04T09:41:59.254101Z"
+                  "modified": "2026-03-12T00:13:54.198009Z"
                 },
                 {
                   "id": "CVE-2025-3416",
@@ -336,7 +332,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "3822"
+          - "3758"
         Content-Type:
           - application/json
       status: 200 OK
