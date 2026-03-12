@@ -3,8 +3,6 @@
 ### Features:
 
 - [Feature #2571](https://github.com/google/osv-scanner/pull/2571) Enable transitive scanning for Python requirements.txt files using the deps.dev API.
-- [Feature #2606](https://github.com/google/osv-scanner/pull/2606) Update osv-scalibr to include the latest dependency extraction capabilities.
-- [Feature #2559](https://github.com/google/osv-scanner/pull/2559) Update osv-scalibr to include the latest dependency extraction capabilities.
 
 ### Fixes:
 
