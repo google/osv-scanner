@@ -37,6 +37,7 @@ jobs:
       - run: go test ./cmd/osv-scanner/ -run 'Test_run$' || true
         env:
           TEST_ACCEPTANCE: true
+          TEST_VCR_MODE: replaywithnewepisodes
           UPDATE_SNAPS: always
       - uses: peter-evans/create-pull-request@c0f553fe549906ede9cf27b5156039d195d2ece0 # v8.1.0
         with:
