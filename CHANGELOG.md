@@ -12,6 +12,9 @@
 - [Bug #2599](https://github.com/google/osv-scanner/pull/2599) Ensure the package deprecation enricher respects the same configuration as other plugins.
 - [Bug #2600](https://github.com/google/osv-scanner/pull/2600) Ensure the Java extractor plugin for call analysis respects the same configuration as other plugins.
 
+### Misc:
+- Update osv-scalibr from v0.4.2 to v0.4.5. Release notes: [v0.4.3](https://github.com/google/osv-scalibr/releases/tag/v0.4.3), [v0.4.4](https://github.com/google/osv-scalibr/releases/tag/v0.4.4), [v0.4.5](https://github.com/google/osv-scalibr/releases/tag/v0.4.5).
+
 # v2.3.3
 
 ### Features:
