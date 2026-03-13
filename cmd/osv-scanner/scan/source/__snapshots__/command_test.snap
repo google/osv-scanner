@@ -96,7 +96,7 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
           "rules": [],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.3.3"
+          "version": "2.3.4"
         },
         "extensions": []
       },
@@ -212,7 +212,7 @@ Scanning dir ./testdata/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
@@ -221,6 +221,8 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 
 ---
@@ -367,7 +369,7 @@ Total 2 packages affected by 9 known vulnerabilities (4 Critical, 4 High, 1 Medi
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.3.3"
+          "version": "2.3.4"
         },
         "extensions": []
       },
@@ -464,25 +466,27 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Packagist/theseer/tokenizer/1.1.3 with 0BSD
 
-Total 5 packages affected by 8 known vulnerabilities (2 Critical, 1 High, 1 Medium, 3 Low, 1 Unknown) from 4 ecosystems.
+Total 6 packages affected by 10 known vulnerabilities (3 Critical, 1 High, 2 Medium, 3 Low, 1 Unknown) from 4 ecosystems.
 6 vulnerabilities can be fixed.
 
-+-----------------------------------------+------+-----------+-----------------------+----------+---------------+--------------------------------------------------+
-| OSV URL                                 | CVSS | ECOSYSTEM | PACKAGE               | VERSION  | FIXED VERSION | SOURCE                                           |
-+-----------------------------------------+------+-----------+-----------------------+----------+---------------+--------------------------------------------------+
-| https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist | league/flysystem      | 1.0.8    | 1.1.4         | testdata/locks-insecure/composer.lock            |
-| https://osv.dev/DRUPAL-CORE-2025-005    | 2.7  | Packagist | drupal/core           | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/GHSA-83v7-c2cf-p9c2     |      |           |                       |          |               |                                                  |
-| https://osv.dev/DRUPAL-CORE-2025-006    | 5.9  | Packagist | drupal/core           | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/GHSA-m6vv-vcj8-w8m7     |      |           |                       |          |               |                                                  |
-| https://osv.dev/DRUPAL-CORE-2025-007    | 2.1  | Packagist | drupal/core           | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/GHSA-h89p-5896-f4q8     |      |           |                       |          |               |                                                  |
-| https://osv.dev/DRUPAL-CORE-2025-008    | 3.7  | Packagist | drupal/core           | 10.4.5   | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/GHSA-mhpg-hpj5-73r2     |      |           |                       |          |               |                                                  |
-| https://osv.dev/DRUPAL-CONTRIB-2025-083 |      | Packagist | drupal/simple_sitemap | 4.2.1    | --            | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist | league/flysystem      | 1.0.8    | 1.1.4         | testdata/locks-many-with-insecure/composer.lock  |
-| https://osv.dev/ALPINE-CVE-2025-26519   | 7.0  | Alpine    | musl                  | 1.2.3-r4 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
-+-----------------------------------------+------+-----------+-----------------------+----------+---------------+--------------------------------------------------+
++-----------------------------------------+------+-----------+-----------------------+-----------+---------------+--------------------------------------------------+
+| OSV URL                                 | CVSS | ECOSYSTEM | PACKAGE               | VERSION   | FIXED VERSION | SOURCE                                           |
++-----------------------------------------+------+-----------+-----------------------+-----------+---------------+--------------------------------------------------+
+| https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist | league/flysystem      | 1.0.8     | 1.1.4         | testdata/locks-insecure/composer.lock            |
+| https://osv.dev/DRUPAL-CORE-2025-005    | 2.7  | Packagist | drupal/core           | 10.4.5    | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/GHSA-83v7-c2cf-p9c2     |      |           |                       |           |               |                                                  |
+| https://osv.dev/DRUPAL-CORE-2025-006    | 5.9  | Packagist | drupal/core           | 10.4.5    | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/GHSA-m6vv-vcj8-w8m7     |      |           |                       |           |               |                                                  |
+| https://osv.dev/DRUPAL-CORE-2025-007    | 2.1  | Packagist | drupal/core           | 10.4.5    | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/GHSA-h89p-5896-f4q8     |      |           |                       |           |               |                                                  |
+| https://osv.dev/DRUPAL-CORE-2025-008    | 3.7  | Packagist | drupal/core           | 10.4.5    | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/GHSA-mhpg-hpj5-73r2     |      |           |                       |           |               |                                                  |
+| https://osv.dev/DRUPAL-CONTRIB-2025-083 |      | Packagist | drupal/simple_sitemap | 4.2.1     | --            | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist | league/flysystem      | 1.0.8     | 1.1.4         | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/ALPINE-CVE-2025-26519   | 7.0  | Alpine    | musl                  | 1.2.3-r4  | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184   | 9.8  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-27171   | 5.5  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
++-----------------------------------------+------+-----------+-----------------------+-----------+---------------+--------------------------------------------------+
 +---------+-------------------------+
 | LICENSE | NO. OF PACKAGE VERSIONS |
 +---------+-------------------------+
@@ -629,7 +633,7 @@ No issues found
         }
       ],
       "published": "2021-06-29T03:13:28Z",
-      "updated": "2026-02-04T03:17:54Z",
+      "updated": "2026-03-10T23:45:30Z",
       "credits": {
         "organizations": []
       },
@@ -723,7 +727,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
         }
       ],
       "published": "2021-06-29T03:13:28Z",
-      "updated": "2026-02-04T03:17:54Z",
+      "updated": "2026-03-10T23:45:30Z",
       "credits": {
         "organizations": []
       },
@@ -859,7 +863,7 @@ Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 10 local/unscannable package/s from the scan.
 
-Total 26 packages affected by 172 known vulnerabilities (21 Critical, 72 High, 53 Medium, 3 Low, 23 Unknown) from 4 ecosystems.
+Total 26 packages affected by 180 known vulnerabilities (24 Critical, 73 High, 56 Medium, 3 Low, 24 Unknown) from 4 ecosystems.
 11 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -888,12 +892,18 @@ Total 26 packages affected by 172 known vulnerabilities (21 Critical, 72 High, 5
 | https://osv.dev/GO-2022-0493          | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |           |                                |                                    |                                   |                                                                     |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/DSA-4685-1            | 5.5  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4808-1            | 5.7  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-0501  | 5.9  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -904,6 +914,7 @@ Total 26 packages affected by 172 known vulnerabilities (21 Critical, 72 High, 5
 | https://osv.dev/DLA-3482-1            |      | Debian    | debian-archive-keyring         | 2017.5+deb9u2                      | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5147-1            | 9.8  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-6297  | 8.2  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-2219  | 7.5  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4535-1            | 7.5  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2019-5188  | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2022-1304  | 7.8  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1063,6 +1074,7 @@ Total 26 packages affected by 172 known vulnerabilities (21 Critical, 72 High, 5
 | https://osv.dev/DSA-5055-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5650-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2016-2779  | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-3184  |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5123-1            | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5895-1            | 8.7  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2024-3094  | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1087,8 +1099,8 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and f
 [TestCommand/go_packages_in_osv-scanner.json_format - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner.json file and found 2 packages
 
-Total 2 packages affected by 21 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 21 Unknown) from 1 ecosystem.
-21 vulnerabilities can be fixed.
+Total 2 packages affected by 24 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 24 Unknown) from 1 ecosystem.
+24 vulnerabilities can be fixed.
 
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 | OSV URL                      | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                   |
@@ -1111,6 +1123,9 @@ Total 2 packages affected by 21 known vulnerabilities (0 Critical, 0 High, 0 Med
 | https://osv.dev/GO-2026-4340 |      | Go        | stdlib    | 1.24.4  | 1.24.12       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4341 |      | Go        | stdlib    | 1.24.4  | 1.24.12       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4342 |      | Go        | stdlib    | 1.24.4  | 1.24.12       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4601 |      | Go        | stdlib    | 1.24.4  | 1.25.8        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4602 |      | Go        | stdlib    | 1.24.4  | 1.25.8        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4603 |      | Go        | stdlib    | 1.24.4  | 1.25.8        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2025-3828 |      | Go        | toolchain | 1.24.4  | 1.24.5        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4339 |      | Go        | toolchain | 1.24.4  | 1.24.12       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4433 |      | Go        | toolchain | 1.24.4  | 1.24.13       | testdata/locks-insecure/osv-scanner.json |
@@ -1363,7 +1378,7 @@ Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
@@ -1372,6 +1387,8 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
 
 ---
@@ -1384,7 +1401,7 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
@@ -1393,6 +1410,8 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
 
 ---
@@ -1429,7 +1448,7 @@ Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
@@ -1438,6 +1457,8 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 
 ---
@@ -1450,7 +1471,7 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
@@ -1459,6 +1480,8 @@ Total 2 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 
 ---
@@ -1524,14 +1547,15 @@ Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 
-Total 11 packages affected by 45 known vulnerabilities (5 Critical, 19 High, 20 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
-45 vulnerabilities can be fixed.
+Total 11 packages affected by 49 known vulnerabilities (5 Critical, 19 High, 20 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
+49 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | FIXED VERSION | SOURCE                                                    |
 +-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | 2.2.5         | testdata/locks-requirements/my-requirements.txt           |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask      | 1.0.0   | 3.1.3         | testdata/locks-requirements/my-requirements.txt           |
 | https://osv.dev/PYSEC-2021-98       | 6.9  | PyPI      | django     | 1.11.29 | 2.2.24        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-68w8-qjq3-2gfm |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-6w2r-r2m5-xq5w | 7.1  | PyPI      | django     | 1.11.29 | 4.2.24        | testdata/locks-requirements/requirements-transitive.txt   |
@@ -1542,6 +1566,7 @@ Total 11 packages affected by 45 known vulnerabilities (5 Critical, 19 High, 20 
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | 2.2.5         | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask      | 1.0.0   | 3.1.3         | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests   | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests   | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements-transitive.txt   |
@@ -1578,12 +1603,14 @@ Total 11 packages affected by 45 known vulnerabilities (5 Critical, 19 High, 20 
 | https://osv.dev/GHSA-rrqc-c2jx-6jgv | 6.3  | PyPI      | django     | 1.11.29 | 4.2.16        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | 2.2.5         | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask      | 1.0.0   | 3.1.3         | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/PYSEC-2023-74       | 6.1  | PyPI      | requests   | 2.20.0  | 2.31.0        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests   | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests   | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | 2.2.5         | testdata/locks-requirements/unresolvable-requirements.txt |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
+| https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask      | 1.0.0   | 3.1.3         | testdata/locks-requirements/unresolvable-requirements.txt |
 | https://osv.dev/PYSEC-2020-43       | 8.7  | PyPI      | flask-cors | 1.0.0   | 3.0.9         | testdata/locks-requirements/unresolvable-requirements.txt |
 | https://osv.dev/GHSA-xc3p-ff3m-f46v |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2024-71       | 8.7  | PyPI      | flask-cors | 1.0.0   | 4.0.2         | testdata/locks-requirements/unresolvable-requirements.txt |
@@ -1928,7 +1955,7 @@ Total 8 packages affected by 28 known vulnerabilities (5 Critical, 6 High, 11 Me
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 
-Total 11 packages affected by 53 known vulnerabilities (7 Critical, 13 High, 23 Medium, 4 Low, 6 Unknown) from 1 ecosystem.
+Total 11 packages affected by 56 known vulnerabilities (7 Critical, 13 High, 23 Medium, 7 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+----------------------------+-----------------------------+---------------+-------------------------------------+
@@ -1945,9 +1972,13 @@ Total 11 packages affected by 53 known vulnerabilities (7 Critical, 13 High, 23 
 | https://osv.dev/CVE-2025-26623 | 5.3  | GIT       |          https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-54080 | 1.8  | GIT       |          https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-55304 | 1.8  | GIT       |          https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-25884 | 2.7  | GIT       |          https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-27596 | 2.7  | GIT       |          https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2026-27631 | 2.7  | GIT       |          https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/OSV-2023-1161  |      | GIT       |          https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/OSV-2024-340   |      | GIT       |          https://github.com/Exiv2/exiv2@931a40a7         | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2021-22569 | 5.5  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
+| https://osv.dev/CVE-2022-1941  | 7.5  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2022-3171  | 7.5  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2022-3509  | 7.5  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2022-3510  | 7.5  | GIT       |          https://github.com/apache/orc@17b30e96          | --            | testdata/locks-git/osv-scanner.json |
@@ -1963,7 +1994,6 @@ Total 11 packages affected by 53 known vulnerabilities (7 Critical, 13 High, 23 
 | https://osv.dev/CVE-2025-9230  | 7.5  | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9231  | 6.5  | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9232  | 5.9  | GIT       |        https://github.com/openssl/openssl@45fda76b       | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2183  | 7.5  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-11187 | 6.1  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-15467 | 9.8  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-15468 | 5.9  | GIT       |        https://github.com/openssl/openssl@aea7aaf2       | --            | testdata/locks-git/osv-scanner.json |
@@ -2008,13 +2038,15 @@ testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
  - CVE-2022-1304
 
-Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 3 known vulnerabilities (2 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 
 ---
@@ -2042,7 +2074,7 @@ Filtered 8 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 24 packages affected by 166 known vulnerabilities (21 Critical, 67 High, 52 Medium, 3 Low, 23 Unknown) from 4 ecosystems.
+Total 24 packages affected by 174 known vulnerabilities (24 Critical, 68 High, 55 Medium, 3 Low, 24 Unknown) from 4 ecosystems.
 10 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -2069,8 +2101,14 @@ Total 24 packages affected by 166 known vulnerabilities (21 Critical, 67 High, 5
 | https://osv.dev/GO-2022-0493          | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |           |                                |                                    |                                   |                                                                     |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/DSA-4685-1            | 5.5  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4808-1            | 5.7  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-0501  | 5.9  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2081,6 +2119,7 @@ Total 24 packages affected by 166 known vulnerabilities (21 Critical, 67 High, 5
 | https://osv.dev/DLA-3482-1            |      | Debian    | debian-archive-keyring         | 2017.5+deb9u2                      | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5147-1            | 9.8  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-6297  | 8.2  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-2219  | 7.5  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4535-1            | 7.5  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2019-5188  | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5122-1            | 8.8  | Debian    | gzip                           | 1.6-5+deb9u1                       | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2238,6 +2277,7 @@ Total 24 packages affected by 166 known vulnerabilities (21 Critical, 67 High, 5
 | https://osv.dev/DSA-5055-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5650-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2016-2779  | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-3184  |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5123-1            | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5895-1            | 8.7  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2024-3094  | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2263,7 +2303,7 @@ Filtered 6 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 22 packages affected by 164 known vulnerabilities (19 Critical, 67 High, 52 Medium, 3 Low, 23 Unknown) from 3 ecosystems.
+Total 22 packages affected by 168 known vulnerabilities (20 Critical, 68 High, 53 Medium, 3 Low, 24 Unknown) from 3 ecosystems.
 10 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -2290,6 +2330,8 @@ Total 22 packages affected by 164 known vulnerabilities (19 Critical, 67 High, 5
 | https://osv.dev/GO-2022-0493          | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |           |                                |                                    |                                   |                                                 |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
+| https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/DSA-4685-1            | 5.5  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4808-1            | 5.7  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-0501  | 5.9  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2300,6 +2342,7 @@ Total 22 packages affected by 164 known vulnerabilities (19 Critical, 67 High, 5
 | https://osv.dev/DLA-3482-1            |      | Debian    | debian-archive-keyring         | 2017.5+deb9u2                      | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5147-1            | 9.8  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-6297  | 8.2  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-2219  | 7.5  | Debian    | dpkg                           | 1.18.25                            | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4535-1            | 7.5  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2019-5188  | 6.7  | Debian    | e2fsprogs                      | 1.43.4-2+deb9u2                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5122-1            | 8.8  | Debian    | gzip                           | 1.6-5+deb9u1                       | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2457,6 +2500,7 @@ Total 22 packages affected by 164 known vulnerabilities (19 Critical, 67 High, 5
 | https://osv.dev/DSA-5055-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5650-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2016-2779  | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-3184  |      | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5123-1            | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5895-1            | 8.7  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2024-3094  | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -3172,7 +3216,7 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.3.3"
+          "version": "2.3.4"
         },
         "extensions": []
       },
@@ -3195,7 +3239,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file and
 [TestCommand_GithubActions/scanning_osv-scanner_custom_format_with_git_tag - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom-git-tag.json file and found 1 package
 
-Total 1 package affected by 45 known vulnerabilities (5 Critical, 17 High, 23 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 41 known vulnerabilities (5 Critical, 15 High, 21 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+----------------------------+---------------+---------------+---------------------------------------------------------+
@@ -3203,11 +3247,8 @@ Total 1 package affected by 45 known vulnerabilities (5 Critical, 17 High, 23 Me
 +--------------------------------+------+-----------+----------------------------+---------------+---------------+---------------------------------------------------------+
 | https://osv.dev/CVE-2016-2177  | 9.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2016-2182  | 9.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
-| https://osv.dev/CVE-2021-3449  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2022-2274  | 9.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2022-3358  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
-| https://osv.dev/CVE-2022-3602  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
-| https://osv.dev/CVE-2022-3786  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2022-3996  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2022-4203  | 4.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2022-4304  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
@@ -3221,7 +3262,6 @@ Total 1 package affected by 45 known vulnerabilities (5 Critical, 17 High, 23 Me
 | https://osv.dev/CVE-2023-1255  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-2650  | 6.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-2975  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
-| https://osv.dev/CVE-2023-3446  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-3817  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-4807  | 7.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-5363  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
@@ -3285,12 +3325,13 @@ Java reachability enricher marked 14 packages as unreachable
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
 failed to download package err jar not found: https://repo1.maven.org/maven2/com/example/hello-tester/1.0-SNAPSHOT/hello-tester-1.0-SNAPSHOT.jar
 
-Total 4 packages affected by 53 known vulnerabilities (18 Critical, 29 High, 5 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
-53 vulnerabilities can be fixed.
+Total 4 packages affected by 55 known vulnerabilities (18 Critical, 30 High, 5 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
+55 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
+| https://osv.dev/GHSA-72hv-8253-57qq | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.18.6        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-h46c-h94j-95f3 | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.15.0        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-288c-cq4h-88gq | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.4       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-4gq5-ch57-c2mg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.5       | testdata/artifact/javareach_test.jar |
@@ -3344,6 +3385,7 @@ Total 4 packages affected by 53 known vulnerabilities (18 Critical, 29 High, 5 M
 | https://osv.dev/GHSA-cj7v-27pg-wf7q | 2.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.47        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-hmr7-m48g-48f6 | 5.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-qh8g-58pp-2wxh | 6.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.12       | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-wjpw-4j6x-6rwh | 3.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.31       | testdata/artifact/javareach_test.jar |
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | Uncalled vulnerabilities            |      |           |                                             |                  |               |                                      |
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
@@ -3365,8 +3407,8 @@ Total 4 packages affected by 53 known vulnerabilities (18 Critical, 29 High, 5 M
 Scanning dir ./testdata/artifact/javareach_test.jar
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
 
-Total 8 packages affected by 60 known vulnerabilities (18 Critical, 32 High, 8 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
-59 vulnerabilities can be fixed.
+Total 8 packages affected by 61 known vulnerabilities (18 Critical, 32 High, 8 Medium, 3 Low, 0 Unknown) from 1 ecosystem.
+60 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
@@ -3427,6 +3469,7 @@ Total 8 packages affected by 60 known vulnerabilities (18 Critical, 32 High, 8 M
 | https://osv.dev/GHSA-cj7v-27pg-wf7q | 2.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.47        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-hmr7-m48g-48f6 | 5.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-qh8g-58pp-2wxh | 6.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.12       | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-wjpw-4j6x-6rwh | 3.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.31       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-3gh6-v5v9-6v9j | 3.5  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-gwcr-j4wh-j3cq | 5.3  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.41        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-j26w-f9rq-mr2q | 5.3  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.54        | testdata/artifact/javareach_test.jar |
@@ -3443,13 +3486,14 @@ Total 8 packages affected by 60 known vulnerabilities (18 Critical, 32 High, 8 M
 Scanning dir ./testdata/artifact/javareach_test.jar
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
 
-Total 8 packages affected by 59 known vulnerabilities (18 Critical, 31 High, 8 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
-58 vulnerabilities can be fixed.
+Total 8 packages affected by 61 known vulnerabilities (18 Critical, 32 High, 8 Medium, 3 Low, 0 Unknown) from 1 ecosystem.
+60 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | https://osv.dev/GHSA-c28r-hw5m-5gv3 | 7.9  | Maven     | com.amazonaws:aws-java-sdk-s3               | 1.11.327         | 1.12.261      | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-72hv-8253-57qq | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.18.6        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-h46c-h94j-95f3 | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.15.0        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-288c-cq4h-88gq | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.4       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-4gq5-ch57-c2mg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.5       | testdata/artifact/javareach_test.jar |
@@ -3504,6 +3548,7 @@ Total 8 packages affected by 59 known vulnerabilities (18 Critical, 31 High, 8 M
 | https://osv.dev/GHSA-cj7v-27pg-wf7q | 2.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.47        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-hmr7-m48g-48f6 | 5.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-qh8g-58pp-2wxh | 6.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.12       | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-wjpw-4j6x-6rwh | 3.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.31       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-3gh6-v5v9-6v9j | 3.5  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-gwcr-j4wh-j3cq | 5.3  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.41        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-j26w-f9rq-mr2q | 5.3  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.54        | testdata/artifact/javareach_test.jar |
@@ -5280,8 +5325,8 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 [TestCommand_MoreLockfiles/gems.locked - 1]
 Scanned <rootdir>/testdata/locks-scalibr/gems.locked file and found 26 packages
 
-Total 2 packages affected by 5 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
-5 vulnerabilities can be fixed.
+Total 2 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+6 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------+---------+---------------+------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                             |
@@ -5291,6 +5336,7 @@ Total 2 packages affected by 5 known vulnerabilities (0 Critical, 2 High, 0 Medi
 | https://osv.dev/GHSA-5w6v-399v-w3cc |      | RubyGems  | nokogiri | 1.18.2  | 1.18.8        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-mrxw-mxhj-p664 | 7.8  | RubyGems  | nokogiri | 1.18.2  | 1.18.4        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-vvfq-8hwr-qm4m |      | RubyGems  | nokogiri | 1.18.2  | 1.18.3        | testdata/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri | 1.18.2  | 1.19.1        | testdata/locks-scalibr/gems.locked |
 +-------------------------------------+------+-----------+----------+---------+---------------+------------------------------------+
 
 ---

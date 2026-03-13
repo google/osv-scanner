@@ -4,6 +4,7 @@ package imodels
 import (
 	"fmt"
 	"strings"
+	"sync"
 
 	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/extractor"
@@ -29,20 +30,52 @@ var gitExtractors = map[string]struct{}{
 	gitrepo.Name: {},
 }
 
+// todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
+var cache = sync.Map{} // map[*extractor.Package]*models.PackageInfo
+
+func setCache(pkg *extractor.Package) {
+	pi := PackageInfo{Package: pkg}
+	if SourceType(pi) != models.SourceTypeSBOM {
+		return
+	}
+
+	purlStruct := converter.ToPURL(pi.Package)
+
+	if purlStruct == nil {
+		return
+	}
+
+	if _, ok := cache.Load(pkg); !ok {
+		purlCache, _ := purl.ToPackage(purlStruct.String())
+		cache.Store(pkg, &purlCache)
+	}
+}
+
+func getCache(pkg *extractor.Package) *models.PackageInfo {
+	pi := PackageInfo{Package: pkg}
+	if SourceType(pi) != models.SourceTypeSBOM {
+		return nil
+	}
+
+	v, ok := cache.Load(pkg)
+
+	if !ok || v == nil {
+		return nil
+	}
+
+	return v.(*models.PackageInfo)
+}
+
 // PackageInfo provides getter functions for commonly used fields of inventory
 // and applies transformations when required for use in osv-scanner
 type PackageInfo struct {
 	*extractor.Package
-
-	// purlCache is used to cache the special case for SBOMs where we convert Name, Version, and Ecosystem from purls
-	// extracted from the SBOM
-	purlCache *models.PackageInfo
 }
 
 func Name(pkg PackageInfo) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if pkg.purlCache != nil {
-		return pkg.purlCache.Name
+	if purlCache := getCache(pkg.Package); purlCache != nil {
+		return purlCache.Name
 	}
 
 	// --- Make specific patches to names as necessary ---
@@ -101,8 +134,8 @@ func Ecosystem(pkg PackageInfo) osvecosystem.Parsed {
 	}
 
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if pkg.purlCache != nil {
-		newEco, err := osvecosystem.Parse(pkg.purlCache.Ecosystem)
+	if purlCache := getCache(pkg.Package); purlCache != nil {
+		newEco, err := osvecosystem.Parse(purlCache.Ecosystem)
 		if err != nil {
 			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
 			return eco
@@ -116,8 +149,8 @@ func Ecosystem(pkg PackageInfo) osvecosystem.Parsed {
 
 func Version(pkg PackageInfo) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if pkg.purlCache != nil {
-		return pkg.purlCache.Version
+	if purlCache := getCache(pkg.Package); purlCache != nil {
+		return purlCache.Version
 	}
 
 	// Assume Go stdlib patch version as the latest version
@@ -202,13 +235,8 @@ func OSPackageName(pkg PackageInfo) string {
 // FromPackage converts an extractor.Package into a PackageInfo.
 func FromPackage(pkg *extractor.Package) PackageInfo {
 	pi := PackageInfo{Package: pkg}
-	if SourceType(pi) == models.SourceTypeSBOM {
-		purlStruct := converter.ToPURL(pi.Package)
-		if purlStruct != nil {
-			purlCache, _ := purl.ToPackage(purlStruct.String())
-			pi.purlCache = &purlCache
-		}
-	}
+
+	setCache(pkg)
 
 	return pi
 }
