@@ -633,7 +633,7 @@ No issues found
         }
       ],
       "published": "2021-06-29T03:13:28Z",
-      "updated": "2026-03-10T23:45:30Z",
+      "updated": "2023-11-08T04:05:57Z",
       "credits": {
         "organizations": []
       },
@@ -727,7 +727,7 @@ Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found
         }
       ],
       "published": "2021-06-29T03:13:28Z",
-      "updated": "2023-11-08T04:05:57Z",
+      "updated": "2026-03-10T23:45:30Z",
       "credits": {
         "organizations": []
       },
