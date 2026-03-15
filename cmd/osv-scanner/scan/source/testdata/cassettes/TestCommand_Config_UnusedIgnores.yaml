@@ -1408,7 +1408,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 22112
+      content_length: 22183
       body: |
         {
           "results": [
@@ -1577,7 +1577,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-2219",
-                  "modified": "2026-03-10T09:00:09.648449Z"
+                  "modified": "2026-03-14T15:06:12.109941Z"
                 },
                 {
                   "id": "DLA-3022-1",
@@ -1648,7 +1648,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-v95c-p5hm-xq8f",
-                  "modified": "2026-03-10T23:59:00.663546Z"
+                  "modified": "2026-03-13T22:16:11.684125Z"
                 },
                 {
                   "id": "GHSA-vpvm-3wq2-2wvm",
@@ -2455,6 +2455,10 @@ interactions:
                   "modified": "2026-02-23T15:01:28.414591Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2026-2673",
+                  "modified": "2026-03-14T16:48:13.279039Z"
+                },
+                {
                   "id": "DLA-3008-1",
                   "modified": "2026-03-09T01:23:33.375630Z"
                 },
@@ -2922,7 +2926,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "22112"
+          - "22183"
         Content-Type:
           - application/json
       status: 200 OK
@@ -3993,7 +3997,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 21356
+      content_length: 21427
       body: |
         {
           "results": [
@@ -4130,7 +4134,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-2219",
-                  "modified": "2026-03-10T09:00:09.648449Z"
+                  "modified": "2026-03-14T15:06:12.109941Z"
                 },
                 {
                   "id": "DLA-3022-1",
@@ -4201,7 +4205,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-v95c-p5hm-xq8f",
-                  "modified": "2026-03-10T23:59:00.663546Z"
+                  "modified": "2026-03-13T22:16:11.684125Z"
                 },
                 {
                   "id": "GHSA-vpvm-3wq2-2wvm",
@@ -5008,6 +5012,10 @@ interactions:
                   "modified": "2026-02-23T15:01:28.414591Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2026-2673",
+                  "modified": "2026-03-14T16:48:13.279039Z"
+                },
+                {
                   "id": "DLA-3008-1",
                   "modified": "2026-03-09T01:23:33.375630Z"
                 },
@@ -5435,7 +5443,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "21356"
+          - "21427"
         Content-Type:
           - application/json
       status: 200 OK
