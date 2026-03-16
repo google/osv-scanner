@@ -32,6 +32,19 @@ import (
 
 var ErrExtractorNotFound = errors.New("could not determine extractor suitable to this file")
 
+var unsafePlugins = []string{
+	"transitivedependency/pomxml",
+	"reachability/rust",
+}
+
+func logUnsafePlugins(plugins []plugin.Plugin) {
+	for _, plug := range plugins {
+		if slices.Contains(unsafePlugins, plug.Name()) {
+			cmdlogger.Warnf("Warning: plugin %s can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.", plug.Name())
+		}
+	}
+}
+
 func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
 	for _, plug := range plugins {
 		vendored.Configure(plug, vendored.Config{
@@ -212,22 +225,25 @@ SBOMLoop:
 		return nil, fmt.Errorf("failed to parse exclude patterns: %w", err)
 	}
 
+	capabilities := plugin.Capabilities{
+		DirectFS:           true,
+		RunningSystem:      true,
+		Network:            plugin.NetworkOnline,
+		OS:                 osCapability,
+		AllowUnsafePlugins: true,
+	}
+
+	if actions.CompareOffline {
+		capabilities.Network = plugin.NetworkOffline
+	}
+
+	filteredPlugins := append(plugin.FilterByCapabilities(plugins, &capabilities), gitDirectPlugin)
+	logUnsafePlugins(filteredPlugins)
+
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
-		capabilities := plugin.Capabilities{
-			DirectFS:           true,
-			RunningSystem:      true,
-			Network:            plugin.NetworkOnline,
-			OS:                 osCapability,
-			AllowUnsafePlugins: true,
-		}
-
-		if actions.CompareOffline {
-			capabilities.Network = plugin.NetworkOffline
-		}
-
 		sr := scanner.Scan(context.Background(), &scalibr.ScanConfig{
-			Plugins:               append(plugin.FilterByCapabilities(plugins, &capabilities), gitDirectPlugin),
+			Plugins:               filteredPlugins,
 			Capabilities:          &capabilities,
 			ScanRoots:             fs.RealFSScanRoots(root),
 			PathsToExtract:        paths,

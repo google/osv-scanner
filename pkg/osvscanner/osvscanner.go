@@ -318,6 +318,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	plugins = plugin.FilterByCapabilities(plugins, capabilities)
+	logUnsafePlugins(plugins)
 
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
