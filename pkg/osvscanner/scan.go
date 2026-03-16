@@ -32,15 +32,10 @@ import (
 
 var ErrExtractorNotFound = errors.New("could not determine extractor suitable to this file")
 
-var unsafePlugins = []string{
-	"transitivedependency/pomxml",
-	"reachability/rust",
-}
-
 func logUnsafePlugins(plugins []plugin.Plugin) {
 	for _, plug := range plugins {
-		if slices.Contains(unsafePlugins, plug.Name()) {
-			cmdlogger.Warnf("Warning: plugin %s can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.", plug.Name())
+		if plug.Requirements() != nil && plug.Requirements().AllowUnsafePlugins {
+			cmdlogger.Warnf("Warning: plugin %s is considered \"unsafe\" and require the `--allow-unsafe-plugins` flag. This plugin can be risky when run on untrusted artifacts as they may execute build-time logic defined within the project or follow external registries specified in the scanned artifacts. Please ensure you trust the source code and artifacts before proceeding.", plug.Name())
 		}
 	}
 }
