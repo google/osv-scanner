@@ -215,10 +215,11 @@ SBOMLoop:
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
 		capabilities := plugin.Capabilities{
-			DirectFS:      true,
-			RunningSystem: true,
-			Network:       plugin.NetworkOnline,
-			OS:            osCapability,
+			DirectFS:           true,
+			RunningSystem:      true,
+			Network:            plugin.NetworkOnline,
+			OS:                 osCapability,
+			AllowUnsafePlugins: true,
 		}
 
 		if actions.CompareOffline {

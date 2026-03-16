@@ -306,10 +306,11 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}()
 
 	capabilities := &plugin.Capabilities{
-		DirectFS:      true,
-		RunningSystem: false,
-		Network:       plugin.NetworkOnline,
-		OS:            plugin.OSLinux,
+		DirectFS:           true,
+		RunningSystem:      false,
+		Network:            plugin.NetworkOnline,
+		OS:                 plugin.OSLinux,
+		AllowUnsafePlugins: true,
 	}
 
 	if actions.CompareOffline {
