@@ -306,10 +306,11 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}()
 
 	capabilities := &plugin.Capabilities{
-		DirectFS:      true,
-		RunningSystem: false,
-		Network:       plugin.NetworkOnline,
-		OS:            plugin.OSLinux,
+		DirectFS:           true,
+		RunningSystem:      false,
+		Network:            plugin.NetworkOnline,
+		OS:                 plugin.OSLinux,
+		AllowUnsafePlugins: true,
 	}
 
 	if actions.CompareOffline {
@@ -317,6 +318,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	plugins = plugin.FilterByCapabilities(plugins, capabilities)
+	logUnsafePlugins(plugins)
 
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()

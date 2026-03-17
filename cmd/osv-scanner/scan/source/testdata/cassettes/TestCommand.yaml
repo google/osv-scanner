@@ -57,6 +57,106 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
+      content_length: 1024
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "RubyGems",
+                "name": "ast"
+              },
+              "version": "2.4.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "sentry/sdk"
+              },
+              "version": "2.0.4"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "balanced-match"
+              },
+              "version": "1.0.2"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand/.gitignored_files
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 37
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "37"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
       content_length: 151
       host: api.osv.dev
       body: |
@@ -422,7 +522,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4014",
-                  "modified": "2026-02-17T13:58:47.807155Z"
+                  "modified": "2026-03-14T01:59:00.876670Z"
                 },
                 {
                   "id": "GO-2025-4015",
@@ -430,7 +530,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4155",
-                  "modified": "2026-03-10T10:43:55.280239Z"
+                  "modified": "2026-03-14T01:59:02.277729Z"
                 },
                 {
                   "id": "GO-2025-4175",
@@ -438,7 +538,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4337",
-                  "modified": "2026-03-10T10:43:55.709973Z"
+                  "modified": "2026-03-14T01:59:01.950781Z"
                 },
                 {
                   "id": "GO-2026-4340",
@@ -446,11 +546,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4341",
-                  "modified": "2026-03-10T10:43:55.363435Z"
+                  "modified": "2026-03-14T01:59:02.906234Z"
                 },
                 {
                   "id": "GO-2026-4342",
-                  "modified": "2026-03-06T10:44:19.207443Z"
+                  "modified": "2026-03-14T01:59:01.361838Z"
                 },
                 {
                   "id": "GO-2026-4403",
@@ -636,7 +736,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4014",
-                  "modified": "2026-02-17T13:58:47.807155Z"
+                  "modified": "2026-03-14T01:59:00.876670Z"
                 },
                 {
                   "id": "GO-2025-4015",
@@ -644,7 +744,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4155",
-                  "modified": "2026-03-10T10:43:55.280239Z"
+                  "modified": "2026-03-14T01:59:02.277729Z"
                 },
                 {
                   "id": "GO-2025-4175",
@@ -652,7 +752,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4337",
-                  "modified": "2026-03-10T10:43:55.709973Z"
+                  "modified": "2026-03-14T01:59:01.950781Z"
                 },
                 {
                   "id": "GO-2026-4340",
@@ -660,11 +760,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4341",
-                  "modified": "2026-03-10T10:43:55.363435Z"
+                  "modified": "2026-03-14T01:59:02.906234Z"
                 },
                 {
                   "id": "GO-2026-4342",
-                  "modified": "2026-03-06T10:44:19.207443Z"
+                  "modified": "2026-03-14T01:59:01.361838Z"
                 },
                 {
                   "id": "GO-2026-4403",
@@ -800,7 +900,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4014",
-                  "modified": "2026-02-17T13:58:47.807155Z"
+                  "modified": "2026-03-14T01:59:00.876670Z"
                 },
                 {
                   "id": "GO-2025-4015",
@@ -808,7 +908,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4155",
-                  "modified": "2026-03-10T10:43:55.280239Z"
+                  "modified": "2026-03-14T01:59:02.277729Z"
                 },
                 {
                   "id": "GO-2025-4175",
@@ -816,7 +916,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4337",
-                  "modified": "2026-03-10T10:43:55.709973Z"
+                  "modified": "2026-03-14T01:59:01.950781Z"
                 },
                 {
                   "id": "GO-2026-4340",
@@ -824,11 +924,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4341",
-                  "modified": "2026-03-10T10:43:55.363435Z"
+                  "modified": "2026-03-14T01:59:02.906234Z"
                 },
                 {
                   "id": "GO-2026-4342",
-                  "modified": "2026-03-06T10:44:19.207443Z"
+                  "modified": "2026-03-14T01:59:01.361838Z"
                 },
                 {
                   "id": "GO-2026-4403",
@@ -1007,7 +1107,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4014",
-                  "modified": "2026-02-17T13:58:47.807155Z"
+                  "modified": "2026-03-14T01:59:00.876670Z"
                 },
                 {
                   "id": "GO-2025-4015",
@@ -1015,7 +1115,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4155",
-                  "modified": "2026-03-10T10:43:55.280239Z"
+                  "modified": "2026-03-14T01:59:02.277729Z"
                 },
                 {
                   "id": "GO-2025-4175",
@@ -1023,7 +1123,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4337",
-                  "modified": "2026-03-10T10:43:55.709973Z"
+                  "modified": "2026-03-14T01:59:01.950781Z"
                 },
                 {
                   "id": "GO-2026-4340",
@@ -1031,11 +1131,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4341",
-                  "modified": "2026-03-10T10:43:55.363435Z"
+                  "modified": "2026-03-14T01:59:02.906234Z"
                 },
                 {
                   "id": "GO-2026-4342",
-                  "modified": "2026-03-06T10:44:19.207443Z"
+                  "modified": "2026-03-14T01:59:01.361838Z"
                 },
                 {
                   "id": "GO-2026-4403",
@@ -1617,7 +1717,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-03-10T23:45:30.937461Z"
+                  "modified": "2026-03-13T22:01:08.982482Z"
                 }
               ]
             },
@@ -1628,11 +1728,11 @@ interactions:
               "vulns": [
                 {
                   "id": "CVE-2023-39137",
-                  "modified": "2026-03-11T15:20:45.829714Z"
+                  "modified": "2026-03-15T14:11:43.205446Z"
                 },
                 {
                   "id": "CVE-2023-39139",
-                  "modified": "2026-03-11T15:20:45.854341Z"
+                  "modified": "2026-03-14T12:08:30.752661Z"
                 }
               ]
             },
@@ -1719,7 +1819,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-03-10T23:45:30.937461Z"
+                  "modified": "2026-03-13T22:01:08.982482Z"
                 }
               ]
             },
@@ -1914,7 +2014,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-03-10T23:45:30.937461Z"
+                  "modified": "2026-03-13T22:01:08.982482Z"
                 }
               ]
             },
@@ -1997,7 +2097,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-03-10T23:45:30.937461Z"
+                  "modified": "2026-03-13T22:01:08.982482Z"
                 }
               ]
             },
@@ -3600,7 +3700,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 22112
+      content_length: 22183
       body: |
         {
           "results": [
@@ -3769,7 +3869,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-2219",
-                  "modified": "2026-03-10T09:00:09.648449Z"
+                  "modified": "2026-03-14T15:06:12.109941Z"
                 },
                 {
                   "id": "DLA-3022-1",
@@ -3840,7 +3940,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-v95c-p5hm-xq8f",
-                  "modified": "2026-03-10T23:59:00.663546Z"
+                  "modified": "2026-03-13T22:16:11.684125Z"
                 },
                 {
                   "id": "GHSA-vpvm-3wq2-2wvm",
@@ -4647,6 +4747,10 @@ interactions:
                   "modified": "2026-02-23T15:01:28.414591Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2026-2673",
+                  "modified": "2026-03-14T16:48:13.279039Z"
+                },
+                {
                   "id": "DLA-3008-1",
                   "modified": "2026-03-09T01:23:33.375630Z"
                 },
@@ -5114,7 +5218,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "22112"
+          - "22183"
         Content-Type:
           - application/json
       status: 200 OK
@@ -5255,7 +5359,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4014",
-                  "modified": "2026-02-17T13:58:47.807155Z"
+                  "modified": "2026-03-14T01:59:00.876670Z"
                 },
                 {
                   "id": "GO-2025-4015",
@@ -5263,7 +5367,7 @@ interactions:
                 },
                 {
                   "id": "GO-2025-4155",
-                  "modified": "2026-03-10T10:43:55.280239Z"
+                  "modified": "2026-03-14T01:59:02.277729Z"
                 },
                 {
                   "id": "GO-2025-4175",
@@ -5271,7 +5375,7 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4337",
-                  "modified": "2026-03-10T10:43:55.709973Z"
+                  "modified": "2026-03-14T01:59:01.950781Z"
                 },
                 {
                   "id": "GO-2026-4340",
@@ -5279,11 +5383,11 @@ interactions:
                 },
                 {
                   "id": "GO-2026-4341",
-                  "modified": "2026-03-10T10:43:55.363435Z"
+                  "modified": "2026-03-14T01:59:02.906234Z"
                 },
                 {
                   "id": "GO-2026-4342",
-                  "modified": "2026-03-06T10:44:19.207443Z"
+                  "modified": "2026-03-14T01:59:01.361838Z"
                 },
                 {
                   "id": "GO-2026-4601",
@@ -6910,7 +7014,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4730
+      content_length: 4809
       body: |
         {
           "results": [
@@ -6930,7 +7034,14 @@ interactions:
                 }
               ]
             },
-            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-3936-cmfr-pm3m",
+                  "modified": "2026-03-14T01:46:41.190718Z"
+                }
+              ]
+            },
             {
               "vulns": [
                 {
@@ -7233,7 +7344,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4730"
+          - "4809"
         Content-Type:
           - application/json
       status: 200 OK
@@ -7306,7 +7417,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-03-10T23:45:30.937461Z"
+                  "modified": "2026-03-13T22:01:08.982482Z"
                 }
               ]
             },
