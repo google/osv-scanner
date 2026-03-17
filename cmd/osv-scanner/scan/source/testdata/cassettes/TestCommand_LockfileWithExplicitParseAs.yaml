@@ -214,7 +214,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-03-13T22:01:08.982482Z"
+                  "modified": "2026-02-04T03:17:54.277407Z"
                 }
               ]
             },
@@ -241,6 +241,111 @@ interactions:
       headers:
         Content-Length:
           - "271"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 763
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 268
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-10T23:45:30.937461Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "268"
         Content-Type:
           - application/json
       status: 200 OK
@@ -327,7 +432,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-03-13T22:01:08.982482Z"
+                  "modified": "2026-02-04T03:17:54.277407Z"
                 }
               ]
             },
@@ -354,6 +459,111 @@ interactions:
       headers:
         Content-Length:
           - "271"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 763
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_LockfileWithExplicitParseAs/multiple,_+_output_order_is_deterministic_2
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 268
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-10T23:45:30.937461Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "268"
         Content-Type:
           - application/json
       status: 200 OK
@@ -463,7 +673,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-03-13T22:01:08.982482Z"
+                  "modified": "2026-02-04T03:17:54.277407Z"
                 }
               ]
             },
@@ -482,6 +692,96 @@ interactions:
       headers:
         Content-Length:
           - "189"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 641
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "has-flag"
+              },
+              "version": "4.0.0"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "wrappy"
+              },
+              "version": "1.0.2"
+            },
+            {
+              "package": {
+                "ecosystem": "Packagist",
+                "name": "league/flysystem"
+              },
+              "version": "1.0.8"
+            },
+            {
+              "package": {
+                "ecosystem": "npm",
+                "name": "ansi-html"
+              },
+              "version": "0.0.1"
+            },
+            {
+              "package": {
+                "ecosystem": "Go",
+                "name": "toolchain"
+              },
+              "version": "1.99.9"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_LockfileWithExplicitParseAs/when_an_explicit_parse-as_is_given,_it's_applied_to_that_file
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/2.0
+      proto_major: 2
+      proto_minor: 0
+      content_length: 186
+      body: |
+        {
+          "results": [
+            {},
+            {},
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-9f46-5r25-5wfm",
+                  "modified": "2026-03-10T23:45:30.937461Z"
+                }
+              ]
+            },
+            {
+              "vulns": [
+                {
+                  "id": "GHSA-whgm-jr23-g3j9",
+                  "modified": "2023-11-08T04:05:08.868477Z"
+                }
+              ]
+            },
+            {}
+          ]
+        }
+      headers:
+        Content-Length:
+          - "186"
         Content-Type:
           - application/json
       status: 200 OK

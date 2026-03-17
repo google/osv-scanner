@@ -96,6 +96,18 @@ ignore = true
 # ... and so on
 ```
 
+## Scan Go Mod Version
+
+By default, OSV-Scanner does not scan the Go version from `go.mod` files because the `go` directive specifies the minimum required language version, not necessarily the toolchain version used to build or run the project. This can lead to misleading vulnerabilities.
+
+You can enable scanning the Go version from `go.mod` by setting the `ScanGoModVersion` key to `true`.
+
+### Example
+
+```toml
+ScanGoModVersion = true
+```
+
 ## Go Version Override
 
 Use the `GoVersionOverride` key to override the Go version used for scanning. This is useful when the scanner fails to detect the correct Go version or when you want to force a specific version.
