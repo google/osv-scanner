@@ -5,6 +5,7 @@ import (
 	"slices"
 	"time"
 
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 )
@@ -45,7 +46,7 @@ type PackageOverrideEntry struct {
 	Reason         string        `toml:"reason"`
 }
 
-func (e PackageOverrideEntry) matches(pkg imodels.PackageInfo) bool {
+func (e PackageOverrideEntry) matches(pkg *extractor.Package) bool {
 	if e.Name != "" && e.Name != imodels.Name(pkg) {
 		return false
 	}
@@ -96,7 +97,7 @@ func (c *Config) ShouldIgnore(vulnID string) (bool, *IgnoreEntry) {
 	return shouldIgnoreTimestamp(ignoredLine.IgnoreUntil), ignoredLine
 }
 
-func (c *Config) filterPackageVersionEntries(pkg imodels.PackageInfo, condition func(PackageOverrideEntry) bool) (bool, PackageOverrideEntry) {
+func (c *Config) filterPackageVersionEntries(pkg *extractor.Package, condition func(PackageOverrideEntry) bool) (bool, PackageOverrideEntry) {
 	index := slices.IndexFunc(c.PackageOverrides, func(e PackageOverrideEntry) bool {
 		return e.matches(pkg) && condition(e)
 	})
@@ -109,14 +110,14 @@ func (c *Config) filterPackageVersionEntries(pkg imodels.PackageInfo, condition 
 }
 
 // ShouldIgnorePackage determines if the given package should be ignored based on override entries in the config
-func (c *Config) ShouldIgnorePackage(pkg imodels.PackageInfo) (bool, PackageOverrideEntry) {
+func (c *Config) ShouldIgnorePackage(pkg *extractor.Package) (bool, PackageOverrideEntry) {
 	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
 		return e.Ignore
 	})
 }
 
 // ShouldIgnorePackageVulnerabilities determines if the given package should have its vulnerabilities ignored based on override entries in the config
-func (c *Config) ShouldIgnorePackageVulnerabilities(pkg imodels.PackageInfo) bool {
+func (c *Config) ShouldIgnorePackageVulnerabilities(pkg *extractor.Package) bool {
 	overrides, _ := c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
 		return e.Vulnerability.Ignore
 	})
@@ -125,7 +126,7 @@ func (c *Config) ShouldIgnorePackageVulnerabilities(pkg imodels.PackageInfo) boo
 }
 
 // ShouldOverridePackageLicense determines if the given package should have its license ignored or changed based on override entries in the config
-func (c *Config) ShouldOverridePackageLicense(pkg imodels.PackageInfo) (bool, PackageOverrideEntry) {
+func (c *Config) ShouldOverridePackageLicense(pkg *extractor.Package) (bool, PackageOverrideEntry) {
 	return c.filterPackageVersionEntries(pkg, func(e PackageOverrideEntry) bool {
 		return e.License.Ignore || len(e.License.Override) > 0
 	})
