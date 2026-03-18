@@ -15,10 +15,7 @@ import (
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/binary/proto"
-	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	"github.com/google/osv-scalibr/clients/datasource"
-	"github.com/google/osv-scalibr/enricher/packagedeprecation"
-	"github.com/google/osv-scalibr/enricher/reachability/java"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	scalibrlog "github.com/google/osv-scalibr/log"
@@ -206,15 +203,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 		return models.VulnerabilityResults{}, err
 	}
 
-	// Convert to imodels.PackageScanResult for use in the rest of osv-scanner
-	for _, pkg := range packagesAndFindings.Packages {
-		pi := imodels.FromInventory(pkg)
-
-		scanResult.PackageScanResults = append(
-			scanResult.PackageScanResults,
-			imodels.PackageScanResult{PackageInfo: pi},
-		)
-	}
+	scanResult.PackageScanResults = packagesAndFindings.Packages
 	scanResult.Inventory = *packagesAndFindings
 
 	// ----- Filtering -----
@@ -281,21 +270,6 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		return models.VulnerabilityResults{}, errors.New("at least one extractor must be enabled")
 	}
 
-	if actions.CallAnalysisStates["jar"] {
-		plugins = append(plugins, java.NewDefault())
-	}
-
-	if actions.FlagDeprecatedPackages {
-		p, err := packagedeprecation.New(&cpb.PluginConfig{
-			UserAgent: actions.RequestUserAgent,
-		})
-		if err != nil {
-			cmdlogger.Errorf("Failed to enable packagedeprecation enricher: %v", err)
-		} else {
-			plugins = append(plugins, p)
-		}
-	}
-
 	// --- Initialize Image To Scan ---'
 
 	// TODO: Setup context at the start of the run
@@ -327,10 +301,11 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}()
 
 	capabilities := &plugin.Capabilities{
-		DirectFS:      true,
-		RunningSystem: false,
-		Network:       plugin.NetworkOnline,
-		OS:            plugin.OSLinux,
+		DirectFS:           true,
+		RunningSystem:      false,
+		Network:            plugin.NetworkOnline,
+		OS:                 plugin.OSLinux,
+		AllowUnsafePlugins: true,
 	}
 
 	if actions.CompareOffline {
@@ -338,6 +313,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	plugins = plugin.FilterByCapabilities(plugins, capabilities)
+	logUnsafePlugins(plugins)
 
 	// --- Do Scalibr Scan ---
 	scanner := scalibr.New()
@@ -356,10 +332,10 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	}
 
 	// --- Save Scalibr Scan Results ---
-	scanResult.PackageScanResults = make([]imodels.PackageScanResult, len(scalibrSR.Inventory.Packages))
+	scanResult.PackageScanResults = make([]*extractor.Package, len(scalibrSR.Inventory.Packages))
 	for i, pkgs := range scalibrSR.Inventory.Packages {
-		scanResult.PackageScanResults[i].PackageInfo = imodels.FromInventory(pkgs)
-		scanResult.PackageScanResults[i].PackageInfo.ExploitabilitySignals = pkgs.ExploitabilitySignals
+		scanResult.PackageScanResults[i] = pkgs
+		scanResult.PackageScanResults[i].ExploitabilitySignals = pkgs.ExploitabilitySignals
 	}
 
 	// --- Fill Image Metadata ---
@@ -442,7 +418,7 @@ func buildLicenseSummary(scanResult *results.ScanResults) []models.LicenseCount 
 
 	counts := make(map[string]int)
 	for _, pkg := range scanResult.PackageScanResults {
-		for _, l := range pkg.PackageInfo.Licenses {
+		for _, l := range pkg.Licenses {
 			counts[l] += 1
 		}
 	}
@@ -525,14 +501,9 @@ func determineReturnErr(vulnResults models.VulnerabilityResults, showAllVulns bo
 // TODO(V2): Add context
 func makeVulnRequestWithMatcher(
 	scanResults *results.ScanResults,
-	matcher clientinterfaces.VulnerabilityMatcher) error {
-	packages := scanResults.PackageScanResults
-	invs := make([]*extractor.Package, 0, len(packages))
-	for _, pkgs := range packages {
-		invs = append(invs, pkgs.PackageInfo.Package)
-	}
-
-	res, err := matcher.MatchVulnerabilities(context.Background(), invs)
+	matcher clientinterfaces.VulnerabilityMatcher,
+) error {
+	res, err := matcher.MatchVulnerabilities(context.Background(), scanResults.PackageScanResults)
 	if err != nil {
 		cmdlogger.Errorf("error when retrieving vulns: %v", err)
 		if res == nil {
@@ -544,7 +515,7 @@ func makeVulnRequestWithMatcher(
 		for _, vuln := range vulns {
 			scanResults.Inventory.PackageVulns = append(scanResults.Inventory.PackageVulns, &inventory.PackageVuln{
 				Vulnerability: vuln,
-				Package:       packages[i].PackageInfo.Package,
+				Package:       scanResults.PackageScanResults[i],
 			})
 		}
 	}
@@ -554,12 +525,11 @@ func makeVulnRequestWithMatcher(
 
 // Overrides Go version using osv-scanner.toml
 func overrideGoVersion(scanResults *results.ScanResults) {
-	for i, psr := range scanResults.PackageScanResults {
-		pkg := psr.PackageInfo
-		if pkg.Name() == "stdlib" && pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo {
-			configToUse := scanResults.ConfigManager.Get(pkg.Location())
+	for i, pkg := range scanResults.PackageScanResults {
+		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
+			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 			if configToUse.GoVersionOverride != "" {
-				scanResults.PackageScanResults[i].PackageInfo.Package.Version = configToUse.GoVersionOverride
+				scanResults.PackageScanResults[i].Version = configToUse.GoVersionOverride
 			}
 
 			continue

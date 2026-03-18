@@ -78,7 +78,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 
 	tests := []outputTestCase{
 		{
-			name: "no sources",
+			name: "no_sources",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{},
@@ -86,7 +86,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with no packages",
+			name: "one_source_with_no_packages",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -99,7 +99,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with no packages",
+			name: "multiple_sources_with_no_packages",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -120,7 +120,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package, no vulnerabilities",
+			name: "one_source_with_one_package,_no_vulnerabilities",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -143,7 +143,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages, no vulnerabilities",
+			name: "multiple_sources_with_a_mixed_count_of_packages,_no_vulnerabilities",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -212,7 +212,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and one vulnerability",
+			name: "one_source_with_one_package_and_one_vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -242,7 +242,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package, one vulnerability, and a max severity",
+			name: "one_source_with_one_package,_one_vulnerability,_and_a_max_severity",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -272,7 +272,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package with both a version and commit and one vulnerability",
+			name: "one_source_with_one_package_with_both_a_version_and_commit_and_one_vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -303,7 +303,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package with just a commit and one vulnerability",
+			name: "one_source_with_one_package_with_just_a_commit_and_one_vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -333,7 +333,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and one called vulnerability",
+			name: "one_source_with_one_package_and_one_called_vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -368,7 +368,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and one uncalled vulnerability",
+			name: "one_source_with_one_package_and_one_uncalled_vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -403,7 +403,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package, one uncalled vulnerability, and one called vulnerability",
+			name: "one_source_with_one_package,_one_uncalled_vulnerability,_and_one_called_vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -451,7 +451,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and one vulnerability (dev)",
+			name: "one_source_with_one_package_and_one_vulnerability_(dev)",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -482,7 +482,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "two sources with the same vulnerable package",
+			name: "two_sources_with_the_same_vulnerable_package",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -534,7 +534,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and two aliases of a single vulnerability without a max severity",
+			name: "one_source_with_one_package_and_two_aliases_of_a_single_vulnerability_without_a_max_severity",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -573,7 +573,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and two aliases of a single vulnerability with a max severity",
+			name: "one_source_with_one_package_and_two_aliases_of_a_single_vulnerability_with_a_max_severity",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -613,7 +613,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and two aliases of a single uncalled vulnerability",
+			name: "one_source_with_one_package_and_two_aliases_of_a_single_uncalled_vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -655,7 +655,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "two sources with packages, one vulnerability",
+			name: "two_sources_with_packages,_one_vulnerability",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -699,7 +699,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages, some vulnerabilities",
+			name: "multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -789,7 +789,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages, and multiple vulnerabilities",
+			name: "multiple_sources_with_a_mixed_count_of_packages,_and_multiple_vulnerabilities",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -888,7 +888,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of grouped packages, and multiple vulnerabilities",
+			name: "multiple_sources_with_a_mixed_count_of_grouped_packages,_and_multiple_vulnerabilities",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -990,7 +990,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages across ecosystems, and multiple vulnerabilities",
+			name: "multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -1091,7 +1091,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages across ecosystems using commits and version, and multiple vulnerabilities",
+			name: "multiple_sources_with_a_mixed_count_of_packages_across_ecosystems_using_commits_and_version,_and_multiple_vulnerabilities",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -1193,7 +1193,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages across ecosystems, and multiple vulnerabilities, but some uncalled",
+			name: "multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_and_multiple_vulnerabilities,_but_some_uncalled",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -1309,7 +1309,7 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with vulnerabilities, some missing content",
+			name: "one_source_with_vulnerabilities,_some_missing_content",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -1367,7 +1367,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 
 	tests := []outputTestCase{
 		{
-			name: "no sources",
+			name: "no_sources",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1376,7 +1376,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with no packages",
+			name: "one_source_with_no_packages",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1390,7 +1390,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with no packages",
+			name: "multiple_sources_with_no_packages",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1412,7 +1412,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package, no licenses",
+			name: "one_source_with_one_package,_no_licenses",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1437,7 +1437,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and an unknown license",
+			name: "one_source_with_one_package_and_an_unknown_license",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1462,7 +1462,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package, no license violations",
+			name: "one_source_with_one_package,_no_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1487,7 +1487,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages, no license violations",
+			name: "multiple_sources_with_a_mixed_count_of_packages,_no_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1562,7 +1562,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and one license violation",
+			name: "one_source_with_one_package_and_one_license_violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1587,7 +1587,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package with both a version and a commit and one license violation",
+			name: "one_source_with_one_package_with_both_a_version_and_a_commit_and_one_license_violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1613,7 +1613,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package with just a commit and one license violation",
+			name: "one_source_with_one_package_with_just_a_commit_and_one_license_violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1638,7 +1638,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and one license violation (dev)",
+			name: "one_source_with_one_package_and_one_license_violation_(dev)",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1664,7 +1664,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "two sources with packages, one license violation",
+			name: "two_sources_with_packages,_one_license_violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1704,7 +1704,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages, some license violations",
+			name: "multiple_sources_with_a_mixed_count_of_packages,_some_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1779,7 +1779,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages and groups, some license violations",
+			name: "multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1857,7 +1857,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages across ecosystems, some license violations",
+			name: "multiple_sources_with_a_mixed_count_of_packages_across_ecosystems,_some_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1933,7 +1933,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package and multiple license violations",
+			name: "one_source_with_one_package_and_multiple_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -1958,7 +1958,7 @@ func testOutputWithLicenseViolations(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages, some license violations",
+			name: "multiple_sources_with_a_mixed_count_of_packages,_some_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
@@ -2052,7 +2052,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 
 	tests := []outputTestCase{
 		{
-			name: "one source with one package, one vulnerability, and one license violation",
+			name: "one_source_with_one_package,_one_vulnerability,_and_one_license_violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -2085,7 +2085,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source in working directory with one package, one vulnerability, and one license violation",
+			name: "one_source_in_working_directory_with_one_package,_one_vulnerability,_and_one_license_violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -2118,7 +2118,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package, one called vulnerability, and one license violation",
+			name: "one_source_with_one_package,_one_called_vulnerability,_and_one_license_violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -2156,7 +2156,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "one source with one package, one uncalled vulnerability, and one license violation",
+			name: "one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -2194,7 +2194,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "two sources with packages, one vulnerability, one license violation",
+			name: "two_sources_with_packages,_one_vulnerability,_one_license_violation",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -2244,7 +2244,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages, some vulnerabilities and license violations",
+			name: "multiple_sources_with_a_mixed_count_of_packages,_some_vulnerabilities_and_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -2345,7 +2345,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages with versions and commits, some vulnerabilities and license violations",
+			name: "multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_vulnerabilities_and_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,
@@ -2447,7 +2447,7 @@ func testOutputWithMixedIssues(t *testing.T, run outputTestRunner) {
 			},
 		},
 		{
-			name: "multiple sources with a mixed count of packages, some called vulnerabilities and license violations",
+			name: "multiple_sources_with_a_mixed_count_of_packages,_some_called_vulnerabilities_and_license_violations",
 			args: outputTestCaseArgs{
 				vulnResult: &models.VulnerabilityResults{
 					ExperimentalAnalysisConfig: experimentalAnalysisConfig,

@@ -29,13 +29,15 @@ func PrintTableResults(vulnResult *models.VulnerabilityResults, outputWriter io.
 
 	outputResult := BuildResults(vulnResult)
 
+	// Add a newline to separate results from logs.
+	fmt.Fprintln(outputWriter)
+
 	// Render the vulnerabilities.
 	if containsOSResult(outputResult) {
 		printSummaryResult(outputResult, outputWriter, terminalWidth, showAllVulns)
 	} else {
 		// Print summary at the top
 		printSummary(outputResult, outputWriter)
-		fmt.Fprintln(outputWriter)
 
 		outputTable := newTable(outputWriter, terminalWidth)
 		outputTable = tableBuilder(outputTable, outputResult, showAllVulns)

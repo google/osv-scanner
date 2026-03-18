@@ -5,10 +5,10 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/charmbracelet/bubbles/key"
-	"github.com/charmbracelet/bubbles/spinner"
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/bubbles/v2/key"
+	"charm.land/bubbles/v2/spinner"
+	tea "charm.land/bubbletea/v2"
+	"charm.land/lipgloss/v2"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/resolution/client"
@@ -159,7 +159,7 @@ func (st *stateRelockResult) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	case tui.ViewModelCloseMsg:
 		// info view wants to quit, just unfocus it
 		st.focusedInfo = nil
-	case tea.KeyMsg:
+	case tea.KeyPressMsg:
 		if !st.patchesDone { // Don't accept input in the middle of computation
 			return m, nil
 		}

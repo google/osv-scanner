@@ -36,29 +36,28 @@ type CachedOSVMatcher struct {
 	vulnCache sync.Map // map[PackageKey][]osvschema.Vulnerability
 }
 
-func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
+func (matcher *CachedOSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
 	// populate vulnCache with missing packages
-	if err := matcher.doQueries(ctx, invs); err != nil {
+	if err := matcher.doQueries(ctx, pkgs); err != nil {
 		return nil, err
 	}
 
-	results := make([][]*osvschema.Vulnerability, len(invs))
+	results := make([][]*osvschema.Vulnerability, len(pkgs))
 
-	for i, inv := range invs {
+	for i, pkg := range pkgs {
 		if ctx.Err() != nil {
 			return nil, ctx.Err()
 		}
 
-		pkgInfo := imodels.FromInventory(inv)
 		cachedVulns, ok := matcher.vulnCache.Load(
 			vulns.NewPackageKey(&osvschema.Package{
-				Name:      pkgInfo.Name(),
-				Ecosystem: pkgInfo.Ecosystem().String(),
+				Name:      imodels.Name(pkg),
+				Ecosystem: imodels.Ecosystem(pkg).String(),
 			}))
 		if !ok {
 			continue
 		}
-		results[i] = localmatcher.VulnerabilitiesAffectingPackage(cachedVulns.([]*osvschema.Vulnerability), pkgInfo)
+		results[i] = localmatcher.VulnerabilitiesAffectingPackage(cachedVulns.([]*osvschema.Vulnerability), pkg)
 	}
 
 	return results, nil
@@ -73,13 +72,12 @@ func (matcher *CachedOSVMatcher) doQueries(ctx context.Context, invs []*extracto
 	// convert Package to Query for each pkgs element
 	toQuery := make(map[*api.Query]struct{})
 	for _, inv := range invs {
-		pkgInfo := imodels.FromInventory(inv)
-		if pkgInfo.Name() == "" || pkgInfo.Ecosystem().IsEmpty() {
+		if imodels.Name(inv) == "" || imodels.Ecosystem(inv).IsEmpty() {
 			continue
 		}
 		pkg := &osvschema.Package{
-			Name:      pkgInfo.Name(),
-			Ecosystem: pkgInfo.Ecosystem().String(),
+			Name:      imodels.Name(inv),
+			Ecosystem: imodels.Ecosystem(inv).String(),
 		}
 		if _, ok := matcher.vulnCache.Load(vulns.NewPackageKey(pkg)); !ok {
 			toQuery[&api.Query{Package: pkg}] = struct{}{}

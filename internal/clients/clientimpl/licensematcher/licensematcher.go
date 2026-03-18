@@ -6,6 +6,7 @@ import (
 
 	depsdevpb "deps.dev/api/v3"
 	"github.com/google/osv-scalibr/clients/datasource"
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 	"github.com/google/osv-scanner/v2/pkg/models"
@@ -24,16 +25,15 @@ type DepsDevLicenseMatcher struct {
 	Client *datasource.CachedInsightsClient
 }
 
-func (matcher *DepsDevLicenseMatcher) MatchLicenses(ctx context.Context, packages []imodels.PackageScanResult) error {
+func (matcher *DepsDevLicenseMatcher) MatchLicenses(ctx context.Context, packages []*extractor.Package) error {
 	queries := make([]*depsdevpb.GetVersionRequest, len(packages))
 
-	for i, psr := range packages {
-		pkg := psr.PackageInfo
-		system, ok := depsdev.System[psr.PackageInfo.Ecosystem().Ecosystem]
-		if !ok || pkg.Name() == "" || pkg.Version() == "" {
+	for i, pkg := range packages {
+		system, ok := depsdev.System[imodels.Ecosystem(pkg).Ecosystem]
+		if !ok || imodels.Name(pkg) == "" || imodels.Version(pkg) == "" {
 			continue
 		}
-		queries[i] = versionQuery(system, pkg.Name(), pkg.Version())
+		queries[i] = versionQuery(system, imodels.Name(pkg), imodels.Version(pkg))
 	}
 
 	pkgLicenses, err := matcher.makeVersionRequest(ctx, queries)
@@ -42,10 +42,10 @@ func (matcher *DepsDevLicenseMatcher) MatchLicenses(ctx context.Context, package
 	}
 
 	for i, licenses := range pkgLicenses {
-		packages[i].PackageInfo.Licenses = make([]string, len(licenses))
+		packages[i].Licenses = make([]string, len(licenses))
 
 		for j, license := range licenses {
-			packages[i].PackageInfo.Licenses[j] = string(license)
+			packages[i].Licenses[j] = string(license)
 		}
 	}
 

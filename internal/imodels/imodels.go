@@ -4,6 +4,7 @@ package imodels
 import (
 	"fmt"
 	"strings"
+	"sync"
 
 	"github.com/google/osv-scalibr/converter"
 	"github.com/google/osv-scalibr/extractor"
@@ -29,33 +30,53 @@ var gitExtractors = map[string]struct{}{
 	gitrepo.Name: {},
 }
 
-// PackageInfo provides getter functions for commonly used fields of inventory
-// and applies transformations when required for use in osv-scanner
-type PackageInfo struct {
-	*extractor.Package
+// todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
+var cache = sync.Map{} // map[*extractor.Package]*models.PackageInfo
 
-	// purlCache is used to cache the special case for SBOMs where we convert Name, Version, and Ecosystem from purls
-	// extracted from the SBOM
-	purlCache *models.PackageInfo
+func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
+	if SourceType(pkg) != models.SourceTypeSBOM {
+		return nil
+	}
+
+	v, ok := cache.Load(pkg)
+
+	if !ok {
+		purlStruct := converter.ToPURL(pkg)
+
+		if purlStruct == nil {
+			return nil
+		}
+
+		purlCache, _ := purl.ToPackage(purlStruct.String())
+		cache.Store(pkg, &purlCache)
+
+		return &purlCache
+	}
+
+	if v == nil {
+		return nil
+	}
+
+	return v.(*models.PackageInfo)
 }
 
-func (pkg *PackageInfo) Name() string {
+func Name(pkg *extractor.Package) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if pkg.purlCache != nil {
-		return pkg.purlCache.Name
+	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
+		return purlCache.Name
 	}
 
 	// --- Make specific patches to names as necessary ---
 	// Patch Go package to stdlib
-	if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo && pkg.Package.Name == "go" {
+	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && pkg.Name == "go" {
 		return "stdlib"
 	}
 
 	// TODO: Move the normalization to another where matching logic happens.
 	// Patch python package names to be normalized
-	if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemPyPI {
+	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
-		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Package.Name, "-"))
+		return strings.ToLower(cachedregexp.MustCompile(`[-_.]+`).ReplaceAllLiteralString(pkg.Name, "-"))
 	}
 
 	// Patch Maven archive extractor package names
@@ -80,11 +101,15 @@ func (pkg *PackageInfo) Name() string {
 		}
 	}
 
-	return pkg.Package.Name
+	if Ecosystem(pkg).String() == "GIT" && pkg.SourceCode != nil && pkg.SourceCode.Repo != "" {
+		return pkg.SourceCode.Repo
+	}
+
+	return pkg.Name
 }
 
-func (pkg *PackageInfo) Ecosystem() osvecosystem.Parsed {
-	eco := pkg.Package.Ecosystem()
+func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
+	eco := pkg.Ecosystem()
 
 	if metadata, ok := pkg.Metadata.(*osvscannerjson.Metadata); ok {
 		newEco, err := osvecosystem.Parse(metadata.Ecosystem)
@@ -97,8 +122,8 @@ func (pkg *PackageInfo) Ecosystem() osvecosystem.Parsed {
 	}
 
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if pkg.purlCache != nil {
-		newEco, err := osvecosystem.Parse(pkg.purlCache.Ecosystem)
+	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
+		newEco, err := osvecosystem.Parse(purlCache.Ecosystem)
 		if err != nil {
 			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
 			return eco
@@ -110,10 +135,10 @@ func (pkg *PackageInfo) Ecosystem() osvecosystem.Parsed {
 	return eco
 }
 
-func (pkg *PackageInfo) Version() string {
+func Version(pkg *extractor.Package) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if pkg.purlCache != nil {
-		return pkg.purlCache.Version
+	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
+		return purlCache.Version
 	}
 
 	// Assume Go stdlib patch version as the latest version
@@ -124,8 +149,8 @@ func (pkg *PackageInfo) Version() string {
 	// However, if we assume patch version as .0, this will cause a lot of
 	// false positives. This compromise still allows osv-scanner to pick up
 	// when the user is using a minor version that is out-of-support.
-	if pkg.Ecosystem().Ecosystem == osvconstants.EcosystemGo && pkg.Name() == "stdlib" {
-		v := semverlike.ParseSemverLikeVersion(pkg.Package.Version, 3)
+	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo && Name(pkg) == "stdlib" {
+		v := semverlike.ParseSemverLikeVersion(pkg.Version, 3)
 		if len(v.Components) == 2 {
 			return fmt.Sprintf(
 				"%d.%d.%d",
@@ -136,10 +161,10 @@ func (pkg *PackageInfo) Version() string {
 		}
 	}
 
-	return pkg.Package.Version
+	return pkg.Version
 }
 
-func (pkg *PackageInfo) Location() string {
+func Location(pkg *extractor.Package) string {
 	if len(pkg.Locations) > 0 {
 		return pkg.Locations[0]
 	}
@@ -147,7 +172,7 @@ func (pkg *PackageInfo) Location() string {
 	return ""
 }
 
-func (pkg *PackageInfo) Commit() string {
+func Commit(pkg *extractor.Package) string {
 	if pkg.SourceCode != nil {
 		return pkg.SourceCode.Commit
 	}
@@ -155,7 +180,7 @@ func (pkg *PackageInfo) Commit() string {
 	return ""
 }
 
-func (pkg *PackageInfo) SourceType() models.SourceType {
+func SourceType(pkg *extractor.Package) models.SourceType {
 	for _, extractorName := range pkg.Plugins {
 		if strings.HasPrefix(extractorName, "os/") {
 			return models.SourceTypeOSPackage
@@ -173,7 +198,7 @@ func (pkg *PackageInfo) SourceType() models.SourceType {
 	return models.SourceTypeUnknown
 }
 
-func (pkg *PackageInfo) DepGroups() []string {
+func DepGroups(pkg *extractor.Package) []string {
 	if dg, ok := pkg.Metadata.(scalibrosv.DepGroups); ok {
 		return dg.DepGroups()
 	}
@@ -181,7 +206,7 @@ func (pkg *PackageInfo) DepGroups() []string {
 	return []string{}
 }
 
-func (pkg *PackageInfo) OSPackageName() string {
+func OSPackageName(pkg *extractor.Package) string {
 	if metadata, ok := pkg.Metadata.(*apkmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
@@ -193,30 +218,4 @@ func (pkg *PackageInfo) OSPackageName() string {
 	}
 
 	return ""
-}
-
-// FromInventory converts an extractor.Package into a PackageInfo.
-//
-// todo: this should really be named `FromPackage`...
-func FromInventory(inv *extractor.Package) PackageInfo {
-	pi := PackageInfo{Package: inv}
-	if pi.SourceType() == models.SourceTypeSBOM {
-		purlStruct := converter.ToPURL(pi.Package)
-		if purlStruct != nil {
-			purlCache, _ := purl.ToPackage(purlStruct.String())
-			pi.purlCache = &purlCache
-		}
-	}
-
-	return pi
-}
-
-// PackageScanResult represents a package and its associated vulnerabilities and licenses.
-// This struct is used to store the results of a scan at a per package level.
-type PackageScanResult struct {
-	PackageInfo PackageInfo
-
-	// TODO(v2):
-	// SourceAnalysis *SourceAnalysis
-	// Any additional scan enrichment steps
 }

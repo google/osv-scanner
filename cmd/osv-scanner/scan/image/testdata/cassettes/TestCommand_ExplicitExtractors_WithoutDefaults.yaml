@@ -1,8 +1,7 @@
 ---
 version: 2
 interactions:
-  - id: 0
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -31,7 +30,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 97
+      content_length: 241
       body: |
         {
           "results": [
@@ -39,7 +38,15 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2022-37434",
-                  "modified": "2025-12-03T22:50:43.469206Z"
+                  "modified": "2025-12-03T22:01:07.191575Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-22184",
+                  "modified": "2026-03-09T02:10:12.057314Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-27171",
+                  "modified": "2026-03-09T02:09:33.041671Z"
                 }
               ]
             }
@@ -47,7 +54,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "97"
+          - "241"
         Content-Type:
           - application/json
       status: 200 OK

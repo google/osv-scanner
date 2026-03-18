@@ -2,15 +2,16 @@ package tui
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
-	"github.com/charmbracelet/bubbles/key"
-	"github.com/charmbracelet/bubbles/viewport"
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/glamour"
-	"github.com/charmbracelet/glamour/ansi"
-	"github.com/charmbracelet/glamour/styles"
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/bubbles/v2/key"
+	"charm.land/bubbles/v2/viewport"
+	tea "charm.land/bubbletea/v2"
+	"charm.land/glamour/v2"
+	"charm.land/glamour/v2/ansi"
+	"charm.land/glamour/v2/styles"
+	"charm.land/lipgloss/v2"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/muesli/reflow/wordwrap"
 )
@@ -49,7 +50,7 @@ func NewVulnInfo(vuln *resolution.Vulnerability) *vulnInfo {
 		height:         ViewMinHeight,
 		cursor:         0,
 		numDetailLines: 5,
-		viewport:       viewport.New(ViewMinWidth, 20),
+		viewport:       viewport.New(viewport.WithWidth(ViewMinWidth), viewport.WithHeight(20)),
 	}
 	v.viewport.KeyMap = viewport.KeyMap{
 		Up:       Keys.Up,
@@ -59,7 +60,7 @@ func NewVulnInfo(vuln *resolution.Vulnerability) *vulnInfo {
 	}
 
 	// remove the padding/margins from the default markdown style
-	if lipgloss.HasDarkBackground() {
+	if lipgloss.HasDarkBackground(os.Stdin, os.Stdout) {
 		v.mdStyle = styles.DarkStyleConfig
 	} else {
 		v.mdStyle = styles.LightStyleConfig
@@ -75,8 +76,8 @@ func NewVulnInfo(vuln *resolution.Vulnerability) *vulnInfo {
 func (v *vulnInfo) Resize(w, h int) {
 	v.width = w
 	v.height = h
-	v.viewport.Width = w
-	v.viewport.Height = h
+	v.viewport.SetWidth(w)
+	v.viewport.SetHeight(h)
 	if v.onlyDetails {
 		v.viewport.SetContent(v.detailsOnlyView())
 	}
@@ -84,7 +85,7 @@ func (v *vulnInfo) Resize(w, h int) {
 
 func (v *vulnInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 	if v.onlyDetails || v.onlyGraphs {
-		if msg, ok := msg.(tea.KeyMsg); ok {
+		if msg, ok := msg.(tea.KeyPressMsg); ok {
 			if key.Matches(msg, Keys.Quit) {
 				v.onlyDetails = false
 				v.onlyGraphs = false
@@ -97,7 +98,7 @@ func (v *vulnInfo) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 
 		return v, cmd
 	}
-	if msg, ok := msg.(tea.KeyMsg); ok {
+	if msg, ok := msg.(tea.KeyPressMsg); ok {
 		switch {
 		case key.Matches(msg, Keys.Quit):
 			return nil, nil

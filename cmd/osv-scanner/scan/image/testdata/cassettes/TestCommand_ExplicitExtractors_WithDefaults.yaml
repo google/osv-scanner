@@ -1,8 +1,7 @@
 ---
 version: 2
 interactions:
-  - id: 0
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -129,7 +128,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 220
+      content_length: 364
       body: |
         {
           "results": [
@@ -139,7 +138,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-36159",
-                  "modified": "2025-12-03T22:50:23.251262Z"
+                  "modified": "2025-12-03T22:01:06.565906Z"
                 }
               ]
             },
@@ -158,7 +157,15 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2022-37434",
-                  "modified": "2025-12-03T22:50:43.469206Z"
+                  "modified": "2025-12-03T22:01:07.191575Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-22184",
+                  "modified": "2026-03-09T02:10:12.057314Z"
+                },
+                {
+                  "id": "ALPINE-CVE-2026-27171",
+                  "modified": "2026-03-09T02:09:33.041671Z"
                 }
               ]
             }
@@ -166,14 +173,13 @@ interactions:
         }
       headers:
         Content-Length:
-          - "220"
+          - "364"
         Content-Type:
           - application/json
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 1
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -303,7 +309,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-36159",
-                  "modified": "2025-12-03T22:50:23.251262Z"
+                  "modified": "2025-12-03T22:01:06.565906Z"
                 }
               ]
             },
@@ -328,8 +334,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 2
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -459,7 +464,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-36159",
-                  "modified": "2025-12-03T22:50:23.251262Z"
+                  "modified": "2025-12-03T22:01:06.565906Z"
                 }
               ]
             },
@@ -484,8 +489,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 3
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -615,7 +619,7 @@ interactions:
               "vulns": [
                 {
                   "id": "ALPINE-CVE-2021-36159",
-                  "modified": "2025-12-03T22:50:23.251262Z"
+                  "modified": "2025-12-03T22:01:06.565906Z"
                 }
               ]
             },

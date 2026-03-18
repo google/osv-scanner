@@ -18,7 +18,7 @@ func TestCommand(t *testing.T) {
 			Exit: 127,
 		},
 		{
-			Name: "update pom.xml with in-place changes",
+			Name: "update_pom.xml_with_in-place_changes",
 			Args: []string{"", "update", "-M=./testdata/pom.xml"},
 			Exit: 0,
 		},

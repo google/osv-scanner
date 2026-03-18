@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"slices"
 
-	"github.com/charmbracelet/bubbles/key"
-	"github.com/charmbracelet/bubbles/table"
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/bubbles/v2/key"
+	"charm.land/bubbles/v2/table"
+	tea "charm.land/bubbletea/v2"
+	"charm.land/lipgloss/v2"
 	"github.com/google/osv-scanner/v2/internal/tui"
 )
 
@@ -50,7 +50,7 @@ func (st *stateChooseInPlacePatches) Init(m model) tea.Cmd {
 
 func (st *stateChooseInPlacePatches) Update(m model, msg tea.Msg) (tea.Model, tea.Cmd) {
 	var cmd tea.Cmd
-	if msg, ok := msg.(tea.KeyMsg); ok {
+	if msg, ok := msg.(tea.KeyPressMsg); ok {
 		switch {
 		case key.Matches(msg, tui.Keys.SwitchView):
 			if st.IsInfoFocused() {

@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	tea "github.com/charmbracelet/bubbletea"
+	tea "charm.land/bubbletea/v2"
 	"github.com/google/osv-scanner/v2/internal/remediation"
 )
 
@@ -21,7 +21,7 @@ func interactiveMode(ctx context.Context, opts osvFixOptions) error {
 	}
 
 	cl := opts.Client
-	p := tea.NewProgram(newModel(ctx, opts, cl), tea.WithAltScreen())
+	p := tea.NewProgram(newModel(ctx, opts, cl))
 	m, err := p.Run()
 	if err != nil {
 		return err

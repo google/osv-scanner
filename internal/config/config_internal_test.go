@@ -12,7 +12,6 @@ import (
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/osv"
 	"github.com/google/osv-scalibr/purl"
-	"github.com/google/osv-scanner/v2/internal/imodels"
 )
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -38,7 +37,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "target does not exist",
+			name: "target_does_not_exist",
 			args: args{
 				target: "./testdata/testdatainner/does-not-exist",
 			},
@@ -46,7 +45,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "target is file in directory",
+			name: "target_is_file_in_directory",
 			args: args{
 				target: "./testdata/testdatainner/innerFolder/test.yaml",
 			},
@@ -54,7 +53,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "target is inner directory with trailing slash",
+			name: "target_is_inner_directory_with_trailing_slash",
 			args: args{
 				target: "./testdata/testdatainner/innerFolder/",
 			},
@@ -62,7 +61,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "target is inner directory without trailing slash",
+			name: "target_is_inner_directory_without_trailing_slash",
 			args: args{
 				target: "./testdata/testdatainner/innerFolder",
 			},
@@ -70,7 +69,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "target is directory with trailing slash",
+			name: "target_is_directory_with_trailing_slash",
 			args: args{
 				target: "./testdata/testdatainner/",
 			},
@@ -78,7 +77,7 @@ func Test_normalizeConfigLoadPath(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "target is file in directory",
+			name: "target_is_file_in_directory",
 			args: args{
 				target: "./testdata/testdatainner/some-manifest.yaml",
 			},
@@ -117,7 +116,7 @@ func Test_tryLoadConfig(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "config does not exist",
+			name: "config_does_not_exist",
 			args: args{
 				configPath: "./testdata/testdatainner/does-not-exist",
 			},
@@ -125,7 +124,7 @@ func Test_tryLoadConfig(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "config has some ignored vulnerabilities and package overrides",
+			name: "config_has_some_ignored_vulnerabilities_and_package_overrides",
 			args: args{
 				configPath: "./testdata/testdatainner/osv-scanner.toml",
 			},
@@ -162,7 +161,7 @@ func Test_tryLoadConfig(t *testing.T) {
 			wantErr: false,
 		},
 		{
-			name: "load path cannot be overridden via config",
+			name: "load_path_cannot_be_overridden_via_config",
 			args: args{
 				configPath: "./testdata/testdatainner/osv-scanner-load-path.toml",
 			},
@@ -364,12 +363,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 	tests := []struct {
 		name      string
 		config    Config
-		args      imodels.PackageInfo
+		args      *extractor.Package
 		wantOk    bool
 		wantEntry PackageOverrideEntry
 	}{
 		{
-			name: "Everything-level entry exists",
+			name: "Everything-level_entry_exists",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -379,13 +378,11 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:    "lib1",
-					Version: "1.0.0",
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:    "lib1",
+				Version: "1.0.0",
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -397,7 +394,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		},
 		// -------------------------------------------------------------------------
 		{
-			name: "Ecosystem-level entry exists and does match",
+			name: "Ecosystem-level_entry_exists_and_does_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -408,14 +405,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -427,7 +422,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Ecosystem-level entry exists and does not match",
+			name: "Ecosystem-level_entry_exists_and_does_not_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -438,14 +433,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib2",
-					Version:  "1.0.0",
-					PURLType: "npm",
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib2",
+				Version:  "1.0.0",
+				PURLType: "npm",
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk:    false,
@@ -453,7 +446,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		},
 		// -------------------------------------------------------------------------
 		{
-			name: "Ecosystem-level entry with suffix exists and does match",
+			name: "Ecosystem-level_entry_with_suffix_exists_and_does_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -464,16 +457,14 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "bin1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeApk,
-					Metadata: &apkmetadata.Metadata{
-						PackageName: "bin1",
-						OSID:        "Alpine",
-						OSVersionID: "3.20",
-					},
+			args: &extractor.Package{
+				Name:     "bin1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeApk,
+				Metadata: &apkmetadata.Metadata{
+					PackageName: "bin1",
+					OSID:        "Alpine",
+					OSVersionID: "3.20",
 				},
 			},
 			wantOk: true,
@@ -485,7 +476,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Ecosystem-level entry with suffix exists and does not match",
+			name: "Ecosystem-level_entry_with_suffix_exists_and_does_not_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -496,23 +487,21 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "bin2",
-					Version:  "1.0.0",
-					PURLType: purl.TypeApk,
-					Metadata: &apkmetadata.Metadata{
-						PackageName: "bin1",
-						OSID:        "Alpine",
-						OSVersionID: "3.19",
-					},
+			args: &extractor.Package{
+				Name:     "bin2",
+				Version:  "1.0.0",
+				PURLType: purl.TypeApk,
+				Metadata: &apkmetadata.Metadata{
+					PackageName: "bin1",
+					OSID:        "Alpine",
+					OSVersionID: "3.19",
 				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
 		},
 		{
-			name: "Ecosystem-level entry without suffix exists and does match",
+			name: "Ecosystem-level_entry_without_suffix_exists_and_does_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -523,16 +512,14 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "bin1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeApk,
-					Metadata: &apkmetadata.Metadata{
-						PackageName: "bin1",
-						OSID:        "Alpine",
-						OSVersionID: "3.20",
-					},
+			args: &extractor.Package{
+				Name:     "bin1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeApk,
+				Metadata: &apkmetadata.Metadata{
+					PackageName: "bin1",
+					OSID:        "Alpine",
+					OSVersionID: "3.20",
 				},
 			},
 			wantOk: true,
@@ -545,7 +532,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		},
 		// -------------------------------------------------------------------------
 		{
-			name: "Group-level entry exists and does match",
+			name: "Group-level_entry_exists_and_does_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -556,14 +543,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -575,7 +560,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Group-level entry exists and does not match",
+			name: "Group-level_entry_exists_and_does_not_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -586,21 +571,19 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib2",
-					Version:  "1.0.0",
-					PURLType: "npm",
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"optional"},
-					},
+			args: &extractor.Package{
+				Name:     "lib2",
+				Version:  "1.0.0",
+				PURLType: "npm",
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"optional"},
 				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
 		},
 		{
-			name: "Group-level entry exists and does not match when empty",
+			name: "Group-level_entry_exists_and_does_not_match_when_empty",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -611,19 +594,17 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib2",
-					Version:  "1.0.0",
-					PURLType: "npm",
-				},
+			args: &extractor.Package{
+				Name:     "lib2",
+				Version:  "1.0.0",
+				PURLType: "npm",
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
 		},
 		// -------------------------------------------------------------------------
 		{
-			name: "Version-level entry exists and does match",
+			name: "Version-level_entry_exists_and_does_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -634,14 +615,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -653,7 +632,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Version-level entry exists and does not match",
+			name: "Version-level_entry_exists_and_does_not_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -664,14 +643,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk:    false,
@@ -679,7 +656,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		},
 		// -------------------------------------------------------------------------
 		{
-			name: "Name-level entry exists and does match",
+			name: "Name-level_entry_exists_and_does_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -690,14 +667,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -709,7 +684,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Name-level entry exists and does not match",
+			name: "Name-level_entry_exists_and_does_not_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -720,14 +695,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib2",
-					Version:  "1.0.0",
-					PURLType: "npm",
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib2",
+				Version:  "1.0.0",
+				PURLType: "npm",
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk:    false,
@@ -735,7 +708,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 		},
 		// -------------------------------------------------------------------------
 		{
-			name: "Name, Version, and Ecosystem entry exists",
+			name: "Name,_Version,_and_Ecosystem_entry_exists",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -748,12 +721,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -766,7 +737,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Name and Ecosystem entry exists",
+			name: "Name_and_Ecosystem_entry_exists",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -778,12 +749,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -795,7 +764,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Name, Ecosystem, and Group entry exists and matches",
+			name: "Name,_Ecosystem,_and_Group_entry_exists_and_matches",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -808,14 +777,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -829,7 +796,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			},
 		},
 		{
-			name: "Name, Ecosystem, and Group entry exists but does not match",
+			name: "Name,_Ecosystem,_and_Group_entry_exists_but_does_not_match",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -842,21 +809,19 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"prod"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"prod"},
 				},
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
 		},
 		{
-			name: "Entry doesn't exist",
+			name: "Entry_doesn't_exist",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -877,12 +842,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "2.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "2.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -910,11 +873,11 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 	tests := []struct {
 		name   string
 		config Config
-		args   imodels.PackageInfo
+		args   *extractor.Package
 		wantOk bool
 	}{
 		{
-			name: "Exact version entry exists with ignore",
+			name: "Exact_version_entry_exists_with_ignore",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -928,17 +891,15 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 		},
 		{
-			name: "Version entry doesn't exist with ignore",
+			name: "Version_entry_doesn't_exist_with_ignore",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -952,17 +913,15 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: false,
 		},
 		{
-			name: "Name matches with ignore",
+			name: "Name_matches_with_ignore",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -975,12 +934,10 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 		},
@@ -1004,12 +961,12 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 	tests := []struct {
 		name      string
 		config    Config
-		args      imodels.PackageInfo
+		args      *extractor.Package
 		wantOk    bool
 		wantEntry PackageOverrideEntry
 	}{
 		{
-			name: "Exact version entry exists with override",
+			name: "Exact_version_entry_exists_with_override",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -1023,12 +980,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -1042,7 +997,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			},
 		},
 		{
-			name: "Exact version entry exists with ignore",
+			name: "Exact_version_entry_exists_with_ignore",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -1056,12 +1011,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -1075,7 +1028,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			},
 		},
 		{
-			name: "Version entry doesn't exist with override",
+			name: "Version_entry_doesn't_exist_with_override",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -1089,18 +1042,16 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
 		},
 		{
-			name: "Version entry doesn't exist with ignore",
+			name: "Version_entry_doesn't_exist_with_ignore",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -1114,18 +1065,16 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
 		},
 		{
-			name: "Name matches with override",
+			name: "Name_matches_with_override",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -1138,12 +1087,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -1156,7 +1103,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			},
 		},
 		{
-			name: "Name matches with ignore",
+			name: "Name_matches_with_ignore",
 			config: Config{
 				PackageOverrides: []PackageOverrideEntry{
 					{
@@ -1169,12 +1116,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{

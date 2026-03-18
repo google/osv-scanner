@@ -5,8 +5,8 @@ import (
 	"slices"
 	"strings"
 
+	"charm.land/lipgloss/v2"
 	"deps.dev/util/resolve"
-	"github.com/charmbracelet/lipgloss"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 )
 

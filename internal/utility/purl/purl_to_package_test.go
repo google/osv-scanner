@@ -21,7 +21,7 @@ func TestPURLToPackage(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "valid PURL",
+			name: "valid_PURL",
 			args: args{
 				purl: "pkg:cargo/memoffset@0.6.1",
 			},
@@ -32,7 +32,7 @@ func TestPURLToPackage(t *testing.T) {
 			},
 		},
 		{
-			name: "valid PURL golang",
+			name: "valid_PURL_golang",
 			args: args{
 				purl: "pkg:golang/github.com/gogo/protobuf@5.6.0",
 			},
@@ -43,7 +43,7 @@ func TestPURLToPackage(t *testing.T) {
 			},
 		},
 		{
-			name: "valid PURL maven",
+			name: "valid_PURL_maven",
 			args: args{
 				purl: "pkg:maven/org.hdrhistogram/HdrHistogram@2.1.12",
 			},
@@ -54,7 +54,7 @@ func TestPURLToPackage(t *testing.T) {
 			},
 		},
 		{
-			name: "valid PURL Debian",
+			name: "valid_PURL_Debian",
 			args: args{
 				purl: "pkg:deb/debian/nginx@2.36.1-8+deb11u1",
 			},
@@ -65,7 +65,7 @@ func TestPURLToPackage(t *testing.T) {
 			},
 		},
 		{
-			name: "valid PURL Ubuntu",
+			name: "valid_PURL_Ubuntu",
 			args: args{
 				purl: "pkg:deb/ubuntu/docker.io@20.10.12-0ubuntu2",
 			},
@@ -76,7 +76,7 @@ func TestPURLToPackage(t *testing.T) {
 			},
 		},
 		{
-			name: "valid PURL alpine",
+			name: "valid_PURL_alpine",
 			args: args{
 				purl: "pkg:apk/alpine/zlib@1.2.13-r0?arch=x86_64upstream=zlib&distro=alpine-3.17.2",
 			},
@@ -87,7 +87,7 @@ func TestPURLToPackage(t *testing.T) {
 			},
 		},
 		{
-			name: "invalid PURL",
+			name: "invalid_PURL",
 			args: args{
 				purl: "pkg-golang/github.com/gogo/protobuf.0",
 			},

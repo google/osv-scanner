@@ -6,10 +6,10 @@ import (
 	"io"
 	"slices"
 
-	"github.com/charmbracelet/bubbles/key"
-	"github.com/charmbracelet/bubbles/list"
-	tea "github.com/charmbracelet/bubbletea"
-	"github.com/charmbracelet/lipgloss"
+	"charm.land/bubbles/v2/key"
+	"charm.land/bubbles/v2/list"
+	tea "charm.land/bubbletea/v2"
+	"charm.land/lipgloss/v2"
 	"github.com/google/osv-scanner/v2/internal/resolution"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
 	"github.com/muesli/reflow/truncate"
@@ -110,7 +110,7 @@ func (v *vulnList) Update(msg tea.Msg) (ViewModel, tea.Cmd) {
 		v.currVulnInfo, cmd = v.currVulnInfo.Update(msg)
 		return v, cmd
 	}
-	if msg, ok := msg.(tea.KeyMsg); ok {
+	if msg, ok := msg.(tea.KeyPressMsg); ok {
 		switch {
 		case key.Matches(msg, Keys.Quit):
 			return v, CloseViewModel

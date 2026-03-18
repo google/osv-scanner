@@ -1,8 +1,7 @@
 ---
 version: 2
 interactions:
-  - id: 0
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -46,8 +45,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 1
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -91,8 +89,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 2
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -136,8 +133,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 3
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -218,7 +214,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-02-04T03:17:54.277407Z"
+                  "modified": "2026-03-13T22:01:08.982482Z"
                 }
               ]
             },
@@ -250,8 +246,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 4
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -332,7 +327,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-02-04T03:17:54.277407Z"
+                  "modified": "2026-03-13T22:01:08.982482Z"
                 }
               ]
             },
@@ -364,8 +359,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 5
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -395,8 +389,7 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
-  - id: 6
-    request:
+  - request:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
@@ -470,7 +463,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-9f46-5r25-5wfm",
-                  "modified": "2026-02-04T03:17:54.277407Z"
+                  "modified": "2026-03-13T22:01:08.982482Z"
                 }
               ]
             },

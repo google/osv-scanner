@@ -47,8 +47,8 @@ func NewLocalMatcher(localDBPath string, userAgent string, downloadDB bool) (*Lo
 	}, nil
 }
 
-func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
-	results := make([][]*osvschema.Vulnerability, 0, len(invs))
+func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*extractor.Package) ([][]*osvschema.Vulnerability, error) {
+	results := make([][]*osvschema.Vulnerability, 0, len(pkgs))
 
 	// ensure all databases loaded so far have been fully loaded; this is just a
 	// basic safeguard since we don't actually currently attempt to reuse matchers
@@ -59,27 +59,26 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 		}
 	}
 
-	for _, inv := range invs {
+	for _, pkg := range pkgs {
 		if ctx.Err() != nil {
 			return nil, ctx.Err()
 		}
 
-		pkg := imodels.FromInventory(inv)
-		eco := pkg.Ecosystem().Ecosystem
+		eco := imodels.Ecosystem(pkg).Ecosystem
 
-		if pkg.Ecosystem().IsEmpty() {
-			if pkg.Commit() == "" {
+		if imodels.Ecosystem(pkg).IsEmpty() {
+			if imodels.Commit(pkg) == "" {
 				// This should never happen, as those results will be filtered out before matching
 				return nil, errors.New("ecosystem is empty and there is no commit hash")
 			}
 
 			// matching ecosystem-less versions can only be attempted if we have a version
-			if pkg.Version() == "" {
+			if imodels.Version(pkg) == "" {
 				// Is a commit based query, skip local scanning
 				results = append(results, []*osvschema.Vulnerability{})
 
 				// TODO (V2 logging):
-				cmdlogger.Infof("Skipping commit scanning for: %s", pkg.Commit())
+				cmdlogger.Infof("Skipping commit scanning for: %s", imodels.Commit(pkg))
 
 				continue
 			}
@@ -87,7 +86,7 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, invs []*e
 			eco = "GIT"
 		}
 
-		db, err := matcher.loadDBFromCache(ctx, eco, invs)
+		db, err := matcher.loadDBFromCache(ctx, eco, pkgs)
 
 		if err != nil {
 			// no logging here as the loader will have already done that
