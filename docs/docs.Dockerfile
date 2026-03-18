@@ -1,5 +1,5 @@
 # Use an official Ruby runtime as a parent image.
-FROM ruby:3@sha256:5c58050b16e00de92e7614bee88cd27865c0bdba262feb44aa838ae5da4431c9
+FROM ruby:3@sha256:cddc8a7877ed0213dbd4a3cf726e357ac27e493fefa8b5350e7936f4ec02018e
 
 # Set the working directory in the container.
 WORKDIR /usr/src/app
