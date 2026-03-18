@@ -60,11 +60,11 @@ func newPackageInfo(source string, pi pkginfo) models.PackageInfo {
 		ImageOrigin:   pi.ImageOrigin,
 		Deprecated:    pi.Deprecated,
 		Inventory: &extractor.Package{
-			Name:      pi.Name,
-			Version:   pi.Version,
-			Plugins:   []string{pi.Extractor.Name()},
-			Locations: []string{source},
-			PURLType:  resolvePURLType(pi.Ecosystem),
+			Name:     pi.Name,
+			Version:  pi.Version,
+			Plugins:  []string{pi.Extractor.Name()},
+			Location: extractor.LocationFromPath(source),
+			PURLType: resolvePURLType(pi.Ecosystem),
 		},
 	}
 

@@ -58,7 +58,7 @@ func createCommitQueryInventory(commit string, location string) *extractor.Packa
 		SourceCode: &extractor.SourceCodeIdentifier{
 			Commit: commit,
 		},
-		Locations: []string{location},
+		Location: extractor.LocationFromPath(location),
 	}
 }
 
