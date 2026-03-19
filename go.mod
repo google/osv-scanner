@@ -19,7 +19,7 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/goccy/go-yaml v1.19.2
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.4.5-0.20260306165454-c7f2e9b7def6
+	github.com/google/osv-scalibr v0.4.6-0.20260318175007-ec4239d68fb9
 	github.com/ianlancetaylor/demangle v0.0.0-20251118225945-96ee0021ea0f
 	github.com/jedib0t/go-pretty/v6 v6.7.8
 	github.com/modelcontextprotocol/go-sdk v1.4.0
@@ -39,7 +39,7 @@ require (
 	golang.org/x/sync v0.20.0
 	golang.org/x/term v0.40.0
 	golang.org/x/vuln v1.1.4
-	google.golang.org/grpc v1.79.2
+	google.golang.org/grpc v1.79.3
 	google.golang.org/protobuf v1.36.11
 	gopkg.in/dnaeon/go-vcr.v4 v4.0.6
 	gopkg.in/ini.v1 v1.67.1

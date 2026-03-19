@@ -1408,7 +1408,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 22298
+      content_length: 22183
       body: |
         {
           "results": [
@@ -2459,6 +2459,10 @@ interactions:
                   "modified": "2026-03-18T09:03:28.363302Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2026-2673",
+                  "modified": "2026-03-14T16:48:13.279039Z"
+                },
+                {
                   "id": "DLA-3008-1",
                   "modified": "2026-03-09T01:23:33.375630Z"
                 },
@@ -2926,7 +2930,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "22298"
+          - "22183"
         Content-Type:
           - application/json
       status: 200 OK
@@ -3997,7 +4001,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 21542
+      content_length: 21427
       body: |
         {
           "results": [
@@ -5016,6 +5020,10 @@ interactions:
                   "modified": "2026-03-18T09:03:28.363302Z"
                 },
                 {
+                  "id": "DEBIAN-CVE-2026-2673",
+                  "modified": "2026-03-14T16:48:13.279039Z"
+                },
+                {
                   "id": "DLA-3008-1",
                   "modified": "2026-03-09T01:23:33.375630Z"
                 },
@@ -5443,7 +5451,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "21542"
+          - "21427"
         Content-Type:
           - application/json
       status: 200 OK

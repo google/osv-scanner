@@ -12,7 +12,6 @@ import (
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/osv"
 	"github.com/google/osv-scalibr/purl"
-	"github.com/google/osv-scanner/v2/internal/imodels"
 )
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -364,7 +363,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 	tests := []struct {
 		name      string
 		config    Config
-		args      imodels.PackageInfo
+		args      *extractor.Package
 		wantOk    bool
 		wantEntry PackageOverrideEntry
 	}{
@@ -379,13 +378,11 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:    "lib1",
-					Version: "1.0.0",
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:    "lib1",
+				Version: "1.0.0",
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -408,14 +405,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -438,14 +433,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib2",
-					Version:  "1.0.0",
-					PURLType: "npm",
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib2",
+				Version:  "1.0.0",
+				PURLType: "npm",
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk:    false,
@@ -464,16 +457,14 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "bin1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeApk,
-					Metadata: &apkmetadata.Metadata{
-						PackageName: "bin1",
-						OSID:        "Alpine",
-						OSVersionID: "3.20",
-					},
+			args: &extractor.Package{
+				Name:     "bin1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeApk,
+				Metadata: &apkmetadata.Metadata{
+					PackageName: "bin1",
+					OSID:        "Alpine",
+					OSVersionID: "3.20",
 				},
 			},
 			wantOk: true,
@@ -496,16 +487,14 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "bin2",
-					Version:  "1.0.0",
-					PURLType: purl.TypeApk,
-					Metadata: &apkmetadata.Metadata{
-						PackageName: "bin1",
-						OSID:        "Alpine",
-						OSVersionID: "3.19",
-					},
+			args: &extractor.Package{
+				Name:     "bin2",
+				Version:  "1.0.0",
+				PURLType: purl.TypeApk,
+				Metadata: &apkmetadata.Metadata{
+					PackageName: "bin1",
+					OSID:        "Alpine",
+					OSVersionID: "3.19",
 				},
 			},
 			wantOk:    false,
@@ -523,16 +512,14 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "bin1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeApk,
-					Metadata: &apkmetadata.Metadata{
-						PackageName: "bin1",
-						OSID:        "Alpine",
-						OSVersionID: "3.20",
-					},
+			args: &extractor.Package{
+				Name:     "bin1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeApk,
+				Metadata: &apkmetadata.Metadata{
+					PackageName: "bin1",
+					OSID:        "Alpine",
+					OSVersionID: "3.20",
 				},
 			},
 			wantOk: true,
@@ -556,14 +543,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -586,14 +571,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib2",
-					Version:  "1.0.0",
-					PURLType: "npm",
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"optional"},
-					},
+			args: &extractor.Package{
+				Name:     "lib2",
+				Version:  "1.0.0",
+				PURLType: "npm",
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"optional"},
 				},
 			},
 			wantOk:    false,
@@ -611,12 +594,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib2",
-					Version:  "1.0.0",
-					PURLType: "npm",
-				},
+			args: &extractor.Package{
+				Name:     "lib2",
+				Version:  "1.0.0",
+				PURLType: "npm",
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -634,14 +615,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -664,14 +643,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk:    false,
@@ -690,14 +667,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -720,14 +695,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib2",
-					Version:  "1.0.0",
-					PURLType: "npm",
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib2",
+				Version:  "1.0.0",
+				PURLType: "npm",
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk:    false,
@@ -748,12 +721,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -778,12 +749,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -808,14 +777,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"dev"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"dev"},
 				},
 			},
 			wantOk: true,
@@ -842,14 +809,12 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-					Metadata: osv.DepGroupMetadata{
-						DepGroupVals: []string{"prod"},
-					},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
+				Metadata: osv.DepGroupMetadata{
+					DepGroupVals: []string{"prod"},
 				},
 			},
 			wantOk:    false,
@@ -877,12 +842,10 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "2.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "2.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -910,7 +873,7 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 	tests := []struct {
 		name   string
 		config Config
-		args   imodels.PackageInfo
+		args   *extractor.Package
 		wantOk bool
 	}{
 		{
@@ -928,12 +891,10 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 		},
@@ -952,12 +913,10 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: false,
 		},
@@ -975,12 +934,10 @@ func TestConfig_ShouldIgnorePackageVulnerabilities(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 		},
@@ -1004,7 +961,7 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 	tests := []struct {
 		name      string
 		config    Config
-		args      imodels.PackageInfo
+		args      *extractor.Package
 		wantOk    bool
 		wantEntry PackageOverrideEntry
 	}{
@@ -1023,12 +980,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -1056,12 +1011,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.0",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.0",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -1089,12 +1042,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -1114,12 +1065,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk:    false,
 			wantEntry: PackageOverrideEntry{},
@@ -1138,12 +1087,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{
@@ -1169,12 +1116,10 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 					},
 				},
 			},
-			args: imodels.PackageInfo{
-				Package: &extractor.Package{
-					Name:     "lib1",
-					Version:  "1.0.1",
-					PURLType: purl.TypeGolang,
-				},
+			args: &extractor.Package{
+				Name:     "lib1",
+				Version:  "1.0.1",
+				PURLType: purl.TypeGolang,
 			},
 			wantOk: true,
 			wantEntry: PackageOverrideEntry{

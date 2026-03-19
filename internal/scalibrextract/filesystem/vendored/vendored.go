@@ -130,7 +130,7 @@ func (e *Extractor) Extract(ctx context.Context, input *filesystem.ScanInput) (i
 			SourceCode: &extractor.SourceCodeIdentifier{
 				Commit: match.GetRepoInfo().GetCommit(),
 			},
-			Locations: []string{input.Path},
+			Location: extractor.LocationFromPath(input.Path),
 		})
 	}
 

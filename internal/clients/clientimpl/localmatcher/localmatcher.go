@@ -64,7 +64,6 @@ func (matcher *LocalMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*e
 			return nil, ctx.Err()
 		}
 
-		pkg := imodels.FromPackage(pkg)
 		eco := imodels.Ecosystem(pkg).Ecosystem
 
 		if imodels.Ecosystem(pkg).IsEmpty() {

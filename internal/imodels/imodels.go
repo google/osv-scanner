@@ -33,48 +33,36 @@ var gitExtractors = map[string]struct{}{
 // todo: SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
 var cache = sync.Map{} // map[*extractor.Package]*models.PackageInfo
 
-func setCache(pkg *extractor.Package) {
-	pi := PackageInfo{Package: pkg}
-	if SourceType(pi) != models.SourceTypeSBOM {
-		return
-	}
-
-	purlStruct := converter.ToPURL(pi.Package)
-
-	if purlStruct == nil {
-		return
-	}
-
-	if _, ok := cache.Load(pkg); !ok {
-		purlCache, _ := purl.ToPackage(purlStruct.String())
-		cache.Store(pkg, &purlCache)
-	}
-}
-
-func getCache(pkg *extractor.Package) *models.PackageInfo {
-	pi := PackageInfo{Package: pkg}
-	if SourceType(pi) != models.SourceTypeSBOM {
+func toCachedPackageInfo(pkg *extractor.Package) *models.PackageInfo {
+	if SourceType(pkg) != models.SourceTypeSBOM {
 		return nil
 	}
 
 	v, ok := cache.Load(pkg)
 
-	if !ok || v == nil {
+	if !ok {
+		purlStruct := converter.ToPURL(pkg)
+
+		if purlStruct == nil {
+			return nil
+		}
+
+		purlCache, _ := purl.ToPackage(purlStruct.String())
+		cache.Store(pkg, &purlCache)
+
+		return &purlCache
+	}
+
+	if v == nil {
 		return nil
 	}
 
 	return v.(*models.PackageInfo)
 }
 
-// PackageInfo provides getter functions for commonly used fields of inventory
-// and applies transformations when required for use in osv-scanner
-type PackageInfo struct {
-	*extractor.Package
-}
-
-func Name(pkg PackageInfo) string {
+func Name(pkg *extractor.Package) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := getCache(pkg.Package); purlCache != nil {
+	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
 		return purlCache.Name
 	}
 
@@ -120,7 +108,7 @@ func Name(pkg PackageInfo) string {
 	return pkg.Name
 }
 
-func Ecosystem(pkg PackageInfo) osvecosystem.Parsed {
+func Ecosystem(pkg *extractor.Package) osvecosystem.Parsed {
 	eco := pkg.Ecosystem()
 
 	if metadata, ok := pkg.Metadata.(*osvscannerjson.Metadata); ok {
@@ -134,7 +122,7 @@ func Ecosystem(pkg PackageInfo) osvecosystem.Parsed {
 	}
 
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := getCache(pkg.Package); purlCache != nil {
+	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
 		newEco, err := osvecosystem.Parse(purlCache.Ecosystem)
 		if err != nil {
 			cmdlogger.Warnf("Warning: error parsing osvscanner.json ecosystem: %s", err.Error())
@@ -147,9 +135,9 @@ func Ecosystem(pkg PackageInfo) osvecosystem.Parsed {
 	return eco
 }
 
-func Version(pkg PackageInfo) string {
+func Version(pkg *extractor.Package) string {
 	// TODO(v2): SBOM special case, to be removed after PURL to ESI conversion within each extractor is complete
-	if purlCache := getCache(pkg.Package); purlCache != nil {
+	if purlCache := toCachedPackageInfo(pkg); purlCache != nil {
 		return purlCache.Version
 	}
 
@@ -176,15 +164,11 @@ func Version(pkg PackageInfo) string {
 	return pkg.Version
 }
 
-func Location(pkg PackageInfo) string {
-	if len(pkg.Locations) > 0 {
-		return pkg.Locations[0]
-	}
-
-	return ""
+func Location(pkg *extractor.Package) string {
+	return pkg.Location.PathOrEmpty()
 }
 
-func Commit(pkg PackageInfo) string {
+func Commit(pkg *extractor.Package) string {
 	if pkg.SourceCode != nil {
 		return pkg.SourceCode.Commit
 	}
@@ -192,7 +176,7 @@ func Commit(pkg PackageInfo) string {
 	return ""
 }
 
-func SourceType(pkg PackageInfo) models.SourceType {
+func SourceType(pkg *extractor.Package) models.SourceType {
 	for _, extractorName := range pkg.Plugins {
 		if strings.HasPrefix(extractorName, "os/") {
 			return models.SourceTypeOSPackage
@@ -210,7 +194,7 @@ func SourceType(pkg PackageInfo) models.SourceType {
 	return models.SourceTypeUnknown
 }
 
-func DepGroups(pkg PackageInfo) []string {
+func DepGroups(pkg *extractor.Package) []string {
 	if dg, ok := pkg.Metadata.(scalibrosv.DepGroups); ok {
 		return dg.DepGroups()
 	}
@@ -218,7 +202,7 @@ func DepGroups(pkg PackageInfo) []string {
 	return []string{}
 }
 
-func OSPackageName(pkg PackageInfo) string {
+func OSPackageName(pkg *extractor.Package) string {
 	if metadata, ok := pkg.Metadata.(*apkmetadata.Metadata); ok {
 		return metadata.PackageName
 	}
@@ -230,13 +214,4 @@ func OSPackageName(pkg PackageInfo) string {
 	}
 
 	return ""
-}
-
-// FromPackage converts an extractor.Package into a PackageInfo.
-func FromPackage(pkg *extractor.Package) PackageInfo {
-	pi := PackageInfo{Package: pkg}
-
-	setCache(pkg)
-
-	return pi
 }

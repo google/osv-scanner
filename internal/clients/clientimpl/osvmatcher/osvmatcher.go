@@ -132,7 +132,7 @@ func (matcher *OSVMatcher) MatchVulnerabilities(ctx context.Context, pkgs []*ext
 	return vulnerabilities, nil
 }
 
-func pkgToQuery(pkg imodels.PackageInfo) *api.Query {
+func pkgToQuery(pkg *extractor.Package) *api.Query {
 	if imodels.Name(pkg) != "" && !imodels.Ecosystem(pkg).IsEmpty() && imodels.Version(pkg) != "" {
 		name := imodels.Name(pkg)
 
@@ -180,7 +180,6 @@ func pkgsToQueries(pkgs []*extractor.Package) []*api.Query {
 	queries := make([]*api.Query, len(pkgs))
 
 	for i, pkg := range pkgs {
-		pkg := imodels.FromPackage(pkg)
 		queries[i] = pkgToQuery(pkg)
 	}
 

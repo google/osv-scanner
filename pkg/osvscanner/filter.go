@@ -4,6 +4,7 @@ package osvscanner
 import (
 	"fmt"
 
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/imodels"
@@ -16,9 +17,9 @@ import (
 // filterUnscannablePackages removes packages that don't have enough information to be scanned or
 // are not a supported ecosystem, and returns the list of removed packages (if --all-packages flag is passed in)
 // e,g, local packages that specified by path
-func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []imodels.PackageInfo {
-	packageResults := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
-	filteredPsr := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
+func filterUnscannablePackages(scanResults *results.ScanResults, actions ScannerActions) []*extractor.Package {
+	packageResults := make([]*extractor.Package, 0, len(scanResults.PackageScanResults))
+	filteredPsr := make([]*extractor.Package, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		switch {
 		// If **none** of the cases match, skip this package since it's not scannable
@@ -57,7 +58,7 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 
 // filterNonContainerRelevantPackages removes packages that are not relevant when doing container scanning
 func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
-	packageResults := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
+	packageResults := make([]*extractor.Package, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		// Almost all packages with linux as a SourceName are kernel packages
 		// which does not apply within a container, as containers use the host's kernel
@@ -79,7 +80,7 @@ func filterNonContainerRelevantPackages(scanResults *results.ScanResults) {
 func filterIgnoredPackages(scanResults *results.ScanResults) {
 	configManager := &scanResults.ConfigManager
 
-	out := make([]imodels.PackageInfo, 0, len(scanResults.PackageScanResults))
+	out := make([]*extractor.Package, 0, len(scanResults.PackageScanResults))
 	for _, psr := range scanResults.PackageScanResults {
 		configToUse := configManager.Get(imodels.Location(psr))
 

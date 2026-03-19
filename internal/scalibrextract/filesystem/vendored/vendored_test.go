@@ -114,7 +114,7 @@ func TestExtractor_Extract(t *testing.T) {
 					SourceCode: &extractor.SourceCodeIdentifier{
 						Commit: "09155eaa2f9270dc4ed1fa13e2b4b2613e6e4851",
 					},
-					Locations: []string{"testdata/thirdparty/zlib"},
+					Location: extractor.LocationFromPath("testdata/thirdparty/zlib"),
 				},
 			},
 		},

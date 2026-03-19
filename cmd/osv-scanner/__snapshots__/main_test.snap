@@ -47,7 +47,7 @@ OPTIONS:
 
 [Test_run/version - 1]
 osv-scanner version: 2.3.4
-osv-scalibr version: 0.4.4
+osv-scalibr version: 0.4.5
 commit: n/a
 built at: n/a
 
@@ -61,6 +61,7 @@ built at: n/a
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 No issues found
 
 ---
@@ -73,6 +74,7 @@ Warning: `scan` exists as both a subcommand of OSV-Scanner and as a file on the 
 [Test_run_SubCommands/with_no_subcommand - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 No issues found
 
 ---
@@ -84,6 +86,7 @@ No issues found
 [Test_run_SubCommands/with_scan_subcommand - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 No issues found
 
 ---
