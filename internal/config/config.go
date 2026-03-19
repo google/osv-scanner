@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
 )
@@ -39,6 +40,7 @@ type PackageOverrideEntry struct {
 	Version        string        `toml:"version"`
 	Ecosystem      string        `toml:"ecosystem"`
 	Group          string        `toml:"group"`
+	NameIsRegex    bool          `toml:"nameIsRegex"`
 	Ignore         bool          `toml:"ignore"`
 	Vulnerability  Vulnerability `toml:"vulnerability"`
 	License        License       `toml:"license"`
@@ -47,8 +49,20 @@ type PackageOverrideEntry struct {
 }
 
 func (e PackageOverrideEntry) matches(pkg *extractor.Package) bool {
-	if e.Name != "" && e.Name != imodels.Name(pkg) {
-		return false
+	if e.Name != "" {
+		if e.NameIsRegex {
+			re, err := cachedregexp.Compile("^" + e.Name + "$")
+			if err != nil {
+				cmdlogger.Warnf("warning: invalid regex %q in package override: %v\n", e.Name, err)
+
+				return false
+			}
+			if !re.MatchString(imodels.Name(pkg)) {
+				return false
+			}
+		} else if e.Name != imodels.Name(pkg) {
+			return false
+		}
 	}
 	if e.Version != "" && e.Version != imodels.Version(pkg) {
 		return false
