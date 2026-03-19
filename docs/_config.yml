@@ -30,10 +30,7 @@ ga_tracking: G-60SWD6J0TM
 remote_theme: just-the-docs/just-the-docs
 plugins:
   - jekyll-feed
-  - jekyll-coffeescript
-  - jekyll-gist
   - jekyll-github-metadata
-  - jekyll-paginate
   - jekyll-relative-links
   - jekyll-optional-front-matter
   - jekyll-readme-index
