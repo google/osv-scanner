@@ -63,9 +63,9 @@ func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inve
 					Ecosystem:  pkg.Package.Ecosystem,
 					SourceInfo: res.Source,
 				},
-				PURLType:  "placeholder",
-				Locations: []string{input.Path},
-				Plugins:   []string{"osv/osvscannerjson"},
+				PURLType: "placeholder",
+				Location: extractor.LocationFromPath(input.Path),
+				Plugins:  []string{"osv/osvscannerjson"},
 			}
 			if pkg.Package.Commit != "" {
 				inv.SourceCode = &extractor.SourceCodeIdentifier{

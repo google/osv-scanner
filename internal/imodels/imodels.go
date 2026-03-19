@@ -165,11 +165,7 @@ func Version(pkg *extractor.Package) string {
 }
 
 func Location(pkg *extractor.Package) string {
-	if len(pkg.Locations) > 0 {
-		return pkg.Locations[0]
-	}
-
-	return ""
+	return pkg.Location.PathOrEmpty()
 }
 
 func Commit(pkg *extractor.Package) string {
