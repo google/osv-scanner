@@ -3,7 +3,7 @@
 ### Features:
 
 - [Feature #2571](https://github.com/google/osv-scanner/pull/2571) Enable transitive scanning for Python requirements.txt files using the deps.dev API.
-- [Feature #2649](https://github.com/google/osv-scanner/pull/2649) Add ability to allow unsafe plugins, logging a warning.
+- [Feature #2649](https://github.com/google/osv-scanner/pull/2649) Add ability to allow unsafe plugins, logging a warning when any unsafe plugin is enabled.
 
 ### Fixes:
 
