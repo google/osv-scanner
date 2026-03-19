@@ -84,16 +84,14 @@ func (e *Enricher) Enrich(ctx context.Context, input *enricher.ScanInput, inv *i
 			continue
 		}
 		if pkg.Name == "stdlib" {
-			for _, l := range pkg.Locations {
-				if goModVersions[l] != "" {
-					continue
-				}
+			loc := pkg.Location.PathOrEmpty()
 
-				// Set GOVERSION to the Go version in go.mod.
-				goModVersions[l] = pkg.Version
-
+			if loc == "" || goModVersions[loc] != "" {
 				continue
 			}
+
+			// Set GOVERSION to the Go version in go.mod.
+			goModVersions[loc] = pkg.Version
 		}
 	}
 

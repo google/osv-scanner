@@ -222,7 +222,7 @@ Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packag
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
@@ -231,7 +231,7 @@ Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medi
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 
@@ -247,7 +247,7 @@ Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packag
 Filtered 1 local/unscannable package/s from the scan.
 Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 
-Total 2 packages affected by 9 known vulnerabilities (4 Critical, 4 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 9 known vulnerabilities (3 Critical, 5 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
@@ -260,7 +260,7 @@ Total 2 packages affected by 9 known vulnerabilities (4 Critical, 4 High, 1 Medi
 | https://osv.dev/ALPINE-CVE-2016-9843  | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 
@@ -480,7 +480,7 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Packagist/theseer/tokenizer/1.1.3 with 0BSD
 
-Total 6 packages affected by 10 known vulnerabilities (3 Critical, 1 High, 2 Medium, 3 Low, 1 Unknown) from 4 ecosystems.
+Total 6 packages affected by 10 known vulnerabilities (2 Critical, 2 High, 2 Medium, 3 Low, 1 Unknown) from 4 ecosystems.
 6 vulnerabilities can be fixed.
 
 +-----------------------------------------+------+-----------+-----------------------+-----------+---------------+--------------------------------------------------+
@@ -498,7 +498,7 @@ Total 6 packages affected by 10 known vulnerabilities (3 Critical, 1 High, 2 Med
 | https://osv.dev/DRUPAL-CONTRIB-2025-083 |      | Packagist | drupal/simple_sitemap | 4.2.1     | --            | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist | league/flysystem      | 1.0.8     | 1.1.4         | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/ALPINE-CVE-2025-26519   | 7.0  | Alpine    | musl                  | 1.2.3-r4  | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2026-22184   | 9.8  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184   | 7.8  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-27171   | 5.5  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
 +-----------------------------------------+------+-----------+-----------------------+-----------+---------------+--------------------------------------------------+
 +---------+-------------------------+
@@ -889,7 +889,7 @@ Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 10 local/unscannable package/s from the scan.
 
-Total 26 packages affected by 181 known vulnerabilities (24 Critical, 74 High, 56 Medium, 3 Low, 24 Unknown) from 4 ecosystems.
+Total 26 packages affected by 181 known vulnerabilities (21 Critical, 77 High, 56 Medium, 3 Low, 24 Unknown) from 4 ecosystems.
 11 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -918,17 +918,17 @@ Total 26 packages affected by 181 known vulnerabilities (24 Critical, 74 High, 5
 | https://osv.dev/GO-2022-0493          | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |           |                                |                                    |                                   |                                                                     |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/DSA-4685-1            | 5.5  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4808-1            | 5.7  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1419,7 +1419,7 @@ Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
@@ -1428,7 +1428,7 @@ Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medi
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
 
@@ -1443,7 +1443,7 @@ Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
@@ -1452,7 +1452,7 @@ Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medi
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
 
@@ -1493,7 +1493,7 @@ Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packag
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
@@ -1502,7 +1502,7 @@ Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medi
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 
@@ -1517,7 +1517,7 @@ Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packag
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
@@ -1526,7 +1526,7 @@ Total 2 packages affected by 5 known vulnerabilities (2 Critical, 2 High, 1 Medi
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 
@@ -2096,14 +2096,14 @@ testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
  - CVE-2022-1304
 
-Total 1 package affected by 3 known vulnerabilities (2 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 3 known vulnerabilities (1 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 
@@ -2133,7 +2133,7 @@ Filtered 8 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 24 packages affected by 175 known vulnerabilities (24 Critical, 69 High, 55 Medium, 3 Low, 24 Unknown) from 4 ecosystems.
+Total 24 packages affected by 175 known vulnerabilities (21 Critical, 72 High, 55 Medium, 3 Low, 24 Unknown) from 4 ecosystems.
 10 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -2160,13 +2160,13 @@ Total 24 packages affected by 175 known vulnerabilities (24 Critical, 69 High, 5
 | https://osv.dev/GO-2022-0493          | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |           |                                |                                    |                                   |                                                                     |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/DSA-4685-1            | 5.5  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-4808-1            | 5.7  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2364,7 +2364,7 @@ Filtered 6 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 22 packages affected by 169 known vulnerabilities (20 Critical, 69 High, 53 Medium, 3 Low, 24 Unknown) from 3 ecosystems.
+Total 22 packages affected by 169 known vulnerabilities (19 Critical, 70 High, 53 Medium, 3 Low, 24 Unknown) from 3 ecosystems.
 10 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -2391,7 +2391,7 @@ Total 22 packages affected by 169 known vulnerabilities (20 Critical, 69 High, 5
 | https://osv.dev/GO-2022-0493          | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |           |                                |                                    |                                   |                                                 |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/DSA-4685-1            | 5.5  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4808-1            | 5.7  | Debian    | apt                            | 1.4.11                             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -4343,7 +4343,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 
-Total 6 packages affected by 10 known vulnerabilities (2 Critical, 2 High, 2 Medium, 3 Low, 1 Unknown) from 3 ecosystems.
+Total 6 packages affected by 10 known vulnerabilities (1 Critical, 3 High, 2 Medium, 3 Low, 1 Unknown) from 3 ecosystems.
 6 vulnerabilities can be fixed.
 
 +-----------------------------------------+------+-----------+-----------------------+-----------+---------------+-----------------------------------------------------+
@@ -4361,7 +4361,7 @@ Total 6 packages affected by 10 known vulnerabilities (2 Critical, 2 High, 2 Med
 | https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist | league/flysystem      | 1.0.8     | 1.1.4         | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/GHSA-whgm-jr23-g3j9     | 7.5  | npm       | ansi-html             | 0.0.1     | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
 | https://osv.dev/ALPINE-CVE-2025-26519   | 7.0  | Alpine    | musl                  | 1.2.3-r4  | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
-| https://osv.dev/ALPINE-CVE-2026-22184   | 9.8  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
+| https://osv.dev/ALPINE-CVE-2026-22184   | 7.8  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
 | https://osv.dev/ALPINE-CVE-2026-27171   | 5.5  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
 +-----------------------------------------+------+-----------+-----------------------+-----------+---------------+-----------------------------------------------------+
 
@@ -4384,7 +4384,7 @@ Loaded Alpine local db from <tempdir>/osv-scanner/Alpine/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
 
-Total 6 packages affected by 10 known vulnerabilities (2 Critical, 2 High, 2 Medium, 3 Low, 1 Unknown) from 3 ecosystems.
+Total 6 packages affected by 10 known vulnerabilities (1 Critical, 3 High, 2 Medium, 3 Low, 1 Unknown) from 3 ecosystems.
 6 vulnerabilities can be fixed.
 
 +-----------------------------------------+------+-----------+-----------------------+-----------+---------------+-----------------------------------------------------+
@@ -4402,7 +4402,7 @@ Total 6 packages affected by 10 known vulnerabilities (2 Critical, 2 High, 2 Med
 | https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist | league/flysystem      | 1.0.8     | 1.1.4         | testdata/locks-many-with-insecure/composer.lock     |
 | https://osv.dev/GHSA-whgm-jr23-g3j9     | 7.5  | npm       | ansi-html             | 0.0.1     | 0.0.8         | testdata/locks-many-with-insecure/package-lock.json |
 | https://osv.dev/ALPINE-CVE-2025-26519   | 7.0  | Alpine    | musl                  | 1.2.3-r4  | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
-| https://osv.dev/ALPINE-CVE-2026-22184   | 9.8  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
+| https://osv.dev/ALPINE-CVE-2026-22184   | 7.8  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
 | https://osv.dev/ALPINE-CVE-2026-27171   | 5.5  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml    |
 +-----------------------------------------+------+-----------+-----------------------+-----------+---------------+-----------------------------------------------------+
 
@@ -5648,74 +5648,6 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 ---
 
 [TestCommand_Transitive/pom.xml_transitive_native_source - 1]
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/animated-vector-drawable/24.0.0/animated-vector-drawable-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/appcompat-v7/24.0.0/appcompat-v7-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/mediarouter-v7/24.0.0/mediarouter-v7-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/palette-v7/24.0.0/palette-v7-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-v4/24.0.0/support-v4-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/android/support/support-vector-drawable/24.0.0/support-vector-drawable-24.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-ads-lite/10.0.0/play-services-ads-lite-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-ads/10.0.0/play-services-ads-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-analytics-impl/10.0.0/play-services-analytics-impl-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-analytics/10.0.0/play-services-analytics-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-appinvite/10.0.0/play-services-appinvite-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-auth-base/10.0.0/play-services-auth-base-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-auth/10.0.0/play-services-auth-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-awareness/10.0.0/play-services-awareness-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-base/10.0.0/play-services-base-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-basement/10.0.0/play-services-basement-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-cast-framework/10.0.0/play-services-cast-framework-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-cast/10.0.0/play-services-cast-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-clearcut/10.0.0/play-services-clearcut-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-drive/10.0.0/play-services-drive-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-fitness/10.0.0/play-services-fitness-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-games/10.0.0/play-services-games-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-gass/10.0.0/play-services-gass-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-gcm/10.0.0/play-services-gcm-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-identity/10.0.0/play-services-identity-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-iid/10.0.0/play-services-iid-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-instantapps/10.0.0/play-services-instantapps-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-location/10.0.0/play-services-location-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-maps/10.0.0/play-services-maps-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-nearby/10.0.0/play-services-nearby-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-panorama/10.0.0/play-services-panorama-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-places/10.0.0/play-services-places-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-plus/10.0.0/play-services-plus-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-safetynet/10.0.0/play-services-safetynet-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tagmanager-api/10.0.0/play-services-tagmanager-api-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tagmanager-v4-impl/10.0.0/play-services-tagmanager-v4-impl-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tagmanager/10.0.0/play-services-tagmanager-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-tasks/10.0.0/play-services-tasks-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-vision/10.0.0/play-services-vision-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-wallet/10.0.0/play-services-wallet-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services-wearable/10.0.0/play-services-wearable-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/android/gms/play-services/10.0.0/play-services-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-analytics-impl/10.0.0/firebase-analytics-impl-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-analytics/10.0.0/firebase-analytics-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-appindexing/10.0.0/firebase-appindexing-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-auth/10.0.0/firebase-auth-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-common/10.0.0/firebase-common-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-config/10.0.0/firebase-config-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-crash/10.0.0/firebase-crash-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-database-connection/10.0.0/firebase-database-connection-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-database/10.0.0/firebase-database-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-iid/10.0.0/firebase-iid-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-messaging/10.0.0/firebase-messaging-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-storage-common/10.0.0/firebase-storage-common-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/com/google/firebase/firebase-storage/10.0.0/firebase-storage-10.0.0.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/apache/23/apache-23.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j/2.14.1/log4j-2.14.1.pom
-Fetching response from: https://dl.google.com/dl/android/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/apache/23/apache-23.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-api/2.14.1/log4j-api-2.14.1.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j/2.14.1/log4j-2.14.1.pom
-Fetching response from: https://repo.maven.apache.org/maven2/org/apache/logging/logging-parent/3/logging-parent-3.pom
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
