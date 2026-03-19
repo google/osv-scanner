@@ -51,7 +51,7 @@ func PrintVerticalResults(vulnResult *models.VulnerabilityResults, outputWriter 
 		}
 	}
 
-	fmt.Fprintln(outputWriter)
+	fmt.Fprint(outputWriter)
 }
 
 func printVerticalLicenseSummary(licenseSummary LicenseSummary, out io.Writer) {
