@@ -4,6 +4,7 @@ Scanning dir ./testdata/locks-gitignore
 Scanned <rootdir>/testdata/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/subdir/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -409,6 +410,7 @@ Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -570,6 +572,7 @@ Warning: plugin transitivedependency/pomxml can be risky when run on untrusted a
  - GO-2022-0274
  - GHSA-whgm-jr23-g3j9
  - CVE-2025-26519
+
 No issues found
 
 ---
@@ -773,6 +776,7 @@ Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -786,6 +790,7 @@ Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -808,6 +813,7 @@ Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -821,6 +827,7 @@ Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -833,6 +840,7 @@ No issues found
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -1224,6 +1232,7 @@ Package Packagist/sentry/sdk/2.0.4 has been filtered out because: (no reason giv
 Filtered 1 ignored package/s from the scan.
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
 Filtered 1 vulnerability from output
+
 No issues found
 
 ---
@@ -1243,6 +1252,7 @@ Scanned <rootdir>/testdata/locks-gitignore/subdir/composer.lock file and found 1
 Scanned <rootdir>/testdata/locks-gitignore/subdir/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -1286,6 +1296,7 @@ Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -1308,6 +1319,7 @@ failed to resolve path: stat <rootdir>/testdata/locks-none-does-not-exist: no su
 Scanning dir ./testdata/locks-none
 Scanned <rootdir>/testdata/locks-none/nested/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -1320,6 +1332,7 @@ No issues found
 Scanning dir ./testdata/locks-none
 Scanned <rootdir>/testdata/locks-none/nested/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -1332,6 +1345,7 @@ No issues found
 Scanning dir ./testdata/locks-none
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 No package sources found
+
 No issues found
 
 ---
@@ -1377,6 +1391,7 @@ Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -1392,6 +1407,7 @@ Warning: plugin transitivedependency/pomxml can be risky when run on untrusted a
 Loaded filter from: <rootdir>/testdata/locks-test-ignore/osv-scanner-test.toml
 CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (package-lock.json)
 Filtered 1 vulnerability from output
+
 No issues found
 
 ---
@@ -1405,6 +1421,7 @@ Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -1467,6 +1484,7 @@ Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 7 local/unscannable package/s from the scan.
+
 No issues found
 
 ---
@@ -1479,6 +1497,7 @@ No issues found
 Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 7 local/unscannable package/s from the scan.
+
 No issues found
 
 ---
@@ -1551,6 +1570,7 @@ No package sources found, --help for usage information.
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -1862,6 +1882,7 @@ Warning: plugin transitivedependency/pomxml can be risky when run on untrusted a
 ---
 
 [TestCommand/verbosity_level_=_error - 1]
+
 No issues found
 
 ---
@@ -1875,6 +1896,7 @@ Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -1888,6 +1910,7 @@ Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -2623,6 +2646,7 @@ Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -2639,6 +2663,7 @@ Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -2674,6 +2699,7 @@ Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -2690,6 +2716,7 @@ Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -2703,6 +2730,7 @@ Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -2716,6 +2744,7 @@ Scanning dir ./testdata/locks-many/package-lock.json
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -2776,6 +2805,7 @@ Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -2789,6 +2819,7 @@ Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -2820,6 +2851,7 @@ Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -2832,6 +2864,7 @@ No issues found
 Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -2854,6 +2887,7 @@ No package sources found, --help for usage information.
 Scanning dir ./testdata/locks-many/package-lock.json
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -4308,6 +4342,7 @@ Scanned <rootdir>/testdata/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/subdir/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 No issues found
 
 ---
@@ -4322,6 +4357,7 @@ Scanned <rootdir>/testdata/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/subdir/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 No issues found
 
 ---
@@ -4479,6 +4515,7 @@ Scanned <rootdir>/testdata/locks-gitignore/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 No issues found
 
 ---
@@ -4500,6 +4537,7 @@ Scanned <rootdir>/testdata/locks-gitignore/yarn.lock file and found 1 package
 Loaded RubyGems local db from <tempdir>/osv-scanner/RubyGems/all.zip
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 No issues found
 
 ---
@@ -4514,6 +4552,7 @@ Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and f
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 No issues found
 
 ---
@@ -4528,6 +4567,7 @@ Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and f
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 No issues found
 
 ---
@@ -4541,6 +4581,7 @@ Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+
 No issues found
 
 ---
@@ -4554,6 +4595,7 @@ Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+
 No issues found
 
 ---
@@ -5022,6 +5064,7 @@ No package sources found, --help for usage information.
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 No issues found
 
 ---
@@ -5034,6 +5077,7 @@ No issues found
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Loaded npm local db from <tempdir>/osv-scanner/npm/all.zip
+
 No issues found
 
 ---
@@ -5047,6 +5091,7 @@ Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+
 No issues found
 
 ---
@@ -5060,6 +5105,7 @@ Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Loaded Packagist local db from <tempdir>/osv-scanner/Packagist/all.zip
+
 No issues found
 
 ---
@@ -5178,6 +5224,7 @@ could not load db for PyPI ecosystem: unable to fetch OSV database: no offline v
 Scanned <rootdir>/testdata/locks-many/installed file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -5190,6 +5237,7 @@ No issues found
 Scanned <rootdir>/testdata/locks-many/status file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -5202,6 +5250,7 @@ No issues found
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -5224,6 +5273,7 @@ extraction failed on specified lockfile
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -5236,6 +5286,7 @@ No issues found
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -5329,6 +5380,7 @@ Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 Scanned <rootdir>/testdata/locks-many/replace-local.mod file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
+
 No issues found
 
 ---
@@ -5465,6 +5517,7 @@ Total 2 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 1 Medi
 [TestCommand_MoreLockfiles/packages.config - 1]
 Scanned <rootdir>/testdata/locks-scalibr/packages.config file and found 2 packages
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -5476,6 +5529,7 @@ No issues found
 [TestCommand_MoreLockfiles/packages.lock.json - 1]
 Scanned <rootdir>/testdata/locks-scalibr/packages.lock.json file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -5487,6 +5541,7 @@ No issues found
 [TestCommand_MoreLockfiles/stack.yaml.lock - 1]
 Scanned <rootdir>/testdata/locks-scalibr/stack.yaml.lock file and found 4 packages
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -5561,6 +5616,7 @@ Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medi
 [TestCommand_Transitive/pom.xml_no_resolve_no_transitive - 1]
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
+
 No issues found
 
 ---
@@ -5592,6 +5648,7 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
 Loaded Maven local db from <tempdir>/osv-scanner/Maven/all.zip
+
 No issues found
 
 ---
@@ -5878,6 +5935,7 @@ Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -5891,6 +5949,7 @@ Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -5904,6 +5963,7 @@ Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -5918,6 +5978,7 @@ Command "ssh -V": exit status 1
 Scanned <tempdir>/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -5931,6 +5992,7 @@ Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+
 No issues found
 
 ---
@@ -5944,6 +6006,7 @@ Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
+
 No issues found
 
 ---
