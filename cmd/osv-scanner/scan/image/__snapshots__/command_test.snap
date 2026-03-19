@@ -115,7 +115,7 @@ Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
 
 Container Scanning Result (Alpine Linux v3.10) (Based on "alpine" image):
-Total 2 packages affected by 4 known vulnerabilities (3 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
+Total 2 packages affected by 4 known vulnerabilities (2 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 1 vulnerability can be fixed.
 
 
@@ -229,14 +229,14 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_ExplicitExtractors_WithoutDefaults/add_extractors - 1]
 Scanning local image tarball "testdata/test-alpine-sbom.tar"
 
-Total 1 package affected by 3 known vulnerabilities (2 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 3 known vulnerabilities (1 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                            |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------------------+
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.12-r1 | --            | data/alpine-zlib-16.cdx.json:lib/apk/db/installed |
-| https://osv.dev/ALPINE-CVE-2026-22184 | 9.8  | Alpine    | zlib    | 1.2.12-r1 | --            | data/alpine-zlib-16.cdx.json:lib/apk/db/installed |
+| https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.12-r1 | --            | data/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.12-r1 | --            | data/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------------------+
 
