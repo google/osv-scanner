@@ -39,7 +39,7 @@ require (
 	golang.org/x/sync v0.20.0
 	golang.org/x/term v0.40.0
 	golang.org/x/vuln v1.1.4
-	google.golang.org/grpc v1.79.2
+	google.golang.org/grpc v1.79.3
 	google.golang.org/protobuf v1.36.11
 	gopkg.in/dnaeon/go-vcr.v4 v4.0.6
 	gopkg.in/ini.v1 v1.67.1
