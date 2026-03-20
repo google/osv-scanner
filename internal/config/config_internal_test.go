@@ -170,6 +170,14 @@ func Test_tryLoadConfig(t *testing.T) {
 			},
 			wantErr: true,
 		},
+		{
+			name: "config_with_invalid_regex_in_package_override",
+			args: args{
+				configPath: "./testdata/testdatainner/osv-scanner-invalid-regex.toml",
+			},
+			want:    Config{},
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

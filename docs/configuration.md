@@ -93,8 +93,17 @@ ecosystem = "npm"
 group = "dev"
 ignore = true
 
+# ignore packages matching a regex pattern (e.g. all internal packages)
+[[PackageOverrides]]
+name = "internal-.*"
+nameIsRegex = true
+ignore = true
+reason = "internal packages should not be checked"
+
 # ... and so on
 ```
+
+When `nameIsRegex` is set to `true`, the `name` field is treated as a regular expression pattern. The pattern is automatically anchored to match the full package name (i.e. `^pattern$`). Standard [Go regular expression syntax](https://pkg.go.dev/regexp/syntax) is supported. An invalid regex pattern will cause a config loading error.
 
 ## Go Version Override
 

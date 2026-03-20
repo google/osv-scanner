@@ -53,8 +53,7 @@ func (e PackageOverrideEntry) matches(pkg *extractor.Package) bool {
 		if e.NameIsRegex {
 			re, err := cachedregexp.Compile("^" + e.Name + "$")
 			if err != nil {
-				cmdlogger.Warnf("warning: invalid regex %q in package override: %v\n", e.Name, err)
-
+				// This should not happen as regex is validated at config load time
 				return false
 			}
 			if !re.MatchString(imodels.Name(pkg)) {
