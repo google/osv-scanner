@@ -127,7 +127,15 @@ func ParentPOMPath(currentPath, relativePath string) string {
 	if relativePath == "" {
 		relativePath = "../pom.xml"
 	}
-	path := filepath.Join(filepath.Dir(currentPath), relativePath)
+	projectRoot := filepath.Dir(currentPath)
+	path := filepath.Join(projectRoot, relativePath)
+	path = filepath.Clean(path)
+
+	// Prevent path traversal outside the project directory.
+	if !strings.HasPrefix(path, filepath.Clean(projectRoot)+string(os.PathSeparator)) {
+		return ""
+	}
+
 	if info, err := os.Stat(path); err == nil {
 		if !info.IsDir() {
 			return path
