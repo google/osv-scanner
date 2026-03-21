@@ -127,15 +127,17 @@ func ParentPOMPath(currentPath, relativePath string) string {
 	if relativePath == "" {
 		relativePath = "../pom.xml"
 	}
-	projectRoot := filepath.Dir(currentPath)
-	path := filepath.Join(projectRoot, relativePath)
-	path = filepath.Clean(path)
 
-	// Prevent path traversal outside the project directory.
-	if !strings.HasPrefix(path, filepath.Clean(projectRoot)+string(os.PathSeparator)) {
+	// Limit traversal depth to prevent path traversal attacks via malicious
+	// relativePath values (e.g. "../../../../etc/passwd"). Legitimate Maven
+	// projects rarely have more than a few levels of parent POM nesting.
+	const maxTraversalDepth = 4
+	traversals := strings.Count(filepath.ToSlash(relativePath), "../")
+	if traversals > maxTraversalDepth {
 		return ""
 	}
 
+	path := filepath.Join(filepath.Dir(currentPath), relativePath)
 	if info, err := os.Stat(path); err == nil {
 		if !info.IsDir() {
 			return path
