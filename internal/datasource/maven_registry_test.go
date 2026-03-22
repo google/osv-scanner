@@ -299,3 +299,56 @@ func TestMultipleRegistry(t *testing.T) {
 		t.Errorf("GetVersions(%s, %s):\ngot %v\nwant %v\n", "org.example", "x.y.z", gotVersions, wantVersions)
 	}
 }
+
+// TestAddRegistry_RejectsInsecureURL verifies that AddRegistry rejects non-HTTPS
+// registry URLs for non-loopback hosts to prevent credential exfiltration.
+// A malicious pom.xml could specify an attacker-controlled HTTP registry URL;
+// if the server responds with a 401 challenge, osv-scanner would send the
+// victim's settings.xml credentials over plaintext HTTP to the attacker.
+func TestAddRegistry_RejectsInsecureURL(t *testing.T) {
+	t.Parallel()
+
+	client, _ := NewMavenRegistryAPIClient(MavenRegistry{URL: MavenCentral, ReleasesEnabled: true})
+
+	tests := []struct {
+		name    string
+		url     string
+		wantErr bool
+	}{
+		{
+			name:    "http external host rejected",
+			url:     "http://attacker.example.com/maven",
+			wantErr: true,
+		},
+		{
+			name:    "http external IP rejected",
+			url:     "http://192.168.1.100/maven",
+			wantErr: true,
+		},
+		{
+			name:    "https external host allowed",
+			url:     "https://private.registry.example.com/maven",
+			wantErr: false,
+		},
+		{
+			name:    "http localhost allowed",
+			url:     "http://localhost:8080/maven",
+			wantErr: false,
+		},
+		{
+			name:    "http 127.0.0.1 allowed",
+			url:     "http://127.0.0.1:8080/maven",
+			wantErr: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			err := client.AddRegistry(MavenRegistry{URL: tt.url, ID: tt.url, ReleasesEnabled: true})
+			if (err != nil) != tt.wantErr {
+				t.Errorf("AddRegistry(%q) error = %v, wantErr = %v", tt.url, err, tt.wantErr)
+			}
+		})
+	}
+}

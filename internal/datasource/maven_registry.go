@@ -96,6 +96,19 @@ func (m *MavenRegistryAPIClient) AddRegistry(registry MavenRegistry) error {
 		return err
 	}
 
+	// Reject non-HTTPS registry URLs for non-loopback hosts to prevent credential
+	// exfiltration. A malicious pom.xml could specify an attacker-controlled HTTP
+	// registry URL; if the server responds with a 401 challenge, osv-scanner would
+	// send the victim's settings.xml credentials over plaintext HTTP to the attacker.
+	// Loopback addresses (localhost, 127.0.0.1, ::1) are permitted for local development
+	// and testing.
+	if u.Scheme != "https" {
+		host := u.Hostname()
+		if host != "localhost" && host != "127.0.0.1" && host != "::1" {
+			return fmt.Errorf("insecure Maven registry URL %q: only HTTPS registries are permitted to prevent credential exfiltration via attacker-controlled pom.xml", registry.URL)
+		}
+	}
+
 	registry.Parsed = u
 	m.registries = append(m.registries, registry)
 
