@@ -161,7 +161,14 @@ func IsWithinRoot(rootPath, targetPath string) bool {
 		return false
 	}
 
-	return !strings.HasPrefix(rel, "..") && rel != ".."
+	// Clean the path to remove extraneous . or ..
+	rel = filepath.Clean(rel)
+
+	if rel == ".." || strings.HasPrefix(rel, ".." + string(filepath.Separator)) {
+		return false
+	}
+
+	return true
 }
 
 // ParentPOMPath resolves the path to the parent POM in the same manner as Maven.

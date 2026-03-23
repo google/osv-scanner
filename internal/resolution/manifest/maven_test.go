@@ -1,6 +1,7 @@
 package manifest
 
 import (
+	"os"
 	"bytes"
 	"path/filepath"
 	"reflect"
@@ -965,5 +966,71 @@ func Test_generatePropertyPatches(t *testing.T) {
 		if ok != tt.possible || !reflect.DeepEqual(patches, tt.patches) {
 			t.Errorf("generatePropertyPatches(%s, %s): got %v %v, want %v %v", tt.s1, tt.s2, patches, ok, tt.patches, tt.possible)
 		}
+	}
+}
+
+func TestMavenReadWrite_Containment(t *testing.T) {
+	t.Parallel()
+
+	// Create a temporary environment to test containment
+	tmpDir := t.TempDir()
+
+	// We want to simulate a workspace that is NOT in a git repo
+	// So we create a nested project inside tmpDir
+
+	projectDir := filepath.Join(tmpDir, "project")
+	os.MkdirAll(projectDir, 0755)
+
+	// Create a parent pom completely outside the project
+	outsideDir := filepath.Join(tmpDir, "outside")
+	os.MkdirAll(outsideDir, 0755)
+	err := os.WriteFile(filepath.Join(outsideDir, "pom.xml"), []byte(`<project>
+	<groupId>com.outside</groupId>
+	<artifactId>parent</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+</project>`), 0644)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	// Create the malicious child pom
+	childPomPath := filepath.Join(projectDir, "pom.xml")
+	err = os.WriteFile(childPomPath, []byte(`<project>
+	<parent>
+		<groupId>com.outside</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0.0</version>
+		<relativePath>../outside/pom.xml</relativePath>
+	</parent>
+	<artifactId>child</artifactId>
+</project>`), 0644)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	mavenRW, err := NewMavenReadWriter("")
+	if err != nil {
+		t.Fatalf("failed to create MavenReadWriter: %v", err)
+	}
+
+	df, err := depfile.OpenLocalDepFile(childPomPath)
+	if err != nil {
+		t.Fatalf("failed to open local dep file: %v", err)
+	}
+	defer df.Close()
+
+	// Read should succeed but the out-of-bounds parent should NOT be resolved locally.
+	// Since it isn't resolved locally, MavenReadWriter will try to fetch it from upstream (which fails, returning an error or just skipping local).
+	_, err = mavenRW.Read(df)
+
+	// The read should either succeed (without local parent properties) or fail because the parent isn't locally found and isn't upstream.
+	// But it MUST NOT crash or resolve the parent outside the bounds.
+	// Actually, the current behavior is that if a local parent isn't found, it falls back to upstream.
+	// If upstream fails (which it will for a dummy artifact), it returns an error.
+	if err == nil {
+		t.Errorf("Expected an error (upstream fetch failure) because local parent was correctly rejected, but got no error")
+	} else if !strings.Contains(err.Error(), "failed to get Maven project") {
+		t.Errorf("Expected upstream fetch failure, got: %v", err)
 	}
 }
