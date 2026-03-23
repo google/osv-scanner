@@ -439,7 +439,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 22 packages affected by 48 known vulnerabilities (3 Critical, 14 High, 25 Medium, 3 Low, 3 Unknown) from 1 ecosystem.
+Total 22 packages affected by 48 known vulnerabilities (3 Critical, 15 High, 25 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
 24 vulnerabilities can be fixed.
 
 
@@ -488,7 +488,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 22 packages affected by 48 known vulnerabilities (3 Critical, 14 High, 25 Medium, 3 Low, 3 Unknown) from 1 ecosystem.
+Total 22 packages affected by 48 known vulnerabilities (3 Critical, 15 High, 25 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
 24 vulnerabilities can be fixed.
 
 
@@ -556,7 +556,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 22 packages affected by 48 known vulnerabilities (3 Critical, 14 High, 25 Medium, 3 Low, 3 Unknown) from 1 ecosystem.
+Total 22 packages affected by 48 known vulnerabilities (3 Critical, 15 High, 25 Medium, 3 Low, 2 Unknown) from 1 ecosystem.
 24 vulnerabilities can be fixed.
 
 
@@ -605,7 +605,7 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 25 packages affected by 73 known vulnerabilities (4 Critical, 29 High, 35 Medium, 4 Low, 1 Unknown) from 2 ecosystems.
+Total 25 packages affected by 73 known vulnerabilities (3 Critical, 30 High, 35 Medium, 4 Low, 1 Unknown) from 2 ecosystems.
 73 vulnerabilities can be fixed.
 
 
@@ -849,7 +849,7 @@ Scanning local image tarball "./testdata/test-package-tracing.tar"
 
 
 Container Scanning Result (Alpine Linux v3.20) (Based on "alpine" image):
-Total 9 packages affected by 213 known vulnerabilities (2 Critical, 6 High, 11 Medium, 2 Low, 192 Unknown) from 2 ecosystems.
+Total 9 packages affected by 213 known vulnerabilities (1 Critical, 7 High, 11 Medium, 2 Low, 192 Unknown) from 2 ecosystems.
 213 vulnerabilities can be fixed.
 
 
