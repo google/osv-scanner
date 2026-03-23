@@ -36,7 +36,7 @@ const MaxParent = 100
 // relative path of parent.
 func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIClient, result *maven.Project, current maven.Parent, start int, path string, allowLocal bool) error {
 	currentPath := path
-	rootPath := filepath.Dir(path) // The original directory of the pom.xml being parsed
+	rootPath := FindProjectRoot(path)
 	visited := make(map[maven.ProjectKey]bool, MaxParent)
 	for n := start; n < MaxParent; n++ {
 		if current.GroupID == "" || current.ArtifactID == "" || current.Version == "" {
@@ -121,6 +121,30 @@ func ProjectKey(proj maven.Project) maven.ProjectKey {
 }
 
 
+// FindProjectRoot attempts to find the root of the project by walking up the directory
+// tree looking for a .git directory. If it reaches the root of the filesystem without
+// finding one, it falls back to the directory of the initial path.
+func FindProjectRoot(startPath string) string {
+	absPath, err := filepath.Abs(startPath)
+	if err != nil {
+		return filepath.Dir(startPath)
+	}
+
+	dir := filepath.Dir(absPath)
+	for {
+		if info, err := os.Stat(filepath.Join(dir, ".git")); err == nil && info.IsDir() {
+			return dir
+		}
+		parent := filepath.Dir(dir)
+		if parent == dir { // Reached filesystem root
+			break
+		}
+		dir = parent
+	}
+
+	return filepath.Dir(absPath)
+}
+
 // IsWithinRoot checks if targetPath is within rootPath.
 func IsWithinRoot(rootPath, targetPath string) bool {
 	rootAbs, err := filepath.Abs(rootPath)
@@ -151,7 +175,7 @@ func ParentPOMPath(currentPath, relativePath, rootPath string) string {
 	path := filepath.Join(filepath.Dir(currentPath), relativePath)
 	if info, err := os.Stat(path); err == nil {
 		if !info.IsDir() {
-			if !IsWithinRoot(rootPath, path) {
+			if rootPath != "" && !IsWithinRoot(rootPath, path) {
 				return ""
 			}
 			return path
@@ -159,7 +183,7 @@ func ParentPOMPath(currentPath, relativePath, rootPath string) string {
 		// Current path is a directory, so look for pom.xml in the directory.
 		path = filepath.Join(path, "pom.xml")
 		if _, err := os.Stat(path); err == nil {
-			if !IsWithinRoot(rootPath, path) {
+			if rootPath != "" && !IsWithinRoot(rootPath, path) {
 				return ""
 			}
 			return path

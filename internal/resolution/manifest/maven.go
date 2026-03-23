@@ -301,7 +301,7 @@ func (MavenReadWriter) Write(df depfile.DepFile, w io.Writer, patch Patch) error
 	// Walk through local parent pom.xml for original dependencies and properties.
 	// TODO: investigate if this can be done when merging parents in manifest reading
 	currentPath := df.Path()
-	rootPath := filepath.Dir(currentPath) // The original directory of the pom.xml being parsed
+	rootPath := mavenutil.FindProjectRoot(currentPath) // Ensure we resolve based on the project root
 	parent := specific.Parent
 	visited := make(map[maven.ProjectKey]bool, mavenutil.MaxParent)
 	for range mavenutil.MaxParent {
