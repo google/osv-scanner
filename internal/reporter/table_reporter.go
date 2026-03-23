@@ -19,7 +19,8 @@ type tableReporter struct {
 
 func (r *tableReporter) PrintResult(vulnResult *models.VulnerabilityResults) error {
 	if len(vulnResult.Results) == 0 && vulnResult.LicenseSummary == nil && !cmdlogger.HasErrored() {
-		fmt.Fprintf(r.writer, "No issues found\n")
+		// Include a starting newline to separate results from logs.
+		fmt.Fprintf(r.writer, "\nNo issues found\n")
 		return nil
 	}
 
