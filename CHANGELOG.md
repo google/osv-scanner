@@ -1,4 +1,12 @@
+# v2.3.5
+
+### Misc:
+
+- Fix broken release workflow.
+
 # v2.3.4
+
+[!NOTE] This release was abandoned, due to issues with the release workflow.
 
 ### Features:
 
