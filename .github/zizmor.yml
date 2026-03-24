@@ -1,4 +1,6 @@
 rules:
   unpinned-uses:
-    ignore:
-      - "slsa-framework/slsa-github-generator/*"
+    config:
+      policies:
+        "slsa-framework/slsa-github-generator/*": ref-pin
+        "*": hash-pin
