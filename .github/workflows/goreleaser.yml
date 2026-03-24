@@ -9,6 +9,7 @@ on:
 # should be granted per job as needed using a dedicated `permissions` block
 permissions: {}
 
+# dummy comment
 jobs:
   goreleaser:
     outputs:
