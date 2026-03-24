@@ -4,6 +4,7 @@ Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -39,6 +40,7 @@ OPTIONS:
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
@@ -51,6 +53,7 @@ No issues found
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 No issues found
 
 ---
