@@ -1,0 +1,4 @@
+rules:
+  unpinned-uses:
+    ignore:
+      - "slsa-framework/slsa-github-generator/*"
