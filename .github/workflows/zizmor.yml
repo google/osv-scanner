@@ -1,5 +1,6 @@
 name: GitHub Actions Security Analysis with zizmor 🌈
 
+# Triggering workflow with a dummy comment
 on:
   pull_request:
     paths: [".github/workflows/**"]
