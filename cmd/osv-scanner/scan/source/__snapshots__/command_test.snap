@@ -5777,8 +5777,8 @@ Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 Loaded PyPI local db from <tempdir>/osv-scanner/PyPI/all.zip
 
-Total 3 packages affected by 12 known vulnerabilities (1 Critical, 4 High, 6 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
-12 vulnerabilities can be fixed.
+Total 3 packages affected by 13 known vulnerabilities (1 Critical, 4 High, 7 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+13 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
@@ -5797,6 +5797,7 @@ Total 3 packages affected by 12 known vulnerabilities (1 Critical, 4 High, 6 Med
 | https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                              |
 | https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-gc5v-m9x4-r6x2 | 4.4  | PyPI      | requests | 2.20.0  | 2.33.0        | testdata/locks-requirements/requirements.txt |
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 
 ---
