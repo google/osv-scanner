@@ -13,3 +13,18 @@
     - "--recursive"
     - "--verbosity=error"
     - "."
+
+- id: osv-scanner-docker
+  name: osv-scanner-docker
+  description: Scan the current working directory for vulnerable dependencies
+  entry: "--workdir=/src ghcr.io/google/osv-scanner:v2.3.3"
+  always_run: true
+  pass_filenames: false
+  language: docker_image
+  args:
+    - "scan"
+    - "source"
+    - "--format=vertical"
+    - "--recursive"
+    - "--verbosity=info"
+    - "."
