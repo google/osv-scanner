@@ -785,6 +785,19 @@ No issues found
 
 ---
 
+[TestCommand/exclude_with_exact_directory_name_using_deprecated_flag - 1]
+Warning: --experimental-exclude has been deprecated in favor of --x-exclude
+Scanning dir ./testdata/locks-one-with-nested
+Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
+Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
+No issues found
+
+---
+
+[TestCommand/exclude_with_exact_directory_name_using_deprecated_flag - 2]
+
+---
+
 [TestCommand/exclude_with_glob_pattern - 1]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
@@ -1190,7 +1203,8 @@ OPTIONS:
    --recursive, -r                                                                  check subdirectories
    --no-ignore                                                                      also scan files that would be ignored by .gitignore
    --include-git-root                                                               include scanning git root (non-submoduled) repositories
-   --experimental-exclude string [ --experimental-exclude string ]                  exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)
+   --experimental-exclude string [ --experimental-exclude string ]                  [DEPRECATED] (use "--x-exclude" instead) exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)
+   --x-exclude string [ --x-exclude string ]                                        exclude directory paths during scanning; use g:pattern for glob, r:pattern for regex, or just dirname for exact match (can be repeated)
    --data-source string                                                             source to fetch package information from; value can be: deps.dev, native (default: "deps.dev")
    --maven-registry string                                                          URL of the default registry to fetch Maven metadata
    --config string                                                                  set/override config file
@@ -1210,10 +1224,14 @@ OPTIONS:
    --all-packages                                                                   when json output is selected, prints all packages
    --all-vulns                                                                      show all vulnerabilities including unimportant and uncalled ones
    --licenses value                                                                 report on licenses based on an allowlist
-   --experimental-flag-deprecated-packages                                          report if package versions are deprecated
-   --experimental-plugins string [ --experimental-plugins string ]                  list of specific plugins and presets of plugins to use (default: "lockfile", "sbom", "directory")
-   --experimental-disable-plugins string [ --experimental-disable-plugins string ]  list of specific plugins and presets of plugins to not use
-   --experimental-no-default-plugins                                                disable default plugins, instead using only those enabled by --experimental-plugins
+   --x-flag-deprecated-packages                                                     report if package versions are deprecated
+   --experimental-flag-deprecated-packages                                          [DEPRECATED] (use "--x-flag-deprecated-packages" instead) report if package versions are deprecated
+   --experimental-plugins string [ --experimental-plugins string ]                  [DEPRECATED] (use "--x-plugins" instead) list of specific plugins and presets of plugins to use (default: "lockfile", "sbom", "directory")
+   --x-plugins string [ --x-plugins string ]                                        list of specific plugins and presets of plugins to use (default: "lockfile", "sbom", "directory")
+   --experimental-disable-plugins string [ --experimental-disable-plugins string ]  [DEPRECATED] (use "--x-disable-plugins" instead) list of specific plugins and presets of plugins to not use
+   --x-disable-plugins string [ --x-disable-plugins string ]                        list of specific plugins and presets of plugins to not use
+   --experimental-no-default-plugins                                                [DEPRECATED] (use "--x-no-default-plugins" instead) disable default plugins, instead using only those enabled by --x-plugins
+   --x-no-default-plugins                                                           disable default plugins, instead using only those enabled by --experimental-plugins
    --help, -h                                                                       show help
 
 ---
@@ -2597,14 +2615,36 @@ Total 22 packages affected by 169 known vulnerabilities (18 Critical, 71 High, 5
 
 ---
 
+[TestCommand_ExplicitExtractors_WithDefaults/deprecated_empty_plugins_flag_does_nothing - 1]
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/deprecated_empty_plugins_flag_does_nothing - 2]
+Incorrect Usage: flag needs an argument: --experimental-plugins=
+
+flag needs an argument: --experimental-plugins=
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/deprecated_extractors_cancelled_out_specified_individually - 1]
+Warning: --experimental-plugins has been deprecated in favor of --x-plugins
+Warning: --experimental-disable-plugins has been deprecated in favor of --x-disable-plugins
+
+---
+
+[TestCommand_ExplicitExtractors_WithDefaults/deprecated_extractors_cancelled_out_specified_individually - 2]
+No package sources found, --help for usage information.
+
+---
+
 [TestCommand_ExplicitExtractors_WithDefaults/empty_plugins_flag_does_nothing - 1]
 
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/empty_plugins_flag_does_nothing - 2]
-Incorrect Usage: flag needs an argument: --experimental-plugins=
+Incorrect Usage: flag needs an argument: --x-plugins=
 
-flag needs an argument: --experimental-plugins=
+flag needs an argument: --x-plugins=
 
 ---
 
@@ -2762,14 +2802,37 @@ could not determine extractor, requested package-lock.json
 
 ---
 
+[TestCommand_ExplicitExtractors_WithoutDefaults/deprecated_empty_plugins_flag_does_nothing - 1]
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/deprecated_empty_plugins_flag_does_nothing - 2]
+Incorrect Usage: flag needs an argument: --experimental-plugins=
+
+flag needs an argument: --experimental-plugins=
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/deprecated_extractors_cancelled_out_specified_individually - 1]
+Warning: --experimental-plugins has been deprecated in favor of --x-plugins
+Warning: --experimental-disable-plugins has been deprecated in favor of --x-disable-plugins
+Warning: --experimental-no-default-plugins has been deprecated in favor of --x-no-default-plugins
+
+---
+
+[TestCommand_ExplicitExtractors_WithoutDefaults/deprecated_extractors_cancelled_out_specified_individually - 2]
+at least one extractor must be enabled
+
+---
+
 [TestCommand_ExplicitExtractors_WithoutDefaults/empty_plugins_flag_does_nothing - 1]
 
 ---
 
 [TestCommand_ExplicitExtractors_WithoutDefaults/empty_plugins_flag_does_nothing - 2]
-Incorrect Usage: flag needs an argument: --experimental-plugins=
+Incorrect Usage: flag needs an argument: --x-plugins=
 
-flag needs an argument: --experimental-plugins=
+flag needs an argument: --x-plugins=
 
 ---
 
@@ -3139,6 +3202,84 @@ Total 1 package deprecated.
 ---
 
 [TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table - 2]
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_and_new_flag_false - 1]
+Warning: --experimental-flag-deprecated-packages has been deprecated in favor of --x-flag-deprecated-packages
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
+
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                                       |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| https://osv.dev/RUSTSEC-2020-0016   |      | crates.io | net2    | 0.2.33  | --            | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/RUSTSEC-2020-0078   | 5.5  | crates.io | net2    | 0.2.33  | 0.2.36        | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/GHSA-458v-4hrf-g3m4 |      |           |         |         |               |                                                              |
+| https://osv.dev/GHSA-c79c-gwph-gqfm |      |           |         |         |               |                                                              |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_and_new_flag_false - 2]
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_and_old_flag_false - 1]
+Warning: --experimental-flag-deprecated-packages has been deprecated in favor of --x-flag-deprecated-packages
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
+
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                                       |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| https://osv.dev/RUSTSEC-2020-0016   |      | crates.io | net2    | 0.2.33  | --            | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/RUSTSEC-2020-0078   | 5.5  | crates.io | net2    | 0.2.33  | 0.2.36        | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/GHSA-458v-4hrf-g3m4 |      |           |         |         |               |                                                              |
+| https://osv.dev/GHSA-c79c-gwph-gqfm |      |           |         |         |               |                                                              |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_and_old_flag_false - 2]
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_using_old_flag - 1]
+Warning: --experimental-flag-deprecated-packages has been deprecated in favor of --x-flag-deprecated-packages
+Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
+Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
+
+Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+1 vulnerability can be fixed.
+
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                                       |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+| https://osv.dev/RUSTSEC-2020-0016   |      | crates.io | net2    | 0.2.33  | --            | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/RUSTSEC-2020-0078   | 5.5  | crates.io | net2    | 0.2.33  | 0.2.36        | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
+| https://osv.dev/GHSA-458v-4hrf-g3m4 |      |           |         |         |               |                                                              |
+| https://osv.dev/GHSA-c79c-gwph-gqfm |      |           |         |         |               |                                                              |
++-------------------------------------+------+-----------+---------+---------+---------------+--------------------------------------------------------------+
+Total 1 package deprecated.
+
++----------------------------------------------------------------------------------------------+
+| Deprecated packages                                                                          |
++-----------+---------+---------+--------------------------------------------------------------+
+| ECOSYSTEM | PACKAGE | VERSION | SOURCE                                                       |
++-----------+---------+---------+--------------------------------------------------------------+
+| crates.io | net2    | 0.2.33  | testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock |
++-----------+---------+---------+--------------------------------------------------------------+
+
+---
+
+[TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table_using_old_flag - 2]
 
 ---
 
