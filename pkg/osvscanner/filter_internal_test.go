@@ -40,7 +40,7 @@ func Test_filterResults(t *testing.T) {
 			// Sources in the test input should point to files/folders in the testdata folder for this to work correctly.
 			configManager := config.Manager{
 				DefaultConfig: config.Config{},
-				ConfigMap:     make(map[string]config.Config),
+				ConfigMap:     make(map[string]*config.Config),
 			}
 
 			got := testutility.LoadJSONFixture[models.VulnerabilityResults](t, filepath.Join(tt.path, "input.json"))
