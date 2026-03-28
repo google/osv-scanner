@@ -50,6 +50,7 @@ You can specify overrides for particular packages to have them either ignored en
 [[PackageOverrides]]
 # One or more fields to match each package against:
 name = "lib"
+# nameIsRegex = true # Optional: treat name as a regular expression pattern
 version = "1.0.0"
 ecosystem = "Go"
 group = "dev"
