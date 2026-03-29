@@ -3444,13 +3444,13 @@ Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 package
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 failed to download package err jar not found: https://repo1.maven.org/maven2/com/example/hello-tester/1.0-SNAPSHOT/hello-tester-1.0-SNAPSHOT.jar
 
-Total 4 packages affected by 55 known vulnerabilities (18 Critical, 30 High, 5 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
+Total 4 packages affected by 55 known vulnerabilities (18 Critical, 29 High, 6 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
 55 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
-| https://osv.dev/GHSA-72hv-8253-57qq | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.18.6        | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-72hv-8253-57qq | 6.9  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.18.6        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-h46c-h94j-95f3 | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.15.0        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-288c-cq4h-88gq | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.4       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-4gq5-ch57-c2mg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.5       | testdata/artifact/javareach_test.jar |
@@ -3527,14 +3527,14 @@ Scanning dir ./testdata/artifact/javareach_test.jar
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
-Total 8 packages affected by 61 known vulnerabilities (18 Critical, 32 High, 8 Medium, 3 Low, 0 Unknown) from 1 ecosystem.
+Total 8 packages affected by 61 known vulnerabilities (18 Critical, 31 High, 9 Medium, 3 Low, 0 Unknown) from 1 ecosystem.
 60 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | https://osv.dev/GHSA-c28r-hw5m-5gv3 | 7.9  | Maven     | com.amazonaws:aws-java-sdk-s3               | 1.11.327         | 1.12.261      | testdata/artifact/javareach_test.jar |
-| https://osv.dev/GHSA-72hv-8253-57qq | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.18.6        | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-72hv-8253-57qq | 6.9  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.18.6        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-h46c-h94j-95f3 | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.15.0        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-288c-cq4h-88gq | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.4       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-4gq5-ch57-c2mg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.5       | testdata/artifact/javareach_test.jar |
@@ -3607,14 +3607,14 @@ Scanning dir ./testdata/artifact/javareach_test.jar
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
 Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
-Total 8 packages affected by 61 known vulnerabilities (18 Critical, 32 High, 8 Medium, 3 Low, 0 Unknown) from 1 ecosystem.
+Total 8 packages affected by 61 known vulnerabilities (18 Critical, 31 High, 9 Medium, 3 Low, 0 Unknown) from 1 ecosystem.
 60 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | https://osv.dev/GHSA-c28r-hw5m-5gv3 | 7.9  | Maven     | com.amazonaws:aws-java-sdk-s3               | 1.11.327         | 1.12.261      | testdata/artifact/javareach_test.jar |
-| https://osv.dev/GHSA-72hv-8253-57qq | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.18.6        | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-72hv-8253-57qq | 6.9  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.18.6        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-h46c-h94j-95f3 | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.15.0        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-288c-cq4h-88gq | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.4       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-4gq5-ch57-c2mg | 9.8  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.5       | testdata/artifact/javareach_test.jar |
@@ -4611,7 +4611,7 @@ Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 
-Total 21 packages affected by 168 known vulnerabilities (17 Critical, 71 High, 53 Medium, 3 Low, 24 Unknown) from 2 ecosystems.
+Total 22 packages affected by 169 known vulnerabilities (18 Critical, 71 High, 53 Medium, 3 Low, 24 Unknown) from 2 ecosystems.
 11 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -4705,6 +4705,7 @@ Total 21 packages affected by 168 known vulnerabilities (17 Critical, 71 High, 5
 | https://osv.dev/DEBIAN-CVE-2026-0989  | 3.7  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-0990  | 5.9  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-0992  | 2.9  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2017-20229 | 9.8  | Debian    | mawk                           | 1.3.3-17+b3                        | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1            | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3            |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4661-1            | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -4829,7 +4830,7 @@ Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 
-Total 21 packages affected by 168 known vulnerabilities (17 Critical, 71 High, 53 Medium, 3 Low, 24 Unknown) from 2 ecosystems.
+Total 22 packages affected by 169 known vulnerabilities (18 Critical, 71 High, 53 Medium, 3 Low, 24 Unknown) from 2 ecosystems.
 11 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -4923,6 +4924,7 @@ Total 21 packages affected by 168 known vulnerabilities (17 Critical, 71 High, 5
 | https://osv.dev/DEBIAN-CVE-2026-0989  | 3.7  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-0990  | 5.9  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-0992  | 2.9  | Debian    | libxml2                        | 2.9.4+dfsg1-2.2+deb9u6             | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2017-20229 | 9.8  | Debian    | mawk                           | 1.3.3-17+b3                        | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-1            | 4.7  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4539-3            |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-4661-1            | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
