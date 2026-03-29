@@ -5259,14 +5259,14 @@ unsupported strategy "force" - must be one of: in-place, relax, override
 ---
 
 [TestCommand/fix_non-interactive_in-place_package-lock.json - 1]
-Found 14 vulnerabilities matching the filter
-Can fix 7/14 matching vulnerabilities by changing 5 dependencies
+Found 15 vulnerabilities matching the filter
+Can fix 8/15 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.13
 UPGRADED-PACKAGE: ajv,6.12.6,6.14.0
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.12
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
 REMAINING-VULNS: 7
 UNFIXABLE-VULNS: 7
 
@@ -5378,9 +5378,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.12",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
-      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
+      "version": "1.1.13",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
+      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -6298,9 +6298,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "brace-expansion": {
-      "version": "1.1.12",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
-      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
+      "version": "1.1.13",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
+      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -7102,6 +7102,15 @@ UNFIXABLE-VULNS: 7
       "unactionable": true
     },
     {
+      "id": "GHSA-f886-m6hf-6m8v",
+      "packages": [
+        {
+          "name": "brace-expansion",
+          "version": "1.1.11"
+        }
+      ]
+    },
+    {
       "id": "GHSA-fjxv-7rqg-78g4",
       "packages": [
         {
@@ -7183,6 +7192,36 @@ UNFIXABLE-VULNS: 7
     {
       "packageUpdates": [
         {
+          "name": "brace-expansion",
+          "versionFrom": "1.1.11",
+          "versionTo": "1.1.13",
+          "transitive": true
+        }
+      ],
+      "fixed": [
+        {
+          "id": "GHSA-f886-m6hf-6m8v",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        },
+        {
+          "id": "GHSA-v6h2-p8h4-qcjw",
+          "packages": [
+            {
+              "name": "brace-expansion",
+              "version": "1.1.11"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "packageUpdates": [
+        {
           "name": "ajv",
           "versionFrom": "6.12.6",
           "versionTo": "6.14.0",
@@ -7196,27 +7235,6 @@ UNFIXABLE-VULNS: 7
             {
               "name": "ajv",
               "version": "6.12.6"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "packageUpdates": [
-        {
-          "name": "brace-expansion",
-          "versionFrom": "1.1.11",
-          "versionTo": "1.1.12",
-          "transitive": true
-        }
-      ],
-      "fixed": [
-        {
-          "id": "GHSA-v6h2-p8h4-qcjw",
-          "packages": [
-            {
-              "name": "brace-expansion",
-              "version": "1.1.11"
             }
           ]
         }
@@ -7375,9 +7393,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.12",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
-      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
+      "version": "1.1.13",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
+      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -8295,9 +8313,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "brace-expansion": {
-      "version": "1.1.12",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
-      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
+      "version": "1.1.13",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
+      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -9013,6 +9031,15 @@ UNFIXABLE-VULNS: 7
       ]
     },
     {
+      "id": "GHSA-6fmv-xxpf-w3cw",
+      "packages": [
+        {
+          "name": "org.codehaus.plexus:plexus-utils",
+          "version": "3.0"
+        }
+      ]
+    },
+    {
       "id": "GHSA-78wr-2p64-hpwj",
       "packages": [
         {
@@ -9175,11 +9202,20 @@ UNFIXABLE-VULNS: 7
         {
           "name": "org.codehaus.plexus:plexus-utils",
           "versionFrom": "3.0",
-          "versionTo": "3.0.24",
+          "versionTo": "4.0.3",
           "transitive": false
         }
       ],
       "fixed": [
+        {
+          "id": "GHSA-6fmv-xxpf-w3cw",
+          "packages": [
+            {
+              "name": "org.codehaus.plexus:plexus-utils",
+              "version": "3.0"
+            }
+          ]
+        },
         {
           "id": "GHSA-8vhq-qq4p-grq3",
           "packages": [
@@ -9319,7 +9355,7 @@ UNFIXABLE-VULNS: 7
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>3.0.24</version>
+      <version>4.0.3</version>
     </dependency>
   </dependencies>
 </project>
@@ -9468,13 +9504,13 @@ UNFIXABLE-VULNS: 7
 ---
 
 [TestCommand/fix_non-interactive_override_pom.xml - 1]
-Found 12 vulnerabilities matching the filter
-Can fix 12/12 matching vulnerabilities by overriding 4 dependencies
+Found 13 vulnerabilities matching the filter
+Can fix 13/13 matching vulnerabilities by overriding 4 dependencies
 OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
-OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,3.0.24
+OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,4.0.3
 OVERRIDE-PACKAGE: commons-io:commons-io,2.14.0
 OVERRIDE-PACKAGE: org.jsoup:jsoup,1.15.3
-FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-78wr-2p64-hpwj,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
+FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-6fmv-xxpf-w3cw,GHSA-78wr-2p64-hpwj,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
 REMAINING-VULNS: 0
 UNFIXABLE-VULNS: 0
 
@@ -9525,7 +9561,7 @@ UNFIXABLE-VULNS: 0
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>3.0.24</version>
+      <version>4.0.3</version>
     </dependency>
   </dependencies>
 </project>
@@ -9565,14 +9601,14 @@ UNFIXABLE-VULNS: 4
 ---
 
 [TestCommand/fix_non_interactive_in_place_package_lock_json_with_native_data_source - 1]
-Found 14 vulnerabilities matching the filter
-Can fix 7/14 matching vulnerabilities by changing 5 dependencies
+Found 15 vulnerabilities matching the filter
+Can fix 8/15 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.13
 UPGRADED-PACKAGE: ajv,6.12.6,6.14.0
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.12
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
 REMAINING-VULNS: 7
 UNFIXABLE-VULNS: 7
 
@@ -9684,9 +9720,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.12",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
-      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
+      "version": "1.1.13",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
+      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -10604,9 +10640,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "brace-expansion": {
-      "version": "1.1.12",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
-      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
+      "version": "1.1.13",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
+      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -11307,13 +11343,13 @@ UNFIXABLE-VULNS: 7
 ---
 
 [TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 1]
-Found 12 vulnerabilities matching the filter
-Can fix 12/12 matching vulnerabilities by overriding 4 dependencies
+Found 13 vulnerabilities matching the filter
+Can fix 13/13 matching vulnerabilities by overriding 4 dependencies
 OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
-OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,3.0.24
+OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,4.0.3
 OVERRIDE-PACKAGE: commons-io:commons-io,2.14.0
 OVERRIDE-PACKAGE: org.jsoup:jsoup,1.15.3
-FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-78wr-2p64-hpwj,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
+FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-6fmv-xxpf-w3cw,GHSA-78wr-2p64-hpwj,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
 REMAINING-VULNS: 0
 UNFIXABLE-VULNS: 0
 
@@ -11364,7 +11400,7 @@ UNFIXABLE-VULNS: 0
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>3.0.24</version>
+      <version>4.0.3</version>
     </dependency>
   </dependencies>
 </project>
@@ -11381,14 +11417,14 @@ manifest or lockfile is required
 ---
 
 [TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1]
-Found 14 vulnerabilities matching the filter
-Can fix 7/14 matching vulnerabilities by changing 5 dependencies
+Found 15 vulnerabilities matching the filter
+Can fix 8/15 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.13
 UPGRADED-PACKAGE: ajv,6.12.6,6.14.0
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.12
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
-FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
+FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
 REMAINING-VULNS: 7
 UNFIXABLE-VULNS: 7
 
@@ -11500,9 +11536,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.12",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
-      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
+      "version": "1.1.13",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
+      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -12420,9 +12456,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "brace-expansion": {
-      "version": "1.1.12",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.12.tgz",
-      "integrity": "sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==",
+      "version": "1.1.13",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
+      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"

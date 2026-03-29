@@ -44,7 +44,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 798
+      content_length: 861
       body: |
         {
           "results": [
@@ -105,6 +105,10 @@ interactions:
                 {
                   "id": "GO-2024-2937",
                   "modified": "2026-02-04T03:54:25.251608Z"
+                },
+                {
+                  "id": "GO-2026-4815",
+                  "modified": "2026-03-25T18:34:45.670459Z"
                 }
               ]
             }
@@ -112,7 +116,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "798"
+          - "861"
         Content-Type:
           - application/json
       status: 200 OK
