@@ -48,7 +48,7 @@ func Command(stdout, _ io.Writer, _ *http.Client) *cli.Command {
 	return &cli.Command{
 		Name:        "fix",
 		Usage:       "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them. This feature can be risky when run on untrusted projects. Please ensure you trust the source code and artifacts before proceeding.",
-		Description: "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them",
+		Description: "scans a manifest and/or lockfile for vulnerabilities and suggests changes for remediating them. This feature can be risky when run on untrusted projects. Please ensure you trust the source code and artifacts before proceeding.",
 		Flags: []cli.Flag{
 			&cli.StringFlag{
 				Name:      "manifest",
