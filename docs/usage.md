@@ -35,9 +35,12 @@ OSV-Scanner V2 is divided into several subcommands:
 | Subcommand    | Documentation Link                                   | Quick Example                                                          |
 | ------------- | ---------------------------------------------------- | ---------------------------------------------------------------------- |
 | `scan`        | [Further down this page](./usage.md#scan-subcommand) | `osv-scanner scan -r ./my-project-dir/`                                |
-| `scan source` | [Source Project Scanning]()                          | Source scanning is default, so the example is the same as above.       |
+| `scan source` | [Source Project Scanning](./scan-source.md)           | Source scanning is default, so the example is the same as above.       |
 | `scan image`  | [Container Scanning](./scan-image.md)                | `osv-scanner scan image my-docker-img:latest`                          |
 | `fix`         | [Guided Remediation](./guided-remediation.md)        | `osv-scanner fix -M path/to/package.json -L path/to/package-lock.json` |
+
+{: .warning }
+Guided remediation (the `fix` command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
 
 ### The `scan` Subcommand
 
