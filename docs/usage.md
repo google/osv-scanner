@@ -35,7 +35,7 @@ OSV-Scanner V2 is divided into several subcommands:
 | Subcommand    | Documentation Link                                   | Quick Example                                                          |
 | ------------- | ---------------------------------------------------- | ---------------------------------------------------------------------- |
 | `scan`        | [Further down this page](./usage.md#scan-subcommand) | `osv-scanner scan -r ./my-project-dir/`                                |
-| `scan source` | [Source Project Scanning](./scan-source.md)           | Source scanning is default, so the example is the same as above.       |
+| `scan source` | [Source Project Scanning](./scan-source.md)          | Source scanning is default, so the example is the same as above.       |
 | `scan image`  | [Container Scanning](./scan-image.md)                | `osv-scanner scan image my-docker-img:latest`                          |
 | `fix`         | [Guided Remediation](./guided-remediation.md)        | `osv-scanner fix -M path/to/package.json -L path/to/package-lock.json` |
 
