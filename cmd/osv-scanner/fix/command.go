@@ -213,7 +213,7 @@ func Command(stdout, _ io.Writer, _ *http.Client) *cli.Command {
 }
 
 func action(ctx context.Context, cmd *cli.Command, stdout io.Writer) error {
-	cmdlogger.Warnf("Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the scanned project. Please ensure you trust the source code and artifacts before proceeding.")
+	cmdlogger.Warnf("Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.")
 	if !cmd.IsSet("manifest") && !cmd.IsSet("lockfile") {
 		return errors.New("manifest or lockfile is required")
 	}
