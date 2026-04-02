@@ -12,6 +12,7 @@ import (
 	apkmetadata "github.com/google/osv-scalibr/extractor/filesystem/os/apk/metadata"
 	"github.com/google/osv-scalibr/extractor/filesystem/osv"
 	"github.com/google/osv-scalibr/purl"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 // Attempts to normalize any file paths in the given `output` so that they can
@@ -1143,6 +1144,133 @@ func TestConfig_ShouldOverridePackageLicense(t *testing.T) {
 			}
 			if !reflect.DeepEqual(gotEntry, tt.wantEntry) {
 				t.Errorf("ShouldOverridePackageLicense() gotEntry = %v, wantEntry %v", gotEntry, tt.wantEntry)
+			}
+		})
+	}
+}
+
+func TestConfig_IgnoreVulns(t *testing.T) {
+	t.Parallel()
+
+	tests := []struct {
+		name     string
+		args     []*osvschema.Vulnerability
+		existing []*IgnoreEntry
+		want     []*IgnoreEntry
+	}{
+		{
+			name:     "nothing_happens_when_everything_is_empty",
+			args:     []*osvschema.Vulnerability{},
+			existing: []*IgnoreEntry{},
+			want:     []*IgnoreEntry{},
+		},
+		{
+			name: "empty_config_with_one_vuln",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+			},
+			existing: []*IgnoreEntry{},
+			want:     []*IgnoreEntry{{ID: "GHSA-123"}},
+		},
+		{
+			name: "empty_config_with_two_vulns",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+			},
+			existing: []*IgnoreEntry{},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+				{ID: "GHSA-456"},
+			},
+		},
+		{
+			name: "existing_properties_are_preserved",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+				{Id: "GHSA-789"},
+			},
+			existing: []*IgnoreEntry{
+				{ID: "GHSA-123", Reason: "No ssh servers are connected to or hosted in Go lang"},
+				{ID: "GHSA-789", Used: true},
+			},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123", Reason: "No ssh servers are connected to or hosted in Go lang"},
+				{ID: "GHSA-456"},
+				{ID: "GHSA-789", Used: true},
+			},
+		},
+		{
+			name: "missing_vulns_are_removed",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+			},
+			existing: []*IgnoreEntry{
+				{ID: "GHSA-789"},
+			},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+				{ID: "GHSA-456"},
+			},
+		},
+		{
+			name: "ids_are_deduplicated",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+			},
+			existing: []*IgnoreEntry{},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+				{ID: "GHSA-456"},
+			},
+		},
+		{
+			name: "ids_are_deduplicated_including_already_existing",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-456"},
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+				{Id: "GHSA-789"},
+			},
+			existing: []*IgnoreEntry{
+				{ID: "GHSA-456"},
+				{ID: "GHSA-456"},
+			},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+				{ID: "GHSA-456"},
+				{ID: "GHSA-789"},
+			},
+		},
+		{
+			name: "aliases_are_deduplicated",
+			args: []*osvschema.Vulnerability{
+				{Id: "GHSA-123"},
+				{Id: "GHSA-456"},
+				{Id: "GHSA-789", Aliases: []string{"GHSA-123", "CVE-123"}},
+			},
+			existing: []*IgnoreEntry{},
+			want: []*IgnoreEntry{
+				{ID: "GHSA-123"},
+				{ID: "GHSA-456"},
+				{ID: "GHSA-789"},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+
+			c := Config{IgnoredVulns: tt.existing}
+
+			c.IgnoreVulns(tt.args)
+
+			if diff := cmp.Diff(tt.want, c.IgnoredVulns); diff != "" {
+				t.Errorf("IgnoreVulns() (-want +got):\n%s", diff)
 			}
 		})
 	}
