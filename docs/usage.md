@@ -144,7 +144,7 @@ Several other features are available through flags. See their respective documen
 
 OSV-Scanner can be integrated as a [pre-commit](https://pre-commit.com) hook in your project.
 
-1. Add the `osv-scanner` hook to your `.pre-commit-config.yaml` file.
+1. Add the `osv-scanner` or `osv-scanner-docker` hook to your `.pre-commit-config.yaml` file.
 
 2. Use the `args` key to pass command-line arguments as you would when running OSV-Scanner directly.
 
@@ -152,23 +152,31 @@ OSV-Scanner can be integrated as a [pre-commit](https://pre-commit.com) hook in 
 
 ```bash
 pre-commit run --all-files --verbose osv-scanner
+pre-commit run --all-files --verbose osv-scanner-docker
 ```
 
 ### Examples
 
 ```yaml
-# Scan the current directory.
+# Scan the project root
 repos:
   - repo: https://github.com/google/osv-scanner/
-    rev: v2.2.4
+    rev: v2.3.3
     hooks:
       - id: osv-scanner
 
-# Scan the current directory, this equivalent as the previous one, but with custom
-# user defined arguments. The arguments (`args` key) are the defaults.
+# Scan the project root using a container
 repos:
   - repo: https://github.com/google/osv-scanner/
-    rev: v2.2.4
+    rev: v2.3.3
+    hooks:
+      - id: osv-scanner
+
+# Scan the current directory, this equivalent as the previous one, but with
+# custom user defined arguments. The arguments (`args` key) are the defaults.
+repos:
+  - repo: https://github.com/google/osv-scanner/
+    rev: v2.3.3
     hooks:
       - id: osv-scanner
         args:
@@ -179,7 +187,10 @@ repos:
           - "--recursive"
           - "." # replace with your chosen directory or lock file
 
+
 # Scan a container image. The `docker` command should be present in your PATH.
+# Using the `osv-scanner-docker` hook for this task is not supported. If you
+# need to do it with containers, use a system hook and run docker directly.
 repos:
   - repo: https://github.com/google/osv-scanner/
     rev: v2.2.4
@@ -191,6 +202,7 @@ repos:
           - "--format=vertical"
           - "--verbosity=error"
           - "debian:trixie" # replace with your chosen image (the tag is mandatory)
+
 ```
 
 ## Running in a Docker Container
