@@ -358,7 +358,7 @@ func TestCommand_OCIImage(t *testing.T) {
 				"", "image",
 				"--experimental-plugins", "os/homebrew",
 				"--experimental-plugins", "misc/brew-source",
-				"--experimental-disable-plugins",
+				"--experimental-no-default-plugins",
 				"--archive", "./testdata/test-ubuntu-homebrew.tar",
 			},
 			Exit: 1,

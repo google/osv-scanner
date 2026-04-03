@@ -516,9 +516,9 @@ Total 6 packages affected by 10 known vulnerabilities (2 Critical, 2 High, 2 Med
 | 0BSD              | Packagist | league/flysystem                               | 1.0.8        | testdata/locks-insecure/composer.lock                 |
 | UNKNOWN           | Go        | stdlib                                         | 1.99.9       | testdata/locks-insecure/osv-scanner-custom.json       |
 | UNKNOWN           | Go        | toolchain                                      | 1.99.9       | testdata/locks-insecure/osv-scanner-custom.json       |
-| UNKNOWN           |           | https://chromium.googlesource.com/chromium/src |              | testdata/locks-insecure/osv-scanner-flutter-deps.json |
-| UNKNOWN           |           | https://github.com/brendan-duncan/archive.git  |              | testdata/locks-insecure/osv-scanner-flutter-deps.json |
-| UNKNOWN           |           | https://github.com/flutter/buildroot.git       |              | testdata/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           | GIT       | https://chromium.googlesource.com/chromium/src |              | testdata/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           | GIT       | https://github.com/brendan-duncan/archive.git  |              | testdata/locks-insecure/osv-scanner-flutter-deps.json |
+| UNKNOWN           | GIT       | https://github.com/flutter/buildroot.git       |              | testdata/locks-insecure/osv-scanner-flutter-deps.json |
 | 0BSD              | Packagist | drupal/core                                    | 10.4.5       | testdata/locks-many-with-insecure/composer.lock       |
 | 0BSD              | Packagist | drupal/simple_sitemap                          | 4.2.1        | testdata/locks-many-with-insecure/composer.lock       |
 | 0BSD              | Packagist | drupal/tfa                                     | 2.0.0-alpha4 | testdata/locks-many-with-insecure/composer.lock       |
@@ -3413,6 +3413,8 @@ Total 1 package affected by 40 known vulnerabilities (5 Critical, 15 High, 20 Me
 [TestCommand_HomebrewWithAnnotators/homebrew_extractor_explicitly_enabled_with_annotator - 1]
 Scanning dir ./testdata/homebrew/Cellar/
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 
 Scanning Result (package view):
 Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
@@ -3420,14 +3422,14 @@ Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Mediu
 
 
 GIT
-+----------------------------------------------------------------------------------------------+
-| Source:os:<rootdir>/testdata/homebrew/Cell |
-| ar/libssh2/1.11.1/INSTALL_RECEIPT.json                                                       |
-+----------------+-------------------+------------------+------------+-------------------------+
-| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) |
-+----------------+-------------------+------------------+------------+-------------------------+
-| libssh2        | 1.11.1            | No fix available |          5 |                         |
-+----------------+-------------------+------------------+------------+-------------------------+
++------------------------------------------------------------------------------------------------------------------+
+| Source:os:<rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/IN |
+| STALL_RECEIPT.json                                                                                               |
++------------------------------------+-------------------+------------------+------------+-------------------------+
+| SOURCE PACKAGE                     | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) |
++------------------------------------+-------------------+------------------+------------+-------------------------+
+| https://github.com/libssh2/libssh2 | 1.11.1            | No fix available |          5 |                         |
++------------------------------------+-------------------+------------------+------------+-------------------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
@@ -3443,6 +3445,8 @@ Scanning dir ./testdata/homebrew/Cellar/
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/.brew/libssh2.rb file and found 0 packages
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/.brew/libssh2.rb file and found 0 packages
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json file and found 1 package
+Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
+
 
 Scanning Result (package view):
 Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
@@ -3450,14 +3454,14 @@ Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Mediu
 
 
 GIT
-+----------------------------------------------------------------------------------------------+
-| Source:os:<rootdir>/testdata/homebrew/Cell |
-| ar/libssh2/1.11.1/INSTALL_RECEIPT.json                                                       |
-+----------------+-------------------+------------------+------------+-------------------------+
-| SOURCE PACKAGE | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) |
-+----------------+-------------------+------------------+------------+-------------------------+
-| libssh2        | 1.11.1            | No fix available |          5 |                         |
-+----------------+-------------------+------------------+------------+-------------------------+
++------------------------------------------------------------------------------------------------------------------+
+| Source:os:<rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/IN |
+| STALL_RECEIPT.json                                                                                               |
++------------------------------------+-------------------+------------------+------------+-------------------------+
+| SOURCE PACKAGE                     | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) |
++------------------------------------+-------------------+------------------+------------+-------------------------+
+| https://github.com/libssh2/libssh2 | 1.11.1            | No fix available |          5 |                         |
++------------------------------------+-------------------+------------------+------------+-------------------------+
 
 For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
 You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
