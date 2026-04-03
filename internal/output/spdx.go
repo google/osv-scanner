@@ -3,9 +3,15 @@ package output
 import (
 	"encoding/json"
 	"io"
+	"strings"
 
 	scalibr "github.com/google/osv-scalibr"
 	"github.com/google/osv-scalibr/converter/spdx"
+	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/java/javalockfile"
+	"github.com/google/osv-scalibr/inventory/osvecosystem"
+	scalibr_purl "github.com/google/osv-scalibr/purl"
+	purlutil "github.com/google/osv-scanner/v2/internal/utility/purl"
 	"github.com/google/osv-scanner/v2/pkg/models"
 )
 
@@ -15,7 +21,13 @@ func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 
 	for _, source := range vulnResult.Results {
 		for _, pkg := range source.Packages {
-			scanResult.Inventory.Packages = append(scanResult.Inventory.Packages, pkg.Package.Inventory)
+			inv := pkg.Package.Inventory
+			if inv == nil {
+				inv = inventoryFromPackageInfo(pkg.Package)
+			}
+			if inv != nil {
+				scanResult.Inventory.Packages = append(scanResult.Inventory.Packages, inv)
+			}
 		}
 	}
 
@@ -26,4 +38,39 @@ func PrintSPDXResults(vulnResult *models.VulnerabilityResults, outputWriter io.W
 	encoder.SetIndent("", "  ")
 
 	return encoder.Encode(doc)
+}
+
+// inventoryFromPackageInfo constructs a synthetic extractor.Package from a PackageInfo
+// for packages that don't have a populated Inventory field (e.g., loaded from osv-scanner.json).
+func inventoryFromPackageInfo(pkg models.PackageInfo) *extractor.Package {
+	eco, err := osvecosystem.Parse(pkg.Ecosystem)
+	if err != nil {
+		return nil
+	}
+
+	purlType, ok := purlutil.EcosystemToPURLMapper[eco.Ecosystem]
+	if !ok {
+		return nil
+	}
+
+	inv := &extractor.Package{
+		Name:     pkg.Name,
+		Version:  pkg.Version,
+		PURLType: purlType,
+	}
+
+	// Maven names in osv-scanner are "groupId:artifactId".
+	// The scalibr Maven PURL converter requires Metadata with GroupID/ArtifactID
+	// to produce the correct PURL (pkg:maven/groupId/artifactId@version).
+	if purlType == scalibr_purl.TypeMaven {
+		parts := strings.SplitN(pkg.Name, ":", 2)
+		if len(parts) == 2 {
+			inv.Metadata = &javalockfile.Metadata{
+				GroupID:    parts[0],
+				ArtifactID: parts[1],
+			}
+		}
+	}
+
+	return inv
 }
