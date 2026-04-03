@@ -29,7 +29,7 @@ runs:
         TEST_ACCEPTANCE: true
       run: ./scripts/run_tests.sh
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
+      uses: codecov/codecov-action@75cd11691c0faa626561e295848008c8a7dddffe # v5.5.4
       with:
         token: ${{ inputs.codecov_token }}
         fail_ci_if_error: true
