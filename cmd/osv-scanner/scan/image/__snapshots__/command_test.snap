@@ -1202,6 +1202,34 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 
 ---
 
+[TestCommand_OCIImage/scanning_ubuntu_image_with_homebrew_extractor - 1]
+Scanning local image tarball "./testdata/test-ubuntu-homebrew.tar"
+skipping file "home/linuxbrew/.linuxbrew/Homebrew/Library/Taps/homebrew/homebrew-core/.git/objects/pack/pack-0113dab039640255baab5438994e90f67a4c482c.pack" because its size (1155620741 bytes) is larger than the max size (1073741824 bytes)
+
+
+Container Scanning Result (Ubuntu 22.04.5 LTS):
+Total 1 package affected by 3 known vulnerabilities (1 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+
+GIT
++------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Source:os:/home/linuxbrew/.linuxbrew/Cellar/cjson/1.7.17/INSTALL_RECEIPT.json                                                                        |
++-------------------------------------+-------------------+------------------+------------+-------------------------+------------------+---------------+
+| SOURCE PACKAGE                      | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) | INTRODUCED LAYER | IN BASE IMAGE |
++-------------------------------------+-------------------+------------------+------------+-------------------------+------------------+---------------+
+| https://github.com/DaveGamble/cJSON | 1.7.17            | No fix available |          3 |                         | # 19 Layer       | --            |
++-------------------------------------+-------------------+------------------+------------+-------------------------+------------------+---------------+
+
+For the most comprehensive scan results, we recommend using the HTML output: `osv-scanner scan image --serve <image_name>`.
+You can also view the full vulnerability list in your terminal with: `osv-scanner scan image --format vertical <image_name>`.
+
+---
+
+[TestCommand_OCIImage/scanning_ubuntu_image_with_homebrew_extractor - 2]
+
+---
+
 [TestCommand_OCIImage_JSONFormat/Scanning_python_image_with_some_packages - 1]
 {
   "results": [
