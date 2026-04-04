@@ -15602,3 +15602,62 @@ interactions:
       status: 200 OK
       code: 200
       duration: 0s
+  - request:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 171
+      host: api.osv.dev
+      body: |
+        {
+          "queries": [
+            {
+              "package": {
+                "ecosystem": "GIT",
+                "name": "https://github.com/davegamble/cjson"
+              },
+              "version": "1.7.17"
+            }
+          ]
+        }
+      headers:
+        Content-Type:
+          - application/json
+        X-Test-Name:
+          - TestCommand_OCIImage/scanning_ubuntu_image_with_homebrew_extractor
+      url: https://api.osv.dev/v1/querybatch
+      method: POST
+    response:
+      proto: HTTP/1.1
+      proto_major: 1
+      proto_minor: 1
+      content_length: 220
+      body: |
+        {
+          "results": [
+            {
+              "vulns": [
+                {
+                  "id": "CVE-2023-53154",
+                  "modified": "2026-03-14T12:23:16.581554Z"
+                },
+                {
+                  "id": "CVE-2024-31755",
+                  "modified": "2026-03-14T12:30:30.932017Z"
+                },
+                {
+                  "id": "CVE-2025-57052",
+                  "modified": "2026-03-23T05:11:28.908372Z"
+                }
+              ]
+            }
+          ]
+        }
+      headers:
+        Content-Length:
+          - "220"
+        Content-Type:
+          - application/json
+      status: 200 OK
+      code: 200
+      duration: 0s
