@@ -9,7 +9,7 @@ source "https://rubygems.org"
 #
 # This will help ensure the proper Jekyll version is running.
 # Happy Jekylling!
-gem "jekyll", "~> 4.3.2"
+gem "jekyll", "~> 4.4.0"
 gem "csv"
 gem "base64"
 gem "jekyll-feed", "~> 0.15"
