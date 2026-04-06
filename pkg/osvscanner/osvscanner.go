@@ -122,7 +122,11 @@ func initializeExternalAccessors(actions ScannerActions) (ExternalAccessors, err
 	// Online Mode
 	// -----------
 	// --- Vulnerability Matcher ---
-	externalAccessors.VulnMatcher = &osvmatcher.OSVMatcher{
+	slog.Info("Using cached OSV matcher for online scan")
+	// Cache package vulnerability sets once per scan so repeated dependencies
+	// across multiple manifests do not trigger duplicate OSV package queries.
+	// Commit-based queries are still passed through directly by the matcher.
+	externalAccessors.VulnMatcher = &osvmatcher.CachedOSVMatcher{
 		Client:              *osvdev.DefaultClient(),
 		InitialQueryTimeout: 5 * time.Minute,
 	}
