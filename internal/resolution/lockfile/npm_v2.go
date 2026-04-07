@@ -4,6 +4,7 @@ import (
 	"cmp"
 	"context"
 	"errors"
+	"fmt"
 	"maps"
 	"path/filepath"
 	"slices"
@@ -52,7 +53,9 @@ func (rw NpmReadWriter) nodesFromPackages(lockJSON npmLockfile) (*resolve.Graph,
 		}
 		pkg, ok := lockJSON.Packages[k]
 		if !ok {
-			panic("key not in packages")
+			// This should never happen since we iterate over keys from the same map,
+			// but return an error rather than panic to avoid crashing on malformed input.
+			return nil, nil, fmt.Errorf("internal error: key %q disappeared from packages map", k)
 		}
 		path := strings.Split(k, "node_modules/")
 		if len(path) == 1 {
@@ -75,13 +78,15 @@ func (rw NpmReadWriter) nodesFromPackages(lockJSON npmLockfile) (*resolve.Graph,
 		if pkg.Link {
 			// This is the symlink to the workspace directory in node_modules
 			if len(path) != 2 || path[0] != "" {
-				// Not sure what situation would lead to this
-				panic("Found symlink in package-lock.json that's not in root node_modules directory")
+				// A symlink entry at a nested node_modules path is not supported.
+				// Skip it rather than crashing on malformed or attacker-crafted input.
+				continue
 			}
 			m := workspaceModules[pkg.Resolved]
 			if m == nil {
-				// Can symlinks show up without workspaces?
-				panic("symlink in package-lock.json processed before real directory")
+				// The symlink target has not been processed yet or does not exist.
+				// Skip this entry rather than crashing on malformed or attacker-crafted input.
+				continue
 			}
 
 			// attach the workspace to the tree

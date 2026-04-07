@@ -215,3 +215,60 @@ func TestNpmWrite(t *testing.T) {
 	}
 	testutility.NewSnapshot().WithCRLFReplacement().MatchText(t, buf.String())
 }
+
+// TestNpmReadMalformedSymlink verifies that a package-lock.json containing a
+// symlink entry at a nested node_modules path (e.g. "node_modules/a/node_modules/b"
+// with link:true) does not cause a panic and instead returns either a valid graph
+// or an error, but never crashes the process.
+func TestNpmReadMalformedSymlink(t *testing.T) {
+	t.Parallel()
+
+	df, err := depfile.OpenLocalDepFile("./testdata/npm_malformed_symlink/package-lock.json")
+	if err != nil {
+		t.Fatalf("failed to open file: %v", err)
+	}
+	defer df.Close()
+
+	npmRW := lockfile.NpmReadWriter{}
+	// The malformed symlink entry should NOT cause a panic. It is acceptable for
+	// Read() to succeed (skipping the bad entry) or return an error, but it must
+	// never crash the process.
+	_, _ = npmRW.Read(df)
+}
+
+// TestNpmReadOrphanedSymlink verifies that a symlink entry whose resolved target
+// has not been declared as a workspace (i.e. the symlink precedes the directory
+// entry in processing order) does not cause a panic.
+func TestNpmReadOrphanedSymlink(t *testing.T) {
+	t.Parallel()
+
+	lockfileContent := `{
+  "name": "root",
+  "version": "1.0.0",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {
+    "": {"name": "root", "version": "1.0.0"},
+    "node_modules/mylink": {
+      "version": "1.0.0",
+      "link": true,
+      "resolved": "nonexistent-workspace"
+    }
+  }
+}`
+	dir := testutility.CreateTestDir(t)
+	lockfilePath := filepath.Join(dir, "package-lock.json")
+	if err := os.WriteFile(lockfilePath, []byte(lockfileContent), 0600); err != nil {
+		t.Fatalf("could not write temp lockfile: %v", err)
+	}
+
+	df, err := depfile.OpenLocalDepFile(lockfilePath)
+	if err != nil {
+		t.Fatalf("failed to open file: %v", err)
+	}
+	defer df.Close()
+
+	npmRW := lockfile.NpmReadWriter{}
+	// A symlink pointing to an undeclared workspace must not panic.
+	_, _ = npmRW.Read(df)
+}
