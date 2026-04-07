@@ -44,7 +44,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 798
+      content_length: 931
       body: |
         {
           "results": [
@@ -74,6 +74,10 @@ interactions:
             },
             {
               "vulns": [
+                {
+                  "id": "GHSA-44p7-9xx4-hf2g",
+                  "modified": "2026-03-30T22:29:16.268586Z"
+                },
                 {
                   "id": "GHSA-9phm-fm57-rhg8",
                   "modified": "2026-02-04T03:56:37.185672Z"
@@ -105,6 +109,10 @@ interactions:
                 {
                   "id": "GO-2024-2937",
                   "modified": "2026-02-04T03:54:25.251608Z"
+                },
+                {
+                  "id": "GO-2026-4815",
+                  "modified": "2026-04-06T21:15:14.818900Z"
                 }
               ]
             }
@@ -112,7 +120,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "798"
+          - "931"
         Content-Type:
           - application/json
       status: 200 OK
