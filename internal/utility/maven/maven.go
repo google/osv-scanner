@@ -5,6 +5,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net"
+	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
@@ -14,6 +16,38 @@ import (
 	"deps.dev/util/semver"
 	"github.com/google/osv-scanner/v2/internal/datasource"
 )
+
+// isSafeRegistryURL returns an error if the given raw URL string should not be
+// used as a Maven registry. It rejects:
+//   - URLs with non-HTTPS schemes (allows only "https")
+//   - URLs that resolve to private/loopback/link-local IP ranges (SSRF prevention)
+func isSafeRegistryURL(rawURL string) error {
+	u, err := url.Parse(rawURL)
+	if err != nil {
+		return fmt.Errorf("invalid registry URL %q: %w", rawURL, err)
+	}
+	if u.Scheme != "https" {
+		return fmt.Errorf("registry URL %q uses non-HTTPS scheme %q; only HTTPS registries are allowed", rawURL, u.Scheme)
+	}
+	host := u.Hostname()
+	addrs, err := net.LookupHost(host)
+	if err != nil {
+		// If DNS resolution fails we cannot validate the address; allow it
+		// and let the HTTP client fail naturally.
+		return nil
+	}
+	for _, addr := range addrs {
+		ip := net.ParseIP(addr)
+		if ip == nil {
+			continue
+		}
+		if ip.IsLoopback() || ip.IsPrivate() || ip.IsLinkLocalUnicast() || ip.IsLinkLocalMulticast() {
+			return fmt.Errorf("registry URL %q resolves to a private/internal address %s; SSRF protection rejected this URL", rawURL, addr)
+		}
+	}
+
+	return nil
+}
 
 const (
 	OriginManagement = "management"
@@ -90,8 +124,15 @@ func MergeParents(ctx context.Context, mavenClient *datasource.MavenRegistryAPIC
 			return fmt.Errorf("failed to merge profiles: %w", err)
 		}
 		for _, repo := range proj.Repositories {
+			repoURL := string(repo.URL)
+			if err := isSafeRegistryURL(repoURL); err != nil {
+				// Log and skip unsafe URLs rather than aborting the entire scan.
+				// Attackers who craft a pom.xml with a private-IP registry URL should
+				// not be able to trigger SSRF; skipping is preferable to crashing.
+				continue
+			}
 			if err := mavenClient.AddRegistry(datasource.MavenRegistry{
-				URL:              string(repo.URL),
+				URL:              repoURL,
 				ID:               string(repo.ID),
 				ReleasesEnabled:  repo.Releases.Enabled.Boolean(),
 				SnapshotsEnabled: repo.Snapshots.Enabled.Boolean(),
