@@ -23,7 +23,6 @@ on:
       - ".github/workflows/*"
       - "!.github/workflows/tests.yml"
       - "!.github/workflows/test-action/**"
-      - "scripts/**"
   pull_request:
     # The branches below must be a subset of the branches above
     branches: ["main", "v1", "mcp"]
@@ -33,7 +32,6 @@ on:
       - ".github/workflows/*"
       - "!.github/workflows/tests.yml"
       - "!.github/workflows/test-action/**"
-      - "scripts/**"
   workflow_dispatch:
 
 concurrency:
