@@ -35,7 +35,7 @@ var ErrExtractorNotFound = errors.New("could not determine extractor suitable to
 func logUnsafePlugins(plugins []plugin.Plugin) {
 	for _, plug := range plugins {
 		if plug.Requirements() != nil && plug.Requirements().AllowUnsafePlugins {
-			cmdlogger.Warnf("Warning: plugin %s can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.", plug.Name())
+			cmdlogger.Warnf("Warning: plugin %s is enabled. This may be unsafe potentially if you have relevant manifests that this plugin will run on. Please ensure you trust the source code and artifacts before proceeding.", plug.Name())
 		}
 	}
 }
