@@ -78,6 +78,7 @@ jobs:
       - uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           pattern: image-testdata-${{ github.run_number }}-*
+          merge-multiple: true
           path: cmd/osv-scanner/scan/image/testdata/
       - name: Set up Go
         uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
