@@ -12,7 +12,7 @@
           "package": {
             "name": "",
             "version": "",
-            "ecosystem": "",
+            "ecosystem": "GIT",
             "commit": "33dffa3909a67e1b5d22647128ab7eb6e53fd0c7"
           },
           "groups": [

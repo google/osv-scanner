@@ -9204,7 +9204,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
         {
           "name": "org.codehaus.plexus:plexus-utils",
           "versionFrom": "3.0",
-          "versionTo": "4.0.3",
+          "versionTo": "3.6.1",
           "transitive": false
         }
       ],
@@ -9358,7 +9358,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>4.0.3</version>
+      <version>3.6.1</version>
     </dependency>
   </dependencies>
 </project>
@@ -9512,7 +9512,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
 Found 13 vulnerabilities matching the filter
 Can fix 13/13 matching vulnerabilities by overriding 4 dependencies
 OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
-OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,4.0.3
+OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,3.6.1
 OVERRIDE-PACKAGE: commons-io:commons-io,2.14.0
 OVERRIDE-PACKAGE: org.jsoup:jsoup,1.15.3
 FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-6fmv-xxpf-w3cw,GHSA-78wr-2p64-hpwj,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
@@ -9566,7 +9566,7 @@ UNFIXABLE-VULNS: 0
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>4.0.3</version>
+      <version>3.6.1</version>
     </dependency>
   </dependencies>
 </project>
@@ -11354,7 +11354,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
 Found 13 vulnerabilities matching the filter
 Can fix 13/13 matching vulnerabilities by overriding 4 dependencies
 OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
-OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,4.0.3
+OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,3.6.1
 OVERRIDE-PACKAGE: commons-io:commons-io,2.14.0
 OVERRIDE-PACKAGE: org.jsoup:jsoup,1.15.3
 FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-6fmv-xxpf-w3cw,GHSA-78wr-2p64-hpwj,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
@@ -11408,7 +11408,7 @@ UNFIXABLE-VULNS: 0
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>4.0.3</version>
+      <version>3.6.1</version>
     </dependency>
   </dependencies>
 </project>

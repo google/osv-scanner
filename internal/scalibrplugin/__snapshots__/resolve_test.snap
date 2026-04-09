@@ -30,8 +30,10 @@ javascript/packagelockjson
 javascript/pnpmlock
 javascript/yarnlock
 license/depsdev
+misc/brew-source
 os/apk
 os/dpkg
+os/homebrew
 osv/osvscannerjson
 php/composerlock
 python/pdmlock
@@ -65,8 +67,10 @@ baseimage
 go/binary
 java/archive
 javascript/nodemodules
+misc/brew-source
 os/apk
 os/dpkg
+os/homebrew
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
@@ -102,8 +106,10 @@ baseimage
 go/binary
 java/archive
 javascript/nodemodules
+misc/brew-source
 os/apk
 os/dpkg
+os/homebrew
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
@@ -128,8 +134,10 @@ baseimage
 go/binary
 java/archive
 javascript/nodemodules
+misc/brew-source
 os/apk
 os/dpkg
+os/homebrew
 python/wheelegg
 rust/cargoauditable
 vex/os-duplicate/apk
