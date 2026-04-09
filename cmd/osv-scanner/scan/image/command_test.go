@@ -352,6 +352,17 @@ func TestCommand_OCIImage(t *testing.T) {
 			},
 			Exit: 1,
 		},
+		{
+			Name: "scanning_ubuntu_image_with_homebrew_extractor",
+			Args: []string{
+				"", "image",
+				"--experimental-plugins", "os/homebrew",
+				"--experimental-plugins", "misc/brew-source",
+				"--experimental-no-default-plugins",
+				"--archive", "./testdata/test-ubuntu-homebrew.tar",
+			},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
