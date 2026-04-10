@@ -243,6 +243,12 @@ func TestMultipleRegistry(t *testing.T) {
 	`))
 
 	srv := testutility.NewMockHTTPServer(t)
+	// The untrusted-registry URL validator normally rejects loopback hosts,
+	// so stub the resolver to pretend 127.0.0.1 is a public address for the
+	// duration of this test.
+	origLookup := lookupHost
+	lookupHost = func(string) ([]string, error) { return []string{"203.0.113.1"}, nil }
+	t.Cleanup(func() { lookupHost = origLookup })
 	if err := client.AddRegistry(MavenRegistry{URL: srv.URL, ReleasesEnabled: true}); err != nil {
 		t.Fatalf("failed to add registry %s: %v", srv.URL, err)
 	}
@@ -297,5 +303,85 @@ func TestMultipleRegistry(t *testing.T) {
 	wantVersions := []maven.String{"1.0.0", "2.0.0", "3.0.0"}
 	if !reflect.DeepEqual(gotVersions, wantVersions) {
 		t.Errorf("GetVersions(%s, %s):\ngot %v\nwant %v\n", "org.example", "x.y.z", gotVersions, wantVersions)
+	}
+}
+
+func TestAddRegistry_RejectsUntrustedURL(t *testing.T) {
+	t.Parallel()
+
+	origLookup := lookupHost
+	t.Cleanup(func() { lookupHost = origLookup })
+
+	cases := []struct {
+		name      string
+		url       string
+		resolveTo []string
+	}{
+		{name: "non-http scheme", url: "file:///etc/passwd", resolveTo: nil},
+		{name: "ftp scheme", url: "ftp://example.com/repo", resolveTo: []string{"203.0.113.10"}},
+		{name: "loopback literal", url: "http://127.0.0.1/repo", resolveTo: []string{"127.0.0.1"}},
+		{name: "rfc1918 literal", url: "http://10.0.0.1/repo", resolveTo: []string{"10.0.0.1"}},
+		{name: "link-local literal", url: "http://169.254.169.254/repo", resolveTo: []string{"169.254.169.254"}},
+		{name: "dns-rebind to private", url: "http://evil.example.com/repo", resolveTo: []string{"192.168.1.1"}},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			lookupHost = func(string) ([]string, error) { return tc.resolveTo, nil }
+			client, err := NewMavenRegistryAPIClient(MavenRegistry{URL: "https://repo.maven.apache.org/maven2", ReleasesEnabled: true})
+			if err != nil {
+				t.Fatalf("NewMavenRegistryAPIClient: %v", err)
+			}
+			err = client.AddRegistry(MavenRegistry{URL: tc.url, ID: "hostile"})
+			if err == nil {
+				t.Fatalf("AddRegistry(%q) = nil, want error", tc.url)
+			}
+			if got := client.GetRegistries(); len(got) != 0 {
+				t.Errorf("registry was added despite validation failure: %+v", got)
+			}
+		})
+	}
+}
+
+func TestAddRegistry_ClearsTrustedForAuth(t *testing.T) {
+	t.Parallel()
+
+	origLookup := lookupHost
+	lookupHost = func(string) ([]string, error) { return []string{"203.0.113.42"}, nil }
+	t.Cleanup(func() { lookupHost = origLookup })
+
+	client, err := NewMavenRegistryAPIClient(MavenRegistry{URL: "https://repo.maven.apache.org/maven2", ReleasesEnabled: true})
+	if err != nil {
+		t.Fatalf("NewMavenRegistryAPIClient: %v", err)
+	}
+
+	// The caller tries to smuggle in TrustedForAuth=true; AddRegistry must drop it.
+	if err := client.AddRegistry(MavenRegistry{URL: "https://attacker.example/repo", ID: "central", TrustedForAuth: true}); err != nil {
+		t.Fatalf("AddRegistry: %v", err)
+	}
+	regs := client.GetRegistries()
+	if len(regs) != 1 {
+		t.Fatalf("expected 1 added registry, got %d", len(regs))
+	}
+	if regs[0].TrustedForAuth {
+		t.Errorf("AddRegistry left TrustedForAuth=true for an untrusted registry")
+	}
+}
+
+func TestAuthFor_OnlyTrustedRegistriesReceiveCredentials(t *testing.T) {
+	t.Parallel()
+
+	m := &MavenRegistryAPIClient{
+		registryAuths: map[string]*HTTPAuthentication{
+			"central": {Username: "u", Password: "p"},
+		},
+	}
+	trusted := MavenRegistry{ID: "central", TrustedForAuth: true}
+	if got := m.authFor(trusted); got == nil {
+		t.Errorf("authFor(trusted) = nil, want credentials")
+	}
+	untrusted := MavenRegistry{ID: "central", TrustedForAuth: false}
+	if got := m.authFor(untrusted); got != nil {
+		t.Errorf("authFor(untrusted) returned credentials, leak")
 	}
 }
