@@ -1988,7 +1988,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 Loaded GIT local db from <tempdir>/osv-scanner/GIT/all.zip
 
-Total 8 packages affected by 95 known vulnerabilities (14 Critical, 34 High, 39 Medium, 2 Low, 6 Unknown) from 1 ecosystem.
+Total 8 packages affected by 30 known vulnerabilities (2 Critical, 10 High, 12 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+----------------------------------------------+----------------+---------------+-------------------------------------+
@@ -2004,71 +2004,8 @@ Total 8 packages affected by 95 known vulnerabilities (14 Critical, 34 High, 39 
 | https://osv.dev/CVE-2025-61927 | 7.2  | GIT       | https://github.com/capricorn86/happy-dom.git | v11.1.0        | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-62410 | 9.4  | GIT       | https://github.com/capricorn86/happy-dom.git | v11.1.0        | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-34226 | 7.5  | GIT       | https://github.com/capricorn86/happy-dom.git | v11.1.0        | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0702  | 5.1  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0703  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0704  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0705  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0797  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0798  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0799  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0800  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2105  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2106  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2107  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2108  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2109  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2176  | 8.2  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2177  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2178  | 5.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2179  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2181  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2182  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2016-2183  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2842  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6302  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6303  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6304  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6305  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6306  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6307  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6308  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6309  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-7052  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-7053  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-7056  | 5.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-8610  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3730  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3731  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3732  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3733  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3735  | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3737  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3738  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2018-0734  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2018-0735  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2018-5407  | 4.7  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2020-1968  | 3.7  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2021-23839 | 3.7  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2021-23841 | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2021-3449  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2021-3711  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2021-3712  | 7.4  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2022-2068  | 7.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2022-2097  | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-0215  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-0286  | 7.4  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-0401  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-3446  | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-6129  | 6.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-6237  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-0727  | 5.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-13176 | 4.1  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-2511  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-4603  | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-4741  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-5535  | 9.1  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-6119  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-9143  | 4.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-11187 | 6.1  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-15467 | 8.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-15468 | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
@@ -2087,8 +2024,6 @@ Total 8 packages affected by 95 known vulnerabilities (14 Critical, 34 High, 39 
 | https://osv.dev/CVE-2026-22796 | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-2673  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2016-10931 | 8.1  | GIT       | https://github.com/sfackler/rust-openssl     | openssl-v0.8.1 | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2018-20997 | 9.8  | GIT       | https://github.com/sfackler/rust-openssl     | openssl-v0.8.1 | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-53159 | 9.1  | GIT       | https://github.com/sfackler/rust-openssl     | openssl-v0.8.1 | --            | testdata/locks-git/osv-scanner.json |
 +--------------------------------+------+-----------+----------------------------------------------+----------------+---------------+-------------------------------------+
 
 ---
