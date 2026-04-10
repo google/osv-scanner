@@ -1988,7 +1988,7 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
 Loaded GIT local db from <tempdir>/osv-scanner/GIT/all.zip
 
-Total 8 packages affected by 96 known vulnerabilities (14 Critical, 34 High, 39 Medium, 3 Low, 6 Unknown) from 1 ecosystem.
+Total 8 packages affected by 95 known vulnerabilities (14 Critical, 34 High, 39 Medium, 2 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+----------------------------------------------+----------------+---------------+-------------------------------------+
@@ -2004,7 +2004,6 @@ Total 8 packages affected by 96 known vulnerabilities (14 Critical, 34 High, 39 
 | https://osv.dev/CVE-2025-61927 | 7.2  | GIT       | https://github.com/capricorn86/happy-dom.git | v11.1.0        | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-62410 | 9.4  | GIT       | https://github.com/capricorn86/happy-dom.git | v11.1.0        | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-34226 | 7.5  | GIT       | https://github.com/capricorn86/happy-dom.git | v11.1.0        | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0701  | 3.7  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2016-0702  | 5.1  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2016-0703  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2016-0704  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
