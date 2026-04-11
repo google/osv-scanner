@@ -126,6 +126,10 @@ func action(_ context.Context, cmd *cli.Command, stdout, stderr io.Writer, clien
 	}
 
 	scannerAction := helper.GetCommonScannerActions(cmd, scanLicensesAllowlist)
+	// Rust call analysis builds the scanned project, so require explicit trust acknowledgement.
+	if scannerAction.CallAnalysisStates["rust"] && !cmd.Bool("allow-risky-rust-call-analysis") {
+		return errors.New("refusing to run rust call analysis without explicit acknowledgement: pass --allow-risky-rust-call-analysis if you trust this project")
+	}
 
 	scannerAction.LockfilePaths = cmd.StringSlice("lockfile")
 	//nolint:staticcheck // ignore our own deprecated field

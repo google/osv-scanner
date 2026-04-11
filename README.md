@@ -57,6 +57,10 @@ This command will recursively scan the specified directory for any supported pac
 
 OSV-Scanner has the option of using call analysis to determine if a vulnerable function is actually being used in the project, resulting in fewer false positives, and actionable alerts.
 
+> [!WARNING]
+> Rust call analysis can execute build scripts (`build.rs`) during compilation and may run arbitrary code from the scanned project.
+> Use it only for trusted projects and pass `--allow-risky-rust-call-analysis` when enabling `--call-analysis=rust`.
+
 OSV-Scanner can also detect vendored C/C++ code for vulnerability scanning. See [here](https://google.github.io/osv-scanner/usage/#cc-scanning) for details.
 
 #### Supported Lockfiles

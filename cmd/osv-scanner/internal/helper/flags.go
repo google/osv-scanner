@@ -165,6 +165,10 @@ func BuildCommonScanFlags(defaultExtractors []string) []cli.Flag {
 			Name:  "call-analysis",
 			Usage: "Enable call analysis for specific languages (e.g. --call-analysis=go). Supported: go, rust (*). (*) Will run build scripts.",
 		},
+		&cli.BoolFlag{
+			Name:  "allow-risky-rust-call-analysis",
+			Usage: "acknowledge that rust call analysis may execute untrusted build scripts (build.rs)",
+		},
 		&cli.StringSliceFlag{
 			Name:  "no-call-analysis",
 			Usage: "disables call graph analysis",
