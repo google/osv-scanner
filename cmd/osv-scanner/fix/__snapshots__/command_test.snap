@@ -5263,7 +5263,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
 Found 15 vulnerabilities matching the filter
 Can fix 8/15 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.13
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.14
 UPGRADED-PACKAGE: ajv,6.12.6,6.14.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
@@ -5379,9 +5379,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.13",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
-      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
+      "version": "1.1.14",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.14.tgz",
+      "integrity": "sha512-MWPGfDxnyzKU7rNOW9SP/c50vi3xrmrua/+6hfPbCS2ABNWfx24vPidzvC7krjU/RTo235sV776ymlsMtGKj8g==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -6299,9 +6299,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "brace-expansion": {
-      "version": "1.1.13",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
-      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
+      "version": "1.1.14",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.14.tgz",
+      "integrity": "sha512-MWPGfDxnyzKU7rNOW9SP/c50vi3xrmrua/+6hfPbCS2ABNWfx24vPidzvC7krjU/RTo235sV776ymlsMtGKj8g==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -7195,7 +7195,7 @@ UNFIXABLE-VULNS: 7
         {
           "name": "brace-expansion",
           "versionFrom": "1.1.11",
-          "versionTo": "1.1.13",
+          "versionTo": "1.1.14",
           "transitive": true
         }
       ],
@@ -7395,9 +7395,9 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.13",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
-      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
+      "version": "1.1.14",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.14.tgz",
+      "integrity": "sha512-MWPGfDxnyzKU7rNOW9SP/c50vi3xrmrua/+6hfPbCS2ABNWfx24vPidzvC7krjU/RTo235sV776ymlsMtGKj8g==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -8315,9 +8315,9 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       }
     },
     "brace-expansion": {
-      "version": "1.1.13",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
-      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
+      "version": "1.1.14",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.14.tgz",
+      "integrity": "sha512-MWPGfDxnyzKU7rNOW9SP/c50vi3xrmrua/+6hfPbCS2ABNWfx24vPidzvC7krjU/RTo235sV776ymlsMtGKj8g==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -9611,7 +9611,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
 Found 15 vulnerabilities matching the filter
 Can fix 8/15 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.13
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.14
 UPGRADED-PACKAGE: ajv,6.12.6,6.14.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
@@ -9727,9 +9727,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.13",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
-      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
+      "version": "1.1.14",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.14.tgz",
+      "integrity": "sha512-MWPGfDxnyzKU7rNOW9SP/c50vi3xrmrua/+6hfPbCS2ABNWfx24vPidzvC7krjU/RTo235sV776ymlsMtGKj8g==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -10647,9 +10647,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "brace-expansion": {
-      "version": "1.1.13",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
-      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
+      "version": "1.1.14",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.14.tgz",
+      "integrity": "sha512-MWPGfDxnyzKU7rNOW9SP/c50vi3xrmrua/+6hfPbCS2ABNWfx24vPidzvC7krjU/RTo235sV776ymlsMtGKj8g==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -11430,7 +11430,7 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
 Found 15 vulnerabilities matching the filter
 Can fix 8/15 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
-UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.13
+UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.14
 UPGRADED-PACKAGE: ajv,6.12.6,6.14.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
@@ -11546,9 +11546,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "node_modules/brace-expansion": {
-      "version": "1.1.13",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
-      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
+      "version": "1.1.14",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.14.tgz",
+      "integrity": "sha512-MWPGfDxnyzKU7rNOW9SP/c50vi3xrmrua/+6hfPbCS2ABNWfx24vPidzvC7krjU/RTo235sV776ymlsMtGKj8g==",
       "dependencies": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"
@@ -12466,9 +12466,9 @@ UNFIXABLE-VULNS: 7
       }
     },
     "brace-expansion": {
-      "version": "1.1.13",
-      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.13.tgz",
-      "integrity": "sha512-9ZLprWS6EENmhEOpjCYW2c8VkmOvckIJZfkr7rBW6dObmfgJ/L1GpSYW5Hpo9lDz4D1+n0Ckz8rU7FwHDQiG/w==",
+      "version": "1.1.14",
+      "resolved": "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.14.tgz",
+      "integrity": "sha512-MWPGfDxnyzKU7rNOW9SP/c50vi3xrmrua/+6hfPbCS2ABNWfx24vPidzvC7krjU/RTo235sV776ymlsMtGKj8g==",
       "requires": {
         "concat-map": "0.0.1",
         "balanced-match": "^1.0.0"

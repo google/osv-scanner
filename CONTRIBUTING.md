@@ -23,7 +23,7 @@ use GitHub pull requests for this purpose. Consult
 information on using pull requests.
 
 When creating a pull request, please use the provided
-[pull request template](/.github/PULL_REQUEST_TEMPLATE/pull_request_template.md)
+[pull request template](/.github/PULL_REQUEST_TEMPLATE/PULL_REQUEST_TEMPLATE.md)
 and fill out the sections to ensure a smooth review process.
 
 For any new feature, please create an issue first to discuss the proposed changes

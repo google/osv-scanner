@@ -1,0 +1,4 @@
+rules:
+  cache-poisoning:
+    ignore:
+      - .github/workflows/checks.yml
