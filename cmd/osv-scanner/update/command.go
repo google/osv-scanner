@@ -12,12 +12,11 @@ import (
 
 	"github.com/google/osv-scalibr/clients/datasource"
 	"github.com/google/osv-scalibr/clients/resolution"
+	"github.com/google/osv-scalibr/depsdev"
 	"github.com/google/osv-scalibr/guidedremediation"
 	"github.com/google/osv-scalibr/guidedremediation/options"
 	"github.com/google/osv-scalibr/guidedremediation/upgrade"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
-	"github.com/google/osv-scanner/v2/internal/depsdev"
-	"github.com/google/osv-scanner/v2/internal/resolution/client"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/urfave/cli/v3"
 )
@@ -89,7 +88,7 @@ func action(ctx context.Context, cmd *cli.Command) error {
 	userAgent := "osv-scanner_update/" + version.OSVVersion
 	switch cmd.String("data-source") {
 	case "deps.dev":
-		cl, err := client.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
+		cl, err := resolution.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
 		if err != nil {
 			return err
 		}
