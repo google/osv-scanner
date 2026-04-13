@@ -106,5 +106,6 @@ func action(ctx context.Context, cmd *cli.Command) error {
 	}
 
 	_, err = guidedremediation.Update(opts)
+
 	return err
 }
