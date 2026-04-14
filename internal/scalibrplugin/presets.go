@@ -50,7 +50,6 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
-	"github.com/google/osv-scanner/v2/internal/datasource"
 	"github.com/google/osv-scanner/v2/internal/depsdev"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/javascript/nodemodules"
@@ -184,7 +183,7 @@ func baseImageEnricher(_ *cpb.PluginConfig) (enricher.Enricher, error) {
 	// The grpc client **does not** make any requests. It starts in an IDLE state until
 	// the first function call is made. This means we can safely initialize the client even in offline mode,
 	// and the enricher plugin will be filtered out in offline mode.
-	insightsClient, err := datasource.NewInsightsAlphaClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
+	insightsClient, err := depsdev.NewInsightsAlphaClient(depsdev.DepsdevAPI, "osv-scanner_scan/"+version.OSVVersion)
 	if err != nil {
 		return nil, fmt.Errorf("unable to connect to insights server: %w", err)
 	}
