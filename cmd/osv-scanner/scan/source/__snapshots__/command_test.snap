@@ -3420,8 +3420,6 @@ Total 1 package affected by 40 known vulnerabilities (4 Critical, 16 High, 20 Me
 [TestCommand_HomebrewWithAnnotators/homebrew_extractor_explicitly_enabled_with_annotator - 1]
 Scanning dir ./testdata/homebrew/Cellar/
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
-
 
 Scanning Result (package view):
 Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
@@ -3452,8 +3450,6 @@ Scanning dir ./testdata/homebrew/Cellar/
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/.brew/libssh2.rb file and found 0 packages
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/.brew/libssh2.rb file and found 0 packages
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
-
 
 Scanning Result (package view):
 Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
@@ -5987,7 +5983,6 @@ Total 5 packages affected by 23 known vulnerabilities (1 Critical, 9 High, 11 Me
 [TestCommand_WithDetector_OffLinux/ssh_version_errors - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 No issues found
@@ -6001,7 +5996,6 @@ No issues found
 [TestCommand_WithDetector_OffLinux/ssh_version_is_after_last_vuln_version - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 No issues found
@@ -6015,7 +6009,6 @@ No issues found
 [TestCommand_WithDetector_OffLinux/ssh_version_is_before_first_vuln_version - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 No issues found
