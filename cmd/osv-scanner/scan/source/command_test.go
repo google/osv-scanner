@@ -5,8 +5,10 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"strings"
 	"testing"
 
+	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/helper"
 	"github.com/google/osv-scanner/v2/cmd/osv-scanner/internal/testcmd"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 )
@@ -817,6 +819,50 @@ func TestCommand_CallAnalysis(t *testing.T) {
 			testcmd.RunAndMatchSnapshots(t, tt)
 		})
 	}
+}
+
+func TestCommand_CallAnalysisRustWithoutUnsafeFlagFails(t *testing.T) {
+	t.Parallel()
+
+	testDir := testutility.CreateTestDir(t)
+
+	_, stderr := testcmd.RunAndNormalize(t, testcmd.Case{
+		Name: "rust_call_analysis_without_acknowledgement",
+		Args: []string{
+			"",
+			"source",
+			"--offline",
+			"--call-analysis=rust",
+			"--allow-no-lockfiles",
+			testDir,
+		},
+		Exit: 127,
+	})
+
+	requiredFlag := "--" + helper.AllowUnsafeRustCallAnalysisFlag
+	if !strings.Contains(stderr, requiredFlag) {
+		t.Fatalf("expected stderr to contain %q, got:\n%s", requiredFlag, stderr)
+	}
+}
+
+func TestCommand_CallAnalysisRustWithUnsafeFlagSucceeds(t *testing.T) {
+	t.Parallel()
+
+	testDir := testutility.CreateTestDir(t)
+
+	testcmd.RunAndNormalize(t, testcmd.Case{
+		Name: "rust_call_analysis_with_acknowledgement",
+		Args: []string{
+			"",
+			"source",
+			"--offline",
+			"--call-analysis=rust",
+			"--" + helper.AllowUnsafeRustCallAnalysisFlag,
+			"--allow-no-lockfiles",
+			testDir,
+		},
+		Exit: 0,
+	})
 }
 
 func TestCommand_LockfileWithExplicitParseAs(t *testing.T) {
