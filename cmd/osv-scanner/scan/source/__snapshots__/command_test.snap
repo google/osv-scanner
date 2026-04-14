@@ -3421,6 +3421,7 @@ Total 1 package affected by 40 known vulnerabilities (4 Critical, 16 High, 20 Me
 Scanning dir ./testdata/homebrew/Cellar/
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json file and found 1 package
 
+
 Scanning Result (package view):
 Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -3450,6 +3451,7 @@ Scanning dir ./testdata/homebrew/Cellar/
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/.brew/libssh2.rb file and found 0 packages
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/.brew/libssh2.rb file and found 0 packages
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json file and found 1 package
+
 
 Scanning Result (package view):
 Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 5 Unknown) from 1 ecosystem.
