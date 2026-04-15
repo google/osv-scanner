@@ -129,7 +129,6 @@ func handleScan(_ context.Context, _ *mcp.CallToolRequest, input *scanVulnerable
 		Recursive: input.Recursive,
 	}
 
-	//nolint:contextcheck // passing the context in would be a breaking change
 	scanResults, err := osvscanner.DoScan(action)
 	if err != nil && !errors.Is(err, osvscanner.ErrVulnerabilitiesFound) {
 		return nil, nil, fmt.Errorf("failed to run scanner: %w", err)
