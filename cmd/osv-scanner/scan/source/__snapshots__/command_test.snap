@@ -3507,7 +3507,7 @@ Total 1 package affected by 5 known vulnerabilities (0 Critical, 0 High, 0 Mediu
 GIT
 +------------------------------------------------------------------------------------------------------------------+
 | Source:os:<rootdir>/testdata/homebrew/Cellar/libssh |
-| 2/1.11.1/INSTALL_RECEIPT.json                                                                                    |                                                                                               |
+| 2/1.11.1/INSTALL_RECEIPT.json                                                                                    |                                                                                             |
 +------------------------------------+-------------------+------------------+------------+-------------------------+
 | SOURCE PACKAGE                     | INSTALLED VERSION | FIX AVAILABLE    | VULN COUNT | BINARY PACKAGES (COUNT) |
 +------------------------------------+-------------------+------------------+------------+-------------------------+
