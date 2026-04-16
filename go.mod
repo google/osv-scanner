@@ -238,4 +238,6 @@ require (
 	www.velocidex.com/golang/regparser v0.0.0-20250203141505-31e704a67ef7 // indirect
 )
 
+// github.com/containerd/containerd v1.7.x is incompatible with runtime-spec v1.3.0.
+// https://github.com/google/osv-scanner/pull/2705#issuecomment-4212012410
 replace github.com/opencontainers/runtime-spec => github.com/opencontainers/runtime-spec v1.2.1
