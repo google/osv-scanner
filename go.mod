@@ -25,7 +25,7 @@ require (
 	github.com/tidwall/gjson v1.18.0
 	github.com/tidwall/pretty v1.2.1
 	github.com/tidwall/sjson v1.2.5
-	github.com/urfave/cli/v3 v3.7.0
+	github.com/urfave/cli/v3 v3.8.0
 	go.yaml.in/yaml/v4 v4.0.0-rc.4
 	golang.org/x/sync v0.20.0
 	golang.org/x/term v0.40.0
