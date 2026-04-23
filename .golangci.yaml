@@ -54,6 +54,9 @@ linters:
     gocritic:
       disabled-checks:
         - ifElseChain
+    gomoddirectives:
+      replace-allow-list:
+        - github.com/opencontainers/runtime-spec
     govet:
       enable-all: true
       disable:

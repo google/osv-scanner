@@ -87,7 +87,7 @@ func Command(stdout, _ io.Writer, _ *http.Client) *cli.Command {
 				Name:  "interactive",
 				Usage: "run in the interactive mode",
 				Action: func(_ context.Context, _ *cli.Command, b bool) error {
-					if b && !term.IsTerminal(int(os.Stdin.Fd())) {
+					if b && !term.IsTerminal(int(os.Stdin.Fd())) { //nolint:gosec // Fd() is safe to convert to int
 						return errors.New("interactive mode only to be run in a terminal")
 					}
 
