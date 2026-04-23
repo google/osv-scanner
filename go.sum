@@ -273,6 +273,14 @@ github.com/google/jsonschema-go v0.4.2 h1:tmrUohrwoLZZS/P3x7ex0WAVknEkBZM46iALbc
 github.com/google/jsonschema-go v0.4.2/go.mod h1:r5quNTdLOYEz95Ru18zA0ydNbBuYoo9tgaYcxEYhJVE=
 github.com/google/osv-scalibr v0.4.6-0.20260318175007-ec4239d68fb9 h1:bOqoTMcFFJf0yuXgH+EdPWzcgIIUzyCWxT/agq2u4lw=
 github.com/google/osv-scalibr v0.4.6-0.20260318175007-ec4239d68fb9/go.mod h1:0yLzHje112PqLC/q9GKwcmaKrKWotOvc49xc+SegKV0=
+github.com/google/osv-scalibr v0.4.6-0.20260323230016-5c269244c4f4 h1:yUvllk4CcpMfP9eaV8gcs6LIa7lWlzZaQEYxN7TSwRE=
+github.com/google/osv-scalibr v0.4.6-0.20260323230016-5c269244c4f4/go.mod h1:0yLzHje112PqLC/q9GKwcmaKrKWotOvc49xc+SegKV0=
+github.com/google/osv-scalibr v0.4.6-0.20260324023151-bcaae8454948 h1:A8qzYrCmLoWSiXlluaPeXjm7ssteSd9tJo5YsHm50Rs=
+github.com/google/osv-scalibr v0.4.6-0.20260324023151-bcaae8454948/go.mod h1:0yLzHje112PqLC/q9GKwcmaKrKWotOvc49xc+SegKV0=
+github.com/google/osv-scalibr v0.4.6-0.20260415191203-0f0777e173df h1:/bbH6BbBKG+60kmksW6/R9KOJYakH5CLaJNRs+nb+ZA=
+github.com/google/osv-scalibr v0.4.6-0.20260415191203-0f0777e173df/go.mod h1:0yLzHje112PqLC/q9GKwcmaKrKWotOvc49xc+SegKV0=
+github.com/google/osv-scalibr v0.4.6-0.20260421235914-2420ff40f95a h1:Bi6owRs6mUltiQu+TNYSKAH6SM1ple4ArQFznChqS70=
+github.com/google/osv-scalibr v0.4.6-0.20260421235914-2420ff40f95a/go.mod h1:0yLzHje112PqLC/q9GKwcmaKrKWotOvc49xc+SegKV0=
 github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6 h1:EEHtgt9IwisQ2AZ4pIsMjahcegHh6rmhqxzIRQIyepY=
 github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6/go.mod h1:I6V7YzU0XDpsHqbsyrghnFZLO1gwK6NPTNvmetQIk9U=
 github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
