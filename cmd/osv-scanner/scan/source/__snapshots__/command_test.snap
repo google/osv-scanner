@@ -3,7 +3,6 @@
 Scanning dir ./testdata/locks-gitignore
 Scanned <rootdir>/testdata/locks-gitignore/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/subdir/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -28,7 +27,6 @@ No issues found
 [TestCommand/Empty_cyclonedx_1.4_output - 2]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
@@ -48,7 +46,6 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 [TestCommand/Empty_cyclonedx_1.5_output - 2]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
@@ -60,7 +57,6 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 [TestCommand/Empty_gh-annotations_output - 2]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
@@ -119,7 +115,6 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 [TestCommand/Empty_sarif_output - 2]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
@@ -161,7 +156,6 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 [TestCommand/Empty_spdx_2.3_output - 2]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
@@ -169,7 +163,6 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 [TestCommand/Go_project_with_an_overridden_go_version - 1]
 Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -185,7 +178,6 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
 Scanned <rootdir>/testdata/go-project/nested/go.mod file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -200,7 +192,6 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 [TestCommand/Go_project_with_an_overridden_go_version_and_licences - 1]
 Scanning dir ./testdata/go-project
 Scanned <rootdir>/testdata/go-project/go.mod file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -220,16 +211,17 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 [TestCommand/PURL_SBOM_case_sensitivity_(api) - 1]
 Scanning dir ./testdata/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 7 known vulnerabilities (1 Critical, 4 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
@@ -400,7 +392,6 @@ Total 2 packages affected by 11 known vulnerabilities (3 Critical, 6 High, 2 Med
 [TestCommand/Sarif_with_vulns - 2]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -410,7 +401,6 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -425,7 +415,6 @@ No issues found
 Scanning dir ./testdata/locks-many-with-invalid
 Scanned <rootdir>/testdata/locks-many-with-invalid/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-invalid/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
@@ -452,7 +441,6 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
@@ -484,8 +472,8 @@ overriding license for package Packagist/league/flysystem/1.0.8 with 0BSD
 overriding license for package Packagist/sentry/sdk/2.0.4 with 0BSD
 overriding license for package Packagist/theseer/tokenizer/1.1.3 with 0BSD
 
-Total 6 packages affected by 10 known vulnerabilities (2 Critical, 2 High, 2 Medium, 3 Low, 1 Unknown) from 4 ecosystems.
-6 vulnerabilities can be fixed.
+Total 6 packages affected by 14 known vulnerabilities (2 Critical, 3 High, 3 Medium, 3 Low, 3 Unknown) from 4 ecosystems.
+8 vulnerabilities can be fixed.
 
 +-----------------------------------------+------+-----------+-----------------------+-----------+---------------+--------------------------------------------------+
 | OSV URL                                 | CVSS | ECOSYSTEM | PACKAGE               | VERSION   | FIXED VERSION | SOURCE                                           |
@@ -499,9 +487,13 @@ Total 6 packages affected by 10 known vulnerabilities (2 Critical, 2 High, 2 Med
 | https://osv.dev/GHSA-h89p-5896-f4q8     |      |           |                       |           |               |                                                  |
 | https://osv.dev/DRUPAL-CORE-2025-008    | 3.7  | Packagist | drupal/core           | 10.4.5    | 10.4.9        | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/GHSA-mhpg-hpj5-73r2     |      |           |                       |           |               |                                                  |
+| https://osv.dev/DRUPAL-CORE-2026-001    |      | Packagist | drupal/core           | 10.4.5    | 10.5.9        | testdata/locks-many-with-insecure/composer.lock  |
+| https://osv.dev/DRUPAL-CORE-2026-002    |      | Packagist | drupal/core           | 10.4.5    | 10.5.9        | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/DRUPAL-CONTRIB-2025-083 |      | Packagist | drupal/simple_sitemap | 4.2.1     | --            | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/GHSA-9f46-5r25-5wfm     | 9.8  | Packagist | league/flysystem      | 1.0.8     | 1.1.4         | testdata/locks-many-with-insecure/composer.lock  |
 | https://osv.dev/ALPINE-CVE-2025-26519   | 7.0  | Alpine    | musl                  | 1.2.3-r4  | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-40200   | 8.1  | Alpine    | musl                  | 1.2.3-r4  | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-6042    | 4.8  | Alpine    | musl                  | 1.2.3-r4  | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-22184   | 7.8  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-27171   | 5.5  | Alpine    | zlib                  | 1.2.13-r0 | --            | testdata/locks-many-with-insecure/alpine.cdx.xml |
 +-----------------------------------------+------+-----------+-----------------------+-----------+---------------+--------------------------------------------------+
@@ -538,7 +530,6 @@ Total 6 packages affected by 10 known vulnerabilities (2 Critical, 2 High, 2 Med
 [TestCommand/config_file_is_invalid - 1]
 Scanning dir ./testdata/config-invalid
 Scanned <rootdir>/testdata/config-invalid/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
@@ -568,7 +559,6 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 ./testdata/osv-scanner-duplicate-config.toml has unused ignores:
  - GO-2022-0274
  - GO-2022-0274
@@ -674,7 +664,6 @@ Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -769,7 +758,6 @@ Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -777,7 +765,6 @@ Warning: plugin transitivedependency/pomxml can be risky when run on untrusted a
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -791,7 +778,6 @@ No issues found
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -814,7 +800,6 @@ failed to parse exclude patterns: invalid regex pattern "[invalid": error parsin
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -828,7 +813,6 @@ No issues found
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -841,7 +825,6 @@ No issues found
 [TestCommand/exclude_with_regex_pattern - 1]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -854,7 +837,6 @@ No issues found
 [TestCommand/folder_of_supported_sbom_with_only_unimportant - 1]
 Scanning dir ./testdata/sbom-insecure/only-unimportant.spdx.json
 Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -869,7 +851,6 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 [TestCommand/folder_of_supported_sbom_with_only_unimportant#01 - 1]
 Scanning dir ./testdata/sbom-insecure/only-unimportant.spdx.json
 Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -896,10 +877,9 @@ Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 pac
 Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 10 local/unscannable package/s from the scan.
 
-Total 26 packages affected by 181 known vulnerabilities (20 Critical, 78 High, 56 Medium, 4 Low, 23 Unknown) from 4 ecosystems.
+Total 27 packages affected by 199 known vulnerabilities (21 Critical, 84 High, 60 Medium, 5 Low, 29 Unknown) from 4 ecosystems.
 11 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -931,11 +911,15 @@ Total 26 packages affected by 181 known vulnerabilities (20 Critical, 78 High, 5
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
+| https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
+| https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
@@ -962,6 +946,8 @@ Total 26 packages affected by 181 known vulnerabilities (20 Critical, 78 High, 5
 | https://osv.dev/DEBIAN-CVE-2019-13627 | 6.3  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2021-33560 | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2021-40528 | 5.9  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-41989 |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-41990 |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5863-1            | 5.3  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2017-10790 | 7.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-6003  | 7.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1064,9 +1050,17 @@ Total 26 packages affected by 181 known vulnerabilities (20 Critical, 78 High, 5
 | https://osv.dev/DEBIAN-CVE-2025-66199 | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-9231  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-2673  | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-28386 | 9.1  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-28387 |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-28388 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-28389 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-28390 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-31789 |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-31790 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5902-1            | 8.4  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2017-12837 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2017-12883 | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2017-20230 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-12015 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-18311 | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-18312 | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1092,10 +1086,12 @@ Total 26 packages affected by 181 known vulnerabilities (20 Critical, 78 High, 5
 | https://osv.dev/DLA-3600-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3651-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3764-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-5958  |      | Debian    | sed                            | 4.4-1                              | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2017-17512 | 8.8  | Debian    | sensible-utils                 | 0.0.9+deb9u1                       | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-20482 | 4.7  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2023-39804 | 6.2  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3755-1            |      |           |                                |                                    |                                   |                                                                     |
+| https://osv.dev/DEBIAN-CVE-2026-5704  | 5.0  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3051-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3134-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3161-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -1111,10 +1107,12 @@ Total 26 packages affected by 181 known vulnerabilities (20 Critical, 78 High, 5
 | https://osv.dev/DSA-5055-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5650-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2016-2779  | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-27456 | 4.7  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-3184  | 3.7  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5123-1            | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5895-1            | 8.7  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2024-3094  | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-34743 | 1.7  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
 
 ---
@@ -1130,16 +1128,14 @@ Total 26 packages affected by 181 known vulnerabilities (20 Critical, 78 High, 5
 [TestCommand/gh-annotations_with_vulns - 2]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 ::error file=testdata/locks-many-with-insecure/package-lock.json::testdata/locks-many-with-insecure/package-lock.json%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| PACKAGE   | VULNERABILITY ID                    | CVSS | CURRENT VERSION | FIXED VERSION |%0A+-----------+-------------------------------------+------+-----------------+---------------+%0A| ansi-html | https://osv.dev/GHSA-whgm-jr23-g3j9 | 7.5  | 0.0.1           | 0.0.8         |%0A+-----------+-------------------------------------+------+-----------------+---------------+
 ---
 
 [TestCommand/go_packages_in_osv-scanner.json_format - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner.json file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
-Total 2 packages affected by 24 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 24 Unknown) from 1 ecosystem.
-24 vulnerabilities can be fixed.
+Total 2 packages affected by 33 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 33 Unknown) from 1 ecosystem.
+33 vulnerabilities can be fixed.
 
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 | OSV URL                      | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                   |
@@ -1165,9 +1161,18 @@ Total 2 packages affected by 24 known vulnerabilities (0 Critical, 0 High, 0 Med
 | https://osv.dev/GO-2026-4601 |      | Go        | stdlib    | 1.24.4  | 1.25.8        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4602 |      | Go        | stdlib    | 1.24.4  | 1.25.8        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4603 |      | Go        | stdlib    | 1.24.4  | 1.25.8        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4864 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4865 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4869 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4870 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4946 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4947 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2025-3828 |      | Go        | toolchain | 1.24.4  | 1.24.5        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4339 |      | Go        | toolchain | 1.24.4  | 1.24.12       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4433 |      | Go        | toolchain | 1.24.4  | 1.24.13       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4867 |      | Go        | toolchain | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4868 |      | Go        | toolchain | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4871 |      | Go        | toolchain | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 
 ---
@@ -1229,7 +1234,6 @@ Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Package Packagist/sentry/sdk/2.0.4 has been filtered out because: (no reason given)
 Filtered 1 ignored package/s from the scan.
 GHSA-whgm-jr23-g3j9 and 1 alias have been filtered out because: (no reason given)
@@ -1253,7 +1257,6 @@ Scanned <rootdir>/testdata/locks-gitignore/subdir/Gemfile.lock file and found 1 
 Scanned <rootdir>/testdata/locks-gitignore/subdir/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/subdir/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-gitignore/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -1288,7 +1291,6 @@ invalid verbosity level "unknown" - must be one of: error, warn, info
 [TestCommand/json_output - 2]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 ---
@@ -1297,7 +1299,6 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/nested/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -1320,7 +1321,6 @@ failed to resolve path: stat <rootdir>/testdata/locks-none-does-not-exist: no su
 [TestCommand/no_lockfiles_with_recursion_and_with_allow_flag_are_fine - 1]
 Scanning dir ./testdata/locks-none
 Scanned <rootdir>/testdata/locks-none/nested/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -1333,7 +1333,6 @@ No issues found
 [TestCommand/no_lockfiles_with_recursion_but_without_allow_flag_are_fine - 1]
 Scanning dir ./testdata/locks-none
 Scanned <rootdir>/testdata/locks-none/nested/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -1345,7 +1344,6 @@ No issues found
 
 [TestCommand/no_lockfiles_without_recursion_but_with_allow_flag_are_fine - 1]
 Scanning dir ./testdata/locks-none
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 No package sources found
 
 No issues found
@@ -1358,7 +1356,6 @@ No issues found
 
 [TestCommand/no_lockfiles_without_recursion_or_allow_flag_give_an_error - 1]
 Scanning dir ./testdata/locks-none
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -1391,7 +1388,6 @@ could not determine extractor, requested spdx
 [TestCommand/one_specific_supported_lockfile - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -1405,7 +1401,6 @@ No issues found
 [TestCommand/one_specific_supported_lockfile_with_ignore - 1]
 Scanning dir ./testdata/locks-test-ignore/package-lock.json
 Scanned <rootdir>/testdata/locks-test-ignore/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-test-ignore/osv-scanner-test.toml
 CVE-2021-23424 and 1 alias have been filtered out because: Test manifest file (package-lock.json)
 Filtered 1 vulnerability from output
@@ -1421,7 +1416,6 @@ No issues found
 [TestCommand/one_specific_supported_lockfile_with_offline_explicitly_false - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -1435,16 +1429,17 @@ No issues found
 [TestCommand/one_specific_supported_sbom_with_duplicate_PURLs - 1]
 Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 7 known vulnerabilities (1 Critical, 4 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                         |
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
@@ -1459,16 +1454,17 @@ Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medi
 
 [TestCommand/one_specific_supported_sbom_with_duplicate_PURLs_using_-L_flag - 1]
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 7 known vulnerabilities (1 Critical, 4 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                         |
 +---------------------------------------+------+-----------+---------+-----------+---------------+------------------------------------------------+
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/with-duplicates.cdx.xml |
@@ -1484,7 +1480,6 @@ Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medi
 [TestCommand/one_specific_supported_sbom_with_invalid_PURLs - 1]
 Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 7 local/unscannable package/s from the scan.
 
 No issues found
@@ -1497,7 +1492,6 @@ No issues found
 
 [TestCommand/one_specific_supported_sbom_with_invalid_PURLs_using_-L_flag - 1]
 Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 7 local/unscannable package/s from the scan.
 
 No issues found
@@ -1511,16 +1505,17 @@ No issues found
 [TestCommand/one_specific_supported_sbom_with_vulns - 1]
 Warning: --sbom has been deprecated in favor of -L
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 7 known vulnerabilities (1 Critical, 4 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
@@ -1535,16 +1530,17 @@ Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medi
 
 [TestCommand/one_specific_supported_sbom_with_vulns_using_-L_flag - 1]
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
-Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 7 known vulnerabilities (1 Critical, 4 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | https://osv.dev/ALPINE-CVE-2025-26519 | 7.0  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2018-25032 | 7.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
@@ -1559,7 +1555,6 @@ Total 2 packages affected by 5 known vulnerabilities (1 Critical, 3 High, 1 Medi
 
 [TestCommand/one_specific_unsupported_lockfile - 1]
 Scanning dir ./testdata/locks-many/not-a-lockfile.toml
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -1571,7 +1566,6 @@ No package sources found, --help for usage information.
 [TestCommand/only_the_files_in_the_given_directories_are_checked_by_default_(no_recursion) - 1]
 Scanning dir ./testdata/locks-one-with-nested
 Scanned <rootdir>/testdata/locks-one-with-nested/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -1584,7 +1578,6 @@ No issues found
 [TestCommand/output_format:_markdown_table - 1]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -1618,8 +1611,8 @@ Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 
 Scanned <rootdir>/testdata/locks-requirements/the_requirements_for_test.txt file and found 1 package
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
 
-Total 12 packages affected by 50 known vulnerabilities (5 Critical, 20 High, 20 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
-50 vulnerabilities can be fixed.
+Total 12 packages affected by 52 known vulnerabilities (5 Critical, 20 High, 22 Medium, 4 Low, 1 Unknown) from 1 ecosystem.
+52 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+------------+---------+---------------+-----------------------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE    | VERSION | FIXED VERSION | SOURCE                                                    |
@@ -1643,6 +1636,7 @@ Total 12 packages affected by 50 known vulnerabilities (5 Critical, 20 High, 20 
 | https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests   | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests   | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements-transitive.txt   |
+| https://osv.dev/GHSA-gc5v-m9x4-r6x2 | 4.4  | PyPI      | requests   | 2.20.0  | 2.33.0        | testdata/locks-requirements/requirements-transitive.txt   |
 | https://osv.dev/PYSEC-2021-439      | 7.3  | PyPI      | django     | 2.2.24  | 2.2.25        | testdata/locks-requirements/requirements.prod.txt         |
 | https://osv.dev/GHSA-v6rh-hp5x-86rv |      |           |            |         |               |                                                           |
 | https://osv.dev/PYSEC-2022-1        | 8.7  | PyPI      | django     | 2.2.24  | 2.2.26        | testdata/locks-requirements/requirements.prod.txt         |
@@ -1680,6 +1674,7 @@ Total 12 packages affected by 50 known vulnerabilities (5 Critical, 20 High, 20 
 | https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests   | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests   | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt              |
+| https://osv.dev/GHSA-gc5v-m9x4-r6x2 | 4.4  | PyPI      | requests   | 2.20.0  | 2.33.0        | testdata/locks-requirements/requirements.txt              |
 | https://osv.dev/PYSEC-2023-62       | 8.7  | PyPI      | flask      | 1.0.0   | 2.2.5         | testdata/locks-requirements/unresolvable-requirements.txt |
 | https://osv.dev/GHSA-m2qf-hxjv-5gpq |      |           |            |         |               |                                                           |
 | https://osv.dev/GHSA-68rp-wp8r-4726 | 2.3  | PyPI      | flask      | 1.0.0   | 3.1.3         | testdata/locks-requirements/unresolvable-requirements.txt |
@@ -1879,7 +1874,6 @@ Scanning dir ./testdata/locks-insecure
 Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -1896,7 +1890,6 @@ No issues found
 [TestCommand/verbosity_level_=_info - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -1910,7 +1903,6 @@ No issues found
 [TestCommandNonGit/one_specific_supported_lockfile - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 No issues found
@@ -1924,7 +1916,6 @@ No issues found
 [TestCommand_CallAnalysis/Run_with_govulncheck - 1]
 Scanning dir ./testdata/call-analysis-go-project
 Scanned <rootdir>/testdata/call-analysis-go-project/go.mod file and found 4 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
 Filtered 1 ignored package/s from the scan.
 
@@ -1947,7 +1938,6 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium,
 [TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled - 1]
 Scanning dir ./testdata/call-analysis-go-project-all-uncalled
 Scanned <rootdir>/testdata/call-analysis-go-project-all-uncalled/go.mod file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
 Filtered 1 ignored package/s from the scan.
 
@@ -1964,7 +1954,6 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 [TestCommand_CallAnalysis/Run_with_govulncheck_all_uncalled_but_enabled_all-vulns_flag - 1]
 Scanning dir ./testdata/call-analysis-go-project-all-uncalled
 Scanned <rootdir>/testdata/call-analysis-go-project-all-uncalled/go.mod file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Package Go/stdlib/1.19.99 has been filtered out because: Just want to test actual packages
 Filtered 1 ignored package/s from the scan.
 
@@ -2036,9 +2025,8 @@ Total 8 packages affected by 30 known vulnerabilities (2 Critical, 10 High, 12 M
 
 [TestCommand_CommitSupport/online_uses_git_commits - 1]
 Scanned <rootdir>/testdata/locks-git/osv-scanner.json file and found 11 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
-Total 9 packages affected by 140 known vulnerabilities (20 Critical, 51 High, 58 Medium, 5 Low, 6 Unknown) from 1 ecosystem.
+Total 9 packages affected by 34 known vulnerabilities (2 Critical, 10 High, 16 Medium, 0 Low, 6 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+----------------------------------------------+----------------+---------------+-------------------------------------+
@@ -2054,116 +2042,12 @@ Total 9 packages affected by 140 known vulnerabilities (20 Critical, 51 High, 58
 | https://osv.dev/CVE-2025-61927 | 7.2  | GIT       | https://github.com/capricorn86/happy-dom.git | v11.1.0        | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-62410 | 9.4  | GIT       | https://github.com/capricorn86/happy-dom.git | v11.1.0        | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-34226 | 7.5  | GIT       | https://github.com/capricorn86/happy-dom.git | v11.1.0        | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0701  | 3.7  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0702  | 5.1  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0703  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0704  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0705  | 9.8  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0797  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0798  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0799  | 9.8  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0800  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2105  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2106  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2107  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2108  | 9.8  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2109  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2176  | 8.2  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2177  | 9.8  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2178  | 5.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2179  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2181  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2182  | 9.8  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2842  | 9.8  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6302  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6303  | 9.8  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6304  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6305  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6306  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6307  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6308  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6309  | 9.8  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-7052  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-7053  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-7056  | 5.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-8610  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3730  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3731  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3732  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3733  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3735  | 5.3  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3737  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3738  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2018-0734  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2018-0735  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2018-5407  | 4.7  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2020-1968  | 3.7  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2021-23839 | 3.7  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2021-23841 | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2021-3449  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2022-2068  | 7.3  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2022-2097  | 5.3  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-0215  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-0286  | 7.4  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-0401  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-3446  | 5.3  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-6237  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2024-12797 | 6.3  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2024-13176 | 4.1  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-2511  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-4603  | 5.3  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-4741  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-5535  | 9.1  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2024-9143  | 4.3  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2025-4575  | 6.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9230  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9231  | 6.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-9232  | 5.9  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2026-2673  | 7.5  | GIT       | https://github.com/openssl/openssl           |                | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0701  | 3.7  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0703  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0704  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0798  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0799  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-0800  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2106  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2108  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2109  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2176  | 8.2  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2177  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2179  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2181  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2182  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-2842  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6302  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6305  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6307  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6308  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-6309  | 9.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-7053  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-7056  | 5.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2016-8610  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3730  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3733  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3735  | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2017-3737  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2020-1968  | 3.7  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2022-2068  | 7.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2022-2097  | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-0215  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-0286  | 7.4  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-0401  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-3446  | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-6129  | 6.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-6237  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-0727  | 5.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-13176 | 4.1  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-2511  | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-4603  | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-4741  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-5535  | 9.1  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-6119  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2024-9143  | 4.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-11187 | 6.1  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-15467 | 8.8  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2025-15468 | 5.9  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
@@ -2182,8 +2066,6 @@ Total 9 packages affected by 140 known vulnerabilities (20 Critical, 51 High, 58
 | https://osv.dev/CVE-2026-22796 | 5.3  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2026-2673  | 7.5  | GIT       | https://github.com/openssl/openssl           | openssl-3.5.0  | --            | testdata/locks-git/osv-scanner.json |
 | https://osv.dev/CVE-2016-10931 | 8.1  | GIT       | https://github.com/sfackler/rust-openssl     | openssl-v0.8.1 | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2018-20997 | 9.8  | GIT       | https://github.com/sfackler/rust-openssl     | openssl-v0.8.1 | --            | testdata/locks-git/osv-scanner.json |
-| https://osv.dev/CVE-2023-53159 | 9.1  | GIT       | https://github.com/sfackler/rust-openssl     | openssl-v0.8.1 | --            | testdata/locks-git/osv-scanner.json |
 +--------------------------------+------+-----------+----------------------------------------------+----------------+---------------+-------------------------------------+
 
 ---
@@ -2195,7 +2077,6 @@ Total 9 packages affected by 140 known vulnerabilities (20 Critical, 51 High, 58
 [TestCommand_Config_UnusedIgnores/unused_ignores_are_reported_with_specific_config_and_file - 1]
 Scanning dir testdata/sbom-insecure/alpine.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
 CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
@@ -2205,12 +2086,14 @@ testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
  - CVE-2022-1304
 
-Total 1 package affected by 3 known vulnerabilities (1 Critical, 1 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 2 packages affected by 5 known vulnerabilities (1 Critical, 2 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
 | OSV URL                               | CVSS | ECOSYSTEM | PACKAGE | VERSION   | FIXED VERSION | SOURCE                                |
 +---------------------------------------+------+-----------+---------+-----------+---------------+---------------------------------------+
+| https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
+| https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl    | 1.2.3-r4  | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib    | 1.2.10-r0 | --            | testdata/sbom-insecure/alpine.cdx.xml |
@@ -2230,7 +2113,6 @@ Scanned <rootdir>/testdata/sbom-insecure/bad-purls.cdx.xml file and found 15 pac
 Scanned <rootdir>/testdata/sbom-insecure/only-unimportant.spdx.json file and found 1 package
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
 Scanned <rootdir>/testdata/sbom-insecure/with-duplicates.cdx.xml file and found 17 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 10 local/unscannable package/s from the scan.
 CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
 CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
@@ -2242,7 +2124,7 @@ Filtered 8 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 24 packages affected by 175 known vulnerabilities (20 Critical, 73 High, 55 Medium, 4 Low, 23 Unknown) from 4 ecosystems.
+Total 27 packages affected by 193 known vulnerabilities (21 Critical, 79 High, 59 Medium, 5 Low, 29 Unknown) from 4 ecosystems.
 10 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
@@ -2271,9 +2153,13 @@ Total 24 packages affected by 175 known vulnerabilities (20 Critical, 73 High, 5
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.12-r1                          | --                                | testdata/sbom-insecure/alpine-zlib-16.cdx.json:lib/apk/db/installed |
+| https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml                               |
+| https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
+| https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/with-duplicates.cdx.xml                      |
@@ -2297,6 +2183,8 @@ Total 24 packages affected by 175 known vulnerabilities (20 Critical, 73 High, 5
 | https://osv.dev/DEBIAN-CVE-2019-13627 | 6.3  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2021-33560 | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2021-40528 | 5.9  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-41989 |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-41990 |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5863-1            | 5.3  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2017-10790 | 7.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-6003  | 7.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2399,9 +2287,17 @@ Total 24 packages affected by 175 known vulnerabilities (20 Critical, 73 High, 5
 | https://osv.dev/DEBIAN-CVE-2025-66199 | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2025-9231  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-2673  | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-28386 | 9.1  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-28387 |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-28388 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-28389 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-28390 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-31789 |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-31790 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5902-1            | 8.4  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2017-12837 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2017-12883 | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2017-20230 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-12015 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-18311 | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-18312 | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2427,10 +2323,12 @@ Total 24 packages affected by 175 known vulnerabilities (20 Critical, 73 High, 5
 | https://osv.dev/DLA-3600-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3651-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3764-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-5958  |      | Debian    | sed                            | 4.4-1                              | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2017-17512 | 8.8  | Debian    | sensible-utils                 | 0.0.9+deb9u1                       | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2018-20482 | 4.7  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2023-39804 | 6.2  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3755-1            |      |           |                                |                                    |                                   |                                                                     |
+| https://osv.dev/DEBIAN-CVE-2026-5704  | 5.0  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3051-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3134-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DLA-3161-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
@@ -2446,10 +2344,12 @@ Total 24 packages affected by 175 known vulnerabilities (20 Critical, 73 High, 5
 | https://osv.dev/DSA-5055-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5650-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2016-2779  | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-27456 | 4.7  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2026-3184  | 3.7  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5123-1            | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DSA-5895-1            | 8.7  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 | https://osv.dev/DEBIAN-CVE-2024-3094  | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
+| https://osv.dev/DEBIAN-CVE-2026-34743 | 1.7  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml                     |
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+---------------------------------------------------------------------+
 
 ---
@@ -2463,7 +2363,6 @@ Scanning dir testdata/sbom-insecure/alpine.cdx.xml
 Scanning dir testdata/sbom-insecure/postgres-stretch.cdx.xml
 Scanned <rootdir>/testdata/sbom-insecure/alpine.cdx.xml file and found 15 packages
 Scanned <rootdir>/testdata/sbom-insecure/postgres-stretch.cdx.xml file and found 136 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 2 local/unscannable package/s from the scan.
 CVE-2025-26519 and 1 alias have been filtered out because: (no reason given)
 CVE-2018-25032 and 1 alias have been filtered out because: (no reason given)
@@ -2473,7 +2372,7 @@ Filtered 6 vulnerabilities from output
 testdata/osv-scanner-partial-ignores-config.toml has unused ignores:
  - CVE-2019-5188
 
-Total 22 packages affected by 169 known vulnerabilities (18 Critical, 71 High, 53 Medium, 4 Low, 23 Unknown) from 3 ecosystems.
+Total 24 packages affected by 185 known vulnerabilities (19 Critical, 76 High, 56 Medium, 5 Low, 29 Unknown) from 3 ecosystems.
 10 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -2499,6 +2398,8 @@ Total 22 packages affected by 169 known vulnerabilities (18 Critical, 71 High, 5
 | https://osv.dev/GHSA-cgrx-mc8f-2prm   |      |           |                                |                                    |                                   |                                                 |
 | https://osv.dev/GO-2022-0493          | 5.3  | Go        | golang.org/x/sys               | v0.0.0-20210817142637-7d9622a276b7 | 0.0.0-20220412211240-33da011f77ad | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/GHSA-p782-xgp4-8hr8   |      |           |                                |                                    |                                   |                                                 |
+| https://osv.dev/ALPINE-CVE-2026-40200 | 8.1  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
+| https://osv.dev/ALPINE-CVE-2026-6042  | 4.8  | Alpine    | musl                           | 1.2.3-r4                           | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/ALPINE-CVE-2022-37434 | 9.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/ALPINE-CVE-2026-22184 | 7.8  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
 | https://osv.dev/ALPINE-CVE-2026-27171 | 5.5  | Alpine    | zlib                           | 1.2.10-r0                          | --                                | testdata/sbom-insecure/alpine.cdx.xml           |
@@ -2522,6 +2423,8 @@ Total 22 packages affected by 169 known vulnerabilities (18 Critical, 71 High, 5
 | https://osv.dev/DEBIAN-CVE-2019-13627 | 6.3  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2021-33560 | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2021-40528 | 5.9  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-41989 |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-41990 |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5863-1            | 5.3  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-10790 | 7.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-6003  | 7.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2624,9 +2527,17 @@ Total 22 packages affected by 169 known vulnerabilities (18 Critical, 71 High, 5
 | https://osv.dev/DEBIAN-CVE-2025-66199 | 5.9  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2025-9231  | 6.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-2673  | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-28386 | 9.1  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-28387 |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-28388 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-28389 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-28390 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-31789 |      | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-31790 | 7.5  | Debian    | openssl                        | 1.1.0l-1~deb9u5                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5902-1            | 8.4  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-12837 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-12883 | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2017-20230 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-12015 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-18311 | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-18312 | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2652,10 +2563,12 @@ Total 22 packages affected by 169 known vulnerabilities (18 Critical, 71 High, 5
 | https://osv.dev/DLA-3600-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3651-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3764-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-5958  |      | Debian    | sed                            | 4.4-1                              | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-17512 | 8.8  | Debian    | sensible-utils                 | 0.0.9+deb9u1                       | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-20482 | 4.7  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2023-39804 | 6.2  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3755-1            |      |           |                                |                                    |                                   |                                                 |
+| https://osv.dev/DEBIAN-CVE-2026-5704  | 5.0  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3051-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3134-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3161-1            |      | Debian    | tzdata                         | 2021a-0+deb9u3                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -2671,10 +2584,12 @@ Total 22 packages affected by 169 known vulnerabilities (18 Critical, 71 High, 5
 | https://osv.dev/DSA-5055-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5650-1            | 5.5  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2016-2779  | 7.8  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-27456 | 4.7  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2026-3184  | 3.7  | Debian    | util-linux                     | 2.29.2-1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5123-1            | 8.8  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5895-1            | 8.7  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2024-3094  | 10.0 | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-34743 | 1.7  | Debian    | xz-utils                       | 5.2.2-1.2+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
 
 ---
@@ -2695,7 +2610,6 @@ flag needs an argument: --experimental-plugins=
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_individually - 1]
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -2705,7 +2619,6 @@ No package sources found, --help for usage information.
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_specified_together - 1]
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -2715,7 +2628,6 @@ No package sources found, --help for usage information.
 ---
 
 [TestCommand_ExplicitExtractors_WithDefaults/extractors_cancelled_out_with_presets - 1]
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -2730,7 +2642,6 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -2747,7 +2658,6 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -2764,7 +2674,6 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
@@ -2783,7 +2692,6 @@ Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -2800,7 +2708,6 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -2814,7 +2721,6 @@ No issues found
 [TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_different_extractor_enabled - 1]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -2828,7 +2734,6 @@ No issues found
 [TestCommand_ExplicitExtractors_WithDefaults/scanning_file_with_one_specific_extractor_enabled - 1]
 Scanning dir ./testdata/locks-many/package-lock.json
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -2935,7 +2840,6 @@ Scanning dir ./testdata/locks-many
 Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -3029,7 +2933,6 @@ could not determine extractor, requested package-lock.json
 
 [TestCommand_Filter/Show_all_Packages_with_empty_config - 2]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-with-unscannables.json file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
 ---
@@ -3050,7 +2953,6 @@ Filtered 1 local/unscannable package/s from the scan.
 [TestCommand_FlagDeprecatedPackages/package_deprecated_false_no_vuln_json - 2]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock file and found 5 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -3087,7 +2989,6 @@ Warning: plugin transitivedependency/pomxml can be risky when run on untrusted a
 [TestCommand_FlagDeprecatedPackages/package_deprecated_npm_json - 2]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -3124,14 +3025,12 @@ Warning: plugin transitivedependency/pomxml can be risky when run on untrusted a
 [TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_json - 2]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock file and found 36 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
 [TestCommand_FlagDeprecatedPackages/package_deprecated_true_no_vuln_table - 1]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock file and found 36 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -3192,14 +3091,12 @@ Total 1 package deprecated.
 [TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_json - 2]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
 [TestCommand_FlagDeprecatedPackages/package_deprecated_true_with_vuln_table - 1]
 Scanning dir ./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock
 Scanned <rootdir>/testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock file and found 7 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 1 package affected by 2 known vulnerabilities (0 Critical, 0 High, 1 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -3230,7 +3127,6 @@ Total 1 package deprecated.
 
 [TestCommand_GithubActions/scanning_osv-scanner_custom_format - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file and found 3 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -3434,15 +3330,13 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
 
 [TestCommand_GithubActions/scanning_osv-scanner_custom_format_output_json - 2]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-flutter-deps.json file and found 3 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
 [TestCommand_GithubActions/scanning_osv-scanner_custom_format_with_git_tag - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom-git-tag.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
-Total 1 package affected by 40 known vulnerabilities (4 Critical, 16 High, 20 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+Total 1 package affected by 45 known vulnerabilities (4 Critical, 18 High, 23 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
 
 +--------------------------------+------+-----------+----------------------------+---------------+---------------+---------------------------------------------------------+
@@ -3450,6 +3344,7 @@ Total 1 package affected by 40 known vulnerabilities (4 Critical, 16 High, 20 Me
 +--------------------------------+------+-----------+----------------------------+---------------+---------------+---------------------------------------------------------+
 | https://osv.dev/CVE-2016-2177  | 9.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2016-2182  | 9.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2022-2097  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2022-2274  | 9.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2022-3358  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2022-3996  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
@@ -3467,23 +3362,27 @@ Total 1 package affected by 40 known vulnerabilities (4 Critical, 16 High, 20 Me
 | https://osv.dev/CVE-2023-1255  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-2650  | 6.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-2975  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2023-3446  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-3817  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-4807  | 7.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-5363  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-5678  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-6129  | 6.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2023-6237  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2024-0727  | 5.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2024-13176 | 4.1  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2024-2511  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2024-4603  | 5.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2024-4741  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2024-5535  | 9.1  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2024-6119  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2024-9143  | 4.3  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2025-15467 | 8.8  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2025-68160 | 4.7  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2025-69418 | 4.0  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2025-69419 | 7.4  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2025-69420 | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
+| https://osv.dev/CVE-2025-69421 | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2025-9230  | 7.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2025-9232  | 5.9  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
 | https://osv.dev/CVE-2026-22795 | 5.5  | GIT       | github.com/openssl/openssl | openssl-3.0.4 | --            | testdata/locks-insecure/osv-scanner-custom-git-tag.json |
@@ -3499,7 +3398,6 @@ Total 1 package affected by 40 known vulnerabilities (4 Critical, 16 High, 20 Me
 [TestCommand_HomebrewWithAnnotators/homebrew_extractor_explicitly_enabled_with_annotator - 1]
 Scanning dir ./testdata/homebrew/Cellar/
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 
 Scanning Result (package view):
@@ -3531,7 +3429,6 @@ Scanning dir ./testdata/homebrew/Cellar/
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/.brew/libssh2.rb file and found 0 packages
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/.brew/libssh2.rb file and found 0 packages
 Scanned <rootdir>/testdata/homebrew/Cellar/libssh2/1.11.1/INSTALL_RECEIPT.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 
 Scanning Result (package view):
@@ -3565,7 +3462,6 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
 [TestCommand_HtmlFile - 2]
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 HTML output available at: <tempdir>/report.html
 
@@ -3579,7 +3475,6 @@ HTML output available at: <tempdir>/report.html
 Warning: --output has been deprecated in favor of --output-file
 Scanning dir ./testdata/locks-many/composer.lock
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 HTML output available at: <tempdir>/report.html
 
@@ -3589,11 +3484,10 @@ HTML output available at: <tempdir>/report.html
 Scanning dir ./testdata/artifact/javareach_test.jar
 Java reachability enricher marked 14 packages as unreachable
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 failed to download package err jar not found: https://repo1.maven.org/maven2/com/example/hello-tester/1.0-SNAPSHOT/hello-tester-1.0-SNAPSHOT.jar
 
-Total 4 packages affected by 55 known vulnerabilities (18 Critical, 29 High, 6 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
-55 vulnerabilities can be fixed.
+Total 4 packages affected by 56 known vulnerabilities (18 Critical, 30 High, 6 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
+56 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
@@ -3649,6 +3543,7 @@ Total 4 packages affected by 55 known vulnerabilities (18 Critical, 29 High, 6 M
 | https://osv.dev/GHSA-w3f4-3q6j-rh82 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.5       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-wh8g-3j2c-rqj5 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-j288-q9x7-2f5v | 6.5  | Maven     | org.apache.commons:commons-lang3            | 3.12.0           | 3.18.0        | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-355h-qmc2-wpwf | 7.4  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.60        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-cj7v-27pg-wf7q | 2.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.47        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-hmr7-m48g-48f6 | 5.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-qh8g-58pp-2wxh | 6.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.12       | testdata/artifact/javareach_test.jar |
@@ -3673,10 +3568,9 @@ Total 4 packages affected by 55 known vulnerabilities (18 Critical, 29 High, 6 M
 [TestCommand_JavareachArchive/jars_can_be_scanned_with_call_analysis_and_disabled_enricher - 1]
 Scanning dir ./testdata/artifact/javareach_test.jar
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
-Total 8 packages affected by 61 known vulnerabilities (18 Critical, 31 High, 9 Medium, 3 Low, 0 Unknown) from 1 ecosystem.
-60 vulnerabilities can be fixed.
+Total 8 packages affected by 62 known vulnerabilities (18 Critical, 32 High, 9 Medium, 3 Low, 0 Unknown) from 1 ecosystem.
+61 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
@@ -3734,6 +3628,7 @@ Total 8 packages affected by 61 known vulnerabilities (18 Critical, 31 High, 9 M
 | https://osv.dev/GHSA-wh8g-3j2c-rqj5 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-j288-q9x7-2f5v | 6.5  | Maven     | org.apache.commons:commons-lang3            | 3.12.0           | 3.18.0        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-7r82-7xv7-xcpj | 5.3  | Maven     | org.apache.httpcomponents:httpclient        | 4.5.5            | 4.5.13        | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-355h-qmc2-wpwf | 7.4  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.60        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-cj7v-27pg-wf7q | 2.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.47        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-hmr7-m48g-48f6 | 5.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-qh8g-58pp-2wxh | 6.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.12       | testdata/artifact/javareach_test.jar |
@@ -3753,10 +3648,9 @@ Total 8 packages affected by 61 known vulnerabilities (18 Critical, 31 High, 9 M
 [TestCommand_JavareachArchive/jars_can_be_scanned_without_call_analysis - 1]
 Scanning dir ./testdata/artifact/javareach_test.jar
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
-Total 8 packages affected by 61 known vulnerabilities (18 Critical, 31 High, 9 Medium, 3 Low, 0 Unknown) from 1 ecosystem.
-60 vulnerabilities can be fixed.
+Total 8 packages affected by 62 known vulnerabilities (18 Critical, 32 High, 9 Medium, 3 Low, 0 Unknown) from 1 ecosystem.
+61 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
@@ -3814,6 +3708,7 @@ Total 8 packages affected by 61 known vulnerabilities (18 Critical, 31 High, 9 M
 | https://osv.dev/GHSA-wh8g-3j2c-rqj5 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-j288-q9x7-2f5v | 6.5  | Maven     | org.apache.commons:commons-lang3            | 3.12.0           | 3.18.0        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-7r82-7xv7-xcpj | 5.3  | Maven     | org.apache.httpcomponents:httpclient        | 4.5.5            | 4.5.13        | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-355h-qmc2-wpwf | 7.4  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.60        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-cj7v-27pg-wf7q | 2.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.47        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-hmr7-m48g-48f6 | 5.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-qh8g-58pp-2wxh | 6.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.12       | testdata/artifact/javareach_test.jar |
@@ -3860,14 +3755,12 @@ Total 8 packages affected by 61 known vulnerabilities (18 Critical, 31 High, 9 M
 [TestCommand_Licenses/Licenses_in_summary_mode_json - 2]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
 [TestCommand_Licenses/Licenses_with_expressions - 1]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 overriding license for package npm/babel/6.23.0 with MIT AND (LGPL-2.1-or-later OR BSD-3-Clause)
 overriding license for package npm/human-signals/5.0.0 with LGPL-2.1-only OR MIT OR BSD-3-Clause
 overriding license for package npm/ms/2.1.3 with MIT WITH Bison-exception-2.2
@@ -3898,7 +3791,6 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 [TestCommand_Licenses/Licenses_with_invalid_expression_in_config - 1]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 overriding license for package npm/babel/6.23.0 with MIT AND (LGPL-2.1-or-later OR BSD-3-Clause))
 overriding license for package npm/human-signals/5.0.0 with LGPL-2.1-only OR OR BSD-3-Clause
 overriding license for package npm/ms/2.1.3 with MIT WITH (Bison-exception-2.2 AND somethingelse)
@@ -4020,14 +3912,12 @@ license MIT WITH (Bison-exception-2.2 AND somethingelse) for package npm/ms/2.1.
 [TestCommand_Licenses/No_license_violations_and_show-all-packages_in_json - 2]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
 [TestCommand_Licenses/No_vulnerabilities_but_license_violations_with_allowlist - 1]
 Scanning dir ./testdata/locks-many/yarn.lock
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 0 vulnerabilities can be fixed.
@@ -4055,7 +3945,6 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
@@ -4081,7 +3970,6 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
@@ -4178,7 +4066,6 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 [TestCommand_Licenses/Show_all_Packages_with_license_summary_in_json - 2]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -4192,7 +4079,6 @@ Scanned <rootdir>/testdata/locks-many/Gemfile.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-many/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
 Package npm/ansi-html/0.0.8 has been filtered out because: (no reason given)
@@ -4315,7 +4201,6 @@ Total 1 package affected by 1 known vulnerability (1 Critical, 0 High, 0 Medium,
 [TestCommand_Licenses/Some_packages_with_license_violations_and_show-all-packages_in_json - 2]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -4373,14 +4258,12 @@ Warning: plugin transitivedependency/pomxml can be risky when run on untrusted a
 [TestCommand_Licenses/Some_packages_with_license_violations_in_json - 2]
 Scanning dir ./testdata/locks-licenses/package-lock.json
 Scanned <rootdir>/testdata/locks-licenses/package-lock.json file and found 4 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
 [TestCommand_Licenses/Vulnerabilities_and_all_license_violations_allowlisted - 1]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -4405,7 +4288,6 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 [TestCommand_Licenses/Vulnerabilities_and_license_summary - 1]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -4430,7 +4312,6 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium,
 [TestCommand_Licenses/Vulnerabilities_and_license_violations_with_allowlist - 1]
 Scanning dir ./testdata/locks-many-with-insecure/package-lock.json
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -4767,7 +4648,7 @@ Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 
-Total 21 packages affected by 178 known vulnerabilities (18 Critical, 75 High, 55 Medium, 5 Low, 25 Unknown) from 2 ecosystems.
+Total 22 packages affected by 182 known vulnerabilities (18 Critical, 75 High, 55 Medium, 5 Low, 29 Unknown) from 2 ecosystems.
 11 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -4817,6 +4698,8 @@ Total 21 packages affected by 178 known vulnerabilities (18 Critical, 75 High, 5
 | https://osv.dev/DEBIAN-CVE-2019-13627 | 6.3  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2021-33560 | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2021-40528 | 5.9  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-41989 |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-41990 |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5863-1            | 5.3  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-10790 | 7.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-6003  | 7.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -4929,6 +4812,7 @@ Total 21 packages affected by 178 known vulnerabilities (18 Critical, 75 High, 5
 | https://osv.dev/DSA-5902-1            | 8.4  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-12837 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-12883 | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2017-20230 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-12015 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-18311 | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-18312 | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -4954,6 +4838,7 @@ Total 21 packages affected by 178 known vulnerabilities (18 Critical, 75 High, 5
 | https://osv.dev/DLA-3600-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3651-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3764-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-5958  |      | Debian    | sed                            | 4.4-1                              | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-17512 | 8.8  | Debian    | sensible-utils                 | 0.0.9+deb9u1                       | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-20482 | 4.7  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2023-39804 | 6.2  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -4995,7 +4880,7 @@ Filtered 1 local/unscannable package/s from the scan.
 Loaded Debian local db from <tempdir>/osv-scanner/Debian/all.zip
 Loaded Go local db from <tempdir>/osv-scanner/Go/all.zip
 
-Total 21 packages affected by 178 known vulnerabilities (18 Critical, 75 High, 55 Medium, 5 Low, 25 Unknown) from 2 ecosystems.
+Total 22 packages affected by 182 known vulnerabilities (18 Critical, 75 High, 55 Medium, 5 Low, 29 Unknown) from 2 ecosystems.
 11 vulnerabilities can be fixed.
 
 +---------------------------------------+------+-----------+--------------------------------+------------------------------------+-----------------------------------+-------------------------------------------------+
@@ -5045,6 +4930,8 @@ Total 21 packages affected by 178 known vulnerabilities (18 Critical, 75 High, 5
 | https://osv.dev/DEBIAN-CVE-2019-13627 | 6.3  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2021-33560 | 7.5  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2021-40528 | 5.9  | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-41989 |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-41990 |      | Debian    | libgcrypt20                    | 1.7.6-2+deb9u4                     | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DSA-5863-1            | 5.3  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-10790 | 7.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-6003  | 7.5  | Debian    | libtasn1-6                     | 4.10-1.1+deb9u1                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -5157,6 +5044,7 @@ Total 21 packages affected by 178 known vulnerabilities (18 Critical, 75 High, 5
 | https://osv.dev/DSA-5902-1            | 8.4  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-12837 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-12883 | 9.1  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2017-20230 |      | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-12015 | 7.5  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-18311 | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-18312 | 9.8  | Debian    | perl                           | 5.24.1-3+deb9u7                    | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -5182,6 +5070,7 @@ Total 21 packages affected by 178 known vulnerabilities (18 Critical, 75 High, 5
 | https://osv.dev/DLA-3600-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3651-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DLA-3764-1            |      | Debian    | postgresql-11                  | 11.15-1.pgdg90+1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
+| https://osv.dev/DEBIAN-CVE-2026-5958  |      | Debian    | sed                            | 4.4-1                              | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2017-17512 | 8.8  | Debian    | sensible-utils                 | 0.0.9+deb9u1                       | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2018-20482 | 4.7  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
 | https://osv.dev/DEBIAN-CVE-2023-39804 | 6.2  | Debian    | tar                            | 1.29b-1.1+deb9u1                   | --                                | testdata/sbom-insecure/postgres-stretch.cdx.xml |
@@ -5398,7 +5287,6 @@ could not load db for PyPI ecosystem: unable to fetch OSV database: no offline v
 
 [TestCommand_LockfileWithExplicitParseAs/"apk-installed"_is_supported - 1]
 Scanned <rootdir>/testdata/locks-many/installed file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -5411,7 +5299,6 @@ No issues found
 
 [TestCommand_LockfileWithExplicitParseAs/"dpkg-status"_is_supported - 1]
 Scanned <rootdir>/testdata/locks-many/status file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -5424,7 +5311,6 @@ No issues found
 
 [TestCommand_LockfileWithExplicitParseAs/absolute_paths_are_automatically_escaped_on_windows - 1]
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -5447,7 +5333,6 @@ extraction failed on specified lockfile
 
 [TestCommand_LockfileWithExplicitParseAs/absolute_paths_work_with_explicit_escaping - 1]
 Scanned <rootdir>/testdata/locks-many/yarn.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -5460,7 +5345,6 @@ No issues found
 
 [TestCommand_LockfileWithExplicitParseAs/empty_is_default - 1]
 Scanned <rootdir>/testdata/locks-many/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
 
 No issues found
@@ -5507,7 +5391,6 @@ Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/my-yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 3 vulnerabilities can be fixed.
@@ -5533,7 +5416,6 @@ Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/my-yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 3 vulnerabilities can be fixed.
@@ -5554,7 +5436,6 @@ Total 3 packages affected by 3 known vulnerabilities (1 Critical, 2 High, 0 Medi
 
 [TestCommand_LockfileWithExplicitParseAs/one_lockfile_with_local_path - 1]
 Scanned <rootdir>/testdata/locks-many/replace-local.mod file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Filtered 1 local/unscannable package/s from the scan.
 
 No issues found
@@ -5590,7 +5471,6 @@ Scanned <rootdir>/testdata/locks-insecure/bun.lock file and found 2 packages
 Scanned <rootdir>/testdata/locks-insecure/composer.lock file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/my-package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner-custom.json file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medium, 0 Low, 0 Unknown) from 2 ecosystems.
 2 vulnerabilities can be fixed.
@@ -5609,7 +5489,6 @@ Total 2 packages affected by 2 known vulnerabilities (1 Critical, 1 High, 0 Medi
 ---
 
 [TestCommand_MoreLockfiles/Package.resolved_-_Unsupported_ecosystem,_should_not_be_scanned - 1]
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -5619,7 +5498,6 @@ could not determine extractor suitable to this file: "<rootdir>/testdata/locks-s
 ---
 
 [TestCommand_MoreLockfiles/Podfile.lock_-_Unsupported_ecosystem,_should_not_be_scanned - 1]
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -5630,7 +5508,6 @@ could not determine extractor suitable to this file: "<rootdir>/testdata/locks-s
 
 [TestCommand_MoreLockfiles/cabal.project.freeze - 1]
 Scanned <rootdir>/testdata/locks-scalibr/cabal.project.freeze file and found 6 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -5649,7 +5526,6 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 [TestCommand_MoreLockfiles/depsjson - 1]
 Scanned <rootdir>/testdata/locks-scalibr/depsjson file and found 4 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -5668,7 +5544,6 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 [TestCommand_MoreLockfiles/gems.locked - 1]
 Scanned <rootdir>/testdata/locks-scalibr/gems.locked file and found 26 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 2 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
 6 vulnerabilities can be fixed.
@@ -5692,7 +5567,6 @@ Total 2 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 1 Medi
 
 [TestCommand_MoreLockfiles/packages.config - 1]
 Scanned <rootdir>/testdata/locks-scalibr/packages.config file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -5704,7 +5578,6 @@ No issues found
 
 [TestCommand_MoreLockfiles/packages.lock.json - 1]
 Scanned <rootdir>/testdata/locks-scalibr/packages.lock.json file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -5716,7 +5589,6 @@ No issues found
 
 [TestCommand_MoreLockfiles/stack.yaml.lock - 1]
 Scanned <rootdir>/testdata/locks-scalibr/stack.yaml.lock file and found 4 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 No issues found
 
@@ -5728,7 +5600,6 @@ No issues found
 
 [TestCommand_MoreLockfiles/uv.lock - 1]
 Scanned <rootdir>/testdata/locks-scalibr/uv.lock file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 2 vulnerabilities can be fixed.
@@ -5767,15 +5638,16 @@ No package sources found, --help for usage information.
 
 [TestCommand_Transitive/pom.xml_multiple_registries - 1]
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
-Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-6 vulnerabilities can be fixed.
+Total 2 packages affected by 8 known vulnerabilities (2 Critical, 1 High, 5 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+8 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | FIXED VERSION | SOURCE                                 |
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
 | https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | 18.0.2        | testdata/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-3pxv-7cmr-fjr4 | 6.9  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.25.4        | testdata/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-6hg6-v5c8-fphq | 6.3  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.25.4        | testdata/maven-transitive/registry.xml |
 | https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.16.0        | testdata/maven-transitive/registry.xml |
 | https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.1        | testdata/maven-transitive/registry.xml |
 | https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.15.0        | testdata/maven-transitive/registry.xml |
@@ -5803,7 +5675,6 @@ No issues found
 
 [TestCommand_Transitive/pom.xml_non_utf8_encoding - 1]
 Scanned <rootdir>/testdata/maven-transitive/encoding.xml file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -5836,14 +5707,15 @@ No issues found
 [TestCommand_Transitive/pom.xml_transitive_default - 1]
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
-Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-5 vulnerabilities can be fixed.
+Total 1 package affected by 7 known vulnerabilities (2 Critical, 1 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+7 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | FIXED VERSION | SOURCE                            |
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
+| https://osv.dev/GHSA-3pxv-7cmr-fjr4 | 6.9  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.4        | testdata/maven-transitive/pom.xml |
+| https://osv.dev/GHSA-6hg6-v5c8-fphq | 6.3  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.4        | testdata/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.16.0        | testdata/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.1        | testdata/maven-transitive/pom.xml |
 | https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.15.0        | testdata/maven-transitive/pom.xml |
@@ -5859,14 +5731,15 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 
 [TestCommand_Transitive/pom.xml_transitive_explicit_lockfile - 1]
 Scanned <rootdir>/testdata/maven-transitive/abc.xml file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
-Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-5 vulnerabilities can be fixed.
+Total 1 package affected by 7 known vulnerabilities (2 Critical, 1 High, 4 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+7 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                             | VERSION | FIXED VERSION | SOURCE                            |
 +-------------------------------------+------+-----------+-------------------------------------+---------+---------------+-----------------------------------+
+| https://osv.dev/GHSA-3pxv-7cmr-fjr4 | 6.9  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.4        | testdata/maven-transitive/abc.xml |
+| https://osv.dev/GHSA-6hg6-v5c8-fphq | 6.3  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.25.4        | testdata/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.16.0        | testdata/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.17.1        | testdata/maven-transitive/abc.xml |
 | https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core | 2.14.1  | 2.15.0        | testdata/maven-transitive/abc.xml |
@@ -5882,15 +5755,16 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 
 [TestCommand_Transitive/pom.xml_transitive_native_source - 1]
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
-Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-6 vulnerabilities can be fixed.
+Total 2 packages affected by 8 known vulnerabilities (2 Critical, 1 High, 5 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+8 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | FIXED VERSION | SOURCE                                 |
 +-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
 | https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | 18.0.2        | testdata/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-3pxv-7cmr-fjr4 | 6.9  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.25.4        | testdata/maven-transitive/registry.xml |
+| https://osv.dev/GHSA-6hg6-v5c8-fphq | 6.3  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.25.4        | testdata/maven-transitive/registry.xml |
 | https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.16.0        | testdata/maven-transitive/registry.xml |
 | https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.1        | testdata/maven-transitive/registry.xml |
 | https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.15.0        | testdata/maven-transitive/registry.xml |
@@ -5906,7 +5780,6 @@ Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medi
 
 [TestCommand_Transitive/requirements.txt_enricher_requires_extractor - 1]
 Scanning dir ./testdata/locks-requirements/requirements-transitive.txt
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 ---
 
@@ -5919,8 +5792,8 @@ No package sources found, --help for usage information.
 Scanning dir ./testdata/locks-requirements/requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
 
-Total 3 packages affected by 12 known vulnerabilities (1 Critical, 4 High, 6 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
-12 vulnerabilities can be fixed.
+Total 3 packages affected by 13 known vulnerabilities (1 Critical, 4 High, 7 Medium, 1 Low, 0 Unknown) from 1 ecosystem.
+13 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                                       |
@@ -5940,6 +5813,7 @@ Total 3 packages affected by 12 known vulnerabilities (1 Critical, 4 High, 6 Med
 | https://osv.dev/GHSA-j8r2-6x86-q33q |      |           |          |         |               |                                              |
 | https://osv.dev/GHSA-9hjg-9r4m-mvj7 | 5.3  | PyPI      | requests | 2.20.0  | 2.32.4        | testdata/locks-requirements/requirements.txt |
 | https://osv.dev/GHSA-9wx4-h78v-vm56 | 5.6  | PyPI      | requests | 2.20.0  | 2.32.0        | testdata/locks-requirements/requirements.txt |
+| https://osv.dev/GHSA-gc5v-m9x4-r6x2 | 4.4  | PyPI      | requests | 2.20.0  | 2.33.0        | testdata/locks-requirements/requirements.txt |
 +-------------------------------------+------+-----------+----------+---------+---------------+----------------------------------------------+
 
 ---
@@ -5985,7 +5859,6 @@ Total 3 packages affected by 13 known vulnerabilities (1 Critical, 4 High, 7 Med
 [TestCommand_Transitive/requirements.txt_resolution_fallback - 1]
 Scanning dir ./testdata/locks-requirements/unresolvable-requirements.txt
 Scanned <rootdir>/testdata/locks-requirements/unresolvable-requirements.txt file and found 3 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 3 packages affected by 9 known vulnerabilities (0 Critical, 3 High, 4 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
 9 vulnerabilities can be fixed.
@@ -6015,7 +5888,6 @@ Total 3 packages affected by 9 known vulnerabilities (0 Critical, 3 High, 4 Medi
 
 [TestCommand_Transitive/requirements.txt_transitive_default - 1]
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 5 packages affected by 23 known vulnerabilities (1 Critical, 9 High, 11 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
 23 vulnerabilities can be fixed.
@@ -6063,7 +5935,6 @@ Total 5 packages affected by 23 known vulnerabilities (1 Critical, 9 High, 11 Me
 
 [TestCommand_Transitive/requirements.txt_transitive_native_source - 1]
 Scanned <rootdir>/testdata/locks-requirements/requirements.txt file and found 3 packages
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 
 Total 5 packages affected by 23 known vulnerabilities (1 Critical, 9 High, 11 Medium, 1 Low, 1 Unknown) from 1 ecosystem.
 23 vulnerabilities can be fixed.
@@ -6112,7 +5983,6 @@ Total 5 packages affected by 23 known vulnerabilities (1 Critical, 9 High, 11 Me
 [TestCommand_WithDetector_OffLinux/ssh_version_errors - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 No issues found
@@ -6126,7 +5996,6 @@ No issues found
 [TestCommand_WithDetector_OffLinux/ssh_version_is_after_last_vuln_version - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 No issues found
@@ -6140,7 +6009,6 @@ No issues found
 [TestCommand_WithDetector_OffLinux/ssh_version_is_before_first_vuln_version - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 No issues found
@@ -6155,7 +6023,6 @@ No issues found
 Scanning dir <tempdir>/composer.lock
 Command "ssh -V": exit status 1
 Scanned <tempdir>/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 No issues found
@@ -6169,7 +6036,6 @@ No issues found
 [TestCommand_WithDetector_OnLinux/ssh_version_is_after_last_vuln_version - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 No issues found
@@ -6183,7 +6049,6 @@ No issues found
 [TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 1]
 Scanning dir <tempdir>/composer.lock
 Scanned <tempdir>/composer.lock file and found 1 package
-Warning: plugin transitivedependency/pomxml can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.
 Loaded filter from: <tempdir>/osv-scanner-test.toml
 
 No issues found

@@ -32,14 +32,6 @@ import (
 
 var ErrExtractorNotFound = errors.New("could not determine extractor suitable to this file")
 
-func logUnsafePlugins(plugins []plugin.Plugin) {
-	for _, plug := range plugins {
-		if plug.Requirements() != nil && plug.Requirements().AllowUnsafePlugins {
-			cmdlogger.Warnf("Warning: plugin %s can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.", plug.Name())
-		}
-	}
-}
-
 func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
 	for _, plug := range plugins {
 		vendored.Configure(plug, vendored.Config{
@@ -233,7 +225,6 @@ SBOMLoop:
 	}
 
 	filteredPlugins := append(plugin.FilterByCapabilities(plugins, &capabilities), gitDirectPlugin)
-	logUnsafePlugins(filteredPlugins)
 
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {
