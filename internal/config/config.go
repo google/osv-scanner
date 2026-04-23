@@ -2,20 +2,24 @@
 package config
 
 import (
+	"os"
 	"slices"
 	"time"
 
+	"github.com/BurntSushi/toml"
 	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/identifiers"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
 
 var OSVScannerConfigName = "osv-scanner.toml"
 
 type Config struct {
-	IgnoredVulns      []*IgnoreEntry         `toml:"IgnoredVulns"`
-	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides"`
-	GoVersionOverride string                 `toml:"GoVersionOverride"`
+	GoVersionOverride string                 `toml:"GoVersionOverride,omitempty"`
+	PackageOverrides  []PackageOverrideEntry `toml:"PackageOverrides,omitempty"`
+	IgnoredVulns      []*IgnoreEntry         `toml:"IgnoredVulns,omitempty"`
 	// The path to config file that this config was loaded from,
 	// set by the scanner after having successfully parsed the file
 	LoadPath string `toml:"-"`
@@ -23,8 +27,8 @@ type Config struct {
 
 type IgnoreEntry struct {
 	ID          string    `toml:"id"`
-	IgnoreUntil time.Time `toml:"ignoreUntil"`
-	Reason      string    `toml:"reason"`
+	IgnoreUntil time.Time `toml:"ignoreUntil,omitempty"`
+	Reason      string    `toml:"reason,omitempty"`
 
 	Used bool `toml:"-"`
 }
@@ -34,16 +38,16 @@ func (ie *IgnoreEntry) MarkAsUsed() {
 }
 
 type PackageOverrideEntry struct {
-	Name string `toml:"name"`
+	Name string `toml:"name,omitempty"`
 	// If the version is empty, the entry applies to all versions.
-	Version        string        `toml:"version"`
-	Ecosystem      string        `toml:"ecosystem"`
-	Group          string        `toml:"group"`
-	Ignore         bool          `toml:"ignore"`
-	Vulnerability  Vulnerability `toml:"vulnerability"`
-	License        License       `toml:"license"`
-	EffectiveUntil time.Time     `toml:"effectiveUntil"`
-	Reason         string        `toml:"reason"`
+	Version        string        `toml:"version,omitempty"`
+	Ecosystem      string        `toml:"ecosystem,omitempty"`
+	Group          string        `toml:"group,omitempty"`
+	Ignore         bool          `toml:"ignore,omitempty"`
+	Vulnerability  Vulnerability `toml:"vulnerability,omitempty"`
+	License        License       `toml:"license,omitempty"`
+	EffectiveUntil time.Time     `toml:"effectiveUntil,omitempty"`
+	Reason         string        `toml:"reason,omitempty"`
 }
 
 func (e PackageOverrideEntry) matches(pkg *extractor.Package) bool {
@@ -75,6 +79,53 @@ type License struct {
 	Ignore   bool     `toml:"ignore"`
 }
 
+// IgnoreVulns updates Config.IgnoredVulns to hold only the given vulnerabilities
+func (c *Config) IgnoreVulns(vulns []*osvschema.Vulnerability) {
+	existingIgnores := make(map[string]*IgnoreEntry, len(c.IgnoredVulns))
+	for _, ignoredVuln := range c.IgnoredVulns {
+		existingIgnores[ignoredVuln.ID] = ignoredVuln
+	}
+
+	// use a fresh slice to ensure vulns that are no longer present are removed
+	c.IgnoredVulns = make([]*IgnoreEntry, 0, len(vulns))
+
+	seen := make(map[string]struct{}, len(vulns))
+
+	for _, vuln := range vulns {
+		if _, ok := seen[vuln.GetId()]; ok {
+			continue
+		}
+
+		// if the vuln was already ignored, we want to persist its other fields
+		ignore, ok := existingIgnores[vuln.GetId()]
+
+		if !ok {
+			ignore = &IgnoreEntry{ID: vuln.GetId()}
+		}
+
+		c.IgnoredVulns = append(c.IgnoredVulns, ignore)
+		seen[vuln.GetId()] = struct{}{}
+	}
+
+	slices.SortFunc(c.IgnoredVulns, func(a, b *IgnoreEntry) int {
+		return identifiers.IDSortFunc(a.ID, b.ID)
+	})
+}
+
+// Save writes the configuration file to disk, overriding the existing content
+func (c *Config) Save() error {
+	f, err := os.OpenFile(c.LoadPath, os.O_TRUNC|os.O_WRONLY, os.ModePerm)
+
+	if err != nil {
+		return err
+	}
+
+	encoder := toml.NewEncoder(f)
+	encoder.Indent = ""
+
+	return encoder.Encode(c)
+}
+
 func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
 	unused := make([]*IgnoreEntry, 0, len(c.IgnoredVulns))
 
@@ -85,6 +136,23 @@ func (c *Config) UnusedIgnoredVulns() []*IgnoreEntry {
 	}
 
 	return unused
+}
+
+func (c *Config) RemoveUnusedIgnores() []*IgnoreEntry {
+	var removed []*IgnoreEntry
+	filtered := c.IgnoredVulns[:0]
+
+	for _, iv := range c.IgnoredVulns {
+		if iv.Used {
+			filtered = append(filtered, iv)
+		} else {
+			removed = append(removed, iv)
+		}
+	}
+
+	c.IgnoredVulns = filtered
+
+	return removed
 }
 
 func (c *Config) ShouldIgnore(vulnID string) (bool, *IgnoreEntry) {

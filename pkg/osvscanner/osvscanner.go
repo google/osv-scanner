@@ -83,6 +83,9 @@ type ExperimentalScannerActions struct {
 	// Report deprecated packages as findings
 	FlagDeprecatedPackages bool
 
+	// Update config file(s) to ignore all found vulnerabilities
+	UpdateConfigIgnores string
+
 	// Allows specifying user agent
 	RequestUserAgent string
 }
@@ -178,7 +181,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	scanResult := results.ScanResults{
 		ConfigManager: config.Manager{
 			DefaultConfig: config.Config{},
-			ConfigMap:     make(map[string]config.Config),
+			ConfigMap:     make(map[string]*config.Config),
 		},
 	}
 
@@ -240,7 +243,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 	scanResult := results.ScanResults{
 		ConfigManager: config.Manager{
 			DefaultConfig: config.Config{},
-			ConfigMap:     make(map[string]config.Config),
+			ConfigMap:     make(map[string]*config.Config),
 		},
 	}
 
@@ -388,25 +391,34 @@ func finalizeScanResult(scanResult results.ScanResults, actions ScannerActions) 
 		vulnerabilityResults.LicenseSummary = buildLicenseSummary(&scanResult)
 	}
 
-	filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
-	if filtered > 0 {
-		cmdlogger.Infof(
-			"Filtered %d %s from output",
-			filtered,
-			output.Form(filtered, "vulnerability", "vulnerabilities"),
-		)
-	}
+	// we skip filtering vulns if we're going to ignore everything,
+	// as the output will serve as a list of what actually got ignored
+	if actions.UpdateConfigIgnores == "all" {
+		ignoreEntries, err := addVulnConfigIgnoresAndSave(&vulnerabilityResults, &scanResult.ConfigManager)
 
-	if unusedIgnoredEntries := scanResult.ConfigManager.GetUnusedIgnoreEntries(); len(unusedIgnoredEntries) != 0 {
-		configFiles := slices.Collect(maps.Keys(unusedIgnoredEntries))
-		slices.Sort(configFiles)
+		// for once, we do this before checking the error as we might have successfully
+		// updated some configs before hitting an error saving, if running recursively
+		if len(ignoreEntries) != 0 {
+			reportOnConfigIgnoreEntriesAction(ignoreEntries, "has been updated to ignore")
+		}
 
-		for _, configFile := range configFiles {
-			cmdlogger.Warnf("%s has unused ignores:", configFile)
+		if err != nil {
+			return models.VulnerabilityResults{}, err
+		}
+	} else {
+		filtered := filterResults(&vulnerabilityResults, &scanResult.ConfigManager, actions.ShowAllPackages)
+		if filtered > 0 {
+			cmdlogger.Infof(
+				"Filtered %d %s from output",
+				filtered,
+				output.Form(filtered, "vulnerability", "vulnerabilities"),
+			)
+		}
 
-			for _, iv := range unusedIgnoredEntries[configFile] {
-				cmdlogger.Warnf(" - %s", iv.ID)
-			}
+		err := handleUnusedIgnoreEntries(&scanResult.ConfigManager, actions.UpdateConfigIgnores == "unused")
+
+		if err != nil {
+			return models.VulnerabilityResults{}, err
 		}
 	}
 

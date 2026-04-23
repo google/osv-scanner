@@ -17,7 +17,7 @@ type Manager struct {
 	// Config to use if no config file is found alongside manifests
 	DefaultConfig Config
 	// Cache to store loaded configs
-	ConfigMap map[string]Config
+	ConfigMap map[string]*Config
 }
 
 // UseOverride updates the Manager to use the config at the given path in place
@@ -48,11 +48,12 @@ func (m *Manager) Get(targetPath string) Config {
 
 	config, alreadyExists := m.ConfigMap[configPath]
 	if alreadyExists {
-		return config
+		return *config
 	}
 
-	config, configErr := tryLoadConfig(configPath)
+	loadedConfig, configErr := tryLoadConfig(configPath)
 	if configErr == nil {
+		config = &loadedConfig
 		cmdlogger.Infof("Loaded filter from: %s", config.LoadPath)
 	} else {
 		// anything other than the config file not existing is most likely due to an invalid config file
@@ -60,11 +61,11 @@ func (m *Manager) Get(targetPath string) Config {
 			cmdlogger.Errorf("Ignored invalid config file at %s because: %v", configPath, configErr)
 		}
 		// If config doesn't exist, use the default config
-		config = m.DefaultConfig
+		config = &m.DefaultConfig
 	}
 	m.ConfigMap[configPath] = config
 
-	return config
+	return *config
 }
 
 func (m *Manager) GetUnusedIgnoreEntries() map[string][]*IgnoreEntry {
