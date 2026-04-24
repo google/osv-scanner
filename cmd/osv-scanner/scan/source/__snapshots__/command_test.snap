@@ -5247,11 +5247,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 2]
-could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
-could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 
 ---
 
@@ -5279,11 +5279,11 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 ---
 
 [TestCommand_LocalDatabases_AlwaysOffline/a_bunch_of_different_lockfiles_and_ecosystem - 4]
-could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Alpine ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for Packagist ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
-could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 could not load db for PyPI ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for RubyGems ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
+could not load db for npm ecosystem: unable to fetch OSV database: no offline version of the OSV database is available
 
 ---
 

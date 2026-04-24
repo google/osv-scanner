@@ -67,6 +67,7 @@ func RunAndNormalize(t *testing.T, tc Case) (string, string) {
 
 	stdout = normalizeDirScanOrder(t, stdout)
 	stderr = normalizeDirScanOrder(t, stderr)
+	stderr = normalizeLoadDbErrOrder(stderr)
 
 	if len(tc.ReplaceRules) > 0 {
 		if len(stdout) == 0 || !json.Valid([]byte(stdout)) {
@@ -181,3 +182,30 @@ func normalizeUUID(t *testing.T, input string) string {
 
 	return strings.NewReplacer(replacerRules...).Replace(input)
 }
+
+// Sorts lines starting with "could not load db for" to allow for consistent test results
+func normalizeLoadDbErrOrder(input string) string {
+	lines := strings.Split(input, "\n")
+	var result []string
+	var block []string
+
+	for _, line := range lines {
+		if strings.HasPrefix(line, "could not load db for ") {
+			block = append(block, line)
+		} else {
+			if len(block) > 0 {
+				sort.Strings(block)
+				result = append(result, block...)
+				block = nil
+			}
+			result = append(result, line)
+		}
+	}
+	if len(block) > 0 {
+		sort.Strings(block)
+		result = append(result, block...)
+	}
+
+	return strings.Join(result, "\n")
+}
+
