@@ -441,6 +441,7 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/composer.lock file and found
 Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and found 1 package
 Scanned <rootdir>/testdata/locks-many-with-insecure/yarn.lock file and found 1 package
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
+Warning: enricher transitivedependency/pomxml may be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts.
 Filtered 1 local/unscannable package/s from the scan.
 Package npm/has-flag/4.0.0 has been filtered out because: (no reason given)
 Package npm/wrappy/1.0.2 has been filtered out because: (no reason given)
@@ -5639,6 +5640,7 @@ No package sources found, --help for usage information.
 
 [TestCommand_Transitive/pom.xml_multiple_registries - 1]
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
+Warning: enricher transitivedependency/pomxml may be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts.
 
 Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 6 vulnerabilities can be fixed.
@@ -5674,6 +5676,7 @@ No issues found
 
 [TestCommand_Transitive/pom.xml_non_utf8_encoding - 1]
 Scanned <rootdir>/testdata/maven-transitive/encoding.xml file and found 1 package
+Warning: enricher transitivedependency/pomxml may be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts.
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 1 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 1 vulnerability can be fixed.
@@ -5706,6 +5709,7 @@ No issues found
 [TestCommand_Transitive/pom.xml_transitive_default - 1]
 Scanning dir ./testdata/maven-transitive/pom.xml
 Scanned <rootdir>/testdata/maven-transitive/pom.xml file and found 1 package
+Warning: enricher transitivedependency/pomxml may be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts.
 
 Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
@@ -5728,6 +5732,7 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 
 [TestCommand_Transitive/pom.xml_transitive_explicit_lockfile - 1]
 Scanned <rootdir>/testdata/maven-transitive/abc.xml file and found 1 package
+Warning: enricher transitivedependency/pomxml may be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts.
 
 Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 5 vulnerabilities can be fixed.
@@ -5750,6 +5755,7 @@ Total 1 package affected by 5 known vulnerabilities (2 Critical, 1 High, 2 Mediu
 
 [TestCommand_Transitive/pom.xml_transitive_native_source - 1]
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
+Warning: enricher transitivedependency/pomxml may be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts.
 
 Total 2 packages affected by 6 known vulnerabilities (2 Critical, 1 High, 3 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
 6 vulnerabilities can be fixed.
