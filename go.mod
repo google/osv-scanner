@@ -240,4 +240,5 @@ require (
 
 // github.com/containerd/containerd v1.7.x is incompatible with runtime-spec v1.3.0.
 // https://github.com/google/osv-scanner/pull/2705#issuecomment-4212012410
-replace github.com/opencontainers/runtime-spec => github.com/opencontainers/runtime-spec v1.3.0
+// So this needs to be kept at v1.2.1
+replace github.com/opencontainers/runtime-spec => github.com/opencontainers/runtime-spec v1.2.1
