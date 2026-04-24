@@ -79,7 +79,7 @@ func TestPrintSPDXResults_WithOSVScannerJSONSource(t *testing.T) {
 	t.Parallel()
 
 	tests := []struct {
-		name      string
+		name       string
 		vulnResult *models.VulnerabilityResults
 	}{
 		{
