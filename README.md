@@ -65,7 +65,7 @@ OSV-Scanner supports 11+ language ecosystems and 19+ lockfile types. To check if
 
 ### [Container Scanning](https://google.github.io/osv-scanner/usage/scan-image)
 
-OSV-Scanner also supports comprehensive, layer-aware scanning for container images to detect vulnerabilities the following operating system packages and language-specific dependencies.
+OSV-Scanner also supports comprehensive, layer-aware scanning for container images to detect vulnerabilities in the following operating system packages and language-specific dependencies.
 
 | Distro Support | Language Artifacts Support |
 | -------------- | -------------------------- |
@@ -116,8 +116,8 @@ We currently support remediating vulnerabilities in the following files:
 
 | Ecosystem | File Format (Type)             | Supported Remediation Strategies                                                                                  |
 | :-------- | :----------------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| npm       | `package-lock.json` (lockfile) | [`in-place`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-remediation) |
-| npm       | `package.json` (manifest)      | [`relock`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-remediation)   |
+| npm       | `package-lock.json` (lockfile) | [`in-place`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-changes)        |
+| npm       | `package.json` (manifest)      | [`relock`](https://google.github.io/osv-scanner/experimental/guided-remediation/#relock-and-relax-direct-dependencies) |
 | Maven     | `pom.xml` (manifest)           | [`override`](https://google.github.io/osv-scanner/experimental/guided-remediation/#override-dependency-versions)  |
 
 This is available as a headless CLI command, as well as an interactive mode.
