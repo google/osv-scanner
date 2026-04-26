@@ -162,32 +162,37 @@ func TestCommand(t *testing.T) {
 		// experimental exclude flag tests
 		{
 			Name: "exclude_with_exact_directory_name",
+			Args: []string{"", "source", "--recursive", "--x-exclude=nested", "./testdata/locks-one-with-nested"},
+			Exit: 0,
+		},
+		{
+			Name: "exclude_with_exact_directory_name_using_deprecated_flag",
 			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
 			Name: "exclude_with_glob_pattern",
-			Args: []string{"", "source", "--recursive", "--experimental-exclude=g:**/nested/**", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--x-exclude=g:**/nested/**", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
 			Name: "exclude_with_regex_pattern",
-			Args: []string{"", "source", "--recursive", "--experimental-exclude=r:/nested$", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--x-exclude=r:/nested$", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
 			Name: "exclude_with_invalid_regex_returns_error",
-			Args: []string{"", "source", "--experimental-exclude=r:[invalid", "./testdata/locks-many"},
+			Args: []string{"", "source", "--x-exclude=r:[invalid", "./testdata/locks-many"},
 			Exit: 127,
 		},
 		{
 			Name: "exclude_with_multiple_exact_directories",
-			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "--experimental-exclude=other", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--x-exclude=nested", "--x-exclude=other", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
 			Name: "exclude_with_multiple_pattern_types",
-			Args: []string{"", "source", "--recursive", "--experimental-exclude=nested", "--experimental-exclude=g:**/vendor/**", "--experimental-exclude=r:\\.cache$", "./testdata/locks-one-with-nested"},
+			Args: []string{"", "source", "--recursive", "--x-exclude=nested", "--x-exclude=g:**/vendor/**", "--x-exclude=r:\\.cache$", "./testdata/locks-one-with-nested"},
 			Exit: 0,
 		},
 		{
@@ -425,17 +430,17 @@ func TestCommand_JavareachArchive(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "jars_can_be_scanned_without_call_analysis",
-			Args: []string{"", "source", "--all-vulns", "--experimental-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
+			Args: []string{"", "source", "--all-vulns", "--x-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
 			Exit: 1,
 		},
 		{
 			Name: "jars_can_be_scanned_with_call_analysis",
-			Args: []string{"", "source", "--call-analysis=jar", "--all-vulns", "--experimental-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
+			Args: []string{"", "source", "--call-analysis=jar", "--all-vulns", "--x-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
 			Exit: 1,
 		},
 		{
 			Name: "jars_can_be_scanned_with_call_analysis_and_disabled_enricher",
-			Args: []string{"", "source", "--call-analysis=jar", "--experimental-disable-plugins=reachability/java", "--all-vulns", "--experimental-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
+			Args: []string{"", "source", "--call-analysis=jar", "--x-disable-plugins=reachability/java", "--all-vulns", "--x-plugins=artifact", "./testdata/artifact/javareach_test.jar"},
 			Exit: 1,
 		},
 	}
@@ -490,16 +495,16 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "empty_plugins_flag_does_nothing",
-			Args: []string{"", "source", "--experimental-plugins="},
+			Args: []string{"", "source", "--x-plugins="},
 			Exit: 127,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_individually",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom/spdx",
-				"--experimental-plugins=sbom/cdx",
-				"--experimental-disable-plugins=sbom",
+				"--x-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
+				"--x-disable-plugins=sbom",
 			},
 			Exit: 128,
 		},
@@ -507,8 +512,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out_specified_together",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom/spdx,sbom/cdx",
-				"--experimental-disable-plugins=sbom",
+				"--x-plugins=sbom/spdx,sbom/cdx",
+				"--x-disable-plugins=sbom",
 			},
 			Exit: 128,
 		},
@@ -516,8 +521,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out_with_presets",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom",
-				"--experimental-disable-plugins=sbom",
+				"--x-plugins=sbom",
+				"--x-disable-plugins=sbom",
 			},
 			Exit: 128,
 		},
@@ -527,7 +532,7 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_directory_with_one_specific_extractor_enabled_and_the_defaults",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
+				"--x-plugins=javascript/packagelockjson",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -536,9 +541,9 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_directory_with_an_extractor_that_does_not_exist",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-plugins=custom/extractor",
-				"--experimental-disable-plugins=custom/anotherextractor",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-plugins=custom/extractor",
+				"--x-disable-plugins=custom/anotherextractor",
 				"./testdata/locks-many",
 			},
 			Exit: 127,
@@ -549,8 +554,8 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_individually",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-plugins=php/composerlock",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-plugins=php/composerlock",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -561,7 +566,7 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson,php/composerlock",
+				"--x-plugins=javascript/packagelockjson,php/composerlock",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -572,7 +577,7 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_directory_with_one_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-disable-plugins=javascript/packagelockjson",
+				"--x-disable-plugins=javascript/packagelockjson",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -582,7 +587,7 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_file_with_one_specific_extractor_enabled",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
+				"--x-plugins=javascript/packagelockjson",
 				"./testdata/locks-many/package-lock.json",
 			},
 			Exit: 0,
@@ -592,7 +597,7 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_file_with_one_different_extractor_enabled",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
+				"--x-plugins=javascript/packagelockjson",
 				"./testdata/locks-many/composer.lock",
 			},
 			Exit: 0,
@@ -604,10 +609,26 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 			Name: "scanning_file_with_parse_as_but_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-disable-plugins=javascript/packagelockjson",
+				"--x-disable-plugins=javascript/packagelockjson",
 				"-L", "package-lock.json:./testdata/locks-many/composer.lock",
 			},
 			Exit: 127,
+		},
+		// when using deprecated versions of the flags
+		{
+			Name: "deprecated_empty_plugins_flag_does_nothing",
+			Args: []string{"", "source", "--experimental-plugins="},
+			Exit: 127,
+		},
+		{
+			Name: "deprecated_extractors_cancelled_out_specified_individually",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
+				"--experimental-disable-plugins=sbom",
+			},
+			Exit: 128,
 		},
 	}
 	for _, tt := range tests {
@@ -629,17 +650,17 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 	tests := []testcmd.Case{
 		{
 			Name: "empty_plugins_flag_does_nothing",
-			Args: []string{"", "source", "--experimental-no-default-plugins", "--experimental-plugins="},
+			Args: []string{"", "source", "--x-no-default-plugins", "--x-plugins="},
 			Exit: 127,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_individually",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom/spdx",
-				"--experimental-plugins=sbom/cdx",
-				"--experimental-disable-plugins=sbom",
-				"--experimental-no-default-plugins",
+				"--x-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
+				"--x-disable-plugins=sbom",
+				"--x-no-default-plugins",
 			},
 			Exit: 127,
 		},
@@ -647,9 +668,9 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out_specified_together",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom/spdx,sbom/cdx",
-				"--experimental-disable-plugins=sbom",
-				"--experimental-no-default-plugins",
+				"--x-plugins=sbom/spdx,sbom/cdx",
+				"--x-disable-plugins=sbom",
+				"--x-no-default-plugins",
 			},
 			Exit: 127,
 		},
@@ -657,9 +678,9 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "extractors_cancelled_out_with_presets",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=sbom",
-				"--experimental-disable-plugins=sbom",
-				"--experimental-no-default-plugins",
+				"--x-plugins=sbom",
+				"--x-disable-plugins=sbom",
+				"--x-no-default-plugins",
 			},
 			Exit: 127,
 		},
@@ -669,8 +690,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_directory_with_one_specific_extractor_enabled_and_no_defaults",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-no-default-plugins",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -679,10 +700,10 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_directory_with_an_extractor_that_does_not_exist",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-plugins=custom/extractor",
-				"--experimental-disable-plugins=custom/anotherextractor",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-plugins=custom/extractor",
+				"--x-disable-plugins=custom/anotherextractor",
+				"--x-no-default-plugins",
 				"./testdata/locks-many",
 			},
 			Exit: 127,
@@ -693,9 +714,9 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_individually",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-plugins=php/composerlock",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-plugins=php/composerlock",
+				"--x-no-default-plugins",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -706,8 +727,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_directory_with_a_couple_of_specific_extractors_enabled_specified_together",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson,php/composerlock",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson,php/composerlock",
+				"--x-no-default-plugins",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -718,8 +739,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_directory_with_one_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-disable-plugins=javascript/packagelockjson",
-				"--experimental-no-default-plugins",
+				"--x-disable-plugins=javascript/packagelockjson",
+				"--x-no-default-plugins",
 				"./testdata/locks-many",
 			},
 			Exit: 0,
@@ -730,8 +751,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_file_with_one_specific_extractor_enabled",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-no-default-plugins",
 				"./testdata/locks-many/package-lock.json",
 			},
 			Exit: 0,
@@ -742,8 +763,8 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_file_with_one_different_extractor_enabled",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins=javascript/packagelockjson",
-				"--experimental-no-default-plugins",
+				"--x-plugins=javascript/packagelockjson",
+				"--x-no-default-plugins",
 				"./testdata/locks-many/composer.lock",
 			},
 			Exit: 128,
@@ -755,9 +776,26 @@ func TestCommand_ExplicitExtractors_WithoutDefaults(t *testing.T) {
 			Name: "scanning_file_with_parse_as_but_specific_extractor_disabled",
 			Args: []string{
 				"", "source",
-				"--experimental-disable-plugins=javascript/packagelockjson",
-				"--experimental-no-default-plugins",
+				"--x-disable-plugins=javascript/packagelockjson",
+				"--x-no-default-plugins",
 				"-L", "package-lock.json:./testdata/locks-many/composer.lock",
+			},
+			Exit: 127,
+		},
+		// when using deprecated versions of the flags
+		{
+			Name: "deprecated_empty_plugins_flag_does_nothing",
+			Args: []string{"", "source", "--experimental-no-default-plugins", "--experimental-plugins="},
+			Exit: 127,
+		},
+		{
+			Name: "deprecated_extractors_cancelled_out_specified_individually",
+			Args: []string{
+				"", "source",
+				"--experimental-plugins=sbom/spdx",
+				"--x-plugins=sbom/cdx",
+				"--experimental-disable-plugins=sbom",
+				"--experimental-no-default-plugins",
 			},
 			Exit: 127,
 		},
@@ -1339,7 +1377,7 @@ func TestCommand_Transitive(t *testing.T) {
 		},
 		{
 			Name: "pom.xml_enricher_requires_extractor",
-			Args: []string{"", "source", "--experimental-disable-plugins=java/pomxml", "./testdata/maven-transitive/abc.xml"},
+			Args: []string{"", "source", "--x-disable-plugins=java/pomxml", "./testdata/maven-transitive/abc.xml"},
 			Exit: 128,
 		},
 		{
@@ -1369,7 +1407,7 @@ func TestCommand_Transitive(t *testing.T) {
 		},
 		{
 			Name: "requirements.txt_enricher_requires_extractor",
-			Args: []string{"", "source", "--experimental-disable-plugins=python/requirements", "./testdata/locks-requirements/requirements-transitive.txt"},
+			Args: []string{"", "source", "--x-disable-plugins=python/requirements", "./testdata/locks-requirements/requirements-transitive.txt"},
 			Exit: 128,
 		},
 		{
@@ -1554,8 +1592,8 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 			Name: "ssh_version_is_before_first_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1565,8 +1603,8 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 			Name: "ssh_version_is_after_last_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1576,8 +1614,8 @@ func TestCommand_WithDetector_OnLinux(t *testing.T) {
 			Name: "ssh_version_errors",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1630,8 +1668,8 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 			Name: "ssh_version_is_before_first_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1641,8 +1679,8 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 			Name: "ssh_version_is_after_last_vuln_version",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1652,8 +1690,8 @@ func TestCommand_WithDetector_OffLinux(t *testing.T) {
 			Name: "ssh_version_errors",
 			Args: []string{
 				"", "source",
-				"--experimental-plugins", "php/composerlock",
-				"--experimental-plugins", "cve/cve-2023-38408",
+				"--x-plugins", "php/composerlock",
+				"--x-plugins", "cve/cve-2023-38408",
 				filepath.Join(testDir, "composer.lock"),
 			},
 			Exit: 0,
@@ -1705,7 +1743,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_false_no_vuln_json",
 			Args: []string{
 				"", "source", "--format=json",
-				"--experimental-flag-deprecated-packages",
+				"--x-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/clean/Cargo.lock",
 			},
 			Exit: 0,
@@ -1714,7 +1752,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_true_no_vuln_json",
 			Args: []string{
 				"", "source", "--format=json",
-				"--experimental-flag-deprecated-packages",
+				"--x-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
 			},
 			Exit: 1,
@@ -1727,7 +1765,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_true_with_vuln_json",
 			Args: []string{
 				"", "source", "--format=json",
-				"--experimental-flag-deprecated-packages",
+				"--x-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
 			Exit: 1,
@@ -1740,7 +1778,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_npm_json",
 			Args: []string{
 				"", "source", "--format=json",
-				"--experimental-flag-deprecated-packages",
+				"--x-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-npm/package-lock.json",
 			},
 			Exit: 1,
@@ -1753,7 +1791,7 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_true_no_vuln_table",
 			Args: []string{
 				"", "source", "--format=table",
-				"--experimental-flag-deprecated-packages",
+				"--x-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-novuln/Cargo.lock",
 			},
 			Exit: 1,
@@ -1762,6 +1800,36 @@ func TestCommand_FlagDeprecatedPackages(t *testing.T) {
 			Name: "package_deprecated_true_with_vuln_table",
 			Args: []string{
 				"", "source", "--format=table",
+				"--x-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		// covers both the deprecated flag, and the general logic for deprecated (bool) flags
+		{
+			Name: "package_deprecated_true_with_vuln_table_using_old_flag",
+			Args: []string{
+				"", "source", "--format=table",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "package_deprecated_true_with_vuln_table_and_new_flag_false",
+			Args: []string{
+				"", "source", "--format=table",
+				"--x-flag-deprecated-packages=false",
+				"--experimental-flag-deprecated-packages",
+				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
+			},
+			Exit: 1,
+		},
+		{
+			Name: "package_deprecated_true_with_vuln_table_and_old_flag_false",
+			Args: []string{
+				"", "source", "--format=table",
+				"--x-flag-deprecated-packages=false",
 				"--experimental-flag-deprecated-packages",
 				"./testdata/exp-plugins-pkgdeprecate/deprecated-vuln/Cargo.lock",
 			},
