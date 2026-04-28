@@ -489,9 +489,9 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "empty_plugins_flag_does_nothing",
+			Name: "empty_plugins_flag_does_default",
 			Args: []string{"", "source", "--experimental-plugins="},
-			Exit: 127,
+			Exit: 128,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_individually",
