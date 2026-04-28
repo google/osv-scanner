@@ -5297,14 +5297,14 @@ UNFIXABLE-VULNS: 8
       "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
       "integrity": "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==",
       "dependencies": {
+        "uri-js": "^4.2.2",
         "fast-deep-equal": "^3.1.1",
-        "fast-json-stable-stringify": "^2.0.0",
         "json-schema-traverse": "^0.4.1",
-        "uri-js": "^4.2.2"
+        "fast-json-stable-stringify": "^2.0.0"
       },
       "funding": {
-        "type": "github",
-        "url": "https://github.com/sponsors/epoberezkin"
+        "url": "https://github.com/sponsors/epoberezkin",
+        "type": "github"
       }
     },
     "node_modules/ansi-regex": {
@@ -6233,10 +6233,10 @@ UNFIXABLE-VULNS: 8
       "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
       "integrity": "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==",
       "requires": {
+        "uri-js": "^4.2.2",
         "fast-deep-equal": "^3.1.1",
-        "fast-json-stable-stringify": "^2.0.0",
         "json-schema-traverse": "^0.4.1",
-        "uri-js": "^4.2.2"
+        "fast-json-stable-stringify": "^2.0.0"
       }
     },
     "ansi-regex": {
@@ -7323,14 +7323,14 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
       "integrity": "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==",
       "dependencies": {
+        "uri-js": "^4.2.2",
         "fast-deep-equal": "^3.1.1",
-        "fast-json-stable-stringify": "^2.0.0",
         "json-schema-traverse": "^0.4.1",
-        "uri-js": "^4.2.2"
+        "fast-json-stable-stringify": "^2.0.0"
       },
       "funding": {
-        "type": "github",
-        "url": "https://github.com/sponsors/epoberezkin"
+        "url": "https://github.com/sponsors/epoberezkin",
+        "type": "github"
       }
     },
     "node_modules/ansi-regex": {
@@ -8259,10 +8259,10 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
       "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
       "integrity": "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==",
       "requires": {
+        "uri-js": "^4.2.2",
         "fast-deep-equal": "^3.1.1",
-        "fast-json-stable-stringify": "^2.0.0",
         "json-schema-traverse": "^0.4.1",
-        "uri-js": "^4.2.2"
+        "fast-json-stable-stringify": "^2.0.0"
       }
     },
     "ansi-regex": {
@@ -9665,14 +9665,14 @@ UNFIXABLE-VULNS: 8
       "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
       "integrity": "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==",
       "dependencies": {
+        "uri-js": "^4.2.2",
         "fast-deep-equal": "^3.1.1",
-        "fast-json-stable-stringify": "^2.0.0",
         "json-schema-traverse": "^0.4.1",
-        "uri-js": "^4.2.2"
+        "fast-json-stable-stringify": "^2.0.0"
       },
       "funding": {
-        "type": "github",
-        "url": "https://github.com/sponsors/epoberezkin"
+        "url": "https://github.com/sponsors/epoberezkin",
+        "type": "github"
       }
     },
     "node_modules/ansi-regex": {
@@ -10601,10 +10601,10 @@ UNFIXABLE-VULNS: 8
       "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
       "integrity": "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==",
       "requires": {
+        "uri-js": "^4.2.2",
         "fast-deep-equal": "^3.1.1",
-        "fast-json-stable-stringify": "^2.0.0",
         "json-schema-traverse": "^0.4.1",
-        "uri-js": "^4.2.2"
+        "fast-json-stable-stringify": "^2.0.0"
       }
     },
     "ansi-regex": {
@@ -11484,14 +11484,14 @@ UNFIXABLE-VULNS: 8
       "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
       "integrity": "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==",
       "dependencies": {
+        "uri-js": "^4.2.2",
         "fast-deep-equal": "^3.1.1",
-        "fast-json-stable-stringify": "^2.0.0",
         "json-schema-traverse": "^0.4.1",
-        "uri-js": "^4.2.2"
+        "fast-json-stable-stringify": "^2.0.0"
       },
       "funding": {
-        "type": "github",
-        "url": "https://github.com/sponsors/epoberezkin"
+        "url": "https://github.com/sponsors/epoberezkin",
+        "type": "github"
       }
     },
     "node_modules/ansi-regex": {
@@ -12420,10 +12420,10 @@ UNFIXABLE-VULNS: 8
       "resolved": "https://registry.npmjs.org/ajv/-/ajv-6.15.0.tgz",
       "integrity": "sha512-fgFx7Hfoq60ytK2c7DhnF8jIvzYgOMxfugjLOSMHjLIPgenqa7S7oaagATUq99mV6IYvN2tRmC0wnTYX6iPbMw==",
       "requires": {
+        "uri-js": "^4.2.2",
         "fast-deep-equal": "^3.1.1",
-        "fast-json-stable-stringify": "^2.0.0",
         "json-schema-traverse": "^0.4.1",
-        "uri-js": "^4.2.2"
+        "fast-json-stable-stringify": "^2.0.0"
       }
     },
     "ansi-regex": {
