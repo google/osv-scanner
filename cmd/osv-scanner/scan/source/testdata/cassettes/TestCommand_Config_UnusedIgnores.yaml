@@ -1416,7 +1416,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 23599
+      content_length: 23670
       body: |
         {
           "results": [
@@ -1803,11 +1803,11 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41989",
-                  "modified": "2026-04-23T10:00:15.682147Z"
+                  "modified": "2026-04-27T05:00:53.025789Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41990",
-                  "modified": "2026-04-23T10:01:21.235502Z"
+                  "modified": "2026-04-27T05:00:59.477407Z"
                 }
               ]
             },
@@ -2118,6 +2118,10 @@ interactions:
                 {
                   "id": "DEBIAN-CVE-2026-1757",
                   "modified": "2026-03-27T10:02:04.914884Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-6732",
+                  "modified": "2026-04-24T17:05:31.472091Z"
                 },
                 {
                   "id": "DLA-3012-1",
@@ -2484,11 +2488,11 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28386",
-                  "modified": "2026-04-20T00:00:49.100894Z"
+                  "modified": "2026-04-25T09:02:11.007516Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28387",
-                  "modified": "2026-04-20T00:00:57.690122Z"
+                  "modified": "2026-04-24T17:04:12.456936Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28388",
@@ -2504,7 +2508,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-31789",
-                  "modified": "2026-04-20T00:00:42.604688Z"
+                  "modified": "2026-04-24T17:05:31.519314Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-31790",
@@ -2629,7 +2633,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2017-20230",
-                  "modified": "2026-04-22T23:00:59.527466Z"
+                  "modified": "2026-04-24T17:00:07.790339Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2018-12015",
@@ -2765,7 +2769,7 @@ interactions:
               "vulns": [
                 {
                   "id": "DEBIAN-CVE-2026-5958",
-                  "modified": "2026-04-23T17:02:53.103271Z"
+                  "modified": "2026-04-24T17:05:24.984708Z"
                 }
               ]
             },
@@ -2807,7 +2811,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-5704",
-                  "modified": "2026-04-07T09:00:52.977033Z"
+                  "modified": "2026-04-24T17:05:22.457544Z"
                 },
                 {
                   "id": "DLA-3755-1",
@@ -2943,7 +2947,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-34743",
-                  "modified": "2026-04-09T05:00:21.571838Z"
+                  "modified": "2026-04-24T17:02:53.062265Z"
                 },
                 {
                   "id": "DSA-5123-1",
@@ -3009,7 +3013,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "23599"
+          - "23670"
         Content-Type:
           - application/json
       status: 200 OK
@@ -4080,7 +4084,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 22700
+      content_length: 22771
       body: |
         {
           "results": [
@@ -4435,11 +4439,11 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41989",
-                  "modified": "2026-04-23T10:00:15.682147Z"
+                  "modified": "2026-04-27T05:00:53.025789Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-41990",
-                  "modified": "2026-04-23T10:01:21.235502Z"
+                  "modified": "2026-04-27T05:00:59.477407Z"
                 }
               ]
             },
@@ -4750,6 +4754,10 @@ interactions:
                 {
                   "id": "DEBIAN-CVE-2026-1757",
                   "modified": "2026-03-27T10:02:04.914884Z"
+                },
+                {
+                  "id": "DEBIAN-CVE-2026-6732",
+                  "modified": "2026-04-24T17:05:31.472091Z"
                 },
                 {
                   "id": "DLA-3012-1",
@@ -5116,11 +5124,11 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28386",
-                  "modified": "2026-04-20T00:00:49.100894Z"
+                  "modified": "2026-04-25T09:02:11.007516Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28387",
-                  "modified": "2026-04-20T00:00:57.690122Z"
+                  "modified": "2026-04-24T17:04:12.456936Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28388",
@@ -5136,7 +5144,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-31789",
-                  "modified": "2026-04-20T00:00:42.604688Z"
+                  "modified": "2026-04-24T17:05:31.519314Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-31790",
@@ -5261,7 +5269,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2017-20230",
-                  "modified": "2026-04-22T23:00:59.527466Z"
+                  "modified": "2026-04-24T17:00:07.790339Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2018-12015",
@@ -5397,7 +5405,7 @@ interactions:
               "vulns": [
                 {
                   "id": "DEBIAN-CVE-2026-5958",
-                  "modified": "2026-04-23T17:02:53.103271Z"
+                  "modified": "2026-04-24T17:05:24.984708Z"
                 }
               ]
             },
@@ -5439,7 +5447,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-5704",
-                  "modified": "2026-04-07T09:00:52.977033Z"
+                  "modified": "2026-04-24T17:05:22.457544Z"
                 },
                 {
                   "id": "DLA-3755-1",
@@ -5575,7 +5583,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-34743",
-                  "modified": "2026-04-09T05:00:21.571838Z"
+                  "modified": "2026-04-24T17:02:53.062265Z"
                 },
                 {
                   "id": "DSA-5123-1",
@@ -5593,7 +5601,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "22700"
+          - "22771"
         Content-Type:
           - application/json
       status: 200 OK
