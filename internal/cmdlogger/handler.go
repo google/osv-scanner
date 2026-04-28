@@ -6,6 +6,8 @@ import (
 	"io"
 	"log/slog"
 	"strings"
+
+	"github.com/google/osv-scanner/v2/internal/utility/terminal"
 )
 
 var (
@@ -76,7 +78,7 @@ func (c *Handler) Handle(ctx context.Context, record slog.Record) error {
 		return c.overrideHandler.Handle(ctx, record)
 	}
 
-	_, err := fmt.Fprint(c.writer(record.Level), record.Message+"\n")
+	_, err := fmt.Fprint(c.writer(record.Level), terminal.EscapeGitHubActionsCommandChars(record.Message)+"\n")
 
 	return err
 }

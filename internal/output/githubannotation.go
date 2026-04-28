@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/google/osv-scanner/v2/internal/utility/terminal"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/table"
 )
@@ -82,8 +83,7 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 		// Sanitize artifactPath to prevent GitHub Actions workflow command injection.
 		// \r and \n in the file= parameter can terminate the annotation early and inject
 		// arbitrary workflow commands (e.g. ::warning::, ::add-mask::) into the runner output.
-		artifactPath = strings.ReplaceAll(artifactPath, "\r", "%0D")
-		artifactPath = strings.ReplaceAll(artifactPath, "\n", "%0A")
+		artifactPath = terminal.EscapeGitHubActionsCommandChars(artifactPath)
 
 		remediationTable, hasVulnTable := createSourceRemediationTable(source, groupedFixedVersions)
 		if hasVulnTable {
@@ -92,7 +92,7 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 			// so we URL encode the new line character
 			renderedTable = strings.ReplaceAll(renderedTable, "\n", "%0A")
 			// Sanitize \r to prevent workflow command injection via carriage return in package names
-			renderedTable = strings.ReplaceAll(renderedTable, "\r", "%0D")
+			renderedTable = terminal.EscapeGitHubActionsCommandChars(renderedTable)
 
 			// Prepend the table with a new line to look nicer in the output
 			fmt.Fprintf(outputWriter, "::error file=%s::%s%s", artifactPath, artifactPath, "%0A"+renderedTable)
@@ -104,7 +104,7 @@ func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWrit
 			renderedDeprecationTable := deprecationTable.Render()
 			renderedDeprecationTable = strings.ReplaceAll(renderedDeprecationTable, "\n", "%0A")
 			// Sanitize \r to prevent workflow command injection via carriage return in package names
-			renderedDeprecationTable = strings.ReplaceAll(renderedDeprecationTable, "\r", "%0D")
+			renderedDeprecationTable = terminal.EscapeGitHubActionsCommandChars(renderedDeprecationTable)
 			fmt.Fprintf(outputWriter, "::error file=%s::%s%s", artifactPath, artifactPath, "%0A"+renderedDeprecationTable)
 		}
 	}

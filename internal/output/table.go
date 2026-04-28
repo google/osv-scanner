@@ -10,6 +10,7 @@ import (
 	depgroups "github.com/google/osv-scanner/v2/internal/utility/depgroup"
 	"github.com/google/osv-scanner/v2/internal/utility/results"
 	"github.com/google/osv-scanner/v2/internal/utility/severity"
+	"github.com/google/osv-scanner/v2/internal/utility/terminal"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 
@@ -140,7 +141,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 				continue
 			}
 			outputTable := newTable(outputWriter, terminalWidth)
-			outputTable.SetTitle("Source:" + source.Name)
+			outputTable.SetTitle("Source:" + terminal.EscapeGitHubActionsCommandChars(source.Name))
 			sourcePackageHeader := "Package"
 			if isOSResult(source.Type) {
 				sourcePackageHeader = "Source Package"
@@ -349,7 +350,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 					p = strings.TrimPrefix(p, filepath.ToSlash(workingDir))
 					p = strings.TrimPrefix(p, "/")
 
-					outputRow = append(outputRow, p)
+					outputRow = append(outputRow, terminal.EscapeGitHubActionsCommandChars(p))
 
 					allOutputRows = append(allOutputRows, tbInnerResponse{
 						row:         outputRow,

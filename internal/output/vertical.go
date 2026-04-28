@@ -7,6 +7,7 @@ import (
 	"strings"
 	"unicode"
 
+	"github.com/google/osv-scanner/v2/internal/utility/terminal"
 	"github.com/google/osv-scanner/v2/pkg/models"
 	"github.com/jedib0t/go-pretty/v6/text"
 )
@@ -155,7 +156,7 @@ func printVerticalHeader(result SourceResult, out io.Writer) {
 	fmt.Fprintf(
 		out,
 		"%s: found %s %s with issues\n",
-		text.FgMagenta.Sprintf("%s", result.Name),
+		text.FgMagenta.Sprintf("%s", terminal.EscapeGitHubActionsCommandChars(result.Name)),
 		text.FgYellow.Sprintf("%d", result.PackageTypeCount.Regular),
 		Form(result.PackageTypeCount.Regular, "package", "packages"),
 	)
