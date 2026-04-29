@@ -543,6 +543,16 @@ Ignored invalid config file at <rootdir>/testdata/config-invalid/osv-scanner-tes
 
 ---
 
+[TestCommand/config_file_with_invalid_regex - 1]
+
+---
+
+[TestCommand/config_file_with_invalid_regex - 2]
+Failed to read config file: invalid regex "[invalid" in package override: error parsing regexp: missing closing ]: `[invalid$`
+invalid regex "[invalid" in package override: error parsing regexp: missing closing ]: `[invalid$`
+
+---
+
 [TestCommand/config_files_cannot_have_unknown_keys - 1]
 
 ---
