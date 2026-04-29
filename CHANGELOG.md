@@ -2,6 +2,7 @@
 
 ### Features:
 
+- [Feature #2658](https://github.com/google/osv-scanner/pull/2658) Support regex matching for package name overrides.
 - [Feature #2510](https://github.com/google/osv-scanner/pull/2510) Scan Homebrew inventory using git repository metadata.
 
 ### Fixes:
