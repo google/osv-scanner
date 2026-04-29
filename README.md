@@ -114,11 +114,11 @@ osv-scanner --offline --download-offline-databases ./path/to/your/dir
 OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.
 We currently support remediating vulnerabilities in the following files:
 
-| Ecosystem | File Format (Type)             | Supported Remediation Strategies                                                                                  |
-| :-------- | :----------------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| npm       | `package-lock.json` (lockfile) | [`in-place`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-changes)        |
+| Ecosystem | File Format (Type)             | Supported Remediation Strategies                                                                                       |
+| :-------- | :----------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| npm       | `package-lock.json` (lockfile) | [`in-place`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-changes)          |
 | npm       | `package.json` (manifest)      | [`relock`](https://google.github.io/osv-scanner/experimental/guided-remediation/#relock-and-relax-direct-dependencies) |
-| Maven     | `pom.xml` (manifest)           | [`override`](https://google.github.io/osv-scanner/experimental/guided-remediation/#override-dependency-versions)  |
+| Maven     | `pom.xml` (manifest)           | [`override`](https://google.github.io/osv-scanner/experimental/guided-remediation/#override-dependency-versions)       |
 
 This is available as a headless CLI command, as well as an interactive mode.
 
