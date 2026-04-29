@@ -4410,7 +4410,7 @@
       "supplier": "NOASSERTION",
       "downloadLocation": "NOASSERTION",
       "filesAnalyzed": false,
-      "sourceInfo": "Identified by the javascript/packagelockjson extractor from <rootdir>/dir/r::stop-commands::T/r::error::INJECTED/n::warning::pwn/lockfile",
+      "sourceInfo": "Identified by the javascript/packagelockjson extractor from dir/r::stop-commands::T/r::error::INJECTED/n::warning::pwn/lockfile",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
       "externalRefs": [

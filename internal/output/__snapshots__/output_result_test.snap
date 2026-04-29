@@ -6541,7 +6541,7 @@
       "Name": "npm",
       "Sources": [
         {
-          "Name": "lockfile:<rootdir>/dir/r::stop-commands::T/r::error::INJECTED/n::warning::pwn/lockfile",
+          "Name": "lockfile:dir/r::stop-commands::T/r::error::INJECTED/n::warning::pwn/lockfile",
           "Type": "lockfile",
           "PackageTypeCount": {
             "Regular": 1,

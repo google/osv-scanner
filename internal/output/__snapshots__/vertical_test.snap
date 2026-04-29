@@ -1125,13 +1125,13 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 
 npm
 
-lockfile:<rootdir>/dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile: found 1 package with issues
+lockfile:dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile: found 1 package with issues
 
   mine1@1.2.3 has the following known vulnerabilities:
     OSV-1: Test vulnerability
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
-  1 known vulnerability found in lockfile:<rootdir>/dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile
+  1 known vulnerability found in lockfile:dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile
 
 ---
 

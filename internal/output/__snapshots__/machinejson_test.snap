@@ -3671,7 +3671,7 @@
   "results": [
     {
       "source": {
-        "path": "<rootdir>/dir/r::stop-commands::T/r::error::INJECTED/n::warning::pwn/lockfile",
+        "path": "dir/r::stop-commands::T/r::error::INJECTED/n::warning::pwn/lockfile",
         "type": "lockfile"
       },
       "packages": [

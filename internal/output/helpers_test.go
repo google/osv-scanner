@@ -1357,10 +1357,10 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				vulnResult: &models.VulnerabilityResults{
 					Results: []models.PackageSource{
 						{
-							Source: models.SourceInfo{Path: cwd + "/dir\r::stop-commands::T\r::error::INJECTED\n::warning::pwn/lockfile", Type: models.SourceTypeProjectPackage},
+							Source: models.SourceInfo{Path: "dir\r::stop-commands::T\r::error::INJECTED\n::warning::pwn/lockfile", Type: models.SourceTypeProjectPackage},
 							Packages: []models.PackageVulns{
 								{
-									Package: newPackageInfo(cwd+"/dir\r::stop-commands::T\r::error::INJECTED\n::warning::pwn/lockfile", pkginfo{
+									Package: newPackageInfo("dir\r::stop-commands::T\r::error::INJECTED\n::warning::pwn/lockfile", pkginfo{
 										Name:      "mine1",
 										Version:   "1.2.3",
 										Ecosystem: "npm",
