@@ -208,4 +208,3 @@ func normalizeLoadDbErrOrder(input string) string {
 
 	return strings.Join(result, "\n")
 }
-
