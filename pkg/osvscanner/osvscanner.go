@@ -286,7 +286,9 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		defer os.Remove(path)
 
 		img, err = image.FromTarball(path, image.DefaultConfig())
-		cmdlogger.Infof("Scanning image %q", actions.Image)
+		// actions.Image is user-controlled; sanitize \r/\n before logging to
+		// prevent GitHub Actions workflow command injection.
+		cmdlogger.Infof("Scanning image %q", output.SanitizeForWorkflowCommand(actions.Image))
 	}
 	if err != nil {
 		return models.VulnerabilityResults{}, err

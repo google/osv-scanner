@@ -1346,6 +1346,37 @@ func testOutputWithVulnerabilities(t *testing.T, run outputTestRunner) {
 				},
 			},
 		},
+		{
+			// Source path contains \r and \n bytes that, if echoed verbatim to
+			// stdout under a GitHub Actions runner, would be parsed as workflow
+			// commands (::stop-commands::, ::error::, etc.). The output formats
+			// must encode these bytes (for the GHA-aware text formats) or quote
+			// them via the format's native escaping (for the structured formats).
+			name: "one_source_with_workflow_command_injection_attempt_in_path",
+			args: outputTestCaseArgs{
+				vulnResult: &models.VulnerabilityResults{
+					Results: []models.PackageSource{
+						{
+							Source: models.SourceInfo{Path: cwd + "/dir\r::stop-commands::T\r::error::INJECTED\n::warning::pwn/lockfile", Type: models.SourceTypeProjectPackage},
+							Packages: []models.PackageVulns{
+								{
+									Package: newPackageInfo(cwd+"/dir\r::stop-commands::T\r::error::INJECTED\n::warning::pwn/lockfile", pkginfo{
+										Name:      "mine1",
+										Version:   "1.2.3",
+										Ecosystem: "npm",
+										Extractor: packagelockjson.Extractor{},
+									}),
+									Groups: []models.GroupInfo{{IDs: []string{"OSV-1"}}},
+									Vulnerabilities: []*osvschema.Vulnerability{
+										{Id: "OSV-1", Summary: "Test vulnerability"},
+									},
+								},
+							},
+						},
+					},
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

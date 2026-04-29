@@ -1118,6 +1118,23 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 2 packages with issues
 
 ---
 
+[TestPrintVerticalResults_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+npm
+
+lockfile:<rootdir>/dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile: found 1 package with issues
+
+  mine1@1.2.3 has the following known vulnerabilities:
+    OSV-1: Test vulnerability
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+
+  1 known vulnerability found in lockfile:<rootdir>/dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile
+
+---
+
 [TestPrintVerticalResults_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
