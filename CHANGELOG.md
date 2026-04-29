@@ -1,3 +1,21 @@
+# v2.3.6
+
+### Features:
+
+- [Feature #2510](https://github.com/google/osv-scanner/pull/2510) Scan Homebrew inventory using git repository metadata.
+
+### Fixes:
+
+- [Bug #2641](https://github.com/google/osv-scanner/pull/2641) Correctly output packages from osv-scanner.json source in spdx format.
+- [Bug #2729](https://github.com/google/osv-scanner/pull/2729) Increase color contrast of vulnerability stats.
+- [Bug #2664](https://github.com/google/osv-scanner/pull/2664) Remove second newline at end of vertical output.
+- [Bug #2669](https://github.com/google/osv-scanner/pull/2669) Sanitize \r in gh-annotations to prevent GitHub Actions workflow command injection.
+
+### Misc:
+
+- Update osv-scalibr to `v0.4.6-0.20260428235529-7791e288d6c1`.
+- Update Go version to 1.26.2 (#2706).
+
 # v2.3.5
 
 ### Misc:
