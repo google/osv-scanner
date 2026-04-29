@@ -6,6 +6,7 @@
   "labels": ["dependencies"],
   "postUpdateOptions": ["gomodTidy"],
   "osvVulnerabilityAlerts": true,
+  "minimumReleaseAge": "7 days",
   "lockFileMaintenance": {
     "enabled": true
   },

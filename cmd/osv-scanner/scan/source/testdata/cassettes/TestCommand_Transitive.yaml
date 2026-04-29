@@ -436,7 +436,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 628
+      content_length: 768
       body: |
         {
           "results": [
@@ -507,6 +507,14 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GHSA-3pxv-7cmr-fjr4",
+                  "modified": "2026-04-16T11:29:10.536806Z"
+                },
+                {
+                  "id": "GHSA-6hg6-v5c8-fphq",
+                  "modified": "2026-04-17T12:29:10.521430Z"
+                },
+                {
                   "id": "GHSA-7rjr-3q55-vv33",
                   "modified": "2025-10-22T19:37:53.742023Z"
                 },
@@ -533,7 +541,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "628"
+          - "768"
         Content-Type:
           - application/json
       status: 200 OK
@@ -627,7 +635,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-269g-pwp5-87pp",
-                  "modified": "2026-03-13T22:15:22.410895Z"
+                  "modified": "2026-04-10T15:29:15.593707Z"
                 }
               ]
             },
@@ -685,13 +693,21 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 381
+      content_length: 521
       body: |
         {
           "results": [
             {},
             {
               "vulns": [
+                {
+                  "id": "GHSA-3pxv-7cmr-fjr4",
+                  "modified": "2026-04-16T11:29:10.536806Z"
+                },
+                {
+                  "id": "GHSA-6hg6-v5c8-fphq",
+                  "modified": "2026-04-17T12:29:10.521430Z"
+                },
                 {
                   "id": "GHSA-7rjr-3q55-vv33",
                   "modified": "2025-10-22T19:37:53.742023Z"
@@ -719,7 +735,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "381"
+          - "521"
         Content-Type:
           - application/json
       status: 200 OK
@@ -768,13 +784,21 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 381
+      content_length: 521
       body: |
         {
           "results": [
             {},
             {
               "vulns": [
+                {
+                  "id": "GHSA-3pxv-7cmr-fjr4",
+                  "modified": "2026-04-16T11:29:10.536806Z"
+                },
+                {
+                  "id": "GHSA-6hg6-v5c8-fphq",
+                  "modified": "2026-04-17T12:29:10.521430Z"
+                },
                 {
                   "id": "GHSA-7rjr-3q55-vv33",
                   "modified": "2025-10-22T19:37:53.742023Z"
@@ -802,7 +826,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "381"
+          - "521"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1243,7 +1267,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 628
+      content_length: 768
       body: |
         {
           "results": [
@@ -1314,6 +1338,14 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GHSA-3pxv-7cmr-fjr4",
+                  "modified": "2026-04-16T11:29:10.536806Z"
+                },
+                {
+                  "id": "GHSA-6hg6-v5c8-fphq",
+                  "modified": "2026-04-17T12:29:10.521430Z"
+                },
+                {
                   "id": "GHSA-7rjr-3q55-vv33",
                   "modified": "2025-10-22T19:37:53.742023Z"
                 },
@@ -1340,7 +1372,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "628"
+          - "768"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1389,7 +1421,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 1081
+      content_length: 1151
       body: |
         {
           "results": [
@@ -1401,7 +1433,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-6w2r-r2m5-xq5w",
-                  "modified": "2026-02-04T04:00:06.061990Z"
+                  "modified": "2026-04-21T08:11:06.082206Z"
                 },
                 {
                   "id": "GHSA-7xr5-9hcq-chf9",
@@ -1413,11 +1445,11 @@ interactions:
                 },
                 {
                   "id": "GHSA-frmv-pr5f-9mcr",
-                  "modified": "2025-11-27T09:10:30.649595Z"
+                  "modified": "2026-04-21T08:11:22.119438Z"
                 },
                 {
                   "id": "GHSA-qw25-v68c-qjf3",
-                  "modified": "2026-02-04T04:08:30.303132Z"
+                  "modified": "2026-04-21T08:11:06.009868Z"
                 },
                 {
                   "id": "GHSA-rrqc-c2jx-6jgv",
@@ -1456,6 +1488,10 @@ interactions:
                   "modified": "2026-02-04T02:43:42.271895Z"
                 },
                 {
+                  "id": "GHSA-gc5v-m9x4-r6x2",
+                  "modified": "2026-03-27T22:17:33.595885Z"
+                },
+                {
                   "id": "GHSA-j8r2-6x86-q33q",
                   "modified": "2026-02-04T03:34:13.807518Z"
                 },
@@ -1469,7 +1505,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "1081"
+          - "1151"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1489,7 +1525,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "click"
               },
-              "version": "8.3.1"
+              "version": "8.3.3"
             },
             {
               "package": {
@@ -1538,7 +1574,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "werkzeug"
               },
-              "version": "3.1.7"
+              "version": "3.1.8"
             }
           ]
         }
@@ -1646,7 +1682,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "certifi"
               },
-              "version": "2026.2.25"
+              "version": "2026.4.22"
             },
             {
               "package": {
@@ -1660,7 +1696,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "click"
               },
-              "version": "8.3.1"
+              "version": "8.3.3"
             },
             {
               "package": {
@@ -1730,7 +1766,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "werkzeug"
               },
-              "version": "3.1.7"
+              "version": "3.1.8"
             }
           ]
         }
@@ -1745,7 +1781,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2083
+      content_length: 2153
       body: |
         {
           "results": [
@@ -1760,7 +1796,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-6w2r-r2m5-xq5w",
-                  "modified": "2026-02-04T04:00:06.061990Z"
+                  "modified": "2026-04-21T08:11:06.082206Z"
                 },
                 {
                   "id": "GHSA-7xr5-9hcq-chf9",
@@ -1772,11 +1808,11 @@ interactions:
                 },
                 {
                   "id": "GHSA-frmv-pr5f-9mcr",
-                  "modified": "2025-11-27T09:10:30.649595Z"
+                  "modified": "2026-04-21T08:11:22.119438Z"
                 },
                 {
                   "id": "GHSA-qw25-v68c-qjf3",
-                  "modified": "2026-02-04T04:08:30.303132Z"
+                  "modified": "2026-04-21T08:11:06.009868Z"
                 },
                 {
                   "id": "GHSA-rrqc-c2jx-6jgv",
@@ -1829,6 +1865,10 @@ interactions:
                 {
                   "id": "GHSA-9wx4-h78v-vm56",
                   "modified": "2026-02-04T02:43:42.271895Z"
+                },
+                {
+                  "id": "GHSA-gc5v-m9x4-r6x2",
+                  "modified": "2026-03-27T22:17:33.595885Z"
                 },
                 {
                   "id": "GHSA-j8r2-6x86-q33q",
@@ -1897,7 +1937,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2083"
+          - "2153"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1917,7 +1957,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "certifi"
               },
-              "version": "2026.2.25"
+              "version": "2026.4.22"
             },
             {
               "package": {
@@ -1931,7 +1971,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "click"
               },
-              "version": "8.3.1"
+              "version": "8.3.3"
             },
             {
               "package": {
@@ -2001,7 +2041,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "werkzeug"
               },
-              "version": "3.1.7"
+              "version": "3.1.8"
             }
           ]
         }
@@ -2016,7 +2056,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 2083
+      content_length: 2153
       body: |
         {
           "results": [
@@ -2031,7 +2071,7 @@ interactions:
                 },
                 {
                   "id": "GHSA-6w2r-r2m5-xq5w",
-                  "modified": "2026-02-04T04:00:06.061990Z"
+                  "modified": "2026-04-21T08:11:06.082206Z"
                 },
                 {
                   "id": "GHSA-7xr5-9hcq-chf9",
@@ -2043,11 +2083,11 @@ interactions:
                 },
                 {
                   "id": "GHSA-frmv-pr5f-9mcr",
-                  "modified": "2025-11-27T09:10:30.649595Z"
+                  "modified": "2026-04-21T08:11:22.119438Z"
                 },
                 {
                   "id": "GHSA-qw25-v68c-qjf3",
-                  "modified": "2026-02-04T04:08:30.303132Z"
+                  "modified": "2026-04-21T08:11:06.009868Z"
                 },
                 {
                   "id": "GHSA-rrqc-c2jx-6jgv",
@@ -2100,6 +2140,10 @@ interactions:
                 {
                   "id": "GHSA-9wx4-h78v-vm56",
                   "modified": "2026-02-04T02:43:42.271895Z"
+                },
+                {
+                  "id": "GHSA-gc5v-m9x4-r6x2",
+                  "modified": "2026-03-27T22:17:33.595885Z"
                 },
                 {
                   "id": "GHSA-j8r2-6x86-q33q",
@@ -2168,7 +2212,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "2083"
+          - "2153"
         Content-Type:
           - application/json
       status: 200 OK

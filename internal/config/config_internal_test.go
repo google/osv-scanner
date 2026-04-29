@@ -389,7 +389,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 			args: &extractor.Package{
 				Name:    "lib1",
 				Version: "1.0.0",
-				Metadata: osv.DepGroupMetadata{
+				Metadata: &osv.DepGroupMetadata{
 					DepGroupVals: []string{"dev"},
 				},
 			},
@@ -417,7 +417,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Name:     "lib1",
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
-				Metadata: osv.DepGroupMetadata{
+				Metadata: &osv.DepGroupMetadata{
 					DepGroupVals: []string{"dev"},
 				},
 			},
@@ -445,7 +445,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Name:     "lib2",
 				Version:  "1.0.0",
 				PURLType: "npm",
-				Metadata: osv.DepGroupMetadata{
+				Metadata: &osv.DepGroupMetadata{
 					DepGroupVals: []string{"dev"},
 				},
 			},
@@ -555,7 +555,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Name:     "lib1",
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
-				Metadata: osv.DepGroupMetadata{
+				Metadata: &osv.DepGroupMetadata{
 					DepGroupVals: []string{"dev"},
 				},
 			},
@@ -583,7 +583,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Name:     "lib2",
 				Version:  "1.0.0",
 				PURLType: "npm",
-				Metadata: osv.DepGroupMetadata{
+				Metadata: &osv.DepGroupMetadata{
 					DepGroupVals: []string{"optional"},
 				},
 			},
@@ -627,7 +627,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Name:     "lib1",
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
-				Metadata: osv.DepGroupMetadata{
+				Metadata: &osv.DepGroupMetadata{
 					DepGroupVals: []string{"dev"},
 				},
 			},
@@ -655,7 +655,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Name:     "lib1",
 				Version:  "1.0.1",
 				PURLType: purl.TypeGolang,
-				Metadata: osv.DepGroupMetadata{
+				Metadata: &osv.DepGroupMetadata{
 					DepGroupVals: []string{"dev"},
 				},
 			},
@@ -679,7 +679,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Name:     "lib1",
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
-				Metadata: osv.DepGroupMetadata{
+				Metadata: &osv.DepGroupMetadata{
 					DepGroupVals: []string{"dev"},
 				},
 			},
@@ -707,7 +707,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Name:     "lib2",
 				Version:  "1.0.0",
 				PURLType: "npm",
-				Metadata: osv.DepGroupMetadata{
+				Metadata: &osv.DepGroupMetadata{
 					DepGroupVals: []string{"dev"},
 				},
 			},
@@ -789,7 +789,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Name:     "lib1",
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
-				Metadata: osv.DepGroupMetadata{
+				Metadata: &osv.DepGroupMetadata{
 					DepGroupVals: []string{"dev"},
 				},
 			},
@@ -821,7 +821,7 @@ func TestConfig_ShouldIgnorePackage(t *testing.T) {
 				Name:     "lib1",
 				Version:  "1.0.0",
 				PURLType: purl.TypeGolang,
-				Metadata: osv.DepGroupMetadata{
+				Metadata: &osv.DepGroupMetadata{
 					DepGroupVals: []string{"prod"},
 				},
 			},

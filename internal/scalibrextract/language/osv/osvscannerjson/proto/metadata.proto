@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package osvscannerjson;
+
+option go_package = "github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson/proto";
+
+message OSVScannerJsonMetadata {
+	string ecosystem = 1;
+	SourceInfo source_info = 2;
+}
+
+message SourceInfo {
+	string path = 1;
+	string type = 2;
+}

@@ -233,7 +233,7 @@ func printSummaryResult(result Result, outputWriter io.Writer, terminalWidth int
 					if pkg.VulnCount.AnalysisCount.Hidden == 0 {
 						continue
 					}
-					outputRow := table.Row{}
+					outputRow := make(table.Row, 0, 5)
 					totalCount := pkg.VulnCount.AnalysisCount.Hidden
 					filteredReasons := getFilteredVulnReasons(pkg.HiddenVulns)
 					outputRow = append(outputRow, pkg.Name, eco.Name, getInstalledVersionOrCommit(pkg), totalCount, filteredReasons)
@@ -289,7 +289,7 @@ func tableBuilderInner(result Result, vulnAnalysisType VulnAnalysisType) []tbInn
 				everything = append(everything, pkg.HiddenVulns...)
 
 				for _, vuln := range everything {
-					outputRow := table.Row{}
+					outputRow := make(table.Row, 0, 5)
 					shouldMerge := false
 
 					var links []string

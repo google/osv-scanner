@@ -170,7 +170,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4418
+      content_length: 4488
       body: |
         {
           "results": [
@@ -191,7 +191,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-72hv-8253-57qq",
-                  "modified": "2026-03-04T15:06:51.908001Z"
+                  "modified": "2026-04-07T16:47:43.107166Z"
                 },
                 {
                   "id": "GHSA-h46c-h94j-95f3",
@@ -420,6 +420,10 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GHSA-355h-qmc2-wpwf",
+                  "modified": "2026-04-17T00:30:15.516948Z"
+                },
+                {
                   "id": "GHSA-cj7v-27pg-wf7q",
                   "modified": "2026-03-13T22:01:09.359414Z"
                 },
@@ -467,7 +471,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4418"
+          - "4488"
         Content-Type:
           - application/json
       status: 200 OK
@@ -642,7 +646,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4418
+      content_length: 4488
       body: |
         {
           "results": [
@@ -663,7 +667,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-72hv-8253-57qq",
-                  "modified": "2026-03-04T15:06:51.908001Z"
+                  "modified": "2026-04-07T16:47:43.107166Z"
                 },
                 {
                   "id": "GHSA-h46c-h94j-95f3",
@@ -892,6 +896,10 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GHSA-355h-qmc2-wpwf",
+                  "modified": "2026-04-17T00:30:15.516948Z"
+                },
+                {
                   "id": "GHSA-cj7v-27pg-wf7q",
                   "modified": "2026-03-13T22:01:09.359414Z"
                 },
@@ -939,7 +947,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4418"
+          - "4488"
         Content-Type:
           - application/json
       status: 200 OK
@@ -1114,7 +1122,7 @@ interactions:
       proto: HTTP/2.0
       proto_major: 2
       proto_minor: 0
-      content_length: 4418
+      content_length: 4488
       body: |
         {
           "results": [
@@ -1135,7 +1143,7 @@ interactions:
               "vulns": [
                 {
                   "id": "GHSA-72hv-8253-57qq",
-                  "modified": "2026-03-04T15:06:51.908001Z"
+                  "modified": "2026-04-07T16:47:43.107166Z"
                 },
                 {
                   "id": "GHSA-h46c-h94j-95f3",
@@ -1364,6 +1372,10 @@ interactions:
             {
               "vulns": [
                 {
+                  "id": "GHSA-355h-qmc2-wpwf",
+                  "modified": "2026-04-17T00:30:15.516948Z"
+                },
+                {
                   "id": "GHSA-cj7v-27pg-wf7q",
                   "modified": "2026-03-13T22:01:09.359414Z"
                 },
@@ -1411,7 +1423,7 @@ interactions:
         }
       headers:
         Content-Length:
-          - "4418"
+          - "4488"
         Content-Type:
           - application/json
       status: 200 OK
