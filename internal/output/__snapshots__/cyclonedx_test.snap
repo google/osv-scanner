@@ -2434,6 +2434,39 @@
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Test vulnerability",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    }
+  ]
+}
+
+---
+
 [TestPrintCycloneDXResults/CycloneDX14_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.4.schema.json",
@@ -4951,6 +4984,39 @@
 
 ---
 
+[TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Test vulnerability",
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    }
+  ]
+}
+
+---
+
 [TestPrintCycloneDXResults/CycloneDX15_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 {
   "$schema": "http://cyclonedx.org/schema/bom-1.5.schema.json",
@@ -7457,6 +7523,39 @@
       "id": "OSV-2",
       "references": [],
       "ratings": [],
+      "advisories": [],
+      "credits": {
+        "organizations": []
+      },
+      "affects": []
+    }
+  ]
+}
+
+---
+
+[TestPrintCycloneDXResults/CycloneDX16_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
+{
+  "$schema": "http://cyclonedx.org/schema/bom-1.6.schema.json",
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.6",
+  "version": 1,
+  "components": [
+    {
+      "bom-ref": "pkg:npm/mine1@1.2.3",
+      "type": "library",
+      "name": "mine1",
+      "version": "1.2.3",
+      "licenses": [],
+      "purl": "pkg:npm/mine1@1.2.3"
+    }
+  ],
+  "vulnerabilities": [
+    {
+      "id": "OSV-1",
+      "references": [],
+      "ratings": [],
+      "description": "Test vulnerability",
       "advisories": [],
       "credits": {
         "organizations": []
