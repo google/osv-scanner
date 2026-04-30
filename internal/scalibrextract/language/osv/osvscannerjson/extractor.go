@@ -44,7 +44,7 @@ func (e Extractor) FileRequired(fapi filesystem.FileAPI) bool {
 	return filepath.Base(fapi.Path()) == "osv-scanner-custom.json"
 }
 
-// Extract extracts packages from yarn.lock files passed through the scan input.
+// Extract extracts packages from osv-scanner-custom.json files passed through the scan input.
 func (e Extractor) Extract(_ context.Context, input *filesystem.ScanInput) (inventory.Inventory, error) {
 	parsedResults := models.VulnerabilityResults{}
 	err := json.NewDecoder(input.Reader).Decode(&parsedResults)

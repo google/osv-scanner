@@ -347,6 +347,12 @@ func TestCommand(t *testing.T) {
 			Args: []string{"", "source", "--config=./testdata/osv-scanner-unknown-config.toml", "./testdata/locks-many"},
 			Exit: 127,
 		},
+		// config file with invalid regex in package override
+		{
+			Name: "config_file_with_invalid_regex",
+			Args: []string{"", "source", "--config=./testdata/osv-scanner-invalid-regex-config.toml", "./testdata/locks-many"},
+			Exit: 127,
+		},
 		// config file with multiple ignores with the same id
 		{
 			Name: "config_files_should_not_have_multiple_ignores_with_the_same_id",
@@ -489,9 +495,9 @@ func TestCommand_ExplicitExtractors_WithDefaults(t *testing.T) {
 
 	tests := []testcmd.Case{
 		{
-			Name: "empty_plugins_flag_does_nothing",
+			Name: "empty_plugins_flag_does_default",
 			Args: []string{"", "source", "--experimental-plugins="},
-			Exit: 127,
+			Exit: 128,
 		},
 		{
 			Name: "extractors_cancelled_out_specified_individually",

@@ -444,7 +444,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 62 known vulnerabilities (3 Critical, 17 High, 34 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+Total 25 packages affected by 67 known vulnerabilities (5 Critical, 19 High, 35 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
 27 vulnerabilities can be fixed.
 
 
@@ -457,12 +457,12 @@ Ubuntu:22.04
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Partial fixes Available |          2 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          6 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          9 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
-| libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          3 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
@@ -496,7 +496,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 62 known vulnerabilities (3 Critical, 17 High, 34 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+Total 25 packages affected by 67 known vulnerabilities (5 Critical, 19 High, 35 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
 27 vulnerabilities can be fixed.
 
 
@@ -509,12 +509,12 @@ Ubuntu:22.04
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Partial fixes Available |          2 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          6 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          9 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
-| libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          3 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
@@ -567,7 +567,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 62 known vulnerabilities (3 Critical, 17 High, 34 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+Total 25 packages affected by 67 known vulnerabilities (5 Critical, 19 High, 35 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
 27 vulnerabilities can be fixed.
 
 
@@ -580,12 +580,12 @@ Ubuntu:22.04
 | coreutils      | 8.32-4.1ubuntu1.2            | No fix available        |          2 | coreutils               | # 4 Layer        | ubuntu        |
 | dpkg           | 1.21.1ubuntu2.3              | Partial fixes Available |          2 | dpkg                    | # 4 Layer        | ubuntu        |
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
-| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          6 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
+| glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |          9 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
 | gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Fix Available           |          2 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
-| libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          1 | libgcrypt20             | # 4 Layer        | ubuntu        |
+| libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          3 | libgcrypt20             | # 4 Layer        | ubuntu        |
 | libtasn1-6     | 4.18.0-4build1               | Fix Available           |          2 | libtasn1-6              | # 4 Layer        | ubuntu        |
 | libzstd        | 1.4.8+dfsg-3build1           | No fix available        |          1 | libzstd1                | # 4 Layer        | ubuntu        |
 | lz4            | 1.9.3-2build2                | No fix available        |          1 | liblz4-1                | # 4 Layer        | ubuntu        |
@@ -619,7 +619,7 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 26 packages affected by 91 known vulnerabilities (3 Critical, 41 High, 40 Medium, 4 Low, 3 Unknown) from 2 ecosystems.
+Total 26 packages affected by 91 known vulnerabilities (4 Critical, 42 High, 40 Medium, 4 Low, 1 Unknown) from 2 ecosystems.
 91 vulnerabilities can be fixed.
 
 
@@ -678,18 +678,18 @@ Scanning local image tarball "./testdata/test-python-empty.tar"
 
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)) (Based on "python" image):
-Total 15 packages affected by 27 known vulnerabilities (0 Critical, 7 High, 4 Medium, 2 Low, 14 Unknown) from 2 ecosystems.
+Total 15 packages affected by 29 known vulnerabilities (0 Critical, 7 High, 6 Medium, 2 Low, 14 Unknown) from 2 ecosystems.
 27 vulnerabilities can be fixed.
 
 
 PyPI
-+---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl     |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          3 | # 7 Layer        | python        |
-+---------+-------------------+---------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl               |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Partial fixes Available |          4 | # 7 Layer        | python        |
++---------+-------------------+-------------------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
 +------------+-------------------+---------------+------------+------------------+---------------+
@@ -697,13 +697,13 @@ PyPI
 +------------+-------------------+---------------+------------+------------------+---------------+
 | setuptools | 58.1.0            | Fix Available |          3 | # 7 Layer        | python        |
 +------------+-------------------+---------------+------------+------------------+---------------+
-+---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA        |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          3 | # 13 Layer       | python        |
-+---------+-------------------+---------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA                  |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Partial fixes Available |          4 | # 13 Layer       | python        |
++---------+-------------------+-------------------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA    |
 +------------+-------------------+---------------+------------+------------------+---------------+
@@ -750,18 +750,18 @@ Scanning local image tarball "./testdata/test-python-full.tar"
 
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)) (Based on "python" image):
-Total 21 packages affected by 54 known vulnerabilities (1 Critical, 18 High, 17 Medium, 3 Low, 15 Unknown) from 2 ecosystems.
+Total 21 packages affected by 56 known vulnerabilities (1 Critical, 18 High, 19 Medium, 3 Low, 15 Unknown) from 2 ecosystems.
 54 vulnerabilities can be fixed.
 
 
 PyPI
-+---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl     |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          3 | # 7 Layer        | python        |
-+---------+-------------------+---------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/pip-23.0.1-py3-none-any.whl               |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Partial fixes Available |          4 | # 7 Layer        | python        |
++---------+-------------------+-------------------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
 +------------+-------------------+---------------+------------+------------------+---------------+
@@ -790,13 +790,13 @@ PyPI
 +---------+-------------------+---------------+------------+------------------+---------------+
 | idna    | 2.7               | Fix Available |          1 | # 17 Layer       | --            |
 +---------+-------------------+---------------+------------+------------------+---------------+
-+---------------------------------------------------------------------------------------------+
-| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA        |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| PACKAGE | INSTALLED VERSION | FIX AVAILABLE | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
-+---------+-------------------+---------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Fix Available |          3 | # 13 Layer       | python        |
-+---------+-------------------+---------------+------------+------------------+---------------+
++-------------------------------------------------------------------------------------------------------+
+| Source:artifact:/usr/local/lib/python3.9/site-packages/pip-23.0.1.dist-info/METADATA                  |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
++---------+-------------------+-------------------------+------------+------------------+---------------+
+| pip     | 23.0.1            | Partial fixes Available |          4 | # 13 Layer       | python        |
++---------+-------------------+-------------------------+------------+------------------+---------------+
 +----------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA    |
 +----------+-------------------+---------------+------------+------------------+---------------+
@@ -864,7 +864,7 @@ Scanning local image tarball "./testdata/test-package-tracing.tar"
 
 
 Container Scanning Result (Alpine Linux v3.20) (Based on "alpine" image):
-Total 10 packages affected by 265 known vulnerabilities (1 Critical, 13 High, 13 Medium, 2 Low, 236 Unknown) from 2 ecosystems.
+Total 10 packages affected by 265 known vulnerabilities (2 Critical, 14 High, 13 Medium, 2 Low, 234 Unknown) from 2 ecosystems.
 265 vulnerabilities can be fixed.
 
 
@@ -1263,10 +1263,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
               "index": 7
             }
           },
-          "groups": 3,
+          "groups": 4,
           "vulnerabilities": [
             "PYSEC-2023-228",
             "GHSA-4xh5-x5gv-qwph",
+            "GHSA-58qw-9mgm-455v",
             "GHSA-6vgw-5pg2-w6jp",
             "GHSA-mq26-g339-26xf"
           ]
@@ -1394,10 +1395,11 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
               "index": 13
             }
           },
-          "groups": 3,
+          "groups": 4,
           "vulnerabilities": [
             "PYSEC-2023-228",
             "GHSA-4xh5-x5gv-qwph",
+            "GHSA-58qw-9mgm-455v",
             "GHSA-6vgw-5pg2-w6jp",
             "GHSA-mq26-g339-26xf"
           ]
@@ -3315,7 +3317,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 7,
+          "groups": 10,
           "vulnerabilities": [
             "USN-8005-1",
             "USN-7259-1",
@@ -3330,7 +3332,10 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2026-0915",
             "UBUNTU-CVE-2026-4046",
             "UBUNTU-CVE-2026-4437",
-            "UBUNTU-CVE-2026-4438"
+            "UBUNTU-CVE-2026-4438",
+            "UBUNTU-CVE-2026-5358",
+            "UBUNTU-CVE-2026-5450",
+            "UBUNTU-CVE-2026-5928"
           ]
         },
         {
@@ -3343,7 +3348,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 7,
+          "groups": 10,
           "vulnerabilities": [
             "USN-8005-1",
             "USN-7259-1",
@@ -3358,7 +3363,10 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2026-0915",
             "UBUNTU-CVE-2026-4046",
             "UBUNTU-CVE-2026-4437",
-            "UBUNTU-CVE-2026-4438"
+            "UBUNTU-CVE-2026-4438",
+            "UBUNTU-CVE-2026-5358",
+            "UBUNTU-CVE-2026-5450",
+            "UBUNTU-CVE-2026-5928"
           ]
         },
         {
@@ -3406,9 +3414,11 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 1,
+          "groups": 3,
           "vulnerabilities": [
-            "UBUNTU-CVE-2024-2236"
+            "UBUNTU-CVE-2024-2236",
+            "UBUNTU-CVE-2026-41989",
+            "UBUNTU-CVE-2026-41990"
           ]
         },
         {
@@ -4366,7 +4376,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 7,
+          "groups": 10,
           "vulnerabilities": [
             "USN-8005-1",
             "USN-7259-1",
@@ -4381,7 +4391,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-0915",
             "UBUNTU-CVE-2026-4046",
             "UBUNTU-CVE-2026-4437",
-            "UBUNTU-CVE-2026-4438"
+            "UBUNTU-CVE-2026-4438",
+            "UBUNTU-CVE-2026-5358",
+            "UBUNTU-CVE-2026-5450",
+            "UBUNTU-CVE-2026-5928"
           ]
         },
         {
@@ -4394,7 +4407,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 7,
+          "groups": 10,
           "vulnerabilities": [
             "USN-8005-1",
             "USN-7259-1",
@@ -4409,7 +4422,10 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2026-0915",
             "UBUNTU-CVE-2026-4046",
             "UBUNTU-CVE-2026-4437",
-            "UBUNTU-CVE-2026-4438"
+            "UBUNTU-CVE-2026-4438",
+            "UBUNTU-CVE-2026-5358",
+            "UBUNTU-CVE-2026-5450",
+            "UBUNTU-CVE-2026-5928"
           ]
         },
         {
@@ -4457,9 +4473,11 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 1,
+          "groups": 3,
           "vulnerabilities": [
-            "UBUNTU-CVE-2024-2236"
+            "UBUNTU-CVE-2024-2236",
+            "UBUNTU-CVE-2026-41989",
+            "UBUNTU-CVE-2026-41990"
           ]
         },
         {
