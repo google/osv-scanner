@@ -7,6 +7,7 @@
 
 ### Fixes:
 
+- [Bug #2750](https://github.com/google/osv-scanner/pull/2750) Sanitize \r/\n in default/table/vertical output to prevent GitHub Actions workflow command injection.
 - [Bug #2641](https://github.com/google/osv-scanner/pull/2641) Correctly output packages from osv-scanner.json source in spdx format.
 - [Bug #2729](https://github.com/google/osv-scanner/pull/2729) Increase color contrast of vulnerability stats.
 - [Bug #2664](https://github.com/google/osv-scanner/pull/2664) Remove second newline at end of vertical output.
