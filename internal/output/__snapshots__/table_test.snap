@@ -680,6 +680,19 @@ Total 2 packages affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
+[TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬───────────────┬────────────────────────────────────────────────────────────────────────╮
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION │ SOURCE                                                                 │
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼───────────────┼────────────────────────────────────────────────────────────────────────┤
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            │ dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile │
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴───────────────┴────────────────────────────────────────────────────────────────────────╯
+
+---
+
 [TestPrintTableResults_LongTerminalWidth_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
@@ -1388,6 +1401,19 @@ Total 2 packages affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medi
 
 ---
 
+[TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
++-----------------------+------+-----------+---------+---------+---------------+------------------------------------------------------------------------+
+| OSV URL               | CVSS | ECOSYSTEM | PACKAGE | VERSION | FIXED VERSION | SOURCE                                                                 |
++-----------------------+------+-----------+---------+---------+---------------+------------------------------------------------------------------------+
+| https://osv.dev/OSV-1 |      | npm       | mine1   | 1.2.3   | --            | dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile |
++-----------------------+------+-----------+---------+---------+---------------+------------------------------------------------------------------------+
+
+---
+
 [TestPrintTableResults_NoTerminalWidth_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 
 Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
@@ -2093,6 +2119,19 @@ Total 2 packages affected by 2 known vulnerabilities (0 Critical, 0 High, 0 Medi
 │ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3     │ --          ≈
 │ https://osv.dev/OSV-2 │      │ npm       │ mine3   │ 0.10.2-rc │ --          ≈
 ╰───────────────────────┴──────┴───────────┴─────────┴───────────┴──────────── ≈
+
+---
+
+[TestPrintTableResults_StandardTerminalWidth_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+╭───────────────────────┬──────┬───────────┬─────────┬─────────┬────────────── ≈
+│ OSV URL               │ CVSS │ ECOSYSTEM │ PACKAGE │ VERSION │ FIXED VERSION ≈
+├───────────────────────┼──────┼───────────┼─────────┼─────────┼────────────── ≈
+│ https://osv.dev/OSV-1 │      │ npm       │ mine1   │ 1.2.3   │ --            ≈
+╰───────────────────────┴──────┴───────────┴─────────┴─────────┴────────────── ≈
 
 ---
 
