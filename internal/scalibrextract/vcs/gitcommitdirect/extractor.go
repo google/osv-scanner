@@ -1,4 +1,4 @@
-// Package gitcommitdirect provides an dummy extractor that returns a preset list of commits
+// Package gitcommitdirect provides a dummy extractor that returns a preset list of commits
 package gitcommitdirect
 
 import (

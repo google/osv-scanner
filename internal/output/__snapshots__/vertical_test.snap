@@ -18,7 +18,6 @@ unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
   no known vulnerabilities found
   no license violations found
 
-
 ---
 
 [TestPrintVerticalResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations - 1]
@@ -52,7 +51,6 @@ unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
 
   1 license violation found in unknown:<rootdir>/path/to/my/third/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages,_some_license_violations#01 - 1]
@@ -70,7 +68,6 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
 
 unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
   no known vulnerabilities found
-
 
 ---
 
@@ -113,7 +110,6 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
 
   1 license violation found in sbom:<rootdir>/path/to/my/second/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithLicenseViolations/multiple_sources_with_a_mixed_count_of_packages_and_groups,_some_license_violations - 1]
@@ -147,7 +143,6 @@ unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
 
   1 license violation found in unknown:<rootdir>/path/to/my/third/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithLicenseViolations/multiple_sources_with_no_packages - 1]
@@ -169,14 +164,12 @@ unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
   no known vulnerabilities found
   no license violations found
 
-
 ---
 
 [TestPrintVerticalResults_WithLicenseViolations/no_sources - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
-
 
 
 ---
@@ -192,7 +185,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
   no license violations found
 
-
 ---
 
 [TestPrintVerticalResults_WithLicenseViolations/one_source_with_one_package,_no_license_violations - 1]
@@ -205,7 +197,6 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
   no license violations found
-
 
 ---
 
@@ -220,7 +211,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
   no license violations found
 
-
 ---
 
 [TestPrintVerticalResults_WithLicenseViolations/one_source_with_one_package_and_an_unknown_license - 1]
@@ -233,7 +223,6 @@ npm
 lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
   no license violations found
-
 
 ---
 
@@ -252,7 +241,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
 
   2 license violations found in lockfile:<rootdir>/path/to/my/first/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithLicenseViolations/one_source_with_one_package_and_one_license_violation - 1]
@@ -269,7 +257,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
     mine1@1.2.3 (MIT)
 
   1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
-
 
 ---
 
@@ -288,7 +275,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
 
   1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithLicenseViolations/one_source_with_one_package_with_both_a_version_and_a_commit_and_one_license_violation - 1]
@@ -306,7 +292,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
 
   1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithLicenseViolations/one_source_with_one_package_with_just_a_commit_and_one_license_violation - 1]
@@ -323,7 +308,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
     mine1@ (MIT)
 
   1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
-
 
 ---
 
@@ -345,7 +329,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
 sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
   no known vulnerabilities found
   no license violations found
-
 
 ---
 
@@ -381,7 +364,6 @@ Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show t
     mine1@1.3.5 (MIT)
 
   2 license violations found in unknown:<rootdir>/path/to/my/third/lockfile
-
 
 ---
 
@@ -428,7 +410,6 @@ unknown:<rootdir>/path/to/my/third/lockfile: found 1 package with issues
 
   2 license violations found in unknown:<rootdir>/path/to/my/third/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithMixedIssues/multiple_sources_with_a_mixed_count_of_packages_with_versions_and_commits,_some_vulnerabilities_and_license_violations - 1]
@@ -474,7 +455,6 @@ unknown:<rootdir>/path/to/my/third/lockfile: found 1 package with issues
 
   2 license violations found in unknown:<rootdir>/path/to/my/third/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithMixedIssues/one_source_in_working_directory_with_one_package,_one_vulnerability,_and_one_license_violation - 1]
@@ -497,7 +477,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithMixedIssues/one_source_with_one_deprecated_package - 1]
@@ -514,7 +493,6 @@ lockfile:<rootdir>/path/to/lockfile: found 0 packages with issues
 
  1 deprecated packages found:
     deprecated-pkg@1.0.0
-
 
 ---
 
@@ -538,7 +516,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithMixedIssues/one_source_with_one_package,_one_uncalled_vulnerability,_and_one_license_violation - 1]
@@ -555,7 +532,6 @@ Hiding 1 number of vulnerabilities deemed unimportant, use --all-vulns to show t
     mine1@1.2.3 (MIT)
 
   1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
-
 
 ---
 
@@ -578,7 +554,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
     mine1@1.2.3 (MIT)
 
   1 license violation found in lockfile:<rootdir>/path/to/my/first/lockfile
-
 
 ---
 
@@ -605,7 +580,6 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
     mine2@5.9.0 (MIT)
 
   1 license violation found in sbom:<rootdir>/path/to/my/second/lockfile
-
 
 ---
 
@@ -642,7 +616,6 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 2 packages with issues
 
   3 known vulnerabilities found in sbom:<rootdir>/path/to/my/second/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_and_multiple_vulnerabilities - 1]
@@ -678,7 +651,6 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 2 packages with issues
 
   3 known vulnerabilities found in sbom:<rootdir>/path/to/my/second/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages,_no_vulnerabilities - 1]
@@ -696,7 +668,6 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
 
 unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
   no known vulnerabilities found
-
 
 ---
 
@@ -730,7 +701,6 @@ unknown:<rootdir>/path/to/my/third/lockfile: found 1 package with issues
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in unknown:<rootdir>/path/to/my/third/lockfile
-
 
 ---
 
@@ -780,7 +750,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
-
 
 ---
 
@@ -835,7 +804,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/multiple_sources_with_a_mixed_count_of_packages_across_ecosystems_using_commits_and_version,_and_multiple_vulnerabilities - 1]
@@ -885,7 +853,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/multiple_sources_with_no_packages - 1]
@@ -904,14 +871,12 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
 unknown:<rootdir>/path/to/my/third/lockfile: found 0 packages with issues
   no known vulnerabilities found
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/no_sources - 1]
 
 Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
 0 vulnerabilities can be fixed.
-
 
 
 ---
@@ -926,7 +891,6 @@ Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medi
 lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package,_no_vulnerabilities - 1]
@@ -938,7 +902,6 @@ npm
 
 lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
   no known vulnerabilities found
-
 
 ---
 
@@ -963,7 +926,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   1 uncalled/unimportant vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile (filtered out)
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package,_one_vulnerability,_and_a_max_severity - 1]
@@ -980,7 +942,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
       Severity: '9'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
-
 
 ---
 
@@ -999,7 +960,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package_and_one_uncalled_vulnerability - 1]
@@ -1016,7 +976,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 uncalled/unimportant vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile (filtered out)
-
 
 ---
 
@@ -1035,7 +994,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package_and_one_vulnerability_(dev) - 1]
@@ -1052,7 +1010,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
-
 
 ---
 
@@ -1071,7 +1028,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 0 packages with issues
 
   1 uncalled/unimportant vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile (filtered out)
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package_and_two_aliases_of_a_single_vulnerability_with_a_max_severity - 1]
@@ -1088,7 +1044,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
       Severity: '8.3'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
-
 
 ---
 
@@ -1107,7 +1062,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package_with_both_a_version_and_commit_and_one_vulnerability - 1]
@@ -1125,7 +1079,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
 
-
 ---
 
 [TestPrintVerticalResults_WithVulnerabilities/one_source_with_one_package_with_just_a_commit_and_one_vulnerability - 1]
@@ -1142,7 +1095,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in lockfile:<rootdir>/path/to/my/first/lockfile
-
 
 ---
 
@@ -1164,6 +1116,22 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 2 packages with issues
 
   2 known vulnerabilities found in lockfile:<rootdir>/path/to/my/first/lockfile
 
+---
+
+[TestPrintVerticalResults_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
+
+Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium, 0 Low, 1 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
+
+npm
+
+lockfile:dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile: found 1 package with issues
+
+  mine1@1.2.3 has the following known vulnerabilities:
+    OSV-1: Test vulnerability
+      Severity: 'N/A'; Minimal Fix Version: 'No fix available';
+
+  1 known vulnerability found in lockfile:dir%0D::stop-commands::T%0D::error::INJECTED%0A::warning::pwn/lockfile
 
 ---
 
@@ -1184,7 +1152,6 @@ lockfile:<rootdir>/path/to/my/first/lockfile: found 1 package with issues
 
 sbom:<rootdir>/path/to/my/second/lockfile: found 0 packages with issues
   no known vulnerabilities found
-
 
 ---
 
@@ -1210,6 +1177,5 @@ sbom:<rootdir>/path/to/my/second/lockfile: found 1 package with issues
       Severity: 'N/A'; Minimal Fix Version: 'No fix available';
 
   1 known vulnerability found in sbom:<rootdir>/path/to/my/second/lockfile
-
 
 ---

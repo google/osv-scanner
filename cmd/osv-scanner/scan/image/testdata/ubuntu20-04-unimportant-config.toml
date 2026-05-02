@@ -87,3 +87,14 @@ ignore = true
 name = "zlib"
 reason = "Just want to test only unimportant vulns"
 ignore = true
+
+[[PackageOverrides]]
+name = "xz-utils"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+
+[[PackageOverrides]]
+name = "sed"
+reason = "Just want to test only unimportant vulns"
+ignore = true
+

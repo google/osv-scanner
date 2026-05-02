@@ -4,9 +4,11 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/google/osv-scalibr/extractor"
+	"github.com/google/osv-scalibr/purl"
 	"github.com/google/osv-scanner/v2/internal/cachedregexp"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
@@ -147,6 +149,11 @@ func pkgToQuery(pkg *extractor.Package) *api.Query {
 			if match != nil {
 				name += "/" + match[1]
 			}
+		}
+
+		// Special case for Homebrew packages with a source code repo
+		if pkg.PURL().Type == purl.TypeBrew && pkg.SourceCode != nil {
+			name = strings.ToLower(pkg.SourceCode.Repo)
 		}
 
 		return &api.Query{

@@ -22,6 +22,7 @@ import (
 	"github.com/google/osv-scalibr/inventory"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
+	"github.com/google/osv-scanner/v2/internal/output"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitcommitdirect"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/vcs/gitrepo"
@@ -31,14 +32,6 @@ import (
 )
 
 var ErrExtractorNotFound = errors.New("could not determine extractor suitable to this file")
-
-func logUnsafePlugins(plugins []plugin.Plugin) {
-	for _, plug := range plugins {
-		if plug.Requirements() != nil && plug.Requirements().AllowUnsafePlugins {
-			cmdlogger.Warnf("Warning: plugin %s can be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts before proceeding.", plug.Name())
-		}
-	}
-}
 
 func configurePlugins(plugins []plugin.Plugin, accessors ExternalAccessors, actions ScannerActions) {
 	for _, plug := range plugins {
@@ -150,7 +143,11 @@ func scan(accessors ExternalAccessors, actions ScannerActions) (*inventory.Inven
 
 	// --- Directories ---
 	for _, path := range actions.DirectoryPaths {
-		cmdlogger.Infof("Scanning dir %s", path)
+		// path is user-controlled and is logged to stdout, which the GitHub Actions
+		// runner parses for ::command::value sequences regardless of --format.
+		// Sanitize \r/\n so an attacker-supplied directory name cannot inject
+		// workflow commands.
+		cmdlogger.Infof("Scanning dir %s", output.SanitizeForWorkflowCommand(path))
 		if _, err := pathToRootMap(rootMap, path, actions.Recursive); err != nil {
 			return nil, err
 		}
@@ -233,7 +230,6 @@ SBOMLoop:
 	}
 
 	filteredPlugins := append(plugin.FilterByCapabilities(plugins, &capabilities), gitDirectPlugin)
-	logUnsafePlugins(filteredPlugins)
 
 	// For each root, run scalibr's scan() once.
 	for root, paths := range rootMap {

@@ -3666,6 +3666,50 @@
 
 ---
 
+[TestPrintJSONResults_WithVulnerabilities/one_source_with_workflow_command_injection_attempt_in_path - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "dir/r::stop-commands::T/r::error::INJECTED/n::warning::pwn/lockfile",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "mine1",
+            "version": "1.2.3",
+            "ecosystem": "npm"
+          },
+          "groups": [
+            {
+              "ids": [
+                "OSV-1"
+              ],
+              "aliases": null,
+              "max_severity": ""
+            }
+          ],
+          "vulnerabilities": [
+            {
+              "id": "OSV-1",
+              "summary": "Test vulnerability"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
 [TestPrintJSONResults_WithVulnerabilities/two_sources_with_packages,_one_vulnerability - 1]
 {
   "results": [

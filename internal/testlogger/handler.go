@@ -90,6 +90,7 @@ func (tl *Handler) Handle(ctx context.Context, record slog.Record) error {
 		"Status: new inodes:",
 		"Created image content file:",
 		"interpreting as regex/glob and not absolute path",
+		"Fetching response from:",
 	} {
 		if strings.HasPrefix(record.Message, prefix) {
 			return nil

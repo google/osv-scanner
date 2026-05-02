@@ -65,7 +65,7 @@ OSV-Scanner supports 11+ language ecosystems and 19+ lockfile types. To check if
 
 ### [Container Scanning](https://google.github.io/osv-scanner/usage/scan-image)
 
-OSV-Scanner also supports comprehensive, layer-aware scanning for container images to detect vulnerabilities the following operating system packages and language-specific dependencies.
+OSV-Scanner also supports comprehensive, layer-aware scanning for container images to detect vulnerabilities in the following operating system packages and language-specific dependencies.
 
 | Distro Support | Language Artifacts Support |
 | -------------- | -------------------------- |
@@ -108,14 +108,17 @@ osv-scanner --offline --download-offline-databases ./path/to/your/dir
 
 ### [Guided Remediation](https://google.github.io/osv-scanner/experimental/guided-remediation/) (Experimental)
 
+> [!WARNING]
+> Guided remediation (the `fix` command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
+
 OSV-Scanner provides guided remediation, a feature that suggests package version upgrades based on criteria such as dependency depth, minimum severity, fix strategy, and return on investment.
 We currently support remediating vulnerabilities in the following files:
 
-| Ecosystem | File Format (Type)             | Supported Remediation Strategies                                                                                  |
-| :-------- | :----------------------------- | :---------------------------------------------------------------------------------------------------------------- |
-| npm       | `package-lock.json` (lockfile) | [`in-place`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-remediation) |
-| npm       | `package.json` (manifest)      | [`relock`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-remediation)   |
-| Maven     | `pom.xml` (manifest)           | [`override`](https://google.github.io/osv-scanner/experimental/guided-remediation/#override-dependency-versions)  |
+| Ecosystem | File Format (Type)             | Supported Remediation Strategies                                                                                       |
+| :-------- | :----------------------------- | :--------------------------------------------------------------------------------------------------------------------- |
+| npm       | `package-lock.json` (lockfile) | [`in-place`](https://google.github.io/osv-scanner/experimental/guided-remediation/#in-place-lockfile-changes)          |
+| npm       | `package.json` (manifest)      | [`relock`](https://google.github.io/osv-scanner/experimental/guided-remediation/#relock-and-relax-direct-dependencies) |
+| Maven     | `pom.xml` (manifest)           | [`override`](https://google.github.io/osv-scanner/experimental/guided-remediation/#override-dependency-versions)       |
 
 This is available as a headless CLI command, as well as an interactive mode.
 

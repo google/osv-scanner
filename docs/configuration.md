@@ -50,6 +50,7 @@ You can specify overrides for particular packages to have them either ignored en
 [[PackageOverrides]]
 # One or more fields to match each package against:
 name = "lib"
+# nameIsRegex = true # Optional: treat name as a regular expression pattern
 version = "1.0.0"
 ecosystem = "Go"
 group = "dev"
@@ -93,8 +94,17 @@ ecosystem = "npm"
 group = "dev"
 ignore = true
 
+# ignore packages matching a regex pattern (e.g. all internal packages)
+[[PackageOverrides]]
+name = "internal-.*"
+nameIsRegex = true
+ignore = true
+reason = "internal packages should not be checked"
+
 # ... and so on
 ```
+
+When `nameIsRegex` is set to `true`, the `name` field is treated as a regular expression pattern. The pattern is automatically anchored to match the full package name (i.e. `^pattern$`). Standard [Go regular expression syntax](https://pkg.go.dev/regexp/syntax) is supported. An invalid regex pattern will cause a config loading error.
 
 ## Go Version Override
 

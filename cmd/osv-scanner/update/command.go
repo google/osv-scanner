@@ -8,14 +8,15 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 
-	"deps.dev/util/resolve"
-	"github.com/google/osv-scanner/v2/internal/depsdev"
-	"github.com/google/osv-scanner/v2/internal/remediation/suggest"
-	"github.com/google/osv-scanner/v2/internal/remediation/upgrade"
-	"github.com/google/osv-scanner/v2/internal/resolution/client"
-	"github.com/google/osv-scanner/v2/internal/resolution/depfile"
-	"github.com/google/osv-scanner/v2/internal/resolution/manifest"
+	"github.com/google/osv-scalibr/clients/datasource"
+	"github.com/google/osv-scalibr/clients/resolution"
+	"github.com/google/osv-scalibr/depsdev"
+	"github.com/google/osv-scalibr/guidedremediation"
+	"github.com/google/osv-scalibr/guidedremediation/options"
+	"github.com/google/osv-scalibr/guidedremediation/upgrade"
+	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/version"
 	"github.com/urfave/cli/v3"
 )
@@ -59,80 +60,51 @@ func Command(_, _ io.Writer, _ *http.Client) *cli.Command {
 	}
 }
 
-type updateOptions struct {
-	Manifest      string
-	IgnoreDev     bool
-	UpgradeConfig upgrade.Config // Allowed upgrade levels per package.
-
-	Client     client.DependencyClient
-	ManifestRW manifest.ReadWriter
-}
-
 func action(ctx context.Context, cmd *cli.Command) error {
-	options := updateOptions{
+	cmdlogger.Warnf("Version updates (the update command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.")
+
+	opts := options.UpdateOptions{
 		Manifest:      cmd.String("manifest"),
 		IgnoreDev:     cmd.Bool("ignore-dev"),
-		UpgradeConfig: upgrade.ParseUpgradeConfig(cmd.StringSlice("upgrade-config")),
+		UpgradeConfig: upgrade.NewConfigFromStrings(cmd.StringSlice("upgrade-config")),
 	}
 
-	if _, err := os.Stat(options.Manifest); errors.Is(err, os.ErrNotExist) {
-		return fmt.Errorf("file not found: %s", options.Manifest)
+	if _, err := os.Stat(opts.Manifest); errors.Is(err, os.ErrNotExist) {
+		return fmt.Errorf("file not found: %s", opts.Manifest)
 	} else if err != nil {
 		return err
 	}
 
-	system := resolve.UnknownSystem
-	if options.Manifest != "" {
-		rw, err := manifest.GetReadWriter(options.Manifest, cmd.String("maven-registry"))
-		if err != nil {
-			return err
-		}
-		options.ManifestRW = rw
-		system = rw.System()
+	// MavenClient is required for Maven projects
+	mc, err := datasource.NewMavenRegistryAPIClient(ctx, datasource.MavenRegistry{
+		URL:             cmd.String("maven-registry"),
+		ReleasesEnabled: true,
+	}, "", false)
+	if err != nil {
+		return err
 	}
+	opts.MavenClient = mc
 
-	var err error
+	userAgent := "osv-scanner_update/" + version.OSVVersion
 	switch cmd.String("data-source") {
 	case "deps.dev":
-		options.Client, err = client.NewDepsDevClient(depsdev.DepsdevAPI, "osv-scanner_update/"+version.OSVVersion)
+		cl, err := resolution.NewDepsDevClient(depsdev.DepsdevAPI, userAgent)
 		if err != nil {
 			return err
 		}
+		opts.ResolveClient = cl
 	case "native":
-		switch system {
-		case resolve.Maven:
-			options.Client, err = client.NewMavenRegistryClient(cmd.String("maven-registry"))
-			if err != nil {
-				return err
-			}
-		case resolve.NPM, resolve.UnknownSystem:
-			fallthrough
-		default:
-			return fmt.Errorf("native data-source currently unsupported for %s ecosystem", system.String())
+		cl, err := resolution.NewCombinedNativeClient(resolution.CombinedNativeClientOptions{
+			ProjectDir:  filepath.Dir(opts.Manifest),
+			MavenClient: mc,
+		})
+		if err != nil {
+			return err
 		}
+		opts.ResolveClient = cl
 	}
 
-	df, err := depfile.OpenLocalDepFile(options.Manifest)
-	if err != nil {
-		return err
-	}
-	mf, err := options.ManifestRW.Read(df)
-	df.Close() // Close the dep file and we may re-open it for writing
-	if err != nil {
-		return err
-	}
+	_, err = guidedremediation.Update(opts)
 
-	suggester, err := suggest.GetSuggester(mf.System())
-	if err != nil {
-		return err
-	}
-	patch, err := suggester.Suggest(ctx, options.Client, mf, suggest.Options{
-		IgnoreDev:     options.IgnoreDev,
-		UpgradeConfig: options.UpgradeConfig,
-	})
-	if err != nil {
-		return err
-	}
-
-	return manifest.Overwrite(options.ManifestRW, options.Manifest, patch)
+	return err
 }

@@ -60,10 +60,11 @@ func TestPrintSARIFReport_WithVulnerabilities(t *testing.T) {
 
 		jsonStructure := buildJSONSarifReport(t, args.vulnResult)
 
+		//nolint:gosec
 		testutility.NewSnapshot().WithWindowsReplacements(
 			map[string]string{
-				strings.ReplaceAll(cwd, "\\", "\\\\"): strings.ReplaceAll(cwd, "\\", "/"),
-
+				strings.ReplaceAll(cwd, "\\", "\\\\"):                strings.ReplaceAll(cwd, "\\", "/"),
+				"pwn\\\\osv-scanner.toml":                            "pwn/osv-scanner.toml",
 				"\\\\path\\\\to\\\\my\\\\first\\\\osv-scanner.toml":  "/path/to/my/first/osv-scanner.toml",
 				"\\\\path\\\\to\\\\my\\\\second\\\\osv-scanner.toml": "/path/to/my/second/osv-scanner.toml",
 				"\\\\path\\\\to\\\\my\\\\third\\\\osv-scanner.toml":  "/path/to/my/third/osv-scanner.toml",

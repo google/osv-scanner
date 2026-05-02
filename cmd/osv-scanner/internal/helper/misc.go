@@ -49,8 +49,8 @@ func PrintResult(stdout, stderr io.Writer, outputPath, format string, diffVulns 
 		}
 	} else { // Output might be a terminal
 		if stdoutAsFile, ok := stdout.(*os.File); ok {
-			termWidth, _, err = term.GetSize(int(stdoutAsFile.Fd()))
-			if err != nil { // If output is not a terminal,
+			termWidth, _, err = term.GetSize(int(stdoutAsFile.Fd())) //nolint:gosec // Fd() is safe to convert to int
+			if err != nil {                                          // If output is not a terminal,
 				termWidth = 0
 			}
 		}
