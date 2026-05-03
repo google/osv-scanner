@@ -7,7 +7,50 @@ import (
 	"github.com/google/osv-scanner/v2/internal/config"
 	"github.com/google/osv-scanner/v2/internal/testutility"
 	"github.com/google/osv-scanner/v2/pkg/models"
+	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
+
+func Test_filterPackageVulns_orphanVulnKeptWhenAllGroupsIgnored(t *testing.T) {
+	t.Parallel()
+
+	// CVE-2023-1234 belongs to a group that is ignored by config.
+	// CVE-2024-5678 is an orphan: it exists in Vulnerabilities but has no
+	// corresponding group entry. Before the fix, the guard
+	// `if len(newGroups) > 0` prevented the vuln loop from running when all
+	// groups were filtered, so CVE-2024-5678 was silently dropped.
+	pkgVulns := models.PackageVulns{
+		Groups: []models.GroupInfo{
+			{
+				IDs:     []string{"CVE-2023-1234"},
+				Aliases: []string{"CVE-2023-1234", "GHSA-abcd-1234-efgh"},
+			},
+		},
+		Vulnerabilities: []*osvschema.Vulnerability{
+			{Id: "CVE-2023-1234"},
+			{Id: "CVE-2024-5678"},
+		},
+	}
+
+	cfg := config.Config{
+		IgnoredVulns: []*config.IgnoreEntry{
+			{ID: "CVE-2023-1234", Reason: "test ignore"},
+		},
+	}
+
+	got := filterPackageVulns(pkgVulns, cfg)
+
+	if len(got.Groups) != 0 {
+		t.Errorf("Groups after filter = %d, want 0", len(got.Groups))
+	}
+
+	if len(got.Vulnerabilities) != 1 {
+		t.Errorf("Vulnerabilities after filter = %d, want 1", len(got.Vulnerabilities))
+	}
+
+	if len(got.Vulnerabilities) == 1 && got.Vulnerabilities[0].GetId() != "CVE-2024-5678" {
+		t.Errorf("kept vuln = %q, want %q", got.Vulnerabilities[0].GetId(), "CVE-2024-5678")
+	}
+}
 
 func Test_filterResults(t *testing.T) {
 	t.Parallel()
