@@ -172,11 +172,9 @@ func filterPackageVulns(pkgVulns models.PackageVulns, configToUse config.Config)
 	}
 
 	var newVulns []*osvschema.Vulnerability
-	if len(newGroups) > 0 { // If there are no groups left then there would be no vulnerabilities.
-		for _, vuln := range pkgVulns.Vulnerabilities {
-			if _, filtered := ignoredVulns[vuln.GetId()]; !filtered {
-				newVulns = append(newVulns, vuln)
-			}
+	for _, vuln := range pkgVulns.Vulnerabilities {
+		if _, filtered := ignoredVulns[vuln.GetId()]; !filtered {
+			newVulns = append(newVulns, vuln)
 		}
 	}
 
