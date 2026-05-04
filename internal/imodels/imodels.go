@@ -72,7 +72,7 @@ func Name(pkg *extractor.Package) string {
 		return "stdlib"
 	}
 
-	// TODO: Move the normalization to another where matching logic happens.
+	// TODO: Move the normalization to another place where matching logic happens.
 	// Patch python package names to be normalized
 	if Ecosystem(pkg).Ecosystem == osvconstants.EcosystemPyPI {
 		// per https://peps.python.org/pep-0503/#normalized-names
