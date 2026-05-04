@@ -5,8 +5,8 @@ go 1.26.2
 require (
 	charm.land/glamour/v2 v2.0.0
 	charm.land/lipgloss/v2 v2.0.3
-	deps.dev/api/v3 v3.0.0-20260225225317-765e10b45d5b
-	deps.dev/api/v3alpha v0.0.0-20260225225317-765e10b45d5b
+	deps.dev/api/v3 v3.0.0-20260422013440-90c27f84dd6f
+	deps.dev/api/v3alpha v0.0.0-20260422013440-90c27f84dd6f
 	github.com/BurntSushi/toml v1.6.0
 	github.com/CycloneDX/cyclonedx-go v0.10.0
 	github.com/gkampitakis/go-snaps v0.5.21
@@ -15,12 +15,12 @@ require (
 	github.com/google/go-cmp v0.7.0
 	github.com/google/osv-scalibr v0.4.6-0.20260501042545-8b847a65a547
 	github.com/ianlancetaylor/demangle v0.0.0-20251118225945-96ee0021ea0f
-	github.com/jedib0t/go-pretty/v6 v6.7.9
+	github.com/jedib0t/go-pretty/v6 v6.7.10
 	github.com/modelcontextprotocol/go-sdk v1.5.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/ossf/osv-schema/bindings/go v0.0.0-20260304051245-ec3272c283e4
+	github.com/ossf/osv-schema/bindings/go v0.0.0-20260424063704-83285ce2a866
 	github.com/owenrumney/go-sarif/v3 v3.3.0
-	github.com/package-url/packageurl-go v0.1.5
+	github.com/package-url/packageurl-go v0.1.6
 	github.com/pandatix/go-cvss v0.6.2
 	github.com/tidwall/gjson v1.18.0
 	github.com/tidwall/pretty v1.2.1
@@ -241,4 +241,4 @@ require (
 // github.com/containerd/containerd v1.7.x is incompatible with runtime-spec v1.3.0.
 // https://github.com/google/osv-scanner/pull/2705#issuecomment-4212012410
 // So this needs to be kept at v1.2.1
-replace github.com/opencontainers/runtime-spec => github.com/opencontainers/runtime-spec v1.2.1
+replace github.com/opencontainers/runtime-spec => github.com/opencontainers/runtime-spec v1.3.0
