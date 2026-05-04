@@ -56,7 +56,7 @@ func createDeprecationTable(source models.PackageSource) (table.Writer, bool) {
 	return deprecationTable, hasRow
 }
 
-// PrintGHAnnotationReport prints Github specific annotations to outputWriter
+// PrintGHAnnotationReport prints GitHub specific annotations to outputWriter
 func PrintGHAnnotationReport(vulnResult *models.VulnerabilityResults, outputWriter io.Writer) error {
 	flattened := vulnResult.Flatten()
 

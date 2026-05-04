@@ -174,7 +174,7 @@ Please follow these steps to successfully contribute documentation.
 3. Preview the changes by spinning up a GitHub page for your fork, building from your working branch.
    <!-- markdown-link-check-disable-next-line -->
    - On your fork, go to the settings tab and then the GitHub page settings. Sample URL: https://github.com/{your-github-profile}/osv-scanner/settings/pages
-   - Under "Build and deployment" select "Github Actions"
+   - Under "Build and deployment" select "GitHub Actions"
    - Add your working branch to the on push branches (line 5) in the "docs-deploy.yml" file, this can be found in the ".github/workflows" directory
    - Push your commit and wait for the pages to build
    - Once it is ready, click the link and preview the docs

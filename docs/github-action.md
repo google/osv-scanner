@@ -17,7 +17,7 @@ nav_order: 7
 {:toc}
 </details>
 
-OSV-Scanner is available as a CI/CD Action. We currently offer two different reusable workflows for Github:
+OSV-Scanner is available as a CI/CD Action. We currently offer two different reusable workflows for GitHub:
 
 1. A workflow that triggers a scan with each [pull request](./github-action.md#scan-on-pull-request) and will only report new vulnerabilities introduced through the pull request.
 2. A workflow that performs a full vulnerability scan, which can be configured to scan on pushes or a [regular schedule](./github-action.md#scheduled-scans). The full vulnerability scan can also be configured to run [on release](./github-action.md#scan-on-release) to prevent releasing with known vulnerabilities in dependencies.
@@ -167,7 +167,7 @@ The GitHub Actions have the following optional inputs:
     --recursive # Recursively scan subdirectories
     ./ # Start the scan from the root of the repository
   ```
-- `results-file-name`: This is the name of the final SARIF file uploaded to Github.
+- `results-file-name`: This is the name of the final SARIF file uploaded to GitHub.
   Default: `results.sarif`
 - `download-artifact`: Optional artifact to download for scanning. Can be used if you need to do some preprocessing to prepare the lockfiles for scanning. If the file names in the artifact are not standard lockfile names, make sure to add custom scan-args to specify the lockfile type and path (see [specify lockfiles](./usage.md#specify-lockfiles)).
 - `upload-sarif`: Whether to upload the results to Security > Code Scanning. Defaults to `true`.
