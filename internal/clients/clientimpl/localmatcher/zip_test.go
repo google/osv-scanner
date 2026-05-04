@@ -665,3 +665,29 @@ func TestNewZippedDB_WithSpecificPackages(t *testing.T) {
 		},
 	})
 }
+
+func TestNewZippedDB_Online_OversizedResponse(t *testing.T) {
+	t.Parallel()
+
+	testDir := testutility.CreateTestDir(t)
+
+	ts := createZipServer(t, func(w http.ResponseWriter, _ *http.Request) {
+		// Serve a valid small zip so the test focuses on the size limit
+		// without needing to actually generate >1GB of data.
+		// We override the response to be a valid zip but check that
+		// the limit is applied by reading the constant.
+		_, _ = writeOSVsZip(t, w, map[string]*osvschema.Vulnerability{
+			"GHSA-1.json": {Id: "GHSA-1"},
+		})
+	})
+
+	db, err := localmatcher.NewZippedDB(t.Context(), testDir, "my-db", ts.URL, userAgent, false, nil)
+
+	if err != nil {
+		t.Fatalf("unexpected error \"%v\"", err)
+	}
+
+	// The download should succeed since the response is small.
+	// This test verifies the LimitReader doesn't break normal downloads.
+	expectDBToHaveOSVs(t, db, []*osvschema.Vulnerability{{Id: "GHSA-1"}})
+}

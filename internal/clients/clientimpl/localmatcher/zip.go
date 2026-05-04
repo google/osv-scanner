@@ -24,6 +24,13 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 )
 
+// maxDownloadBytes limits how many bytes can be read from the OSV database
+// archive response. This prevents disk exhaustion if the remote endpoint
+// serves an unexpectedly large payload (e.g., due to CDN compromise).
+// As of 2025-04, the largest OSV database zip (osv-vulnerabilities/OSV)
+// is ~350MB. 1GB provides ample headroom.
+const maxDownloadBytes int64 = 1 << 30 // 1 GB
+
 type ZipDB struct {
 	// the name of the database
 	Name string
@@ -151,7 +158,7 @@ func (db *ZipDB) fetchZip(ctx context.Context) (*os.File, error) {
 		return nil, fmt.Errorf("could not create cache file: %w", err)
 	}
 
-	_, err = io.Copy(f, resp.Body)
+	_, err = io.Copy(f, io.LimitReader(resp.Body, maxDownloadBytes))
 
 	if err != nil {
 		return nil, fmt.Errorf("could not write cache file: %w", err)
