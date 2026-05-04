@@ -444,7 +444,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 71 known vulnerabilities (6 Critical, 18 High, 37 Medium, 5 Low, 5 Unknown) from 1 ecosystem.
+Total 25 packages affected by 83 known vulnerabilities (5 Critical, 21 High, 39 Medium, 5 Low, 13 Unknown) from 1 ecosystem.
 27 vulnerabilities can be fixed.
 
 
@@ -459,7 +459,7 @@ Ubuntu:22.04
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |         11 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |         15 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          4 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          3 | libgcrypt20             | # 4 Layer        | ubuntu        |
@@ -496,7 +496,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 71 known vulnerabilities (6 Critical, 18 High, 37 Medium, 5 Low, 5 Unknown) from 1 ecosystem.
+Total 25 packages affected by 83 known vulnerabilities (5 Critical, 21 High, 39 Medium, 5 Low, 13 Unknown) from 1 ecosystem.
 27 vulnerabilities can be fixed.
 
 
@@ -511,7 +511,7 @@ Ubuntu:22.04
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |         11 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |         15 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          4 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          3 | libgcrypt20             | # 4 Layer        | ubuntu        |
@@ -567,7 +567,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 71 known vulnerabilities (6 Critical, 18 High, 37 Medium, 5 Low, 5 Unknown) from 1 ecosystem.
+Total 25 packages affected by 83 known vulnerabilities (5 Critical, 21 High, 39 Medium, 5 Low, 13 Unknown) from 1 ecosystem.
 27 vulnerabilities can be fixed.
 
 
@@ -582,7 +582,7 @@ Ubuntu:22.04
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |         11 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |         15 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          4 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          3 | libgcrypt20             | # 4 Layer        | ubuntu        |
@@ -3435,7 +3435,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 3,
+          "groups": 15,
           "vulnerabilities": [
             "USN-7635-1",
             "USN-8043-1",
@@ -3446,7 +3446,19 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2025-32989",
             "UBUNTU-CVE-2025-32990",
             "UBUNTU-CVE-2025-6395",
-            "UBUNTU-CVE-2025-9820"
+            "UBUNTU-CVE-2025-9820",
+            "UBUNTU-CVE-2026-33845",
+            "UBUNTU-CVE-2026-33846",
+            "UBUNTU-CVE-2026-3833",
+            "UBUNTU-CVE-2026-42009",
+            "UBUNTU-CVE-2026-42010",
+            "UBUNTU-CVE-2026-42011",
+            "UBUNTU-CVE-2026-42012",
+            "UBUNTU-CVE-2026-42013",
+            "UBUNTU-CVE-2026-42014",
+            "UBUNTU-CVE-2026-42015",
+            "UBUNTU-CVE-2026-5260",
+            "UBUNTU-CVE-2026-5419"
           ]
         },
         {
@@ -4506,7 +4518,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 3,
+          "groups": 15,
           "vulnerabilities": [
             "USN-7635-1",
             "USN-8043-1",
@@ -4517,7 +4529,19 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2025-32989",
             "UBUNTU-CVE-2025-32990",
             "UBUNTU-CVE-2025-6395",
-            "UBUNTU-CVE-2025-9820"
+            "UBUNTU-CVE-2025-9820",
+            "UBUNTU-CVE-2026-33845",
+            "UBUNTU-CVE-2026-33846",
+            "UBUNTU-CVE-2026-3833",
+            "UBUNTU-CVE-2026-42009",
+            "UBUNTU-CVE-2026-42010",
+            "UBUNTU-CVE-2026-42011",
+            "UBUNTU-CVE-2026-42012",
+            "UBUNTU-CVE-2026-42013",
+            "UBUNTU-CVE-2026-42014",
+            "UBUNTU-CVE-2026-42015",
+            "UBUNTU-CVE-2026-5260",
+            "UBUNTU-CVE-2026-5419"
           ]
         },
         {
