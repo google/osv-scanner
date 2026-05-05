@@ -445,7 +445,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 25 packages affected by 71 known vulnerabilities (5 Critical, 20 High, 38 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
-27 vulnerabilities can be fixed.
+28 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -471,7 +471,7 @@ Ubuntu:22.04
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          2 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |          3 | perl-base               | # 4 Layer        | ubuntu        |
-| sed            | 4.8-1ubuntu2                 | No fix available        |          1 | sed                     | # 4 Layer        | ubuntu        |
+| sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          9 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
@@ -497,7 +497,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 25 packages affected by 71 known vulnerabilities (5 Critical, 20 High, 38 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
-27 vulnerabilities can be fixed.
+28 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -523,7 +523,7 @@ Ubuntu:22.04
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          2 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |          3 | perl-base               | # 4 Layer        | ubuntu        |
-| sed            | 4.8-1ubuntu2                 | No fix available        |          1 | sed                     | # 4 Layer        | ubuntu        |
+| sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          9 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
@@ -568,7 +568,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
 Total 25 packages affected by 71 known vulnerabilities (5 Critical, 20 High, 38 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
-27 vulnerabilities can be fixed.
+28 vulnerabilities can be fixed.
 
 
 Ubuntu:22.04
@@ -594,7 +594,7 @@ Ubuntu:22.04
 | pam            | 1.4.0-11ubuntu2.5            | Partial fixes Available |          2 | libpam-modules... (4)   | # 4 Layer        | ubuntu        |
 | pcre2          | 10.39-3ubuntu0.1             | No fix available        |          1 | libpcre2-8-0            | # 4 Layer        | ubuntu        |
 | perl           | 5.34.0-3ubuntu1.3            | Partial fixes Available |          3 | perl-base               | # 4 Layer        | ubuntu        |
-| sed            | 4.8-1ubuntu2                 | No fix available        |          1 | sed                     | # 4 Layer        | ubuntu        |
+| sed            | 4.8-1ubuntu2                 | Fix Available           |          1 | sed                     | # 4 Layer        | ubuntu        |
 | shadow         | 1:4.8.1-2ubuntu2.2           | No fix available        |          2 | login, passwd           | # 4 Layer        | ubuntu        |
 | systemd        | 249.11-0ubuntu3.12           | Partial fixes Available |          9 | libsystemd0... (2)      | # 4 Layer        | ubuntu        |
 | tar            | 1.34+dfsg-1ubuntu0.1.22.04.2 | No fix available        |          2 | tar                     | # 4 Layer        | ubuntu        |
@@ -619,7 +619,7 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 26 packages affected by 94 known vulnerabilities (4 Critical, 43 High, 41 Medium, 5 Low, 1 Unknown) from 2 ecosystems.
+Total 26 packages affected by 94 known vulnerabilities (5 Critical, 42 High, 41 Medium, 5 Low, 1 Unknown) from 2 ecosystems.
 94 vulnerabilities can be fixed.
 
 
