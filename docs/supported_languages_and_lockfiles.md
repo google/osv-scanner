@@ -33,6 +33,7 @@ When scanning container images (`osv-scanner scan image ...`), OSV-Scanner autom
 | ------------------------------------ | ---------------------------------- |
 | Alpine APK packages                  | `/lib/apk/db/installed`            |
 | Debian/Ubuntu dpkg/apt packages      | `/var/lib/dpkg/status`             |
+| Ubuntu chiseled packages             | `/var/lib/chisel/manifest.wall`    |
 |                                      |                                    |
 | Go Binaries                          | `main-go`                          |
 | Rust Binaries (with cargo-auditable) | `main-rust-built-with-auditable`   |
