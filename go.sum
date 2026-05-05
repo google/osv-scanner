@@ -77,6 +77,8 @@ github.com/bazelbuild/buildtools v0.0.0-20250826111327-4006b543a694 h1:LiKs9FsSf
 github.com/bazelbuild/buildtools v0.0.0-20250826111327-4006b543a694/go.mod h1:PLNUetjLa77TCCziPsz0EI8a6CUxgC+1jgmWv0H25tg=
 github.com/bradleyjkemp/cupaloy/v2 v2.8.0 h1:any4BmKE+jGIaMpnU8YgH/I2LPiLBufr6oMMlVBbn9M=
 github.com/bradleyjkemp/cupaloy/v2 v2.8.0/go.mod h1:bm7JXdkRd4BHJk9HpwqAI8BoAY1lps46Enkdqw6aRX0=
+github.com/canonical/chisel-manifest v1.2.0 h1:kFB9fBP33CvH+RLbTYLuKtFFICpq2JmH4xtYvBqpj3I=
+github.com/canonical/chisel-manifest v1.2.0/go.mod h1:dWUCpU2uSJFbC+p3wEAjZ8uvQdjnHzenJQ1EszkKG4U=
 github.com/cenkalti/backoff/v5 v5.0.3 h1:ZN+IMa753KfX5hd8vVaMixjnqRZ3y8CuJKRKj1xcsSM=
 github.com/cenkalti/backoff/v5 v5.0.3/go.mod h1:rkhZdG3JZukswDf7f0cwqPNk4K0sa+F97BxZthm/crw=
 github.com/census-instrumentation/opencensus-proto v0.2.1/go.mod h1:f6KPmirojxKA12rnyqOA5BBL4O983OfeGPqjHWSTneU=
@@ -271,8 +273,8 @@ github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932 h1:5/4TSDzpDnHQ8rKEE
 github.com/google/go-cpy v0.0.0-20211218193943-a9c933c06932/go.mod h1:cC6EdPbj/17GFCPDK39NRarlMI+kt+O60S12cNB5J9Y=
 github.com/google/jsonschema-go v0.4.2 h1:tmrUohrwoLZZS/P3x7ex0WAVknEkBZM46iALbcqoRA8=
 github.com/google/jsonschema-go v0.4.2/go.mod h1:r5quNTdLOYEz95Ru18zA0ydNbBuYoo9tgaYcxEYhJVE=
-github.com/google/osv-scalibr v0.4.6-0.20260504042738-9293bfa4f86f h1:O5Yj0pu6bi5rWMh/yCqSWsCSpOZ5lR9nDpdsDuvZ7p4=
-github.com/google/osv-scalibr v0.4.6-0.20260504042738-9293bfa4f86f/go.mod h1:IYS9akeCLN2b0PjclYosQ7Gn68LXt6rLjRnh9WsJFpE=
+github.com/google/osv-scalibr v0.4.6-0.20260505000029-f381f2ced35a h1:mEoC9GuDGQ7EHwNxirydGrNqfIkx0z35MZ343Unu3wg=
+github.com/google/osv-scalibr v0.4.6-0.20260505000029-f381f2ced35a/go.mod h1:IYS9akeCLN2b0PjclYosQ7Gn68LXt6rLjRnh9WsJFpE=
 github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6 h1:EEHtgt9IwisQ2AZ4pIsMjahcegHh6rmhqxzIRQIyepY=
 github.com/google/pprof v0.0.0-20250820193118-f64d9cf942d6/go.mod h1:I6V7YzU0XDpsHqbsyrghnFZLO1gwK6NPTNvmetQIk9U=
 github.com/google/uuid v1.1.2/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=

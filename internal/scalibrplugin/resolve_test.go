@@ -29,6 +29,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
 	chromeextensions "github.com/google/osv-scalibr/extractor/filesystem/misc/chrome/extensions"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/chisel"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
@@ -518,6 +519,7 @@ func TestResolve_Extractors(t *testing.T) {
 				baseimage.Name,
 				cargoauditable.Name,
 				dpkg.Name,
+				chisel.Name,
 				homebrew.Name,
 				gobinary.Name,
 				nodemodules.Name,
@@ -539,6 +541,7 @@ func TestResolve_Extractors(t *testing.T) {
 				baseimage.Name,
 				cargoauditable.Name,
 				dpkg.Name,
+				chisel.Name,
 				homebrew.Name,
 				gobinary.Name,
 				nodemodules.Name,
@@ -566,6 +569,7 @@ func TestResolve_Extractors(t *testing.T) {
 				apk.Name,
 				baseimage.Name,
 				dpkg.Name,
+				chisel.Name,
 				gobinary.Name,
 				homebrew.Name,
 				nodemodules.Name,
@@ -587,6 +591,7 @@ func TestResolve_Extractors(t *testing.T) {
 				baseimage.Name,
 				cargoauditable.Name,
 				dpkg.Name,
+				chisel.Name,
 				homebrew.Name,
 				gitrepo.Name,
 				gobinary.Name,

@@ -46,6 +46,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	extractors "github.com/google/osv-scalibr/extractor/filesystem/list"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/chisel"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
@@ -153,6 +154,8 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		apk.Name: {apk.New},
 		// Debian
 		dpkg.Name: {dpkg.New},
+		// Chisel
+		chisel.Name: {chisel.New},
 		// Homebrew
 		homebrew.Name: {homebrew.New},
 	},
