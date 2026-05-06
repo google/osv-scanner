@@ -225,7 +225,7 @@ SBOMLoop:
 		AllowUnsafePlugins: true,
 	}
 
-	if actions.CompareOffline {
+	if actions.DisableNetwork {
 		capabilities.Network = plugin.NetworkOffline
 	}
 

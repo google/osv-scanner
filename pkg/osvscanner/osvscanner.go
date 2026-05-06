@@ -54,6 +54,7 @@ type ScannerActions struct {
 
 	// local databases
 	CompareOffline    bool
+	DisableNetwork    bool
 	DownloadDatabases bool
 	LocalDBPath       string
 
@@ -309,7 +310,7 @@ func DoContainerScan(actions ScannerActions) (models.VulnerabilityResults, error
 		AllowUnsafePlugins: true,
 	}
 
-	if actions.CompareOffline {
+	if actions.DisableNetwork {
 		capabilities.Network = plugin.NetworkOffline
 	}
 
