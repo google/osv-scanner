@@ -5260,16 +5260,16 @@ unsupported strategy "force" - must be one of: in-place, relax, override
 
 [TestCommand/fix_non-interactive_in-place_package-lock.json - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 16 vulnerabilities matching the filter
-Can fix 8/16 matching vulnerabilities by changing 5 dependencies
+Found 15 vulnerabilities matching the filter
+Can fix 8/15 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.14
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
 FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
-REMAINING-VULNS: 8
-UNFIXABLE-VULNS: 8
+REMAINING-VULNS: 7
+UNFIXABLE-VULNS: 7
 
 ---
 
@@ -7148,16 +7148,6 @@ UNFIXABLE-VULNS: 8
           "version": "1.1.11"
         }
       ]
-    },
-    {
-      "id": "GHSA-w5hq-g745-h8pq",
-      "packages": [
-        {
-          "name": "uuid",
-          "version": "3.4.0"
-        }
-      ],
-      "unactionable": true
     }
   ],
   "patches": [
@@ -9447,16 +9437,6 @@ Guided remediation (the fix command) can be risky when run on untrusted projects
         }
       ],
       "unactionable": true
-    },
-    {
-      "id": "GHSA-w5hq-g745-h8pq",
-      "packages": [
-        {
-          "name": "uuid",
-          "version": "3.4.0"
-        }
-      ],
-      "unactionable": true
     }
   ],
   "patches": [
@@ -9595,12 +9575,12 @@ UNFIXABLE-VULNS: 0
 
 [TestCommand/fix_non-interactive_relax_package.json - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 8 vulnerabilities matching the filter
-Can fix 3/8 matching vulnerabilities by changing 1 dependencies
+Found 7 vulnerabilities matching the filter
+Can fix 3/7 matching vulnerabilities by changing 1 dependencies
 UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
 FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-c2qf-rxjj-qqgw,GHSA-c6rq-rjc2-86v2
-REMAINING-VULNS: 5
-UNFIXABLE-VULNS: 5
+REMAINING-VULNS: 4
+UNFIXABLE-VULNS: 4
 
 ---
 
@@ -9628,16 +9608,16 @@ UNFIXABLE-VULNS: 5
 
 [TestCommand/fix_non_interactive_in_place_package_lock_json_with_native_data_source - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 16 vulnerabilities matching the filter
-Can fix 8/16 matching vulnerabilities by changing 5 dependencies
+Found 15 vulnerabilities matching the filter
+Can fix 8/15 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.14
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
 FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
-REMAINING-VULNS: 8
-UNFIXABLE-VULNS: 8
+REMAINING-VULNS: 7
+UNFIXABLE-VULNS: 7
 
 ---
 
@@ -11447,16 +11427,16 @@ manifest or lockfile is required
 
 [TestCommand_OfflineDatabase/fix_non_interactive_in_place_package_lock_json_with_offline_vulns - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 16 vulnerabilities matching the filter
-Can fix 8/16 matching vulnerabilities by changing 5 dependencies
+Found 15 vulnerabilities matching the filter
+Can fix 8/15 matching vulnerabilities by changing 5 dependencies
 UPGRADED-PACKAGE: minimatch,3.1.2,3.1.5
 UPGRADED-PACKAGE: brace-expansion,1.1.11,1.1.14
 UPGRADED-PACKAGE: ajv,6.12.6,6.15.0
 UPGRADED-PACKAGE: concat-stream,1.5.0,1.6.1
 UPGRADED-PACKAGE: hosted-git-info,2.1.4,2.8.9
 FIXED-VULN-IDS: GHSA-23c5-xmqv-rm74,GHSA-2g4f-4pwh-qvx6,GHSA-3ppc-4f35-3m26,GHSA-43f8-2h32-f4cj,GHSA-7r86-cg39-jmmj,GHSA-f886-m6hf-6m8v,GHSA-g74r-ffvr-5q9f,GHSA-v6h2-p8h4-qcjw
-REMAINING-VULNS: 8
-UNFIXABLE-VULNS: 8
+REMAINING-VULNS: 7
+UNFIXABLE-VULNS: 7
 
 ---
 
@@ -13190,12 +13170,12 @@ UNFIXABLE-VULNS: 8
 
 [TestCommand_OfflineDatabase/fix_non_interactive_relax_package_json_with_offline_vulns - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-Found 8 vulnerabilities matching the filter
-Can fix 3/8 matching vulnerabilities by changing 1 dependencies
+Found 7 vulnerabilities matching the filter
+Can fix 3/7 matching vulnerabilities by changing 1 dependencies
 UPGRADED-PACKAGE: npm-registry-client,6.2.0,^7.5.0
 FIXED-VULN-IDS: GHSA-43f8-2h32-f4cj,GHSA-c2qf-rxjj-qqgw,GHSA-c6rq-rjc2-86v2
-REMAINING-VULNS: 5
-UNFIXABLE-VULNS: 5
+REMAINING-VULNS: 4
+UNFIXABLE-VULNS: 4
 
 ---
 
