@@ -1,3 +1,13 @@
+# v2.3.7
+
+### Fixes:
+
+- Fix installation issues with `go install` due to dependency conflicts (downgrade `containerd/cgroups/v3`, `moby/buildkit` and `opencontainers/runtime-spec`).
+
+### Misc:
+
+- Update osv-scalibr to `v0.4.6-0.20260504042738-9293bfa4f86f`.
+
 # v2.3.6
 
 ### Features:

@@ -444,7 +444,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 71 known vulnerabilities (5 Critical, 20 High, 38 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+Total 25 packages affected by 84 known vulnerabilities (5 Critical, 21 High, 39 Medium, 6 Low, 13 Unknown) from 1 ecosystem.
 28 vulnerabilities can be fixed.
 
 
@@ -459,7 +459,7 @@ Ubuntu:22.04
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |         11 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |         16 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          4 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          3 | libgcrypt20             | # 4 Layer        | ubuntu        |
@@ -496,7 +496,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 71 known vulnerabilities (5 Critical, 20 High, 38 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+Total 25 packages affected by 84 known vulnerabilities (5 Critical, 21 High, 39 Medium, 6 Low, 13 Unknown) from 1 ecosystem.
 28 vulnerabilities can be fixed.
 
 
@@ -511,7 +511,7 @@ Ubuntu:22.04
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |         11 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |         16 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          4 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          3 | libgcrypt20             | # 4 Layer        | ubuntu        |
@@ -567,7 +567,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 71 known vulnerabilities (5 Critical, 20 High, 38 Medium, 5 Low, 3 Unknown) from 1 ecosystem.
+Total 25 packages affected by 84 known vulnerabilities (5 Critical, 21 High, 39 Medium, 6 Low, 13 Unknown) from 1 ecosystem.
 28 vulnerabilities can be fixed.
 
 
@@ -582,7 +582,7 @@ Ubuntu:22.04
 | gcc-12         | 12.3.0-1ubuntu1~22.04        | Partial fixes Available |          2 | gcc-12-base... (3)      | # 4 Layer        | ubuntu        |
 | glibc          | 2.35-0ubuntu3.8              | Partial fixes Available |         11 | libc-bin, libc6         | # 4 Layer        | ubuntu        |
 | gnupg2         | 2.2.27-3ubuntu2.1            | Partial fixes Available |          4 | gpgv                    | # 4 Layer        | ubuntu        |
-| gnutls28       | 3.7.3-4ubuntu1.5             | Fix Available           |          3 | libgnutls30             | # 4 Layer        | ubuntu        |
+| gnutls28       | 3.7.3-4ubuntu1.5             | Partial fixes Available |         16 | libgnutls30             | # 4 Layer        | ubuntu        |
 | krb5           | 1.19.2-2ubuntu0.4            | Partial fixes Available |          4 | libgssapi-krb5-2... (4) | # 4 Layer        | ubuntu        |
 | libcap2        | 1:2.44-1ubuntu0.22.04.1      | Fix Available           |          2 | libcap2                 | # 4 Layer        | ubuntu        |
 | libgcrypt20    | 1.9.4-3ubuntu3               | No fix available        |          3 | libgcrypt20             | # 4 Layer        | ubuntu        |
@@ -619,8 +619,8 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 26 packages affected by 94 known vulnerabilities (5 Critical, 42 High, 41 Medium, 5 Low, 1 Unknown) from 2 ecosystems.
-94 vulnerabilities can be fixed.
+Total 26 packages affected by 96 known vulnerabilities (5 Critical, 43 High, 42 Medium, 5 Low, 1 Unknown) from 2 ecosystems.
+96 vulnerabilities can be fixed.
 
 
 Maven
@@ -635,7 +635,7 @@ Maven
 | commons-beanutils:commons-beanutils       | 1.9.4             | Fix Available |          1 | # 12 Layer       | --            |
 | dnsjava:dnsjava                           | 3.4.0             | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-codec                      | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
-| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          4 | # 12 Layer       | --            |
+| io.netty:netty-codec-http                 | 4.1.100.Final     | Fix Available |          5 | # 12 Layer       | --            |
 | io.netty:netty-codec-http2                | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
 | io.netty:netty-codec-smtp                 | 4.1.100.Final     | Fix Available |          1 | # 12 Layer       | --            |
 | io.netty:netty-common                     | 4.1.100.Final     | Fix Available |          2 | # 12 Layer       | --            |
@@ -655,7 +655,7 @@ Alpine:v3.21
 | busybox        | 1.37.0-r9         | Fix Available |          2 | busybox... (3)             | # 0 Layer        | alpine          |
 | expat          | 2.6.4-r0          | Fix Available |          7 | libexpat                   | # 5 Layer        | eclipse-temurin |
 | gnupg          | 2.4.7-r0          | Fix Available |          2 | gnupg... (11)              | # 5 Layer        | eclipse-temurin |
-| gnutls         | 3.8.8-r0          | Fix Available |         11 | gnutls                     | # 5 Layer        | eclipse-temurin |
+| gnutls         | 3.8.8-r0          | Fix Available |         12 | gnutls                     | # 5 Layer        | eclipse-temurin |
 | libpng         | 1.6.44-r0         | Fix Available |         11 | libpng                     | # 5 Layer        | eclipse-temurin |
 | libtasn1       | 4.19.0-r2         | Fix Available |          2 | libtasn1                   | # 5 Layer        | eclipse-temurin |
 | musl           | 1.2.5-r8          | Fix Available |          3 | musl, musl-utils           | # 0 Layer        | alpine          |
@@ -678,8 +678,8 @@ Scanning local image tarball "./testdata/test-python-empty.tar"
 
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)) (Based on "python" image):
-Total 15 packages affected by 29 known vulnerabilities (0 Critical, 7 High, 6 Medium, 2 Low, 14 Unknown) from 2 ecosystems.
-27 vulnerabilities can be fixed.
+Total 15 packages affected by 31 known vulnerabilities (0 Critical, 7 High, 8 Medium, 2 Low, 14 Unknown) from 2 ecosystems.
+29 vulnerabilities can be fixed.
 
 
 PyPI
@@ -688,7 +688,7 @@ PyPI
 +---------+-------------------+-------------------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+-------------------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Partial fixes Available |          4 | # 7 Layer        | python        |
+| pip     | 23.0.1            | Partial fixes Available |          5 | # 7 Layer        | python        |
 +---------+-------------------+-------------------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
@@ -702,7 +702,7 @@ PyPI
 +---------+-------------------+-------------------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+-------------------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Partial fixes Available |          4 | # 13 Layer       | python        |
+| pip     | 23.0.1            | Partial fixes Available |          5 | # 13 Layer       | python        |
 +---------+-------------------+-------------------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/setuptools-58.1.0.dist-info/METADATA    |
@@ -750,8 +750,8 @@ Scanning local image tarball "./testdata/test-python-full.tar"
 
 
 Container Scanning Result (Debian GNU/Linux 10 (buster)) (Based on "python" image):
-Total 21 packages affected by 56 known vulnerabilities (1 Critical, 18 High, 19 Medium, 3 Low, 15 Unknown) from 2 ecosystems.
-54 vulnerabilities can be fixed.
+Total 21 packages affected by 58 known vulnerabilities (1 Critical, 18 High, 21 Medium, 3 Low, 15 Unknown) from 2 ecosystems.
+56 vulnerabilities can be fixed.
 
 
 PyPI
@@ -760,7 +760,7 @@ PyPI
 +---------+-------------------+-------------------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+-------------------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Partial fixes Available |          4 | # 7 Layer        | python        |
+| pip     | 23.0.1            | Partial fixes Available |          5 | # 7 Layer        | python        |
 +---------+-------------------+-------------------------+------------+------------------+---------------+
 +------------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/ensurepip/_bundled/setuptools-58.1.0-py3-none-any.whl |
@@ -795,7 +795,7 @@ PyPI
 +---------+-------------------+-------------------------+------------+------------------+---------------+
 | PACKAGE | INSTALLED VERSION | FIX AVAILABLE           | VULN COUNT | INTRODUCED LAYER | IN BASE IMAGE |
 +---------+-------------------+-------------------------+------------+------------------+---------------+
-| pip     | 23.0.1            | Partial fixes Available |          4 | # 13 Layer       | python        |
+| pip     | 23.0.1            | Partial fixes Available |          5 | # 13 Layer       | python        |
 +---------+-------------------+-------------------------+------------+------------------+---------------+
 +----------------------------------------------------------------------------------------------+
 | Source:artifact:/usr/local/lib/python3.9/site-packages/requests-2.20.0.dist-info/METADATA    |
@@ -1263,12 +1263,13 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
               "index": 7
             }
           },
-          "groups": 4,
+          "groups": 5,
           "vulnerabilities": [
             "PYSEC-2023-228",
             "GHSA-4xh5-x5gv-qwph",
             "GHSA-58qw-9mgm-455v",
             "GHSA-6vgw-5pg2-w6jp",
+            "GHSA-jp4c-xjxw-mgf9",
             "GHSA-mq26-g339-26xf"
           ]
         }
@@ -1395,12 +1396,13 @@ You can also view the full vulnerability list in your terminal with: `osv-scanne
               "index": 13
             }
           },
-          "groups": 4,
+          "groups": 5,
           "vulnerabilities": [
             "PYSEC-2023-228",
             "GHSA-4xh5-x5gv-qwph",
             "GHSA-58qw-9mgm-455v",
             "GHSA-6vgw-5pg2-w6jp",
+            "GHSA-jp4c-xjxw-mgf9",
             "GHSA-mq26-g339-26xf"
           ]
         }
@@ -3435,7 +3437,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
               "index": 4
             }
           },
-          "groups": 3,
+          "groups": 16,
           "vulnerabilities": [
             "USN-7635-1",
             "USN-8043-1",
@@ -3446,7 +3448,20 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
             "UBUNTU-CVE-2025-32989",
             "UBUNTU-CVE-2025-32990",
             "UBUNTU-CVE-2025-6395",
-            "UBUNTU-CVE-2025-9820"
+            "UBUNTU-CVE-2025-9820",
+            "UBUNTU-CVE-2026-33845",
+            "UBUNTU-CVE-2026-33846",
+            "UBUNTU-CVE-2026-3832",
+            "UBUNTU-CVE-2026-3833",
+            "UBUNTU-CVE-2026-42009",
+            "UBUNTU-CVE-2026-42010",
+            "UBUNTU-CVE-2026-42011",
+            "UBUNTU-CVE-2026-42012",
+            "UBUNTU-CVE-2026-42013",
+            "UBUNTU-CVE-2026-42014",
+            "UBUNTU-CVE-2026-42015",
+            "UBUNTU-CVE-2026-5260",
+            "UBUNTU-CVE-2026-5419"
           ]
         },
         {
@@ -4028,6 +4043,7 @@ Scanning local image tarball "./testdata/test-node_modules-npm-full.tar"
           },
           "groups": 1,
           "vulnerabilities": [
+            "USN-8229-1",
             "UBUNTU-CVE-2026-5958"
           ]
         },
@@ -4506,7 +4522,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
               "index": 4
             }
           },
-          "groups": 3,
+          "groups": 16,
           "vulnerabilities": [
             "USN-7635-1",
             "USN-8043-1",
@@ -4517,7 +4533,20 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
             "UBUNTU-CVE-2025-32989",
             "UBUNTU-CVE-2025-32990",
             "UBUNTU-CVE-2025-6395",
-            "UBUNTU-CVE-2025-9820"
+            "UBUNTU-CVE-2025-9820",
+            "UBUNTU-CVE-2026-33845",
+            "UBUNTU-CVE-2026-33846",
+            "UBUNTU-CVE-2026-3832",
+            "UBUNTU-CVE-2026-3833",
+            "UBUNTU-CVE-2026-42009",
+            "UBUNTU-CVE-2026-42010",
+            "UBUNTU-CVE-2026-42011",
+            "UBUNTU-CVE-2026-42012",
+            "UBUNTU-CVE-2026-42013",
+            "UBUNTU-CVE-2026-42014",
+            "UBUNTU-CVE-2026-42015",
+            "UBUNTU-CVE-2026-5260",
+            "UBUNTU-CVE-2026-5419"
           ]
         },
         {
@@ -5099,6 +5128,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
           },
           "groups": 1,
           "vulnerabilities": [
+            "USN-8229-1",
             "UBUNTU-CVE-2026-5958"
           ]
         },
