@@ -444,7 +444,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 84 known vulnerabilities (6 Critical, 20 High, 39 Medium, 6 Low, 13 Unknown) from 1 ecosystem.
+Total 25 packages affected by 84 known vulnerabilities (6 Critical, 21 High, 39 Medium, 6 Low, 12 Unknown) from 1 ecosystem.
 28 vulnerabilities can be fixed.
 
 
@@ -496,7 +496,7 @@ Scanning local image tarball "./testdata/test-ubuntu.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 84 known vulnerabilities (6 Critical, 20 High, 39 Medium, 6 Low, 13 Unknown) from 1 ecosystem.
+Total 25 packages affected by 84 known vulnerabilities (6 Critical, 21 High, 39 Medium, 6 Low, 12 Unknown) from 1 ecosystem.
 28 vulnerabilities can be fixed.
 
 
@@ -567,7 +567,7 @@ Scanning local image tarball "./testdata/test-ubuntu-with-packages.tar"
 
 
 Container Scanning Result (Ubuntu 22.04.5 LTS) (Based on "ubuntu" image):
-Total 25 packages affected by 84 known vulnerabilities (6 Critical, 20 High, 39 Medium, 6 Low, 13 Unknown) from 1 ecosystem.
+Total 25 packages affected by 84 known vulnerabilities (6 Critical, 21 High, 39 Medium, 6 Low, 12 Unknown) from 1 ecosystem.
 28 vulnerabilities can be fixed.
 
 
@@ -619,7 +619,7 @@ Scanning local image tarball "./testdata/test-java-full.tar"
 
 
 Container Scanning Result (Alpine Linux v3.21) (Based on "eclipse-temurin" image):
-Total 26 packages affected by 96 known vulnerabilities (5 Critical, 43 High, 42 Medium, 5 Low, 1 Unknown) from 2 ecosystems.
+Total 26 packages affected by 96 known vulnerabilities (5 Critical, 44 High, 41 Medium, 5 Low, 1 Unknown) from 2 ecosystems.
 96 vulnerabilities can be fixed.
 
 
