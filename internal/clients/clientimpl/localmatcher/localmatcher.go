@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scalibr/inventory/osvecosystem"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/utility/pathfilter"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -126,11 +127,12 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvconstan
 	}
 	defer dbRoot.Close()
 
+	safeEco := pathfilter.FilterPath(string(eco))
 	db, err := NewZippedDB(
 		ctx,
 		dbRoot,
-		string(eco),
-		fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, eco),
+		safeEco,
+		fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, safeEco),
 		matcher.userAgent,
 		!matcher.downloadDB,
 		invs,
