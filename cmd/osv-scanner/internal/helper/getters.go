@@ -43,6 +43,7 @@ func GetCommonScannerActions(cmd *cli.Command, scanLicensesAllowlist []string) o
 		CompareOffline:        cmd.Bool("offline-vulnerabilities"),
 		DownloadDatabases:     cmd.Bool("download-offline-databases"),
 		LocalDBPath:           cmd.String("local-db-path"),
+		PluginNetworkDisabled: cmd.Bool("offline"),
 		ScanLicensesSummary:   cmd.IsSet("licenses"),
 		ScanLicensesAllowlist: scanLicensesAllowlist,
 		CallAnalysisStates:    callAnalysisStates,
