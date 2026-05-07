@@ -1,3 +1,4 @@
+// Package pathfilter provides utilities for filtering and sanitizing file paths to prevent path traversal.
 package pathfilter
 
 import (

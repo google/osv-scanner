@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"os"
 	"os/exec"
@@ -165,7 +164,7 @@ func runGovulncheck(moddir string, vulns []*osvschema.Vulnerability, goVersion s
 		if err != nil {
 			return nil, err
 		}
-		if err := root.WriteFile(fmt.Sprintf("%s.json", pathfilter.FilterPath(vuln.GetId())), dat, 0600); err != nil {
+		if err := root.WriteFile(pathfilter.FilterPath(vuln.GetId())+".json", dat, 0600); err != nil {
 			return nil, err
 		}
 	}
