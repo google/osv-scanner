@@ -1349,6 +1349,11 @@ func TestCommand_Transitive(t *testing.T) {
 			Exit: 0,
 		},
 		{
+			Name: "pom.xml_offline_vulnerabilities_keeps_transitive",
+			Args: []string{"", "source", "--offline-vulnerabilities", "--download-offline-databases", "./testdata/maven-transitive/pom.xml"},
+			Exit: 1,
+		},
+		{
 			Name: "pom.xml_enricher_requires_extractor",
 			Args: []string{"", "source", "--experimental-disable-plugins=java/pomxml", "./testdata/maven-transitive/abc.xml"},
 			Exit: 128,
