@@ -153,12 +153,18 @@ func runGovulncheck(moddir string, vulns []*osvschema.Vulnerability, goVersion s
 		}
 	}()
 
+	root, err := os.OpenRoot(dbdir)
+	if err != nil {
+		return nil, err
+	}
+	defer root.Close()
+
 	for _, vuln := range vulns {
 		dat, err := protojson.Marshal(vuln)
 		if err != nil {
 			return nil, err
 		}
-		if err := os.WriteFile(fmt.Sprintf("%s/%s.json", dbdir, vuln.GetId()), dat, 0600); err != nil {
+		if err := root.WriteFile(fmt.Sprintf("%s.json", vuln.GetId()), dat, 0600); err != nil {
 			return nil, err
 		}
 	}

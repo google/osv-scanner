@@ -31,7 +31,7 @@ type ZipDB struct {
 	ArchiveURL string
 	// whether this database should make any network requests
 	Offline bool
-	// the path to the zip archive on disk
+	// the path to the zip archive on disk (relative to dbRoot)
 	StoredAt string
 	// the vulnerabilities that are loaded into this database
 	Vulnerabilities []*osvschema.Vulnerability
@@ -41,6 +41,9 @@ type ZipDB struct {
 	// whether this database only has some of the advisories
 	// loaded from the underlying zip file
 	Partial bool
+
+	// root directory for safe filesystem operations
+	dbRoot *os.Root
 }
 
 var ErrOfflineDatabaseNotFound = errors.New("no offline version of the OSV database is available")
@@ -90,7 +93,7 @@ func fetchLocalArchiveCRC32CHash(f *os.File) (uint32, error) {
 }
 
 func (db *ZipDB) fetchZip(ctx context.Context) (*os.File, error) {
-	f, err := os.Open(db.StoredAt)
+	f, err := db.dbRoot.Open(db.StoredAt)
 
 	if db.Offline {
 		if err != nil {
@@ -139,13 +142,13 @@ func (db *ZipDB) fetchZip(ctx context.Context) (*os.File, error) {
 		return nil, fmt.Errorf("db host returned %s", resp.Status)
 	}
 
-	err = os.MkdirAll(path.Dir(db.StoredAt), 0750)
+	err = db.dbRoot.MkdirAll(path.Dir(db.StoredAt), 0750)
 
 	if err != nil {
 		return nil, fmt.Errorf("could not create cache directory: %w", err)
 	}
 
-	f, err = os.OpenFile(db.StoredAt, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0644)
+	f, err = db.dbRoot.OpenFile(db.StoredAt, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0644)
 
 	if err != nil {
 		return nil, fmt.Errorf("could not create cache file: %w", err)
@@ -264,12 +267,13 @@ func (db *ZipDB) load(ctx context.Context, names []string) error {
 	return nil
 }
 
-func NewZippedDB(ctx context.Context, dbBasePath, name, url, userAgent string, offline bool, pkgs []*extractor.Package) (*ZipDB, error) {
+func NewZippedDB(ctx context.Context, dbRoot *os.Root, name, url, userAgent string, offline bool, pkgs []*extractor.Package) (*ZipDB, error) {
 	db := &ZipDB{
+		dbRoot:     dbRoot,
 		Name:       name,
 		ArchiveURL: url,
 		Offline:    offline,
-		StoredAt:   path.Join(dbBasePath, name, "all.zip"),
+		StoredAt:   path.Join(name, "all.zip"),
 		UserAgent:  userAgent,
 
 		// we only fully load the database if we're not provided a list of packages

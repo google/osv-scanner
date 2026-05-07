@@ -120,9 +120,15 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvconstan
 		return nil, matcher.failedDBs[eco]
 	}
 
+	dbRoot, err := os.OpenRoot(matcher.dbBasePath)
+	if err != nil {
+		return nil, fmt.Errorf("could not open db root: %w", err)
+	}
+	defer dbRoot.Close()
+
 	db, err := NewZippedDB(
 		ctx,
-		matcher.dbBasePath,
+		dbRoot,
 		string(eco),
 		fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, eco),
 		matcher.userAgent,
@@ -137,7 +143,7 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvconstan
 		return nil, err
 	}
 
-	cmdlogger.Infof("Loaded %s local db from %s", db.Name, db.StoredAt)
+	cmdlogger.Infof("Loaded %s local db from %s", db.Name, path.Join(matcher.dbBasePath, db.StoredAt))
 
 	matcher.dbs[eco] = db
 
