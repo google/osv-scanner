@@ -24,7 +24,8 @@ information on using pull requests.
 
 Before you start working on a pull request, please
 [create an issue first](https://github.com/google/osv-scanner/issues/new)
-to discuss the proposed changes (this includes new features, bug fixes, or other improvements).
+to discuss the proposed changes and wait for it to be assigned to you.
+This applies to new features, bug fixes, or other improvements.
 This helps ensure that your contribution is aligned with the project's goals
 and avoids duplicate efforts.
 
