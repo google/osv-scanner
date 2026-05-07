@@ -363,6 +363,14 @@ func TestCommand_OCIImage(t *testing.T) {
 			},
 			Exit: 1,
 		},
+		{
+			Name: "scanning_insecure_chiseled_ubuntu_image",
+			Args: []string{
+				"", "image",
+				"--archive", "./testdata/test-chisel.tar",
+			},
+			Exit: 1,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.Name, func(t *testing.T) {
@@ -490,6 +498,20 @@ func TestCommand_OCIImage_JSONFormat(t *testing.T) {
 				"", "image", "--format=json",
 				"--experimental-flag-deprecated-packages",
 				"--archive", "./testdata/test-image-with-deprecated.tar",
+			},
+			Exit: 1,
+			ReplaceRules: []testutility.JSONReplaceRule{
+				testutility.GroupsAsArrayLen,
+				testutility.OnlyIDVulnsRule,
+				testutility.OnlyFirstBaseImage,
+				testutility.AnyDiffID,
+			},
+		},
+		{
+			Name: "scanning_insecure_chiseled_ubuntu_image",
+			Args: []string{
+				"", "image", "--format=json",
+				"--archive", "./testdata/test-chisel.tar",
 			},
 			Exit: 1,
 			ReplaceRules: []testutility.JSONReplaceRule{
