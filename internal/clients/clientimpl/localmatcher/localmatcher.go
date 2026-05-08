@@ -13,6 +13,7 @@ import (
 	"github.com/google/osv-scalibr/inventory/osvecosystem"
 	"github.com/google/osv-scanner/v2/internal/cmdlogger"
 	"github.com/google/osv-scanner/v2/internal/imodels"
+	"github.com/google/osv-scanner/v2/internal/utility/pathfilter"
 	"github.com/ossf/osv-schema/bindings/go/osvconstants"
 	"github.com/ossf/osv-schema/bindings/go/osvschema"
 )
@@ -120,11 +121,18 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvconstan
 		return nil, matcher.failedDBs[eco]
 	}
 
+	dbRoot, err := os.OpenRoot(matcher.dbBasePath)
+	if err != nil {
+		return nil, fmt.Errorf("could not open db root: %w", err)
+	}
+	defer dbRoot.Close()
+
+	safeEco := pathfilter.FilterPath(string(eco))
 	db, err := NewZippedDB(
 		ctx,
-		matcher.dbBasePath,
-		string(eco),
-		fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, eco),
+		dbRoot,
+		safeEco,
+		fmt.Sprintf("%s/%s/all.zip", zippedDBRemoteHost, safeEco),
 		matcher.userAgent,
 		!matcher.downloadDB,
 		invs,
@@ -137,7 +145,7 @@ func (matcher *LocalMatcher) loadDBFromCache(ctx context.Context, eco osvconstan
 		return nil, err
 	}
 
-	cmdlogger.Infof("Loaded %s local db from %s", db.Name, db.StoredAt)
+	cmdlogger.Infof("Loaded %s local db from %s", db.Name, path.Join(matcher.dbBasePath, db.StoredAt))
 
 	matcher.dbs[eco] = db
 
