@@ -1146,8 +1146,8 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and f
 [TestCommand/go_packages_in_osv-scanner.json_format - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner.json file and found 2 packages
 
-Total 2 packages affected by 33 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 33 Unknown) from 1 ecosystem.
-33 vulnerabilities can be fixed.
+Total 2 packages affected by 44 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 44 Unknown) from 1 ecosystem.
+44 vulnerabilities can be fixed.
 
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 | OSV URL                      | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                   |
@@ -1177,14 +1177,25 @@ Total 2 packages affected by 33 known vulnerabilities (0 Critical, 0 High, 0 Med
 | https://osv.dev/GO-2026-4865 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4869 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4870 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4918 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4946 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4947 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4971 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4976 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4977 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4980 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4981 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4982 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4986 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2025-3828 |      | Go        | toolchain | 1.24.4  | 1.24.5        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4339 |      | Go        | toolchain | 1.24.4  | 1.24.12       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4433 |      | Go        | toolchain | 1.24.4  | 1.24.13       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4867 |      | Go        | toolchain | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4868 |      | Go        | toolchain | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4871 |      | Go        | toolchain | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4978 |      | Go        | toolchain | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4979 |      | Go        | toolchain | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4984 |      | Go        | toolchain | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 
 ---
@@ -5557,8 +5568,8 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 [TestCommand_MoreLockfiles/gems.locked - 1]
 Scanned <rootdir>/testdata/locks-scalibr/gems.locked file and found 26 packages
 
-Total 2 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
-6 vulnerabilities can be fixed.
+Total 2 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 2 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+8 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------+---------+---------------+------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                             |
@@ -5566,7 +5577,9 @@ Total 2 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 1 Medi
 | https://osv.dev/GHSA-9m3q-rhmv-5q44 | 7.5  | RubyGems  | json     | 2.10.1  | 2.10.2        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-353f-x4gh-cqq8 |      | RubyGems  | nokogiri | 1.18.2  | 1.18.9        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-5w6v-399v-w3cc |      | RubyGems  | nokogiri | 1.18.2  | 1.18.8        | testdata/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-c4rq-3m3g-8wgx | 7.5  | RubyGems  | nokogiri | 1.18.2  | 1.19.3        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-mrxw-mxhj-p664 | 7.8  | RubyGems  | nokogiri | 1.18.2  | 1.18.4        | testdata/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-v2fc-qm4h-8hqv | 5.3  | RubyGems  | nokogiri | 1.18.2  | 1.19.3        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-vvfq-8hwr-qm4m |      | RubyGems  | nokogiri | 1.18.2  | 1.18.3        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri | 1.18.2  | 1.19.1        | testdata/locks-scalibr/gems.locked |
 +-------------------------------------+------+-----------+----------+---------+---------------+------------------------------------+
