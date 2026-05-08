@@ -11351,13 +11351,19 @@ UNFIXABLE-VULNS: 7
 
 [TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 1]
 Guided remediation (the fix command) can be risky when run on untrusted projects. It may trigger the package manager to execute scripts or follow external registries specified in the project. Please ensure you trust the source code and artifacts before proceeding.
-failed to get response from https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http/3.0.0/wagon-http-3.0.0.pom: API query failed: Maven registry https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http/3.0.0/wagon-http-3.0.0.pom query status: 429
+Found 13 vulnerabilities matching the filter
+Can fix 13/13 matching vulnerabilities by overriding 4 dependencies
+OVERRIDE-PACKAGE: org.apache.httpcomponents:httpclient,4.5.13
+OVERRIDE-PACKAGE: org.codehaus.plexus:plexus-utils,3.6.1
+OVERRIDE-PACKAGE: commons-io:commons-io,2.14.0
+OVERRIDE-PACKAGE: org.jsoup:jsoup,1.15.3
+FIXED-VULN-IDS: GHSA-2x83-r56g-cv47,GHSA-6fmv-xxpf-w3cw,GHSA-78wr-2p64-hpwj,GHSA-7r82-7xv7-xcpj,GHSA-8vhq-qq4p-grq3,GHSA-cfh5-3ghh-wfjx,GHSA-fmj5-wv96-r2ch,GHSA-g6ph-x5wf-g337,GHSA-gp7f-rwcx-9369,GHSA-gw85-4gmf-m7rh,GHSA-gwrp-pvrq-jmwv,GHSA-jcwr-x25h-x5fh,GHSA-m72m-mhq2-9p6c
+REMAINING-VULNS: 0
+UNFIXABLE-VULNS: 0
 
 ---
 
 [TestCommand/fix_non_interactive_override_pom_xml_with_native_data_source - 2]
-failed resolving manifest: error resolving manifest dependencies: failed to fetch Maven project org.apache.maven.wagon:wagon-http@3.0.0:
-API query failed: Maven registry https://repo.maven.apache.org/maven2/org/apache/maven/wagon/wagon-http/3.0.0/wagon-http-3.0.0.pom query status: 429
 
 ---
 
@@ -11370,15 +11376,20 @@ API query failed: Maven registry https://repo.maven.apache.org/maven2/org/apache
   <version>1</version>
 
   <properties>
-    <httpclient.version>4.0</httpclient.version>
+    <httpclient.version>4.5.13</httpclient.version>
   </properties>
 
     <dependencyManagement>
       <dependencies>
         <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>2.14.0</version>
+        </dependency>
+        <dependency>
           <groupId>org.jsoup</groupId>
           <artifactId>jsoup</artifactId>
-          <version>1.14.1</version>
+          <version>1.15.3</version>
         </dependency>
         <dependency>
           <groupId>org.apache.httpcomponents</groupId>
@@ -11397,7 +11408,7 @@ API query failed: Maven registry https://repo.maven.apache.org/maven2/org/apache
     <dependency>
       <groupId>org.codehaus.plexus</groupId>
       <artifactId>plexus-utils</artifactId>
-      <version>3.0</version>
+      <version>3.6.1</version>
     </dependency>
   </dependencies>
 </project>
