@@ -97,7 +97,7 @@ Loaded filter from: <rootdir>/testdata/locks-many/osv-scanner-test.toml
           "rules": [],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.3.7"
+          "version": "2.3.8"
         },
         "extensions": []
       },
@@ -374,7 +374,7 @@ Total 2 packages affected by 11 known vulnerabilities (3 Critical, 6 High, 2 Med
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.3.7"
+          "version": "2.3.8"
         },
         "extensions": []
       },
@@ -1146,8 +1146,8 @@ Scanned <rootdir>/testdata/locks-many-with-insecure/package-lock.json file and f
 [TestCommand/go_packages_in_osv-scanner.json_format - 1]
 Scanned <rootdir>/testdata/locks-insecure/osv-scanner.json file and found 2 packages
 
-Total 2 packages affected by 33 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 33 Unknown) from 1 ecosystem.
-33 vulnerabilities can be fixed.
+Total 2 packages affected by 44 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 44 Unknown) from 1 ecosystem.
+44 vulnerabilities can be fixed.
 
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 | OSV URL                      | CVSS | ECOSYSTEM | PACKAGE   | VERSION | FIXED VERSION | SOURCE                                   |
@@ -1177,14 +1177,25 @@ Total 2 packages affected by 33 known vulnerabilities (0 Critical, 0 High, 0 Med
 | https://osv.dev/GO-2026-4865 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4869 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4870 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4918 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4946 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4947 |      | Go        | stdlib    | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4971 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4976 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4977 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4980 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4981 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4982 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4986 |      | Go        | stdlib    | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2025-3828 |      | Go        | toolchain | 1.24.4  | 1.24.5        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4339 |      | Go        | toolchain | 1.24.4  | 1.24.12       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4433 |      | Go        | toolchain | 1.24.4  | 1.24.13       | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4867 |      | Go        | toolchain | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4868 |      | Go        | toolchain | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
 | https://osv.dev/GO-2026-4871 |      | Go        | toolchain | 1.24.4  | 1.25.9        | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4978 |      | Go        | toolchain | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4979 |      | Go        | toolchain | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
+| https://osv.dev/GO-2026-4984 |      | Go        | toolchain | 1.24.4  | 1.25.10       | testdata/locks-insecure/osv-scanner.json |
 +------------------------------+------+-----------+-----------+---------+---------------+------------------------------------------+
 
 ---
@@ -2947,6 +2958,65 @@ Filtered 1 local/unscannable package/s from the scan.
 
 ---
 
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped - 2]
+Scanning dir ./testdata/locks-bun-shorthash
+Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
+Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
+Filtered 1 local/unscannable package/s from the scan.
+
+---
+
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped_show_all - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/testdata/locks-bun-shorthash/bun.lock",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "some-git-dep",
+            "version": "",
+            "ecosystem": "npm",
+            "commit": "bca26e4"
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped_show_all - 2]
+Scanning dir ./testdata/locks-bun-shorthash
+Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
+Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
+Filtered 1 local/unscannable package/s from the scan.
+
+---
+
 [TestCommand_FlagDeprecatedPackages/package_deprecated_false_no_vuln_json - 1]
 {
   "results": [],
@@ -3323,7 +3393,7 @@ Total 1 package affected by 2 known vulnerabilities (0 Critical, 2 High, 0 Mediu
           ],
           "supportedTaxonomies": [],
           "taxa": [],
-          "version": "2.3.7"
+          "version": "2.3.8"
         },
         "extensions": []
       },
@@ -3492,16 +3562,19 @@ HTML output available at: <tempdir>/report.html
 
 [TestCommand_JavareachArchive/jars_can_be_scanned_with_call_analysis - 1]
 Scanning dir ./testdata/artifact/javareach_test.jar
-Java reachability enricher marked 14 packages as unreachable
+Java reachability enricher marked 21 packages as unreachable
 Scanned <rootdir>/testdata/artifact/javareach_test.jar file and found 21 packages
-failed to download package err jar not found: https://repo1.maven.org/maven2/com/example/hello-tester/1.0-SNAPSHOT/hello-tester-1.0-SNAPSHOT.jar
+failed to download package err jar not found: https://repo1.maven.org/maven2/com/amazonaws/aws-java-sdk-core/1.11.327/aws-java-sdk-core-1.11.327.jar
 
-Total 4 packages affected by 56 known vulnerabilities (18 Critical, 30 High, 6 Medium, 2 Low, 0 Unknown) from 1 ecosystem.
-56 vulnerabilities can be fixed.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
+0 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                     | VERSION          | FIXED VERSION | SOURCE                               |
 +-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
+| Uncalled vulnerabilities            |      |           |                                             |                  |               |                                      |
++-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
+| https://osv.dev/GHSA-c28r-hw5m-5gv3 | 7.9  | Maven     | com.amazonaws:aws-java-sdk-s3               | 1.11.327         | 1.12.261      | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-72hv-8253-57qq | 6.9  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.18.6        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-h46c-h94j-95f3 | 8.7  | Maven     | com.fasterxml.jackson.core:jackson-core     | 2.14.0           | 2.15.0        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-288c-cq4h-88gq | 7.5  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.6.7.4       | testdata/artifact/javareach_test.jar |
@@ -3553,16 +3626,12 @@ Total 4 packages affected by 56 known vulnerabilities (18 Critical, 30 High, 6 M
 | https://osv.dev/GHSA-w3f4-3q6j-rh82 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.7.9.5       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-wh8g-3j2c-rqj5 | 8.1  | Maven     | com.fasterxml.jackson.core:jackson-databind | 2.6.7.1          | 2.9.10.8      | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-j288-q9x7-2f5v | 6.5  | Maven     | org.apache.commons:commons-lang3            | 3.12.0           | 3.18.0        | testdata/artifact/javareach_test.jar |
+| https://osv.dev/GHSA-7r82-7xv7-xcpj | 5.3  | Maven     | org.apache.httpcomponents:httpclient        | 4.5.5            | 4.5.13        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-355h-qmc2-wpwf | 7.4  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.60        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-cj7v-27pg-wf7q | 2.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.47        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-hmr7-m48g-48f6 | 5.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-qh8g-58pp-2wxh | 6.3  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.12       | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-wjpw-4j6x-6rwh | 3.7  | Maven     | org.eclipse.jetty:jetty-http                | 9.4.40.v20210413 | 12.0.31       | testdata/artifact/javareach_test.jar |
-+-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
-| Uncalled vulnerabilities            |      |           |                                             |                  |               |                                      |
-+-------------------------------------+------+-----------+---------------------------------------------+------------------+---------------+--------------------------------------+
-| https://osv.dev/GHSA-c28r-hw5m-5gv3 | 7.9  | Maven     | com.amazonaws:aws-java-sdk-s3               | 1.11.327         | 1.12.261      | testdata/artifact/javareach_test.jar |
-| https://osv.dev/GHSA-7r82-7xv7-xcpj | 5.3  | Maven     | org.apache.httpcomponents:httpclient        | 4.5.5            | 4.5.13        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-3gh6-v5v9-6v9j | 3.5  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.52        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-gwcr-j4wh-j3cq | 5.3  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.41        | testdata/artifact/javareach_test.jar |
 | https://osv.dev/GHSA-j26w-f9rq-mr2q | 5.3  | Maven     | org.eclipse.jetty:jetty-servlets            | 9.4.40.v20210413 | 9.4.54        | testdata/artifact/javareach_test.jar |
@@ -5557,8 +5626,8 @@ Total 1 package affected by 1 known vulnerability (0 Critical, 0 High, 0 Medium,
 [TestCommand_MoreLockfiles/gems.locked - 1]
 Scanned <rootdir>/testdata/locks-scalibr/gems.locked file and found 26 packages
 
-Total 2 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 1 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
-6 vulnerabilities can be fixed.
+Total 2 packages affected by 8 known vulnerabilities (0 Critical, 3 High, 2 Medium, 0 Low, 3 Unknown) from 1 ecosystem.
+8 vulnerabilities can be fixed.
 
 +-------------------------------------+------+-----------+----------+---------+---------------+------------------------------------+
 | OSV URL                             | CVSS | ECOSYSTEM | PACKAGE  | VERSION | FIXED VERSION | SOURCE                             |
@@ -5566,7 +5635,9 @@ Total 2 packages affected by 6 known vulnerabilities (0 Critical, 2 High, 1 Medi
 | https://osv.dev/GHSA-9m3q-rhmv-5q44 | 7.5  | RubyGems  | json     | 2.10.1  | 2.10.2        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-353f-x4gh-cqq8 |      | RubyGems  | nokogiri | 1.18.2  | 1.18.9        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-5w6v-399v-w3cc |      | RubyGems  | nokogiri | 1.18.2  | 1.18.8        | testdata/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-c4rq-3m3g-8wgx | 7.5  | RubyGems  | nokogiri | 1.18.2  | 1.19.3        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-mrxw-mxhj-p664 | 7.8  | RubyGems  | nokogiri | 1.18.2  | 1.18.4        | testdata/locks-scalibr/gems.locked |
+| https://osv.dev/GHSA-v2fc-qm4h-8hqv | 5.3  | RubyGems  | nokogiri | 1.18.2  | 1.19.3        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-vvfq-8hwr-qm4m |      | RubyGems  | nokogiri | 1.18.2  | 1.18.3        | testdata/locks-scalibr/gems.locked |
 | https://osv.dev/GHSA-wx95-c6cv-8532 | 5.3  | RubyGems  | nokogiri | 1.18.2  | 1.19.1        | testdata/locks-scalibr/gems.locked |
 +-------------------------------------+------+-----------+----------+---------+---------------+------------------------------------+
@@ -5770,28 +5841,23 @@ Total 1 package affected by 7 known vulnerabilities (2 Critical, 1 High, 4 Mediu
 ---
 
 [TestCommand_Transitive/pom.xml_transitive_native_source - 1]
+API query failed: Maven registry https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom query status: 404
+API query failed: Maven registry https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom query status: 429
 Scanned <rootdir>/testdata/maven-transitive/registry.xml file and found 2 packages
 Warning: enricher transitivedependency/pomxml may be risky when run on untrusted artifacts. Please ensure you trust the source code and artifacts.
+failed resolution for <rootdir>/testdata/maven-transitive/registry.xml: failed resolving {Maven:com.mycompany.app:my-app[Concrete:1.0.0] {}}: failed to fetch Maven project org.apache.logging.log4j:log4j-web@2.14.1:
+failed to get response from https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom: API query failed: Maven registry https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom query status: 429
 
-Total 2 packages affected by 8 known vulnerabilities (2 Critical, 1 High, 5 Medium, 0 Low, 0 Unknown) from 1 ecosystem.
-8 vulnerabilities can be fixed.
+Total 0 packages affected by 0 known vulnerabilities (0 Critical, 0 High, 0 Medium, 0 Low, 0 Unknown) from 0 ecosystems.
+0 vulnerabilities can be fixed.
 
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
-| OSV URL                             | CVSS | ECOSYSTEM | PACKAGE                                       | VERSION | FIXED VERSION | SOURCE                                 |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
-| https://osv.dev/GHSA-cm6r-892j-jv2g | 6.1  | Maven     | com.google.android.gms:play-services-basement | 10.0.0  | 18.0.2        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-3pxv-7cmr-fjr4 | 6.9  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.25.4        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-6hg6-v5c8-fphq | 6.3  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.25.4        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-7rjr-3q55-vv33 | 9.0  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.16.0        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-8489-44mv-ggj8 | 6.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.1        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-jfh8-c2jp-5v3q | 10.0 | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.15.0        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-p6xc-xr62-6r2g | 8.6  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.17.0        | testdata/maven-transitive/registry.xml |
-| https://osv.dev/GHSA-vc5p-v9hr-52mj | 6.3  | Maven     | org.apache.logging.log4j:log4j-core           | 2.14.1  | 2.25.3        | testdata/maven-transitive/registry.xml |
-+-------------------------------------+------+-----------+-----------------------------------------------+---------+---------------+----------------------------------------+
 
 ---
 
 [TestCommand_Transitive/pom.xml_transitive_native_source - 2]
+Error during extraction: (extracting as transitivedependency/pomxml) failed resolution for <rootdir>/testdata/maven-transitive/registry.xml: failed resolving {Maven:com.mycompany.app:my-app[Concrete:1.0.0] {}}: failed to fetch Maven project org.apache.logging.log4j:log4j-web@2.14.1:
+API query failed: Maven registry https://dl.google.com/dl/android/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom query status: 404
+API query failed: Maven registry https://repo.maven.apache.org/maven2/org/apache/logging/log4j/log4j-web/2.14.1/log4j-web-2.14.1.pom query status: 429
 
 ---
 
@@ -6073,64 +6139,5 @@ No issues found
 ---
 
 [TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2]
-
----
-
-[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped - 1]
-{
-  "results": [],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
-[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped - 2]
-Scanning dir ./testdata/locks-bun-shorthash
-Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
-Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
-Filtered 1 local/unscannable package/s from the scan.
-
----
-
-[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped_show_all - 1]
-{
-  "results": [
-    {
-      "source": {
-        "path": "<rootdir>/testdata/locks-bun-shorthash/bun.lock",
-        "type": "lockfile"
-      },
-      "packages": [
-        {
-          "package": {
-            "name": "some-git-dep",
-            "version": "",
-            "ecosystem": "npm",
-            "commit": "bca26e4"
-          }
-        }
-      ]
-    }
-  ],
-  "experimental_config": {
-    "licenses": {
-      "summary": false,
-      "allowlist": null
-    }
-  }
-}
-
----
-
-[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped_show_all - 2]
-Scanning dir ./testdata/locks-bun-shorthash
-Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
-Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
-Filtered 1 local/unscannable package/s from the scan.
 
 ---
