@@ -15,14 +15,14 @@ import (
 func Test_filterUnscannablePackages_shortCommitHash(t *testing.T) {
 	t.Parallel()
 
-	shortHash := "bca26e4"                                      // 7 chars -- what bun.lock stores
+	shortHash := "bca26e4"                                 // 7 chars -- what bun.lock stores
 	fullHash := "bca26e4c1e3c1e3c1e3c1e3c1e3c1e3c1e3c1e3f" // 40 chars -- valid SHA1
 
 	tests := []struct {
-		name          string
-		commit        string
-		wantKept      int
-		wantFiltered  int
+		name         string
+		commit       string
+		wantKept     int
+		wantFiltered int
 	}{
 		{
 			name:         "short hash is skipped",
