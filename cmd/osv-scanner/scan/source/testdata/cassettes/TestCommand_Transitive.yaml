@@ -1672,7 +1672,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1610
+      content_length: 1604
       host: api.osv.dev
       body: |
         {
@@ -1745,7 +1745,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "pytz"
               },
-              "version": "2026.1.0.post1"
+              "version": "2026.2.0"
             },
             {
               "package": {
@@ -1947,7 +1947,7 @@ interactions:
       proto: HTTP/1.1
       proto_major: 1
       proto_minor: 1
-      content_length: 1604
+      content_length: 1598
       host: api.osv.dev
       body: |
         {
@@ -2295,7 +2295,7 @@ interactions:
                 "ecosystem": "PyPI",
                 "name": "pytz"
               },
-              "version": "2026.1.post1"
+              "version": "2026.2"
             },
             {
               "package": {

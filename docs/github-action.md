@@ -17,7 +17,7 @@ nav_order: 7
 {:toc}
 </details>
 
-OSV-Scanner is available as a CI/CD Action. We currently offer two different reusable workflows for Github:
+OSV-Scanner is available as a CI/CD Action. We currently offer two different reusable workflows for GitHub:
 
 1. A workflow that triggers a scan with each [pull request](./github-action.md#scan-on-pull-request) and will only report new vulnerabilities introduced through the pull request.
 2. A workflow that performs a full vulnerability scan, which can be configured to scan on pushes or a [regular schedule](./github-action.md#scheduled-scans). The full vulnerability scan can also be configured to run [on release](./github-action.md#scan-on-release) to prevent releasing with known vulnerabilities in dependencies.
@@ -54,7 +54,7 @@ permissions:
 
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.3.6"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.3.7"
 ```
 
 ### View results
@@ -97,7 +97,7 @@ permissions:
 
 jobs:
   scan-scheduled:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.3.6"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.3.7"
 ```
 
 As written, the scanner will run on 12:30 pm UTC every Monday, and also on every push to the main branch. You can change the schedule by following the instructions [here](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule).
@@ -132,10 +132,10 @@ permissions:
 
 jobs:
   osv-scan:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.3.6"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable-pr.yml@v2.3.7"
     with:
       # Only scan the top level go.mod file without recursively scanning directories since
-      # this is pipeline is about releasing the go module and binary
+      # this pipeline is about releasing the go module and binary
       scan-args: |-
         ./
     permissions:
@@ -167,7 +167,7 @@ The GitHub Actions have the following optional inputs:
     --recursive # Recursively scan subdirectories
     ./ # Start the scan from the root of the repository
   ```
-- `results-file-name`: This is the name of the final SARIF file uploaded to Github.
+- `results-file-name`: This is the name of the final SARIF file uploaded to GitHub.
   Default: `results.sarif`
 - `download-artifact`: Optional artifact to download for scanning. Can be used if you need to do some preprocessing to prepare the lockfiles for scanning. If the file names in the artifact are not standard lockfile names, make sure to add custom scan-args to specify the lockfile type and path (see [specify lockfiles](./usage.md#specify-lockfiles)).
 - `upload-sarif`: Whether to upload the results to Security > Code Scanning. Defaults to `true`.
@@ -184,7 +184,7 @@ Examples
 ```yml
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.3.6"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.3.7"
     with:
       scan-args: |-
         --lockfile=./path/to/lockfile1
@@ -196,7 +196,7 @@ jobs:
 ```yml
 jobs:
   scan-pr:
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.3.6"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.3.7"
     with:
       scan-args: |-
         --recursive
@@ -222,7 +222,7 @@ jobs:
     name: Vulnerability scanning
     # makes sure the extraction step is completed before running the scanner
     needs: extract-deps
-    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.3.6"
+    uses: "google/osv-scanner-action/.github/workflows/osv-scanner-reusable.yml@v2.3.7"
     with:
       # Download the artifact uploaded in extract-deps step
       download-artifact: converted-OSV-Scanner-deps
@@ -272,7 +272,7 @@ jobs:
           {target_arch: armhf},
           {target_arch: aarch64}
         ]
-    uses: "extract/osv-scanner/.github/workflows/osv-scanner-reusable.yml@v2.3.6"
+    uses: "extract/osv-scanner/.github/workflows/osv-scanner-reusable.yml@v2.3.7"
     with:
       download-artifact: "${{ matrix.platform.target_arch }}-OSV-Scanner-deps"
       matrix-property: "${{ matrix.platform.target_arch }}-"

@@ -13,7 +13,7 @@ require (
 	github.com/go-git/go-git/v5 v5.18.0
 	github.com/gobwas/glob v0.2.3
 	github.com/google/go-cmp v0.7.0
-	github.com/google/osv-scalibr v0.4.6-0.20260428235529-7791e288d6c1
+	github.com/google/osv-scalibr v0.4.6-0.20260504042738-9293bfa4f86f
 	github.com/ianlancetaylor/demangle v0.0.0-20251118225945-96ee0021ea0f
 	github.com/jedib0t/go-pretty/v6 v6.7.9
 	github.com/modelcontextprotocol/go-sdk v1.5.0
@@ -76,7 +76,7 @@ require (
 	github.com/clipperhouse/uax29/v2 v2.7.0 // indirect
 	github.com/cloudflare/circl v1.6.3 // indirect
 	github.com/compose-spec/compose-go/v2 v2.8.1 // indirect
-	github.com/containerd/cgroups/v3 v3.1.2 // indirect
+	github.com/containerd/cgroups/v3 v3.1.0 // indirect
 	github.com/containerd/containerd v1.7.29 // indirect
 	github.com/containerd/containerd/api v1.10.0 // indirect
 	github.com/containerd/continuity v0.4.5 // indirect
@@ -145,7 +145,7 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.27 // indirect
 	github.com/micromdm/plist v0.2.1 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
-	github.com/moby/buildkit v0.28.1 // indirect
+	github.com/moby/buildkit v0.26.3 // indirect
 	github.com/moby/docker-image-spec v1.3.1 // indirect
 	github.com/moby/locker v1.0.1 // indirect
 	github.com/moby/sys/mountinfo v0.7.2 // indirect
@@ -159,7 +159,7 @@ require (
 	github.com/muesli/termenv v0.16.0 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
-	github.com/opencontainers/runtime-spec v1.3.0 // indirect
+	github.com/opencontainers/runtime-spec v1.2.1 // indirect
 	github.com/opencontainers/selinux v1.13.1 // indirect
 	github.com/pierrec/lz4/v4 v4.1.17 // indirect
 	github.com/pjbgf/sha1cd v0.4.0 // indirect
@@ -241,4 +241,5 @@ require (
 // github.com/containerd/containerd v1.7.x is incompatible with runtime-spec v1.3.0.
 // https://github.com/google/osv-scanner/pull/2705#issuecomment-4212012410
 // So this needs to be kept at v1.2.1
-replace github.com/opencontainers/runtime-spec => github.com/opencontainers/runtime-spec v1.2.1
+// Temporarily commented out by downgrading containerd.
+// replace github.com/opencontainers/runtime-spec => github.com/opencontainers/runtime-spec v1.2.1

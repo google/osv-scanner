@@ -83,7 +83,7 @@ dockers:
       - "--label=org.opencontainers.image.source={{.GitURL}}"
       - "--label=org.opencontainers.image.url={{.GitURL}}"
       - "--platform=linux/amd64"
-  # Github Action
+  # GitHub Action
   - image_templates:
       - "ghcr.io/google/osv-scanner-action:nightly"
     dockerfile: goreleaser-action.dockerfile

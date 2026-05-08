@@ -287,7 +287,7 @@ Version updates (the update command) can be risky when run on untrusted projects
         <dependency>
           <groupId>org.apache.logging.log4j</groupId>
           <artifactId>log4j-api</artifactId>
-          <version>2.25.4</version>
+          <version>2.26.0</version>
         </dependency>
       </dependencies>
     </profile>
