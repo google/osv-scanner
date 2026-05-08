@@ -6075,3 +6075,62 @@ No issues found
 [TestCommand_WithDetector_OnLinux/ssh_version_is_before_first_vuln_version - 2]
 
 ---
+
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped - 1]
+{
+  "results": [],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped - 2]
+Scanning dir ./testdata/locks-bun-shorthash
+Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
+Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
+Filtered 1 local/unscannable package/s from the scan.
+
+---
+
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped_show_all - 1]
+{
+  "results": [
+    {
+      "source": {
+        "path": "<rootdir>/testdata/locks-bun-shorthash/bun.lock",
+        "type": "lockfile"
+      },
+      "packages": [
+        {
+          "package": {
+            "name": "some-git-dep",
+            "version": "",
+            "ecosystem": "npm",
+            "commit": "bca26e4"
+          }
+        }
+      ]
+    }
+  ],
+  "experimental_config": {
+    "licenses": {
+      "summary": false,
+      "allowlist": null
+    }
+  }
+}
+
+---
+
+[TestCommand_Filter/bun_lock_with_short_commit_hash_skipped_show_all - 2]
+Scanning dir ./testdata/locks-bun-shorthash
+Scanned <rootdir>/testdata/locks-bun-shorthash/bun.lock file and found 1 package
+Skipping some-git-dep: short commit hash "bca26e4" cannot be queried; OSV API requires a full 40-character SHA.
+Filtered 1 local/unscannable package/s from the scan.
+
+---

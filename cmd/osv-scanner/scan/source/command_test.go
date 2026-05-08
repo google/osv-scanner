@@ -1693,6 +1693,16 @@ func TestCommand_Filter(t *testing.T) {
 			Args: []string{"", "source", "--format=json", "--all-packages", "--config=./testdata/osv-scanner-empty-config.toml", "--lockfile=osv-scanner:./testdata/locks-insecure/osv-scanner-with-unscannables.json"},
 			Exit: 0,
 		},
+		{
+			Name: "bun_lock_with_short_commit_hash_skipped",
+			Args: []string{"", "source", "--format=json", "./testdata/locks-bun-shorthash"},
+			Exit: 0,
+		},
+		{
+			Name: "bun_lock_with_short_commit_hash_skipped_show_all",
+			Args: []string{"", "source", "--format=json", "--all-packages", "./testdata/locks-bun-shorthash"},
+			Exit: 0,
+		},
 	}
 
 	for _, tt := range tests {
