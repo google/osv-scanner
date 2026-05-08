@@ -49,7 +49,7 @@ func expectDBToHaveOSVs(
 }
 
 //nolint:unparam // name always receives "my-db" in tests but keeping it for flexibility
-func newZippedDB(ctx context.Context, t *testing.T, dbBasePath string, name, url, userAgent string, offline bool, pkgs []*extractor.Package) (*localmatcher.ZipDB, error) {
+func newZippedDB(ctx context.Context, t *testing.T, dbBasePath, name, url, userAgent string, offline bool, pkgs []*extractor.Package) (*localmatcher.ZipDB, error) {
 	t.Helper()
 	dbRoot, err := os.OpenRoot(dbBasePath)
 	if err != nil {
