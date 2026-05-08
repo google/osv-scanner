@@ -42,6 +42,16 @@ func filterUnscannablePackages(scanResults *results.ScanResults, actions Scanner
 			}
 
 			continue
+		// Short commit hashes (< 40 hex chars) are rejected by the OSV API with
+		// "Invalid hash". Skip them with a warning rather than aborting the scan.
+		case imodels.Commit(psr) != "" && len(imodels.Commit(psr)) < 40:
+			cmdlogger.Warnf("Skipping %s: short commit hash %q cannot be queried; OSV API requires a full 40-character SHA.", imodels.Name(psr), imodels.Commit(psr))
+
+			if actions.ShowAllPackages {
+				filteredPsr = append(filteredPsr, psr)
+			}
+
+			continue
 		}
 
 		packageResults = append(packageResults, psr)
