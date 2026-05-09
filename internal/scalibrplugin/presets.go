@@ -7,6 +7,7 @@ import (
 	"github.com/google/osv-scalibr/annotator/misc/brewsource"
 	apkanno "github.com/google/osv-scalibr/annotator/osduplicate/apk"
 	dpkganno "github.com/google/osv-scalibr/annotator/osduplicate/dpkg"
+	rpmanno "github.com/google/osv-scalibr/annotator/osduplicate/rpm"
 	cpb "github.com/google/osv-scalibr/binary/proto/config_go_proto"
 	detectors "github.com/google/osv-scalibr/detector/list"
 	"github.com/google/osv-scalibr/enricher"
@@ -48,6 +49,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/homebrew"
+	rpmextractor "github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/cdx"
 	"github.com/google/osv-scalibr/extractor/filesystem/sbom/spdx"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/filesystem/vendored"
@@ -130,6 +132,8 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		apk.Name: {apk.New},
 		// Debian
 		dpkg.Name: {dpkg.New},
+		// RPM
+		rpmextractor.Name: {rpmextractor.New},
 	},
 	"directory": {
 		gitrepo.Name:  {gitrepo.New},
@@ -153,6 +157,8 @@ var ExtractorPresets = map[string]extractors.InitMap{
 		apk.Name: {apk.New},
 		// Debian
 		dpkg.Name: {dpkg.New},
+		// RPM
+		rpmextractor.Name: {rpmextractor.New},
 		// Homebrew
 		homebrew.Name: {homebrew.New},
 	},
@@ -174,6 +180,7 @@ var annotatorPresets = map[string]annotatorlist.InitMap{
 	"artifact": {
 		apkanno.Name:    {apkanno.New},
 		dpkganno.Name:   {dpkganno.New},
+		rpmanno.Name:    {rpmanno.New},
 		brewsource.Name: {brewsource.New},
 	},
 }
