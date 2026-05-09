@@ -38,6 +38,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/apk"
 	"github.com/google/osv-scalibr/extractor/filesystem/os/dpkg"
+	"github.com/google/osv-scalibr/extractor/filesystem/os/rpm"
 	"github.com/google/osv-scalibr/plugin"
 	"github.com/google/osv-scanner/v2/internal/scalibrextract/language/osv/osvscannerjson"
 )
@@ -74,6 +75,10 @@ var osvscannerScalibrExtractionMapping = map[string][]string{
 	"gems.locked":                 {gemfilelock.Name},
 	"cabal.project.freeze":        {cabal.Name},
 	"stack.yaml.lock":             {stacklock.Name},
+	"rpmdb":                       {rpm.Name},
+	"rpmdb.sqlite":                {rpm.Name},
+	"Packages":                    {rpm.Name},
+	"Packages.db":                 {rpm.Name},
 	// "Package.resolved":            {packageresolved.Name},
 }
 
