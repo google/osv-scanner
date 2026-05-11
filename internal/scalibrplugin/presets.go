@@ -44,6 +44,7 @@ import (
 	"github.com/google/osv-scalibr/extractor/filesystem/language/python/wheelegg"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/r/renvlock"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/ruby/gemfilelock"
+	"github.com/google/osv-scalibr/extractor/filesystem/language/swift/packageresolved"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargoauditable"
 	"github.com/google/osv-scalibr/extractor/filesystem/language/rust/cargolock"
 	extractors "github.com/google/osv-scalibr/extractor/filesystem/list"
@@ -111,6 +112,9 @@ var ExtractorPresets = map[string]extractors.InitMap{
 
 		// Ruby
 		gemfilelock.Name: {gemfilelock.New},
+
+		// Swift
+		packageresolved.Name: {packageresolved.New},
 
 		// Rust
 		cargolock.Name: {cargolock.New},
