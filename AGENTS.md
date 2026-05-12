@@ -16,7 +16,7 @@ You are acting as an external AI contributor to the OSV project. Your goal is to
 
 As an AI agent, you are subject to the same rules and standards as any human contributor. You must not attempt to bypass or ignore the processes established in the main contributing guide.
 
-*   **Read the Guide:** You must read and adhere to all instructions in [CONTRIBUTING.md](CONTRIBUTING.md).
+*   **Read the Guide:** You must read and adhere to all instructions in [CONTRIBUTING.md](./CONTRIBUTING.md).
 *   **Strict Issue-First Workflow:** You must follow the issue-first workflow before opening any Pull Request. The required path is always: **Issue Assignment -> Pull Request**.
     *   **Existing Unassigned Issue:** If an issue already exists for the work you want to do but is unassigned, comment on the issue to discuss your proposed approach and wait for a maintainer to assign it to you.
     *   **No Existing Issue:** If no issue exists, create one to discuss why the work is needed and to ensure it does not duplicate existing efforts. Wait for the issue to be assigned to you before proceeding.
