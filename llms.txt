@@ -1,0 +1,15 @@
+# osv-scanner
+
+> A high-performance vulnerability scanner for Open Source Vulnerabilities (OSV), written in Go.
+
+## Scan Workflow
+1. **Orchestration:** `osv-scanner` manages user config, ignores, and the scan lifecycle.
+2. **Extraction & Matching:** Handled by [osv-scalibr](https://github.com/google/osv-scalibr).
+3. **Reporting:** `internal/output` transforms raw results into user-requested formats.
+
+## Repository Map
+- [/cmd/osv-scanner](https://github.com/google/osv-scanner/tree/main/cmd/osv-scanner): Main CLI entry point.
+- [/pkg/osvscanner](https://github.com/google/osv-scanner/tree/main/pkg/osvscanner): Public programmatic API.
+- [/internal/scalibrextract](https://github.com/google/osv-scanner/tree/main/internal/scalibrextract): Custom extractors for the scalibr engine.
+- [/internal/sourceanalysis](https://github.com/google/osv-scanner/tree/main/internal/sourceanalysis): Logic for vulnerability reachability analysis.
+- [/internal/output](https://github.com/google/osv-scanner/tree/main/internal/output): Result rendering (JSON, Table, SBOM).
