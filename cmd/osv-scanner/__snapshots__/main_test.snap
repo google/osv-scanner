@@ -9,6 +9,8 @@ USAGE:
 DESCRIPTION:
    scans projects and container images for dependencies, and checks them against the OSV database.
 
+   For full usage details, see https://google.github.io/osv-scanner/
+
 COMMANDS:
    source  scans a source project's dependencies for known vulnerabilities using the OSV database.
    image   detects vulnerabilities in a container image's dependencies, pulling the image if it's not found locally
@@ -31,6 +33,8 @@ USAGE:
 
 DESCRIPTION:
    scans projects and container images for dependencies, and checks them against the OSV database.
+
+   For full usage details, see https://google.github.io/osv-scanner/
 
 COMMANDS:
    source  scans a source project's dependencies for known vulnerabilities using the OSV database.

@@ -20,7 +20,7 @@ func Command(stdout, stderr io.Writer, client *http.Client) *cli.Command {
 	return &cli.Command{
 		Name:        "scan",
 		Usage:       "scans projects and container images for dependencies, and checks them against the OSV database.",
-		Description: "scans projects and container images for dependencies, and checks them against the OSV database.",
+		Description: "scans projects and container images for dependencies, and checks them against the OSV database.\n\nFor full usage details, see https://google.github.io/osv-scanner/",
 		Commands: []*cli.Command{
 			source.Command(stdout, stderr, client),
 			image.Command(stdout, stderr, client),
