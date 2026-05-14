@@ -274,7 +274,7 @@ SBOMLoop:
 						// If there is more than 1 file error, write them on new lines
 						builder.WriteString("\n\t")
 					}
-					fmt.Fprintf(&builder, "%s: %s", fileError.FilePath, fileError.ErrorMessage)
+					fmt.Fprint(&builder, extractionFileErrorMessage(fileError.FilePath, fileError.ErrorMessage))
 
 					// Check if the erroring file was a path specifically passed in (not a result of a file walk)
 					if slices.Contains(specificPaths, filepath.Join(root, fileError.FilePath)) {
@@ -320,6 +320,14 @@ SBOMLoop:
 	}
 
 	return &inv, nil
+}
+
+func extractionFileErrorMessage(path, errMsg string) string {
+	return fmt.Sprintf(
+		"%s: %s",
+		output.SanitizeForWorkflowCommand(path),
+		output.SanitizeForWorkflowCommand(errMsg),
+	)
 }
 
 // pathToRootMap saves the absolute path into the root map, and returns the absolute path.

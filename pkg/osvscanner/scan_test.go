@@ -2,8 +2,27 @@ package osvscanner
 
 import (
 	"path/filepath"
+	"strings"
 	"testing"
 )
+
+func Test_extractionFileErrorMessageSanitizesWorkflowCommandNewlines(t *testing.T) {
+	t.Parallel()
+
+	got := extractionFileErrorMessage(
+		"bad\n::error file=package-lock.json,line=1,title=Security test::fake/package-lock.json",
+		"could not extract:\r\n::add-mask::secret",
+	)
+
+	if strings.ContainsAny(got, "\r\n") {
+		t.Fatalf("extractionFileErrorMessage() contains raw line break: %q", got)
+	}
+
+	want := "bad%0A::error file=package-lock.json,line=1,title=Security test::fake/package-lock.json: could not extract:%0D%0A::add-mask::secret"
+	if got != want {
+		t.Fatalf("extractionFileErrorMessage() = %q, want %q", got, want)
+	}
+}
 
 func Test_isDescendent(t *testing.T) {
 	t.Parallel()
