@@ -372,6 +372,11 @@ func TestCommand(t *testing.T) {
 			Exit: 1,
 		},
 		{
+			Name: "Scan_locks-dotnet",
+			Args: []string{"", "source", "./testdata/locks-dotnet"},
+			Exit: 1,
+		},
+		{
 			Name: "help",
 			Args: []string{"", "source", "--help"},
 			Exit: 127,
