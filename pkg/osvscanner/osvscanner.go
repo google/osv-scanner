@@ -16,6 +16,7 @@ import (
 	"github.com/google/osv-scalibr/artifact/image/layerscanning/image"
 	"github.com/google/osv-scalibr/binary/proto"
 	"github.com/google/osv-scalibr/clients/datasource"
+	"github.com/google/osv-scalibr/extractor"
 	"github.com/google/osv-scalibr/inventory"
 	scalibrlog "github.com/google/osv-scalibr/log"
 	"github.com/google/osv-scalibr/plugin"
@@ -209,7 +210,7 @@ func DoScan(actions ScannerActions) (models.VulnerabilityResults, error) {
 	filterIgnoredPackages(&scanResults)
 
 	// ----- Custom Overrides -----
-	overrideGoVersion(&scanResults)
+	filterAndOverrideGoVersion(&scanResults)
 
 	// --- Make Vulnerability Requests ---
 	if accessors.VulnMatcher != nil {
@@ -518,16 +519,27 @@ func makeVulnRequestWithMatcher(
 	return nil
 }
 
-// Overrides Go version using osv-scanner.toml
-func overrideGoVersion(scanResults *results.ScanResults) {
+// Filters out Go version or Overrides it using osv-scanner.toml
+func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
+
+	// Filter inventory packages
+	scanResults.Inventory.Packages = slices.DeleteFunc(scanResults.Inventory.Packages, func(pkg *extractor.Package) bool {
+		if pkg.Name == "stdlib" && string(pkg.Ecosystem().Ecosystem) == string(osvconstants.EcosystemGo) {
+			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
+
+			return !configToUse.ScanGoModVersion
+		}
+
+		return false
+	})
+
+	// Override versions for remaining inventory packages
 	for i, pkg := range scanResults.Inventory.Packages {
-		if imodels.Name(pkg) == "stdlib" && imodels.Ecosystem(pkg).Ecosystem == osvconstants.EcosystemGo {
+		if pkg.Name == "stdlib" && string(pkg.Ecosystem().Ecosystem) == string(osvconstants.EcosystemGo) {
 			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 			if configToUse.GoVersionOverride != "" {
 				scanResults.Inventory.Packages[i].Version = configToUse.GoVersionOverride
 			}
-
-			continue
 		}
 	}
 }

@@ -2484,7 +2484,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-2673",
-                  "modified": "2026-04-28T20:31:23.836312Z"
+                  "modified": "2026-05-14T09:00:11.435092Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28386",
@@ -5120,7 +5120,7 @@ interactions:
                 },
                 {
                   "id": "DEBIAN-CVE-2026-2673",
-                  "modified": "2026-04-28T20:31:23.836312Z"
+                  "modified": "2026-05-14T09:00:11.435092Z"
                 },
                 {
                   "id": "DEBIAN-CVE-2026-28386",
