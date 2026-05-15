@@ -525,8 +525,7 @@ func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
 	// Filter inventory packages
 	scanResults.Inventory.Packages = slices.DeleteFunc(scanResults.Inventory.Packages, func(pkg *extractor.Package) bool {
 		if pkg.Name == "stdlib" && string(pkg.Ecosystem().Ecosystem) == string(osvconstants.EcosystemGo) {
-			pi := imodels.FromPackage(pkg)
-			configToUse := scanResults.ConfigManager.Get(imodels.Location(pi))
+			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 
 			return !configToUse.ScanGoModVersion
 		}
@@ -537,8 +536,7 @@ func filterAndOverrideGoVersion(scanResults *results.ScanResults) {
 	// Override versions for remaining inventory packages
 	for i, pkg := range scanResults.Inventory.Packages {
 		if pkg.Name == "stdlib" && string(pkg.Ecosystem().Ecosystem) == string(osvconstants.EcosystemGo) {
-			pi := imodels.FromPackage(pkg)
-			configToUse := scanResults.ConfigManager.Get(imodels.Location(pi))
+			configToUse := scanResults.ConfigManager.Get(imodels.Location(pkg))
 			if configToUse.GoVersionOverride != "" {
 				scanResults.Inventory.Packages[i].Version = configToUse.GoVersionOverride
 			}
